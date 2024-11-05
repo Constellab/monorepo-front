@@ -1,4 +1,4 @@
-import {FlThemeSwitchPipe} from './fl-theme-switch.pipe';
+import { FlThemeSwitchPipe } from './fl-theme-switch.pipe';
 
 describe('FlThemeSwitchPipe', () => {
   it('create an instance', () => {

@@ -8,56 +8,52 @@ import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-current-space-page',
   templateUrl: './ca-current-space-page.component.html',
-  styleUrls: ['./ca-current-space-page.component.scss']
+  styleUrls: ['./ca-current-space-page.component.scss'],
 })
 export class CaCurrentSpacePageComponent implements OnInit {
-
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
 
   routes: FlHorizontalNavBarItem[] = [
     {
-      label: {text: 'admin_dashboard_page', translateText: true},
+      label: { text: 'admin_dashboard_page', translateText: true },
       icon: 'dashboard',
       route: CaRouterService.getCurrentSpaceRoute(),
-      linkActiveExact: true
+      linkActiveExact: true,
     },
     {
-      label: {text: 'space_users', translateText: true},
+      label: { text: 'space_users', translateText: true },
       icon: 'people',
-      route: CaRouterService.getCurrentSpaceUsersRoute()
+      route: CaRouterService.getCurrentSpaceUsersRoute(),
     },
-
   ];
 
-  constructor(private currentSpaceService: CaCurrentSpaceService) {
-  }
+  constructor(private currentSpaceService: CaCurrentSpaceService) {}
 
   ngOnInit(): void {
     // add route for admin
     if (this.currentSpaceService.isSpaceAdmin()) {
       this.routes.push(
         {
-          label: {text: 'labs', translateText: true},
+          label: { text: 'labs', translateText: true },
           icon: 'lab',
-          route: CaRouterService.getCurrentSpaceLabsRoute()
+          route: CaRouterService.getCurrentSpaceLabsRoute(),
         },
         {
-          label: {text: 'folders', translateText: true},
+          label: { text: 'folders', translateText: true },
           icon: 'folder',
-          route: CaRouterService.getCurrentSpaceFoldersRoute()
+          route: CaRouterService.getCurrentSpaceFoldersRoute(),
         },
         {
-          label: {text: 'teams', translateText: true},
+          label: { text: 'teams', translateText: true },
           icon: 'group',
-          route: CaRouterService.getCurrentSpaceTeamsRoute()
+          route: CaRouterService.getCurrentSpaceTeamsRoute(),
         },
         {
-          label: {text: 'admin_other_page', translateText: true},
+          label: { text: 'admin_other_page', translateText: true },
           icon: 'settings',
-          route: CaRouterService.getCurrentSpaceOtherRoute()
-        },
+          route: CaRouterService.getCurrentSpaceOtherRoute(),
+        }
       );
     }
   }
-
 }

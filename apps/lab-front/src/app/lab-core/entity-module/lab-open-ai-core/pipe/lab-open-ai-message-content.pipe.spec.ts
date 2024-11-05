@@ -1,4 +1,4 @@
-import {LabOpenAiMessageContentPipe} from './lab-open-ai-message-content.pipe';
+import { LabOpenAiMessageContentPipe } from './lab-open-ai-message-content.pipe';
 
 describe('LabOpenAiMessageContentPipe', () => {
   it('create an instance', () => {

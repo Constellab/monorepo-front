@@ -7,11 +7,12 @@ import { PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
 import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
-
 export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
-
-  constructor(process: PrProcess, protected resourceState: PrWorkflowResourcesState,
-              private actionState: PrWorkflowActionState) {
+  constructor(
+    process: PrProcess,
+    protected resourceState: PrWorkflowResourcesState,
+    private actionState: PrWorkflowActionState
+  ) {
     super(process.instanceName, process.parentProtocolId, process);
   }
 
@@ -29,9 +30,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   getStatus$(): Observable<FlStatus<PrProcessStatus> | null> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => process.status)
-    );
+    return this.getObject$().pipe(map((process: PrProcess) => process.status));
   }
 
   getTitle$(): Observable<FlTranslatableText> {
@@ -49,20 +48,16 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   public hasDynamicInputPorts$(): Observable<boolean> {
-    return this.getObject$().pipe(
-      map(process => process.inputs.type === 'dynamic')
-    );
+    return this.getObject$().pipe(map((process) => process.inputs.type === 'dynamic'));
   }
 
   public hasDynamicOutputPorts$(): Observable<boolean> {
-    return this.getObject$().pipe(
-      map(process => process.outputs.type === 'dynamic')
-    );
+    return this.getObject$().pipe(map((process) => process.outputs.type === 'dynamic'));
   }
 
   public inputIsProvided$(portName: string): Observable<boolean> {
     return this.getObject$().pipe(
-      map(process => {
+      map((process) => {
         const port = process.inputs?.ports[portName];
         return port && port.resource_id != null;
       })
@@ -71,7 +66,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
 
   public outputIsProvided$(portName: string): Observable<boolean> {
     return this.getObject$().pipe(
-      map(process => {
+      map((process) => {
         const port = process.outputs?.ports[portName];
         return port && port.resource_id != null;
       })
@@ -89,9 +84,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   getNodeColor$(): Observable<string> {
-    return this.getObject$().pipe(
-      map(process => this.getNodeColor(process))
-    );
+    return this.getObject$().pipe(map((process) => this.getNodeColor(process)));
   }
 
   public getNodeColor(process: PrProcess): string {
@@ -99,9 +92,7 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
   }
 
   public getIcon$(): Observable<PrWorkflowNodeIcon> {
-    return this.getObject$().pipe(
-      map((process: PrProcess) => this.getProcessIcon(process))
-    );
+    return this.getObject$().pipe(map((process: PrProcess) => this.getProcessIcon(process)));
   }
 
   public getProcessIcon(process: PrProcess): PrWorkflowNodeIcon {
@@ -117,16 +108,14 @@ export class PrWorkflowNodeProcess extends PrWorkflowNode<PrProcess> {
     return {
       icon: process.style.icon_technical_name,
       iconColor: process.style.icon_color,
-      iconType: process.style.icon_type
+      iconType: process.style.icon_type,
     };
   }
 
   onNodeClick(): void {
     this.actionState.newAction({
       action: 'selectProcessNode',
-      processNode: this
+      processNode: this,
     });
   }
-
-
 }

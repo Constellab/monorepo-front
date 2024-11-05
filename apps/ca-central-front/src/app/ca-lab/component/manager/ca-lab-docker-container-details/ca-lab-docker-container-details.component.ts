@@ -11,19 +11,15 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   templateUrl: './ca-lab-docker-container-details.component.html',
   styleUrls: ['./ca-lab-docker-container-details.component.scss'],
 })
-export class CaLabDockerContainerDetailsComponent implements OnInit{
-
+export class CaLabDockerContainerDetailsComponent implements OnInit {
   @Input() labId: string;
   @Input() containerName: string;
 
   container$: Observable<CaLabDockerPsFull>;
 
-  constructor(private labService: CaLabService) {
-  }
+  constructor(private labService: CaLabService) {}
 
   ngOnInit(): void {
     this.container$ = this.labService.getContainerDetails(this.labId, this.containerName);
   }
-
-
 }

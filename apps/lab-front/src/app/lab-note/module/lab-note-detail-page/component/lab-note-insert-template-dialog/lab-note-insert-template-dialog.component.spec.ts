@@ -8,9 +8,8 @@ describe('LabNoteInsertTemplateDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabNoteInsertTemplateDialogComponent]
-    })
-    .compileComponents();
+      declarations: [LabNoteInsertTemplateDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabNoteInsertTemplateDialogComponent);
     component = fixture.componentInstance;

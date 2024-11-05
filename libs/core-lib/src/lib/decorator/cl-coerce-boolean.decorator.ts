@@ -1,11 +1,10 @@
-import {ClHelpService} from '../utils/cl-help.service';
+import { ClHelpService } from '../utils/cl-help.service';
 
 /**
  * Decorator to place on class property, it will coerce the value set into a boolean
  * @constructor
  */
 export function ClCoerceBooleanDecorator<T>(): PropertyDecorator {
-
   // use to store the private value called by getter and setter
   const cachedValueKey = Symbol();
 
@@ -18,7 +17,7 @@ export function ClCoerceBooleanDecorator<T>(): PropertyDecorator {
       // getter to access private value
       get: function (): T {
         return this[cachedValueKey];
-      }
+      },
     });
   };
 }

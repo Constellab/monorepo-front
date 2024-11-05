@@ -1,14 +1,14 @@
 <fl-dialog-header>
-  {{'add_brick_user' | translate}}
+  {{ 'add_brick_user' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="story-form" [formGroup]="formGp">
     <mat-form-field appearance="outline" class="g-full">
-      <mat-label>{{'email' | translate}}</mat-label>
-      <input matInput type="email" formControlName="email"/>
+      <mat-label>{{ 'email' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" />
       <mat-error *ngIf="formGp.get('email').hasError('required')">
-        {{'email' | flErrorRequired}}
+        {{ 'email' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
   </form>
@@ -16,7 +16,7 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" type="submit" form="story-form" class="g-centered-forced">
-    {{'save' | translate}}
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

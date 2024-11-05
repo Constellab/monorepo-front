@@ -1,12 +1,12 @@
 // data holder for the histogram
-import {ChChart2dDatum} from './ch-chart-data.class';
-import {ChChartDomain} from '../ch-chart-domain.class';
-import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
+import { ChChart2dDatum } from './ch-chart-data.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
+import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
 
 export enum ChChartHistogramMode {
   FREQUENCY = 'FREQUENCY',
   DENSITY = 'DENSITY',
-  PROBABILITY = 'PROBABILITY'
+  PROBABILITY = 'PROBABILITY',
 }
 
 /**
@@ -15,17 +15,20 @@ export enum ChChartHistogramMode {
  * Useful for histogram
  */
 export class ChChartDataBin extends ChChart2dDatum {
-
-  constructor(x: number, y: number,
-              public readonly min: number, public readonly max: number,
-              public readonly mode: ChChartHistogramMode) {
+  constructor(
+    x: number,
+    y: number,
+    public readonly min: number,
+    public readonly max: number,
+    public readonly mode: ChChartHistogramMode
+  ) {
     super(x, y);
   }
 
   public static getIntervalTextLength(): number {
     // return the length of the longest interval text
     // 2 times the numbers + [],
-    return (ChChartLabelFormatter.defaultFormatNumberShortMaxLength * 2) + 3;
+    return ChChartLabelFormatter.defaultFormatNumberShortMaxLength * 2 + 3;
   }
 
   addData(): void {
@@ -39,13 +42,16 @@ export class ChChartDataBin extends ChChart2dDatum {
   public getIntervalLongText(): string {
     return `[${this.min},${this.max}]`;
   }
-
 }
 
 /**
  * Build ChChartDataBin from data
  */
-export function chChartGetDataBins(data: number[], mode: ChChartHistogramMode, numberOfBins?: number): ChChartDataBin[] {
+export function chChartGetDataBins(
+  data: number[],
+  mode: ChChartHistogramMode,
+  numberOfBins?: number
+): ChChartDataBin[] {
   const domain: [number, number] = ChChartDomain.getLinearDomain(data);
 
   const bins: ChChartDataBin[] = [];
@@ -59,7 +65,7 @@ export function chChartGetDataBins(data: number[], mode: ChChartHistogramMode, n
 
   // create all the bins
   for (let i = 0; i < numberOfBins; i++) {
-    const min = (i * thresholds) + domain[0];
+    const min = i * thresholds + domain[0];
     // for the last bin, use the domain max value
     const max = i === numberOfBins - 1 ? domain[1] : min + thresholds;
     bins.push(new ChChartDataBin(i, 0, min, max, mode));

@@ -10,21 +10,21 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 @Component({
   selector: 'ca-chat-folder',
   templateUrl: './ca-chat-folder.component.html',
-  styleUrl: './ca-chat-folder.component.scss'
+  styleUrl: './ca-chat-folder.component.scss',
 })
 export class CaChatFolderComponent implements OnDestroy {
-
   folderId = input.required<string>();
 
-  messages: Signal<CaChatMessageDatasourcePaginated> = computed(() => this.folderService.getFolderMessagesDatasource(this.folderId()));
+  messages: Signal<CaChatMessageDatasourcePaginated> = computed(() =>
+    this.folderService.getFolderMessagesDatasource(this.folderId())
+  );
 
-  constructor(private folderService: CaFolderService) {
-  }
+  constructor(private folderService: CaFolderService) {}
 
   createNewMessage(content: TeRichTextContent): void {
-    this.folderService.createMessage(this.folderId(), content).subscribe(
-      message => this.createSuccess(message)
-    );
+    this.folderService
+      .createMessage(this.folderId(), content)
+      .subscribe((message) => this.createSuccess(message));
   }
 
   private createSuccess(message: CaChatMessage): void {

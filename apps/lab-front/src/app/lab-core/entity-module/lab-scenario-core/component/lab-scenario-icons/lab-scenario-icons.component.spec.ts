@@ -8,9 +8,8 @@ describe('LabScenarioIconsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabScenarioIconsComponent]
-    })
-    .compileComponents();
+      declarations: [LabScenarioIconsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabScenarioIconsComponent);
     component = fixture.componentInstance;

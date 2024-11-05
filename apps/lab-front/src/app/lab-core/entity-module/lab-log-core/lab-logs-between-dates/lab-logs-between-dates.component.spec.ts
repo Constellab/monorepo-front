@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabLogsBetweenDatesComponent} from './lab-logs-between-dates.component';
+import { LabLogsBetweenDatesComponent } from './lab-logs-between-dates.component';
 
 describe('LabLogsBetweenDatesComponent', () => {
   let component: LabLogsBetweenDatesComponent;
@@ -8,9 +8,8 @@ describe('LabLogsBetweenDatesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabLogsBetweenDatesComponent ]
-    })
-    .compileComponents();
+      declarations: [LabLogsBetweenDatesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabLogsBetweenDatesComponent);
     component = fixture.componentInstance;

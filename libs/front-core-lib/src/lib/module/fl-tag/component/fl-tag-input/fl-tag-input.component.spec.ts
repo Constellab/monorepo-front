@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlTagInputComponent} from './fl-tag-input.component';
+import { FlTagInputComponent } from './fl-tag-input.component';
 
 describe('FlTagInputComponent', () => {
   let component: FlTagInputComponent;
@@ -8,9 +8,8 @@ describe('FlTagInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlTagInputComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTagInputComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

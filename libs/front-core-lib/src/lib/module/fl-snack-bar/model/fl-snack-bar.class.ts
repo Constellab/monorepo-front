@@ -1,7 +1,7 @@
 /**
  * Input for the snack bar info
  */
-import {FlTranslatableText} from '../../fl-translate/model/fl-translate-param';
+import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param';
 
 export interface FlSnackBarInfoInput {
   /**
@@ -44,5 +44,5 @@ export interface FlSnackBarAdditionalConfig {
 }
 
 export const flSnackBarAdditionalConfigDefault: FlSnackBarAdditionalConfig = {
-  showCloseButton: true
+  showCloseButton: true,
 };

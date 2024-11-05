@@ -12,12 +12,15 @@ export interface BnBioNetworkCanvasText {
  * Helper to simplify draw of shapes on canvas.
  */
 export class BnBioNetworkCanvasHelper {
-
-
-  public static roundedRect(ctx: CanvasRenderingContext2D,
-                            x: number, y: number,
-                            width: number, height: number,
-                            radius: number = 5, mode: 'fill' | 'stroke' = 'fill'): void {
+  public static roundedRect(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radius: number = 5,
+    mode: 'fill' | 'stroke' = 'fill'
+  ): void {
     ctx.beginPath();
     ctx.moveTo(x + radius, y);
     ctx.lineTo(x + width - radius, y);
@@ -36,8 +39,13 @@ export class BnBioNetworkCanvasHelper {
     }
   }
 
-  public static circle(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number,
-                       mode: 'fill' | 'stroke' = 'fill'): void {
+  public static circle(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    radius: number,
+    mode: 'fill' | 'stroke' = 'fill'
+  ): void {
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, 2 * Math.PI);
     ctx.closePath();
@@ -48,8 +56,13 @@ export class BnBioNetworkCanvasHelper {
     }
   }
 
-  public static diamond(ctx: CanvasRenderingContext2D, x: number, y: number, radius: number,
-                        mode: 'fill' | 'stroke' = 'fill'): void {
+  public static diamond(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    radius: number,
+    mode: 'fill' | 'stroke' = 'fill'
+  ): void {
     ctx.beginPath();
     ctx.moveTo(x, y - radius);
     ctx.lineTo(x + radius, y);
@@ -63,9 +76,13 @@ export class BnBioNetworkCanvasHelper {
     }
   }
 
-  public static text(ctx: CanvasRenderingContext2D,
-                     x: number, y: number, text: string,
-                     style: BnBioNetworkCanvasText): void {
+  public static text(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    text: string,
+    style: BnBioNetworkCanvasText
+  ): void {
     ctx.font = `${style.fontSize} ${style.fontFamily}`;
     ctx.textAlign = style.textAlign;
     ctx.textBaseline = 'middle';

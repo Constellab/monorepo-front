@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {LabAuthService} from '../../lab-core/service/lab-auth.service';
-import {LabRouterService} from '../../lab-core/service/lab-router.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LabAuthService } from '../../lab-core/service/lab-auth.service';
+import { LabRouterService } from '../../lab-core/service/lab-router.service';
 
 /**
  * Guard to get the token from the query param named 'token', store it locally
@@ -10,15 +10,17 @@ import {LabRouterService} from '../../lab-core/service/lab-router.service';
  * Then it redirects the user to the app
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LabAutoLoginGuard  {
+export class LabAutoLoginGuard {
+  constructor(
+    private router: Router,
+    private authenticateService: LabAuthService
+  ) {}
 
-  constructor(private router: Router, private authenticateService: LabAuthService) {
-  }
-
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+  canActivate(
+    route: ActivatedRouteSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let expiresIn: number;
     try {
       expiresIn = parseInt(route.queryParams['expiresIn']);
@@ -34,5 +36,4 @@ export class LabAutoLoginGuard  {
       return this.router.parseUrl(LabRouterService.getLoginRoute());
     }
   }
-
 }

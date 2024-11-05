@@ -1,20 +1,18 @@
-import {Injectable} from '@angular/core';
-import {FlDragData} from './fl-drag.class';
+import { Injectable } from '@angular/core';
+import { FlDragData } from './fl-drag.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlDragManagerService {
-
   private draggedData: FlDragData;
 
-  constructor() {
-  }
+  constructor() {}
 
   public setDraggedData(type: string, data: any): void {
     this.draggedData = {
       type: type,
-      data: data
+      data: data,
     };
   }
 

@@ -9,10 +9,9 @@ import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 @Component({
   selector: 'fl-confirm-dialog',
   templateUrl: './fl-confirm-dialog.component.html',
-  styleUrls: ['./fl-confirm-dialog.component.scss']
+  styleUrls: ['./fl-confirm-dialog.component.scss'],
 })
 export class FlConfirmDialogComponent implements OnInit {
-
   inputData: FlConfirmDialogInput;
 
   confirmTextFormControl: FormControl;
@@ -20,20 +19,24 @@ export class FlConfirmDialogComponent implements OnInit {
   // true if the observable is loading
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) inputData: FlConfirmDialogInput,
-              private dialogRef: MatDialogRef<FlConfirmDialogComponent>,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) inputData: FlConfirmDialogInput,
+    private dialogRef: MatDialogRef<FlConfirmDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {
     this.inputData = inputData;
 
     if (inputData.confirmWithText) {
-      this.confirmTextFormControl = new FormControl('', [Validators.required, FlGlobalValidators.isValue(inputData.confirmWithText)]);
+      this.confirmTextFormControl = new FormControl('', [
+        Validators.required,
+        FlGlobalValidators.isValue(inputData.confirmWithText),
+      ]);
     }
   }
 
   ngOnInit(): void {
     // catch the backdrop click to handle the closing and the object send back
-    this.dialogRef.backdropClick()
-      .subscribe(() => this.onBackdropClick());
+    this.dialogRef.backdropClick().subscribe(() => this.onBackdropClick());
   }
 
   private onBackdropClick(): void {
@@ -68,7 +71,7 @@ export class FlConfirmDialogComponent implements OnInit {
 
       const response: FlConfirmDialogResult = {
         result: null,
-        choice: choice
+        choice: choice,
       };
       this.dialogRef.close(response);
     }
@@ -78,8 +81,8 @@ export class FlConfirmDialogComponent implements OnInit {
   private subscribeObservable(observable: Observable<any>): void {
     this.isLoading = true;
     observable.subscribe({
-      next: result => this.success(result),
-      error: () => this.err()
+      next: (result) => this.success(result),
+      error: () => this.err(),
     });
   }
 
@@ -92,12 +95,11 @@ export class FlConfirmDialogComponent implements OnInit {
     // return the result and close the dialog
     const response: FlConfirmDialogResult = {
       result: result,
-      choice: true
+      choice: true,
     };
     this.dialogRef.close(response);
 
     this.isLoading = false;
-
   }
 
   // on observable error, hide the loading
@@ -105,4 +107,3 @@ export class FlConfirmDialogComponent implements OnInit {
     this.isLoading = false;
   }
 }
-

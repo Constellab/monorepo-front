@@ -13,10 +13,7 @@ import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput,
 } from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
-import {
-  CaDocument,
-  CaDocumentBasicInfo,
-} from '../../../ca-core/model/entities/folder/ca-document.class';
+import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
 import {
   CaSelectFolderDialogComponent,
   CaSelectFolderDialogInput,
@@ -51,19 +48,12 @@ export class CaDocumentActionMenu {
     private menuDynamicService: FlMenuDynamicService,
     private actionService: FlPortalActionsService,
     protected documentInfo: CaDocumentBasicInfo
-  ) {
-  }
+  ) {}
 
-  public openActionMenu(
-    showLinks: boolean,
-    event: MouseEvent
-  ): Observable<CaDocumentActionEvent | null> {
+  public openActionMenu(showLinks: boolean, event: MouseEvent): Observable<CaDocumentActionEvent | null> {
     const menu = this.generateActionMenu(showLinks);
 
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(
-      menu,
-      event
-    );
+    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(
       mergeMap((menu: FlMenuDynamic) => {
@@ -98,10 +88,7 @@ export class CaDocumentActionMenu {
           type: 'downloadLink',
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
-          href: this.folderService.getDocumentDownloadUrl(
-            this.documentInfo.id,
-            this.documentInfo.name
-          ),
+          href: this.folderService.getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name),
         });
       }
     }
@@ -198,9 +185,7 @@ export class CaDocumentActionMenu {
     const input: FlConfirmDialogInput = {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
-      observable: this.folderService.restoreDocumentFromTrash(
-        this.documentInfo.id
-      ),
+      observable: this.folderService.restoreDocumentFromTrash(this.documentInfo.id),
       successMessage: 'document_restored_from_trash',
     };
 
@@ -210,9 +195,7 @@ export class CaDocumentActionMenu {
       .subscribe((result) => this.onRestoreFromTrashClosed(result));
   }
 
-  private onRestoreFromTrashClosed(
-    result: FlConfirmDialogResult<CaDocument>
-  ): void {
+  private onRestoreFromTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
     if (result.choice) {
       this.subject.next({
         action: 'restoreFromTrash',
@@ -236,10 +219,7 @@ export class CaDocumentActionMenu {
       .subscribe((result) => this.onDeleteClosed(result, this.documentInfo));
   }
 
-  private onDeleteClosed(
-    result: FlConfirmDialogResult,
-    document: CaDocumentBasicInfo
-  ): void {
+  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocumentBasicInfo): void {
     if (result.choice) {
       this.subject.next({
         action: 'delete',
@@ -269,10 +249,7 @@ export class CaDocumentActionMenu {
       this.actionService
         .addAction({
           type: 'move-doc-to-folder',
-          action: this.folderService.moveDocumentToFolder(
-            this.documentInfo.id,
-            folder.id
-          ),
+          action: this.folderService.moveDocumentToFolder(this.documentInfo.id, folder.id),
           text: { text: 'moving_to_folder', translateText: true },
         })
         .subscribe({
@@ -284,9 +261,7 @@ export class CaDocumentActionMenu {
     }
   }
 
-  private onMoveDocumentSuccess(
-    result: FlPortalActionResult<CaDocument>
-  ): void {
+  private onMoveDocumentSuccess(result: FlPortalActionResult<CaDocument>): void {
     if (result.status === 'success') {
       this.subject.next({
         action: 'moveToFolder',
@@ -298,22 +273,22 @@ export class CaDocumentActionMenu {
 }
 
 export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
-
   private historyOverlayRef: FlOverlayRef;
 
-  constructor(dialogService: FlDialogService,
-              folderService: CaFolderService,
-              menuDynamicService: FlMenuDynamicService,
-              actionService: FlPortalActionsService,
-              documentInfo: CaDocumentBasicInfo,
-              private constellabDocumentService: CaConstellabDocumentHistoryService,
-              private portalService: FlPortalService,
-              private textEditorConfig: TeCompleteConfig
+  constructor(
+    dialogService: FlDialogService,
+    folderService: CaFolderService,
+    menuDynamicService: FlMenuDynamicService,
+    actionService: FlPortalActionsService,
+    documentInfo: CaDocumentBasicInfo,
+    private constellabDocumentService: CaConstellabDocumentHistoryService,
+    private portalService: FlPortalService,
+    private textEditorConfig: TeCompleteConfig
   ) {
     super(dialogService, folderService, menuDynamicService, actionService, documentInfo);
   }
 
-  protected override generateActionMenu(showLinks: boolean){
+  protected override generateActionMenu(showLinks: boolean) {
     const menu = super.generateActionMenu(showLinks);
     if (!showLinks && this.documentInfo.isConstellabDocument) {
       menu.unshift({
@@ -338,7 +313,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
           service: this.constellabDocumentService,
           entityId: this.documentInfo.id,
           textEditorConfig: this.textEditorConfig,
-          isEditable: true
+          isEditable: true,
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {

@@ -1,13 +1,37 @@
-import {SpCellCoord, SpCellCoordRange} from '../model/sp-cell-coord.class';
+import { SpCellCoord, SpCellCoordRange } from '../model/sp-cell-coord.class';
 
-const columnNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-  'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+const columnNames = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];
 
 export class SpSpreadsheetHelper {
-
   public static readonly coordSplitter: string = ':';
   public static readonly selectionsSplitter: string = ',';
-
 
   /**
    * Get the column name based on its index
@@ -27,7 +51,7 @@ export class SpSpreadsheetHelper {
       name = columnNames[rest] + name;
 
       if (index >= letterCount) {
-        index = ((index - rest) / letterCount) - 1;
+        index = (index - rest) / letterCount - 1;
       } else {
         break;
       }
@@ -47,14 +71,12 @@ export class SpSpreadsheetHelper {
     let exponent: number = 0;
     const letterCount: number = columnNames.length;
 
-
     for (const value of values) {
-      index += this.getColumnLetterIndex(value) * (letterCount ** exponent);
+      index += this.getColumnLetterIndex(value) * letterCount ** exponent;
       exponent++;
     }
 
     return index - 1;
-
   }
 
   // return the index in alphabet of a letter
@@ -67,7 +89,6 @@ export class SpSpreadsheetHelper {
     return 0;
   }
 
-
   public static rowIndexToName(index: number): string {
     return (index + 1).toString();
   }
@@ -76,9 +97,10 @@ export class SpSpreadsheetHelper {
     return parseInt(name) - 1;
   }
 
-
   public static coordToString(coord: SpCellCoord): string {
-    return SpSpreadsheetHelper.columnIndexToName(coord.column) + SpSpreadsheetHelper.rowIndexToName(coord.row);
+    return (
+      SpSpreadsheetHelper.columnIndexToName(coord.column) + SpSpreadsheetHelper.rowIndexToName(coord.row)
+    );
   }
 
   /**
@@ -90,7 +112,7 @@ export class SpSpreadsheetHelper {
 
     return {
       column: SpSpreadsheetHelper.columnIndexFromName(coord.substring(0, match.index)),
-      row: SpSpreadsheetHelper.rowIndexFromFrom(coord.substring(match.index))
+      row: SpSpreadsheetHelper.rowIndexFromFrom(coord.substring(match.index)),
     };
   }
 
@@ -100,7 +122,7 @@ export class SpSpreadsheetHelper {
     const to: SpCellCoord = SpSpreadsheetHelper.coordFromString(coords[1]);
     return {
       from: from,
-      to: to
+      to: to,
     };
   }
 
@@ -113,15 +135,13 @@ export class SpSpreadsheetHelper {
 
   // get the string regex to match single selection  (like A2:B3)
   private static getStringRegexForSingleSelection(): string {
-    return this.getStringRegexForCoord() + SpSpreadsheetHelper.coordSplitter
-      + this.getStringRegexForCoord();
+    return this.getStringRegexForCoord() + SpSpreadsheetHelper.coordSplitter + this.getStringRegexForCoord();
   }
 
   // get the regex to match single selection  (like A2:B3)
   public static getRegexForSingleSelection(): RegExp {
     return new RegExp('^' + SpSpreadsheetHelper.getStringRegexForSingleSelection() + '$');
   }
-
 
   // get the regex to match multiple selections  (like A2:A4, B2:B4)
   public static getRegexForMultipleSelection(): RegExp {
@@ -130,4 +150,3 @@ export class SpSpreadsheetHelper {
     );
   }
 }
-

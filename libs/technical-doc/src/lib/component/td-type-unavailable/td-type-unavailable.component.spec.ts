@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TdTypeUnavailableComponent} from './td-type-unavailable.component';
+import { TdTypeUnavailableComponent } from './td-type-unavailable.component';
 
 describe('TdTypeUnavailableComponent', () => {
   let component: TdTypeUnavailableComponent;
@@ -8,9 +8,8 @@ describe('TdTypeUnavailableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TdTypeUnavailableComponent ]
-    })
-    .compileComponents();
+      declarations: [TdTypeUnavailableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

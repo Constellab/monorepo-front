@@ -12,10 +12,12 @@ export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
 @Component({
   selector: 'ha-story-create-dialog',
   templateUrl: './ha-story-create-dialog.component.html',
-  styleUrls: ['./ha-story-create-dialog.component.scss']
+  styleUrls: ['./ha-story-create-dialog.component.scss'],
 })
-export class HaStoryCreateDialogComponent extends FlFormDialogAbstractDirective<HaCreateStoryDto, HaStory> implements OnInit {
-
+export class HaStoryCreateDialogComponent
+  extends FlFormDialogAbstractDirective<HaCreateStoryDto, HaStory>
+  implements OnInit
+{
   dialogInput: HaCreateStoryDtoInput = inject(MAT_DIALOG_DATA);
 
   constructor(private storyService: HaStoryService) {
@@ -29,7 +31,7 @@ export class HaStoryCreateDialogComponent extends FlFormDialogAbstractDirective<
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       title: [null, Validators.required],
-      category: [CoStoryCategory.ARTICLE, Validators.required]
+      category: [CoStoryCategory.ARTICLE, Validators.required],
     });
   }
 

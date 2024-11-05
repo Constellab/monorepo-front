@@ -13,7 +13,7 @@ import { CaHierarchyObjectWithChildren } from '../../../ca-core/model/entities/f
 @Component({
   selector: 'ca-chat-detail-page',
   templateUrl: './ca-chat-detail-page.component.html',
-  styleUrl: './ca-chat-detail-page.component.scss'
+  styleUrl: './ca-chat-detail-page.component.scss',
 })
 export class CaChatDetailPageComponent {
   private state = inject(CaChatState);
@@ -22,9 +22,9 @@ export class CaChatDetailPageComponent {
 
   folder = computed(() => this.getFolder(this.folderId(), this.state.folders()));
 
-  users$: Observable<CaUser[]> = this.state.getSelectedFolderId$().pipe(
-    mergeMap(folderId => this.folderService.getUsersOfFolder(folderId))
-  );
+  users$: Observable<CaUser[]> = this.state
+    .getSelectedFolderId$()
+    .pipe(mergeMap((folderId) => this.folderService.getUsersOfFolder(folderId)));
 
   private folderService = inject(CaFolderService);
 
@@ -43,4 +43,3 @@ export class CaChatDetailPageComponent {
     return null;
   }
 }
-

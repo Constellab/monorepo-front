@@ -1,18 +1,16 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
-
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let scenario" class="g-cell-with-left-border"
-              [style.border-left-color]="scenario.folder?.id | flStringToRgb">
-
+    <mat-cell
+      *matCellDef="let scenario"
+      class="g-cell-with-left-border"
+      [style.border-left-color]="scenario.folder?.id | flStringToRgb">
       <!--    Invisible link  -->
       @if (!rowSelectable) {
-        <a [routerLink]="scenario | labDetailRoute"
-           [target]="rowLinkTarget" class="g-row-link"></a>
+        <a [routerLink]="scenario | labDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
       }
 
       <div>
@@ -34,11 +32,9 @@
       <span>{{ 'status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <fl-status-chip [status]="scenario.status" mode="iconText" size="small">
-      </fl-status-chip>
+      <fl-status-chip [status]="scenario.status" mode="iconText" size="small"> </fl-status-chip>
 
       <lab-scenario-icons [scenario]="scenario" class="status-icon over-link"></lab-scenario-icons>
-
     </mat-cell>
   </ng-container>
 
@@ -48,8 +44,10 @@
       <span>{{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <fl-user-with-date [user]="scenario.createdBy" [date]="scenario.createdAt"
-                         class="over-link"></fl-user-with-date>
+      <fl-user-with-date
+        [user]="scenario.createdBy"
+        [date]="scenario.createdAt"
+        class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -59,11 +57,12 @@
       <span>{{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <fl-user-with-date [user]="scenario.lastModifiedBy" [date]="scenario.lastModifiedAt"
-                         class="over-link"></fl-user-with-date>
+      <fl-user-with-date
+        [user]="scenario.lastModifiedBy"
+        [date]="scenario.lastModifiedAt"
+        class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
-
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">
@@ -72,8 +71,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario" class="g-column-width-2">
       @defer (on viewport) {
-        <lab-tag-list [tags]="scenario | labGetEntityTags"
-                      [tagSelectable]="true"></lab-tag-list>
+        <lab-tag-list [tags]="scenario | labGetEntityTags" [tagSelectable]="true"></lab-tag-list>
       } @placeholder {
         <div></div>
       }
@@ -82,12 +80,14 @@
 
   <!-- Unlinked scenario -->
   <ng-container matColumnDef="unlinked">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let scenario" class="g-table-icon-button-cell">
-      <button mat-icon-button type="button" (click)="unlinkedScenario(scenario, $event)"
-              class=" over-link"
-              [matTooltip]="'biox.note_unlink_scenario' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="unlinkedScenario(scenario, $event)"
+        class="over-link"
+        [matTooltip]="'biox.note_unlink_scenario' | translate">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>
@@ -95,8 +95,9 @@
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (click)="rowClicked(row)">
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)">
   </mat-row>
-
 </mat-table>

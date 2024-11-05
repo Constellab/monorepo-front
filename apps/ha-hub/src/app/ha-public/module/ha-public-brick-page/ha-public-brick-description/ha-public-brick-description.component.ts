@@ -1,8 +1,5 @@
 import { Component, computed, OnInit, Signal } from '@angular/core';
-import {
-  HaBrick,
-  HaEditBrickDTO,
-} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { Router } from '@angular/router';
 import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
@@ -27,11 +24,9 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
     }
     return brick;
   });
-  latestBrickVersion: Signal<HaBrickVersion> =
-    this.brickPageState.latestBrickVersion;
+  latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
-  directReferences: Signal<HaReferenceDTO[]> =
-    this.brickPageState.getDirectReferences();
+  directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
 
   brickIsLiked = false;
 
@@ -75,20 +70,13 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
   }
 
   private onBrick(brick: HaBrick): void {
-    this.likeService
-      .checkIfLiked(HaLikeType.BRICK_LIKE, brick.id)
-      .subscribe((isLiked) => {
-        this.brickIsLiked = isLiked;
-      });
+    this.likeService.checkIfLiked(HaLikeType.BRICK_LIKE, brick.id).subscribe((isLiked) => {
+      this.brickIsLiked = isLiked;
+    });
     this.metadataService.setPageTitle('ha.brick.title', true, {
       title: brick.name,
     });
-    this.metadataService.addMetaTag(
-      'description',
-      'ha.brick.description',
-      true,
-      { description: brick.name }
-    );
+    this.metadataService.addMetaTag('description', 'ha.brick.description', true, { description: brick.name });
   }
 
   private openSmallDialog(input: any): void {
@@ -104,14 +92,12 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
 
   // TODO : utiliser le state
   private unlikeBrick(): void {
-    this.likeService
-      .unlike(HaLikeType.BRICK_LIKE, this.brick().id)
-      .subscribe((brick: HaBrick) => {
-        if (brick != null) {
-          this.brickPageState.setBrick(brick);
-          this.brickIsLiked = false;
-        }
-      });
+    this.likeService.unlike(HaLikeType.BRICK_LIKE, this.brick().id).subscribe((brick: HaBrick) => {
+      if (brick != null) {
+        this.brickPageState.setBrick(brick);
+        this.brickIsLiked = false;
+      }
+    });
   }
 
   private likeBrick(): void {
@@ -120,13 +106,11 @@ export class HaPublicBrickDescriptionComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService
-      .like(HaLikeType.BRICK_LIKE, this.brick().id)
-      .subscribe((brick: HaBrick) => {
-        if (brick != null) {
-          this.brickPageState.setBrick(brick);
-          this.brickIsLiked = true;
-        }
-      });
+    this.likeService.like(HaLikeType.BRICK_LIKE, this.brick().id).subscribe((brick: HaBrick) => {
+      if (brick != null) {
+        this.brickPageState.setBrick(brick);
+        this.brickIsLiked = true;
+      }
+    });
   }
 }

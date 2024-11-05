@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlTagsSelectColorsComponent} from './fl-tags-select-colors.component';
+import { FlTagsSelectColorsComponent } from './fl-tags-select-colors.component';
 
 describe('FlTagsColorFiltersComponent', () => {
   let component: FlTagsSelectColorsComponent;
@@ -8,9 +8,8 @@ describe('FlTagsColorFiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlTagsSelectColorsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTagsSelectColorsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

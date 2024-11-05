@@ -5,10 +5,9 @@ import { Observable } from 'rxjs';
 import { HaEnvironmentHelper } from './ha-environment.helper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaUserConfig extends FlUserConfig {
-
   constructor() {
     super();
   }

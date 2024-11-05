@@ -1,4 +1,4 @@
-import {ChChartValueFormatterPipe} from './ch-chart-value-formatter.pipe';
+import { ChChartValueFormatterPipe } from './ch-chart-value-formatter.pipe';
 
 describe('ChChartValueFormatterPipe', () => {
   it('create an instance', () => {

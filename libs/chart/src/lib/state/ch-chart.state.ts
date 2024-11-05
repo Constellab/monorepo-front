@@ -1,22 +1,19 @@
-import {Injectable} from '@angular/core';
-import {ChChartSvg} from '../model/drawer/ch-chart-svg.class';
-import {ChChartContainer, ChChartContainer2Axis} from '../model/drawer/ch-chart-container.class';
-import {ChChartConfig} from '../model/ch-chart-config.class';
-import {ChChartBrush} from '../model/drawer/ch-chart-brush.class';
-import {FlThemeService} from '@monorepo/front-core-lib';
-
+import { Injectable } from '@angular/core';
+import { ChChartSvg } from '../model/drawer/ch-chart-svg.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../model/drawer/ch-chart-container.class';
+import { ChChartConfig } from '../model/ch-chart-config.class';
+import { ChChartBrush } from '../model/drawer/ch-chart-brush.class';
+import { FlThemeService } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class ChChartState {
-
   public chartSVG: ChChartSvg;
   public chart: ChChartConfig;
 
   public chartContainer: ChChartContainer<any>;
   public zoomBrush?: ChChartBrush;
 
-  constructor(private themeService: FlThemeService) {
-  }
+  constructor(private themeService: FlThemeService) {}
 
   public initData(chart: ChChartConfig): void {
     this.chart = chart;
@@ -54,7 +51,6 @@ export class ChChartState {
     // render the chart
     this.chartContainer.firstChartRendering();
   }
-
 
   public downloadSVG(): void {
     const svgLegend = this.chart.getSVGLegend();

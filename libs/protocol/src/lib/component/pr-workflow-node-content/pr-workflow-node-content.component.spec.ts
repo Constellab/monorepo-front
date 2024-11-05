@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PrWorkflowNodeContentComponent} from './pr-workflow-node-content.component';
+import { PrWorkflowNodeContentComponent } from './pr-workflow-node-content.component';
 
 describe('PrWorkflowNodeContentComponent', () => {
   let component: PrWorkflowNodeContentComponent;
@@ -8,9 +8,8 @@ describe('PrWorkflowNodeContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrWorkflowNodeContentComponent]
-    })
-    .compileComponents();
+      declarations: [PrWorkflowNodeContentComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PrWorkflowNodeContentComponent);
     component = fixture.componentInstance;

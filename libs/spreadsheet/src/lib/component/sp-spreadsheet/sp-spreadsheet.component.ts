@@ -6,27 +6,27 @@ import {
   OnDestroy,
   OnInit,
   TrackByFunction,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {SpSpreadsheet} from '../../model/sp-spreadsheet.class';
-import {SpSpreadsheetSelectionState} from '../../state/sp-spreadsheet-selection.state';
-import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
-import {SpSpreadsheetContextMenu} from '../../state/sp-spreadsheet-context-menu.state';
-import {SpSpreadsheetKeyboardManagerState} from '../../state/sp-spreadsheet-keyboard-manager.state';
-import {SpSpreadsheetMouseManagerState} from '../../state/sp-spreadsheet-mouse-manager.state';
-import {SpSpreadsheetClipboardState} from '../../state/sp-spreadsheet-clipboard.state';
-import {SpSpreadsheetActions} from '../../state/sp-spreadsheet-actions.state';
-import {SpSpreadsheetActionStore} from '../../state/sp-spreadsheet-action.store';
-import {SpSpreadsheetChartState} from '../../state/sp-spreadsheet-chart.state';
-import {SpSpreadsheetScrollState} from '../../state/sp-spreadsheet-scroll.state';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {SpSheetHeader, SpSheetRow} from '../../model/sp-sheet-headers.class';
-import {SpSheetChartConfig} from '../../model/chart/sp-sheet-chart-config.class';
-import {SpSpreadsheetElementState} from '../../state/sp-spreadsheet-element.state';
-import {SpSpreadsheetPageLoader} from '../../model/sp-spreadsheet-page.class';
-import {SpSpreadsheetPaginationState} from '../../state/sp-spreadsheet-pagination.state';
-import {FlPortalService} from '@monorepo/front-core-lib';
+import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetContextMenu } from '../../state/sp-spreadsheet-context-menu.state';
+import { SpSpreadsheetKeyboardManagerState } from '../../state/sp-spreadsheet-keyboard-manager.state';
+import { SpSpreadsheetMouseManagerState } from '../../state/sp-spreadsheet-mouse-manager.state';
+import { SpSpreadsheetClipboardState } from '../../state/sp-spreadsheet-clipboard.state';
+import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
+import { SpSpreadsheetActionStore } from '../../state/sp-spreadsheet-action.store';
+import { SpSpreadsheetChartState } from '../../state/sp-spreadsheet-chart.state';
+import { SpSpreadsheetScrollState } from '../../state/sp-spreadsheet-scroll.state';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SpSheetHeader, SpSheetRow } from '../../model/sp-sheet-headers.class';
+import { SpSheetChartConfig } from '../../model/chart/sp-sheet-chart-config.class';
+import { SpSpreadsheetElementState } from '../../state/sp-spreadsheet-element.state';
+import { SpSpreadsheetPageLoader } from '../../model/sp-spreadsheet-page.class';
+import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-pagination.state';
+import { FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'sp-spreadsheet',
@@ -47,10 +47,9 @@ import {FlPortalService} from '@monorepo/front-core-lib';
     SpSpreadsheetPaginationState,
     FlPortalService, // providers to access the state in portal
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpSpreadsheetComponent implements OnInit, OnDestroy {
-
   @Input() spreadsheet: SpSpreadsheet;
 
   @Input() readOnly: boolean = false;
@@ -59,23 +58,23 @@ export class SpSpreadsheetComponent implements OnInit, OnDestroy {
 
   @Input() pagination: SpSpreadsheetPageLoader;
 
-  @ViewChild('tableContainer', {static: true}) tableContainer: ElementRef<HTMLElement>;
-  @ViewChild('horizontalScroller', {static: true}) horizontalScroller: ElementRef<HTMLElement>;
-  @ViewChild('scroller', {static: true}) scroller: ElementRef<HTMLElement>;
-  @ViewChild('heightSimulator', {static: true}) heightSimulator: ElementRef<HTMLElement>;
+  @ViewChild('tableContainer', { static: true }) tableContainer: ElementRef<HTMLElement>;
+  @ViewChild('horizontalScroller', { static: true }) horizontalScroller: ElementRef<HTMLElement>;
+  @ViewChild('scroller', { static: true }) scroller: ElementRef<HTMLElement>;
+  @ViewChild('heightSimulator', { static: true }) heightSimulator: ElementRef<HTMLElement>;
 
   columns$: Observable<SpSheetHeader[]>;
   rows$: Observable<SpSheetRow[]>;
 
-  constructor(private state: SpSpreadsheetState,
-              private elementState: SpSpreadsheetElementState,
-              private selectionState: SpSpreadsheetSelectionState,
-              private keyboardState: SpSpreadsheetKeyboardManagerState,
-              private mouseState: SpSpreadsheetMouseManagerState,
-              private scrollState: SpSpreadsheetScrollState,
-              private paginationState: SpSpreadsheetPaginationState) {
-  }
-
+  constructor(
+    private state: SpSpreadsheetState,
+    private elementState: SpSpreadsheetElementState,
+    private selectionState: SpSpreadsheetSelectionState,
+    private keyboardState: SpSpreadsheetKeyboardManagerState,
+    private mouseState: SpSpreadsheetMouseManagerState,
+    private scrollState: SpSpreadsheetScrollState,
+    private paginationState: SpSpreadsheetPaginationState
+  ) {}
 
   ngOnInit(): void {
     this.state.init(this.spreadsheet, this.readOnly, this.chartConfigs);
@@ -84,19 +83,22 @@ export class SpSpreadsheetComponent implements OnInit, OnDestroy {
     this.keyboardState.init();
     this.mouseState.init();
     this.paginationState.init(this.pagination);
-    this.scrollState.init(this.tableContainer.nativeElement, this.scroller.nativeElement,
-      this.heightSimulator.nativeElement, this.horizontalScroller.nativeElement);
+    this.scrollState.init(
+      this.tableContainer.nativeElement,
+      this.scroller.nativeElement,
+      this.heightSimulator.nativeElement,
+      this.horizontalScroller.nativeElement
+    );
 
     this.columns$ = this.state.getCurrentSheetColumns$().pipe(
       // add the first column corresponding to the row header
-      map(columns => [{index: -1, name: '', tags: {}}, ...columns])
+      map((columns) => [{ index: -1, name: '', tags: {} }, ...columns])
     );
     this.rows$ = this.scrollState.getRowsToDisplay$();
   }
 
   trackRowById: TrackByFunction<SpSheetRow> = (index: number, header: SpSheetHeader) => header.index;
   trackHeaderById: TrackByFunction<SpSheetHeader> = (index: number, header: SpSheetHeader) => header.index;
-
 
   ngOnDestroy(): void {
     this.scrollState.clear();

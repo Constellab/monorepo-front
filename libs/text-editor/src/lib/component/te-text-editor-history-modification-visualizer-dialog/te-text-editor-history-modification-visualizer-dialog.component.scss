@@ -1,4 +1,4 @@
-.dialog-footer{
+.dialog-footer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.content-part-div{
+.content-part-div {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,27 +15,27 @@
   gap: 2em;
 }
 
-.content{
+.content {
   margin: auto 0 1em 0;
   flex: auto;
   height: 100%;
 }
 
-.users-list{
+.users-list {
   display: flex;
   flex-direction: row;
   gap: 18px;
   flex-wrap: wrap;
 }
 
-.user-div{
+.user-div {
   display: flex;
   flex-direction: row;
   gap: 6px;
   align-items: center;
 }
 
-.user-color{
+.user-color {
   height: 12px;
   width: 12px;
   border-radius: 12px;

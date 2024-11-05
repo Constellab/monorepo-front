@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 /**
  * Component to show a text with a key and a value like 'Key : value'
@@ -8,13 +8,10 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   selector: 'fl-key-value',
   templateUrl: './fl-key-value.component.html',
   styleUrls: ['./fl-key-value.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlKeyValueComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -1,37 +1,37 @@
-import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
+import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
 import {
   FlApiService,
   flAuthExpiredCookie,
   FlCleanableService,
   FlCleanerService,
   FlTranslateService,
-  REQUEST
+  REQUEST,
 } from '@monorepo/front-core-lib';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {HaUser, HaUserCategory} from '../ha-model/ha-entities/ha-user';
-import {HaAuthService} from './ha-auth.service';
-import {map, tap} from 'rxjs/operators';
-import {ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
-import {HaBrick} from '../ha-model/ha-entities/ha-brick.class';
-import {isPlatformServer} from '@angular/common';
-import {Request} from 'express';
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
+import { HaAuthService } from './ha-auth.service';
+import { map, tap } from 'rxjs/operators';
+import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
+import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
+import { isPlatformServer } from '@angular/common';
+import { Request } from 'express';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaAuthenticatedUserService implements FlCleanableService {
-
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
   private request: Request;
 
-  constructor(private apiService: FlApiService,
-              private authService: HaAuthService,
-              private translateService: FlTranslateService,
-              @Inject(PLATFORM_ID) private platformId: any,
-              @Optional() @Inject(REQUEST) request: Request) {
+  constructor(
+    private apiService: FlApiService,
+    private authService: HaAuthService,
+    private translateService: FlTranslateService,
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() @Inject(REQUEST) request: Request
+  ) {
     FlCleanerService.getInstance().registerService(this);
     if (isPlatformServer(this.platformId)) {
       this.request = request;
@@ -62,33 +62,33 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   public isAdmin(): Observable<boolean> {
-    return this.getUser().pipe(
-      map(user => user != null && user.category === HaUserCategory.ADMIN)
-    );
+    return this.getUser().pipe(map((user) => user != null && user.category === HaUserCategory.ADMIN));
   }
 
   public isBrickCreatorOrBrickUser(brick: HaBrick): Observable<boolean> {
     return this.getUser().pipe(
-      map(user => user != null && (user.id == brick?.createdBy?.id || brick?.brickUsers?.find(bU => bU.user.id == user.id) != null))
+      map(
+        (user) =>
+          user != null &&
+          (user.id == brick?.createdBy?.id || brick?.brickUsers?.find((bU) => bU.user.id == user.id) != null)
+      )
     );
   }
 
   public isBrickCreator(brick: HaBrick): Observable<boolean> {
-    return this.getUser().pipe(
-      map(user => user != null && user.id == brick?.createdBy?.id)
-    );
+    return this.getUser().pipe(map((user) => user != null && user.id == brick?.createdBy?.id));
   }
 
   public changeTheme(theme: ClTheme): Observable<void> {
-    return this.apiService.put(`${this.userRoute}/theme/${theme}`, null).pipe(
-      tap(() => this.changeThemeSuccess(theme))
-    );
+    return this.apiService
+      .put(`${this.userRoute}/theme/${theme}`, null)
+      .pipe(tap(() => this.changeThemeSuccess(theme)));
   }
 
   public changeLang(lang: ClSupportedLanguage): Observable<void> {
-    return this.apiService.put(`${this.userRoute}/lang/${lang}`, null).pipe(
-      tap(() => this.changeLangSuccess(lang))
-    );
+    return this.apiService
+      .put(`${this.userRoute}/lang/${lang}`, null)
+      .pipe(tap(() => this.changeLangSuccess(lang)));
   }
 
   private changeLangSuccess(lang: ClSupportedLanguage): void {
@@ -109,6 +109,4 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   clean(): void {
     this.userSubject.next(null);
   }
-
-
 }

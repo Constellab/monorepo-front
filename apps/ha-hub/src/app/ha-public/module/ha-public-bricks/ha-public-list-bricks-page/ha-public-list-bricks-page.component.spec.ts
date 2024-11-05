@@ -8,9 +8,8 @@ describe('DaPublicListBricksPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicListBricksPageComponent ]
-    })
-    .compileComponents();
+      declarations: [HaPublicListBricksPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('FlFromNowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlFromNowComponent ]
-    })
-    .compileComponents();
+      declarations: [FlFromNowComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

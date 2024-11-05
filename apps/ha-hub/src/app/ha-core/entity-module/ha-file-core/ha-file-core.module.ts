@@ -1,19 +1,13 @@
-import {NgModule} from '@angular/core';
-import {HaFileDialogComponent} from './component/ha-file-dialog/ha-file-dialog.component';
-import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HaCoreModule} from '../../ha-core.module';
+import { NgModule } from '@angular/core';
+import { HaFileDialogComponent } from './component/ha-file-dialog/ha-file-dialog.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HaCoreModule } from '../../ha-core.module';
 
 @NgModule({
   declarations: [HaFileDialogComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HaCoreModule,
-  ],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HaCoreModule],
   providers: [],
-  exports: []
+  exports: [],
 })
-export class HaFileCoreModule {
-}
+export class HaFileCoreModule {}

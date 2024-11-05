@@ -3,7 +3,6 @@
   overflow: hidden;
 }
 
-
 .background {
   position: absolute;
   width: 100%;
@@ -28,7 +27,8 @@
   cursor: pointer;
 
   &:hover {
-    .background, .icon {
+    .background,
+    .icon {
       opacity: 1;
     }
   }

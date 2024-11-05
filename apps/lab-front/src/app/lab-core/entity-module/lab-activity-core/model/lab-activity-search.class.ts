@@ -3,13 +3,12 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabUser } from '../../../model/entities/lab-user.entity';
 import { ActivityObjectType, ActivityType } from '../../../model/entities/lab-activity.entity';
-
 
 export class LabActivitySearchFields {
   @Type(() => LabUser)
@@ -38,15 +37,14 @@ export class LabActivitySearch {
     createdAt: 'monitoring.activity_date',
   };
 
-
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static filterConverter: FlSearchFilterCriteriaConverter<LabActivitySearchFields> = {
-    user: {key: 'user', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    activityType: {key: 'activity_type', operator: 'IN'},
-    activityObjectType: {key: 'object_type', operator: 'IN'},
-    objectId: {key: 'object_id', operator: 'EQ'},
+    user: { key: 'user', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    activityType: { key: 'activity_type', operator: 'IN' },
+    activityObjectType: { key: 'object_type', operator: 'IN' },
+    objectId: { key: 'object_id', operator: 'EQ' },
     createdAt: FlSearchConverter.dateInterval('created_at'),
   };
 
@@ -58,18 +56,15 @@ export class LabActivitySearch {
   };
 
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        user: [null],
-        activityType: [null],
-        activityObjectType: [null],
-        objectId: [null],
-        createdAt: new FormBuilder().group({
-          from: [null],
-          to: [null],
-        })
-      }
-    );
+    return new FormBuilder().group({
+      user: [null],
+      activityType: [null],
+      activityObjectType: [null],
+      objectId: [null],
+      createdAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+    });
   }
-
 }

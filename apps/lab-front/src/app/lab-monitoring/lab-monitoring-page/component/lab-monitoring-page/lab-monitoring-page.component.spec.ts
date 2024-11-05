@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringPageComponent} from './lab-monitoring-page.component';
+import { LabMonitoringPageComponent } from './lab-monitoring-page.component';
 
 describe('LabMonitoringPageComponent', () => {
   let component: LabMonitoringPageComponent;
@@ -8,9 +8,8 @@ describe('LabMonitoringPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitoringPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LabMonitoringPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

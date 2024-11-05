@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabLogCompleteInfoDialogComponent} from './lab-log-complete-info-dialog.component';
+import { LabLogCompleteInfoDialogComponent } from './lab-log-complete-info-dialog.component';
 
 describe('LabLogCompleteInfoDialogComponent', () => {
   let component: LabLogCompleteInfoDialogComponent;
@@ -8,9 +8,8 @@ describe('LabLogCompleteInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabLogCompleteInfoDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabLogCompleteInfoDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabLogCompleteInfoDialogComponent);
     component = fixture.componentInstance;

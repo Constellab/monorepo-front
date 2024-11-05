@@ -1,7 +1,6 @@
 <div *ngIf="inputIsProvided" class="g-flex-grow g-layout-col">
   <div>
-    <ng-content select="fl-section-header">
-    </ng-content>
+    <ng-content select="fl-section-header"> </ng-content>
   </div>
 
   <div class="g-flex-grow content">
@@ -19,7 +18,5 @@
         <fl-error-text [errorMessage]="infoText"></fl-error-text>
       </ng-template>
     </ng-template>
-
   </div>
-
 </div>

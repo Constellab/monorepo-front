@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import {
@@ -9,28 +16,25 @@ import {
   SpSheetSelectionRange,
   SpSpreadsheetChartSelectionInput,
   SpSpreadsheetChartSelectionInputCreate,
-  SpSpreadsheetChartSelectionInputUpdate
+  SpSpreadsheetChartSelectionInputUpdate,
 } from '../../model/chart/sp-sheet-chart-selection-form.class';
-import {
-  SpSheetChartSerieSelectionComponent
-} from '../sp-sheet-chart-serie-selection/sp-sheet-chart-serie-selection.component';
+import { SpSheetChartSerieSelectionComponent } from '../sp-sheet-chart-serie-selection/sp-sheet-chart-serie-selection.component';
 import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { debounceTime, skip } from 'rxjs/operators';
 import { merge } from 'rxjs';
 import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
 import {
   SpSheetChartConfig,
-  SpSpreadsheetChartSerieSelectionInput
+  SpSpreadsheetChartSerieSelectionInput,
 } from '../../model/chart/sp-sheet-chart-config.class';
 import {
   FL_PORTAL_DATA,
   FlGlobalValidators,
   FlOverlayRef,
   FlPortalConfig,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
-
 
 /**
  * Modal component to select value from the spreadsheet to draw a chart
@@ -39,15 +43,12 @@ import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
   selector: 'sp-sheet-chart-selection',
   templateUrl: './sp-sheet-chart-selection.component.html',
   styleUrls: ['./sp-sheet-chart-selection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
-
   formGp = new FormBuilder().group({
     id: [null as symbol],
-    chartType: [null as ChChartType, [
-      Validators.required
-    ]],
+    chartType: [null as ChChartType, [Validators.required]],
     dataRange: [null as SpSheetSelectionRange],
     series: [[] as SpSheetChart2dSerieSelectionForm[], Validators.required],
     additionalFields: new FormBuilder().group({
@@ -57,9 +58,8 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
       xAxisLabel: [null],
       yAxisLabel: [null],
       xThreshold: [0.05, Validators.required],
-      yThreshold: [0.05, Validators.required]
-    })
-
+      yThreshold: [0.05, Validators.required],
+    }),
   });
 
   input: SpSpreadsheetChartSelectionInput;
@@ -78,26 +78,24 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private state: SpSpreadsheetState,
-              @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSelectionInput,
-              private portalService: FlPortalService,
-              private overlayRef: FlOverlayRef,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    private state: SpSpreadsheetState,
+    @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSelectionInput,
+    private portalService: FlPortalService,
+    private overlayRef: FlOverlayRef,
+    private cdr: ChangeDetectorRef
+  ) {
     this.input = input;
   }
 
   ngOnInit(): void {
     // subscribe to sheet change and clear the form on change to secure data
     // because selection does not support multi sheet
-    this.subscriptions.add(
-      this.state.currentSheet$.pipe(skip(1)).subscribe(
-        () => this.resetForm()
-      )
-    );
+    this.subscriptions.add(this.state.currentSheet$.pipe(skip(1)).subscribe(() => this.resetForm()));
 
     this.initForm();
 
-    this.availableChartTypes = this.state.getChartConfigs().map(chartConfig => chartConfig.getChartType());
+    this.availableChartTypes = this.state.getChartConfigs().map((chartConfig) => chartConfig.getChartType());
 
     // add a timeout before the listen to prevent event from being fired
     // on patch during init
@@ -128,21 +126,16 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   private listenToChanges(): void {
     // subscribe to chart type
     this.subscriptions.add(
-      this.formGp.get('chartType').valueChanges.subscribe(
-        (chartType) => this.onChartTypeChange(chartType)
-      )
+      this.formGp.get('chartType').valueChanges.subscribe((chartType) => this.onChartTypeChange(chartType))
     );
 
     // subscribe to chart type and data range change to create series based on data range
     this.subscriptions.add(
-      merge(this.formGp.get('chartType').valueChanges, this.formGp.get('dataRange').valueChanges).pipe(
-        debounceTime(100)
-      ).subscribe(
-        () => this.createSerieFromDataRange()
-      )
+      merge(this.formGp.get('chartType').valueChanges, this.formGp.get('dataRange').valueChanges)
+        .pipe(debounceTime(100))
+        .subscribe(() => this.createSerieFromDataRange())
     );
   }
-
 
   submit(): void {
     this.validateForm(this.input.mode);
@@ -151,7 +144,6 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   createNewChart(): void {
     this.validateForm('create');
   }
-
 
   private validateForm(mode: 'create' | 'update'): void {
     this.submitted = true;
@@ -164,7 +156,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
       const result: SpSheetChartSelectionResult = {
         formValue: value,
-        mode: mode
+        mode: mode,
       };
       this.overlayRef.dispose(result);
     }
@@ -203,11 +195,10 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     const serie: SpSheetChart2dSerieSelectionForm = {
       name: SpSpreadsheetChartSelectionHelper.getDefaultSerieName(this.series.length),
       y: null,
-      x: null
+      x: null,
     };
 
     this.openSerieSelection(serie);
-
   }
 
   updateSerie(serie: SpSheetChart2dSerieSelectionForm, index: number): void {
@@ -228,22 +219,23 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
       {
         centerHorizontally: '0',
-        top: '0'
+        top: '0',
       },
       {
-        disposeOnNavigation: true
-      });
-
-    this.portalService.createPortal(SpSheetChartSerieSelectionComponent, portalConfig, data).detachments().subscribe(
-      (newSerie) => this.onSerieUpdated(newSerie, index)
+        disposeOnNavigation: true,
+      }
     );
+
+    this.portalService
+      .createPortal(SpSheetChartSerieSelectionComponent, portalConfig, data)
+      .detachments()
+      .subscribe((newSerie) => this.onSerieUpdated(newSerie, index));
 
     // hide the current portal during serie selection
     this.hideOverlay();
   }
 
-
-  private onSerieUpdated(serie ?: SpSheetChart2dSerieSelectionForm, index?: number): void {
+  private onSerieUpdated(serie?: SpSheetChart2dSerieSelectionForm, index?: number): void {
     // reshow the portal after serie selection
     this.showOverlay();
     if (serie) {
@@ -274,13 +266,18 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
     const chartType: ChChartType = this.formGp.get('chartType').value;
     const dataRange: SpSheetSelectionRange = this.formGp.get('dataRange').value;
 
-    if (ClHelpService.isNullOrEmpty(chartType) || ClHelpService.isNullOrEmpty(dataRange)
-      || this.formGp.get('dataRange').invalid) {
+    if (
+      ClHelpService.isNullOrEmpty(chartType) ||
+      ClHelpService.isNullOrEmpty(dataRange) ||
+      this.formGp.get('dataRange').invalid
+    ) {
       return;
     }
 
     const series: SpSheetChart2dSerieSelectionForm[] = this.formConfig.createSeriesFromDataRange(
-      this.state.currentSheet, dataRange);
+      this.state.currentSheet,
+      dataRange
+    );
 
     this.formGp.get('series').patchValue(series);
     this.cdr.markForCheck();
@@ -288,7 +285,7 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   private resetForm(): void {
     this.formGp?.reset({
-      series: []
+      series: [],
     });
     this.ngMaxOfSeries = Infinity;
   }
@@ -312,5 +309,4 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
-
 }

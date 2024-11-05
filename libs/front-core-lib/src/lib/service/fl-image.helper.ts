@@ -1,5 +1,4 @@
-
-export interface FlCompressBlobOption{
+export interface FlCompressBlobOption {
   /**
    * The maximum width of the compressed image
    */
@@ -14,25 +13,24 @@ export interface FlCompressBlobOption{
    * The height of the image after the crop (default is resizeHeightMax)
    */
   cropHeight: number;
-
 }
 
-export class FlImageHelper{
-
+export class FlImageHelper {
   /***
    * Use this method to compress and resize a blob
    *
    * @param blob is the blob to resize
    * @param options is the options to resize the image
    */
-  public static async compressBlob(blob: Blob, options: FlCompressBlobOption): Promise<File>{
+  public static async compressBlob(blob: Blob, options: FlCompressBlobOption): Promise<File> {
     const blobUrl: string = URL.createObjectURL(blob);
-    const loadImage = (url: string): Promise<HTMLImageElement> => new Promise((resolve, reject) => {
-      const img = new Image();
-      img.addEventListener('load', () => resolve(img));
-      img.addEventListener('error', (err) => reject(err));
-      img.src = url;
-    });
+    const loadImage = (url: string): Promise<HTMLImageElement> =>
+      new Promise((resolve, reject) => {
+        const img = new Image();
+        img.addEventListener('load', () => resolve(img));
+        img.addEventListener('error', (err) => reject(err));
+        img.src = url;
+      });
     const img = await loadImage(blobUrl);
     let [newWidth, newHeight] = FlImageHelper.calculateSize(img, options.resizeWidthMax);
     const canvas: HTMLCanvasElement = document.createElement('canvas');
@@ -54,7 +52,7 @@ export class FlImageHelper{
 
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, -xBegin, -yBegin, newWidth, newHeight);
-    const compressedBlob: Blob = await new Promise(resolve => canvas.toBlob(resolve));
+    const compressedBlob: Blob = await new Promise((resolve) => canvas.toBlob(resolve));
     return FlImageHelper.blobToFile(compressedBlob);
   }
 
@@ -80,6 +78,6 @@ export class FlImageHelper{
   }
 
   public static blobToFile(blob: Blob): File {
-    return new File([blob], 'image.png', {type: 'image/png'});
+    return new File([blob], 'image.png', { type: 'image/png' });
   }
 }

@@ -5,12 +5,11 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 export class CaFolderSearchFields {
-
   code: string;
 
   name: string;
@@ -33,7 +32,6 @@ export class CaFolderSearchFields {
 }
 
 export class CaFolderSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaFolderSearchFields> = {
     code: 'code',
     name: 'name',
@@ -41,7 +39,7 @@ export class CaFolderSearch {
     endingDate: 'ending_date',
     leader: 'folder_leader',
     createdAt: 'creation_date',
-    includeSubFolders: 'include_sub_folders'
+    includeSubFolders: 'include_sub_folders',
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaFolderSearchFields> = {
@@ -52,7 +50,7 @@ export class CaFolderSearch {
     leader: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     includeSubFolders: { key: 'includeSubFolders', operator: 'EQ' },
-    id: { key: 'id', operator: 'EQ' }
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
@@ -67,19 +65,19 @@ export class CaFolderSearch {
       name: null,
       startingDate: new FormBuilder().group({
         from: [null],
-        to: [null]
+        to: [null],
       }),
       endingDate: new FormBuilder().group({
         from: [null],
-        to: [null]
+        to: [null],
       }),
       leader: null,
       createdAt: new FormBuilder().group({
         from: [null],
-        to: [null]
+        to: [null],
       }),
       includeSubFolders: null,
-      id: null
+      id: null,
     });
   }
 }

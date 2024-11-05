@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBiotaDatabaseSearchFormComponent} from './lab-biota-database-search-form.component';
+import { LabBiotaDatabaseSearchFormComponent } from './lab-biota-database-search-form.component';
 
 describe('BiotaDatabaseSearchFormComponent', () => {
   let component: LabBiotaDatabaseSearchFormComponent;
@@ -8,9 +8,8 @@ describe('BiotaDatabaseSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBiotaDatabaseSearchFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBiotaDatabaseSearchFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

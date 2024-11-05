@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamTableComponent} from './ca-team-table.component';
+import { CaTeamTableComponent } from './ca-team-table.component';
 
 describe('CaTeamTableComponent', () => {
   let component: CaTeamTableComponent;
@@ -8,9 +8,8 @@ describe('CaTeamTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaTeamTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaTeamTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaTeamTableComponent);
     component = fixture.componentInstance;

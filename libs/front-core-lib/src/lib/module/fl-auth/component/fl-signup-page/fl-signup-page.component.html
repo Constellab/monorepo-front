@@ -1,14 +1,13 @@
 <div class="page g-layout-row g-layout-center-center">
   <fl-card class="card" flClass.xs="card-xs">
     <fl-card-body>
-      <img [src]="logo" alt="Gencovery logo" class="logo"/>
+      <img [src]="logo" alt="Gencovery logo" class="logo" />
 
       <form (ngSubmit)="submit()" [formGroup]="formGp">
         <fl-signup-form [formGp]="formGp"></fl-signup-form>
 
-        <button mat-flat-button color="accent" type="submit"
-                class="centered g-button-big">
-          {{'flAuth.signup' | translate}}
+        <button mat-flat-button color="accent" type="submit" class="centered g-button-big">
+          {{ 'flAuth.signup' | translate }}
           <fl-button-loader *ngIf="isLoading"></fl-button-loader>
         </button>
       </form>
@@ -16,6 +15,4 @@
       <ng-content></ng-content>
     </fl-card-body>
   </fl-card>
-
 </div>
-

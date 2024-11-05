@@ -6,14 +6,12 @@ import { CaRouterService } from '../../../../service/ca-router.service';
 @Component({
   selector: 'ca-space-table',
   templateUrl: './ca-space-table.component.html',
-  styleUrls: ['./ca-space-table.component.scss']
+  styleUrls: ['./ca-space-table.component.scss'],
 })
 export class CaSpaceTableComponent {
-
   @Input({ required: true }) datasource: FlDatasource<CaSpace>;
 
   @Input() columns: FlTableColumnStatic<CaSpace>[] = ['name', 'created', 'lastModified', 'type', 'detail'];
 
   currentSpaceRoute = CaRouterService.getCurrentSpaceRoute();
-
 }

@@ -1,4 +1,12 @@
-import { Inject, Injectable, InjectionToken, Optional, PLATFORM_ID, Renderer2, RendererFactory2 } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional,
+  PLATFORM_ID,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
 import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
@@ -13,22 +21,23 @@ export const REQUEST = new InjectionToken<Request>('REQUEST');
  * Service to manage light and dark theme
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlThemeService {
-
   private readonly themeKey: string = 'theme';
 
   private renderer: Renderer2;
 
   private request: Request;
 
-  constructor(private cookieService: FlCookieService,
-              @Inject(DOCUMENT) private document: Document,
-              // eslint-disable-next-line @typescript-eslint/ban-types
-              @Inject(PLATFORM_ID) private platformId: Object,
-              @Optional() @Inject(REQUEST) request: Request,
-              rendererFactory: RendererFactory2) {
+  constructor(
+    private cookieService: FlCookieService,
+    @Inject(DOCUMENT) private document: Document,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional() @Inject(REQUEST) request: Request,
+    rendererFactory: RendererFactory2
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.request = request;
   }
@@ -71,7 +80,7 @@ export class FlThemeService {
       expires: date,
       sameSite: 'Lax',
       secure: true,
-      path: '/'
+      path: '/',
     });
   }
 
@@ -83,7 +92,10 @@ export class FlThemeService {
    * change the current app theme and save it in the local storage
    */
   public changeTheme(theme: ClTheme): void {
-    if (this.checkTheme(theme) && (theme !== this.getCurrentTheme() || this.cookieService.getStringCookie(this.themeKey) != theme)) {
+    if (
+      this.checkTheme(theme) &&
+      (theme !== this.getCurrentTheme() || this.cookieService.getStringCookie(this.themeKey) != theme)
+    ) {
       this.storeTheme(theme);
       this.loadTheme(theme);
     }
@@ -94,7 +106,7 @@ export class FlThemeService {
 
   // change the app theme by changing the css file
   private loadTheme(theme: ClTheme): void {
-    const link = (this.document.getElementById('app-theme') as HTMLLinkElement);
+    const link = this.document.getElementById('app-theme') as HTMLLinkElement;
 
     if (link) {
       this.renderer.setAttribute(link, 'href', `${theme}.css`);
@@ -104,7 +116,6 @@ export class FlThemeService {
   private storeTheme(theme: ClTheme): void {
     this.setCookieTheme(theme);
   }
-
 
   private checkTheme(theme: ClTheme | string): boolean {
     return clThemeIsSupported(theme);
@@ -124,7 +135,6 @@ export class FlThemeService {
     return ClTheme.LIGHT_THEME;
   }
 
-
   /**
    * Return the current theme detail
    */
@@ -133,6 +143,4 @@ export class FlThemeService {
 
     return theme === ClTheme.LIGHT_THEME ? flThemeDetailLight : flThemeDetailDark;
   }
-
-
 }

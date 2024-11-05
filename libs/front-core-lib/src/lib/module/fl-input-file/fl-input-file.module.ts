@@ -8,9 +8,7 @@ import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlTranslateService } from '../fl-translate/service/fl-translate.service';
 import { flFileInputI18n } from './i18n/fl-input-file.i18n';
 import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
-import {
-  FlInputFileIconContainerComponent
-} from './fl-input-file-icon-container/fl-input-file-icon-container.component';
+import { FlInputFileIconContainerComponent } from './fl-input-file-icon-container/fl-input-file-icon-container.component';
 import { MatRippleModule } from '@angular/material/core';
 import { FlDragModule } from '../fl-drag/fl-drag.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -21,16 +19,8 @@ import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
  * Form input to manage file
  */
 @NgModule({
-  declarations: [
-    FlInputFileContainerComponent,
-    FlInputFileDirective,
-    FlInputFileIconContainerComponent
-  ],
-  exports: [
-    FlInputFileDirective,
-    FlInputFileContainerComponent,
-    FlInputFileIconContainerComponent,
-  ],
+  declarations: [FlInputFileContainerComponent, FlInputFileDirective, FlInputFileIconContainerComponent],
+  exports: [FlInputFileDirective, FlInputFileContainerComponent, FlInputFileIconContainerComponent],
   imports: [
     CommonModule,
 
@@ -43,7 +33,7 @@ import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
     FlTranslateModule,
     FlIconModule,
     FlSnackBarModule,
-  ]
+  ],
 })
 export class FlInputFileModule {
   constructor(translateServie: FlTranslateService) {

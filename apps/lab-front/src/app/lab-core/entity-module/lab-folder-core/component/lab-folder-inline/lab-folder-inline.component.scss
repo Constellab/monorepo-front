@@ -1,10 +1,10 @@
-.container{
+.container {
   padding: 5px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.container:hover{
+.container:hover {
   background-color: var(--hover-color);
 }
 
@@ -15,6 +15,6 @@
   flex-shrink: 0;
 }
 
-.text{
+.text {
   line-height: 1.2em;
 }

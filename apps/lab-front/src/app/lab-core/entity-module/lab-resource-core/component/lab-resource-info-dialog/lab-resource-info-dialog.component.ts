@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface LabResourceInfoDialogInput {
   resource: LabResource;
@@ -12,7 +12,6 @@ export interface LabResourceInfoDialogInput {
   styleUrls: ['./lab-resource-info-dialog.component.scss'],
 })
 export class LabResourceInfoDialogComponent {
-
   resource: LabResource;
 
   constructor(@Inject(MAT_DIALOG_DATA) input: LabResourceInfoDialogInput) {

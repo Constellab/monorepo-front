@@ -4,16 +4,17 @@ import { Directive, effect, EmbeddedViewRef, input, TemplateRef, ViewContainerRe
  * Directive to recreate a view when the input change. It allows to recreate component when the input changes.
  */
 @Directive({
-  selector: '[flRecreateView]'
+  selector: '[flRecreateView]',
 })
 export class FlRecreateViewDirective {
-
   flRecreateView = input.required<any>();
 
   viewRef: EmbeddedViewRef<any>;
 
-
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private viewContainer: ViewContainerRef
+  ) {
     effect(() => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const _ = this.flRecreateView();
@@ -24,7 +25,6 @@ export class FlRecreateViewDirective {
     });
   }
 
-
   private createView(): void {
     this.viewRef = this.viewContainer.createEmbeddedView(this.templateRef);
   }
@@ -33,5 +33,4 @@ export class FlRecreateViewDirective {
     this.viewRef.destroy();
     this.viewRef = null;
   }
-
 }

@@ -8,19 +8,17 @@
     }
 
     @if (progressBar$ | async; as progressBar) {
-
-
       @if (progressBar.startedAt) {
         <fl-key-value>
           <fl-key>{{ 'begin_date' | translate }}</fl-key>
-          {{ progressBar.startedAt | flDate:'DATE_TIME_WITH_SECONDS' }}
+          {{ progressBar.startedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
         </fl-key-value>
       }
 
       @if (progressBar.endedAt) {
         <fl-key-value>
           <fl-key>{{ 'end_date' | translate }}</fl-key>
-          {{ progressBar.endedAt | flDate:'DATE_TIME_WITH_SECONDS' }}
+          {{ progressBar.endedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
         </fl-key-value>
       }
 
@@ -39,32 +37,35 @@
     }
 
     @if (!showLiveModeToggle) {
-      <mat-slide-toggle [(ngModel)]="liveMode"
-                        (ngModelChange)="liveModeChanged()"
-                        labelPosition="before">
+      <mat-slide-toggle [(ngModel)]="liveMode" (ngModelChange)="liveModeChanged()" labelPosition="before">
         {{ 'biox.progress_bar_live_messages' | translate }}
       </mat-slide-toggle>
     }
   </div>
 </div>
 
-
-<div (flInfiniteScroll)="loadMoreMessagesManually()" [flInfiniteDisabled]="loadMoreIsLoading || loadMoreCompleted"
-     [flInfiniteMode]="scrollableElement" class="infinite-container">
+<div
+  (flInfiniteScroll)="loadMoreMessagesManually()"
+  [flInfiniteDisabled]="loadMoreIsLoading || loadMoreCompleted"
+  [flInfiniteMode]="scrollableElement"
+  class="infinite-container">
   @for (message of messages$ | async; track message.datetime) {
     <div>
       <lab-progress-message [progressMessage]="message"></lab-progress-message>
 
       <mat-divider class="divider"></mat-divider>
-
     </div>
   }
 
   @if (!loadMoreCompleted) {
-
     <div class="g-text-centered">
-      <button [disabled]="loadMoreIsLoading || loadMoreCompleted" class="g-button-small"
-              mat-stroked-button color="primary" type="button" (click)="loadMoreMessagesManually()">
+      <button
+        [disabled]="loadMoreIsLoading || loadMoreCompleted"
+        class="g-button-small"
+        mat-stroked-button
+        color="primary"
+        type="button"
+        (click)="loadMoreMessagesManually()">
         {{ 'show_more_result' | translate }}
         @if (loadMoreIsLoading) {
           <fl-button-loader size="small"></fl-button-loader>
@@ -73,4 +74,3 @@
     </div>
   }
 </div>
-

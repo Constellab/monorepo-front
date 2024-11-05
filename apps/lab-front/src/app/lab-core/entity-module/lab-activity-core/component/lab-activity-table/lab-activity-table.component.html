@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
-
   <!-- User -->
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef>
@@ -54,9 +53,11 @@
   <ng-container matColumnDef="link">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <a *ngIf="showLink(row)"
-         [routerLink]="row.objectId | labDetailRoute:getLabObjectType(row)"
-         mat-stroked-button class="g-button-small">
+      <a
+        *ngIf="showLink(row)"
+        [routerLink]="row.objectId | labDetailRoute: getLabObjectType(row)"
+        mat-stroked-button
+        class="g-button-small">
         <mat-icon>visibility</mat-icon>
         {{ 'detail' | translate }}
       </a>
@@ -64,5 +65,5 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>

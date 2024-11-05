@@ -1,4 +1,4 @@
-:host{
+:host {
   // To wrap the chip list event we empty
   min-height: 40px;
   padding-top: 0.5em;
@@ -7,12 +7,12 @@
   width: 100%;
 }
 
-.chip{
+.chip {
   background-color: var(--hover-color);
   margin: 4px;
   cursor: default;
 }
 
-.remove-icon{
+.remove-icon {
   cursor: pointer;
 }

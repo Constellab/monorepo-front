@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSearchResultComponent} from './fl-search-result.component';
+import { FlSearchResultComponent } from './fl-search-result.component';
 
 describe('FlSearchResultComponent', () => {
   let component: FlSearchResultComponent;
@@ -8,9 +8,8 @@ describe('FlSearchResultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSearchResultComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSearchResultComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

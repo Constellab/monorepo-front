@@ -8,9 +8,8 @@ describe('SelectLanguageOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSelectLanguageOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSelectLanguageOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

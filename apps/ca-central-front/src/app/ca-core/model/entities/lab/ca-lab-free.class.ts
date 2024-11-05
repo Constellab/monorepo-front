@@ -6,18 +6,15 @@ import { CaUser } from '../ca-user.class';
 import { CaSpace } from '../space/ca-space.class';
 
 export class CaLabFree extends CaBaseEntity {
-
   usageLimitInHours: number;
 
   @ClLuxonDateTimeTransform()
   expirationDate: DateTime;
 
   labId?: string;
-
 }
 
 export class CaLabFreeGetDto {
-
   @Type(() => CaLabFree)
   freeLab?: CaLabFree;
 

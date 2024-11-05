@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabPullBiotaFormDialogComponent} from './ca-lab-pull-biota-form-dialog.component';
+import { CaLabPullBiotaFormDialogComponent } from './ca-lab-pull-biota-form-dialog.component';
 
 describe('CaLabPullBiotaFormDialogComponent', () => {
   let component: CaLabPullBiotaFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaLabPullBiotaFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabPullBiotaFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabPullBiotaFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabPullBiotaFormDialogComponent);
     component = fixture.componentInstance;

@@ -1,4 +1,4 @@
-:host{
+:host {
   flex: 1;
   min-height: 0;
   box-sizing: border-box;
@@ -9,12 +9,12 @@
   grid-template-columns: 1fr;
 }
 
-.card{
+.card {
   background-color: var(--card-background);
   border-radius: var(--card-radius);
 }
 
-.card-body{
+.card-body {
   padding-top: 0;
   height: 100%;
 }

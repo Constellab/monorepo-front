@@ -4,17 +4,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TeRichTextContent } from '../../model/te-rich-text.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 
-
 /**
  * Dialog to record an audio to write text in the rich text editor
  */
 @Component({
   selector: 'te-audio-transcription-dialog',
   templateUrl: './te-audio-transcription-dialog.component.html',
-  styleUrl: './te-audio-transcription-dialog.component.scss'
+  styleUrl: './te-audio-transcription-dialog.component.scss',
 })
 export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
-
   private mediaRecorder: MediaRecorder;
   audioChunks: any[] = [];
 
@@ -39,7 +37,6 @@ export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
     try {
       // Request permission to access the user's microphone
       stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
     } catch (error) {
       this.micDisabled = true;
       return;
@@ -100,7 +97,7 @@ export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
   private callTranscribe(file: File): void {
     this.config.transcribeAudio(file).subscribe({
       next: (result) => this.transcribeSuccess(result),
-      error: () => this.transcriptionLoading = false
+      error: () => (this.transcriptionLoading = false),
     });
   }
 
@@ -117,6 +114,4 @@ export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.stopRecording();
   }
-
-
 }

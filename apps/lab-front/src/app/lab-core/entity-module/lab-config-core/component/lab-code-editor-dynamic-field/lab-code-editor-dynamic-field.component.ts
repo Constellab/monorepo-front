@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlCodeEditorLanguage, FlDynamicFieldAbstractDirective} from '@monorepo/front-core-lib';
-import {TdParamSpecType} from '@monorepo/technical-doc';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlCodeEditorLanguage, FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
+import { TdParamSpecType } from '@monorepo/technical-doc';
 
 /**
  * Component used under {@link FlDynamicFieldComponent} to show
@@ -11,9 +11,7 @@ import {TdParamSpecType} from '@monorepo/technical-doc';
   templateUrl: './lab-code-editor-dynamic-field.component.html',
   styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
 })
-export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective
-  implements OnInit {
-
+export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() specType: TdParamSpecType;
 
   language: FlCodeEditorLanguage;
@@ -42,6 +40,4 @@ export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDi
         throw new Error(`Unknown spec type ${this.specType}`);
     }
   }
-
-
 }

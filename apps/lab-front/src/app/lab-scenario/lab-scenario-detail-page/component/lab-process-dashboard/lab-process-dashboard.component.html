@@ -1,9 +1,11 @@
 <mat-dialog-content class="content">
-
   @if (process$ | async; as process) {
     <div class="header g-layout-row">
-      <co-update-type-icon-container [style]="process.style" [iconSize]="30"
-      (onClickEvent)="openProcessEditStyleDialog(process)" class="update-style"></co-update-type-icon-container>
+      <co-update-type-icon-container
+        [style]="process.style"
+        [iconSize]="30"
+        (onClickEvent)="openProcessEditStyleDialog(process)"
+        class="update-style"></co-update-type-icon-container>
       <div class="g-flex-auto">
         <div class="g-layout-row g-layout-between-start">
           <div class="g-layout-col g-layout-start-start">
@@ -19,21 +21,29 @@
             <fl-status-chip [status]="process.status"></fl-status-chip>
 
             @if (isEditable$ | async) {
-              <button mat-icon-button type="button" (click)="saveConfig()" tabindex="-1"
-                      [matTooltip]="'save' | translate" matTooltipPosition="below">
+              <button
+                mat-icon-button
+                type="button"
+                (click)="saveConfig()"
+                tabindex="-1"
+                [matTooltip]="'save' | translate"
+                matTooltipPosition="below">
                 <mat-icon>save</mat-icon>
               </button>
 
-              <button mat-icon-button type="button" (click)="saveConfigAndRunProcess(process)" tabindex="-1"
-                      [matTooltip]="'biox.save_config_and_run_process' | translate"
-                      matTooltipPosition="below">
+              <button
+                mat-icon-button
+                type="button"
+                (click)="saveConfigAndRunProcess(process)"
+                tabindex="-1"
+                [matTooltip]="'biox.save_config_and_run_process' | translate"
+                matTooltipPosition="below">
                 <mat-icon>play_arrow</mat-icon>
               </button>
             }
 
             @if (isWaiting$ | async) {
-              <mat-icon [matTooltip]="'biox.scenario_is_in_queue' | translate"
-                        matTooltipPosition="below">
+              <mat-icon [matTooltip]="'biox.scenario_is_in_queue' | translate" matTooltipPosition="below">
                 hourglass_empty
               </mat-icon>
             }
@@ -43,9 +53,7 @@
             </button>
 
             <mat-menu #menu="matMenu">
-
-              <button mat-menu-item type="button"
-                      (click)="openTypingDoc(process.processTypingName)">
+              <button mat-menu-item type="button" (click)="openTypingDoc(process.processTypingName)">
                 <mat-icon>info</mat-icon>
                 <span>{{ 'biox.process_type_doc' | translate }}</span>
               </button>
@@ -64,15 +72,12 @@
                 </button>
               }
 
-
               <!--   Progress and logs infos     -->
               @if (process.progressBar && process.status.value !== 'DRAFT') {
-
                 <button mat-menu-item type="button" (click)="openProgressDetails()">
                   <mat-icon>description</mat-icon>
                   {{ 'biox.node_progress_detail' | translate }}
                 </button>
-
 
                 <button mat-menu-item type="button" (click)="openProcessLogs(process)">
                   <mat-icon>description</mat-icon>
@@ -83,7 +88,6 @@
                   <mat-icon>troubleshoot</mat-icon>
                   {{ 'biox.view_process_monitoring' | translate }}
                 </button>
-
               }
 
               @if (process.wasRun()) {
@@ -92,7 +96,6 @@
                   <span class="g-warn-text">{{ 'biox.reset_process' | translate }}</span>
                 </button>
               }
-
             </mat-menu>
 
             <mat-menu #agentMenu>
@@ -134,15 +137,18 @@
   }
 
   <div class="g-layout-row g-layout-start-stretch section-container">
+    <lab-process-io-panel
+      [nodeProcess$]="nodeProcess$"
+      mode="input"
+      class="section input-section"></lab-process-io-panel>
 
-    <lab-process-io-panel [nodeProcess$]="nodeProcess$" mode="input"
-                          class="section input-section"></lab-process-io-panel>
+    <lab-configure-process
+      class="section central-section g-scrollable-element"
+      [process$]="process$"></lab-configure-process>
 
-    <lab-configure-process class="section central-section g-scrollable-element"
-                           [process$]="process$"></lab-configure-process>
-
-    <lab-process-io-panel [nodeProcess$]="nodeProcess$" mode="output"
-                          class="section output-section"></lab-process-io-panel>
+    <lab-process-io-panel
+      [nodeProcess$]="nodeProcess$"
+      mode="output"
+      class="section output-section"></lab-process-io-panel>
   </div>
-
 </mat-dialog-content>

@@ -12,10 +12,9 @@ import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 @Component({
   selector: 'ca-hierarchy-object-search-form',
   templateUrl: './ca-hierarchy-object-search-form.component.html',
-  styleUrl: './ca-hierarchy-object-search-form.component.scss'
+  styleUrl: './ca-hierarchy-object-search-form.component.scss',
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit {
-
   searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
 

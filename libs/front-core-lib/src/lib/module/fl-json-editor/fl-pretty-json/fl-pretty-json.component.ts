@@ -7,27 +7,24 @@ import {
   OnDestroy,
   OnInit,
   TrackByFunction,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {ClCoerceBooleanDecorator, ClHelpService, ClOnChange} from '@monorepo/core-lib';
-import {Observable, Subscription} from 'rxjs';
-import {FlKeyboardHelper, FlKeyboardKey} from '../../../utils/fl-keyboard.helper';
-import {FlFlatTreeControl} from '../../../model/fl-flat-tree-control.class';
-import {FlObjectFlatNode, FlObjectNode} from '../model/fl-pretty-json.class';
-import {FlPrettyJsonBuilder} from '../model/fl-pretty-json-builder.class';
-import {FlHtmlHelper} from '../../../utils/fl-html.helper';
-
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { ClCoerceBooleanDecorator, ClHelpService, ClOnChange } from '@monorepo/core-lib';
+import { Observable, Subscription } from 'rxjs';
+import { FlKeyboardHelper, FlKeyboardKey } from '../../../utils/fl-keyboard.helper';
+import { FlFlatTreeControl } from '../../../model/fl-flat-tree-control.class';
+import { FlObjectFlatNode, FlObjectNode } from '../model/fl-pretty-json.class';
+import { FlPrettyJsonBuilder } from '../model/fl-pretty-json-builder.class';
+import { FlHtmlHelper } from '../../../utils/fl-html.helper';
 
 @Component({
   selector: 'fl-pretty-json',
   templateUrl: './fl-pretty-json.component.html',
   styleUrls: ['./fl-pretty-json.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlPrettyJsonComponent implements OnInit, OnDestroy {
-
-
   /**
    * Json object to show, support observable
    */
@@ -36,7 +33,8 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
       this.init(value);
     }
   })
-  @Input() object: any;
+  @Input()
+  object: any;
 
   /**
    * Number max of character in the json object preview
@@ -57,9 +55,10 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
    * In dense mode, the text size and indent padding are smaller
    */
   @ClCoerceBooleanDecorator()
-  @Input() dense: boolean | string;
+  @Input()
+  dense: boolean | string;
 
-  @ViewChild('container', {static: false}) container: ElementRef<HTMLElement>;
+  @ViewChild('container', { static: false }) container: ElementRef<HTMLElement>;
 
   startChar: string;
   endChar: string;
@@ -86,15 +85,13 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
       value: node.type === 'string' ? `"${node.value}"` : node.value,
       preview: node.preview,
       type: node.type,
-      className: this.getNodeUniqueClass(node.id)
+      className: this.getNodeUniqueClass(node.id),
     };
   };
 
   hasChild = (_: number, node: FlObjectFlatNode): boolean => node.expandable;
 
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.init(this.object);
@@ -105,9 +102,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
     // unsubscribe previous subscription if it exists
     this.subscription?.unsubscribe();
     if (object instanceof Observable) {
-      object.subscribe(
-        json => this.initJson(json)
-      );
+      object.subscribe((json) => this.initJson(json));
     } else {
       this.initJson(object);
     }
@@ -122,8 +117,12 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
 
     try {
       // prepare the object
-      const builder: FlPrettyJsonBuilder = new FlPrettyJsonBuilder(object, this.previewMaxTextLength, this.previewMaxObjectShowed,
-        this.maxSubObjectView);
+      const builder: FlPrettyJsonBuilder = new FlPrettyJsonBuilder(
+        object,
+        this.previewMaxTextLength,
+        this.previewMaxObjectShowed,
+        this.maxSubObjectView
+      );
 
       this.startChar = builder.getObjectStartChart();
       this.endChar = builder.getObjectEndChart();
@@ -131,11 +130,17 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
       const data: FlObjectNode[] = builder.buildObjectNodes();
 
       this.treeControl = new FlFlatTreeControl<FlObjectFlatNode>(
-        node => node.level, node => node.expandable);
+        (node) => node.level,
+        (node) => node.expandable
+      );
 
       // object to flatten tree
       const treeFlattener: MatTreeFlattener<FlObjectNode, FlObjectFlatNode> = new MatTreeFlattener(
-        this._transformer, node => node.level, node => node.expandable, node => node.children);
+        this._transformer,
+        (node) => node.level,
+        (node) => node.expandable,
+        (node) => node.children
+      );
 
       // create the datasource and set data
       this.dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
@@ -147,7 +152,6 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
 
     this.cdr.markForCheck();
   }
-
 
   get paddingIndent(): number {
     return this.dense ? 10 : 20;
@@ -165,7 +169,6 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
 
     ClHelpService.stopEventPropagation(event);
     const selectedNode: FlObjectFlatNode = this.selectedNode ?? this.treeControl.dataNodes[0];
-
 
     switch (event.key) {
       case FlKeyboardKey.ARROW_DOWN:
@@ -232,7 +235,6 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
 
   ////////////////////////////// OTHERS //////////////////////////
 
-
   private selectParentNode(node: FlObjectFlatNode): boolean {
     const parent: FlObjectFlatNode = this.treeControl.getAncestor(node);
     if (parent) {
@@ -266,9 +268,7 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
     return this.container.nativeElement.querySelector('.' + this.getNodeUniqueClass(nodeId));
   }
 
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
 }
-

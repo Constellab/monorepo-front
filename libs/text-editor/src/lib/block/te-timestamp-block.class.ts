@@ -14,7 +14,6 @@ export interface TeTimestampBlockData {
 }
 
 export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
-
   public static readonly TAG_NAME = 'te-timestamp';
 
   static override get toolbox(): ToolboxConfig {
@@ -22,8 +21,8 @@ export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
     return [
       {
         icon: TeHelper.getMatIconElement('schedule'),
-        title: translateService.translate('teTextEditor.timestamp')
-      }
+        title: translateService.translate('teTextEditor.timestamp'),
+      },
     ];
   }
 
@@ -43,7 +42,7 @@ export class TeTimestampBlock extends TeComponentBlock<TeTimestampComponent> {
   save(): TeTimestampBlockData {
     return {
       timestamp: ClDateHelper.serializeDateTime(this.componentInstance.timestamp),
-      format: this.componentInstance.format
+      format: this.componentInstance.format,
     };
   }
 

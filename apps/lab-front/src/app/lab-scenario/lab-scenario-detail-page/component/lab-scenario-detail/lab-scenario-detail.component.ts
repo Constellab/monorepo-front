@@ -15,10 +15,9 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
 @Component({
   selector: 'lab-scenario-detail',
   templateUrl: './lab-scenario-detail.component.html',
-  styleUrls: ['./lab-scenario-detail.component.scss']
+  styleUrls: ['./lab-scenario-detail.component.scss'],
 })
 export class LabScenarioDetailComponent implements OnInit, OnDestroy {
-
   scenario$: Observable<LabScenario>;
   tags$: LabTagDatasource;
 
@@ -30,45 +29,45 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
 
   private subscription = new ClSubscriptionHandler();
 
-  constructor(private scenarioState: LabScenarioDetailPageState,
-              private scenarioService: LabScenarioService) {
-  }
+  constructor(
+    private scenarioState: LabScenarioDetailPageState,
+    private scenarioService: LabScenarioService
+  ) {}
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();
-    this.subscription.add(this.scenarioState.getDescription$().subscribe(
-      description => this.descriptionFormControl.patchValue(description, { emitEvent: false })
-    ));
+    this.subscription.add(
+      this.scenarioState
+        .getDescription$()
+        .subscribe((description) => this.descriptionFormControl.patchValue(description, { emitEvent: false }))
+    );
     this.tags$ = this.scenarioState.getTags$();
 
-
     this.saveDescriptionFunc = (content: TeRichTextContent) =>
-      this.scenarioService.updateDescription(this.scenarioState.currentScenario.id, content).pipe(
-        tap(exp => this.scenarioState.updateDescription(exp.description))
-      );
+      this.scenarioService
+        .updateDescription(this.scenarioState.currentScenario.id, content)
+        .pipe(tap((exp) => this.scenarioState.updateDescription(exp.description)));
 
-    this.subscription.add(this.scenarioState.getScenario$().subscribe(
-      scenario => {
+    this.subscription.add(
+      this.scenarioState.getScenario$().subscribe((scenario) => {
         if (scenario.isValidated) {
           this.descriptionFormControl.disable({ emitEvent: false });
         } else {
           this.descriptionFormControl.enable({ emitEvent: false });
         }
-      }
-    ));
+      })
+    );
   }
 
   updateFolder(folder: LabFolder): void {
     this.scenarioService.updateFolder(this.scenarioState.currentScenario.id, folder?.id ?? null).subscribe({
-      next: scenario => this.scenarioState.updateScenario(scenario),
+      next: (scenario) => this.scenarioState.updateScenario(scenario),
       // call refresh scenario to set the folder back
-      error: () => this.scenarioState.refreshScenario()
+      error: () => this.scenarioState.refreshScenario(),
     });
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

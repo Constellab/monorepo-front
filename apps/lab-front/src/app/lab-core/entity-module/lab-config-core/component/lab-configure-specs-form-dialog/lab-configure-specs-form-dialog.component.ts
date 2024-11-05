@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {LabConfig, LabConfigureSpecsForm} from '../../../../model/entities/lab-config.entity';
-import {LabConfigureSpecsFormComponent} from '../lab-configure-specs-form/lab-configure-specs-form.component';
-import {FlFormHelper} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { LabConfig, LabConfigureSpecsForm } from '../../../../model/entities/lab-config.entity';
+import { LabConfigureSpecsFormComponent } from '../lab-configure-specs-form/lab-configure-specs-form.component';
+import { FlFormHelper } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface LabConfigureSpecsFormDialogInput {
   configData: LabConfig;
@@ -18,18 +18,18 @@ export interface LabConfigureSpecsFormDialogInput {
 @Component({
   selector: 'lab-configure-specs-form-dialog',
   templateUrl: './lab-configure-specs-form-dialog.component.html',
-  styleUrls: ['./lab-configure-specs-form-dialog.component.scss']
+  styleUrls: ['./lab-configure-specs-form-dialog.component.scss'],
 })
 export class LabConfigureSpecsFormDialogComponent implements OnInit {
-
   formGp: UntypedFormGroup;
 
   input: LabConfigureSpecsFormDialogInput;
   configData: LabConfig;
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) input: LabConfigureSpecsFormDialogInput,
-              private dialogRef: MatDialogRef<LabConfigureSpecsFormDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: LabConfigureSpecsFormDialogInput,
+    private dialogRef: MatDialogRef<LabConfigureSpecsFormDialogComponent>
+  ) {
     this.input = input;
   }
 
@@ -49,10 +49,9 @@ export class LabConfigureSpecsFormDialogComponent implements OnInit {
   submit(): void {
     if (this.formGp.valid) {
       const value: LabConfigureSpecsForm = this.formGp.getRawValue();
-      this.dialogRef.close({...value.public, ...value.protected});
+      this.dialogRef.close({ ...value.public, ...value.protected });
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }
   }
-
 }

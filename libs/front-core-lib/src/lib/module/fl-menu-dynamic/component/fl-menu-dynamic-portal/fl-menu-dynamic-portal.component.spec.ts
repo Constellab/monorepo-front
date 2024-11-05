@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlMenuDynamicPortalComponent} from './fl-menu-dynamic-portal.component';
+import { FlMenuDynamicPortalComponent } from './fl-menu-dynamic-portal.component';
 
 describe('FlMenuDynamicPortalComponent', () => {
   let component: FlMenuDynamicPortalComponent;
@@ -8,9 +8,8 @@ describe('FlMenuDynamicPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlMenuDynamicPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [FlMenuDynamicPortalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,10 +8,9 @@ import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 @Component({
   selector: 'fl-signup-form',
   templateUrl: './fl-signup-form.component.html',
-  styleUrls: ['./fl-signup-form.component.scss']
+  styleUrls: ['./fl-signup-form.component.scss'],
 })
 export class FlSignupFormComponent {
-
   @Input() formGp: UntypedFormGroup;
 
   public static buildFormGroup(): UntypedFormGroup {
@@ -20,11 +19,10 @@ export class FlSignupFormComponent {
       lastname: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, FlGlobalValidators.passwordValidator()]],
-      repeatPassword: [null, [Validators.required,
-        FlGlobalValidators.repeatPasswordValidator('password')]],
+      repeatPassword: [null, [Validators.required, FlGlobalValidators.repeatPasswordValidator('password')]],
       category: [null, Validators.required],
       validateCGU: [false, FlGlobalValidators.isValue(true)],
-      phone: [null]
+      phone: [null],
     });
   }
 

@@ -1,18 +1,19 @@
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export type FlHeaderCellType = 'row' | 'column';
 
-export type SpCellEditChange = { edit: false, value: void } | { edit: true, value: string };
+export type SpCellEditChange = { edit: false; value: void } | { edit: true; value: string };
 
 export abstract class SpCell {
-
   private static idGenerator: number = 0;
   public id: number;
 
   public abstract editable: boolean;
   private _value$: BehaviorSubject<any>;
-  private _edit$: BehaviorSubject<SpCellEditChange> = new BehaviorSubject<SpCellEditChange>({edit: false, value: null});
-
+  private _edit$: BehaviorSubject<SpCellEditChange> = new BehaviorSubject<SpCellEditChange>({
+    edit: false,
+    value: null,
+  });
 
   protected constructor(value: any = null) {
     this.id = SpCell.idGenerator++;
@@ -46,10 +47,9 @@ export abstract class SpCell {
     if (!this.isEditable()) return;
 
     if (edit !== this.getEdit()) {
-      this._edit$.next({edit: edit, value: value} as any);
+      this._edit$.next({ edit: edit, value: value } as any);
     }
   }
-
 
   get edit$(): Observable<SpCellEditChange> {
     return this._edit$.asObservable();
@@ -67,7 +67,6 @@ export abstract class SpCell {
     this._value$.complete();
     this._edit$.complete();
   }
-
 }
 
 export class FlBasicCell extends SpCell {
@@ -77,7 +76,6 @@ export class FlBasicCell extends SpCell {
     super();
     this.value = null;
   }
-
 }
 
 export class FlColumnHeaderCell extends SpCell {

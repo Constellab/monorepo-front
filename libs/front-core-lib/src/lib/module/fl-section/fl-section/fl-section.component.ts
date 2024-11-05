@@ -1,7 +1,7 @@
-import {AfterContentInit, Component, ContentChild, Input, OnInit, ViewContainerRef} from '@angular/core';
-import {FlSectionBodyDirective} from '../fl-section-body';
-import {TemplatePortal} from '@angular/cdk/portal';
-import {ClHelpService} from '@monorepo/core-lib';
+import { AfterContentInit, Component, ContentChild, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { FlSectionBodyDirective } from '../fl-section-body';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Component to display a section containing an object or a list
@@ -13,10 +13,9 @@ import {ClHelpService} from '@monorepo/core-lib';
 @Component({
   selector: 'fl-section',
   templateUrl: './fl-section.component.html',
-  styleUrls: ['./fl-section.component.scss']
+  styleUrls: ['./fl-section.component.scss'],
 })
 export class FlSectionComponent implements OnInit, AfterContentInit {
-
   _isLoading: boolean = false;
   @Input() set isLoading(isLoading: boolean) {
     this._isLoading = isLoading;
@@ -30,7 +29,6 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
     this.lazyRender();
   }
 
-
   @Input() emptyText: string = 'object_not_found';
 
   @Input() disableEmptyText: boolean = false;
@@ -41,16 +39,13 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
   /** Portal holding the user's content. */
   portal: TemplatePortal;
 
-  constructor(private viewContainerRef: ViewContainerRef) {
-  }
+  constructor(private viewContainerRef: ViewContainerRef) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterContentInit(): void {
     this.lazyRender();
   }
-
 
   // if it returns true, the section body is rendered
   get renderBody(): boolean {
@@ -72,5 +67,4 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
       this.portal = null;
     }
   }
-
 }

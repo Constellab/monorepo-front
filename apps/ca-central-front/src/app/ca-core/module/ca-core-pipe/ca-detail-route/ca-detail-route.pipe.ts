@@ -12,7 +12,6 @@ import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-o
 
 type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document' | 'user';
 
-
 /**
  * Pipe to get the detail route of an object
  *
@@ -21,14 +20,12 @@ type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document
  *  Provide an id and the object type
  */
 @Pipe({
-  name: 'caDetailRoute'
+  name: 'caDetailRoute',
 })
 export class CaDetailRoutePipe implements PipeTransform {
-
   transform(value: string, objectType?: CaObjectType): string;
   transform(value: CaEntity): string;
   transform(value: string | CaEntity, objectType?: CaObjectType): string {
-
     let id: string;
     if (objectType == null) {
       [objectType, id] = this.getObjectType(value);
@@ -57,7 +54,6 @@ export class CaDetailRoutePipe implements PipeTransform {
         console.error(`[caDetailRoute] object type ${objectType} not supported`);
         return null;
     }
-
   }
 
   private getObjectType(obj: any): [CaObjectType, string] {
@@ -85,6 +81,4 @@ export class CaDetailRoutePipe implements PipeTransform {
       return [null, null];
     }
   }
-
-
 }

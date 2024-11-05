@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   LabCreateScenarioTemplateDTO,
-  LabScenarioTemplate
+  LabScenarioTemplate,
 } from '../../../../model/entities/process/lab-scenario-template.entity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -22,14 +22,18 @@ export interface LabScenarioTemplateFormDialogInput extends FlFormDialogInput<La
   templateUrl: './lab-scenario-template-form-dialog.component.html',
   styleUrls: ['./lab-scenario-template-form-dialog.component.scss'],
 })
-export class LabScenarioTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabCreateScenarioTemplateDTO>
-  implements OnInit {
+export class LabScenarioTemplateFormDialogComponent
+  extends FlFormDialogAbstractDirective<LabCreateScenarioTemplateDTO>
+  implements OnInit
+{
   dialogInput: LabScenarioTemplateFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  textEditorConfig: TeBasicConfig = new TeBasicConfig({includeToolbarButton: true});
+  textEditorConfig: TeBasicConfig = new TeBasicConfig({ includeToolbarButton: true });
 
-  constructor(private protocolService: LabProtocolService,
-              private scenarioTemplateService: LabScenarioTemplateService) {
+  constructor(
+    private protocolService: LabProtocolService,
+    private scenarioTemplateService: LabScenarioTemplateService
+  ) {
     super();
   }
 
@@ -63,5 +67,4 @@ export class LabScenarioTemplateFormDialogComponent extends FlFormDialogAbstract
   getUpdateSuccessMessage(): string {
     return 'biox.scenario_template_updated';
   }
-
 }

@@ -1,19 +1,20 @@
-import {Directive, ElementRef, Input, OnDestroy, Renderer2} from '@angular/core';
-import {FlMouseHoverAbstractDirective} from './fl-mouse-hover-abstract.directive';
-import {FlRelativeOverlayConfig} from '../../module/fl-portal/model/fl-portal.class';
-import {FlOverlayRef} from '../../module/fl-portal/model/fl-overlay-ref.class';
-import {FlPortalService} from '../../module/fl-portal/service/fl-portal.service';
-import {FlPortalConfig} from '../../module/fl-portal/model/fl-portal-config.class';
-import {FlMouseHoverPortalConfig} from './fl-mouse-hover-portal.config';
-
+import { Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { FlMouseHoverAbstractDirective } from './fl-mouse-hover-abstract.directive';
+import { FlRelativeOverlayConfig } from '../../module/fl-portal/model/fl-portal.class';
+import { FlOverlayRef } from '../../module/fl-portal/model/fl-overlay-ref.class';
+import { FlPortalService } from '../../module/fl-portal/service/fl-portal.service';
+import { FlPortalConfig } from '../../module/fl-portal/model/fl-portal-config.class';
+import { FlMouseHoverPortalConfig } from './fl-mouse-hover-portal.config';
 
 /**
  * Abstract class for directive to define a directive that will open a portal when the
  * user is hovering the host element
  */
 @Directive()
-export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAbstractDirective implements OnDestroy {
-
+export abstract class FlMouseHoverPortalAbstractDirective
+  extends FlMouseHoverAbstractDirective
+  implements OnDestroy
+{
   /**
    *  if true doesn't display the detail on the hover
    */
@@ -24,9 +25,11 @@ export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAb
 
   private listener: () => void;
 
-  constructor(elementRef: ElementRef,
-              protected portalService: FlPortalService,
-              private render: Renderer2) {
+  constructor(
+    elementRef: ElementRef,
+    protected portalService: FlPortalService,
+    private render: Renderer2
+  ) {
     super(elementRef);
   }
 
@@ -63,12 +66,15 @@ export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAb
     const overlayConfig: FlRelativeOverlayConfig = config.overlayConfig ?? {
       hasBackdrop: false,
       disposeOnNavigation: true,
-      scrollStrategy: this.portalService.getCloseOnScrollStrategy()
+      scrollStrategy: this.portalService.getCloseOnScrollStrategy(),
     };
 
     // configure the portal position
-    const portalConfig: FlPortalConfig =
-      this.portalService.configureRelativePortal(this.elementRef.nativeElement, config.position, overlayConfig);
+    const portalConfig: FlPortalConfig = this.portalService.configureRelativePortal(
+      this.elementRef.nativeElement,
+      config.position,
+      overlayConfig
+    );
     // create the portal
     this.currentOverlay = this.portalService.createPortal(config.component, portalConfig, config.data);
 
@@ -118,7 +124,6 @@ export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAb
     }
   }
 
-
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this.clearListener();
@@ -129,6 +134,5 @@ export abstract class FlMouseHoverPortalAbstractDirective extends FlMouseHoverAb
       this.listener();
       this.listener = null;
     }
-
   }
 }

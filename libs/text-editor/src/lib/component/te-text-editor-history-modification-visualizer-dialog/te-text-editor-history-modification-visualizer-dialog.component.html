@@ -1,9 +1,9 @@
 <fl-dialog-header>
-  <h4>{{ 'version' | translate }} - {{ group.end | flDate:'DATE_TIME' }}</h4>
+  <h4>{{ 'version' | translate }} - {{ group.end | flDate: 'DATE_TIME' }}</h4>
 </fl-dialog-header>
 <mat-dialog-content>
   <div class="content-part-div">
-    @if(isLoading){
+    @if (isLoading) {
       <fl-loader></fl-loader>
     } @else {
       <div class="users-list">
@@ -15,18 +15,23 @@
         }
       </div>
       @if (content) {
-        <te-text-editor [config]="textEditorConfig" [disabled]="true" [ngModel]="content" [event]="textEditorEvent"
-                        class="g-scrollable-element g-full-height g-max-article-width content"
-                        cdkScrollable></te-text-editor>
+        <te-text-editor
+          [config]="textEditorConfig"
+          [disabled]="true"
+          [ngModel]="content"
+          [event]="textEditorEvent"
+          class="g-scrollable-element g-full-height g-max-article-width content"
+          cdkScrollable></te-text-editor>
       }
     }
-
   </div>
 </mat-dialog-content>
-@if(this.isEditable){
+@if (this.isEditable) {
   <mat-dialog-actions>
     <div class="dialog-footer">
-      <button mat-stroked-button type="button" (click)="openConfirmRollback()">{{'teTextEditor.rollback_to_this_content' | translate}}</button>
+      <button mat-stroked-button type="button" (click)="openConfirmRollback()">
+        {{ 'teTextEditor.rollback_to_this_content' | translate }}
+      </button>
     </div>
   </mat-dialog-actions>
 }

@@ -6,7 +6,6 @@ import { LabViewConfig } from '../../../../model/entities/resource/lab-view-conf
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
-
 export interface LabResourceViewPortalInput {
   labView: LabResourceView;
   /**
@@ -31,10 +30,9 @@ export interface LabResourceViewPortalInput {
 @Component({
   selector: 'lab-resource-view-portal',
   templateUrl: './lab-resource-view-portal.component.html',
-  styleUrls: ['./lab-resource-view-portal.component.scss']
+  styleUrls: ['./lab-resource-view-portal.component.scss'],
 })
 export class LabResourceViewPortalComponent {
-
   labView: LabResourceView;
   rvConfig: RvViewConfig;
   contextMenuItems?: FlMenuDynamic[];
@@ -44,16 +42,18 @@ export class LabResourceViewPortalComponent {
 
   editTitle: boolean = false;
 
-  constructor(@Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
-              private overlayRef: FlOverlayRef,
-              private viewConfigService: LabViewConfigService) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
+    private overlayRef: FlOverlayRef,
+    private viewConfigService: LabViewConfigService
+  ) {
     this.labView = input.labView;
     this.contextMenuItems = input.contextMenuItems;
 
     if (input.labView.viewConfig) {
       this.rvConfig = {
         methodName: input.labView.viewConfig.viewName,
-        configValues: input.labView.viewConfig.configValues
+        configValues: input.labView.viewConfig.configValues,
       };
     }
 
@@ -108,9 +108,8 @@ export class LabResourceViewPortalComponent {
 
   updateTitle(title: string): void {
     if (this.labView.viewConfig == null) return;
-    this.viewConfigService.updateTitle(this.labView.viewConfig.id, title).subscribe(
-      viewConfig => this.onUpdate(viewConfig)
-    );
+    this.viewConfigService
+      .updateTitle(this.labView.viewConfig.id, title)
+      .subscribe((viewConfig) => this.onUpdate(viewConfig));
   }
-
 }

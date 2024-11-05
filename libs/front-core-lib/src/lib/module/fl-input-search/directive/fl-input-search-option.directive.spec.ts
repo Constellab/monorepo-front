@@ -1,4 +1,4 @@
-import {FlInputSearchOptionDirective} from './fl-input-search-option.directive';
+import { FlInputSearchOptionDirective } from './fl-input-search-option.directive';
 
 describe('FlInputSearchOptionDirective', () => {
   it('should create an instance', () => {

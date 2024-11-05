@@ -1,4 +1,4 @@
-import {FlElasticSearchDirective} from './fl-elastic-search.directive';
+import { FlElasticSearchDirective } from './fl-elastic-search.directive';
 
 describe('FlElasticSearchDirective', () => {
   it('should create an instance', () => {

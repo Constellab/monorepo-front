@@ -1,4 +1,4 @@
-import {FlPortalZIndexDirective} from './fl-portal-z-index.directive';
+import { FlPortalZIndexDirective } from './fl-portal-z-index.directive';
 
 describe('FlPortalZIndexDirective', () => {
   it('should create an instance', () => {

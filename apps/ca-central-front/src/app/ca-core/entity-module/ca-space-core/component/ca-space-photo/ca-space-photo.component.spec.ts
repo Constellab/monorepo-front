@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpacePhotoComponent} from './ca-space-photo.component';
+import { CaSpacePhotoComponent } from './ca-space-photo.component';
 
 describe('CaSpacePhotoComponent', () => {
   let component: CaSpacePhotoComponent;
@@ -8,9 +8,8 @@ describe('CaSpacePhotoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpacePhotoComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpacePhotoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpacePhotoComponent);
     component = fixture.componentInstance;

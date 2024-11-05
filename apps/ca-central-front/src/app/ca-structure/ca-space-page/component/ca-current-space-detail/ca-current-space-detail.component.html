@@ -1,16 +1,23 @@
 <fl-card *ngIf="space$ | async as space">
   <fl-card-header>
-
     <fl-card-actions>
       <ng-container *caIsSpaceAdmin>
-
-        <button mat-stroked-button class="g-button-small button" type="button"
-                *caIsSpaceAdmin (click)="openRequestNewLicense()">
+        <button
+          mat-stroked-button
+          class="g-button-small button"
+          type="button"
+          *caIsSpaceAdmin
+          (click)="openRequestNewLicense()">
           {{ 'request_new_licenses' | translate }}
         </button>
 
-        <button mat-icon-button type="button" class="button" color="warn" (click)="openDeleteSpace(space)"
-                [matTooltip]="'delete_space' | translate">
+        <button
+          mat-icon-button
+          type="button"
+          class="button"
+          color="warn"
+          (click)="openDeleteSpace(space)"
+          [matTooltip]="'delete_space' | translate">
           <mat-icon>delete</mat-icon>
         </button>
       </ng-container>
@@ -19,18 +26,25 @@
 
   <fl-card-body>
     <div class="g-layout-col g-layout-start-center center-info">
-      <fl-update-image-container [uploadConfig]="imageConfig$ | async" [deleteConfig]="deleteImageConfig | async"
-                                 [showDelete]="!!space.photo"
-                                 (imageChanged)="onSpaceUpdate($event)" (imageDeleted)="onSpaceUpdate($event)">
+      <fl-update-image-container
+        [uploadConfig]="imageConfig$ | async"
+        [deleteConfig]="deleteImageConfig | async"
+        [showDelete]="!!space.photo"
+        (imageChanged)="onSpaceUpdate($event)"
+        (imageDeleted)="onSpaceUpdate($event)">
         <ca-space-photo size="big" [space]="space$"></ca-space-photo>
       </fl-update-image-container>
-      <h1 class="title" flElementEditable
-          (flElementValueChange)="updateSpaceName($event)"
-          [flElementDisabled]="!isSpaceAdmin">{{ space.name }}</h1>
+      <h1
+        class="title"
+        flElementEditable
+        (flElementValueChange)="updateSpaceName($event)"
+        [flElementDisabled]="!isSpaceAdmin">
+        {{ space.name }}
+      </h1>
 
-      <fl-text-icon [matTooltip]="('space_type_detail_' + space.type) | translate">
+      <fl-text-icon [matTooltip]="'space_type_detail_' + space.type | translate">
         <mat-icon [flIcon]="space.typeIcon"></mat-icon>
-        {{ ('space_type_' + space.type) | translate }}
+        {{ 'space_type_' + space.type | translate }}
       </fl-text-icon>
     </div>
 
@@ -38,6 +52,5 @@
       <fl-key>{{ 'space_domain' | translate }}</fl-key>
       {{ space.domain }}
     </fl-key-value>
-
   </fl-card-body>
 </fl-card>

@@ -6,20 +6,24 @@ import { ClPageI } from '@monorepo/core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class LabUserService {
-
   private readonly route = 'user';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LabUser>> {
-    return this.apiService.get(`${this.route}/name-search/${name}`, LabUser,
-      { page, pageSize, resultIsPaginated: true });
+    return this.apiService.get(`${this.route}/name-search/${name}`, LabUser, {
+      page,
+      pageSize,
+      resultIsPaginated: true,
+    });
   }
 
   public searchByNameDatasource(): LabUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, data) => this.searchByName(data.filtersCriteria.searchText, page, size), 20, false);
+      (page, size, data) => this.searchByName(data.filtersCriteria.searchText, page, size),
+      20,
+      false
+    );
   }
 
   public getUserById(userId: string): Observable<LabUser> {

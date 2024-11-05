@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartLegendSeriesWithTagsComponent} from './ch-chart-legend-series-with-tags.component';
+import { ChChartLegendSeriesWithTagsComponent } from './ch-chart-legend-series-with-tags.component';
 
 describe('ChChartLegendSeriesWithTagsComponent', () => {
   let component: ChChartLegendSeriesWithTagsComponent;
@@ -8,9 +8,8 @@ describe('ChChartLegendSeriesWithTagsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartLegendSeriesWithTagsComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartLegendSeriesWithTagsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

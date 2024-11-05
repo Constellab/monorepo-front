@@ -1,7 +1,6 @@
-import {ChChart2dDatum, ChChart2dMultiSerie, ChChartConfig, ChChartVulcanoPlot} from '@monorepo/chart';
-import {RvResourceViewBase} from './rv-resource-view.class';
-import {rvResourceBuildBasicChart2d, RvResourceViewChart2dData} from './rv-basic-plot-2d.class';
-
+import { ChChart2dDatum, ChChart2dMultiSerie, ChChartConfig, ChChartVulcanoPlot } from '@monorepo/chart';
+import { RvResourceViewBase } from './rv-resource-view.class';
+import { rvResourceBuildBasicChart2d, RvResourceViewChart2dData } from './rv-basic-plot-2d.class';
 
 export interface RvResourceViewVulcanoPlot extends RvResourceViewBase {
   type: 'vulcano-plot-view';
@@ -13,13 +12,11 @@ export interface RvResourceViewVulcanoPlotData extends RvResourceViewChart2dData
   y_threshold: number;
 }
 
-
 /**
  * Build a ChChart from a vulcano resource view
  */
 export function rvVulcanoPlotToChart(view: RvResourceViewVulcanoPlot): ChChartConfig {
   const series: ChChart2dMultiSerie<ChChart2dDatum> = rvResourceBuildBasicChart2d(view.data);
-
 
   return new ChChartVulcanoPlot(series, view.data.x_threshold, view.data.y_threshold);
 }

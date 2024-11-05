@@ -8,9 +8,8 @@ describe('HaPublicInviteBrickUserDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicInviteBrickUserDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [HaPublicInviteBrickUserDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaPublicInviteBrickUserDialogComponent);
     component = fixture.componentInstance;

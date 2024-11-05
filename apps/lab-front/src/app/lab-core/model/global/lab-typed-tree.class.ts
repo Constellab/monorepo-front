@@ -1,15 +1,15 @@
-import {Expose, Type} from 'class-transformer';
-import {LabBaseEntity} from './lab-entity.entity';
-import {ClClassReference, ClConstructorFunction, ClCoreJsonConvert} from '@monorepo/core-lib';
+import { Expose, Type } from 'class-transformer';
+import { LabBaseEntity } from './lab-entity.entity';
+import { ClClassReference, ClConstructorFunction, ClCoreJsonConvert } from '@monorepo/core-lib';
 
 /**
  * Class for a tree of object by python type
  */
 export class LabTypedTree<T> {
-  @Expose({name: 'type_part'})
+  @Expose({ name: 'type_part' })
   typePart: string;
 
-  @Expose({name: 'sub_trees'})
+  @Expose({ name: 'sub_trees' })
   @Type(() => LabTypedTree)
   subTrees?: LabTypedTree<T>[];
 
@@ -60,19 +60,21 @@ export class LabTypedTree<T> {
 
     return current;
   }
-
-
 }
 
 /**
  * Function to instantiate the view model and instantiate the model under it
  * @param modelClassReference class reference of the model under the view model
  */
-export function labCreateTypedTree<T extends LabBaseEntity>(modelClassReference: ClClassReference<T>)
-  : ClConstructorFunction<LabTypedTree<T> | LabTypedTree<T>[]> {
+export function labCreateTypedTree<T extends LabBaseEntity>(
+  modelClassReference: ClClassReference<T>
+): ClConstructorFunction<LabTypedTree<T> | LabTypedTree<T>[]> {
   return (json: any): LabTypedTree<T> | LabTypedTree<T>[] => {
     // instantiate the view model or view models
-    const typedTree: LabTypedTree<T> | LabTypedTree<T>[] = ClCoreJsonConvert.deserialize(json, LabTypedTree) as any;
+    const typedTree: LabTypedTree<T> | LabTypedTree<T>[] = ClCoreJsonConvert.deserialize(
+      json,
+      LabTypedTree
+    ) as any;
 
     // if this is an array
     if (typedTree instanceof Array) {
@@ -89,8 +91,10 @@ export function labCreateTypedTree<T extends LabBaseEntity>(modelClassReference:
  * @param typedTrees
  * @param modelClassReference
  */
-function labInstantiateTypedTreeObjectRecur<T extends LabBaseEntity>(typedTrees: LabTypedTree<T>[],
-                                                                  modelClassReference: ClClassReference<T>): void {
+function labInstantiateTypedTreeObjectRecur<T extends LabBaseEntity>(
+  typedTrees: LabTypedTree<T>[],
+  modelClassReference: ClClassReference<T>
+): void {
   for (const tree of typedTrees) {
     if (tree.isLeaf()) {
       // instantiate tree object
@@ -102,4 +106,3 @@ function labInstantiateTypedTreeObjectRecur<T extends LabBaseEntity>(typedTrees:
     }
   }
 }
-

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import {
   CaFolderNotifOptions,
-  CaFolderUserConfig
+  CaFolderUserConfig,
 } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
@@ -19,10 +19,9 @@ export interface CaFolderUserConfigDialogInput {
 @Component({
   selector: 'ca-folder-user-config-dialog',
   templateUrl: './ca-folder-user-config-dialog.component.html',
-  styleUrls: ['./ca-folder-user-config-dialog.component.scss']
+  styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
 })
 export class CaFolderUserConfigDialogComponent implements OnInit {
-
   userConfig: CaFolderUserConfig;
 
   formGp = new FormBuilder().group({
@@ -38,17 +37,18 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
 
   notificationOptions: any = CaFolderNotifOptions;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaFolderUserConfigDialogInput,
-              private folderService: CaFolderService,
-              private dialogRef: MatDialogRef<CaFolderUserConfigDialogComponent>,
-              private snackBar: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaFolderUserConfigDialogInput,
+    private folderService: CaFolderService,
+    private dialogRef: MatDialogRef<CaFolderUserConfigDialogComponent>,
+    private snackBar: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.getIsLoading = true;
     this.folderService.getFolderUserConfig(this.input.folderId).subscribe({
       next: (userConfig) => this.initForm(userConfig),
-      error: () => this.getIsLoading = false
+      error: () => (this.getIsLoading = false),
     });
   }
 
@@ -68,15 +68,14 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
     this.isLoading = true;
     this.folderService.updateFolderUserConfig(this.input.folderId, this.formGp.getRawValue()).subscribe({
       next: () => this.onSuccess(),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
   }
-
 
   private onSuccess(): void {
     this.snackBar.openSuccessMessage({
       text: 'folder_notif_saved',
-      translateText: true
+      translateText: true,
     });
     this.isLoading = false;
     this.dialogRef.close();

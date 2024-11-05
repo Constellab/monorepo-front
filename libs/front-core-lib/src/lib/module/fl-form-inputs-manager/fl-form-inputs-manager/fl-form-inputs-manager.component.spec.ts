@@ -8,9 +8,8 @@ describe('FlFormInputsManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlFormInputsManagerComponent ]
-    })
-    .compileComponents();
+      declarations: [FlFormInputsManagerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

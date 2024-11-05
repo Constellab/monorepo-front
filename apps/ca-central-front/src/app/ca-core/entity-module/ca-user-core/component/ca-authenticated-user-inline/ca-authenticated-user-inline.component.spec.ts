@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAuthenticatedUserInlineComponent} from './ca-authenticated-user-inline.component';
+import { CaAuthenticatedUserInlineComponent } from './ca-authenticated-user-inline.component';
 
 describe('AuthenticatedUserInlineCardComponent', () => {
   let component: CaAuthenticatedUserInlineComponent;
@@ -8,9 +8,8 @@ describe('AuthenticatedUserInlineCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAuthenticatedUserInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAuthenticatedUserInlineComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

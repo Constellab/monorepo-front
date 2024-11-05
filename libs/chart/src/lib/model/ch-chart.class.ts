@@ -1,12 +1,11 @@
-import {ChChartConfig} from './ch-chart-config.class';
-import {FlMenuDynamic} from '@monorepo/front-core-lib';
+import { ChChartConfig } from './ch-chart-config.class';
+import { FlMenuDynamic } from '@monorepo/front-core-lib';
 
 export interface ChChartPortalConfig {
   chart: ChChartConfig;
 
   contextMenuItems?: FlMenuDynamic[];
 }
-
 
 export enum ChChartType {
   LINE = 'LINE',

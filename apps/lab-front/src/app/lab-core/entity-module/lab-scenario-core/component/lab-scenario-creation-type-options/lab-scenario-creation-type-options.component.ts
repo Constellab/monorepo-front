@@ -6,11 +6,12 @@ import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'lab-scenario-creation-type-options',
   templateUrl: './lab-scenario-creation-type-options.component.html',
-  styleUrls: ['./lab-scenario-creation-type-options.component.scss']
+  styleUrls: ['./lab-scenario-creation-type-options.component.scss'],
 })
-export class LabScenarioCreationTypeOptionsComponent extends FlEmbeddedOptionsAbstractDirective
-  implements AfterViewInit {
-
+export class LabScenarioCreationTypeOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements AfterViewInit
+{
   creationTypes = flScenarioCreationTypes;
 
   constructor(@Host() @Optional() public select: MatSelect) {

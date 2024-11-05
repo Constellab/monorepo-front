@@ -8,9 +8,8 @@ describe('LabResourcesUsedInScenarioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenariosUsingResourceComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenariosUsingResourceComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabScenariosUsingResourceComponent);
     component = fixture.componentInstance;

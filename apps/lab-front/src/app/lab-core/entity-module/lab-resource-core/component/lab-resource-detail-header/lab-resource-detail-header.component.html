@@ -1,64 +1,91 @@
 <div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
-
   <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
     <!--  Resource,  scenario name & folder name  -->
-    <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">{{resource().name}}</h1>
+    <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">
+      {{ resource().name }}
+    </h1>
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
-         *ngIf="displayMode !== 'dense'">
-      <a [routerLink]="resource().scenario.id | labDetailRoute:'SCENARIO'"
-         *ngIf="resource().scenario" class="g-text-link subtitle">
+    <div
+      class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small"
+      *ngIf="displayMode !== 'dense'">
+      <a
+        [routerLink]="resource().scenario.id | labDetailRoute: 'SCENARIO'"
+        *ngIf="resource().scenario"
+        class="g-text-link subtitle">
         <div class="g-layout-row g-layout-start-center">
           <mat-icon flIcon="scenario" class="g-icon-small separator"></mat-icon>
-          {{resource().scenario.title}}
+          {{ resource().scenario.title }}
         </div>
       </a>
 
-      <div *ngIf="resource().scenario && resource().folder" class="subtitle"> -</div>
+      <div *ngIf="resource().scenario && resource().folder" class="subtitle">-</div>
 
       <div class="g-layout-row g-layout-start-center subtitle" *ngIf="resource().folder">
         <mat-icon flIcon="folder" class="g-icon-small separator"></mat-icon>
-        <div class="circle-color separator" [style.background-color]="resource().folder.id | flStringToRgb"></div>
-        <div>{{resource().folder.title}}</div>
+        <div
+          class="circle-color separator"
+          [style.background-color]="resource().folder.id | flStringToRgb"></div>
+        <div>{{ resource().folder.title }}</div>
       </div>
     </div>
   </div>
 
   <lab-flag-button [entity]="resource()" *ngIf="displayMode !== 'dense'"></lab-flag-button>
 
-  <button mat-stroked-button color="primary" type="button" *ngIf="resource().isFsNode()"
-          (click)="openImportResource()" class="g-button-small">
-    {{'biox.import_resource' | translate}}
+  <button
+    mat-stroked-button
+    color="primary"
+    type="button"
+    *ngIf="resource().isFsNode()"
+    (click)="openImportResource()"
+    class="g-button-small">
+    {{ 'biox.import_resource' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" (click)="openViewSpecListPortal($event)"
-          class="g-button-small button">
-    {{'biox.views' | translate}}
+  <button
+    mat-stroked-button
+    type="button"
+    (click)="openViewSpecListPortal($event)"
+    class="g-button-small button">
+    {{ 'biox.views' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" (click)="openResourceInfoDialog()"
-          class="g-button-small button" *ngIf="displayMode !== 'dense'">
-    {{'biox.resource_info' | translate}}
+  <button
+    mat-stroked-button
+    type="button"
+    (click)="openResourceInfoDialog()"
+    class="g-button-small button"
+    *ngIf="displayMode !== 'dense'">
+    {{ 'biox.resource_info' | translate }}
   </button>
 
-
-  <lab-resource-actions-menu [readOnly]="displayMode !== 'fullPage'" [resource]="resource()" (update)="onUpdate($event)"
-                             (delete)="onDelete()">
-    <button mat-menu-item type="button" *ngIf="displayMode === 'fullPage'"
-            (click)="openTransformerResource()">
+  <lab-resource-actions-menu
+    [readOnly]="displayMode !== 'fullPage'"
+    [resource]="resource()"
+    (update)="onUpdate($event)"
+    (delete)="onDelete()">
+    <button
+      mat-menu-item
+      type="button"
+      *ngIf="displayMode === 'fullPage'"
+      (click)="openTransformerResource()">
       <mat-icon flIcon="transformer"></mat-icon>
-      {{'biox.transformers' | translate}}
+      {{ 'biox.transformers' | translate }}
     </button>
 
-    <button mat-menu-item type="button" (click)="openResourceInfoDialog()"
-            *ngIf="displayMode === 'dense'">
+    <button mat-menu-item type="button" (click)="openResourceInfoDialog()" *ngIf="displayMode === 'dense'">
       <mat-icon>info</mat-icon>
-      {{'biox.resource_info' | translate}}
+      {{ 'biox.resource_info' | translate }}
     </button>
   </lab-resource-actions-menu>
 
-  <button *ngIf="displayMode === 'fullDialog'" mat-icon-button type="button" [matTooltip]="'close' | translate"
-          [mat-dialog-close]="null" tabindex="-1">
+  <button
+    *ngIf="displayMode === 'fullDialog'"
+    mat-icon-button
+    type="button"
+    [matTooltip]="'close' | translate"
+    [mat-dialog-close]="null"
+    tabindex="-1">
     <mat-icon>close</mat-icon>
   </button>
 </div>

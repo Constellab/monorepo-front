@@ -8,7 +8,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { TooltipPosition } from '@angular/material/tooltip';
 import {
   LabDynamicPortConfigDialogComponent,
-  LabDynamicPortConfigDialogInput
+  LabDynamicPortConfigDialogInput,
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 
@@ -20,7 +20,6 @@ interface LabWorkflowPortResource {
   text: string;
 }
 
-
 /**
  * Component inside the node dashboard to display the input or output resources
  */
@@ -30,11 +29,9 @@ interface LabWorkflowPortResource {
   styleUrls: ['./lab-process-io-panel.component.scss'],
 })
 export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
-
   @Input() nodeProcess$: Observable<PrWorkflowNodeProcess>;
 
   @Input() mode: 'input' | 'output';
-
 
   @HostBinding('class.is-opened')
   isOpened: boolean = false;
@@ -46,33 +43,34 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   // observable to retrieve the id of the resource of the selected port
   selectedResourceId$: Observable<string>;
 
-
   // store the current selected port, null if none
   private selectedPort$: BehaviorSubject<string | null> = new BehaviorSubject(null);
 
-
-  constructor(private nodeState: LabWorkflowNodeDetailState,
-              private resourceState: PrWorkflowResourcesState,
-              private scenarioState: LabScenarioDetailPageState,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private nodeState: LabWorkflowNodeDetailState,
+    private resourceState: PrWorkflowResourcesState,
+    private scenarioState: LabScenarioDetailPageState,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.getPortResources();
     this.getSelectedResource();
 
     this.isDynamicPorts$ = this.nodeProcess$.pipe(
-      switchMap(nodeProcess => nodeProcess.hasDynamicIOPorts$(this.mode))
+      switchMap((nodeProcess) => nodeProcess.hasDynamicIOPorts$(this.mode))
     );
   }
 
   private getPortResources(): void {
-    this.nodeProcess$.pipe(
-      filter(nodeProcess => nodeProcess != null),
-      switchMap(nodeProcess =>
-        this.mode === 'input' ? nodeProcess.getInputPorts$() : nodeProcess.getOutputPorts$()))
-      .subscribe(ports => {
-
+    this.nodeProcess$
+      .pipe(
+        filter((nodeProcess) => nodeProcess != null),
+        switchMap((nodeProcess) =>
+          this.mode === 'input' ? nodeProcess.getInputPorts$() : nodeProcess.getOutputPorts$()
+        )
+      )
+      .subscribe((ports) => {
         // for each port, get the resource
         const resources: Observable<LabWorkflowPortResource>[] = [];
         for (const port of ports) {
@@ -92,26 +90,29 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
 
         if (io == null) return null;
         return io.resource_id;
-      }));
+      })
+    );
   }
 
   // get the resource for a given port and return port and resource
   private portToPortResource(port: PrWorkflowPort): Observable<LabWorkflowPortResource> {
     return port.getResourceId$().pipe(
-      switchMap(resourceId => {
+      switchMap((resourceId) => {
         if (resourceId == null) {
           return of({
             port: port,
-            text: port.humanName
+            text: port.humanName,
           });
         } else {
           return this.resourceState.getResource(resourceId).pipe(
-            map(resource => ({
+            map((resource) => ({
               port: port,
-              text: resource.status === 'success' ? resource.object.name : port.humanName
-            })));
+              text: resource.status === 'success' ? resource.object.name : port.humanName,
+            }))
+          );
         }
-      }));
+      })
+    );
   }
 
   onPortClick(portName: string): void {
@@ -131,7 +132,7 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   }
 
   portIsSelected(portName: string): Observable<boolean> {
-    return this.selectedPort$.pipe(map(selectedPort => selectedPort === portName));
+    return this.selectedPort$.pipe(map((selectedPort) => selectedPort === portName));
   }
 
   get addPortTooltip(): string {
@@ -158,20 +159,20 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
     const input: LabDynamicPortConfigDialogInput = {
       portType: this.mode,
       portName: port.name,
-      spec: port.currentSpecs
+      spec: port.currentSpecs,
     };
 
-    this.dialogService.openSmallDialog(LabDynamicPortConfigDialogComponent,
-      {data: input}).afterClosed().subscribe(
-      config => {
+    this.dialogService
+      .openSmallDialog(LabDynamicPortConfigDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((config) => {
         if (config != null)
           if (input.portType === 'input') {
             this.nodeState.updateDynamicInputPort(input.portName, config);
           } else {
             this.nodeState.updateDynamicOutputPort(input.portName, config);
           }
-      }
-    );
+      });
   }
 
   removePort(portName: string): void {
@@ -189,6 +190,4 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.selectedPort$.complete();
   }
-
-
 }

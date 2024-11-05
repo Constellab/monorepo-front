@@ -1,32 +1,34 @@
 <fl-dialog-header [hideCloseButton]="true">
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <div mat-dialog-content>
-
   <fl-async-section [object]="impactDTO$">
-
     <ng-container *flSectionBody="impactDTO$ as impactDTO">
-      <h2>{{tagListText | translate}}</h2>
+      <h2>{{ tagListText | translate }}</h2>
       <lab-tag-list [tags]="tags" class="tag-list" [showNoTagMessage]="true"></lab-tag-list>
 
       <div class="help-text g-text-light">
-        {{helpText | translate}}
+        {{ helpText | translate }}
       </div>
-      <lab-navigable-entity-groups [groups]="impactDTO.impactedEntities"
-                                   class="impacted-entities"></lab-navigable-entity-groups>
+      <lab-navigable-entity-groups
+        [groups]="impactDTO.impactedEntities"
+        class="impacted-entities"></lab-navigable-entity-groups>
     </ng-container>
   </fl-async-section>
 </div>
 
 <div mat-dialog-actions *ngIf="impactDTO$ | async" class="dialog-actions">
-  <button mat-stroked-button (click)="closeDialog(true)" type="button"
-          tabindex="-1" color="primary"
-          class="yes-button">
-    {{'yes' | translate}}
+  <button
+    mat-stroked-button
+    (click)="closeDialog(true)"
+    type="button"
+    tabindex="-1"
+    color="primary"
+    class="yes-button">
+    {{ 'yes' | translate }}
   </button>
-  <button mat-stroked-button type="button" (click)="closeDialog(false)"
-          tabindex="-1" color="warn">
-    {{'no' | translate}}
+  <button mat-stroked-button type="button" (click)="closeDialog(false)" tabindex="-1" color="warn">
+    {{ 'no' | translate }}
   </button>
 </div>

@@ -5,11 +5,10 @@ import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scen
 @Component({
   selector: 'ca-scenario-table',
   templateUrl: './ca-scenario-table.component.html',
-  styleUrls: ['./ca-scenario-table.component.scss']
+  styleUrls: ['./ca-scenario-table.component.scss'],
 })
 export class CaScenarioTableComponent {
-
-  @Input({required: true}) datasource: FlDatasource<CaScenario>;
+  @Input({ required: true }) datasource: FlDatasource<CaScenario>;
 
   @Input() columns: FlTableColumnStatic<CaScenario>[] = ['title', 'lastSync', 'status', 'createdBy'];
 
@@ -23,5 +22,4 @@ export class CaScenarioTableComponent {
       this.scenarioSelected.next(scenario);
     }
   }
-
 }

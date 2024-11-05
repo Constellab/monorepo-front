@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeLinkDialogComponent} from './te-link-dialog.component';
+import { TeLinkDialogComponent } from './te-link-dialog.component';
 
 describe('CaTextEditorLinkDialogComponent', () => {
   let component: TeLinkDialogComponent;
@@ -8,9 +8,8 @@ describe('CaTextEditorLinkDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeLinkDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [TeLinkDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

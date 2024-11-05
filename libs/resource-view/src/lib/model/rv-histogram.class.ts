@@ -5,9 +5,9 @@ import {
   ChChartHistogram,
   ChChartHistogramMode,
   ChChartLabelFormatter,
-  ChChartSerie
+  ChChartSerie,
 } from '@monorepo/chart';
-import {RvResourceViewBase} from './rv-resource-view.class';
+import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewHistogram extends RvResourceViewBase {
   type: 'histogram-view';
@@ -23,8 +23,8 @@ export interface RvResourceViewHistogramData {
 
 export interface RvResourceViewHistogramSerie {
   data: {
-    x: number[];// list of bin interval (two side values represent an interval), one more value than hist
-    y: number[];// list of hist values, number of values per interval
+    x: number[]; // list of bin interval (two side values represent an interval), one more value than hist
+    y: number[]; // list of hist values, number of values per interval
   };
   name: string;
 }
@@ -50,19 +50,16 @@ export function rvHistogramToChart(view: RvResourceViewHistogram): ChChartConfig
   }
 
   // define the axisXLabelFormat
-  series.axisXLabelTicksFormatter = new ChChartLabelFormatter(
-    (index: number) => {
-      const dataHisto: ChChartDataBin = series.series[0].data[index];
-      return dataHisto.getIntervalShortText();
-    },
-    ChChartDataBin.getIntervalTextLength()
-  );
+  series.axisXLabelTicksFormatter = new ChChartLabelFormatter((index: number) => {
+    const dataHisto: ChChartDataBin = series.series[0].data[index];
+    return dataHisto.getIntervalShortText();
+  }, ChChartDataBin.getIntervalTextLength());
 
   if (view.data.x_label) {
     series.axisXLabel = view.data.x_label;
   }
 
-  if(view.data.y_label) {
+  if (view.data.y_label) {
     series.axisYLabel = view.data.y_label;
   }
 

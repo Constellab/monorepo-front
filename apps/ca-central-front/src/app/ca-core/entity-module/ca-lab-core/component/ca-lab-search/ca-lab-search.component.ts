@@ -7,28 +7,25 @@ import {
   FlSearchConfig,
   FlSearchState,
   FlTableColumnStatic,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLabSearch, CaLabSearchFields } from '../../model/ca-lab-search.class';
 import {
   CaLabAdminFormDialogComponent,
-  CaLabAdminFormDialogInput
+  CaLabAdminFormDialogInput,
 } from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
 import { CaLabSearchMode } from '../ca-lab-search-form/ca-lab-search-form.component';
-import {
-  CaLabFreeAdminFormDialogComponent
-} from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
+import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 
 @Component({
   selector: 'ca-lab-search',
   templateUrl: './ca-lab-search.component.html',
   styleUrls: ['./ca-lab-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class CaLabSearchComponent implements OnInit {
-
   /**
    * Mode for the search
    * All --> search in all lab, only for admin
@@ -40,12 +37,12 @@ export class CaLabSearchComponent implements OnInit {
 
   columns: FlTableColumnStatic<CaLab>[];
 
-
-  constructor(private searchState: FlSearchState<any>,
-              private labService: CaLabService,
-              private themeService: FlThemeService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private labService: CaLabService,
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -57,7 +54,7 @@ export class CaLabSearchComponent implements OnInit {
         config: CaLabSearch.searchManagerConfig,
       },
       storeSearchInUrl: true,
-      defaultSort: {key: 'name', direction: 'ASC'}
+      defaultSort: { key: 'name', direction: 'ASC' },
     };
 
     this.datasource = this.getDatasource();
@@ -75,7 +72,7 @@ export class CaLabSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {} as Partial<CaLabSearchFields>
+        filtersCriteria: {} as Partial<CaLabSearchFields>,
       },
       {
         searchName: 'ca-lab',
@@ -86,9 +83,9 @@ export class CaLabSearchComponent implements OnInit {
         default: false,
         filtersCriteria: {
           type: 'CLOUD',
-          currentStatus: 'LAB_RUNNING'
-        } as Partial<CaLabSearchFields>
-      }
+          currentStatus: 'LAB_RUNNING',
+        } as Partial<CaLabSearchFields>,
+      },
     ];
   }
 
@@ -97,11 +94,15 @@ export class CaLabSearchComponent implements OnInit {
       case 'all':
         return new FlEntityPaginatedDatasource(
           (page, size, data) => this.labService.searchAll(page, size, data),
-          20, false);
+          20,
+          false
+        );
       case 'current-space':
         return new FlEntityPaginatedDatasource(
           (page, size, filters) => this.labService.searchInCurrentSpace(page, size, filters),
-          20, false);
+          20,
+          false
+        );
       default:
         throw new Error(`[CaLabSearchComponent] Unknown mode '${this.mode}'`);
     }
@@ -120,24 +121,24 @@ export class CaLabSearchComponent implements OnInit {
 
   openCreateLabForm(): void {
     const dialogInput: CaLabAdminFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openMediumDialog(CaLabAdminFormDialogComponent, {data: dialogInput}).afterClosed()
-      .subscribe(
-        lab => this.onCreateLabClosed(lab)
-      );
+    this.dialogService
+      .openMediumDialog(CaLabAdminFormDialogComponent, { data: dialogInput })
+      .afterClosed()
+      .subscribe((lab) => this.onCreateLabClosed(lab));
   }
 
   openCreateLabFreeForm(): void {
     const dialogInput: FlFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openMediumDialog(CaLabFreeAdminFormDialogComponent, {data: dialogInput}).afterClosed()
-      .subscribe(
-        lab => this.onCreateLabClosed(lab)
-      );
+    this.dialogService
+      .openMediumDialog(CaLabFreeAdminFormDialogComponent, { data: dialogInput })
+      .afterClosed()
+      .subscribe((lab) => this.onCreateLabClosed(lab));
   }
 
   private onCreateLabClosed(lab?: CaLab): void {

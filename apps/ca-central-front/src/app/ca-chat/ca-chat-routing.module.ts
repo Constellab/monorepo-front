@@ -5,20 +5,14 @@ import { CaChatDetailPageComponent } from './component/ca-chat-detail-page/ca-ch
 
 const routes: Route[] = [
   {
-    path: '', component: CaChatPageComponent, children: [
-      { path: 'folder/:id', component: CaChatDetailPageComponent }
-    ]
-  }
+    path: '',
+    component: CaChatPageComponent,
+    children: [{ path: 'folder/:id', component: CaChatDetailPageComponent }],
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class CaChatRoutingModule {
-
-}
+export class CaChatRoutingModule {}

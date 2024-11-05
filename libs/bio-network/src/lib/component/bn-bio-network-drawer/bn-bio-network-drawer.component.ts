@@ -1,19 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {BnBioNetworkDrawerState} from '../../state/bn-bio-network-drawer.state';
-import {BnBioNetworkDrawerActionName} from '../../model/bn-bio-network-drawer-action.class';
-import {MatTabGroup} from '@angular/material/tabs';
-import {flCdkOverlayContainerClass} from '@monorepo/front-core-lib';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+import { BnBioNetworkDrawerActionName } from '../../model/bn-bio-network-drawer-action.class';
+import { MatTabGroup } from '@angular/material/tabs';
+import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'bn-bio-network-drawer',
   templateUrl: './bn-bio-network-drawer.component.html',
   styleUrls: ['./bn-bio-network-drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
-
-  @ViewChild(MatTabGroup, {static: true}) tab: MatTabGroup;
+  @ViewChild(MatTabGroup, { static: true }) tab: MatTabGroup;
 
   tabIndex: number;
 
@@ -24,14 +30,13 @@ export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private drawerState: BnBioNetworkDrawerState,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private drawerState: BnBioNetworkDrawerState,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.drawerState.getState$().subscribe(
-      state => this.changeTab(state.action)
-    );
+    this.subscription = this.drawerState.getState$().subscribe((state) => this.changeTab(state.action));
   }
 
   private changeTab(action: BnBioNetworkDrawerActionName): void {
@@ -54,6 +59,4 @@ export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

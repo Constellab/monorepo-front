@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartSerieInlineComponent} from './ch-chart-serie-inline.component';
+import { ChChartSerieInlineComponent } from './ch-chart-serie-inline.component';
 
 describe('ChChartSerieInlineComponent', () => {
   let component: ChChartSerieInlineComponent;
@@ -8,9 +8,8 @@ describe('ChChartSerieInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartSerieInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartSerieInlineComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

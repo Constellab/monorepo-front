@@ -8,9 +8,8 @@ describe('LabNoteTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabNoteTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabNoteTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

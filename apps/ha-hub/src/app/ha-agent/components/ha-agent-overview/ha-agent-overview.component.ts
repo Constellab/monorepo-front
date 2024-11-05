@@ -46,21 +46,18 @@ export class HaAgentOverviewComponent implements OnInit {
 
   isAuthor: Signal<boolean> = this.agentPageState.isAuthor;
 
-  agentDescription: Signal<TeRichTextContent> =
-    this.agentPageState.getAgentDescription();
+  agentDescription: Signal<TeRichTextContent> = this.agentPageState.getAgentDescription();
 
-  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(
-    () => {
-      const formControl = new FormControl<TeRichTextContent>(null);
-      if (this.agentDescription()) {
-        formControl.patchValue(this.agentDescription());
-      } else {
-        formControl.patchValue(TeRichText.emptyContent());
-      }
-      formControl.disable();
-      return formControl;
+  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
+    const formControl = new FormControl<TeRichTextContent>(null);
+    if (this.agentDescription()) {
+      formControl.patchValue(this.agentDescription());
+    } else {
+      formControl.patchValue(TeRichText.emptyContent());
     }
-  );
+    formControl.disable();
+    return formControl;
+  });
 
   agentDescriptionEmpty: Signal<boolean> = computed(() => {
     return TeRichText.isEmpty(this.agentDescription());
@@ -105,10 +102,7 @@ export class HaAgentOverviewComponent implements OnInit {
     }
 
     this.agentService
-      .saveAgentDescription(
-        this.agent().id,
-        this.descriptionFormControl().value
-      )
+      .saveAgentDescription(this.agent().id, this.descriptionFormControl().value)
       .subscribe((agent: HaAgent) => {
         this.descriptionEditorDisabled = true;
         if (agent != null) {
@@ -120,7 +114,7 @@ export class HaAgentOverviewComponent implements OnInit {
 
   onTitleChange(title: string): void {
     this.agentService.updateTitle(this.agent().id, title).subscribe((agent) => {
-      if(agent != null) {
+      if (agent != null) {
         this.agentPageState.setAgent(agent);
       }
     });
@@ -128,15 +122,11 @@ export class HaAgentOverviewComponent implements OnInit {
 
   openCommentsPanel(): void {
     this.portalService
-      .createPortal(
-        HaCommentsPortalComponent,
-        this.portalService.getRightSidePortalConfig(),
-        {
-          user: this.agentPageState.getCurrentUser()(),
-          entity: this.agent(),
-          commentType: HaCommentType.AGENT_COMMENT,
-        } as HaCommentsPortalData
-      )
+      .createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
+        user: this.agentPageState.getCurrentUser()(),
+        entity: this.agent(),
+        commentType: HaCommentType.AGENT_COMMENT,
+      } as HaCommentsPortalData)
       .detachments();
   }
 
@@ -171,14 +161,12 @@ export class HaAgentOverviewComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService
-      .unlike(HaLikeType.AGENT_LIKE, this.agent().id)
-      .subscribe((agent: HaAgent) => {
-        if (agent != null) {
-          this.agentPageState.setIsLiked(false);
-          this.agentPageState.setAgent(agent);
-        }
-      });
+    this.likeService.unlike(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
+      if (agent != null) {
+        this.agentPageState.setIsLiked(false);
+        this.agentPageState.setAgent(agent);
+      }
+    });
   }
 
   private likeAgent(): void {
@@ -187,14 +175,12 @@ export class HaAgentOverviewComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService
-      .like(HaLikeType.AGENT_LIKE, this.agent().id)
-      .subscribe((agent: HaAgent) => {
-        if (agent != null) {
-          this.agentPageState.setIsLiked(true);
-          this.agentPageState.setAgent(agent);
-        }
-      });
+    this.likeService.like(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
+      if (agent != null) {
+        this.agentPageState.setIsLiked(true);
+        this.agentPageState.setAgent(agent);
+      }
+    });
   }
 
   openAgentEditStyleDialog(): void {

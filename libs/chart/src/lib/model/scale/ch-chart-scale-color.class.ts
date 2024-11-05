@@ -1,10 +1,9 @@
-import {scaleLinear} from 'd3';
-import {ChChartScaleI} from './ch-chart-scale.class';
-import {ScaleLinear} from 'd3-scale';
-import {ChChartMultiSerie} from '../data/ch-chart-multi-serie.class';
-import {ChChartDataWithSerie} from '../data/ch-chart-serie.class';
-import {FlColorHelper} from '@monorepo/front-core-lib';
-
+import { scaleLinear } from 'd3';
+import { ChChartScaleI } from './ch-chart-scale.class';
+import { ScaleLinear } from 'd3-scale';
+import { ChChartMultiSerie } from '../data/ch-chart-multi-serie.class';
+import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
+import { FlColorHelper } from '@monorepo/front-core-lib';
 
 export type ChChartColorFunction<T = any> = (d: T) => string;
 export const chChartTransparentColorOpacity = 0.8;
@@ -13,7 +12,6 @@ export const chChartTransparentColorOpacity = 0.8;
  * Specific scale to return a color based on a value
  */
 export interface ChChartScaleColor extends ChChartScaleI {
-
   /**
    * return a color base on a value
    * @param value
@@ -25,8 +23,6 @@ export interface ChChartScaleColor extends ChChartScaleI {
  * Color scale contains a list of colors and return one color based on domain
  */
 export class ChChartScaleColorMulti implements ChChartScaleColor {
-
-
   private keyColor: Record<string, string>;
 
   constructor(domain: (number | string)[], transparentColor: boolean = false) {
@@ -34,8 +30,14 @@ export class ChChartScaleColorMulti implements ChChartScaleColor {
   }
 
   // create a color scale from a multiple series. Each series key is linked to a color
-  public static fromMultiSeries(dataContainer: ChChartMultiSerie<any>, transparentColor: boolean = false): ChChartScaleColorMulti {
-    return new ChChartScaleColorMulti(dataContainer.series.map(d => d.key), transparentColor);
+  public static fromMultiSeries(
+    dataContainer: ChChartMultiSerie<any>,
+    transparentColor: boolean = false
+  ): ChChartScaleColorMulti {
+    return new ChChartScaleColorMulti(
+      dataContainer.series.map((d) => d.key),
+      transparentColor
+    );
   }
 
   private initScale(domain: (number | string)[], transparentColor: boolean): void {
@@ -66,7 +68,6 @@ export class ChChartScaleColorMulti implements ChChartScaleColor {
  * Color scale to make a gradient color scale
  */
 export class ChChartScaleColorLinear implements ChChartScaleColor {
-
   public readonly d3Scale: ScaleLinear<string, string>;
 
   /**
@@ -75,15 +76,18 @@ export class ChChartScaleColorLinear implements ChChartScaleColor {
    * @param fromColor color for lowest value
    * @param toColor color for highest value
    */
-  constructor(domain: number[], private fromColor: string = FlColorHelper.blue, private toColor: string = FlColorHelper.red) {
+  constructor(
+    domain: number[],
+    private fromColor: string = FlColorHelper.blue,
+    private toColor: string = FlColorHelper.red
+  ) {
     this.d3Scale = this.initScale();
     this.d3Scale.domain(domain);
   }
 
   private initScale(): ScaleLinear<string, string> {
     // the range contains all available colors
-    return scaleLinear<string>()
-      .range([this.fromColor, this.toColor]);
+    return scaleLinear<string>().range([this.fromColor, this.toColor]);
   }
 
   public scale(value: number): string {
@@ -96,9 +100,7 @@ export class ChChartScaleColorLinear implements ChChartScaleColor {
  * Color scale that return only one color
  */
 export class ChChartScaleColorSimple implements ChChartScaleColor {
-
-  constructor(private color: string) {
-  }
+  constructor(private color: string) {}
 
   public scale(): string {
     return this.color;

@@ -5,14 +5,14 @@ import { isPlatformServer } from '@angular/common';
 import { Request } from 'express';
 import { REQUEST } from '@monorepo/front-core-lib';
 
-
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
-
   private request: Request;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any,
-              @Optional() @Inject(REQUEST) request: Request) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional() @Inject(REQUEST) request: Request
+  ) {
     if (isPlatformServer(this.platformId)) {
       this.request = request;
     }
@@ -23,10 +23,11 @@ export class HaHttpInterceptorSsrService implements HttpInterceptor {
     if (isPlatformServer(this.platformId) && this.request?.cookies['Authorization'] != null) {
       req = req.clone({
         withCredentials: true,
-        headers: req.headers ? req.headers.append('authorization', this.request.cookies['Authorization']) :
-          new HttpHeaders({
-            authorization: this.request.cookies['Authorization'],
-          })
+        headers: req.headers
+          ? req.headers.append('authorization', this.request.cookies['Authorization'])
+          : new HttpHeaders({
+              authorization: this.request.cookies['Authorization'],
+            }),
       });
     }
     return next.handle(req);

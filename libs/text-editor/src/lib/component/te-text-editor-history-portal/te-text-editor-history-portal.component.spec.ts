@@ -8,9 +8,8 @@ describe('TeTextEditorHistoryPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTextEditorHistoryPortalComponent]
-    })
-    .compileComponents();
+      declarations: [TeTextEditorHistoryPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTextEditorHistoryPortalComponent);
     component = fixture.componentInstance;

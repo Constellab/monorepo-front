@@ -62,7 +62,6 @@ export * from './lib/state/bn-bio-network-options.state';
 export * from './lib/state/bn-bio-network-selection.state';
 export * from './lib/state/bn-bio-network-simulation.state';
 
-
 // Utils
 export * from './lib/utils/bn-bio-network.factory';
 export * from './lib/utils/bn-bio-network.helper';

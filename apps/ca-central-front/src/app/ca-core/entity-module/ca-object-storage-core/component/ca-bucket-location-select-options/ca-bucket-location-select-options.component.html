@@ -2,7 +2,6 @@
   <mat-option [value]="null">None</mat-option>
 
   @if (locations$ | async; as locations) {
-
     @if (locations.lab.length > 0 && mode === 'all') {
       <mat-optgroup [label]="'lab_location' | translate">
         <mat-option *ngFor="let location of locations.lab" [value]="location">

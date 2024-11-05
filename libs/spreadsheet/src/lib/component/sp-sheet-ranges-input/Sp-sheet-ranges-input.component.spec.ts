@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSheetRangesInputComponent} from './sp-sheet-ranges-input.component';
+import { SpSheetRangesInputComponent } from './sp-sheet-ranges-input.component';
 
 describe('SpSpreadsheetRangesInputComponent', () => {
   let component: SpSheetRangesInputComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetRangesInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSheetRangesInputComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSheetRangesInputComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlCardHeaderComponent} from './fl-card-header.component';
+import { FlCardHeaderComponent } from './fl-card-header.component';
 
 describe('LibCardHeaderComponent', () => {
   let component: FlCardHeaderComponent;
@@ -8,9 +8,8 @@ describe('LibCardHeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlCardHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FlCardHeaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

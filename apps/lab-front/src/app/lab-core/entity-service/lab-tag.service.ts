@@ -10,16 +10,14 @@ import {
   LabTagKeyModel,
   LabTagOrigin,
   LabTagValueModel,
-  TagPropagationImpactDTO
+  TagPropagationImpactDTO,
 } from '../model/entities/lab-tag.entity';
 import { ClPageI } from '@monorepo/core-lib';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabTagService extends FlTagService {
-
   private readonly route: string = 'tag';
 
   constructor(private apiService: FlApiService) {
@@ -31,23 +29,25 @@ export class LabTagService extends FlTagService {
     return this.apiService.get(`${this.route}/search/key${strKey}`, LabTagKeyModel, {
       page: page,
       pageSize: pageSize,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
-
-  public searchValues(key: string, value: FlTagValue, page: number, pageSize: number): Observable<ClPageI<LabTagValueModel>> {
+  public searchValues(
+    key: string,
+    value: FlTagValue,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<LabTagValueModel>> {
     const strValue = value ? '/' + value : '';
     return this.apiService.get(`${this.route}/search/key/${key}/value${strValue}`, LabTagValueModel, {
       page: page,
       pageSize: pageSize,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
-
-  searchTag(filters: Partial<FlTagSearchFilter>,
-            page: number, pageSize: number): Observable<ClPageI<any>> {
+  searchTag(filters: Partial<FlTagSearchFilter>, page: number, pageSize: number): Observable<ClPageI<any>> {
     if (filters.value == null) {
       return this.searchKeys(filters.key, page, pageSize);
     } else {
@@ -59,8 +59,16 @@ export class LabTagService extends FlTagService {
     return this.apiService.post(`${this.route}/${tagKey}/${tagValue}`, null, LabCreateTagResponse);
   }
 
-  public updateTag(tagKey: string, oldTagValue: FlTagValue, newTagValue: FlTagValue): Observable<LabCreateTagResponse> {
-    return this.apiService.put(`${this.route}/${tagKey}/${oldTagValue}/${newTagValue}`, null, LabCreateTagResponse);
+  public updateTag(
+    tagKey: string,
+    oldTagValue: FlTagValue,
+    newTagValue: FlTagValue
+  ): Observable<LabCreateTagResponse> {
+    return this.apiService.put(
+      `${this.route}/${tagKey}/${oldTagValue}/${newTagValue}`,
+      null,
+      LabCreateTagResponse
+    );
   }
 
   public deleteTag(tagKey: string, tagValue: FlTagValue): Observable<void> {
@@ -73,9 +81,12 @@ export class LabTagService extends FlTagService {
 
   ///////////////////////////////////////////////////// ENTITY TAGS /////////////////////////////////////////////////////
 
-
-  addEntityTags(entityType: string, entityId: string, tags: FlTag[],
-                propagate: boolean): Observable<LabTag[]> {
+  addEntityTags(
+    entityType: string,
+    entityId: string,
+    tags: FlTag[],
+    propagate: boolean
+  ): Observable<LabTag[]> {
     return this.apiService.post(`${this.route}/entity/${entityType}/${entityId}/${propagate}`, tags, LabTag);
   }
 
@@ -99,14 +110,28 @@ export class LabTagService extends FlTagService {
     return this.apiService.get(`${this.route}/entity/${entityTagId}/origins`, LabTagOrigin);
   }
 
-
   ////////////////////////////////////////////////// PROPAGATION //////////////////////////////////////////////////
-  public checkPropagationAddTags(entityType: LabEntityTagType, entityId: string, tags: FlTag[]): Observable<TagPropagationImpactDTO> {
-    return this.apiService.post(`${this.route}/check-propagation-add/${entityType}/${entityId}`, tags, TagPropagationImpactDTO);
+  public checkPropagationAddTags(
+    entityType: LabEntityTagType,
+    entityId: string,
+    tags: FlTag[]
+  ): Observable<TagPropagationImpactDTO> {
+    return this.apiService.post(
+      `${this.route}/check-propagation-add/${entityType}/${entityId}`,
+      tags,
+      TagPropagationImpactDTO
+    );
   }
 
-  public checkPropagationDeleteTags(entityType: LabEntityTagType, entityId: string, tag: FlTag): Observable<TagPropagationImpactDTO> {
-    return this.apiService.post(`${this.route}/check-propagation-delete/${entityType}/${entityId}`, tag, TagPropagationImpactDTO);
+  public checkPropagationDeleteTags(
+    entityType: LabEntityTagType,
+    entityId: string,
+    tag: FlTag
+  ): Observable<TagPropagationImpactDTO> {
+    return this.apiService.post(
+      `${this.route}/check-propagation-delete/${entityType}/${entityId}`,
+      tag,
+      TagPropagationImpactDTO
+    );
   }
-
 }

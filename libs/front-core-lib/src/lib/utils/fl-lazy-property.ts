@@ -1,28 +1,31 @@
-import {Transform} from 'class-transformer';
-import {ClCachedObservable, ClHelpService, ClTransformFnParams} from '@monorepo/core-lib';
-import {Type} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {FlGetById} from '../module/fl-api/model/fl-service.class';
-import {flRootInjector} from './fl-root-injector';
+import { Transform } from 'class-transformer';
+import { ClCachedObservable, ClHelpService, ClTransformFnParams } from '@monorepo/core-lib';
+import { Type } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { FlGetById } from '../module/fl-api/model/fl-service.class';
+import { flRootInjector } from './fl-root-injector';
 
 /**
  * Decorator to create an {@link FlLazyProperty}
  * @param serviceType class of the service to retrieve the entity
  * @param getObs method with service and unconverted object to retrieve the entity
  */
-export function FlLazyPropertyTransform<SERVICE, ENTITY>(serviceType: Type<SERVICE>,
-                                                         getObs: (service: SERVICE, unconvertedObject: any) => Observable<ENTITY>
+export function FlLazyPropertyTransform<SERVICE, ENTITY>(
+  serviceType: Type<SERVICE>,
+  getObs: (service: SERVICE, unconvertedObject: any) => Observable<ENTITY>
 ): PropertyDecorator;
 /**
  * Decorator to create an {@link FlLazyPropertyId}
  * @param serviceType class of a FlGetById service
  * @constructor
  */
-export function FlLazyPropertyTransform<SERVICE extends FlGetById<ENTITY>, ENTITY>(serviceType: Type<SERVICE>): PropertyDecorator;
-export function FlLazyPropertyTransform<SERVICE, ENTITY>(serviceType: Type<any>,
-                                                         getObs?: (service: SERVICE, unconvertedObject: any) => Observable<ENTITY>
+export function FlLazyPropertyTransform<SERVICE extends FlGetById<ENTITY>, ENTITY>(
+  serviceType: Type<SERVICE>
+): PropertyDecorator;
+export function FlLazyPropertyTransform<SERVICE, ENTITY>(
+  serviceType: Type<any>,
+  getObs?: (service: SERVICE, unconvertedObject: any) => Observable<ENTITY>
 ): PropertyDecorator {
-
   let transformToClass: (target: any, key: string) => void;
   if (typeof (serviceType as any).getById === 'function') {
     // create a lazy property from an id
@@ -30,14 +33,16 @@ export function FlLazyPropertyTransform<SERVICE, ENTITY>(serviceType: Type<any>,
       (params: ClTransformFnParams<string>) => {
         return flLazyPropertyTransformIdToClass(params.value, serviceType);
       },
-      {toClassOnly: true});
+      { toClassOnly: true }
+    );
   } else if (typeof getObs === 'function') {
     // create a lazy property from an object
     transformToClass = Transform(
       (params: ClTransformFnParams<string>) => {
         return flLazyPropertyTransformToClass(params.value, serviceType, getObs);
       },
-      {toClassOnly: true});
+      { toClassOnly: true }
+    );
   } else {
     throw new Error('[FlLazyPropertyTransform] Wrong inputs');
   }
@@ -45,9 +50,8 @@ export function FlLazyPropertyTransform<SERVICE, ENTITY>(serviceType: Type<any>,
   // convert the lazy property back to object on serialization
   const transformToPlain = Transform(
     (params: ClTransformFnParams<FlLazyProperty<any>>) => params.value.object,
-    {toPlainOnly: true}
+    { toPlainOnly: true }
   );
-
 
   return (target: any, key: string): void => {
     transformToClass(target, key);
@@ -60,9 +64,14 @@ export function FlLazyPropertyTransform<SERVICE, ENTITY>(serviceType: Type<any>,
  * @param id id of the entity
  * @param serviceType
  */
-export function flLazyPropertyTransformIdToClass<ENTITY>(id: string, serviceType: Type<FlGetById<ENTITY>>): FlLazyPropertyId<ENTITY> {
+export function flLazyPropertyTransformIdToClass<ENTITY>(
+  id: string,
+  serviceType: Type<FlGetById<ENTITY>>
+): FlLazyPropertyId<ENTITY> {
   if (flRootInjector == null) {
-    throw new Error('[FlLazyPropertyTransform] The flRootInjector was not initiated, please call setFlRootInjector in LabAppModule');
+    throw new Error(
+      '[FlLazyPropertyTransform] The flRootInjector was not initiated, please call setFlRootInjector in LabAppModule'
+    );
   }
   if (ClHelpService.isNullOrEmpty(id)) {
     return new FlLazyPropertyId<ENTITY>(id, of(null));
@@ -80,11 +89,15 @@ export function flLazyPropertyTransformIdToClass<ENTITY>(id: string, serviceType
  * @param serviceType
  * @param getObs
  */
-export function flLazyPropertyTransformToClass<SERVICE, ENTITY>(unconvertedObject: any, serviceType: Type<SERVICE>,
-                                                                getObs?: (service: SERVICE, unconvertedObject: any)
-                                                                  => Observable<ENTITY>): FlLazyProperty<ENTITY> {
+export function flLazyPropertyTransformToClass<SERVICE, ENTITY>(
+  unconvertedObject: any,
+  serviceType: Type<SERVICE>,
+  getObs?: (service: SERVICE, unconvertedObject: any) => Observable<ENTITY>
+): FlLazyProperty<ENTITY> {
   if (flRootInjector == null) {
-    throw new Error('[FlLazyPropertyTransform] The flRootInjector was not initiated, please call setFlRootInjector in LabAppModule');
+    throw new Error(
+      '[FlLazyPropertyTransform] The flRootInjector was not initiated, please call setFlRootInjector in LabAppModule'
+    );
   }
 
   // get the service instance
@@ -93,13 +106,14 @@ export function flLazyPropertyTransformToClass<SERVICE, ENTITY>(unconvertedObjec
   return new FlLazyProperty<ENTITY>(unconvertedObject, getObs(service, unconvertedObject));
 }
 
-
 /**
  * Class used to lazy load entity from id, initiated with {@link FlLazyPropertyTransform} decorator
  */
 export class FlLazyPropertyId<T> extends ClCachedObservable<T> {
-  constructor(public id: string,
-              obs: Observable<T>) {
+  constructor(
+    public id: string,
+    obs: Observable<T>
+  ) {
     super(obs);
   }
 }
@@ -108,8 +122,10 @@ export class FlLazyPropertyId<T> extends ClCachedObservable<T> {
  * Class used to lazy load entity from object, initiated with {@link FlLazyPropertyTransform} decorator
  */
 export class FlLazyProperty<T, OBJECT = any> extends ClCachedObservable<T> {
-  constructor(public object: OBJECT,
-              obs: Observable<T>) {
+  constructor(
+    public object: OBJECT,
+    obs: Observable<T>
+  ) {
     super(obs);
   }
 }

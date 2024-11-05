@@ -8,9 +8,8 @@ describe('LabUpdateNameDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabDesktopUpdateDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabDesktopUpdateDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

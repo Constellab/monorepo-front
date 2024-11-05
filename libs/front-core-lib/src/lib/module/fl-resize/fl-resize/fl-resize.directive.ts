@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlCoord } from '../../../model/shared/fl-coord.class';
@@ -30,10 +30,9 @@ export interface FlResizeEvent {
  * It only supports width resize
  */
 @Directive({
-  selector: '[flResize]'
+  selector: '[flResize]',
 })
 export class FlResizeDirective implements OnInit, OnDestroy {
-
   /**
    * Mode of the resize, if the width or height can be resized, or both
    */
@@ -66,18 +65,18 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-
-  constructor(private renderer: Renderer2,
-              private elementRef: ElementRef<HTMLElement>,
-              private ngZone: NgZone) {
-  }
+  constructor(
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLElement>,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     // set the parent to relative
     this.renderer.setStyle(this.elementRef.nativeElement, 'position', 'relative');
 
     if (this.disabled$) {
-      this.subscription = this.disabled$.subscribe(disable => this.onDisableChange(disable));
+      this.subscription = this.disabled$.subscribe((disable) => this.onDisableChange(disable));
     }
   }
 
@@ -112,7 +111,6 @@ export class FlResizeDirective implements OnInit, OnDestroy {
    * @private
    */
   private createResizer(resizeMode: FlResizeMode): void {
-
     // define div resizer
     const div: HTMLElement = this.getResizeElement(resizeMode);
 
@@ -121,10 +119,10 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
     // run outside because there is no need to run inside angular scope
     this.ngZone.runOutsideAngular(() => {
-
       // listen to mouse down event on resizer
-      this.mouseDownListeners.push(this.renderer.listen(div, 'mousedown',
-        (event) => this.onMouseDown(event, resizeMode)));
+      this.mouseDownListeners.push(
+        this.renderer.listen(div, 'mousedown', (event) => this.onMouseDown(event, resizeMode))
+      );
     });
 
     this.resizerDivs.push(div);
@@ -142,7 +140,7 @@ export class FlResizeDirective implements OnInit, OnDestroy {
       case 'width':
         this.renderer.setStyle(div, 'top', '0');
         // place it so the host border is in div center
-        this.renderer.setStyle(div, 'right', `-${(this.flResizeSize / 2)}px`);
+        this.renderer.setStyle(div, 'right', `-${this.flResizeSize / 2}px`);
         this.renderer.setStyle(div, 'height', '100%');
         this.renderer.setStyle(div, 'width', this.flResizeSize + 'px');
         this.renderer.setStyle(div, 'cursor', 'w-resize');
@@ -150,15 +148,15 @@ export class FlResizeDirective implements OnInit, OnDestroy {
       case 'height':
         this.renderer.setStyle(div, 'left', '0');
         // place it so the host border is in div center
-        this.renderer.setStyle(div, 'bottom', `-${(this.flResizeSize / 2)}px`);
+        this.renderer.setStyle(div, 'bottom', `-${this.flResizeSize / 2}px`);
         this.renderer.setStyle(div, 'width', '100%');
         this.renderer.setStyle(div, 'height', this.flResizeSize + 'px');
         this.renderer.setStyle(div, 'cursor', 'n-resize');
         break;
       case 'both':
       case 'bothKeepRatio':
-        this.renderer.setStyle(div, 'right', `-${(this.flResizeSize / 2)}px`);
-        this.renderer.setStyle(div, 'bottom', `-${(this.flResizeSize / 2)}px`);
+        this.renderer.setStyle(div, 'right', `-${this.flResizeSize / 2}px`);
+        this.renderer.setStyle(div, 'bottom', `-${this.flResizeSize / 2}px`);
         // place it so the host border is in div center
         this.renderer.setStyle(div, 'width', this.flResizeSize + 'px');
         this.renderer.setStyle(div, 'height', this.flResizeSize + 'px');
@@ -168,7 +166,6 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
     return div;
   }
-
 
   /**
    * Event called on a resize element mouse down. This save the resize mode, mouse pos and element size
@@ -184,21 +181,19 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
     this.baseEventPos = {
       x: event.pageX,
-      y: event.pageY
+      y: event.pageY,
     };
 
     this.baseHostSize = {
       x: this.hostWidth,
-      y: this.hostHeight
+      y: this.hostHeight,
     };
 
     // add a mouse move event to change the size of the parent
-    this.mouseMoveListener = this.renderer.listen('window', 'mousemove',
-      (event) => this.onMouseMove(event));
+    this.mouseMoveListener = this.renderer.listen('window', 'mousemove', (event) => this.onMouseMove(event));
 
     // add mouse up listener
-    this.mouseUpListener = this.renderer.listen('window', 'mouseup',
-      () => this.onMouseUp());
+    this.mouseUpListener = this.renderer.listen('window', 'mouseup', () => this.onMouseUp());
   }
 
   private onMouseMove(event: MouseEvent): void {
@@ -240,7 +235,7 @@ export class FlResizeDirective implements OnInit, OnDestroy {
       mode: this.currentResizeMode,
       width: this.hostWidth,
       height: this.hostHeight,
-      fullscreen: false
+      fullscreen: false,
     });
   }
 
@@ -282,7 +277,7 @@ export class FlResizeDirective implements OnInit, OnDestroy {
       mode: this.currentResizeMode,
       width: this.hostWidth,
       height: this.hostHeight,
-      fullscreen: true
+      fullscreen: true,
     });
   }
 
@@ -290,7 +285,6 @@ export class FlResizeDirective implements OnInit, OnDestroy {
     // trigger change event
     this.flResizeChanged.next(ev);
   }
-
 
   ngOnDestroy(): void {
     // clear all the mouse down event
@@ -306,6 +300,4 @@ export class FlResizeDirective implements OnInit, OnDestroy {
 
     this.subscription?.unsubscribe();
   }
-
-
 }

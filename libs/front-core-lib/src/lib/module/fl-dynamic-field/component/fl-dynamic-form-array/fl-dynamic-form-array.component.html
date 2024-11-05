@@ -1,14 +1,18 @@
 <!--<div class="section-border">-->
 <fl-section [disableEmptyText]="true" class="section">
   <fl-section-header>
-    <div>{{config.placeholder}}</div>
-    <div class="g-text-small g-text-light" *ngIf="config.hint">{{config.hint}}</div>
+    <div>{{ config.placeholder }}</div>
+    <div class="g-text-small g-text-light" *ngIf="config.hint">{{ config.hint }}</div>
     <fl-section-actions>
       <div [matTooltip]="addTooltip">
-        <button mat-stroked-button type="button" (click)="addGroup()"
-                [disabled]="disableAdd" class="g-button-small">
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="addGroup()"
+          [disabled]="disableAdd"
+          class="g-button-small">
           <mat-icon>add</mat-icon>
-          {{'flDynamicField.add_value_in_array' | translate}}
+          {{ 'flDynamicField.add_value_in_array' | translate }}
         </button>
       </div>
     </fl-section-actions>
@@ -22,8 +26,7 @@
           </fl-dynamic-abstract-form>
           <div>
             <div [matTooltip]="removeTooltip">
-              <button mat-icon-button type="button"
-                      (click)="removeGroup(i)" [disabled]="disableRemove">
+              <button mat-icon-button type="button" (click)="removeGroup(i)" [disabled]="disableRemove">
                 <mat-icon>clear</mat-icon>
               </button>
             </div>
@@ -36,11 +39,10 @@
 
     <ng-template #noValue>
       <div class="g-text-centered">
-        <p class="g-text-light">{{'flDynamicField.no_value_in_array' | translate}}</p>
-        <button mat-stroked-button type="button" (click)="addGroup()"
-                class="g-button-small">
+        <p class="g-text-light">{{ 'flDynamicField.no_value_in_array' | translate }}</p>
+        <button mat-stroked-button type="button" (click)="addGroup()" class="g-button-small">
           <mat-icon>add</mat-icon>
-          {{'flDynamicField.add_value_in_array' | translate}}
+          {{ 'flDynamicField.add_value_in_array' | translate }}
         </button>
       </div>
     </ng-template>

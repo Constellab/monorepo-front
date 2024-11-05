@@ -8,8 +8,7 @@ import { LabScenarioTemplate } from '../../../../model/entities/process/lab-scen
   styleUrls: ['./lab-scenario-template-table.component.scss'],
 })
 export class LabScenarioTemplateTableComponent {
-
-  @Input({required: true}) datasource: FlArrayObs<LabScenarioTemplate>;
+  @Input({ required: true }) datasource: FlArrayObs<LabScenarioTemplate>;
 
   @Input() columns: FlTableColumnStatic<LabScenarioTemplate>[] = ['name', 'tags', 'lastModification'];
 
@@ -28,5 +27,4 @@ export class LabScenarioTemplateTableComponent {
   openInNewTab(event: MouseEvent): void {
     event.stopPropagation();
   }
-
 }

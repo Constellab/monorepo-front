@@ -2,17 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabBackupStatusDatasource,
-  CaLabBackupStatusDTO
+  CaLabBackupStatusDTO,
 } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {
-  CaLabBackupsStatusesAdminComponent
-} from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
+import { CaLabBackupsStatusesAdminComponent } from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 
 /**
@@ -24,17 +22,17 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
   styleUrls: ['./ca-lab-backups-statuses.component.scss'],
 })
 export class CaLabBackupsStatusesComponent implements OnInit {
-
   @Input() labId: string;
 
   backupsStatuses: CaLabBackupStatusDatasource;
 
   columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = ['frequency', 'region', 'status', 'lastBackup'];
 
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService,
-              private authenticateService: CaAuthenticatedUserService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService,
+    private authenticateService: CaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
     this.loadBackupStatuses();
@@ -48,7 +46,7 @@ export class CaLabBackupsStatusesComponent implements OnInit {
   }
 
   openLabBackupStatusesAdmin(): void {
-    this.dialogService.openMediumDialog(CaLabBackupsStatusesAdminComponent, {data: this.labId});
+    this.dialogService.openMediumDialog(CaLabBackupsStatusesAdminComponent, { data: this.labId });
   }
 
   deleteLabBackups(): void {
@@ -59,7 +57,10 @@ export class CaLabBackupsStatusesComponent implements OnInit {
       successMessage: 'lab_backup_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(result => this.onDeleteBackupClosed(result));
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteBackupClosed(result));
   }
 
   private onDeleteBackupClosed(result: FlConfirmDialogResult): void {

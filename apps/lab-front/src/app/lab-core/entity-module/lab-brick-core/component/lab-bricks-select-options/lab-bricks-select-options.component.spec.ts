@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBricksSelectOptionsComponent} from './lab-bricks-select-options.component';
+import { LabBricksSelectOptionsComponent } from './lab-bricks-select-options.component';
 
 describe('LabBricksSelectOptionsComponent', () => {
   let component: LabBricksSelectOptionsComponent;
@@ -8,9 +8,8 @@ describe('LabBricksSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBricksSelectOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBricksSelectOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

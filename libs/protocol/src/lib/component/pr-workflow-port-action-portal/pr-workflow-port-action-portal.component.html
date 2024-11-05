@@ -5,19 +5,19 @@
 
       @if (data.ioface) {
         <fl-key-value class="ioface">
-          <fl-key>{{ ('pr.' + data.ioface.type) | translate }}</fl-key>
+          <fl-key>{{ 'pr.' + data.ioface.type | translate }}</fl-key>
           {{ data.ioface.name }}
         </fl-key-value>
       }
     </div>
 
-    <fl-menu-dynamic-button *ngFor="let menuDynamic of data.menuDynamics" [menuDynamic]="menuDynamic"
-                            (buttonClick)="closePortal()">
+    <fl-menu-dynamic-button
+      *ngFor="let menuDynamic of data.menuDynamics"
+      [menuDynamic]="menuDynamic"
+      (buttonClick)="closePortal()">
     </fl-menu-dynamic-button>
 
     <!--    Fix the menu bug    -->
-    <mat-menu>
-    </mat-menu>
-
+    <mat-menu> </mat-menu>
   </fl-portal-content>
 </fl-portal>

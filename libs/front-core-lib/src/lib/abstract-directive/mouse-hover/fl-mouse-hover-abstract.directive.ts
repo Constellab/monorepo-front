@@ -1,7 +1,7 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output} from '@angular/core';
-import {FlMouseHoverChange} from './fl-mouse-hover-change.class';
-import {ClOnChange} from '@monorepo/core-lib';
-import {FlHtmlHelper} from '../../utils/fl-html.helper';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
+import { FlMouseHoverChange } from './fl-mouse-hover-change.class';
+import { ClOnChange } from '@monorepo/core-lib';
+import { FlHtmlHelper } from '../../utils/fl-html.helper';
 
 /**
  * Abstract directive to be extended to handle a MouseHover enter (with delay)
@@ -42,7 +42,8 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
       this.clearTimer();
     }
   })
-  @Input() flDisabled: boolean;
+  @Input()
+  flDisabled: boolean;
 
   /**
    * When provided the event are ignores if the mouse enter from the element or leave to the element
@@ -62,7 +63,6 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
    */
   protected timer: any;
 
-
   /**
    * @ignore
    * Method called on mouse enter event on host element
@@ -76,10 +76,13 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
 
     // if an excluded element is provided, ignore if the mouse enters from the excluded element
     const fromElement: HTMLElement = (event as any).fromElement;
-    if (this.flExcludeElement && fromElement && FlHtmlHelper.isChildOf(fromElement, {className: this.flExcludeElement})) {
+    if (
+      this.flExcludeElement &&
+      fromElement &&
+      FlHtmlHelper.isChildOf(fromElement, { className: this.flExcludeElement })
+    ) {
       return;
     }
-
 
     // if the delay is 0, don't use timeout
     if (this.flMouseEnterDelay === 0) {
@@ -87,7 +90,6 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
     } else {
       this.timer = setTimeout(() => this.triggerHoverEnter(event), this.flMouseEnterDelay);
     }
-
   }
 
   /**
@@ -103,10 +105,13 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
 
     // if an excluded element is provided, ignore if the mouse leaves to the excluded element
     const toElement: HTMLElement = (event as any).toElement;
-    if (this.flExcludeElement && toElement && FlHtmlHelper.isChildOf(toElement, {className: this.flExcludeElement})) {
+    if (
+      this.flExcludeElement &&
+      toElement &&
+      FlHtmlHelper.isChildOf(toElement, { className: this.flExcludeElement })
+    ) {
       return;
     }
-
 
     // if the delay is 0, don't use timeout
     if (this.flMouseLeaveDelay === 0) {
@@ -116,8 +121,7 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
     }
   }
 
-  protected constructor(protected elementRef: ElementRef) {
-  }
+  protected constructor(protected elementRef: ElementRef) {}
 
   /**
    * Method to override call when the hover entered (after delay)
@@ -150,7 +154,7 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
   private emitHoverEvent(isHovering: boolean, event: MouseEvent): void {
     this.flMouseHoverChange.emit({
       isHovering: isHovering,
-      event: event
+      event: event,
     });
   }
 
@@ -164,5 +168,4 @@ export abstract class FlMouseHoverAbstractDirective implements OnDestroy {
   ngOnDestroy(): void {
     this.clearTimer();
   }
-
 }

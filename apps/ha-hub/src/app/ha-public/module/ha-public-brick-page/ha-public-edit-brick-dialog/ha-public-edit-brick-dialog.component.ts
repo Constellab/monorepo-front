@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlFormDialogAbstractDirective,
-  FlUploadImageDialogConfig
+  FlUploadImageDialogConfig,
 } from '@monorepo/front-core-lib';
 import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -15,10 +15,12 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ha-ha-public-edit-brick-dialog',
   templateUrl: './ha-public-edit-brick-dialog.component.html',
-  styleUrls: ['./ha-public-edit-brick-dialog.component.scss']
+  styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
 })
-export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirective<Partial<HaEditBrickDTO>> implements OnInit {
-
+export class HaPublicEditBrickDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<HaEditBrickDTO>>
+  implements OnInit
+{
   isLoading: boolean = false;
   repoError: boolean;
   spaces: HaSpace[];
@@ -27,8 +29,10 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
 
-  constructor(private spaceService: HaSpaceService,
-              private brickService: HaBrickService) {
+  constructor(
+    private spaceService: HaSpaceService,
+    private brickService: HaBrickService
+  ) {
     super();
   }
 
@@ -47,7 +51,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       compressOptions: {
         cropWidth: 300,
         cropHeight: 300,
-        resizeWidthMax: 300
+        resizeWidthMax: 300,
       },
       uploadImage: (file: File) => {
         return this.brickService.editBrickImage(this.formGp.value.id, file).pipe(
@@ -56,7 +60,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
           })
         );
       },
-      uploadImageSuccessMessage: { text: 'brick_picture_uploaded', translateText: true }
+      uploadImageSuccessMessage: { text: 'brick_picture_uploaded', translateText: true },
     };
 
     this.deleteImageConfig = {
@@ -67,7 +71,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
           this.formGp.controls.imageLink.patchValue(null);
         })
       ),
-      successMessage: 'brick_photo_deleted'
+      successMessage: 'brick_photo_deleted',
     };
   }
 
@@ -81,7 +85,7 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       credentialUsername: [null],
       credentialPassword: [null],
       space: [null],
-      imageLink: [null]
+      imageLink: [null],
     });
   }
 
@@ -100,8 +104,8 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
       this.formGp.controls.gitRepo.removeValidators(Validators.required);
       if (this.formGp.valid) {
         this.update(this.formGp.value as HaEditBrickDTO).subscribe({
-          next: newEntity => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
-          error: () => this.isLoading = false
+          next: (newEntity) => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
+          error: () => (this.isLoading = false),
         });
       }
     }
@@ -120,13 +124,11 @@ export class HaPublicEditBrickDialogComponent extends FlFormDialogAbstractDirect
   }
 
   onFileSelected(file: File | File[]): void {
-    if (this.isPhotoLoading)
-      return;
+    if (this.isPhotoLoading) return;
     this.isPhotoLoading = true;
     this.brickService.editBrickImage(this.formGp.value.id, file as File).subscribe((image) => {
       this.brickService.deleteBrickImage(this.formGp.value.imageLink).subscribe();
       this.formGp.controls.imageLink.patchValue(image.filename);
     });
   }
-
 }

@@ -9,19 +9,22 @@ export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | '
 @Component({
   selector: 'ca-select-cloud-provider-region-options',
   templateUrl: './ca-select-cloud-provider-region-options.component.html',
-  styleUrls: ['./ca-select-cloud-provider-region-options.component.scss']
+  styleUrls: ['./ca-select-cloud-provider-region-options.component.scss'],
 })
-export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit, OnDestroy {
-
+export class CaSelectCloudProviderRegionOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @Input({ required: true }) set mode(mode: CaSelectCloudProviderRegionOptionsMode) {
     this.init(mode);
   }
 
   datasource: CaCloudProviderRegionDatasource;
 
-  constructor(private cloudProviderService: CaCloudProviderService,
-              @Host() private select: MatSelect) {
+  constructor(
+    private cloudProviderService: CaCloudProviderService,
+    @Host() private select: MatSelect
+  ) {
     super(select);
   }
 
@@ -46,7 +49,6 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
     }
   }
 
-
   ngAfterViewInit(): void {
     this.initOptions();
   }
@@ -54,5 +56,4 @@ export class CaSelectCloudProviderRegionOptionsComponent extends FlEmbeddedOptio
   ngOnDestroy(): void {
     this.datasource.disconnect();
   }
-
 }

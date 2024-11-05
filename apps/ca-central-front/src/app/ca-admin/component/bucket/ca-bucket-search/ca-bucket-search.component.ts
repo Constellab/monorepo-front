@@ -5,34 +5,37 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
-import { CaBucketFull, CaBucketFullDatasource } from '../../../../ca-core/model/entities/ca-object-storage.class';
+import {
+  CaBucketFull,
+  CaBucketFullDatasource,
+} from '../../../../ca-core/model/entities/ca-object-storage.class';
 import {
   CaBucketSearch,
-  CaBucketSearchFields
+  CaBucketSearchFields,
 } from '../../../../ca-core/entity-module/ca-object-storage-core/model/ca-bucket-search.class';
 import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
 import {
   CaBucketFormDialogComponent,
-  CaBucketFormDialogInput
+  CaBucketFormDialogInput,
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
   selector: 'ca-bucket-search',
   templateUrl: './ca-bucket-search.component.html',
   styleUrls: ['./ca-bucket-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class CaBucketSearchComponent implements OnInit {
-
   datasource: CaBucketFullDatasource<CaBucketSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private bucketSearch: CaObjectStorageService,
-              private themeService: FlThemeService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private bucketSearch: CaObjectStorageService,
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -42,28 +45,32 @@ export class CaBucketSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: CaBucketSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: true,
-      defaultSort: {key: 'name', direction: 'ASC'}
+      defaultSort: { key: 'name', direction: 'ASC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.bucketSearch.searchBucket(page, size, filters),
-      20, false);
+      20,
+      false
+    );
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-bucket',
-      id: null,
-      label: 'All buckets',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaBucketSearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-bucket',
+        id: null,
+        label: 'All buckets',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaBucketSearchFields>,
+      },
+    ];
   }
 
   openCreateDialog(): void {
@@ -71,9 +78,10 @@ export class CaBucketSearchComponent implements OnInit {
       mode: 'create',
     };
 
-    this.dialogService.openSmallDialog(CaBucketFormDialogComponent, {data: input}).afterClosed().subscribe(
-      bucket => this.onCreateClosed(bucket)
-    );
+    this.dialogService
+      .openSmallDialog(CaBucketFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((bucket) => this.onCreateClosed(bucket));
   }
 
   private onCreateClosed(bucket?: CaBucketFull): void {
@@ -81,5 +89,4 @@ export class CaBucketSearchComponent implements OnInit {
       this.datasource.addItem(bucket);
     }
   }
-
 }

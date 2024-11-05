@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringOtherPageComponent} from './lab-monitoring-other-page.component';
+import { LabMonitoringOtherPageComponent } from './lab-monitoring-other-page.component';
 
 describe('LabMonitoringOtherPageComponent', () => {
   let component: LabMonitoringOtherPageComponent;
@@ -8,9 +8,8 @@ describe('LabMonitoringOtherPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabMonitoringOtherPageComponent]
-    })
-    .compileComponents();
+      declarations: [LabMonitoringOtherPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabMonitoringOtherPageComponent);
     component = fixture.componentInstance;

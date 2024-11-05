@@ -8,9 +8,8 @@ describe('FlInputFileIconContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlInputFileIconContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [FlInputFileIconContainerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

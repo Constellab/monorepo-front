@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabEnvironmentToggleComponent} from './lab-environment-toggle.component';
+import { LabEnvironmentToggleComponent } from './lab-environment-toggle.component';
 
 describe('LabEnvironmentToogleComponent', () => {
   let component: LabEnvironmentToggleComponent;
@@ -8,9 +8,8 @@ describe('LabEnvironmentToogleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabEnvironmentToggleComponent ]
-    })
-    .compileComponents();
+      declarations: [LabEnvironmentToggleComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

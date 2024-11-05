@@ -6,17 +6,17 @@ import { LabBrickDataService } from '../../../../service/lab-brick-data.service'
 @Component({
   selector: 'lab-brick-data-table',
   templateUrl: './lab-brick-data-table.component.html',
-  styleUrls: ['./lab-brick-data-table.component.scss']
+  styleUrls: ['./lab-brick-data-table.component.scss'],
 })
 export class LabBrickDataTableComponent {
-
   @Input() datasource: LabBrickDataArrayObs;
 
   @Input() columns: string[] = ['fsNodeName', 'brickName', 'fsNodeSize', 'fsNodeType', 'actions'];
 
-  constructor(private brickDataService: LabBrickDataService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private brickDataService: LabBrickDataService,
+    private dialogService: FlDialogService
+  ) {}
 
   openDeleteBrickData(brickData: LabBrickData): void {
     const data: FlConfirmDialogInput = {
@@ -26,9 +26,10 @@ export class LabBrickDataTableComponent {
       successMessage: 'monitoring.brick_data_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, brickData)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, brickData));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, brickData: LabBrickData): void {
@@ -36,5 +37,4 @@ export class LabBrickDataTableComponent {
       this.datasource.removeItem(brickData);
     }
   }
-
 }

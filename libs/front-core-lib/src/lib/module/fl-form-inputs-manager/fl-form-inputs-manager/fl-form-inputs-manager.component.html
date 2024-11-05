@@ -1,7 +1,10 @@
-<fl-chip *ngFor="let input of filledInputs; let i = index" class="chip" size="small"
-         (auxclick)="onChipClick(input, $event)">
+<fl-chip
+  *ngFor="let input of filledInputs; let i = index"
+  class="chip"
+  size="small"
+  (auxclick)="onChipClick(input, $event)">
   <fl-text-icon iconPosition="end" gap="5px">
-    {{input.name | flTranslatableText | async}}
+    {{ input.name | flTranslatableText | async }}
     <mat-icon class="g-icon-tiny remove-icon" (click)="clearInput(input)">cancel</mat-icon>
   </fl-text-icon>
 </fl-chip>

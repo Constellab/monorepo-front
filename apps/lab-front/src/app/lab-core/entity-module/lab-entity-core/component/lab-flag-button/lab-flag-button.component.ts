@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {LabFlaggedEntity} from '../../../../model/global/lab-flagged-entity.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {Observable} from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { LabFlaggedEntity } from '../../../../model/global/lab-flagged-entity.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { Observable } from 'rxjs';
 
 /**
  * Button to toggle the flag of an element.
@@ -15,15 +15,13 @@ import {Observable} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabFlagButtonComponent {
-
   @Input() entity: LabFlaggedEntity;
 
   @Output() update: EventEmitter<LabFlaggedEntity> = new EventEmitter();
 
   private isLoading: boolean = false;
 
-  constructor(private resourceService: LabResourceService) {
-  }
+  constructor(private resourceService: LabResourceService) {}
 
   toggleHighlight(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -41,8 +39,8 @@ export class LabFlagButtonComponent {
 
     this.isLoading = true;
     obs.subscribe({
-      next: entity => this.onSuccess(entity),
-      error: () => this.onError(this.entity.flagged)
+      next: (entity) => this.onSuccess(entity),
+      error: () => this.onError(this.entity.flagged),
     });
   }
 
@@ -56,7 +54,6 @@ export class LabFlagButtonComponent {
     this.isLoading = false;
   }
 
-
   get fontSet(): string {
     return this.entity.flagged ? 'material-icons' : 'material-icons-outlined';
   }
@@ -69,6 +66,4 @@ export class LabFlagButtonComponent {
       return '';
     }
   }
-
 }
-

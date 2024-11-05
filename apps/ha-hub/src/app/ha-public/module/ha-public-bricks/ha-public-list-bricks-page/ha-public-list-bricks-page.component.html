@@ -2,19 +2,26 @@
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
   <a mat-flat-button routerLink="edit" class="bt first-bt">
-      <mat-icon >add_circle</mat-icon>
-      {{'create_brick' | translate}}
+    <mat-icon>add_circle</mat-icon>
+    {{ 'create_brick' | translate }}
   </a>
-  <button mat-flat-button type="button" class="bt my-bricks-bt" (click)="selectSpace('my-bricks')"
-          [class]="isSelected('my-bricks') ? 'bt-primary' : ''">
+  <button
+    mat-flat-button
+    type="button"
+    class="bt my-bricks-bt"
+    (click)="selectSpace('my-bricks')"
+    [class]="isSelected('my-bricks') ? 'bt-primary' : ''">
     {{ 'my_bricks' | translate }}
   </button>
 
   <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
 
   <div class="left-panel-buttons-div">
-    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
-                     class="space-list-option">
+    <mat-chip-option
+      [value]="isSelected('public')"
+      (click)="selectSpace('public')"
+      color="accent"
+      class="space-list-option">
       <fl-text-icon [iconPosition]="'start'">
         {{ 'public' | translate }}
         <mat-icon>public</mat-icon>
@@ -34,7 +41,10 @@
       <div class="search-bar-title">
         <form type="submit" (ngSubmit)="search($event)">
           <mat-form-field class="section-search-bar">
-            <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
+            <input
+              matInput
+              [formControl]="titleFormControl"
+              placeholder="{{ 'search_by_title' | translate }}" />
             <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
               <mat-icon>search</mat-icon>
             </button>
@@ -42,7 +52,7 @@
         </form>
       </div>
       <div class="bricks-list">
-        <a *ngFor="let b of bricks | flDatasourceConnect  | async" [routerLink]="getBrickRoute(b)">
+        <a *ngFor="let b of bricks | flDatasourceConnect | async" [routerLink]="getBrickRoute(b)">
           <co-brick-list-item [brick]="b" [brickImage]="b.imageLink | haBrickImage"></co-brick-list-item>
         </a>
       </div>

@@ -1,26 +1,25 @@
-.dialog-content{
+.dialog-content {
   display: flex;
   flex-direction: column;
 }
 
-table{
+table {
   width: 100%;
 }
 
-.select-file-button{
+.select-file-button {
   margin: 0 auto 1em auto;
 }
 
-
-.left-cell{
+.left-cell {
   text-align: left;
 }
 
-.right-cell{
+.right-cell {
   text-align: right;
 }
 
-.no-file-attached-text{
+.no-file-attached-text {
   margin-top: 1em;
   width: 100%;
   text-align: center;

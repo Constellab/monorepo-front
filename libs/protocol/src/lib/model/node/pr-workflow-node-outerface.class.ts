@@ -9,18 +9,22 @@ import { PrProcess } from '../pr-process.class';
 import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
-
 /**
  * Node for the outerfaces
  */
 export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface> {
-
   // real name of the outerface (the name might have been changed to make it unique)
   public outerfaceName: string;
 
-  constructor(outerfaceObject: PrOuterface, parentLayerId: string, outerfaceName: string,
-              private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
-              resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
+  constructor(
+    outerfaceObject: PrOuterface,
+    parentLayerId: string,
+    outerfaceName: string,
+    private connectedNode: PrWorkflowNodeProcess,
+    private connectedPort: PrWorkflowPort,
+    resourceState: PrWorkflowResourcesState,
+    actionState: PrWorkflowActionState
+  ) {
     super(outerfaceObject.name, parentLayerId, outerfaceObject, true, resourceState, actionState);
     this.outerfaceName = outerfaceName;
   }
@@ -30,7 +34,7 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
   }
 
   protected initPorts(object: PrOuterface): void {
-    this.createPort(object.portName, {specs: object.portType, resource_id: null}, 'input');
+    this.createPort(object.portName, { specs: object.portType, resource_id: null }, 'input');
   }
 
   getPort(): PrWorkflowPort {
@@ -53,18 +57,14 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
     return null;
   }
 
-
   getResourceId$(): Observable<string> {
-    return this.connectedNode.getObject$().pipe(
-      map(process => process.outputs.ports[this.connectedPort.name]?.resource_id ?? null)
-    );
+    return this.connectedNode
+      .getObject$()
+      .pipe(map((process) => process.outputs.ports[this.connectedPort.name]?.resource_id ?? null));
   }
 
-
   getResource$(): Observable<FlStatusEvent<PrResource>> {
-    return this.connectedNode.getObject$().pipe(
-      switchMap(node => this.resourceIsProvided(node))
-    );
+    return this.connectedNode.getObject$().pipe(switchMap((node) => this.resourceIsProvided(node)));
   }
 
   private resourceIsProvided(process: PrProcess): Observable<FlStatusEvent<PrResource>> {
@@ -96,14 +96,13 @@ export class PrWorkflowNodeOuterface extends PrWorkflowNodeResource<PrOuterface>
           type: 'outerface',
           name: this.outerfaceName,
           object: this.currentObject,
-          parentLayerId: this.parentLayerId
+          parentLayerId: this.parentLayerId,
         });
-      }
+      },
     });
   }
 
   protected getDefaultIcon(): string {
     return 'logout';
   }
-
 }

@@ -7,16 +7,15 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'fl-login-form',
   templateUrl: './fl-login-form.component.html',
-  styleUrls: ['./fl-login-form.component.scss']
+  styleUrls: ['./fl-login-form.component.scss'],
 })
 export class FlLoginFormComponent {
-
   @Input() formGp: UntypedFormGroup;
 
   public static buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required]
+      password: [null, Validators.required],
     });
   }
 }

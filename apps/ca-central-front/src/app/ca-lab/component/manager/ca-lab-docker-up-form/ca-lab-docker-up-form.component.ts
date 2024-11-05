@@ -12,19 +12,19 @@ export interface CaLabDockerUpFormInput {
 @Component({
   selector: 'ca-lab-docker-up-form',
   templateUrl: './ca-lab-docker-up-form.component.html',
-  styleUrls: ['./ca-lab-docker-up-form.component.scss']
+  styleUrls: ['./ca-lab-docker-up-form.component.scss'],
 })
 export class CaLabDockerUpFormComponent {
-
   formGp = new FormBuilder().group({
     updateContainers: [true],
     pruneSystem: [true],
-    destroyContainers: [false]
+    destroyContainers: [false],
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabDockerUpFormInput,
-              private dialogRef: MatDialogRef<CaLabDockerUpFormComponent>) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaLabDockerUpFormInput,
+    private dialogRef: MatDialogRef<CaLabDockerUpFormComponent>
+  ) {}
 
   submit(): void {
     if (this.formGp.valid) {

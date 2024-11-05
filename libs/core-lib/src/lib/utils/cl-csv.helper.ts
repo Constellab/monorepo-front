@@ -13,9 +13,9 @@ export interface ClCSVDelimiter {
  * List of know CSV delimiter
  */
 export const clCSVDelimiters: ClCSVDelimiter[] = [
-  {delimiter: ',', name: ','},
-  {delimiter: ';', name: ';'},
-  {delimiter: '\t', name: 'Tab'},
+  { delimiter: ',', name: ',' },
+  { delimiter: ';', name: ';' },
+  { delimiter: '\t', name: 'Tab' },
 ];
 
 /**
@@ -27,8 +27,6 @@ export const clCSVLineSeparator: string = '\n';
  * Static class containing method to work with CSV strings
  */
 export class ClCSVHelper {
-
-
   /**
    * Automatically detect the delimiter of a csv by counting possible delimiter from the first 10000 characters
    * @param csv
@@ -55,6 +53,4 @@ export class ClCSVHelper {
 
     return maxDelimiter;
   }
-
-
 }

@@ -7,7 +7,7 @@ import {
   FlDialogService,
   FlOverlayRef,
   FlPortalService,
-  FlUploadImageDialogConfig
+  FlUploadImageDialogConfig,
 } from '@monorepo/front-core-lib';
 import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 import { mergeMap, Observable, of, startWith } from 'rxjs';
@@ -23,11 +23,11 @@ import {
   TeRichText,
   TeRichTextContent,
   TeTextEditorHistoryPortalComponent,
-  TeTextEditorHistoryPortalData
+  TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
 import {
   HaCoAuthorDialogComponent,
-  HaCoAuthorsDialogInput
+  HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import { CoStoryCategory } from '@monorepo/community-lib';
 
@@ -47,9 +47,7 @@ export class HaStoryEditPageComponent implements OnInit {
   contentEditorIsFocused: boolean = false;
   contentHasError: boolean = false;
   contentError: string;
-  topicControl: FormControl<string | HaTopic> = new FormControl<
-    string | HaTopic
-  >('');
+  topicControl: FormControl<string | HaTopic> = new FormControl<string | HaTopic>('');
   topics: HaTopicDto[];
   filteredTopics: Observable<HaTopicDto[]>;
   canSaveTopic: boolean = false;
@@ -61,20 +59,22 @@ export class HaStoryEditPageComponent implements OnInit {
   notFound: boolean = false;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-  contentEditionFormControl: FormControl<TeRichTextContent> =
-    new FormControl<TeRichTextContent>(TeRichText.emptyContent());
+  contentEditionFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>(
+    TeRichText.emptyContent()
+  );
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
-  saveContentEdition = (value: TeRichTextContent): Observable<HaStory> => of(value).pipe(
-    mergeMap((value) => this.storyService.updateContentEdition(this.story.id, value)),
-    map((story) => {
-      this.story = story;
-      this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
-      this.syncWithBack = true;
-      return story;
-    })
-  )
+  saveContentEdition = (value: TeRichTextContent): Observable<HaStory> =>
+    of(value).pipe(
+      mergeMap((value) => this.storyService.updateContentEdition(this.story.id, value)),
+      map((story) => {
+        this.story = story;
+        this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+        this.syncWithBack = true;
+        return story;
+      })
+    );
 
   constructor(
     private storyService: HaStoryService,
@@ -136,15 +136,9 @@ export class HaStoryEditPageComponent implements OnInit {
           this.canSaveTopic = name && name.trim() !== '';
           return name
             ? this._filter(name)
-              .slice(0, 3)
-              .filter(
-                (topic) => !this.story.topics.find((t) => t.id === topic.id)
-              )
-            : this.topics
-              .slice(0, 3)
-              .filter(
-                (topic) => !this.story.topics.find((t) => t.id === topic.id)
-              );
+                .slice(0, 3)
+                .filter((topic) => !this.story.topics.find((t) => t.id === topic.id))
+            : this.topics.slice(0, 3).filter((topic) => !this.story.topics.find((t) => t.id === topic.id));
         })
       );
     });
@@ -161,30 +155,23 @@ export class HaStoryEditPageComponent implements OnInit {
 
   onStoryCategoryChange(newCategory: CoStoryCategory): void {
     if (newCategory) {
-      this.storyService
-        .updateCategory(this.story.id, newCategory)
-        .subscribe((story) => {
-          this.story.category = story.category;
-        });
+      this.storyService.updateCategory(this.story.id, newCategory).subscribe((story) => {
+        this.story.category = story.category;
+      });
     }
   }
 
   saveTitle(newTitle: string): void {
-    this.storyService
-      .updateTitle(this.story.id, newTitle)
-      .subscribe((story) => {
-        this.story.title = story.title;
-      });
+    this.storyService.updateTitle(this.story.id, newTitle).subscribe((story) => {
+      this.story.title = story.title;
+    });
   }
 
   saveTopic(): void {
     const topic: HaTopicDto =
       typeof this.topicControl.value === 'string'
         ? new HaTopicDto(this.topicControl.value)
-        : new HaTopicDto(
-          this.topicControl.value.name,
-          this.topicControl.value.id
-        );
+        : new HaTopicDto(this.topicControl.value.name, this.topicControl.value.id);
 
     if (topic.id == null) {
       const input: FlConfirmDialogInput = {
@@ -226,8 +213,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   publish(): void {
     if (
-      TeRichText.getFiguresBlocks(this.contentEditionFormControl.value).length >
-        0 ||
+      TeRichText.getFiguresBlocks(this.contentEditionFormControl.value).length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -254,8 +240,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   save(): void {
     if (
-      TeRichText.getFirstFigureLink(this.contentEditionFormControl.value)
-        ?.length > 0 ||
+      TeRichText.getFirstFigureLink(this.contentEditionFormControl.value)?.length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -272,13 +257,11 @@ export class HaStoryEditPageComponent implements OnInit {
   }
 
   removeTopic(topic: HaTopic): void {
-    this.storyService
-      .removeTopicFromStory(topic.id, this.story.id)
-      .subscribe(() => {
-        this.story.topics = this.story.topics.filter((t) => t.id !== topic.id);
-        this.topics = this.topics.filter((t) => t.id !== topic.id);
-        this.topicControl.enable();
-      });
+    this.storyService.removeTopicFromStory(topic.id, this.story.id).subscribe(() => {
+      this.story.topics = this.story.topics.filter((t) => t.id !== topic.id);
+      this.topics = this.topics.filter((t) => t.id !== topic.id);
+      this.topicControl.enable();
+    });
   }
 
   onSelectTopic(event: MatAutocompleteSelectedEvent): void {
@@ -301,10 +284,7 @@ export class HaStoryEditPageComponent implements OnInit {
       inviteText: 'invite_story_coauthor_information',
     };
 
-    this.dialogService
-      .openSmallDialog(HaCoAuthorDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe();
+    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, { data: input }).afterClosed().subscribe();
   }
 
   checkTopicControl(): boolean {
@@ -323,10 +303,7 @@ export class HaStoryEditPageComponent implements OnInit {
   }
 
   isMainImageInContent(): boolean {
-    return TeRichText.isLinkInFigures(
-      this.story.contentEdition,
-      this.story.mainPicture
-    );
+    return TeRichText.isLinkInFigures(this.story.contentEdition, this.story.mainPicture);
   }
 
   openDeleteStoryConfirmDialog(): void {
@@ -358,7 +335,7 @@ export class HaStoryEditPageComponent implements OnInit {
           service: this.storyService,
           entityId: this.story.id,
           textEditorConfig: this.textEditorConfig,
-          isEditable: true
+          isEditable: true,
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {
@@ -384,9 +361,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   private _filter(name: string): HaTopicDto[] {
     const filterValue = name.toLowerCase();
-    return this.topics.filter((topic) =>
-      topic.name.toLowerCase().includes(filterValue)
-    );
+    return this.topics.filter((topic) => topic.name.toLowerCase().includes(filterValue));
   }
 
   private getStory(id: string): void {
@@ -399,15 +374,9 @@ export class HaStoryEditPageComponent implements OnInit {
         this.checkUserIsAuthorOrCoAuthor(story);
 
         this.story = story;
-        this.contentModified = !TeRichText.areSimilar(
-          this.story?.contentEdition,
-          this.story?.content
-        );
+        this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
         this.syncWithBack = true;
-        this.textEditorConfig = new HaStoryTextEditorConfig(
-          this.storyService,
-          this.story.id
-        );
+        this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
         if (this.story.topics.length >= 5) this.topicControl.disable();
         this.formGp.patchValue(this.story);
         this.contentEditionFormControl.patchValue(this.story.contentEdition ?? TeRichText.emptyContent());

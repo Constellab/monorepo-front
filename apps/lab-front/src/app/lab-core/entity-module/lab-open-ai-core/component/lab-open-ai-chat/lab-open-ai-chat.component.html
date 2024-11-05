@@ -1,16 +1,21 @@
 <div class="chat-content">
-  <lab-open-ai-chat-message *ngFor="let message of value.messages; let index=index"
-                            [message]="message"
-                            (action)="onAction($event, message, index)"></lab-open-ai-chat-message>
+  <lab-open-ai-chat-message
+    *ngFor="let message of value.messages; let index = index"
+    [message]="message"
+    (action)="onAction($event, message, index)"></lab-open-ai-chat-message>
 </div>
 
-
 <mat-form-field class="g-full" subscriptSizing="dynamic" #textarea>
-  <mat-label>{{placeholder}}</mat-label>
+  <mat-label>{{ placeholder }}</mat-label>
 
-  <textarea matInput type="number" [formControl]="messageCtrl"
-            [placeholder]="placeholder" rows="4"
-            (keydown.enter)="onEnter($event)" (blur)="markAsTouched()">
+  <textarea
+    matInput
+    type="number"
+    [formControl]="messageCtrl"
+    [placeholder]="placeholder"
+    rows="4"
+    (keydown.enter)="onEnter($event)"
+    (blur)="markAsTouched()">
   </textarea>
 
   <button mat-icon-button matSuffix type="button" (click)="addMessage()">
@@ -18,7 +23,6 @@
   </button>
 
   <mat-hint *ngIf="hint">
-    {{hint}}
+    {{ hint }}
   </mat-hint>
-
 </mat-form-field>

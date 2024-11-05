@@ -1,7 +1,6 @@
 <fl-card>
-
   <fl-card-body>
-    {{'created_by' | translate}} {{note.createdBy.alias}}
-    {{'the' | translate}} {{note.createdAt | flDate}}
+    {{ 'created_by' | translate }} {{ note.createdBy.alias }} {{ 'the' | translate }}
+    {{ note.createdAt | flDate }}
   </fl-card-body>
 </fl-card>

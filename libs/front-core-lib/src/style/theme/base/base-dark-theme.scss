@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@import "./base-theme";
+@import './base-theme';
 
 /**
  This file apply the dark theme to the app
@@ -8,45 +8,68 @@
 
 // Primary
 $custom-primary: (
-  100: #AFF2F3,
-  500: #49A8A9,
+  100: #aff2f3,
+  500: #49a8a9,
   contrast: (
     100: #222222,
     500: #222222,
-  )
+  ),
 );
 $primary: mat.m2-define-palette($custom-primary, 500, 500, 500, 500);
 
 // Secondary
 $custom-accent: (
-  100: #C7BDF9,
-  500: #6C4EF6,
+  100: #c7bdf9,
+  500: #6c4ef6,
   contrast: (
     100: #222222,
-    500: #FFFFFF,
-  )
+    500: #ffffff,
+  ),
 );
 
 $accent: mat.m2-define-palette($custom-accent, 500, 500, 500, 500);
 
 // Warn
 $custom-warn: (
-  100: #EEC0D6,
-  500: #F991C3,
+  100: #eec0d6,
+  500: #f991c3,
   contrast: (
     100: #222222,
     500: #222222,
-  )
+  ),
 );
 $warn: mat.m2-define-palette($custom-warn, 500, 500, 500, 500);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$theme: mat.m2-define-dark-theme((color: (primary: $primary, accent: $accent, warn: $warn)));
+$theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+  )
+);
 
 // define the background theme
-$background: map_merge(mat.$m2-dark-theme-background-palette, (background: #222222, card: #2B2D2E, dialog:#2B2D2E));
+$background: map_merge(
+  mat.$m2-dark-theme-background-palette,
+  (
+    background: #222222,
+    card: #2b2d2e,
+    dialog: #2b2d2e,
+  )
+);
 // define the foreground
-$foreground: map_merge(mat.$m2-dark-theme-foreground-palette, (base: #FFFFFF, icon: #FFFFFF, icons: #FFFFFF, text: #FFFFFF));
+$foreground: map_merge(
+  mat.$m2-dark-theme-foreground-palette,
+  (
+    base: #ffffff,
+    icon: #ffffff,
+    icons: #ffffff,
+    text: #ffffff,
+  )
+);
 
 // Load all global classes to theme
 @include _base-theme($theme, $background, $foreground);
@@ -57,11 +80,10 @@ $background-color: mat.m2-get-color-from-palette($background, background);
 
 :root {
   // color for light text
-  --light-color: #D9D9D9;
+  --light-color: #d9d9d9;
   // color to use for hover element or more contrast grey
   --hover-color: #494949;
 }
-
 
 /**
  * Classes for this theme that can't be defined in _base-theme.scss
@@ -83,15 +105,41 @@ $background-color: mat.m2-get-color-from-palette($background, background);
   bottom: 0;
   left: 0;
   height: 50px;
-  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(70%, mat.m2-get-color-from-palette($background, card)));
-  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
-  background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
-  background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, mat.m2-get-color-from-palette($background, card) 70%);
+  background: -moz-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    mat.m2-get-color-from-palette($background, card) 70%
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, rgba(0, 0, 0, 0)),
+    color-stop(70%, mat.m2-get-color-from-palette($background, card))
+  );
+  background: -webkit-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    mat.m2-get-color-from-palette($background, card) 70%
+  );
+  background: -o-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    mat.m2-get-color-from-palette($background, card) 70%
+  );
+  background: -ms-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0) 0%,
+    mat.m2-get-color-from-palette($background, card) 70%
+  );
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    mat.m2-get-color-from-palette($background, card) 70%
+  );
 }
 
-.g-button-shadow, .mdc-icon-button.g-button-shadow {
+.g-button-shadow,
+.mdc-icon-button.g-button-shadow {
   background-color: rgba(255, 255, 255, 0.1);
 }
-

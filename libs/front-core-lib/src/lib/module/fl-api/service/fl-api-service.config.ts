@@ -1,11 +1,9 @@
-import {ClDeserializationRef, ClPageI} from '@monorepo/core-lib';
+import { ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
 
 /**
  * Service to provide to configure {@link FlApiService}
  */
 export abstract class FlApiServiceConfig {
-
-
   /**
    * Method call before each API call to append header to the request
    * (useful to happen authorization header)
@@ -26,7 +24,6 @@ export abstract class FlApiServiceConfig {
    * Name of the query param for the page size
    */
   public abstract get pageSizeQueryParam(): string;
-
 
   /**
    * Method to deserialize page

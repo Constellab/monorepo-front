@@ -1,25 +1,24 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {ComponentType} from '@angular/cdk/overlay';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ComponentType } from '@angular/cdk/overlay';
 import {
   FlSnackBarAdditionalConfig,
   flSnackBarAdditionalConfigDefault,
-  FlSnackBarInfoInput
+  FlSnackBarInfoInput,
 } from './model/fl-snack-bar.class';
-import {FlSnackBarInfoComponent} from './component/fl-snack-bar-info/fl-snack-bar-info.component';
-import {FlTranslatableText} from '../fl-translate/model/fl-translate-param';
-import {MatSnackBar, MatSnackBarConfig, MatSnackBarRef} from '@angular/material/snack-bar';
-import {isPlatformServer} from '@angular/common';
+import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
+import { FlTranslatableText } from '../fl-translate/model/fl-translate-param';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * Snack bar service to create snack bar
  */
 @Injectable()
 export class FlSnackBarService {
-
-  constructor(private matSnackBar: MatSnackBar,
-              @Inject(PLATFORM_ID) private platformId: any) {
-  }
-
+  constructor(
+    private matSnackBar: MatSnackBar,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {}
 
   /**
    * Show a success snack bar message (primary color)
@@ -27,14 +26,20 @@ export class FlSnackBarService {
    * @param duration the duration in millisecond of the snackbar
    * @param additionalConfig additional config
    */
-  public openSuccessMessage(message: FlTranslatableText, duration: number = 3000,
-                            additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault)
-    : MatSnackBarRef<FlSnackBarInfoComponent> {
-    return this.openSnackBarInfo({
-      mode: 'success',
-      text: message,
-      additionalConfig: additionalConfig,
-    }, 'g-snackbar-primary', duration);
+  public openSuccessMessage(
+    message: FlTranslatableText,
+    duration: number = 3000,
+    additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault
+  ): MatSnackBarRef<FlSnackBarInfoComponent> {
+    return this.openSnackBarInfo(
+      {
+        mode: 'success',
+        text: message,
+        additionalConfig: additionalConfig,
+      },
+      'g-snackbar-primary',
+      duration
+    );
   }
 
   /**
@@ -43,19 +48,27 @@ export class FlSnackBarService {
    * @param duration the duration in millisecond of the snackbar
    * @param additionalConfig additional config
    */
-  public openErrorMessage(message: FlTranslatableText, duration: number = null,
-                          additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault)
-    : MatSnackBarRef<FlSnackBarInfoComponent> {
-    return this.openSnackBarInfo({
-      mode: 'error',
-      text: message,
-      additionalConfig: additionalConfig,
-    }, 'g-snackbar-warn', duration);
+  public openErrorMessage(
+    message: FlTranslatableText,
+    duration: number = null,
+    additionalConfig: FlSnackBarAdditionalConfig = flSnackBarAdditionalConfigDefault
+  ): MatSnackBarRef<FlSnackBarInfoComponent> {
+    return this.openSnackBarInfo(
+      {
+        mode: 'error',
+        text: message,
+        additionalConfig: additionalConfig,
+      },
+      'g-snackbar-warn',
+      duration
+    );
   }
 
-  private openSnackBarInfo(data: FlSnackBarInfoInput, panelClass: string, duration: number)
-    : MatSnackBarRef<FlSnackBarInfoComponent> {
-
+  private openSnackBarInfo(
+    data: FlSnackBarInfoInput,
+    panelClass: string,
+    duration: number
+  ): MatSnackBarRef<FlSnackBarInfoComponent> {
     if (isPlatformServer(this.platformId)) {
       return null;
     }
@@ -63,7 +76,7 @@ export class FlSnackBarService {
     return this.openSnackBar(FlSnackBarInfoComponent, {
       data: data,
       duration: duration,
-      panelClass: panelClass
+      panelClass: panelClass,
     });
   }
 
@@ -72,8 +85,10 @@ export class FlSnackBarService {
    * @param component the component to attach to the snack bar
    * @param config the snack bar config
    */
-  public openSnackBar<T = any>(component: ComponentType<T>,
-                               config: MatSnackBarConfig = {}): MatSnackBarRef<T> {
+  public openSnackBar<T = any>(
+    component: ComponentType<T>,
+    config: MatSnackBarConfig = {}
+  ): MatSnackBarRef<T> {
     return this.matSnackBar.openFromComponent(component, config);
   }
 }

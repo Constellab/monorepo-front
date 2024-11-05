@@ -9,14 +9,15 @@ export interface LabSelectNoteTemplateDialogInput {
 @Component({
   selector: 'lab-select-note-template-dialog',
   templateUrl: './lab-select-note-template-dialog.component.html',
-  styleUrls: ['./lab-select-note-template-dialog.component.scss']
+  styleUrls: ['./lab-select-note-template-dialog.component.scss'],
 })
 export class LabSelectNoteTemplateDialogComponent {
-
   rowSelectable: boolean;
 
-  constructor(private dialogRef: MatDialogRef<LabSelectNoteTemplateDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) input: LabSelectNoteTemplateDialogInput) {
+  constructor(
+    private dialogRef: MatDialogRef<LabSelectNoteTemplateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) input: LabSelectNoteTemplateDialogInput
+  ) {
     this.rowSelectable = input.mode === 'selection';
   }
 

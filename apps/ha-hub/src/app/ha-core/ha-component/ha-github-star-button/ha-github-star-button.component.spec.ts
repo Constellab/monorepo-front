@@ -8,9 +8,8 @@ describe('HaGithubStarButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HaGithubStarButtonComponent]
-    })
-      .compileComponents();
+      imports: [HaGithubStarButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaGithubStarButtonComponent);
     component = fixture.componentInstance;

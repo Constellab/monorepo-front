@@ -9,19 +9,16 @@ import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenari
 @Component({
   selector: 'ca-folder-scenario-preview',
   templateUrl: './ca-folder-scenario-preview.component.html',
-  styleUrls: ['./ca-folder-scenario-preview.component.scss']
+  styleUrls: ['./ca-folder-scenario-preview.component.scss'],
 })
 export class CaFolderScenarioPreviewComponent implements OnInit {
-
   @Input() scenarioId: string;
 
   scenario$: Observable<CaScenario>;
 
-  constructor(private scenarioService: CaScenarioService) {
-  }
+  constructor(private scenarioService: CaScenarioService) {}
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioService.findById(this.scenarioId);
   }
-
 }

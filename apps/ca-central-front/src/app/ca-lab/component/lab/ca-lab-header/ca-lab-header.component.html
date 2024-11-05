@@ -1,5 +1,4 @@
 <div *ngIf="lab$ | async as lab">
-
   <fl-horizontal-nav-bar [items]="navBarItems$ | async">
     <fl-horizontal-nav-bar-title>
       <fl-text-icon>
@@ -9,9 +8,7 @@
     </fl-horizontal-nav-bar-title>
 
     <fl-horizontal-nav-bar-actions class="g-layout-row g-layout-start-center">
-      <fl-status-chip [status]="labStatus$" class="g-text-big g-button-action">
-      </fl-status-chip>
+      <fl-status-chip [status]="labStatus$" class="g-text-big g-button-action"> </fl-status-chip>
     </fl-horizontal-nav-bar-actions>
-
   </fl-horizontal-nav-bar>
 </div>

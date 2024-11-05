@@ -1,8 +1,5 @@
 <fl-portal class="user-info-portal">
-
   <fl-portal-content>
-
-
     <div class="top-section g-primary-background g-layout-row g-layout-start-center">
       <!--  Absolute image   -->
       <fl-user-profile-picture [size]="5" [user]="user" class="profil-picture"></fl-user-profile-picture>
@@ -33,18 +30,14 @@
         </fl-text-icon>
       }
 
-    @if (userRoute) {
-      <div class="profile-button">
-        <a [routerLink]="userRoute" mat-stroked-button
-           type="button" class="g-button-small">
-          <mat-icon>person</mat-icon>
-          {{ 'flUser.view_profile' | translate }}
-        </a>
-      </div>
-    }
+      @if (userRoute) {
+        <div class="profile-button">
+          <a [routerLink]="userRoute" mat-stroked-button type="button" class="g-button-small">
+            <mat-icon>person</mat-icon>
+            {{ 'flUser.view_profile' | translate }}
+          </a>
+        </div>
+      }
     </div>
-
-
   </fl-portal-content>
-
 </fl-portal>

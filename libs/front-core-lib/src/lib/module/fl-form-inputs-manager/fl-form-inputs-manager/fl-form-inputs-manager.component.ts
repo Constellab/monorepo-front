@@ -18,11 +18,9 @@ import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param'
 @Component({
   selector: 'fl-form-inputs-manager',
   templateUrl: './fl-form-inputs-manager.component.html',
-  styleUrls: ['./fl-form-inputs-manager.component.scss']
+  styleUrls: ['./fl-form-inputs-manager.component.scss'],
 })
 export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
-
-
   /**
    * Config for the name and group displayed in the chips
    */
@@ -48,19 +46,22 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
    */
   @Output() chipDelete: EventEmitter<FlFormFilledInput[]> = new EventEmitter();
 
-
   filledInputs: FlFormFilledInput[] = [];
 
   private subscription: Subscription;
 
-  constructor(@Optional() private ngForm: NgForm,
-              @Optional() private formGroupDirective: FormGroupDirective) {
-  }
+  constructor(
+    @Optional() private ngForm: NgForm,
+    @Optional() private formGroupDirective: FormGroupDirective
+  ) {}
 
   ngOnInit(): void {
     // check input
-    if ((this.ngForm == null || this.ngForm.control == null) &&
-      this.formGroupDirective == null && this.formGp == null) {
+    if (
+      (this.ngForm == null || this.ngForm.control == null) &&
+      this.formGroupDirective == null &&
+      this.formGp == null
+    ) {
       console.error('There is no control form associated');
       return;
     }
@@ -79,9 +80,7 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.subscription = this.formGp.valueChanges.subscribe(
-      () => this.refreshChipList()
-    );
+    this.subscription = this.formGp.valueChanges.subscribe(() => this.refreshChipList());
 
     // call the refresh on start
     this.refreshChipList();
@@ -130,13 +129,15 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   }
 
   // return the name of the input with the config
-  private getFilledInputName(key: string, control: AbstractControl,
-                             config?: FlTranslatableText): FlFormFilledInput {
-
+  private getFilledInputName(
+    key: string,
+    control: AbstractControl,
+    config?: FlTranslatableText
+  ): FlFormFilledInput {
     return {
       key: key,
       name: config ?? { text: key, translateText: true },
-      control: control
+      control: control,
     };
   }
 
@@ -151,6 +152,4 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

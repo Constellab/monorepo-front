@@ -11,10 +11,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'lab-scenario-template-detail',
   templateUrl: './lab-scenario-template-detail.component.html',
-  styleUrls: ['./lab-scenario-template-detail.component.scss']
+  styleUrls: ['./lab-scenario-template-detail.component.scss'],
 })
 export class LabScenarioTemplateDetailComponent implements OnInit {
-
   @Input({ required: true }) template: LabScenarioTemplate;
 
   tags$: LabTagDatasource;
@@ -26,9 +25,10 @@ export class LabScenarioTemplateDetailComponent implements OnInit {
   saveDescriptionFunc = (value: TeRichTextContent): Observable<any> =>
     this.scenarioTemplateService.updateScenarioTemplate(this.template.id, { description: value });
 
-  constructor(private scenarioTemplateService: LabScenarioTemplateService,
-              private tagService: LabTagService) {
-  }
+  constructor(
+    private scenarioTemplateService: LabScenarioTemplateService,
+    private tagService: LabTagService
+  ) {}
 
   ngOnInit(): void {
     this.formControl.patchValue(this.template.description, { emitEvent: false });

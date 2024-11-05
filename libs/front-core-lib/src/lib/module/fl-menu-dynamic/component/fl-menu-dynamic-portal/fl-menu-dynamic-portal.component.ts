@@ -12,38 +12,34 @@ import { MatMenuTrigger } from '@angular/material/menu';
 @Component({
   selector: 'fl-menu-dynamic-portal',
   templateUrl: './fl-menu-dynamic-portal.component.html',
-  styleUrls: ['./fl-menu-dynamic-portal.component.scss']
+  styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
 })
 export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChild(MatMenuTrigger, {static: true}) menuTrigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;
 
   menu: FlMenuDynamic[];
 
   private listener: () => void;
 
-  constructor(@Inject(FL_PORTAL_DATA) menu: FlMenuDynamic[],
-              private overlayRef: FlOverlayRef,
-              private renderer: Renderer2) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) menu: FlMenuDynamic[],
+    private overlayRef: FlOverlayRef,
+    private renderer: Renderer2
+  ) {
     this.menu = menu;
   }
 
   ngOnInit(): void {
     // when the menu closed, dispose the overlay
-    this.menuTrigger.menuClosed.subscribe(
-      () => this.overlayRef.dispose()
-    );
+    this.menuTrigger.menuClosed.subscribe(() => this.overlayRef.dispose());
   }
-
 
   // open the menu on start
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.menuTrigger.openMenu();
 
-      this.listener = this.renderer.listen('body', 'mousedown',
-        (event) => this.onBodyClick(event)
-      );
+      this.listener = this.renderer.listen('body', 'mousedown', (event) => this.onBodyClick(event));
     }, 0);
   }
 
@@ -69,6 +65,4 @@ export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDe
       this.listener();
     }
   }
-
-
 }

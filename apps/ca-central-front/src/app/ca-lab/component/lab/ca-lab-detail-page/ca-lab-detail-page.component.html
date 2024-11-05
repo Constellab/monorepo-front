@@ -1,12 +1,9 @@
 <div class="g-page page g-layout-col">
-
   <fl-async-section [object]="lab$" class="g-flex-grow">
     <ng-container *flSectionBody="lab$ as lab">
-
       <ca-lab-header></ca-lab-header>
 
       <router-outlet></router-outlet>
-
     </ng-container>
   </fl-async-section>
 </div>

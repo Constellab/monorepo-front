@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabObjectSyncInfoComponent} from './lab-object-sync-info.component';
+import { LabObjectSyncInfoComponent } from './lab-object-sync-info.component';
 
 describe('LabObjectSyncInfoComponent', () => {
   let component: LabObjectSyncInfoComponent;
@@ -8,9 +8,8 @@ describe('LabObjectSyncInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabObjectSyncInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [LabObjectSyncInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

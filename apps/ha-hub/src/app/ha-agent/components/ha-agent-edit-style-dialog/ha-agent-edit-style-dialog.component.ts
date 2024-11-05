@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-} from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -31,14 +28,17 @@ export interface HaAgentEditStyleFormData {
   styleUrl: './ha-agent-edit-style-dialog.component.scss',
 })
 export class HaAgentEditStyleDialogComponent
-  extends FlFormDialogAbstractDirective<HaAgentEditStyleFormData, HaAgent | HaAgentVersion> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<HaAgentEditStyleFormData, HaAgent | HaAgentVersion>
+  implements OnInit
+{
   style: TdTypeStyle;
   isVersion: boolean;
   entityId: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: HaAgentEditStyleDialogInputData,
-              private agentService: HaAgentService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) dialogInput: HaAgentEditStyleDialogInputData,
+    private agentService: HaAgentService
+  ) {
     super();
     this.style = dialogInput.object.style;
     this.isVersion = dialogInput.object.isVersion;

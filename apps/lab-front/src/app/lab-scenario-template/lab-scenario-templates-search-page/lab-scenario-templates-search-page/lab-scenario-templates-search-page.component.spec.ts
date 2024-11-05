@@ -8,9 +8,8 @@ describe('LabScenarioTemplatesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabScenarioTemplatesSearchPageComponent]
-    })
-    .compileComponents();
+      declarations: [LabScenarioTemplatesSearchPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabScenarioTemplatesSearchPageComponent);
     component = fixture.componentInstance;

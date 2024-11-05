@@ -3,16 +3,20 @@ import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CaCreateStoragePriceDTO, CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
+import {
+  CaCreateStoragePriceDTO,
+  CaStoragePrice,
+} from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
   selector: 'ca-storage-price-form-dialog',
   templateUrl: './ca-storage-price-form-dialog.component.html',
-  styleUrl: './ca-storage-price-form-dialog.component.scss'
+  styleUrl: './ca-storage-price-form-dialog.component.scss',
 })
 export class CaStoragePriceFormDialogComponent
-  extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice>
+  implements OnInit
+{
   constructor(private serverService: CaServerService) {
     super();
   }
@@ -45,6 +49,4 @@ export class CaStoragePriceFormDialogComponent
   getUpdateSuccessMessage(): string {
     return '';
   }
-
-
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringBrickDataComponent} from './lab-monitoring-brick-data.component';
+import { LabMonitoringBrickDataComponent } from './lab-monitoring-brick-data.component';
 
 describe('LabBrickDataPageComponent', () => {
   let component: LabMonitoringBrickDataComponent;
@@ -8,9 +8,8 @@ describe('LabBrickDataPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitoringBrickDataComponent ]
-    })
-    .compileComponents();
+      declarations: [LabMonitoringBrickDataComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabMonitoringBrickDataComponent);
     component = fixture.componentInstance;

@@ -1,14 +1,13 @@
-import {ClHelpService, ClNumberHelper} from '@monorepo/core-lib';
-import {ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer} from '@monorepo/chart';
-import {RvResourceViewBase} from './rv-resource-view.class';
-
+import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
+import { ChChart3dDatum, ChChartConfig, ChChartHeatMap, ChChartHeatMapDataContainer } from '@monorepo/chart';
+import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewHeatMap extends RvResourceViewBase {
   type: 'heatmap-view';
-  data: RvResourceViewHeatMapData
+  data: RvResourceViewHeatMapData;
 }
 
-export interface RvResourceViewHeatMapData  {
+export interface RvResourceViewHeatMapData {
   table: any[][];
   rows: RvResourceViewHeaderMapHeader[];
   columns: RvResourceViewHeaderMapHeader[];
@@ -30,17 +29,21 @@ export function rvHeatMapToChart(view: RvResourceViewHeatMap): ChChartConfig {
   const chartData: ChChart3dDatum[][] = [];
 
   for (let column = 0; column < viewData.length; column++) {
-    const columnInfo: RvResourceViewHeaderMapHeader = view.data.columns ? view.data.columns[column] : {name: column.toString(), tags: {}}
+    const columnInfo: RvResourceViewHeaderMapHeader = view.data.columns
+      ? view.data.columns[column]
+      : { name: column.toString(), tags: {} };
     // convert all the column data into a 3d datum, where x = columnIndex, y = index of value and z = value as number
     const data: ChChart3dDatum[] = [];
 
     for (let row = 0; row < viewData[column].length; row++) {
-      const rowInfo: RvResourceViewHeaderMapHeader = view.data.rows ? view.data.rows[row] : {name: row.toString(), tags: {}}
+      const rowInfo: RvResourceViewHeaderMapHeader = view.data.rows
+        ? view.data.rows[row]
+        : { name: row.toString(), tags: {} };
       const value = ClNumberHelper.fromString(viewData[column][row], null);
       const datum = new ChChart3dDatum(column, row, value);
-      datum.tags = Object.assign({}, columnInfo.tags, rowInfo.tags)
+      datum.tags = Object.assign({}, columnInfo.tags, rowInfo.tags);
 
-      data.push(datum)
+      data.push(datum);
     }
     chartData.push(data);
   }
@@ -48,21 +51,20 @@ export function rvHeatMapToChart(view: RvResourceViewHeatMap): ChChartConfig {
   const dataContainer = new ChChartHeatMapDataContainer(chartData);
 
   if (!ClHelpService.isNullOrEmpty(view.data.columns)) {
-    dataContainer.setXTickLabels(view.data.columns.map(column => column.name));
+    dataContainer.setXTickLabels(view.data.columns.map((column) => column.name));
   }
 
   if (!ClHelpService.isNullOrEmpty(view.data.rows)) {
-    dataContainer.setYTickLabels(view.data.rows.map(row => row.name));
+    dataContainer.setYTickLabels(view.data.rows.map((row) => row.name));
   }
 
   // set the labels
-  if(view.data.x_label) {
+  if (view.data.x_label) {
     dataContainer.axisXLabel = view.data.x_label;
   }
-  if(view.data.y_label) {
+  if (view.data.y_label) {
     dataContainer.axisYLabel = view.data.y_label;
   }
 
   return new ChChartHeatMap(dataContainer);
 }
-

@@ -1,11 +1,12 @@
 <fl-dialog-header>
-  {{title | translate }}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
+  <p *ngIf="helpText" class="g-text-light help-text">{{ helpText | flTranslatableText | async }}</p>
 
-  <p *ngIf="helpText" class="g-text-light help-text">{{helpText | flTranslatableText | async}}</p>
-
-  <lab-type-search [fullPageSearch]="false" [config]="config"
-                       (typeSelected)="onTypeSelected($event)"></lab-type-search>
+  <lab-type-search
+    [fullPageSearch]="false"
+    [config]="config"
+    (typeSelected)="onTypeSelected($event)"></lab-type-search>
 </mat-dialog-content>

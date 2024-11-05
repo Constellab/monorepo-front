@@ -3,7 +3,8 @@ import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-
 import {
   HaCreateAgentDto,
   HaAgent,
-  HaAgentDatasourcePaginated, HaAgentDatasourceFilters
+  HaAgentDatasourcePaginated,
+  HaAgentDatasourceFilters,
 } from '../ha-model/ha-entities/ha-agent.class';
 import { Observable } from 'rxjs';
 import { HaAgentVersion, HaAgentVersionFileInput } from '../ha-model/ha-entities/ha-agent-version.class';
@@ -16,19 +17,15 @@ import { HaAgentCoAuthorInvite } from '../entity-module/ha-co-author-core/model/
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import { RvResourceView } from '@monorepo/resource-view';
 import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
-import {
-  HaAgentEditStyleFormData
-} from '../../ha-agent/components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
+import { HaAgentEditStyleFormData } from '../../ha-agent/components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaAgentService implements HaCoAuthorService {
   private readonly route: string = 'agent';
 
-  constructor(private apiService: FlApiService) {
-
-  }
+  constructor(private apiService: FlApiService) {}
 
   ////////////////////////////////// Agent //////////////////////////////////
 
@@ -40,25 +37,48 @@ export class HaAgentService implements HaCoAuthorService {
    * @param size
    * @return a list of agents
    */
-  getAllWithFilters(spacesFilter: string[], titleFilter: string, page: number, size: number): Observable<ClPage<HaAgent>> {
-    return this.apiService.post(`${this.route}/filters`,
-      {spacesFilter: spacesFilter, titleFilter: titleFilter}, HaAgent, {page: page, pageSize: size, resultIsPaginated: true});
+  getAllWithFilters(
+    spacesFilter: string[],
+    titleFilter: string,
+    page: number,
+    size: number
+  ): Observable<ClPage<HaAgent>> {
+    return this.apiService.post(
+      `${this.route}/filters`,
+      { spacesFilter: spacesFilter, titleFilter: titleFilter },
+      HaAgent,
+      { page: page, pageSize: size, resultIsPaginated: true }
+    );
   }
 
   getAllWithFiltersPaginated(pageSize: number = 10): HaAgentDatasourcePaginated<HaAgentDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
-          requestData.filtersCriteria.titleFilter, page, size), pageSize, false);
+        this.getAllWithFilters(
+          requestData.filtersCriteria.spacesFilter,
+          requestData.filtersCriteria.titleFilter,
+          page,
+          size
+        ),
+      pageSize,
+      false
+    );
   }
 
-  getUserAgents(userId: string, page: number, size: number): Observable<ClPage<HaAgent>>{
-    return this.apiService.get(`${this.route}/user/${userId}`, HaAgent, {page: page, pageSize: size, resultIsPaginated: true})
+  getUserAgents(userId: string, page: number, size: number): Observable<ClPage<HaAgent>> {
+    return this.apiService.get(`${this.route}/user/${userId}`, HaAgent, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
-  getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters>{
+  getUserAgentsPaginated(pageSize: number = 4): HaAgentDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size), pageSize, false);
+      (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size),
+      pageSize,
+      false
+    );
   }
 
   /**
@@ -80,7 +100,7 @@ export class HaAgentService implements HaCoAuthorService {
   }
 
   updateTitle(agentId: string, title: string): Observable<HaAgent> {
-    return this.apiService.put(`${this.route}/${agentId}/title`, {title: title}, HaAgent);
+    return this.apiService.put(`${this.route}/${agentId}/title`, { title: title }, HaAgent);
   }
 
   /**
@@ -101,7 +121,6 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/${entityId}/style`, formValue, HaAgent);
   }
 
-
   //////////////////////////////////// Agent Version //////////////////////////////////////
 
   /**
@@ -121,8 +140,12 @@ export class HaAgentService implements HaCoAuthorService {
    * @return the updated agent version
    */
   saveAgentVersionEnvironment(agentVersionId: string, environment: string): Observable<HaAgentVersion> {
-    const environmentData = {environment: environment};
-    return this.apiService.put(`${this.route}/version/${agentVersionId}/environment`, environmentData, HaAgentVersion);
+    const environmentData = { environment: environment };
+    return this.apiService.put(
+      `${this.route}/version/${agentVersionId}/environment`,
+      environmentData,
+      HaAgentVersion
+    );
   }
 
   /**
@@ -132,7 +155,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @return the updated agent version
    */
   saveAgentVersionParams(agentVersionId: string, params: string[]): Observable<HaAgentVersion> {
-    const paramsData = {params: params};
+    const paramsData = { params: params };
     return this.apiService.put(`${this.route}/version/${agentVersionId}/params`, paramsData, HaAgentVersion);
   }
 
@@ -143,7 +166,7 @@ export class HaAgentService implements HaCoAuthorService {
    * @return the updated agent version
    */
   saveAgentVersionCode(agentVersionId: string, code: string): Observable<HaAgentVersion> {
-    const codeData = {code: code};
+    const codeData = { code: code };
     return this.apiService.put(`${this.route}/version/${agentVersionId}/code`, codeData, HaAgentVersion);
   }
 
@@ -180,10 +203,12 @@ export class HaAgentService implements HaCoAuthorService {
    * @param agentVersionFile
    * @return the created agent version
    */
-  createNewDraftVersion(agentId: string, agentVersionFile: HaAgentVersionFileInput): Observable<HaAgentVersion> {
+  createNewDraftVersion(
+    agentId: string,
+    agentVersionFile: HaAgentVersionFileInput
+  ): Observable<HaAgentVersion> {
     return this.apiService.put(`${this.route}/${agentId}/version/draft`, agentVersionFile, HaAgentVersion);
   }
-
 
   /**
    * Call http put to replace a draft version of a agent
@@ -191,8 +216,15 @@ export class HaAgentService implements HaCoAuthorService {
    * @param agentVersionFile
    * @return the replaced agent version
    */
-  replaceDraftVersion(agentId: string, agentVersionFile: HaAgentVersionFileInput): Observable<HaAgentVersion> {
-    return this.apiService.put(`${this.route}/${agentId}/version/draft/replace`, agentVersionFile, HaAgentVersion);
+  replaceDraftVersion(
+    agentId: string,
+    agentVersionFile: HaAgentVersionFileInput
+  ): Observable<HaAgentVersion> {
+    return this.apiService.put(
+      `${this.route}/${agentId}/version/draft/replace`,
+      agentVersionFile,
+      HaAgentVersion
+    );
   }
 
   /**
@@ -233,11 +265,17 @@ export class HaAgentService implements HaCoAuthorService {
   }
 
   getCoAuthorsPendingInvites(id: string): Observable<HaAgentCoAuthorInvite[]> {
-    return this.apiService.get(`${this.route}/co-authors/${id}/pending-invites`, HaAgentCoAuthorInvite, {resultIsPaginated: false});
+    return this.apiService.get(`${this.route}/co-authors/${id}/pending-invites`, HaAgentCoAuthorInvite, {
+      resultIsPaginated: false,
+    });
   }
 
   inviteCoAuthor(id: string, coAuthorMail: string): Observable<boolean> {
-    return this.apiService.post(`${this.route}/co-authors/${id}/invite`, {coAuthorMail: coAuthorMail}, Boolean);
+    return this.apiService.post(
+      `${this.route}/co-authors/${id}/invite`,
+      { coAuthorMail: coAuthorMail },
+      Boolean
+    );
   }
 
   isCoAuthorInviteValid(token: string): Observable<HaAgentCoAuthorInvite> {
@@ -248,7 +286,7 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/co-authors/${id}/remove/${coAuthorId}`, {}, HaAgent);
   }
 
-  uploadImage(file: File, agentId: string): Observable<TeUploadedImage>{
+  uploadImage(file: File, agentId: string): Observable<TeUploadedImage> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/image/${agentId}`, formData);
@@ -258,7 +296,7 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${agentId}/image/${name}`);
   }
 
-  uploadFile(file: File, agentId: string): Observable<HaFile>{
+  uploadFile(file: File, agentId: string): Observable<HaFile> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${agentId}`, formData);
@@ -268,16 +306,15 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${agentId}/file/${name}`);
   }
 
-
-  uploadResourceViewFile(agentId: string, file: FormData): Observable<any>{
+  uploadResourceViewFile(agentId: string, file: FormData): Observable<any> {
     return this.apiService.post(`${this.route}/${agentId}/view`, file);
   }
 
-  getView(agentId: string, id: string): Observable<RvResourceView>{
+  getView(agentId: string, id: string): Observable<RvResourceView> {
     return this.apiService.get(`${this.route}/${agentId}/view/${id}`);
   }
 
-  deleteAgentVersion(agentVersionId: string): Observable<void>{
+  deleteAgentVersion(agentVersionId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/version/${agentVersionId}`);
   }
 }

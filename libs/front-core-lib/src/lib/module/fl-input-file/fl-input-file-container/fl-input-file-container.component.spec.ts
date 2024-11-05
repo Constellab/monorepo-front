@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlInputFileContainerComponent} from './fl-input-file-container.component';
+import { FlInputFileContainerComponent } from './fl-input-file-container.component';
 
 describe('LibInputFileContainerComponent', () => {
   let component: FlInputFileContainerComponent;
@@ -8,9 +8,8 @@ describe('LibInputFileContainerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlInputFileContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [FlInputFileContainerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

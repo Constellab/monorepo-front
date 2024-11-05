@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabProcessTypeTableComponent} from './lab-process-type-table.component';
+import { LabProcessTypeTableComponent } from './lab-process-type-table.component';
 
 describe('LabProcessTypeTableComponent', () => {
   let component: LabProcessTypeTableComponent;
@@ -8,9 +8,8 @@ describe('LabProcessTypeTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabProcessTypeTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabProcessTypeTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

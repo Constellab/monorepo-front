@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {ChChartDataWithSerie} from '../../../model/data/ch-chart-serie.class';
-import {ChChart2dDatum} from '../../../model/data/ch-chart-data.class';
-import {ChChartScaleColor} from '../../../model/scale/ch-chart-scale-color.class';
-import {ChChartLabelFormatter} from '../../../model/ch-chart-label-formatter.class';
-import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
+import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
+import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
+import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
 
 export interface ChChartStackedBarDataPortalInput {
   data: ChChartDataWithSerie<ChChart2dDatum>[];
@@ -20,10 +20,9 @@ export interface ChChartStackedBarDataPortalInput {
   selector: 'ch-chart-stacked-bar-data-portal',
   templateUrl: './ch-chart-stacked-bar-data-portal.component.html',
   styleUrls: ['./ch-chart-stacked-bar-data-portal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChChartStackedBarDataPortalComponent  {
-
+export class ChChartStackedBarDataPortalComponent {
   x: number;
 
   xLabelFormatter: ChChartLabelFormatter;
@@ -46,8 +45,4 @@ export class ChChartStackedBarDataPortalComponent  {
     this.yLabelFormatter = input.yLabelFormatter;
     this.selectedValue = input.selectedValue;
   }
-
-
-
-
 }

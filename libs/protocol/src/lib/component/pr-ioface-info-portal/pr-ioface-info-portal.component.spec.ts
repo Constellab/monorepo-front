@@ -8,9 +8,8 @@ describe('PrIofaceInfoPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrIofaceInfoPortalComponent]
-    })
-    .compileComponents();
+      declarations: [PrIofaceInfoPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PrIofaceInfoPortalComponent);
     component = fixture.componentInstance;

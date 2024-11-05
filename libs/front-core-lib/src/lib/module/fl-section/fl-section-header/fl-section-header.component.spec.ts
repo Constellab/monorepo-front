@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSectionHeaderComponent} from './fl-section-header.component';
+import { FlSectionHeaderComponent } from './fl-section-header.component';
 
 describe('SectionListHeaderComponent', () => {
   let component: FlSectionHeaderComponent;
@@ -8,9 +8,8 @@ describe('SectionListHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSectionHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSectionHeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

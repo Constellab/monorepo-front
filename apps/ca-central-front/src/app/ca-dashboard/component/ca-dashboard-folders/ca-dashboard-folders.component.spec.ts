@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDashboardFoldersComponent} from './ca-dashboard-folders.component';
+import { CaDashboardFoldersComponent } from './ca-dashboard-folders.component';
 
 describe('DashboardFoldersComponent', () => {
   let component: CaDashboardFoldersComponent;
@@ -8,9 +8,8 @@ describe('DashboardFoldersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDashboardFoldersComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDashboardFoldersComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

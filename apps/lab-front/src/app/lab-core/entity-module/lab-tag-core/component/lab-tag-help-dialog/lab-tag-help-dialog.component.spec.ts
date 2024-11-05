@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTagHelpDialogComponent} from './lab-tag-help-dialog.component';
+import { LabTagHelpDialogComponent } from './lab-tag-help-dialog.component';
 
 describe('LabTagHelpPortalComponent', () => {
   let component: LabTagHelpDialogComponent;
@@ -8,9 +8,8 @@ describe('LabTagHelpPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTagHelpDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTagHelpDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

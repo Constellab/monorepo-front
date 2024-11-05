@@ -8,9 +8,8 @@ describe('TeFilesListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeFilesListComponent]
-    })
-      .compileComponents();
+      declarations: [TeFilesListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeFilesListComponent);
     component = fixture.componentInstance;

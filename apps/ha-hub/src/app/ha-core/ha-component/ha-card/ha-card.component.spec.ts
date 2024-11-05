@@ -8,7 +8,7 @@ describe('HaCardComponentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HaCardComponentComponent]
+      declarations: [HaCardComponentComponent],
     });
     fixture = TestBed.createComponent(HaCardComponentComponent);
     component = fixture.componentInstance;

@@ -1,9 +1,9 @@
-import {BnBioNetworkParticleColorScale} from '../state/bn-bio-network-options.state';
-import {ClNumberHelper} from '@monorepo/core-lib';
-import {quantile, scaleLinear} from 'd3';
-import {BnBioNetworkLink} from './bn-bio-network-node-link.class';
-import {ScaleLinear} from 'd3-scale';
-import {FlColorHelper} from '@monorepo/front-core-lib';
+import { BnBioNetworkParticleColorScale } from '../state/bn-bio-network-options.state';
+import { ClNumberHelper } from '@monorepo/core-lib';
+import { quantile, scaleLinear } from 'd3';
+import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
+import { ScaleLinear } from 'd3-scale';
+import { FlColorHelper } from '@monorepo/front-core-lib';
 
 export type BnBioNetworkLinkColorFunction = (node: BnBioNetworkLink) => string;
 
@@ -11,13 +11,11 @@ export type BnBioNetworkLinkColorFunction = (node: BnBioNetworkLink) => string;
  * Class to manage the color of the link particles based on options
  */
 export class BnBioNetworkParticleColor {
-
-
-  constructor(private colorMode: BnBioNetworkParticleColorScale,
-              private allLinkValues: number[],
-              private greyColor: string) {
-
-  }
+  constructor(
+    private colorMode: BnBioNetworkParticleColorScale,
+    private allLinkValues: number[],
+    private greyColor: string
+  ) {}
 
   public getColor(link: BnBioNetworkLink): string {
     return this.getColorScaleFunction()(link);
@@ -37,17 +35,13 @@ export class BnBioNetworkParticleColor {
     if (max === 0) {
       max = 1;
     }
-    return scaleLinear<string>().domain(
-      [0, max])
-      .range(range)
-      .clamp(true); // value outside domain are clamped to the edges
+    return scaleLinear<string>().domain([0, max]).range(range).clamp(true); // value outside domain are clamped to the edges
   }
 
   /**
    * Return the link color max domain based on mode
    */
   private getColorMaxDomain(colorMode: BnBioNetworkParticleColorScale): number {
-
     if (colorMode === 'threshold-75' || colorMode === 'threshold-95') {
       return this.getQuantile(colorMode === 'threshold-75' ? 0.75 : 0.95);
     }
@@ -57,10 +51,9 @@ export class BnBioNetworkParticleColor {
     return func(this.getMaxValue());
   }
 
-
   // return a function to apply on link value before calling the color scale
   private getColorTransformFunction(): (absValue: number) => number {
-    return (absValue => this.transformValue(absValue));
+    return (absValue) => this.transformValue(absValue);
   }
 
   public transformValue(absValue: number): number {
@@ -76,7 +69,7 @@ export class BnBioNetworkParticleColor {
 
   public getQuantile(threshold: number): number {
     // round all value to merge similar values
-    const values = this.allLinkValues.map(value => ClNumberHelper.round(value, 1));
+    const values = this.allLinkValues.map((value) => ClNumberHelper.round(value, 1));
     // remove duplicates
     const uniqueValues = new Set(values);
 

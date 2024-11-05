@@ -1,4 +1,4 @@
-.scenario-div{
+.scenario-div {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -6,30 +6,29 @@
   align-items: center;
 }
 
-.icon{
+.icon {
   display: flex;
   align-items: center;
   margin-right: 1em;
 }
 
-.scenario-title-folder{
+.scenario-title-folder {
   width: 60%;
   font-weight: bold;
 }
 
-.scenario-title{
+.scenario-title {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-
-.scenario-date{
+.scenario-date {
   padding-left: 1em;
   width: 25%;
 }
 
-.scenario{
+.scenario {
   background-color: var(--main-background);
   border-radius: var(--card-radius);
   overflow: hidden;

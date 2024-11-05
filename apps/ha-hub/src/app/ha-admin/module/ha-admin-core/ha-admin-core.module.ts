@@ -1,7 +1,6 @@
-import {NgModule} from "@angular/core";
+import { NgModule } from '@angular/core';
 
 @NgModule({
-  exports: []
+  exports: [],
 })
-export class HaAdminCoreModule {
-}
+export class HaAdminCoreModule {}

@@ -1,36 +1,41 @@
 import { Component, Input } from '@angular/core';
-import { CaLabFolder, CaLabFolderDatasource } from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
+import {
+  CaLabFolder,
+  CaLabFolderDatasource,
+} from '../../../../ca-core/model/entities/lab/ca-lab-folder.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlSnackBarService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
 
 @Component({
   selector: 'ca-lab-folders-table',
   templateUrl: './ca-lab-folders-table.component.html',
-  styleUrls: ['./ca-lab-folders-table.component.scss']
+  styleUrls: ['./ca-lab-folders-table.component.scss'],
 })
 export class CaLabFoldersTableComponent {
-
   @Input({ required: true }) datasource: CaLabFolderDatasource;
 
   @Input({ required: true }) labId: string;
 
   @Input() columns: FlTableColumnStatic<CaLabFolder>[] = ['folder', 'createdBy', 'createdAt'];
 
-  constructor(private labFolderService: CaLabFolderService,
-              private dialogService: FlDialogService,
-              private snackbarService: FlSnackBarService) {
-  }
+  constructor(
+    private labFolderService: CaLabFolderService,
+    private dialogService: FlDialogService,
+    private snackbarService: FlSnackBarService
+  ) {}
 
   syncLabFolder(labFolder: CaLabFolder): void {
-    this.labFolderService.syncLabFolder(this.labId, labFolder.rootFolder.id).subscribe(
-      () => this.snackbarService.openSuccessMessage({ text: 'lab_folder_synced', translateText: true })
-    );
+    this.labFolderService
+      .syncLabFolder(this.labId, labFolder.rootFolder.id)
+      .subscribe(() =>
+        this.snackbarService.openSuccessMessage({ text: 'lab_folder_synced', translateText: true })
+      );
   }
 
   openDeleteFolderDialog(labFolder: CaLabFolder): void {
@@ -41,9 +46,10 @@ export class CaLabFoldersTableComponent {
       successMessage: 'lab_folder_removed',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      (result: FlConfirmDialogResult<void>) => this.onDeleteUserClosed(result, labFolder)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult<void>) => this.onDeleteUserClosed(result, labFolder));
   }
 
   private onDeleteUserClosed(result: FlConfirmDialogResult<void>, labFolder: CaLabFolder): void {

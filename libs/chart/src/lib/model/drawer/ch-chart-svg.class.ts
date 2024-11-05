@@ -1,7 +1,7 @@
-import {Selection} from 'd3-selection';
-import {select} from 'd3';
-import {ChChartSVGLegend} from '../legend/ch-chart-legend.class';
-import {FlFileHelper} from '@monorepo/front-core-lib';
+import { Selection } from 'd3-selection';
+import { select } from 'd3';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { FlFileHelper } from '@monorepo/front-core-lib';
 
 /**
  * Main class to manage the svg for the chart.
@@ -9,15 +9,12 @@ import {FlFileHelper} from '@monorepo/front-core-lib';
  * The svg is the highest container for the chart
  */
 export class ChChartSvg {
-
-
   private _width: number;
   private _height: number;
 
   public svg: Selection<SVGElement, void, null, null>;
   public chartContainer: Selection<SVGElement, void, null, null>;
   private container: HTMLElement;
-
 
   public initSvg(containerElement: HTMLElement): this {
     this.container = containerElement;
@@ -27,8 +24,7 @@ export class ChChartSvg {
       .attr('width', this._width)
       .attr('height', this._height);
 
-    this.chartContainer = this.svg
-      .append('g');
+    this.chartContainer = this.svg.append('g');
 
     return this;
   }
@@ -98,4 +94,3 @@ export class ChChartSvg {
     this._height = height;
   }
 }
-

@@ -1,60 +1,62 @@
-import {Injectable} from '@angular/core';
-import {LabResource} from '../model/entities/resource/lab-resource.entity';
-import {FlDialogService, FlPortalActionResult, FlPortalActionsService} from '@monorepo/front-core-lib';
-import {LabFileResourceService} from './lab-file-resource.service';
-import {LabResourceService} from './lab-resource.service';
-import {LabProcessType} from '../model/entities/lab-type/lab-process-type.entity';
+import { Injectable } from '@angular/core';
+import { LabResource } from '../model/entities/resource/lab-resource.entity';
+import { FlDialogService, FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { LabFileResourceService } from './lab-file-resource.service';
+import { LabResourceService } from './lab-resource.service';
+import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
 import {
   LabConfigureSpecsFormDialogComponent,
-  LabConfigureSpecsFormDialogInput
+  LabConfigureSpecsFormDialogInput,
 } from '../entity-module/lab-config-core/component/lab-configure-specs-form-dialog/lab-configure-specs-form-dialog.component';
-import {LabConfig} from '../model/entities/lab-config.entity';
-import {Observable} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
-import {PrConfigValues} from '@monorepo/protocol';
+import { LabConfig } from '../model/entities/lab-config.entity';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { PrConfigValues } from '@monorepo/protocol';
 
 /**
  * Service to download any downloadable resource
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LabResourceDownloadService {
-
   private readonly downloadAction = 'download-resource';
 
-  constructor(private resourceService: LabResourceService,
-              private dialogService: FlDialogService,
-              private fileService: LabFileResourceService,
-              private actionService: FlPortalActionsService) {
-  }
+  constructor(
+    private resourceService: LabResourceService,
+    private dialogService: FlDialogService,
+    private fileService: LabFileResourceService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   /**
    * Download any downloadable resource
    * @param resource
    */
   public downloadResource(resource: LabResource): void {
-
     // if it's a fsNode, directly download it, otherwise, call exporter
     if (resource.isFile()) {
       this.fileService.downloadFile(resource.id);
       return;
     }
 
-    const action = this.actionService.addAction({
-      type: this.downloadAction,
-      text: {
-        text: 'biox.preparing_resource_download',
-        translateText: true,
-        translateParam: {param: {resourceName: resource.name}}
+    const action = this.actionService.addAction(
+      {
+        type: this.downloadAction,
+        text: {
+          text: 'biox.preparing_resource_download',
+          translateText: true,
+          translateParam: { param: { resourceName: resource.name } },
+        },
+        action: this.downloadBasicResource(resource),
       },
-      action: this.downloadBasicResource(resource)
-    }, true);
+      true
+    );
     action.subscribe((result) => this.callDownloadResource(result));
   }
 
   private downloadBasicResource(resource: LabResource): Observable<LabResource> {
-    return this.resourceService.getResourceExporterConfig(resource.resourceTypingName).pipe(
-      mergeMap(type => this.openExporterConfig(resource, type))
-    );
+    return this.resourceService
+      .getResourceExporterConfig(resource.resourceTypingName)
+      .pipe(mergeMap((type) => this.openExporterConfig(resource, type)));
   }
 
   /**
@@ -64,7 +66,6 @@ export class LabResourceDownloadService {
    * @private
    */
   private openExporterConfig(resource: LabResource, exporterType: LabProcessType): Observable<LabResource> {
-
     // if there is no config, call it directly without config
     if (!exporterType.hasConfigSpecs()) {
       return this.exportResource(resource.id, exporterType.typingName, {});
@@ -77,13 +78,17 @@ export class LabResourceDownloadService {
     };
 
     // open the configuration dialog
-    return this.dialogService.openMediumDialog(LabConfigureSpecsFormDialogComponent, {data: input})
-      .afterClosed().pipe(
-        mergeMap(config => this.exportResource(resource.id, exporterType.typingName, config))
-      );
+    return this.dialogService
+      .openMediumDialog(LabConfigureSpecsFormDialogComponent, { data: input })
+      .afterClosed()
+      .pipe(mergeMap((config) => this.exportResource(resource.id, exporterType.typingName, config)));
   }
 
-  private exportResource(resourceId: string, exporterTypingName: string, config?: PrConfigValues): Observable<LabResource> {
+  private exportResource(
+    resourceId: string,
+    exporterTypingName: string,
+    config?: PrConfigValues
+  ): Observable<LabResource> {
     // cancel the process
     if (config == null) {
       throw Error('Canceled');

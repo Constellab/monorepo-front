@@ -12,19 +12,18 @@ interface CaStorageLimit {
 
 export type CaStorageLimitUpdateDialogInput = FlFormDialogInput<CaStorageLimit>;
 
-
 /**
  * Dialog for admin to update the storage limit of a space
  */
 @Component({
   selector: 'ca-current-space-update-storage-dialog',
   templateUrl: './ca-current-space-update-storage-dialog.component.html',
-  styleUrl: './ca-current-space-update-storage-dialog.component.scss'
+  styleUrl: './ca-current-space-update-storage-dialog.component.scss',
 })
-
 export class CaCurrentSpaceUpdateStorageDialogComponent
-  extends FlFormDialogAbstractDirective<CaStorageLimit, CaSpaceStorage> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<CaStorageLimit, CaSpaceStorage>
+  implements OnInit
+{
   dialogInput: CaStorageLimitUpdateDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private spaceService: CaSpaceService) {
@@ -37,7 +36,7 @@ export class CaCurrentSpaceUpdateStorageDialogComponent
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      limit: [null, [Validators.required, Validators.min(0)]]
+      limit: [null, [Validators.required, Validators.min(0)]],
     });
   }
 
@@ -49,7 +48,6 @@ export class CaCurrentSpaceUpdateStorageDialogComponent
     return this.spaceService.updateCurrentSpaceStorageLimit(formValue.limit);
   }
 
-
   getCreateSuccessMessage(): string {
     return '';
   }
@@ -57,5 +55,4 @@ export class CaCurrentSpaceUpdateStorageDialogComponent
   getUpdateSuccessMessage(): string {
     return 'space_storage_updated';
   }
-
 }

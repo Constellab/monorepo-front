@@ -1,10 +1,9 @@
-import {HaEntity} from './ha-entity.class';
-import {HaVersion} from './ha-version.class';
-import {HaDocumentation} from './ha-documentation.class';
-import {Type} from 'class-transformer';
+import { HaEntity } from './ha-entity.class';
+import { HaVersion } from './ha-version.class';
+import { HaDocumentation } from './ha-documentation.class';
+import { Type } from 'class-transformer';
 
 export class HaFolder extends HaEntity {
-
   title: string;
 
   @Type(() => HaVersion)
@@ -24,5 +23,4 @@ export class HaFolder extends HaEntity {
 
   @Type(() => HaDocumentation)
   documentations: HaDocumentation[];
-
 }

@@ -3,9 +3,7 @@ import { PrProtocolGraph } from '@monorepo/protocol';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
-
 export class LabScenarioTemplate extends LabBaseEntityWithUser {
-
   name: string;
 
   description: TeRichTextContent;
@@ -18,7 +16,6 @@ export class LabScenarioTemplate extends LabBaseEntityWithUser {
 }
 
 export type LabScenarioTemplateDatasource<F = void> = FlEntityPaginatedDatasource<LabScenarioTemplate, F>;
-
 
 export interface LabCreateScenarioTemplateDTO {
   name: string;

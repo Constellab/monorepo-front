@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabServerInfoCardComponent} from './ca-lab-server-info-card.component';
+import { CaLabServerInfoCardComponent } from './ca-lab-server-info-card.component';
 
 describe('ServerInfoCardComponent', () => {
   let component: CaLabServerInfoCardComponent;
@@ -8,9 +8,8 @@ describe('ServerInfoCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabServerInfoCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabServerInfoCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

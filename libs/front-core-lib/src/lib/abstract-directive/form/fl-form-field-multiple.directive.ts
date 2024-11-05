@@ -1,6 +1,6 @@
-import {Directive, Input} from '@angular/core';
-import {FlFormFieldDirective} from './fl-form-field.directive';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Directive, Input } from '@angular/core';
+import { FlFormFieldDirective } from './fl-form-field.directive';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Class to be extended by component that supports NgModel
@@ -12,7 +12,6 @@ import {ClHelpService} from '@monorepo/core-lib';
  */
 @Directive()
 export abstract class FlFormFieldMultipleDirective<T> extends FlFormFieldDirective<T | T[]> {
-
   /** Whether the input is in multiple mode. */
   private _multiple: boolean = false;
 
@@ -32,7 +31,6 @@ export abstract class FlFormFieldMultipleDirective<T> extends FlFormFieldDirecti
       return (this._value as T[])[0];
     }
   }
-
 
   // set the value or array
   set value(value: T | T[]) {

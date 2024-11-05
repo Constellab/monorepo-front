@@ -3,11 +3,8 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-
   <fl-async-section [object]="systemConfig$">
-
     <ng-container *flSectionBody="systemConfig$ as systemConfig">
-
       <fl-key-value class="python-version">
         <fl-key>{{ 'monitoring.python_version' | translate }}</fl-key>
         {{ systemConfig.python_version }}
@@ -20,8 +17,5 @@
         </fl-key-value>
       }
     </ng-container>
-
-
   </fl-async-section>
-
 </mat-dialog-content>

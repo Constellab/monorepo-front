@@ -1,16 +1,15 @@
-import {combineLatest, Observable, Subscription} from 'rxjs';
-import {BnBioNetworkOptions} from '../state/bn-bio-network-options.state';
-import {BnBioNetworkGraphRenderer} from './bn-bio-network-main.renderer';
-import {BnBioNetworkClusterSelection, BnBioNetworkMetaboliteLevel} from '../model/bn-bio-network.class';
-import {BnBioNetworkGraphObject} from '../model/bn-bio-network-graph.class';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
+import { BnBioNetworkClusterSelection, BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
+import { BnBioNetworkGraphObject } from '../model/bn-bio-network-graph.class';
 import {
   BnBioNetworkSelectionEvent,
   BnBioNetworkSelectionEventSingleNode,
-  BnBioNetworkSelectionMode
+  BnBioNetworkSelectionMode,
 } from '../model/bn-bio-network-selection.class';
-import {BnBioNetworkNodeReaction} from '../model/bn-bio-network-node-reaction.class';
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 
 export type BnBioNetworkObjectColorFunction = (node: BnBioNetworkGraphObject) => string;
 
@@ -18,17 +17,17 @@ export type BnBioNetworkObjectColorFunction = (node: BnBioNetworkGraphObject) =>
  * Abstract class for rendering nodes and link of the network
  */
 export abstract class BnBioNetworkObjectRenderer {
-
   private subscription: Subscription;
 
-
-  protected constructor(protected graphRenderer: BnBioNetworkGraphRenderer,
-                        protected options$: Observable<BnBioNetworkOptions>,
-                        protected selection$: Observable<BnBioNetworkSelectionEvent>,
-                        protected greyColor: string) {
+  protected constructor(
+    protected graphRenderer: BnBioNetworkGraphRenderer,
+    protected options$: Observable<BnBioNetworkOptions>,
+    protected selection$: Observable<BnBioNetworkSelectionEvent>,
+    protected greyColor: string
+  ) {
     // every time the options or selection changes, update the graph
-    this.subscription = combineLatest([options$, selection$]).subscribe(
-      ([options, selection]) => this.refreshGraph(options, selection)
+    this.subscription = combineLatest([options$, selection$]).subscribe(([options, selection]) =>
+      this.refreshGraph(options, selection)
     );
   }
 
@@ -38,7 +37,11 @@ export abstract class BnBioNetworkObjectRenderer {
     this.updateObjectColors(options);
 
     // show the cofactor only on node selection
-    const modeToShowCofactor: BnBioNetworkSelectionMode[] = ['singleNodeByClick', 'singleNode', 'multipleNodes'];
+    const modeToShowCofactor: BnBioNetworkSelectionMode[] = [
+      'singleNodeByClick',
+      'singleNode',
+      'multipleNodes',
+    ];
     const showRelatedCofactors = modeToShowCofactor.includes(selection.mode);
 
     let selectedNodes: BnBioNetworkNode = null;
@@ -58,17 +61,18 @@ export abstract class BnBioNetworkObjectRenderer {
     this.updateVisibility(options.visibleLevels, selection.mode, selectedNodes, showRelatedCofactors);
   }
 
-
   protected abstract updateObjectColors(options: BnBioNetworkOptions): void;
 
-  protected abstract updateVisibility(visibleLevels: BnBioNetworkMetaboliteLevel[],
-                                      selectionMode: BnBioNetworkSelectionMode,
-                                      selectedNode: BnBioNetworkNode | null,
-                                      showRelatedCofactor: boolean): void;
+  protected abstract updateVisibility(
+    visibleLevels: BnBioNetworkMetaboliteLevel[],
+    selectionMode: BnBioNetworkSelectionMode,
+    selectedNode: BnBioNetworkNode | null,
+    showRelatedCofactor: boolean
+  ): void;
 
-
-  protected getClusterColorFunction(clusters: BnBioNetworkClusterSelection[])
-    : BnBioNetworkObjectColorFunction {
+  protected getClusterColorFunction(
+    clusters: BnBioNetworkClusterSelection[]
+  ): BnBioNetworkObjectColorFunction {
     return (node: BnBioNetworkGraphObject) => {
       for (const cluster of clusters) {
         if (node.isInCluster(cluster.id)) {
@@ -83,20 +87,21 @@ export abstract class BnBioNetworkObjectRenderer {
     return (node: BnBioNetworkGraphObject) => node.defaultColor;
   }
 
-  protected getLevelVisibilityFunction(levels: BnBioNetworkMetaboliteLevel[],
-                                       selectionMode: BnBioNetworkSelectionMode): (object: BnBioNetworkGraphObject) => boolean {
+  protected getLevelVisibilityFunction(
+    levels: BnBioNetworkMetaboliteLevel[],
+    selectionMode: BnBioNetworkSelectionMode
+  ): (object: BnBioNetworkGraphObject) => boolean {
     // when 1 node is selected, show node based on level and selected nodes
     if (selectionMode === 'singleNode' || selectionMode === 'singleNodeByClick') {
-      return (object: BnBioNetworkGraphObject): boolean => object.selected || levels.includes(object.getLevel());
+      return (object: BnBioNetworkGraphObject): boolean =>
+        object.selected || levels.includes(object.getLevel());
       // for other selection, show node based on level
     } else {
       return (object: BnBioNetworkGraphObject): boolean => levels.includes(object.getLevel());
     }
   }
 
-
   destroy(): void {
     this.subscription?.unsubscribe();
   }
-
 }

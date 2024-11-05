@@ -1,16 +1,16 @@
-:host{
+:host {
   background-color: var(--card-background);
   cursor: inherit;
 }
 
-.brick-right-side{
+.brick-right-side {
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-around;
 }
 
-.brick-logo{
+.brick-logo {
   position: relative;
   width: 90px;
   height: 90px;

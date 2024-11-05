@@ -1,13 +1,10 @@
 <fl-portal>
   <fl-portal-content>
-
     <div>
-      <div>{{('chChart.chart_histogram_mode_' + histogramMode) | translate}} : {{y}}</div>
-      <div>{{'chChart.interval' | translate}} : {{intervalText}}</div>
+      <div>{{ 'chChart.chart_histogram_mode_' + histogramMode | translate }} : {{ y }}</div>
+      <div>{{ 'chChart.interval' | translate }} : {{ intervalText }}</div>
 
-      <ch-chart-serie-inline class="serie" [serieName]="serieName" [color]="color">
-      </ch-chart-serie-inline>
+      <ch-chart-serie-inline class="serie" [serieName]="serieName" [color]="color"> </ch-chart-serie-inline>
     </div>
   </fl-portal-content>
-
 </fl-portal>

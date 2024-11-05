@@ -1,35 +1,34 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- active -->
   <ng-container matColumnDef="userMail">
     <mat-header-cell *matHeaderCellDef>
-      {{'invitation_mail' | translate}}
+      {{ 'invitation_mail' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{row.userMail}}</div>
+      <div>{{ row.userMail }}</div>
     </mat-cell>
   </ng-container>
-
 
   <!-- Role -->
   <ng-container matColumnDef="role">
     <mat-header-cell *matHeaderCellDef>
-      {{'role' | translate}}
+      {{ 'role' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{row.role}}</div>
+      <div>{{ row.role }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- Valid until -->
   <ng-container matColumnDef="validUntil">
     <mat-header-cell *matHeaderCellDef>
-      {{'invitation_valid_until' | translate}}
+      {{ 'invitation_valid_until' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div [matTooltip]="row.validUntil | flDate:'DATE_TIME_WITH_SECONDS'"
-           [ngClass]="{'g-warn-text' : !row.isValid()}">
-        {{row.validUntil | flDate}}
+      <div
+        [matTooltip]="row.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+        [ngClass]="{ 'g-warn-text': !row.isValid() }">
+        {{ row.validUntil | flDate }}
       </div>
     </mat-cell>
   </ng-container>
@@ -37,56 +36,47 @@
   <!-- sentThe -->
   <ng-container matColumnDef="sentThe">
     <mat-header-cell *matHeaderCellDef>
-      {{'invitation_sent_the' | translate}}
+      {{ 'invitation_sent_the' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div [matTooltip]="row.createdAt | flDate:'DATE_TIME'">
-        {{row.createdAt | flDate}}
+      <div [matTooltip]="row.createdAt | flDate: 'DATE_TIME'">
+        {{ row.createdAt | flDate }}
       </div>
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="openUpdateRoleDialog(row)">
+        <button mat-menu-item type="button" (click)="openUpdateRoleDialog(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'space_update_role' | translate}}</span>
+          <span>{{ 'space_update_role' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button"
-                (click)="openResendInvitationDialog(row)">
+        <button mat-menu-item type="button" (click)="openResendInvitationDialog(row)">
           <mat-icon>send</mat-icon>
-          <span>{{'resend_invitation' | translate}}</span>
+          <span>{{ 'resend_invitation' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button"
-                (click)="openRefreshInvitationDialog(row)">
+        <button mat-menu-item type="button" (click)="openRefreshInvitationDialog(row)">
           <mat-icon>autorenew</mat-icon>
-          <span>{{'refresh_invitation_expiration' | translate}}</span>
+          <span>{{ 'refresh_invitation_expiration' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="openDeleteInvitationDialog(row)">
           <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{'delete_invitation' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete_invitation' | translate }}</span>
         </button>
-
       </mat-menu>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

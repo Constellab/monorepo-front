@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCloudProviderTableComponent} from './ca-cloud-provider-table.component';
+import { CaCloudProviderTableComponent } from './ca-cloud-provider-table.component';
 
 describe('CaCloudProviderTableComponent', () => {
   let component: CaCloudProviderTableComponent;
@@ -8,9 +8,8 @@ describe('CaCloudProviderTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCloudProviderTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCloudProviderTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCloudProviderTableComponent);
     component = fixture.componentInstance;

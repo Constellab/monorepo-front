@@ -8,9 +8,8 @@ describe('HaPublicBrickRightPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicBrickRightPanelComponent ]
-    })
-    .compileComponents();
+      declarations: [HaPublicBrickRightPanelComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaPublicBrickRightPanelComponent);
     component = fixture.componentInstance;

@@ -6,26 +6,24 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
-import {FlAsyncSectionBodyContext, FlSectionBodyDirective} from '../fl-section-body';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlDatasource} from '../../../model/datasource/fl-datasource.class';
-import {delay} from 'rxjs/operators';
-import {FlServerError} from '../../fl-api/model/fl-server-error.class';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
-import {FlStatusEvent} from '../../../model/fl-status-event.class';
-
+import { Observable, Subscription } from 'rxjs';
+import { FlAsyncSectionBodyContext, FlSectionBodyDirective } from '../fl-section-body';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlDatasource } from '../../../model/datasource/fl-datasource.class';
+import { delay } from 'rxjs/operators';
+import { FlServerError } from '../../fl-api/model/fl-server-error.class';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
+import { FlStatusEvent } from '../../../model/fl-status-event.class';
 
 @Component({
   selector: 'fl-async-section',
   templateUrl: './fl-async-section.component.html',
   styleUrls: ['./fl-async-section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
-
   /**
    * Provide an observable or a simple object (directly resolved)
    * @param object
@@ -75,7 +73,6 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
    */
   @Input() errorText: string = null;
 
-
   /**
    * If true, the null, undefined or empty array result is considered as a valid value
    * and the body will be lazy loaded
@@ -94,7 +91,7 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
   @Input() isFlStatusEvent: boolean = false;
 
   /** Content that will be rendered lazily. */
-  @ContentChild(FlSectionBodyDirective, {read: TemplateRef, static: true}) lazyContent: TemplateRef<any>;
+  @ContentChild(FlSectionBodyDirective, { read: TemplateRef, static: true }) lazyContent: TemplateRef<any>;
 
   inputIsProvided: boolean = false;
 
@@ -108,12 +105,12 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private translateService: FlTranslateService) {
-  }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private translateService: FlTranslateService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private subscribeToObservable(observable: Observable<any>): void {
     this.isLoading = true;
@@ -124,8 +121,8 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
     // the delay is useful to init other input before call success or error method
     // because this method is call before ngOnInit
     this.subscription = observable.pipe(delay(0)).subscribe({
-      next: result => this.onResponse(result),
-      error: error => this.onError(error)
+      next: (result) => this.onResponse(result),
+      error: (error) => this.onError(error),
     });
     this.cdr.markForCheck();
   }
@@ -187,21 +184,17 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
     }
   }
 
-
   get viewContext(): FlAsyncSectionBodyContext<any> {
     return {
       $implicit: this.result,
       flSectionBody: this.result,
       flSectionBodyDatasource: this.result,
-      flSectionBodyStatusEvent: this.result
+      flSectionBodyStatusEvent: this.result,
     };
   }
-
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
     this._arrayObs?.disconnect();
   }
-
-
 }

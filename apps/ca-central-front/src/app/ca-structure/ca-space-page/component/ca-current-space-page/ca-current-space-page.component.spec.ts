@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpacePageComponent} from './ca-current-space-page.component';
+import { CaCurrentSpacePageComponent } from './ca-current-space-page.component';
 
 describe('CaSpacePageComponent', () => {
   let component: CaCurrentSpacePageComponent;
@@ -8,9 +8,8 @@ describe('CaSpacePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCurrentSpacePageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpacePageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

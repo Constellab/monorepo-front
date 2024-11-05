@@ -8,9 +8,8 @@ describe('CaHierarchyObjectSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectSearchFormComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectSearchFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectSearchFormComponent);
     component = fixture.componentInstance;

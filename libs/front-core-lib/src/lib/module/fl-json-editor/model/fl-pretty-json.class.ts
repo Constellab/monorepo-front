@@ -17,5 +17,5 @@ export interface FlObjectFlatNode {
   value?: any;
   type: FlObjectNodeType;
   preview?: string;
-  className:string;
+  className: string;
 }

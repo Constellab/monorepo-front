@@ -5,13 +5,11 @@ import { CaSpace } from './space/ca-space.class';
 import {
   FlDatasourceGetPageFunction,
   FlDatasourcePaginated,
-  FlEntityPaginatedDatasource
+  FlEntityPaginatedDatasource,
 } from '@monorepo/front-core-lib';
 import { CaLab } from './lab/ca-lab.class';
 
-
 export class CaBucketCredentials extends CaBaseEntity {
-
   name: string;
 
   @Type(() => CaCloudProvider)
@@ -23,18 +21,15 @@ export class CaBucketCredentials extends CaBaseEntity {
   s3Username: string;
 
   shortDescription: string;
-
 }
 
 /**
  * Complete credential (only accessible for admin)
  */
 export class CaBucketCredentialsFull extends CaBucketCredentials {
-
   accessKeyId: string;
 
   secretAccessKey: string;
-
 }
 
 export type CaBucketCredentialsDatasource = FlEntityPaginatedDatasource<CaBucketCredentials>;
@@ -52,9 +47,7 @@ export enum CaBucketType {
   LAB = 'LAB', // bucket hosted on a lab
 }
 
-
 export class CaBucket extends CaBaseEntity {
-
   name: string;
 
   contentType: CaBucketContentType;
@@ -71,9 +64,7 @@ export class CaBucket extends CaBaseEntity {
   }
 }
 
-
 export class CaBucketFull extends CaBucket {
-
   @Type(() => CaCloudProviderRegion)
   region?: CaCloudProviderRegion;
 
@@ -103,9 +94,12 @@ export class CaBucketLocationDTO {
 }
 
 export class CaBucketLocationDatasource extends FlDatasourcePaginated<CaBucketLocationDTO> {
-
-  constructor(getPageFunction: FlDatasourceGetPageFunction<CaBucketLocationDTO>, pageSize: number, initFirstPage: boolean = true,
-              disableAutoDisconnect: boolean = false) {
+  constructor(
+    getPageFunction: FlDatasourceGetPageFunction<CaBucketLocationDTO>,
+    pageSize: number,
+    initFirstPage: boolean = true,
+    disableAutoDisconnect: boolean = false
+  ) {
     super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
   }
 
@@ -113,4 +107,3 @@ export class CaBucketLocationDatasource extends FlDatasourcePaginated<CaBucketLo
     return a.bucketId === b.bucketId;
   }
 }
-

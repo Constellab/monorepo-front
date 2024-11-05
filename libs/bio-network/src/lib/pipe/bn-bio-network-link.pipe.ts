@@ -1,14 +1,13 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {BnBioNetworkLinkHelper} from '../utils/bn-bio-network-link.helper';
+import { Pipe, PipeTransform } from '@angular/core';
+import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
 
 /**
  * Simple pipe to generate link from object name and type
  */
 @Pipe({
-  name: 'bnBioNetworkLink'
+  name: 'bnBioNetworkLink',
 })
 export class BnBioNetworkLinkPipe implements PipeTransform {
-
   transform(value: string, type: 'rhea' | 'chebi' | 'brenda'): string {
     if (!value) return null;
 
@@ -23,5 +22,4 @@ export class BnBioNetworkLinkPipe implements PipeTransform {
         return null;
     }
   }
-
 }

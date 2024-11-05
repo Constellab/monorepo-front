@@ -8,9 +8,8 @@ describe('PrNodeInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrProcessInfoComponent]
-    })
-    .compileComponents();
+      declarations: [PrProcessInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PrProcessInfoComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceUpdateStorageDialogComponent} from './ca-current-space-update-storage-dialog.component';
+import { CaCurrentSpaceUpdateStorageDialogComponent } from './ca-current-space-update-storage-dialog.component';
 
 describe('CaCurrentSpaceUpdateStorageDialogComponent', () => {
   let component: CaCurrentSpaceUpdateStorageDialogComponent;
@@ -8,9 +8,8 @@ describe('CaCurrentSpaceUpdateStorageDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCurrentSpaceUpdateStorageDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpaceUpdateStorageDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCurrentSpaceUpdateStorageDialogComponent);
     component = fixture.componentInstance;

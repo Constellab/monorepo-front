@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {LabSharedEntity} from '../../../../model/entities/lab-share.entity';
-
+import { Component, Input } from '@angular/core';
+import { LabSharedEntity } from '../../../../model/entities/lab-share.entity';
 
 /**
  * Component to show the origin of a shared resource.
@@ -8,10 +7,8 @@ import {LabSharedEntity} from '../../../../model/entities/lab-share.entity';
 @Component({
   selector: 'lab-shared-entity-origin',
   templateUrl: './lab-shared-entity-origin.component.html',
-  styleUrls: ['./lab-shared-entity-origin.component.scss']
+  styleUrls: ['./lab-shared-entity-origin.component.scss'],
 })
 export class LabSharedEntityOriginComponent {
-
   @Input() sharedEntity: LabSharedEntity;
-
 }

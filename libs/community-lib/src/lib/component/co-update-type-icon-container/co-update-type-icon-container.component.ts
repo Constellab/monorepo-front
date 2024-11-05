@@ -9,17 +9,17 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
 export class CoUpdateTypeIconContainerComponent {
   style = input.required<TdTypeStyle>();
 
-  @Input({required: true}) iconSize: number;
+  @Input({ required: true }) iconSize: number;
 
   @HostBinding('class.disabled')
-  @Input() disabled: boolean = false;
+  @Input()
+  disabled: boolean = false;
 
   @Output() onClickEvent: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
   onClick() {
-    if (!this.disabled)
-      this.onClickEvent.emit();
+    if (!this.disabled) this.onClickEvent.emit();
   }
 }

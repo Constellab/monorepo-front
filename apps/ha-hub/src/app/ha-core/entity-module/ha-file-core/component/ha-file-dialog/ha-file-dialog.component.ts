@@ -3,7 +3,7 @@ import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlPortalAction,
-  FlPortalActionsService
+  FlPortalActionsService,
 } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -27,10 +27,12 @@ export interface HaFileFormData {
 @Component({
   selector: 'ha-file-dialog',
   templateUrl: './ha-file-dialog.component.html',
-  styleUrls: ['./ha-file-dialog.component.scss']
+  styleUrls: ['./ha-file-dialog.component.scss'],
 })
-export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileFormData, HaBaseEntityWithFiles> implements OnInit {
-
+export class HaFileDialogComponent
+  extends FlFormDialogAbstractDirective<HaFileFormData, HaBaseEntityWithFiles>
+  implements OnInit
+{
   dialogInput: HaFileDialogInput = inject(MAT_DIALOG_DATA);
 
   entity: HaBaseEntityWithFiles;
@@ -42,7 +44,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       newFiles: [null, Validators.required],
-      entity: [this.entity, Validators.required]
+      entity: [this.entity, Validators.required],
     });
   }
 
@@ -75,15 +77,15 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
     }
 
     for (const file of this.formGp.controls.newFiles.value) {
-
       const action: FlPortalAction = {
         type: 'upload-document',
         action: this.dialogInput.object.service.uploadFile(file, this.entity.id),
         text: {
-          text: 'uploading_document', translateText: true,
-          translateParam: { param: { name: file.name } }
+          text: 'uploading_document',
+          translateText: true,
+          translateParam: { param: { name: file.name } },
         },
-        additionalInformation: this.entity.id
+        additionalInformation: this.entity.id,
       };
       this.actionService.addAction(action, false);
     }
@@ -94,7 +96,7 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
       this.entity = entity;
     });
     this.formGp = this.buildForm();
-    this.actionService.getResult$('upload-document').subscribe(action => {
+    this.actionService.getResult$('upload-document').subscribe((action) => {
       if (action?.status === 'success') {
         this.onDocumentUploaded(action.result, action.additionalInformation);
       }
@@ -114,10 +116,11 @@ export class HaFileDialogComponent extends FlFormDialogAbstractDirective<HaFileF
       type: 'delete-entity-document',
       action: this.dialogInput.object.service.deleteFile(this.entity.id, file.name),
       text: {
-        text: 'deleting_document', translateText: true,
-        translateParam: { param: { name: file.name } }
+        text: 'deleting_document',
+        translateText: true,
+        translateParam: { param: { name: file.name } },
       },
-      additionalInformation: this.entity.id
+      additionalInformation: this.entity.id,
     };
 
     this.actionService.addAction(action, false);

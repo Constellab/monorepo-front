@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewChart2dComponent} from './rv-view-chart2d.component';
+import { RvViewChart2dComponent } from './rv-view-chart2d.component';
 
 describe('BioxResourceChartDComponent', () => {
   let component: RvViewChart2dComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceChartDComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvViewChart2dComponent ]
-    })
-    .compileComponents();
+      declarations: [RvViewChart2dComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

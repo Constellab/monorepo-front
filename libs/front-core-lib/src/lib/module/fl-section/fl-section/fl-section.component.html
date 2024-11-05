@@ -1,8 +1,6 @@
-
 <div class="g-flex-grow g-layout-col">
   <div class="g-flex-auto">
-    <ng-content select="fl-section-header">
-    </ng-content>
+    <ng-content select="fl-section-header"> </ng-content>
   </div>
 
   <div class="g-flex-grow content">
@@ -17,5 +15,4 @@
     <!--  Render the body  -->
     <ng-template [cdkPortalOutlet]="portal"></ng-template>
   </div>
-
 </div>

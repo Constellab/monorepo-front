@@ -8,9 +8,8 @@ describe('CaConstellabDocumentPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaConstellabDocumentPreviewComponent]
-    })
-    .compileComponents();
+      declarations: [CaConstellabDocumentPreviewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaConstellabDocumentPreviewComponent);
     component = fixture.componentInstance;

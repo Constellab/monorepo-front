@@ -6,7 +6,6 @@
     }
     <div [ngClass]="textColor()">{{ link().text | flTranslatableText | async }}</div>
   </a>
-
 } @else if (menuDynamic().type === 'downloadLink') {
   <!--    Link    -->
   <a mat-menu-item [href]="downloadLink().href" download>
@@ -15,11 +14,9 @@
     }
     <div [ngClass]="textColor()">{{ downloadLink().text | flTranslatableText | async }}</div>
   </a>
-
 } @else {
   <!--    Button    -->
-  <button mat-menu-item (click)="callItem(button(), $event)"
-          [disabled]="button().disabled">
+  <button mat-menu-item (click)="callItem(button(), $event)" [disabled]="button().disabled">
     @if (button().icon) {
       <mat-icon [flIcon]="button().icon" [color]="button().color"></mat-icon>
     }

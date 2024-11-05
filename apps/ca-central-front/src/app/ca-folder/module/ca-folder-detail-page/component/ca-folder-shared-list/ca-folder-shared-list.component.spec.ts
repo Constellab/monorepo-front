@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderSharedListComponent} from './ca-folder-shared-list.component';
+import { CaFolderSharedListComponent } from './ca-folder-shared-list.component';
 
 describe('CaFolderSharedGroupsListComponent', () => {
   let component: CaFolderSharedListComponent;
@@ -8,9 +8,8 @@ describe('CaFolderSharedGroupsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderSharedListComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderSharedListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

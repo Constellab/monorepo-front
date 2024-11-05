@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAdminBucketsPageComponent} from './ca-admin-buckets-page.component';
+import { CaAdminBucketsPageComponent } from './ca-admin-buckets-page.component';
 
 describe('CaAdminBucketsPageComponent', () => {
   let component: CaAdminBucketsPageComponent;

@@ -1,12 +1,10 @@
 <ng-container *ngIf="invite">
-
   <div class="invite-div">
-    <h4>{{'brick_invite_text' | translate}} {{invite.brick.name}}</h4>
+    <h4>{{ 'brick_invite_text' | translate }} {{ invite.brick.name }}</h4>
 
     <button mat-flat-button type="button" (click)="acceptInvite()" [disabled]="isLoading">
-      {{'become_coauthor' | translate}}
+      {{ 'become_coauthor' | translate }}
       <fl-loader *ngIf="isLoading" class="loader" [size]="20"></fl-loader>
     </button>
   </div>
-
 </ng-container>

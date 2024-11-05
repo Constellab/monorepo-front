@@ -5,62 +5,63 @@ import { LabRouterService } from '../../../../service/lab-router.service';
 import { FlDialogService, FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
 import {
   LabTransformResourcePortalComponent,
-  LabTransformResourcePortalInput
+  LabTransformResourcePortalInput,
 } from '../../../lab-transformer-core/component/lab-transform-resource-portal/lab-transform-resource-portal.component';
 import {
   LabResourceInfoDialogComponent,
-  LabResourceInfoDialogInput
+  LabResourceInfoDialogInput,
 } from '../lab-resource-info-dialog/lab-resource-info-dialog.component';
-import {
-  LabResourceAvailableViewsPortalComponent
-} from '../lab-resource-available-views-portal/lab-resource-available-views-portal.component';
+import { LabResourceAvailableViewsPortalComponent } from '../lab-resource-available-views-portal/lab-resource-available-views-portal.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import {
   LabImportResourceDialogComponent,
-  LabImportResourceDialogInput
+  LabImportResourceDialogInput,
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
 
 @Component({
   selector: 'lab-resource-detail-header',
   templateUrl: './lab-resource-detail-header.component.html',
-  styleUrls: ['./lab-resource-detail-header.component.scss']
+  styleUrls: ['./lab-resource-detail-header.component.scss'],
 })
 export class LabResourceDetailHeaderComponent {
-
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
   resource: Signal<LabResource> = this.state.selectedResource;
 
   private overlay: FlOverlayRef;
 
-
-  constructor(private state: LabResourceDetailState,
-              private routerService: LabRouterService,
-              private portalService: FlPortalService,
-              private dialogService: FlDialogService,
-              private containerRef: ViewContainerRef,
-              private resourceService: LabResourceService) {
-  }
+  constructor(
+    private state: LabResourceDetailState,
+    private routerService: LabRouterService,
+    private portalService: FlPortalService,
+    private dialogService: FlDialogService,
+    private containerRef: ViewContainerRef,
+    private resourceService: LabResourceService
+  ) {}
 
   openViewSpecListPortal(event: MouseEvent): void {
-    const config = this.portalService.configureRelativePortalFromMouseEvent(event, ['bottom', 'right', 'left'],
+    const config = this.portalService.configureRelativePortalFromMouseEvent(
+      event,
+      ['bottom', 'right', 'left'],
       {
         hasBackdrop: true,
         disposeOnNavigation: true,
         disposeOnBackdropClick: true,
-        transparentBackdrop: true
-      });
+        transparentBackdrop: true,
+      }
+    );
     this.state.createPortal(LabResourceAvailableViewsPortalComponent, config, {}, true);
   }
 
   openResourceInfoDialog(): void {
     const data: LabResourceInfoDialogInput = {
-      resource: this.resource()
+      resource: this.resource(),
     };
     this.dialogService.openBigDialog(LabResourceInfoDialogComponent, {
-      data: data, viewContainerRef: this.containerRef,
+      data: data,
+      viewContainerRef: this.containerRef,
       panelClass: 'g-dialog-main-background',
-      autoFocus: false
+      autoFocus: false,
     });
   }
 
@@ -75,30 +76,30 @@ export class LabResourceDetailHeaderComponent {
   async openTransformerResource(): Promise<void> {
     if (this.overlay) return;
 
-
     const config: FlPortalConfig = this.portalService.configureAbsolutePortal(
       { centerHorizontally: '0', top: '0' },
       {
         disposeOnNavigation: true,
         hasBackdrop: true,
-        transparentBackdrop: true
-      });
+        transparentBackdrop: true,
+      }
+    );
 
     const input: LabTransformResourcePortalInput = {
       resourceName: this.resource().name,
       resourceTypingName: this.resource().resourceTypingName,
       resourceId: this.resource().id,
-      currentTransformers: []
+      currentTransformers: [],
     };
 
     this.overlay = this.portalService.createPortal(LabTransformResourcePortalComponent, config, input);
-    this.overlay.detachments().subscribe(() => this.overlay = null);
+    this.overlay.detachments().subscribe(() => (this.overlay = null));
   }
 
   updateTitle(title: string): void {
-    this.resourceService.updateName(this.resource().id, title).subscribe(
-      resource => this.state.updateResource(resource)
-    );
+    this.resourceService
+      .updateName(this.resource().id, title)
+      .subscribe((resource) => this.state.updateResource(resource));
   }
 
   openImportResource(): void {
@@ -106,11 +107,9 @@ export class LabResourceDetailHeaderComponent {
       resourceId: this.resource().id,
       resourceHumanName: this.resource().resourceType.human_name,
       resourceTypingName: this.resource().resourceTypingName,
-      nodeExtension: this.resource().fsNode.getExtension()
+      nodeExtension: this.resource().fsNode.getExtension(),
     };
 
     this.dialogService.openMediumDialog(LabImportResourceDialogComponent, { data: input });
   }
-
-
 }

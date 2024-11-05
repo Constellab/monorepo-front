@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaBrickVersionDetailComponent} from './ca-brick-version-detail.component';
+import { CaBrickVersionDetailComponent } from './ca-brick-version-detail.component';
 
 describe('CaBrickVersionDetailComponent', () => {
   let component: CaBrickVersionDetailComponent;
@@ -8,9 +8,8 @@ describe('CaBrickVersionDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaBrickVersionDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CaBrickVersionDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

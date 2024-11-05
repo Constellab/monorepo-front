@@ -4,13 +4,13 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import { CaLabGreenOption } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabGreenOptionFormDialogComponent,
-  CaLabGreenOptionFormDialogInput
+  CaLabGreenOptionFormDialogInput,
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 
 @Component({
@@ -19,26 +19,28 @@ import {
   styleUrls: ['./ca-lab-green-option-table.component.scss'],
 })
 export class CaLabGreenOptionTableComponent {
+  @Input({ required: true }) datasource: FlArrayObs<CaLabGreenOption>;
 
-  @Input({required: true}) datasource: FlArrayObs<CaLabGreenOption>;
+  @Input({ required: true }) columns: FlTableColumnStatic<CaLabGreenOption>[];
 
-  @Input({required: true}) columns: FlTableColumnStatic<CaLabGreenOption>[];
-
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService
+  ) {}
 
   updateGreenOption(greenOption: CaLabGreenOption): void {
     const data: CaLabGreenOptionFormDialogInput = {
       mode: 'update',
       id: greenOption.id,
-      object: greenOption
-    }
+      object: greenOption,
+    };
 
-    this.dialogService.openSmallDialog(CaLabGreenOptionFormDialogComponent,
-      {data: data, autoFocus: false}).afterClosed().subscribe(
-      (updatedGreenOption: CaLabGreenOption) => this.onUpdateGreenOptionClosed(updatedGreenOption)
-    );
+    this.dialogService
+      .openSmallDialog(CaLabGreenOptionFormDialogComponent, { data: data, autoFocus: false })
+      .afterClosed()
+      .subscribe((updatedGreenOption: CaLabGreenOption) =>
+        this.onUpdateGreenOptionClosed(updatedGreenOption)
+      );
   }
 
   private onUpdateGreenOptionClosed(updatedGreenOption?: CaLabGreenOption): void {
@@ -55,13 +57,14 @@ export class CaLabGreenOptionTableComponent {
       successMessage: 'lab_green_option_deleted',
     };
 
-    this.dialogService.openConfirmDialog(configInput).afterClosed().subscribe(
-      (result: FlConfirmDialogResult) => this.onDeleteGreenOptionClosed(result, greenOption)
-    );
+    this.dialogService
+      .openConfirmDialog(configInput)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => this.onDeleteGreenOptionClosed(result, greenOption));
   }
 
   private onDeleteGreenOptionClosed(result: FlConfirmDialogResult, greenOption?: CaLabGreenOption): void {
-    if(result.choice){
+    if (result.choice) {
       this.datasource.removeItem(greenOption);
     }
   }

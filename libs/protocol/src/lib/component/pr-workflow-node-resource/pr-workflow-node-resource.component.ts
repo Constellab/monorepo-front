@@ -1,21 +1,22 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {PrWorkflowNodeDirective} from '../../directive/pr-workflow-node.directive';
-import {Observable} from 'rxjs';
-import {FlPortalService, FlTranslatableText} from '@monorepo/front-core-lib';
-import {PrWorkflowNodeIcon} from '../pr-workflow-node-content/pr-workflow-node-content.component';
-import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
-import {PrWorkflowActionState} from '../../state/pr-workflow-action-state';
-import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from '../../model/node/pr-workflow-node-resource.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
+import { Observable } from 'rxjs';
+import { FlPortalService, FlTranslatableText } from '@monorepo/front-core-lib';
+import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
+import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
+import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
+import {
+  PrWorkflowNodeResource,
+  PrWorkNodeIoExternalButton,
+} from '../../model/node/pr-workflow-node-resource.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'pr-workflow-node-resource',
   templateUrl: './pr-workflow-node-resource.component.html',
-  styleUrl: './pr-workflow-node-resource.component.scss'
+  styleUrl: './pr-workflow-node-resource.component.scss',
 })
-export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective
-  implements OnInit {
-
+export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective implements OnInit {
   node: PrWorkflowNodeResource;
 
   title$: Observable<FlTranslatableText>;
@@ -23,11 +24,13 @@ export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective
 
   externalButton$: Observable<PrWorkNodeIoExternalButton | null>;
 
-  constructor(workflowManager: PrWorkflowManagerState,
-              elementRef: ElementRef,
-              renderer: Renderer2,
-              portalService: FlPortalService,
-              protected actionState: PrWorkflowActionState) {
+  constructor(
+    workflowManager: PrWorkflowManagerState,
+    elementRef: ElementRef,
+    renderer: Renderer2,
+    portalService: FlPortalService,
+    protected actionState: PrWorkflowActionState
+  ) {
     super(workflowManager, elementRef, renderer, portalService);
   }
 
@@ -39,10 +42,8 @@ export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective
     this.externalButton$ = this.node.getExternalButtons$();
   }
 
-
   callExternalButton(button: PrWorkNodeIoExternalButton, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     button.action(event);
   }
-
 }

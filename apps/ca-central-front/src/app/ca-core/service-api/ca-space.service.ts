@@ -4,37 +4,37 @@ import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import { CaSpace, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPage } from '@monorepo/core-lib';
 import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
-import { CaSpaceSearch, CaSpaceSearchFields } from '../entity-module/ca-space-core/model/ca-space-search.class';
+import {
+  CaSpaceSearch,
+  CaSpaceSearchFields,
+} from '../entity-module/ca-space-core/model/ca-space-search.class';
 import { CaSpaceRole, CaSpaceUser } from '../model/entities/space/ca-space-user.class';
 import {
   CaSpaceUserSearch,
-  CaSpaceUserSearchFields
+  CaSpaceUserSearchFields,
 } from '../entity-module/ca-space-core/model/ca-space-user-search.class';
 import {
   CaCreateSpaceDTO,
   CaRequestNewLicensesDto,
   CaSpaceSettingsDto,
   CaSpaceStorage,
-  CaSpaceUpdateStorageLocationDTO
+  CaSpaceUpdateStorageLocationDTO,
 } from '../model/entities/space/ca-space.dto';
 import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaSpaceService {
-
   private readonly route: string = 'spaces';
 
-  constructor(private apiService: FlApiService) {
-  }
-
+  constructor(private apiService: FlApiService) {}
 
   createEntrepriseSpace(object: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.apiService.post(this.route + '/entreprise', object, CaSpaceSettingsDto);
@@ -42,7 +42,6 @@ export class CaSpaceService {
 
   public updateCurrentSpaceName(name: string): Observable<CaSpace> {
     return this.apiService.put(`${this.route}/current-space/name/${name}`, null, CaSpace);
-
   }
 
   getById(id: string): Observable<CaSpace> {
@@ -70,8 +69,11 @@ export class CaSpaceService {
   }
 
   public getAll(page: number, size: number): Observable<ClPage<CaSpace>> {
-    return this.apiService.get(`${this.route}`, CaSpace,
-      { page: page, pageSize: size, resultIsPaginated: true });
+    return this.apiService.get(`${this.route}`, CaSpace, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   public uploadSpacePhoto(spaceId: string, photo: File): Observable<CaSpace> {
@@ -88,18 +90,28 @@ export class CaSpaceService {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo/${filename}`);
   }
 
-  public search(page: number, pageSize: number,
-                data: FlDatasourceGetPageData<CaSpaceSearchFields>): Observable<ClPage<CaSpace>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      CaSpaceSearch.filterConverter, CaSpaceSearch.sortConverter);
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaSpaceSearchFields>
+  ): Observable<ClPage<CaSpace>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaSpaceSearch.filterConverter,
+      CaSpaceSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/search`, searchInput, CaSpace, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
   public searchByNames(name: string, page: number, pageSize: number): Observable<ClPage<CaSpace>> {
     return this.apiService.get(`${this.route}/search/name/${name}`, CaSpace, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
@@ -109,7 +121,9 @@ export class CaSpaceService {
   }
 
   ////////////////////////////////// STORAGE //////////////////////////////////////
-  public updateCurrentSpaceStorageLocation(location: CaSpaceUpdateStorageLocationDTO): Observable<CaSpaceStorage> {
+  public updateCurrentSpaceStorageLocation(
+    location: CaSpaceUpdateStorageLocationDTO
+  ): Observable<CaSpaceStorage> {
     return this.apiService.put(`${this.route}/current-space/storage/location`, location, CaSpaceStorage);
   }
 
@@ -122,7 +136,11 @@ export class CaSpaceService {
   }
 
   public updateCurrentSpaceStorageLimit(storageLimit: number): Observable<CaSpaceStorage> {
-    return this.apiService.put(`${this.route}/current-space/storage/limit/${storageLimit}`, null, CaSpaceStorage);
+    return this.apiService.put(
+      `${this.route}/current-space/storage/limit/${storageLimit}`,
+      null,
+      CaSpaceStorage
+    );
   }
 
   ////////////////////////////////// USER //////////////////////////////////////
@@ -151,36 +169,56 @@ export class CaSpaceService {
    * Return the list of user for a space (not SpaceUser)
    */
   public getSpaceSimpleUsers(spaceId: string, page: number, size: number): Observable<ClPage<CaUser>> {
-    return this.apiService.get(`${this.route}/${spaceId}/user-simple`, CaUser,
-      { page: page, pageSize: size, resultIsPaginated: true });
-  }
-
-  public getSpaceSimpleUsersDatasource(spaceId: string): CaUserDatasourcePaginated {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getSpaceSimpleUsers(spaceId, page, size), 20);
-  }
-
-  public searchSpaceUsers(spaceId: string, page: number, pageSize: number,
-                          data: FlDatasourceGetPageData<CaSpaceUserSearchFields>): Observable<ClPage<CaSpaceUser>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      CaSpaceUserSearch.filterConverter, CaSpaceUserSearch.sortConverter);
-    return this.apiService.post(`${this.route}/${spaceId}/user/search`, searchInput, CaSpaceUser, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+    return this.apiService.get(`${this.route}/${spaceId}/user-simple`, CaUser, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
     });
   }
 
-  public searchSpaceUsersByName(spaceId: string, name: string, page: number, pageSize: number): Observable<ClPage<CaUser>> {
+  public getSpaceSimpleUsersDatasource(spaceId: string): CaUserDatasourcePaginated {
+    return new FlEntityPaginatedDatasource((page, size) => this.getSpaceSimpleUsers(spaceId, page, size), 20);
+  }
+
+  public searchSpaceUsers(
+    spaceId: string,
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaSpaceUserSearchFields>
+  ): Observable<ClPage<CaSpaceUser>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaSpaceUserSearch.filterConverter,
+      CaSpaceUserSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/${spaceId}/user/search`, searchInput, CaSpaceUser, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
+  }
+
+  public searchSpaceUsersByName(
+    spaceId: string,
+    name: string,
+    page: number,
+    pageSize: number
+  ): Observable<ClPage<CaUser>> {
     if (ClHelpService.isNullOrEmpty(name)) name = '';
     return this.apiService.get(`${this.route}/${spaceId}/user/search/name/${name}`, CaUser, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
   public searchSpaceUsersByNameDatasource(spaceId: string): CaUserDatasourcePaginated<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page, size, data) => this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText, page, size), 20, false);
+      (page, size, data) => this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText, page, size),
+      20,
+      false
+    );
   }
-
 
   ////////////////////////////////// OTHERS //////////////////////////////////
 
@@ -193,4 +231,3 @@ export class CaSpaceService {
     return this.apiService.get(`${this.route}/find-user/${userId}`, CaUser);
   }
 }
-

@@ -1,29 +1,29 @@
-import {Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2, Signal} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
-import {GitHubButtonProps} from 'github-buttons';
-import {HaThemeState} from '../../ha-state/ha-theme.state';
-import {Subject} from 'rxjs';
-import {ClTheme} from '@monorepo/core-lib';
+import { Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2, Signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { GitHubButtonProps } from 'github-buttons';
+import { HaThemeState } from '../../ha-state/ha-theme.state';
+import { Subject } from 'rxjs';
+import { ClTheme } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-github-star-button',
   standalone: true,
   imports: [],
   templateUrl: './ha-github-star-button.component.html',
-  styleUrl: './ha-github-star-button.component.scss'
+  styleUrl: './ha-github-star-button.component.scss',
 })
-export class HaGithubStarButtonComponent implements OnInit{
-
-  @Input({required: true}) repo: string;
+export class HaGithubStarButtonComponent implements OnInit {
+  @Input({ required: true }) repo: string;
   @Input() title: string = 'Stars';
-  @Input() icon: 'octicon-star' | 'octicon-mark-github' =  'octicon-star';
+  @Input() icon: 'octicon-star' | 'octicon-mark-github' = 'octicon-star';
 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
-  constructor(private renderer: Renderer2,
-              @Inject(PLATFORM_ID) private platformId: object,
-              private themeState: HaThemeState) {
-  }
+  constructor(
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private themeState: HaThemeState
+  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId) && this.isValidGithubRepo(this.repo)) {
@@ -43,24 +43,27 @@ export class HaGithubStarButtonComponent implements OnInit{
     return repo.match(/https:\/\/github.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/?/g) != null;
   }
 
-  renderButton(colorScheme: 'dark'|'light'): void {
+  renderButton(colorScheme: 'dark' | 'light'): void {
     // TODO: check theme dynamically to update button theme on theme change
     import('github-buttons').then((module) => {
       // create the iframe element + place it in the div
-      module.render({
-        'href': this.repo,
-        'title': this.title,
-        'data-show-count': true,
-        'data-color-scheme': colorScheme,
-        'data-size': 'large',
-        'data-icon': this.icon,
-        'data-text': 'Stars',
-        'aria-label': 'Stars'
-      } as GitHubButtonProps, (el: HTMLIFrameElement | HTMLSpanElement) => {
-        const githubButtonDiv = document.getElementById('github-star-bt-div');
-        githubButtonDiv.innerHTML = '';
-        this.renderer.appendChild(githubButtonDiv, el);
-      })
+      module.render(
+        {
+          href: this.repo,
+          title: this.title,
+          'data-show-count': true,
+          'data-color-scheme': colorScheme,
+          'data-size': 'large',
+          'data-icon': this.icon,
+          'data-text': 'Stars',
+          'aria-label': 'Stars',
+        } as GitHubButtonProps,
+        (el: HTMLIFrameElement | HTMLSpanElement) => {
+          const githubButtonDiv = document.getElementById('github-star-bt-div');
+          githubButtonDiv.innerHTML = '';
+          this.renderer.appendChild(githubButtonDiv, el);
+        }
+      );
     });
   }
 }

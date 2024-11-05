@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {Ha404Component} from './ha404.component';
+import { Ha404Component } from './ha404.component';
 
 describe('Ha404Component', () => {
   let component: Ha404Component;
@@ -8,9 +8,8 @@ describe('Ha404Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Ha404Component]
-    })
-      .compileComponents();
+      declarations: [Ha404Component],
+    }).compileComponents();
   });
 
   beforeEach(() => {

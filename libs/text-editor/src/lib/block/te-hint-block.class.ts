@@ -1,8 +1,8 @@
-import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {TeHelper} from '../model/te.helper';
-import {TeMentionInlineTool} from '../plugin/te-mention.class';
+import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { TeHelper } from '../model/te.helper';
+import { TeMentionInlineTool } from '../plugin/te-mention.class';
 
 export type TeHintType = 'info' | 'warning' | 'science';
 
@@ -15,13 +15,9 @@ export interface TeHintBlockData {
  * Hint block
  */
 export class TeHintBlock implements BlockTool {
-
   private node: HTMLElement;
 
-
-  constructor(protected options: BlockToolConstructorOptions) {
-
-  }
+  constructor(protected options: BlockToolConstructorOptions) {}
 
   static get isReadOnlySupported(): boolean {
     return true;
@@ -40,7 +36,6 @@ export class TeHintBlock implements BlockTool {
         data: {
           hintType: 'info',
         } as TeHintBlockData,
-
       },
       {
         icon: TeHelper.getMatIconElement('warning'),
@@ -55,7 +50,7 @@ export class TeHintBlock implements BlockTool {
         data: {
           hintType: 'science',
         } as TeHintBlockData,
-      }
+      },
     ];
   }
 
@@ -76,7 +71,8 @@ export class TeHintBlock implements BlockTool {
     if (!this.options.readOnly) {
       this.node.setAttribute('contenteditable', 'true');
       this.node.addEventListener('keydown', (event: KeyboardEvent) =>
-        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options));
+        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options)
+      );
     }
 
     if (this.data.content) {
@@ -87,7 +83,10 @@ export class TeHintBlock implements BlockTool {
           this.node.innerHTML += `<div><br></div>`;
         } else {
           // sanitize the content using the sanitizer and allow mention
-          this.node.innerHTML += this.options.api.sanitizer.clean(`<div>${div}</div>`, TeMentionInlineTool.sanitize);
+          this.node.innerHTML += this.options.api.sanitizer.clean(
+            `<div>${div}</div>`,
+            TeMentionInlineTool.sanitize
+          );
         }
       }
     } else {
@@ -96,7 +95,6 @@ export class TeHintBlock implements BlockTool {
 
     return this.node;
   }
-
 
   save(): TeHintBlockData {
     return {
@@ -108,5 +106,4 @@ export class TeHintBlock implements BlockTool {
         .replace(/<\/div>/g, ''),
     };
   }
-
 }

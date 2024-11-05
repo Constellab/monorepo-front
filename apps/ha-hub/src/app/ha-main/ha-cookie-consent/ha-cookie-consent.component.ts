@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {FlSnackBarMode, FlTranslatableText} from '@monorepo/front-core-lib';
-import {MatSnackBarRef} from '@angular/material/snack-bar';
+import { Component } from '@angular/core';
+import { FlSnackBarMode, FlTranslatableText } from '@monorepo/front-core-lib';
+import { MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ha-cookie-consent',
@@ -8,16 +8,13 @@ import {MatSnackBarRef} from '@angular/material/snack-bar';
   styleUrls: ['./ha-cookie-consent.component.scss'],
 })
 export class HaCookieConsentComponent {
-
   mode: FlSnackBarMode;
   text: FlTranslatableText;
 
-  constructor(
-    private snackBarRef: MatSnackBarRef<HaCookieConsentComponent>) {
-  }
+  constructor(private snackBarRef: MatSnackBarRef<HaCookieConsentComponent>) {}
 
   closeSnackBar(choice: boolean): void {
-    if(choice) {
+    if (choice) {
       this.snackBarRef.dismissWithAction();
     } else {
       this.snackBarRef.dismiss();

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceTableComponent} from './lab-resource-table.component';
+import { LabResourceTableComponent } from './lab-resource-table.component';
 
 describe('FileResourceTableComponent', () => {
   let component: LabResourceTableComponent;
@@ -8,9 +8,8 @@ describe('FileResourceTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -15,10 +15,9 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 @Component({
   selector: 'ca-lab-current-task',
   templateUrl: './ca-lab-current-task.component.html',
-  styleUrl: './ca-lab-current-task.component.scss'
+  styleUrl: './ca-lab-current-task.component.scss',
 })
 export class CaLabCurrentTaskComponent implements OnInit {
-
   /**
    * If true the text is a link to open the lab configuration will be shown
    */
@@ -28,19 +27,20 @@ export class CaLabCurrentTaskComponent implements OnInit {
 
   configRoute: string;
 
-  constructor(private state: CaLabDetailPageState,
-              private managerState: CaLabDetailManagerState,
-              private translateService: FlTranslateService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private managerState: CaLabDetailManagerState,
+    private translateService: FlTranslateService
+  ) {}
 
   ngOnInit(): void {
     const obs = combineLatest([
       this.state.getStatus$(),
-      this.managerState.getStatus$().pipe(startWith(null))
+      this.managerState.getStatus$().pipe(startWith(null)),
     ]);
 
     this.currentTask$ = obs.pipe(
-      map(([status, managerStatus]) => this.getRunningTaskMessage(status, managerStatus)),
+      map(([status, managerStatus]) => this.getRunningTaskMessage(status, managerStatus))
     );
 
     this.configRoute = CaRouterService.getLabConfigRoute(this.state.getLabId());
@@ -65,7 +65,11 @@ export class CaLabCurrentTaskComponent implements OnInit {
 
     // if all the lab containers are running but the lab is not running, it means the lab is starting
     if (managerStatus == null) return null;
-    if (status.labManagerIsRunning && !status.labIsRunning && managerStatus.containersStatus?.status.value === 'UP') {
+    if (
+      status.labManagerIsRunning &&
+      !status.labIsRunning &&
+      managerStatus.containersStatus?.status.value === 'UP'
+    ) {
       return this.translateService.translate('lab_is_starting');
     }
 

@@ -5,11 +5,10 @@ import { CaLabVolumePeriod } from '../../../../ca-core/model/entities/lab/ca-lab
 @Component({
   selector: 'ca-lab-volume-price-table',
   templateUrl: './ca-lab-volume-price-table.component.html',
-  styleUrl: './ca-lab-volume-price-table.component.scss'
+  styleUrl: './ca-lab-volume-price-table.component.scss',
 })
 export class CaLabVolumePriceTableComponent {
-
   @Input() datasource: FlArrayObs<CaLabVolumePeriod>;
 
-  @Input() columns: string[] = ['dates', 'volume', 'volumePricePerGBPerHour', 'volumePrice']
+  @Input() columns: string[] = ['dates', 'volume', 'volumePricePerGBPerHour', 'volumePrice'];
 }

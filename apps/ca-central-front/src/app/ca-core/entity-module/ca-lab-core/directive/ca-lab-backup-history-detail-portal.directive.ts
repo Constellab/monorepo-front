@@ -1,18 +1,15 @@
 import { Directive, Input } from '@angular/core';
 import { FlMouseHoverPortalAbstractDirective, FlMouseHoverPortalConfig } from '@monorepo/front-core-lib';
 import { CnLabBackupHistoryDetail } from '../../../model/entities/lab/ca-lab-backup.class';
-import {
-  CaLabBackupHistoryDetailPortalComponent
-} from '../component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
+import { CaLabBackupHistoryDetailPortalComponent } from '../component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
 
 /**
  * Specific directive to open the backup history detail portal
  */
 @Directive({
-  selector: '[caLabBackupHistoryDetailPortal]'
+  selector: '[caLabBackupHistoryDetailPortal]',
 })
 export class CaLabBackupHistoryDetailPortalDirective extends FlMouseHoverPortalAbstractDirective {
-
   @Input() caLabBackupHistoryDetailPortal: CnLabBackupHistoryDetail;
 
   getConfig(): FlMouseHoverPortalConfig | null {
@@ -22,15 +19,12 @@ export class CaLabBackupHistoryDetailPortalDirective extends FlMouseHoverPortalA
       component: CaLabBackupHistoryDetailPortalComponent,
       portalTagName: 'CA-LAB-BACKUP-HISTORY-DETAIL-PORTAL',
       overlayConfig: {
-        disposeOnNavigation: true
-      }
+        disposeOnNavigation: true,
+      },
     };
   }
 
-  onPortalClosed(): void {
-  }
+  onPortalClosed(): void {}
 
-  onPortalOpened(): void {
-  }
-
+  onPortalOpened(): void {}
 }

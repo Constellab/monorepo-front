@@ -1,16 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {CaSpaceService} from '../../../../ca-core/service-api/ca-space.service';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {FormControl, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {CaSpaceRole} from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface CaSpaceUserRoleDialogInput {
   currentRole: CaSpaceRole;
   updateRole: (role: CaSpaceRole) => Observable<any>;
 }
-
 
 /**
  * Dialog to update the role of a user in an space
@@ -18,21 +17,21 @@ export interface CaSpaceUserRoleDialogInput {
 @Component({
   selector: 'ca-space-user-role-dialog',
   templateUrl: './ca-space-user-role-dialog.component.html',
-  styleUrls: ['./ca-space-user-role-dialog.component.scss']
+  styleUrls: ['./ca-space-user-role-dialog.component.scss'],
 })
 export class CaSpaceUserRoleDialogComponent implements OnInit {
-
   formControl: FormControl;
 
   availableRoles = CaSpaceRole;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaSpaceUserRoleDialogInput,
-              private dialogRef: MatDialogRef<CaSpaceUserRoleDialogComponent>,
-              private spaceService: CaSpaceService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaSpaceUserRoleDialogInput,
+    private dialogRef: MatDialogRef<CaSpaceUserRoleDialogComponent>,
+    private spaceService: CaSpaceService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.formControl = new FormControl<any>(this.input.currentRole, [Validators.required]);
@@ -48,13 +47,12 @@ export class CaSpaceUserRoleDialogComponent implements OnInit {
     this.isLoading = true;
     this.input.updateRole(role).subscribe({
       next: () => this.updateRoleSuccess(role),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
-
   }
 
   private updateRoleSuccess(role: CaSpaceRole): void {
-    this.snackBarService.openSuccessMessage({text: 'space_role_updated', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'space_role_updated', translateText: true });
     this.dialogRef.close(role);
   }
 }

@@ -1,17 +1,16 @@
-import {SpSheetSingleSelection, SpSheetSingleSelectionFull} from './sp-sheet-single-selection.class';
-import {SpCell} from '../sp-cell.class';
-import {SpSheet} from '../sp-sheet.class';
-import {SpSheetSelection} from './sp-sheet-selection.class';
-import {SpCellsMultipleRange} from './sp-cells-multiple-range.class';
-import {SpSpreadsheetHelper} from '../../utils/sp-spreadsheet.helper';
-import {SpSheetSelectionRange} from '../chart/sp-sheet-chart-selection-form.class';
-import {SpCellCoordRange} from '../sp-cell-coord.class';
+import { SpSheetSingleSelection, SpSheetSingleSelectionFull } from './sp-sheet-single-selection.class';
+import { SpCell } from '../sp-cell.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetSelection } from './sp-sheet-selection.class';
+import { SpCellsMultipleRange } from './sp-cells-multiple-range.class';
+import { SpSpreadsheetHelper } from '../../utils/sp-spreadsheet.helper';
+import { SpSheetSelectionRange } from '../chart/sp-sheet-chart-selection-form.class';
+import { SpCellCoordRange } from '../sp-cell-coord.class';
 
 /**
  * Object to manager multiple selections
  */
 export class SpSheetMultiSelection implements SpSheetSelection {
-
   selections: SpSheetSingleSelection[];
 
   constructor(selections: SpSheetSingleSelection[] = []) {
@@ -31,10 +30,12 @@ export class SpSheetMultiSelection implements SpSheetSelection {
   }
 
   // generate a multi selection from a SpSheetSelectionRange
-  public static fromSelectionRange(sheet: SpSheet, selectionRange: SpSheetSelectionRange): SpSheetMultiSelection {
+  public static fromSelectionRange(
+    sheet: SpSheet,
+    selectionRange: SpSheetSelectionRange
+  ): SpSheetMultiSelection {
     if (selectionRange.type === 'range') {
       return SpSheetMultiSelection.fromCellCoordsRange(sheet, selectionRange.selection);
-
     } else {
       return SpSheetMultiSelection.fromColumnNames(sheet, selectionRange.selection);
     }
@@ -62,7 +63,6 @@ export class SpSheetMultiSelection implements SpSheetSelection {
     return new SpSheetMultiSelection(selections);
   }
 
-
   public addSelection(selection: SpSheetSingleSelection): void {
     this.selections.push(selection);
   }
@@ -70,7 +70,6 @@ export class SpSheetMultiSelection implements SpSheetSelection {
   public addSelections(selections: SpSheetSingleSelection[]): void {
     this.selections.push(...selections);
   }
-
 
   public getCellsFlat(): SpCell[] {
     const cells: SpCell[] = [];
@@ -81,7 +80,7 @@ export class SpSheetMultiSelection implements SpSheetSelection {
   }
 
   public getCellsValuesFlat(): any[] {
-    return this.getCellsFlat().map(cell => cell.value);
+    return this.getCellsFlat().map((cell) => cell.value);
   }
 
   /**
@@ -89,7 +88,7 @@ export class SpSheetMultiSelection implements SpSheetSelection {
    */
   public splitToColumnSelections(): SpSheetSingleSelection[] {
     const columnSelection: SpSheetSingleSelection[] = [];
-    this.selections.forEach(selection => columnSelection.push(...selection.splitToColumnSelections()));
+    this.selections.forEach((selection) => columnSelection.push(...selection.splitToColumnSelections()));
     return columnSelection;
   }
 
@@ -98,13 +97,13 @@ export class SpSheetMultiSelection implements SpSheetSelection {
    */
   public splitToRowSelections(): SpSheetSingleSelection[] {
     const columnSelection: SpSheetSingleSelection[] = [];
-    this.selections.forEach(selection => columnSelection.push(...selection.splitToRowSelections()));
+    this.selections.forEach((selection) => columnSelection.push(...selection.splitToRowSelections()));
     return columnSelection;
   }
 
   // return all selection as text like B2:G5,B5:T4 (separated by ',')
   public toString(): string {
-    const ranges = new SpCellsMultipleRange(this.selections.map(selection => selection.getRange()));
+    const ranges = new SpCellsMultipleRange(this.selections.map((selection) => selection.getRange()));
 
     return ranges.toString();
   }

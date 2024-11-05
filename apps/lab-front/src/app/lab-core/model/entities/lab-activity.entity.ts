@@ -22,17 +22,16 @@ export enum ActivityObjectType {
 }
 
 export class LabActivity extends LabBaseEntity {
-
   @Type(() => LabUser)
   user: LabUser;
 
-  @Expose({name: 'activity_type'})
+  @Expose({ name: 'activity_type' })
   activityType: ActivityType;
 
-  @Expose({name: 'object_type'})
+  @Expose({ name: 'object_type' })
   objectType: ActivityObjectType;
 
-  @Expose({name: 'object_id'})
+  @Expose({ name: 'object_id' })
   objectId: string;
 }
 

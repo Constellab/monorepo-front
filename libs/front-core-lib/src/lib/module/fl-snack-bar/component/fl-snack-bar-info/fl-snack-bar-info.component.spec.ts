@@ -8,9 +8,8 @@ describe('SnackBarInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSnackBarInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSnackBarInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

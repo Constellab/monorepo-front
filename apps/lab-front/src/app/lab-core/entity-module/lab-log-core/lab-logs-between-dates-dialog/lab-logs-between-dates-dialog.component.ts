@@ -1,9 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {LabLogsBetweenDates} from '../../../model/entities/lab-log.entity';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {DateTime} from 'luxon';
-
+import { Component, Inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LabLogsBetweenDates } from '../../../model/entities/lab-log.entity';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DateTime } from 'luxon';
 
 export interface LabLogBetweenDatesDialogInput {
   title: string;
@@ -17,10 +16,9 @@ export interface LabLogBetweenDatesDialogInput {
 @Component({
   selector: 'lab-logs-between-dates-dialog',
   templateUrl: './lab-logs-between-dates-dialog.component.html',
-  styleUrls: ['./lab-logs-between-dates-dialog.component.scss']
+  styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
 })
 export class LabLogsBetweenDatesDialogComponent implements OnInit {
-
   title: string;
   loadFunction: (lastDate?: DateTime) => Observable<LabLogsBetweenDates>;
   downloadUrl?: string;
@@ -48,8 +46,8 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
     if (this.isLoading) return;
     this.isLoading = true;
     this.loadFunction(lastDate).subscribe({
-      next: logs => this.onSuccess(logs),
-      error: () => this.onError()
+      next: (logs) => this.onSuccess(logs),
+      error: () => this.onError(),
     });
   }
 
@@ -57,12 +55,11 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
     if (this.logs) {
       // if this is a new page load we update the existing logs
       this.logs.logs.push(...logs.logs);
-
     } else {
       this.logs = logs;
     }
     this.logs.isLastPage = logs.isLastPage;
-    this.logs.nextPageDate = logs.logs[logs.logs.length - 1].datetime.plus({milliseconds: 1}) as DateTime;
+    this.logs.nextPageDate = logs.logs[logs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime;
     this.isLoading = false;
   }
 
@@ -73,5 +70,4 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
   get loadNextPageDisabled(): boolean {
     return this.isLoading || this.logs?.isLastPage;
   }
-
 }

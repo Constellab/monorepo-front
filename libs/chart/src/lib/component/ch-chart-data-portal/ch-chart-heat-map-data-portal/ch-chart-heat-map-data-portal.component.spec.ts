@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartHeatMapDataPortalComponent} from './ch-chart-heat-map-data-portal.component';
+import { ChChartHeatMapDataPortalComponent } from './ch-chart-heat-map-data-portal.component';
 
 describe('ChChartHeatMapDataPortalComponent', () => {
   let component: ChChartHeatMapDataPortalComponent;
@@ -8,9 +8,8 @@ describe('ChChartHeatMapDataPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartHeatMapDataPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartHeatMapDataPortalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

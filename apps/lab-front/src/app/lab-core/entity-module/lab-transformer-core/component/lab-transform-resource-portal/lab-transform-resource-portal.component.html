@@ -1,7 +1,6 @@
 <fl-portal class="portal" flResize="both">
-
   <fl-portal-header [enableDrag]="true">
-    <h2>{{'biox.transform_resource' | translate:{resourceName: resourceName} }}</h2>
+    <h2>{{ 'biox.transform_resource' | translate: { resourceName: resourceName } }}</h2>
   </fl-portal-header>
 
   <fl-portal-content>
@@ -12,9 +11,8 @@
   </fl-portal-content>
 
   <fl-portal-footer>
-    <button mat-flat-button color="primary" type="submit" form="transform-form"
-            class="g-centered-forced">
-      {{'biox.call_transform' | translate}}
+    <button mat-flat-button color="primary" type="submit" form="transform-form" class="g-centered-forced">
+      {{ 'biox.call_transform' | translate }}
       <fl-button-loader *ngIf="isLoading"></fl-button-loader>
     </button>
   </fl-portal-footer>

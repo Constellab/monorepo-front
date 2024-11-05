@@ -6,14 +6,13 @@ import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
 import { catchError } from 'rxjs/operators';
 import { ClHelpService } from '@monorepo/core-lib';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FlCaptchaService {
-
-  constructor(private injector: Injector,
-              @Inject(FL_CAPTCHA_MODULE_CONFIG) private config: FlCaptchaModuleConfig,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    private injector: Injector,
+    @Inject(FL_CAPTCHA_MODULE_CONFIG) private config: FlCaptchaModuleConfig,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   public executeCaptcha(action: string): Observable<string> {
     // disable captcha on local
@@ -22,7 +21,7 @@ export class FlCaptchaService {
     const captchaService = this.injector.get(ReCaptchaV3Service);
     return captchaService.execute(action).pipe(
       catchError(() => {
-        this.snackBarService.openErrorMessage({text: 'flCaptcha.error', translateText: true});
+        this.snackBarService.openErrorMessage({ text: 'flCaptcha.error', translateText: true });
         return throwError(() => new Error('Captcha error'));
       })
     );

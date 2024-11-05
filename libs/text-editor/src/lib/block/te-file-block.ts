@@ -12,19 +12,16 @@ export interface TeFileBlockData {
   size: number; // in bytes
 }
 
-
 /**
  * Config for the text editor to manage file (upload and retrieve)
  */
 export interface TeFileBlockConfig {
-
   getFileUrl(filename: string): string;
 
   fileUploader: (file: File) => Observable<TeFileBlockData>;
 }
 
 export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
-
   public static readonly TAG_NAME = 'te-file';
 
   static override get toolbox(): ToolboxConfig {
@@ -40,7 +37,6 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
         mimeTypes: ['application/*', 'audio/*', 'video/*'],
       },
     };
-
   }
 
   get fileConfig(): TeFileBlockConfig {
@@ -64,7 +60,6 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
     return this.componentInstance.data;
   }
 
-
   override blockClasses(): string[] {
     return [];
   }
@@ -81,6 +76,4 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
       this.componentInstance.onFileSelected((event.detail as any).file);
     }
   }
-
-
 }

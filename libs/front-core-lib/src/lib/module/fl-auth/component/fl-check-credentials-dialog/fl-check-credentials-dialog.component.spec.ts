@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlCheckCredentialsDialogComponent} from './fl-check-credentials-dialog.component';
+import { FlCheckCredentialsDialogComponent } from './fl-check-credentials-dialog.component';
 
 describe('FlLoginFormDialogComponent', () => {
   let component: FlCheckCredentialsDialogComponent;

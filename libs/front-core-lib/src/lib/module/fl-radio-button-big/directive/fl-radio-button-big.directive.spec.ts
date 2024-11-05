@@ -1,4 +1,4 @@
-import {FlRadioButtonBigDirective} from './fl-radio-button-big.directive';
+import { FlRadioButtonBigDirective } from './fl-radio-button-big.directive';
 
 describe('FlRadioButtonBigDirective', () => {
   it('should create an instance', () => {

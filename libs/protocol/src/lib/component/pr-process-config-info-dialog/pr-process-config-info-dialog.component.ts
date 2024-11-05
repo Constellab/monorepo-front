@@ -17,10 +17,9 @@ interface PrConfigLine {
 @Component({
   selector: 'pr-process-config-info-dialog',
   templateUrl: './pr-process-config-info-dialog.component.html',
-  styleUrls: ['./pr-process-config-info-dialog.component.scss']
+  styleUrls: ['./pr-process-config-info-dialog.component.scss'],
 })
 export class PrProcessConfigInfoDialogComponent {
-
   columns: string[] = ['name', 'shortDescription', 'defaultValue', 'value'];
   configs: ArrayDataSource<PrConfigLine>;
 
@@ -34,7 +33,7 @@ export class PrProcessConfigInfoDialogComponent {
         shortDescription: spec.short_description,
         defaultValue: spec.default_value,
         value: value,
-        valueIsJson: typeof value === 'object'
+        valueIsJson: typeof value === 'object',
       });
     }
 

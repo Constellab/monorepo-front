@@ -13,10 +13,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'lab-note-template-detail-page',
   templateUrl: './lab-note-template-detail-page.component.html',
-  styleUrls: ['./lab-note-template-detail-page.component.scss']
+  styleUrls: ['./lab-note-template-detail-page.component.scss'],
 })
 export class LabNoteTemplateDetailPageComponent implements OnInit {
-
   noteTemplate: LabNoteTemplate;
 
   textEditorConfig: TeConfig;
@@ -28,30 +27,28 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
   saveContentFunc: (value: TeRichTextContent) => Observable<TeRichTextContent>;
   private noteTemplateId: string;
 
-  constructor(private route: ActivatedRoute,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService,
-              private noteTemplateService: LabNoteTemplateService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private dialogService: FlDialogService,
+    private routerService: LabRouterService,
+    private noteTemplateService: LabNoteTemplateService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => this.init(params.id)
-    );
+    this.route.params.subscribe((params) => this.init(params.id));
   }
 
   private init(id: string): void {
-
     this.noteTemplateId = id;
     this.textEditorConfig = new LabNoteTemplateTextEditorConfig(id);
     this.isLoading = true;
     this.noteTemplateService.getNoteTemplate(id).subscribe({
       next: (template) => this.getNoteTemplateSuccess(template),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
 
     this.noteTemplateService.getNoteTemplateContent(id).subscribe({
-      next: (content) => this.getNoteTemplateContentSuccess(content)
+      next: (content) => this.getNoteTemplateContentSuccess(content),
     });
 
     this.saveContentFunc = (value: TeRichTextContent) =>
@@ -68,9 +65,9 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
   }
 
   updateTitle(title: string): void {
-    this.noteTemplateService.updateTitle(this.noteTemplateId, title).subscribe(
-      template => this.noteTemplate.title = template.title
-    );
+    this.noteTemplateService
+      .updateTitle(this.noteTemplateId, title)
+      .subscribe((template) => (this.noteTemplate.title = template.title));
   }
 
   delete(): void {
@@ -78,12 +75,13 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
       title: 'biox.delete_note_template',
       content: 'biox.delete_note_template_confirmation',
       observable: this.noteTemplateService.delete(this.noteTemplateId),
-      successMessage: 'biox.note_template_deleted'
+      successMessage: 'biox.note_template_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.deletedClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.deletedClosed(result));
   }
 
   private deletedClosed(result: FlConfirmDialogResult<void>): void {
@@ -98,4 +96,3 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
     }
   }
 }
-

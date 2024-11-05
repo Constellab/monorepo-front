@@ -5,9 +5,7 @@ import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { FlDialogService } from '@monorepo/front-core-lib';
-import {
-  LabSelectViewConfigDialogComponent
-} from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
+import { LabSelectViewConfigDialogComponent } from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { LabRichTextObjectType } from '../../entity-service/lab-rich-text.service';
@@ -62,11 +60,12 @@ export interface LabRichTextFileView {
  * Block to show a resource view in the text editor
  */
 export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewComponent> {
-
-  constructor(protected options: BlockToolConstructorOptions,
-              protected readonly envInjector: EnvironmentInjector,
-              protected readonly applicationRef: ApplicationRef,
-              protected readonly additionalData: LabRichTextViewBlockAdditionalData) {
+  constructor(
+    protected options: BlockToolConstructorOptions,
+    protected readonly envInjector: EnvironmentInjector,
+    protected readonly applicationRef: ApplicationRef,
+    protected readonly additionalData: LabRichTextViewBlockAdditionalData
+  ) {
     super(options, envInjector, applicationRef, additionalData);
   }
 
@@ -75,7 +74,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   static override get toolbox(): ToolboxConfig {
     return {
       title: TeHelper.getTranslateService().translate('biox.note_resource_view'),
-      icon: TeHelper.getMatIconElement('add_chart')
+      icon: TeHelper.getMatIconElement('add_chart'),
     };
   }
 
@@ -91,10 +90,11 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     switch (this.additionalData.type) {
       case 'note':
         const noteData = data as LabNoteContentView;
-        this.componentInstance.setNoteInput(noteData.resource_id,
+        this.componentInstance.setNoteInput(
+          noteData.resource_id,
           {
             methodName: noteData.view_method_name,
-            configValues: noteData.view_config
+            configValues: noteData.view_config,
           },
           noteData.title,
           noteData.caption
@@ -102,19 +102,31 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
         break;
       case 'note-resource':
         const noteResourceData = data as LabNoteResourceContentView;
-        this.componentInstance.setNoteResourceInput(this.additionalData.entityId, noteResourceData.sub_resource_key,
+        this.componentInstance.setNoteResourceInput(
+          this.additionalData.entityId,
+          noteResourceData.sub_resource_key,
           {
             methodName: noteResourceData.view_method_name,
-            configValues: noteResourceData.view_config
-          }, noteResourceData.title, noteResourceData.caption);
+            configValues: noteResourceData.view_config,
+          },
+          noteResourceData.title,
+          noteResourceData.caption
+        );
         break;
       case 'note-file-view':
       case 'note-template-view-file':
         const fileViewData = data as LabRichTextFileView;
-        const objectType: LabRichTextObjectType = this.additionalData.type === 'note-file-view' ?
-          LabRichTextObjectType.NOTE : LabRichTextObjectType.NOTE_TEMPLATE;
-        this.componentInstance.setFileViewInput(objectType, this.additionalData.entityId,
-          fileViewData.filename, fileViewData.title, fileViewData.caption);
+        const objectType: LabRichTextObjectType =
+          this.additionalData.type === 'note-file-view'
+            ? LabRichTextObjectType.NOTE
+            : LabRichTextObjectType.NOTE_TEMPLATE;
+        this.componentInstance.setFileViewInput(
+          objectType,
+          this.additionalData.entityId,
+          fileViewData.filename,
+          fileViewData.title,
+          fileViewData.caption
+        );
         break;
     }
   }
@@ -122,7 +134,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   save(): BlockToolData {
     return Object.assign(this.data, {
       title: this.componentInstance.viewTitle,
-      caption: this.componentInstance.caption
+      caption: this.componentInstance.caption,
     });
   }
 
@@ -142,7 +154,6 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
     }
   }
 
-
   override appendCallback(): void {
     this.openSelectResourceView();
   }
@@ -150,8 +161,10 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
   public openSelectResourceView(): void {
     if (this.additionalData.type === 'note') {
       const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
-      dialogService.openBigDialog(LabSelectViewConfigDialogComponent, { data: this.additionalData.entityId }).afterClosed()
-        .subscribe(viewConfig => this.insertResourceView(viewConfig));
+      dialogService
+        .openBigDialog(LabSelectViewConfigDialogComponent, { data: this.additionalData.entityId })
+        .afterClosed()
+        .subscribe((viewConfig) => this.insertResourceView(viewConfig));
     }
   }
 
@@ -164,7 +177,7 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
       view_method_name: viewConfig.viewName,
       view_config: viewConfig.configValues,
       title: viewConfig.title,
-      caption: null
+      caption: null,
     };
     this.initInputs(this.data);
   }

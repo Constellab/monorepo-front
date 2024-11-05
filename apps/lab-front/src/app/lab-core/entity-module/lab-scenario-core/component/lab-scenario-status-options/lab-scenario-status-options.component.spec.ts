@@ -8,9 +8,8 @@ describe('BioxScenarioStatusOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioStatusOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioStatusOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

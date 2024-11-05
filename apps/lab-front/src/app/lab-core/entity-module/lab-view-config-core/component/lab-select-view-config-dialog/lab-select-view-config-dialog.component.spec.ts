@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSelectViewConfigDialogComponent} from './lab-select-view-config-dialog.component';
+import { LabSelectViewConfigDialogComponent } from './lab-select-view-config-dialog.component';
 
 describe('LabSelectViewConfigDialogComponent', () => {
   let component: LabSelectViewConfigDialogComponent;
@@ -8,9 +8,8 @@ describe('LabSelectViewConfigDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSelectViewConfigDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSelectViewConfigDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

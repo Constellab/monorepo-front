@@ -5,13 +5,6 @@ import { LabViewSearchPageModule } from './lab-view-search-page/lab-view-search-
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-
-    LabViewSearchPageModule,
-
-    LabViewRoutingModule,
-  ]
+  imports: [CommonModule, LabViewSearchPageModule, LabViewRoutingModule],
 })
-export class LabViewModule {
-}
+export class LabViewModule {}

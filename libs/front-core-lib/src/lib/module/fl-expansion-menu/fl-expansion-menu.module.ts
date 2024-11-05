@@ -1,31 +1,18 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FlExpansionMenuComponent} from './fl-expansion-menu/fl-expansion-menu.component';
-import {MatIconModule} from '@angular/material/icon';
-import {FlExpansionMenuButtonDirective} from './fl-expansion-menu-button/fl-expansion-menu-button.directive';
-import {
-  FlExpansionMenuButtonToggleDirective
-} from './fl-expansion-menu-button-toggle/fl-expansion-menu-button-toggle.directive';
-import {MatButtonModule} from '@angular/material/button';
-
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FlExpansionMenuComponent } from './fl-expansion-menu/fl-expansion-menu.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FlExpansionMenuButtonDirective } from './fl-expansion-menu-button/fl-expansion-menu-button.directive';
+import { FlExpansionMenuButtonToggleDirective } from './fl-expansion-menu-button-toggle/fl-expansion-menu-button-toggle.directive';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     FlExpansionMenuComponent,
     FlExpansionMenuButtonDirective,
-    FlExpansionMenuButtonToggleDirective
+    FlExpansionMenuButtonToggleDirective,
   ],
-  exports: [
-    FlExpansionMenuComponent,
-    FlExpansionMenuButtonDirective,
-    FlExpansionMenuButtonToggleDirective
-  ],
-  imports: [
-    CommonModule,
-
-    MatButtonModule,
-    MatIconModule,
-  ],
+  exports: [FlExpansionMenuComponent, FlExpansionMenuButtonDirective, FlExpansionMenuButtonToggleDirective],
+  imports: [CommonModule, MatButtonModule, MatIconModule],
 })
-export class FlExpansionMenuModule {
-}
+export class FlExpansionMenuModule {}

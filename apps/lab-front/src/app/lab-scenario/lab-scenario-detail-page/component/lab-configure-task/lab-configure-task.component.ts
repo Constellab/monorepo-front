@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import {
-  LabConfigureSpecsFormComponent
-} from '../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import { LabConfigureSpecsFormComponent } from '../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { LabConfig } from '../../../../lab-core/model/entities/lab-config.entity';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
@@ -10,17 +8,15 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
 @Component({
   selector: 'lab-configure-task',
   templateUrl: './lab-configure-task.component.html',
-  styleUrls: ['./lab-configure-task.component.scss']
+  styleUrls: ['./lab-configure-task.component.scss'],
 })
 export class LabConfigureTaskComponent implements OnInit {
-
   @Input() task: LabProcess;
 
   formGp: UntypedFormGroup;
   processConfig: LabConfig;
 
-  constructor(private dashboardState: LabProcessDashboardState) {
-  }
+  constructor(private dashboardState: LabProcessDashboardState) {}
 
   ngOnInit(): void {
     this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.task.config);
@@ -31,5 +27,4 @@ export class LabConfigureTaskComponent implements OnInit {
   submit(): void {
     this.dashboardState.saveCurrentTaskConfig();
   }
-
 }

@@ -2,19 +2,22 @@
 @if (value) {
   <div class="g-layout-row-reverse user-list">
     @if (additionalUserLength > 0) {
-      <div class="additional-user-count-externe"
-           (click)="openAdditionalUsersPortal($event)" [ngClass]="{'selected': selectionAdditionalUser()}">
-        <div class="additional-user-count-interne g-text-not-selectable">
-          +{{ additionalUserLength }}
-        </div>
+      <div
+        class="additional-user-count-externe"
+        (click)="openAdditionalUsersPortal($event)"
+        [ngClass]="{ selected: selectionAdditionalUser() }">
+        <div class="additional-user-count-interne g-text-not-selectable">+{{ additionalUserLength }}</div>
       </div>
     }
 
     @for (userSelection of value.previewUsers; track userSelection.user.id) {
-      <div class="user-preview-container"
-           [matTooltip]="userSelection.user.alias" matTooltipPosition="below" matTooltipShowDelay="0"
-           (click)="selectUser(userSelection)">
-        <div class="user-preview" [ngClass]="{'selected': userSelection.selected}">
+      <div
+        class="user-preview-container"
+        [matTooltip]="userSelection.user.alias"
+        matTooltipPosition="below"
+        matTooltipShowDelay="0"
+        (click)="selectUser(userSelection)">
+        <div class="user-preview" [ngClass]="{ selected: userSelection.selected }">
           <fl-user-profile-picture [user]="userSelection.user" size="small"></fl-user-profile-picture>
         </div>
       </div>
@@ -27,17 +30,23 @@
         <div class="portal-user-list g-mat-checkbox-include-bottom g-scrollable-element">
           @for (userSelection of value.additionalUsers; track userSelection.user.id) {
             <div class="portal-user">
-              <mat-checkbox [(ngModel)]="userSelection.selected" (change)="emitCurrentValue()"
-                            [disabled]="disabled">
+              <mat-checkbox
+                [(ngModel)]="userSelection.selected"
+                (change)="emitCurrentValue()"
+                [disabled]="disabled">
               </mat-checkbox>
-              <fl-user-inline [user]="userSelection.user"
-                              class="additional-user" (click)="selectUser(userSelection)"></fl-user-inline>
+              <fl-user-inline
+                [user]="userSelection.user"
+                class="additional-user"
+                (click)="selectUser(userSelection)"></fl-user-inline>
             </div>
           }
 
           @if (userDatasource) {
-            <fl-infinite-load-more-result [datasource]="userDatasource"
-                                          [textNoMoreResult]="null" class="load-more"></fl-infinite-load-more-result>
+            <fl-infinite-load-more-result
+              [datasource]="userDatasource"
+              [textNoMoreResult]="null"
+              class="load-more"></fl-infinite-load-more-result>
           }
         </div>
       </fl-portal-content>

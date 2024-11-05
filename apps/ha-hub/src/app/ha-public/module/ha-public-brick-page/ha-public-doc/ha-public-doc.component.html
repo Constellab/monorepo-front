@@ -2,7 +2,6 @@
   <ha-ha404 [errorText]="'error_doc_not_found'"></ha-ha404>
 </div>
 
-
 <div *ngIf="!docNotFound()">
   <div class="loader" *ngIf="isDocLoading() || !documentation()">
     <fl-loader size="medium"></fl-loader>
@@ -10,56 +9,60 @@
   <div class="doc-div" *ngIf="!isDocLoading() && documentation()">
     <div class="doc-div-content g-max-article-width">
       <div class="doc-title-div">
-        <h3 flElementEditable (flElementValueChange)="onTitleChange($event)"
-            [flElementValue]="titleCurrentValue()" [maxLength]="50" [minLength]="2"
-            [flElementDisabled]="!userHasEditRight()">{{documentation().title}}</h3>
+        <h3
+          flElementEditable
+          (flElementValueChange)="onTitleChange($event)"
+          [flElementValue]="titleCurrentValue()"
+          [maxLength]="50"
+          [minLength]="2"
+          [flElementDisabled]="!userHasEditRight()">
+          {{ documentation().title }}
+        </h3>
 
         <div class="save-info-and-bt-div">
-          @if(!formCtrl.disabled){
+          @if (!formCtrl.disabled) {
             <div class="g-layout-row g-layout-between-center">
-              <te-text-editor-save [formCtrl]="formCtrl" [saveFunc]="saveContent"
-                                   [debounceTime]="2500"></te-text-editor-save>
+              <te-text-editor-save
+                [formCtrl]="formCtrl"
+                [saveFunc]="saveContent"
+                [debounceTime]="2500"></te-text-editor-save>
             </div>
           }
-          <button mat-icon-button type="button" *ngIf="userHasEditRight()"
-                  [matMenuTriggerFor]="menu">
-            <mat-icon>
-              more_vert
-            </mat-icon>
+          <button mat-icon-button type="button" *ngIf="userHasEditRight()" [matMenuTriggerFor]="menu">
+            <mat-icon> more_vert </mat-icon>
           </button>
         </div>
 
         <mat-menu #menu="matMenu">
-
           <button mat-menu-item type="button" (click)="changeTextEditorState()">
-            <mat-icon>{{formCtrl.disabled ? 'edit_note' : 'visibility'}}</mat-icon>
-            <span>{{(formCtrl.disabled ? 'edit' : 'view') | translate}}</span>
+            <mat-icon>{{ formCtrl.disabled ? 'edit_note' : 'visibility' }}</mat-icon>
+            <span>{{ (formCtrl.disabled ? 'edit' : 'view') | translate }}</span>
           </button>
 
           <button mat-menu-item type="button" (click)="openHistoryPanel()">
             <mat-icon>history</mat-icon>
-            <span>{{'teTextEditor.modifications_history' | translate}}</span>
+            <span>{{ 'teTextEditor.modifications_history' | translate }}</span>
           </button>
 
           <button mat-menu-item type="button" (click)="openResourceDelete()">
             <mat-icon color="warn">delete</mat-icon>
-            <span class="g-warn-text">{{'delete' | translate}}</span>
+            <span class="g-warn-text">{{ 'delete' | translate }}</span>
           </button>
         </mat-menu>
-
-
       </div>
       <form class="documentation-form" *ngIf="!isDocLoading()">
-        <te-text-editor [formControl]="formCtrl" [config]="textEditorConfig"
-                        class="content-editor g-max-article-width"
-                        [ngClass]="{'text-editor-edit': !formCtrl.disabled}"></te-text-editor>
+        <te-text-editor
+          [formControl]="formCtrl"
+          [config]="textEditorConfig"
+          class="content-editor g-max-article-width"
+          [ngClass]="{ 'text-editor-edit': !formCtrl.disabled }"></te-text-editor>
       </form>
     </div>
   </div>
 </div>
-@if(documentation() && (documentation().content || docFiles()?.length > 0) && docFileUrlPrefix()){
-  <ha-text-editor-right-side-panel [content]="documentation().content"
-                                   [files]="docFiles()"
-                                   [urlToDownloadFilePrefix]="docFileUrlPrefix()"></ha-text-editor-right-side-panel>
+@if (documentation() && (documentation().content || docFiles()?.length > 0) && docFileUrlPrefix()) {
+  <ha-text-editor-right-side-panel
+    [content]="documentation().content"
+    [files]="docFiles()"
+    [urlToDownloadFilePrefix]="docFileUrlPrefix()"></ha-text-editor-right-side-panel>
 }
-

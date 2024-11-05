@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
 
 /**
  * Simple pipe to display an error message generally used in forms.
@@ -7,12 +7,10 @@ import {FlTranslateService} from '../../fl-translate/service/fl-translate.servic
  * The output string is :  The field [value] is mandatory
  */
 @Pipe({
-  name: 'flErrorRequired'
+  name: 'flErrorRequired',
 })
 export class FlErrorRequiredPipe implements PipeTransform {
-
-  constructor(private translateService: FlTranslateService) {
-  }
+  constructor(private translateService: FlTranslateService) {}
 
   /**
    *
@@ -24,9 +22,6 @@ export class FlErrorRequiredPipe implements PipeTransform {
       value = this.translateService.translate(value);
     }
 
-    return this.translateService.translate('error_required',
-      {param: {field: value}});
+    return this.translateService.translate('error_required', { param: { field: value } });
   }
-
 }
-

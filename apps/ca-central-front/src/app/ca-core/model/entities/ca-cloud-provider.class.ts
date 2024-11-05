@@ -13,13 +13,11 @@ export class CaCloudProvider extends CaBaseEntity {
   logo: string;
 }
 
-
 export type CaCloudProviderDatasource = FlEntityPaginatedDatasource<CaCloudProvider>;
 
 export type CaCloudProviderRegionType = 'SERVER' | 'S3' | 'ALL';
 
 export class CaCloudProviderRegion extends CaBaseEntity {
-
   name: string;
 
   technicalName: string;

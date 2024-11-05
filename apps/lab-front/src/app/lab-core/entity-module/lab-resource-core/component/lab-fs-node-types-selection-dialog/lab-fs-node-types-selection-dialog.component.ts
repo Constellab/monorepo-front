@@ -3,11 +3,13 @@ import { LabFileResourceService } from '../../../../entity-service/lab-file-reso
 import { FormArray, FormBuilder, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ClCachedObservable } from '@monorepo/core-lib';
-import { LabFileTypeAdditionalInfo, LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
+import {
+  LabFileTypeAdditionalInfo,
+  LabTypeEntity,
+} from '../../../../model/entities/lab-type/lab-type.entity';
 import { TdTypingName } from '@monorepo/technical-doc';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlFileHelper } from '@monorepo/front-core-lib';
-
 
 export type LabFsNodeTypesSelectionDialogMode = 'files' | 'folder' | 'filesOrFolder';
 
@@ -16,7 +18,6 @@ export interface LabFsNodeTypesSelectionDialogInput {
   filenames: string[];
   helpText?: string;
 }
-
 
 // object used in the form
 interface LabForm {
@@ -30,7 +31,9 @@ interface LabFsNodeWithType {
 }
 
 // object used in the form
-export type LabFsNodeTypesSelectionDialogResult = LabFsNodeTypesFileDialogResult | UploadFsNodeTypeFolderResult;
+export type LabFsNodeTypesSelectionDialogResult =
+  | LabFsNodeTypesFileDialogResult
+  | UploadFsNodeTypeFolderResult;
 
 export interface LabFsNodeTypesFileDialogResult {
   uploadMode: 'files';
@@ -42,7 +45,6 @@ export interface UploadFsNodeTypeFolderResult {
   folderTypingName: string;
 }
 
-
 /**
  * Dialog used to select type of multiple files or folder
  * If files --> it allows to select the file type for each uploaded file
@@ -51,10 +53,9 @@ export interface UploadFsNodeTypeFolderResult {
 @Component({
   selector: 'lab-fs-node-types-selection-dialog',
   templateUrl: './lab-fs-node-types-selection-dialog.component.html',
-  styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss']
+  styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
 })
 export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
-
   selectedNodes: LabFsNodeTypesSelectionDialogMode;
 
   formArray: UntypedFormArray;
@@ -67,9 +68,11 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private fileTypes$: ClCachedObservable<LabTypeEntity[]>;
   private folderTypes$: ClCachedObservable<LabTypeEntity[]>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: LabFsNodeTypesSelectionDialogInput,
-              private fileResourceService: LabFileResourceService,
-              private dialogRef: MatDialogRef<LabFsNodeTypesSelectionDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: LabFsNodeTypesSelectionDialogInput,
+    private fileResourceService: LabFileResourceService,
+    private dialogRef: MatDialogRef<LabFsNodeTypesSelectionDialogComponent>
+  ) {
     this.selectedNodes = input.dialogMode;
   }
 
@@ -85,10 +88,9 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
     this.formArray = new FormArray([]);
     this.formGp = new FormBuilder().group({
       nodeMode: this.selectedNodes === 'files' ? 'files' : 'folder',
-      files: this.formArray
+      files: this.formArray,
     });
   }
-
 
   onNodeModeChange(mode: 'files' | 'folder'): void {
     this.formArray.clear();
@@ -102,20 +104,21 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private async initFormFiles(): Promise<void> {
     this.resourceTypes$ = this.fileTypes$.getObs();
 
-    this.resourceTypes$.subscribe(
-      (typeEntities) => {
-        const filesWithType: LabFsNodeWithType[] = [];
-        // detect the typing name automatically
-        for (const filename of this.input.filenames) {
-          // set the file as default typing name
-          filesWithType.push({ filename: filename, typingName: this.getFileDefaultTyping(filename, typeEntities) });
-        }
-
-        for (const file of filesWithType) {
-          this.addItemToFormArray(file);
-        }
+    this.resourceTypes$.subscribe((typeEntities) => {
+      const filesWithType: LabFsNodeWithType[] = [];
+      // detect the typing name automatically
+      for (const filename of this.input.filenames) {
+        // set the file as default typing name
+        filesWithType.push({
+          filename: filename,
+          typingName: this.getFileDefaultTyping(filename, typeEntities),
+        });
       }
-    );
+
+      for (const file of filesWithType) {
+        this.addItemToFormArray(file);
+      }
+    });
   }
 
   private initFormFolder(): void {
@@ -125,38 +128,37 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   }
 
   private addItemToFormArray(fileWithType: LabFsNodeWithType): void {
-    this.formArray.push(new FormBuilder().group({
-      filename: [fileWithType.filename],
-      typingName: [fileWithType.typingName, Validators.required]
-    }));
+    this.formArray.push(
+      new FormBuilder().group({
+        filename: [fileWithType.filename],
+        typingName: [fileWithType.typingName, Validators.required],
+      })
+    );
   }
 
   submit(): void {
     if (this.formGp.valid) {
-
       const formValue: LabForm = this.formGp.getRawValue();
 
-      const typingNames: string[] = formValue.files.map(file => file.typingName);
+      const typingNames: string[] = formValue.files.map((file) => file.typingName);
 
       if (formValue.nodeMode === 'files') {
         this.closeDialog({
           uploadMode: 'files',
-          fileTypingNames: typingNames
+          fileTypingNames: typingNames,
         });
       } else {
         this.closeDialog({
           uploadMode: 'folder',
-          folderTypingName: typingNames[0] // in folder mode there is only on typing name
+          folderTypingName: typingNames[0], // in folder mode there is only on typing name
         });
       }
     }
   }
 
-
   private closeDialog(result: LabFsNodeTypesSelectionDialogResult): void {
     this.dialogRef.close(result);
   }
-
 
   get title(): string {
     return this.selectedNodes === 'files' ? 'databox.select_file_types' : 'databox.upload_folder';

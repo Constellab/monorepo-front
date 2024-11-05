@@ -1,9 +1,9 @@
-@if(isLoading()){
+@if (isLoading()) {
   <div class="main-panel g-centered-forced">
     <fl-loader></fl-loader>
   </div>
 } @else {
-  @if(!brickNotFound()){
+  @if (!brickNotFound()) {
     <fl-section [object]="brick()" class="full-w" [emptyText]="'error_brick_not_found'">
       <ng-container *flSectionBody>
         <div class="left-panel" *ngIf="brick()">
@@ -12,7 +12,7 @@
           <a [routerLink]="brickListRoute" class="back-link">
             <fl-text-icon [iconPosition]="'start'">
               <mat-icon>arrow_back</mat-icon>
-              {{'back_to_bricks_list' | translate}}
+              {{ 'back_to_bricks_list' | translate }}
             </fl-text-icon>
           </a>
 
@@ -31,8 +31,3 @@
     </div>
   }
 }
-
-
-
-
-

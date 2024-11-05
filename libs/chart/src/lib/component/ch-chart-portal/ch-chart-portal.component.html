@@ -1,15 +1,11 @@
 <fl-portal class="portal" flResize="both">
-
   <fl-portal-header [enableDrag]="true">
-
     <fl-portal-header-buttons>
       <fl-resize-portal-fullscreen-button></fl-resize-portal-fullscreen-button>
     </fl-portal-header-buttons>
   </fl-portal-header>
 
   <fl-portal-content>
-
-    <ch-chart class="chart" [chart]="config.chart"
-              [contextMenuItems]="config.contextMenuItems"></ch-chart>
+    <ch-chart class="chart" [chart]="config.chart" [contextMenuItems]="config.contextMenuItems"></ch-chart>
   </fl-portal-content>
 </fl-portal>

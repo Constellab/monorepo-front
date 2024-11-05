@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabOpenAiChatMessageComponent} from './lab-open-ai-chat-message.component';
+import { LabOpenAiChatMessageComponent } from './lab-open-ai-chat-message.component';
 
 describe('LabOpenAiChatMessageComponent', () => {
   let component: LabOpenAiChatMessageComponent;

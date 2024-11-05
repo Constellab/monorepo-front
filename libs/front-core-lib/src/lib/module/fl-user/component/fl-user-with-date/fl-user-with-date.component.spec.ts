@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlUserWithDateComponent} from './fl-user-with-date.component';
+import { FlUserWithDateComponent } from './fl-user-with-date.component';
 
 describe('FlUserWithDateComponent', () => {
   let component: FlUserWithDateComponent;
@@ -8,9 +8,8 @@ describe('FlUserWithDateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlUserWithDateComponent ]
-    })
-    .compileComponents();
+      declarations: [FlUserWithDateComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlUserWithDateComponent);
     component = fixture.componentInstance;

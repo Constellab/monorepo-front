@@ -1,12 +1,18 @@
 @if (agent()) {
   <div class="g-flex g-layout-row g-layout-start-center g-layout-gap-05em">
-    @if(agent().latestStyle){
-      <co-update-type-icon-container [style]="agent().latestStyle" [iconSize]="40"
-                                     [disabled]="!canEditAgent()" (onClickEvent)="openAgentEditStyleDialog()">
+    @if (agent().latestStyle) {
+      <co-update-type-icon-container
+        [style]="agent().latestStyle"
+        [iconSize]="40"
+        [disabled]="!canEditAgent()"
+        (onClickEvent)="openAgentEditStyleDialog()">
       </co-update-type-icon-container>
     }
-    <h2 flElementEditable (flElementValueChange)="onTitleChange($event)"
-        [flElementDisabled]="!canEditAgent()" class="g-flex-auto">
+    <h2
+      flElementEditable
+      (flElementValueChange)="onTitleChange($event)"
+      [flElementDisabled]="!canEditAgent()"
+      class="g-flex-auto">
       {{ agent().title }}
     </h2>
   </div>
@@ -16,7 +22,7 @@
         <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
       </a>
       <span class="g-text-small date-info">
-        @if (agent().latestPublishVersion > 0){
+        @if (agent().latestPublishVersion > 0) {
           <fl-from-now [date]="agent().createdAt"></fl-from-now>
         } @else {
           <ng-container [ngTemplateOutlet]="notPublished"></ng-container>
@@ -26,20 +32,29 @@
     <div class="agent-buttons">
       <co-visibility-badge [space]="agent().space"></co-visibility-badge>
 
-      <ha-like-button class="agent-like-bt" (clicked)="toggleLikeAgentButton()" [isLiked]="agentIsLiked()"
-                      [likesCount]="agent().likes"></ha-like-button>
+      <ha-like-button
+        class="agent-like-bt"
+        (clicked)="toggleLikeAgentButton()"
+        [isLiked]="agentIsLiked()"
+        [likesCount]="agent().likes"></ha-like-button>
 
-      <ha-comment-button [commentsCount]="agent().comments" (clicked)="openCommentsPanel()"></ha-comment-button>
+      <ha-comment-button
+        [commentsCount]="agent().comments"
+        (clicked)="openCommentsPanel()"></ha-comment-button>
 
       @if (isAuthor()) {
-        <button mat-icon-button color="warn" (click)="deleteAgent()" [matTooltip]="'delete_agent' | translate">
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="deleteAgent()"
+          [matTooltip]="'delete_agent' | translate">
           <mat-icon>delete</mat-icon>
         </button>
       }
     </div>
   </div>
 
-  @if (isLoading()){
+  @if (isLoading()) {
     <div class="g-flex">
       <fl-loader class="g-centered"></fl-loader>
     </div>
@@ -49,8 +64,12 @@
         <h5>
           {{ 'agent_description' | translate }}
         </h5>
-        @if(canEditAgent()){
-          <button mat-stroked-button color="primary" class="g-button-small" (click)="onDescriptionEditorButtonClick()">
+        @if (canEditAgent()) {
+          <button
+            mat-stroked-button
+            color="primary"
+            class="g-button-small"
+            (click)="onDescriptionEditorButtonClick()">
             <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
             {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}
           </button>
@@ -59,8 +78,10 @@
       @if (canEditAgent() || !agentDescriptionEmpty()) {
         <div>
           <te-text-editor
-            class="description-editor" [ngClass]="canEditAgent() ? 'editor-border' : ''"
-            [config]="textEditorConfig()" (textChange)="onDescriptionChange($event)"
+            class="description-editor"
+            [ngClass]="canEditAgent() ? 'editor-border' : ''"
+            [config]="textEditorConfig()"
+            (textChange)="onDescriptionChange($event)"
             [formControl]="descriptionFormControl()"
             [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
         </div>
@@ -72,7 +93,7 @@
 }
 
 <ng-template #notPublished>
-    <span class="g-warn-text">
-      {{ 'not_published' | translate }}
-    </span>
+  <span class="g-warn-text">
+    {{ 'not_published' | translate }}
+  </span>
 </ng-template>

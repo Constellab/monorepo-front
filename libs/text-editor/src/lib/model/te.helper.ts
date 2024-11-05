@@ -4,7 +4,7 @@ import {
   FlOverlayRef,
   FlPortalAbsolutePosition,
   flRootInjector,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -16,7 +16,6 @@ export type TeListType = 'unordered' | 'ordered';
  * Helper to complete the text editor api
  */
 export class TeHelper {
-
   public static blockClass = 'ce-block';
   public static blockDropTargetClass = 'ce-block--drop-target';
   public static blockParagraphClass = 'ce-paragraph';
@@ -74,8 +73,7 @@ export class TeHelper {
   public static generateTuneButton(title: string, icon: string): HTMLElement {
     const button = document.createElement('div');
     button.classList.add('ce-popover-item');
-    button.innerHTML =
-      `<div class="ce-popover-item__icon ce-popover-item__icon--tool">
+    button.innerHTML = `<div class="ce-popover-item__icon ce-popover-item__icon--tool">
           ${TeHelper.getMatIconElement(icon)}</div><div class="ce-popover-item__title">${title}
       </div>`;
     return button;
@@ -89,7 +87,7 @@ export class TeHelper {
     let text = '';
 
     const children: HTMLElement[] = Array.from(fragment.childNodes) as any;
-    children.forEach(node => {
+    children.forEach((node) => {
       if (node.innerText) {
         text += node.innerText;
       } else if (node.textContent) {
@@ -112,9 +110,11 @@ export class TeHelper {
   public static getListData(text: string, listType: TeListType = 'unordered'): any {
     return {
       style: listType,
-      items: [{
-        content: text
-      }]
+      items: [
+        {
+          content: text,
+        },
+      ],
     };
   }
 
@@ -124,8 +124,11 @@ export class TeHelper {
    * @param node
    * @param options
    */
-  public static convertBlockToParagraphIfEmpty(event: KeyboardEvent, node: HTMLElement,
-                                               options: BlockToolConstructorOptions): boolean {
+  public static convertBlockToParagraphIfEmpty(
+    event: KeyboardEvent,
+    node: HTMLElement,
+    options: BlockToolConstructorOptions
+  ): boolean {
     // if key is backspace and the text is empty, convert to text
     if (event.key == FlKeyboardKey.BACKSPACE && node.innerText.trim() == '') {
       // cancel the backspace event
@@ -168,14 +171,15 @@ export class TeHelper {
    * @private
    */
   public static handleRightArrow(event: KeyboardEvent): void {
-
     // get the element where the caret is with standard browser api
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const node = range.endContainer;
     const cursorContainer: HTMLElement = node.parentNode as HTMLElement;
 
-    const editableContainer = FlHtmlHelper.getParent(cursorContainer, { attribute: { contenteditable: 'true' } });
+    const editableContainer = FlHtmlHelper.getParent(cursorContainer, {
+      attribute: { contenteditable: 'true' },
+    });
 
     if (!editableContainer || !node) return;
 
@@ -186,7 +190,6 @@ export class TeHelper {
 
     // if the cursor is at the end of the element
     if (range.endOffset === node.textContent.length) {
-
       // Case where there is nothing after the cursor
       if (cursorContainer === lastChild) {
         // Append a space to the end of the div's content
@@ -210,7 +213,10 @@ export class TeHelper {
    * @param portalMaxWidth max width of the portal to prevent being outside screen
    * @param portalMaxHeight max height of the portal to prevent being outside screen
    * */
-  public static getPortalPositionForCursor(portalMaxWidth: number, portalMaxHeight: number): FlPortalAbsolutePosition {
+  public static getPortalPositionForCursor(
+    portalMaxWidth: number,
+    portalMaxHeight: number
+  ): FlPortalAbsolutePosition {
     const position = FlHtmlHelper.getCaretCoordinates();
 
     let topPosition: string;
@@ -254,7 +260,7 @@ export class TeHelper {
       u: true,
       strike: true,
       a: {
-        href: true
+        href: true,
       },
       code: true,
     };

@@ -1,20 +1,17 @@
-import {Directive, HostListener} from '@angular/core';
-import {MatDrawer} from '@angular/material/sidenav';
+import { Directive, HostListener } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 
 /**
  * Simple directive to close the current drawer or sidenav on close
  */
 @Directive({
-  selector: '[flDrawerClose]'
+  selector: '[flDrawerClose]',
 })
 export class FlDrawerCloseDirective {
-
-  constructor(private matDrawer: MatDrawer) {
-  }
+  constructor(private matDrawer: MatDrawer) {}
 
   @HostListener('click')
   click(): void {
     this.matDrawer.close();
   }
-
 }

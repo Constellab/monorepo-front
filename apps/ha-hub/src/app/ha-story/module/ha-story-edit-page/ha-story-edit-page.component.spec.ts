@@ -8,9 +8,8 @@ describe('HaStoryEditPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaStoryEditPageComponent ]
-    })
-    .compileComponents();
+      declarations: [HaStoryEditPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaStoryEditPageComponent);
     component = fixture.componentInstance;

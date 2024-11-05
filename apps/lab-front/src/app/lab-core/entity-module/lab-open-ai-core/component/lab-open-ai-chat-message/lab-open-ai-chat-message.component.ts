@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LabOpenAiChatMessage, LabOpenAiChatMessageRole} from '../../model/lab-open-ai.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LabOpenAiChatMessage, LabOpenAiChatMessageRole } from '../../model/lab-open-ai.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
 
@@ -10,7 +10,6 @@ export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
   styleUrls: ['./lab-open-ai-chat-message.component.scss'],
 })
 export class LabOpenAiChatMessageComponent implements OnInit {
-
   @Input() message: LabOpenAiChatMessage;
 
   @Output() action: EventEmitter<LabOpenAiChatMessageAction> = new EventEmitter();
@@ -57,7 +56,6 @@ export class LabOpenAiChatMessageComponent implements OnInit {
       this.editRowCount = Math.max(this.editContent.split('\n').length, 4);
     }
   }
-
 
   escapePressed(event: Event): void {
     ClHelpService.stopEventPropagation(event);

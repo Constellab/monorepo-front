@@ -1,9 +1,9 @@
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {enableProdMode} from '@angular/core';
-import {environment} from './environments/ha-environment';
-import {flLoadEnvironmentFromAssets} from '@monorepo/front-core-lib';
-import {haEnvironmentPath, HaEnvironmentSettings} from './environments/ha-environment.class';
-import {HaAppModule} from './app/ha-app.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import { environment } from './environments/ha-environment';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib';
+import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
+import { HaAppModule } from './app/ha-app.module';
 
 function bootstrap(): void {
   if (environment.production) {
@@ -17,7 +17,6 @@ function bootstrap(): void {
         .catch((err) => console.error(err));
     });
   } else {
-
     // set the environment here to simulate the production mode
     // (environment is not loaded before bootstraping the app)
     environment.settings = {
@@ -27,7 +26,7 @@ function bootstrap(): void {
       communityFrontUrl: 'http://localhost:4200',
       captchaSiteKey: '123456',
       googleAnalyticsId: 'G-HDSPQ44FBS',
-      discordLink: 'https://discord.com/invite/7nmH5qKM'
+      discordLink: 'https://discord.com/invite/7nmH5qKM',
     };
 
     platformBrowserDynamic()

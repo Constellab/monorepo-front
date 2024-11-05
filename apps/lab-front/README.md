@@ -6,7 +6,7 @@
 
 # 👋 Welcome to Lab manager
 
-```lab-front``` is a [Constellab](https://constellab.io) container developed by [Gencovery](https://gencovery.com/). It run the front application for the data lab.
+`lab-front` is a [Constellab](https://constellab.io) container developed by [Gencovery](https://gencovery.com/). It run the front application for the data lab.
 
 ## 🚀 What is Constellab?
 
@@ -16,7 +16,7 @@
 
 ## 📄 Documentation
 
-📄  For `gws_core` brick documentation, click [here](https://constellab.community/bricks/gws_core/latest/doc/getting-started/6efb7ab9-8508-4f99-b3e1-1a43e55755c4)
+📄 For `gws_core` brick documentation, click [here](https://constellab.community/bricks/gws_core/latest/doc/getting-started/6efb7ab9-8508-4f99-b3e1-1a43e55755c4)
 
 💫 For Constellab application documentation, click [here](https://constellab.community/bricks/gws_academy/latest/doc/getting-started/b38e4929-2e4f-469c-b47b-f9921a3d4c74)
 
@@ -36,10 +36,9 @@ Then from [Constellab](https://constellab.space) space, you can configure your l
 
 ## 🌎 License
 
-```lab-front``` is completely free and open-source and licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+`lab-front` is completely free and open-source and licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
 <br/>
-
 
 This brick is maintained with ❤️ by [Gencovery](https://gencovery.com/).
 

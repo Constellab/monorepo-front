@@ -9,17 +9,7 @@ import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-h
  * Modules for the 'My folders' page
  */
 @NgModule({
-  declarations: [
-    CaMyFoldersPageComponent
-  ],
-  imports: [
-    CommonModule,
-
-    CaCoreModule,
-    CaHierarchyObjectCoreModule,
-
-    CaMyFolderRoutingModule
-  ]
+  declarations: [CaMyFoldersPageComponent],
+  imports: [CommonModule, CaCoreModule, CaHierarchyObjectCoreModule, CaMyFolderRoutingModule],
 })
-export class CaMyFolderModule {
-}
+export class CaMyFolderModule {}

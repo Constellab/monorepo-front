@@ -6,7 +6,7 @@
   <ng-content></ng-content>
 </div>
 
-<div class="g-text-small error" [ngClass]="{'error-content': !removeErrorSpace}">
+<div class="g-text-small error" [ngClass]="{ 'error-content': !removeErrorSpace }">
   <ng-container *ngIf="showError">
     <ng-content select="mat-error"></ng-content>
   </ng-container>

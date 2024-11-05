@@ -1,6 +1,6 @@
 <div class="left-panel">
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-  <a [routerLink]="story?.publishedAt == null ? ['/stories'] :['/stories/' + story?.id]" class="back-link">
+  <a [routerLink]="story?.publishedAt == null ? ['/stories'] : ['/stories/' + story?.id]" class="back-link">
     <fl-text-icon [iconPosition]="'start'">
       <mat-icon>arrow_back</mat-icon>
       {{ (story?.publishedAt == null ? 'back_to_stories_list' : 'back_to_my_story_page') | translate }}
@@ -12,14 +12,23 @@
   <form [formGroup]="formGp">
     <div class="main-panel g-max-article-width">
       <div class="title-image-div">
-        <h2 id="storyTitle" class="title-input" flElementEditable (flElementValueChange)="onTitleChange($event)">
+        <h2
+          id="storyTitle"
+          class="title-input"
+          flElementEditable
+          (flElementValueChange)="onTitleChange($event)">
           {{ story.title }}
         </h2>
-        <fl-update-image-container class="story-image-preview" [uploadConfig]="imageConfig"
-                                   [deleteConfig]="deleteImageConfig" [showDelete]="!isMainImageInContent()">
-          <div class="story-image"
-               [style.background-image]="story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null">
-          </div>
+        <fl-update-image-container
+          class="story-image-preview"
+          [uploadConfig]="imageConfig"
+          [deleteConfig]="deleteImageConfig"
+          [showDelete]="!isMainImageInContent()">
+          <div
+            class="story-image"
+            [style.background-image]="
+              story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null
+            "></div>
         </fl-update-image-container>
       </div>
 
@@ -41,18 +50,29 @@
             </button>
           </mat-chip-row>
 
-          <input matInput flInputMaxLength="30" [formControl]="topicControl"
-                 [matAutocomplete]="auto" [matChipInputFor]="topicChipList" #topicInput>
+          <input
+            matInput
+            flInputMaxLength="30"
+            [formControl]="topicControl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="topicChipList"
+            #topicInput />
         </mat-chip-grid>
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn"
-                          (optionSelected)="onSelectTopic($event)">
+        <mat-autocomplete
+          autoActiveFirstOption
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+          (optionSelected)="onSelectTopic($event)">
           <mat-option *ngFor="let topic of filteredTopics | async" [value]="topic">
             {{ topic.name }}
           </mat-option>
         </mat-autocomplete>
         @if (canSaveTopic && story.topics.length < 5 && checkTopicControl()) {
-          <mat-icon matSuffix (click)="saveTopic()"
-                    [matTooltip]="'create_new_story_topic' | translate" class="input-icon">
+          <mat-icon
+            matSuffix
+            (click)="saveTopic()"
+            [matTooltip]="'create_new_story_topic' | translate"
+            class="input-icon">
             save
           </mat-icon>
         }
@@ -60,8 +80,14 @@
       <div class="buttons-div">
         @if (story.status === 'DRAFT') {
           <div>
-            <button mat-flat-button type="button" class="publish-story-bt" *haIsAuthenticated
-                    (click)="publish()" color="primary" [matTooltip]="'publish_the_story' | translate">
+            <button
+              mat-flat-button
+              type="button"
+              class="publish-story-bt"
+              *haIsAuthenticated
+              (click)="publish()"
+              color="primary"
+              [matTooltip]="'publish_the_story' | translate">
               {{ 'publish_story' | translate }}
               <mat-icon>publish</mat-icon>
             </button>
@@ -70,36 +96,54 @@
 
         <div class="save-content-div">
           @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
-
-            <button mat-flat-button type="button" class="save-story-bt" *haIsAuthenticated
-                    (click)="save()" color="primary" [matTooltip]="'publish_story_with_modifications' | translate"
-                    [disabled]="!syncWithBack">
+            <button
+              mat-flat-button
+              type="button"
+              class="save-story-bt"
+              *haIsAuthenticated
+              (click)="save()"
+              color="primary"
+              [matTooltip]="'publish_story_with_modifications' | translate"
+              [disabled]="!syncWithBack">
               {{ 'publish_story_modifications' | translate }}
             </button>
           }
           <div class="g-layout-row g-layout-between-center save-info">
-            <te-text-editor-save [formCtrl]="contentEditionFormControl" [saveFunc]="saveContentEdition"
-                                 [debounceTime]="2500"></te-text-editor-save>
+            <te-text-editor-save
+              [formCtrl]="contentEditionFormControl"
+              [saveFunc]="saveContentEdition"
+              [debounceTime]="2500"></te-text-editor-save>
           </div>
-
         </div>
 
         <div class="right-bts-div">
           @if (isAuthor) {
-            <button mat-icon-button type="button" class="co-author-bt"
-                    (click)="openCoAuthorDialog()" [matTooltip]="'open_coauthor_panel' | translate">
+            <button
+              mat-icon-button
+              type="button"
+              class="co-author-bt"
+              (click)="openCoAuthorDialog()"
+              [matTooltip]="'open_coauthor_panel' | translate">
               <mat-icon>group_add</mat-icon>
             </button>
           }
 
-          <button mat-icon-button type="button" (click)="openHistoryPanel()"
-                  class="add-file-button-author"
-                  [matTooltip]="'teTextEditor.open_modifications_history_panel' | translate">
+          <button
+            mat-icon-button
+            type="button"
+            (click)="openHistoryPanel()"
+            class="add-file-button-author"
+            [matTooltip]="'teTextEditor.open_modifications_history_panel' | translate">
             <mat-icon>history</mat-icon>
           </button>
 
-          <button mat-icon-button [matTooltip]="'delete_story' | translate" type="button" color="warn"
-                  (click)="openDeleteStoryConfirmDialog()" class="add-file-button-author">
+          <button
+            mat-icon-button
+            [matTooltip]="'delete_story' | translate"
+            type="button"
+            color="warn"
+            (click)="openDeleteStoryConfirmDialog()"
+            class="add-file-button-author">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -107,17 +151,16 @@
       @if (contentHasError) {
         <mat-error>{{ contentError | translate }}</mat-error>
       }
-      <div class="story-content-form"
-           [ngClass]="contentEditorIsFocused ? ['focus'] : []">
-        <te-text-editor class="border-none editor" [config]="textEditorConfig"
-                        [formControl]="contentEditionFormControl"></te-text-editor>
+      <div class="story-content-form" [ngClass]="contentEditorIsFocused ? ['focus'] : []">
+        <te-text-editor
+          class="border-none editor"
+          [config]="textEditorConfig"
+          [formControl]="contentEditionFormControl"></te-text-editor>
       </div>
     </div>
   </form>
 } @else if (notFound) {
-
   <div class="main-panel">
     <ha-ha404></ha-ha404>
   </div>
 }
-

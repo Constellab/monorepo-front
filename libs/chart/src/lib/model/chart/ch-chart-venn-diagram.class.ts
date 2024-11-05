@@ -1,19 +1,18 @@
-import {ChChartConfig, ChChartRightSectionConfig} from '../ch-chart-config.class';
-import {ChChartContainer, ChChartContainerNoAxis} from '../drawer/ch-chart-container.class';
-import {ChChartSVGLegend} from '../legend/ch-chart-legend.class';
-import {ChChartBrush} from '../drawer/ch-chart-brush.class';
-import {ChChartScaleColor, ChChartScaleColorMulti} from '../scale/ch-chart-scale-color.class';
-import {ChChartVennData} from '../data/ch-chart-venn-data.class';
-import {ChChartLegendMultiSeries, ChLegend} from '../legend/ch-chart-legend-multi-series.class';
-import {ChChartRendererVennDiagram} from '../../renderer/ch-chart-renderer-venn-diagram.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChartContainer, ChChartContainerNoAxis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartScaleColor, ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
+import { ChChartVennData } from '../data/ch-chart-venn-data.class';
+import { ChChartLegendMultiSeries, ChLegend } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartRendererVennDiagram } from '../../renderer/ch-chart-renderer-venn-diagram.plot';
 import {
   ChChartLegendMultiSeriesComponent,
-  ChChartLegendMultiSeriesInput
+  ChChartLegendMultiSeriesInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
-import {ChChartSerieSimple} from '../data/ch-chart-serie.class';
+import { ChChartSerieSimple } from '../data/ch-chart-serie.class';
 
 export class ChChartVennDiagram extends ChChartConfig {
-
   private readonly colorScale: ChChartScaleColor;
 
   constructor(protected readonly dataContainer: ChChartVennData) {
@@ -33,23 +32,26 @@ export class ChChartVennDiagram extends ChChartConfig {
 
   getSVGLegend(): ChChartSVGLegend {
     // create the legend object where key = name = groupName
-    const legends: ChLegend[] = this.dataContainer.groupNames.map(groupName => ({name: groupName, key: groupName}));
+    const legends: ChLegend[] = this.dataContainer.groupNames.map((groupName) => ({
+      name: groupName,
+      key: groupName,
+    }));
     return new ChChartLegendMultiSeries(legends, this.colorScale);
   }
 
   getRightSectionConfig(): ChChartRightSectionConfig {
-    const series: ChChartSerieSimple[] = this.dataContainer.groupNames.map(groupName => ({
+    const series: ChChartSerieSimple[] = this.dataContainer.groupNames.map((groupName) => ({
       name: groupName,
       key: groupName,
-      color: this.colorScale.scale(groupName)
+      color: this.colorScale.scale(groupName),
     }));
     const data: ChChartLegendMultiSeriesInput = {
       series: series,
-      seriesColorScale: this.colorScale
+      seriesColorScale: this.colorScale,
     };
     return {
       componentType: ChChartLegendMultiSeriesComponent,
-      data: data
+      data: data,
     };
   }
 
@@ -58,8 +60,5 @@ export class ChChartVennDiagram extends ChChartConfig {
     return undefined;
   }
 
-  destroy(): void {
-  }
-
-
+  destroy(): void {}
 }

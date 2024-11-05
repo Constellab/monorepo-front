@@ -1,15 +1,15 @@
-import {LabEntity} from '../global/lab-entity.entity';
-import {FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
-import {Expose, Type} from 'class-transformer';
-import {ClVersion, ClVersionTransform} from '@monorepo/core-lib';
+import { LabEntity } from '../global/lab-entity.entity';
+import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import { Expose, Type } from 'class-transformer';
+import { ClVersion, ClVersionTransform } from '@monorepo/core-lib';
 
-export type LabBrickMessageStatus = 'INFO' | 'ERROR' | 'CRITICAL' | 'WARNING'
+export type LabBrickMessageStatus = 'INFO' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickMessageStatusDict: FlStatusDict<LabBrickMessageStatus> = {
   INFO: FlStatusHelper.getInfoStatus('INFO'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING')
+  WARNING: FlStatusHelper.getWarningStatus('WARNING'),
 };
 
 export class LabBrickMessage {
@@ -19,13 +19,13 @@ export class LabBrickMessage {
   status: FlStatus<LabBrickMessageStatus>;
 }
 
-export type LabBrickStatus = 'SUCCESS' | 'ERROR' | 'CRITICAL' | 'WARNING'
+export type LabBrickStatus = 'SUCCESS' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickStatusDict: FlStatusDict<LabBrickStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING')
+  WARNING: FlStatusHelper.getWarningStatus('WARNING'),
 };
 
 export class LabBrickEntity extends LabEntity {
@@ -39,16 +39,16 @@ export class LabBrickEntity extends LabEntity {
 
   version: string;
 
-  @Expose({name: 'repo_type'})
+  @Expose({ name: 'repo_type' })
   repoType: 'app';
 
-  @Expose({name: 'repo_commit'})
+  @Expose({ name: 'repo_commit' })
   repoCommit?: string;
 
-  @Expose({name: 'parent_name'})
-  parentName ?: string;
+  @Expose({ name: 'parent_name' })
+  parentName?: string;
 
-  @Expose({name: 'brick_path'})
+  @Expose({ name: 'brick_path' })
   brickPath: string;
 
   countMessages(): number {
@@ -60,6 +60,6 @@ export class LabBrickMigration {
   @ClVersionTransform()
   version: ClVersion;
 
-  @Expose({name: 'short_description'})
+  @Expose({ name: 'short_description' })
   shortDescription: string;
 }

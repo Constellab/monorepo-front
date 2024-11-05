@@ -7,21 +7,20 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 @Component({
   selector: 'ca-lab-docker-containers',
   templateUrl: './ca-lab-docker-containers.component.html',
-  styleUrls: ['./ca-lab-docker-containers.component.scss']
+  styleUrls: ['./ca-lab-docker-containers.component.scss'],
 })
 export class CaLabDockerContainersComponent implements OnInit {
-
   // don't load containers on init, wait for the user to click on refresh
   containers$: Observable<CaLabDockerPs[]> = of([]);
 
   labId: string = this.state.getLabId();
 
-  constructor(private labService: CaLabService,
-              private state: CaLabDetailPageState) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private state: CaLabDetailPageState
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   refresh(): void {
     this.containers$ = this.labService.listContainers(this.state.getLabId());

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamSearchFormComponent} from './ca-team-search-form.component';
+import { CaTeamSearchFormComponent } from './ca-team-search-form.component';
 
 describe('CaTeamSearchFormComponent', () => {
   let component: CaTeamSearchFormComponent;

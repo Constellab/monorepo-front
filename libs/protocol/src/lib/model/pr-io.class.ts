@@ -1,5 +1,4 @@
-import {TdIOSpec} from '@monorepo/technical-doc';
-
+import { TdIOSpec } from '@monorepo/technical-doc';
 
 export interface PrOI {
   /**
@@ -22,9 +21,7 @@ export interface PrOI {
  * Spec for the input or output of a process
  */
 export interface PrPort {
-
   resource_id?: string;
 
   specs: TdIOSpec;
-
 }

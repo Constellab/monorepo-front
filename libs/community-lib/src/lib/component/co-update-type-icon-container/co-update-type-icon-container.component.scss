@@ -24,7 +24,8 @@
   cursor: pointer;
 
   &:hover {
-    .background, .icon {
+    .background,
+    .icon {
       opacity: 1;
     }
   }

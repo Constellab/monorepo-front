@@ -9,10 +9,9 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
 @Component({
   selector: 'ca-chat-write-message',
   templateUrl: './ca-chat-write-message.component.html',
-  styleUrl: './ca-chat-write-message.component.scss'
+  styleUrl: './ca-chat-write-message.component.scss',
 })
 export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
-
   @Input({ required: true }) folderId: string;
 
   @Input({ required: true }) mode: 'create' | 'update';
@@ -24,12 +23,10 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
 
   textEditorConfig: CaChatMessageTextEditorConfig;
 
-  constructor(private folderService: CaFolderService) {
-  }
+  constructor(private folderService: CaFolderService) {}
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaChatMessageTextEditorConfig(
-      this.folderId, this.folderService, this.mode);
+    this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId, this.folderService, this.mode);
   }
 
   enterEvent(event: Event): void {
@@ -55,6 +52,4 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.textEditorConfig?.event.destroy();
   }
-
-
 }

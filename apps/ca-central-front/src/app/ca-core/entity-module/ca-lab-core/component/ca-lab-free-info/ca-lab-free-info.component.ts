@@ -7,9 +7,7 @@ import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.clas
   styleUrls: ['./ca-lab-free-info.component.scss'],
 })
 export class CaLabFreeInfoComponent {
-
   @Input() freeLab: CaLabFreeGetDto;
 
   @Input() showCreateButton: boolean = true;
-
 }

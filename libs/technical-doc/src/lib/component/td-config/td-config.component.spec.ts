@@ -8,9 +8,8 @@ describe('TdConfigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TdConfigComponent ]
-    })
-      .compileComponents();
+      declarations: [TdConfigComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

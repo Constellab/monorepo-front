@@ -9,7 +9,7 @@ import {
   Self,
   TemplateRef,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
@@ -17,7 +17,7 @@ import {
   FlFormFieldDirective,
   FlOverlayRef,
   FlPortalConnectedPosition,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
 
@@ -39,11 +39,12 @@ interface CaUserSelection {
 @Component({
   selector: 'ca-user-list-inline',
   templateUrl: './ca-user-list-inline.component.html',
-  styleUrls: ['./ca-user-list-inline.component.scss']
+  styleUrls: ['./ca-user-list-inline.component.scss'],
 })
-export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, CaUser[]>
-  implements OnInit, OnDestroy {
-
+export class CaUserListInlineComponent
+  extends FlFormFieldDirective<UserList, CaUser[]>
+  implements OnInit, OnDestroy
+{
   @Input() users$: Observable<CaUser[]>;
 
   @Input() userDatasource: CaUserDatasourcePaginated;
@@ -52,8 +53,7 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
 
   @Output() selectionChange: EventEmitter<CaUser[]> = new EventEmitter();
 
-  @ViewChild('additionalUsers', {static: false}) additionalUsers: TemplateRef<unknown>;
-
+  @ViewChild('additionalUsers', { static: false }) additionalUsers: TemplateRef<unknown>;
 
   additionalUserLength: number;
 
@@ -63,21 +63,19 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
 
   private subscription: Subscription;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private portalService: FlPortalService,
-              private viewContainerRef: ViewContainerRef) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private portalService: FlPortalService,
+    private viewContainerRef: ViewContainerRef
+  ) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     if (this.userDatasource) {
-      this.subscription = this.userDatasource.connect().subscribe(
-        users => this.onUserLoaded(users)
-      );
+      this.subscription = this.userDatasource.connect().subscribe((users) => this.onUserLoaded(users));
     } else {
-      this.subscription = this.users$.subscribe(
-        users => this.onUserLoaded(users)
-      );
+      this.subscription = this.users$.subscribe((users) => this.onUserLoaded(users));
     }
   }
 
@@ -85,7 +83,7 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
     this.value = {
       // slice the array to limit preview and reverse it as it is reverse in the html
       previewUsers: this.usersToUserSelection(users.slice(0, this.previewListSize).reverse()),
-      additionalUsers: this.usersToUserSelection(users.slice(this.previewListSize))
+      additionalUsers: this.usersToUserSelection(users.slice(this.previewListSize)),
     };
 
     // calculate the number of additional user
@@ -104,51 +102,59 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
     this.selectionChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: CaUser[]): void {
     this.selectUsers(obj);
   }
 
   protected convertInnerToOuter(innerValue: UserList): CaUser[] {
-    return innerValue.previewUsers.concat(innerValue.additionalUsers)
-      .filter(userSelection => userSelection.selected)
-      .map(userSelection => userSelection.user);
+    return innerValue.previewUsers
+      .concat(innerValue.additionalUsers)
+      .filter((userSelection) => userSelection.selected)
+      .map((userSelection) => userSelection.user);
   }
 
   openAdditionalUsersPortal(event: MouseEvent): void {
     if (this.additionalOverlay) return;
 
-    const position: FlPortalConnectedPosition[] = [{
-      originX: 'end',
-      originY: 'bottom',
-      overlayX: 'start',
-      overlayY: 'top'
-    }];
-
-    const config = this.portalService.configureRelativePortalFromMouseEvent(event, position,
+    const position: FlPortalConnectedPosition[] = [
       {
-        scrollStrategy: this.portalService.getCloseOnScrollStrategy(),
-        disposeOnOutsideClick: true
-      });
-    this.additionalOverlay = this.portalService.createPortalTemplate(this.additionalUsers, config, this.viewContainerRef);
+        originX: 'end',
+        originY: 'bottom',
+        overlayX: 'start',
+        overlayY: 'top',
+      },
+    ];
 
-    this.additionalOverlay.detachments().subscribe(() => this.additionalOverlay = null);
+    const config = this.portalService.configureRelativePortalFromMouseEvent(event, position, {
+      scrollStrategy: this.portalService.getCloseOnScrollStrategy(),
+      disposeOnOutsideClick: true,
+    });
+    this.additionalOverlay = this.portalService.createPortalTemplate(
+      this.additionalUsers,
+      config,
+      this.viewContainerRef
+    );
+
+    this.additionalOverlay.detachments().subscribe(() => (this.additionalOverlay = null));
   }
 
   private usersToUserSelection(users: CaUser[]): CaUserSelection[] {
-    return users.map(user => ({user: user, selected: false}));
+    return users.map((user) => ({ user: user, selected: false }));
   }
 
   private selectUsers(users: CaUser[]): void {
-    if(users == null) users = [];
+    if (users == null) users = [];
     this.tempSelectedUser = users;
 
     if (this.value) {
       // update the selected parameter of the user list
-      [...this.value.previewUsers, ...this.value.additionalUsers].forEach(userSelection =>
-        userSelection.selected = users.find(selectedUser => selectedUser.id === userSelection.user.id) != null);
+      [...this.value.previewUsers, ...this.value.additionalUsers].forEach(
+        (userSelection) =>
+          (userSelection.selected =
+            users.find((selectedUser) => selectedUser.id === userSelection.user.id) != null)
+      );
     }
   }
 
@@ -163,13 +169,11 @@ export class CaUserListInlineComponent extends FlFormFieldDirective<UserList, Ca
   selectionAdditionalUser(): boolean {
     if (this.additionalOverlay) return true;
     if (!this.value) return false;
-    return this.value.additionalUsers.find(userSelection => userSelection.selected) != null;
+    return this.value.additionalUsers.find((userSelection) => userSelection.selected) != null;
   }
 
   ngOnDestroy(): void {
     this.additionalOverlay?.dispose();
     this.subscription?.unsubscribe();
   }
-
-
 }

@@ -8,9 +8,8 @@ describe('CoUpdateTypeIconDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CoUpdateTypeIconFormComponent]
-    })
-    .compileComponents();
+      declarations: [CoUpdateTypeIconFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoUpdateTypeIconFormComponent);
     component = fixture.componentInstance;

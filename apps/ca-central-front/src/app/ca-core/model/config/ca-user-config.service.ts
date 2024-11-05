@@ -8,13 +8,14 @@ import { CaAuthenticatedUserService } from '../../service-api/ca-authenticated-u
 import { CaSpaceService } from '../../service-api/ca-space.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaUserConfig extends FlUserConfig {
-
-  constructor(private userService: CaUsersService,
-              private authenticatedUserService: CaAuthenticatedUserService,
-              private spaceService: CaSpaceService) {
+  constructor(
+    private userService: CaUsersService,
+    private authenticatedUserService: CaAuthenticatedUserService,
+    private spaceService: CaSpaceService
+  ) {
     super();
   }
 
@@ -30,7 +31,9 @@ export class CaUserConfig extends FlUserConfig {
     return this.spaceService.getUserById(userId);
   }
 
-  getSearchByNamesDatasource(mode: FlUserConfigSearchNameMode): CaUserDatasourcePaginated<FlInputSearchFilter> {
+  getSearchByNamesDatasource(
+    mode: FlUserConfigSearchNameMode
+  ): CaUserDatasourcePaginated<FlInputSearchFilter> {
     if (mode === 'all' || (mode === 'allForAdmin' && this.authenticatedUserService.isAdmin())) {
       return this.userService.searchByNamesDatasource();
     } else {
@@ -41,5 +44,4 @@ export class CaUserConfig extends FlUserConfig {
   getAuthenticatedUser(): CaUser {
     return this.authenticatedUserService.getCurrentUser();
   }
-
 }

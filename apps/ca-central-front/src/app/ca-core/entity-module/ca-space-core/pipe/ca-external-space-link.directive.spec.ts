@@ -1,4 +1,4 @@
-import {CaExternalSpaceLinkDirective} from './ca-external-space-link.directive';
+import { CaExternalSpaceLinkDirective } from './ca-external-space-link.directive';
 
 describe('CaExternalSpaceLinkDirective', () => {
   it('should create an instance', () => {

@@ -26,17 +26,17 @@ export interface CaNoteFileViewBlockData {
 }
 
 export class CaNoteRichTextViewBlock extends TeComponentBlock<CaNoteContentViewComponent> {
-
-  constructor(protected options: BlockToolConstructorOptions,
-              protected readonly envInjector: EnvironmentInjector,
-              protected readonly applicationRef: ApplicationRef,
-              // additionalData is the note id
-              protected readonly additionalData: CaNoteRichTextViewBlockAdditionalData) {
+  constructor(
+    protected options: BlockToolConstructorOptions,
+    protected readonly envInjector: EnvironmentInjector,
+    protected readonly applicationRef: ApplicationRef,
+    // additionalData is the note id
+    protected readonly additionalData: CaNoteRichTextViewBlockAdditionalData
+  ) {
     super(options, envInjector, applicationRef, additionalData);
   }
 
   public static readonly TAG_NAME = 'ca-note-content-view';
-
 
   getComponentType(): Type<CaNoteContentViewComponent> {
     return CaNoteContentViewComponent;
@@ -52,15 +52,17 @@ export class CaNoteRichTextViewBlock extends TeComponentBlock<CaNoteContentViewC
       resourceId = (data as CaNoteResourceViewBlockData).resource_id;
     }
 
-    this.componentInstance.setViewInputs(this.additionalData.noteId, data.id,
-      data.title, data.caption, resourceId);
+    this.componentInstance.setViewInputs(
+      this.additionalData.noteId,
+      data.id,
+      data.title,
+      data.caption,
+      resourceId
+    );
   }
-
 
   // this is only for read only mode
   save(): BlockToolData {
     return this.data;
   }
 }
-
-

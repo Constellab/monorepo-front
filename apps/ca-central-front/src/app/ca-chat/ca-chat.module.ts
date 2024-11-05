@@ -6,9 +6,7 @@ import { CaChatRoutingModule } from './ca-chat-routing.module';
 import { CaChatPageComponent } from './component/ca-chat-page/ca-chat-page.component';
 import { CaChatDetailPageComponent } from './component/ca-chat-detail-page/ca-chat-detail-page.component';
 import { CaChatCoreModule } from '../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
-import {
-  CaHierarchyObjectCoreModule
-} from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import { CaHierarchyObjectCoreModule } from '../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 import { CaNotificationCoreModule } from '../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
@@ -16,10 +14,7 @@ import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-
  * Module for the dashboard page
  */
 @NgModule({
-  declarations: [
-    CaChatPageComponent,
-    CaChatDetailPageComponent
-  ],
+  declarations: [CaChatPageComponent, CaChatDetailPageComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -30,8 +25,7 @@ import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-
     CaNotificationCoreModule,
 
     CaChatRoutingModule,
-    CaUserCoreModule
-  ]
+    CaUserCoreModule,
+  ],
 })
-export class CaChatModule {
-}
+export class CaChatModule {}

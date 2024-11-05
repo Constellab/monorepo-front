@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabBackupStatusDatasource,
-  CaLabBackupStatusDTO
+  CaLabBackupStatusDTO,
 } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
@@ -14,19 +14,23 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-lab-backups-statuses-admin',
   templateUrl: './ca-lab-backups-statuses-admin.component.html',
-  styleUrl: './ca-lab-backups-statuses-admin.component.scss'
+  styleUrl: './ca-lab-backups-statuses-admin.component.scss',
 })
 export class CaLabBackupsStatusesAdminComponent {
-
   labId: string = inject(MAT_DIALOG_DATA);
 
-  backupsStatuses: CaLabBackupStatusDatasource =
-    new CaLabBackupStatusDatasource(this.labService.getBackupsStatusAdmin(this.labId));
+  backupsStatuses: CaLabBackupStatusDatasource = new CaLabBackupStatusDatasource(
+    this.labService.getBackupsStatusAdmin(this.labId)
+  );
 
-  columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = ['frequency', 'region', 'status',
-    'lastBackup', 'bucketInfo', 'actions'];
+  columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = [
+    'frequency',
+    'region',
+    'status',
+    'lastBackup',
+    'bucketInfo',
+    'actions',
+  ];
 
-  constructor(private labService: CaLabService) {
-  }
-
+  constructor(private labService: CaLabService) {}
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSharedEntityTableComponent} from './lab-shared-entity-table.component';
+import { LabSharedEntityTableComponent } from './lab-shared-entity-table.component';
 
 describe('LabSharedEntityTableComponent', () => {
   let component: LabSharedEntityTableComponent;
@@ -8,9 +8,8 @@ describe('LabSharedEntityTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSharedEntityTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSharedEntityTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabSharedEntityTableComponent);
     component = fixture.componentInstance;

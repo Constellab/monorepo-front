@@ -1,29 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {HaAgentService} from '../../../ha-core/ha-service/ha-agent.service';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { Router } from '@angular/router';
 import {
   HaCreateAgentInput,
-  HaAgentCreateDialogComponent
+  HaAgentCreateDialogComponent,
 } from '../ha-agent-create-dialog/ha-agent-create-dialog.component';
-import {HaAgentVersion} from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
-import {HaAuthenticatedUserService} from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import {
   HaAgentDatasourceFilters,
-  HaAgentDatasourcePaginated
+  HaAgentDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import {FormControl} from '@angular/forms';
-import {ClStringHelper} from "@monorepo/core-lib";
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
+import { FormControl } from '@angular/forms';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-agent-list',
   templateUrl: './ha-agent-list.component.html',
-  styleUrls: ['./ha-agent-list.component.scss']
+  styleUrls: ['./ha-agent-list.component.scss'],
 })
 export class HaAgentListComponent implements OnInit {
-
   agentsPaginated: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   user: HaUser;
   spaceIdFilter: string[] = [];
@@ -33,11 +32,10 @@ export class HaAgentListComponent implements OnInit {
     private agentService: HaAgentService,
     private dialogService: FlDialogService,
     private router: Router,
-    private authenticatedUserService: HaAuthenticatedUserService) {
-  }
+    private authenticatedUserService: HaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
-
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.user = user;
     });
@@ -45,14 +43,14 @@ export class HaAgentListComponent implements OnInit {
     this.updateAgents();
   }
 
-
-
   openCreateAgentDialog(): void {
     const input: HaCreateAgentInput = {
-      mode: 'create'
-    }
+      mode: 'create',
+    };
 
-    this.dialogService.openSmallDialog(HaAgentCreateDialogComponent, {data: input}).afterClosed()
+    this.dialogService
+      .openSmallDialog(HaAgentCreateDialogComponent, { data: input })
+      .afterClosed()
       .subscribe((agentVersion: HaAgentVersion) => {
         if (agentVersion && agentVersion.agent) {
           this.router.navigate([HaRouterService.getAgentVersionRoute(agentVersion)]);
@@ -65,7 +63,7 @@ export class HaAgentListComponent implements OnInit {
   }
 
   selectSpace(spaceId: string): void {
-    if(this.isSelected(spaceId)){
+    if (this.isSelected(spaceId)) {
       this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != spaceId);
     } else {
       this.spaceIdFilter.push(spaceId);
@@ -73,8 +71,8 @@ export class HaAgentListComponent implements OnInit {
     this.updateAgents();
   }
 
-  onSpace(spaceId: string): void{
-    this.selectSpace(spaceId)
+  onSpace(spaceId: string): void {
+    this.selectSpace(spaceId);
   }
 
   search(event: any): void {
@@ -85,7 +83,7 @@ export class HaAgentListComponent implements OnInit {
   updateAgents(): void {
     this.agentsPaginated.getFirstPage({
       spacesFilter: this.spaceIdFilter,
-      titleFilter: this.titleFormControl.value
+      titleFilter: this.titleFormControl.value,
     });
   }
 

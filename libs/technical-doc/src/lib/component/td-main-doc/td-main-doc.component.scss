@@ -1,33 +1,32 @@
-.container{
+.container {
   padding-left: 1em;
   padding-right: 1em;
 }
 
-.doc-info{
+.doc-info {
   margin-top: 1em;
 }
 
-.deprecated-message-div{
+.deprecated-message-div {
   width: 98%;
   height: auto;
   margin: auto;
 }
 
 @media (max-width: 1279px) {
-
-  .doc-info{
-    padding: 0  5px;
+  .doc-info {
+    padding: 0 5px;
   }
 }
 
-.technical-doc-content{
+.technical-doc-content {
   white-space: pre-line;
   height: auto;
   padding: 0;
 }
 
 @media (max-width: 850px) {
-  .container{
+  .container {
     padding-left: 0;
     padding-right: 0;
   }

@@ -1,4 +1,4 @@
-.func{
+.func {
   font-size: 13px;
   background-color: var(--card-background);
   padding: 1em;
@@ -6,13 +6,13 @@
   border-radius: var(--card-radius);
 }
 
-.methods-div{
+.methods-div {
   margin-bottom: 2em;
   padding: 1em;
   border-radius: var(--card-radius);
 }
 
-.method-card{
+.method-card {
   background-color: var(--card-background);
   margin-top: 1em;
   padding: 1em;
@@ -22,28 +22,27 @@
   flex-direction: column;
 }
 
-.variable{
+.variable {
   font-size: 1.25em;
   margin-bottom: 0.5em;
 }
 
-.var-type{
+.var-type {
   color: #c18401;
 }
 
-.func-code-line{
+.func-code-line {
   padding-top: 0.1em;
   padding-bottom: 0.1em;
 }
 
-.func-code-line:hover{
+.func-code-line:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-
 @media (max-width: 750px) {
-  .methods-div{
+  .methods-div {
     padding: 0;
   }
 }

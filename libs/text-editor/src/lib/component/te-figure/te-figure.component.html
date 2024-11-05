@@ -1,26 +1,39 @@
 <figure #figure *ngIf="imageReady; else selectImage">
-  <div flResize="bothKeepRatio" class="image-container" (flResizeChanged)="onImageResize($event)"
-       [disabled$]="disabled$"
-       [style.width]="imageWidth + 'px'" [style.height]="imageHeight + 'px'">
-    <img [ngSrc]="sanitizedUrl" [width]="imageWidth"
-         [height]="imageHeight"
-         draggable="false" flImageFullscreen
-         [alt]="data.title" class="image">
+  <div
+    flResize="bothKeepRatio"
+    class="image-container"
+    (flResizeChanged)="onImageResize($event)"
+    [disabled$]="disabled$"
+    [style.width]="imageWidth + 'px'"
+    [style.height]="imageHeight + 'px'">
+    <img
+      [ngSrc]="sanitizedUrl"
+      [width]="imageWidth"
+      [height]="imageHeight"
+      draggable="false"
+      flImageFullscreen
+      [alt]="data.title"
+      class="image" />
   </div>
 
   <figcaption class="g-text-centered">
-    <te-title-caption [(title)]="data.title" [(caption)]="data.caption"
-                      [editable]="!disabled"></te-title-caption>
+    <te-title-caption
+      [(title)]="data.title"
+      [(caption)]="data.caption"
+      [editable]="!disabled"></te-title-caption>
   </figcaption>
-
 </figure>
 
 <ng-template #selectImage>
-
   <fl-input-file-container color="primary" *ngIf="!uploadIsLoading" class="file-input-container">
-    <input flInputFile type="file" [strictMode]="true" [disabled]="disabled"
-           accept="image/*" [autoClearHtmlInput]="true"
-           (fileChange)="onFileSelected($any($event))">
+    <input
+      flInputFile
+      type="file"
+      [strictMode]="true"
+      [disabled]="disabled"
+      accept="image/*"
+      [autoClearHtmlInput]="true"
+      (fileChange)="onFileSelected($any($event))" />
   </fl-input-file-container>
 
   <div class="g-text-centered" *ngIf="uploadIsLoading">

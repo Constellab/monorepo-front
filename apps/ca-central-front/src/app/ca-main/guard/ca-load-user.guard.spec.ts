@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {CaLoadUserGuard} from './ca-load-user.guard';
+import { CaLoadUserGuard } from './ca-load-user.guard';
 
 describe('LoadUserGuard', () => {
   let guard: CaLoadUserGuard;

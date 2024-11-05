@@ -9,18 +9,16 @@ import { LabNoteService } from '../../../../entity-service/lab-note.service';
 @Component({
   selector: 'lab-notes-using-resource',
   templateUrl: './lab-notes-using-resource.component.html',
-  styleUrls: ['./lab-notes-using-resource.component.scss']
+  styleUrls: ['./lab-notes-using-resource.component.scss'],
 })
 export class LabNotesUsingResourceComponent implements OnInit {
-
   @Input() resourceId: string;
 
   datasource: LabNoteDatasource;
 
   columns: FlTableColumnStatic<LabNote>[] = ['title', 'lastModification'];
 
-  constructor(private noteService: LabNoteService) {
-  }
+  constructor(private noteService: LabNoteService) {}
 
   ngOnInit(): void {
     this.getDatasource();
@@ -28,10 +26,8 @@ export class LabNotesUsingResourceComponent implements OnInit {
 
   public getDatasource(): void {
     this.datasource = new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.noteService.getByResource(this.resourceId,
-        page, pageSize),
+      (page, pageSize) => this.noteService.getByResource(this.resourceId, page, pageSize),
       5
     );
   }
-
 }

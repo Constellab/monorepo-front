@@ -23,8 +23,7 @@
         </div>
 
         @if (canEditFolder$ | async) {
-          <button mat-stroked-button type="button" class="chat-button"
-                  (click)="toggleChat(folder)">
+          <button mat-stroked-button type="button" class="chat-button" (click)="toggleChat(folder)">
             <mat-icon>
               @if (folder.chatEnabled) {
                 speaker_notes_off
@@ -33,11 +32,11 @@
               }
             </mat-icon>
             <span>
-          @if (folder.chatEnabled) {
-            {{ 'folder_deactivate_chat' | translate }}
-          } @else {
-            {{ 'folder_activate_chat' | translate }}
-          }
+              @if (folder.chatEnabled) {
+                {{ 'folder_deactivate_chat' | translate }}
+              } @else {
+                {{ 'folder_activate_chat' | translate }}
+              }
             </span>
           </button>
         }
@@ -53,12 +52,15 @@
 
   @if ((canEditFolder$ | async) && (folder$ | async); as folder) {
     <div class="g-text-centered delete-button">
-      <button mat-stroked-button type="button" (click)="openDeleteFolderDialog(folder)"
-              class="g-button-small" color="warn">
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="openDeleteFolderDialog(folder)"
+        class="g-button-small"
+        color="warn">
         <mat-icon>delete</mat-icon>
         {{ 'delete_folder' | translate }}
       </button>
     </div>
   }
-
 </div>

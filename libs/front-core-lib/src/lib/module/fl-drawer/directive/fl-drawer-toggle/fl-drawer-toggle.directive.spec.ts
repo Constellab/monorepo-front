@@ -1,4 +1,4 @@
-import {FlDrawerToggleDirective} from './fl-drawer-toggle.directive';
+import { FlDrawerToggleDirective } from './fl-drawer-toggle.directive';
 
 describe('FlDrawerToggleDirective', () => {
   it('should create an instance', () => {

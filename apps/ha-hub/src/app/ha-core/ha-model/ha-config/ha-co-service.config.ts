@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {CoConfig} from '@monorepo/community-lib';
-import {HaEnvironmentHelper} from './ha-environment.helper';
+import { Injectable } from '@angular/core';
+import { CoConfig } from '@monorepo/community-lib';
+import { HaEnvironmentHelper } from './ha-environment.helper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaCoServiceConfig extends CoConfig {
-
   getSpacePhotoUrl(filename: string): string {
     return HaEnvironmentHelper.getConstellabApiUrl() + '/spaces/photo/' + filename;
   }
@@ -18,5 +17,4 @@ export class HaCoServiceConfig extends CoConfig {
   getCommunityApiUrl(): string {
     return HaEnvironmentHelper.getApiUrl();
   }
-
 }

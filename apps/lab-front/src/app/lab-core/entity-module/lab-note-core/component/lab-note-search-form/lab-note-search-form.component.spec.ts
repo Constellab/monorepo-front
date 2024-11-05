@@ -8,9 +8,8 @@ describe('LabNoteAdvancedSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabNoteSearchFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LabNoteSearchFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

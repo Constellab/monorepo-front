@@ -8,9 +8,8 @@ describe('LabNoteAssociatedScenariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabNoteLinkedScenariosComponent ]
-    })
-    .compileComponents();
+      declarations: [LabNoteLinkedScenariosComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -24,33 +24,33 @@ const biotaOntologyDbGroup: LabBiotaDatabaseGroup = {
   databases: [
     {
       name: 'biota.go',
-      typingName: base_type + '.GO'
+      typingName: base_type + '.GO',
     },
     {
       name: 'biota.sbo',
-      typingName: base_type + '.SBO'
+      typingName: base_type + '.SBO',
     },
     {
       name: 'biota.eco',
-      typingName: base_type + '.ECO'
+      typingName: base_type + '.ECO',
     },
     {
       name: 'biota.bto',
-      typingName: base_type + '.BTO'
+      typingName: base_type + '.BTO',
     },
     {
       name: 'biota.taxonomy',
-      typingName: base_type + '.Taxonomy'
+      typingName: base_type + '.Taxonomy',
     },
     {
       name: 'biota.pathway',
-      typingName: base_type + '.Pathway'
+      typingName: base_type + '.Pathway',
     },
     // {
     //   name: 'biota.pwo',
     //   type: 'biota.pwo.PWO'
     // }
-  ]
+  ],
 };
 
 // list of molecular database
@@ -60,29 +60,29 @@ const biotaMolecularDbGroup: LabBiotaDatabaseGroup = {
   databases: [
     {
       name: 'biota.compound',
-      typingName: base_type + '.Compound'
+      typingName: base_type + '.Compound',
     },
     {
       name: 'biota.enzyme',
-      typingName: base_type + '.Enzyme'
+      typingName: base_type + '.Enzyme',
     },
     {
       name: 'biota.enzyme_class',
-      typingName: base_type + '.EnzymeClass '
+      typingName: base_type + '.EnzymeClass ',
     },
     {
       name: 'biota.enzyme_ortholog',
-      typingName: base_type + '.EnzymeOrtholog'
+      typingName: base_type + '.EnzymeOrtholog',
     },
     {
       name: 'biota.reaction',
-      typingName: base_type + '.Reaction'
+      typingName: base_type + '.Reaction',
     },
     {
       name: 'biota.protein',
-      typingName: base_type + '.Protein'
+      typingName: base_type + '.Protein',
     },
-  ]
+  ],
 };
 
 export const labBiotaDatabaseGroups: LabBiotaDatabaseGroup[] = [biotaOntologyDbGroup, biotaMolecularDbGroup];

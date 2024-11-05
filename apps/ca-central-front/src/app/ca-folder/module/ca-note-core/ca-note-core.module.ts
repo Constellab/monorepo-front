@@ -9,9 +9,7 @@ import { CaNoteTableComponent } from './component/ca-note-table/ca-note-table.co
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { CaNoteContentComponent } from './component/ca-note-content/ca-note-content.component';
 import { FormsModule } from '@angular/forms';
-import {
-  CaNotificationCoreModule
-} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
+import { CaNotificationCoreModule } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 
 /**
  * Core module for Note entity
@@ -39,7 +37,6 @@ import {
     CaCoreModule,
     CaFolderHierarchyCoreModule,
     CaNotificationCoreModule,
-  ]
+  ],
 })
-export class CaNoteCoreModule {
-}
+export class CaNoteCoreModule {}

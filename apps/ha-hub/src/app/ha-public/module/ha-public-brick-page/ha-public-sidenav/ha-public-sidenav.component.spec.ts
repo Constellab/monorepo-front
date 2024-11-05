@@ -8,7 +8,7 @@ describe('DaPublicSidenavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicSidenavComponent ]
+      declarations: [HaPublicSidenavComponent],
     }).compileComponents();
   });
 

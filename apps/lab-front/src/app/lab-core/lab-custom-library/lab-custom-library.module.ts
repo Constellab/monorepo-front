@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   FlArticleModule,
   FlAuthModule,
@@ -39,16 +39,16 @@ import {
   FlThemeModule,
   FlTranslateModule,
   FlDatetimePickerModule,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
-import {RvResourceViewModule} from '@monorepo/resource-view';
-import {TdTechnicalDocModule} from '@monorepo/technical-doc';
-import {PrProtocolModule} from '@monorepo/protocol';
-import {BnBioNetworkModule} from '@monorepo/bio-network';
-import {SpSpreadsheetModule} from '@monorepo/spreadsheet';
-import {ChChartModule} from '@monorepo/chart';
-import {TeTextEditorModule} from '@monorepo/text-editor';
-import {CoCommunityLibModule} from '@monorepo/community-lib';
+import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { PrProtocolModule } from '@monorepo/protocol';
+import { BnBioNetworkModule } from '@monorepo/bio-network';
+import { SpSpreadsheetModule } from '@monorepo/spreadsheet';
+import { ChChartModule } from '@monorepo/chart';
+import { TeTextEditorModule } from '@monorepo/text-editor';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 
 /**
  * Regrouped all the needed import for this app from library
@@ -107,8 +107,7 @@ import {CoCommunityLibModule} from '@monorepo/community-lib';
     SpSpreadsheetModule,
     ChChartModule,
     TeTextEditorModule,
-    CoCommunityLibModule
-  ]
+    CoCommunityLibModule,
+  ],
 })
-export class LabCustomLibraryModule {
-}
+export class LabCustomLibraryModule {}

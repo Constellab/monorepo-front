@@ -6,23 +6,22 @@ import { DateTime } from 'luxon';
 export class LabLogInfo {
   name: string;
 
-  @Expose({name: 'file_size'})
+  @Expose({ name: 'file_size' })
   fileSize: number;
 }
 
 export class LabLogsStatus {
-  @Expose({name: 'log_folder'})
+  @Expose({ name: 'log_folder' })
   logFolder: string;
 
   @Type(() => LabLogInfo)
-  @Expose({name: 'log_files'})
+  @Expose({ name: 'log_files' })
   logFiles: LabLogInfo[];
 }
 
 export class LabLogCompleteInfo {
-
   @Type(() => LabLogInfo)
-  @Expose({name: 'log_info'})
+  @Expose({ name: 'log_info' })
   logInfo: LabLogInfo;
 
   content: string;
@@ -43,7 +42,7 @@ export type LabLogLevel = 'ERROR' | 'WARNING' | 'INFO' | 'DEBUG' | 'PROGRESS' | 
 export class LabLogLine {
   level: LabLogLevel;
 
-  @Expose({name: 'date_time'})
+  @Expose({ name: 'date_time' })
   @ClLuxonDateTimeTransform()
   datetime: DateTime;
 
@@ -51,22 +50,21 @@ export class LabLogLine {
 }
 
 export class LabLogsBetweenDates {
-
   @Type(() => LabLogLine)
   logs: LabLogLine[];
 
-  @Expose({name: 'from_date'})
+  @Expose({ name: 'from_date' })
   @ClLuxonDateTimeTransform()
   fromDate: DateTime;
 
-  @Expose({name: 'to_date'})
+  @Expose({ name: 'to_date' })
   @ClLuxonDateTimeTransform()
   toDate: DateTime;
 
-  @Expose({name: 'is_last_page'})
+  @Expose({ name: 'is_last_page' })
   isLastPage: boolean;
 
-  @Expose({name: 'next_page_date'})
+  @Expose({ name: 'next_page_date' })
   @ClLuxonDateTimeTransform()
   nextPageDate: DateTime;
 }

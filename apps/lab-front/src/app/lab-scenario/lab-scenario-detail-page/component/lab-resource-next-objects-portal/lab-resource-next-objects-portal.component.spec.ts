@@ -8,9 +8,8 @@ describe('LabScenariosUsingResourcePortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabResourceNextObjectsPortalComponent]
-    })
-    .compileComponents();
+      declarations: [LabResourceNextObjectsPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabResourceNextObjectsPortalComponent);
     component = fixture.componentInstance;

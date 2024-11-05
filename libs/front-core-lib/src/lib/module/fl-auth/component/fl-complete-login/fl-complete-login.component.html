@@ -1,5 +1,7 @@
-<fl-login *ngIf="(currentView$ | async) === 'login'; else twoFA" class="login"
-          (loginSuccess)="onLoginSuccess($event)">
+<fl-login
+  *ngIf="(currentView$ | async) === 'login'; else twoFA"
+  class="login"
+  (loginSuccess)="onLoginSuccess($event)">
   <ng-content></ng-content>
 </fl-login>
 <ng-template #twoFA>

@@ -2,13 +2,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LabTechnicalDocPageComponent } from './lab-technical-doc-page/lab-technical-doc-page.component';
 
-const routes: Routes = [
-  {path: 'technical-doc/:typingName', component: LabTechnicalDocPageComponent},
-];
+const routes: Routes = [{ path: 'technical-doc/:typingName', component: LabTechnicalDocPageComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class LabDocumentationRoutingModule {
-}
+export class LabDocumentationRoutingModule {}

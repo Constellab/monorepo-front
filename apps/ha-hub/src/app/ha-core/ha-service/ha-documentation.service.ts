@@ -1,30 +1,30 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
-import {HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
+import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
 import {
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryService,
-  TeUploadedImage
+  TeUploadedImage,
 } from '@monorepo/text-editor';
-import {RvResourceView} from '@monorepo/resource-view';
-import {HaFile} from '../entity-module/ha-file-core/model/ha-file';
+import { RvResourceView } from '@monorepo/resource-view';
+import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
 
 /**
  * Service to manage documentation entity
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class HaDocumentationService implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService {
-
+export class HaDocumentationService
+  implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
+{
   private readonly route: string = 'documentation';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   /**
    * Call http get one by id
@@ -34,13 +34,20 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.apiService.getById(this.route, id, HaDocumentation);
   }
 
-
   /**
    * Call http post one by complete path
    * @param completePath complete path of the entity
    */
-  public getByCompletePath(brickName: string, version:string, completePath: string): Observable<HaDocumentation> {
-    return this.apiService.post(`${this.route}/complete-path`, {brickName: brickName, version: version, completePath: completePath});
+  public getByCompletePath(
+    brickName: string,
+    version: string,
+    completePath: string
+  ): Observable<HaDocumentation> {
+    return this.apiService.post(`${this.route}/complete-path`, {
+      brickName: brickName,
+      version: version,
+      completePath: completePath,
+    });
   }
 
   /**
@@ -68,7 +75,6 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
 
   ///////////////////////////////////////////// IMAGE /////////////////////////////////////////////
 
-
   public getFilePath(docId: string, filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/image/${filename}`);
   }
@@ -83,16 +89,14 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return this.getFilePath(docId, filename);
   }
 
-
   ////////////////////////////////// RESOURCE VIEW //////////////////////////////////
-  uploadDocResourceViewFile(docId: string, file: FormData): Observable<any>{
+  uploadDocResourceViewFile(docId: string, file: FormData): Observable<any> {
     return this.apiService.post(`${this.route}/${docId}/upload-view`, file);
   }
 
-  getView(docId:string, filename: string): Observable<RvResourceView>{
+  getView(docId: string, filename: string): Observable<RvResourceView> {
     return this.apiService.get(`${this.route}/${docId}/view/${filename}`);
   }
-
 
   ////////////////////////////////// FILE //////////////////////////////////
 
@@ -108,18 +112,18 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
     return `${this.getDocFilePrefix(docId)}${docFileId}`;
   }
 
-  uploadFile(file: File, docId: string): Observable<HaFile>{
+  uploadFile(file: File, docId: string): Observable<HaFile> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/file/${docId}`, formData);
   }
 
-  deleteFile(entityId: string, name: string): Observable<void>{
+  deleteFile(entityId: string, name: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${entityId}/file/${name}`);
   }
 
-  renameFile(docFileId: string, newName: string): Observable<HaFile>{
-    return this.apiService.put(`${this.route}/file/${docFileId}/rename`, {humanName: newName}, HaFile);
+  renameFile(docFileId: string, newName: string): Observable<HaFile> {
+    return this.apiService.put(`${this.route}/file/${docFileId}/rename`, { humanName: newName }, HaFile);
   }
 
   getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
@@ -132,6 +136,5 @@ export class HaDocumentationService implements HaFileServiceInterface<HaDocument
 
   rollbackContent(entityId: string, modificationId: string): Observable<HaDocumentation> {
     return this.apiService.put(`${this.route}/history/rollback/${entityId}/${modificationId}`, {});
-
   }
 }

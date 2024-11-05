@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlCardBodyComponent} from './fl-card-body.component';
+import { FlCardBodyComponent } from './fl-card-body.component';
 
 describe('FlCardBodyComponent', () => {
   let component: FlCardBodyComponent;
@@ -8,9 +8,8 @@ describe('FlCardBodyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlCardBodyComponent ]
-    })
-    .compileComponents();
+      declarations: [FlCardBodyComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

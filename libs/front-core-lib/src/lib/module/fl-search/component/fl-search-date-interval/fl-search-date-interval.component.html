@@ -1,21 +1,28 @@
 <ng-container [formGroup]="formGp">
   <div class="g-full g-layout-row-wrap g-layout-between-center">
-
     <!--    Created at from    -->
     <mat-form-field class="g-search-field" appearance="outline">
-      <mat-label>{{'flSearch.begin_date' | translate}}</mat-label>
-      <input matInput formControlName="from" autocomplete="disabled"
-             [matDatepicker]="createdAtFrom" [placeholder]="'flDate.date_picker_placeholder' | translate">
+      <mat-label>{{ 'flSearch.begin_date' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="from"
+        autocomplete="disabled"
+        [matDatepicker]="createdAtFrom"
+        [placeholder]="'flDate.date_picker_placeholder' | translate" />
       <mat-datepicker-toggle matSuffix [for]="createdAtFrom"></mat-datepicker-toggle>
       <mat-datepicker #createdAtFrom></mat-datepicker>
     </mat-form-field>
 
     <!--    Created at to    -->
     <mat-form-field class="g-search-field" appearance="outline">
-      <mat-label>{{'flSearch.end_date' | translate}}</mat-label>
-      <input matInput formControlName="to" autocomplete="off"
-             [min]="formGp.value.from"
-             [matDatepicker]="createdAtTo" [placeholder]="'flDate.date_picker_placeholder' | translate">
+      <mat-label>{{ 'flSearch.end_date' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="to"
+        autocomplete="off"
+        [min]="formGp.value.from"
+        [matDatepicker]="createdAtTo"
+        [placeholder]="'flDate.date_picker_placeholder' | translate" />
       <mat-datepicker-toggle matSuffix [for]="createdAtTo"></mat-datepicker-toggle>
       <mat-datepicker #createdAtTo></mat-datepicker>
     </mat-form-field>

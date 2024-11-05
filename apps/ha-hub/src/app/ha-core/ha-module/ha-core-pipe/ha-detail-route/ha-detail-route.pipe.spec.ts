@@ -1,4 +1,4 @@
-import {HaDetailRoutePipe} from './ha-detail-route.pipe';
+import { HaDetailRoutePipe } from './ha-detail-route.pipe';
 
 describe('HaDetailRoutePipe', () => {
   it('create an instance', () => {

@@ -7,7 +7,7 @@ import { CaUserLicense } from '../../../../model/entities/ca-user.class';
 @Component({
   selector: 'ca-user-search-form',
   templateUrl: './ca-user-search-form.component.html',
-  styleUrls: ['./ca-user-search-form.component.scss']
+  styleUrls: ['./ca-user-search-form.component.scss'],
 })
 export class CaUserSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;
@@ -16,10 +16,9 @@ export class CaUserSearchFormComponent implements OnInit {
 
   licenses = Object.values(CaUserLicense);
 
-  constructor(private searchState: FlSearchState<any>) { }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
-
 }

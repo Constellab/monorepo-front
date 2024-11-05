@@ -1,6 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {ChChartVennDataSection} from '../../../model/data/ch-chart-venn-data.class';
-import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
+import { Component, Inject } from '@angular/core';
+import { ChChartVennDataSection } from '../../../model/data/ch-chart-venn-data.class';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
 
 /**
  * Simple portal to display the venn data on a section
@@ -8,11 +8,9 @@ import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
 @Component({
   selector: 'ch-chart-venn-data-portal',
   templateUrl: './ch-chart-venn-data-portal.component.html',
-  styleUrls: ['./ch-chart-venn-data-portal.component.scss']
+  styleUrls: ['./ch-chart-venn-data-portal.component.scss'],
 })
-export class ChChartVennDataPortalComponent  {
-
-
+export class ChChartVennDataPortalComponent {
   groupNames: string;
   dataLength: number;
 
@@ -23,7 +21,4 @@ export class ChChartVennDataPortalComponent  {
     this.dataLength = section.data?.length ?? 0;
     this.dataStr = section.data.join(', ');
   }
-
-
-
 }

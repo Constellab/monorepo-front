@@ -1,12 +1,13 @@
-import {Observable, of, startWith} from 'rxjs';
-import {catchError, filter, map} from 'rxjs/operators';
-
+import { Observable, of, startWith } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
 
 /**
  * Simple class to generify status event (useful for subject with http calls=
  */
-export type FlStatusEvent<S = any, E = any> = FlStatusEventSuccess<S>
-  | FlStatusEventError<E> | FlStatusEventEmpty
+export type FlStatusEvent<S = any, E = any> =
+  | FlStatusEventSuccess<S>
+  | FlStatusEventError<E>
+  | FlStatusEventEmpty;
 
 export interface FlStatusEventSuccess<T = any> {
   status: 'success';
@@ -30,7 +31,7 @@ export function flStatutEventSuccess<T>() {
     return source.pipe(
       filter((event: FlStatusEvent) => event && event.status === 'success'),
       // if the lowercase flag is true, change the input to lowercase
-      map((event: FlStatusEvent) => (event as FlStatusEventSuccess).object),
+      map((event: FlStatusEvent) => (event as FlStatusEventSuccess).object)
     );
   };
 }
@@ -41,9 +42,9 @@ export function flStatutEventSuccess<T>() {
 export function flStatutEvent<T>() {
   return (source: Observable<T>): Observable<FlStatusEvent<T>> => {
     return source.pipe(
-      map((obj: T) => ({status: 'success', object: obj}) as FlStatusEventSuccess<T>),
-      catchError((error: any) => (of({status: 'error', error: error} as FlStatusEventError))),
-      startWith({status: 'loading'} as FlStatusEventEmpty)
+      map((obj: T) => ({ status: 'success', object: obj }) as FlStatusEventSuccess<T>),
+      catchError((error: any) => of({ status: 'error', error: error } as FlStatusEventError)),
+      startWith({ status: 'loading' } as FlStatusEventEmpty)
     );
   };
 }
@@ -54,15 +55,13 @@ export function flStatutEvent<T>() {
 export function flStatutEventMap<T, K>(mapFunc: (obj: T) => K) {
   return (source: Observable<FlStatusEvent<T>>): Observable<FlStatusEvent<K>> => {
     return source.pipe(
-      map(
-        (obj: FlStatusEvent<T>): FlStatusEvent<K> => {
-          if (obj?.status === 'success') {
-            return {status: 'success', object: mapFunc(obj.object)};
-          } else {
-            return obj;
-          }
+      map((obj: FlStatusEvent<T>): FlStatusEvent<K> => {
+        if (obj?.status === 'success') {
+          return { status: 'success', object: mapFunc(obj.object) };
+        } else {
+          return obj;
         }
-      )
+      })
     );
   };
 }

@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ca-admin-server-page',
@@ -8,10 +8,7 @@ import {FlTranslateService} from '@monorepo/front-core-lib';
   styleUrls: ['./ca-admin-server-page.component.scss'],
 })
 export class CaAdminServerPageComponent {
-
-  constructor(titleService: Title,
-              translateService: FlTranslateService) {
+  constructor(titleService: Title, translateService: FlTranslateService) {
     titleService.setTitle(`Admin - ${translateService.translate('servers')}`);
   }
-
 }

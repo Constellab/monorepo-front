@@ -1,15 +1,14 @@
 import Paragraph from '@editorjs/paragraph';
-import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeHelper, TeListType} from '../model/te.helper';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {FlKeyboardKey} from '@monorepo/front-core-lib';
+import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { TeHelper, TeListType } from '../model/te.helper';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { FlKeyboardKey } from '@monorepo/front-core-lib';
 
 /**
  * Standard paragraph with custom actions
  */
 export class TeParagraphBlock extends Paragraph implements BlockTool {
-
   node: HTMLElement;
 
   constructor(private options: BlockToolConstructorOptions) {
@@ -31,19 +30,17 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
     this.node = super.render();
 
     if (!this.options.readOnly) {
-      this.node.addEventListener('keyup',
-        (event: KeyboardEvent) => this.handleKeyUp(event));
-      this.node.addEventListener('keydown',
-        (event: KeyboardEvent) => this.handleKeyDown(event));
+      this.node.addEventListener('keyup', (event: KeyboardEvent) => this.handleKeyUp(event));
+      this.node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event));
     }
-    this.options.api
+    this.options.api;
 
     return this.node;
   }
 
   private handleKeyUp(event: KeyboardEvent): void {
     const toList = this.checkAndCovertToList(event.target as HTMLElement);
-    if(toList) return;
+    if (toList) return;
   }
 
   /**
@@ -69,7 +66,6 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
         listType = 'ordered';
       }
 
-
       // convert the block to a list block
       this.options.api.blocks.convert(blockId, 'list', TeHelper.getListData(content, listType));
 
@@ -88,5 +84,4 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
       TeHelper.handleRightArrow(event);
     }
   }
-
 }

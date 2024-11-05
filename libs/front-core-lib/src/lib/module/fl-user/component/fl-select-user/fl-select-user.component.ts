@@ -15,11 +15,9 @@ import { FlInputSearchFilter } from '../../../fl-input-search/component/fl-input
   selector: 'fl-select-user',
   templateUrl: './fl-select-user.component.html',
   styleUrls: ['./fl-select-user.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }]
-
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
 })
 export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {
-
   @Input() placeholder: string;
 
   @Input() mode: FlUserConfigSearchNameMode = 'space';
@@ -30,8 +28,10 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
 
   usersDatasource: FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
-  constructor(private userConfig: FlUserConfig,
-              @Optional() @Self() ngControl: NgControl) {
+  constructor(
+    private userConfig: FlUserConfig,
+    @Optional() @Self() ngControl: NgControl
+  ) {
     super(ngControl);
   }
 
@@ -44,8 +44,7 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
     this.selectedUser = value;
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: FlUser): void {
     if (obj == null || obj.id == null) {
@@ -78,6 +77,4 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
 
     this.usersDatasource.setPageData(users);
   }
-
-
 }

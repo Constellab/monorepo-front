@@ -16,7 +16,6 @@ export class CaCommunityBrick implements CoBrick, FlEntity {
   name: string;
   space: CoSpace;
   id: string;
-
 }
 
 export type CaCommunityBrickDatasource<F = void> = FlDatasourcePaginated<CaCommunityBrick, F>;

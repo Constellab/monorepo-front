@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlArticleRightSideComponent} from './fl-article-right-side.component';
+import { FlArticleRightSideComponent } from './fl-article-right-side.component';
 
 describe('FlArticleRightSideComponent', () => {
   let component: FlArticleRightSideComponent;
@@ -8,9 +8,8 @@ describe('FlArticleRightSideComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlArticleRightSideComponent ]
-    })
-    .compileComponents();
+      declarations: [FlArticleRightSideComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

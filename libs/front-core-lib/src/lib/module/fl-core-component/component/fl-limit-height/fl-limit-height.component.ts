@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 /**
  * Component to limit the size of the ng-content. If the height is higher than
@@ -7,10 +7,9 @@ import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChil
 @Component({
   selector: 'fl-limit-height',
   templateUrl: './fl-limit-height.component.html',
-  styleUrls: ['./fl-limit-height.component.scss']
+  styleUrls: ['./fl-limit-height.component.scss'],
 })
 export class FlLimitHeightComponent implements OnInit, AfterViewInit {
-
   // max size to display before 'See more' button
   @Input() maxHeight: number = 350;
 
@@ -19,7 +18,7 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
     this.refreshFullContent();
   }
 
-  @ViewChild('content', {static: true}) content: ElementRef<HTMLElement>;
+  @ViewChild('content', { static: true }) content: ElementRef<HTMLElement>;
 
   // is true the height is limited
   heightIsLimited: boolean = false;
@@ -29,11 +28,9 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
   // true after the view init
   private componentIsReady: boolean = false;
 
-  constructor(private renderer: Renderer2) {
-  }
+  constructor(private renderer: Renderer2) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // display or hide the content based on _expand
   private refreshFullContent(): void {
@@ -47,11 +44,10 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   private limitHeight(): void {
     this.renderer.addClass(this.content.nativeElement, 'limit-height');
     // limit the size to size minus 50. It allows to have at least 50px to show when we click on 'See more'
-    this.renderer.setStyle(this.content.nativeElement, 'max-height', (this.maxHeight - 50) + 'px');
+    this.renderer.setStyle(this.content.nativeElement, 'max-height', this.maxHeight - 50 + 'px');
   }
 
   ngAfterViewInit(): void {
@@ -66,6 +62,4 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
       this.limitHeight();
     }
   }
-
-
 }

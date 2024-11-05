@@ -1,22 +1,23 @@
-import {Observable} from 'rxjs';
-import {FlApiService} from './fl-api.service';
-import {FlGetById} from '../model/fl-service.class';
+import { Observable } from 'rxjs';
+import { FlApiService } from './fl-api.service';
+import { FlGetById } from '../model/fl-service.class';
 
 /**
  * Abstract CRUD service for basic api calls
  * T is the type of the object returns by the api route
  * K is an optional type if the object send for create or update are different than T
  */
-export abstract class FlApiCrudService<T, K = T> implements FlGetById<T>{
-
+export abstract class FlApiCrudService<T, K = T> implements FlGetById<T> {
   /**
    * @param route route for the api calls
    * @param classReference class reference of the objects
    * @param apiService apiService
    */
-  protected constructor(protected route: string, protected classReference: new() => T,
-                        protected apiService: FlApiService) {
-  }
+  protected constructor(
+    protected route: string,
+    protected classReference: new () => T,
+    protected apiService: FlApiService
+  ) {}
 
   /**
    * Call http create
@@ -25,7 +26,6 @@ export abstract class FlApiCrudService<T, K = T> implements FlGetById<T>{
   public create(object: K): Observable<T> {
     return this.apiService.post(this.route, object, this.classReference);
   }
-
 
   /**
    * Call http update
@@ -51,5 +51,3 @@ export abstract class FlApiCrudService<T, K = T> implements FlGetById<T>{
     return this.apiService.deleteById(this.route, id);
   }
 }
-
-

@@ -1,4 +1,4 @@
-import {FlDurationPipe} from './fl-duration.pipe';
+import { FlDurationPipe } from './fl-duration.pipe';
 
 describe('FlDurationPipe', () => {
   it('create an instance', () => {

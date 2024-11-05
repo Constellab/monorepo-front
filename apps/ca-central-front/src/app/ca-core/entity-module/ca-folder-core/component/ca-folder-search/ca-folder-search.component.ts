@@ -4,7 +4,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
@@ -14,17 +14,16 @@ import { CaFolderSearch, CaFolderSearchFields } from '../../model/ca-folder-sear
   selector: 'ca-folder-search',
   templateUrl: './ca-folder-search.component.html',
   styleUrls: ['./ca-folder-search.component.scss'],
-  providers: [FlSearchState]
-
+  providers: [FlSearchState],
 })
 export class CaFolderSearchComponent implements OnInit {
-
   datasource: CaFolderDatasource<CaFolderSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private folderService: CaFolderService,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private folderService: CaFolderService,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -34,28 +33,31 @@ export class CaFolderSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: CaFolderSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: true,
-      defaultSort: {key: 'name', direction: 'ASC'}
+      defaultSort: { key: 'name', direction: 'ASC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, data) => this.folderService.searchFoldersInCurrentSpace(page, size, data),
-      20, false);
+      20,
+      false
+    );
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-folder',
-      id: null,
-      label: 'All folders',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaFolderSearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-folder',
+        id: null,
+        label: 'All folders',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaFolderSearchFields>,
+      },
+    ];
   }
-
 }

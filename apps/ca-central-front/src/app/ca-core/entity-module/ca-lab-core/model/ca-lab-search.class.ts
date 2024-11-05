@@ -5,23 +5,17 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {
-  CaLabServerTaskStatus,
-  CaLabStatus,
-  CaLabType
-} from '../../../model/entities/lab/ca-lab.class';
+import { CaLabServerTaskStatus, CaLabStatus, CaLabType } from '../../../model/entities/lab/ca-lab.class';
 import { CaCity } from '../../../model/entities/ca-city.entity';
 import { CaServerCloud } from '../../../model/entities/server/ca-server-cloud.class';
 import { CaSpace } from '../../../model/entities/space/ca-space.class';
 import { CaCloudProvider } from '../../../model/entities/ca-cloud-provider.class';
 import { CaServerStandard } from '../../../model/entities/server/ca-server-standard.class';
 
-
 export class CaLabSearchFields {
-
   name: string;
 
   currentStatus: CaLabStatus;
@@ -61,7 +55,6 @@ export class CaLabSearchFields {
 }
 
 export class CaLabSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaLabSearchFields> = {
     name: 'name',
     currentStatus: 'status',
@@ -75,25 +68,33 @@ export class CaLabSearch {
     type: 'lab_type',
     cloudProvider: 'cloud_provider',
     cloudName: 'lab_cloud_name',
-    serverTaskStatus: 'lab_server_task_status'
+    serverTaskStatus: 'lab_server_task_status',
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaLabSearchFields> = {
-    name: {key: 'name', operator: 'MATCH'},
-    currentStatus: {key: 'currentStatus.status', operator: 'EQ'},
-    virtualHost: {key: 'virtualHost', operator: 'MATCH'},
-    city: {key: 'region.city.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    serverCloud: {key: 'serverCloud.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    serverStandard: {key: 'serverCloud.serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    name: { key: 'name', operator: 'MATCH' },
+    currentStatus: { key: 'currentStatus.status', operator: 'EQ' },
+    virtualHost: { key: 'virtualHost', operator: 'MATCH' },
+    city: { key: 'region.city.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    serverCloud: { key: 'serverCloud.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    serverStandard: {
+      key: 'serverCloud.serverStandard.id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
+    createdBy: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
-    space: {key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    type: {key: 'type', operator: 'EQ'},
-    cloudProvider: {key: 'region.cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    isFreeLab: {key: 'isFreeLab', operator: 'EQ'},
-    cloudName: {key: 'cloudName', operator: 'MATCH'},
-    serverTaskStatus: {key: 'serverTaskStatus', operator: 'EQ'},
-    id: {key: 'id', operator: 'EQ'},
+    space: { key: 'space.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    type: { key: 'type', operator: 'EQ' },
+    cloudProvider: {
+      key: 'region.cloudProvider.id',
+      operator: 'EQ',
+      convertValue: FlSearchConverter.getEntityId,
+    },
+    isFreeLab: { key: 'isFreeLab', operator: 'EQ' },
+    cloudName: { key: 'cloudName', operator: 'MATCH' },
+    serverTaskStatus: { key: 'serverTaskStatus', operator: 'EQ' },
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {

@@ -8,9 +8,8 @@ describe('CaLabBackupHistoryDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabBackupHistoryDetailComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabBackupHistoryDetailComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabBackupHistoryDetailComponent);
     component = fixture.componentInstance;

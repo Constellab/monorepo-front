@@ -4,23 +4,22 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigInput,
   FlDynamicFormAbstractControl,
   FlDynamicFormArrayConfig,
-  FlDynamicFormGroupConfig
+  FlDynamicFormGroupConfig,
 } from './fl-dynamic-field-config.class';
-import {FlGlobalValidators} from '../../../utils/fl-global.validators';
-import {ClHelpService} from '@monorepo/core-lib';
+import { FlGlobalValidators } from '../../../utils/fl-global.validators';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Helper to generate AbstractControl based on FlDynamicConfig
  */
 export class FlDynamicFormHelper {
-
   public static generateForm(config: FlDynamicFormAbstractControl, value: any = null): AbstractControl {
     switch (config.controlType) {
       case 'formControl':
@@ -54,17 +53,24 @@ export class FlDynamicFormHelper {
     // add values to reach the min size
     if (config.minSize != null && formArray.length < config.minSize) {
       for (let i = 0; i < config.minSize; i++) {
-        FlDynamicFormHelper.addFormGroupToFormArray(formArray, config, ClHelpService.deepClone(config.newElementDefaultValue));
+        FlDynamicFormHelper.addFormGroupToFormArray(
+          formArray,
+          config,
+          ClHelpService.deepClone(config.newElementDefaultValue)
+        );
       }
     }
 
     return formArray;
   }
 
-  public static addFormGroupToFormArray(formArray: UntypedFormArray, config: FlDynamicFormArrayConfig, value: any = null): void {
+  public static addFormGroupToFormArray(
+    formArray: UntypedFormArray,
+    config: FlDynamicFormArrayConfig,
+    value: any = null
+  ): void {
     formArray.push(FlDynamicFormHelper.generateForm(config.formGpConfig, value));
   }
-
 
   public static generateFormControl(config: FlDynamicFieldConfig, value: any = null): UntypedFormControl {
     const control = new UntypedFormControl(value, FlDynamicFormHelper.getControlValidators(config));
@@ -98,5 +104,4 @@ export class FlDynamicFormHelper {
 
     return validators;
   }
-
 }

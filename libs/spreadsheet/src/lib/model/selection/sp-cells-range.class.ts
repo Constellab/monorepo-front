@@ -1,5 +1,5 @@
-import {SpSpreadsheetHelper} from '../../utils/sp-spreadsheet.helper';
-import {SpCellCoord, SpCellCoordRange} from '../sp-cell-coord.class';
+import { SpSpreadsheetHelper } from '../../utils/sp-spreadsheet.helper';
+import { SpCellCoord, SpCellCoordRange } from '../sp-cell-coord.class';
 
 export type SpCellsRangeType = 'single' | 'multiple' | 'columns' | 'rows';
 
@@ -12,8 +12,8 @@ export class SpCellsRange {
     public readonly startRow: number,
     public readonly startColumn: number,
     public readonly endRow: number,
-    public readonly endColumn: number) {
-  }
+    public readonly endColumn: number
+  ) {}
 
   /**
    * create selection from string formatted like A2:B5
@@ -24,10 +24,8 @@ export class SpCellsRange {
   }
 
   public static MultipleFromCellCoordsRange(coords: SpCellCoordRange): SpCellsRange {
-    return new SpCellsRange('multiple', coords.from.row, coords.from.column,
-      coords.to.row, coords.to.column);
+    return new SpCellsRange('multiple', coords.from.row, coords.from.column, coords.to.row, coords.to.column);
   }
-
 
   /**
    * Object representing a selection range
@@ -36,28 +34,28 @@ export class SpCellsRange {
   public get from(): SpCellCoord {
     return {
       row: Math.min(this.startRow, this.endRow),
-      column: Math.min(this.startColumn, this.endColumn)
+      column: Math.min(this.startColumn, this.endColumn),
     };
   }
 
   public get to(): SpCellCoord {
     return {
       row: Math.max(this.startRow, this.endRow),
-      column: Math.max(this.startColumn, this.endColumn)
+      column: Math.max(this.startColumn, this.endColumn),
     };
   }
 
   public toCoords(): SpCellCoordRange {
     return {
       from: this.from,
-      to: this.to
+      to: this.to,
     };
   }
 
   public getFirstSelectedCellCoord(): SpCellCoord {
     return {
       row: this.startRow,
-      column: this.startColumn
+      column: this.startColumn,
     };
   }
 
@@ -65,8 +63,9 @@ export class SpCellsRange {
   public coordIsSelected(coord: SpCellCoord): boolean {
     const from: SpCellCoord = this.from;
     const to: SpCellCoord = this.to;
-    return coord.row >= from.row && coord.column >= from.column &&
-      coord.row <= to.row && coord.column <= to.column;
+    return (
+      coord.row >= from.row && coord.column >= from.column && coord.row <= to.row && coord.column <= to.column
+    );
   }
 
   // return true if the row is within selection
@@ -81,13 +80,20 @@ export class SpCellsRange {
 
   // return selection as text like B2:G5
   public toString(): string {
-    return SpSpreadsheetHelper.coordToString(this.from) + SpSpreadsheetHelper.coordSplitter +
-      SpSpreadsheetHelper.coordToString(this.to);
+    return (
+      SpSpreadsheetHelper.coordToString(this.from) +
+      SpSpreadsheetHelper.coordSplitter +
+      SpSpreadsheetHelper.coordToString(this.to)
+    );
   }
 
   public equals(range: SpCellsRange): boolean {
-    return range.from.row === this.from.row && range.from.column === this.from.column
-      && range.to.row === range.to.row && range.to.column === range.to.column;
+    return (
+      range.from.row === this.from.row &&
+      range.from.column === this.from.column &&
+      range.to.row === range.to.row &&
+      range.to.column === range.to.column
+    );
   }
 
   public splitToColumnRanges(): SpCellsRange[] {

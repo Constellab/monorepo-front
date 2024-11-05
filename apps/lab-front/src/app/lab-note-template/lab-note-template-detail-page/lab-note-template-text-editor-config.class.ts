@@ -3,26 +3,24 @@ import {
   teComponentBlockFactory,
   teInlineToolFactory,
   TeTools,
-  TeVariableInlineToolClass
+  TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   LabRichTextAudioTranscriptionConfig,
   LabRichTextFileConfig,
   LabRichTextImageConfig,
-  LabRichTextObjectType
+  LabRichTextObjectType,
 } from '../../lab-core/entity-service/lab-rich-text.service';
 import {
   LabRichTextFileViewBlock,
-  LabRichTextViewBlockAdditionalData
+  LabRichTextViewBlockAdditionalData,
 } from '../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
-
 
 /**
  * Config for the text editor in the note to support view in the editor
  */
 export class LabNoteTemplateTextEditorConfig extends TeCompleteConfig {
-
   constructor(private noteTemplateId: string) {
     super();
   }
@@ -41,17 +39,29 @@ export class LabNoteTemplateTextEditorConfig extends TeCompleteConfig {
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
-    tools.file = this.getFileConfig(new LabRichTextFileConfig(LabRichTextObjectType.NOTE_TEMPLATE,
-      this.noteTemplateId), envInjector, applicationRef);
+    tools.file = this.getFileConfig(
+      new LabRichTextFileConfig(LabRichTextObjectType.NOTE_TEMPLATE, this.noteTemplateId),
+      envInjector,
+      applicationRef
+    );
 
     // add the file view block
     const fileViewData: LabRichTextViewBlockAdditionalData = {
       type: 'note-template-view-file',
-      entityId: this.noteTemplateId
+      entityId: this.noteTemplateId,
     };
-    tools.fileView = teComponentBlockFactory(LabRichTextFileViewBlock, envInjector, applicationRef, fileViewData);
+    tools.fileView = teComponentBlockFactory(
+      LabRichTextFileViewBlock,
+      envInjector,
+      applicationRef,
+      fileViewData
+    );
 
-    tools.audioTranscription = this.getAudioTranscriptionConfig(new LabRichTextAudioTranscriptionConfig(), envInjector, applicationRef);
+    tools.audioTranscription = this.getAudioTranscriptionConfig(
+      new LabRichTextAudioTranscriptionConfig(),
+      envInjector,
+      applicationRef
+    );
 
     return tools;
   }

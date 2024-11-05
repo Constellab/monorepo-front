@@ -1,24 +1,25 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
     <!--  Name  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'name' | translate }}</mat-label>
-      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off">
+      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  VirtualHost  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'virtual_host' | translate }}</mat-label>
-      <input matInput formControlName="virtualHost" [placeholder]="'virtual_host' | translate" autocomplete="off">
+      <input
+        matInput
+        formControlName="virtualHost"
+        [placeholder]="'virtual_host' | translate"
+        autocomplete="off" />
     </mat-form-field>
 
     <!--  Space  -->
     <fl-form-field class="g-search-field" *ngIf="mode === 'all'">
       <ca-select-space formControlName="space" [placeholder]="'space' | translate"></ca-select-space>
     </fl-form-field>
-
 
     <!--  CurrentStatus  -->
     <mat-form-field class="g-search-field">
@@ -30,7 +31,6 @@
       </mat-select>
     </mat-form-field>
 
-
     <!--  City  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'region' | translate }}</mat-label>
@@ -38,7 +38,6 @@
         <ca-select-city-options></ca-select-city-options>
       </mat-select>
     </mat-form-field>
-
 
     <!--  Server info  -->
     <mat-form-field class="g-search-field">
@@ -55,7 +54,6 @@
         <ca-select-server-standard-options></ca-select-server-standard-options>
       </mat-select>
     </mat-form-field>
-
 
     <!--  Type  -->
     <mat-form-field class="g-search-field">
@@ -87,13 +85,19 @@
     <!--  Cloud name -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'lab_cloud_name' | translate }}</mat-label>
-      <input matInput formControlName="cloudName" [placeholder]="'lab_cloud_name' | translate" autocomplete="off">
+      <input
+        matInput
+        formControlName="cloudName"
+        [placeholder]="'lab_cloud_name' | translate"
+        autocomplete="off" />
     </mat-form-field>
 
     <!--Created by-->
     <fl-form-field class="g-search-field">
-      <fl-select-user formControlName="createdBy" [mode]="selectUserMode"
-                      [placeholder]="'created_by' | translate"></fl-select-user>
+      <fl-select-user
+        formControlName="createdBy"
+        [mode]="selectUserMode"
+        [placeholder]="'created_by' | translate"></fl-select-user>
     </fl-form-field>
 
     <!--  CurrentStatus  -->
@@ -106,22 +110,16 @@
       </mat-select>
     </mat-form-field>
 
-
     <!--  Id -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'id' | translate }}</mat-label>
-      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
       <p class="g-text-small">{{ 'creation_date' | translate }}</p>
-      <fl-search-date-interval formGroupName="createdAt">
-      </fl-search-date-interval>
+      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
-
   </div>
-
 </div>
-
-

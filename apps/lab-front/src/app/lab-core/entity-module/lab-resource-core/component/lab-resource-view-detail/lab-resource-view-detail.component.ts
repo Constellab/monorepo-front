@@ -8,21 +8,20 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 @Component({
   selector: 'lab-resource-view-detail',
   templateUrl: './lab-resource-view-detail.component.html',
-  styleUrls: ['./lab-resource-view-detail.component.scss']
+  styleUrls: ['./lab-resource-view-detail.component.scss'],
 })
 export class LabResourceViewDetailComponent {
-
   @Input() labView: LabResourceView;
 
-
-  constructor(private viewConfigService: LabViewConfigService,
-              @Optional() private resourceState: LabResourceDetailState) {
-  }
+  constructor(
+    private viewConfigService: LabViewConfigService,
+    @Optional() private resourceState: LabResourceDetailState
+  ) {}
 
   get viewConfig(): RvViewConfig {
     return {
       methodName: this.labView.viewConfig.viewName,
-      configValues: this.labView.viewConfig.configValues
+      configValues: this.labView.viewConfig.configValues,
     };
   }
 
@@ -35,9 +34,8 @@ export class LabResourceViewDetailComponent {
 
   updateTitle(title: string): void {
     if (this.labView.viewConfig == null) return;
-    this.viewConfigService.updateTitle(this.labView.viewConfig.id, title).subscribe(
-      viewConfig => this.onUpdate(viewConfig)
-    );
+    this.viewConfigService
+      .updateTitle(this.labView.viewConfig.id, title)
+      .subscribe((viewConfig) => this.onUpdate(viewConfig));
   }
-
 }

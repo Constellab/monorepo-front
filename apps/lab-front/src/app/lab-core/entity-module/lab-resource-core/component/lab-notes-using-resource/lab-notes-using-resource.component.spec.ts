@@ -8,9 +8,8 @@ describe('LabNotesUsingResourceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabNotesUsingResourceComponent ]
-    })
-    .compileComponents();
+      declarations: [LabNotesUsingResourceComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabNotesUsingResourceComponent);
     component = fixture.componentInstance;

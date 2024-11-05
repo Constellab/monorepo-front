@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeFigureComponent} from './te-figure.component';
+import { TeFigureComponent } from './te-figure.component';
 
 describe('CaTextEditorFigureComponent', () => {
   let component: TeFigureComponent;
@@ -8,9 +8,8 @@ describe('CaTextEditorFigureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeFigureComponent ]
-    })
-    .compileComponents();
+      declarations: [TeFigureComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

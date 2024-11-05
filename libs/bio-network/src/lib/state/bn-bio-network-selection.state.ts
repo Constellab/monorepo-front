@@ -1,11 +1,11 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {BnBioNetworkSelectionEvent} from '../model/bn-bio-network-selection.class';
-import {BnBioNetworkDrawerState} from './bn-bio-network-drawer.state';
-import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
-import {BnBioNetworkLink} from '../model/bn-bio-network-node-link.class';
-import {BnBioNetworkNodeReaction} from '../model/bn-bio-network-node-reaction.class';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
+import { BnBioNetworkDrawerState } from './bn-bio-network-drawer.state';
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
 
 /**
  * Class to manage the selection in the {@link BnBioNetworkComponent}
@@ -13,16 +13,13 @@ import {BnBioNetworkNodeReaction} from '../model/bn-bio-network-node-reaction.cl
  */
 @Injectable()
 export class BnBioNetworkSelectionState implements OnDestroy {
-
   private data: BnBioNetworkGraph;
 
-  private selection$: BehaviorSubject<BnBioNetworkSelectionEvent> = new BehaviorSubject({mode: 'none'});
+  private selection$: BehaviorSubject<BnBioNetworkSelectionEvent> = new BehaviorSubject({ mode: 'none' });
 
   // private subscription: Subscription;
 
-  constructor(private drawerState: BnBioNetworkDrawerState) {
-  }
-
+  constructor(private drawerState: BnBioNetworkDrawerState) {}
 
   public init(data: BnBioNetworkGraph): void {
     this.data = data;
@@ -38,7 +35,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
     // );
   }
 
-
   /**
    * Select the nodes and direct links and hide all other node and links
    */
@@ -49,7 +45,7 @@ export class BnBioNetworkSelectionState implements OnDestroy {
 
     // when a reaction is selected, we also select the same reaction in the other cluster
     if (node instanceof BnBioNetworkNodeReaction) {
-      nodeIds.push(...node.getSameReactionNodesInOtherCluster().map(n => n.id));
+      nodeIds.push(...node.getSameReactionNodesInOtherCluster().map((n) => n.id));
     }
 
     // TODO fix when the node does not have links
@@ -58,12 +54,12 @@ export class BnBioNetworkSelectionState implements OnDestroy {
     // select the connected nodes
     const nodes: BnBioNetworkNode[] = this.selectNodesAndLinksFromLinks(links);
 
-    this.selection$.next({mode: mode, nodes: nodes, links: links, selectedNode: node});
+    this.selection$.next({ mode: mode, nodes: nodes, links: links, selectedNode: node });
 
     // open the drawer with detail
     this.drawerState.newAction({
       action: 'nodeDetail',
-      selectedNode: node
+      selectedNode: node,
     });
   }
 
@@ -75,12 +71,17 @@ export class BnBioNetworkSelectionState implements OnDestroy {
 
     if (nodes.length === 0) return;
 
-    const links: BnBioNetworkLink[] = this.getConnectedReactionsLinks(nodes.map(n => n.id));
+    const links: BnBioNetworkLink[] = this.getConnectedReactionsLinks(nodes.map((n) => n.id));
 
     // select the connected nodes
     const connectedNodes: BnBioNetworkNode[] = this.selectNodesAndLinksFromLinks(links);
 
-    this.selection$.next({mode: 'multipleNodes', nodes: connectedNodes, links: links, selectedNodes: nodes});
+    this.selection$.next({
+      mode: 'multipleNodes',
+      nodes: connectedNodes,
+      links: links,
+      selectedNodes: nodes,
+    });
   }
 
   /**
@@ -91,12 +92,12 @@ export class BnBioNetworkSelectionState implements OnDestroy {
 
     node.selected = true;
 
-    this.selection$.next({mode: mode, nodes: [node], links: [], selectedNode: node});
+    this.selection$.next({ mode: mode, nodes: [node], links: [], selectedNode: node });
 
     // open the drawer with detail
     this.drawerState.newAction({
       action: 'nodeDetail',
-      selectedNode: node
+      selectedNode: node,
     });
   }
 
@@ -108,12 +109,10 @@ export class BnBioNetworkSelectionState implements OnDestroy {
       node.selected = true;
     }
 
-    this.selection$.next({mode: 'multipleNodes', nodes: nodes, links: [], selectedNodes: nodes});
+    this.selection$.next({ mode: 'multipleNodes', nodes: nodes, links: [], selectedNodes: nodes });
   }
 
-
   public selectMetaboliteAndReaction(objectId: string): void {
-
     // retrieve all the nodes that correspond to this metabolite
     const nodes = this.data.getMetaboliteAndReactionNodesByObjectId(objectId);
 
@@ -126,7 +125,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
       this.selectNodes(nodes);
     }
   }
-
 
   // set opacity to 0.1 to link and node where abs value is lower than value
   public fluxThresholdOpacity(value: number): void {
@@ -155,16 +153,14 @@ export class BnBioNetworkSelectionState implements OnDestroy {
         node.selected = false;
       }
     }
-    this.selection$.next({mode: 'linkByValue', links: links, nodes: nodes});
+    this.selection$.next({ mode: 'linkByValue', links: links, nodes: nodes });
   }
-
 
   /**
    * Select all the nodes and its link that are of compartments
    * @param compartments
    */
   public selectNodeByCompartments(compartments: string[]): void {
-
     if (compartments.length === 0) {
       this.resetSelection();
       return;
@@ -173,25 +169,26 @@ export class BnBioNetworkSelectionState implements OnDestroy {
     this.unselectAll();
 
     // get all the metabolites indexes in the compartments
-    const nodeIds: number[] = this.data.getMetaboliteAndCofactors().filter(
-      (node) =>
-        compartments.includes(node.data.compartment)
-    ).map(node => node.id);
+    const nodeIds: number[] = this.data
+      .getMetaboliteAndCofactors()
+      .filter((node) => compartments.includes(node.data.compartment))
+      .map((node) => node.id);
 
     const links: BnBioNetworkLink[] = this.getConnectedLinks(nodeIds);
 
     // select the connected nodes
     const nodes: BnBioNetworkNode[] = this.selectNodesAndLinksFromLinks(links);
 
-    this.selection$.next({mode: 'nodesByCompartments', nodes: nodes, links: links});
+    this.selection$.next({ mode: 'nodesByCompartments', nodes: nodes, links: links });
   }
-
 
   // return all the directly connected node of the node
   private getConnectedLinks(nodeIds: number[]): BnBioNetworkLink[] {
-    return this.data.links
-      // filter the link directly connected
-      .filter(link => nodeIds.includes(link.target.id) || nodeIds.includes(link.source.id));
+    return (
+      this.data.links
+        // filter the link directly connected
+        .filter((link) => nodeIds.includes(link.target.id) || nodeIds.includes(link.source.id))
+    );
   }
 
   // return all the connected links to a node
@@ -200,8 +197,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
     const links: BnBioNetworkLink[] = [];
 
     for (const link of this.data.links) {
-
-
       let otherNode: BnBioNetworkNode;
       if (nodeIds.includes(link.target.id)) {
         otherNode = link.source;
@@ -237,7 +232,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
     return nodes;
   }
 
-
   /**
    * Reset all the color of the nodes and links
    * @param emitSelection if true a none event is triggered in the selection
@@ -269,7 +263,7 @@ export class BnBioNetworkSelectionState implements OnDestroy {
   }
 
   private emitNone(): void {
-    this.selection$.next({mode: 'none'});
+    this.selection$.next({ mode: 'none' });
   }
 
   public clearSelection(): void {
@@ -281,7 +275,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
   public getSelectionMode$(): Observable<BnBioNetworkSelectionEvent> {
     return this.selection$.asObservable();
   }
-
 
   ngOnDestroy(): void {
     // this.selection$.complete();

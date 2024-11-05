@@ -1,10 +1,13 @@
-import {Component, computed, effect} from '@angular/core';
-import {LabResourceViewSpec} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {Observable, of} from 'rxjs';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {FlOverlayRef} from '@monorepo/front-core-lib';
-import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities/resource/lab-view-config.entity';
+import { Component, computed, effect } from '@angular/core';
+import { LabResourceViewSpec } from '../../../../model/entities/resource/lab-resource-view.entity';
+import { Observable, of } from 'rxjs';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { FlOverlayRef } from '@monorepo/front-core-lib';
+import {
+  LabViewConfig,
+  LabViewConfigDatasource,
+} from '../../../../model/entities/resource/lab-view-config.entity';
 
 @Component({
   selector: 'lab-resource-available-views-portal',
@@ -12,13 +15,14 @@ import {LabViewConfig, LabViewConfigDatasource} from '../../../../model/entities
   styleUrls: ['./lab-resource-available-views-portal.component.scss'],
 })
 export class LabResourceAvailableViewsPortalComponent {
-
   viewSpecs$: Observable<LabResourceViewSpec[]>;
   favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFavoriteViews();
 
-  constructor(private state: LabResourceDetailState,
-              private resourceService: LabResourceService,
-              private overlay: FlOverlayRef) {
+  constructor(
+    private state: LabResourceDetailState,
+    private resourceService: LabResourceService,
+    private overlay: FlOverlayRef
+  ) {
     // use a computed to update the view specs only when typing changes
     const typingSignal = computed(() => this.state.selectedResource()?.resourceTypingName ?? null);
     effect(() => {
@@ -40,5 +44,4 @@ export class LabResourceAvailableViewsPortalComponent {
     this.state.openConfigPortal(view);
     this.overlay.dispose();
   }
-
 }

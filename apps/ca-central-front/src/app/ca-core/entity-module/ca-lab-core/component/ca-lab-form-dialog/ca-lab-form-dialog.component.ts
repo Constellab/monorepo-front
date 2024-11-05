@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { CaLab, CaLabDesktopPlatform, CaLabType, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
-import { FlFormDialogAbstractDirective, FlFormDialogInput, FlPlatformService } from '@monorepo/front-core-lib';
+import {
+  CaLab,
+  CaLabDesktopPlatform,
+  CaLabType,
+  CaLabWithSpace,
+} from '../../../../model/entities/lab/ca-lab.class';
+import {
+  FlFormDialogAbstractDirective,
+  FlFormDialogInput,
+  FlPlatformService,
+} from '@monorepo/front-core-lib';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -26,15 +35,18 @@ interface CaLabForm {
 @Component({
   selector: 'ca-lab-form-dialog',
   templateUrl: './ca-lab-form-dialog.component.html',
-  styleUrls: ['./ca-lab-form-dialog.component.scss']
+  styleUrls: ['./ca-lab-form-dialog.component.scss'],
 })
-export class CaLabFormDialogComponent extends FlFormDialogAbstractDirective<CaLabForm, any>
-  implements OnInit {
-
+export class CaLabFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaLabForm, any>
+  implements OnInit
+{
   maxNameLength = CaLab.MAX_NAME_LENGTH;
 
-  constructor(private labService: CaLabService,
-              private platformService: FlPlatformService) {
+  constructor(
+    private labService: CaLabService,
+    private platformService: FlPlatformService
+  ) {
     super();
   }
 
@@ -52,7 +64,7 @@ export class CaLabFormDialogComponent extends FlFormDialogAbstractDirective<CaLa
     return new FormBuilder().group({
       id: [null],
       name: [null, [Validators.required]],
-      type: [{value: 'CLOUD', disabled: this.isUpdateMode()}, [Validators.required]],
+      type: [{ value: 'CLOUD', disabled: this.isUpdateMode() }, [Validators.required]],
       cloudProvider: [null],
       cpuCount: [null],
       storageSize: [null],
@@ -114,6 +126,4 @@ export class CaLabFormDialogComponent extends FlFormDialogAbstractDirective<CaLa
   getUpdateSuccessMessage(): string {
     return 'lab_updated';
   }
-
-
 }

@@ -1,12 +1,11 @@
-import {MonoTypeOperatorFunction} from 'rxjs';
-import {map} from 'rxjs/operators';
-
+import { MonoTypeOperatorFunction } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Simple RXJS operator to create an @{link FlEventWrapper} from an {@link Event}
  */
 export function flRxjsEventWrapper(): MonoTypeOperatorFunction<FlEventWrapper> {
-  return map(event => {
+  return map((event) => {
     if (event instanceof Event) {
       return new FlEventWrapper(event);
     }
@@ -14,14 +13,11 @@ export function flRxjsEventWrapper(): MonoTypeOperatorFunction<FlEventWrapper> {
   });
 }
 
-
 /**
  * class that wrap the js Event class to add functionalities
  */
 export class FlEventWrapper<T extends Event = Event> {
-
-  constructor(public event: T) {
-  }
+  constructor(public event: T) {}
 
   /**
    * static methode to check if an element has a class
@@ -67,6 +63,4 @@ export class FlEventWrapper<T extends Event = Event> {
 
     return false;
   }
-
-
 }

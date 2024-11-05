@@ -3,7 +3,7 @@ import {
   ActivityObjectType,
   ActivityType,
   LabActivity,
-  LabActivityDatasource
+  LabActivityDatasource,
 } from '../../../../model/entities/lab-activity.entity';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
@@ -14,16 +14,23 @@ import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.e
   styleUrls: ['./lab-activity-table.component.scss'],
 })
 export class LabActivityTableComponent {
+  @Input({ required: true }) datasource: LabActivityDatasource<any>;
 
-  @Input({required: true}) datasource: LabActivityDatasource<any>;
-
-  @Input() columns: FlTableColumnStatic<LabActivity>[] = ['user', 'activityType', 'objectType', 'date', 'objectId', 'link'];
+  @Input() columns: FlTableColumnStatic<LabActivity>[] = [
+    'user',
+    'activityType',
+    'objectType',
+    'date',
+    'objectId',
+    'link',
+  ];
 
   showLink(activity: LabActivity): boolean {
-    return activity.activityType !== ActivityType.DELETE &&
+    return (
+      activity.activityType !== ActivityType.DELETE &&
       activity.objectId &&
-      (activity.objectType === ActivityObjectType.SCENARIO ||
-        activity.objectType === ActivityObjectType.NOTE);
+      (activity.objectType === ActivityObjectType.SCENARIO || activity.objectType === ActivityObjectType.NOTE)
+    );
   }
 
   getLabObjectType(activity: LabActivity): LabEntityType {
@@ -36,5 +43,4 @@ export class LabActivityTableComponent {
         return null;
     }
   }
-
 }

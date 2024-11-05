@@ -2,45 +2,31 @@ import {
   FlDynamicFieldAbstractDirective,
   FlDynamicFieldAdditionalConfig,
   FlDynamicFieldConfigService,
-  FlDynamicFieldConfigUnknown
+  FlDynamicFieldConfigUnknown,
 } from '@monorepo/front-core-lib';
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { LabTagDynamicFieldComponent } from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
-import {
-  LabCodeEditorDynamicFieldComponent
-} from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
+import { LabCodeEditorDynamicFieldComponent } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 import { tdCodeParamSpecTypeList, TdParamSpecType } from '@monorepo/technical-doc';
-import {
-  LabOpenAiChatDynamicFieldComponent
-} from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
-import {
-  LabSelectCredentialsDynamicFieldComponent
-} from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
-import {
-  LabSelectNoteDynamicFieldComponent
-} from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
-import {
-  LabRichTextDynamicFieldComponent
-} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
-import {
-  LabSelectNoteTemplateDynamicFieldComponent
-} from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
+import { LabOpenAiChatDynamicFieldComponent } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
+import { LabSelectCredentialsDynamicFieldComponent } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
+import { LabSelectNoteDynamicFieldComponent } from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
+import { LabRichTextDynamicFieldComponent } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
+import { LabSelectNoteTemplateDynamicFieldComponent } from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
  */
 @Injectable()
 export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService {
-
-
   protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     const config: Record<string, FlDynamicFieldAdditionalConfig> = {
-      'tags': this.buildTagField,
-      'open_ai_chat': this.buildOpenAiChatField,
-      'select_credentials': this.buildSelectCredentialsField,
-      'select_note_template': this.buildSelectNoteTemplateField,
-      'select_note': this.buildSelectNoteField,
-      'rich_text': this.buildRichTextField
+      tags: this.buildTagField,
+      open_ai_chat: this.buildOpenAiChatField,
+      select_credentials: this.buildSelectCredentialsField,
+      select_note_template: this.buildSelectNoteTemplateField,
+      select_note: this.buildSelectNoteField,
+      rich_text: this.buildRichTextField,
     };
 
     // for each code spec type, set the code editor component
@@ -54,30 +40,40 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     return viewContainer.createComponent(LabTagDynamicFieldComponent);
   }
 
-  private buildCodeEditorField(viewContainer: ViewContainerRef,
-                               config: FlDynamicFieldConfigUnknown): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private buildCodeEditorField(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigUnknown
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const component = viewContainer.createComponent(LabCodeEditorDynamicFieldComponent);
     component.instance.specType = config.type as TdParamSpecType;
     return component;
   }
 
-  private buildOpenAiChatField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private buildOpenAiChatField(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabOpenAiChatDynamicFieldComponent);
   }
 
-  private buildSelectCredentialsField(viewContainer: ViewContainerRef,
-                                      config: FlDynamicFieldConfigUnknown): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private buildSelectCredentialsField(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigUnknown
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const component = viewContainer.createComponent(LabSelectCredentialsDynamicFieldComponent);
     // the additional info is the type of credentials to select (can be null)
     component.instance.type = config.additionalInfo?.credentialsType ?? null;
     return component;
   }
 
-  private buildSelectNoteTemplateField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private buildSelectNoteTemplateField(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectNoteTemplateDynamicFieldComponent);
   }
 
-  private buildSelectNoteField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private buildSelectNoteField(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectNoteDynamicFieldComponent);
   }
 

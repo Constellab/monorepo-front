@@ -9,16 +9,14 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
 @Component({
   selector: 'lab-tag-origins',
   templateUrl: './lab-tag-origins.component.html',
-  styleUrl: './lab-tag-origins.component.scss'
+  styleUrl: './lab-tag-origins.component.scss',
 })
 export class LabTagOriginsComponent implements OnInit {
-
   @Input({ required: true }) tagEntityId: string;
 
   origins$: Observable<LabTagOrigin[]>;
 
-  constructor(private tagService: LabTagService) {
-  }
+  constructor(private tagService: LabTagService) {}
 
   ngOnInit(): void {
     this.origins$ = this.tagService.getEntityTagOrigins(this.tagEntityId);

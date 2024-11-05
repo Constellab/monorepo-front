@@ -20,17 +20,14 @@
       </fl-text-icon>
     </a>
 
-
     <mat-divider class="g-full"></mat-divider>
     <!--  Other spaces  -->
     <fl-async-section [object]="otherSpaces" emptyText="">
       <ng-container *flSectionBody="otherSpaces as spaces">
         <div class="switch-to g-text-light">{{ 'switch_to_space' | translate }}</div>
         @for (space of spaces; track space.id) {
-          <a [caExternalSpaceLink]="appRoute"
-             [caExternalSpaceDomain]="space.domain">
-            <ca-space-inline [space]="space" [showNotif]="true" class="space">
-            </ca-space-inline>
+          <a [caExternalSpaceLink]="appRoute" [caExternalSpaceDomain]="space.domain">
+            <ca-space-inline [space]="space" [showNotif]="true" class="space"> </ca-space-inline>
           </a>
         }
       </ng-container>

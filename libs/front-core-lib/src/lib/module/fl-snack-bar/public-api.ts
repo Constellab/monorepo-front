@@ -1,4 +1,3 @@
-
 // Export the module
 export * from './fl-snack-bar.module';
 

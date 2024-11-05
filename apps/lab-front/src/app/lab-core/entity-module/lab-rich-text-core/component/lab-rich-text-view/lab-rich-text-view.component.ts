@@ -15,10 +15,9 @@ import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-se
 @Component({
   selector: 'lab-rich-text-view',
   templateUrl: './lab-rich-text-view.component.html',
-  styleUrls: ['./lab-rich-text-view.component.scss']
+  styleUrls: ['./lab-rich-text-view.component.scss'],
 })
 export class LabRichTextViewComponent extends TeElementBlockDirective {
-
   @Input() resourceId: string;
 
   @Input() viewConfig: RvViewConfig;
@@ -29,41 +28,60 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
 
   view$: Observable<LabResourceViewData>;
 
-  constructor(private resourceService: LabResourceService,
-              private noteResourceService: LabNoteResourceService,
-              private richTextService: LabRichTextService) {
+  constructor(
+    private resourceService: LabResourceService,
+    private noteResourceService: LabNoteResourceService,
+    private richTextService: LabRichTextService
+  ) {
     super();
   }
 
-
-  public setNoteInput(resourceId: string, viewConfig: RvViewConfig, viewTitle: string, caption: string): void {
+  public setNoteInput(
+    resourceId: string,
+    viewConfig: RvViewConfig,
+    viewTitle: string,
+    caption: string
+  ): void {
     this.resourceId = resourceId;
     this.viewConfig = viewConfig;
     this.viewTitle = viewTitle;
     this.caption = caption;
 
     if (resourceId && viewConfig) {
-      this.view$ = this.resourceService.callResourceViewData(resourceId, viewConfig.methodName,
-        viewConfig.configValues);
+      this.view$ = this.resourceService.callResourceViewData(
+        resourceId,
+        viewConfig.methodName,
+        viewConfig.configValues
+      );
     }
   }
 
-  public setNoteResourceInput(noteResourceId: string, subResourceKey: string, viewConfig: RvViewConfig,
-                              viewTitle: string, caption: string): void {
+  public setNoteResourceInput(
+    noteResourceId: string,
+    subResourceKey: string,
+    viewConfig: RvViewConfig,
+    viewTitle: string,
+    caption: string
+  ): void {
     this.resourceId = noteResourceId;
     this.viewConfig = viewConfig;
     this.viewTitle = viewTitle;
     this.caption = caption;
-    this.view$ = this.noteResourceService.callResourceView(noteResourceId, subResourceKey, viewConfig.methodName,
-      viewConfig.configValues).pipe(
-      map(view => view.view)
-    );
+    this.view$ = this.noteResourceService
+      .callResourceView(noteResourceId, subResourceKey, viewConfig.methodName, viewConfig.configValues)
+      .pipe(map((view) => view.view));
   }
 
-  public setFileViewInput(objectType: LabRichTextObjectType, objectId: string, filename: string, title: string, caption: string): void {
-    this.view$ = this.richTextService.getFileView(objectType, objectId, filename).pipe(
-      map(view => view.view)
-    );
+  public setFileViewInput(
+    objectType: LabRichTextObjectType,
+    objectId: string,
+    filename: string,
+    title: string,
+    caption: string
+  ): void {
+    this.view$ = this.richTextService
+      .getFileView(objectType, objectId, filename)
+      .pipe(map((view) => view.view));
     this.viewTitle = title;
     this.caption = caption;
   }

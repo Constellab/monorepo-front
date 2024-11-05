@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlCardFooterComponent} from './fl-card-footer.component';
+import { FlCardFooterComponent } from './fl-card-footer.component';
 
 describe('CardFooterComponent', () => {
   let component: FlCardFooterComponent;
@@ -8,9 +8,8 @@ describe('CardFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlCardFooterComponent ]
-    })
-    .compileComponents();
+      declarations: [FlCardFooterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

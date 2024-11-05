@@ -5,7 +5,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlSnackBarService
+  FlSnackBarService,
 } from '@monorepo/front-core-lib';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
@@ -17,46 +17,48 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ca-lab-start-stop',
   templateUrl: './ca-lab-start-stop.component.html',
-  styleUrls: ['./ca-lab-start-stop.component.scss']
+  styleUrls: ['./ca-lab-start-stop.component.scss'],
 })
 export class CaLabStartStopComponent {
+  serverIsRunning$: Observable<boolean> = this.state
+    .getStatus$()
+    .pipe(map((status) => status.serverIsRunning()));
 
-  serverIsRunning$: Observable<boolean> = this.state.getStatus$().pipe(
-    map(status => status.serverIsRunning())
-  );
+  disabledStart$: Observable<boolean> = this.state
+    .getStatus$()
+    .pipe(map((status) => status.serverIsBusy() || status.labStatus.value === 'NO_SERVER'));
 
-  disabledStart$: Observable<boolean> = this.state.getStatus$().pipe(
-    map(status => status.serverIsBusy() || status.labStatus.value === 'NO_SERVER')
-  );
-
-  constructor(private state: CaLabDetailPageState,
-              private labService: CaLabService,
-              private snackBarService: FlSnackBarService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private labService: CaLabService,
+    private snackBarService: FlSnackBarService,
+    private dialogService: FlDialogService
+  ) {}
 
   startLab(): void {
     const input: FlConfirmDialogInput = {
       title: 'start_lab',
       content: 'start_lab_confirm',
-      observable: this.labService.startLab(this.state.getLabId())
+      observable: this.labService.startLab(this.state.getLabId()),
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      lab => this.onLabUpdate(lab)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((lab) => this.onLabUpdate(lab));
   }
 
   stopLab(): void {
     const input: FlConfirmDialogInput = {
       title: 'stop_lab',
       content: 'stop_lab_confirm',
-      observable: this.labService.stopLab(this.state.getLabId())
+      observable: this.labService.stopLab(this.state.getLabId()),
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      lab => this.onLabUpdate(lab)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((lab) => this.onLabUpdate(lab));
   }
 
   private onLabUpdate(result: FlConfirmDialogResult<CaLab>): void {

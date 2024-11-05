@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaStoragePricesDialogComponent} from './ca-storage-prices-dialog.component';
+import { CaStoragePricesDialogComponent } from './ca-storage-prices-dialog.component';
 
 describe('CaStoragePricesDialogComponent', () => {
   let component: CaStoragePricesDialogComponent;
@@ -8,9 +8,8 @@ describe('CaStoragePricesDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaStoragePricesDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaStoragePricesDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaStoragePricesDialogComponent);
     component = fixture.componentInstance;

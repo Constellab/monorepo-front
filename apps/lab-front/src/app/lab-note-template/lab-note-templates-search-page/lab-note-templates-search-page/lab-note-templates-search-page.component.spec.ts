@@ -8,9 +8,8 @@ describe('LabNoteTemplatesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabNoteTemplatesSearchPageComponent]
-    })
-    .compileComponents();
+      declarations: [LabNoteTemplatesSearchPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabNoteTemplatesSearchPageComponent);
     component = fixture.componentInstance;

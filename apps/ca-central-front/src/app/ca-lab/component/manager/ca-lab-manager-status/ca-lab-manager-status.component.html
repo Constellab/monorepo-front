@@ -5,23 +5,27 @@
       <mat-icon [ngClass]="currentStatus.iconClass">{{ currentStatus.icon }}</mat-icon>
       {{ currentStatus.text | translate }}
 
-      <button *ngIf="currentStatus.buttonText" mat-stroked-button class="status-action-button"
-              type="button" (click)="currentStatusAction(currentStatus.buttonText)"
-              [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'"
-              [matTooltip]="currentStatus.buttonTooltip | translate">
+      <button
+        *ngIf="currentStatus.buttonText"
+        mat-stroked-button
+        class="status-action-button"
+        type="button"
+        (click)="currentStatusAction(currentStatus.buttonText)"
+        [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'"
+        [matTooltip]="currentStatus.buttonTooltip | translate">
         {{ currentStatus.buttonText | translate }}
       </button>
     </fl-text-icon>
   </div>
 
-
   <!-- Lab task -->
   <div *ngIf="labStatus.currentTask; else noTask">
-
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
       <span class="no-shrink">{{ 'lab_manager_task' | translate }} : </span>
 
-      <fl-loader size="small" *ngIf="labStatus.currentTask.status.value === 'RUNNING'; else finished"></fl-loader>
+      <fl-loader
+        size="small"
+        *ngIf="labStatus.currentTask.status.value === 'RUNNING'; else finished"></fl-loader>
       <ng-template #finished>
         <fl-status-chip [status]="labStatus.currentTask.status" size="small"></fl-status-chip>
       </ng-template>
@@ -34,27 +38,26 @@
     {{ 'lab_manager_no_task' | translate }}
   </ng-template>
 
-
   <fl-key-value>
     <fl-key>{{ 'lab_manager_version' | translate }}</fl-key>
     {{ labStatus.version }}
   </fl-key-value>
 
   <ng-container *ngIf="recommendedVersion$ | async as recommendedVersion">
-    <div *ngIf="labStatus.version && labStatus.version !== recommendedVersion"
-         class="version-warning">
+    <div *ngIf="labStatus.version && labStatus.version !== recommendedVersion" class="version-warning">
       <fl-text-icon>
         <mat-icon color="warn">warnings</mat-icon>
         {{
-          'lab_manager_not_compatible_with_central' | translate: {
-            'labManagerVersion': labStatus.version,
-            'compatibleVersion': recommendedVersion
-          }
+          'lab_manager_not_compatible_with_central'
+            | translate
+              : {
+                  labManagerVersion: labStatus.version,
+                  compatibleVersion: recommendedVersion,
+                }
         }}
       </fl-text-icon>
     </div>
   </ng-container>
-
 </ng-container>
 
 <!-- Lab Adminer runnings -->

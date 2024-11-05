@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Start date -->
   <ng-container matColumnDef="dates">
     <mat-header-cell *matHeaderCellDef>
@@ -7,13 +6,12 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <div>
-        <div [matTooltip]="(row.fromDate | flDate:'DATE_TIME') + ' - ' + (row.toDate | flDate:'DATE_TIME') "
-             [matTooltipShowDelay]="1000">
+        <div
+          [matTooltip]="(row.fromDate | flDate: 'DATE_TIME') + ' - ' + (row.toDate | flDate: 'DATE_TIME')"
+          [matTooltipShowDelay]="1000">
           {{ row.fromDate | flDate }} - {{ row.toDate | flDate }}
         </div>
-        <div>
-          {{ row.durationInHour }} {{ 'lab_usage_billed_hours' | translate }}
-        </div>
+        <div>{{ row.durationInHour }} {{ 'lab_usage_billed_hours' | translate }}</div>
       </div>
     </mat-cell>
   </ng-container>
@@ -24,19 +22,16 @@
       <span>{{ 'lab_volume_size' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.volumeSize }}  ({{ 'lab_volume_type_' + row.volumeType | translate }})
+      {{ row.volumeSize }} ({{ 'lab_volume_type_' + row.volumeType | translate }})
     </mat-cell>
   </ng-container>
-
 
   <!-- Price per GB per hour -->
   <ng-container matColumnDef="volumePricePerGBPerHour">
     <mat-header-cell *matHeaderCellDef>
       <span>{{ 'lab_volume_price_per_gb_per_hour' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      {{ row.volumePricePerGBPerHour | number:  '1.5-5' }} €
-    </mat-cell>
+    <mat-cell *matCellDef="let row"> {{ row.volumePricePerGBPerHour | number: '1.5-5' }} € </mat-cell>
   </ng-container>
 
   <!-- Price -->
@@ -44,13 +39,9 @@
     <mat-header-cell *matHeaderCellDef>
       <span>{{ 'lab_volume_price' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      {{ row.volumePrice | number: '1.5-5' }} €
-    </mat-cell>
+    <mat-cell *matCellDef="let row"> {{ row.volumePrice | number: '1.5-5' }} € </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

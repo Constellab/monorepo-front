@@ -7,7 +7,7 @@ import {
   FlLoginSavedRoute,
   FlServerError,
   FlSnackBarService,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -21,14 +21,15 @@ import { PlatformLocation } from '@angular/common';
 
 @Injectable()
 export class LabApiErrorService extends FlApiErrorService {
-
-  constructor(snackBarService: FlSnackBarService,
-              translateService: FlTranslateService,
-              private dialogService: FlDialogService,
-              private labEnvManager: LabEnvStore,
-              private router: Router,
-              private cookieService: FlCookieService,
-              private platformLocation: PlatformLocation) {
+  constructor(
+    snackBarService: FlSnackBarService,
+    translateService: FlTranslateService,
+    private dialogService: FlDialogService,
+    private labEnvManager: LabEnvStore,
+    private router: Router,
+    private cookieService: FlCookieService,
+    private platformLocation: PlatformLocation
+  ) {
     super(snackBarService, translateService);
   }
 
@@ -36,8 +37,12 @@ export class LabApiErrorService extends FlApiErrorService {
     return null;
   }
 
-  handleServerError(errorResponse: HttpErrorResponse, hideError: boolean,
-                    snackBarDuration?: number, defaultError?: string): Observable<never> {
+  handleServerError(
+    errorResponse: HttpErrorResponse,
+    hideError: boolean,
+    snackBarDuration?: number,
+    defaultError?: string
+  ): Observable<never> {
     console.log(errorResponse);
     const serverError: FlServerError = {
       response: errorResponse,
@@ -60,7 +65,8 @@ export class LabApiErrorService extends FlApiErrorService {
     }
 
     if (!hideError) {
-      const detailButton = (): any => this.dialogService.openSmallDialog(LabErrorDetailComponent, {data: apiError});
+      const detailButton = (): any =>
+        this.dialogService.openSmallDialog(LabErrorDetailComponent, { data: apiError });
       if (apiError.show_as === 'info') {
         // open the warning snack bar if the message type is warning
         this.showInfo(serverError.message, snackBarDuration, detailButton);
@@ -106,7 +112,6 @@ export class LabApiErrorService extends FlApiErrorService {
       FlLoginSavedRoute.route = currentRoute;
     }
     // redirect the user to the login page, with autoRedirect param to avoid infinite loop
-    this.router.navigate([labConstLoginRoute],{queryParams: {autoRedirect: false}});
-
+    this.router.navigate([labConstLoginRoute], { queryParams: { autoRedirect: false } });
   }
 }

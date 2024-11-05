@@ -1,19 +1,17 @@
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {FlCodeEditorLanguage} from '@monorepo/front-core-lib';
-import {TeComponentBlock} from './te-component-block.class';
-import {TeCodeComponent} from '../component/te-code/te-code.component';
-import {Type} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {TeHelper} from '../model/te.helper';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { FlCodeEditorLanguage } from '@monorepo/front-core-lib';
+import { TeComponentBlock } from './te-component-block.class';
+import { TeCodeComponent } from '../component/te-code/te-code.component';
+import { Type } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { TeHelper } from '../model/te.helper';
 
 export interface TeCodeBlockData {
   code: string;
   language: string;
 }
 
-
 export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
-
   public static readonly TAG_NAME = 'te-code';
 
   static override get toolbox(): ToolboxConfig {
@@ -22,7 +20,7 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
       {
         icon: TeHelper.getMatIconElement('code'),
         title: translateService.translate('teTextEditor.code'),
-      }
+      },
     ];
   }
 
@@ -35,7 +33,7 @@ export class TeCodeBlock extends TeComponentBlock<TeCodeComponent> {
   }
 
   initInputs(data: TeCodeBlockData): void {
-    this.componentInstance.formControl = new FormControl({value: data.code, disabled: this.disabled});
+    this.componentInstance.formControl = new FormControl({ value: data.code, disabled: this.disabled });
     this.componentInstance.language = (data.language as FlCodeEditorLanguage) ?? 'python';
   }
 

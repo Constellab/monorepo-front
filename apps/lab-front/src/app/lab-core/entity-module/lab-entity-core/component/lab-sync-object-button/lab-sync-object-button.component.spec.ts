@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSyncObjectButtonComponent} from './lab-sync-object-button.component';
+import { LabSyncObjectButtonComponent } from './lab-sync-object-button.component';
 
 describe('LabSyncObjectButtonComponent', () => {
   let component: LabSyncObjectButtonComponent;
@@ -8,9 +8,8 @@ describe('LabSyncObjectButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSyncObjectButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSyncObjectButtonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

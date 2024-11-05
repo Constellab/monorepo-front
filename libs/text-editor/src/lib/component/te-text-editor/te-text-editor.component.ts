@@ -8,24 +8,22 @@ import {
   Optional,
   Output,
   PLATFORM_ID,
-  Self
+  Self,
 } from '@angular/core';
-import {TeConfig} from '../../model/te-config.class';
-import {FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {NgControl} from '@angular/forms';
-import {TeRichTextContent} from '../../model/te-rich-text.class';
-import {isPlatformBrowser} from '@angular/common';
-import {TeEvent} from '../../model/te-event.class';
-
+import { TeConfig } from '../../model/te-config.class';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { NgControl } from '@angular/forms';
+import { TeRichTextContent } from '../../model/te-rich-text.class';
+import { isPlatformBrowser } from '@angular/common';
+import { TeEvent } from '../../model/te-event.class';
 
 @Component({
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit{
-
-  @Input({required: true}) config: TeConfig;
+export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit {
+  @Input({ required: true }) config: TeConfig;
 
   @Input() event: TeEvent;
 
@@ -40,8 +38,10 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
 
   browserSide: boolean = false;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              @Inject(PLATFORM_ID) private platformId: object) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
     super(ngControl);
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;
@@ -56,8 +56,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
     this.textChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: TeRichTextContent): void {
     this.value = obj;

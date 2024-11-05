@@ -4,7 +4,7 @@ import { ClDateHelper, ClHelpService, ClLuxonDateTimeTransform } from '@monorepo
 import { FlEntity } from '../../../model/fl-entity.class';
 import {
   FlDatasourceGetPageData,
-  FlDatasourceSortCriteria
+  FlDatasourceSortCriteria,
 } from '../../../model/datasource/fl-datasource-paginated.class';
 import { FlSortCriteria } from './fl-sort.class';
 
@@ -41,7 +41,7 @@ export interface FlSearchAttributeCriteriaConverter<T = string> {
  * The value of the function is the object value (usually value from form),
  * IT CAN BE NULL or EMPTY
  */
-export type FlSearchAttributeFunctionCriteriaConverter<T> = (value ?: T) => FlSearchCriteria[];
+export type FlSearchAttributeFunctionCriteriaConverter<T> = (value?: T) => FlSearchCriteria[];
 
 /**
  * Type for describing a conversion from an object of type P to a list of criteria
@@ -67,7 +67,6 @@ export type FlSearchSortCriteriaConverter = Record<string, string | string[]>;
  * date
  */
 export class FlSearchDateInterval {
-
   @ClLuxonDateTimeTransform()
   from: DateTime;
 
@@ -79,8 +78,6 @@ export class FlSearchDateInterval {
  * Generic converter for Advanced Search
  */
 export class FlSearchConverter {
-
-
   /**
    * Convert a {@link FlDatasourceGetPageData} usually used in a datasource to a {@link FlAdvancedSearchInput}
    * to trigger a search
@@ -88,18 +85,26 @@ export class FlSearchConverter {
    * @param filterConverter
    * @param sortConverter
    */
-  public static convertDatasourceGetPageDataToSearchParams<T>(data: FlDatasourceGetPageData,
-                                                              filterConverter: FlSearchFilterCriteriaConverter<T>,
-                                                              sortConverter: FlSearchSortCriteriaConverter): FlAdvancedSearchInput {
+  public static convertDatasourceGetPageDataToSearchParams<T>(
+    data: FlDatasourceGetPageData,
+    filterConverter: FlSearchFilterCriteriaConverter<T>,
+    sortConverter: FlSearchSortCriteriaConverter
+  ): FlAdvancedSearchInput {
     if (data == null) {
       return {
         filtersCriteria: [],
-        sortsCriteria: []
+        sortsCriteria: [],
       };
     }
     return {
-      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(data.filtersCriteria, filterConverter),
-      sortsCriteria: FlSearchConverter.convertDatasourceGetPageSortToSearchSort(data.sortsCriteria, sortConverter)
+      filtersCriteria: FlSearchConverter.convertObjectToSearchCriteriaList(
+        data.filtersCriteria,
+        filterConverter
+      ),
+      sortsCriteria: FlSearchConverter.convertDatasourceGetPageSortToSearchSort(
+        data.sortsCriteria,
+        sortConverter
+      ),
     };
   }
 
@@ -112,16 +117,16 @@ export class FlSearchConverter {
    * @param object object containing the filtering values
    * @param converter object used to convert objects attributes to {@link FlSearchCriteria}
    */
-  public static convertObjectToSearchCriteriaList<T = Record<any, any>>(object: T,
-                                                                        converter: FlSearchFilterCriteriaConverter<T>)
-    : FlSearchCriteria[] {
+  public static convertObjectToSearchCriteriaList<T = Record<any, any>>(
+    object: T,
+    converter: FlSearchFilterCriteriaConverter<T>
+  ): FlSearchCriteria[] {
     const criteria: FlSearchCriteria[] = [];
 
     if (object == null) return criteria;
 
     for (const key of Object.keys(object)) {
       const fieldValue: any = (object as any)[key];
-
 
       // handle specific convert as function
       // for SearchAttributeFunctionCriteriaConverter
@@ -138,7 +143,7 @@ export class FlSearchConverter {
 
       // check if the convert for this field exists
       if (fieldConverter == null) {
-        console.error('The convert for the field \'' + key + '\' does not exists. Skipping field');
+        console.error("The convert for the field '" + key + "' does not exists. Skipping field");
         continue;
       }
 
@@ -170,13 +175,11 @@ export class FlSearchConverter {
       criteria.push({
         key: fieldConverter.key,
         operator: operator as any,
-        value: value
+        value: value,
       });
-
     }
     return criteria;
   }
-
 
   /**
    * Simple method to return the id of a {@link FlEntity}
@@ -187,7 +190,7 @@ export class FlSearchConverter {
   }
 
   public static getCustomKey(key: string) {
-    return (value ?: any): any => {
+    return (value?: any): any => {
       if (value == null) {
         return null;
       }
@@ -202,7 +205,7 @@ export class FlSearchConverter {
    */
   public static getEntitiesId(objects: FlEntity[]): string[] {
     if (objects == null) return null;
-    return objects.map(o => FlSearchConverter.getEntityId(o));
+    return objects.map((o) => FlSearchConverter.getEntityId(o));
   }
 
   /**
@@ -232,13 +235,14 @@ export class FlSearchConverter {
     return ClDateHelper.serializeDate(date);
   }
 
-
   /**
    * For advanced search, it convert a {@link FlSearchDateInterval} to SearchCriteria
    * depending on which interval is set
    * @param key column key
    */
-  public static dateTimeInterval(key: string): FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
+  public static dateTimeInterval(
+    key: string
+  ): FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
     return FlSearchConverter.convertDateInterval(key, FlSearchConverter.convertDateTimeToString);
   }
 
@@ -251,8 +255,10 @@ export class FlSearchConverter {
     return FlSearchConverter.convertDateInterval(key, FlSearchConverter.convertDateToString);
   }
 
-  private static convertDateInterval(key: string, dateConverter: (date: DateTime) => string):
-    FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
+  private static convertDateInterval(
+    key: string,
+    dateConverter: (date: DateTime) => string
+  ): FlSearchAttributeFunctionCriteriaConverter<FlSearchDateInterval> {
     return (dates?: FlSearchDateInterval): FlSearchCriteria[] => {
       let criteria: FlSearchCriteria;
       // if the 2 dates are null
@@ -263,36 +269,38 @@ export class FlSearchConverter {
         criteria = {
           key: key,
           operator: 'GE',
-          value: dateConverter(dates.from)
+          value: dateConverter(dates.from),
         };
       } else if (dates.from == null) {
         // if only the To date is filled
         criteria = {
           key: key,
           operator: 'LE',
-          value: dateConverter(dates.to)
+          value: dateConverter(dates.to),
         };
       } else {
         // if both dates are filled
         criteria = {
           key: key,
           operator: 'BETWEEN',
-          value: [dateConverter(dates.from), dateConverter(dates.to)]
+          value: [dateConverter(dates.from), dateConverter(dates.to)],
         };
       }
       return [criteria];
     };
   }
 
-  public static convertDatasourceGetPageSortToSearchSort(sortsCriteria: FlDatasourceSortCriteria[] | null,
-                                                         converter: FlSearchSortCriteriaConverter): FlSortCriteria[] | null {
+  public static convertDatasourceGetPageSortToSearchSort(
+    sortsCriteria: FlDatasourceSortCriteria[] | null,
+    converter: FlSearchSortCriteriaConverter
+  ): FlSortCriteria[] | null {
     if (sortsCriteria == null || converter == null) return null;
     const convertedSorts: FlSortCriteria[] = [];
 
     for (const sort of sortsCriteria) {
       const key = converter[sort.key];
       if (key == null) {
-        console.error('The key \'' + sort.key + '\' does not exists in the sort converter. Skipping sort');
+        console.error("The key '" + sort.key + "' does not exists in the sort converter. Skipping sort");
         continue;
       }
 
@@ -301,13 +309,10 @@ export class FlSearchConverter {
         convertedSorts.push({
           key: k,
           direction: sort.direction,
-          nullManagement: 'LAST'
+          nullManagement: 'LAST',
         });
       }
     }
     return convertedSorts;
-
   }
-
 }
-

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlTagListComponent} from './fl-tag-list.component';
+import { FlTagListComponent } from './fl-tag-list.component';
 
 describe('FlTagListComponent', () => {
   let component: FlTagListComponent;
@@ -8,9 +8,8 @@ describe('FlTagListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlTagListComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTagListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

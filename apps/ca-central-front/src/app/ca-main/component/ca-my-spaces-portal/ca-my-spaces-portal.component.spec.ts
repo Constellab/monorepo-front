@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaMySpacesPortalComponent} from './ca-my-spaces-portal.component';
+import { CaMySpacesPortalComponent } from './ca-my-spaces-portal.component';
 
 describe('CaMySpacesPortalComponent', () => {
   let component: CaMySpacesPortalComponent;
@@ -8,9 +8,8 @@ describe('CaMySpacesPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaMySpacesPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [CaMySpacesPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaMySpacesPortalComponent);
     component = fixture.componentInstance;

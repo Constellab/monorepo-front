@@ -1,13 +1,12 @@
-import {TeFileBlockData} from '@monorepo/text-editor';
+import { TeFileBlockData } from '@monorepo/text-editor';
 
 export enum HaFileType {
   FILE = 'FILE',
   IMAGE = 'IMAGE',
-  RESOURCE_VIEW = 'RESOURCE_VIEW'
+  RESOURCE_VIEW = 'RESOURCE_VIEW',
 }
 
-export class HaFile implements TeFileBlockData{
-
+export class HaFile implements TeFileBlockData {
   id: string;
 
   name: string;

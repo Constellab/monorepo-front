@@ -18,21 +18,22 @@ export interface CaLabFreeFormDialogInput {
   styleUrls: ['./ca-lab-free-form-dialog.component.scss'],
 })
 export class CaLabFreeFormDialogComponent {
-
   formGp = new FormBuilder().group({
     usageLimitInHours: [0 as number, Validators.required],
-    expirationDate: [null as DateTime]
+    expirationDate: [null as DateTime],
   });
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabFreeFormDialogInput,
-              private labService: CaLabService,
-              private snackBarService: FlSnackBarService,
-              private dialogRef: MatDialogRef<CaLabFreeFormDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaLabFreeFormDialogInput,
+    private labService: CaLabService,
+    private snackBarService: FlSnackBarService,
+    private dialogRef: MatDialogRef<CaLabFreeFormDialogComponent>
+  ) {
     this.formGp.patchValue({
       expirationDate: this.input.expirationDate,
-      usageLimitInHours: this.input.usageLimitInHours
+      usageLimitInHours: this.input.usageLimitInHours,
     });
   }
 
@@ -45,15 +46,15 @@ export class CaLabFreeFormDialogComponent {
   private updateFreeLab(value: CaLabFreeUpdateDto): void {
     this.isLoading = true;
     this.labService.updateFreeLab(this.input.freeLabId, value).subscribe({
-      next: freeLab => this.updateFreeLabSuccess(freeLab),
-      error: () => this.isLoading = false
+      next: (freeLab) => this.updateFreeLabSuccess(freeLab),
+      error: () => (this.isLoading = false),
     });
   }
 
   private updateFreeLabSuccess(freeLab: CaLabFreeGetDto): void {
     this.snackBarService.openSuccessMessage({
       text: 'free_data_lab_updated',
-      translateText: true
+      translateText: true,
     });
     this.isLoading = false;
     this.dialogRef.close(freeLab);

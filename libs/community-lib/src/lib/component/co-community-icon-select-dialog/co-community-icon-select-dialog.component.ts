@@ -8,26 +8,22 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './co-community-icon-select-dialog.component.scss',
 })
 export class CoCommunityIconSelectDialogComponent implements OnInit {
-
   matIconName: string;
 
-  constructor(private dialogRef: MatDialogRef<CoCommunityIconSelectDialogComponent>) {
-  }
+  constructor(private dialogRef: MatDialogRef<CoCommunityIconSelectDialogComponent>) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  changeMaterialIcon(event: string): void{
+  changeMaterialIcon(event: string): void {
     this.matIconName = event;
   }
 
-  selectIcon(eventIcon: [Event, CoIcon]): void{
+  selectIcon(eventIcon: [Event, CoIcon]): void {
     const icon = eventIcon[1];
     this.dialogRef.close(icon);
   }
 
-  selectMaterialIcon(): void{
-    this.dialogRef.close({type: 'MATERIAL_ICON', technicalName: this.matIconName});
+  selectMaterialIcon(): void {
+    this.dialogRef.close({ type: 'MATERIAL_ICON', technicalName: this.matIconName });
   }
 }

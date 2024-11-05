@@ -1,23 +1,23 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {SpSheetSingleSelection, SpSheetSingleSelectionFull,} from '../model/selection/sp-sheet-single-selection.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {SpSheet} from '../model/sp-sheet.class';
-import {SpCellsRange} from '../model/selection/sp-cells-range.class';
-import {SpCellCoord} from '../model/sp-cell-coord.class';
+import { Injectable, OnDestroy } from '@angular/core';
+import {
+  SpSheetSingleSelection,
+  SpSheetSingleSelectionFull,
+} from '../model/selection/sp-sheet-single-selection.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { SpSheet } from '../model/sp-sheet.class';
+import { SpCellsRange } from '../model/selection/sp-cells-range.class';
+import { SpCellCoord } from '../model/sp-cell-coord.class';
 
 /**
  * Unique state shared across the spreadsheet to manage the selection
  */
 @Injectable()
 export class SpSpreadsheetSelectionState implements OnDestroy {
-
   private currentSelection$: BehaviorSubject<SpSheetSingleSelectionFull> =
     new BehaviorSubject<SpSheetSingleSelectionFull>(null);
 
-  constructor(private state: SpSpreadsheetState) {
-
-  }
+  constructor(private state: SpSpreadsheetState) {}
 
   public init(): void {
     this.clearSelectionOnNewSheet();
@@ -25,9 +25,7 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
 
   // listen to the sheet change and clear selection when we changed the sheet
   private clearSelectionOnNewSheet(): void {
-    this.state.currentSheet$.subscribe(
-      () => this.clearCurrentSelection()
-    );
+    this.state.currentSheet$.subscribe(() => this.clearCurrentSelection());
   }
 
   // todo to change with current sheet
@@ -48,37 +46,56 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
   }
 
   public selectUniqueCell(coord: SpCellCoord): SpSheetSingleSelection {
-    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Single(this.currentSheet, coord.row, coord.column);
+    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Single(
+      this.currentSheet,
+      coord.row,
+      coord.column
+    );
     this.newSelection(selection);
     return selection;
   }
 
   public selectMultipleCell(from: SpCellCoord, to: SpCellCoord): SpSheetSingleSelection {
-    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Multiple(this.currentSheet,
-      from.row, from.column, to.row, to.column);
+    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Multiple(
+      this.currentSheet,
+      from.row,
+      from.column,
+      to.row,
+      to.column
+    );
     this.newSelection(selection);
     return selection;
   }
 
   public selectUniqueRow(rowIndex: number): SpSheetSingleSelection {
-    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Rows(this.currentSheet, rowIndex, rowIndex);
+    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Rows(
+      this.currentSheet,
+      rowIndex,
+      rowIndex
+    );
     this.newSelection(selection);
     return selection;
   }
 
   public selectUniqueColumn(columnIndex: number): SpSheetSingleSelection {
-    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Columns(this.currentSheet, columnIndex, columnIndex);
+    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Columns(
+      this.currentSheet,
+      columnIndex,
+      columnIndex
+    );
     this.newSelection(selection);
     return selection;
   }
 
   public selectAllColumns(): SpSheetSingleSelection {
-    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Columns(this.currentSheet,
-      0, this.currentSheet.getLoadedColumnsCount() - 1);
+    const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.Columns(
+      this.currentSheet,
+      0,
+      this.currentSheet.getLoadedColumnsCount() - 1
+    );
     this.newSelection(selection);
     return selection;
   }
-
 
   public setSelection(sheet: SpSheet, range: SpCellsRange): SpSheetSingleSelection {
     const selection: SpSheetSingleSelectionFull = SpSheetSingleSelectionFull.FromRange(sheet, range);
@@ -102,8 +119,10 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
     const currentSelectionFull: SpSheetSingleSelectionFull = this.currentSelectionFull;
 
     // check if the current selection is valid to expand
-    if (currentSelectionFull == null ||
-      (currentSelectionFull.type !== 'single' && currentSelectionFull.type !== 'multiple')) {
+    if (
+      currentSelectionFull == null ||
+      (currentSelectionFull.type !== 'single' && currentSelectionFull.type !== 'multiple')
+    ) {
       return;
     }
 
@@ -113,7 +132,10 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
       return;
     }
 
-    const newSelection: SpSheetSingleSelectionFull = currentSelectionFull.expandSelection(coord.row, coord.column);
+    const newSelection: SpSheetSingleSelectionFull = currentSelectionFull.expandSelection(
+      coord.row,
+      coord.column
+    );
     this.currentSelection$.next(newSelection);
   }
 
@@ -132,7 +154,8 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
       return;
     }
 
-    const newSelection: SpSheetSingleSelectionFull = this.currentSelectionFull.expandColumnsSelection(columnIndex);
+    const newSelection: SpSheetSingleSelectionFull =
+      this.currentSelectionFull.expandColumnsSelection(columnIndex);
 
     this.currentSelection$.next(newSelection);
   }
@@ -164,12 +187,10 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
     }
   }
 
-
   public moveCurrentSelection(rowShift: number, columnShift: number): SpSheetSingleSelection | null {
     const newCoord: SpCellCoord = this.shiftCurrentSelection(rowShift, columnShift);
 
     if (newCoord) {
-
       switch (this.currentSelection.type) {
         case 'rows':
           return this.selectUniqueRow(newCoord.row);
@@ -177,7 +198,6 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
           return this.selectUniqueColumn(newCoord.column);
         default:
           return this.selectUniqueCell(newCoord);
-
       }
     }
 
@@ -190,7 +210,6 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
     const selection: SpSheetSingleSelection = this.currentSelection;
 
     if (selection != null) {
-
       const coord: SpCellCoord = {
         row: selection.endRow + rowShift,
         column: selection.endColumn + columnShift,
@@ -211,7 +230,4 @@ export class SpSpreadsheetSelectionState implements OnDestroy {
   ngOnDestroy(): void {
     this.currentSelection$.complete();
   }
-
-
 }
-

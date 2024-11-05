@@ -4,7 +4,7 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabNoteContent } from '../../../../lab-core/model/entities/lab-note.entity';
 import {
   LabNoteInsertTemplateDialogComponent,
-  LabNoteInsertTemplateDialogData
+  LabNoteInsertTemplateDialogData,
 } from '../component/lab-note-insert-template-dialog/lab-note-insert-template-dialog.component';
 
 export class LabNoteInsertTemplateBlockTuneConfig {
@@ -30,11 +30,14 @@ export class LabNoteInsertTemplateBlockTune extends TeBlockTune {
     const dialogService = this.envInjector.get(FlDialogService);
     const data: LabNoteInsertTemplateDialogData = {
       noteId: this.getConfig().noteId,
-      blockIndex: this.config.api.blocks.getBlockIndex(blockId)
+      blockIndex: this.config.api.blocks.getBlockIndex(blockId),
     };
-    dialogService.openSmallDialog(LabNoteInsertTemplateDialogComponent, {
-      data: data
-    }).afterClosed().subscribe((result) => this.onClosedDialog(result));
+    dialogService
+      .openSmallDialog(LabNoteInsertTemplateDialogComponent, {
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((result) => this.onClosedDialog(result));
   }
 
   private onClosedDialog(content: LabNoteContent): void {
@@ -46,6 +49,4 @@ export class LabNoteInsertTemplateBlockTune extends TeBlockTune {
   private getConfig(): LabNoteInsertTemplateBlockTuneConfig {
     return this.additionalData;
   }
-
-
 }

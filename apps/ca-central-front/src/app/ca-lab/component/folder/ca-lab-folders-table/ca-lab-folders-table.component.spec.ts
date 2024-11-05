@@ -8,9 +8,8 @@ describe('CaLabCaFoldersTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabFoldersTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabFoldersTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabFoldersTableComponent);
     component = fixture.componentInstance;

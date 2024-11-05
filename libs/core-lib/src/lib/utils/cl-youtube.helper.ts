@@ -2,10 +2,8 @@
  * Helper to manager youtube urls
  */
 export class ClYoutubeHelper {
-
   public static readonly youtubeVideoUrl: string = 'https://www.youtube.com/watch?v=';
   public static readonly youtubeEmbedVideoUrl: string = 'https://www.youtube.com/embed/';
-
 
   public static convertToEmbedUrl(url: string): string | null {
     const youtubeVideoId = ClYoutubeHelper.getYoutubeVideoId(url);

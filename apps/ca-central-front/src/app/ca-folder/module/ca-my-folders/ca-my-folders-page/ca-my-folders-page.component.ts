@@ -7,24 +7,24 @@ import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-fold
 @Component({
   selector: 'ca-my-folders-page',
   templateUrl: './ca-my-folders-page.component.html',
-  styleUrls: ['./ca-my-folders-page.component.scss']
+  styleUrls: ['./ca-my-folders-page.component.scss'],
 })
 export class CaMyFoldersPageComponent implements OnInit {
-
   folderDatasource: CaHierarchyObjectDatasource;
 
-  constructor(private folderService: CaFolderService,
-              private folderActionService: CaFolderActionService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private folderActionService: CaFolderActionService
+  ) {}
 
   ngOnInit(): void {
     this.folderDatasource = this.folderService.getMyFoldersDatasource();
   }
 
   openCreateFolderDialog(): void {
-    this.folderActionService.openCreateRootFolderDialog().subscribe(
-      folders => this.onCreateFolderClosed(folders)
-    );
+    this.folderActionService
+      .openCreateRootFolderDialog()
+      .subscribe((folders) => this.onCreateFolderClosed(folders));
   }
 
   private onCreateFolderClosed(folder?: CaFolderWithHierarchy): void {
@@ -34,5 +34,4 @@ export class CaMyFoldersPageComponent implements OnInit {
       this.folderDatasource.addItem(folder.hierarchyRepresentation, () => true);
     }
   }
-
 }

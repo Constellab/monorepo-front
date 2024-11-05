@@ -8,4 +8,3 @@ export * from './component/fl-update-image-container/fl-update-image-container.c
 
 // Directives
 export * from './directive/fl-image-fullscreen/fl-image-fullscreen.directive';
-

@@ -1,27 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
-import {ClYoutubeHelper} from '@monorepo/core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { ClYoutubeHelper } from '@monorepo/core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface TeLinkDialogInput {
   title: string;
 }
 
-
 @Component({
   selector: 'te-link-dialog',
   templateUrl: './te-link-dialog.component.html',
-  styleUrls: ['./te-link-dialog.component.scss']
+  styleUrls: ['./te-link-dialog.component.scss'],
 })
 export class TeLinkDialogComponent implements OnInit {
-
   linkControl: FormControl<string>;
 
   title: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: TeLinkDialogInput,
-              private dialogRef: MatDialogRef<TeLinkDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: TeLinkDialogInput,
+    private dialogRef: MatDialogRef<TeLinkDialogComponent>
+  ) {
     this.title = data.title;
   }
 
@@ -43,7 +42,7 @@ export class TeLinkDialogComponent implements OnInit {
       }
 
       if (!ClYoutubeHelper.isYoutubeVideoOrEmbedUrl(value)) {
-        return {notYoutube: 'teTextEditor.not_youtube_link_error'};
+        return { notYoutube: 'teTextEditor.not_youtube_link_error' };
       }
       return null;
     };

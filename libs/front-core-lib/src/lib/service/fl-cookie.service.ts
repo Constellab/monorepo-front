@@ -1,29 +1,28 @@
-import {Injectable} from '@angular/core';
-import {CookieService} from 'ngx-cookie-service';
-import {FlPlatformService} from './fl-plateform.service';
-import {ClDateHelper} from '@monorepo/core-lib';
-import {FlAcceptanceCookie, FlAcceptanceCookiesConfig, FlCookieOptions} from './model/fl-cookie.class';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {map} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { FlPlatformService } from './fl-plateform.service';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { FlAcceptanceCookie, FlAcceptanceCookiesConfig, FlCookieOptions } from './model/fl-cookie.class';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 /**
  * Service to manage browser cookies.
  *
  * Get, set and delete cookies.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FlCookieService {
-
   private readonly ACCEPTANCE_COOKIE_KEY = 'ACCEPT_COOKIE';
 
-  constructor(private cookieService: CookieService,
-              private platformService: FlPlatformService,
-              private dialog: MatDialog,
-              private snackBar: MatSnackBar) {
-  }
-
+  constructor(
+    private cookieService: CookieService,
+    private platformService: FlPlatformService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   /**
    * Check the cookies acceptances
@@ -42,29 +41,35 @@ export class FlCookieService {
     }
 
     // if we need to ask the permissions
-    if (config.displayMode === 'dialog'){
-      return this.dialog.open(config.component, {
-        hasBackdrop: false
-      }).afterClosed().pipe(
-        map((response: boolean) => {
-          if(response != undefined){
-            this.setCookieAcceptance(config.version, response);
-            return response;
-          }
-          return false;
+    if (config.displayMode === 'dialog') {
+      return this.dialog
+        .open(config.component, {
+          hasBackdrop: false,
         })
-      );
+        .afterClosed()
+        .pipe(
+          map((response: boolean) => {
+            if (response != undefined) {
+              this.setCookieAcceptance(config.version, response);
+              return response;
+            }
+            return false;
+          })
+        );
     } else {
-      return this.snackBar.openFromComponent(config.component, {duration: -1, panelClass: 'g-snackbar-card'}).afterDismissed().pipe(
-        map((value) => {
-          if(value?.dismissedByAction?.valueOf()){
-            this.setCookieAcceptance(config.version, true);
-            return true;
-          }
-          this.setCookieAcceptance(config.version, false);
-          return false;
-        })
-      );
+      return this.snackBar
+        .openFromComponent(config.component, { duration: -1, panelClass: 'g-snackbar-card' })
+        .afterDismissed()
+        .pipe(
+          map((value) => {
+            if (value?.dismissedByAction?.valueOf()) {
+              this.setCookieAcceptance(config.version, true);
+              return true;
+            }
+            this.setCookieAcceptance(config.version, false);
+            return false;
+          })
+        );
     }
   }
 
@@ -77,12 +82,12 @@ export class FlCookieService {
     const acceptanceCookie: FlAcceptanceCookie = {
       choice: choice,
       version: version,
-      date: new Date().getTime()
+      date: new Date().getTime(),
     };
 
     this.setCookie(this.ACCEPTANCE_COOKIE_KEY, acceptanceCookie, {
       expires: this.getDateInOneYear(),
-      sameSite: 'Strict'
+      sameSite: 'Strict',
     });
   }
 
@@ -116,7 +121,11 @@ export class FlCookieService {
    * @param value value of the cookie (will be stringify if needed)
    * @param options options to store the cookie
    */
-  public setCookie(key: string, value: any, options: FlCookieOptions = {sameSite: 'Strict', path: '/'}): void {
+  public setCookie(
+    key: string,
+    value: any,
+    options: FlCookieOptions = { sameSite: 'Strict', path: '/' }
+  ): void {
     if (!this.canAccessCookies()) {
       return;
     }
@@ -129,7 +138,15 @@ export class FlCookieService {
     }
 
     // set the cookie
-    this.cookieService.set(key, cookieValue, options.expires, options.path, options.domain, options.secure, options.sameSite);
+    this.cookieService.set(
+      key,
+      cookieValue,
+      options.expires,
+      options.path,
+      options.domain,
+      options.secure,
+      options.sameSite
+    );
   }
 
   /**
@@ -137,13 +154,12 @@ export class FlCookieService {
    * @param key key of the cookie to delete
    * @param options options to store the cookie
    */
-  public removeCookie(key: string, options: FlCookieOptions = {sameSite: 'Strict', path: '/'}): void {
+  public removeCookie(key: string, options: FlCookieOptions = { sameSite: 'Strict', path: '/' }): void {
     if (!this.canAccessCookies()) {
       return;
     }
     this.cookieService.delete(key, options.path, options.domain, options.secure, options.sameSite);
   }
-
 
   /**
    * Delete all the cookies

@@ -1,18 +1,15 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {CaBrick, CaBrickVersion} from '../model/entities/ca-brick.class';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { CaBrick, CaBrickVersion } from '../model/entities/ca-brick.class';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CaBrickService {
-
   private readonly route = 'bricks';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
-  public getBrickByBrickVersionId(id: string): Observable<CaBrick>{
+  public getBrickByBrickVersionId(id: string): Observable<CaBrick> {
     return this.apiService.get(`${this.route}/brick-version/${id}`, CaBrick);
   }
 

@@ -1,4 +1,4 @@
-import {CaCountryFlagPipe} from './ca-country-flag.pipe';
+import { CaCountryFlagPipe } from './ca-country-flag.pipe';
 
 describe('CaCountryFlagPipe', () => {
   it('create an instance', () => {

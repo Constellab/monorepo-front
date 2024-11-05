@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, Input } from '@angular/core';
-import {TdTypeStyle} from '../../model/td-type.class';
+import { TdTypeStyle } from '../../model/td-type.class';
 
 /**
  * Component to show the icon of a type in a round circle
@@ -8,10 +8,9 @@ import {TdTypeStyle} from '../../model/td-type.class';
   selector: 'td-type-icon-badge',
   templateUrl: './td-type-icon-badge.component.html',
   styleUrl: './td-type-icon-badge.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TdTypeIconBadgeComponent {
-
   style = input.required<TdTypeStyle>();
   iconSize = input.required<number>();
   padding = computed(() => Math.round(this.iconSize() / 4) + 'px');

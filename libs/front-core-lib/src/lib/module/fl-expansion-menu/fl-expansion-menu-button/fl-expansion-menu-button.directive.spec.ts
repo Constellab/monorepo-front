@@ -1,4 +1,4 @@
-import {FlExpansionMenuButtonDirective} from './fl-expansion-menu-button.directive';
+import { FlExpansionMenuButtonDirective } from './fl-expansion-menu-button.directive';
 
 describe('FlExpansionMenuButtonDirective', () => {
   it('should create an instance', () => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkNodeLayoutComponent} from './bn-bio-network-node-layout.component';
+import { BnBioNetworkNodeLayoutComponent } from './bn-bio-network-node-layout.component';
 
 describe('BnBioNetworkNodeSaveComponent', () => {
   let component: BnBioNetworkNodeLayoutComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkNodeSaveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkNodeLayoutComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkNodeLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BnBioNetworkNodeLayoutComponent);
     component = fixture.componentInstance;

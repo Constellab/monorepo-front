@@ -1,10 +1,9 @@
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 /**
  * Class to handle multiple subscription and be able to unsubscribe
  */
 export class ClSubscriptionHandler {
-
   private subscriptions: Subscription[];
 
   constructor(subscription?: Subscription | Subscription[]) {
@@ -34,5 +33,4 @@ export class ClSubscriptionHandler {
     }
     this.subscriptions = [];
   }
-
 }

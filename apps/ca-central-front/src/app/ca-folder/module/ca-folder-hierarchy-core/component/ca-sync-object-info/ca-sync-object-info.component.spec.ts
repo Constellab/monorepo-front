@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSyncObjectInfoComponent} from './ca-sync-object-info.component';
+import { CaSyncObjectInfoComponent } from './ca-sync-object-info.component';
 
 describe('CaSyncObjectInfoComponent', () => {
   let component: CaSyncObjectInfoComponent;
@@ -8,9 +8,8 @@ describe('CaSyncObjectInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSyncObjectInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSyncObjectInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

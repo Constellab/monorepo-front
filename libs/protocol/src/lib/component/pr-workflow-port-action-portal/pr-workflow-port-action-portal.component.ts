@@ -8,8 +8,8 @@ export interface PrWorkflowPortActionPortalInput {
   // provide if the port is an interface or an outerface
   ioface?: {
     name: string;
-    type : 'interface' | 'outerface';
-  }
+    type: 'interface' | 'outerface';
+  };
 }
 
 /**
@@ -18,14 +18,12 @@ export interface PrWorkflowPortActionPortalInput {
 @Component({
   selector: 'pr-workflow-port-action-portal',
   templateUrl: './pr-workflow-port-action-portal.component.html',
-  styleUrls: ['./pr-workflow-port-action-portal.component.scss']
+  styleUrls: ['./pr-workflow-port-action-portal.component.scss'],
 })
 export class PrWorkflowPortActionPortalComponent {
-
   data: PrWorkflowPortActionPortalInput = inject(FL_PORTAL_DATA);
 
-  constructor(private overlayRef: FlOverlayRef) {
-  }
+  constructor(private overlayRef: FlOverlayRef) {}
 
   closePortal(): void {
     this.overlayRef.dispose();

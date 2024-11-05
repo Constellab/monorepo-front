@@ -13,7 +13,7 @@ import {
   PrWorkflowNodeInterface,
   PrWorkflowNodeOuterface,
   PrWorkflowNodeProcess,
-  PrWorkflowNodeProtocol
+  PrWorkflowNodeProtocol,
 } from '@monorepo/protocol';
 import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
@@ -27,7 +27,7 @@ import {
   FlPortalActionsService,
   FlSnackBarService,
   FlTranslatableText,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
@@ -37,7 +37,7 @@ import { map } from 'rxjs/operators';
 import {
   LabNavigableCallActionResult,
   LabNavigableEntityService,
-  LabNavigableImpactConfig
+  LabNavigableImpactConfig,
 } from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
 
 export enum LabWorkflowAction {
@@ -71,140 +71,161 @@ export interface LabWorkflowEventBasicAdditionalInfo {
   protocolId: string;
 }
 
-
 @Injectable()
 export class LabWorkflowEditConfig implements OnDestroy {
-
   private workflow: PrWorkflow;
 
   private actionSubscription: Subscription;
   private workflowSubscription: Subscription;
 
-  constructor(private protocolService: LabProtocolService,
-              private actionsService: FlPortalActionsService,
-              private snackBarService: FlSnackBarService,
-              private workflowFactory: LabWorkflowFactory,
-              private scenarioState: LabScenarioDetailPageState,
-              private dialogService: FlDialogService,
-              private labNavigableService: LabNavigableEntityService,
-              private translateService: FlTranslateService) {
-
+  constructor(
+    private protocolService: LabProtocolService,
+    private actionsService: FlPortalActionsService,
+    private snackBarService: FlSnackBarService,
+    private workflowFactory: LabWorkflowFactory,
+    private scenarioState: LabScenarioDetailPageState,
+    private dialogService: FlDialogService,
+    private labNavigableService: LabNavigableEntityService,
+    private translateService: FlTranslateService
+  ) {
     // listen to the new Process actions
-    this.actionSubscription = this.getAllActions$().subscribe(
-      result => this.onLabWorkflowActionResult(result)
+    this.actionSubscription = this.getAllActions$().subscribe((result) =>
+      this.onLabWorkflowActionResult(result)
     );
   }
 
   public init(workflow: PrWorkflow): void {
     this.workflow = workflow;
-    workflow.getWorkflowEvent$().subscribe(
-      event => this.onWorkflowEvent(event)
-    );
+    workflow.getWorkflowEvent$().subscribe((event) => this.onWorkflowEvent(event));
   }
-
 
   ////////////////////////////// ACTIONS CALL BY LAB APP //////////////////////////////
 
   public addNode(typingName: string, processName: string): void {
     const obs = this.protocolService.addProcessToProtocol(this.workflow.currentLayer.id, typingName);
-    this.addProcessAction(obs,
-      {
-        text: 'pr.adding_process', translateText: true,
-        translateParam: { param: { processName: processName } }
-      });
+    this.addProcessAction(obs, {
+      text: 'pr.adding_process',
+      translateText: true,
+      translateParam: { param: { processName: processName } },
+    });
   }
 
   public addScenarioTemplate(scenarioTemplateId: string, scenarioTemplateName: string): void {
-    const obs = this.protocolService.addScenarioTemplateToProtocol(this.workflow.currentLayer.id, scenarioTemplateId);
-    this.addProcessAction(obs,
-      {
-        text: 'pr.adding_process', translateText: true,
-        translateParam: { param: { processName: scenarioTemplateName } }
-      });
+    const obs = this.protocolService.addScenarioTemplateToProtocol(
+      this.workflow.currentLayer.id,
+      scenarioTemplateId
+    );
+    this.addProcessAction(obs, {
+      text: 'pr.adding_process',
+      translateText: true,
+      translateParam: { param: { processName: scenarioTemplateName } },
+    });
   }
 
   public duplicateProcess(processInstanceName: string, processName: string): void {
-    const obs = this.protocolService.addDuplicateProcessToProtocol(this.workflow.currentLayer.id, processInstanceName);
-    this.addProcessAction(obs,
-      {
-        text: 'pr.duplicating_process', translateText: true,
-        translateParam: { param: { processName: processName } }
-      });
+    const obs = this.protocolService.addDuplicateProcessToProtocol(
+      this.workflow.currentLayer.id,
+      processInstanceName
+    );
+    this.addProcessAction(obs, {
+      text: 'pr.duplicating_process',
+      translateText: true,
+      translateParam: { param: { processName: processName } },
+    });
   }
 
   public addCommunityAgent(agentVersionId: string, agentTitle: string): void {
-    const obs = this.protocolService.addCommunityAgentToProtocol(this.workflow.currentLayer.id, agentVersionId);
-    this.addProcessAction(obs,
-      {
-        text: 'pr.adding_community_agent', translateText: true,
-        translateParam: { param: { processName: agentTitle } }
-      });
+    const obs = this.protocolService.addCommunityAgentToProtocol(
+      this.workflow.currentLayer.id,
+      agentVersionId
+    );
+    this.addProcessAction(obs, {
+      text: 'pr.adding_community_agent',
+      translateText: true,
+      translateParam: { param: { processName: agentTitle } },
+    });
   }
 
   public addSource(resourceId: string, resourceName: string): void {
     const obs = this.protocolService.addSource(this.workflow.currentLayer.id, resourceId);
 
-    this.addProcessAction(obs,
-      {
-        text: 'pr.adding_source', translateText: true,
-        translateParam: { param: { resourceName: resourceName } }
-      });
+    this.addProcessAction(obs, {
+      text: 'pr.adding_source',
+      translateText: true,
+      translateParam: { param: { resourceName: resourceName } },
+    });
   }
 
-  public addSourceToProcessInput(resourceId: string, processNodeName: string, inputPortName: string,
-                                 resourceName: string): void {
+  public addSourceToProcessInput(
+    resourceId: string,
+    processNodeName: string,
+    inputPortName: string,
+    resourceName: string
+  ): void {
     const obs = this.protocolService.addSourceToProcessInput(
-      this.workflow.currentLayer.id, resourceId, processNodeName, inputPortName);
-    this.addProcessWithLinkAction(
-      obs,
+      this.workflow.currentLayer.id,
+      resourceId,
       processNodeName,
-      'before',
-      {
-        text: 'pr.adding_source', translateText: true,
-        translateParam: { param: { resourceName: resourceName } }
-      });
+      inputPortName
+    );
+    this.addProcessWithLinkAction(obs, processNodeName, 'before', {
+      text: 'pr.adding_source',
+      translateText: true,
+      translateParam: { param: { resourceName: resourceName } },
+    });
   }
 
   public addTaskOutput(processNodeName: string, outputPortName: string): void {
-    const obs = this.protocolService.addTaskOutput(this.workflow.currentLayer.id, processNodeName, outputPortName);
-
-    this.addProcessWithLinkAction(
-      obs,
+    const obs = this.protocolService.addTaskOutput(
+      this.workflow.currentLayer.id,
       processNodeName,
-      'after',
-      {
-        text: 'pr.adding_output', translateText: true
-      });
+      outputPortName
+    );
+
+    this.addProcessWithLinkAction(obs, processNodeName, 'after', {
+      text: 'pr.adding_output',
+      translateText: true,
+    });
   }
 
-  public addProcessConnectedToOutput(processTypingName: string, processHumanName: string,
-                                     outputProcessName: string, outputPortName: string): void {
+  public addProcessConnectedToOutput(
+    processTypingName: string,
+    processHumanName: string,
+    outputProcessName: string,
+    outputPortName: string
+  ): void {
     const processWithLink$ = this.protocolService.addProcessConnectedToOutput(
-      this.workflow.currentLayer.id, processTypingName, outputProcessName, outputPortName);
-
-    this.addProcessWithLinkAction(
-      processWithLink$,
+      this.workflow.currentLayer.id,
+      processTypingName,
       outputProcessName,
-      'after',
-      {
-        text: 'pr.adding_process', translateText: true,
-        translateParam: { param: { processName: processHumanName } }
-      });
+      outputPortName
+    );
+
+    this.addProcessWithLinkAction(processWithLink$, outputProcessName, 'after', {
+      text: 'pr.adding_process',
+      translateText: true,
+      translateParam: { param: { processName: processHumanName } },
+    });
   }
 
-  public addProcessConnectedToInput(processTypingName: string, processHumanName: string,
-                                    inputProcessName: string, inputPortName: string): void {
+  public addProcessConnectedToInput(
+    processTypingName: string,
+    processHumanName: string,
+    inputProcessName: string,
+    inputPortName: string
+  ): void {
     const processWithLink$ = this.protocolService.addProcessConnectedToInput(
-      this.workflow.currentLayer.id, processTypingName, inputProcessName, inputPortName);
-
-    this.addProcessWithLinkAction(
-      processWithLink$,
+      this.workflow.currentLayer.id,
+      processTypingName,
       inputProcessName,
-      'before',
-      {
-        text: 'pr.adding_process', translateText: true,
-        translateParam: { param: { processName: processHumanName } }
-      });
+      inputPortName
+    );
+
+    this.addProcessWithLinkAction(processWithLink$, inputProcessName, 'before', {
+      text: 'pr.adding_process',
+      translateText: true,
+      translateParam: { param: { processName: processHumanName } },
+    });
   }
 
   // create the action to add a process
@@ -216,23 +237,25 @@ export class LabWorkflowEditConfig implements OnDestroy {
       // create the process in the API and get the process
       action: process$,
       additionalInformation: {
-        protocolId: this.workflow.currentLayer.id
-      } as LabWorkflowEventBasicAdditionalInfo
+        protocolId: this.workflow.currentLayer.id,
+      } as LabWorkflowEventBasicAdditionalInfo,
     };
 
     this.executeUpdateAction(action, null);
   }
 
   // create the action to add a process with a link
-  private addProcessWithLinkAction(processWithLink$: Observable<LabProtocolUpdateDTO>,
-                                   processNodeName: string,
-                                   newProcessPosition: 'before' | 'after',
-                                   actionText: FlTranslatableText): void {
+  private addProcessWithLinkAction(
+    processWithLink$: Observable<LabProtocolUpdateDTO>,
+    processNodeName: string,
+    newProcessPosition: 'before' | 'after',
+    actionText: FlTranslatableText
+  ): void {
     // relative coord to place the source node before the process
     const relativeCoord: PrNodeRelativeCoord = {
       nodeName: processNodeName,
       position: newProcessPosition,
-      layerId: this.workflow.currentLayer.id
+      layerId: this.workflow.currentLayer.id,
     };
     // create an action to add this process
     const action: FlPortalAction = {
@@ -240,7 +263,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
       type: LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS,
       // create the process in the API and get the process
       action: processWithLink$,
-      additionalInformation: relativeCoord
+      additionalInformation: relativeCoord,
     };
 
     let process: PrProcess = null;
@@ -260,14 +283,17 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: { text: 'pr.adding_empty_protocol', translateText: true },
       additionalInformation: {
-        protocolId: protocolId
-      } as LabWorkflowEventBasicAdditionalInfo
+        protocolId: protocolId,
+      } as LabWorkflowEventBasicAdditionalInfo,
     };
     return this.executeUpdateAction(action, null);
   }
 
-  public updateProcessConfig(protocolId: string, processInstanceName: string,
-                             config: PrConfigValues): Observable<FlPortalActionResult | null> {
+  public updateProcessConfig(
+    protocolId: string,
+    processInstanceName: string,
+    config: PrConfigValues
+  ): Observable<FlPortalActionResult | null> {
     const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
     if (labProcess == null) return of(null);
 
@@ -275,7 +301,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const action: FlPortalAction = {
       type: LabWorkflowAction.UPDATE_PROCESS_CONFIG,
       action: obs,
-      text: { text: 'biox.saving_config', translateText: true }
+      text: { text: 'biox.saving_config', translateText: true },
     };
     return this.executeUpdateAction(action, labProcess);
   }
@@ -288,18 +314,22 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const action: FlPortalAction = {
       type: LabWorkflowAction.RUN_PROCESS,
       action: obs,
-      text: { text: 'biox.running_process', translateText: true }
+      text: { text: 'biox.running_process', translateText: true },
     };
     this.executeUpdateAction(action, labProcess);
   }
 
   public resetProcess(protocolId: string, processInstanceName: string): void {
-    const obs = this.callResetProcess(protocolId, processInstanceName,
-      'biox.reset_process', 'biox.reset_process_confirmation');
+    const obs = this.callResetProcess(
+      protocolId,
+      processInstanceName,
+      'biox.reset_process',
+      'biox.reset_process_confirmation'
+    );
     const action: FlPortalAction = {
       type: LabWorkflowAction.RESET_PROCESS,
       action: obs,
-      text: { text: 'biox.resetting_process', translateText: true }
+      text: { text: 'biox.resetting_process', translateText: true },
     };
     this.actionsService.addAction(action, true);
   }
@@ -308,59 +338,68 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.modifyDynamicPort(
       this.protocolService.createDynamicInputPort(node.parentLayerId, node.instanceName),
       node,
-      'biox.adding_input_port');
+      'biox.adding_input_port'
+    );
   }
 
   public addDynamicOutputPort(node: PrWorkflowNodeProcess): void {
     this.modifyDynamicPort(
       this.protocolService.createDynamicOutputPort(node.parentLayerId, node.instanceName),
       node,
-      'biox.adding_output_port');
+      'biox.adding_output_port'
+    );
   }
-
 
   public removeDynamicInputPort(node: PrWorkflowNodeProcess, portName: string): void {
     this.modifyDynamicPort(
       this.protocolService.deleteDynamicInputPort(node.parentLayerId, node.instanceName, portName),
       node,
-      'biox.removing_input_port');
+      'biox.removing_input_port'
+    );
   }
 
   public removeDynamicOutputPort(node: PrWorkflowNodeProcess, portName: string): void {
     this.modifyDynamicPort(
       this.protocolService.deleteDynamicOutputPort(node.parentLayerId, node.instanceName, portName),
       node,
-      'biox.removing_output_port');
+      'biox.removing_output_port'
+    );
   }
-
 
   public updateDynamicInputPort(node: PrWorkflowNodeProcess, portName: string, spec: TdIOSpec): void {
     this.modifyDynamicPort(
       this.protocolService.updateDynamicInputPort(node.parentLayerId, node.instanceName, portName, spec),
       node,
-      'biox.configuring_port');
+      'biox.configuring_port'
+    );
   }
 
   public updateDynamicOutputPort(node: PrWorkflowNodeProcess, portName: string, spec: TdIOSpec): void {
     this.modifyDynamicPort(
       this.protocolService.updateDynamicOutputPort(node.parentLayerId, node.instanceName, portName, spec),
       node,
-      'biox.configuring_port');
+      'biox.configuring_port'
+    );
   }
 
-  private modifyDynamicPort(obs: Observable<LabProtocolUpdateDTO>, node: PrWorkflowNodeProcess,
-                            text: string): void {
+  private modifyDynamicPort(
+    obs: Observable<LabProtocolUpdateDTO>,
+    node: PrWorkflowNodeProcess,
+    text: string
+  ): void {
     const action: FlPortalAction = {
       type: LabWorkflowAction.MODIFY_DYNAMIC_PORT,
       action: obs,
-      text: { text: text, translateText: true }
+      text: { text: text, translateText: true },
     };
 
     this.executeUpdateAction(action, node.currentObject);
   }
 
-  public addInterface(processInstanceName: string,
-                      portName: string): Observable<FlPortalActionResult | null> {
+  public addInterface(
+    processInstanceName: string,
+    portName: string
+  ): Observable<FlPortalActionResult | null> {
     const protocolId = this.workflow.currentLayer.id;
     const obs = this.protocolService.addInterface(protocolId, processInstanceName, portName);
     const action: FlPortalAction = {
@@ -368,14 +407,16 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: { text: 'pr.adding_interface', translateText: true },
       additionalInformation: {
-        protocolId: protocolId
-      } as LabWorkflowEventBasicAdditionalInfo
+        protocolId: protocolId,
+      } as LabWorkflowEventBasicAdditionalInfo,
     };
     return this.addIoFace(action, protocolId, processInstanceName);
   }
 
-  public addOuterface(processInstanceName: string,
-                      portName: string): Observable<FlPortalActionResult | null> {
+  public addOuterface(
+    processInstanceName: string,
+    portName: string
+  ): Observable<FlPortalActionResult | null> {
     const protocolId = this.workflow.currentLayer.id;
     const obs = this.protocolService.addOuterface(protocolId, processInstanceName, portName);
     const action: FlPortalAction = {
@@ -383,15 +424,19 @@ export class LabWorkflowEditConfig implements OnDestroy {
       action: obs,
       text: { text: 'pr.adding_outerface', translateText: true },
       additionalInformation: {
-        protocolId: protocolId
-      } as LabWorkflowEventBasicAdditionalInfo
+        protocolId: protocolId,
+      } as LabWorkflowEventBasicAdditionalInfo,
     };
 
     return this.addIoFace(action, protocolId, processInstanceName);
   }
 
-  private addIoFace(action: FlPortalAction, protocolId: string, processInstanceName: string): Observable<FlPortalActionResult | null> {
-    if(this.workflow.currentLayer.isRootLayer()){
+  private addIoFace(
+    action: FlPortalAction,
+    protocolId: string,
+    processInstanceName: string
+  ): Observable<FlPortalActionResult | null> {
+    if (this.workflow.currentLayer.isRootLayer()) {
       console.error('Cannot add IOFace to root layer');
       return of(null);
     }
@@ -400,8 +445,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
     // find the PrProcess object corresponding to current protocol using parent
     // to reset the protocol
-    const protocolNode = this.getAndCheckProcessNodeObject(this.workflow.currentLayer.parentLayer.id,
-      this.workflow.currentLayer.instanceName);
+    const protocolNode = this.getAndCheckProcessNodeObject(
+      this.workflow.currentLayer.parentLayer.id,
+      this.workflow.currentLayer.instanceName
+    );
     return this.executeUpdateAction(action, protocolNode);
   }
 
@@ -419,15 +466,12 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   private saveNodePosition(node: PrWorkflowNode, protocolId: string): void {
     if (node instanceof PrWorkflowNodeInterface) {
-      this.protocolService.saveInterfaceLayout(protocolId, node.interfaceName,
-        node.getCoords()).subscribe();
+      this.protocolService.saveInterfaceLayout(protocolId, node.interfaceName, node.getCoords()).subscribe();
     } else if (node instanceof PrWorkflowNodeOuterface) {
-      this.protocolService.saveOuterfaceLayout(protocolId, node.outerfaceName,
-        node.getCoords()).subscribe();
+      this.protocolService.saveOuterfaceLayout(protocolId, node.outerfaceName, node.getCoords()).subscribe();
     } else {
       // save the node positions
-      this.protocolService.saveProcessLayout(protocolId, node.instanceName,
-        node.getCoords()).subscribe();
+      this.protocolService.saveProcessLayout(protocolId, node.instanceName, node.getCoords()).subscribe();
     }
   }
 
@@ -440,8 +484,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.saveNodePosition(node, layerId);
   }
 
-  private onNewNodeWithConnector(processWithLink: PrAddNodeWithConnection, relativeCoord: PrNodeRelativeCoord): void {
-
+  private onNewNodeWithConnector(
+    processWithLink: PrAddNodeWithConnection,
+    relativeCoord: PrNodeRelativeCoord
+  ): void {
     // add the node to the workflow
     const layer: PrWorkflowLayer = this.workflow.findLayerById(relativeCoord.layerId);
 
@@ -455,8 +501,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     layer.addPrConnection(processWithLink.connection);
   }
 
-  private onNewIoFace(layerId: string, ioface: PrProtocolIntOut,
-                      mode: 'interface' | 'outerface'): void {
+  private onNewIoFace(layerId: string, ioface: PrProtocolIntOut, mode: 'interface' | 'outerface'): void {
     if (!ioface) return;
     // add the node to the workflow
     const layer: PrWorkflowLayer = this.workflow.findLayerById(layerId);
@@ -468,8 +513,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
     }
   }
 
-
-  private executeUpdateAction(action: FlPortalAction, process: PrProcess): Observable<FlPortalActionResult | null> {
+  private executeUpdateAction(
+    action: FlPortalAction,
+    process: PrProcess
+  ): Observable<FlPortalActionResult | null> {
     let dialogInput: FlConfirmDialogInput;
 
     // if the action is not attached to a node
@@ -477,7 +524,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     if (!process && this.scenarioState.currentScenario.isFinished()) {
       dialogInput = {
         title: 'biox.update_finished_scenario',
-        content: 'biox.update_finished_scenario_confirmation'
+        content: 'biox.update_finished_scenario_confirmation',
       };
 
       const resetObs = this.dialogService.openConfirmDialog(dialogInput).afterClosed();
@@ -494,15 +541,19 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
       // if the action is attached to an existing node
       // we check if this is a finished process
-    } else if (process && !this.scenarioState.currentScenario.isDraft() &&
-      PrProcessStatusHelper.wasRun(process.status.value)) {
-
-      const resetObs = this.callResetProcess(process.parentProtocolId, process.instanceName,
-        'biox.update_finished_process', 'biox.update_finished_process_confirmation');
-      const actionObs = action.action;
-      action.action = resetObs.pipe(
-        switchMap(() => actionObs)
+    } else if (
+      process &&
+      !this.scenarioState.currentScenario.isDraft() &&
+      PrProcessStatusHelper.wasRun(process.status.value)
+    ) {
+      const resetObs = this.callResetProcess(
+        process.parentProtocolId,
+        process.instanceName,
+        'biox.update_finished_process',
+        'biox.update_finished_process_confirmation'
       );
+      const actionObs = action.action;
+      action.action = resetObs.pipe(switchMap(() => actionObs));
     }
     return this.actionsService.addAction(action, true);
   }
@@ -513,51 +564,52 @@ export class LabWorkflowEditConfig implements OnDestroy {
    * If the reset needs a force reset, open the force reset dialog and then return the reset result
    * @private
    */
-  private callResetProcess(protocolId: string, processInstanceName: string, title: string, noImpactConfirmText: string):
-    Observable<LabNavigableCallActionResult<LabProtocolUpdateDTO>> {
-
+  private callResetProcess(
+    protocolId: string,
+    processInstanceName: string,
+    title: string,
+    noImpactConfirmText: string
+  ): Observable<LabNavigableCallActionResult<LabProtocolUpdateDTO>> {
     const updateFinishedProcess = this.translateService.translate(noImpactConfirmText);
-    const resetProcessImpact = this.translateService.translate('biox.scenario_ressource_used_after',
-      { param: { title: this.scenarioState.currentScenario.title } });
+    const resetProcessImpact = this.translateService.translate('biox.scenario_ressource_used_after', {
+      param: { title: this.scenarioState.currentScenario.title },
+    });
 
     const impactData: LabNavigableImpactConfig = {
       title: { text: title, translateText: true },
       confirmImpactConfirmText: {
         text: `<p>${updateFinishedProcess}</p><p>${resetProcessImpact}</p>`,
-        translateText: false
+        translateText: false,
       },
       noImpactConfirmText: { text: noImpactConfirmText, translateText: true },
       checkImpact: () => this.protocolService.checkImpactForProcessReset(protocolId, processInstanceName),
-      callAction: () => this.protocolService.resetProcessInProtocol(protocolId, processInstanceName).pipe(
-        // on reset result, refresh the protocol, the process will be refreshed by the event
-        // we need the protocol here because the next request (like configure process) might not refresh the protocol
-        tap((result: LabProtocolUpdateDTO) => {
-          if (result.protocolUpdated && result.protocol) {
-            this.scenarioState.refreshProtocolAndOthers(result.protocol);
-          }
-        })
-      )
+      callAction: () =>
+        this.protocolService.resetProcessInProtocol(protocolId, processInstanceName).pipe(
+          // on reset result, refresh the protocol, the process will be refreshed by the event
+          // we need the protocol here because the next request (like configure process) might not refresh the protocol
+          tap((result: LabProtocolUpdateDTO) => {
+            if (result.protocolUpdated && result.protocol) {
+              this.scenarioState.refreshProtocolAndOthers(result.protocol);
+            }
+          })
+        ),
     };
 
     return this.labNavigableService.callImpactMethod(impactData).pipe(
-      map(
-        resetResult => {
-          // if the reset was canceled or failed, throw an error
-          if (resetResult == null || !resetResult.success) {
-            throw new Error('Cancel');
-          }
-
-          return resetResult.result;
+      map((resetResult) => {
+        // if the reset was canceled or failed, throw an error
+        if (resetResult == null || !resetResult.success) {
+          throw new Error('Cancel');
         }
-      )
+
+        return resetResult.result;
+      })
     );
   }
-
 
   /////////////////////////////////////////////// HANDLING WORKFLOW EVENTS ///////////////////////////////////////////////
 
   private onWorkflowEvent(workflowEvent: PrWorkflowEvent): void {
-
     let portalAction: FlPortalAction;
     let process: PrProcess;
 
@@ -567,7 +619,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
         const additionalInfo: LabWorkflowEventNodeAdditionalInfo = {
           protocolId: workflowEvent.protocolId,
           node: workflowEvent.node,
-          connections: workflowEvent.connections
+          connections: workflowEvent.connections,
         };
 
         if (node instanceof PrWorkflowNodeInterface) {
@@ -576,10 +628,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_interface',
               translateText: true,
-              translateParam: { param: { name: node.getCurrentTitle() } }
+              translateParam: { param: { name: node.getCurrentTitle() } },
             },
             action: this.protocolService.deleteInterface(workflowEvent.protocolId, node.interfaceName),
-            additionalInformation: additionalInfo
+            additionalInformation: additionalInfo,
           };
         } else if (node instanceof PrWorkflowNodeOuterface) {
           portalAction = {
@@ -587,10 +639,10 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_outerface',
               translateText: true,
-              translateParam: { param: { name: node.getCurrentTitle() } }
+              translateParam: { param: { name: node.getCurrentTitle() } },
             },
             action: this.protocolService.deleteOuterface(workflowEvent.protocolId, node.outerfaceName),
-            additionalInformation: additionalInfo
+            additionalInformation: additionalInfo,
           };
         } else {
           process = node.currentObject;
@@ -599,17 +651,23 @@ export class LabWorkflowEditConfig implements OnDestroy {
             text: {
               text: 'pr.deleting_process',
               translateText: true,
-              translateParam: { param: { processName: node.getCurrentTitle() } }
+              translateParam: { param: { processName: node.getCurrentTitle() } },
             },
-            action: this.protocolService.deleteProcessInProtocol(workflowEvent.protocolId, workflowEvent.node.instanceName),
-            additionalInformation: additionalInfo
+            action: this.protocolService.deleteProcessInProtocol(
+              workflowEvent.protocolId,
+              workflowEvent.node.instanceName
+            ),
+            additionalInformation: additionalInfo,
           };
         }
         break;
-      case 'addConnection' :
-      case 'deleteConnection' :
+      case 'addConnection':
+      case 'deleteConnection':
         if (workflowEvent.connection.isIOFaceConnection()) {
-          this.snackBarService.openErrorMessage({ text: 'pr.delete_link_interface_error', translateText: true });
+          this.snackBarService.openErrorMessage({
+            text: 'pr.delete_link_interface_error',
+            translateText: true,
+          });
           // re-create the connection
           const layer = this.workflow.findLayerById(workflowEvent.protocolId);
           layer.addConnection(workflowEvent.connection);
@@ -618,7 +676,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
         const additionalInformation: LabWorkflowEventConnectionAdditionalInfo = {
           protocolId: workflowEvent.protocolId,
-          connection: workflowEvent.connection
+          connection: workflowEvent.connection,
         };
 
         // associate the right process of the connection for the action
@@ -629,27 +687,29 @@ export class LabWorkflowEditConfig implements OnDestroy {
             type: LabWorkflowAction.ADD_CONNECTION,
             text: {
               text: 'pr.adding_connection',
-              translateText: true
+              translateText: true,
             },
-            action: this.protocolService.addConnection(
-              workflowEvent.protocolId, {
-                input_port_name: workflowEvent.connection.inputPort.name,
-                input_process_name: workflowEvent.connection.inputNode.instanceName,
-                output_port_name: workflowEvent.connection.outputPort.name,
-                output_process_name: workflowEvent.connection.outputNode.instanceName
-              }),
-            additionalInformation: additionalInformation
+            action: this.protocolService.addConnection(workflowEvent.protocolId, {
+              input_port_name: workflowEvent.connection.inputPort.name,
+              input_process_name: workflowEvent.connection.inputNode.instanceName,
+              output_port_name: workflowEvent.connection.outputPort.name,
+              output_process_name: workflowEvent.connection.outputNode.instanceName,
+            }),
+            additionalInformation: additionalInformation,
           };
         } else {
           portalAction = {
             type: LabWorkflowAction.DELETE_CONNECTION,
             text: {
               text: 'pr.deleting_connection',
-              translateText: true
+              translateText: true,
             },
-            action: this.protocolService.deleteConnection(workflowEvent.protocolId,
-              workflowEvent.connection.inputNode.instanceName, workflowEvent.connection.inputPort.name),
-            additionalInformation: additionalInformation
+            action: this.protocolService.deleteConnection(
+              workflowEvent.protocolId,
+              workflowEvent.connection.inputNode.instanceName,
+              workflowEvent.connection.inputPort.name
+            ),
+            additionalInformation: additionalInformation,
           };
         }
         break;
@@ -660,7 +720,6 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
     this.executeUpdateAction(portalAction, process);
   }
-
 
   ////////////////////////////////////////////////// LAB WORKFLOW ACTIONS /////////////////////////////////////////////////
 
@@ -673,17 +732,25 @@ export class LabWorkflowEditConfig implements OnDestroy {
    */
   private onLabWorkflowActionResult(actionResult: FlPortalActionResult<LabProtocolUpdateDTO>): void {
     if (actionResult.status === 'error') {
-      this.revertWorkflowEvent(actionResult.action.type as LabWorkflowAction, actionResult.additionalInformation);
+      this.revertWorkflowEvent(
+        actionResult.action.type as LabWorkflowAction,
+        actionResult.additionalInformation
+      );
       return;
     }
 
     // success
     if (actionResult.action.type === LabWorkflowAction.ADD_PROCESS) {
       const node = this.workflowFactory.labProcessToWorkflowNode(actionResult.result.process);
-      this.onNewNode(node, (actionResult.additionalInformation as LabWorkflowEventBasicAdditionalInfo).protocolId);
+      this.onNewNode(
+        node,
+        (actionResult.additionalInformation as LabWorkflowEventBasicAdditionalInfo).protocolId
+      );
     } else if (actionResult.action.type === LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS) {
-      const processWithLink = this.workflowFactory.labProcessWithLinkToNodeWithLink(actionResult.result.process,
-        actionResult.result.link);
+      const processWithLink = this.workflowFactory.labProcessWithLinkToNodeWithLink(
+        actionResult.result.process,
+        actionResult.result.link
+      );
       this.onNewNodeWithConnector(processWithLink, actionResult.additionalInformation);
     } else if (actionResult.action.type === LabWorkflowAction.DELETE_PROCESS) {
       // clear the node observable, if the deletion worked
@@ -696,15 +763,18 @@ export class LabWorkflowEditConfig implements OnDestroy {
       // clear interface and outerface
       const layer = this.workflow.findLayerById(info.protocolId);
       layer.removeDanglingIOFaces();
-    } else if (actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ||
-      actionResult.action.type === LabWorkflowAction.ADD_OUTERFACE) {
+    } else if (
+      actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ||
+      actionResult.action.type === LabWorkflowAction.ADD_OUTERFACE
+    ) {
       const info: LabWorkflowEventBasicAdditionalInfo = actionResult.additionalInformation;
-      this.onNewIoFace(info.protocolId, actionResult.result.ioface,
-        actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ? 'interface' : 'outerface');
-
+      this.onNewIoFace(
+        info.protocolId,
+        actionResult.result.ioface,
+        actionResult.action.type === LabWorkflowAction.ADD_INTERFACE ? 'interface' : 'outerface'
+      );
     }
     this.refreshProtocolAndParent(actionResult.result);
-
   }
 
   private revertWorkflowEvent(actionType: LabWorkflowAction, additionalInfo: any): void {
@@ -717,8 +787,13 @@ export class LabWorkflowEditConfig implements OnDestroy {
       const info: LabWorkflowEventConnectionAdditionalInfo = additionalInfo;
       const layer = this.workflow.findLayerById(info.protocolId);
       layer.removeConnection(info.connection);
-    } else if ([LabWorkflowAction.DELETE_PROCESS, LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE]
-      .includes(actionType)) {
+    } else if (
+      [
+        LabWorkflowAction.DELETE_PROCESS,
+        LabWorkflowAction.DELETE_INTERFACE,
+        LabWorkflowAction.DELETE_OUTERFACE,
+      ].includes(actionType)
+    ) {
       // re-create the node and connection
       const info: LabWorkflowEventNodeAdditionalInfo = additionalInfo;
 
@@ -735,19 +810,25 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   public getAllActions$(): Observable<FlPortalActionResult> {
     return this.actionsService.getResult$([
-      LabWorkflowAction.ADD_PROCESS, LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS,
+      LabWorkflowAction.ADD_PROCESS,
+      LabWorkflowAction.ADD_PROCESS_WITH_CONNECTIONS,
       LabWorkflowAction.DELETE_PROCESS,
-      LabWorkflowAction.DELETE_INTERFACE, LabWorkflowAction.DELETE_OUTERFACE,
-      LabWorkflowAction.DELETE_CONNECTION, LabWorkflowAction.ADD_CONNECTION,
-      LabWorkflowAction.UPDATE_PROCESS_CONFIG, LabWorkflowAction.RESET_PROCESS,
-      LabWorkflowAction.MODIFY_DYNAMIC_PORT, LabWorkflowAction.RUN_PROCESS,
-      LabWorkflowAction.ADD_INTERFACE, LabWorkflowAction.ADD_OUTERFACE]);
+      LabWorkflowAction.DELETE_INTERFACE,
+      LabWorkflowAction.DELETE_OUTERFACE,
+      LabWorkflowAction.DELETE_CONNECTION,
+      LabWorkflowAction.ADD_CONNECTION,
+      LabWorkflowAction.UPDATE_PROCESS_CONFIG,
+      LabWorkflowAction.RESET_PROCESS,
+      LabWorkflowAction.MODIFY_DYNAMIC_PORT,
+      LabWorkflowAction.RUN_PROCESS,
+      LabWorkflowAction.ADD_INTERFACE,
+      LabWorkflowAction.ADD_OUTERFACE,
+    ]);
   }
 
   public getActions$(actions: LabWorkflowAction[]): Observable<FlPortalActionResult> {
     return this.actionsService.getResult$(actions);
   }
-
 
   /////////////////////////////////////////////// OTHER ///////////////////////////////////////////////
   // call after an update action has been performed to check if the protocol has been updated
@@ -770,6 +851,4 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.workflowSubscription?.unsubscribe();
     this.actionSubscription?.unsubscribe();
   }
-
-
 }

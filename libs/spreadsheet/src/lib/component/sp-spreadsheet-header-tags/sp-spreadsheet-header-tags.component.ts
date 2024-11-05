@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 import { FlTagColorer } from '@monorepo/front-core-lib';
 
 /**
@@ -9,18 +9,14 @@ import { FlTagColorer } from '@monorepo/front-core-lib';
   selector: 'sp-spreadsheet-header-tags',
   templateUrl: './sp-spreadsheet-header-tags.component.html',
   styleUrls: ['./sp-spreadsheet-header-tags.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpSpreadsheetHeaderTagsComponent  {
-
+export class SpSpreadsheetHeaderTagsComponent {
   @Input() tags: Record<string, string>;
 
   @Input() tagColorer: FlTagColorer;
 
-  constructor() {
-  }
-
-
+  constructor() {}
 
   hasTags(): boolean {
     return !ClHelpService.isNullOrEmpty(this.tags);

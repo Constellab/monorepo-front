@@ -8,9 +8,8 @@ describe('LabConfigBrickComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabConfigBrickComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabConfigBrickComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

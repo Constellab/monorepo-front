@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FlArrayObs,
   FlCheckCredentialsDialogComponent,
@@ -6,15 +6,15 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {LabCredentials, LabCredentialsData} from '../../../../model/entities/lab-credentials.entity';
-import {LabCredentialsService} from '../../../../entity-service/lab-credentials.service';
+import { LabCredentials, LabCredentialsData } from '../../../../model/entities/lab-credentials.entity';
+import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import {
   LabCredentialsFormDialogComponent,
-  LabCredentialsFormDialogInput
+  LabCredentialsFormDialogInput,
 } from '../lab-credentials-form-dialog/lab-credentials-form-dialog.component';
-import {ClCredentials} from '@monorepo/core-lib';
+import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-credentials-table',
@@ -22,28 +22,28 @@ import {ClCredentials} from '@monorepo/core-lib';
   styleUrls: ['./lab-credentials-table.component.scss'],
 })
 export class LabCredentialsTableComponent {
-
   @Input() datasource: FlArrayObs<LabCredentials>;
 
   @Input() columns: FlTableColumnStatic<LabCredentials>[];
 
-  constructor(private credentialsService: LabCredentialsService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private credentialsService: LabCredentialsService,
+    private dialogService: FlDialogService
+  ) {}
 
   updateCredentials(credentials: LabCredentials): void {
-
     // open user check credentials dialog
     const dialogInput: FlCheckCredentialsDialogInput = {
       onSubmit: (userCredentials: ClCredentials) =>
-        this.credentialsService.getCredentialsData(credentials.id, userCredentials)
+        this.credentialsService.getCredentialsData(credentials.id, userCredentials),
     };
 
-    this.dialogService.openSmallDialog(FlCheckCredentialsDialogComponent, {
-      data: dialogInput
-    }).afterClosed().subscribe(
-      result => this.openUpdateCredentials(credentials, result)
-    );
+    this.dialogService
+      .openSmallDialog(FlCheckCredentialsDialogComponent, {
+        data: dialogInput,
+      })
+      .afterClosed()
+      .subscribe((result) => this.openUpdateCredentials(credentials, result));
   }
 
   private openUpdateCredentials(credentials: LabCredentials, credentialsData: LabCredentialsData): void {
@@ -57,15 +57,15 @@ export class LabCredentialsTableComponent {
         type: credentials.type,
         description: credentials.description,
         data: credentialsData,
-      }
+      },
     };
 
-    this.dialogService.openMediumDialog(LabCredentialsFormDialogComponent, {
-      data: dialogInput,
-    }).afterClosed().subscribe(
-      result => this.onUpdateClosed(result)
-    );
-
+    this.dialogService
+      .openMediumDialog(LabCredentialsFormDialogComponent, {
+        data: dialogInput,
+      })
+      .afterClosed()
+      .subscribe((result) => this.onUpdateClosed(result));
   }
 
   private onUpdateClosed(credentials?: LabCredentials): void {
@@ -80,9 +80,12 @@ export class LabCredentialsTableComponent {
       successMessage: 'biox.credentials_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe((result: FlConfirmDialogResult) => {
-      this.deleteCredentialsClosed(result, credentials);
-    });
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => {
+        this.deleteCredentialsClosed(result, credentials);
+      });
   }
 
   private deleteCredentialsClosed(result: FlConfirmDialogResult, credentials: LabCredentials): void {

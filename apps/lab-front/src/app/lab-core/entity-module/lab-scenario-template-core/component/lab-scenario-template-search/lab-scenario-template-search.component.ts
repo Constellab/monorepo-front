@@ -6,16 +6,16 @@ import {
   FlSearchConfig,
   FlSearchState,
   FlTableColumnStatic,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import {
   LabScenarioTemplate,
-  LabScenarioTemplateDatasource
+  LabScenarioTemplateDatasource,
 } from '../../../../model/entities/process/lab-scenario-template.entity';
 import { LabScenarioTemplateService } from '../../../../entity-service/lab-scenario-template.service';
 import {
   LabScenarioTemplateSearch,
-  LabScenarioTemplateSearchFields
+  LabScenarioTemplateSearchFields,
 } from '../../model/lab-scenario-template-search.class';
 import { LabRouterService } from '../../../../service/lab-router.service';
 
@@ -23,10 +23,9 @@ import { LabRouterService } from '../../../../service/lab-router.service';
   selector: 'lab-scenario-template-search',
   templateUrl: './lab-scenario-template-search.component.html',
   styleUrls: ['./lab-scenario-template-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class LabScenarioTemplateSearchComponent implements OnInit {
-
   @Input() rowSelectable: boolean = false;
 
   @Output() templateSelected: EventEmitter<LabScenarioTemplate> = new EventEmitter();
@@ -35,11 +34,12 @@ export class LabScenarioTemplateSearchComponent implements OnInit {
 
   columns: FlTableColumnStatic<LabScenarioTemplate>[] = ['name', 'tags', 'created'];
 
-  constructor(private searchState: FlSearchState<any>,
-              private scenarioTemplateService: LabScenarioTemplateService,
-              private themeService: FlThemeService,
-              private actionsService: FlPortalActionsService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private scenarioTemplateService: LabScenarioTemplateService,
+    private themeService: FlThemeService,
+    private actionsService: FlPortalActionsService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -49,10 +49,10 @@ export class LabScenarioTemplateSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: LabScenarioTemplateSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: false,
-      defaultSort: { key: 'lastModification', direction: 'DESC' }
+      defaultSort: { key: 'lastModification', direction: 'DESC' },
     };
 
     this.datasource = this.scenarioTemplateService.getSearchDatasource();
@@ -65,15 +65,17 @@ export class LabScenarioTemplateSearchComponent implements OnInit {
 
   private getSavedSearch(): FlSavedSearch[] {
     // list of predefined search of the resources
-    return [{
-      searchName: 'lab-scenario-template',
-      id: null,
-      label: 'All template',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {}
-    }];
+    return [
+      {
+        searchName: 'lab-scenario-template',
+        id: null,
+        label: 'All template',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {},
+      },
+    ];
   }
 
   selectTemplate(template: LabScenarioTemplate): void {
@@ -85,11 +87,10 @@ export class LabScenarioTemplateSearchComponent implements OnInit {
       text: { text: 'biox.import_scenario_template', translateText: true },
       type: 'importScenarioTemplate',
       action: this.scenarioTemplateService.createFromFile(file),
-      successLink: (result: LabScenarioTemplate) => LabRouterService.getScenarioTemplateDetailRoute(result.id)
+      successLink: (result: LabScenarioTemplate) =>
+        LabRouterService.getScenarioTemplateDetailRoute(result.id),
     };
 
     this.actionsService.addAction(action, false);
   }
 }
-
-

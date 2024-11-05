@@ -1,9 +1,8 @@
-import {HaEntity} from './ha-entity.class';
-import {TeRichTextContent} from '@monorepo/text-editor';
-import {HaFile} from '../../entity-module/ha-file-core/model/ha-file';
+import { HaEntity } from './ha-entity.class';
+import { TeRichTextContent } from '@monorepo/text-editor';
+import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';
 
 export class HaDocumentation extends HaEntity {
-
   title: string;
 
   content: TeRichTextContent;
@@ -19,9 +18,7 @@ export class HaDocumentation extends HaEntity {
   order: number;
 
   docFiles: HaFile[];
-
 }
-
 
 export class HaDocumentationContentFormDTO extends HaEntity {
   content: TeRichTextContent;

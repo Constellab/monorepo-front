@@ -1,25 +1,28 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Router, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {LabRouterService} from '../../lab-core/service/lab-router.service';
-import {LabAuthService} from '../../lab-core/service/lab-auth.service';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { LabRouterService } from '../../lab-core/service/lab-router.service';
+import { LabAuthService } from '../../lab-core/service/lab-auth.service';
 
 /**
  * Login page guard to redirect to app pages if a token exists
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LabLoginGuard  {
-  constructor(private authenticationService: LabAuthService, private router: Router) {
-  }
+export class LabLoginGuard {
+  constructor(
+    private authenticationService: LabAuthService,
+    private router: Router
+  ) {}
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(route.queryParams.autoRedirect === 'false') return true;
+  canActivate(
+    route: ActivatedRouteSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if (route.queryParams.autoRedirect === 'false') return true;
     if (this.authenticationService.hasAuthorizationCookie()) {
       return this.router.createUrlTree([LabRouterService.getAppRoute()]);
     }
     return true;
   }
-
 }

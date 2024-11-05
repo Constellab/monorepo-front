@@ -1,11 +1,10 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <!--  Main search fields    -->
   <div class="g-full main-fields">
     <!--  Title and description  -->
     <mat-form-field class="g-full">
       <mat-label>{{ 'title' | translate }}</mat-label>
-      <input matInput formControlName="title" [placeholder]="'title' | translate" autocomplete="off">
+      <input matInput formControlName="title" [placeholder]="'title' | translate" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -18,13 +17,11 @@
       </fl-text-icon>
     </mat-expansion-panel-header>
 
-    <lab-folder-select formControlName="folder"
-                        class="folders g-scrollable-element"></lab-folder-select>
+    <lab-folder-select formControlName="folder" class="folders g-scrollable-element"></lab-folder-select>
   </mat-expansion-panel>
 
   <!--   Tags    -->
   <lab-tag-filters formControlName="tags"></lab-tag-filters>
-
 
   <!--   Advanced search    -->
   <mat-expansion-panel>
@@ -38,7 +35,6 @@
     </mat-expansion-panel-header>
 
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
       <!--  status  -->
       <mat-form-field class="g-search-field">
         <mat-label>{{ 'status' | translate }}</mat-label>
@@ -50,8 +46,10 @@
       <!--  Creation Type  -->
       <mat-form-field class="g-search-field">
         <mat-label>{{ 'biox.scenario_creation_type' | translate }}</mat-label>
-        <mat-select formControlName="creationTypes" [placeholder]="'biox.scenario_creation_type' | translate"
-                    [multiple]="true">
+        <mat-select
+          formControlName="creationTypes"
+          [placeholder]="'biox.scenario_creation_type' | translate"
+          [multiple]="true">
           <lab-scenario-creation-type-options></lab-scenario-creation-type-options>
         </mat-select>
       </mat-form-field>
@@ -64,43 +62,36 @@
       <!--  Id -->
       <mat-form-field class="g-search-field">
         <mat-label>{{ 'id' | translate }}</mat-label>
-        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
       </mat-form-field>
 
       <!--  Process Type  -->
       <fl-form-field class="g-full">
-        <lab-select-type mode="process" [placeholder]="'biox.contain_process' | translate"
-                         formControlName="processTypingName"></lab-select-type>
+        <lab-select-type
+          mode="process"
+          [placeholder]="'biox.contain_process' | translate"
+          formControlName="processTypingName"></lab-select-type>
       </fl-form-field>
-
 
       <!--  Creation date  -->
       <div class="g-form-field-no-hint g-full">
         <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
-        <fl-search-date-interval formGroupName="createdAt">
-        </fl-search-date-interval>
+        <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
       </div>
 
       <!-- Last modification date  -->
       <div class="g-form-field-no-hint g-full">
         <p class="g-text-small subtitle">{{ 'last_modified_date' | translate }}</p>
-        <fl-search-date-interval formGroupName="lastModifiedAt">
-        </fl-search-date-interval>
+        <fl-search-date-interval formGroupName="lastModifiedAt"> </fl-search-date-interval>
       </div>
 
-
-      <mat-checkbox formControlName="isNotValidated"
-                    class="checkbox">{{ 'biox.scenario_exclude_validated' | translate }}
+      <mat-checkbox formControlName="isNotValidated" class="checkbox"
+        >{{ 'biox.scenario_exclude_validated' | translate }}
       </mat-checkbox>
 
-
-      <mat-checkbox formControlName="isArchived"
-                    class="checkbox">{{ 'biox.scenario_include_archived' | translate }}
+      <mat-checkbox formControlName="isArchived" class="checkbox"
+        >{{ 'biox.scenario_include_archived' | translate }}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>
-
-
 </div>
-
-

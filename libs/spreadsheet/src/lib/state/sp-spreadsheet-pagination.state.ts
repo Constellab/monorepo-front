@@ -1,13 +1,11 @@
-import {Injectable, NgZone, OnDestroy} from '@angular/core';
-import {SpSpreadsheetPage, SpSpreadsheetPageLoader} from '../model/sp-spreadsheet-page.class';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {Subscription} from 'rxjs';
-import {FlPortalActionResult, FlPortalActionsService} from '@monorepo/front-core-lib';
-
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { SpSpreadsheetPage, SpSpreadsheetPageLoader } from '../model/sp-spreadsheet-page.class';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { Subscription } from 'rxjs';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class SpSpreadsheetPaginationState implements OnDestroy {
-
   private static id: number = 0;
 
   private pagination: SpSpreadsheetPageLoader;
@@ -19,21 +17,23 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
   private previousPageSubscription: Subscription;
   private readonly id: number;
 
-  constructor(private state: SpSpreadsheetState,
-              private actionService: FlPortalActionsService,
-              private ngZone: NgZone) {
+  constructor(
+    private state: SpSpreadsheetState,
+    private actionService: FlPortalActionsService,
+    private ngZone: NgZone
+  ) {
     this.id = SpSpreadsheetPaginationState.id++;
   }
 
   public init(pagination: SpSpreadsheetPageLoader): void {
     this.pagination = pagination;
-    this.nextPageSubscription = this.actionService.getResult$(this.getNextPageAction()).subscribe(
-      (data: FlPortalActionResult) => this.onNextPage(data)
-    );
+    this.nextPageSubscription = this.actionService
+      .getResult$(this.getNextPageAction())
+      .subscribe((data: FlPortalActionResult) => this.onNextPage(data));
 
-    this.previousPageSubscription = this.actionService.getResult$(this.getPreviousPageAction()).subscribe(
-      (data: FlPortalActionResult) => this.onPreviousPage(data)
-    );
+    this.previousPageSubscription = this.actionService
+      .getResult$(this.getPreviousPageAction())
+      .subscribe((data: FlPortalActionResult) => this.onPreviousPage(data));
   }
 
   public callNextPage(): void {
@@ -41,19 +41,22 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
 
     const sheet = this.state.currentSheet;
 
-    if (!(sheet.hasNextRowsPage())) return;
+    if (!sheet.hasNextRowsPage()) return;
 
     this.nextPageIsLoading = true;
 
     // + 1 because we want to start from the next line of the last line
     const fromRow = sheet.getLastRowsOffsetIndex() + 1;
     this.ngZone.run(() => {
-      this.actionService.addAction({
-        type: this.getNextPageAction(),
-        action: this.pagination.loadRows(fromRow),
-        text: {text: 'spSpreadsheet.loading_next_rows', translateText: true},
-        additionalInformation: sheet.id
-      }, true);
+      this.actionService.addAction(
+        {
+          type: this.getNextPageAction(),
+          action: this.pagination.loadRows(fromRow),
+          text: { text: 'spSpreadsheet.loading_next_rows', translateText: true },
+          additionalInformation: sheet.id,
+        },
+        true
+      );
     });
   }
 
@@ -62,18 +65,21 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
 
     const sheet = this.state.currentSheet;
 
-    if (!(sheet.hasPreviousRowsPage())) return;
+    if (!sheet.hasPreviousRowsPage()) return;
 
     this.previousPageIsLoading = true;
     // - 1 because we want to start from the previous line of the first line (offset)
     const toRow = sheet.getFirstRowsOffsetIndex();
     this.ngZone.run(() => {
-      this.actionService.addAction({
-        type: this.getPreviousPageAction(),
-        action: this.pagination.loadPreviousRows(toRow),
-        text: {text: 'spSpreadsheet.loading_previous_rows', translateText: true},
-        additionalInformation: sheet.id
-      }, true);
+      this.actionService.addAction(
+        {
+          type: this.getPreviousPageAction(),
+          action: this.pagination.loadPreviousRows(toRow),
+          text: { text: 'spSpreadsheet.loading_previous_rows', translateText: true },
+          additionalInformation: sheet.id,
+        },
+        true
+      );
     });
   }
 
@@ -108,4 +114,3 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
     this.previousPageSubscription?.unsubscribe();
   }
 }
-

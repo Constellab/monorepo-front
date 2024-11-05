@@ -1,14 +1,17 @@
-import {Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import {
   FlUploadImageDialogComponent,
   FlUploadImageDialogConfig,
   FlUploadImageDialogInput,
-  FlUploadImageDialogOutput
+  FlUploadImageDialogOutput,
 } from '../fl-upload-image-dialog/fl-upload-image-dialog.component';
-import {FlDialogService} from '../../../fl-dialog/fl-dialog.service';
-import {FlMenuDynamicService} from '../../../fl-menu-dynamic/fl-menu-dynamic.service';
-import {FlConfirmDialogInput, FlConfirmDialogResult} from '../../../fl-dialog/model/fl-confirm-dialog.class';
-import {FlMenuDynamic} from '../../../fl-menu-dynamic/model/fl-menu-dynamic.class';
+import { FlDialogService } from '../../../fl-dialog/fl-dialog.service';
+import { FlMenuDynamicService } from '../../../fl-menu-dynamic/fl-menu-dynamic.service';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+} from '../../../fl-dialog/model/fl-confirm-dialog.class';
+import { FlMenuDynamic } from '../../../fl-menu-dynamic/model/fl-menu-dynamic.class';
 
 /**
  * Container component (an image should be place inside it with ng-content) top
@@ -17,11 +20,10 @@ import {FlMenuDynamic} from '../../../fl-menu-dynamic/model/fl-menu-dynamic.clas
 @Component({
   selector: 'fl-update-image-container',
   templateUrl: './fl-update-image-container.component.html',
-  styleUrl: './fl-update-image-container.component.scss'
+  styleUrl: './fl-update-image-container.component.scss',
 })
 export class FlUpdateImageContainerComponent {
-
-  @Input({required: true}) uploadConfig: FlUploadImageDialogConfig;
+  @Input({ required: true }) uploadConfig: FlUploadImageDialogConfig;
 
   /**
    * If the delete config is set and the showDelete is true, the delete button will be shown
@@ -30,17 +32,19 @@ export class FlUpdateImageContainerComponent {
   @Input() showDelete: boolean = true;
 
   @HostBinding('class.disabled')
-  @Input() disabled: boolean = false;
+  @Input()
+  disabled: boolean = false;
 
   @Output() imageChanged: EventEmitter<any> = new EventEmitter<any>();
 
   @Output() imageDeleted: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('input', {static: true, read: ElementRef}) inputImage: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: true, read: ElementRef }) inputImage: ElementRef<HTMLInputElement>;
 
-  constructor(private dialogService: FlDialogService,
-              private menuDynamic: FlMenuDynamicService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private menuDynamic: FlMenuDynamicService
+  ) {}
 
   onClick(event: MouseEvent): void {
     if (this.disabled) return;
@@ -50,7 +54,7 @@ export class FlUpdateImageContainerComponent {
         text: this.uploadConfig.title,
         icon: 'add_a_photo',
         type: 'button',
-        onClick: () => this.openFileSelector()
+        onClick: () => this.openFileSelector(),
       },
     ];
 
@@ -59,7 +63,7 @@ export class FlUpdateImageContainerComponent {
         text: this.deleteConfig.title,
         icon: 'delete',
         type: 'button',
-        onClick: () => this.deleteImage()
+        onClick: () => this.deleteImage(),
       });
     }
     this.menuDynamic.openDynamicMenuFromMouseEvent(menu, event);
@@ -72,14 +76,14 @@ export class FlUpdateImageContainerComponent {
   onFileSelected(file: File): void {
     const input: FlUploadImageDialogInput = {
       file: file,
-      config: this.uploadConfig
+      config: this.uploadConfig,
     };
-    this.dialogService.openMediumDialog(FlUploadImageDialogComponent, {
-      data: input
-    }).afterClosed().subscribe(
-      (result: FlUploadImageDialogOutput) => this.onDialogClosed(result)
-    );
-
+    this.dialogService
+      .openMediumDialog(FlUploadImageDialogComponent, {
+        data: input,
+      })
+      .afterClosed()
+      .subscribe((result: FlUploadImageDialogOutput) => this.onDialogClosed(result));
   }
 
   private onDialogClosed(result?: FlUploadImageDialogOutput): void {
@@ -89,9 +93,10 @@ export class FlUpdateImageContainerComponent {
   }
 
   private deleteImage(): void {
-    this.dialogService.openConfirmDialog(this.deleteConfig).afterClosed().subscribe(
-      result => this.onDeleteClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(this.deleteConfig)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {

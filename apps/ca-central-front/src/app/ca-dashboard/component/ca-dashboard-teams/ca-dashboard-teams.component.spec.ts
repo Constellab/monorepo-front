@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDashboardTeamsComponent} from './ca-dashboard-teams.component';
+import { CaDashboardTeamsComponent } from './ca-dashboard-teams.component';
 
 describe('CaDashboardGroupComponent', () => {
   let component: CaDashboardTeamsComponent;
@@ -8,9 +8,8 @@ describe('CaDashboardGroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDashboardTeamsComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDashboardTeamsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

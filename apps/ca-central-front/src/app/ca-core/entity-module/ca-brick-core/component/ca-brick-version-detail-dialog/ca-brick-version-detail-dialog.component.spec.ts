@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaBrickVersionDetailDialogComponent} from './ca-brick-version-detail-dialog.component';
+import { CaBrickVersionDetailDialogComponent } from './ca-brick-version-detail-dialog.component';
 
 describe('CaBrickVersionDetailDialogComponent', () => {
   let component: CaBrickVersionDetailDialogComponent;
@@ -8,9 +8,8 @@ describe('CaBrickVersionDetailDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaBrickVersionDetailDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaBrickVersionDetailDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

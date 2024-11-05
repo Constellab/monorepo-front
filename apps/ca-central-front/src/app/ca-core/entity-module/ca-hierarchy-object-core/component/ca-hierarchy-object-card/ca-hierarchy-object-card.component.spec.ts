@@ -8,9 +8,8 @@ describe('CaFolderCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectCardComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectCardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectCardComponent);
     component = fixture.componentInstance;

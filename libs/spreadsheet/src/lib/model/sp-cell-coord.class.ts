@@ -5,5 +5,5 @@ export interface SpCellCoord {
 
 export interface SpCellCoordRange {
   from: SpCellCoord;
-  to: SpCellCoord
+  to: SpCellCoord;
 }

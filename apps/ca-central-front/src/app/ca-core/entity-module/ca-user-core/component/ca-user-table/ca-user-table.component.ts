@@ -5,13 +5,13 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlTableColumnStatic,
-  FlViewContext
+  FlViewContext,
 } from '@monorepo/front-core-lib';
 import { ClUserStatus } from '@monorepo/core-lib';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
 import {
   CaUserUpdateLicenseDialogInput,
-  CaUserUpdateLicenseFormDialogComponent
+  CaUserUpdateLicenseFormDialogComponent,
 } from '../ca-user-update-license-form-dialog/ca-user-update-license-form-dialog.component';
 
 /**
@@ -21,19 +21,26 @@ import {
 @Component({
   selector: 'ca-user-table',
   templateUrl: './ca-user-table.component.html',
-  styleUrls: ['./ca-user-table.component.scss']
+  styleUrls: ['./ca-user-table.component.scss'],
 })
 export class CaUserTableComponent {
-
   @Input({ required: true }) datasource: CaUserDatasourcePaginated<any>;
 
-  @Input() columns: FlTableColumnStatic<CaUser>[] = ['alias', 'contact', 'category', 'lastLogin', 'createdAt', 'adminActions'];
+  @Input() columns: FlTableColumnStatic<CaUser>[] = [
+    'alias',
+    'contact',
+    'category',
+    'lastLogin',
+    'createdAt',
+    'adminActions',
+  ];
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  constructor(private userAccountsService: CaUserAccountsService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private userAccountsService: CaUserAccountsService,
+    private dialogService: FlDialogService
+  ) {}
 
   isLocked(user: CaUser): boolean {
     return user.status === ClUserStatus.LOCKED_BY_ADMIN;
@@ -66,11 +73,11 @@ export class CaUserTableComponent {
   }
 
   private openConfirmDialog(input: FlConfirmDialogInput): void {
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      (result: FlConfirmDialogResult<CaUser>) => this.onDialogClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult<CaUser>) => this.onDialogClosed(result));
   }
-
 
   private onDialogClosed(result: FlConfirmDialogResult<CaUser>): void {
     if (result.choice) {
@@ -81,13 +88,13 @@ export class CaUserTableComponent {
   updateLicense(user: CaUser): void {
     const input: CaUserUpdateLicenseDialogInput = {
       userId: user.id,
-      license: user.license
+      license: user.license,
     };
 
-    this.dialogService.openSmallDialog(CaUserUpdateLicenseFormDialogComponent,
-      { data: input }).afterClosed().subscribe(
-      (result: CaUser) => this.updateLicenseClosed(result)
-    );
+    this.dialogService
+      .openSmallDialog(CaUserUpdateLicenseFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result: CaUser) => this.updateLicenseClosed(result));
   }
 
   private updateLicenseClosed(user?: CaUser): void {
@@ -106,5 +113,4 @@ export class CaUserTableComponent {
 
     this.dialogService.openConfirmDialog(input).afterClosed().subscribe();
   }
-
 }

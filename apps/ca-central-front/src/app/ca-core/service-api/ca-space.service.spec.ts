@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {CaSpaceService} from './ca-space.service';
+import { CaSpaceService } from './ca-space.service';
 
 describe('CaSpaceService', () => {
   let service: CaSpaceService;

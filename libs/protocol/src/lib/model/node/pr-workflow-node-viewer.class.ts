@@ -1,11 +1,10 @@
-import {PrWorkflowNodeResource, PrWorkNodeIoExternalButton} from './pr-workflow-node-resource.class';
-import {map, Observable, of} from 'rxjs';
-import {PrProcess} from '../pr-process.class';
-import {TdTypingName} from '@monorepo/technical-doc';
-import {FlThemeService} from '@monorepo/front-core-lib';
+import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
+import { map, Observable, of } from 'rxjs';
+import { PrProcess } from '../pr-process.class';
+import { TdTypingName } from '@monorepo/technical-doc';
+import { FlThemeService } from '@monorepo/front-core-lib';
 
 export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
-
   protected initPorts(object: PrProcess): void {
     this.generatePorts(object.inputs.ports, 'input');
     this.generatePorts(object.outputs.ports, 'output');
@@ -23,11 +22,8 @@ export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
     return process.inputs.ports[TdTypingName.task.output.resourceInput].resource_id ?? null;
   }
 
-
   getResourceId$(): Observable<string | null> {
-    return this.getObject$().pipe(
-      map(process => this.getResourceId(process))
-    );
+    return this.getObject$().pipe(map((process) => this.getResourceId(process)));
   }
 
   getCurrentInputResourceId(): string | null {
@@ -43,9 +39,7 @@ export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
   }
 
   inputIsProvided$(): Observable<boolean> {
-    return this.getResourceId$().pipe(
-      map(resource => resource != null)
-    );
+    return this.getResourceId$().pipe(map((resource) => resource != null));
   }
 
   outputIsProvided$(): Observable<boolean> {
@@ -59,6 +53,4 @@ export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
   protected getDefaultIcon(): string {
     return 'visibility';
   }
-
-
 }

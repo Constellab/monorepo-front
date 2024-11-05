@@ -6,10 +6,9 @@ import { LabRouterService } from '../../../../service/lab-router.service';
 @Component({
   selector: 'lab-view-config-table',
   templateUrl: './lab-view-config-table.component.html',
-  styleUrls: ['./lab-view-config-table.component.scss']
+  styleUrls: ['./lab-view-config-table.component.scss'],
 })
 export class LabViewConfigTableComponent {
-
   @Input({ required: true }) datasource: FlArrayObs<LabViewConfig>;
 
   @Input() columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'resource', 'lastModifiedAt', 'preview'];
@@ -25,8 +24,7 @@ export class LabViewConfigTableComponent {
 
   @Output() viewConfigSelected: EventEmitter<LabViewConfig> = new EventEmitter();
 
-  constructor(private routerService: LabRouterService) {
-  }
+  constructor(private routerService: LabRouterService) {}
 
   rowClicked(viewConfig: LabViewConfig): void {
     if (this.selectableRow) {
@@ -37,7 +35,6 @@ export class LabViewConfigTableComponent {
   onUpdate(viewConfig: LabViewConfig): void {
     this.datasource.updateItem(viewConfig);
   }
-
 
   navigateToViewConfigPage(viewConfig: LabViewConfig): void {
     this.routerService.navigateToViewConfig(viewConfig.resource.id, viewConfig.id);

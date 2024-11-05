@@ -8,9 +8,8 @@ describe('CaNoteDetailPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaNoteDetailPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaNoteDetailPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

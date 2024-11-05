@@ -12,11 +12,12 @@ export interface LabSelectScenarioTemplateDialogInput {
   styleUrls: ['./lab-select-scenario-template-dialog.component.scss'],
 })
 export class LabSelectScenarioTemplateDialogComponent {
-
   rowSelectable: boolean;
 
-  constructor(private dialogRef: MatDialogRef<LabSelectScenarioTemplateDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) input: LabSelectScenarioTemplateDialogInput) {
+  constructor(
+    private dialogRef: MatDialogRef<LabSelectScenarioTemplateDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) input: LabSelectScenarioTemplateDialogInput
+  ) {
     this.rowSelectable = input.rowSelectable;
   }
 

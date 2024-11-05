@@ -8,7 +8,6 @@ import { FlTagHelper } from '@monorepo/front-core-lib';
  * Object to manage multiple series
  */
 export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataContainer<Data> {
-
   series: ChChartSerie<Data>[];
 
   // name of the axis
@@ -25,16 +24,14 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
    */
   axisYLabelTicksFormatter: ChChartLabelFormatter | null;
 
-
   constructor(series: ChChartSerie<Data>[] = []) {
     this.series = series;
   }
 
-
   // flatten the data of the series
   getData(): Data[] {
     const data: Data[] = [];
-    this.series.forEach(serie => data.push(...serie.getData()));
+    this.series.forEach((serie) => data.push(...serie.getData()));
     return data;
   }
 
@@ -50,9 +47,7 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
 
   // return the biggest number of data for a serie
   public maxSerieDataCount(): number {
-    return this.series.reduce(
-      (p, c) => c.countData() > (p?.countData() ?? 0) ? c : p)
-      .countData();
+    return this.series.reduce((p, c) => (c.countData() > (p?.countData() ?? 0) ? c : p)).countData();
   }
 
   // return the indexes of the complete domain (array from 0 to N)
@@ -86,7 +81,6 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
 
     return data;
   }
-
 
   // return an array of series keys
   public getSeriesKeys(): number[] {
@@ -126,26 +120,34 @@ export class ChChartMultiSerie<Data extends ChChartData> implements ChChartDataC
   }
 }
 
-
 /**
  * Multiple series with 2d data
  */
 export class ChChart2dMultiSerie<Data extends ChChart2dDatum> extends ChChartMultiSerie<Data> {
-
   getDomainXLinear(extendDomain: number = 0, minValue?: number, maxValue?: number): [number, number] {
-    return ChChartDomain.getLinearDomain(this.getData().map(data => data.getX()), extendDomain, minValue, maxValue);
+    return ChChartDomain.getLinearDomain(
+      this.getData().map((data) => data.getX()),
+      extendDomain,
+      minValue,
+      maxValue
+    );
   }
 
   getDomainXComplete(): number[] {
-    return ChChartDomain.getCompleteDomain(this.getData().map(data => data.getX()));
+    return ChChartDomain.getCompleteDomain(this.getData().map((data) => data.getX()));
   }
 
   getDomainYLinear(extendDomain: number = 0, minValue?: number, maxValue?: number): [number, number] {
-    return ChChartDomain.getLinearDomain(this.getData().map(data => data.getY()), extendDomain, minValue, maxValue);
+    return ChChartDomain.getLinearDomain(
+      this.getData().map((data) => data.getY()),
+      extendDomain,
+      minValue,
+      maxValue
+    );
   }
 
   getDomainYComplete(): number[] {
-    return ChChartDomain.getCompleteDomain(this.getData().map(data => data.getY()));
+    return ChChartDomain.getCompleteDomain(this.getData().map((data) => data.getY()));
   }
 
   getDomainYStacked(extendDomain: number = 0, minValue?: number, maxValue?: number): [number, number] {
@@ -177,13 +179,13 @@ export class ChChart2dMultiSerie<Data extends ChChart2dDatum> extends ChChartMul
       const d: ChChartDataWithSerie<Data>[] = [];
 
       for (const serie of this.series) {
-        const data = serie.getData().find(d => d.getX() === i);
+        const data = serie.getData().find((d) => d.getX() === i);
 
         if (data) {
           d.push({
             data: data,
             serieKey: serie.key,
-            serieName: serie.name
+            serieName: serie.name,
           });
         }
       }
@@ -195,14 +197,13 @@ export class ChChart2dMultiSerie<Data extends ChChart2dDatum> extends ChChartMul
   }
 
   public getMaxSerieX(): number {
-    this.series[0].getData().map(d => d.getX());
+    this.series[0].getData().map((d) => d.getX());
 
     let maxX = 0;
     for (const serie of this.series) {
-      const x = Math.max(...serie.getData().map(d => d.getX(0)));
+      const x = Math.max(...serie.getData().map((d) => d.getX(0)));
       if (x > maxX) maxX = x;
     }
     return maxX;
   }
-
 }

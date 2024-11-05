@@ -3,7 +3,7 @@ import {
   FlDialogService,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
-  FlInputSearchFilter
+  FlInputSearchFilter,
 } from '@monorepo/front-core-lib';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { NgControl } from '@angular/forms';
@@ -15,11 +15,9 @@ import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/
   selector: 'lab-select-scenario',
   templateUrl: './lab-select-scenario.component.html',
   styleUrls: ['./lab-select-scenario.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
 })
-export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario>
-  implements OnInit {
-
+export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario> implements OnInit {
   @Output() scenarioChange: EventEmitter<LabScenario> = new EventEmitter();
 
   selectedScenario: LabScenario | Observable<LabScenario>;
@@ -28,10 +26,11 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
 
   advancedButton: FlInputSearchAdvancedButton<LabScenario>;
 
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private scenarioService: LabScenarioService,
-              private dialogService: FlDialogService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private scenarioService: LabScenarioService,
+    private dialogService: FlDialogService
+  ) {
     super(ngControl);
   }
 
@@ -39,7 +38,7 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
     this.datasource = this.scenarioService.searchByTitleDatasource();
 
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(LabSelectScenarioDialogComponent).afterClosed()
+      onClick: () => this.dialogService.openBigDialog(LabSelectScenarioDialogComponent).afterClosed(),
     };
   }
 
@@ -64,8 +63,5 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
     this.selectedScenario = value;
   }
 
-  onDisableChange(): void {
-  }
-
-
+  onDisableChange(): void {}
 }

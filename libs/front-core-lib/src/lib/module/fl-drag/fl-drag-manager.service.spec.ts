@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {FlDragManagerService} from './fl-drag-manager.service';
+import { FlDragManagerService } from './fl-drag-manager.service';
 
 describe('FlDragManagerService', () => {
   let service: FlDragManagerService;

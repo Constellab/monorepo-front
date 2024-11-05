@@ -5,7 +5,6 @@ import { FlSnackBarService, FlUserConfigSearchNameMode } from '@monorepo/front-c
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-
 export interface CaGroupAddUserDialogInput {
   // method to add the user to the group
   addUserToGroup: (userId: string) => Observable<any>;
@@ -20,19 +19,20 @@ export interface CaGroupAddUserDialogInput {
 @Component({
   selector: 'ca-group-add-user-dialog',
   templateUrl: './ca-group-add-user-dialog.component.html',
-  styleUrls: ['./ca-group-add-user-dialog.component.scss']
+  styleUrls: ['./ca-group-add-user-dialog.component.scss'],
 })
 export class CaGroupAddUserDialogComponent implements OnInit {
-
   formControl: FormControl<CaUser>;
 
   isLoading: boolean = false;
 
   selectUserMode: FlUserConfigSearchNameMode;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaGroupAddUserDialogInput,
-              private dialogRef: MatDialogRef<CaGroupAddUserDialogComponent>,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaGroupAddUserDialogInput,
+    private dialogRef: MatDialogRef<CaGroupAddUserDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {
     this.selectUserMode = input.selectUserMode;
   }
 
@@ -53,15 +53,14 @@ export class CaGroupAddUserDialogComponent implements OnInit {
   private addUserToSpace(userId: string): void {
     this.isLoading = true;
     this.input.addUserToGroup(userId).subscribe({
-      next: user => this.addUserSuccess(user),
-      error: () => this.isLoading = false
+      next: (user) => this.addUserSuccess(user),
+      error: () => (this.isLoading = false),
     });
   }
 
   private addUserSuccess(user: any): void {
-    this.snackBarService.openSuccessMessage({text: this.input.successMessage, translateText: true});
+    this.snackBarService.openSuccessMessage({ text: this.input.successMessage, translateText: true });
     this.isLoading = false;
     this.dialogRef.close(user);
   }
-
 }

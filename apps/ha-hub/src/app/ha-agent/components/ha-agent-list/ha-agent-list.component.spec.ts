@@ -8,7 +8,7 @@ describe('HaAgentListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HaAgentListComponent]
+      declarations: [HaAgentListComponent],
     });
     fixture = TestBed.createComponent(HaAgentListComponent);
     component = fixture.componentInstance;

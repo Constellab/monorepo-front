@@ -5,12 +5,10 @@ import { TeBasicConfig } from '@monorepo/text-editor';
 @Component({
   selector: 'ca-scenario-info',
   templateUrl: './ca-scenario-info.component.html',
-  styleUrls: ['./ca-scenario-info.component.scss']
+  styleUrls: ['./ca-scenario-info.component.scss'],
 })
 export class CaScenarioInfoComponent {
-
   @Input() scenario: CaScenario;
 
   textEditorConfig = new TeBasicConfig();
-
 }

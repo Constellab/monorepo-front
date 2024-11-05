@@ -1,7 +1,6 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { ClHelpService } from '@monorepo/core-lib';
 
-
 export enum CaLabGreenOptionType {
   // Stop rules
   STOP_AFTER_SCENARIO = 'STOP_AFTER_SCENARIO',
@@ -24,14 +23,13 @@ export interface CaLabGreenOptionStopAfterInactivityValue {
 }
 
 export class CaLabGreenOption extends CaBaseEntity {
-
   type: CaLabGreenOptionType;
 
   value: Record<string, any>;
 
   isPersistent: boolean;
 
-  hasValue(): boolean{
+  hasValue(): boolean {
     return !ClHelpService.isNullOrEmpty(this.value);
   }
 }

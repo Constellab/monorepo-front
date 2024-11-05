@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlRoundImageComponent} from './fl-round-image.component';
+import { FlRoundImageComponent } from './fl-round-image.component';
 
 describe('LibRoundImageComponent', () => {
   let component: FlRoundImageComponent;
@@ -8,9 +8,8 @@ describe('LibRoundImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlRoundImageComponent ]
-    })
-    .compileComponents();
+      declarations: [FlRoundImageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

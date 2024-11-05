@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabOpenAiChatDynamicFieldComponent} from './lab-open-ai-chat-dynamic-field.component';
+import { LabOpenAiChatDynamicFieldComponent } from './lab-open-ai-chat-dynamic-field.component';
 
 describe('LabOpenAiChatDynamicFieldComponent', () => {
   let component: LabOpenAiChatDynamicFieldComponent;

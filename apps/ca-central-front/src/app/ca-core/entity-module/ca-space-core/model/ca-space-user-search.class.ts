@@ -3,16 +3,14 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { CaSpaceRole } from '../../../model/entities/space/ca-space-user.class';
 import { Type } from 'class-transformer';
 
-
 export class CaSpaceUserSearchFields {
-
   firstname: string;
 
   lastname: string;
@@ -31,7 +29,6 @@ export class CaSpaceUserSearchFields {
 }
 
 export class CaSpaceUserSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaSpaceUserSearchFields> = {
     firstname: 'firstname',
     lastname: 'lastname',
@@ -43,12 +40,12 @@ export class CaSpaceUserSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaSpaceUserSearchFields> = {
-    firstname: {key: 'user.firstname', operator: 'MATCH'},
-    lastname: {key: 'user.lastname', operator: 'MATCH'},
-    email: {key: 'user.email', operator: 'MATCH'},
-    role: {key: 'role', operator: 'EQ'},
-    active: {key: 'active', operator: 'EQ'},
-    addedBy: {key: 'addedBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    firstname: { key: 'user.firstname', operator: 'MATCH' },
+    lastname: { key: 'user.lastname', operator: 'MATCH' },
+    email: { key: 'user.email', operator: 'MATCH' },
+    role: { key: 'role', operator: 'EQ' },
+    active: { key: 'active', operator: 'EQ' },
+    addedBy: { key: 'addedBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
   };
 

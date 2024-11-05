@@ -7,7 +7,7 @@ import {
   labConstNoteFullRoute,
   labConstNoteTemplateFullRoute,
   labConstResourceFullRoute,
-  labConstScenarioTemplateFullRoute
+  labConstScenarioTemplateFullRoute,
 } from '../utils/lab-base-route';
 import { Router } from '@angular/router';
 
@@ -51,7 +51,7 @@ export class LabRouterService {
 
   public static getViewConfigDetailRoute(
     resourceId: string,
-    viewConfigId: string,
+    viewConfigId: string
   ): {
     route: string;
     queryParams: any;

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 /**
  * Generic dialog title with centered title and close button
@@ -7,18 +7,14 @@ import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
   selector: 'fl-dialog-header',
   templateUrl: './fl-dialog-header.component.html',
   styleUrls: ['./fl-dialog-header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlDialogHeaderComponent implements OnInit {
-
   @Input() hideCloseButton: boolean = false;
 
   @Input() closeButtonData: any;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

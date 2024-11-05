@@ -2,19 +2,18 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon flIcon="note"></mat-icon>
-      <h2>{{'notes' | translate}}</h2>
+      <h2>{{ 'notes' | translate }}</h2>
     </fl-text-icon>
   </fl-card-header>
 
   <fl-card-body>
     <fl-async-section [arrayObs]="notes" emptyText="no_note">
       <ng-container *flSectionBodyDatasource>
-        <ca-note-table [datasource]="notes"
-                         [rowSelectable]="rowSelectable"
-                         (noteSelected)="selectNote($event)"></ca-note-table>
+        <ca-note-table
+          [datasource]="notes"
+          [rowSelectable]="rowSelectable"
+          (noteSelected)="selectNote($event)"></ca-note-table>
       </ng-container>
     </fl-async-section>
-
   </fl-card-body>
-
 </fl-card>

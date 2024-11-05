@@ -1,32 +1,33 @@
-import {ChChartConfig, ChChartRightSectionConfig} from '../ch-chart-config.class';
-import {ChChartContainer, ChChartContainer2Axis} from '../drawer/ch-chart-container.class';
-import {ChChartSVGLegend} from '../legend/ch-chart-legend.class';
-import {ChChart2dBrushX, ChChartBrush} from '../drawer/ch-chart-brush.class';
-import {ChChartScaleColorMulti} from '../scale/ch-chart-scale-color.class';
-import {ChChartMultiSerie} from '../data/ch-chart-multi-serie.class';
-import {ChChartBoxPlotData} from '../data/ch-chart-box-plot-data.class';
-import {ChChartLegendMultiSeries} from '../legend/ch-chart-legend-multi-series.class';
-import {ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber} from '../scale/ch-chart-scale.class';
-import {ChChartAxis, ChChartAxisBand} from '../drawer/ch-chart-axis.class';
-import {ChChartDomain} from '../ch-chart-domain.class';
-import {ChChartRendererBoxPlot} from '../../renderer/ch-chart-renderer-box.plot';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChart2dBrushX, ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChartScaleColorMulti } from '../scale/ch-chart-scale-color.class';
+import { ChChartMultiSerie } from '../data/ch-chart-multi-serie.class';
+import { ChChartBoxPlotData } from '../data/ch-chart-box-plot-data.class';
+import { ChChartLegendMultiSeries } from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartScaleBand, ChChartScaleLinear, ChChartScaleNumber } from '../scale/ch-chart-scale.class';
+import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
+import { ChChartRendererBoxPlot } from '../../renderer/ch-chart-renderer-box.plot';
 import {
   ChChartLegendSeriesWithTagsComponent,
-  ChChartLegendSerieWithTagsInput
+  ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
-import {FlColorHelper, FlTagColorer} from '@monorepo/front-core-lib';
+import { FlColorHelper, FlTagColorer } from '@monorepo/front-core-lib';
 
 // Config box plot
 export class ChChartBoxPlot extends ChChartConfig {
-
   protected readonly seriesColorScale: ChChartScaleColorMulti;
   private readonly tagColorer: FlTagColorer;
 
   constructor(protected dataContainer: ChChartMultiSerie<ChChartBoxPlotData>) {
     super();
     this.seriesColorScale = ChChartScaleColorMulti.fromMultiSeries(dataContainer);
-    this.tagColorer = FlTagColorer.fromGroupedTags(this.dataContainer.getTagsGroupByKey(),
-      FlColorHelper.getColorList());
+    this.tagColorer = FlTagColorer.fromGroupedTags(
+      this.dataContainer.getTagsGroupByKey(),
+      FlColorHelper.getColorList()
+    );
   }
 
   getChartContainer(): ChChartContainer<any> {
@@ -37,11 +38,11 @@ export class ChChartBoxPlot extends ChChartConfig {
     const xScale: ChChartScaleBand = new ChChartScaleBand()
       .setInitialDomain(this.dataContainer.getBiggestSerieDomainCompleteIndexes())
       .paddingOuter(0.3);
-    const xAxis: ChChartAxis = new ChChartAxisBand('bottom').setScale(xScale)
+    const xAxis: ChChartAxis = new ChChartAxisBand('bottom')
+      .setScale(xScale)
       .rotateTickText()
       .setSmartTickFormat(ChChartAxisBand.tickXRotateWidth, this.dataContainer.axisXLabelTicksFormatter)
       .setLabel(this.dataContainer.axisXLabel);
-
 
     const data = this.dataContainer.getData();
     const numberData: number[] = [];
@@ -49,15 +50,19 @@ export class ChChartBoxPlot extends ChChartConfig {
       numberData.push(d.min, d.lowerWhisker, d.max, d.upperWhisker);
     }
     // build the y-axis and scale linear
-    const yScale: ChChartScaleLinear = new ChChartScaleNumber()
-      .setInitialDomain(ChChartDomain.getLinearDomain(numberData, 0, 0));
-    const yAxis: ChChartAxis = new ChChartAxis('left').setScale(yScale)
+    const yScale: ChChartScaleLinear = new ChChartScaleNumber().setInitialDomain(
+      ChChartDomain.getLinearDomain(numberData, 0, 0)
+    );
+    const yAxis: ChChartAxis = new ChChartAxis('left')
+      .setScale(yScale)
       .setLabel(this.dataContainer.axisYLabel);
 
     return chartContainer
       .initXAxis(xAxis)
       .initAxisY(yAxis)
-      .addRenderer(new ChChartRendererBoxPlot(this.seriesColorScale.exportToColorSeriesFunction(), this.tagColorer))
+      .addRenderer(
+        new ChChartRendererBoxPlot(this.seriesColorScale.exportToColorSeriesFunction(), this.tagColorer)
+      )
       .initData(this.dataContainer);
   }
 
@@ -65,17 +70,16 @@ export class ChChartBoxPlot extends ChChartConfig {
     return new ChChartLegendMultiSeries(this.dataContainer.series, this.seriesColorScale);
   }
 
-
   getRightSectionConfig(): ChChartRightSectionConfig {
     const data: ChChartLegendSerieWithTagsInput = {
       series: this.dataContainer.series,
       seriesColorScale: this.seriesColorScale,
-      tagColorer: this.tagColorer
+      tagColorer: this.tagColorer,
     };
 
     return {
       componentType: ChChartLegendSeriesWithTagsComponent,
-      data: data
+      data: data,
     };
   }
 
@@ -83,9 +87,7 @@ export class ChChartBoxPlot extends ChChartConfig {
     return new ChChart2dBrushX();
   }
 
-
   destroy(): void {
     this.tagColorer.destroy();
   }
-
 }

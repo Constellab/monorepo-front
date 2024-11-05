@@ -1,20 +1,19 @@
-<div>{{'bnBioNetwork.selection_info' | translate}}</div>
-
+<div>{{ 'bnBioNetwork.selection_info' | translate }}</div>
 
 <div class="g-text-small g-text-light" *ngIf="info$ | async as info">
   <div *ngIf="info.metabolites != null">
-    {{'bnBioNetwork.metabolites_count' | translate: {count: info.metabolites} }}
+    {{ 'bnBioNetwork.metabolites_count' | translate: { count: info.metabolites } }}
   </div>
 
   <div *ngIf="info.cofactors != null">
-    {{'bnBioNetwork.cofactors_count' | translate: {count: info.cofactors} }}
+    {{ 'bnBioNetwork.cofactors_count' | translate: { count: info.cofactors } }}
   </div>
 
   <div *ngIf="info.reactions != null">
-    {{'bnBioNetwork.reactions_count' | translate: {count: info.reactions} }}
+    {{ 'bnBioNetwork.reactions_count' | translate: { count: info.reactions } }}
   </div>
 
   <div *ngIf="info.links != null">
-    {{'bnBioNetwork.links_count' | translate: {count: info.links} }}
+    {{ 'bnBioNetwork.links_count' | translate: { count: info.links } }}
   </div>
 </div>

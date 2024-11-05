@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSpreadsheetCellInfoComponent} from './sp-spreadsheet-cell-info.component';
+import { SpSpreadsheetCellInfoComponent } from './sp-spreadsheet-cell-info.component';
 
 describe('SpSpreadsheetCellInfoComponent', () => {
   let component: SpSpreadsheetCellInfoComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetCellInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSpreadsheetCellInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSpreadsheetCellInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

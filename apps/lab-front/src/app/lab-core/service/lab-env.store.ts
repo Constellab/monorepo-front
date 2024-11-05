@@ -1,15 +1,14 @@
-import {Injectable} from '@angular/core';
-import {FlCleanableService, FlCleanerService, FlLocalStorageService} from '@monorepo/front-core-lib';
-import {LabAppEnvironment} from '../model/global/lab-environment.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { FlCleanableService, FlCleanerService, FlLocalStorageService } from '@monorepo/front-core-lib';
+import { LabAppEnvironment } from '../model/global/lab-environment.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Class to manage the env and jwt, store it and clean it
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LabEnvStore implements FlCleanableService {
-
   private readonly labEnvironmentStorageKey: string = 'lab-environment';
 
   private _labEnvironment$: BehaviorSubject<LabAppEnvironment> = new BehaviorSubject('prod');
@@ -34,11 +33,11 @@ export class LabEnvStore implements FlCleanableService {
   }
 
   public isDev$(): Observable<boolean> {
-    return this.getLabEnvironment$().pipe(map(env => env === 'dev'));
+    return this.getLabEnvironment$().pipe(map((env) => env === 'dev'));
   }
 
   public isProd$(): Observable<boolean> {
-    return this.getLabEnvironment$().pipe(map(env => env === 'prod'));
+    return this.getLabEnvironment$().pipe(map((env) => env === 'prod'));
   }
 
   /**
@@ -64,10 +63,8 @@ export class LabEnvStore implements FlCleanableService {
     this.localStorage.removeItem(this.labEnvironmentStorageKey);
   }
 
-
   clean(): void {
     this.setLabEnvironment('prod');
     this.clearLabEnvironmentStorage();
   }
-
 }

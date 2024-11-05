@@ -6,7 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CaCoreModule } from './ca-core/ca-core.module';
 import { CaLoginModule } from './ca-login/ca-login.module';
 import { CaMainModule } from './ca-main/ca-main.module';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import {
   FL_CAPTCHA_MODULE_CONFIG,
@@ -26,7 +31,7 @@ import {
   FlTranslateModule,
   FlTranslateModuleConfig,
   FlTranslationLoader,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import { caSvgIcons } from './ca-core/model/config/ca-svg-icon-config';
 import { CaApiServiceConfig } from './ca-core/model/config/ca-api-module.config';
@@ -46,7 +51,10 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { CaCoServiceConfig } from './ca-core/model/config/ca-co-service-config.service';
 
-export function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
+export function translationLoaderFactory(
+  http: HttpClient,
+  config: FlTranslateModuleConfig
+): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
 
@@ -57,16 +65,15 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
 function configureCaptcha(): FlCaptchaModuleConfig {
   return {
     siteKey: CaEnvironmentHelper.getRecaptchaSiteKey(),
-    isLocal: !CaEnvironmentHelper.isProduction()
+    isLocal: !CaEnvironmentHelper.isProduction(),
   };
 }
 
-
 @NgModule({
-  declarations: [
-    CaAppComponent
-  ],
-  bootstrap: [CaAppComponent], imports: [BrowserModule,
+  declarations: [CaAppComponent],
+  bootstrap: [CaAppComponent],
+  imports: [
+    BrowserModule,
     CaAppRoutingModule,
     BrowserAnimationsModule,
     // Other modules
@@ -80,13 +87,13 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlTranslateModule.forRoot({
       defaultLang: ClSupportedLanguage.en,
       availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
-      filenames: ['ca-global-', 'ca-dashboard-', 'ca-server-info-', 'ca-lab-']
+      filenames: ['ca-global-', 'ca-dashboard-', 'ca-server-info-', 'ca-lab-'],
     }),
     FlTranslateModule.forRoot2(),
     // configuration of Front library
     FlIconModule.forRoot({
       iconFolder: 'assets/fl-mat-icons/',
-      iconsToRegister: caSvgIcons
+      iconsToRegister: caSvgIcons,
     }),
     FlDialogModule.forRoot(),
     FlSnackBarModule.forRoot(),
@@ -98,27 +105,29 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     RvResourceViewModule.forRoot({ availableViews: rvDefaultViewTypeInfos }),
     BnBioNetworkModule.forRoot(),
     TdTechnicalDocModule.forRoot(CaTdServiceConfig),
-    CoCommunityLibModule.forRoot(CaCoServiceConfig)], providers: [
+    CoCommunityLibModule.forRoot(CaCoServiceConfig),
+  ],
+  providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: CaSpaceInterceptor,
-      multi: true
+      multi: true,
     },
     { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     {
       provide: TranslateLoader,
       useFactory: translationLoaderFactory,
-      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG]
+      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
     },
     CookieService,
-    provideHttpClient(withInterceptorsFromDi())
-  ]
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class CaAppModule {
   constructor(injector: Injector) {

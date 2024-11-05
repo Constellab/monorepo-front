@@ -1,7 +1,9 @@
 <div class="container">
   <div class="deprecated-message-div" *ngIf="entity.deprecatedSince">
     <div class="g-text-editor-hint g-text-editor-hint-warning">
-      <div><strong>{{ 'td.deprecated_since' | translate }} : {{ entity.deprecatedSince }}</strong></div>
+      <div>
+        <strong>{{ 'td.deprecated_since' | translate }} : {{ entity.deprecatedSince }}</strong>
+      </div>
       <div>{{ entity.deprecatedMessage }}</div>
     </div>
   </div>
@@ -32,15 +34,14 @@
   </fl-key-value>
 
   <!-- Parent info -->
-  <div *ngIf="entity.objectType === 'RESOURCE' && entity.parentTypingName"
-       class="doc-info g-layout-row g-layout-start-center g-layout-gap-05em">
+  <div
+    *ngIf="entity.objectType === 'RESOURCE' && entity.parentTypingName"
+    class="doc-info g-layout-row g-layout-start-center g-layout-gap-05em">
     <span>{{ 'td.parent' | translate }} :</span>
     <td-io-resource [resource]="parentResourceRef"></td-io-resource>
   </div>
 
-
   <p class="doc-info">{{ entity.shortDescription }}</p>
 
-  <div class="doc-info technical-doc-content" [innerHTML]="(entity.doc | tdMarkdown)"></div>
-
+  <div class="doc-info technical-doc-content" [innerHTML]="entity.doc | tdMarkdown"></div>
 </div>

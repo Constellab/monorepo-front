@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlInfiniteTableContainerComponent} from './fl-infinite-table-container.component';
+import { FlInfiniteTableContainerComponent } from './fl-infinite-table-container.component';
 
 describe('FlInifiniteTableContainerComponent', () => {
   let component: FlInfiniteTableContainerComponent;
@@ -8,9 +8,8 @@ describe('FlInifiniteTableContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlInfiniteTableContainerComponent ]
-    })
-    .compileComponents();
+      declarations: [FlInfiniteTableContainerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlInfiniteTableContainerComponent);
     component = fixture.componentInstance;

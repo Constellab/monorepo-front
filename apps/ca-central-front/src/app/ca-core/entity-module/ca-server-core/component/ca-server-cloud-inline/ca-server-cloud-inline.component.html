@@ -1,12 +1,18 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-dense-height">
-  <img [ngSrc]="serverCloud.cloudProvider.logo" class="image"
-       [alt]="serverCloud.cloudProvider.name" [width]="25" [height]="25">
+  <img
+    [ngSrc]="serverCloud.cloudProvider.logo"
+    class="image"
+    [alt]="serverCloud.cloudProvider.name"
+    [width]="25"
+    [height]="25" />
 
   <div>
     <div>{{ serverCloud.serverStandard.name }} - {{ serverCloud.technicalName }}</div>
     <div class="g-text-small g-text-light">
-      <span>{{ serverCloud.cpuCount }} {{ 'cpu' | translate }} - {{ serverCloud.ram }} {{ 'ram' | translate }}</span>
+      <span
+        >{{ serverCloud.cpuCount }} {{ 'cpu' | translate }} - {{ serverCloud.ram }}
+        {{ 'ram' | translate }}</span
+      >
     </div>
   </div>
-
 </div>

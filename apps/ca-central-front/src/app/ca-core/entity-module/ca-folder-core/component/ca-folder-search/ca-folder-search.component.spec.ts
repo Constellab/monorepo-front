@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderSearchComponent} from './ca-folder-search.component';
+import { CaFolderSearchComponent } from './ca-folder-search.component';
 
 describe('CaFolderSearchComponent', () => {
   let component: CaFolderSearchComponent;
@@ -8,9 +8,8 @@ describe('CaFolderSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderSearchComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderSearchComponent);
     component = fixture.componentInstance;

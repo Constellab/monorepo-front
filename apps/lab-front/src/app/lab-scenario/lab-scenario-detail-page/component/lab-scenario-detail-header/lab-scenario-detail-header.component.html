@@ -1,22 +1,31 @@
 @if (scenario$ | async; as scenario) {
   <div class="g-layout-row g-layout-start-center">
-
     <div class="g-flex-auto g-layout-row g-layout-start-center">
       <lab-scenario-icons [scenario]="scenario" size="big"></lab-scenario-icons>
 
-      <h1 flElementEditable (flElementValueChange)="updateTitle($event)"
-          [flElementDisabled]="!scenario.isInfoEditable()" class="title">{{ scenario.title }}</h1>
+      <h1
+        flElementEditable
+        (flElementValueChange)="updateTitle($event)"
+        [flElementDisabled]="!scenario.isInfoEditable()"
+        class="title">
+        {{ scenario.title }}
+      </h1>
     </div>
 
-    <lab-sync-object-button [object]="scenario" [syncObjectFunc]="syncObjectFunc"
-                            (objectUpdate)="onScenarioUpdate($event)">
+    <lab-sync-object-button
+      [object]="scenario"
+      [syncObjectFunc]="syncObjectFunc"
+      (objectUpdate)="onScenarioUpdate($event)">
     </lab-sync-object-button>
 
-    <fl-status-chip [status]="scenario.status" mode="iconText" (click)="openProgressInformation(scenario)"
-                    class="buttons" [ngClass]="{'not-draft-status': !scenario.isDraft()}"></fl-status-chip>
+    <fl-status-chip
+      [status]="scenario.status"
+      mode="iconText"
+      (click)="openProgressInformation(scenario)"
+      class="buttons"
+      [ngClass]="{ 'not-draft-status': !scenario.isDraft() }"></fl-status-chip>
 
-    <button mat-icon-button type="button" [matMenuTriggerFor]="menu"
-            class="buttons">
+    <button mat-icon-button type="button" [matMenuTriggerFor]="menu" class="buttons">
       <mat-icon>more_vert</mat-icon>
     </button>
 
@@ -62,41 +71,37 @@
       </button>
 
       @if (scenario.status.value === 'IN_QUEUE') {
-        <button mat-menu-item type="button" (click)="removeScenarioFromQueue()"
-                class="g-warn-text">
+        <button mat-menu-item type="button" (click)="removeScenarioFromQueue()" class="g-warn-text">
           <mat-icon color="warn">stop</mat-icon>
           {{ 'biox.remove_scenario_from_queue' | translate }}
         </button>
       }
 
       @if (!scenario.isRunning()) {
-        <button mat-menu-item type="button" (click)="openShareDialog(scenario)"
-                class="g-button-small button">
+        <button mat-menu-item type="button" (click)="openShareDialog(scenario)" class="g-button-small button">
           <mat-icon>share</mat-icon>
           {{ 'biox.share' | translate }}
         </button>
 
-
         <button mat-menu-item type="button" (click)="archiveScenario()">
-          <mat-icon color="warn" [flIcon]="scenario.isArchived ? 'unarchive': 'archive'"></mat-icon>
+          <mat-icon color="warn" [flIcon]="scenario.isArchived ? 'unarchive' : 'archive'"></mat-icon>
           <span class="g-warn-text">
-        {{ (scenario.isArchived ? 'biox.unarchive_scenario' : 'biox.archive_scenario') | translate }}
-      </span>
+            {{ (scenario.isArchived ? 'biox.unarchive_scenario' : 'biox.archive_scenario') | translate }}
+          </span>
         </button>
       }
 
       @if (scenario.protocolIsEditable()) {
         <!--        <button mat-menu-item type="button" (click)="deleteIntermediateResources()">-->
-          <!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
-          <!--          <span class="g-warn-text">{{ 'biox.delete_scenario_intermediate_resources' | translate }}</span>-->
-          <!--        </button>-->
+        <!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
+        <!--          <span class="g-warn-text">{{ 'biox.delete_scenario_intermediate_resources' | translate }}</span>-->
+        <!--        </button>-->
 
         <button mat-menu-item type="button" (click)="deleteScenario()">
           <mat-icon color="warn">delete</mat-icon>
           <span class="g-warn-text">{{ 'biox.delete_scenario' | translate }}</span>
         </button>
       }
-
     </mat-menu>
 
     <!-- Protocol menu -->
@@ -129,7 +134,5 @@
         {{ 'biox.view_process_monitoring' | translate }}
       </button>
     </mat-menu>
-
-
   </div>
 }

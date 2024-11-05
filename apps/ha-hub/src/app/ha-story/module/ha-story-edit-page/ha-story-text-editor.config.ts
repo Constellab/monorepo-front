@@ -6,35 +6,35 @@ import {
   TeFigureBlockConfig,
   TeFileBlockConfig,
   TeTools,
-  TeUploadedImage
+  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaStoryContentViewBlock } from '../ha-story-view/ha-story-content-view.block';
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
 
-
 export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
-
-
-  constructor(private storyId: string,
-              private storyService: HaStoryService) {
-  }
+  constructor(
+    private storyId: string,
+    private storyService: HaStoryService
+  ) {}
 
   imageUploader(file: File): Observable<TeUploadedImage> {
     return this.storyService.uploadImage(file, this.storyId);
   }
 
   getImageUrl(filename: string): string {
-    return ClStringHelper.isHttpLink(filename) ? filename : this.storyService.getImageUrl(this.storyId, filename);
+    return ClStringHelper.isHttpLink(filename)
+      ? filename
+      : this.storyService.getImageUrl(this.storyId, filename);
   }
 }
 
 export class HaStoryTextEditorFileConfig implements TeFileBlockConfig {
-
-  constructor(private storyId: string,
-              private storyService: HaStoryService) {
-  }
+  constructor(
+    private storyId: string,
+    private storyService: HaStoryService
+  ) {}
 
   fileUploader(file: File): Observable<HaFile> {
     return this.storyService.uploadFile(file, this.storyId);
@@ -49,8 +49,10 @@ export class HaStoryTextEditorFileConfig implements TeFileBlockConfig {
  * Config for the text editor in story pages
  */
 export class HaStoryTextEditorConfig extends TeCompleteConfig {
-  constructor(private storyService: HaStoryService,
-              private storyId: string) {
+  constructor(
+    private storyService: HaStoryService,
+    private storyId: string
+  ) {
     super();
   }
 
@@ -62,12 +64,16 @@ export class HaStoryTextEditorConfig extends TeCompleteConfig {
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     // configure and add the file block
-    const fileConfig = new HaStoryTextEditorFileConfig(
-      this.storyId, this.storyService);
+    const fileConfig = new HaStoryTextEditorFileConfig(this.storyId, this.storyService);
     tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
     // add the view block
-    tools.resourceView = teComponentBlockFactory(HaStoryContentViewBlock, envInjector, applicationRef, this.storyId);
+    tools.resourceView = teComponentBlockFactory(
+      HaStoryContentViewBlock,
+      envInjector,
+      applicationRef,
+      this.storyId
+    );
 
     return tools;
   }

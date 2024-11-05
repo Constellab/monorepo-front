@@ -1,17 +1,14 @@
-import {Observable} from 'rxjs';
-import {FlTranslateService} from '../module/fl-translate/service/fl-translate.service';
-import {ClNumberHelper} from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+import { FlTranslateService } from '../module/fl-translate/service/fl-translate.service';
+import { ClNumberHelper } from '@monorepo/core-lib';
 
 /**
  * Helper to manage files, like download a file
  */
 export class FlFileHelper {
-
-  constructor() {
-  }
+  constructor() {}
 
   /////////////////////////////////////////// STRING //////////////////////////////////////////////
-
 
   /**
    * @param file filename or full file path
@@ -19,10 +16,7 @@ export class FlFileHelper {
    */
   public static getFilenameWithoutExtension(file: string): string {
     if (!file) return null;
-    return FlFileHelper.extractFilenameFromFullPath(file)
-      .split('.')
-      .slice(0, -1)
-      .join('.');
+    return FlFileHelper.extractFilenameFromFullPath(file).split('.').slice(0, -1).join('.');
   }
 
   /**
@@ -32,10 +26,7 @@ export class FlFileHelper {
   public static getFileExtension(file: string): string {
     if (!file) return null;
     if (file.indexOf('.') === -1) return null;
-    return FlFileHelper.extractFilenameFromFullPath(file)
-      .split('.')
-      .slice(-1)
-      .join('.');
+    return FlFileHelper.extractFilenameFromFullPath(file).split('.').slice(-1).join('.');
   }
 
   /**
@@ -47,7 +38,6 @@ export class FlFileHelper {
     const regex = new RegExp(/^.*[/]/);
     return fullPath.replace(regex, '');
   }
-
 
   public static isPDF(file: string): boolean {
     return FlFileHelper.extensionIsPDF(FlFileHelper.getFileExtension(file));
@@ -78,8 +68,14 @@ export class FlFileHelper {
   }
 
   public static extensionIsImage(extension: string): boolean {
-    return extension === 'png' || extension === 'jpg' || extension === 'jpeg' ||
-      extension === 'gif' || extension === 'webp' || extension === 'svg';
+    return (
+      extension === 'png' ||
+      extension === 'jpg' ||
+      extension === 'jpeg' ||
+      extension === 'gif' ||
+      extension === 'webp' ||
+      extension === 'svg'
+    );
   }
 
   /**
@@ -87,12 +83,16 @@ export class FlFileHelper {
    * @param size
    */
   public static getFileSizeText(size: number = 0): string {
-    const units = ['flCoreComponent.byte_symbol', 'flCoreComponent.kilo_byte_symbole',
-      'flCoreComponent.mega_byte_symbole', 'flCoreComponent.giga_byte_symbole']
+    const units = [
+      'flCoreComponent.byte_symbol',
+      'flCoreComponent.kilo_byte_symbole',
+      'flCoreComponent.mega_byte_symbole',
+      'flCoreComponent.giga_byte_symbole',
+    ];
     const translateService = FlTranslateService.getInstance();
 
-    for(const unit of units){
-      if(size < 1024){
+    for (const unit of units) {
+      if (size < 1024) {
         return `${ClNumberHelper.round(size, 1)} ${translateService.translate(unit)}`;
       }
       size /= 1024;
@@ -100,7 +100,6 @@ export class FlFileHelper {
 
     return `${ClNumberHelper.round(size, 1)} ${translateService.translate('flCoreComponent.tera_byte_symbole')}`;
   }
-
 
   /////////////////////////////////////////// JS FILE //////////////////////////////////////////////
   /**
@@ -117,12 +116,10 @@ export class FlFileHelper {
     return array;
   }
 
-
   public static isFolder(file: File): boolean {
     // not perfect, this also detect empty file without extension as folder
     return !file.type && file.size === 0;
   }
-
 
   /////////////////////////////////////////// BLOB //////////////////////////////////////////////
 
@@ -136,7 +133,7 @@ export class FlFileHelper {
    * @param parseResultToJson if true parse the result to json
    */
   public static readBlobContent(file: Blob, parseResultToJson: boolean = false): Observable<string | any> {
-    return new Observable(subscriber => {
+    return new Observable((subscriber) => {
       const reader = new FileReader();
 
       // This fires after the blob has been read/loaded.
@@ -160,7 +157,6 @@ export class FlFileHelper {
       reader.readAsText(file);
     });
   }
-
 
   // /**
   //  * @param fullPath full path of the file
@@ -205,7 +201,6 @@ export class FlFileHelper {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }, 0);
-
   }
 
   /**
@@ -214,7 +209,11 @@ export class FlFileHelper {
    * @param filename the complete name of the file
    * @param contentType content type of the blob
    */
-  public static downloadBase64File(b64Data: string, filename: string, contentType = 'application/json'): void {
+  public static downloadBase64File(
+    b64Data: string,
+    filename: string,
+    contentType = 'application/json'
+  ): void {
     // convert to base 64
     const blob: Blob = FlFileHelper.convertBase64ToBlob(b64Data, contentType);
 
@@ -245,9 +244,8 @@ export class FlFileHelper {
       byteArrays.push(byteArray);
     }
 
-    return new Blob(byteArrays, {type: contentType});
+    return new Blob(byteArrays, { type: contentType });
   }
-
 
   /**
    * Convert a json to blob and download it to the user's computer
@@ -271,7 +269,7 @@ export class FlFileHelper {
 
     const bytes = new TextEncoder().encode(str);
     return new Blob([bytes], {
-      type: 'application/json;charset=utf-8'
+      type: 'application/json;charset=utf-8',
     });
   }
 }

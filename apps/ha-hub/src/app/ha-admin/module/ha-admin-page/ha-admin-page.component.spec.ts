@@ -8,9 +8,8 @@ describe('HaAdminPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaAdminPageComponent ]
-    })
-      .compileComponents();
+      declarations: [HaAdminPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

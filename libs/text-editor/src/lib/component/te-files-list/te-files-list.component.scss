@@ -1,24 +1,24 @@
-.files-div{
+.files-div {
   padding-bottom: 0.4em;
   border-bottom: 1px solid var(--hover-color);
   display: flex;
   flex-direction: column;
 }
 
-.side-box-title{
+.side-box-title {
   font-size: 1.2em;
   font-weight: 500;
   margin-top: 1em;
   margin-bottom: 0.5em;
 }
 
-.list-div{
+.list-div {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
 
-.file{
+.file {
   font-size: 0.8em;
   white-space: nowrap;
   overflow: hidden;

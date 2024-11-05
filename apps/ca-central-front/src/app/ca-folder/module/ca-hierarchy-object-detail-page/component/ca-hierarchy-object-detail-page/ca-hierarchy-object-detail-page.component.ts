@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
-  CaHierarchyObjectWithChildren
+  CaHierarchyObjectWithChildren,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { map } from 'rxjs/operators';
@@ -18,10 +18,9 @@ import { map } from 'rxjs/operators';
   selector: 'ca-hierarchy-object-detail-page',
   templateUrl: './ca-hierarchy-object-detail-page.component.html',
   styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
-  providers: [CaHierarchyObjectDetailState]
+  providers: [CaHierarchyObjectDetailState],
 })
 export class CaHierarchyObjectDetailPageComponent implements OnInit {
-
   treeOpened$: Observable<boolean>;
 
   hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;
@@ -32,20 +31,17 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
     return CaRouterService.getFolderDetailRoute(node.id);
   };
 
-  constructor(private state: CaHierarchyObjectDetailState) {
-  }
+  constructor(private state: CaHierarchyObjectDetailState) {}
 
   ngOnInit(): void {
     this.state.init();
 
     this.treeOpened$ = this.state.getTreeDrawerOpened$();
-    this.hierarchyObjects$ = this.state.getFolderTree$().pipe(
-      map(tree => [tree])
-    );
+    this.hierarchyObjects$ = this.state.getFolderTree$().pipe(map((tree) => [tree]));
 
-    this.activeObject$ = this.state.getAncestorsFolders$().pipe(
-      map(ancestors => this.getActiveFolderId(ancestors))
-    );
+    this.activeObject$ = this.state
+      .getAncestorsFolders$()
+      .pipe(map((ancestors) => this.getActiveFolderId(ancestors)));
   }
 
   private getActiveFolderId(ancestors: CaHierarchyObject[]): string {
@@ -60,5 +56,4 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
       return lastAncestor.parentId;
     }
   }
-
 }

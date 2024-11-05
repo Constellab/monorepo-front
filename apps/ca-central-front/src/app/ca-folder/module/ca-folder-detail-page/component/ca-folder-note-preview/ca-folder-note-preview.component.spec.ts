@@ -8,9 +8,8 @@ describe('CaFolderNotePreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderNotePreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderNotePreviewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderNotePreviewComponent);
     component = fixture.componentInstance;

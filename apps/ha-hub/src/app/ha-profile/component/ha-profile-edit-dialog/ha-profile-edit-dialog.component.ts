@@ -22,18 +22,21 @@ export interface HaProfileEditDialogFormData {
 @Component({
   selector: 'ha-profile-edit-dialog',
   templateUrl: './ha-profile-edit-dialog.component.html',
-  styleUrl: './ha-profile-edit-dialog.component.scss'
+  styleUrl: './ha-profile-edit-dialog.component.scss',
 })
-export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<HaProfileEditDialogFormData, CoUser>
-  implements OnInit {
-
+export class HaProfileEditDialogComponent
+  extends FlFormDialogAbstractDirective<HaProfileEditDialogFormData, CoUser>
+  implements OnInit
+{
   isLoading = false;
   user: CoUser;
 
-  constructor(@Inject(MAT_DIALOG_DATA) dialogInput: HaProfileEditDialogData,
-              private userService: HaUserService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) dialogInput: HaProfileEditDialogData,
+    private userService: HaUserService
+  ) {
     super();
-    this.user = dialogInput.user
+    this.user = dialogInput.user;
   }
 
   ngOnInit(): void {
@@ -43,11 +46,17 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       id: [this.user.id],
-      alias: [this.user.alias, [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)]],
-      linkedinLink: [this.user.linkedinLink, [Validators.pattern(/^https:\/\/www\.linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/)]],
+      alias: [
+        this.user.alias,
+        [Validators.required, Validators.pattern(/^[a-zA-Z0-9 ]*$/), Validators.maxLength(52)],
+      ],
+      linkedinLink: [
+        this.user.linkedinLink,
+        [Validators.pattern(/^https:\/\/www\.linkedin\.com\/in\/[A-Za-z0-9_-]+\/?$/)],
+      ],
       xLink: [this.user.xLink, [Validators.pattern(/^https:\/\/(twitter\.com|x\.com)\/[A-Za-z0-9_]+\/?$/)]],
       githubLink: [this.user.githubLink, [Validators.pattern(/^https:\/\/github\.com\/[A-Za-z0-9-]+\/?$/)]],
-      interests: [this.user.interests, [Validators.maxLength(255)]]
+      interests: [this.user.interests, [Validators.maxLength(255)]],
     });
   }
 
@@ -66,14 +75,17 @@ export class HaProfileEditDialogComponent extends FlFormDialogAbstractDirective<
   checkModified(): boolean {
     const formValue = this.formGp.value;
 
-    return formValue.linkedinLink != this.user.linkedinLink ||
+    return (
+      formValue.linkedinLink != this.user.linkedinLink ||
       formValue.xLink != this.user.xLink ||
       formValue.githubLink != this.user.githubLink ||
-      formValue.interests != this.user.interests || formValue.alias.trim() != this.user.alias;
+      formValue.interests != this.user.interests ||
+      formValue.alias.trim() != this.user.alias
+    );
   }
 
   update(formValue: HaProfileEditDialogFormData): Observable<CoUser> {
-    if (this.checkModified()){
+    if (this.checkModified()) {
       formValue.alias = formValue.alias.trim();
       return this.userService.editUser(formValue);
     }

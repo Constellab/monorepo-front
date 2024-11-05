@@ -174,7 +174,7 @@
   "end_date": "End date",
   "dates": "Dates",
   "folder_empty": "This folder is empty",
-  "drop_file_in_folder" : "Drop file here to import them into {{name}}",
+  "drop_file_in_folder": "Drop file here to import them into {{name}}",
   "document": "File",
   "constellab_document": "Note",
   "folder_object_type": "Filter",

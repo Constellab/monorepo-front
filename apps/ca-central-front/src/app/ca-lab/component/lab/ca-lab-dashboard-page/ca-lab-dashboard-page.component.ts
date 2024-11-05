@@ -6,12 +6,10 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 @Component({
   selector: 'ca-lab-dashboard-page',
   templateUrl: './ca-lab-dashboard-page.component.html',
-  styleUrls: ['./ca-lab-dashboard-page.component.scss']
+  styleUrls: ['./ca-lab-dashboard-page.component.scss'],
 })
 export class CaLabDashboardPageComponent {
-
   lab$: Observable<CaLab> = this.state.getLab$();
 
-  constructor(private state: CaLabDetailPageState) {
-  }
+  constructor(private state: CaLabDetailPageState) {}
 }

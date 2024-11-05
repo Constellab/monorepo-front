@@ -28,7 +28,7 @@ import { CaSelectGroupComponent } from './component/ca-select-group/ca-select-gr
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
-    CaSelectGroupComponent
+    CaSelectGroupComponent,
   ],
   exports: [
     CaGroupInlineComponent,
@@ -41,17 +41,8 @@ import { CaSelectGroupComponent } from './component/ca-select-group/ca-select-gr
     CaTeamSearchComponent,
     CaTeamSearchFormComponent,
     CaUserGroupTableComponent,
-    CaSelectGroupComponent
+    CaSelectGroupComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-
-    CaCoreModule,
-    CaFolderCoreModule
-  ]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, CaCoreModule, CaFolderCoreModule],
 })
-export class CaGroupCoreModule {
-}
+export class CaGroupCoreModule {}

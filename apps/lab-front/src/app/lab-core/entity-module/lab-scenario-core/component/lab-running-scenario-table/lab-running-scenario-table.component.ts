@@ -5,18 +5,14 @@ import { LabRunningScenarioInfo } from '../../../../model/entities/lab-scenario.
 @Component({
   selector: 'lab-running-scenario-table',
   templateUrl: './lab-running-scenario-table.component.html',
-  styleUrls: ['./lab-running-scenario-table.component.scss']
+  styleUrls: ['./lab-running-scenario-table.component.scss'],
 })
 export class LabRunningScenarioTableComponent implements OnInit {
-
   @Input() datasource: FlDatasource<LabRunningScenarioInfo>;
 
   @Input() columns: string[];
 
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

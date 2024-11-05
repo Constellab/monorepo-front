@@ -1,12 +1,17 @@
 <div class="container mat-elevation-z5">
-
-  <div *ngIf="showEveryoneButton" class="item" (click)="selectEveryone()"
-       [ngClass]="{'selected': userIsSelected(0)}">
+  <div
+    *ngIf="showEveryoneButton"
+    class="item"
+    (click)="selectEveryone()"
+    [ngClass]="{ selected: userIsSelected(0) }">
     Everyone
   </div>
 
-  <fl-user-inline *ngFor="let user of users; let i = index"
-                  class="item" [ngClass]="{'selected': userIsSelected(i + showEveryoneButton)}"
-                  [user]="user" (click)="selectUser(user)">
+  <fl-user-inline
+    *ngFor="let user of users; let i = index"
+    class="item"
+    [ngClass]="{ selected: userIsSelected(i + showEveryoneButton) }"
+    [user]="user"
+    (click)="selectUser(user)">
   </fl-user-inline>
 </div>

@@ -1,15 +1,15 @@
-import {HaAgent} from './ha-agent.class';
-import {FlEntity} from '@monorepo/front-core-lib';
-import {DateTime} from 'luxon';
+import { HaAgent } from './ha-agent.class';
+import { FlEntity } from '@monorepo/front-core-lib';
+import { DateTime } from 'luxon';
 import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
-import {TeRichTextContent} from '@monorepo/text-editor';
+import { TeRichTextContent } from '@monorepo/text-editor';
 
 export enum HaAgentVersionState {
   PUBLISHED = 'PUBLISHED',
-  DRAFT = 'DRAFT'
+  DRAFT = 'DRAFT',
 }
 
-export enum HaAgentVersionType{
+export enum HaAgentVersionType {
   PYTHON = 'PYTHON',
   CONDA_PYTHON = 'CONDA_PYTHON',
   MAMBA_PYTHON = 'MAMBA_PYTHON',
@@ -19,7 +19,7 @@ export enum HaAgentVersionType{
   STREAMLIT = 'STREAMLIT',
 }
 
-export class HaAgentVersion implements FlEntity{
+export class HaAgentVersion implements FlEntity {
   id: string;
   version: number;
   agent: HaAgent;
@@ -55,7 +55,16 @@ export class HaAgentVersionFileInput {
 
   static isValid(obj: any): boolean {
     //check vars exist and vars type
-    return obj && typeof obj.json_version === 'number' && typeof obj.code === 'string' && typeof obj.environment === 'string' && typeof obj.input_specs === 'object' && typeof obj.output_specs === 'object' && typeof obj.config_specs === 'object' && typeof obj.bricks === 'object' && typeof obj.task_type === 'string';
+    return (
+      obj &&
+      typeof obj.json_version === 'number' &&
+      typeof obj.code === 'string' &&
+      typeof obj.environment === 'string' &&
+      typeof obj.input_specs === 'object' &&
+      typeof obj.output_specs === 'object' &&
+      typeof obj.config_specs === 'object' &&
+      typeof obj.bricks === 'object' &&
+      typeof obj.task_type === 'string'
+    );
   }
 }
-

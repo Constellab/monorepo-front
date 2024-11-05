@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlLastSyncInfoComponent} from './fl-last-sync-info.component';
+import { FlLastSyncInfoComponent } from './fl-last-sync-info.component';
 
 describe('FlLastSyncInfoComponent', () => {
   let component: FlLastSyncInfoComponent;
@@ -8,9 +8,8 @@ describe('FlLastSyncInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlLastSyncInfoComponent]
-    })
-      .compileComponents();
+      declarations: [FlLastSyncInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlLastSyncInfoComponent);
     component = fixture.componentInstance;

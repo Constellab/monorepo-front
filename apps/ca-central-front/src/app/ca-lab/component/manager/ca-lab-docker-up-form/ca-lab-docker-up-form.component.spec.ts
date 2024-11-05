@@ -8,9 +8,8 @@ describe('CaLabDockerUpFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabDockerUpFormComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabDockerUpFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

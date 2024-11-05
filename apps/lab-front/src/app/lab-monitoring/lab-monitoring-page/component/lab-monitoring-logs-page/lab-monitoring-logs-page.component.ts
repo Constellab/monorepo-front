@@ -10,20 +10,17 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'lab-monitoring-logs-page',
   templateUrl: './lab-monitoring-logs-page.component.html',
-  styleUrls: ['./lab-monitoring-logs-page.component.scss']
+  styleUrls: ['./lab-monitoring-logs-page.component.scss'],
 })
 export class LabMonitoringLogsPageComponent implements OnInit {
-
   logsStatus$: Observable<LabLogsStatus>;
 
   logsList: LabLogsArrayObs;
 
-  constructor(private logsService: LabLogService) {
-  }
+  constructor(private logsService: LabLogService) {}
 
   ngOnInit(): void {
     this.logsStatus$ = this.logsService.getLogsStatus().pipe(share());
-    this.logsList = new LabLogsArrayObs(this.logsStatus$.pipe(map(status => status.logFiles)));
+    this.logsList = new LabLogsArrayObs(this.logsStatus$.pipe(map((status) => status.logFiles)));
   }
-
 }

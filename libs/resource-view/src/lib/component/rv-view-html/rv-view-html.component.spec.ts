@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewHtmlComponent} from './rv-view-html.component';
+import { RvViewHtmlComponent } from './rv-view-html.component';
 
 describe('RvViewHtmlComponent', () => {
   let component: RvViewHtmlComponent;

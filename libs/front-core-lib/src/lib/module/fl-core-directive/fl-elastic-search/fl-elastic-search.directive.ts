@@ -1,6 +1,6 @@
-import {Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {Subject} from 'rxjs';
-import {clRxjsElasticSearch} from '@monorepo/core-lib';
+import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { clRxjsElasticSearch } from '@monorepo/core-lib';
 
 /**
  * Directive to handle elastic search
@@ -10,11 +10,9 @@ import {clRxjsElasticSearch} from '@monorepo/core-lib';
  * It triggers an event after the last key pressed with an idle delay
  */
 @Directive({
-  selector: 'input[flElasticSearch]'
+  selector: 'input[flElasticSearch]',
 })
 export class FlElasticSearchDirective implements OnInit, OnDestroy {
-
-
   /**
    * The event trigger after the idle time
    */
@@ -39,11 +37,9 @@ export class FlElasticSearchDirective implements OnInit, OnDestroy {
    */
   @Input() flElasticLowercase: boolean = true;
 
-
   private keyUpSubject: Subject<string> = new Subject<string>();
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     // avoid problem with input string when using flElasticSearch without value
@@ -52,11 +48,11 @@ export class FlElasticSearchDirective implements OnInit, OnDestroy {
     }
 
     // subscribe to input keyup and filter value for elastic search
-    this.keyUpSubject.pipe(
-      clRxjsElasticSearch(this.flElasticDebounceTime, this.flElasticMinInputLength, this.flElasticLowercase)
-    ).subscribe(
-      value => this.triggerEvent(value)
-    );
+    this.keyUpSubject
+      .pipe(
+        clRxjsElasticSearch(this.flElasticDebounceTime, this.flElasticMinInputLength, this.flElasticLowercase)
+      )
+      .subscribe((value) => this.triggerEvent(value));
   }
 
   @HostListener('input', ['$event']) onInput(ev: InputEvent): void {
@@ -72,5 +68,4 @@ export class FlElasticSearchDirective implements OnInit, OnDestroy {
   private triggerEvent(input: string): void {
     this.flElasticSearch.emit(input);
   }
-
 }

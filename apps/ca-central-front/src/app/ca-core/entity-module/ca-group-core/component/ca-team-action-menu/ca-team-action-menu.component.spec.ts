@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamActionMenuComponent} from './ca-team-action-menu.component';
+import { CaTeamActionMenuComponent } from './ca-team-action-menu.component';
 
 describe('CaTeamActionMenuComponent', () => {
   let component: CaTeamActionMenuComponent;
@@ -8,9 +8,8 @@ describe('CaTeamActionMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaTeamActionMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [CaTeamActionMenuComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaTeamActionMenuComponent);
     component = fixture.componentInstance;

@@ -11,28 +11,25 @@ import { CoAgent } from '@monorepo/community-lib';
 @Component({
   selector: 'lab-select-community-agent',
   templateUrl: './lab-select-community-agent.component.html',
-  styleUrls: ['./lab-select-community-agent.component.scss']
+  styleUrls: ['./lab-select-community-agent.component.scss'],
 })
 export class LabSelectCommunityAgentComponent implements OnInit {
-
   @Input() personalOnly: boolean = false;
 
   //Output event on agent click
   @Output() agentSelected: EventEmitter<LabAgent> = new EventEmitter<LabAgent>();
-
 
   agentsDatasource: LabAgentDatasourcePaginated;
   titleFormControl: FormControl<string> = new FormControl('');
   spaceIdFilter: string[] = [];
   spaces: LabCommunitySpace[];
 
-  constructor(private protocolService: LabProtocolService) {
-  }
+  constructor(private protocolService: LabProtocolService) {}
 
   ngOnInit(): void {
     this.search();
-    this.protocolService.getCommunitySpaces().subscribe(spaces => {
-      this.spaces = spaces
+    this.protocolService.getCommunitySpaces().subscribe((spaces) => {
+      this.spaces = spaces;
     });
   }
 
@@ -40,15 +37,16 @@ export class LabSelectCommunityAgentComponent implements OnInit {
     this.agentSelected.emit(agent);
   }
 
-
   pythonLabAgentToCoAgent(agent: LabAgent): CoAgent {
     return agent.toCoAgent();
   }
 
   search(): void {
-    this.agentsDatasource =
-      this.protocolService.getCommunityAvailableAgentsWithFiltersPaginated(
-        this.spaceIdFilter, this.titleFormControl.value, this.personalOnly);
+    this.agentsDatasource = this.protocolService.getCommunityAvailableAgentsWithFiltersPaginated(
+      this.spaceIdFilter,
+      this.titleFormControl.value,
+      this.personalOnly
+    );
   }
 
   isSelected(spaceId: string): boolean {

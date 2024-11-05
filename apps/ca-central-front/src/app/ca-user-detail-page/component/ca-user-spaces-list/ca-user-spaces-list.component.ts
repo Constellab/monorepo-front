@@ -9,20 +9,16 @@ import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-user-spaces-list',
   templateUrl: './ca-user-spaces-list.component.html',
-  styleUrls: ['./ca-user-spaces-list.component.scss']
+  styleUrls: ['./ca-user-spaces-list.component.scss'],
 })
 export class CaUserSpacesListComponent implements OnInit {
-
   @Input() userId: string;
 
   datasource: FlArrayObs<CaSpace>;
 
-  constructor(private spaceService: CaSpaceService) {
-  }
+  constructor(private spaceService: CaSpaceService) {}
 
   ngOnInit(): void {
     this.datasource = new FlEntityArrayObs(this.spaceService.getSpacesOfUser(this.userId));
   }
-
-
 }

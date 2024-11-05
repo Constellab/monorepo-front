@@ -11,10 +11,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'fl-text-icon',
   templateUrl: './fl-text-icon.component.html',
   styleUrls: ['./fl-text-icon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlTextIconComponent {
-
   /**
    * The gap between the icon and the text
    */
@@ -30,7 +29,6 @@ export class FlTextIconComponent {
    */
   @Input() showIcon: boolean = true;
 
-
   get leftMargin(): string {
     return this.iconPosition === 'start' ? this.gap : '0';
   }
@@ -38,5 +36,4 @@ export class FlTextIconComponent {
   get rightMargin(): string {
     return this.iconPosition === 'end' ? this.gap : '0';
   }
-
 }

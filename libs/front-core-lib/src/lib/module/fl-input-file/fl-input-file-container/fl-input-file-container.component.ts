@@ -1,27 +1,32 @@
-import {AfterContentInit, Component, ContentChild, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {CanColor, mixinColor, ThemePalette} from '@angular/material/core';
-import {FlInputFileDirective} from '../fl-input-file.directive';
-import {NgControl} from '@angular/forms';
-import {Subscription} from 'rxjs';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
-import {FlDropEvent} from '../../fl-drag/fl-drag.class';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { CanColor, mixinColor, ThemePalette } from '@angular/material/core';
+import { FlInputFileDirective } from '../fl-input-file.directive';
+import { NgControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
+import { FlDropEvent } from '../../fl-drag/fl-drag.class';
 
 /**
  * @internal
  * private class to manage the ThemePalette color
  */
 class FlInputFileContainerComponentMixinBase {
-  constructor(public _elementRef: ElementRef) {
-  }
+  constructor(public _elementRef: ElementRef) {}
 }
-
 
 /**
  * @internal
  * private
  */
-const _FlInputFileContainerComponentMixinBase =
-  mixinColor(FlInputFileContainerComponentMixinBase);
+const _FlInputFileContainerComponentMixinBase = mixinColor(FlInputFileContainerComponentMixinBase);
 
 /**
  * Component to style the input file
@@ -39,12 +44,12 @@ const _FlInputFileContainerComponentMixinBase =
 @Component({
   selector: 'fl-input-file-container',
   templateUrl: './fl-input-file-container.component.html',
-  styleUrls: ['./fl-input-file-container.component.scss']
+  styleUrls: ['./fl-input-file-container.component.scss'],
 })
-export class FlInputFileContainerComponent extends _FlInputFileContainerComponentMixinBase
-  implements OnInit, CanColor, AfterContentInit, OnDestroy {
-
-
+export class FlInputFileContainerComponent
+  extends _FlInputFileContainerComponentMixinBase
+  implements OnInit, CanColor, AfterContentInit, OnDestroy
+{
   /**
    * The theme color of the input
    */
@@ -65,14 +70,13 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
    */
   @Input() disableFileDrop: boolean = false;
 
-
   /**
    * If true, the input value is cleared after a file is selected
    */
   @Input() autoClear: boolean = false;
 
   // retrieve the injected directive in the ng content
-  @ContentChild(FlInputFileDirective, {static: true}) private inputFile: FlInputFileDirective;
+  @ContentChild(FlInputFileDirective, { static: true }) private inputFile: FlInputFileDirective;
 
   // if the file is not null
   hasValue: boolean = false;
@@ -87,7 +91,10 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
   private changeSubscription: Subscription;
   private stateSubscription: Subscription;
 
-  constructor(elementRef: ElementRef, private translateService: FlTranslateService) {
+  constructor(
+    elementRef: ElementRef,
+    private translateService: FlTranslateService
+  ) {
     super(elementRef);
   }
 
@@ -98,7 +105,9 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
       console.error('[FlInputFileContainer] The file input with the directive FlInputFile is missing');
     }
 
-    this.changeSubscription = this.inputFile.fileChange.subscribe((file: File | File[]) => this.getNewFiles(file));
+    this.changeSubscription = this.inputFile.fileChange.subscribe((file: File | File[]) =>
+      this.getNewFiles(file)
+    );
     this.refreshRequired();
   }
 
@@ -111,20 +120,18 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
     const ngControl: NgControl = this.inputFile.ngControl;
 
     if (ngControl) {
-      this.stateSubscription = ngControl.statusChanges.subscribe(
-        () => {
-          if(this.inputFile?.value == null){
-            this.displayDefaultText();
-          }
-          this.refreshRequired();
+      this.stateSubscription = ngControl.statusChanges.subscribe(() => {
+        if (this.inputFile?.value == null) {
+          this.displayDefaultText();
         }
-      );
+        this.refreshRequired();
+      });
     }
   }
 
   // change displayed text on file input change
   private getNewFiles(files: File | File[]): void {
-    if(this.autoClear){
+    if (this.autoClear) {
       return;
     }
 
@@ -140,7 +147,6 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
         this.placeholderText = length + ' ' + this.translateService.translate('flFileInput.files');
       }
     } else {
-
       if (files == null) {
         this.displayDefaultText();
       } else {
@@ -160,14 +166,13 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
   // display the input placeholder as a text
   private displayDefaultText(): void {
     this.hasValue = false;
-    if(this.placeholder != null){
+    if (this.placeholder != null) {
       this.placeholderText = this.placeholder;
-    }
-    else{
+    } else {
       // use a default text
-      this.placeholderText = this.inputFile.multiple ?
-        this.translateService.translate('flFileInput.select_files') :
-        this.translateService.translate('flFileInput.select_file');
+      this.placeholderText = this.inputFile.multiple
+        ? this.translateService.translate('flFileInput.select_files')
+        : this.translateService.translate('flFileInput.select_file');
     }
 
     if (this.isRequired) {
@@ -191,5 +196,4 @@ export class FlInputFileContainerComponent extends _FlInputFileContainerComponen
     this.changeSubscription?.unsubscribe();
     this.stateSubscription?.unsubscribe();
   }
-
 }

@@ -9,7 +9,7 @@ import {
   FlDynamicFieldConfigSelectSearch,
   FlDynamicFieldConfigUnknown,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig
+  FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -17,7 +17,7 @@ import {
   TdParamSpec,
   TdParamSpecs,
   TdParamSpecSimple,
-  TdParamSpecVisibility
+  TdParamSpecVisibility,
 } from '@monorepo/technical-doc';
 
 /**
@@ -32,7 +32,6 @@ export interface LabConfigureSpecsForm {
  * Config object for a process
  */
 export class LabConfig extends LabBaseEntity {
-
   // object describing the type of the configs and default values
   specs: TdParamSpecs;
 
@@ -64,12 +63,13 @@ export class LabConfig extends LabBaseEntity {
     return this.convertRecordToFieldConfigs(this.specs, visibility);
   }
 
-
-  private convertRecordToFieldConfigs(record: TdParamSpecs, visibility?: TdParamSpecVisibility)
-    : FlDynamicFormGroupConfig {
+  private convertRecordToFieldConfigs(
+    record: TdParamSpecs,
+    visibility?: TdParamSpecVisibility
+  ): FlDynamicFormGroupConfig {
     const configs: FlDynamicFormGroupConfig = {
       controlType: 'formGroup',
-      subConfigs: {}
+      subConfigs: {},
     };
     for (const specName in record) {
       const configSpec: TdParamSpec = record[specName];
@@ -82,8 +82,10 @@ export class LabConfig extends LabBaseEntity {
     return configs;
   }
 
-
-  private convertToAbstractConfig(spec: TdParamSpec, defaultPlaceholder: string): FlDynamicFormAbstractControl {
+  private convertToAbstractConfig(
+    spec: TdParamSpec,
+    defaultPlaceholder: string
+  ): FlDynamicFormAbstractControl {
     if (spec.type === 'param_set') {
       const defaultValues = this.getConfigSpecDefaultValue(spec);
       return {
@@ -92,7 +94,10 @@ export class LabConfig extends LabBaseEntity {
         placeholder: spec.human_name ?? defaultPlaceholder,
         hint: spec.short_description,
         minSize: spec.optional ? 0 : 1,
-        maxSize: spec.additional_info.max_number_of_occurrences > 0 ? spec.additional_info.max_number_of_occurrences : null,
+        maxSize:
+          spec.additional_info.max_number_of_occurrences > 0
+            ? spec.additional_info.max_number_of_occurrences
+            : null,
         newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
       };
     } else {
@@ -104,12 +109,18 @@ export class LabConfig extends LabBaseEntity {
     // create a select
     if (spec.allowed_values) {
       if (spec.allowed_values.length > 10) {
-        const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+        const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(
+          spec,
+          defaultPlaceholder
+        ) as any;
         config.type = 'select-search';
         config.selectOptions = spec.allowed_values;
         return config;
       } else {
-        const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+        const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(
+          spec,
+          defaultPlaceholder
+        ) as any;
         config.type = 'select';
         config.selectOptions = spec.allowed_values;
         config.suffix = spec.unit;
@@ -120,7 +131,10 @@ export class LabConfig extends LabBaseEntity {
       config.type = 'list';
       return config;
     } else if (spec.type === 'bool') {
-      const config: FlDynamicFieldConfigBoolean = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      const config: FlDynamicFieldConfigBoolean = this.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'boolean';
       return config;
     } else if (spec.type === 'tags_param') {
@@ -133,16 +147,25 @@ export class LabConfig extends LabBaseEntity {
       config.fullWidth = true;
       return config;
     } else if (spec.type === 'credentials_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'select_credentials';
-      config.additionalInfo = {credentialsType: spec.additional_info.credentials_type};
+      config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
       return config;
     } else if (spec.type === 'note_template_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'select_note_template';
       return config;
     } else if (spec.type === 'note_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'select_note';
       return config;
     } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
@@ -161,11 +184,13 @@ export class LabConfig extends LabBaseEntity {
       config.fullWidth = true;
       return config;
     } else {
-      const config: FlDynamicFieldConfigInput = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
+      const config: FlDynamicFieldConfigInput = this.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'input';
       config.inputType = spec.type === 'str' ? 'text' : 'number';
       config.suffix = spec.unit;
-
 
       if (spec.type === 'int' || spec.type === 'float') {
         config.min = spec.additional_info.min_value;
@@ -210,7 +235,6 @@ export class LabConfig extends LabBaseEntity {
    */
   private getConfigSpecDefaultValue(spec: TdParamSpec): any {
     if (spec.type === 'param_set') {
-
       const defaultConfig: any = {};
       for (const subSpecName of Object.keys(spec.additional_info.param_set)) {
         const subSpec: TdParamSpec = spec.additional_info.param_set[subSpecName];
@@ -236,7 +260,7 @@ export class LabConfig extends LabBaseEntity {
     if (visibility == null) {
       return this.specs != null && Object.keys(this.specs).length > 0;
     } else {
-      return Object.values(this.specs).some(spec => spec.visibility === visibility);
+      return Object.values(this.specs).some((spec) => spec.visibility === visibility);
     }
   }
 
@@ -249,8 +273,3 @@ export class LabConfig extends LabBaseEntity {
     return nullConfig;
   }
 }
-
-
-
-
-

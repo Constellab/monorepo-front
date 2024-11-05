@@ -1,26 +1,15 @@
-import {NgModule} from '@angular/core';
-import {Route, RouterModule, UrlSegment} from '@angular/router';
-import {
-  HaPublicListBricksPageComponent
-} from './module/ha-public-bricks/ha-public-list-bricks-page/ha-public-list-bricks-page.component';
-import {HaPublicDocComponent} from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
-import {
-  HaPublicEditBrickPageComponent
-} from './module/ha-public-bricks/ha-public-edit-brick-page/ha-public-edit-brick-page.component';
-import {HaPublicVersionsComponent} from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
-import {
-  HaPublicBrickDescriptionComponent
-} from './module/ha-public-brick-page/ha-public-brick-description/ha-public-brick-description.component';
-import {HaPublicTechDocComponent} from './module/ha-public-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
-import {Ha404Component} from './module/ha404/ha404.component';
-import {
-  HaPublicBrickPageComponent
-} from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
-import {
-  HaPublicBrickUserInvitePageComponent
-} from './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component';
-import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
-
+import { NgModule } from '@angular/core';
+import { Route, RouterModule, UrlSegment } from '@angular/router';
+import { HaPublicListBricksPageComponent } from './module/ha-public-bricks/ha-public-list-bricks-page/ha-public-list-bricks-page.component';
+import { HaPublicDocComponent } from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
+import { HaPublicEditBrickPageComponent } from './module/ha-public-bricks/ha-public-edit-brick-page/ha-public-edit-brick-page.component';
+import { HaPublicVersionsComponent } from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
+import { HaPublicBrickDescriptionComponent } from './module/ha-public-brick-page/ha-public-brick-description/ha-public-brick-description.component';
+import { HaPublicTechDocComponent } from './module/ha-public-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
+import { Ha404Component } from './module/ha404/ha404.component';
+import { HaPublicBrickPageComponent } from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
+import { HaPublicBrickUserInvitePageComponent } from './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component';
+import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
 
 const routes: Route[] = [
   {
@@ -35,23 +24,23 @@ const routes: Route[] = [
   {
     path: 'invite/:token',
     component: HaPublicBrickUserInvitePageComponent,
-    canActivate: [HaLoginGuard]
+    canActivate: [HaLoginGuard],
   },
   {
     component: HaPublicBrickPageComponent,
     matcher: (url: UrlSegment[]) => {
-      if(url.length === 1) {
+      if (url.length === 1) {
         url.push(new UrlSegment('latest', {}));
       }
       return url.length >= 2 && (url[1].path.match(/^v\d+$/g) || url[1].path.match(/^latest$/g))
         ? {
-          consumed: url.slice(0,2),
-          posParams: {
-            brickName: new UrlSegment(url[0].path, {}),
-            version: new UrlSegment(url[1].path, {})
+            consumed: url.slice(0, 2),
+            posParams: {
+              brickName: new UrlSegment(url[0].path, {}),
+              version: new UrlSegment(url[1].path, {}),
+            },
           }
-        }
-        : null
+        : null;
     },
     children: [
       {
@@ -59,12 +48,13 @@ const routes: Route[] = [
         children: [
           {
             path: 'technical-folder/:type/:uniqueName',
-            component: HaPublicTechDocComponent
+            component: HaPublicTechDocComponent,
           },
           {
             path: '**',
-            component: HaPublicDocComponent
-          }]
+            component: HaPublicDocComponent,
+          },
+        ],
       },
       {
         path: 'version',
@@ -72,36 +62,31 @@ const routes: Route[] = [
       },
       {
         path: '',
-        component: HaPublicBrickDescriptionComponent
-      }
-    ]
+        component: HaPublicBrickDescriptionComponent,
+      },
+    ],
   },
   {
     matcher: (url: UrlSegment[]) => {
       return url.length == 1
         ? {
-          consumed: url.slice(0, 1),
-          posParams: {
-            brickName: new UrlSegment(url[0].path, {})
+            consumed: url.slice(0, 1),
+            posParams: {
+              brickName: new UrlSegment(url[0].path, {}),
+            },
           }
-        }
-        : null
+        : null;
     },
-    redirectTo: ':brickName/latest'
+    redirectTo: ':brickName/latest',
   },
   {
     path: '**',
-    component: Ha404Component
-  }
+    component: Ha404Component,
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class HaPublicRoutingModule {
-}
+export class HaPublicRoutingModule {}

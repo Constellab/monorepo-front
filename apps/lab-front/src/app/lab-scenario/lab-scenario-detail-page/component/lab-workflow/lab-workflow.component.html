@@ -1,19 +1,13 @@
 <div class="g-full-height container g-layout-col" *ngIf="!error; else showError">
-
   <!--  Workflow zone  -->
   <div class="scenario-workflow g-flex-auto">
-    <pr-workflow *ngIf="workflow" [workflow]="workflow"
-                 [mode$]="mode$"
-                 [viewConfig]="viewConfig">
+    <pr-workflow *ngIf="workflow" [workflow]="workflow" [mode$]="mode$" [viewConfig]="viewConfig">
       <lab-workflow-actions></lab-workflow-actions>
-
     </pr-workflow>
-
 
     <div class="g-text-centered" *ngIf="workflowIsLoading">
       <fl-loader></fl-loader>
     </div>
-
   </div>
 </div>
 

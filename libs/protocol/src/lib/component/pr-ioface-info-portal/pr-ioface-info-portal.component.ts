@@ -29,10 +29,9 @@ export interface PrIofaceInfoPortalData {
 @Component({
   selector: 'pr-ioface-info-portal',
   templateUrl: './pr-ioface-info-portal.component.html',
-  styleUrl: './pr-ioface-info-portal.component.scss'
+  styleUrl: './pr-ioface-info-portal.component.scss',
 })
 export class PrIofaceInfoPortalComponent {
-
   data: PrIofaceInfoPortalData = inject(FL_PORTAL_DATA);
 
   columns = ['node', 'port'];

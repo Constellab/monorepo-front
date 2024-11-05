@@ -1,4 +1,4 @@
-import {FlHideSamePageLinkDirective} from './fl-hide-same-page-link.directive';
+import { FlHideSamePageLinkDirective } from './fl-hide-same-page-link.directive';
 
 describe('FlHideSamePageLinkDirective', () => {
   it('should create an instance', () => {

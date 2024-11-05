@@ -5,18 +5,19 @@ import { BlockTuneData } from '@editorjs/editorjs/types/block-tunes/block-tune-d
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 
 export interface TeBlockTuneConstructorConfig {
-  api: API,
-  config?: ToolConfig,
-  block: BlockAPI,
-  data: BlockTuneData
+  api: API;
+  config?: ToolConfig;
+  block: BlockAPI;
+  data: BlockTuneData;
 }
 
 export abstract class TeBlockTune implements BlockTune {
-  constructor(protected config: TeBlockTuneConstructorConfig,
-                        protected readonly envInjector: EnvironmentInjector,
-                        protected readonly applicationRef: ApplicationRef,
-                        protected additionalData: any) {
-  }
+  constructor(
+    protected config: TeBlockTuneConstructorConfig,
+    protected readonly envInjector: EnvironmentInjector,
+    protected readonly applicationRef: ApplicationRef,
+    protected additionalData: any
+  ) {}
 
   static get isTune(): boolean {
     return true;
@@ -41,9 +42,8 @@ export function teBlockTuneFactory(
   blockType: Type<TeBlockTune>,
   environmentInjector: EnvironmentInjector,
   applicationRef: ApplicationRef,
-  additionalData?: any): any {
-
-
+  additionalData?: any
+): any {
   // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
   return class TeClass {
     static isTune = (blockType as unknown as BlockTuneConstructable).isTune;

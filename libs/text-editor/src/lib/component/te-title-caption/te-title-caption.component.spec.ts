@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeTitleCaptionComponent} from './te-title-caption.component';
+import { TeTitleCaptionComponent } from './te-title-caption.component';
 
 describe('CaTextEditorTitleCaptionComponent', () => {
   let component: TeTitleCaptionComponent;
@@ -8,9 +8,8 @@ describe('CaTextEditorTitleCaptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeTitleCaptionComponent ]
-    })
-    .compileComponents();
+      declarations: [TeTitleCaptionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

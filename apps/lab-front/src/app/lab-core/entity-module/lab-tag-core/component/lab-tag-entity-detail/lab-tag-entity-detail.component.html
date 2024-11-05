@@ -1,11 +1,13 @@
 <mat-expansion-panel>
-
   <mat-expansion-panel-header>
     <mat-panel-title class="g-layout-row g-layout-start-center">
       <div class="color" [style.background-color]="tagEntity | flTagColor | async"></div>
       <span class="g-flex-auto">{{ tagEntity.key }}</span>
-      <button mat-icon-button type="button" (click)="openAddValueDialog($event)"
-              [matTooltip]="'tag_create' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openAddValueDialog($event)"
+        [matTooltip]="'tag_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
     </mat-panel-title>
@@ -14,28 +16,30 @@
   <!--   Values  -->
   <ng-template matExpansionPanelContent>
     <fl-infinite-scroll [datasource]="tagValues" class="infinite-scroll" textNoMoreResult="">
-      <div *ngFor="let value of tagValues | flDatasourceConnect | async"
-           class="value g-layout-row g-layout-start-center g-layout-gap-05em">
-
-
+      <div
+        *ngFor="let value of tagValues | flDatasourceConnect | async"
+        class="value g-layout-row g-layout-start-center g-layout-gap-05em">
         <div class="g-flex-auto">
           {{ value }}
         </div>
 
         <div class="action-buttons">
-          <button mat-icon-button type="button"
-                  (click)="openUpdateValueDialog(value)"
-                  [matTooltip]="'tag_update' | translate">
+          <button
+            mat-icon-button
+            type="button"
+            (click)="openUpdateValueDialog(value)"
+            [matTooltip]="'tag_update' | translate">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button type="button"
-                  (click)="openDeleteTag(value)"
-                  [matTooltip]="'tag_delete' | translate">
+          <button
+            mat-icon-button
+            type="button"
+            (click)="openDeleteTag(value)"
+            [matTooltip]="'tag_delete' | translate">
             <mat-icon>clear</mat-icon>
           </button>
         </div>
       </div>
     </fl-infinite-scroll>
-
   </ng-template>
 </mat-expansion-panel>

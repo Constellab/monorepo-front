@@ -1,51 +1,52 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
     <!--  User  -->
     <fl-form-field class="g-search-field">
-      <fl-select-user formControlName="user" [placeholder]="'monitoring.activity_user' | translate"></fl-select-user>
+      <fl-select-user
+        formControlName="user"
+        [placeholder]="'monitoring.activity_user' | translate"></fl-select-user>
     </fl-form-field>
 
     <!--  Object id  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'monitoring.activity_object_id' | translate}}</mat-label>
-      <input matInput formControlName="objectId" flInputMaxLength="36"
-             [placeholder]="'monitoring.activity_object_id' | translate">
+      <mat-label>{{ 'monitoring.activity_object_id' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="objectId"
+        flInputMaxLength="36"
+        [placeholder]="'monitoring.activity_object_id' | translate" />
     </mat-form-field>
-
 
     <!--  Activity type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'monitoring.activity_type' | translate}}</mat-label>
-      <mat-select formControlName="activityType" [placeholder]="'monitoring.activity_type' | translate"
-                  [multiple]="true">
+      <mat-label>{{ 'monitoring.activity_type' | translate }}</mat-label>
+      <mat-select
+        formControlName="activityType"
+        [placeholder]="'monitoring.activity_type' | translate"
+        [multiple]="true">
         <mat-option *ngFor="let activityType of activityTypes | flObjectKeys" [value]="activityType">
-          {{activityType}}
+          {{ activityType }}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <!--  Activity type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'monitoring.activity_object_type' | translate}}</mat-label>
-      <mat-select formControlName="activityObjectType" [placeholder]="'monitoring.activity_object_type' | translate"
-                  [multiple]="true">
+      <mat-label>{{ 'monitoring.activity_object_type' | translate }}</mat-label>
+      <mat-select
+        formControlName="activityObjectType"
+        [placeholder]="'monitoring.activity_object_type' | translate"
+        [multiple]="true">
         <mat-option *ngFor="let objectType of activityObjectTypes | flObjectKeys" [value]="objectType">
-          {{objectType}}
+          {{ objectType }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small subtitle">{{'monitoring.activity_date' | translate}}</p>
-      <fl-search-date-interval formGroupName="createdAt">
-      </fl-search-date-interval>
+      <p class="g-text-small subtitle">{{ 'monitoring.activity_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
   </div>
-
 </div>
-
-

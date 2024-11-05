@@ -1,20 +1,23 @@
-import {SpSheet} from '../model/sp-sheet.class';
-import {ClCSVDelimiter, clCSVDelimiters, ClCSVHelper, ClCsvJson, clCSVLineSeparator} from '@monorepo/core-lib';
-import {FlTranslateService} from '@monorepo/front-core-lib';
-
+import { SpSheet } from '../model/sp-sheet.class';
+import {
+  ClCSVDelimiter,
+  clCSVDelimiters,
+  ClCSVHelper,
+  ClCsvJson,
+  clCSVLineSeparator,
+} from '@monorepo/core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 /**
  * Factory to create a spreadsheet
  */
 export class SpSpreadsheetFactory {
-
   /**
    * Create a spreadsheet from a JSON csv.
    * Each key is the column name and it contains the list of column values
    */
   public static fromCsvJson(values: ClCsvJson, sheetName: string): SpSheet {
     const sheet: SpSheet = new SpSheet(sheetName);
-
 
     let columnIndex: number = 0;
     // happen the header row
@@ -34,7 +37,6 @@ export class SpSpreadsheetFactory {
    */
   public static fromAny(values: any, sheetName: string): SpSheet {
     let array: any[][];
-
 
     if (Array.isArray(values)) {
       array = SpSpreadsheetFactory.arrayToArray2d(values);
@@ -56,7 +58,7 @@ export class SpSpreadsheetFactory {
     const sheet: SpSheet = new SpSheet(sheetName);
 
     // get the maximum number of columns from the values
-    const maxColumnsLength: number = values.reduce((m, x) => m.length > x.length ? m : x, []).length;
+    const maxColumnsLength: number = values.reduce((m, x) => (m.length > x.length ? m : x), []).length;
 
     // create the columns
     sheet.appendMultipleColumns(maxColumnsLength);
@@ -65,7 +67,7 @@ export class SpSpreadsheetFactory {
     sheet.appendMultipleRows(values.length);
 
     // set the cell values
-    sheet.setValuesFromCoord(values, {row: 0, column: 0});
+    sheet.setValuesFromCoord(values, { row: 0, column: 0 });
 
     return sheet;
   }
@@ -94,9 +96,8 @@ export class SpSpreadsheetFactory {
    */
   public static convertStringToArray(str: string): any[][] {
     const lines: string[] = str.split('\n');
-    return lines.map(line => [line]);
+    return lines.map((line) => [line]);
   }
-
 
   /**
    * Convert a basic json object to an array of array for spreadsheet

@@ -1,10 +1,9 @@
-import {extent} from 'd3';
+import { extent } from 'd3';
 
 /**
  * Object to get the domain based on a list of values
  */
 export class ChChartDomain {
-
   /**
    * @param data
    * @param extendDomain if set, the domain is extended
@@ -12,7 +11,12 @@ export class ChChartDomain {
    * @param minValue if provided, the min domain value will be equal or lower than min value
    * @param maxValue if provided, the min domain value will be equal or higher than max value
    */
-  public static getLinearDomain(data: number[], extendDomain: number = 0, minValue?: number, maxValue?: number): [number, number] {
+  public static getLinearDomain(
+    data: number[],
+    extendDomain: number = 0,
+    minValue?: number,
+    maxValue?: number
+  ): [number, number] {
     const domain: [number, number] = extent(data, (data) => data);
 
     if (domain[1] == null) {

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlDynamicFieldAbstractDirective} from '../../model/fl-dynamic-field-abstract.directive';
-import {FlBasicDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
+import { FlBasicDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
 
 /**
  * Dynamic field to show a search with autocomplete
@@ -8,11 +8,9 @@ import {FlBasicDatasourcePaginated} from '../../../../model/datasource/fl-dataso
 @Component({
   selector: 'fl-dynamic-field-select-search',
   templateUrl: './fl-dynamic-field-select-search.component.html',
-  styleUrl: './fl-dynamic-field-select-search.component.scss'
+  styleUrl: './fl-dynamic-field-select-search.component.scss',
 })
-export class FlDynamicFieldSelectSearchComponent
-  extends FlDynamicFieldAbstractDirective implements OnInit {
-
+export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() selectOptions: string[];
 
   datasource: FlBasicDatasourcePaginated<string>;
@@ -24,5 +22,4 @@ export class FlDynamicFieldSelectSearchComponent
   selectOption(option: string): void {
     this.formCtrl.setValue(option);
   }
-
 }

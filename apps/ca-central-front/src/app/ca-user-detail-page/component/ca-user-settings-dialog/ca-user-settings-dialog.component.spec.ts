@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUserSettingsDialogComponent} from './ca-user-settings-dialog.component';
+import { CaUserSettingsDialogComponent } from './ca-user-settings-dialog.component';
 
 describe('SettingsPageComponent', () => {
   let component: CaUserSettingsDialogComponent;
@@ -8,9 +8,8 @@ describe('SettingsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaUserSettingsDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaUserSettingsDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

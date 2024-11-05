@@ -4,7 +4,7 @@ import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrInterface } from '../pr-interface.class';
 
 export type PrWorkflowActionEvent =
-  PrWorkflowActionSelectNode
+  | PrWorkflowActionSelectNode
   | PrWorkflowActionOpenSelectResource
   | PrWorkflowActionShowResource
   | PrWorkflowActionShowView

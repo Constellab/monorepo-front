@@ -8,9 +8,8 @@ describe('CoIconListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CoIconListComponent]
-    })
-    .compileComponents();
+      declarations: [CoIconListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoIconListComponent);
     component = fixture.componentInstance;

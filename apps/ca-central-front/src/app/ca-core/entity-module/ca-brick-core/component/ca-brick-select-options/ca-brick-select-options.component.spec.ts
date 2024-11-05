@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaBrickSelectOptionsComponent} from './ca-brick-select-options.component';
+import { CaBrickSelectOptionsComponent } from './ca-brick-select-options.component';
 
 describe('CaBrickSelectOptionsComponent', () => {
   let component: CaBrickSelectOptionsComponent;
@@ -8,9 +8,8 @@ describe('CaBrickSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaBrickSelectOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [CaBrickSelectOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -5,15 +5,15 @@ import { Observable } from 'rxjs';
 import { LabNoteTemplate, LabNoteTemplateForm } from '../../../../model/entities/lab-note-template.entity';
 import { LabNoteTemplateService } from '../../../../entity-service/lab-note-template.service';
 
-
 @Component({
   selector: 'lab-note-template-form-dialog',
   templateUrl: './lab-note-template-form-dialog.component.html',
-  styleUrl: './lab-note-template-form-dialog.component.scss'
+  styleUrl: './lab-note-template-form-dialog.component.scss',
 })
-export class LabNoteTemplateFormDialogComponent extends FlFormDialogAbstractDirective<LabNoteTemplateForm, LabNoteTemplate>
-  implements OnInit {
-
+export class LabNoteTemplateFormDialogComponent
+  extends FlFormDialogAbstractDirective<LabNoteTemplateForm, LabNoteTemplate>
+  implements OnInit
+{
   constructor(private noteTemplateService: LabNoteTemplateService) {
     super();
   }
@@ -28,7 +28,7 @@ export class LabNoteTemplateFormDialogComponent extends FlFormDialogAbstractDire
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      title: [null as string, Validators.required]
+      title: [null as string, Validators.required],
     });
   }
 

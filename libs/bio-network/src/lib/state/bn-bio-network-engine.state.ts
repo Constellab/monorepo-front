@@ -1,6 +1,5 @@
-import {Injectable} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
-
+import { Injectable } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
 
 export interface BnBioNetworkEngineConfig {
   // if true, the network is drawn live, if false it is calculated then draw
@@ -27,10 +26,8 @@ const FL_BIO_NETWORK_DEFAULT_ENGINE_CONFIG: BnBioNetworkEngineConfig = {
   linkDistance: 30,
 };
 
-
 @Injectable()
 export class BnBioNetworkEngineState {
-
   private _engineConfig: BnBioNetworkEngineConfig = FL_BIO_NETWORK_DEFAULT_ENGINE_CONFIG;
 
   get engineConfig(): BnBioNetworkEngineConfig {

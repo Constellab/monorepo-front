@@ -8,9 +8,8 @@ describe('BioxWorkflowActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabWorkflowActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabWorkflowActionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

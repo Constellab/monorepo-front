@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {bnBioNetworkCofactorColor} from '../../model/bn-bio-network-node-cofactor.class';
+import { Component, OnInit } from '@angular/core';
+import { bnBioNetworkCofactorColor } from '../../model/bn-bio-network-node-cofactor.class';
 
 /**
  * Component to show the legend of the bio network
@@ -7,17 +7,12 @@ import {bnBioNetworkCofactorColor} from '../../model/bn-bio-network-node-cofacto
 @Component({
   selector: 'bn-bio-network-legend',
   templateUrl: './bn-bio-network-legend.component.html',
-  styleUrls: ['./bn-bio-network-legend.component.scss']
+  styleUrls: ['./bn-bio-network-legend.component.scss'],
 })
 export class BnBioNetworkLegendComponent implements OnInit {
-
-
   cofactorColor = bnBioNetworkCofactorColor;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

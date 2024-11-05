@@ -1,4 +1,4 @@
-import {FlIsNotEmptyPipe} from './fl-is-not-empty.pipe';
+import { FlIsNotEmptyPipe } from './fl-is-not-empty.pipe';
 
 describe('FlIsNullOrEmptyPipe', () => {
   it('create an instance', () => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabSearchFormComponent} from './ca-lab-search-form.component';
+import { CaLabSearchFormComponent } from './ca-lab-search-form.component';
 
 describe('CaLabSearchFormComponent', () => {
   let component: CaLabSearchFormComponent;
@@ -8,9 +8,8 @@ describe('CaLabSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabSearchFormComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabSearchFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabSearchFormComponent);
     component = fixture.componentInstance;

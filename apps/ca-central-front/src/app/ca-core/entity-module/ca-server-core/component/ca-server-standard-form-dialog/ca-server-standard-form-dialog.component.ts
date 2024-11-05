@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
-import { CaServerStandard, CaServerStandardSaveDTO } from '../../../../model/entities/server/ca-server-standard.class';
+import {
+  CaServerStandard,
+  CaServerStandardSaveDTO,
+} from '../../../../model/entities/server/ca-server-standard.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,11 +14,12 @@ export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandard
 @Component({
   selector: 'ca-server-standard-form-dialog',
   templateUrl: './ca-server-standard-form-dialog.component.html',
-  styleUrl: './ca-server-standard-form-dialog.component.scss'
+  styleUrl: './ca-server-standard-form-dialog.component.scss',
 })
-export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDirective<CaServerStandardSaveDTO, CaServerStandard>
-  implements OnInit {
-
+export class CaServerStandardFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaServerStandardSaveDTO, CaServerStandard>
+  implements OnInit
+{
   dialogInput: CaServerStandardFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private serverService: CaServerService) {
@@ -32,7 +36,7 @@ export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDir
       name: [null, Validators.required],
       description: [null, Validators.required],
       technicalDescription: [null, Validators.required],
-      price: [null]
+      price: [null],
     });
 
     // price is only available in create mode
@@ -62,6 +66,4 @@ export class CaServerStandardFormDialogComponent extends FlFormDialogAbstractDir
   get title(): string {
     return this.isCreateMode() ? 'create_server_standard' : 'update_server_standard';
   }
-
-
 }

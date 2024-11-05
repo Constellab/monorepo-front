@@ -15,13 +15,24 @@ export interface ClPageI<T> {
 }
 
 export class ClPage<T> implements ClPageI<T> {
-
-  constructor(public first: boolean, public last: boolean, public totalElements: number,
-              public currentPage: number, public pageSize: number, public objects: T[]) {
-  }
+  constructor(
+    public first: boolean,
+    public last: boolean,
+    public totalElements: number,
+    public currentPage: number,
+    public pageSize: number,
+    public objects: T[]
+  ) {}
 
   public static fromInterface<T>(page: ClPageI<T>): ClPage<T> {
-    return new ClPage(page.first, page.last, page.totalElements, page.currentPage, page.pageSize, page.objects);
+    return new ClPage(
+      page.first,
+      page.last,
+      page.totalElements,
+      page.currentPage,
+      page.pageSize,
+      page.objects
+    );
   }
 
   /**
@@ -29,8 +40,14 @@ export class ClPage<T> implements ClPageI<T> {
    * @param fn
    */
   public map<K>(fn: (value: T) => K): ClPage<K> {
-    return new ClPage(this.first, this.last, this.totalElements, this.currentPage, this.pageSize,
-      this.objects.map(fn));
+    return new ClPage(
+      this.first,
+      this.last,
+      this.totalElements,
+      this.currentPage,
+      this.pageSize,
+      this.objects.map(fn)
+    );
   }
 }
 

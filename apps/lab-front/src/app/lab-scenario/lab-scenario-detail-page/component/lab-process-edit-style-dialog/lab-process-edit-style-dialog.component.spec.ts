@@ -8,9 +8,8 @@ describe('LabProcessEditStyleDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabProcessEditStyleDialogComponent]
-    })
-    .compileComponents();
+      declarations: [LabProcessEditStyleDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabProcessEditStyleDialogComponent);
     component = fixture.componentInstance;

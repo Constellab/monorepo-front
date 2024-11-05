@@ -8,12 +8,10 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
  * The observable will be call automatically and result will be emitted as {@link FlPortalActionResult}
  */
 export interface FlPortalAction<T = any> {
-
   /**
    * Action as observable to subscribe
    */
   action: Observable<T>;
-
 
   /**
    * type of the action, use to filter the results
@@ -57,7 +55,9 @@ export class FlPortalActionDetail {
 
   text: FlTranslatableText;
 
-  private actionSubject$: BehaviorSubject<FlPortalActionDetailStatusEvent> = new BehaviorSubject({status: 'waiting'});
+  private actionSubject$: BehaviorSubject<FlPortalActionDetailStatusEvent> = new BehaviorSubject({
+    status: 'waiting',
+  });
 
   constructor(private action: FlPortalAction) {
     this.symbol = Symbol();
@@ -67,14 +67,14 @@ export class FlPortalActionDetail {
   public callAction(): Observable<FlPortalActionResult> {
     this.emitLoading();
     this.action.action.subscribe({
-      next: result => this.onSuccess(result),
-      error: error => this.emitError(error)
+      next: (result) => this.onSuccess(result),
+      error: (error) => this.emitError(error),
     });
     return this.getResult$();
   }
 
   private emitLoading(): void {
-    this.actionSubject$.next({status: 'loading'});
+    this.actionSubject$.next({ status: 'loading' });
   }
 
   private onSuccess(result: any): void {
@@ -89,13 +89,16 @@ export class FlPortalActionDetail {
     // if upload progress
     if (result.type === HttpEventType.UploadProgress) {
       const progress = Math.trunc((result.loaded / result.total) * 100);
-      this.actionSubject$.next({status: 'progress', progressValue: progress});
+      this.actionSubject$.next({ status: 'progress', progressValue: progress });
     }
     // end of the request with the object
     else if (result.type === HttpEventType.Response) {
       this.emitSuccess(result.body);
       // once the upload is down, show a basic loader
-    } else if (result.type === HttpEventType.DownloadProgress || result.type === HttpEventType.ResponseHeader) {
+    } else if (
+      result.type === HttpEventType.DownloadProgress ||
+      result.type === HttpEventType.ResponseHeader
+    ) {
       this.emitLoading();
     }
   }
@@ -108,18 +111,17 @@ export class FlPortalActionDetail {
       result: result,
       action: this.action,
       additionalInformation: this.action.additionalInformation,
-      link: link
+      link: link,
     });
     this.actionSubject$.complete();
   }
-
 
   private emitError(error: any): void {
     this.actionSubject$.next({
       status: 'error',
       result: error,
       action: this.action,
-      additionalInformation: this.action.additionalInformation
+      additionalInformation: this.action.additionalInformation,
     });
     console.error(error);
     this.actionSubject$.complete();
@@ -132,7 +134,7 @@ export class FlPortalActionDetail {
   public getResult$(): Observable<FlPortalActionResult> {
     // only keep the success and error events
     return this.getStatusEvent$().pipe(
-      filter(result => result.status === 'success' || result.status === 'error'),
+      filter((result) => result.status === 'success' || result.status === 'error')
     ) as any;
   }
 
@@ -143,14 +145,15 @@ export class FlPortalActionDetail {
   public isFinished(): boolean {
     return this.getCurrentStatus() === 'success' || this.getCurrentStatus() === 'error';
   }
-
 }
-
 
 /**
  * Event emitted by the portal action , can be any state
  */
-export type FlPortalActionDetailStatusEvent = FlPortalActionResult | FlPortalActionProgress | FlPortalActionEmpty;
+export type FlPortalActionDetailStatusEvent =
+  | FlPortalActionResult
+  | FlPortalActionProgress
+  | FlPortalActionEmpty;
 
 /**
  * Object emitted when a action is in progress
@@ -166,7 +169,6 @@ export interface FlPortalActionProgress {
 export interface FlPortalActionEmpty {
   status: 'ready' | 'waiting' | 'loading';
 }
-
 
 /**
  * Result of the actions observables, can be error or success
@@ -193,4 +195,3 @@ export interface FlPortalActionError<T = any> {
   action: FlPortalAction;
   additionalInformation?: any;
 }
-

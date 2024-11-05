@@ -6,6 +6,9 @@
   <fl-from-now [date]="comment.createdAt" class="comment-info-date"></fl-from-now>
 </div>
 
-<te-text-editor [config]="textEditorConfig" [(ngModel)]="comment.content" [disabled]="true" class="comment-content">
-
+<te-text-editor
+  [config]="textEditorConfig"
+  [(ngModel)]="comment.content"
+  [disabled]="true"
+  class="comment-content">
 </te-text-editor>

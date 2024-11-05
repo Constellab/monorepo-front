@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabStartStopComponent} from './ca-lab-start-stop.component';
+import { CaLabStartStopComponent } from './ca-lab-start-stop.component';
 
 describe('LabStartStopComponent', () => {
   let component: CaLabStartStopComponent;
@@ -8,9 +8,8 @@ describe('LabStartStopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabStartStopComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabStartStopComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

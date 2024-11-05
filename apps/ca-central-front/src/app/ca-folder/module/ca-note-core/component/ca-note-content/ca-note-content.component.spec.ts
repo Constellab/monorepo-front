@@ -8,9 +8,8 @@ describe('CaNoteContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaNoteContentComponent ]
-    })
-    .compileComponents();
+      declarations: [CaNoteContentComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaNoteContentComponent);
     component = fixture.componentInstance;

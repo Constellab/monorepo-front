@@ -11,9 +11,7 @@ import { CaCorePipeModule } from './module/ca-core-pipe/ca-core-pipe.module';
  * shared across the application
  */
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     // export all core modules
     CaCoreComponentModule,
@@ -24,8 +22,7 @@ import { CaCorePipeModule } from './module/ca-core-pipe/ca-core-pipe.module';
     CaCustomMaterialModule,
 
     // Library
-    CaCustomLibraryModule
-  ]
+    CaCustomLibraryModule,
+  ],
 })
-export class CaCoreModule {
-}
+export class CaCoreModule {}

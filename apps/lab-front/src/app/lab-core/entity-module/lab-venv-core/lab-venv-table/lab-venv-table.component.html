@@ -1,40 +1,38 @@
 <mat-table mat-table [dataSource]="datasource">
-
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let venv">
-      {{venv.name}}
+      {{ venv.name }}
     </mat-cell>
   </ng-container>
 
   <!-- Type-->
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>
-      {{'monitoring.venv_type' | translate}}
+      {{ 'monitoring.venv_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let venv">
-      {{venv.creationInfo.envType}}
+      {{ venv.creationInfo.envType }}
     </mat-cell>
   </ng-container>
 
   <!-- Config file origin -->
   <ng-container matColumnDef="configFileOrigin">
     <mat-header-cell *matHeaderCellDef>
-      {{'monitoring.venv_origin_config_file' | translate}}
+      {{ 'monitoring.venv_origin_config_file' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let venv">
-      <span class="origin-file">{{venv.creationInfo.originEnvConfigFilePath}}</span>
+      <span class="origin-file">{{ venv.creationInfo.originEnvConfigFilePath }}</span>
     </mat-cell>
   </ng-container>
 
   <!-- Created -->
   <ng-container matColumnDef="createdAt">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'created_at' | translate}}</span>
+      <span>{{ 'created_at' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let venv">
       <fl-from-now [date]="venv.creationInfo.createdAt"></fl-from-now>
@@ -43,31 +41,26 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="openVenvDetailDialog(row)">
+        <button mat-menu-item type="button" (click)="openVenvDetailDialog(row)">
           <mat-icon>visibility</mat-icon>
-          <span>{{'detail' | translate}}</span>
+          <span>{{ 'detail' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button"
-                (click)="openDeleteVenvDialog(row)">
+        <button mat-menu-item type="button" (click)="openDeleteVenvDialog(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{'monitoring.delete_venv' | translate}}</span>
+          <span class="g-warn-text">{{ 'monitoring.delete_venv' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>

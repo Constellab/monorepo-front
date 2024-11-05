@@ -8,9 +8,8 @@ describe('CaLabDesktopDownloadConfigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabDesktopDownloadConfigComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabDesktopDownloadConfigComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabDesktopDownloadConfigComponent);
     component = fixture.componentInstance;

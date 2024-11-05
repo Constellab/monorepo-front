@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabTagDetailPortalComponent} from './lab-tag-detail-portal.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabTagDetailPortalComponent } from './lab-tag-detail-portal.component';
 
 describe('LabTagDetailPortalComponent', () => {
   let component: LabTagDetailPortalComponent;

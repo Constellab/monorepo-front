@@ -10,10 +10,9 @@ import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-f
 @Component({
   selector: 'ca-folder-settings',
   templateUrl: './ca-folder-settings.component.html',
-  styleUrls: ['./ca-folder-settings.component.scss']
+  styleUrls: ['./ca-folder-settings.component.scss'],
 })
 export class CaFolderSettingsComponent {
-
   // only allow storage setting for root folders
   showStorageSettings$: Observable<boolean> = inject(CaFolderDetailState).isRootFolder$();
   private state = inject(CaFolderDetailState);
@@ -26,15 +25,15 @@ export class CaFolderSettingsComponent {
   private snackBarService = inject(FlSnackBarService);
 
   toggleChat(folder: CaFolder): void {
-    this.folderService.activateChat(folder.id, !folder.chatEnabled).subscribe(
-      (newFolder: CaFolder) => this.chatEnableSuccess(newFolder)
-    );
+    this.folderService
+      .activateChat(folder.id, !folder.chatEnabled)
+      .subscribe((newFolder: CaFolder) => this.chatEnableSuccess(newFolder));
   }
 
   openDeleteFolderDialog(folder: CaFolder): void {
-    this.folderActionService.openDeleteFolderDialog(folder.id).subscribe(
-      result => this.onDeleteClosed(result, folder)
-    );
+    this.folderActionService
+      .openDeleteFolderDialog(folder.id)
+      .subscribe((result) => this.onDeleteClosed(result, folder));
   }
 
   private chatEnableSuccess(folder: CaFolder): void {

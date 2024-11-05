@@ -4,23 +4,23 @@ import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular
 import { SpSpreadsheetChartSerieSelectionInput } from '../../model/chart/sp-sheet-chart-config.class';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
 
-
 /**
  * Portal to select one serie during chart selection
  */
 @Component({
   selector: 'sp-sheet-chart-serie-selection',
   templateUrl: './sp-sheet-chart-serie-selection.component.html',
-  styleUrls: ['./sp-sheet-chart-serie-selection.component.scss']
+  styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
 })
 export class SpSheetChartSerieSelectionComponent implements OnInit {
-
   formGp: UntypedFormGroup;
 
   input: SpSpreadsheetChartSerieSelectionInput;
 
-  constructor(@Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSerieSelectionInput,
-              private overlayRef: FlOverlayRef) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSerieSelectionInput,
+    private overlayRef: FlOverlayRef
+  ) {
     this.input = input;
   }
 
@@ -35,13 +35,11 @@ export class SpSheetChartSerieSelectionComponent implements OnInit {
   private initForm(): void {
     this.formGp = new FormBuilder().group({
       name: [null, Validators.required],
-      y: [null, Validators.required]
+      y: [null, Validators.required],
     });
 
     if (this.input.mode === 'full') {
-      this.formGp.addControl('x',
-        new FormControl(null)
-      );
+      this.formGp.addControl('x', new FormControl(null));
     }
   }
 
@@ -52,5 +50,4 @@ export class SpSheetChartSerieSelectionComponent implements OnInit {
       this.overlayRef.dispose(value);
     }
   }
-
 }

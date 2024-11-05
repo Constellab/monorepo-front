@@ -9,13 +9,10 @@ import { LabSystemConfig } from '../../../../model/global/lab-system.class';
 @Component({
   selector: 'lab-system-config-dialog',
   templateUrl: './lab-system-config-dialog.component.html',
-  styleUrl: './lab-system-config-dialog.component.scss'
+  styleUrl: './lab-system-config-dialog.component.scss',
 })
 export class LabSystemConfigDialogComponent {
-
   systemConfig$: Observable<LabSystemConfig> = this.systemService.getSystemConfig();
 
-  constructor(private systemService: LabSystemService) {
-  }
-
+  constructor(private systemService: LabSystemService) {}
 }

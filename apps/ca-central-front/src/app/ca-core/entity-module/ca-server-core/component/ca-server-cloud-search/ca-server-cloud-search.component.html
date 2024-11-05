@@ -7,30 +7,30 @@
       </fl-text-icon>
 
       <fl-search-header-actions>
-        <button mat-icon-button type="button"
-                (click)="openCreateServerCloud()"
-                [matTooltip]="'create_server_cloud' | translate">
+        <button
+          mat-icon-button
+          type="button"
+          (click)="openCreateServerCloud()"
+          [matTooltip]="'create_server_cloud' | translate">
           <mat-icon>add</mat-icon>
         </button>
       </fl-search-header-actions>
     </fl-search-header>
-
   </fl-card-header>
 
   <fl-card-body class="g-full-height">
     <fl-search>
-
       <!-- Advanced section in the right in a drawer -->
       <fl-search-advanced-form>
         <ca-server-cloud-search-form class="form"></ca-server-cloud-search-form>
       </fl-search-advanced-form>
 
       <fl-search-result>
-        <ca-server-cloud-table [datasource]="datasource"
-                               [rowSelectable]="mode === 'selection'"
-                               (serverCloudSelected)="selectServerCloud($event)"></ca-server-cloud-table>
+        <ca-server-cloud-table
+          [datasource]="datasource"
+          [rowSelectable]="mode === 'selection'"
+          (serverCloudSelected)="selectServerCloud($event)"></ca-server-cloud-table>
       </fl-search-result>
-
     </fl-search>
   </fl-card-body>
 </fl-card>

@@ -1,19 +1,15 @@
-<fl-input-search [selectedItem]="selectedNote"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="datasource"
-                 [placeholder]="placeholder"
-                 [required]="required"
-                 [disabled]="disabled"
-                 [minInputSearchLength]="0"
-                 [advancedButton]="advancedButton">
-
+<fl-input-search
+  [selectedItem]="selectedNote"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as note">
-    <fl-user-profile-picture *ngIf="note" [user]="note.createdBy"
-                             size="small"></fl-user-profile-picture>
-
+    <fl-user-profile-picture *ngIf="note" [user]="note.createdBy" size="small"></fl-user-profile-picture>
   </div>
 
-
-  <lab-note-inline *flInputSearchOption="datasource as note" [note]="note">
-  </lab-note-inline>
+  <lab-note-inline *flInputSearchOption="datasource as note" [note]="note"> </lab-note-inline>
 </fl-input-search>

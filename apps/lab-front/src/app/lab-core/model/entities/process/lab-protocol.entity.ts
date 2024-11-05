@@ -1,7 +1,7 @@
-import {ClRecordTransform} from '@monorepo/core-lib';
-import {Expose, Type} from 'class-transformer';
-import {LabProcess} from './lab-process.entity';
-import {PrProtocolIntOut, PrProtocolLink} from '@monorepo/protocol';
+import { ClRecordTransform } from '@monorepo/core-lib';
+import { Expose, Type } from 'class-transformer';
+import { LabProcess } from './lab-process.entity';
+import { PrProtocolIntOut, PrProtocolLink } from '@monorepo/protocol';
 
 export interface LabProcessLayout {
   x: number;
@@ -12,13 +12,13 @@ export class LabProtocolLayout {
   /**
    * Record with key = instance_name, value = layout of the process
    */
-  @Expose({name: 'process_layouts'})
+  @Expose({ name: 'process_layouts' })
   processLayouts: Record<string, LabProcessLayout>;
 
-  @Expose({name: 'interface_layouts'})
+  @Expose({ name: 'interface_layouts' })
   interfaceLayouts: Record<string, LabProcessLayout>;
 
-  @Expose({name: 'outerface_layouts'})
+  @Expose({ name: 'outerface_layouts' })
   outerfaceLayouts: Record<string, LabProcessLayout>;
 
   getProcess(instanceName: string): LabProcessLayout | null {
@@ -37,9 +37,7 @@ export class LabProtocolLayout {
   }
 }
 
-
 export class LabProtocolData {
-
   interfaces: Record<string, PrProtocolIntOut>;
 
   outerfaces: Record<string, PrProtocolIntOut>;
@@ -63,13 +61,11 @@ export class LabProtocolData {
   }
 }
 
-
 export class LabProtocol extends LabProcess {
-
   @Type(() => LabProtocolData)
   data: LabProtocolData;
 
-  @Expose({name: 'is_protocol'})
+  @Expose({ name: 'is_protocol' })
   isProtocol: true;
 
   public static empty(): LabProtocol {
@@ -86,4 +82,3 @@ export class LabProtocol extends LabProcess {
     return protocol;
   }
 }
-

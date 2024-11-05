@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabUpdateViewConfigDialogComponent} from './lab-update-view-config-dialog.component';
+import { LabUpdateViewConfigDialogComponent } from './lab-update-view-config-dialog.component';
 
 describe('LabUpdateViewConfigNameDialogComponent', () => {
   let component: LabUpdateViewConfigDialogComponent;
@@ -8,9 +8,8 @@ describe('LabUpdateViewConfigNameDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabUpdateViewConfigDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabUpdateViewConfigDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabUpdateViewConfigDialogComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaNotificationsPortalComponent} from './ca-notifications-portal.component';
+import { CaNotificationsPortalComponent } from './ca-notifications-portal.component';
 
 describe('CaNotificationsDivComponent', () => {
   let component: CaNotificationsPortalComponent;
@@ -8,9 +8,8 @@ describe('CaNotificationsDivComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaNotificationsPortalComponent]
-    })
-      .compileComponents();
+      declarations: [CaNotificationsPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaNotificationsPortalComponent);
     component = fixture.componentInstance;

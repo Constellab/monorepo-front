@@ -8,10 +8,9 @@ describe('LabNavigableEntitiesTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabNavigableEntitiesTableComponent]
-    })
-    .compileComponents();
-    
+      declarations: [LabNavigableEntitiesTableComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(LabNavigableEntitiesTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

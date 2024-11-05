@@ -8,17 +8,14 @@ import { LabAgent } from '../../../../model/entities/lab-agent.entity';
 @Component({
   selector: 'lab-select-community-agent-dialog',
   templateUrl: './lab-select-community-agent-dialog.component.html',
-  styleUrls: ['./lab-select-community-agent-dialog.component.scss']
+  styleUrls: ['./lab-select-community-agent-dialog.component.scss'],
 })
 export class LabSelectCommunityAgentDialogComponent implements OnInit {
-
   title: string = 'biox.select_community_agent';
 
-  constructor(private dialogRef: MatDialogRef<LabSelectCommunityAgentDialogComponent>,) {
-  }
+  constructor(private dialogRef: MatDialogRef<LabSelectCommunityAgentDialogComponent>) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAgentClick(agent: LabAgent): void {
     this.dialogRef.close(agent);

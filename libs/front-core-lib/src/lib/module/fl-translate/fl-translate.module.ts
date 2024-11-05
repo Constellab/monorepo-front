@@ -1,11 +1,11 @@
-import {APP_INITIALIZER, ModuleWithProviders, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MissingTranslationHandler, TranslateModule, TranslatePipe} from '@ngx-translate/core';
-import {FlMissingTranslationLogService} from './service/fl-missing-translation-log.service';
-import {FlTranslateService} from './service/fl-translate.service';
-import {FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig} from './model/fl-translate-module-config';
-import {CookieService} from 'ngx-cookie-service';
-import {FlTranslatableTextPipe} from './pipe/fl-translatable-text.pipe';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MissingTranslationHandler, TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { FlMissingTranslationLogService } from './service/fl-missing-translation-log.service';
+import { FlTranslateService } from './service/fl-translate.service';
+import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from './model/fl-translate-module-config';
+import { CookieService } from 'ngx-cookie-service';
+import { FlTranslatableTextPipe } from './pipe/fl-translatable-text.pipe';
 
 // AoT requires an exported function for factories
 // load the translations
@@ -18,22 +18,13 @@ export function initTranslateService(service: FlTranslateService): () => void {
   return func;
 }
 
-
 @NgModule({
   declarations: [FlTranslatableTextPipe],
-  exports: [
-    TranslatePipe,
-    FlTranslatableTextPipe,
-  ],
-  imports: [
-    CommonModule,
-    TranslateModule.forChild(),
-  ]
+  exports: [TranslatePipe, FlTranslatableTextPipe],
+  imports: [CommonModule, TranslateModule.forChild()],
 })
 export class FlTranslateModule {
-
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Call this method only once on the LabAppModule
@@ -46,15 +37,17 @@ export class FlTranslateModule {
       ngModule: FlTranslateModule,
       providers: [
         CookieService,
-        {provide: FL_TRANSLATE_MODULE_CONFIG, useValue: config},
+        { provide: FL_TRANSLATE_MODULE_CONFIG, useValue: config },
         FlTranslateService,
         FlMissingTranslationLogService,
         // Init the translate service
         {
-          provide: APP_INITIALIZER, useFactory: initTranslateService,
-          deps: [FlTranslateService], multi: true,
+          provide: APP_INITIALIZER,
+          useFactory: initTranslateService,
+          deps: [FlTranslateService],
+          multi: true,
         },
-      ]
+      ],
     };
   }
 
@@ -68,10 +61,10 @@ export class FlTranslateModule {
     return TranslateModule.forRoot({
       missingTranslationHandler: {
         provide: MissingTranslationHandler,
-        useExisting: FlMissingTranslationLogService
+        useExisting: FlMissingTranslationLogService,
       },
       // useful, this init translation even if translate object is not null
-      extend: true
+      extend: true,
     });
   }
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabManagerUpdateDialogComponent} from './ca-lab-manager-update-dialog.component';
+import { CaLabManagerUpdateDialogComponent } from './ca-lab-manager-update-dialog.component';
 
 describe('CaLabManagerUpdateDialogComponent', () => {
   let component: CaLabManagerUpdateDialogComponent;
@@ -8,9 +8,8 @@ describe('CaLabManagerUpdateDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabManagerUpdateDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabManagerUpdateDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabManagerUpdateDialogComponent);
     component = fixture.componentInstance;

@@ -3,29 +3,26 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
-
-  <button mat-menu-item type="button"
-          (click)="copyLinkToClipboard()">
+  <button mat-menu-item type="button" (click)="copyLinkToClipboard()">
     <mat-icon>content_copy</mat-icon>
-    <span>{{'biox.copy_share_link' | translate}}</span>
+    <span>{{ 'biox.copy_share_link' | translate }}</span>
   </button>
 
-  <a mat-menu-item [routerLink]="shareLink.entityId | labDetailRoute:shareLink.labObjectType"
-     *ngIf="showLinkToEntity && shareLink.status === 'SUCCESS'">
+  <a
+    mat-menu-item
+    [routerLink]="shareLink.entityId | labDetailRoute: shareLink.labObjectType"
+    *ngIf="showLinkToEntity && shareLink.status === 'SUCCESS'">
     <mat-icon>visibility</mat-icon>
-    <span>{{'biox.view_shared_object' | translate}}</span>
+    <span>{{ 'biox.view_shared_object' | translate }}</span>
   </a>
 
-  <button mat-menu-item type="button"
-          (click)="openUpdateDialog()">
+  <button mat-menu-item type="button" (click)="openUpdateDialog()">
     <mat-icon>edit</mat-icon>
-    <span>{{'biox.update_share_link' | translate}}</span>
+    <span>{{ 'biox.update_share_link' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button"
-          (click)="deleteShareLink()">
+  <button mat-menu-item type="button" (click)="deleteShareLink()">
     <mat-icon color="warn">clear</mat-icon>
-    <span class="g-warn-text">{{'biox.delete_share_link' | translate}}</span>
+    <span class="g-warn-text">{{ 'biox.delete_share_link' | translate }}</span>
   </button>
-
 </mat-menu>

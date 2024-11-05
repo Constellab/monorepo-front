@@ -5,7 +5,6 @@ import { TeFormulaComponent } from '../component/te-formula/te-formula.component
 import { TeHelper } from '../model/te.helper';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 
-
 /**
  * Object representing the value stored to create a formula
  */
@@ -19,13 +18,12 @@ export interface TeFormulaBlockData {
  * Formula block for editor js
  */
 export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
-
   public static readonly TAG_NAME = 'te-formula';
 
   static override get toolbox(): ToolboxConfig {
     return {
       title: TeHelper.getTranslateService().translate('flFormula.formula'),
-      icon: TeHelper.getMatIconElement('functions')
+      icon: TeHelper.getMatIconElement('functions'),
     };
   }
 
@@ -48,7 +46,7 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
     return {
       formula: this.componentInstance.formula$.value,
       title: this.componentInstance.formulaTitle,
-      caption: this.componentInstance.caption
+      caption: this.componentInstance.caption,
     };
   }
 
@@ -58,11 +56,13 @@ export class TeFormulaBlock extends TeComponentBlock<TeFormulaComponent> {
   }
 
   renderSettings(): HTMLElement | MenuConfig {
-    return [{
-      icon: TeHelper.getMatIconElement('edit'),
-      title: TeHelper.getTranslateService().translate('flFormula.edit_formula'),
-      onActivate: () => this.componentInstance.updateFormula()
-    }];
+    return [
+      {
+        icon: TeHelper.getMatIconElement('edit'),
+        title: TeHelper.getTranslateService().translate('flFormula.edit_formula'),
+        onActivate: () => this.componentInstance.updateFormula(),
+      },
+    ];
   }
 
   override appendCallback(): void {

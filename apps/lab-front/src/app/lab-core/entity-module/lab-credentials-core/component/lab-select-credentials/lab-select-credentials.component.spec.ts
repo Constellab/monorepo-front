@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSelectCredentialsComponent} from './lab-select-credentials.component';
+import { LabSelectCredentialsComponent } from './lab-select-credentials.component';
 
 describe('LabSelectCredentialsComponent', () => {
   let component: LabSelectCredentialsComponent;

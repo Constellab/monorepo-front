@@ -4,9 +4,8 @@ import { CaHierarchyObject } from '../../../../model/entities/folder/ca-hierarch
 @Component({
   selector: 'ca-hierarchy-object-inline',
   templateUrl: './ca-hierarchy-object-inline.component.html',
-  styleUrl: './ca-hierarchy-object-inline.component.scss'
+  styleUrl: './ca-hierarchy-object-inline.component.scss',
 })
 export class CaHierarchyObjectInlineComponent {
-
   @Input({ required: true }) hierarchyObject: CaHierarchyObject;
 }

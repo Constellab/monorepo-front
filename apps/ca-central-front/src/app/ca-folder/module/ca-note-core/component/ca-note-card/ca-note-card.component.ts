@@ -7,10 +7,8 @@ import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.cla
 @Component({
   selector: 'ca-note-card',
   templateUrl: './ca-note-card.component.html',
-  styleUrls: ['./ca-note-card.component.scss']
+  styleUrls: ['./ca-note-card.component.scss'],
 })
 export class CaNoteCardComponent {
-
   @Input() note: CaNote;
-
 }

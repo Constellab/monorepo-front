@@ -1,44 +1,42 @@
-.modification-group{
+.modification-group {
   width: calc(100% - 2.5em);
   margin-left: 1em;
   margin-top: 1em;
 }
 
-.group-header{
+.group-header {
   cursor: pointer;
   padding: 0.5em;
   border-radius: 0.5em;
 }
 
-.group-header:hover{
+.group-header:hover {
   background-color: var(--hover-color);
 }
 
-.group-title{
+.group-title {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.group-title-icon-div{
+.group-title-icon-div {
   width: 50px;
 }
 
-.group-users{
+.group-users {
   margin-left: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
 }
 
-.group-body-modification{
+.group-body-modification {
   padding-left: 50px;
   cursor: pointer;
   border-radius: 0.5em;
 }
 
-.group-body-modification:hover{
+.group-body-modification:hover {
   background-color: var(--hover-color);
 }
-
-

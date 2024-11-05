@@ -1,5 +1,5 @@
-import {Component, ElementRef, Host, Input, OnDestroy, OnInit, Optional, Renderer2} from '@angular/core';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import { Component, ElementRef, Host, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
 
 /**
  * Loader to be inserted in a button
@@ -8,10 +8,9 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 @Component({
   selector: 'fl-button-loader',
   templateUrl: './fl-button-loader.component.html',
-  styleUrls: ['./fl-button-loader.component.scss']
+  styleUrls: ['./fl-button-loader.component.scss'],
 })
 export class FlButtonLoaderComponent implements OnInit, OnDestroy {
-
   /**
    * Position of the loader in the button
    * If override, the button text is hidden during loading,
@@ -27,11 +26,12 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
 
   private readonly hideTextClass: string = 'g-button-hide-text';
 
-  constructor(@Host() @Optional() private button: MatButton,
-              @Host() @Optional() private iconButton: MatIconButton,
-              private elementRef: ElementRef<HTMLElement>,
-              private renderer2: Renderer2) {
-  }
+  constructor(
+    @Host() @Optional() private button: MatButton,
+    @Host() @Optional() private iconButton: MatIconButton,
+    private elementRef: ElementRef<HTMLElement>,
+    private renderer2: Renderer2
+  ) {}
 
   ngOnInit(): void {
     if (this.position == null) {
@@ -46,7 +46,6 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
     if (this.position === 'override') {
       this.renderer2.addClass(this.elementRef.nativeElement.parentElement, this.hideTextClass);
     }
-
   }
 
   get loaderSize(): number {
@@ -74,7 +73,6 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
     return this.button ?? this.iconButton;
   }
 
-
   ngOnDestroy(): void {
     const button = this.getButton();
     if (button) {
@@ -85,6 +83,4 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
       this.renderer2.removeClass(this.elementRef.nativeElement.parentElement, this.hideTextClass);
     }
   }
-
-
 }

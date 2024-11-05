@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabResourceDetailHeaderComponent} from './lab-resource-detail-header.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabResourceDetailHeaderComponent } from './lab-resource-detail-header.component';
 
 describe('LabResourceDetailHeaderComponent', () => {
   let component: LabResourceDetailHeaderComponent;

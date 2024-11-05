@@ -1,7 +1,11 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-dense-height">
   @if (region.cloudProvider) {
-    <img [ngSrc]="region.cloudProvider.logo" class="image"
-         [alt]="region.cloudProvider.name" [width]="imageSize" [height]="imageSize">
+    <img
+      [ngSrc]="region.cloudProvider.logo"
+      class="image"
+      [alt]="region.cloudProvider.name"
+      [width]="imageSize"
+      [height]="imageSize" />
   }
 
   <div>
@@ -19,5 +23,4 @@
       </div>
     }
   </div>
-
 </div>

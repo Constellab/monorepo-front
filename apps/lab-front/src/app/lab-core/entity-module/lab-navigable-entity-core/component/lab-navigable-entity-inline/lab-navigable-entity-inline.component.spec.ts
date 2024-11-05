@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabNavigableEntityInlineComponent} from './lab-navigable-entity-inline.component';
+import { LabNavigableEntityInlineComponent } from './lab-navigable-entity-inline.component';
 
 describe('LabNavigableEntityInlineComponent', () => {
   let component: LabNavigableEntityInlineComponent;
@@ -8,9 +8,8 @@ describe('LabNavigableEntityInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LabNavigableEntityInlineComponent]
-    })
-    .compileComponents();
+      imports: [LabNavigableEntityInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabNavigableEntityInlineComponent);
     component = fixture.componentInstance;

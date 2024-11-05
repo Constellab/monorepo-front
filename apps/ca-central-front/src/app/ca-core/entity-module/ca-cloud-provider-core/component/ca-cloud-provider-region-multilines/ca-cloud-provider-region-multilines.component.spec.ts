@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCloudProviderRegionMultilinesComponent} from './ca-cloud-provider-region-multilines.component';
+import { CaCloudProviderRegionMultilinesComponent } from './ca-cloud-provider-region-multilines.component';
 
 describe('CaCloudProviderRegionMultilinesComponent', () => {
   let component: CaCloudProviderRegionMultilinesComponent;
@@ -8,9 +8,8 @@ describe('CaCloudProviderRegionMultilinesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCloudProviderRegionMultilinesComponent]
-    })
-    .compileComponents();
+      declarations: [CaCloudProviderRegionMultilinesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCloudProviderRegionMultilinesComponent);
     component = fixture.componentInstance;

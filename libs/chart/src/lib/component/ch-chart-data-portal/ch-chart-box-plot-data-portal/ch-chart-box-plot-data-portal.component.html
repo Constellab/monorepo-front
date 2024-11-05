@@ -1,44 +1,42 @@
 <fl-portal>
   <fl-portal-content>
-
     <!-- Lower Whisker -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.lower_whisker' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.lower_whisker' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.lowerWhisker | number" matTooltipPosition="after">
-        {{boxPlotData.lowerWhisker | number:'1.2-2'}}
+        {{ boxPlotData.lowerWhisker | number: '1.2-2' }}
       </span>
     </div>
 
     <!-- Q1 -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.quartile_1' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.quartile_1' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.q1 | number" matTooltipPosition="after">
-        {{boxPlotData.q1 | number:'1.2-2'}}
+        {{ boxPlotData.q1 | number: '1.2-2' }}
       </span>
     </div>
 
     <!-- Median -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.median' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.median' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.median | number" matTooltipPosition="after">
-        {{boxPlotData.median | number:'1.2-2'}}
+        {{ boxPlotData.median | number: '1.2-2' }}
       </span>
     </div>
 
     <!-- Q3 -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.quartile_3' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.quartile_3' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.q3 | number" matTooltipPosition="after">
-        {{boxPlotData.q3 | number:'1.2-2'}}
+        {{ boxPlotData.q3 | number: '1.2-2' }}
       </span>
     </div>
 
-
     <!-- Upper Whisker -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.upper_whisker' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.upper_whisker' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.upperWhisker | number" matTooltipPosition="after">
-        {{boxPlotData.upperWhisker | number:'1.2-2'}}
+        {{ boxPlotData.upperWhisker | number: '1.2-2' }}
       </span>
     </div>
 
@@ -46,17 +44,17 @@
 
     <!-- Min -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.min' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.min' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.min | number" matTooltipPosition="after">
-        {{boxPlotData.min | number:'1.2-2'}}
+        {{ boxPlotData.min | number: '1.2-2' }}
       </span>
     </div>
 
     <!-- Max -->
     <div class="g-layout-row">
-      <span class="text g-text-light">{{'chChart.max' | translate}}</span>
+      <span class="text g-text-light">{{ 'chChart.max' | translate }}</span>
       <span class="value" [matTooltip]="boxPlotData.max | number" matTooltipPosition="after">
-        {{boxPlotData.max | number:'1.2-2'}}
+        {{ boxPlotData.max | number: '1.2-2' }}
       </span>
     </div>
 
@@ -68,11 +66,8 @@
 
     <mat-divider class="divider"></mat-divider>
 
-    <ch-chart-serie-inline [serieName]="data.serieName" [color]="color">
-    </ch-chart-serie-inline>
+    <ch-chart-serie-inline [serieName]="data.serieName" [color]="color"> </ch-chart-serie-inline>
 
     <fl-tag-list [tags]="data.data.tags" [tagColorer]="tagColorer"></fl-tag-list>
   </fl-portal-content>
-
 </fl-portal>
-

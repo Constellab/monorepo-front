@@ -1,26 +1,24 @@
 <fl-card id="lab-manager">
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>eco</mat-icon>
-      <h2>{{'lab_green_options' | translate}}</h2>
+      <h2>{{ 'lab_green_options' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions>
-
-      <button mat-icon-button type="button" class="g-button-small"
-              [matTooltip]="'lab_create_green_option' | translate"
-              (click)="openCreateGreenOptionDialog()">
+      <button
+        mat-icon-button
+        type="button"
+        class="g-button-small"
+        [matTooltip]="'lab_create_green_option' | translate"
+        (click)="openCreateGreenOptionDialog()">
         <mat-icon>add</mat-icon>
       </button>
-
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-
-    <p class="g-text-light help-text">{{'lab_create_green_option_help' | translate}}</p>
-
+    <p class="g-text-light help-text">{{ 'lab_create_green_option_help' | translate }}</p>
 
     <!--  Global status  -->
     <fl-async-section [arrayObs]="labGreenOptions$" emptyText="no_lab_green_option">
@@ -29,7 +27,5 @@
         </ca-lab-green-option-table>
       </ng-container>
     </fl-async-section>
-
   </fl-card-body>
-
 </fl-card>

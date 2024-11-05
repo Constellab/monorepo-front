@@ -1,4 +1,4 @@
-import {HaEnvironment} from './ha-environment.class';
+import { HaEnvironment } from './ha-environment.class';
 
 /**
  * This file is just to define the skeleton for prod environment and set production to True
@@ -17,7 +17,7 @@ export const environment: HaEnvironment = {
     captchaSiteKey: '',
     googleAnalyticsId: '',
     discordLink: '',
-  }
+  },
 };
 
 // PREPROD

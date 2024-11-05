@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaGroupAddUserDialogComponent} from './ca-group-add-user-dialog.component';
+import { CaGroupAddUserDialogComponent } from './ca-group-add-user-dialog.component';
 
 describe('CaGroupAddUserDialogComponent', () => {
   let component: CaGroupAddUserDialogComponent;
@@ -8,9 +8,8 @@ describe('CaGroupAddUserDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaGroupAddUserDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaGroupAddUserDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

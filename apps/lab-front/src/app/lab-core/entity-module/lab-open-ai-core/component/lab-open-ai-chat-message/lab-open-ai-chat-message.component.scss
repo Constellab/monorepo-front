@@ -9,8 +9,7 @@
   display: flex;
 }
 
-
-::ng-deep lab-open-ai-chat-message{
+::ng-deep lab-open-ai-chat-message {
   .content code {
     background-color: var(--main-background);
     white-space: pre-wrap;
@@ -28,7 +27,8 @@
   background-color: var(--main-background);
 }
 
-.system, .assistant {
+.system,
+.assistant {
   background-color: var(--hover-color);
 }
 
@@ -50,12 +50,11 @@
   }
 }
 
-
 ////////////////////// EDIT MODE //////////////////////
-.edit-container{
+.edit-container {
   padding: 1em;
 }
 
-.cancel-button{
+.cancel-button {
   margin-left: 1em;
 }

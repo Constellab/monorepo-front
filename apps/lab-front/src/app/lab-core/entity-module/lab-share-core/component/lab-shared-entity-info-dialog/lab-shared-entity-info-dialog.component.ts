@@ -1,9 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { LabSharedEntityDatasource, LabShareLink, LabShareLinkType } from '../../../../model/entities/lab-share.entity';
+import {
+  LabSharedEntityDatasource,
+  LabShareLink,
+  LabShareLinkType,
+} from '../../../../model/entities/lab-share.entity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   LabShareLinkFormDialogComponent,
-  LabShareLinkFormDialogInput
+  LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
 import { FlClipboardService, FlDialogService } from '@monorepo/front-core-lib';
 import { Observable, of, share } from 'rxjs';
@@ -21,7 +25,6 @@ export interface LabSharedEntityInfoDialogInput {
   styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
 })
 export class LabSharedEntityInfoDialogComponent implements OnInit {
-
   entityType: LabShareLinkType;
   entityId: string;
 
@@ -29,32 +32,36 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
 
   sharedEntities: LabSharedEntityDatasource;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: LabSharedEntityInfoDialogInput,
-              private shareService: LabShareService,
-              private shareLinkService: LabShareLinkService,
-              private dialogService: FlDialogService,
-              private clipboardService: FlClipboardService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: LabSharedEntityInfoDialogInput,
+    private shareService: LabShareService,
+    private shareLinkService: LabShareLinkService,
+    private dialogService: FlDialogService,
+    private clipboardService: FlClipboardService
+  ) {
     this.entityType = input.entityType;
     this.entityId = input.entityId;
   }
 
   ngOnInit(): void {
-    this.shareLink$ = this.shareLink$ = this.shareLinkService.getShareLink(this.entityType, this.entityId).pipe(share());
+    this.shareLink$ = this.shareLink$ = this.shareLinkService
+      .getShareLink(this.entityType, this.entityId)
+      .pipe(share());
     this.sharedEntities = this.shareService.getSharedToDatasource(this.entityType, this.entityId);
   }
-
 
   openShareDialog(): void {
     const data: LabShareLinkFormDialogInput = {
       mode: 'create',
       entityType: this.entityType,
       entityId: this.entityId,
-      createTitle: this.getShareDialogTitle()
+      createTitle: this.getShareDialogTitle(),
     };
 
-    this.dialogService.openSmallDialog(LabShareLinkFormDialogComponent, {data: data}).afterClosed().subscribe(
-      (shareLink: LabShareLink) => this.onShareClosedClosed(shareLink)
-    );
+    this.dialogService
+      .openSmallDialog(LabShareLinkFormDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((shareLink: LabShareLink) => this.onShareClosedClosed(shareLink));
   }
 
   private onShareClosedClosed(shareLink?: LabShareLink): void {
@@ -94,6 +101,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   }
 
   copyDownloadLink(shareLink: LabShareLink): void {
-    this.clipboardService.copy(shareLink.link, {text: 'biox.share_link_copied', translateText: true});
+    this.clipboardService.copy(shareLink.link, { text: 'biox.share_link_copied', translateText: true });
   }
 }

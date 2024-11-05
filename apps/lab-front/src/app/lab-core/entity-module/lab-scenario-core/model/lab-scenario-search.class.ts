@@ -4,7 +4,7 @@ import {
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-  FlTag
+  FlTag,
 } from '@monorepo/front-core-lib';
 import { LabScenarioCreationType, LabScenarioStatus } from '../../../model/entities/lab-scenario.entity';
 import { Type } from 'class-transformer';
@@ -13,7 +13,6 @@ import { LabSearchConverter } from '../../../model/global/lab-search-converter.c
 import { LabUser } from '../../../model/entities/lab-user.entity';
 import { LabTypeEntity } from '../../../model/entities/lab-type/lab-type.entity';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
 
 export class LabScenarioSearchFields {
   title: string;
@@ -40,7 +39,6 @@ export class LabScenarioSearchFields {
   processTypingName: LabTypeEntity;
 
   id: string;
-
 }
 
 export class LabScenarioSearch {
@@ -57,9 +55,8 @@ export class LabScenarioSearch {
     createdBy: 'created_by',
     lastModifiedAt: 'last_modified_date',
     isNotValidated: 'biox.scenario_is_not_validated',
-    processTypingName: 'biox.contain_process'
+    processTypingName: 'biox.contain_process',
   };
-
 
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
@@ -75,44 +72,46 @@ export class LabScenarioSearch {
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
     isArchived: { key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck },
-    isNotValidated: { key: 'is_validated', operator: 'EQ', convertValue: LabSearchConverter.excludeAllOnCheck },
-    processTypingName: {
-      key: 'process_typing_name', operator: 'EQ',
-      convertValue: (value: LabTypeEntity) => value?.typingName
+    isNotValidated: {
+      key: 'is_validated',
+      operator: 'EQ',
+      convertValue: LabSearchConverter.excludeAllOnCheck,
     },
-    id: { key: 'id', operator: 'EQ' }
+    processTypingName: {
+      key: 'process_typing_name',
+      operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName,
+    },
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
     title: 'title',
     status: 'status',
     creationTypes: 'created_at',
-    lastModification: 'last_modified_at'
+    lastModification: 'last_modified_at',
   };
 
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        title: [null],
-        creationTypes: [null],
-        status: [null],
-        tags: [null],
-        folder: [null],
-        createdBy: [null],
-        createdAt: new FormBuilder().group({
-          from: [null],
-          to: [null]
-        }),
-        lastModifiedAt: new FormBuilder().group({
-          from: [null],
-          to: [null]
-        }),
-        isArchived: [null],
-        isNotValidated: [null],
-        processTypingName: [null],
-        id: [null]
-      }
-    );
+    return new FormBuilder().group({
+      title: [null],
+      creationTypes: [null],
+      status: [null],
+      tags: [null],
+      folder: [null],
+      createdBy: [null],
+      createdAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      lastModifiedAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      isArchived: [null],
+      isNotValidated: [null],
+      processTypingName: [null],
+      id: [null],
+    });
   }
-
 }

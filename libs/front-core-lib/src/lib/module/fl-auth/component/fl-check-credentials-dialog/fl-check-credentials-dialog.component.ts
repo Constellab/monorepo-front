@@ -18,34 +18,30 @@ export interface FlCheckCredentialsDialogInput {
 @Component({
   selector: 'fl-check-credentials-dialog',
   templateUrl: './fl-check-credentials-dialog.component.html',
-  styleUrls: ['./fl-check-credentials-dialog.component.scss']
+  styleUrls: ['./fl-check-credentials-dialog.component.scss'],
 })
 export class FlCheckCredentialsDialogComponent {
-
   formGp = FlLoginFormComponent.buildForm();
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private dialogInput: FlCheckCredentialsDialogInput,
-              private dialogRef: MatDialogRef<FlCheckCredentialsDialogComponent>) {
-  }
-
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private dialogInput: FlCheckCredentialsDialogInput,
+    private dialogRef: MatDialogRef<FlCheckCredentialsDialogComponent>
+  ) {}
 
   onSubmit(): void {
     if (this.formGp.valid) {
       this.checkCredentials(this.formGp.getRawValue());
     }
-
   }
 
   private checkCredentials(credentials: ClCredentials): void {
     this.isLoading = true;
-    this.dialogInput.onSubmit(credentials).subscribe(
-      {
-        next: result => this.onCheckSuccess(result),
-        error: () => this.isLoading = false
-      }
-    );
+    this.dialogInput.onSubmit(credentials).subscribe({
+      next: (result) => this.onCheckSuccess(result),
+      error: () => (this.isLoading = false),
+    });
   }
 
   private onCheckSuccess(result: any): void {

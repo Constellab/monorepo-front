@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlHorizontalNavBarComponent} from './fl-horizontal-nav-bar.component';
+import { FlHorizontalNavBarComponent } from './fl-horizontal-nav-bar.component';
 
 describe('FlHorizontalNavBarComponent', () => {
   let component: FlHorizontalNavBarComponent;

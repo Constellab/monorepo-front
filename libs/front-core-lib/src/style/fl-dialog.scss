@@ -7,7 +7,6 @@
 // autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 
 body {
-
   .mat-mdc-dialog-container {
     --mdc-dialog-supporting-text-color: var(--color-foreground);
   }
@@ -49,10 +48,10 @@ body {
     max-height: none !important;
   }
 
-
   // Specific style to allow elements to overflow the dialog container and dialog content
   .g-dialog-allow-overflow {
-    .mat-mdc-dialog-container, mat-mdc-dialog-content {
+    .mat-mdc-dialog-container,
+    mat-mdc-dialog-content {
       overflow: initial;
     }
   }
@@ -60,7 +59,6 @@ body {
   .g-dialog-main-background .mat-mdc-dialog-container {
     --mdc-dialog-container-color: var(--main-background);
   }
-
 
   /********************* SMALL DIALOG ***********************/
   .g-small-dialog {
@@ -139,13 +137,11 @@ body {
     height: 100vh;
   }
 
-
   /*******************************   PORTAL  *************************************/
 
   .g-portal-background {
     background-color: var(--card-background);
   }
-
 
   /* CSS for the Portal Arrow (Make it disappear on small screen) */
   @media (max-width: 599px) {

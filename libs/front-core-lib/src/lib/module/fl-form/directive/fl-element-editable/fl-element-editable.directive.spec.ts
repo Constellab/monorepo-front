@@ -1,4 +1,4 @@
-import {FlElementEditableDirective} from './fl-element-editable.directive';
+import { FlElementEditableDirective } from './fl-element-editable.directive';
 
 describe('FlElementEditableDirective', () => {
   it('should create an instance', () => {

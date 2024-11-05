@@ -8,9 +8,8 @@ describe('TeAudioTranscriptionDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeAudioTranscriptionDialogComponent]
-    })
-    .compileComponents();
+      declarations: [TeAudioTranscriptionDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeAudioTranscriptionDialogComponent);
     component = fixture.componentInstance;

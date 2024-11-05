@@ -8,7 +8,6 @@ import { debounceTime } from 'rxjs/operators';
  * The Obs of getDebouncedValue will be call only after debounceTime
  */
 export class FlDebouncer<T = any> {
-
   // debounce time for auto save set to 1 sec
   public static readonly AUTO_SAVE_DEBOUNCE_TIME = 1000;
   public static readonly LONG_AUTO_SAVE_DEBOUNCE_TIME = 2500;
@@ -27,9 +26,7 @@ export class FlDebouncer<T = any> {
    * Get the modified value after debounce time
    */
   public getDebouncedValue(): Observable<T> {
-    return this.subject.pipe(
-      debounceTime(this.debounceTime),
-    );
+    return this.subject.pipe(debounceTime(this.debounceTime));
   }
 
   /**

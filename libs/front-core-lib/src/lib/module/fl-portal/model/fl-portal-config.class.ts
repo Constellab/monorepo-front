@@ -1,16 +1,14 @@
-import {PositionStrategy} from '@angular/cdk/overlay';
-import {ElementRef} from '@angular/core';
-import {FlOverlayConfig, FlRelativeOverlayConfig} from './fl-portal.class';
+import { PositionStrategy } from '@angular/cdk/overlay';
+import { ElementRef } from '@angular/core';
+import { FlOverlayConfig, FlRelativeOverlayConfig } from './fl-portal.class';
 
 /**
  * Config for the portal
  */
 export class FlPortalConfig {
-
   public config: FlOverlayConfig;
 
-  constructor() {
-  }
+  constructor() {}
 
   public setPositionStrategy(strategy: PositionStrategy): void {
     this.config.positionStrategy = strategy;
@@ -18,7 +16,6 @@ export class FlPortalConfig {
 
   // configure the overlay
   public configureOverlay(config: FlOverlayConfig): this {
-
     // configure the backdrop
     this.configureBackdrop(config);
 
@@ -81,7 +78,6 @@ export class FlPortalConfig {
     config.panelClass = panelClass;
   }
 
-
   // convert the string | string[] to string[]
   protected convertToStringArray(obj: string | string[]): string[] {
     let array: string[] = [];
@@ -96,7 +92,6 @@ export class FlPortalConfig {
 }
 
 export class FlRelativePortalConfig extends FlPortalConfig {
-
   public config: FlRelativeOverlayConfig;
 
   constructor(public hostElement: ElementRef<HTMLElement>) {
@@ -109,7 +104,6 @@ export class FlRelativePortalConfig extends FlPortalConfig {
 
     // manage host size
     switch (config.hostSize) {
-
       case 'width':
         config.width = this.hostElement.nativeElement.clientWidth;
         break;
@@ -120,8 +114,6 @@ export class FlRelativePortalConfig extends FlPortalConfig {
         config.height = this.hostElement.nativeElement.clientHeight;
         config.width = this.hostElement.nativeElement.clientWidth;
         break;
-
     }
-
   }
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUpdateFolderLeaderDialogComponent} from './ca-update-folder-leader-dialog.component';
+import { CaUpdateFolderLeaderDialogComponent } from './ca-update-folder-leader-dialog.component';
 
 describe('CaUpdateFolderLeaderDialogComponent', () => {
   let component: CaUpdateFolderLeaderDialogComponent;
@@ -8,9 +8,8 @@ describe('CaUpdateFolderLeaderDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaUpdateFolderLeaderDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaUpdateFolderLeaderDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaUpdateFolderLeaderDialogComponent);
     component = fixture.componentInstance;

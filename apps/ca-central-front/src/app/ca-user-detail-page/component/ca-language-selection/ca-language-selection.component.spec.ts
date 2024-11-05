@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLanguageSelectionComponent} from './ca-language-selection.component';
+import { CaLanguageSelectionComponent } from './ca-language-selection.component';
 
 describe('LanguageSelectionComponent', () => {
   let component: CaLanguageSelectionComponent;
@@ -8,9 +8,8 @@ describe('LanguageSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLanguageSelectionComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLanguageSelectionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

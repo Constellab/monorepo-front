@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaDocumentTrashListDialogComponent} from './ca-document-trash-list-dialog.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaDocumentTrashListDialogComponent } from './ca-document-trash-list-dialog.component';
 
 describe('CaDocumentTrashListDialogComponent', () => {
   let component: CaDocumentTrashListDialogComponent;

@@ -1,19 +1,17 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlFileHelper} from '../../../service/fl-file.helper';
-import {FlDropEvent} from '../fl-drag.class';
-import {FlDragManagerService} from '../fl-drag-manager.service';
-
+import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlFileHelper } from '../../../service/fl-file.helper';
+import { FlDropEvent } from '../fl-drag.class';
+import { FlDragManagerService } from '../fl-drag-manager.service';
 
 /**
  * Directive to add a class to the host element when a file or element is drag
  * over the host element and detect drop file event
  */
 @Directive({
-  selector: '[flDragHover]'
+  selector: '[flDragHover]',
 })
 export class FlDragHoverDirective {
-
   /**
    * The class or classes to add to the host element when a file is hovering it
    */
@@ -83,12 +81,11 @@ export class FlDragHoverDirective {
   @HostListener('drop', ['$event'])
   drop(event: DragEvent): void {
     if (this.isDroppable(event)) {
-
       // stop event to avoid file opening in browser
       this.stopEvent(event);
 
       const dropEvent: FlDropEvent = {
-        event: event
+        event: event,
       };
 
       switch (this.flDragHoverMode) {
@@ -123,8 +120,11 @@ export class FlDragHoverDirective {
     }
   }
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef,
-              private dragManager: FlDragManagerService) {
+  constructor(
+    private renderer: Renderer2,
+    private elementRef: ElementRef,
+    private dragManager: FlDragManagerService
+  ) {
     // init dragIsHovering value
     this.emitDragover();
   }
@@ -156,7 +156,6 @@ export class FlDragHoverDirective {
       this.renderer.removeClass(this.elementRef.nativeElement, c);
     }
     this.emitDragover();
-
   }
 
   // emit the data
@@ -191,6 +190,4 @@ export class FlDragHoverDirective {
     event.stopPropagation();
     event.preventDefault();
   }
-
-
 }

@@ -8,9 +8,8 @@ describe('BnBioNetworkReactionContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkReactionContentComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkReactionContentComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BnBioNetworkReactionContentComponent);
     component = fixture.componentInstance;

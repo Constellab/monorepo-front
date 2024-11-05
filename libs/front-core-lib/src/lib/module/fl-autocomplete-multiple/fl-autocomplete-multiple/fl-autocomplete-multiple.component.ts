@@ -1,19 +1,28 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self, ViewChild} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {FlFormFieldDirective} from '../../../abstract-directive/form/fl-form-field.directive';
-import {NgControl} from '@angular/forms';
-import {TAB} from '@angular/cdk/keycodes';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatInput} from '@angular/material/input';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Optional,
+  Output,
+  Self,
+  ViewChild,
+} from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { FlFormFieldDirective } from '../../../abstract-directive/form/fl-form-field.directive';
+import { NgControl } from '@angular/forms';
+import { TAB } from '@angular/cdk/keycodes';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'fl-autocomplete-multiple',
   templateUrl: './fl-autocomplete-multiple.component.html',
-  styleUrls: ['./fl-autocomplete-multiple.component.scss']
+  styleUrls: ['./fl-autocomplete-multiple.component.scss'],
 })
 export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> implements OnInit {
-
   @Input() placeholder: string;
 
   @Input() searchFunc: (formValue: string) => Observable<T[]>;
@@ -26,8 +35,7 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
 
   @Output() valueChange: EventEmitter<T[]> = new EventEmitter<T[]>();
 
-  @ViewChild(MatInput, {read: ElementRef}) input: ElementRef<HTMLInputElement>;
-
+  @ViewChild(MatInput, { read: ElementRef }) input: ElementRef<HTMLInputElement>;
 
   separatorKeysCodes: number[] = [TAB];
   filteredOptions$: Observable<T[]>;
@@ -36,15 +44,13 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
     super(ngControl);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   callChangeEvent(value: T[]): void {
     this.valueChange.next(value);
   }
 
-  onDisableChange(disable: boolean): void {
-  }
+  onDisableChange(disable: boolean): void {}
 
   writeValue(obj: T[]): void {
     if (!obj) {
@@ -83,5 +89,4 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
     this.input.nativeElement.value = '';
     this.filteredOptions$ = of([]);
   }
-
 }

@@ -1,45 +1,52 @@
-import {ChChartSVGLegend} from './ch-chart-legend.class';
-import {Selection} from 'd3-selection';
-import {ChChartScaleColor} from '../scale/ch-chart-scale-color.class';
-import {axisRight, scaleLinear} from 'd3';
+import { ChChartSVGLegend } from './ch-chart-legend.class';
+import { Selection } from 'd3-selection';
+import { ChChartScaleColor } from '../scale/ch-chart-scale-color.class';
+import { axisRight, scaleLinear } from 'd3';
 
 /**
  * Class to draw a heat map legend
  */
 export class ChChartLegendHeatMap extends ChChartSVGLegend {
-
-
-  constructor(private colorScale: ChChartScaleColor,
-              private domain: [number, number]) {
+  constructor(
+    private colorScale: ChChartScaleColor,
+    private domain: [number, number]
+  ) {
     super();
   }
 
-
   renderLegend(parent: Selection<any, any, any, any>, width: number, height: number): void {
-
     const topMargin: number = 5;
     const leftMargin = 20;
     const rectWidth = 10;
-    const rectHeight = Math.min(height - (topMargin * 2), 200);
+    const rectHeight = Math.min(height - topMargin * 2, 200);
     this.drawLegendRect(parent, rectWidth, rectHeight, topMargin, leftMargin);
     this.drawLegendAxis(parent, rectWidth + leftMargin, rectHeight, topMargin);
   }
 
-  private drawLegendRect(parent: Selection<any, any, any, any>,
-                         rectWidth: number, rectHeight: number,
-                         topMargin: number, leftMargin: number): void {
-    parent.append('defs')
+  private drawLegendRect(
+    parent: Selection<any, any, any, any>,
+    rectWidth: number,
+    rectHeight: number,
+    topMargin: number,
+    leftMargin: number
+  ): void {
+    parent
+      .append('defs')
       .append('linearGradient')
       .attr('id', 'legend-traffic')
-      .attr('x1', '0%').attr('y1', '100%')
-      .attr('x2', '0%').attr('y2', '0%')
+      .attr('x1', '0%')
+      .attr('y1', '100%')
+      .attr('x2', '0%')
+      .attr('y2', '0%')
       .selectAll('stop')
       .data(this.domain)
-      .enter().append('stop')
-      .attr('offset', (d, i) => i === 0 ? 0 : 200)
+      .enter()
+      .append('stop')
+      .attr('offset', (d, i) => (i === 0 ? 0 : 200))
       .attr('stop-color', (d) => this.colorScale.scale(d));
 
-    parent.append('rect') // gradient rect
+    parent
+      .append('rect') // gradient rect
       .attr('class', 'legendRect')
       .attr('x', leftMargin)
       .attr('y', topMargin)
@@ -48,16 +55,18 @@ export class ChChartLegendHeatMap extends ChChartSVGLegend {
       .style('fill', 'url(#legend-traffic)');
   }
 
-  private drawLegendAxis(parent: Selection<any, any, any, any>, x: number, rectHeight: number, topMargin: number,): void {
-    const domainScale = scaleLinear()
-      .domain(this.domain)
-      .range([rectHeight, 0]);
+  private drawLegendAxis(
+    parent: Selection<any, any, any, any>,
+    x: number,
+    rectHeight: number,
+    topMargin: number
+  ): void {
+    const domainScale = scaleLinear().domain(this.domain).range([rectHeight, 0]);
 
-    parent.append('g') // x axis
+    parent
+      .append('g') // x axis
       .attr('class', 'axis')
       .attr('transform', `translate(${x}, ${topMargin})`)
       .call(axisRight(domainScale));
   }
-
-
 }

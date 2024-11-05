@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabQueueJobsDialogComponent} from './lab-queue-jobs-dialog.component';
+import { LabQueueJobsDialogComponent } from './lab-queue-jobs-dialog.component';
 
 describe('LabQueueJobsDialogComponent', () => {
   let component: LabQueueJobsDialogComponent;
@@ -8,9 +8,8 @@ describe('LabQueueJobsDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabQueueJobsDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabQueueJobsDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

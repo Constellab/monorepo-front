@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TdMainDocComponent} from './td-main-doc.component';
+import { TdMainDocComponent } from './td-main-doc.component';
 
 describe('TdMainDocView.ComponentComponent', () => {
   let component: TdMainDocComponent;
@@ -8,9 +8,8 @@ describe('TdMainDocView.ComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TdMainDocComponent]
-    })
-      .compileComponents();
+      declarations: [TdMainDocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

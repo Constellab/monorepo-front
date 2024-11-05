@@ -8,9 +8,8 @@ describe('CaLabStoragePriceDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabStoragePriceDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabStoragePriceDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabStoragePriceDialogComponent);
     component = fixture.componentInstance;

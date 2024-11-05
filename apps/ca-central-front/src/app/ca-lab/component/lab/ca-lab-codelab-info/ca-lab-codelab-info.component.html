@@ -4,10 +4,8 @@
 
 <mat-dialog-content class="content">
   <fl-async-section [object]="codelabInfo$">
-
     <ng-container *flSectionBody="codelabInfo$ as codelabInfo">
       <p>{{ 'codelab_description' | translate }}</p>
-
 
       <fl-key-value>
         <fl-key>{{ 'codelab_link' | translate }}</fl-key>
@@ -23,28 +21,32 @@
 
       <div class="g-layout-row g-layout-between-center">
         <div>
-          <span class="g-text-link"
-                (click)="copyToTokenToClipboard(codelabInfo)">{{ 'codelab_token_click_to_copy' | translate }}</span>
+          <span class="g-text-link" (click)="copyToTokenToClipboard(codelabInfo)">{{
+            'codelab_token_click_to_copy' | translate
+          }}</span>
           <span *ngIf="showCodeLabToken"> : {{ codelabInfo.token }}</span>
         </div>
-        <button mat-icon-button type="button" (click)="toggleShowCodeLabToken()"
-                [matTooltip]="(showCodeLabToken? 'hide_codelab_token' : 'show_codelab_token') | translate">
+        <button
+          mat-icon-button
+          type="button"
+          (click)="toggleShowCodeLabToken()"
+          [matTooltip]="(showCodeLabToken ? 'hide_codelab_token' : 'show_codelab_token') | translate">
           <mat-icon>{{ showCodeLabToken ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </div>
 
       <fl-key-value>
         <fl-key>{{ 'codelab_more_info' | translate }}</fl-key>
-        <span class="g-text-link"><a [href]="communityHelpUrl" target="_blank">{{ communityHelpUrl }}</a></span>
+        <span class="g-text-link"
+          ><a [href]="communityHelpUrl" target="_blank">{{ communityHelpUrl }}</a></span
+        >
       </fl-key-value>
-
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button [matDialogClose]="null" color="primary" type="button"
-          class="g-centered-forced">
+  <button mat-flat-button [matDialogClose]="null" color="primary" type="button" class="g-centered-forced">
     {{ 'ok' | translate }}
   </button>
 </div>

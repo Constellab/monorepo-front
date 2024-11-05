@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   FlApiModule,
   FlArticleModule,
@@ -9,7 +9,8 @@ import {
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
-  FlDialogModule, FlDragModule,
+  FlDialogModule,
+  FlDragModule,
   FlDrawerModule,
   FlDynamicFieldModule,
   FlEmojiPickerModule,
@@ -34,12 +35,12 @@ import {
   FlStatusModule,
   FlTextIconModule,
   FlTranslateModule,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
-import {RvResourceViewModule} from '@monorepo/resource-view';
-import {PrProtocolModule} from '@monorepo/protocol';
-import {TdTechnicalDocModule} from '@monorepo/technical-doc';
-import {TeTextEditorModule} from '@monorepo/text-editor';
+import { RvResourceViewModule } from '@monorepo/resource-view';
+import { PrProtocolModule } from '@monorepo/protocol';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 
 /**
  * Regrouped all the needed import from library
@@ -88,13 +89,10 @@ import {TeTextEditorModule} from '@monorepo/text-editor';
     FlHorizontalNavBarModule,
     FlDragModule,
 
-
     RvResourceViewModule,
     PrProtocolModule,
     TdTechnicalDocModule,
     TeTextEditorModule,
-  ]
+  ],
 })
-export class CaCustomLibraryModule {
-
-}
+export class CaCustomLibraryModule {}

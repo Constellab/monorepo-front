@@ -1,10 +1,9 @@
 <fl-dialog-header>
-  {{venvName}}
+  {{ venvName }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <fl-async-section [object]="venvCompleteInfo$">
-
     <ng-container *flSectionBody="venvCompleteInfo$ as venvCompleteInfo">
       <lab-venv-complete-info [venvCompleteInfo]="venvCompleteInfo"></lab-venv-complete-info>
     </ng-container>

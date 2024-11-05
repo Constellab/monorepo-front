@@ -1,11 +1,10 @@
-import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Class with static method to simplify form management
  */
 export class FlFormHelper {
-
   /**
    * return true if the control is empty
    * If the control is a FormGroup or an FormArray it check each field deeply
@@ -42,7 +41,7 @@ export class FlFormHelper {
 
     control.markAsTouched();
     // update validity with onlySelf because parent were already updated
-    control.updateValueAndValidity({onlySelf: true});
+    control.updateValueAndValidity({ onlySelf: true });
     if (control instanceof UntypedFormArray || control instanceof UntypedFormGroup) {
       for (const key of Object.keys(control.controls)) {
         FlFormHelper.markAllAsTouched(control.get(key));

@@ -1,14 +1,13 @@
-import {BnBioNetworkNodeMetabolite} from '../model/bn-bio-network-node-metabolite.class';
-import {bnBioNetworkCompartmentBiomassId} from '../model/bn-bio-network-compartment.class';
-import {BnBioNetworkCanvasHelper} from '../utils/bn-bio-network-canvas.helper';
-import {BnBioNetworkObjectColorFunction} from './bn-bio-network-object.renderer';
-import {FlThemeDetail} from '@monorepo/front-core-lib';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { bnBioNetworkCompartmentBiomassId } from '../model/bn-bio-network-compartment.class';
+import { BnBioNetworkCanvasHelper } from '../utils/bn-bio-network-canvas.helper';
+import { BnBioNetworkObjectColorFunction } from './bn-bio-network-object.renderer';
+import { FlThemeDetail } from '@monorepo/front-core-lib';
 
 /**
  * Draw metabolite node using canvas
  */
 export class BnBioNetworkMetaboliteRenderer {
-
   public static biomassMetaboliteRadius: number = 8;
   public static minorMetaboliteRadius: number = 3;
   public static majorMetaboliteRadius: number = 6;
@@ -18,16 +17,22 @@ export class BnBioNetworkMetaboliteRenderer {
   public static majorMetaboliteFontSize: string = '0.7em';
   public static minorMetaboliteFontSize: string = '0.4em';
 
-  public static draw(ctx: CanvasRenderingContext2D, metabolite: BnBioNetworkNodeMetabolite,
-                     colorFunc: BnBioNetworkObjectColorFunction, showText: boolean, themeDetail: FlThemeDetail): void {
-
+  public static draw(
+    ctx: CanvasRenderingContext2D,
+    metabolite: BnBioNetworkNodeMetabolite,
+    colorFunc: BnBioNetworkObjectColorFunction,
+    showText: boolean,
+    themeDetail: FlThemeDetail
+  ): void {
     if (!metabolite.selected) {
       ctx.globalAlpha = 0.1;
     } else {
       ctx.globalAlpha = 1;
     }
 
-    const centerRadius = BnBioNetworkMetaboliteRenderer.getRadius(metabolite) + BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
+    const centerRadius =
+      BnBioNetworkMetaboliteRenderer.getRadius(metabolite) +
+      BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
     const strokeWidth = BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
     const globalRadius = centerRadius + strokeWidth;
 
@@ -42,7 +47,11 @@ export class BnBioNetworkMetaboliteRenderer {
     // draw the text
     if (showText) {
       ctx.fillStyle = themeDetail.foreground;
-      BnBioNetworkCanvasHelper.text(ctx, metabolite.x, metabolite.y + (globalRadius * 1.5), metabolite.data.name.slice(0, 20),
+      BnBioNetworkCanvasHelper.text(
+        ctx,
+        metabolite.x,
+        metabolite.y + globalRadius * 1.5,
+        metabolite.data.name.slice(0, 20),
         {
           fontSize: BnBioNetworkMetaboliteRenderer.getFontTextSize(metabolite),
           fontFamily: 'Sans-Serif', // todo to fix
@@ -50,24 +59,36 @@ export class BnBioNetworkMetaboliteRenderer {
           shadow: {
             blur: 7,
             color: themeDetail.background,
-          }
-        });
+          },
+        }
+      );
     }
 
     // if this is a duplicated metabolites, draw a small circle inside it
     if (metabolite.existsInMultipleCluster) {
       ctx.fillStyle = themeDetail.foreground;
-      BnBioNetworkCanvasHelper.circle(ctx, metabolite.x, metabolite.y, BnBioNetworkMetaboliteRenderer.existsInMultipleClusterRadius);
+      BnBioNetworkCanvasHelper.circle(
+        ctx,
+        metabolite.x,
+        metabolite.y,
+        BnBioNetworkMetaboliteRenderer.existsInMultipleClusterRadius
+      );
     }
 
     ctx.globalAlpha = 1;
   }
 
-  public static drawPointerArea(ctx: CanvasRenderingContext2D, metabolite: BnBioNetworkNodeMetabolite, color: string): void {
+  public static drawPointerArea(
+    ctx: CanvasRenderingContext2D,
+    metabolite: BnBioNetworkNodeMetabolite,
+    color: string
+  ): void {
     // use the unique color for the pointer area
     ctx.fillStyle = color;
 
-    const centerRadius = BnBioNetworkMetaboliteRenderer.getRadius(metabolite) + BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
+    const centerRadius =
+      BnBioNetworkMetaboliteRenderer.getRadius(metabolite) +
+      BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
     const strokeWidth = BnBioNetworkMetaboliteRenderer.getStrokeWidth(metabolite);
     const globalRadius = centerRadius + strokeWidth;
 
@@ -76,18 +97,22 @@ export class BnBioNetworkMetaboliteRenderer {
   }
 
   private static getRadius(metabolite: BnBioNetworkNodeMetabolite): number {
-    if (metabolite.data.compartment === bnBioNetworkCompartmentBiomassId) return BnBioNetworkMetaboliteRenderer.biomassMetaboliteRadius;
-    return metabolite.isMajor() ? BnBioNetworkMetaboliteRenderer.majorMetaboliteRadius
+    if (metabolite.data.compartment === bnBioNetworkCompartmentBiomassId)
+      return BnBioNetworkMetaboliteRenderer.biomassMetaboliteRadius;
+    return metabolite.isMajor()
+      ? BnBioNetworkMetaboliteRenderer.majorMetaboliteRadius
       : BnBioNetworkMetaboliteRenderer.minorMetaboliteRadius;
   }
 
   private static getStrokeWidth(metabolite: BnBioNetworkNodeMetabolite): number {
-    return metabolite.isMajor() ? BnBioNetworkMetaboliteRenderer.majorMetaboliteStroke
+    return metabolite.isMajor()
+      ? BnBioNetworkMetaboliteRenderer.majorMetaboliteStroke
       : BnBioNetworkMetaboliteRenderer.minorMetaboliteStroke;
   }
 
   private static getFontTextSize(metabolite: BnBioNetworkNodeMetabolite): string {
-    return metabolite.isMajor() ? BnBioNetworkMetaboliteRenderer.majorMetaboliteFontSize
+    return metabolite.isMajor()
+      ? BnBioNetworkMetaboliteRenderer.majorMetaboliteFontSize
       : BnBioNetworkMetaboliteRenderer.minorMetaboliteFontSize;
   }
 }

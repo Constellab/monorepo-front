@@ -1,36 +1,29 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
     <!--  Label  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'label' | translate }}</mat-label>
-      <input matInput formControlName="label" [placeholder]="'label' | translate" autocomplete="off">
+      <mat-label>{{ 'label' | translate }}</mat-label>
+      <input matInput formControlName="label" [placeholder]="'label' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Id -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'id' | translate }}</mat-label>
-      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+      <mat-label>{{ 'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
     </mat-form-field>
-
 
     <!--  Created by  -->
     <fl-form-field class="g-search-field">
-      <fl-select-user formControlName="createdBy" mode="space"
-                      [placeholder]="'created_by' | translate"></fl-select-user>
+      <fl-select-user
+        formControlName="createdBy"
+        mode="space"
+        [placeholder]="'created_by' | translate"></fl-select-user>
     </fl-form-field>
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small">{{'creation_date' | translate}}</p>
-      <fl-search-date-interval formGroupName="createdAt">
-      </fl-search-date-interval>
+      <p class="g-text-small">{{ 'creation_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
-
-
   </div>
-
 </div>
-
-

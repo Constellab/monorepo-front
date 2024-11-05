@@ -4,7 +4,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlUploadImageDialogConfig
+  FlUploadImageDialogConfig,
 } from '@monorepo/front-core-lib';
 import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
@@ -20,10 +20,9 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ca-current-space-detail',
   templateUrl: './ca-current-space-detail.component.html',
-  styleUrls: ['./ca-current-space-detail.component.scss']
+  styleUrls: ['./ca-current-space-detail.component.scss'],
 })
 export class CaCurrentSpaceDetailComponent implements OnInit {
-
   @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
@@ -33,11 +32,12 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
 
   isSpaceAdmin: boolean;
 
-  constructor(private dialogService: FlDialogService,
-              private spaceService: CaSpaceService,
-              private currentSpaceService: CaCurrentSpaceService,
-              private routerService: CaRouterService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private spaceService: CaSpaceService,
+    private currentSpaceService: CaCurrentSpaceService,
+    private routerService: CaRouterService
+  ) {}
 
   ngOnInit(): void {
     this.space$ = this.currentSpaceService.getCurrentSpace$();
@@ -45,7 +45,7 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
     this.spaceImage$ = this.currentSpaceService.getCurrentSpacePhoto$();
 
     this.imageConfig$ = this.currentSpaceService.getCurrentSpace$().pipe(
-      map(space => ({
+      map((space) => ({
         title: { text: 'space_upload_photo', translateText: true },
         helpText: { text: 'image_square_help', translateText: true },
         imagePreviewWidth: 200,
@@ -54,15 +54,15 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
         compressOptions: {
           cropWidth: 300,
           cropHeight: 300,
-          resizeWidthMax: 300
+          resizeWidthMax: 300,
         },
         uploadImage: (file: File) => this.spaceService.uploadSpacePhoto(space.id, file),
-        uploadImageSuccessMessage: { text: 'space_photo_uploaded', translateText: true }
+        uploadImageSuccessMessage: { text: 'space_photo_uploaded', translateText: true },
       }))
     );
 
     this.deleteImageConfig = this.currentSpaceService.getCurrentSpace$().pipe(
-      map(space => ({
+      map((space) => ({
         title: 'space_delete_photo',
         content: 'space_delete_photo_confirmation',
         observable: this.spaceService.deleteSpacePhoto(space.id),
@@ -85,9 +85,10 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
       successMessage: 'space_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
@@ -101,13 +102,12 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   }
 
   updateSpaceName(name: string): void {
-    this.spaceService.updateCurrentSpaceName(name).subscribe(
-      (space: CaSpace) => this.onUpdateSpaceNameSuccess(space)
-    );
+    this.spaceService
+      .updateCurrentSpaceName(name)
+      .subscribe((space: CaSpace) => this.onUpdateSpaceNameSuccess(space));
   }
 
   private onUpdateSpaceNameSuccess(space: CaSpace): void {
     this.currentSpaceService.setCurrentSpace(space);
   }
-
 }

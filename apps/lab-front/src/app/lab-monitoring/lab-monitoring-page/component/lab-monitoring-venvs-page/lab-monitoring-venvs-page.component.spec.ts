@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringVenvsPageComponent} from './lab-monitoring-venvs-page.component';
+import { LabMonitoringVenvsPageComponent } from './lab-monitoring-venvs-page.component';
 
 describe('LabMonitoringVenvPageComponent', () => {
   let component: LabMonitoringVenvsPageComponent;
@@ -8,9 +8,8 @@ describe('LabMonitoringVenvPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitoringVenvsPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LabMonitoringVenvsPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabMonitoringVenvsPageComponent);
     component = fixture.componentInstance;

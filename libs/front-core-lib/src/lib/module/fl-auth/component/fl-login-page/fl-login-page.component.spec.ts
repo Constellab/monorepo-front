@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlLoginPageComponent} from './fl-login-page.component';
+import { FlLoginPageComponent } from './fl-login-page.component';
 
 describe('FlLoginPageComponent', () => {
   let component: FlLoginPageComponent;
@@ -8,9 +8,8 @@ describe('FlLoginPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlLoginPageComponent ]
-    })
-    .compileComponents();
+      declarations: [FlLoginPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlLoginPageComponent);
     component = fixture.componentInstance;

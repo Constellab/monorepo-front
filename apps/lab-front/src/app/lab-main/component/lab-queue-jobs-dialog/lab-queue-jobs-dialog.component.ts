@@ -5,7 +5,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlEntityArrayObs
+  FlEntityArrayObs,
 } from '@monorepo/front-core-lib';
 import { LabQueueService } from '../../../lab-core/entity-service/lab-queue.service';
 import { LabQueueJob } from '../../../lab-core/model/entities/lab-queue.entity';
@@ -16,10 +16,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'lab-queue-jobs-dialog',
   templateUrl: './lab-queue-jobs-dialog.component.html',
-  styleUrls: ['./lab-queue-jobs-dialog.component.scss']
+  styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
-
   runningScenarios: FlArrayObs<LabRunningScenarioInfo>;
   scenarioColumns: string[] = ['title', 'runningTasks'];
 
@@ -31,11 +30,12 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   private timer: any;
   private subscription: Subscription;
 
-  constructor(private dialogRef: MatDialogRef<LabQueueJobsDialogComponent>,
-              private queueService: LabQueueService,
-              private dialogService: FlDialogService,
-              private scenarioService: LabScenarioService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<LabQueueJobsDialogComponent>,
+    private queueService: LabQueueService,
+    private dialogService: FlDialogService,
+    private scenarioService: LabScenarioService
+  ) {}
 
   ngOnInit(): void {
     this.loadInfo();
@@ -43,14 +43,18 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   }
 
   private loadInfo(): void {
-    const getJobs = this.queueService.getQueueJobs().pipe(tap({
-      next: jobs => this.getJobSuccess(jobs),
-      error: () => this.isLoading = false
-    }));
+    const getJobs = this.queueService.getQueueJobs().pipe(
+      tap({
+        next: (jobs) => this.getJobSuccess(jobs),
+        error: () => (this.isLoading = false),
+      })
+    );
 
-    const getRunningScenarios = this.scenarioService.getRunningScenarios().pipe(tap({
-      next: scenarios => this.runningScenarios.array = scenarios,
-    }));
+    const getRunningScenarios = this.scenarioService.getRunningScenarios().pipe(
+      tap({
+        next: (scenarios) => (this.runningScenarios.array = scenarios),
+      })
+    );
 
     this.subscription = zip([getJobs, getRunningScenarios]).subscribe(() => this.getSuccess());
   }
@@ -64,7 +68,6 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
     this.isLoading = false;
   }
 
-
   removeScenarioFromQueue(job: LabQueueJob, index: number): void {
     const input: FlConfirmDialogInput = {
       title: 'biox.remove_scenario_from_queue',
@@ -73,9 +76,10 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
       successMessage: 'biox.scenario_removed_from_queue',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onConfirmUpdateClosed(result, index)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onConfirmUpdateClosed(result, index));
   }
 
   private onConfirmUpdateClosed(result: FlConfirmDialogResult<LabScenario>, index: number): void {
@@ -88,6 +92,4 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
     clearTimeout(this.timer);
     this.subscription?.unsubscribe();
   }
-
-
 }

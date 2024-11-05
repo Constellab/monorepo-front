@@ -10,7 +10,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { TeConfig } from '../../model/te-config.class';
 import { TeRichText, TeRichTextContent, TeRichTextUndoRedoResult } from '../../model/te-rich-text.class';
@@ -23,19 +23,17 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { TeEmoji } from '../../plugin/te-emoji.class';
 import {
   TeTextEditorHistoryModificationGroup,
-  TeTextEditorHistoryModificationType
+  TeTextEditorHistoryModificationType,
 } from '../../model/te-text-editor-history-modification.class';
 import { TeEvent } from '../../model/te-event.class';
-
 
 @Component({
   selector: 'te-text-editor-browser-side',
   templateUrl: './te-text-editor-browser-side.component.html',
   styleUrl: './te-text-editor-browser-side.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
-
   static id = 0;
 
   id = TeTextEditorBrowserSideComponent.id++;
@@ -93,31 +91,30 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   // use to prevent init is the component is destroyed
   private destroyed = false;
 
-  constructor(private envInjector: EnvironmentInjector,
-              private applicationRef: ApplicationRef,
-              private translateService: FlTranslateService) {
-  }
+  constructor(
+    private envInjector: EnvironmentInjector,
+    private applicationRef: ApplicationRef,
+    private translateService: FlTranslateService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.hideToolbar = this.config.uiConfig.hideToolbar;
     this.includeToolbarButton = this.config.uiConfig.includeToolbarButton;
 
     // enable emoji picker globally
-    this.editorContainer.nativeElement.addEventListener('keypress',
-      (event: KeyboardEvent) => {
-        // use a time to let the character be added to the text
-        setTimeout(() => {
-          const additionalConfig = this.config.getAdditionalConfig();
-          if (event.key === FlKeyboardKey.COLON && additionalConfig.emoji) {
-            const emoji = new TeEmoji(event);
-            emoji.init();
-          } else if (FlKeyboardHelper.keypressIsAt(event.key) && this.config.getAdditionalConfig().mention) {
-            const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
-            mention.init();
-          }
-        }, 0);
-      });
-
+    this.editorContainer.nativeElement.addEventListener('keypress', (event: KeyboardEvent) => {
+      // use a time to let the character be added to the text
+      setTimeout(() => {
+        const additionalConfig = this.config.getAdditionalConfig();
+        if (event.key === FlKeyboardKey.COLON && additionalConfig.emoji) {
+          const emoji = new TeEmoji(event);
+          emoji.init();
+        } else if (FlKeyboardHelper.keypressIsAt(event.key) && this.config.getAdditionalConfig().mention) {
+          const mention = new TeMention(this.config.getAdditionalConfig().mention, event);
+          mention.init();
+        }
+      }, 0);
+    });
 
     setTimeout(async () => {
       import('@editorjs/editorjs').then((module) => {
@@ -129,7 +126,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   private onDisableChange(disable: boolean): void {
     if (this.editor == null || this.editor.readOnly == null) return;
     if (disable !== this.editor.readOnly.isEnabled) {
-
       // if we disable it, we save the content first because the save
       // method can be called only if the editor is not in readOnly mode
       if (!this.editor.readOnly.isEnabled) {
@@ -144,8 +140,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
-      const undoResult: TeRichTextUndoRedoResult = TeRichText.undoModification(this._value, this.modificationGroup);
+    if (
+      this.oldValue != null &&
+      this.modificationGroup?.modifications?.length > 0 &&
+      !this.isUndoRedo &&
+      !this._disabled
+    ) {
+      const undoResult: TeRichTextUndoRedoResult = TeRichText.undoModification(
+        this._value,
+        this.modificationGroup
+      );
 
       if (undoResult == null) {
         return;
@@ -183,8 +187,16 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.oldValue != null && this.modificationGroup?.modifications?.length > 0 && !this.isUndoRedo && !this._disabled) {
-      const redoResult: TeRichTextUndoRedoResult = TeRichText.redoModification(this._value, this.modificationGroup);
+    if (
+      this.oldValue != null &&
+      this.modificationGroup?.modifications?.length > 0 &&
+      !this.isUndoRedo &&
+      !this._disabled
+    ) {
+      const redoResult: TeRichTextUndoRedoResult = TeRichText.redoModification(
+        this._value,
+        this.modificationGroup
+      );
 
       if (redoResult == null) {
         return;
@@ -216,7 +228,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       this.isUndoRedo = true;
       await this.onTextEditorChange();
     }
-
   }
 
   private async initEditor(module: any): Promise<void> {
@@ -231,7 +242,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       onChange: () => this.onTextEditorChange(),
       defaultBlock: this.config.getDefaultBlock(),
       tunes: this.config.getTunes(),
-      i18n: teGetI18nConfig(this.translateService)
+      i18n: teGetI18nConfig(this.translateService),
     };
     this.editor = new module.default(config);
     this.editor.isReady.then(() => {
@@ -257,17 +268,14 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
         } else {
           if (this.firstInit) {
             this.editor.render(value).then(() => {
-
               this.isLoaded$.next(true);
 
               this.event?.htmlIsInitiated();
               this.firstInit = false;
-
             });
           } else {
             this.editor.render(value);
           }
-
         }
       });
     }
@@ -312,7 +320,12 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
     if (!this.isUndoRedo) {
       this.oldValue = this._value;
-      this.modificationGroup = TeRichText.getRichTextModification(this.oldValue, outputData, 'current', this.modificationGroup);
+      this.modificationGroup = TeRichText.getRichTextModification(
+        this.oldValue,
+        outputData,
+        'current',
+        this.modificationGroup
+      );
     }
 
     // check if outputData is different from the current value
@@ -351,5 +364,4 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
     document.removeEventListener('keydown', this.outsideUndoRedoListener);
   }
-
 }

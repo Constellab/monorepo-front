@@ -16,10 +16,9 @@ import { debounceTime } from 'rxjs/operators';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './fl-plotly-standalone.component.html',
-  styleUrl: './fl-plotly-standalone.component.scss'
+  styleUrl: './fl-plotly-standalone.component.scss',
 })
 export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {
-
   @Input({ required: true }) data: FlPlotlyData;
 
   @Input() autoResize: boolean = true;
@@ -30,11 +29,7 @@ export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {
   private resizeObs?: FlResizeObservable;
 
   ngOnInit(): void {
-    Plotly.newPlot(
-      this.plotlyContainer.nativeElement,
-      this.data.data,
-      this.data.layout
-    );
+    Plotly.newPlot(this.plotlyContainer.nativeElement, this.data.data, this.data.layout);
 
     if (this.autoResize) {
       this.resizeObs = new FlResizeObservable(this.plotlyContainer.nativeElement);
@@ -48,7 +43,7 @@ export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {
           const resize = value[0];
           Plotly.relayout(this.plotlyContainer.nativeElement, {
             width: resize.contentRect.width,
-            height: resize.contentRect.height
+            height: resize.contentRect.height,
           });
         });
     }

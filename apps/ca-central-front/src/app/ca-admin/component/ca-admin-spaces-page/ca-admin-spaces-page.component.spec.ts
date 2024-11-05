@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAdminSpacesPageComponent} from './ca-admin-spaces-page.component';
+import { CaAdminSpacesPageComponent } from './ca-admin-spaces-page.component';
 
 describe('CaAdminSpacesPageComponent', () => {
   let component: CaAdminSpacesPageComponent;
@@ -8,9 +8,8 @@ describe('CaAdminSpacesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminSpacesPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAdminSpacesPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaAdminSpacesPageComponent);
     component = fixture.componentInstance;

@@ -1,14 +1,13 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {FlColorHelper} from '../../../../utils/fl-color-helper.class';
+import { Pipe, PipeTransform } from '@angular/core';
+import { FlColorHelper } from '../../../../utils/fl-color-helper.class';
 
 /**
  * Convert a string to RGB color
  */
 @Pipe({
-  name: 'flStringToRgb'
+  name: 'flStringToRgb',
 })
 export class FlStringToRgbPipe implements PipeTransform {
-
   transform(value: any, defaultColor: string = 'transparent'): unknown {
     if (value == null) {
       return defaultColor;
@@ -19,5 +18,4 @@ export class FlStringToRgbPipe implements PipeTransform {
     }
     return FlColorHelper.stringToRGBColor(value);
   }
-
 }

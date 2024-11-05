@@ -1,11 +1,15 @@
 <fl-section [object]="flatOptions" [isLoading]="isLoading">
-
   <ng-container *flSectionBody>
-    <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
-                     *ngFor="let optionGroup of displayedOptions">
-      <mat-radio-button *ngFor="let option of optionGroup"
-                        [value]="option" class="radio-button" flRadioButtonBig
-                        color="accent" (change)="selectOption($event)">
+    <mat-radio-group
+      class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+      *ngFor="let optionGroup of displayedOptions">
+      <mat-radio-button
+        *ngFor="let option of optionGroup"
+        [value]="option"
+        class="radio-button"
+        flRadioButtonBig
+        color="accent"
+        (change)="selectOption($event)">
         <div>
           {{ option.title }}
         </div>

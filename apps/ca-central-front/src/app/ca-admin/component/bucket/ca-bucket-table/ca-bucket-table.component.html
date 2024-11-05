@@ -1,14 +1,13 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-text-icon>
         <mat-icon [flIcon]="row.getBucketTypeIcon()"></mat-icon>
-        {{row.name}}
+        {{ row.name }}
       </fl-text-icon>
     </mat-cell>
   </ng-container>
@@ -16,19 +15,20 @@
   <!-- Content type -->
   <ng-container matColumnDef="contentType">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'bucket_content_type' | translate}}
+      {{ 'bucket_content_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.contentType}}
+      {{ row.contentType }}
     </mat-cell>
   </ng-container>
 
   <!-- Object (Region or Lab) -->
   <ng-container matColumnDef="object">
-    <mat-header-cell *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <ca-cloud-provider-region-inline *ngIf="row.region" [region]="row.region"></ca-cloud-provider-region-inline>
+      <ca-cloud-provider-region-inline
+        *ngIf="row.region"
+        [region]="row.region"></ca-cloud-provider-region-inline>
       <ca-lab-inline *ngIf="row.lab" [lab]="row.lab"></ca-lab-inline>
     </mat-cell>
   </ng-container>
@@ -36,17 +36,17 @@
   <!-- Credentials -->
   <ng-container matColumnDef="credentials">
     <mat-header-cell *matHeaderCellDef>
-      {{'bucket_credentials' | translate}}
+      {{ 'bucket_credentials' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.credentials.name}}
+      {{ row.credentials.name }}
     </mat-cell>
   </ng-container>
 
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'creation_info' | translate}}
+      {{ 'creation_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -56,43 +56,35 @@
   <!-- Last modified -->
   <ng-container matColumnDef="lastModified">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'last_modification_info' | translate}}
+      {{ 'last_modification_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>
-
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="updateBucket(row)">
+        <button mat-menu-item type="button" (click)="updateBucket(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'update_bucket' | translate}}</span>
+          <span>{{ 'update_bucket' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button"
-                (click)="deleteBucket(row)">
+        <button mat-menu-item type="button" (click)="deleteBucket(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{'delete_bucket' | translate}}</span>
+          <span class="g-warn-text">{{ 'delete_bucket' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

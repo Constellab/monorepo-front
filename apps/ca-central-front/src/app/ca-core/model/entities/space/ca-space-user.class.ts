@@ -6,11 +6,10 @@ import { DateTime } from 'luxon';
 
 export enum CaSpaceRole {
   ADMIN = 'ADMIN',
-  USER = 'USER'
+  USER = 'USER',
 }
 
 export class CaSpaceUser {
-
   role: CaSpaceRole;
 
   active: boolean;
@@ -26,7 +25,6 @@ export class CaSpaceUser {
 }
 
 export class CaSpaceUserDatasource<F = void> extends FlDatasourcePaginated<CaSpaceUser, F> {
-
   protected equals(a: CaSpaceUser, b: CaSpaceUser): boolean {
     return a.user.id === b.user.id;
   }

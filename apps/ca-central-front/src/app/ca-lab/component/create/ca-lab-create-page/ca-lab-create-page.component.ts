@@ -14,10 +14,9 @@ import { CaLabSelectServerComponent } from '../ca-lab-select-server/ca-lab-selec
 @Component({
   selector: 'ca-lab-create-page',
   templateUrl: './ca-lab-create-page.component.html',
-  styleUrl: './ca-lab-create-page.component.scss'
+  styleUrl: './ca-lab-create-page.component.scss',
 })
 export class CaLabCreatePageComponent {
-
   nameForm = this._formBuilder.group({
     name: ['', Validators.required],
   });
@@ -39,17 +38,18 @@ export class CaLabCreatePageComponent {
 
   createIsLoading: boolean = false;
 
-  constructor(private _formBuilder: FormBuilder,
-              private serverService: CaServerService,
-              private routerService: CaRouterService,
-              private snackBarService: FlSnackBarService,
-              private labService: CaLabService) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private serverService: CaServerService,
+    private routerService: CaRouterService,
+    private snackBarService: FlSnackBarService,
+    private labService: CaLabService
+  ) {
     const labConfig = new CaLabManagerConfig();
-    labConfig.brickVersions = [{name: TdBrick.GWS_CORE, version: '0.8.0-beta.1'}];
+    labConfig.brickVersions = [{ name: TdBrick.GWS_CORE, version: '0.8.0-beta.1' }];
     labConfig.glabTag = null;
     this.labConfig = labConfig;
   }
-
 
   reduceStorageSize(): void {
     let storagePrice = this.storageForm.get('storageSize').value;
@@ -76,8 +76,10 @@ export class CaLabCreatePageComponent {
   }
 
   labConfigIsValid(): boolean {
-    return this.labConfig?.brickVersions.length > 0 &&
-      this.labConfig.brickVersions.find(brickVersion => brickVersion.name === TdBrick.GWS_CORE) !== null;
+    return (
+      this.labConfig?.brickVersions.length > 0 &&
+      this.labConfig.brickVersions.find((brickVersion) => brickVersion.name === TdBrick.GWS_CORE) !== null
+    );
   }
 
   createLab(): void {
@@ -88,26 +90,26 @@ export class CaLabCreatePageComponent {
       volumeSize: this.storageForm.get('storageSize').value,
       labConfig: this.labConfig,
       dailyBackupRegion: this.serverForm.get('dailyBackupRegion').value,
-      weeklyBackupRegion: this.serverForm.get('weeklyBackupRegion').value
+      weeklyBackupRegion: this.serverForm.get('weeklyBackupRegion').value,
     };
 
     this.createIsLoading = true;
     this.labService.createCloudLab(createLab).subscribe({
-      next: lab => this.createLabSuccess(lab),
-      error: () => this.createIsLoading = false
+      next: (lab) => this.createLabSuccess(lab),
+      error: () => (this.createIsLoading = false),
     });
   }
 
   private createLabSuccess(lab: CaLab): void {
     this.createIsLoading = false;
-    this.snackBarService.openSuccessMessage({
-      text: 'cloud_lab_created_success',
-      translateText: true
-    }, 10000);
+    this.snackBarService.openSuccessMessage(
+      {
+        text: 'cloud_lab_created_success',
+        translateText: true,
+      },
+      10000
+    );
 
     this.routerService.navigateToLabDetail(lab.id);
   }
-
-
-
 }

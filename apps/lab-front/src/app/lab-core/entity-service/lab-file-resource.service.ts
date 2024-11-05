@@ -7,16 +7,14 @@ import { LabTypeEntity } from '../model/entities/lab-type/lab-type.entity';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabFileResourceService {
-
   public static readonly uploadFileActon = 'uploadFile';
 
   private readonly route: string = 'fs-node';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   /**
    * Upload a file to the serveur. This watch the http events to follow progress.
@@ -26,8 +24,10 @@ export class LabFileResourceService {
     formData.append('file', file);
     formData.append('typing_name', typingName);
 
-    return this.apiService.post(`${this.route}/upload-file`, formData, null,
-      {observe: 'events', reportProgress: true});
+    return this.apiService.post(`${this.route}/upload-file`, formData, null, {
+      observe: 'events',
+      reportProgress: true,
+    });
   }
 
   /**
@@ -35,12 +35,13 @@ export class LabFileResourceService {
    */
   public uploadFolder(folderTypingName: string, files: File[]): Observable<LabResource> {
     const formData: FormData = new FormData();
-    files.forEach(file => formData.append('files', file));
+    files.forEach((file) => formData.append('files', file));
 
-    return this.apiService.post(`${this.route}/upload-folder/${folderTypingName}`, formData, null,
-      {observe: 'events', reportProgress: true});
+    return this.apiService.post(`${this.route}/upload-folder/${folderTypingName}`, formData, null, {
+      observe: 'events',
+      reportProgress: true,
+    });
   }
-
 
   public downloadFile(id: string): void {
     // download the file from the url
@@ -54,21 +55,32 @@ export class LabFileResourceService {
   //////////////////////////// FOLDER ROUTES ///////////////////////////////////////
 
   public extractNode(id: string, subPath: string, typingName: string): Observable<LabResource> {
-    return this.apiService.put(`${this.route}/${id}/folder/extract-node`, {
-      path: subPath,
-      fs_node_typing_name: typingName
-    }, LabResource);
+    return this.apiService.put(
+      `${this.route}/${id}/folder/extract-node`,
+      {
+        path: subPath,
+        fs_node_typing_name: typingName,
+      },
+      LabResource
+    );
   }
 
   public callFolderSubFileView(id: string, subFilePath: string): Observable<LabResourceView> {
-    return this.apiService.post(`${this.route}/${id}/folder/sub-file-view`, {sub_file_path: subFilePath}, LabResourceView);
+    return this.apiService.post(
+      `${this.route}/${id}/folder/sub-file-view`,
+      { sub_file_path: subFilePath },
+      LabResourceView
+    );
   }
 
   public downloadFolderSubFile(id: string, subFilePath: string): Observable<any> {
-    return this.apiService.post(`${this.route}/${id}/folder/download-sub-node`,
-      {sub_file_path: subFilePath}, null, {responseType: 'blob'}).pipe(
-        tap(blob => FlFileHelper.downloadBlob(blob, FlFileHelper.extractFilenameFromFullPath(subFilePath)))
-    );
+    return this.apiService
+      .post(`${this.route}/${id}/folder/download-sub-node`, { sub_file_path: subFilePath }, null, {
+        responseType: 'blob',
+      })
+      .pipe(
+        tap((blob) => FlFileHelper.downloadBlob(blob, FlFileHelper.extractFilenameFromFullPath(subFilePath)))
+      );
   }
 
   //////////////////////////////////////////// FILE TYPE ////////////////////////////////////////

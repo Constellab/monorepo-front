@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {FlResizeDirective} from '../fl-resize/fl-resize.directive';
-import {FlHtmlHelper} from '../../../utils/fl-html.helper';
-import {flCdkOverlayPanelClass} from '../../../utils/fl-material.config';
-import {FlPortalHeaderComponent} from '../../fl-portal/component/fl-portal-header/fl-portal-header.component';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
+import { FlHtmlHelper } from '../../../utils/fl-html.helper';
+import { flCdkOverlayPanelClass } from '../../../utils/fl-material.config';
+import { FlPortalHeaderComponent } from '../../fl-portal/component/fl-portal-header/fl-portal-header.component';
 
 /**
  * Button that work with the directive {@link FlResizeDirective} to enable full screen of a resizable portal
@@ -11,10 +11,9 @@ import {FlPortalHeaderComponent} from '../../fl-portal/component/fl-portal-heade
 @Component({
   selector: 'fl-resize-portal-fullscreen-button',
   templateUrl: './fl-resize-portal-fullscreen-button.component.html',
-  styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss']
+  styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
 })
 export class FlResizePortalFullscreenButtonComponent implements OnInit {
-
   fullscreen: boolean = false;
 
   // use to store the width and height before setting full screen
@@ -24,14 +23,14 @@ export class FlResizePortalFullscreenButtonComponent implements OnInit {
   // store the original transform of the parent before setting full screen
   private previousParentTransform: string;
 
-  constructor(private resizeDirective: FlResizeDirective,
-              private renderer: Renderer2,
-              private elementRef: ElementRef<HTMLElement>,
-              private portalHeader: FlPortalHeaderComponent) {
-  }
+  constructor(
+    private resizeDirective: FlResizeDirective,
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLElement>,
+    private portalHeader: FlPortalHeaderComponent
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   toggleFullscreen(): void {
     this.fullscreen = !this.fullscreen;
@@ -59,7 +58,6 @@ export class FlResizePortalFullscreenButtonComponent implements OnInit {
       // disable the portal header drag
       this.portalHeader.setEnableDrag(false);
     }
-
   }
 
   private cancelFullscreen(): void {
@@ -75,7 +73,7 @@ export class FlResizePortalFullscreenButtonComponent implements OnInit {
   }
 
   private getParent(): HTMLElement {
-    return FlHtmlHelper.getParent(this.elementRef.nativeElement, {className: flCdkOverlayPanelClass});
+    return FlHtmlHelper.getParent(this.elementRef.nativeElement, { className: flCdkOverlayPanelClass });
   }
 
   get icon(): string {

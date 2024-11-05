@@ -1,8 +1,11 @@
 <div class="brick-user-div">
   <h5 class="brick-user-title">
-    <span>{{'authors' | translate}}</span>
-    @if (isCreator$ | async){
-      <button mat-icon-button (click)="openAddUserToBrickDialog()" [matTooltip]="'open_coauthor_panel' | translate">
+    <span>{{ 'authors' | translate }}</span>
+    @if (isCreator$ | async) {
+      <button
+        mat-icon-button
+        (click)="openAddUserToBrickDialog()"
+        [matTooltip]="'open_coauthor_panel' | translate">
         <mat-icon>group_add</mat-icon>
       </button>
     }
@@ -14,7 +17,7 @@
 
     <mat-icon>workspace_premium</mat-icon>
   </div>
-  @for(brickUser of brickUsers; track brickUser.id){
+  @for (brickUser of brickUsers; track brickUser.id) {
     <div class="brick-user-line">
       <a [routerLink]="profileRoute + brickUser.id">
         <fl-user-inline [user]="brickUser" [portalOnHover]="false"></fl-user-inline>

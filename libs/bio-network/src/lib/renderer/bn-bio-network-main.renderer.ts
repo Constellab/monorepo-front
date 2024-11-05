@@ -1,21 +1,20 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {ForceGraphInstance, GraphData} from 'force-graph';
-import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
-import {BnBioNetworkSelectionState} from '../state/bn-bio-network-selection.state';
-import {BnBioNetworkOptionsState} from '../state/bn-bio-network-options.state';
-import {BnBioNetworkState} from '../state/bn-bio-network.state';
-import {BnBioNetworkSimulationState} from '../state/bn-bio-network-simulation.state';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {BnBioNetworkZoomRenderer} from './bn-bio-network-zoom.renderer';
-import {BnBioNetworkGridRenderer} from './bn-bio-network-grid.renderer';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {BnBioNetworkNodesRenderer} from './bn-bio-network-nodes.renderer';
-import {BnBioNetworkLinksRenderer} from './bn-bio-network-links.renderer';
-import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
-import {BnBioNetworkEngineState} from '../state/bn-bio-network-engine.state';
-import {FlCoord, FlThemeDetail, FlThemeService} from '@monorepo/front-core-lib';
-
+import { Injectable, OnDestroy } from '@angular/core';
+import { ForceGraphInstance, GraphData } from 'force-graph';
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkOptionsState } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkState } from '../state/bn-bio-network.state';
+import { BnBioNetworkSimulationState } from '../state/bn-bio-network-simulation.state';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { BnBioNetworkZoomRenderer } from './bn-bio-network-zoom.renderer';
+import { BnBioNetworkGridRenderer } from './bn-bio-network-grid.renderer';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { BnBioNetworkNodesRenderer } from './bn-bio-network-nodes.renderer';
+import { BnBioNetworkLinksRenderer } from './bn-bio-network-links.renderer';
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
+import { BnBioNetworkEngineState } from '../state/bn-bio-network-engine.state';
+import { FlCoord, FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib';
 
 export interface BnBioNetworkGraphRenderer {
   graph: ForceGraphInstance;
@@ -24,7 +23,6 @@ export interface BnBioNetworkGraphRenderer {
 
 @Injectable()
 export class BnBioNetworkMainRenderer implements OnDestroy {
-
   private container: HTMLElement;
 
   private _graph$: BehaviorSubject<BnBioNetworkGraphRenderer> = new BehaviorSubject(null);
@@ -38,21 +36,19 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
   // all node outside the screen + this margin will not be rendered
   private hideScreenMargin: number = 20;
 
-  constructor(private state: BnBioNetworkState,
-              private selectionState: BnBioNetworkSelectionState,
-              private optionState: BnBioNetworkOptionsState,
-              private simulationState: BnBioNetworkSimulationState,
-              private gridState: BnBioNetworkGridState,
-              private themeService: FlThemeService,
-              private engineState: BnBioNetworkEngineState) {
-  }
-
+  constructor(
+    private state: BnBioNetworkState,
+    private selectionState: BnBioNetworkSelectionState,
+    private optionState: BnBioNetworkOptionsState,
+    private simulationState: BnBioNetworkSimulationState,
+    private gridState: BnBioNetworkGridState,
+    private themeService: FlThemeService,
+    private engineState: BnBioNetworkEngineState
+  ) {}
 
   public init(container: HTMLElement): void {
     this.container = container;
-    this.state.getChartData$().subscribe(
-      data => this.startSimulation(data)
-    );
+    this.state.getChartData$().subscribe((data) => this.startSimulation(data));
   }
 
   private async startSimulation(data: BnBioNetworkGraph): Promise<void> {
@@ -79,7 +75,6 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
   private async drawNetwork(data: BnBioNetworkGraph): Promise<void> {
     this.initSubscriptions = new ClSubscriptionHandler();
 
-
     const width = this.container.clientWidth;
     const height = this.container.clientHeight;
 
@@ -87,10 +82,11 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     // get data, if we draw in live, we don't include the cofactors to disturb the graph. We add them later.
     const graphData: GraphData = this.dataToGraph(data, !engineConfig.liveDrawing);
 
-
     const ForceGraph = (await import('force-graph')).default;
     const graph: ForceGraphInstance = ForceGraph()(this.container)
-      .graphData(graphData).width(width).height(height)
+      .graphData(graphData)
+      .width(width)
+      .height(height)
       .autoPauseRedraw(true) // prevent redraw on every tick
       .maxZoom(BnBioNetworkZoomRenderer.maxZoomScale)
       .minZoom(BnBioNetworkZoomRenderer.minZoomScale)
@@ -106,17 +102,13 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
       .d3Force('link', this.simulationState.getLinkForce(data, engineConfig))
       .d3Force('charge', this.simulationState.getChargeForce(engineConfig))
       .d3Force('center', this.simulationState.getCenterForce(engineConfig))
-      .onEngineTick(() => this.simulationState.newTick())
-    ;
-
-
+      .onEngineTick(() => this.simulationState.newTick());
     if (engineConfig.liveDrawing) {
       this.simulationState.markAsStarted(engineConfig);
       // once the simulation is over, stop the simulation
       graph.onEngineStop(() => {
         // clear the engine stop listener
-        graph.onEngineStop(() => {
-        });
+        graph.onEngineStop(() => {});
 
         graph.cooldownTicks(0);
         // set the data with the cofactors
@@ -126,25 +118,33 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
       });
     }
 
-
     const graphRenderer: BnBioNetworkGraphRenderer = {
       graph: graph,
-      data: data
+      data: data,
     };
 
     const themeDetail: FlThemeDetail = this.themeService.getCurrentThemeDetail();
     const grey = themeDetail.cardBackground;
 
     this.gridRenderer = new BnBioNetworkGridRenderer(graphRenderer, grey, this.optionState.getOptions$());
-    this.nodesRenderer = new BnBioNetworkNodesRenderer(graphRenderer, this.optionState.getOptions$(),
-      this.selectionState.getSelectionMode$(), this.selectionState, this.gridState,
-      grey, themeDetail);
+    this.nodesRenderer = new BnBioNetworkNodesRenderer(
+      graphRenderer,
+      this.optionState.getOptions$(),
+      this.selectionState.getSelectionMode$(),
+      this.selectionState,
+      this.gridState,
+      grey,
+      themeDetail
+    );
     this.nodesRenderer.render();
 
-    this.linksRenderer = new BnBioNetworkLinksRenderer(graphRenderer, this.optionState.getOptions$(),
-      this.selectionState.getSelectionMode$(), themeDetail.hover);
+    this.linksRenderer = new BnBioNetworkLinksRenderer(
+      graphRenderer,
+      this.optionState.getOptions$(),
+      this.selectionState.getSelectionMode$(),
+      themeDetail.hover
+    );
     this.linksRenderer.render();
-
 
     this.selectionState.init(data);
     this._graph$.next(graphRenderer);
@@ -162,15 +162,13 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
       for (const node of data.getMetabolitesAndReactions()) {
         // set visibility of nodes from position
-        node.isVisible = node.x >= fromX && node.x <= toX &&
-          node.y >= fromY && node.y <= toY;
+        node.isVisible = node.x >= fromX && node.x <= toX && node.y >= fromY && node.y <= toY;
       }
       for (const link of data.getMetaboliteAndReactionLinks()) {
         // set visibility of links from position
         link.isVisible = link.source.isVisible || link.target.isVisible;
       }
     });
-
   }
 
   private forceDraw(graphData: GraphData): void {
@@ -183,12 +181,12 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     if (includeCofactors) {
       return {
         nodes: data.getAllNodes(),
-        links: data.getAllLinks()
+        links: data.getAllLinks(),
       };
     } else {
       return {
         nodes: data.getMetabolitesAndReactions(),
-        links: data.getMetaboliteAndReactionLinks()
+        links: data.getMetaboliteAndReactionLinks(),
       };
     }
   }
@@ -199,7 +197,7 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
   public getGraphRenderer$(filterNull: boolean = true): Observable<BnBioNetworkGraphRenderer> {
     if (filterNull) {
-      return this._graph$.asObservable().pipe(filter(graph => graph != null));
+      return this._graph$.asObservable().pipe(filter((graph) => graph != null));
     } else {
       return this._graph$.asObservable();
     }
@@ -211,19 +209,17 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
     this.nodesRenderer?.destroy();
     this.linksRenderer?.destroy();
 
-    this.graphRenderer?.graph.graphData({nodes: [], links: []});
+    this.graphRenderer?.graph.graphData({ nodes: [], links: [] });
   }
 
   private getCanvasSize(): FlCoord {
     return {
       x: this.container.clientWidth,
-      y: this.container.clientHeight
+      y: this.container.clientHeight,
     };
   }
 
   ngOnDestroy(): void {
     this.graphRenderer?.graph._destructor();
   }
-
-
 }

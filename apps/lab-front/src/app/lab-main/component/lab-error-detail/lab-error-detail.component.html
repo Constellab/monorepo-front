@@ -1,26 +1,25 @@
 <div>
-
   <!-- Error code -->
   <div class="g-layout-row group">
-    <span class="text g-text-light">{{'error_code' | translate}} :&nbsp;</span>
-    <span> {{error.code}}</span>
+    <span class="text g-text-light">{{ 'error_code' | translate }} :&nbsp;</span>
+    <span> {{ error.code }}</span>
   </div>
 
   <!-- Detail -->
   <div class="g-layout-row group">
-    <div class="text g-text-light">{{'detail' | translate}} :&nbsp;</div>
-    <span> {{error.detail}}</span>
+    <div class="text g-text-light">{{ 'detail' | translate }} :&nbsp;</div>
+    <span> {{ error.detail }}</span>
   </div>
 
   <!-- HTTP Status -->
   <div class="g-layout-row group">
-    <span class="text g-text-light">{{'http_status' | translate}} :&nbsp;</span>
-    <span> {{error.status}}</span>
+    <span class="text g-text-light">{{ 'http_status' | translate }} :&nbsp;</span>
+    <span> {{ error.status }}</span>
   </div>
 
   <!-- Error code -->
   <div class="g-layout-row group">
     <span class="text g-text-light">InstanceId :&nbsp;</span>
-    <span> {{error.instanceId}}</span>
+    <span> {{ error.instanceId }}</span>
   </div>
 </div>

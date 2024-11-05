@@ -1,21 +1,21 @@
-:host{
+:host {
   margin: 0.5em 0;
   padding: 0.25em 0;
   border-bottom: solid 1px var(--hover-color);
 }
 
-.comment-info-div{
+.comment-info-div {
   display: flex;
   flex-direction: row;
   gap: 0.5em;
   align-items: center;
 }
 
-.comment-info-date{
+.comment-info-date {
   font-size: 0.65em;
 }
 
-.comment-content{
+.comment-content {
   min-height: 0 !important;
   height: fit-content;
   border: none;

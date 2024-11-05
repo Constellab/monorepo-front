@@ -6,24 +6,20 @@ import {
   FLSearchFunction,
   FlSearchState,
   FlTableColumnStatic,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields } from '../../model/lab-type-search.class';
 import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdBrick } from '@monorepo/technical-doc';
 
-
 @Component({
   selector: 'lab-type-search',
   templateUrl: './lab-type-search.component.html',
   styleUrls: ['./lab-type-search.component.scss'],
-  providers: [
-    FlSearchState,
-  ]
+  providers: [FlSearchState],
 })
 export class LabTypeSearchComponent implements OnInit {
-
   @Input() fullPageSearch: boolean = false;
 
   @Input() config: LabTypeSearchConfig;
@@ -33,13 +29,13 @@ export class LabTypeSearchComponent implements OnInit {
   columns: FlTableColumnStatic<LabTypeEntity>[];
   datasource: LabTypeEntityDatasource;
 
-  constructor(private searchState: FlSearchState<any>,
-              private typeService: LabTypeService,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private typeService: LabTypeService,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
-
     // set hidden filters based on config
     let hiddenFilters: Partial<LabTypeSearchFields>;
     let searchFunction: FLSearchFunction;
@@ -48,35 +44,40 @@ export class LabTypeSearchComponent implements OnInit {
       case 'process':
         searchFunction = this.typeService.getAdvancedSearchFunction();
 
-        hiddenFilters = {objectType: ['TASK', 'PROTOCOL']};
+        hiddenFilters = { objectType: ['TASK', 'PROTOCOL'] };
         this.columns = ['name', 'description', 'objectSubType', 'detail'];
         break;
       case 'resource':
         searchFunction = this.typeService.getAdvancedSearchFunction();
 
-        hiddenFilters = {objectType: ['RESOURCE']};
+        hiddenFilters = { objectType: ['RESOURCE'] };
         this.columns = ['name', 'description', 'objectSubType', 'detail'];
         break;
       case 'transformer':
-        searchFunction = this.typeService.getTransformerAdvancedSearchFunction(this.config.resourceTypingNames);
+        searchFunction = this.typeService.getTransformerAdvancedSearchFunction(
+          this.config.resourceTypingNames
+        );
 
         // don't set the objectSubType because it is always transformers
         this.columns = ['name', 'description', 'detail'];
         break;
       case 'importer':
-        searchFunction = this.typeService.getImporterAdvancedSearchFunction(this.config.resourceTypingName,
-          this.config.extension);
+        searchFunction = this.typeService.getImporterAdvancedSearchFunction(
+          this.config.resourceTypingName,
+          this.config.extension
+        );
 
         // don't set the objectSubType because it is always importers
         this.columns = ['name', 'description', 'detail'];
         break;
       case 'processSuggestion':
-        searchFunction = this.typeService.getProcessSuggestion(this.config.resourceTypingNames, this.config.suggestBy);
-        hiddenFilters = {objectType: ['TASK', 'PROTOCOL']};
+        searchFunction = this.typeService.getProcessSuggestion(
+          this.config.resourceTypingNames,
+          this.config.suggestBy
+        );
+        hiddenFilters = { objectType: ['TASK', 'PROTOCOL'] };
         this.columns = ['name', 'description', 'objectSubType', 'detail'];
-
     }
-
 
     this.searchState.setHiddenFilters(hiddenFilters);
 
@@ -90,7 +91,7 @@ export class LabTypeSearchComponent implements OnInit {
         skipFalseBoolean: true,
       },
       storeSearchInUrl: this.fullPageSearch,
-      defaultSort: {key: 'name', direction: 'ASC'}
+      defaultSort: { key: 'name', direction: 'ASC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(searchFunction, 20, false);
@@ -107,7 +108,7 @@ export class LabTypeSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {includeDeprecated: false} as Partial<LabTypeSearchFields>
+        filtersCriteria: { includeDeprecated: false } as Partial<LabTypeSearchFields>,
       },
       {
         searchName: 'lab-type',
@@ -116,12 +117,15 @@ export class LabTypeSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: {brick: [TdBrick.GWS_CORE], includeDeprecated: false} as Partial<LabTypeSearchFields>
-      }];
+        filtersCriteria: {
+          brick: [TdBrick.GWS_CORE],
+          includeDeprecated: false,
+        } as Partial<LabTypeSearchFields>,
+      },
+    ];
   }
 
   selectType(type: LabTypeEntity): void {
     this.typeSelected.next(type);
   }
-
 }

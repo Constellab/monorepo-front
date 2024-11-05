@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabFolderSelectComponent} from './lab-folder-select.component';
+import { LabFolderSelectComponent } from './lab-folder-select.component';
 
 describe('LabFolderSelectComponent', () => {
   let component: LabFolderSelectComponent;
@@ -8,9 +8,8 @@ describe('LabFolderSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabFolderSelectComponent ]
-    })
-    .compileComponents();
+      declarations: [LabFolderSelectComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabFolderSelectComponent);
     component = fixture.componentInstance;

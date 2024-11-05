@@ -5,7 +5,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform
+  FlStatusTransform,
 } from '@monorepo/front-core-lib';
 import { Expose, Type } from 'class-transformer';
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
@@ -15,8 +15,14 @@ import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabRunningProcessInfo } from './process/lab-process.entity';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
-export type LabScenarioStatus = 'DRAFT' | 'IN_QUEUE' | 'WAITING_FOR_CLI_PROCESS'
-  | 'RUNNING' | 'SUCCESS' | 'ERROR' | 'PARTIALLY_RUN';
+export type LabScenarioStatus =
+  | 'DRAFT'
+  | 'IN_QUEUE'
+  | 'WAITING_FOR_CLI_PROCESS'
+  | 'RUNNING'
+  | 'SUCCESS'
+  | 'ERROR'
+  | 'PARTIALLY_RUN';
 export type LabScenarioPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the scenario status translation texts
@@ -26,23 +32,36 @@ export const labScenarioStatusDict: FlStatusDict<LabScenarioStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'flStatus.running'),
-  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus('WAITING_FOR_CLI_PROCESS', 'biox.scenario_waiting_for_cli'),
-  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
-    FlStatusHelper.draftIcon)
+  WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
+    'WAITING_FOR_CLI_PROCESS',
+    'biox.scenario_waiting_for_cli'
+  ),
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run', FlStatusHelper.draftIcon),
 };
 
 export type LabScenarioCreationType = 'MANUAL' | 'AUTO' | 'IMPORTED';
 export const flScenarioCreationTypes: FlStatusDict<LabScenarioCreationType> = {
-  MANUAL: FlStatusHelper.getInfoStatus('MANUAL', 'biox.scenario_creation_type_MANUAL',
-    'fiber_manual_record', 'biox.scenario_creation_type_help_MANUAL'),
-  AUTO: FlStatusHelper.getInfoStatus('AUTO', 'biox.scenario_creation_type_AUTO',
-    'smart_toy', 'biox.scenario_creation_type_help_AUTO'),
-  IMPORTED: FlStatusHelper.getInfoStatus('IMPORTED', 'biox.scenario_creation_type_IMPORTED',
-    'cloud_download', 'biox.scenario_creation_type_help_IMPORTED')
+  MANUAL: FlStatusHelper.getInfoStatus(
+    'MANUAL',
+    'biox.scenario_creation_type_MANUAL',
+    'fiber_manual_record',
+    'biox.scenario_creation_type_help_MANUAL'
+  ),
+  AUTO: FlStatusHelper.getInfoStatus(
+    'AUTO',
+    'biox.scenario_creation_type_AUTO',
+    'smart_toy',
+    'biox.scenario_creation_type_help_AUTO'
+  ),
+  IMPORTED: FlStatusHelper.getInfoStatus(
+    'IMPORTED',
+    'biox.scenario_creation_type_IMPORTED',
+    'cloud_download',
+    'biox.scenario_creation_type_help_IMPORTED'
+  ),
 };
 
 export class LabScenario extends LabBaseEntityWithUser implements LabFolderObject {
-
   title: string;
 
   description: TeRichTextContent;
@@ -141,7 +160,6 @@ export interface LabScenarioSimpleForm {
 }
 
 export class LabRunningScenarioInfo extends LabEntity {
-
   title: string;
 
   @Expose({ name: 'running_tasks' })
@@ -153,4 +171,3 @@ export class LabRunningScenarioInfo extends LabEntity {
     title: string;
   };
 }
-

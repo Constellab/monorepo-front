@@ -4,24 +4,22 @@
   overflow: hidden;
 }
 
-.current-space{
+.current-space {
   padding: 1em 1em 0 1em;
 }
 
-.current-space-photo{
+.current-space-photo {
   cursor: pointer;
 }
 
-.current-space-label{
+.current-space-label {
   margin-top: 0.5em;
   margin-bottom: 1em;
 }
 
-
 .my-other-space {
   padding: 1.5em 1.5em 1em 1.5em;
 }
-
 
 .space {
   cursor: pointer;
@@ -33,6 +31,6 @@
   background-color: var(--hover-color);
 }
 
-.switch-to{
+.switch-to {
   padding: 1em;
 }

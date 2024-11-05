@@ -1,22 +1,26 @@
 <fl-async-section [arrayObs]="scenarios" emptyText="biox.no_note_linked_scenario">
-
   <fl-section-header>
     <fl-text-icon>
       <mat-icon flIcon="scenario"></mat-icon>
-      <h3>{{'biox.note_linked_scenario' | translate}}</h3>
+      <h3>{{ 'biox.note_linked_scenario' | translate }}</h3>
     </fl-text-icon>
 
     <fl-section-actions *ngIf="canEdit">
-      <button mat-icon-button type="button" [matTooltip]="'biox.note_link_scenario' | translate"
-              (click)="linkScenario()">
+      <button
+        mat-icon-button
+        type="button"
+        [matTooltip]="'biox.note_link_scenario' | translate"
+        (click)="linkScenario()">
         <mat-icon>add</mat-icon>
       </button>
     </fl-section-actions>
-
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <lab-scenario-table [datasource]="scenarios" [columns]="columns" class="g-mat-table-main-background"
-                          (scenarioUnlink)="unlinkScenario($event)"></lab-scenario-table>
+    <lab-scenario-table
+      [datasource]="scenarios"
+      [columns]="columns"
+      class="g-mat-table-main-background"
+      (scenarioUnlink)="unlinkScenario($event)"></lab-scenario-table>
   </ng-container>
 </fl-async-section>

@@ -6,15 +6,7 @@ import { CaActivityCoreModule } from '../../../ca-core/entity-module/ca-activity
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 
 @NgModule({
-  declarations: [
-    CaFolderActivityPageComponent
-  ],
-  imports: [
-    CommonModule,
-
-    CaCoreModule,
-    CaActivityCoreModule,
-    CaFolderHierarchyCoreModule
-  ]
+  declarations: [CaFolderActivityPageComponent],
+  imports: [CommonModule, CaCoreModule, CaActivityCoreModule, CaFolderHierarchyCoreModule],
 })
 export class CaFolderActivityPageModule {}

@@ -8,9 +8,8 @@ describe('CaLabFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabFormDialogComponent);
     component = fixture.componentInstance;

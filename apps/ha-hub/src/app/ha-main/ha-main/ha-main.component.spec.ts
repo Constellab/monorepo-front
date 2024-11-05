@@ -8,9 +8,8 @@ describe('HaMainComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaMainComponent ]
-    })
-      .compileComponents();
+      declarations: [HaMainComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

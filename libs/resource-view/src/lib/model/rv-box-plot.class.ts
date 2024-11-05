@@ -3,11 +3,11 @@ import {
   ChChartBoxPlotData,
   ChChartBoxPlotSerie,
   ChChartConfig,
-  ChChartMultiSerie
+  ChChartMultiSerie,
 } from '@monorepo/chart';
-import {RvResourceViewBase} from './rv-resource-view.class';
+import { RvResourceViewBase } from './rv-resource-view.class';
 
-export interface RvResourceViewBoxPlot extends RvResourceViewBase{
+export interface RvResourceViewBoxPlot extends RvResourceViewBase {
   type: 'box-plot-view';
   data: RvResourceViewBoxPlotData;
 }
@@ -56,7 +56,7 @@ export function rvBoxPlotToChart(view: RvResourceViewBoxPlot): ChChartConfig {
         lowerWhisker: viewSerie.data.lower_whisker[i],
         upperWhisker: viewSerie.data.upper_whisker[i],
         tags: viewSerie.data.tags?.[i],
-        valid: true
+        valid: true,
       });
 
       serieIndex++;
@@ -70,10 +70,10 @@ export function rvBoxPlotToChart(view: RvResourceViewBoxPlot): ChChartConfig {
   }
 
   // set the labels
-  if(view.data.x_label) {
+  if (view.data.x_label) {
     series.axisXLabel = view.data.x_label;
   }
-  if(view.data.y_label) {
+  if (view.data.y_label) {
     series.axisYLabel = view.data.y_label;
   }
   return new ChChartBoxPlot(series);

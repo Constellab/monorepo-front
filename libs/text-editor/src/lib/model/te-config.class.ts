@@ -3,7 +3,7 @@ import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
   teGetHeaderWithIdBlockDefaultConfig,
   TeHeaderWithIdBlock,
-  TeHeaderWithIdBlockConfig
+  TeHeaderWithIdBlockConfig,
 } from '../block/te-header-with-id-block.class';
 import InlineCode from '@editorjs/inline-code';
 import { TeFormulaBlock } from '../block/te-formula-block.class';
@@ -30,13 +30,12 @@ import { TeComponentInitData } from '../block/te-component-block.class';
 import TeTable from '../block/te-table-block.class';
 import {
   TeAudioTranscriptionBlockTune,
-  TeAudioTranscriptionConfig
+  TeAudioTranscriptionConfig,
 } from '../block-tune/te-audio-transcription-block-tune.class';
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
-
 
 export interface TeAdditionalConfig {
   /**
@@ -68,34 +67,29 @@ export interface TeUiConfig {
   dense: boolean;
 }
 
-
 export abstract class TeConfig {
-
   public uiConfig: TeUiConfig;
 
   constructor(uiConfig: Partial<TeUiConfig> = {}) {
     const defaultConfig: TeUiConfig = {
       hideToolbar: false,
       includeToolbarButton: false,
-      dense: false
+      dense: false,
     };
     this.uiConfig = Object.assign(defaultConfig, uiConfig);
   }
 
-  abstract getTools(envInjector: EnvironmentInjector,
-                    applicationRef: ApplicationRef): TeTools;
+  abstract getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools;
 
   abstract getInlineToolbar(): string[];
 
   abstract getTunes(): string[];
 
-
   public getAdditionalConfig(): TeAdditionalConfig {
     return {
-      emoji: true
+      emoji: true,
     };
   }
-
 
   public getDefaultBlock(): string {
     return 'paragraph';
@@ -106,11 +100,10 @@ export abstract class TeConfig {
       class: TeParagraphBlock,
       inlineToolbar: true,
       config: {
-        preserveBlank: true
-      }
+        preserveBlank: true,
+      },
     };
   }
-
 
   getHeaderConfig(config: Partial<TeHeaderWithIdBlockConfig> = {}): ToolSettings {
     config = Object.assign(teGetHeaderWithIdBlockDefaultConfig(), config);
@@ -118,7 +111,7 @@ export abstract class TeConfig {
       class: TeHeaderWithIdBlock,
       config: config,
       // use the fake to show the toolbar to have access to convert to paragraph
-      inlineToolbar: ['fake']
+      inlineToolbar: ['fake'],
     };
   }
 
@@ -128,83 +121,86 @@ export abstract class TeConfig {
       class: TeNestedListBlock,
       inlineToolbar: true,
       config: {
-        defaultStyle: 'unordered'
+        defaultStyle: 'unordered',
       },
       toolbox: [
         {
           icon: TeHelper.getMatIconElement('format_list_bulleted'),
           title: translateService.translate('teTextEditor.list_unordered'),
           data: {
-            style: 'unordered'
-          }
+            style: 'unordered',
+          },
         },
         {
           icon: TeHelper.getMatIconElement('format_list_numbered'),
           title: translateService.translate('teTextEditor.list_ordered'),
           data: {
-            style: 'ordered'
-          }
-        }
-      ]
+            style: 'ordered',
+          },
+        },
+      ],
     };
   }
 
-  getImageConfig(config: TeFigureBlockConfig,
-                 envInjector: EnvironmentInjector,
-                 applicationRef: ApplicationRef): ToolSettings {
+  getImageConfig(
+    config: TeFigureBlockConfig,
+    envInjector: EnvironmentInjector,
+    applicationRef: ApplicationRef
+  ): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config)
+      class: teComponentBlockFactory(TeFigureBlock, envInjector, applicationRef, config),
     };
   }
 
-  getFileConfig(config: TeFileBlockConfig,
-                envInjector: EnvironmentInjector,
-                applicationRef: ApplicationRef): ToolSettings {
+  getFileConfig(
+    config: TeFileBlockConfig,
+    envInjector: EnvironmentInjector,
+    applicationRef: ApplicationRef
+  ): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config)
+      class: teComponentBlockFactory(TeFileBlock, envInjector, applicationRef, config),
     };
   }
 
-
-  getCodeConfig(envInjector: EnvironmentInjector,
-                applicationRef: ApplicationRef): ToolSettings {
+  getCodeConfig(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef)
+      class: teComponentBlockFactory(TeCodeBlock, envInjector, applicationRef),
     };
   }
 
   getInlineCodeConfig(): ToolSettings {
     return {
       class: InlineCode,
-      shortcut: 'CMD+SHIFT+M'
+      shortcut: 'CMD+SHIFT+M',
     };
   }
 
   getMentionConfig(): ToolSettings {
     return {
-      class: TeMentionInlineTool
+      class: TeMentionInlineTool,
     };
   }
 
   getTableConfig(): ToolSettings {
     return {
       class: TeTable,
-      inlineToolbar: true
+      inlineToolbar: true,
     };
   }
 
-  getTimeStampConfig(envInjector: EnvironmentInjector,
-                     applicationRef: ApplicationRef): ToolSettings {
+  getTimeStampConfig(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): ToolSettings {
     return {
-      class: teComponentBlockFactory(TeTimestampBlock, envInjector, applicationRef)
+      class: teComponentBlockFactory(TeTimestampBlock, envInjector, applicationRef),
     };
   }
 
-  getAudioTranscriptionConfig(config: TeAudioTranscriptionConfig,
-                              envInjector: EnvironmentInjector,
-                              applicationRef: ApplicationRef): ToolSettings {
+  getAudioTranscriptionConfig(
+    config: TeAudioTranscriptionConfig,
+    envInjector: EnvironmentInjector,
+    applicationRef: ApplicationRef
+  ): ToolSettings {
     return {
-      class: teBlockTuneFactory(TeAudioTranscriptionBlockTune, envInjector, applicationRef, config)
+      class: teBlockTuneFactory(TeAudioTranscriptionBlockTune, envInjector, applicationRef, config),
     };
   }
 
@@ -218,13 +214,9 @@ export abstract class TeConfig {
     tools.push('cleanStyle');
     return tools;
   }
-
-
 }
 
-
 export class TeBasicConfig extends TeConfig {
-
   getTools(): TeTools {
     return {
       paragraph: this.getParagraphConfig(),
@@ -238,7 +230,7 @@ export class TeBasicConfig extends TeConfig {
       fake: TeFakeInlineTool,
 
       // Other
-      drag: TeDragBlockTune
+      drag: TeDragBlockTune,
     };
   }
 
@@ -246,16 +238,13 @@ export class TeBasicConfig extends TeConfig {
     return ['drag'];
   }
 
-
   getInlineToolbar(): string[] {
     return this.getBasicInlineToolbar();
   }
 }
 
 export class TeCompleteConfig extends TeConfig {
-
-  getTools(envInjector: EnvironmentInjector,
-           applicationRef: ApplicationRef): TeTools {
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     return {
       // Block
       paragraph: this.getParagraphConfig(),
@@ -263,12 +252,12 @@ export class TeCompleteConfig extends TeConfig {
       list: this.getListConfig(),
       code: this.getCodeConfig(envInjector, applicationRef),
       formula: {
-        class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef)
+        class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef),
       },
       table: this.getTableConfig(),
       hint: {
         class: TeHintBlock,
-        inlineToolbar: true
+        inlineToolbar: true,
       },
       video: teComponentBlockFactory(TeVideoBlock, envInjector, applicationRef),
       timestamp: this.getTimeStampConfig(envInjector, applicationRef),
@@ -282,7 +271,7 @@ export class TeCompleteConfig extends TeConfig {
       fake: TeFakeInlineTool,
 
       // Other
-      drag: TeDragBlockTune
+      drag: TeDragBlockTune,
 
       // Block tune
     };

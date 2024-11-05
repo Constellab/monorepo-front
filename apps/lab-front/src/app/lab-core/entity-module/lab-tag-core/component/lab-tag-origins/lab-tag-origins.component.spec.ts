@@ -8,10 +8,9 @@ describe('LabTagOriginsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabTagOriginsComponent]
-    })
-    .compileComponents();
-    
+      declarations: [LabTagOriginsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(LabTagOriginsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

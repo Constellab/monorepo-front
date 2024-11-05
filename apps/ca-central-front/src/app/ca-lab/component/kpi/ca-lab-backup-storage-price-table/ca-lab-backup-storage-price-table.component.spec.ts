@@ -8,9 +8,8 @@ describe('LabBackupStoragePriceTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabBackupStoragePriceTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabBackupStoragePriceTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabBackupStoragePriceTableComponent);
     component = fixture.componentInstance;

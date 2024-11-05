@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewStreamlitComponent} from './rv-view-streamlit.component';
+import { RvViewStreamlitComponent } from './rv-view-streamlit.component';
 
 describe('RvViewStreamlitComponent', () => {
   let component: RvViewStreamlitComponent;
@@ -8,9 +8,8 @@ describe('RvViewStreamlitComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RvViewStreamlitComponent]
-    })
-    .compileComponents();
+      declarations: [RvViewStreamlitComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RvViewStreamlitComponent);
     component = fixture.componentInstance;

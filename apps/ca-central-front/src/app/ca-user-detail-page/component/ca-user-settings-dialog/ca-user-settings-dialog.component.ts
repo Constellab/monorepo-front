@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {CaAuthService} from '../../../ca-login/service/ca-auth.service';
-import {Router} from '@angular/router';
-import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper';
+import { Component } from '@angular/core';
+import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
+import { Router } from '@angular/router';
+import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 
 /**
  * Settings page
@@ -9,21 +9,21 @@ import {CaEnvironmentHelper} from '../../../ca-core/utils/ca-environment.helper'
 @Component({
   selector: 'ca-user-settings-dialog',
   templateUrl: './ca-user-settings-dialog.component.html',
-  styleUrls: ['./ca-user-settings-dialog.component.scss']
+  styleUrls: ['./ca-user-settings-dialog.component.scss'],
 })
 export class CaUserSettingsDialogComponent {
-
   logoutIsLoading: boolean = false;
 
-  constructor(private authService: CaAuthService,
-              private router: Router) {
-  }
+  constructor(
+    private authService: CaAuthService,
+    private router: Router
+  ) {}
 
   logout(): void {
     this.logoutIsLoading = true;
     this.authService.logout().subscribe({
       next: () => this.logoutSuccess(),
-      error: () => this.logoutIsLoading = false
+      error: () => (this.logoutIsLoading = false),
     });
   }
 
@@ -35,5 +35,4 @@ export class CaUserSettingsDialogComponent {
     }
     this.logoutIsLoading = false;
   }
-
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabSupportPageComponent} from './ca-lab-support-page.component';
+import { CaLabSupportPageComponent } from './ca-lab-support-page.component';
 
 describe('CaLabSupportPageComponent', () => {
   let component: CaLabSupportPageComponent;
@@ -8,9 +8,8 @@ describe('CaLabSupportPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabSupportPageComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabSupportPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabSupportPageComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkActionBarComponent} from './bn-bio-network-action-bar.component';
+import { BnBioNetworkActionBarComponent } from './bn-bio-network-action-bar.component';
 
 describe('BnBioNetworkActionBarComponent', () => {
   let component: BnBioNetworkActionBarComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkActionBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkActionBarComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkActionBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabObjectValidationInfoComponent} from './lab-object-validation-info.component';
+import { LabObjectValidationInfoComponent } from './lab-object-validation-info.component';
 
 describe('LabObjectValidationInfoComponent', () => {
   let component: LabObjectValidationInfoComponent;
@@ -8,9 +8,8 @@ describe('LabObjectValidationInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabObjectValidationInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [LabObjectValidationInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

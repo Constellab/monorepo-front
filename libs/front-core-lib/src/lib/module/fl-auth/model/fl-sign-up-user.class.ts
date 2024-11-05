@@ -1,4 +1,4 @@
-import {ClUserCategory} from '@monorepo/core-lib';
+import { ClUserCategory } from '@monorepo/core-lib';
 
 export interface FlSignUpUser {
   firstname: string;

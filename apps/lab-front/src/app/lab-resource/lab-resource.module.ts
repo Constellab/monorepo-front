@@ -4,17 +4,8 @@ import { LabResourceRoutingModule } from './lab-resource-routing.module';
 import { LabResourceSearchPageModule } from './lab-resource-search-page/lab-resource-search-page.module';
 import { LabResourceDetailPageModule } from './lab-resource-detail-page/lab-resource-detail-page.module';
 
-
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-
-    LabResourceSearchPageModule,
-    LabResourceDetailPageModule,
-
-    LabResourceRoutingModule,
-  ]
+  imports: [CommonModule, LabResourceSearchPageModule, LabResourceDetailPageModule, LabResourceRoutingModule],
 })
-export class LabResourceModule {
-}
+export class LabResourceModule {}

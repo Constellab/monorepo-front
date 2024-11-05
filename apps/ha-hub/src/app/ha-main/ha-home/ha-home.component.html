@@ -6,9 +6,13 @@
       <h2 class="home-subtitle">{{ 'home_subtitle' | translate }}</h2>
 
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/KvfWV6K_fmc" title="Welcome to Constellab !" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe
+          src="https://www.youtube.com/embed/KvfWV6K_fmc"
+          title="Welcome to Constellab !"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen></iframe>
       </div>
 
       <a mat-stroked-button class="getting-started-button" [routerLink]="productDocRoute">
@@ -23,19 +27,19 @@
       <span class="home-section-title">{{ 'the_fair_open_access_community' | translate }}</span>
       <div class="other-links-div community-other-links">
         <div class="users-count-div">
-          <img ngSrc="assets/fl-logo/community_logo.svg" width="18" height="18" priority/>
-          <span>
-            {{usersCount}} {{('members' | translate).toUpperCase()}}
-          </span>
+          <img ngSrc="assets/fl-logo/community_logo.svg" width="18" height="18" priority />
+          <span> {{ usersCount }} {{ ('members' | translate).toUpperCase() }} </span>
         </div>
-        <ha-github-star-button [repo]="gwsCoreRepoLink" [icon]="'octicon-mark-github'"></ha-github-star-button>
+        <ha-github-star-button
+          [repo]="gwsCoreRepoLink"
+          [icon]="'octicon-mark-github'"></ha-github-star-button>
         <a target="_blank" [href]="gLabLink" class="docker-pull-link">
           <div class="docker-pull-image">
-            <img ngSrc="https://img.shields.io/docker/pulls/constellab/glab" fill priority/>
+            <img ngSrc="https://img.shields.io/docker/pulls/constellab/glab" fill priority />
           </div>
         </a>
         <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink">
-          <mat-icon svgIcon="discord" class="icon-discord"></mat-icon> {{'join_our_discord' | translate}}
+          <mat-icon svgIcon="discord" class="icon-discord"></mat-icon> {{ 'join_our_discord' | translate }}
         </a>
       </div>
       <p class="community-section-p">
@@ -48,11 +52,18 @@
       <div class="fair-open-access-div">
         <div>
           <div class="fair-open-access-img">
-            <img [ngSrc]="'assets/images/FOA-' + (isDarkTheme() ? 'black' : 'white') + '-bg.png'" fill priority/>
+            <img
+              [ngSrc]="'assets/images/FOA-' + (isDarkTheme() ? 'black' : 'white') + '-bg.png'"
+              fill
+              priority />
           </div>
         </div>
         <p>{{ 'fair_open_access_description' | translate }}</p>
-        <a [href]="'https://constellab.io/fair-open-access'" [target]="'_blank'" mat-stroked-button  class="go-to-button">
+        <a
+          [href]="'https://constellab.io/fair-open-access'"
+          [target]="'_blank'"
+          mat-stroked-button
+          class="go-to-button">
           {{ 'learn_more' | translate }}
           <mat-icon>chevron_right</mat-icon>
         </a>
@@ -63,12 +74,14 @@
         {{ 'stories' | translate }}
       </a>
       <p class="home-section-description">
-        {{ 'stories_description' | translate}}
+        {{ 'stories_description' | translate }}
       </p>
       <div class="home-list-div">
-        <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="(story | haDetailRoute)">
-          <co-story-list-item class="home-card" [story]="story"
-                              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+        <a *ngFor="let story of stories$ | flDatasourceConnect | async" [routerLink]="story | haDetailRoute">
+          <co-story-list-item
+            class="home-card"
+            [story]="story"
+            [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
@@ -77,15 +90,15 @@
       </a>
     </div>
 
-    <div class="home-section ">
+    <div class="home-section">
       <a [routerLink]="agentsListRoute" class="home-section-title">
         {{ 'agents' | translate }}
       </a>
       <p class="home-section-description">
-        {{'agents_description' | translate}}
+        {{ 'agents_description' | translate }}
       </p>
       <div class="home-list-div">
-        <a *ngFor="let agent of agents$ | flDatasourceConnect | async" [routerLink]="(agent | haDetailRoute)">
+        <a *ngFor="let agent of agents$ | flDatasourceConnect | async" [routerLink]="agent | haDetailRoute">
           <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
         </a>
       </div>
@@ -100,18 +113,19 @@
         {{ 'bricks' | translate }}
       </a>
       <p class="home-section-description">
-        {{'bricks_description' | translate}}
+        {{ 'bricks_description' | translate }}
       </p>
       <div class="home-list-div">
-        <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="(brick | haDetailRoute)">
-          <co-brick-list-item class="home-card" [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+        <a *ngFor="let brick of bricks$ | flDatasourceConnect | async" [routerLink]="brick | haDetailRoute">
+          <co-brick-list-item
+            class="home-card"
+            [brick]="brick"
+            [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
         </a>
       </div>
       <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
-
         {{ 'go_to_bricks' | translate }}
         <mat-icon>chevron_right</mat-icon>
-
       </a>
     </div>
 
@@ -122,25 +136,25 @@
         <a class="home-card-div" [routerLink]="productDocRoute">
           <h5>{{ 'product_doc' | translate }}</h5>
           <p>
-            {{ 'product_doc_description' | translate}}
+            {{ 'product_doc_description' | translate }}
           </p>
         </a>
         <a class="home-card-div" [routerLink]="techDocRoute">
           <h5>{{ 'tech_doc' | translate }}</h5>
           <p>
-            {{ 'tech_doc_description' | translate}}
+            {{ 'tech_doc_description' | translate }}
           </p>
         </a>
         <a class="home-card-div" [routerLink]="iconsRoute">
           <h5>{{ 'icons' | translate }}</h5>
           <p>
-            {{ 'icons_description' | translate}}
+            {{ 'icons_description' | translate }}
           </p>
         </a>
       </div>
 
       <a class="space-card" [href]="constellabUrl" target="_blank">
-        <img ngSrc="assets/fl-logo/constellab-logo.svg" height="50" width="50"/>
+        <img ngSrc="assets/fl-logo/constellab-logo.svg" height="50" width="50" />
         <div class="space-card-content">
           <h5>
             Constellab
@@ -168,9 +182,6 @@
         <a [href]="constellabUrl">Constellab</a>
       </div>
     </div>
-    <div class="copyright-div">{{'copyright' | translate}}</div>
+    <div class="copyright-div">{{ 'copyright' | translate }}</div>
   </footer>
 </div>
-
-
-

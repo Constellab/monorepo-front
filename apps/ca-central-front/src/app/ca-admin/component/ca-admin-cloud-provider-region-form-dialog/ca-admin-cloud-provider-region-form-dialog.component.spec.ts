@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAdminCloudProviderRegionFormDialogComponent} from './ca-admin-cloud-provider-region-form-dialog.component';
+import { CaAdminCloudProviderRegionFormDialogComponent } from './ca-admin-cloud-provider-region-form-dialog.component';
 
 describe('CaCloudProviderRegionFormDialogComponent', () => {
   let component: CaAdminCloudProviderRegionFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaCloudProviderRegionFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminCloudProviderRegionFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAdminCloudProviderRegionFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaAdminCloudProviderRegionFormDialogComponent);
     component = fixture.componentInstance;

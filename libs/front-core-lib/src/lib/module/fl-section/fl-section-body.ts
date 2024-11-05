@@ -1,8 +1,8 @@
-import {Directive, Input, TemplateRef} from '@angular/core';
-import {Observable} from 'rxjs';
-import {FlDatasource} from '../../model/datasource/fl-datasource.class';
-import {FlStatusEvent} from '../../model/fl-status-event.class';
-import {FlViewContext} from '../../model/fl-view-context.class';
+import { Directive, Input, TemplateRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FlDatasource } from '../../model/datasource/fl-datasource.class';
+import { FlStatusEvent } from '../../model/fl-status-event.class';
+import { FlViewContext } from '../../model/fl-view-context.class';
 
 /**
  * Use to make typing work in the HTML
@@ -19,10 +19,9 @@ export interface FlAsyncSectionBodyContext<T> extends FlViewContext<T> {
 }
 
 @Directive({
-  selector: '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent]'
+  selector: '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent]',
 })
 export class FlSectionBodyDirective<T> {
-
   /**
    * Use this when you want to provide a simple observable object
    *  | string is for empty *flSectionBody
@@ -42,11 +41,12 @@ export class FlSectionBodyDirective<T> {
   /**
    * Use to make typing work in the HTML
    */
-  static ngTemplateContextGuard<TContext>(_: FlSectionBodyDirective<TContext>, ctx: unknown
+  static ngTemplateContextGuard<TContext>(
+    _: FlSectionBodyDirective<TContext>,
+    ctx: unknown
   ): ctx is FlAsyncSectionBodyContext<TContext> {
     return true;
   }
 
-  constructor(public _template: TemplateRef<any>) {
-  }
+  constructor(public _template: TemplateRef<any>) {}
 }

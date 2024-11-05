@@ -1,9 +1,14 @@
-import {LabEntity} from '../global/lab-entity.entity';
-import {Expose, Type} from 'class-transformer';
-import {ClLuxonDateTimeTransform} from '@monorepo/core-lib';
-import {DateTime} from 'luxon';
-import {FlArrayObs, FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
-
+import { LabEntity } from '../global/lab-entity.entity';
+import { Expose, Type } from 'class-transformer';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { DateTime } from 'luxon';
+import {
+  FlArrayObs,
+  FlStatus,
+  FlStatusDict,
+  FlStatusHelper,
+  FlStatusTransform,
+} from '@monorepo/front-core-lib';
 
 export type LabProgressBarMessageType = 'SUCCESS' | 'INFO' | 'ERROR' | 'WARNING' | 'PROGRESS' | 'DEBUG';
 
@@ -13,14 +18,13 @@ const labProgressBarMessageTypeDict: FlStatusDict<LabProgressBarMessageType> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
   WARNING: FlStatusHelper.getWarningStatus('WARNING'),
-  PROGRESS: FlStatusHelper.getInfoStatus('PROGRESS', 'biox.progress_bar_progress', 'cached')
+  PROGRESS: FlStatusHelper.getInfoStatus('PROGRESS', 'biox.progress_bar_progress', 'cached'),
 };
 
 /**
  * Different step of the progress bar, each message has a timestamp
  */
 export class LabProgressMessage {
-
   @ClLuxonDateTimeTransform()
   datetime: DateTime;
 
@@ -32,25 +36,23 @@ export class LabProgressMessage {
   progress?: number;
 }
 
-
 export class LabProgressBar extends LabEntity {
-
-  @Expose({name: 'started_at'})
+  @Expose({ name: 'started_at' })
   @ClLuxonDateTimeTransform()
   startedAt: DateTime;
 
-  @Expose({name: 'ended_at'})
+  @Expose({ name: 'ended_at' })
   @ClLuxonDateTimeTransform()
   endedAt: DateTime;
 
   // value of the progress between 0 and 100
-  @Expose({name: 'current_value'})
+  @Expose({ name: 'current_value' })
   currentValue: number;
 
-  @Expose({name: 'elapsed_time'})
+  @Expose({ name: 'elapsed_time' })
   elapsedTime: number;
 
-  @Expose({name: 'second_start'})
+  @Expose({ name: 'second_start' })
   @ClLuxonDateTimeTransform()
   secondStart: DateTime;
 }
@@ -59,12 +61,11 @@ export class LabProgressBar extends LabEntity {
  * Object that contains list of messages between 2 date of the progress bar
  */
 export class LabProgressBarMessages extends LabProgressBar {
-
-  @Expose({name: 'from_datetime'})
+  @Expose({ name: 'from_datetime' })
   @ClLuxonDateTimeTransform()
   fromDatetime: DateTime;
 
-  @Expose({name: 'to_datetime'})
+  @Expose({ name: 'to_datetime' })
   @ClLuxonDateTimeTransform()
   toDatetime: DateTime;
 
@@ -72,11 +73,8 @@ export class LabProgressBarMessages extends LabProgressBar {
   messages: LabProgressMessage[];
 }
 
-
 export class LabProgressMessageDatasource extends FlArrayObs<LabProgressMessage> {
   protected equals(a: LabProgressMessage, b: LabProgressMessage): boolean {
     return a.datetime.equals(b.datetime) && a.text === b.text && a.type.value === b.type.value;
   }
-
-
 }

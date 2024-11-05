@@ -11,11 +11,10 @@ import { PrResource } from '@monorepo/protocol';
  * Represent a file or a folder link to the resource
  */
 export class LabFsNodeEntity extends LabEntity {
-
   // size of the node
   size: number;
 
-  @Expose({name: 'is_file'})
+  @Expose({ name: 'is_file' })
   isFile: boolean;
 
   name: string;
@@ -30,26 +29,25 @@ export class LabFsNodeEntity extends LabEntity {
 export type LabResourceOrigin = 'UPLOADED' | 'GENERATED' | 'IMPORTED_FROM_LAB' | 'S3_FOLDER_STORAGE';
 
 export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEntity {
-
   // typing name of the resource
-  @Expose({name: 'resource_typing_name'})
+  @Expose({ name: 'resource_typing_name' })
   resourceTypingName: string;
 
-  @Expose({name: 'fs_node'})
+  @Expose({ name: 'fs_node' })
   @Type(() => LabFsNodeEntity)
-  fsNode ?: LabFsNodeEntity;
+  fsNode?: LabFsNodeEntity;
 
-  @Expose({name: 'is_downloadable'})
+  @Expose({ name: 'is_downloadable' })
   isDownloadable: boolean;
 
   origin: LabResourceOrigin;
 
   name: string;
 
-  @Expose({name: 'has_children'})
+  @Expose({ name: 'has_children' })
   hasChildren: boolean;
 
-  @Expose({name: 'type_status'})
+  @Expose({ name: 'type_status' })
   typeStatus: TdTypeObjectStatus;
 
   flagged: boolean;
@@ -62,7 +60,7 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
   @Type(() => LabFolder)
   folder?: LabFolder;
 
-  @Expose({name: 'resource_type'})
+  @Expose({ name: 'resource_type' })
   resourceType?: TdTypeRefDTO;
 
   style: TdTypeStyle;
@@ -94,7 +92,7 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
       resourceTypingName: this.resourceTypingName,
       resourceType: this.resourceType,
       scenario: this.scenario,
-      style: this.style
+      style: this.style,
     };
   }
 }

@@ -24,24 +24,33 @@
 </fl-key-value>
 
 <div class="action-buttons">
-
-  <button mat-stroked-button color="primary" type="button" (click)="generateTechnicalDoc()"
-          class="g-button-small">
+  <button
+    mat-stroked-button
+    color="primary"
+    type="button"
+    (click)="generateTechnicalDoc()"
+    class="g-button-small">
     {{ 'monitoring.generate_technical_doc' | translate }}
     <fl-button-loader *ngIf="generateDocIsLoading" size="small"></fl-button-loader>
   </button>
 
-
-  <button mat-stroked-button color="primary" type="button" (click)="openCallMigrationDialog()"
-          class="g-button-small">
+  <button
+    mat-stroked-button
+    color="primary"
+    type="button"
+    (click)="openCallMigrationDialog()"
+    class="g-button-small">
     {{ 'monitoring.call_migration_title' | translate }}
   </button>
 
-  <button mat-stroked-button color="primary" type="button" (click)="deleteUnavailableTypings()"
-          class="g-button-small">
+  <button
+    mat-stroked-button
+    color="primary"
+    type="button"
+    (click)="deleteUnavailableTypings()"
+    class="g-button-small">
     {{ 'monitoring.delete_unavailable_typings' | translate }}
   </button>
 </div>
 
 <lab-brick-message-list [messages]="brick.messages"></lab-brick-message-list>
-

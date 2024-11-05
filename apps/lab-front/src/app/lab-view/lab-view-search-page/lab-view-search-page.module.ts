@@ -4,16 +4,8 @@ import { LabViewSearchPageComponent } from './lab-view-search-page/lab-view-sear
 import { LabCoreModule } from '../../lab-core/lab-core.module';
 import { LabViewConfigCoreModule } from '../../lab-core/entity-module/lab-view-config-core/lab-view-config-core.module';
 
-
 @NgModule({
-  declarations: [
-    LabViewSearchPageComponent
-  ],
-  imports: [
-    CommonModule,
-
-    LabCoreModule,
-    LabViewConfigCoreModule,
-  ]
+  declarations: [LabViewSearchPageComponent],
+  imports: [CommonModule, LabCoreModule, LabViewConfigCoreModule],
 })
-export class LabViewSearchPageModule { }
+export class LabViewSearchPageModule {}

@@ -2,7 +2,6 @@
  * Generic convert for search in lab entities
  */
 export class LabSearchConverter {
-
   /**
    * If check, return null (meaning no filters)
    * If null or false, return false

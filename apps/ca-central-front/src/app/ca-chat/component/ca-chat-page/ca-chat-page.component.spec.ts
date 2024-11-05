@@ -8,9 +8,8 @@ describe('CaChatPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaChatPageComponent]
-    })
-    .compileComponents();
+      declarations: [CaChatPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaChatPageComponent);
     component = fixture.componentInstance;

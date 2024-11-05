@@ -1,22 +1,19 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib'
-import {Observable} from 'rxjs';
-import {HaFolder} from '../ha-model/ha-entities/ha-folder.class';
-import {HaNode, HaNodeDTO} from '../ha-model/ha-entities/ha-node.class';
-import {HaDocumentation} from '../ha-model/ha-entities/ha-documentation.class';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { HaFolder } from '../ha-model/ha-entities/ha-folder.class';
+import { HaNode, HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
+import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
 
 /**
  * Service to manage documentation entity
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaFolderService {
-
   private readonly route: string = 'folder';
-  constructor(private apiService: FlApiService){
-
-  }
+  constructor(private apiService: FlApiService) {}
 
   /**
    * Call http create
@@ -61,7 +58,7 @@ export class HaFolderService {
    * Call http updateTree
    * @param nodes HaNode array
    */
-  updateTree(nodes: HaNode[]): Observable<HaNode[]>{
+  updateTree(nodes: HaNode[]): Observable<HaNode[]> {
     return this.apiService.put(this.route + '/tree', nodes);
   }
 

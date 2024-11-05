@@ -50,13 +50,17 @@ const routes: Routes = [
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////
       {
         path: labConstScenarioTemplateRoute,
-        loadChildren: () => import('../lab-scenario-template/lab-scenario-template.module').then((m) => m.LabScenarioTemplateModule),
+        loadChildren: () =>
+          import('../lab-scenario-template/lab-scenario-template.module').then(
+            (m) => m.LabScenarioTemplateModule
+          ),
       },
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
         path: labConstNoteTemplateRoute,
-        loadChildren: () => import('../lab-note-template/lab-note-template.module').then((m) => m.LabNoteTemplateModule),
+        loadChildren: () =>
+          import('../lab-note-template/lab-note-template.module').then((m) => m.LabNoteTemplateModule),
       },
 
       ////////////////////////  BIOTA  /////////////////////////
@@ -83,12 +87,14 @@ const routes: Routes = [
       ////////////////////////  DOC  /////////////////////////
       {
         path: labConstDocRoute,
-        loadChildren: () => import('../lab-documentation/lab-documentation.module').then((m) => m.LabDocumentationModule),
+        loadChildren: () =>
+          import('../lab-documentation/lab-documentation.module').then((m) => m.LabDocumentationModule),
       },
       //////////////////////// MONITORING  /////////////////////////
       {
         path: labConstMonitoringRoute,
-        loadChildren: () => import('../lab-monitoring/lab-monitoring.module').then((m) => m.LabMonitoringModule),
+        loadChildren: () =>
+          import('../lab-monitoring/lab-monitoring.module').then((m) => m.LabMonitoringModule),
       },
     ],
   },

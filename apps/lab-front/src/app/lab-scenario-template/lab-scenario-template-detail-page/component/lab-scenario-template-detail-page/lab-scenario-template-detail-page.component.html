@@ -1,15 +1,15 @@
 <div class="g-page-fixed page">
-
   <fl-async-section [object]="template$" class="g-flex-auto">
-
     <ng-container *flSectionBody="template$ as template">
-      <lab-scenario-template-detail-header [template]="template"
-                                           class="g-card-background"></lab-scenario-template-detail-header>
+      <lab-scenario-template-detail-header
+        [template]="template"
+        class="g-card-background"></lab-scenario-template-detail-header>
 
       <div class="g-full-height g-layout-col">
-
-        <mat-tab-group class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
-                       [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="tabIndexChange($event)">
+        <mat-tab-group
+          class="g-flex-auto g-mat-tab-full-height g-mat-tab-header-card-background"
+          [(selectedIndex)]="selectedTabIndex"
+          (selectedIndexChange)="tabIndexChange($event)">
           <mat-tab [label]="'biox.scenario_workflow' | translate">
             <ng-template matTabContent>
               <lab-scenario-template-workflow [template]="template"></lab-scenario-template-workflow>
@@ -20,11 +20,7 @@
             <lab-scenario-template-detail [template]="template"></lab-scenario-template-detail>
           </mat-tab>
         </mat-tab-group>
-
-
       </div>
     </ng-container>
-
   </fl-async-section>
-
 </div>

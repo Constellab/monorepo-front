@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDashboardListLayoutComponent} from './ca-dashboard-list-layout.component';
+import { CaDashboardListLayoutComponent } from './ca-dashboard-list-layout.component';
 
 describe('CaDashboardListComponent', () => {
   let component: CaDashboardListLayoutComponent;
@@ -8,9 +8,8 @@ describe('CaDashboardListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDashboardListLayoutComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDashboardListLayoutComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaDashboardListLayoutComponent);
     component = fixture.componentInstance;

@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TeTextEditorBrowserSideComponent} from './te-text-editor-server-side.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TeTextEditorBrowserSideComponent } from './te-text-editor-server-side.component';
 
 describe('TeTextEditorBrowserSideComponent', () => {
   let component: TeTextEditorBrowserSideComponent;

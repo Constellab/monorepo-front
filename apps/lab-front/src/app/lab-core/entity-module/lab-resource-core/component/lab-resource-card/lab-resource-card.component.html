@@ -1,18 +1,21 @@
 <fl-card>
   <fl-card-header>
-    {{resource.name}}
+    {{ resource.name }}
 
     <fl-card-actions>
-      <button mat-icon-button (click)="openResourceDetail()"
-         type="button" color="primary"
-         [matTooltip]="'resource' | translate">
+      <button
+        mat-icon-button
+        (click)="openResourceDetail()"
+        type="button"
+        color="primary"
+        [matTooltip]="'resource' | translate">
         <mat-icon flIcon="resource"></mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <p>{{'resource_type' | translate }} : {{resource.resourceType.human_name}}</p>
+    <p>{{ 'resource_type' | translate }} : {{ resource.resourceType.human_name }}</p>
   </fl-card-body>
 
   <fl-card-footer class="g-text-light g-text-small">

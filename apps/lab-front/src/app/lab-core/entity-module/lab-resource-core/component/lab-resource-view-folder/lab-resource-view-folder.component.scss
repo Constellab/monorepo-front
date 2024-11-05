@@ -16,13 +16,12 @@ mat-tree-node {
   margin-left: 0.5em;
 }
 
-
 // use to align leaf nodes and parent nodes
 .leaf-container {
   margin-left: 24px;
 }
 
-.action-button{
+.action-button {
   opacity: 0;
   margin-left: 0.5em;
 }
@@ -37,7 +36,7 @@ mat-tree-node {
 .node-container:hover {
   background-color: var(--hover-color);
 
-  .action-button{
+  .action-button {
     opacity: 1;
   }
 }

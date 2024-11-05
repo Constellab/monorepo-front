@@ -6,18 +6,18 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import {
   LabNoteFormDialogComponent,
-  LabNoteFormDialogInput
+  LabNoteFormDialogInput,
 } from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
 import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 import { Observable, Subscription, tap } from 'rxjs';
 import {
   LabValidateObjectDialogComponent,
-  LabValidateObjectDialogInput
+  LabValidateObjectDialogInput,
 } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
 import { LabNoteTemplateService } from '../../../../../lab-core/entity-service/lab-note-template.service';
@@ -30,17 +30,16 @@ import { FormControl } from '@angular/forms';
 import {
   TeRichTextContent,
   TeTextEditorHistoryPortalComponent,
-  TeTextEditorHistoryPortalData
+  TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
 
 @Component({
   selector: 'lab-note-detail-page',
   templateUrl: './lab-note-detail-page.component.html',
   styleUrls: ['./lab-note-detail-page.component.scss'],
-  providers: [LabNoteDetailPageState]
+  providers: [LabNoteDetailPageState],
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
-
   note$: Observable<LabNote>;
   formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
 
@@ -56,61 +55,59 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private noteService: LabNoteService,
-              private state: LabNoteDetailPageState,
-              private route: ActivatedRoute,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService,
-              private noteTemplateService: LabNoteTemplateService,
-              private tagService: LabTagService,
-              private portalService: FlPortalService) {
-  }
+  constructor(
+    private noteService: LabNoteService,
+    private state: LabNoteDetailPageState,
+    private route: ActivatedRoute,
+    private dialogService: FlDialogService,
+    private routerService: LabRouterService,
+    private noteTemplateService: LabNoteTemplateService,
+    private tagService: LabTagService,
+    private portalService: FlPortalService
+  ) {}
 
   ngOnInit(): void {
     this.syncObjectFunc = (id: string) => this.noteService.syncWithSpace(id);
-    this.route.params.subscribe(
-      params => this.init(params.id)
-    );
+    this.route.params.subscribe((params) => this.init(params.id));
   }
 
   private init(id: string): void {
     this.state.init(id);
     this.textEditorConfig = new LabNoteTextEditorConfig(id);
     this.note$ = this.state.getNote$();
-    this.state.getContent$().pipe(first()).subscribe(
-      content => this.formControl.patchValue(content, { emitEvent: false })
-    );
+    this.state
+      .getContent$()
+      .pipe(first())
+      .subscribe((content) => this.formControl.patchValue(content, { emitEvent: false }));
     this.tags = this.tagService.getEntityTagsDatasource('NOTE', id);
 
     // disable the editor if the note is validated
-    this.subscription = this.note$.subscribe(
-      note => {
-        if (note.isValidated) {
-          this.formControl.disable({ emitEvent: false });
-        } else {
-          this.formControl.enable({ emitEvent: false });
-        }
-      });
+    this.subscription = this.note$.subscribe((note) => {
+      if (note.isValidated) {
+        this.formControl.disable({ emitEvent: false });
+      } else {
+        this.formControl.enable({ emitEvent: false });
+      }
+    });
 
     this.saveContentFunc = (content: TeRichTextContent) =>
       this.noteService.updateContent(this.state.currentNote.id, content).pipe(
         // update the content in the state
-        tap(content => this.state.updateContent(content))
+        tap((content) => this.state.updateContent(content))
       );
   }
 
-
   updateTitle(title: string): void {
-    this.noteService.updateTitle(this.state.currentNote.id, title).subscribe(
-      note => this.state.updateNote(note)
-    );
+    this.noteService
+      .updateTitle(this.state.currentNote.id, title)
+      .subscribe((note) => this.state.updateNote(note));
   }
 
   updateFolder(folder: LabFolder): void {
     this.noteService.updateFolder(this.state.currentNote.id, folder?.id ?? null).subscribe({
-      next: note => this.state.updateNote(note),
+      next: (note) => this.state.updateNote(note),
       // call refresh note to set the folder back
-      error: () => this.state.refreshNote()
+      error: () => this.state.refreshNote(),
     });
   }
 
@@ -122,17 +119,18 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       object: {
         title: note.title,
         folder: note.folder,
-        template: null
+        template: null,
       },
-      disableFolder: note.isSynced
+      disableFolder: note.isSynced,
     };
 
-    this.dialogService.openSmallDialog(LabNoteFormDialogComponent, { data: input }).afterClosed().subscribe(
-      note => this.updateNoteClosed(note)
-    );
+    this.dialogService
+      .openSmallDialog(LabNoteFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((note) => this.updateNoteClosed(note));
   }
 
-  private updateNoteClosed(note ?: LabNote): void {
+  private updateNoteClosed(note?: LabNote): void {
     if (note) {
       this.state.updateNote(note);
     }
@@ -146,12 +144,13 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       validate: (folder: LabFolder): Observable<any> => this.noteService.validate(note.id, folder.id),
       folder: note.folder,
       helpText: 'biox.validate_note_help_text',
-      successMessage: 'biox.note_validated'
+      successMessage: 'biox.note_validated',
     };
 
-    this.dialogService.openSmallDialog(LabValidateObjectDialogComponent, { data: input }).afterClosed().subscribe(
-      result => this.onNoteUpdate(result)
-    );
+    this.dialogService
+      .openSmallDialog(LabValidateObjectDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result) => this.onNoteUpdate(result));
   }
 
   onNoteUpdate(note?: LabNote): void {
@@ -165,12 +164,13 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       title: 'biox.delete_note',
       content: 'biox.delete_note_confirmation',
       observable: this.noteService.delete(this.state.currentNote.id),
-      successMessage: 'biox.note_deleted'
+      successMessage: 'biox.note_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.deletedClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.deletedClosed(result));
   }
 
   private deletedClosed(result: FlConfirmDialogResult<LabNote>): void {
@@ -194,20 +194,21 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
         title: 'biox.unarchive_note',
         content: 'biox.unarchive_note_confirmation',
         observable: this.noteService.unarchive(note.id),
-        successMessage: 'biox.note_unarchived'
+        successMessage: 'biox.note_unarchived',
       };
     } else {
       input = {
         title: 'biox.archive_note',
         content: 'biox.archive_note_confirmation',
         observable: this.noteService.archive(note.id),
-        successMessage: 'biox.note_archived'
+        successMessage: 'biox.note_archived',
       };
     }
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onArchiveClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onArchiveClosed(result));
   }
 
   private onArchiveClosed(result: FlConfirmDialogResult<LabNote>): void {
@@ -220,12 +221,12 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     if (this.createTemplateLoading) return;
     this.createTemplateLoading = true;
     this.noteTemplateService.createFromNote(this.state.currentNote.id).subscribe({
-      next: template => this.createNoteTemplateSuccess(template),
-      error: () => this.createTemplateLoading = false
+      next: (template) => this.createNoteTemplateSuccess(template),
+      error: () => (this.createTemplateLoading = false),
     });
   }
 
-  openHistoryPanel(id: string): void{
+  openHistoryPanel(id: string): void {
     this.portalService.createPortal(
       TeTextEditorHistoryPortalComponent,
       this.portalService.getRightSidePortalConfig(),
@@ -233,7 +234,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
         service: this.noteService,
         entityId: id,
         textEditorConfig: this.textEditorConfig,
-        isEditable: !this.state.currentNote.isArchived
+        isEditable: !this.state.currentNote.isArchived,
       } as TeTextEditorHistoryPortalData
     );
   }
@@ -245,6 +246,4 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

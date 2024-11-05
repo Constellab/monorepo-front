@@ -18,35 +18,36 @@ html {
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Regular.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('/assets/fl-font/Poppins-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Light.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('/assets/fl-font/Poppins-Light.ttf') format('truetype');
   font-style: normal;
   font-weight: 100;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-SemiBold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('/assets/fl-font/Poppins-SemiBold.ttf') format('truetype');
   font-style: normal;
   font-weight: 600;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("/assets/fl-font/Poppins-Bold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('/assets/fl-font/Poppins-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: 700;
 }
 
-html, body {
-  font-family: "Poppins", "Helvetica Neue", sans-serif;
+html,
+body {
+  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
 }
 
 body {
@@ -87,7 +88,8 @@ h4 {
   margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0;
 }
 
@@ -99,7 +101,7 @@ figure {
 // /!\ All the style should start with 'g-' to recognize global style
 
 .g-full {
-  width: 100%
+  width: 100%;
 }
 
 .g-full-height {
@@ -171,11 +173,11 @@ figure {
 .g-styled-scrollbar::-webkit-scrollbar-thumb:hover,
 .g-styled-scrollbar *::-webkit-scrollbar-thumb:hover {
   background: var(--hover-color);
-
 }
 
 // use to prevent use selection for text or div
-.g-not-selectable, .g-text-not-selectable {
+.g-not-selectable,
+.g-text-not-selectable {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Old versions of Firefox */
@@ -205,11 +207,9 @@ figure {
   font-size: 1.4rem;
 }
 
-
 .g-text-centered {
   text-align: center;
 }
-
 
 // Text transform
 .g-text-uppercase {
@@ -246,7 +246,6 @@ figure {
   line-height: 1.2em;
 }
 
-
 /**************************** Flex *****************************/
 .g-grow-max-height {
   // use to force the max height of the grow element
@@ -269,7 +268,6 @@ figure {
 .g-article-width {
   width: var(--article-width);
 }
-
 
 // FOR FlElementEditableDirective
 // force a small padding to make edition easier
@@ -295,7 +293,6 @@ figure {
 .g-fl-element-editable-true {
   border-color: var(--color-foreground);
 }
-
 
 // For FlHideSamePageLinkDirective
 .g-fl-hide-same-page-link {

@@ -8,28 +8,27 @@ import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.ser
 @Component({
   selector: 'lab-resource-next-objects-portal',
   templateUrl: './lab-resource-next-objects-portal.component.html',
-  styleUrl: './lab-resource-next-objects-portal.component.scss'
+  styleUrl: './lab-resource-next-objects-portal.component.scss',
 })
 export class LabResourceNextObjectsPortalComponent {
-
   scenarios: LabScenarioDatasource;
   scenarioColumns: FlTableColumnStatic<LabScenario>[] = ['title', 'status'];
 
   notes: LabNoteDatasource;
   noteColumns: FlTableColumnStatic<LabNote>[] = ['title', 'lastModification'];
 
-  constructor(@Inject(FL_PORTAL_DATA) resourceId: string,
-              private scenarioService: LabScenarioService,
-              private noteService: LabNoteService) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) resourceId: string,
+    private scenarioService: LabScenarioService,
+    private noteService: LabNoteService
+  ) {
     this.scenarios = new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.scenarioService.getByInputResource(resourceId,
-        page, pageSize),
+      (page, pageSize) => this.scenarioService.getByInputResource(resourceId, page, pageSize),
       5
     );
 
     this.notes = new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.noteService.getByResource(resourceId,
-        page, pageSize),
+      (page, pageSize) => this.noteService.getByResource(resourceId, page, pageSize),
       5
     );
   }

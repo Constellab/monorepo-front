@@ -7,7 +7,6 @@ import { CoAgentType, CoCreateAgentFormData } from '@monorepo/community-lib';
 import { HaUser } from './ha-user';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
-
 export class HaAgent extends HaEntity {
   title: string;
   description?: TeRichTextContent;
@@ -19,7 +18,7 @@ export class HaAgent extends HaEntity {
   latestStyle?: TdTypeStyle;
 }
 
-export class HaCreateAgentDto implements CoCreateAgentFormData{
+export class HaCreateAgentDto implements CoCreateAgentFormData {
   title: string;
   type: CoAgentType;
   space?: HaSpace;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSelectUserComponent} from './fl-select-user.component';
+import { FlSelectUserComponent } from './fl-select-user.component';
 
 describe('FlSelectUserComponent', () => {
   let component: FlSelectUserComponent;
@@ -8,9 +8,8 @@ describe('FlSelectUserComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSelectUserComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSelectUserComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlSelectUserComponent);
     component = fixture.componentInstance;

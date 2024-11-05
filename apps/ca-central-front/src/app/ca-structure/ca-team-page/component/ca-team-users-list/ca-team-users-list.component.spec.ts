@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamUsersListComponent} from './ca-team-users-list.component';
+import { CaTeamUsersListComponent } from './ca-team-users-list.component';
 
 describe('CaGroupUsersListComponent', () => {
   let component: CaTeamUsersListComponent;
@@ -8,9 +8,8 @@ describe('CaGroupUsersListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaTeamUsersListComponent ]
-    })
-    .compileComponents();
+      declarations: [CaTeamUsersListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

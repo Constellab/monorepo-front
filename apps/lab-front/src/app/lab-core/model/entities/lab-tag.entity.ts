@@ -6,7 +6,7 @@ import {
   FlTagKeyModel,
   FlTagValue,
   FlTagValueFormat,
-  FlTagValueModel
+  FlTagValueModel,
 } from '@monorepo/front-core-lib';
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType, LabNavigableEntityGrouped } from './lab-navigable-entity.entity';
@@ -15,7 +15,6 @@ import { LabUser } from './lab-user.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
-
 
 /**
  * Object representing the tag
@@ -49,13 +48,18 @@ const labTagOriginObjectFactory: any = (json: TypeHelpOptions) => {
     default:
       return json.object.origin_object;
   }
-}
+};
 
-export type LabTagOriginType = 'USER' | 'S3' | 'TASK' | 'TASK_PROPAGATED' | 'SCENARIO_PROPAGATED'
-  | 'RESOURCE_PROPAGATED' | 'VIEW_PROPAGATED';
+export type LabTagOriginType =
+  | 'USER'
+  | 'S3'
+  | 'TASK'
+  | 'TASK_PROPAGATED'
+  | 'SCENARIO_PROPAGATED'
+  | 'RESOURCE_PROPAGATED'
+  | 'VIEW_PROPAGATED';
 
 export class LabTagOrigin {
-
   @Expose({ name: 'origin_type' })
   originType: LabTagOriginType;
 
@@ -103,11 +107,9 @@ export class LabTagOrigin {
         return null;
     }
   }
-
 }
 
 export class LabTagDetail implements FlTag, FlEntity {
-
   id: string;
 
   key: string;
@@ -119,7 +121,6 @@ export class LabTagDetail implements FlTag, FlEntity {
   @Expose({ name: 'created_at' })
   createdAt: string;
 }
-
 
 /**
  * Object representing the tags entity
@@ -147,9 +148,7 @@ export class LabTagKeyModel extends LabBaseEntity implements FlTagKeyModel {
 
 export type LabTagKeyModelDatasource = FlDatasourcePaginated<LabTagKeyModel>;
 
-
 export class LabTagValueModel extends LabBaseEntity implements FlTagValueModel {
-
   key: string;
 
   value: FlTagValue;
@@ -164,7 +163,7 @@ export class LabTagValueModel extends LabBaseEntity implements FlTagValueModel {
   toSimpleTag(): FlTag {
     return {
       key: this.key,
-      value: this.value
+      value: this.value,
     };
   }
 }
@@ -188,12 +187,9 @@ export class TagPropagationImpactDTO {
   }
 }
 
-export class LabTagDatasource extends FlTagDatasource<LabTag> {
-
-}
+export class LabTagDatasource extends FlTagDatasource<LabTag> {}
 
 export class LabCreateTagResponse {
-
   @Expose({ name: 'key_model' })
   @Type(() => LabTagKeyModel)
   keyModel: LabTagKeyModel;

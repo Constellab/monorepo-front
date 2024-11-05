@@ -1,12 +1,11 @@
-<fl-input-search [selectedItem]="formCtrl.value"
-                 (selectedItemChange)="selectOption($event)"
-                 [datasource]="datasource"
-                 [placeholder]="placeholder"
-                 [required]="required"
-                 [disabled]="disabled"
-                 [minInputSearchLength]="0">
-
-
+<fl-input-search
+  [selectedItem]="formCtrl.value"
+  (selectedItemChange)="selectOption($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0">
   <div *flInputSearchOption="datasource as option">
     {{ option }}
   </div>

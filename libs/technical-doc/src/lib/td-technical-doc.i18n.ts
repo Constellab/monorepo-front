@@ -1,5 +1,5 @@
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 /* eslint-disable max-len */
 
 /**
@@ -18,17 +18,21 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     status: 'Etat',
     supported_extensions: 'Extensions supportées',
     param_set: 'Liste',
-    max_occurrence_number: 'Nombre maximum d\'occurrences',
+    max_occurrence_number: "Nombre maximum d'occurrences",
     deprecated: 'Obsolète',
     deprecated_since: 'Obsolète depuis la version',
     optional: 'Optionnel',
     constant: 'Constant',
-    optional_tooltip: 'La tâche sera exécutée même si cette entrée n\'est pas connectée',
-    constant_tooltip: 'Cette sortie ne créera pas de nouvelle ressource mais fera référence à une ressource existante',
+    optional_tooltip: "La tâche sera exécutée même si cette entrée n'est pas connectée",
+    constant_tooltip:
+      'Cette sortie ne créera pas de nouvelle ressource mais fera référence à une ressource existante',
     advanced_parameter: 'Paramètre avancé',
-    type_unavailable_detail: 'Le type \'<strong>{typingName}</strong>\' de l\'objet n\'est pas disponible. Veuillez vérifiez que la brique \'<strong>{brickName}</strong>\' est correctement installé.',
-    type_unavailable_detail_resource: 'Tant que le type est indisponible, les ressources de ce type ne pourront pas être utilisées dans des processus ni visualisées via les vues.',
-    type_unavailable_detail_process: 'Tant que le type est indisponible, les processus de ce type ne pourront pas être utilisées dans des protocols.',
+    type_unavailable_detail:
+      "Le type '<strong>{typingName}</strong>' de l'objet n'est pas disponible. Veuillez vérifiez que la brique '<strong>{brickName}</strong>' est correctement installé.",
+    type_unavailable_detail_resource:
+      'Tant que le type est indisponible, les ressources de ce type ne pourront pas être utilisées dans des processus ni visualisées via les vues.',
+    type_unavailable_detail_process:
+      'Tant que le type est indisponible, les processus de ce type ne pourront pas être utilisées dans des protocols.',
     dynamic_ports: 'Ports dynamiques',
     dynamic_port_help: 'Les ports dynamiques permettent de créer des ports à la volée.',
     add_port: 'Ajouter un port',
@@ -44,7 +48,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     description: 'Description',
     variables: 'Variables',
     attributes: 'Attributs',
-  }
+  },
 };
 
 const tdTechnicalDocI18nEn: FlLangTranslation = {
@@ -72,9 +76,12 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     constant_tooltip: 'This output will not create a new resource but reference an existing resource',
     not_constant_tooltip: 'This output will create a new resource',
     advanced_parameter: 'Advanced parameter',
-    type_unavailable_detail: 'The type \'<strong>{{typingName}}</strong>\' of the object is not available. Please check if the brick \'<strong>{{brickName}}</strong>\' is correctly installed.',
-    type_unavailable_detail_resource: 'As long as the type is not available, the resources of this type cannot be used in any process nor visualized with views.',
-    type_unavailable_detail_process: 'As long as the type is not available, the processes of this type cannot be used in protocols.',
+    type_unavailable_detail:
+      "The type '<strong>{{typingName}}</strong>' of the object is not available. Please check if the brick '<strong>{{brickName}}</strong>' is correctly installed.",
+    type_unavailable_detail_resource:
+      'As long as the type is not available, the resources of this type cannot be used in any process nor visualized with views.',
+    type_unavailable_detail_process:
+      'As long as the type is not available, the processes of this type cannot be used in protocols.',
     dynamic_ports: 'Dynamic ports',
     dynamic_port_help: 'Dynamic ports allow to create ports on the fly.',
     add_port: 'Add port',
@@ -89,11 +96,11 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     name: 'Name',
     description: 'Description',
     variables: 'Variables',
-    attributes: 'Attributes'
-  }
+    attributes: 'Attributes',
+  },
 };
 
 export const tdTechnicalDocI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: tdTechnicalDocI18nEn,
-  [ClSupportedLanguage.fr]: tdTechnicalDocI18nFr
+  [ClSupportedLanguage.fr]: tdTechnicalDocI18nFr,
 };

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaServerCloudTableComponent} from './ca-server-cloud-table.component';
+import { CaServerCloudTableComponent } from './ca-server-cloud-table.component';
 
 describe('ServerInfoTableComponent', () => {
   let component: CaServerCloudTableComponent;
@@ -8,9 +8,8 @@ describe('ServerInfoTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaServerCloudTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaServerCloudTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

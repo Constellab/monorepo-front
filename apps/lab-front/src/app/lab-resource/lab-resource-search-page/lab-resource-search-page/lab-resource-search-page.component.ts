@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'lab-resource-search-page',
   templateUrl: './lab-resource-search-page.component.html',
-  styleUrls: ['./lab-resource-search-page.component.scss']
+  styleUrls: ['./lab-resource-search-page.component.scss'],
 })
-export class LabResourceSearchPageComponent {
-}
+export class LabResourceSearchPageComponent {}

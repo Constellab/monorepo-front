@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSystemConfigDialogComponent} from './lab-system-config-dialog.component';
+import { LabSystemConfigDialogComponent } from './lab-system-config-dialog.component';
 
 describe('LabPipPackagesDialogComponent', () => {
   let component: LabSystemConfigDialogComponent;
@@ -8,9 +8,8 @@ describe('LabPipPackagesDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabSystemConfigDialogComponent]
-    })
-    .compileComponents();
+      declarations: [LabSystemConfigDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabSystemConfigDialogComponent);
     component = fixture.componentInstance;

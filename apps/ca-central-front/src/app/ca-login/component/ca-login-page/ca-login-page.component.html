@@ -1,11 +1,10 @@
 <fl-login-page [redirectionRoute]="appRoute" class="g-dashboard-background login">
-
   <div class="footer g-layout-row-wrap g-layout-between">
     <span class="g-text-light g-text-small g-text-link" (click)="openPasswordForgotten()">
-      {{'flAuth.forgot_password' | translate}}
+      {{ 'flAuth.forgot_password' | translate }}
     </span>
     <a class="g-primary-text g-text-small g-text-link" [routerLink]="signupRoute">
-      {{'flAuth.signup_link' | translate}}
+      {{ 'flAuth.signup_link' | translate }}
     </a>
   </div>
 </fl-login-page>

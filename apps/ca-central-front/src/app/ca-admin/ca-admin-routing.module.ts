@@ -10,26 +10,22 @@ import { CaAdminServerPageComponent } from './component/ca-admin-server-page/ca-
 
 const routes: Route[] = [
   {
-    path: '', component: CaAdminPageComponent, children: [
-      {path: '', redirectTo: 'spaces', pathMatch: 'full'},
-      {path: 'spaces', component: CaAdminSpacesPageComponent},
-      {path: 'users', component: CaAdminUsersPageComponent},
-      {path: 'labs', component: CaAdminLabsPageComponent},
-      {path: 'servers', component: CaAdminOthersPageComponent},
-      {path: 'buckets', component: CaAdminBucketsPageComponent},
-      {path: 'servers-info', component: CaAdminServerPageComponent},
-    ]
+    path: '',
+    component: CaAdminPageComponent,
+    children: [
+      { path: '', redirectTo: 'spaces', pathMatch: 'full' },
+      { path: 'spaces', component: CaAdminSpacesPageComponent },
+      { path: 'users', component: CaAdminUsersPageComponent },
+      { path: 'labs', component: CaAdminLabsPageComponent },
+      { path: 'servers', component: CaAdminOthersPageComponent },
+      { path: 'buckets', component: CaAdminBucketsPageComponent },
+      { path: 'servers-info', component: CaAdminServerPageComponent },
+    ],
   },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class CaAdminRoutingModule {
-}
-
+export class CaAdminRoutingModule {}

@@ -1,8 +1,8 @@
-.content{
+.content {
   padding-bottom: 2em;
 }
 
-::ng-deep fl-confirm-dialog .content{
+::ng-deep fl-confirm-dialog .content {
   a {
     cursor: pointer;
   }
@@ -12,11 +12,11 @@
   }
 }
 
-.yes-button{
+.yes-button {
   margin-right: 1em;
 }
 
-.confirm-text{
+.confirm-text {
   margin-bottom: 1em;
 }
 
@@ -26,12 +26,12 @@
   border-radius: 3px;
   display: inline;
   line-height: normal;
-  font-family: "Poppins", "Helvetica Neue", sans-serif;
+  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
   background-color: var(--hover-color);
-  color: #e8912d
+  color: #e8912d;
 }
 
-.form-field{
+.form-field {
   width: 100%;
   margin-bottom: 1em;
 }

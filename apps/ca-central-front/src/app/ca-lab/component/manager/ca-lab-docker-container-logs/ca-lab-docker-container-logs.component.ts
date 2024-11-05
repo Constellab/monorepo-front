@@ -14,20 +14,19 @@ export interface CaLabDockerContainerLogsInput {
 @Component({
   selector: 'ca-lab-docker-container-logs',
   templateUrl: './ca-lab-docker-container-logs.component.html',
-  styleUrls: ['./ca-lab-docker-container-logs.component.scss']
+  styleUrls: ['./ca-lab-docker-container-logs.component.scss'],
 })
 export class CaLabDockerContainerLogsComponent implements OnInit {
-
   logs$: Observable<string>;
   containerName: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaLabDockerContainerLogsInput,
-              private labService: CaLabService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaLabDockerContainerLogsInput,
+    private labService: CaLabService
+  ) {}
 
   ngOnInit(): void {
     this.containerName = this.input.containerName;
     this.logs$ = this.labService.getLogs(this.input.labId, this.input.containerName);
   }
-
 }

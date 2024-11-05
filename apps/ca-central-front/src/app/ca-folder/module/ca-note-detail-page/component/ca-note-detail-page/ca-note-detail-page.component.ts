@@ -8,29 +8,23 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ca-note-detail-page',
   templateUrl: './ca-note-detail-page.component.html',
-  styleUrls: ['./ca-note-detail-page.component.scss']
+  styleUrls: ['./ca-note-detail-page.component.scss'],
 })
 export class CaNoteDetailPageComponent implements OnInit {
-
   noteId$: Observable<string>;
   note$: Observable<CaNote>;
 
-  constructor(private noteService: CaNoteService,
-              private route: ActivatedRoute) {
-  }
+  constructor(
+    private noteService: CaNoteService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => this.init(params.id)
-    );
-    this.noteId$ = this.route.params.pipe(
-      map(params => params.id)
-    );
+    this.route.params.subscribe((params) => this.init(params.id));
+    this.noteId$ = this.route.params.pipe(map((params) => params.id));
   }
 
   private init(id: string): void {
     this.note$ = this.noteService.getById(id);
   }
-
-
 }

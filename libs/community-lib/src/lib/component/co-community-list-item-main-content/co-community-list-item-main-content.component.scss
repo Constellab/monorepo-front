@@ -1,4 +1,4 @@
-:host{
+:host {
   flex: auto;
   display: flex;
   flex-direction: column;
@@ -6,7 +6,7 @@
   margin-right: 2em;
 }
 
-.title-space-span{
+.title-space-span {
   display: flex;
   flex-direction: row;
   gap: 12px;
@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-h2{
+h2 {
   font-size: 21.3px;
   margin-block-start: 0;
 }
@@ -23,34 +23,34 @@ h2{
   font-size: 12px !important;
 }
 
-.lower-info-div{
+.lower-info-div {
   margin-top: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.user-info{
+.user-info {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.date-info{
+.date-info {
   margin-left: 4px;
   border-left: 1px solid var(--light-color);
   padding-left: 4px;
 }
 
-.like-comment-div{
+.like-comment-div {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1.75em;
 }
 
-@media screen and (max-width: 768px){
-  h2{
+@media screen and (max-width: 768px) {
+  h2 {
     font-size: 16px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -58,40 +58,39 @@ h2{
     -webkit-line-clamp: 2;
   }
 
-  .description{
+  .description {
     display: none;
   }
 
-  .user-info{
+  .user-info {
     flex-direction: column;
     align-items: start;
   }
 
-  .title-space-span{
+  .title-space-span {
     flex-direction: column;
     align-items: start;
   }
 
-  .lower-info-div{
+  .lower-info-div {
     flex-direction: column;
     gap: 0.25em;
   }
 
-  .date-info{
+  .date-info {
     border-left: none;
     padding-left: 0;
     margin-top: 4px;
   }
 }
 
-
 @media screen and (max-width: 500px) {
-  :host{
+  :host {
     margin-right: 0.25em;
   }
 
-  .title-space-span{
-    h2{
+  .title-space-span {
+    h2 {
       max-width: 13em !important;
       overflow: hidden;
       display: inline-block;

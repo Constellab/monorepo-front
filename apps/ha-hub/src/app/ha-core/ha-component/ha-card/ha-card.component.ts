@@ -1,21 +1,20 @@
-import {AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 export enum HaCardBackground {
   card = 'card',
   main = 'main',
   primary = 'primary',
   warn = 'warn',
-  accent = 'accent'
+  accent = 'accent',
 }
 
 @Component({
   selector: 'ha-card',
   templateUrl: './ha-card.component.html',
   standalone: true,
-  styleUrls: ['./ha-card.component.scss']
+  styleUrls: ['./ha-card.component.scss'],
 })
 export class HaCardComponent implements AfterViewInit {
-
   @Input() border: boolean = false;
 
   @Input() background: HaCardBackground | string = HaCardBackground.card;
@@ -28,11 +27,9 @@ export class HaCardComponent implements AfterViewInit {
   // @HostBinding('style.display') display: string = 'block';
   // @HostBinding('style.width') padding: string = 'auto';
 
-  constructor() {
-  }
+  constructor() {}
 
   ngAfterViewInit(): void {
-
     if (this.innerCard) {
       this.card.nativeElement.classList.remove('card');
       this.card.nativeElement.classList.add('inner-card');

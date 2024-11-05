@@ -15,12 +15,10 @@ export const caScenarioStatusDict: FlStatusDict<CaScenarioStatus> = {
   ARCHIVED: FlStatusHelper.getInfoStatus('ARCHIVED'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run',
-    FlStatusHelper.draftIcon)
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run', FlStatusHelper.draftIcon),
 };
 
 export class CaScenario extends CaBaseEntity implements CaFolderObject {
-
   title: string;
 
   description: TeRichTextContent;
@@ -45,4 +43,3 @@ export class CaScenario extends CaBaseEntity implements CaFolderObject {
   @Type(() => CaUser)
   lastSyncBy?: CaUser;
 }
-

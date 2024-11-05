@@ -1,20 +1,21 @@
-<fl-input-search [selectedItem]="selectGroup"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="datasource"
-                 [placeholder]="'group' | translate"
-                 [required]="required"
-                 [disabled]="disabled"
-                 [minInputSearchLength]="0">
-
+<fl-input-search
+  [selectedItem]="selectGroup"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="'group' | translate"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0">
   <div class="photo" *flInputSearchPrefix="datasource as group">
     <mat-icon *ngIf="!group || group.type === 'TEAM'; else singleUser" flIcon="group"></mat-icon>
 
     <ng-template #singleUser>
-      <fl-user-profile-picture [user]="group.user"
-                               size="small"></fl-user-profile-picture>
+      <fl-user-profile-picture [user]="group.user" size="small"></fl-user-profile-picture>
     </ng-template>
   </div>
 
-  <ca-group-inline *flInputSearchOption="datasource as group" [group]="group"
-                   [disableUserPortal]="true"></ca-group-inline>
+  <ca-group-inline
+    *flInputSearchOption="datasource as group"
+    [group]="group"
+    [disableUserPortal]="true"></ca-group-inline>
 </fl-input-search>

@@ -1,17 +1,17 @@
-.color-picker{
+.color-picker {
   border: none;
   background: none;
-  display:inline-block;
+  display: inline-block;
   cursor: pointer;
 }
 
-input[type=color]::-webkit-color-swatch {
+input[type='color']::-webkit-color-swatch {
   border: none;
   border-radius: 50%;
   padding: 0;
 }
 
-input[type=color]::-webkit-color-swatch-wrapper {
+input[type='color']::-webkit-color-swatch-wrapper {
   border: none;
   border-radius: 50%;
   padding: 0;

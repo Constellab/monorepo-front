@@ -1,12 +1,12 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {SpSpreadsheet} from '../model/sp-spreadsheet.class';
-import {SpSheet} from '../model/sp-sheet.class';
-import {Observable} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
-import {SpSpreadsheetFactory} from '../utils/sp-spreadsheet.factory';
-import {SpCell} from '../model/sp-cell.class';
-import {SpSheetHeader, SpSheetRow} from '../model/sp-sheet-headers.class';
-import {SpSheetChartConfig} from '../model/chart/sp-sheet-chart-config.class';
+import { Injectable, OnDestroy } from '@angular/core';
+import { SpSpreadsheet } from '../model/sp-spreadsheet.class';
+import { SpSheet } from '../model/sp-sheet.class';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
+import { SpSpreadsheetFactory } from '../utils/sp-spreadsheet.factory';
+import { SpCell } from '../model/sp-cell.class';
+import { SpSheetHeader, SpSheetRow } from '../model/sp-sheet-headers.class';
+import { SpSheetChartConfig } from '../model/chart/sp-sheet-chart-config.class';
 import {
   SpSheetLocalChartConfigBarPlot,
   SpSheetLocalChartConfigBoxPlot,
@@ -15,16 +15,15 @@ import {
   SpSheetLocalChartConfigLinePlot,
   SpSheetLocalChartConfigScatterPlot,
   SpSheetLocalChartConfigStackedBarPlot,
-  SpSheetLocalChartConfigVulcanoPlot
+  SpSheetLocalChartConfigVulcanoPlot,
 } from '../model/chart/sp-sheet-chart-local-config.class';
-import {ChChartPortalService, ChChartType} from '@monorepo/chart';
+import { ChChartPortalService, ChChartType } from '@monorepo/chart';
 
 /**
  * Unique state shared across the spreadsheet to store the current spreadsheet
  */
 @Injectable()
 export class SpSpreadsheetState implements OnDestroy {
-
   private _spreadsheet: SpSpreadsheet;
 
   private lastSheetId: number = 0;
@@ -36,9 +35,7 @@ export class SpSpreadsheetState implements OnDestroy {
 
   private chartConfigs: SpSheetChartConfig[];
 
-  constructor(private chartPortalService: ChChartPortalService) {
-  }
-
+  constructor(private chartPortalService: ChChartPortalService) {}
 
   public init(spreadsheet: SpSpreadsheet, readOnly: boolean, chartConfigs: SpSheetChartConfig[]): void {
     this._spreadsheet = spreadsheet;
@@ -51,11 +48,9 @@ export class SpSpreadsheetState implements OnDestroy {
     return this._spreadsheet;
   }
 
-
   public getSheet(id: number): SpSheet {
     return this._spreadsheet.getSheet(id);
   }
-
 
   ///////////////////////// CURRENT SHEET /////////////////////////
   public get currentSheet(): SpSheet {
@@ -70,18 +65,14 @@ export class SpSpreadsheetState implements OnDestroy {
   // each time the current sheet change or the columns of current sheet change
   // it's working well thanks to the behaviour subjects
   public getCurrentSheetColumns$(): Observable<SpSheetHeader[]> {
-    return this.currentSheet$.pipe(
-      mergeMap(sheet => sheet.getColumns$())
-    );
+    return this.currentSheet$.pipe(mergeMap((sheet) => sheet.getColumns$()));
   }
 
   // emit the rows
   // each time the current sheet change or the rows of current sheet change
   // it's working well thanks to the behaviour subjects
   public getCurrentSheetRows$(): Observable<SpSheetRow[]> {
-    return this.currentSheet$.pipe(
-      mergeMap(sheet => sheet.getRows$())
-    );
+    return this.currentSheet$.pipe(mergeMap((sheet) => sheet.getRows$()));
   }
 
   /**
@@ -102,14 +93,13 @@ export class SpSpreadsheetState implements OnDestroy {
     this._spreadsheet.addSheet(newSheet);
   }
 
-
   //////////////////////////////////// CHART ////////////////////////////////////
   public getChartConfigs(): SpSheetChartConfig[] {
     return this.chartConfigs;
   }
 
   public getChartConfig(chartType: ChChartType): SpSheetChartConfig {
-    return this.chartConfigs.find(config => config.getChartType() === chartType);
+    return this.chartConfigs.find((config) => config.getChartType() === chartType);
   }
 
   private getDefaultChartConfigs(): SpSheetChartConfig[] {
@@ -130,6 +120,4 @@ export class SpSpreadsheetState implements OnDestroy {
   ngOnDestroy(): void {
     this._spreadsheet.destroy();
   }
-
-
 }

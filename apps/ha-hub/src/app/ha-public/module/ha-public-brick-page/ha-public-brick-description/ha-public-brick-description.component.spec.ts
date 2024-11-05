@@ -8,9 +8,8 @@ describe('HaPublicBrickDescriptionPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicBrickDescriptionComponent ]
-    })
-      .compileComponents();
+      declarations: [HaPublicBrickDescriptionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

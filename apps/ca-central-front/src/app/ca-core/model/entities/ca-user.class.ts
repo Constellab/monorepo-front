@@ -4,14 +4,14 @@ import {
   ClSupportedLanguage,
   ClTheme,
   ClUserCategory,
-  ClUserStatus
+  ClUserStatus,
 } from '@monorepo/core-lib';
 import { CaEntity } from './ca-entity.entity';
 import { FlDatasourcePaginated, FlUser } from '@monorepo/front-core-lib';
 
 export enum CaUserLicense {
   FREE = 'FREE',
-  ENTERPRISE = 'ENTERPRISE'
+  ENTERPRISE = 'ENTERPRISE',
 }
 
 export interface CaNewUser {
@@ -68,7 +68,7 @@ export class CaUser extends CaEntity implements FlUser {
     return this.category === ClUserCategory.ADMIN;
   }
 
-  public hasEntrepriseLicense(): boolean{
+  public hasEntrepriseLicense(): boolean {
     return this.license === CaUserLicense.ENTERPRISE;
   }
 
@@ -85,7 +85,7 @@ export class CaUser extends CaEntity implements FlUser {
   }
 }
 
-export type CaUserDatasourcePaginated<F = void> = FlDatasourcePaginated<CaUser, F>
+export type CaUserDatasourcePaginated<F = void> = FlDatasourcePaginated<CaUser, F>;
 
 export interface CaUserUpdateLicenseDTO {
   license: CaUserLicense;

@@ -12,14 +12,13 @@ import { LabQueueJobsDialogComponent } from './component/lab-queue-jobs-dialog/l
 import { LabScenarioCoreModule } from '../lab-core/entity-module/lab-scenario-core/lab-scenario-core.module';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     LabMainAppComponent,
     LabEnvironmentToggleComponent,
     LabErrorDetailComponent,
     LabMainMenuSettingsComponent,
-    LabQueueJobsDialogComponent
+    LabQueueJobsDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -30,9 +29,7 @@ import { FormsModule } from '@angular/forms';
 
     // Routing
     LabMainRoutingModule,
-    LabScenarioCoreModule
-  ]
+    LabScenarioCoreModule,
+  ],
 })
-
-export class LabMainModule {
-}
+export class LabMainModule {}

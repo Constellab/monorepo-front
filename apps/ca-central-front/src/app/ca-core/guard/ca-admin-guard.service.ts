@@ -1,20 +1,20 @@
-import {Injectable} from '@angular/core';
-import {Router, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
-import {CaAuthenticatedUserService} from '../service-api/ca-authenticated-user.service';
-import {CaRouterService} from '../service/ca-router.service';
+import { Injectable } from '@angular/core';
+import { Router, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user.service';
+import { CaRouterService } from '../service/ca-router.service';
 
 /**
  * Guard to secure route to only give access to admin
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CaAdminGuard  {
-
-  constructor(private authenticatedUserService: CaAuthenticatedUserService,
-              private router: Router) {
-  }
+export class CaAdminGuard {
+  constructor(
+    private authenticatedUserService: CaAuthenticatedUserService,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.authenticatedUserService.isAdmin()) {
@@ -23,5 +23,4 @@ export class CaAdminGuard  {
       return this.router.parseUrl(CaRouterService.getAppRoute());
     }
   }
-
 }

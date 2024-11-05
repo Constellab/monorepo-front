@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlExpansionMenuComponent} from './fl-expansion-menu.component';
+import { FlExpansionMenuComponent } from './fl-expansion-menu.component';
 
 describe('FlExpansionMenuComponent', () => {
   let component: FlExpansionMenuComponent;
@@ -8,9 +8,8 @@ describe('FlExpansionMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlExpansionMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [FlExpansionMenuComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -15,9 +15,7 @@ export enum FlKeyboardKey {
   AT = '@',
 }
 
-
 export class FlKeyboardHelper {
-
   public static keyboardKeyIsPrintable(key: string | FlKeyboardKey): boolean {
     return key?.length === 1;
   }
@@ -51,8 +49,12 @@ export class FlKeyboardHelper {
    * @param key
    */
   public static keyIsArrow(key: string | FlKeyboardKey): boolean {
-    return key === FlKeyboardKey.ARROW_RIGHT || key === FlKeyboardKey.ARROW_LEFT
-      || key === FlKeyboardKey.ARROW_UP || key === FlKeyboardKey.ARROW_DOWN;
+    return (
+      key === FlKeyboardKey.ARROW_RIGHT ||
+      key === FlKeyboardKey.ARROW_LEFT ||
+      key === FlKeyboardKey.ARROW_UP ||
+      key === FlKeyboardKey.ARROW_DOWN
+    );
   }
 
   /**
@@ -67,5 +69,5 @@ export class FlKeyboardHelper {
 export enum FlMouseButton {
   LEFT = 0,
   MIDDLE = 1,
-  RIGHT = 2
+  RIGHT = 2,
 }

@@ -4,14 +4,13 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { Type } from 'class-transformer';
 
 export class CaSpaceSearchFields {
-
   name: string;
 
   domain: string;
@@ -28,7 +27,6 @@ export class CaSpaceSearchFields {
 }
 
 export class CaSpaceSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaSpaceSearchFields> = {
     name: 'name',
     domain: 'space_domain',
@@ -38,12 +36,12 @@ export class CaSpaceSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaSpaceSearchFields> = {
-    name: {key: 'name', operator: 'MATCH'},
-    domain: {key: 'domain', operator: 'MATCH'},
-    type: {key: 'type', operator: 'EQ'},
+    name: { key: 'name', operator: 'MATCH' },
+    domain: { key: 'domain', operator: 'MATCH' },
+    type: { key: 'type', operator: 'EQ' },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
-    createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    id: {key: 'id', operator: 'EQ'},
+    createdBy: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {

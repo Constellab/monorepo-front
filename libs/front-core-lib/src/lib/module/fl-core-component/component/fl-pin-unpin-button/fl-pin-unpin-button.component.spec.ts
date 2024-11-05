@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlPinUnpinButtonComponent} from './fl-pin-unpin-button.component';
+import { FlPinUnpinButtonComponent } from './fl-pin-unpin-button.component';
 
 describe('FlPinUnpinComponent', () => {
   let component: FlPinUnpinButtonComponent;
@@ -8,9 +8,8 @@ describe('FlPinUnpinComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlPinUnpinButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [FlPinUnpinButtonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvResourceViewComponent} from './rv-resource-view.component';
+import { RvResourceViewComponent } from './rv-resource-view.component';
 
 describe('RvResourceViewComponent', () => {
   let component: RvResourceViewComponent;
@@ -8,9 +8,8 @@ describe('RvResourceViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvResourceViewComponent ]
-    })
-    .compileComponents();
+      declarations: [RvResourceViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

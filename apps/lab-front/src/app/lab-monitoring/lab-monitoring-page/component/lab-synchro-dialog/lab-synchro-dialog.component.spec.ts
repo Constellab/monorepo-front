@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSynchroDialogComponent} from './lab-synchro-dialog.component';
+import { LabSynchroDialogComponent } from './lab-synchro-dialog.component';
 
 describe('LabSynchroDialogComponent', () => {
   let component: LabSynchroDialogComponent;
@@ -8,9 +8,8 @@ describe('LabSynchroDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSynchroDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSynchroDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabSynchroDialogComponent);
     component = fixture.componentInstance;

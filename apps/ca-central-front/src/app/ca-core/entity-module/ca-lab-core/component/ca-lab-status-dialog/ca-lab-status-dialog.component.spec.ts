@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabStatusDialogComponent} from './ca-lab-status-dialog.component';
+import { CaLabStatusDialogComponent } from './ca-lab-status-dialog.component';
 
 describe('LabStatusDialogComponent', () => {
   let component: CaLabStatusDialogComponent;
@@ -8,9 +8,8 @@ describe('LabStatusDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabStatusDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabStatusDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

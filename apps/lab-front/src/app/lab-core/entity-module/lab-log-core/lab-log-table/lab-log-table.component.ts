@@ -3,37 +3,34 @@ import { FlDatasource, FlDialogService, FlFileHelper } from '@monorepo/front-cor
 import { LabLogInfo } from '../../../model/entities/lab-log.entity';
 import {
   LabLogCompleteInfoDialogComponent,
-  LabLogCompleteInfoDialogInput
+  LabLogCompleteInfoDialogInput,
 } from '../lab-log-complete-info-dialog/lab-log-complete-info-dialog.component';
 import { LabLogService } from '../../../entity-service/lab-log.service';
 
 @Component({
   selector: 'lab-log-table',
   templateUrl: './lab-log-table.component.html',
-  styleUrls: ['./lab-log-table.component.scss']
+  styleUrls: ['./lab-log-table.component.scss'],
 })
 export class LabLogTableComponent {
-
-  @Input({required: true}) datasource: FlDatasource<LabLogInfo>;
+  @Input({ required: true }) datasource: FlDatasource<LabLogInfo>;
 
   @Input() columns: string[] = ['name', 'fileSize', 'actions'];
 
-  constructor(private dialogService: FlDialogService,
-              private logService: LabLogService) {
-  }
-
+  constructor(
+    private dialogService: FlDialogService,
+    private logService: LabLogService
+  ) {}
 
   public openCompleteLog(log: LabLogInfo): void {
     const input: LabLogCompleteInfoDialogInput = {
-      logName: log.name
+      logName: log.name,
     };
-    this.dialogService.openBigDialog(
-      LabLogCompleteInfoDialogComponent, { data: input });
+    this.dialogService.openBigDialog(LabLogCompleteInfoDialogComponent, { data: input });
   }
 
   public downloadLog(log: LabLogInfo): void {
     const downloadUrl = this.logService.getDownloadUrl(log.name);
     FlFileHelper.downloadUrl(downloadUrl);
   }
-
 }

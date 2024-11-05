@@ -5,24 +5,24 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
-import { LabNoteTemplate, LabNoteTemplateDatasource } from '../../../../model/entities/lab-note-template.entity';
+import {
+  LabNoteTemplate,
+  LabNoteTemplateDatasource,
+} from '../../../../model/entities/lab-note-template.entity';
 import { LabNoteTemplateService } from '../../../../entity-service/lab-note-template.service';
 import { LabNoteTemplateSearch, LabNoteTemplateSearchFields } from '../../lab-note-template-search.class';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import {
-  LabNoteTemplateFormDialogComponent
-} from '../lab-note-template-form-dialog/lab-note-template-form-dialog.component';
+import { LabNoteTemplateFormDialogComponent } from '../lab-note-template-form-dialog/lab-note-template-form-dialog.component';
 
 @Component({
   selector: 'lab-note-template-search',
   templateUrl: './lab-note-template-search.component.html',
   styleUrls: ['./lab-note-template-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class LabNoteTemplateSearchComponent implements OnInit {
-
   @Input() noteTemplateSelectable: boolean = false;
 
   @Input() fullPageSearch: boolean = true;
@@ -31,12 +31,13 @@ export class LabNoteTemplateSearchComponent implements OnInit {
 
   datasource: LabNoteTemplateDatasource<LabNoteTemplateSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private noteTemplateService: LabNoteTemplateService,
-              private themeService: FlThemeService,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private noteTemplateService: LabNoteTemplateService,
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService,
+    private routerService: LabRouterService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -46,10 +47,10 @@ export class LabNoteTemplateSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: LabNoteTemplateSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: this.fullPageSearch,
-      defaultSort: { key: 'lastModification', direction: 'DESC' }
+      defaultSort: { key: 'lastModification', direction: 'DESC' },
     };
 
     this.datasource = this.noteTemplateService.getSearchDatasource();
@@ -65,8 +66,8 @@ export class LabNoteTemplateSearchComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {}
-      }
+        filtersCriteria: {},
+      },
     ];
   }
 
@@ -76,12 +77,13 @@ export class LabNoteTemplateSearchComponent implements OnInit {
 
   openCreateNoteTemplateDialog(): void {
     const data: FlFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openSmallDialog(LabNoteTemplateFormDialogComponent, { data }).afterClosed().subscribe(
-      template => this.onCreateClosed(template)
-    );
+    this.dialogService
+      .openSmallDialog(LabNoteTemplateFormDialogComponent, { data })
+      .afterClosed()
+      .subscribe((template) => this.onCreateClosed(template));
   }
 
   private onCreateClosed(noteTemplate?: LabNoteTemplate): void {
@@ -90,4 +92,3 @@ export class LabNoteTemplateSearchComponent implements OnInit {
     }
   }
 }
-

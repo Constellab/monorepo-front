@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceInlineComponent} from './ca-space-inline.component';
+import { CaSpaceInlineComponent } from './ca-space-inline.component';
 
 describe('CaSpaceInlineComponent', () => {
   let component: CaSpaceInlineComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpaceInlineComponent);
     component = fixture.componentInstance;

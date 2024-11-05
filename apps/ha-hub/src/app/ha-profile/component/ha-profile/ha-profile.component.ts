@@ -88,13 +88,11 @@ export class HaProfileComponent implements OnInit {
       this.authenticatedUserService.getUser().subscribe((currentUser) => {
         this.isCurrentUser = currentUser?.id === user?.id;
         if (currentUser != null) {
-          this.commonSpace$ = this.spaceService
-            .getUserCommonSpace(user.id)
-            .pipe(
-              map((spaces) => {
-                return spaces;
-              })
-            );
+          this.commonSpace$ = this.spaceService.getUserCommonSpace(user.id).pipe(
+            map((spaces) => {
+              return spaces;
+            })
+          );
         }
       });
     });

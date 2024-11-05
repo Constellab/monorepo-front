@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TdIoResourceComponent} from './td-io-resource.component';
+import { TdIoResourceComponent } from './td-io-resource.component';
 
 describe('TdIoResourceViewComponent', () => {
   let component: TdIoResourceComponent;
@@ -8,9 +8,8 @@ describe('TdIoResourceViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TdIoResourceComponent]
-    })
-      .compileComponents();
+      declarations: [TdIoResourceComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

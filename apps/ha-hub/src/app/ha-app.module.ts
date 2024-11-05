@@ -1,10 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  APP_INITIALIZER,
-  Injector,
-  NgModule,
-  TransferState,
-} from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule, TransferState } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HaAppComponent } from './ha-app.component';
 import {
@@ -46,18 +41,13 @@ import { HaTdServiceConfig } from './ha-core/ha-model/ha-config/ha-td-service.co
 import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config';
 import { HaEnvironmentHelper } from './ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
-import {
-  rvDefaultViewTypeInfos,
-  RvResourceViewModule,
-} from '@monorepo/resource-view';
+import { rvDefaultViewTypeInfos, RvResourceViewModule } from '@monorepo/resource-view';
 import { TranslateLoader } from '@ngx-translate/core';
 import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { HaCoServiceConfig } from './ha-core/ha-model/ha-config/ha-co-service.config';
 
-function loadUserOnInit(
-  authenticatedUserService: HaAuthenticatedUserService
-): () => void {
+function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
 }
 
@@ -76,12 +66,7 @@ export function TranslationLoaderFactory(
   http: HttpClient,
   config: FlTranslateModuleConfig
 ): FlTranslationLoader {
-  return new FlTranslationLoader(
-    http,
-    config.filenames,
-    config.filePrefix,
-    config.fileSuffix
-  );
+  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
 
 @NgModule({

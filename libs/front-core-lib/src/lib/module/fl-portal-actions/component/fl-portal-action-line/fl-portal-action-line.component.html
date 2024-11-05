@@ -1,9 +1,12 @@
-<div class="g-layout-row g-layout-between-center"
-     [matTooltip]="text" matTooltipShowDelay="1000" matTooltipPosition="above"
-     [routerLink]="link$ | async" [ngClass]="{'link': link$ | async}">
-
+<div
+  class="g-layout-row g-layout-between-center"
+  [matTooltip]="text"
+  matTooltipShowDelay="1000"
+  matTooltipPosition="above"
+  [routerLink]="link$ | async"
+  [ngClass]="{ link: link$ | async }">
   <div class="text">
-    {{text}}
+    {{ text }}
   </div>
 
   <ng-container *ngIf="statusEvent$ | async as statusEvent">
@@ -19,8 +22,10 @@
 
       <ng-container *ngSwitchCase="'progress'">
         <!--   loader the same size as the icons   -->
-        <fl-progress-loader [percent]="$any(statusEvent).progressValue"
-                            size="small" class="icon"></fl-progress-loader>
+        <fl-progress-loader
+          [percent]="$any(statusEvent).progressValue"
+          size="small"
+          class="icon"></fl-progress-loader>
       </ng-container>
 
       <ng-container *ngSwitchCase="'success'">
@@ -32,5 +37,4 @@
       </ng-container>
     </ng-container>
   </ng-container>
-
 </div>

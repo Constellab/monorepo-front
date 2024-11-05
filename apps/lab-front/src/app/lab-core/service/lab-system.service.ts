@@ -1,21 +1,21 @@
-import {Injectable} from '@angular/core';
-import {FlApiWithCacheService, FlServerError} from '@monorepo/front-core-lib';
-import {Observable, of, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
-import {LabEnvStore} from './lab-env.store';
+import { Injectable } from '@angular/core';
+import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { LabEnvStore } from './lab-env.store';
 import { LabPipPackage, LabSystemConfig, LabSystemInfo } from '../model/global/lab-system.class';
-import {LabEnvironmentHelper} from '../utils/lab-environment.helper';
+import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabSystemService {
-
   private readonly route: string = 'system';
 
-  constructor(private apiService: FlApiWithCacheService,
-              private labEnvStore: LabEnvStore) {
-  }
+  constructor(
+    private apiService: FlApiWithCacheService,
+    private labEnvStore: LabEnvStore
+  ) {}
 
   public getSystemInfo(): Observable<LabSystemInfo> {
     return this.apiService.get(`${this.route}/info`, LabSystemInfo);
@@ -33,16 +33,15 @@ export class LabSystemService {
    * As the api is stooped, it returns an error
    */
   public killApi(): Observable<void> {
-    return this.apiService.post(`${this.route}/kill`, null, null, {hideSnackBarError: true})
-      .pipe(
-        catchError((err: FlServerError) => {
-          if (err.response.status === 0 || err.response.status === 504) {
-            return of(null);
-          }
-          return throwError(err as any);
-        }),
-        tap(() => this.labEnvStore.setLabEnvironment('prod'))
-      );
+    return this.apiService.post(`${this.route}/kill`, null, null, { hideSnackBarError: true }).pipe(
+      catchError((err: FlServerError) => {
+        if (err.response.status === 0 || err.response.status === 504) {
+          return of(null);
+        }
+        return throwError(err as any);
+      }),
+      tap(() => this.labEnvStore.setLabEnvironment('prod'))
+    );
   }
 
   public getSpacePhotoUrl(filename: string): string {
@@ -56,7 +55,7 @@ export class LabSystemService {
   public synchronize(syncUsers: boolean, syncFolders: boolean): Observable<void> {
     return this.apiService.post(`${this.route}/synchronize`, {
       sync_users: syncUsers,
-      sync_folders: syncFolders
+      sync_folders: syncFolders,
     });
   }
 

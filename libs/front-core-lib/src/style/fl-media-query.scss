@@ -2,7 +2,6 @@
 
 // classes to focus the print on a single element marked with g-section-to-print
 @media print {
-
   .g-print-section {
     border: none !important;
     height: initial;
@@ -31,14 +30,19 @@
 
 @media (max-width: 599px) {
   .g-hide-xs,
-  .g-hide-lt-sm, .g-hide-lt-md, .g-hide-lt-lg, .g-hide-lt-xl {
+  .g-hide-lt-sm,
+  .g-hide-lt-md,
+  .g-hide-lt-lg,
+  .g-hide-lt-xl {
     display: none;
   }
 }
 
 @media (min-width: 600px) and (max-width: 959px) {
   .g-hide-sm,
-  .g-hide-lt-md, .g-hide-lt-lg, .g-hide-lt-xl,
+  .g-hide-lt-md,
+  .g-hide-lt-lg,
+  .g-hide-lt-xl,
   .g-hide-gt-xs {
     display: none;
   }
@@ -46,8 +50,10 @@
 
 @media (min-width: 960px) and (max-width: 1279px) {
   .g-hide-md,
-  .g-hide-lt-lg, .g-hide-lt-xl,
-  .g-hide-gt-xs, .g-hide-gt-sm {
+  .g-hide-lt-lg,
+  .g-hide-lt-xl,
+  .g-hide-gt-xs,
+  .g-hide-gt-sm {
     display: none;
   }
 }
@@ -55,14 +61,19 @@
 @media (min-width: 1280px) and (max-width: 1919px) {
   .g-hide-lg,
   .g-hide-lt-xl,
-  .g-hide-gt-xs, .g-hide-gt-sm, .g-hide-gt-md {
+  .g-hide-gt-xs,
+  .g-hide-gt-sm,
+  .g-hide-gt-md {
     display: none;
   }
 }
 
 @media (min-width: 1920px) {
   .g-hide-xl,
-  .g-hide-gt-xs, .g-hide-gt-sm, .g-hide-gt-md, .g-hide-gt-lg {
+  .g-hide-gt-xs,
+  .g-hide-gt-sm,
+  .g-hide-gt-md,
+  .g-hide-gt-lg {
     display: none;
   }
 }

@@ -8,7 +8,6 @@
 
   <fl-card-body>
     <fl-async-section [object]="serverInfo$">
-
       <ng-container *flSectionBody="serverInfo$ as serverInfo">
         <fl-key-value class="g-layout-row g-layout-start-center">
           <fl-key>{{ 'cloud_provider' | translate }}</fl-key>
@@ -40,14 +39,16 @@
             <fl-key>{{ 'lab_volume_size' | translate }}</fl-key>
             {{ serverInfo.volumeSize }} ({{ 'lab_volume_type_' + serverInfo.volumeType | translate }})
           </fl-key-value>
-          <button mat-icon-button type="button" (click)="openVolumeHistoryDialog()"
-                  [matTooltip]="'lab_volume_history' | translate" class="g-button-icon-small">
+          <button
+            mat-icon-button
+            type="button"
+            (click)="openVolumeHistoryDialog()"
+            [matTooltip]="'lab_volume_history' | translate"
+            class="g-button-icon-small">
             <mat-icon>history</mat-icon>
           </button>
         </div>
       </ng-container>
     </fl-async-section>
-
   </fl-card-body>
-
 </fl-card>

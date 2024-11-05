@@ -8,7 +8,6 @@ import { RvResourceView } from '@monorepo/resource-view';
 import { TeRichTextContent } from '@monorepo/text-editor';
 
 export class CaNote extends CaBaseEntity implements CaFolderObject {
-
   title: string;
 
   content: TeRichTextContent;
@@ -29,12 +28,11 @@ export class CaNote extends CaBaseEntity implements CaFolderObject {
 }
 
 export class CaResourceView {
-
   view: RvResourceView;
 
-  @Expose({name: 'resource_id'})
+  @Expose({ name: 'resource_id' })
   resourceId: string;
 
-  @Expose({name: 'view_config'})
+  @Expose({ name: 'view_config' })
   viewConfig: any;
 }

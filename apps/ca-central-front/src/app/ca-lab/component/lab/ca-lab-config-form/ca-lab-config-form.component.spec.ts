@@ -8,9 +8,8 @@ describe('CaLabConfigFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabConfigFormComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabConfigFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

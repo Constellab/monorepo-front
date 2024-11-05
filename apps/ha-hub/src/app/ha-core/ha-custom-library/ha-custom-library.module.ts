@@ -1,34 +1,36 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import {
   FlArticleModule,
   FlAuthModule,
-  FlCardModule, FlCodeEditorModule,
+  FlCardModule,
+  FlCodeEditorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
   FlDialogModule,
   FlFormModule,
-  FlIconModule, FlImageModule,
-  FlInfiniteScrollModule, FlInputFileModule, FlInputSearchModule,
+  FlIconModule,
+  FlImageModule,
+  FlInfiniteScrollModule,
+  FlInputFileModule,
+  FlInputSearchModule,
   FlKeyValueModule,
   FlLoaderModule,
-  FlMenuDynamicModule, FlPortalActionsModule,
+  FlMenuDynamicModule,
+  FlPortalActionsModule,
   FlPortalModule,
   FlSectionModule,
   FlSnackBarModule,
   FlTextIconModule,
   FlThemeModule,
   FlTranslateModule,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
-import {TdTechnicalDocModule} from '@monorepo/technical-doc';
-import {RvResourceViewModule} from '@monorepo/resource-view';
-import {TeTextEditorModule} from '@monorepo/text-editor';
-import {CoCommunityLibModule} from '@monorepo/community-lib';
-
-
-
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { RvResourceViewModule } from '@monorepo/resource-view';
+import { TeTextEditorModule } from '@monorepo/text-editor';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 
 @NgModule({
   exports: [
@@ -64,9 +66,7 @@ import {CoCommunityLibModule} from '@monorepo/community-lib';
     TdTechnicalDocModule,
     RvResourceViewModule,
     TeTextEditorModule,
-    CoCommunityLibModule
-  ]
+    CoCommunityLibModule,
+  ],
 })
-export class HaCustomLibraryModule {
-
-}
+export class HaCustomLibraryModule {}

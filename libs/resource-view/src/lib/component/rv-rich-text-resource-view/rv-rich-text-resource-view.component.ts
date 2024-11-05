@@ -9,15 +9,14 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'rv-rich-text-resource-view',
   templateUrl: './rv-rich-text-resource-view.component.html',
-  styleUrls: ['./rv-rich-text-resource-view.component.scss']
+  styleUrls: ['./rv-rich-text-resource-view.component.scss'],
 })
 export class RvRichTextResourceViewComponent implements OnInit {
-
   @Input({ required: true }) view$: Observable<RvResourceViewBase>;
 
   @Input() resourceId?: string;
 
-  @Input() viewConfig ?: RvViewConfig;
+  @Input() viewConfig?: RvViewConfig;
 
   @Input() viewTitle: string;
   @Output() viewTitleChange: EventEmitter<string> = new EventEmitter();
@@ -32,14 +31,13 @@ export class RvRichTextResourceViewComponent implements OnInit {
   isLoading: boolean = false;
   error: boolean = false;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.isLoading = true;
     this.view$.subscribe({
-      next: view => this.onSuccess(view),
-      error: () => this.onError()
+      next: (view) => this.onSuccess(view),
+      error: () => this.onError(),
     });
   }
 
@@ -63,5 +61,4 @@ export class RvRichTextResourceViewComponent implements OnInit {
     this.caption = caption;
     this.captionChange.emit(caption);
   }
-
 }

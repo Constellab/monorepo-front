@@ -15,10 +15,12 @@ export interface LabShareLinkFormDialogInput extends FlFormDialogInput<LabShareL
 @Component({
   selector: 'lab-share-link-form-dialog',
   templateUrl: './lab-share-link-form-dialog.component.html',
-  styleUrls: ['./lab-share-link-form-dialog.component.scss']
+  styleUrls: ['./lab-share-link-form-dialog.component.scss'],
 })
-export class LabShareLinkFormDialogComponent extends FlFormDialogAbstractDirective<Partial<LabShareLink>, LabShareLink>
-  implements OnInit {
+export class LabShareLinkFormDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<LabShareLink>, LabShareLink>
+  implements OnInit
+{
   dialogInput: LabShareLinkFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private shareLinkService: LabShareLinkService) {
@@ -57,6 +59,4 @@ export class LabShareLinkFormDialogComponent extends FlFormDialogAbstractDirecti
   getUpdateSuccessMessage(): string {
     return 'biox.share_link_updated';
   }
-
-
 }

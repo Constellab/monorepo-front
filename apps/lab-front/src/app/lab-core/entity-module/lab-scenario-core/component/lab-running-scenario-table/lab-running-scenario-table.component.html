@@ -1,19 +1,18 @@
 <mat-table mat-table [dataSource]="datasource" class="table">
-
-
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border">
-      <span> {{'title' | translate}}</span>
+      <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let scenario" class="g-cell-with-left-border"
-              [style.border-left-color]="scenario.folder?.id | flStringToRgb">
+    <mat-cell
+      *matCellDef="let scenario"
+      class="g-cell-with-left-border"
+      [style.border-left-color]="scenario.folder?.id | flStringToRgb">
       <div>
-        <div>{{scenario.title}}</div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="scenario.folder"
-                      gap="0">
+        <div>{{ scenario.title }}</div>
+        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="scenario.folder" gap="0">
           <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
-          {{scenario.folder.title}}
+          {{ scenario.folder.title }}
         </fl-text-icon>
       </div>
     </mat-cell>
@@ -22,17 +21,20 @@
   <!-- Running task -->
   <ng-container matColumnDef="runningTasks">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{'biox.running_tasks' | translate}}</span>
+      <span>{{ 'biox.running_tasks' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <lab-running-process *ngFor="let process of scenario.runningTasks" [runningProcess]="process"
-                           class="running-process"></lab-running-process>
+      <lab-running-process
+        *ngFor="let process of scenario.runningTasks"
+        [runningProcess]="process"
+        class="running-process"></lab-running-process>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-           [routerLink]="row.id | labDetailRoute:'SCENARIO'">
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable"
+    [routerLink]="row.id | labDetailRoute: 'SCENARIO'">
   </mat-row>
 </mat-table>

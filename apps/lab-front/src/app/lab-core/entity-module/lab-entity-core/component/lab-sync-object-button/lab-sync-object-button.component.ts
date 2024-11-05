@@ -4,7 +4,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 
@@ -14,10 +14,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'lab-sync-object-button',
   templateUrl: './lab-sync-object-button.component.html',
-  styleUrls: ['./lab-sync-object-button.component.scss']
+  styleUrls: ['./lab-sync-object-button.component.scss'],
 })
 export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
-
   @Input() object: T;
 
   @Input() syncObjectFunc: (id: string) => Observable<T>;
@@ -28,12 +27,12 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
 
   isLoading: boolean = false;
 
-  constructor(private dialogService: FlDialogService,
-              private translateService: FlTranslateService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private translateService: FlTranslateService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   syncClick(): void {
     if (this.isLoading) return;
@@ -54,25 +53,25 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
 
     const data: FlConfirmDialogInput = {
       title: 'biox.sync_with_space',
-      content: { text: content, translateText: false }
+      content: { text: content, translateText: false },
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      (result: FlConfirmDialogResult) => {
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => {
         if (result.choice) {
           this.syncObject();
         }
-      }
-    );
+      });
   }
-
 
   private syncObject(): void {
     this.isLoading = true;
 
     this.syncObjectFunc(this.object.id).subscribe({
       next: (object: T) => this.onSyncSuccess(object),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -80,5 +79,4 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
     this.isLoading = false;
     this.objectUpdate.emit(object);
   }
-
 }

@@ -5,9 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import {
-  HaPublicAddVersionDialogComponent
-} from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
+import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { Observable } from 'rxjs';
@@ -18,10 +16,9 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 @Component({
   selector: 'ha-public-versions-page',
   templateUrl: './ha-public-versions.component.html',
-  styleUrls: ['./ha-public-versions.component.scss']
+  styleUrls: ['./ha-public-versions.component.scss'],
 })
 export class HaPublicVersionsComponent implements OnInit {
-
   brickVersions: HaBrickVersionDataSource;
   brick: Signal<HaBrick> = computed(() => {
     const brick = this.brickPageState.brick();
@@ -37,16 +34,16 @@ export class HaPublicVersionsComponent implements OnInit {
     private brickVersionService: HaBrickVersionService,
     private dialogService: FlDialogService,
     private metadataService: HaMetadataService,
-    private brickPageState: HaBrickPageState) {
-  }
+    private brickPageState: HaBrickPageState
+  ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   private init(brick: HaBrick): void {
     this.metadataService.setPageTitle('ha.versions.brick.title', true, { brickTitle: brick.name });
-    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, { brickTitle: brick.name });
+    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, {
+      brickTitle: brick.name,
+    });
     this.setDataSource(brick);
   }
 
@@ -59,17 +56,18 @@ export class HaPublicVersionsComponent implements OnInit {
         commit: null,
         brickId: brickId,
         subPatch: null,
-        isBeta: false
-      } as HaNewVersionDTO
+        isBeta: false,
+      } as HaNewVersionDTO,
     };
 
-    this.dialogService.openSmallDialog(HaPublicAddVersionDialogComponent, { data: input }).afterClosed().subscribe(
-      (res: HaNodeDTO) => {
+    this.dialogService
+      .openSmallDialog(HaPublicAddVersionDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((res: HaNodeDTO) => {
         if (res != null) {
           this.setDataSource(this.brick());
         }
-      }
-    );
+      });
   }
 
   private setDataSource(brick: HaBrick): void {

@@ -8,9 +8,8 @@ describe('CaLabBackupsStatusesAdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabBackupsStatusesAdminComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabBackupsStatusesAdminComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabBackupsStatusesAdminComponent);
     component = fixture.componentInstance;

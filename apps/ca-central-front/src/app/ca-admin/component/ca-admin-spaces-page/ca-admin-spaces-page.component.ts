@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 /**
  * Search page for all the spaces
@@ -8,13 +8,10 @@ import {FlTranslateService} from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-admin-spaces-page',
   templateUrl: './ca-admin-spaces-page.component.html',
-  styleUrls: ['./ca-admin-spaces-page.component.scss']
+  styleUrls: ['./ca-admin-spaces-page.component.scss'],
 })
 export class CaAdminSpacesPageComponent {
-
-  constructor(titleService: Title,
-              translateService: FlTranslateService) {
+  constructor(titleService: Title, translateService: FlTranslateService) {
     titleService.setTitle(`Admin - ${translateService.translate('space_list')}`);
   }
-
 }

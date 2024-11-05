@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 /**
  * Search page for all bucket
@@ -11,9 +11,7 @@ import {FlTranslateService} from '@monorepo/front-core-lib';
   styleUrls: ['./ca-admin-buckets-page.component.scss'],
 })
 export class CaAdminBucketsPageComponent {
-
-  constructor(titleService: Title,
-              translateService: FlTranslateService) {
+  constructor(titleService: Title, translateService: FlTranslateService) {
     titleService.setTitle(`Admin - ${translateService.translate('bucket_list')}`);
   }
 }

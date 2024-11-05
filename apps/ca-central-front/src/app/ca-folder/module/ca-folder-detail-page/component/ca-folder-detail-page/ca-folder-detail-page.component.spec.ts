@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderDetailPageComponent} from './ca-folder-detail-page.component';
+import { CaFolderDetailPageComponent } from './ca-folder-detail-page.component';
 
 describe('CaFolderDetailPageComponent', () => {
   let component: CaFolderDetailPageComponent;
@@ -8,9 +8,8 @@ describe('CaFolderDetailPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderDetailPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderDetailPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,15 +1,21 @@
 <div class="content">
   <div class="left-side">
-    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
-                       class="space-list-option">
+    <mat-chip-option
+      [value]="isSelected('public')"
+      (click)="selectSpace('public')"
+      color="accent"
+      class="space-list-option">
       {{ 'biox.public' | translate }}
     </mat-chip-option>
     @if (spaces?.length > 0) {
       <mat-divider></mat-divider>
     }
     @for (space of spaces; track space.id) {
-      <mat-chip-option [value]="isSelected(space.id)" (click)="selectSpace(space.id)" color="warn"
-                       class="space-list-option">
+      <mat-chip-option
+        [value]="isSelected(space.id)"
+        (click)="selectSpace(space.id)"
+        color="warn"
+        class="space-list-option">
         {{ space.name }}
       </mat-chip-option>
     }
@@ -18,22 +24,28 @@
     <div class="search-bar-title">
       <form type="submit" (ngSubmit)="search()">
         <mat-form-field class="search-bar">
-          <input matInput [formControl]="titleFormControl" placeholder="{{'biox.search_by_title' | translate}}">
+          <input
+            matInput
+            [formControl]="titleFormControl"
+            placeholder="{{ 'biox.search_by_title' | translate }}" />
           <button mat-icon-button matSuffix (click)="search()">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
       </form>
     </div>
-    <div class="agents-list-div g-scrollable-element" *ngIf="agentsDatasource"
-         (flInfiniteScroll)="agentsDatasource.getNextPage()"
-         [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
-         flInfiniteMode="auto">
+    <div
+      class="agents-list-div g-scrollable-element"
+      *ngIf="agentsDatasource"
+      (flInfiniteScroll)="agentsDatasource.getNextPage()"
+      [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
+      flInfiniteMode="auto">
       <div *ngFor="let agent of agentsDatasource.connect() | async">
-        <co-agent-list-item [agent]="pythonLabAgentToCoAgent(agent)"
-                            class="agent-item" (click)="onAgentClick(agent)"></co-agent-list-item>
+        <co-agent-list-item
+          [agent]="pythonLabAgentToCoAgent(agent)"
+          class="agent-item"
+          (click)="onAgentClick(agent)"></co-agent-list-item>
       </div>
     </div>
   </div>
 </div>
-

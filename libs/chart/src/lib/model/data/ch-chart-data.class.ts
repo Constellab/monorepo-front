@@ -2,12 +2,10 @@
  * Object containing a list of data
  */
 export interface ChChartDataContainer<Data> {
-
   getData(): Data[];
 }
 
 export interface ChChartData {
-
   /**
    * Value of getter that tell if the chart data is valid and can be added to the chart
    */
@@ -17,11 +15,12 @@ export interface ChChartData {
 }
 
 export class ChChart2dDatum implements ChChartData {
-
   tags?: Record<string, string>;
 
-  constructor(protected x: number, protected y: number) {
-  }
+  constructor(
+    protected x: number,
+    protected y: number
+  ) {}
 
   getX(defaultValue: number = null): number {
     return this.x ?? defaultValue;
@@ -31,14 +30,17 @@ export class ChChart2dDatum implements ChChartData {
     return this.y ?? defaultValue;
   }
 
-
   get valid(): boolean {
     return this.x != null && this.y != null;
   }
 }
 
 export class ChChart3dDatum extends ChChart2dDatum {
-  constructor(x: number, y: number, private z: number) {
+  constructor(
+    x: number,
+    y: number,
+    private z: number
+  ) {
     super(x, y);
   }
 

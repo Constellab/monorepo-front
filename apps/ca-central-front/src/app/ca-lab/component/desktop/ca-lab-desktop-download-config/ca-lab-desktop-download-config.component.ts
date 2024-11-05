@@ -11,23 +11,23 @@ export interface CaLabDesktopDownloadConfigInput {
 @Component({
   selector: 'ca-lab-desktop-download-config',
   templateUrl: './ca-lab-desktop-download-config.component.html',
-  styleUrls: ['./ca-lab-desktop-download-config.component.scss']
+  styleUrls: ['./ca-lab-desktop-download-config.component.scss'],
 })
 export class CaLabDesktopDownloadConfigComponent implements OnInit {
-
   formGp: FormGroup;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: CaLabDesktopDownloadConfigInput,
-              private formBuilder: FormBuilder,
-              private labService: CaLabService,
-              private dialogRef: MatDialogRef<CaLabDesktopDownloadConfigComponent>) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private data: CaLabDesktopDownloadConfigInput,
+    private formBuilder: FormBuilder,
+    private labService: CaLabService,
+    private dialogRef: MatDialogRef<CaLabDesktopDownloadConfigComponent>
+  ) {}
 
   ngOnInit(): void {
     this.formGp = this.formBuilder.group({
-      glabTag: [null]
+      glabTag: [null],
     });
   }
 
@@ -39,11 +39,10 @@ export class CaLabDesktopDownloadConfigComponent implements OnInit {
 
   private downloadConfig(): void {
     this.isLoading = true;
-    this.labService.getDesktopConfigDownloadUrl(this.data.labId, this.formGp.getRawValue())
-      .subscribe({
-        next: (result) => this.downloadConfigSuccess(result),
-        error: () => this.isLoading = false
-      });
+    this.labService.getDesktopConfigDownloadUrl(this.data.labId, this.formGp.getRawValue()).subscribe({
+      next: (result) => this.downloadConfigSuccess(result),
+      error: () => (this.isLoading = false),
+    });
   }
 
   private downloadConfigSuccess(result: Blob): void {
@@ -51,6 +50,4 @@ export class CaLabDesktopDownloadConfigComponent implements OnInit {
     this.dialogRef.close();
     this.isLoading = false;
   }
-
-
 }

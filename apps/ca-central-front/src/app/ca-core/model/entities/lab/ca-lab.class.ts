@@ -6,7 +6,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform
+  FlStatusTransform,
 } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { CaSpace } from '../space/ca-space.class';
@@ -20,9 +20,8 @@ export type CaLabBillingMode = 'HOURLY' | 'MONTHLY';
 export type CaLabType = 'CLOUD' | 'DESKTOP' | 'ON_PREMISE';
 export type CaLabDesktopPlatform = 'WINDOWS' | 'LINUX' | 'MAC';
 
-
 export type CaLabStatus =
-  'LAB_RUNNING'  // server and lab running
+  | 'LAB_RUNNING' // server and lab running
   | 'SERVER_STOPPED' // server stopped in the cloud (billing stopped)
   | 'SERVER_STARTING' // server is starting in the cloud
   | 'SERVER_STOPPING' // server is stopping in the cloud
@@ -30,7 +29,6 @@ export type CaLabStatus =
   | 'SERVER_CONFIGURED' // server is started and lab manager is running
   | 'NO_SERVER'
   | 'ERROR';
-
 
 export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
   LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING'),
@@ -44,7 +42,10 @@ export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
 };
 
 export const caLabStatusTemp: CaLabStatus[] = [
-  'SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'
+  'SERVER_STARTING',
+  'SERVER_STOPPING',
+  'SERVER_RUNNING',
+  'SERVER_CONFIGURED',
 ];
 
 export type CaLabServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
@@ -56,7 +57,6 @@ export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
 };
 
 export class CaLabStatusHistory extends CaStatusHistory<CaLabStatus> {
-
   @FlStatusTransform(caLabStatusDict)
   status: FlStatus<CaLabStatus>;
 }
@@ -67,7 +67,6 @@ export type CaLabStatusHistoryDatasource<F = void> = FlEntityPaginatedDatasource
  * A lab is a running lab
  */
 export class CaLab extends CaBaseEntity {
-
   static MAX_NAME_LENGTH = 50;
 
   name: string;
@@ -166,7 +165,6 @@ export class CaLabWithSpace extends CaLab {
 
 export type CaLabDatasource<F = void> = FlEntityPaginatedDatasource<CaLab, F>;
 
-
 export class CaLabFindOneDto {
   @Type(() => CaLab)
   lab: CaLab;
@@ -194,8 +192,7 @@ export class CaLabStatusDTO {
 
   serverIsRunning(): boolean {
     const runningStatus: CaLabStatus[] = ['LAB_RUNNING', 'SERVER_RUNNING', 'SERVER_CONFIGURED'];
-    return this.labIsRunning || this.labManagerIsRunning ||
-      runningStatus.includes(this.labStatus.value);
+    return this.labIsRunning || this.labManagerIsRunning || runningStatus.includes(this.labStatus.value);
   }
 
   serverIsBusy(): boolean {
@@ -226,7 +223,7 @@ export class CaLabServerInfoDTO {
   volumeType: CaLabVolumeType;
 }
 
-export class CaLabCodelabDTO{
+export class CaLabCodelabDTO {
   username: string;
   token: string;
   url: string;

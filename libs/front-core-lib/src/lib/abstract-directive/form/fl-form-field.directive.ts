@@ -17,13 +17,11 @@ import { ClHelpService } from '@monorepo/core-lib';
  */
 @Directive()
 export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements ControlValueAccessor {
-
   protected _value: INNER;
 
   get value(): INNER {
     return this._value;
   }
-
 
   // set the value or array
   set value(value: INNER) {
@@ -59,7 +57,7 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    */
   @Input() set disabled(isDisabled: boolean) {
     const disabled = ClHelpService.coerceBooleanOrEmptyProperty(isDisabled);
-    if(this._disabled === disabled) return;
+    if (this._disabled === disabled) return;
     this._disabled = disabled;
     this.onDisableChange(this._disabled);
   }
@@ -70,7 +68,6 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
   get required(): boolean {
     return this._required;
   }
-
 
   /**
    * Whether filling out the input is required in the form
@@ -102,7 +99,6 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
   protected registerValidateMethod(): void {
     this.ngControl.control.setValidators([this.validate.bind(this)]);
   }
-
 
   private onChange: (_: OUTER) => void = () => {
     // tslint:disable-next-line
@@ -157,7 +153,6 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
    */
   abstract callChangeEvent(value: OUTER): void;
 
-
   /**
    * Method to be extended (if INNER !== OUTER) to convert the outer value to inner value
    * used when receiving the value for the model.
@@ -181,7 +176,4 @@ export abstract class FlFormFieldDirective<INNER, OUTER = INNER> implements Cont
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-
-
-
 }

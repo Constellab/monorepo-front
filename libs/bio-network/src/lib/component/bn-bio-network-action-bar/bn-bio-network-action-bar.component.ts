@@ -1,10 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {BnBioNetworkState} from '../../state/bn-bio-network.state';
-import {filter} from 'rxjs/operators';
-import {BnBioNetworkGraph} from '../../model/bn-bio-network-graph.class';
-import {BnBioNetworkOptionsState, BnBioNetworkParticleColorScale} from '../../state/bn-bio-network-options.state';
-import {BnBioNetworkMetaboliteLevel} from '../../model/bn-bio-network.class';
-import {BnBioNetworkSelectionState} from '../../state/bn-bio-network-selection.state';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { filter } from 'rxjs/operators';
+import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
+import {
+  BnBioNetworkOptionsState,
+  BnBioNetworkParticleColorScale,
+} from '../../state/bn-bio-network-options.state';
+import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
+import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection.state';
 
 /**
  * Component inside the {@link BnBioNetworkComponent} to show the quick actions
@@ -13,10 +16,9 @@ import {BnBioNetworkSelectionState} from '../../state/bn-bio-network-selection.s
   selector: 'bn-bio-network-action-bar',
   templateUrl: './bn-bio-network-action-bar.component.html',
   styleUrls: ['./bn-bio-network-action-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnBioNetworkActionBarComponent implements OnInit {
-
   isReady: boolean = false;
 
   fluxThreshold: number = 0;
@@ -34,11 +36,12 @@ export class BnBioNetworkActionBarComponent implements OnInit {
   particleDensityThreshold: number;
   particleSpeedThreshold: number;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private state: BnBioNetworkState,
-              private selectionState: BnBioNetworkSelectionState,
-              private optionState: BnBioNetworkOptionsState) {
-  }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private state: BnBioNetworkState,
+    private selectionState: BnBioNetworkSelectionState,
+    private optionState: BnBioNetworkOptionsState
+  ) {}
 
   ngOnInit(): void {
     const options = this.optionState.getCurrentOptions();
@@ -53,15 +56,13 @@ export class BnBioNetworkActionBarComponent implements OnInit {
     this.particleDensityThreshold = options.particleDensityThreshold;
     this.particleSpeedThreshold = options.particleSpeedThreshold;
 
-    this.state.getChartData$().subscribe(
-      chartData => this.onNewData(chartData)
-    );
+    this.state.getChartData$().subscribe((chartData) => this.onNewData(chartData));
 
     // clear the slider every time the selection is not a linkByValue
-    this.selectionState.getSelectionMode$().pipe(
-      filter(selection => selection.mode !== 'linkByValue')).subscribe(
-      () => this.resetSlider()
-    );
+    this.selectionState
+      .getSelectionMode$()
+      .pipe(filter((selection) => selection.mode !== 'linkByValue'))
+      .subscribe(() => this.resetSlider());
   }
 
   private onNewData(chartData: BnBioNetworkGraph): void {
@@ -71,11 +72,9 @@ export class BnBioNetworkActionBarComponent implements OnInit {
     } else {
       this.maxFluxValue = 0;
       this.isReady = false;
-
     }
     this.cdr.markForCheck();
   }
-
 
   setParticlesColors(): void {
     this.optionState.setParticleColorMode(this.particlesColorMode);
@@ -102,8 +101,11 @@ export class BnBioNetworkActionBarComponent implements OnInit {
   }
 
   toggleShowMinors(): void {
-    this.optionState.setVisibleLevels(this.showMinors ?
-      [BnBioNetworkMetaboliteLevel.MAJOR, BnBioNetworkMetaboliteLevel.MINOR] : [BnBioNetworkMetaboliteLevel.MAJOR]);
+    this.optionState.setVisibleLevels(
+      this.showMinors
+        ? [BnBioNetworkMetaboliteLevel.MAJOR, BnBioNetworkMetaboliteLevel.MINOR]
+        : [BnBioNetworkMetaboliteLevel.MAJOR]
+    );
   }
 
   particleDensityThresholdChange(): void {
@@ -125,10 +127,7 @@ export class BnBioNetworkActionBarComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
-
   exportAllNetwork(): void {
     this.state.downloadNetworkJson();
   }
-
-
 }

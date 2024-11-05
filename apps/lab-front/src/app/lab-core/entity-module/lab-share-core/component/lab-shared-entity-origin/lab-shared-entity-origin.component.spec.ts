@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSharedEntityOriginComponent} from './lab-shared-entity-origin.component';
+import { LabSharedEntityOriginComponent } from './lab-shared-entity-origin.component';
 
 describe('LabResourceShareOriginComponent', () => {
   let component: LabSharedEntityOriginComponent;
@@ -8,9 +8,8 @@ describe('LabResourceShareOriginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSharedEntityOriginComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSharedEntityOriginComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabSharedEntityOriginComponent);
     component = fixture.componentInstance;

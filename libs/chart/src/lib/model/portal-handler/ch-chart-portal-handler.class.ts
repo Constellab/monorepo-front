@@ -1,15 +1,15 @@
-import {ComponentType, ConnectedPosition} from '@angular/cdk/overlay';
-import {NgZone} from '@angular/core';
+import { ComponentType, ConnectedPosition } from '@angular/cdk/overlay';
+import { NgZone } from '@angular/core';
 import {
   ChChartDataWithSeriePortalComponent,
-  ChChartDataWithSeriePortalInput
+  ChChartDataWithSeriePortalInput,
 } from '../../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
 import {
   FlOverlayRef,
   FlPortalConfig,
   FlPortalService,
   FlRelativeOverlayConfig,
-  flRootInjector
+  flRootInjector,
 } from '@monorepo/front-core-lib';
 
 /**
@@ -17,15 +17,18 @@ import {
  * on chart renderer object
  */
 export class ChChartPortalHandler {
-
   private currentHoverOverlay: FlOverlayRef;
 
   private portalFixed: boolean = false;
 
   private clickListener: () => void;
 
-  public openPortal(element: Element, component: ComponentType<any>, data: any,
-                    fixPortal: boolean = false): void {
+  public openPortal(
+    element: Element,
+    component: ComponentType<any>,
+    data: any,
+    fixPortal: boolean = false
+  ): void {
     // close the existing portal unless existing portal is fixed and new portal is not
     this.closePortal(fixPortal);
     if (this.currentHoverOverlay != null) return;
@@ -49,8 +52,11 @@ export class ChChartPortalHandler {
     ];
 
     // configure the portal position
-    const portalConfig: FlPortalConfig =
-      portalService.configureRelativePortal(element, positions, overlayConfig);
+    const portalConfig: FlPortalConfig = portalService.configureRelativePortal(
+      element,
+      positions,
+      overlayConfig
+    );
 
     // run the portal in NgZone because all the chart is outside zone
     ngZone.run(() => {
@@ -60,8 +66,11 @@ export class ChChartPortalHandler {
     });
   }
 
-  public openDataWithSeriePortal(element: Element, data: ChChartDataWithSeriePortalInput,
-                                 fixPortal: boolean = false): void {
+  public openDataWithSeriePortal(
+    element: Element,
+    data: ChChartDataWithSeriePortalInput,
+    fixPortal: boolean = false
+  ): void {
     // create the portal
     this.openPortal(element, ChChartDataWithSeriePortalComponent, data, fixPortal);
   }

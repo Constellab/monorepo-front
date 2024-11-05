@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceUserSearchComponent} from './ca-space-user-search.component';
+import { CaSpaceUserSearchComponent } from './ca-space-user-search.component';
 
 describe('CaSpaceUserSearchComponent', () => {
   let component: CaSpaceUserSearchComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceUserSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceUserSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceUserSearchComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpaceUserSearchComponent);
     component = fixture.componentInstance;

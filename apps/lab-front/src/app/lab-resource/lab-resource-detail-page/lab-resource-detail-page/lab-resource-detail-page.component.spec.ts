@@ -8,9 +8,8 @@ describe('BioxResourceDetailPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceDetailPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceDetailPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

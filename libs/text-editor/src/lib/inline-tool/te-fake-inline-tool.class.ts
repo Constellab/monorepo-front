@@ -1,4 +1,4 @@
-import {InlineTool} from '@editorjs/editorjs';
+import { InlineTool } from '@editorjs/editorjs';
 
 /**
  * Fake inline tool that do ot render a button in the toolbar
@@ -6,7 +6,6 @@ import {InlineTool} from '@editorjs/editorjs';
  * So the convert to block can be showed
  */
 export class TeFakeInlineTool implements InlineTool {
-
   public static isInline = true;
 
   public render(): HTMLElement {
@@ -15,8 +14,7 @@ export class TeFakeInlineTool implements InlineTool {
     return div;
   }
 
-  public surround(): void {
-  }
+  public surround(): void {}
 
   public checkState(): boolean {
     return false;

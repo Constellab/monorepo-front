@@ -1,11 +1,9 @@
-import {BrushBehavior} from 'd3-brush';
-import {Selection} from 'd3-selection';
-import {ChChartContainer2Axis} from './ch-chart-container.class';
-import {brush, brushX, brushY} from 'd3';
-
+import { BrushBehavior } from 'd3-brush';
+import { Selection } from 'd3-selection';
+import { ChChartContainer2Axis } from './ch-chart-container.class';
+import { brush, brushX, brushY } from 'd3';
 
 export abstract class ChChartBrush {
-
   protected brush: BrushBehavior<any>;
 
   protected chart: ChChartContainer2Axis<any>;
@@ -27,16 +25,17 @@ export abstract class ChChartBrush {
   public initBrush(chart: ChChartContainer2Axis<any>): void {
     this.chart = chart;
     // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-    this.brush.extent([[0, 0], [this.chart.chartWidth, this.chart.chartHeight]])
+    this.brush
+      .extent([
+        [0, 0],
+        [this.chart.chartWidth, this.chart.chartHeight],
+      ])
 
       // Each time the brush selection changes, trigger the 'updateChart' function
       .on('end', (event) => this.updateChart(event));
 
     // Add the brushing
-    this.brushContainer = this.chart.chartContainer
-      .append('g')
-      .attr('class', 'brush')
-      .call(this.brush);
+    this.brushContainer = this.chart.chartContainer.append('g').attr('class', 'brush').call(this.brush);
 
     // listen to dblclick to reset zoom
     this.listenToDblClick();
@@ -70,11 +69,9 @@ export abstract class ChChartBrush {
 }
 
 export class ChChart2dBrush extends ChChartBrush {
-
   constructor() {
     super(brush());
   }
-
 
   zoom(extent: number[][]): void {
     this.chart.zoom(extent[0][0], extent[1][0], extent[0][1], extent[1][1]);
@@ -86,11 +83,9 @@ export class ChChart2dBrush extends ChChartBrush {
 }
 
 export class ChChart2dBrushX extends ChChartBrush {
-
   constructor() {
     super(brushX());
   }
-
 
   zoom(extent: number[]): void {
     this.chart.zoomX(extent[0], extent[1]);
@@ -102,11 +97,9 @@ export class ChChart2dBrushX extends ChChartBrush {
 }
 
 export class ChChart2dBrushY extends ChChartBrush {
-
   constructor() {
     super(brushY());
   }
-
 
   zoom(extent: number[]): void {
     this.chart.zoomY(extent[0], extent[1]);

@@ -5,10 +5,11 @@
   background-color: var(--card-background);
 }
 
-.item{
+.item {
   padding: 0.5em 1em;
 }
 
-.item:hover, .selected {
+.item:hover,
+.selected {
   background-color: var(--hover-color);
 }

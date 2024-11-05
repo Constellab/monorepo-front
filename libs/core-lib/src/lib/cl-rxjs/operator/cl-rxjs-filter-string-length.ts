@@ -1,6 +1,6 @@
-import {filter, map} from 'rxjs/operators';
-import {clRxjsFilterNonNull} from './cl-rxjs-filter-non-null';
-import {Observable} from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { clRxjsFilterNonNull } from './cl-rxjs-filter-non-null';
+import { Observable } from 'rxjs';
 
 /**
  * Simple RXJS operator to filter string and only emit string
@@ -17,9 +17,9 @@ export function clRxjsFilterStringLength(minLength: number = 0, trimString: bool
       // filter out null values
       clRxjsFilterNonNull(),
       // filter out non strings
-      filter(value => typeof value === 'string'),
+      filter((value) => typeof value === 'string'),
       // trim string if necessary
-      map((value: string) => trimString ? value.trim() : value),
+      map((value: string) => (trimString ? value.trim() : value)),
       // filter string with length
       filter((value: string) => value.length >= minLength)
     );

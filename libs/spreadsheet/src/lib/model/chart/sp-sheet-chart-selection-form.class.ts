@@ -1,10 +1,9 @@
-import {SpSheetSingleSelection} from '../selection/sp-sheet-single-selection.class';
-import {SpCellCoordRange} from '../sp-cell-coord.class';
-import {ChChartHistogramMode, ChChartType} from '@monorepo/chart';
-
+import { SpSheetSingleSelection } from '../selection/sp-sheet-single-selection.class';
+import { SpCellCoordRange } from '../sp-cell-coord.class';
+import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
 
 export type SpSpreadsheetChartSelectionInput =
-  SpSpreadsheetChartSelectionInputCreate
+  | SpSpreadsheetChartSelectionInputCreate
   | SpSpreadsheetChartSelectionInputUpdate;
 
 // data for when selecting data for a new chart
@@ -25,7 +24,6 @@ export interface SpSheetChartSelectionResult {
   formValue: SpSheetChartSelectionForm;
 }
 
-
 /**
  * Type used in the form of {@link SpSheetChartSelectionComponent}
  */
@@ -44,14 +42,16 @@ export interface SpSheetChartSelectionForm {
   additionalFields: SpSheetChartSelectionFormAdditional;
 }
 
-export type SpSheetSelectionRange = {
-  type: 'range';
-  selection: SpCellCoordRange[];
-} | {
-  type: 'columns';
-  // selected columns
-  selection: string[];
-}
+export type SpSheetSelectionRange =
+  | {
+      type: 'range';
+      selection: SpCellCoordRange[];
+    }
+  | {
+      type: 'columns';
+      // selected columns
+      selection: string[];
+    };
 
 export interface SpSheetChartSelectionFormAdditional {
   // for the Histogram
@@ -68,7 +68,6 @@ export interface SpSheetChartSelectionFormAdditional {
   yThreshold?: number;
 }
 
-
 /**
  * Form value of a serie selection
  */
@@ -83,5 +82,3 @@ export interface SpSheetChartSerieSelectionForm {
 export interface SpSheetChart2dSerieSelectionForm extends SpSheetChartSerieSelectionForm {
   x?: SpSheetSelectionRange; // string of the x selection
 }
-
-

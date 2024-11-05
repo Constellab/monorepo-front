@@ -1,8 +1,8 @@
-import {Observable, Subject} from 'rxjs';
-import {TeConfigEvent} from './te-config.class';
+import { Observable, Subject } from 'rxjs';
+import { TeConfigEvent } from './te-config.class';
 
 // Event class to handle the events incoming and outgoing from the text editor
-export class TeEvent{
+export class TeEvent {
   // Incoming events
   private events: Subject<TeConfigEvent> = new Subject();
 

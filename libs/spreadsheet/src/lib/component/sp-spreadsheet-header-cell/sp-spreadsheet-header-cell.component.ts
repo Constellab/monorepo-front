@@ -6,34 +6,38 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
-import {SpSpreadsheetSelectionState} from '../../state/sp-spreadsheet-selection.state';
-import {Observable, Subscription} from 'rxjs';
-import {SpSheetSingleSelection} from '../../model/selection/sp-sheet-single-selection.class';
-import {FlHeaderCellType, headerIndexAttributeName, headerTypeAttributeName} from '../../model/sp-cell.class';
-import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
-import {SpSpreadsheetHeaderInfoComponent} from '../sp-spreadsheet-header-info/sp-spreadsheet-header-info.component';
-import {SpSheetHeader, SpSheetHeaderInfo} from '../../model/sp-sheet-headers.class';
-import {FlOverlayRef, FlPortalConnectedPosition, FlPortalService} from '@monorepo/front-core-lib';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import { Observable, Subscription } from 'rxjs';
+import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
+import {
+  FlHeaderCellType,
+  headerIndexAttributeName,
+  headerTypeAttributeName,
+} from '../../model/sp-cell.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpSpreadsheetHeaderInfoComponent } from '../sp-spreadsheet-header-info/sp-spreadsheet-header-info.component';
+import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
+import { FlOverlayRef, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'sp-spreadsheet-header-cell',
   templateUrl: './sp-spreadsheet-header-cell.component.html',
   styleUrls: ['./sp-spreadsheet-header-cell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
-
-
   @HostBinding('attr.' + headerIndexAttributeName)
-  @Input() index: number;
+  @Input()
+  index: number;
 
   @Input() header: SpSheetHeader;
 
   // if the header cell is a row or a column
   @HostBinding('attr.' + headerTypeAttributeName)
-  @Input() type: FlHeaderCellType;
+  @Input()
+  type: FlHeaderCellType;
 
   colors$: Observable<string[]>;
 
@@ -41,23 +45,23 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
 
   private overlayRef: FlOverlayRef;
 
-  constructor(private state: SpSpreadsheetState,
-              private selectionState: SpSpreadsheetSelectionState,
-              private renderer: Renderer2,
-              private elementRef: ElementRef,
-              private portalService: FlPortalService) {
-  }
+  constructor(
+    private state: SpSpreadsheetState,
+    private selectionState: SpSpreadsheetSelectionState,
+    private renderer: Renderer2,
+    private elementRef: ElementRef,
+    private portalService: FlPortalService
+  ) {}
 
   ngOnInit(): void {
     this.subscribeToSelection();
     this.subscribeToColor();
   }
 
-
   private subscribeToSelection(): void {
-    this.subscription = this.selectionState.getSelection$().subscribe(
-      selection => this.onSelectionChange(selection)
-    );
+    this.subscription = this.selectionState
+      .getSelection$()
+      .subscribe((selection) => this.onSelectionChange(selection));
   }
 
   private onSelectionChange(selection: SpSheetSingleSelection): void {
@@ -94,7 +98,6 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
     }
   }
 
-
   /////////////////////////////// HEADER INFO ///////////////////////////////
 
   openHeaderPortal(): void {
@@ -115,10 +118,9 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
     this.openHeaderInfoPortal(headerInfo);
   }
 
-
   private openHeaderInfoPortal(headerInfo: SpSheetHeaderInfo): void {
-    const positions: FlPortalConnectedPosition[] = this.type === 'row' ? ['bottom', 'top', 'right', 'left'] :
-      ['right', 'left', 'top', 'bottom'];
+    const positions: FlPortalConnectedPosition[] =
+      this.type === 'row' ? ['bottom', 'top', 'right', 'left'] : ['right', 'left', 'top', 'bottom'];
 
     const config = this.portalService.configureRelativePortal(this.elementRef.nativeElement, positions, {
       disposeOnNavigation: true,
@@ -137,5 +139,4 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
     this.closePortal();
   }
-
 }

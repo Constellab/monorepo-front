@@ -2,20 +2,16 @@ import { TdBrick, TdTypingName } from '@monorepo/technical-doc';
 import { CoConfig } from '../service/co-service-config.config';
 import { Injectable } from '@angular/core';
 
-
 export type CoBrickVersionPath = 'latest' | string;
 
 /**
  * Class to get url of the hub
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CoCommunityHelperService {
-
-  constructor(private config: CoConfig) {
-
-  }
+  constructor(private config: CoConfig) {}
   ///////////////////////// FRONT //////////////////////////
 
   public getCommunityUrl(): string {
@@ -50,26 +46,45 @@ export class CoCommunityHelperService {
 
   /////////////////////////////////// SPECIFIC ROUTES //////////////////////////////////////
 
-  public getDataLabOverviewRoute(): string{
-    return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/overview/294e86b4-ce9a-4c56-b34e-61c9a9a8260d')
+  public getDataLabOverviewRoute(): string {
+    return this.getDocUrl(
+      TdBrick.GWS_ACADEMY,
+      'latest',
+      'digital-lab/overview/294e86b4-ce9a-4c56-b34e-61c9a9a8260d'
+    );
   }
 
-  public getDataLabManagementRoute(): string{
-    return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/on-cloud-digital-lab-management/4ab03b1f-a96d-4d7a-a733-ad1edf4fb53c')
-
+  public getDataLabManagementRoute(): string {
+    return this.getDocUrl(
+      TdBrick.GWS_ACADEMY,
+      'latest',
+      'digital-lab/on-cloud-digital-lab-management/4ab03b1f-a96d-4d7a-a733-ad1edf4fb53c'
+    );
   }
 
   public getDesktopDocUrl(): string {
-    return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest', 'digital-lab/digital-lab-for-desktop/700a88e8-da5c-4e97-b6eb-86e1b26f73e4')
+    return this.getDocUrl(
+      TdBrick.GWS_ACADEMY,
+      'latest',
+      'digital-lab/digital-lab-for-desktop/700a88e8-da5c-4e97-b6eb-86e1b26f73e4'
+    );
   }
 
   public getDevEnvironmentUrl(): string {
-    return this.getDocUrl(TdBrick.GWS_CORE, 'latest', 'developer-guide/dev-environment/getting-started/811dd5e9-e703-466d-bd99-c7c7f713a74e')
+    return this.getDocUrl(
+      TdBrick.GWS_CORE,
+      'latest',
+      'developer-guide/dev-environment/getting-started/811dd5e9-e703-466d-bd99-c7c7f713a74e'
+    );
   }
 
   public getImportResourceDocUrl(): string {
-    return this.getDocUrl(TdBrick.GWS_ACADEMY, 'latest',
-      'digital-lab/digital-resource/51b1f255-e08f-41f6-b503-10e37ea277b0', 'how-to-import-a-resource?');
+    return this.getDocUrl(
+      TdBrick.GWS_ACADEMY,
+      'latest',
+      'digital-lab/digital-resource/51b1f255-e08f-41f6-b503-10e37ea277b0',
+      'how-to-import-a-resource?'
+    );
   }
 
   ///////////////////////// API //////////////////////////

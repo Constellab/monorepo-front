@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {SpSheetHeaderInfo} from '../../model/sp-sheet-headers.class';
-import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
 
 /**
  * Portal to display information about a header (row or column)
@@ -9,10 +9,9 @@ import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
   selector: 'sp-spreadsheet-header-info',
   templateUrl: './sp-spreadsheet-header-info.component.html',
   styleUrls: ['./sp-spreadsheet-header-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpSpreadsheetHeaderInfoComponent  {
-
+export class SpSpreadsheetHeaderInfoComponent {
   headerInfo: SpSheetHeaderInfo;
 
   constructor(@Inject(FL_PORTAL_DATA) headerInfo: SpSheetHeaderInfo) {

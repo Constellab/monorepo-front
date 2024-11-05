@@ -8,9 +8,8 @@ describe('BioxScenarioSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioSearchComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

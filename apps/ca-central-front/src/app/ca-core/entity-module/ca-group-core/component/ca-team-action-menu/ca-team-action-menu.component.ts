@@ -1,9 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CaGroup} from '../../../../model/entities/ca-group.entity';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {CaTeamFormDialogComponent, CaTeamFormDialogInput} from '../ca-team-form-dialog/ca-team-form-dialog.component';
-import {CaGroupService} from '../../../../service-api/ca-group.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CaGroup } from '../../../../model/entities/ca-group.entity';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  CaTeamFormDialogComponent,
+  CaTeamFormDialogInput,
+} from '../ca-team-form-dialog/ca-team-form-dialog.component';
+import { CaGroupService } from '../../../../service-api/ca-group.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Action menu button to edit or delete a team
@@ -11,22 +14,21 @@ import {ClHelpService} from '@monorepo/core-lib';
 @Component({
   selector: 'ca-team-action-menu',
   templateUrl: './ca-team-action-menu.component.html',
-  styleUrls: ['./ca-team-action-menu.component.scss']
+  styleUrls: ['./ca-team-action-menu.component.scss'],
 })
 export class CaTeamActionMenuComponent implements OnInit {
-
   @Input() team: CaGroup;
 
   @Input() stopClickEvent: boolean = false;
 
   @Output() teamDeleted: EventEmitter<CaGroup> = new EventEmitter();
 
-  constructor(private dialogService: FlDialogService,
-              private groupService: CaGroupService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private groupService: CaGroupService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   stopEvent(event: MouseEvent): void {
     if (this.stopClickEvent) ClHelpService.stopEventPropagation(event);
@@ -37,13 +39,14 @@ export class CaTeamActionMenuComponent implements OnInit {
       mode: 'update',
       object: {
         id: this.team.id,
-        label: this.team.label
-      }
+        label: this.team.label,
+      },
     };
 
-    this.dialogService.openSmallDialog(CaTeamFormDialogComponent, {data: data}).afterClosed().subscribe(
-      group => this.onUpdateClosed(group)
-    );
+    this.dialogService
+      .openSmallDialog(CaTeamFormDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((group) => this.onUpdateClosed(group));
   }
 
   private onUpdateClosed(group?: CaGroup): void {
@@ -60,9 +63,10 @@ export class CaTeamActionMenuComponent implements OnInit {
       successMessage: 'team_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
@@ -70,5 +74,4 @@ export class CaTeamActionMenuComponent implements OnInit {
       this.teamDeleted.emit(this.team);
     }
   }
-
 }

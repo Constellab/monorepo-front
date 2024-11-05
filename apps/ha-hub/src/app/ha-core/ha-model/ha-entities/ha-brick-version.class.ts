@@ -1,9 +1,9 @@
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
-import {HaEntity} from './ha-entity.class';
-import {HaRepoType, HaVersionType} from './ha-version.class';
-import {HaBrickMajorVersion} from './ha-brick-major-version.class';
-import {Type} from 'class-transformer';
-import {ClVersion} from '@monorepo/core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { HaEntity } from './ha-entity.class';
+import { HaRepoType, HaVersionType } from './ha-version.class';
+import { HaBrickMajorVersion } from './ha-brick-major-version.class';
+import { Type } from 'class-transformer';
+import { ClVersion } from '@monorepo/core-lib';
 
 export class HaBrickVersion extends HaEntity {
   minor: number;
@@ -16,7 +16,8 @@ export class HaBrickVersion extends HaEntity {
   subPatch?: number;
 
   public get version(): ClVersion {
-    return this.versionType === HaVersionType.BETA ? new ClVersion(this.brickMajorVersion.major, this.minor, this.patch, this.subPatch)
+    return this.versionType === HaVersionType.BETA
+      ? new ClVersion(this.brickMajorVersion.major, this.minor, this.patch, this.subPatch)
       : new ClVersion(this.brickMajorVersion.major, this.minor, this.patch);
   }
 

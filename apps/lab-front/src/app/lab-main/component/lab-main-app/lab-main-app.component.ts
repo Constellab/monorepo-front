@@ -16,10 +16,9 @@ import { TdBrick } from '@monorepo/technical-doc';
 @Component({
   selector: 'lab-main-app',
   templateUrl: './lab-main-app.component.html',
-  styleUrls: ['./lab-main-app.component.scss']
+  styleUrls: ['./lab-main-app.component.scss'],
 })
 export class LabMainAppComponent implements OnInit {
-
   accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
@@ -35,12 +34,13 @@ export class LabMainAppComponent implements OnInit {
 
   toolbarColorClass$: Observable<string>;
 
-  constructor(private labEnvManager: LabEnvStore,
-              private authenticatedUserService: LabAuthenticatedUserService,
-              private systemService: LabSystemService,
-              private titleService: Title,
-              private brickService: LabBrickService) {
-  }
+  constructor(
+    private labEnvManager: LabEnvStore,
+    private authenticatedUserService: LabAuthenticatedUserService,
+    private systemService: LabSystemService,
+    private titleService: Title,
+    private brickService: LabBrickService
+  ) {}
 
   ngOnInit(): void {
     this.authenticatedUserService.loadAuthenticatedUser();
@@ -49,15 +49,13 @@ export class LabMainAppComponent implements OnInit {
     this.getLabInfo();
     this.checkBiota();
 
-    this.toolbarColorClass$ = this.labEnvManager.getLabEnvironment$().pipe(
-      map(env => env === 'prod' ? 'g-card-background' : 'g-accent-background')
-    );
+    this.toolbarColorClass$ = this.labEnvManager
+      .getLabEnvironment$()
+      .pipe(map((env) => (env === 'prod' ? 'g-card-background' : 'g-accent-background')));
   }
 
   private checkBiota(): void {
-    this.brickService.getBrick(TdBrick.GWS_BIOTA).subscribe(
-      brick => this.checkBiotaSuccess(brick)
-    );
+    this.brickService.getBrick(TdBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
   }
 
   private checkBiotaSuccess(brick: LabBrickEntity): void {
@@ -67,9 +65,7 @@ export class LabMainAppComponent implements OnInit {
   }
 
   private getLabInfo(): void {
-    this.systemService.getSystemInfo().subscribe(
-      systemInfo => this.getSystemInfoSuccess(systemInfo)
-    );
+    this.systemService.getSystemInfo().subscribe((systemInfo) => this.getSystemInfoSuccess(systemInfo));
   }
 
   private getSystemInfoSuccess(systemInfo: LabSystemInfo): void {

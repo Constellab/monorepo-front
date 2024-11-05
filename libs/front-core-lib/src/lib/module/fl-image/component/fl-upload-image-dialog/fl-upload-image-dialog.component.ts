@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {FlCompressBlobOption, FlImageHelper} from '../../../../service/fl-image.helper';
-import {Observable} from 'rxjs';
-import {FlSnackBarService} from '../../../fl-snack-bar/fl-snack-bar.service';
-import {FlTranslatableText} from '../../../fl-translate/model/fl-translate-param';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FlCompressBlobOption, FlImageHelper } from '../../../../service/fl-image.helper';
+import { Observable } from 'rxjs';
+import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
+import { FlTranslatableText } from '../../../fl-translate/model/fl-translate-param';
 
 export interface FlUploadImageDialogInput {
   config: FlUploadImageDialogConfig;
@@ -45,10 +45,9 @@ export interface FlUploadImageDialogOutput<T = any> {
 @Component({
   selector: 'fl-upload-image-dialog',
   templateUrl: './fl-upload-image-dialog.component.html',
-  styleUrls: ['./fl-upload-image-dialog.component.scss']
+  styleUrls: ['./fl-upload-image-dialog.component.scss'],
 })
 export class FlUploadImageDialogComponent implements OnInit {
-
   compressIsLoading = true;
 
   uploadIsLoading = false;
@@ -56,11 +55,11 @@ export class FlUploadImageDialogComponent implements OnInit {
   compressImageSrc: string;
   compressImage: File;
 
-
-  constructor(@Inject(MAT_DIALOG_DATA) public dialogInput: FlUploadImageDialogInput,
-              private dialogRef: MatDialogRef<FlUploadImageDialogComponent>,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public dialogInput: FlUploadImageDialogInput,
+    private dialogRef: MatDialogRef<FlUploadImageDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.onNewFile(this.dialogInput.file).then();
@@ -71,14 +70,13 @@ export class FlUploadImageDialogComponent implements OnInit {
     this.compressImage = null;
     try {
       if (this.dialogInput.config.compressOptions) {
-        this.compressImage = await FlImageHelper.compressBlob(file,
-          this.dialogInput.config.compressOptions);
+        this.compressImage = await FlImageHelper.compressBlob(file, this.dialogInput.config.compressOptions);
       } else {
         this.compressImage = file;
       }
       this.compressImageSrc = URL.createObjectURL(this.compressImage);
     } catch (e) {
-      this.snackBarService.openErrorMessage({text: 'flImage.file_is_not_image', translateText: true});
+      this.snackBarService.openErrorMessage({ text: 'flImage.file_is_not_image', translateText: true });
     }
     this.compressIsLoading = false;
   }
@@ -87,7 +85,7 @@ export class FlUploadImageDialogComponent implements OnInit {
     this.uploadIsLoading = true;
     this.dialogInput.config.uploadImage(this.compressImage).subscribe({
       next: (result) => this.saveSuccess(result),
-      error: () => this.uploadIsLoading = false
+      error: () => (this.uploadIsLoading = false),
     });
   }
 
@@ -95,7 +93,7 @@ export class FlUploadImageDialogComponent implements OnInit {
     if (this.dialogInput.config.uploadImageSuccessMessage) {
       this.snackBarService.openSuccessMessage(this.dialogInput.config.uploadImageSuccessMessage);
     }
-    this.dialogRef.close({choice: true, result} as FlUploadImageDialogOutput);
+    this.dialogRef.close({ choice: true, result } as FlUploadImageDialogOutput);
     this.uploadIsLoading = false;
   }
 }

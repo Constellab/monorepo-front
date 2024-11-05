@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HaBrickCreationDTO, HaBrickVisibility } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import {
+  HaBrickCreationDTO,
+  HaBrickVisibility,
+} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { Router } from '@angular/router';
@@ -11,10 +14,9 @@ import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class
 @Component({
   selector: 'ha-public-edit-brick-form',
   templateUrl: './ha-public-edit-brick-form.component.html',
-  styleUrls: ['./ha-public-edit-brick-form.component.scss']
+  styleUrls: ['./ha-public-edit-brick-form.component.scss'],
 })
 export class HaPublicEditBrickFormComponent implements OnInit {
-
   brick: HaBrickCreationDTO;
 
   formGp: UntypedFormGroup;
@@ -31,8 +33,8 @@ export class HaPublicEditBrickFormComponent implements OnInit {
     private brickService: HaBrickService,
     private router: Router,
     private snackBarService: FlSnackBarService,
-    private spaceService: HaSpaceService) {
-  }
+    private spaceService: HaSpaceService
+  ) {}
 
   ngOnInit(): void {
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {
@@ -45,7 +47,10 @@ export class HaPublicEditBrickFormComponent implements OnInit {
     this.formGp = new FormBuilder().group({
       name: [null, [Validators.required, Validators.pattern(/^\S*$/)]],
       description: [null, [Validators.required, Validators.maxLength(255)]],
-      version: [null, [Validators.required, Validators.pattern(new RegExp('^(\\d+\\.)(\\d+\\.)(\\*|\\d+)$'))]],
+      version: [
+        null,
+        [Validators.required, Validators.pattern(new RegExp('^(\\d+\\.)(\\d+\\.)(\\*|\\d+)$'))],
+      ],
       repoType: [HaRepoType.PIP],
       isBeta: [false],
       subPatch: [null, [Validators.min(0), FlGlobalValidators.isInteger]],
@@ -56,7 +61,7 @@ export class HaPublicEditBrickFormComponent implements OnInit {
       visibility: [HaBrickVisibility.PUBLIC],
       credentialUsername: [null],
       credentialPassword: [null],
-      space: [this.spaces[0]]
+      space: [this.spaces[0]],
     });
   }
 
@@ -72,17 +77,15 @@ export class HaPublicEditBrickFormComponent implements OnInit {
           formValue.repoType = HaRepoType.GIT;
         }
         this.isLoading = true;
-        this.brickService.create(formValue).subscribe(
-          {
-            next: (brick) => {
-              this.isLoading = false;
-              this.router.navigateByUrl('/bricks/' + brick.name).then();
-            },
-            error: () => {
-              this.isLoading = false;
-            }
-          }
-        )
+        this.brickService.create(formValue).subscribe({
+          next: (brick) => {
+            this.isLoading = false;
+            this.router.navigateByUrl('/bricks/' + brick.name).then();
+          },
+          error: () => {
+            this.isLoading = false;
+          },
+        });
       }
     } else {
       this.repoError = true;
@@ -93,7 +96,7 @@ export class HaPublicEditBrickFormComponent implements OnInit {
 
   onFileSelected($event: File): void {
     this.errorFile = false;
-    this.errorInput = {}
+    this.errorInput = {};
     this.inputFile = null;
     this.formGp.reset();
     if ($event == null) {
@@ -102,25 +105,30 @@ export class HaPublicEditBrickFormComponent implements OnInit {
     if (!$event.name.endsWith('.json')) {
       this.errorFile = true;
       this.errorFileText = 'file_wrong_type';
-      this.snackBarService.openErrorMessage({text: this.errorFileText, translateText: true});
+      this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
       return;
     }
-    if (typeof (FileReader) !== 'undefined' && !this.errorFile) {
+    if (typeof FileReader !== 'undefined' && !this.errorFile) {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
         const srcResult = JSON.parse(e.target.result);
 
-        if(!srcResult.name || !srcResult.version || !srcResult.environment){
+        if (!srcResult.name || !srcResult.version || !srcResult.environment) {
           this.errorFile = true;
           this.errorFileText = 'file_wrong_format';
-          this.snackBarService.openErrorMessage({text: this.errorFileText, translateText: true});
+          this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
           return;
         } else {
-          this.brickService.checkIfBrickExistByName(srcResult.name).subscribe(res => {
+          this.brickService.checkIfBrickExistByName(srcResult.name).subscribe((res) => {
             if (!res) {
-              this.inputFile =
-                new HaAddVersionInput(true, srcResult.name, srcResult.version, srcResult.environment, srcResult.technical_info);
+              this.inputFile = new HaAddVersionInput(
+                true,
+                srcResult.name,
+                srcResult.version,
+                srcResult.environment,
+                srcResult.technical_info
+              );
               this.formGp.controls.name.setValue(this.inputFile.name);
               const version: string[] = this.inputFile.version.split('-');
               this.formGp.controls.version.setValue(version[0]);
@@ -128,12 +136,12 @@ export class HaPublicEditBrickFormComponent implements OnInit {
               this.formGp.controls.technicalInfo.setValue(this.inputFile.technicalInfo);
               this.formGp.controls.isBeta.setValue(this.inputFile.isBeta);
 
-              if(this.formGp.controls.visibility.value === HaBrickVisibility.PRIVATE){
+              if (this.formGp.controls.visibility.value === HaBrickVisibility.PRIVATE) {
                 this.formGp.controls.visibility.setValue(HaBrickVisibility.PRIVATE);
               } else {
                 this.formGp.controls.visibility.setValue(HaBrickVisibility.PUBLIC);
               }
-              this.formGp.controls.space.setValue(this.spaces[0])
+              this.formGp.controls.space.setValue(this.spaces[0]);
 
               this.formGp.controls.repoType.setValue(HaRepoType.PIP);
               if (this.inputFile.isBeta) {
@@ -146,19 +154,19 @@ export class HaPublicEditBrickFormComponent implements OnInit {
               if (!this.formGp.controls.version.valid) {
                 this.errorInput['version'] = true;
               }
-              if(this.errorInput['name'] || this.errorInput['version']){
+              if (this.errorInput['name'] || this.errorInput['version']) {
                 this.errorFile = true;
                 this.errorFileText = 'file_wrong_format';
-                this.snackBarService.openErrorMessage({text: this.errorFileText, translateText: true});
+                this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
                 return;
               }
             } else {
               this.errorFile = true;
-              this.errorFileText = 'brick_already_exists'
-              this.snackBarService.openErrorMessage({text: this.errorFileText, translateText: true});
+              this.errorFileText = 'brick_already_exists';
+              this.snackBarService.openErrorMessage({ text: this.errorFileText, translateText: true });
               return;
             }
-          })
+          });
         }
       };
 

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDocumentNameFormDialogComponent} from './ca-document-name-form-dialog.component';
+import { CaDocumentNameFormDialogComponent } from './ca-document-name-form-dialog.component';
 
 describe('CaDocumentNameFormDialogComponent', () => {
   let component: CaDocumentNameFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaDocumentNameFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDocumentNameFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDocumentNameFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaDocumentNameFormDialogComponent);
     component = fixture.componentInstance;

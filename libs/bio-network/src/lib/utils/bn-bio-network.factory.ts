@@ -4,17 +4,17 @@ import {
   BnBioNetworkCompartment,
   bnBioNetworkIsCofactor,
   BnBioNetworkMetabolite,
-  BnBioNetworkReaction
+  BnBioNetworkReaction,
 } from '../model/bn-bio-network.class';
-import {BnBioNetworkHelper} from './bn-bio-network.helper';
-import {BnBioNetworkNodeMetabolite} from '../model/bn-bio-network-node-metabolite.class';
-import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
-import {BnBioNetworkNodeReaction} from '../model/bn-bio-network-node-reaction.class';
-import {BnBioNetworkNodeCofactor} from '../model/bn-bio-network-node-cofactor.class';
-import {BnBioNetworkLink} from '../model/bn-bio-network-node-link.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-import {FlColorHelper, FlThemeDetail} from '@monorepo/front-core-lib';
+import { BnBioNetworkHelper } from './bn-bio-network.helper';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
+import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { FlColorHelper, FlThemeDetail } from '@monorepo/front-core-lib';
 
 export class BnBioNetworkFactory {
   private reactions: BnBioNetworkNodeReaction[] = [];
@@ -27,10 +27,10 @@ export class BnBioNetworkFactory {
 
   private compartments: BnBioNetworkCompartment[];
 
-
-  constructor(private themeDetail: FlThemeDetail, private ignoreNodePositions: boolean) {
-  }
-
+  constructor(
+    private themeDetail: FlThemeDetail,
+    private ignoreNodePositions: boolean
+  ) {}
 
   public convertNetworkToNetworkD3(network: BnBioNetwork, selectedPathways: string[]): BnBioNetworkGraph {
     this.initCompartmentColors(network.compartments);
@@ -46,28 +46,38 @@ export class BnBioNetworkFactory {
 
     this.initReactionPositions();
 
-    return new BnBioNetworkGraph(this.metabolites, this.reactions, this.cofactors, this.links, this.interClusterLinks);
+    return new BnBioNetworkGraph(
+      this.metabolites,
+      this.reactions,
+      this.cofactors,
+      this.links,
+      this.interClusterLinks
+    );
   }
 
   /**
    * return the reactions nodes from the filterPathway using a specific database
    */
-  private initReactionsNodes(reactions: BnBioNetworkReaction[],
-                             metabolites: BnBioNetworkMetabolite[],
-                             selectedCluster: string[]): void {
+  private initReactionsNodes(
+    reactions: BnBioNetworkReaction[],
+    metabolites: BnBioNetworkMetabolite[],
+    selectedCluster: string[]
+  ): void {
     const reactionNodes: BnBioNetworkNodeReaction[] = [];
 
-
     for (const reaction of reactions) {
-
-      const reactionsClusters: BnBioNetworkClusterInfo[] = BnBioNetworkHelper.getReactionClusters(reaction, metabolites);
+      const reactionsClusters: BnBioNetworkClusterInfo[] = BnBioNetworkHelper.getReactionClusters(
+        reaction,
+        metabolites
+      );
       const existsInMultipleCluster: boolean = reactionsClusters.length > 1;
 
       const sameReactionNodes: BnBioNetworkNodeReaction[] = [];
 
-
       for (const cluster of selectedCluster) {
-        const reactionCluster: BnBioNetworkClusterInfo = reactionsClusters.find(c => c.clusterId === cluster);
+        const reactionCluster: BnBioNetworkClusterInfo = reactionsClusters.find(
+          (c) => c.clusterId === cluster
+        );
 
         if (!reactionCluster) continue;
 
@@ -75,7 +85,9 @@ export class BnBioNetworkFactory {
         const reactionNode = new BnBioNetworkNodeReaction(
           reaction.name ? reaction.name : reaction.id,
           reactionCluster,
-          this.themeDetail.hover, this.themeDetail.foreground, reaction,
+          this.themeDetail.hover,
+          this.themeDetail.foreground,
+          reaction,
           existsInMultipleCluster
         );
         reactionNodes.push(reactionNode);
@@ -85,19 +97,24 @@ export class BnBioNetworkFactory {
       // if the reaction is in multiple cluster, add the link between the reaction nodes
       if (sameReactionNodes.length > 1) {
         // create an object of all the combination of the reactions
-        const combinations: { from: BnBioNetworkNodeReaction, to: BnBioNetworkNodeReaction }[] = sameReactionNodes.flatMap(
-          (v, i) => sameReactionNodes.slice(i + 1).map(w => ({from: v, to: w}))
-        );
+        const combinations: { from: BnBioNetworkNodeReaction; to: BnBioNetworkNodeReaction }[] =
+          sameReactionNodes.flatMap((v, i) =>
+            sameReactionNodes.slice(i + 1).map((w) => ({ from: v, to: w }))
+          );
 
         // for each combination, create a cross cluster link between the two reaction
         for (const combination of combinations) {
-          const link = new BnBioNetworkLink(combination.from, combination.to, 0,
-            this.themeDetail.hover, 'cross-cluster-link');
+          const link = new BnBioNetworkLink(
+            combination.from,
+            combination.to,
+            0,
+            this.themeDetail.hover,
+            'cross-cluster-link'
+          );
           this.interClusterLinks.push(link);
         }
       }
     }
-
 
     this.reactions = reactionNodes;
   }
@@ -106,23 +123,23 @@ export class BnBioNetworkFactory {
    * return only the metabolites node included in the reactions (to filter with pathway)
    */
   private initMetabolitesNodes(metabolites: BnBioNetworkMetabolite[], selectedClusters: string[]): void {
-
     for (const metabolite of metabolites) {
       // Skip cofactors, they will be created when creating the links
       if (bnBioNetworkIsCofactor(metabolite.type)) {
         continue;
       }
-      const metaboliteClusters: BnBioNetworkClusterInfo[] = BnBioNetworkHelper.getMetaboliteClusters(metabolite);
+      const metaboliteClusters: BnBioNetworkClusterInfo[] =
+        BnBioNetworkHelper.getMetaboliteClusters(metabolite);
 
       // for each selected cluster of the metabolites, add a node
-      const clusters: BnBioNetworkClusterInfo[] =
-        metaboliteClusters.filter(cluster => selectedClusters.includes(cluster.clusterId));
+      const clusters: BnBioNetworkClusterInfo[] = metaboliteClusters.filter((cluster) =>
+        selectedClusters.includes(cluster.clusterId)
+      );
 
       const existsInMultipleCluster: boolean = clusters.length > 1;
 
       // add one metabolite node for each cluster of the metabolite
       for (const cluster of clusters) {
-
         // retrieve level of the metabolite
         const positionCluster = metabolite.layout.clusters[cluster.subClusterIds[0]];
         const level = positionCluster?.level ?? metabolite.level;
@@ -130,48 +147,60 @@ export class BnBioNetworkFactory {
         // find compartment info
         const compartmentColor = this.getCompartmentColor(metabolite.compartment);
 
-        const metaboliteNode = new BnBioNetworkNodeMetabolite(metabolite.name ? metabolite.name : metabolite.id,
-          cluster, level, compartmentColor, this.themeDetail.foreground, metabolite, existsInMultipleCluster);
+        const metaboliteNode = new BnBioNetworkNodeMetabolite(
+          metabolite.name ? metabolite.name : metabolite.id,
+          cluster,
+          level,
+          compartmentColor,
+          this.themeDetail.foreground,
+          metabolite,
+          existsInMultipleCluster
+        );
 
         // for the metabolite position, take the position of the first sub cluster
         const clusterPosition = metabolite.layout.clusters[cluster.subClusterIds[0]];
-        if (!this.ignoreNodePositions && clusterPosition && clusterPosition.x != null && clusterPosition.y != null) {
+        if (
+          !this.ignoreNodePositions &&
+          clusterPosition &&
+          clusterPosition.x != null &&
+          clusterPosition.y != null
+        ) {
           metaboliteNode.setPositionAndFreeze(clusterPosition);
         }
 
         this.metabolites.push(metaboliteNode);
       }
-
     }
-
   }
 
   // create the pathway link from list of reaction nodes
   // create the cofactors link to the reactions
   private initLinksAndCofactors(metabolites: BnBioNetworkMetabolite[]): void {
-
     for (const reactionNode of this.reactions) {
-
       for (const metaboliteId of Object.keys(reactionNode.data.metabolites)) {
-
-        const metabolite: BnBioNetworkMetabolite = metabolites.find(metabolite => metabolite.id === metaboliteId);
+        const metabolite: BnBioNetworkMetabolite = metabolites.find(
+          (metabolite) => metabolite.id === metaboliteId
+        );
 
         if (metabolite == null) {
-          console.error(`Could find metabolite with id ${metaboliteId} used in reaction ${reactionNode.data.id}`);
+          console.error(
+            `Could find metabolite with id ${metaboliteId} used in reaction ${reactionNode.data.id}`
+          );
           continue;
         }
-
 
         let metaboliteNode: BnBioNetworkNode;
 
         if (bnBioNetworkIsCofactor(metabolite.type)) {
-
           // create the cofactor node (ignore its cluster)
           metaboliteNode = this.createCofactor(metabolite);
           reactionNode.addChildNode(metaboliteNode);
         } else {
-          metaboliteNode = this.metabolites.find(metabolite => metabolite.data.id === metaboliteId
-            && metabolite.cluster.clusterId === reactionNode.cluster.clusterId);
+          metaboliteNode = this.metabolites.find(
+            (metabolite) =>
+              metabolite.data.id === metaboliteId &&
+              metabolite.cluster.clusterId === reactionNode.cluster.clusterId
+          );
         }
 
         if (metaboliteNode == null) {
@@ -184,23 +213,25 @@ export class BnBioNetworkFactory {
         const fluxValue = flux ? flux.value : 0;
         // is the metabolite is consumed, the link goes from the metabolite to the reaction
         if (BnBioNetworkHelper.metaboliteIsConsumed(metaboliteNode.data.id, reactionNode.data)) {
-          this.links.push(new BnBioNetworkLink(metaboliteNode, reactionNode,
-            fluxValue, this.themeDetail.hover, 'link'));
+          this.links.push(
+            new BnBioNetworkLink(metaboliteNode, reactionNode, fluxValue, this.themeDetail.hover, 'link')
+          );
         }
         // left side of the link
         else {
-          this.links.push(new BnBioNetworkLink(reactionNode, metaboliteNode,
-            fluxValue, this.themeDetail.hover, 'link'));
+          this.links.push(
+            new BnBioNetworkLink(reactionNode, metaboliteNode, fluxValue, this.themeDetail.hover, 'link')
+          );
         }
       }
     }
   }
 
-
   // create a cofactor and return the node
   private createCofactor(metabolite: BnBioNetworkMetabolite): BnBioNetworkNodeCofactor {
     // create a new object with the new created id
-    const cofactor = new BnBioNetworkNodeCofactor(metabolite.name ? metabolite.name : metabolite.id,
+    const cofactor = new BnBioNetworkNodeCofactor(
+      metabolite.name ? metabolite.name : metabolite.id,
       this.themeDetail.foreground,
       metabolite
     );
@@ -213,8 +244,14 @@ export class BnBioNetworkFactory {
     for (const reaction of this.reactions) {
       if (!reaction.hasPositions()) {
         // get the connected metabolites that are in the same cluster sorted by level
-        let nodes = reaction.getConnectedNodes().filter(n => n.hasPositions()
-          && n instanceof BnBioNetworkNodeMetabolite && n.cluster.clusterId === reaction.cluster.clusterId);
+        let nodes = reaction
+          .getConnectedNodes()
+          .filter(
+            (n) =>
+              n.hasPositions() &&
+              n instanceof BnBioNetworkNodeMetabolite &&
+              n.cluster.clusterId === reaction.cluster.clusterId
+          );
 
         nodes = nodes.sort((a, b) => a.getLevel() - b.getLevel());
 
@@ -224,7 +261,7 @@ export class BnBioNetworkFactory {
           const secondPosition = nodes[1].getCoords();
           reaction.setPositionAndFreeze({
             x: (firstPosition.x + secondPosition.x) / 2,
-            y: (firstPosition.y + secondPosition.y) / 2
+            y: (firstPosition.y + secondPosition.y) / 2,
           });
         }
       }
@@ -244,7 +281,7 @@ export class BnBioNetworkFactory {
 
   private getCompartmentColor(compartmentId: string): string {
     // find compartment info
-    const compartment = this.compartments.find(c => c.id === compartmentId);
+    const compartment = this.compartments.find((c) => c.id === compartmentId);
     if (compartment == null) {
       console.error(`Compartment '${compartmentId}' not found`);
       return this.compartmentIdToColor(compartmentId);
@@ -255,7 +292,16 @@ export class BnBioNetworkFactory {
 
   private compartmentIdToColor(compartmentId: string): string {
     // as the compartment is a single letter, we duplicate it to have really different colors
-    return FlColorHelper.stringToRGBColor(compartmentId + compartmentId + compartmentId
-      + compartmentId + compartmentId + compartmentId + compartmentId + compartmentId + compartmentId);
+    return FlColorHelper.stringToRGBColor(
+      compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId +
+        compartmentId
+    );
   }
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {map, Observable} from 'rxjs';
-import {PrWorkflowLayer} from '../../model/workflow/pr-workflow-layer.class';
-import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
+import { Component, OnInit } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { PrWorkflowLayer } from '../../model/workflow/pr-workflow-layer.class';
+import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
 
 /**
  * Component to show the current layer hierarchy
@@ -9,25 +9,20 @@ import {PrWorkflowManagerState} from '../../state/pr-workflow-manager-state';
 @Component({
   selector: 'pr-workflow-layers-breadcrumb',
   templateUrl: './pr-workflow-layers-breadcrumb.component.html',
-  styleUrls: ['./pr-workflow-layers-breadcrumb.component.scss']
+  styleUrls: ['./pr-workflow-layers-breadcrumb.component.scss'],
 })
 export class PrWorkflowLayersBreadcrumbComponent implements OnInit {
-
   layers$: Observable<PrWorkflowLayer[]>;
   hasMultipleLayers$: Observable<boolean>;
 
-  constructor(private workflowManager: PrWorkflowManagerState) {
-  }
+  constructor(private workflowManager: PrWorkflowManagerState) {}
 
   ngOnInit(): void {
     this.layers$ = this.workflowManager.getCurrentLayerHierarchy$();
-    this.hasMultipleLayers$ = this.layers$.pipe(
-      map(layers => layers?.length > 1)
-    );
+    this.hasMultipleLayers$ = this.layers$.pipe(map((layers) => layers?.length > 1));
   }
 
   selectLayer(layerId: string): void {
     this.workflowManager.selectLayer(layerId);
   }
-
 }

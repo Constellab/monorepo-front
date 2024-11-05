@@ -1,7 +1,7 @@
 <div class="container">
-  <mat-progress-spinner class="spinner" mode="determinate"
-                        [value]="loaderValue" [diameter]="sizeInPixel">
+  <mat-progress-spinner class="spinner" mode="determinate" [value]="loaderValue" [diameter]="sizeInPixel">
   </mat-progress-spinner>
-  <div class="score-text g-layout-row g-layout-center-center"
-       [style.font-size]="fontSize + 'px'">{{loaderValue}}%</div>
+  <div class="score-text g-layout-row g-layout-center-center" [style.font-size]="fontSize + 'px'">
+    {{ loaderValue }}%
+  </div>
 </div>

@@ -4,9 +4,7 @@ import { LabConfig, LabConfigureSpecsForm } from '../../../../model/entities/lab
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ClHelpService } from '@monorepo/core-lib';
-import {
-  LabConfigureSpecsFormComponent
-} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import { LabConfigureSpecsFormComponent } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import {
   ControlContainer,
   FormArray,
@@ -14,14 +12,14 @@ import {
   FormControl,
   FormGroup,
   UntypedFormArray,
-  UntypedFormGroup
+  UntypedFormGroup,
 } from '@angular/forms';
 import { FlDialogService, FlGlobalValidators } from '@monorepo/front-core-lib';
 import { LabTransformerWithConfig } from '../../../../model/global/lab-transformer.class';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import {
   LabSelectTypeDialogComponent,
-  LabSelectTypeDialogInput
+  LabSelectTypeDialogInput,
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
 
 interface LabSelectedTransformer {
@@ -42,10 +40,9 @@ export interface LabTransformResourceForm {
 @Component({
   selector: 'lab-transform-resource',
   templateUrl: './lab-transform-resource.component.html',
-  styleUrls: ['./lab-transform-resource.component.scss']
+  styleUrls: ['./lab-transform-resource.component.scss'],
 })
 export class LabTransformResourceComponent implements OnInit {
-
   @Input() resourceTypingName: string;
 
   selectedTransformers: LabSelectedTransformer[] = [];
@@ -54,16 +51,18 @@ export class LabTransformResourceComponent implements OnInit {
 
   loadingProcessType: boolean = false;
 
-  constructor(private typeService: LabTypeService,
-              private controlContainer: ControlContainer,
-              private cdr: ChangeDetectorRef,
-              private dialogService: FlDialogService) {
-  }
-
+  constructor(
+    private typeService: LabTypeService,
+    private controlContainer: ControlContainer,
+    private cdr: ChangeDetectorRef,
+    private dialogService: FlDialogService
+  ) {}
 
   // Call this method to build the form array before using the component
-  public static buildFormArray(transformers: LabTransformerWithConfig[] = [],
-                               arrayMinLength: number = 0): UntypedFormArray {
+  public static buildFormArray(
+    transformers: LabTransformerWithConfig[] = [],
+    arrayMinLength: number = 0
+  ): UntypedFormArray {
     const formArray = new FormArray([], FlGlobalValidators.arrayMinLength(arrayMinLength));
     for (const transformer of transformers) {
       formArray.push(this.buildFormGroup(transformer));
@@ -73,12 +72,11 @@ export class LabTransformResourceComponent implements OnInit {
 
   private static buildFormGroup(transformer: LabTransformerWithConfig): UntypedFormGroup {
     const configData = LabConfig.fromSpecs(transformer.transformer.configSpecs, transformer.config);
-    return (new FormBuilder().group({
+    return new FormBuilder().group({
       transformer: [transformer.transformer],
-      config: LabConfigureSpecsFormComponent.buildFormGroup(configData)
-    }));
+      config: LabConfigureSpecsFormComponent.buildFormGroup(configData),
+    });
   }
-
 
   ngOnInit(): void {
     this.formArray = this.controlContainer.control as any;
@@ -92,10 +90,12 @@ export class LabTransformResourceComponent implements OnInit {
   addTransformer(transformer: LabProcessType): void {
     const selectedTransformer = this.createSelectedTransformer(transformer);
 
-    this.formArray.push(new FormGroup({
-      transformer: new FormControl(transformer),
-      config: LabConfigureSpecsFormComponent.buildFormGroup(selectedTransformer.configData)
-    }));
+    this.formArray.push(
+      new FormGroup({
+        transformer: new FormControl(transformer),
+        config: LabConfigureSpecsFormComponent.buildFormGroup(selectedTransformer.configData),
+      })
+    );
 
     // force the cdr because it can alter the form status, so we need to refresh
     this.cdr.detectChanges();
@@ -107,7 +107,7 @@ export class LabTransformResourceComponent implements OnInit {
     const selectedTransformer: LabSelectedTransformer = {
       transformer: transformer,
       configData: configData,
-      hasConfig: transformer.hasConfigSpecs()
+      hasConfig: transformer.hasConfigSpecs(),
     };
 
     this.selectedTransformers.push(selectedTransformer);
@@ -132,12 +132,13 @@ export class LabTransformResourceComponent implements OnInit {
     const data: LabSelectTypeDialogInput = {
       searchConfig: {
         mode: 'transformer',
-        resourceTypingNames: [this.resourceTypingName]
-      }
+        resourceTypingNames: [this.resourceTypingName],
+      },
     };
-    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data: data }).afterClosed().subscribe(
-      processType => this.loadAndAddTransformer(processType)
-    );
+    this.dialogService
+      .openBigDialog(LabSelectTypeDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((processType) => this.loadAndAddTransformer(processType));
   }
 
   // load the process type object and add it to the form
@@ -150,7 +151,7 @@ export class LabTransformResourceComponent implements OnInit {
         this.loadingProcessType = false;
         this.addTransformer(processType);
       },
-      error: () => this.loadingProcessType = false
+      error: () => (this.loadingProcessType = false),
     });
   }
 }

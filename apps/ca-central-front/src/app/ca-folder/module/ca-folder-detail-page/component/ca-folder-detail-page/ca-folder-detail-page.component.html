@@ -1,12 +1,9 @@
 <div>
   <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
-
 </div>
 
 <div class="drop-zone" flDragHover="drag-file-hover" (flDrop)="onFileDrop($event)">
-
   <fl-card class="g-full-height">
-
     <fl-card-header>
       <ca-folder-detail></ca-folder-detail>
 
@@ -16,15 +13,18 @@
     </fl-card-header>
 
     <fl-card-body class="card-body" (contextmenu)="cardRightClick($event)">
-
       <ca-hierarchy-object-search-form></ca-hierarchy-object-search-form>
 
-      <fl-infinite-table-container [datasource]="children" textNoResult="folder_empty" textNoMoreResult=""
-                                   class="table-container">
-        <ca-hierarchy-object-table [datasource]="children" [columns]="columns"
-                                   [rowSelectable]="true"
-                                   (rowEvent)="onHierarchyObjectRowEvent($event)">
-
+      <fl-infinite-table-container
+        [datasource]="children"
+        textNoResult="folder_empty"
+        textNoMoreResult=""
+        class="table-container">
+        <ca-hierarchy-object-table
+          [datasource]="children"
+          [columns]="columns"
+          [rowSelectable]="true"
+          (rowEvent)="onHierarchyObjectRowEvent($event)">
           <ng-template let-object>
             @if (hierarchyObjectHasActionMenu(object)) {
               <!--   Settings menu   -->
@@ -33,7 +33,6 @@
               </button>
             }
           </ng-template>
-
         </ca-hierarchy-object-table>
       </fl-infinite-table-container>
     </fl-card-body>
@@ -42,7 +41,7 @@
   @if (folder$ | async; as folder) {
     <div class="drop-info g-layout-col g-layout-center-center g-text-centered">
       <mat-icon>folder</mat-icon>
-      <div class="g-text-big">{{ 'drop_file_in_folder' | translate : { name: folder.name } }}</div>
+      <div class="g-text-big">{{ 'drop_file_in_folder' | translate: { name: folder.name } }}</div>
     </div>
   }
 </div>

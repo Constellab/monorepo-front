@@ -1,17 +1,15 @@
 <!--  Settings button    -->
-<button mat-button type="button" [matMenuTriggerFor]="menu"
-        flExpansionMenuButton>
+<button mat-button type="button" [matMenuTriggerFor]="menu" flExpansionMenuButton>
   <mat-icon>settings</mat-icon>
-  <span>{{'settings' | translate}}</span>
+  <span>{{ 'settings' | translate }}</span>
 </button>
-
 
 <!--   Menu for settings   -->
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent>
     <a mat-menu-item [href]="codeServerUrl" target="_blank">
       <mat-icon flIcon="code"></mat-icon>
-      <span>{{'codelab_link' | translate}}</span>
+      <span>{{ 'codelab_link' | translate }}</span>
     </a>
 
     <lab-environment-toggle class="env-toggle"></lab-environment-toggle>
@@ -19,12 +17,12 @@
     <ng-container *labEnvDev>
       <button mat-menu-item (click)="resetDevEnvironment()">
         <mat-icon>delete_forever</mat-icon>
-        <span>{{'reset_dev_env' | translate}}</span>
+        <span>{{ 'reset_dev_env' | translate }}</span>
       </button>
 
       <button mat-menu-item (click)="stopDevServer()">
         <mat-icon>stop</mat-icon>
-        <span>{{'stop_dev_api' | translate}}</span>
+        <span>{{ 'stop_dev_api' | translate }}</span>
       </button>
     </ng-container>
 
@@ -32,23 +30,22 @@
 
     <a mat-menu-item [routerLink]="monitoringRoute">
       <mat-icon>troubleshoot</mat-icon>
-      <span>{{'monitoring.monitoring' | translate}}</span>
+      <span>{{ 'monitoring.monitoring' | translate }}</span>
     </a>
 
     <button mat-menu-item type="button" (click)="openQueueJobsDialog()">
       <mat-icon>format_list_numbered</mat-icon>
-      <span>{{'queue_jobs' | translate}}</span>
+      <span>{{ 'queue_jobs' | translate }}</span>
     </button>
 
     <a *ngIf="labConfigRoute" mat-menu-item [href]="labConfigRoute">
       <mat-icon>settings</mat-icon>
-      <span>{{'lab_config' | translate}}</span>
+      <span>{{ 'lab_config' | translate }}</span>
     </a>
 
     <button mat-menu-item type="button" (click)="logout()">
       <mat-icon color="warn">logout</mat-icon>
-      <span class="g-warn-text">{{'flAuth.logout' | translate}}</span>
+      <span class="g-warn-text">{{ 'flAuth.logout' | translate }}</span>
     </button>
-
   </ng-template>
 </mat-menu>

@@ -2,16 +2,24 @@
   {{ 'documents_in_trash' | translate }}
 
   <fl-dialog-header-actions>
-    <button mat-icon-button type="button" (click)="emptyTrash()"
-            [matTooltip]="'empty_trash' | translate" color="warn">
+    <button
+      mat-icon-button
+      type="button"
+      (click)="emptyTrash()"
+      [matTooltip]="'empty_trash' | translate"
+      color="warn">
       <mat-icon>delete_forever</mat-icon>
     </button>
   </fl-dialog-header-actions>
 </fl-dialog-header>
 <mat-dialog-content>
-  <fl-infinite-scroll [datasource]="documentDatasource" [textNoResult]="'trash_empty'"
-                      class="g-infinite-table">
-    <ca-document-table [datasource]="documentDatasource" [isTrash]="true"
-                       (documentAction)="onDocumentAction($event)"></ca-document-table>
+  <fl-infinite-scroll
+    [datasource]="documentDatasource"
+    [textNoResult]="'trash_empty'"
+    class="g-infinite-table">
+    <ca-document-table
+      [datasource]="documentDatasource"
+      [isTrash]="true"
+      (documentAction)="onDocumentAction($event)"></ca-document-table>
   </fl-infinite-scroll>
 </mat-dialog-content>

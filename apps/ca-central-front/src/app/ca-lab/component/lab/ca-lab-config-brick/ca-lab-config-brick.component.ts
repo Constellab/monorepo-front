@@ -10,7 +10,7 @@ import { CaLabManagerBrickVersionDTO } from '../../../../ca-core/model/entities/
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import {
   CaCommunityBrick,
-  CaCommunityBrickDatasource
+  CaCommunityBrickDatasource,
 } from '../../../../ca-core/model/entities/ca-community-brick.class';
 import { CoBrick } from '@monorepo/community-lib';
 
@@ -19,18 +19,16 @@ interface CaCommunityBrickFilers {
   title: string;
 }
 
-
 @Component({
   selector: 'ca-lab-config-brick',
   templateUrl: './ca-lab-config-brick.component.html',
-  styleUrls: ['./ca-lab-config-brick.component.scss']
+  styleUrls: ['./ca-lab-config-brick.component.scss'],
 })
 export class CaLabConfigBrickComponent implements OnInit {
-
   formGp = new FormBuilder().group({
     name: [null as string, Validators.required],
     version: [null as string, Validators.required],
-    brick: [null as CoBrick, Validators.required]
+    brick: [null as CoBrick, Validators.required],
   });
   brickSelectionMode: boolean = true;
   isLoading: boolean = true;
@@ -46,12 +44,13 @@ export class CaLabConfigBrickComponent implements OnInit {
   isUpdate: boolean;
   userId: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private brickVersionDTO: CaLabManagerBrickVersionDTO,
-              private dialogRef: MatDialogRef<CaLabConfigBrickComponent>,
-              private spaceService: CaSpaceService,
-              private communityBrickService: CaCommunityBrickService,
-              private authenticatedUserService: CaAuthenticatedUserService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private brickVersionDTO: CaLabManagerBrickVersionDTO,
+    private dialogRef: MatDialogRef<CaLabConfigBrickComponent>,
+    private spaceService: CaSpaceService,
+    private communityBrickService: CaCommunityBrickService,
+    private authenticatedUserService: CaAuthenticatedUserService
+  ) {}
 
   get title(): string {
     return 'lab_add_brick';
@@ -80,8 +79,6 @@ export class CaLabConfigBrickComponent implements OnInit {
     });
   }
 
-
-
   isSelected(spaceId: string): boolean {
     return this.spaceIdFilter.find((id) => id == spaceId) != null;
   }
@@ -89,7 +86,7 @@ export class CaLabConfigBrickComponent implements OnInit {
   updateBricks(): void {
     this.bricks$.getFirstPage({
       spaceIds: this.spaceIdFilter,
-      title: this.titleFormControl.value
+      title: this.titleFormControl.value,
     });
   }
 
@@ -119,11 +116,18 @@ export class CaLabConfigBrickComponent implements OnInit {
 
     this.bricks$ = new FlEntityPaginatedDatasource(
       (page, size, requestData) =>
-        this.communityBrickService.getAllWithFilters(requestData.filtersCriteria.spaceIds,
-          requestData.filtersCriteria.title, page, size, this.userId), 10, false);
+        this.communityBrickService.getAllWithFilters(
+          requestData.filtersCriteria.spaceIds,
+          requestData.filtersCriteria.title,
+          page,
+          size,
+          this.userId
+        ),
+      10,
+      false
+    );
     this.updateBricks();
     this.isLoading = false;
-
   }
 
   private initBrickVersionSelection(brick: CaCommunityBrick): void {
@@ -133,8 +137,7 @@ export class CaLabConfigBrickComponent implements OnInit {
       if (this.isUpdate && this.formGp.controls.version.value) {
         const splitIndex = versionsList.indexOf(this.formGp.controls.version.value);
         this.versions = versionsList.slice(0, splitIndex + 1);
-        if (splitIndex + 1 < versionsList.length)
-          this.oldVersions = versionsList.slice(splitIndex + 1);
+        if (splitIndex + 1 < versionsList.length) this.oldVersions = versionsList.slice(splitIndex + 1);
       } else {
         this.versions = versionsList;
       }

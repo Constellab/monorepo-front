@@ -1,7 +1,7 @@
-import {BnBioNetworkMetabolite, BnBioNetworkMetaboliteLevel} from './bn-bio-network.class';
-import {BnBioNetworkNode} from './bn-bio-network-node.class';
-import {BnBioNetworkNodeReaction} from './bn-bio-network-node-reaction.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { BnBioNetworkMetabolite, BnBioNetworkMetaboliteLevel } from './bn-bio-network.class';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
+import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 export const bnBioNetworkCofactorColor = '#ffaa33';
 
@@ -22,7 +22,9 @@ export class BnBioNetworkNodeCofactor extends BnBioNetworkNode {
 
   isInCluster(id: string): boolean {
     // check if any connected reaction is in the cluster
-    return this.getConnectedNodes().filter(n => n instanceof BnBioNetworkNodeReaction).some(n => n.isInCluster(id));
+    return this.getConnectedNodes()
+      .filter((n) => n instanceof BnBioNetworkNodeReaction)
+      .some((n) => n.isInCluster(id));
     // the cofactors do not have a cluster, so we return false
     // return false;
   }
@@ -39,6 +41,4 @@ export class BnBioNetworkNodeCofactor extends BnBioNetworkNode {
   public getChebiId(): string | null {
     return ClHelpService.isNullOrEmpty(this.data.chebi_id) ? null : this.data.chebi_id;
   }
-
-
 }

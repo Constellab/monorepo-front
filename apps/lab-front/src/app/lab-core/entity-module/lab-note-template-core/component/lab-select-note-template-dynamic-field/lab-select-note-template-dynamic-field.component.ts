@@ -6,4 +6,4 @@ import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
   templateUrl: './lab-select-note-template-dynamic-field.component.html',
   styleUrls: ['./lab-select-note-template-dynamic-field.component.scss'],
 })
-export class LabSelectNoteTemplateDynamicFieldComponent extends FlDynamicFieldAbstractDirective{}
+export class LabSelectNoteTemplateDynamicFieldComponent extends FlDynamicFieldAbstractDirective {}

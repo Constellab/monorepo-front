@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {SpCellCoord} from '../model/sp-cell-coord.class';
+import { Injectable } from '@angular/core';
+import { SpCellCoord } from '../model/sp-cell-coord.class';
 import {
   columnIdAttributeName,
   SpCell,
   FlHeaderCellType,
   headerIndexAttributeName,
   headerTypeAttributeName,
-  rowIdAttributeName
+  rowIdAttributeName,
 } from '../model/sp-cell.class';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {FlHtmlHelper} from '@monorepo/front-core-lib';
-
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { FlHtmlHelper } from '@monorepo/front-core-lib';
 
 export type SpSheetMouseEventCell = CellEvent | HeaderCellEvent;
 
@@ -28,18 +27,14 @@ interface HeaderCellEvent {
   element: HTMLElement;
 }
 
-
 /**
  * State for dom manipulation of the cells
  */
 @Injectable()
 export class SpSpreadsheetElementState {
-
   private tableContainer: HTMLElement;
 
-  constructor(private state: SpSpreadsheetState){
-
-  }
+  constructor(private state: SpSpreadsheetState) {}
 
   public init(tableContainer: HTMLElement): void {
     this.tableContainer = tableContainer;
@@ -50,18 +45,20 @@ export class SpSpreadsheetElementState {
    * @param columnId
    */
   public getColumnHeaderCellElement(columnId: number): HTMLElement {
-    return this.tableContainer.querySelector(`[${headerTypeAttributeName}="column"][${headerIndexAttributeName}="${columnId}"]`);
+    return this.tableContainer.querySelector(
+      `[${headerTypeAttributeName}="column"][${headerIndexAttributeName}="${columnId}"]`
+    );
   }
 
   public getCellFromHTMLElement(element: HTMLElement): SpSheetMouseEventCell | null {
     // search if this is a cell
-    let cellElement = FlHtmlHelper.getParent(element, {tagName: 'SP-SPREADSHEET-CELL'});
+    let cellElement = FlHtmlHelper.getParent(element, { tagName: 'SP-SPREADSHEET-CELL' });
     if (cellElement) {
       return this.getNormalCellFromHTMLElement(cellElement);
     }
 
     // search if this is a header cell
-    cellElement = FlHtmlHelper.getParent(element, {tagName: 'SP-SPREADSHEET-HEADER-CELL'});
+    cellElement = FlHtmlHelper.getParent(element, { tagName: 'SP-SPREADSHEET-HEADER-CELL' });
     if (cellElement) {
       return this.getHeaderCellFromHTMLElement(cellElement);
     }
@@ -79,9 +76,9 @@ export class SpSpreadsheetElementState {
       cell: this.state.currentSheet.getCell(row, column),
       coord: {
         row: row,
-        column: column
+        column: column,
       },
-      element: element
+      element: element,
     };
   }
 
@@ -94,8 +91,7 @@ export class SpSpreadsheetElementState {
       type: 'header',
       headerType: type,
       index: index,
-      element: element
+      element: element,
     };
   }
-
 }

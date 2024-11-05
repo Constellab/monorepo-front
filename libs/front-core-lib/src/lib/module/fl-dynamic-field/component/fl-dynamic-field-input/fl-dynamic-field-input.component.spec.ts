@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDynamicFieldInputComponent} from './fl-dynamic-field-input.component';
+import { FlDynamicFieldInputComponent } from './fl-dynamic-field-input.component';
 
 describe('FlDynamicFieldInputComponent', () => {
   let component: FlDynamicFieldInputComponent;
@@ -8,9 +8,8 @@ describe('FlDynamicFieldInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDynamicFieldInputComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDynamicFieldInputComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlDynamicFieldInputComponent);
     component = fixture.componentInstance;

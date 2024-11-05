@@ -1,5 +1,5 @@
-import {InjectionToken} from '@angular/core';
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { InjectionToken } from '@angular/core';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 
 /**
  * Configuration for the Translate Module
@@ -45,5 +45,6 @@ export interface FlTranslateModuleConfig {
  *
  * Use '@Inject(CORE_TRANSLATE_MODULE_CONFIG)' to inject it in component or service
  */
-export const FL_TRANSLATE_MODULE_CONFIG =
-  new InjectionToken<FlTranslateModuleConfig>('CORE_TRANSLATE_MODULE_CONFIG');
+export const FL_TRANSLATE_MODULE_CONFIG = new InjectionToken<FlTranslateModuleConfig>(
+  'CORE_TRANSLATE_MODULE_CONFIG'
+);

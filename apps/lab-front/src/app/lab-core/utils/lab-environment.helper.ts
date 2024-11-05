@@ -1,5 +1,5 @@
-import {environment} from '../../../environments/lab-environment';
-import {LabEnvironment} from '../../../environments/lab-environment.class';
+import { environment } from '../../../environments/lab-environment';
+import { LabEnvironment } from '../../../environments/lab-environment.class';
 
 /**
  * Static class to access environment
@@ -7,7 +7,6 @@ import {LabEnvironment} from '../../../environments/lab-environment.class';
  * The environment variable must always be access from here
  */
 export class LabEnvironmentHelper {
-
   public static readonly coreApiRoute: string = 'core-api';
 
   public static getEnv(): LabEnvironment {
@@ -69,7 +68,6 @@ export class LabEnvironmentHelper {
     return `${LabEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}/config`;
   }
 
-
   ////////////////////// Community //////////////////////
   public static getCommunityFrontUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.communityFrontUrl;
@@ -78,5 +76,4 @@ export class LabEnvironmentHelper {
   public static getCommunityApiUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.communityApiUrl;
   }
-
 }

@@ -8,9 +8,8 @@ describe('HaPublicBrickUserInvitePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicBrickUserInvitePageComponent ]
-    })
-    .compileComponents();
+      declarations: [HaPublicBrickUserInvitePageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaPublicBrickUserInvitePageComponent);
     component = fixture.componentInstance;

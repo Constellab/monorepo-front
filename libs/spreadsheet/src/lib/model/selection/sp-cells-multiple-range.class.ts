@@ -1,10 +1,8 @@
-import {SpCellsRange} from './sp-cells-range.class';
-import {SpSpreadsheetHelper} from '../../utils/sp-spreadsheet.helper';
-import {SpCellCoordRange} from '../sp-cell-coord.class';
-
+import { SpCellsRange } from './sp-cells-range.class';
+import { SpSpreadsheetHelper } from '../../utils/sp-spreadsheet.helper';
+import { SpCellCoordRange } from '../sp-cell-coord.class';
 
 export class SpCellsMultipleRange {
-
   ranges: SpCellsRange[];
 
   constructor(ranges: SpCellsRange[] = []) {
@@ -24,7 +22,7 @@ export class SpCellsMultipleRange {
   }
 
   public static fromCellCoordsRange(coords: SpCellCoordRange[]): SpCellsMultipleRange {
-    const ranges = coords.map(coord => SpCellsRange.MultipleFromCellCoordsRange(coord));
+    const ranges = coords.map((coord) => SpCellsRange.MultipleFromCellCoordsRange(coord));
     return new SpCellsMultipleRange(ranges);
   }
 
@@ -33,7 +31,7 @@ export class SpCellsMultipleRange {
   }
 
   public toCoords(): SpCellCoordRange[] {
-    return this.ranges.map(range => range.toCoords());
+    return this.ranges.map((range) => range.toCoords());
   }
 
   public countCells(): number {
@@ -55,6 +53,4 @@ export class SpCellsMultipleRange {
     }
     return str;
   }
-
 }
-

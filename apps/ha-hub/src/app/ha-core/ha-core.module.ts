@@ -6,12 +6,7 @@ import { HaCorePipeModule } from './ha-module/ha-core-pipe/ha-core-pipe.module';
 import { CommonModule, NgClass } from '@angular/common';
 
 @NgModule({
-  exports: [
-    HaCustomLibraryModule,
-    HaCustomMaterialModule,
-    HaCoreDirectiveModule,
-    HaCorePipeModule,
-  ],
+  exports: [HaCustomLibraryModule, HaCustomMaterialModule, HaCoreDirectiveModule, HaCorePipeModule],
   imports: [NgClass, CommonModule],
 })
 export class HaCoreModule {}

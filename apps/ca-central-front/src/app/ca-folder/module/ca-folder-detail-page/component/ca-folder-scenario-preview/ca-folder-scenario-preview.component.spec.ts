@@ -8,9 +8,8 @@ describe('CaFolderScenarioPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderScenarioPreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderScenarioPreviewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderScenarioPreviewComponent);
     component = fixture.componentInstance;

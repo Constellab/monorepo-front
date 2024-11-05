@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
-import {LabCredentials, LabCredentialsDatasource} from '../../../../lab-core/model/entities/lab-credentials.entity';
-import {FlDialogService, FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {LabCredentialsService} from '../../../../lab-core/entity-service/lab-credentials.service';
+import { Component } from '@angular/core';
+import {
+  LabCredentials,
+  LabCredentialsDatasource,
+} from '../../../../lab-core/model/entities/lab-credentials.entity';
+import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { LabCredentialsService } from '../../../../lab-core/entity-service/lab-credentials.service';
 import {
   LabCredentialsFormDialogComponent,
-  LabCredentialsFormDialogInput
+  LabCredentialsFormDialogInput,
 } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-form-dialog/lab-credentials-form-dialog.component';
 
 @Component({
@@ -13,26 +16,32 @@ import {
   styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
 })
 export class LabMonitoringCredentialsPageComponent {
-
   allCredentials: LabCredentialsDatasource = this.credentialsService.getAllDatasource();
 
-  displayedColumns: FlTableColumnStatic<LabCredentials>[] = ['name', 'description', 'type', 'created', 'actions'];
+  displayedColumns: FlTableColumnStatic<LabCredentials>[] = [
+    'name',
+    'description',
+    'type',
+    'created',
+    'actions',
+  ];
 
-  constructor(private credentialsService: LabCredentialsService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private credentialsService: LabCredentialsService,
+    private dialogService: FlDialogService
+  ) {}
 
   createCredentials(): void {
     const data: LabCredentialsFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openMediumDialog(LabCredentialsFormDialogComponent, {
-      data: data
-    }).afterClosed().subscribe(
-      result => this.createCredentialsClosed(result)
-    );
-
+    this.dialogService
+      .openMediumDialog(LabCredentialsFormDialogComponent, {
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((result) => this.createCredentialsClosed(result));
   }
 
   private createCredentialsClosed(credentials?: LabCredentials): void {

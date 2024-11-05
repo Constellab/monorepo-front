@@ -4,7 +4,6 @@ import { LabScenario } from './lab-scenario.entity';
 import { Type } from 'class-transformer';
 
 export class LabQueueJob extends LabBaseEntity {
-
   @Type(() => LabUser)
   user: LabUser;
 

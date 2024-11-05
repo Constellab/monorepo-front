@@ -3,16 +3,14 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
 import { ClUserCategory, ClUserStatus } from '@monorepo/core-lib';
 import { CaUserLicense } from '../../../model/entities/ca-user.class';
 
-
 export class CaUserSearchFields {
-
   firstname: string;
 
   lastname: string;
@@ -37,7 +35,6 @@ export class CaUserSearchFields {
 }
 
 export class CaUserSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaUserSearchFields> = {
     firstname: 'firstname',
     lastname: 'lastname',
@@ -50,16 +47,16 @@ export class CaUserSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaUserSearchFields> = {
-    firstname: {key: 'firstname', operator: 'MATCH'},
-    lastname: {key: 'lastname', operator: 'MATCH'},
-    email: {key: 'email', operator: 'MATCH'},
-    category: {key: 'category', operator: 'IN'},
-    status: {key: 'status', operator: 'IN'},
-    license: {key: 'license', operator: 'EQ'},
-    company: {key: 'company', operator: 'MATCH'},
+    firstname: { key: 'firstname', operator: 'MATCH' },
+    lastname: { key: 'lastname', operator: 'MATCH' },
+    email: { key: 'email', operator: 'MATCH' },
+    category: { key: 'category', operator: 'IN' },
+    status: { key: 'status', operator: 'IN' },
+    license: { key: 'license', operator: 'EQ' },
+    company: { key: 'company', operator: 'MATCH' },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     lastLoginSuccess: FlSearchConverter.dateInterval('lastLoginSuccess'),
-    id: {key: 'id', operator: 'EQ'},
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {

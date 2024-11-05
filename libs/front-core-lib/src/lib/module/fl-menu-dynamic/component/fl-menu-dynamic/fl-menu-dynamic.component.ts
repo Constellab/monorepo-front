@@ -7,10 +7,9 @@ import { Observable, of } from 'rxjs';
   selector: 'fl-menu-dynamic',
   templateUrl: './fl-menu-dynamic.component.html',
   styleUrls: ['./fl-menu-dynamic.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlMenuDynamicComponent {
-
   public static readonly containerClass = 'fl-dynamic-menu';
 
   @Input() set menuItems(menuItems: FlMenuDynamic[] | Observable<FlMenuDynamic[]>) {
@@ -38,7 +37,6 @@ export class FlMenuDynamicComponent {
   containerClass = FlMenuDynamicComponent.containerClass;
 
   menuItems$: Observable<FlMenuDynamic[]>;
-
 
   callItem(menuItem: FlMenuDynamicButton, event: MouseEvent): void {
     if (menuItem.onClick) {

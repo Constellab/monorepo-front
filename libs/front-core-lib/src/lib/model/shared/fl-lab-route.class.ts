@@ -12,7 +12,5 @@ class FlLabRouteAutoLogin {
  * Class to store lab route used by different app
  */
 export class FlLabRoute {
-
   public static autoLogin: FlLabRouteAutoLogin = new FlLabRouteAutoLogin();
-
 }

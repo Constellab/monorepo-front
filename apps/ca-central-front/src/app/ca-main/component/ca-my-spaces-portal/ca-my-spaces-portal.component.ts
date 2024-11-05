@@ -8,7 +8,7 @@ import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaSpaceFormDialogComponent,
-  CaSpaceFormDialogInput
+  CaSpaceFormDialogInput,
 } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-form-dialog/ca-space-form-dialog.component';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
@@ -20,10 +20,9 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
 @Component({
   selector: 'ca-my-spaces-portal',
   templateUrl: './ca-my-spaces-portal.component.html',
-  styleUrls: ['./ca-my-spaces-portal.component.scss']
+  styleUrls: ['./ca-my-spaces-portal.component.scss'],
 })
 export class CaMySpacesPortalComponent implements OnInit {
-
   currentSpace$: Observable<CaSpace>;
   currentSpaceRoute: string = CaRouterService.getCurrentSpaceRoute();
 
@@ -33,11 +32,12 @@ export class CaMySpacesPortalComponent implements OnInit {
 
   showCreateSpaceButton = this.authenticatedUserService.hasEntrepriseLicense();
 
-  constructor(private spaceService: CaSpaceService,
-              private currentSpaceService: CaCurrentSpaceService,
-              private dialogService: FlDialogService,
-              private authenticatedUserService: CaAuthenticatedUserService) {
-  }
+  constructor(
+    private spaceService: CaSpaceService,
+    private currentSpaceService: CaCurrentSpaceService,
+    private dialogService: FlDialogService,
+    private authenticatedUserService: CaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
     this.currentSpace$ = this.currentSpaceService.getCurrentSpace$();
@@ -45,19 +45,20 @@ export class CaMySpacesPortalComponent implements OnInit {
     this.otherSpaces = this.spaceService.getMySpaces().pipe(
       combineLatestWith(this.currentSpaceService.getCurrentSpace$()),
       map(([spaces, currentSpace]) => {
-        return spaces.filter(space => space.id !== currentSpace.id);
+        return spaces.filter((space) => space.id !== currentSpace.id);
       })
     );
   }
 
   openCreateSpaceDialog(): void {
     const input: CaSpaceFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openSmallDialog(CaSpaceFormDialogComponent, {data: input}).afterClosed().subscribe(
-      version => this.onCreateSpaceClosed(version)
-    );
+    this.dialogService
+      .openSmallDialog(CaSpaceFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((version) => this.onCreateSpaceClosed(version));
   }
 
   private onCreateSpaceClosed(spaceSettingsDto?: CaSpaceSettingsDto): void {
@@ -65,8 +66,10 @@ export class CaMySpacesPortalComponent implements OnInit {
       if (!CaEnvironmentHelper.isProduction()) {
         this.currentSpaceService.setCurrentSpaceDomainDev(spaceSettingsDto.space.domain);
       }
-      window.location.href = CaRouterService.getSpaceDomainUrl(spaceSettingsDto.space.domain, CaRouterService.getAppRoute());
+      window.location.href = CaRouterService.getSpaceDomainUrl(
+        spaceSettingsDto.space.domain,
+        CaRouterService.getAppRoute()
+      );
     }
   }
-
 }

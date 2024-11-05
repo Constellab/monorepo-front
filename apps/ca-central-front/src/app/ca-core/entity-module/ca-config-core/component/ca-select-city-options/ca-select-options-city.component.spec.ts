@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectOptionsCityComponent} from './ca-select-options-city.component';
+import { CaSelectOptionsCityComponent } from './ca-select-options-city.component';
 
 describe('CaSelectLabCityComponent', () => {
   let component: CaSelectOptionsCityComponent;
@@ -8,9 +8,8 @@ describe('CaSelectLabCityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaSelectOptionsCityComponent]
-    })
-      .compileComponents();
+      declarations: [CaSelectOptionsCityComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

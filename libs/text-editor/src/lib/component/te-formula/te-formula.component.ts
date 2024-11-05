@@ -3,7 +3,7 @@ import {
   FlDialogService,
   FlFormulaDialogComponent,
   FlTranslatableText,
-  TeFormulaDialogInput
+  TeFormulaDialogInput,
 } from '@monorepo/front-core-lib';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +14,6 @@ import { BehaviorSubject } from 'rxjs';
   styleUrl: './te-formula.component.scss',
 })
 export class TeFormulaComponent extends TeElementBlockDirective {
-
   @Input() formulaTitle: string;
 
   @Input() caption: string;
@@ -34,9 +33,10 @@ export class TeFormulaComponent extends TeElementBlockDirective {
         mode: 'create',
         helpText: this.helpText,
       };
-      this.dialogService.openSmallDialog(FlFormulaDialogComponent, {data: input}).afterClosed().subscribe(
-        (formula: string) => this.setFormula(formula)
-      );
+      this.dialogService
+        .openSmallDialog(FlFormulaDialogComponent, { data: input })
+        .afterClosed()
+        .subscribe((formula: string) => this.setFormula(formula));
     }
   }
 
@@ -46,8 +46,10 @@ export class TeFormulaComponent extends TeElementBlockDirective {
       object: this.formula$.value,
       helpText: this.helpText,
     };
-    this.dialogService.openSmallDialog(FlFormulaDialogComponent, {data: input})
-      .afterClosed().subscribe((formula: string) => this.setFormula(formula));
+    this.dialogService
+      .openSmallDialog(FlFormulaDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((formula: string) => this.setFormula(formula));
   }
 
   public setFormula(formula?: string): void {
@@ -55,5 +57,4 @@ export class TeFormulaComponent extends TeElementBlockDirective {
       this.formula$.next(formula);
     }
   }
-
 }

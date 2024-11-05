@@ -1,18 +1,19 @@
-import {Injectable} from '@angular/core';
-import {LabEnvironmentHelper} from '../../utils/lab-environment.helper';
+import { Injectable } from '@angular/core';
+import { LabEnvironmentHelper } from '../../utils/lab-environment.helper';
 import { FlDatasourcePaginated, FlInputSearchFilter, FlUserConfig } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabUser} from '../entities/lab-user.entity';
-import {LabUserService} from '../../entity-service/lab-user.service';
-import {LabAuthenticatedUserService} from '../../service/lab-authenticated-user.service';
+import { Observable } from 'rxjs';
+import { LabUser } from '../entities/lab-user.entity';
+import { LabUserService } from '../../entity-service/lab-user.service';
+import { LabAuthenticatedUserService } from '../../service/lab-authenticated-user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabUserConfig extends FlUserConfig {
-
-  constructor(private userService: LabUserService,
-              private authenticatedUserService: LabAuthenticatedUserService) {
+  constructor(
+    private userService: LabUserService,
+    private authenticatedUserService: LabAuthenticatedUserService
+  ) {
     super();
   }
 
@@ -36,5 +37,4 @@ export class LabUserConfig extends FlUserConfig {
   getAuthenticatedUser(): LabUser {
     return this.authenticatedUserService.getCurrentUser();
   }
-
 }

@@ -9,12 +9,10 @@ import { FlServerError } from '../model/fl-server-error.class';
  * Service to provide to handle error of the {@link FlApiService}
  */
 export abstract class FlApiErrorService {
-
   protected constructor(
     protected snackBarService: FlSnackBarService,
     protected translateService: FlTranslateService
-  ) {
-  }
+  ) {}
 
   /**
    * Method called when an error during an http call occurred
@@ -24,8 +22,12 @@ export abstract class FlApiErrorService {
    * @param defaultError the default error if the api does not return an explicit error
    * @return throw a formatted error
    */
-  public abstract handleServerError(errorResponse: HttpErrorResponse, hideError: boolean,
-                                    snackBarDuration?: number, defaultError?: string): Observable<never>;
+  public abstract handleServerError(
+    errorResponse: HttpErrorResponse,
+    hideError: boolean,
+    snackBarDuration?: number,
+    defaultError?: string
+  ): Observable<never>;
 
   /**
    * Default duration (in milliseconds) for the snackbar when showing an API error
@@ -42,7 +44,7 @@ export abstract class FlApiErrorService {
   public handleDeserializationError(error: any, classReference: ClDeserializationRef): never {
     // get the predefine error message
     const errorMessage = this.translateService.translate('flApi.error_deserialize', {
-      param: { className: classReference.name }
+      param: { className: classReference.name },
     });
 
     // console logs
@@ -56,7 +58,7 @@ export abstract class FlApiErrorService {
     // noinspection UnnecessaryLocalVariableJS
     const returnError: FlServerError = {
       response: null,
-      message: errorMessage
+      message: errorMessage,
     };
     throw returnError;
   }
@@ -68,16 +70,15 @@ export abstract class FlApiErrorService {
    * @param detailButton if provided, a detail button is displayed and this method is trigger on click
    * The snack bar is closed on click
    */
-  protected showError(message: string, duration?: number,
-                      detailButton?: (event: MouseEvent) => void): void {
+  protected showError(message: string, duration?: number, detailButton?: (event: MouseEvent) => void): void {
     if (duration == null) {
       duration = this.defaultApiErrorDuration;
     }
 
-    this.snackBarService.openErrorMessage({ text: message, translateText: false }, duration,
-      {
-        showCloseButton: true, detailButton: detailButton
-      });
+    this.snackBarService.openErrorMessage({ text: message, translateText: false }, duration, {
+      showCloseButton: true,
+      detailButton: detailButton,
+    });
   }
 
   /**
@@ -87,16 +88,14 @@ export abstract class FlApiErrorService {
    * @param detailButton if provided, a detail button is displayed and this method is trigger on click
    * The snack bar is closed on click
    */
-  protected showInfo(message: string, duration?: number,
-                     detailButton?: (event: MouseEvent) => void): void {
+  protected showInfo(message: string, duration?: number, detailButton?: (event: MouseEvent) => void): void {
     if (duration == null) {
       duration = this.defaultApiErrorDuration;
     }
 
-    this.snackBarService.openSuccessMessage({ text: message, translateText: false }, duration,
-      {
-        showCloseButton: true, detailButton: detailButton
-      });
+    this.snackBarService.openSuccessMessage({ text: message, translateText: false }, duration, {
+      showCloseButton: true,
+      detailButton: detailButton,
+    });
   }
-
 }

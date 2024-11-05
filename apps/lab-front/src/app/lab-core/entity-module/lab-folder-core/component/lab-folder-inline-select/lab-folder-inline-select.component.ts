@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Optional, Output, Self} from '@angular/core';
-import {FlFormFieldDirective, FlPortalService} from '@monorepo/front-core-lib';
-import {LabFolder} from '../../../../model/entities/lab-folder.class';
-import {NgControl} from '@angular/forms';
+import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { FlFormFieldDirective, FlPortalService } from '@monorepo/front-core-lib';
+import { LabFolder } from '../../../../model/entities/lab-folder.class';
+import { NgControl } from '@angular/forms';
 import {
   LabFolderSelectPortalComponent,
   LabFolderSelectPortalInput,
-  LabFolderSelectPortalResult
+  LabFolderSelectPortalResult,
 } from '../lab-folder-select-portal/lab-folder-select-portal.component';
 
 /**
@@ -15,17 +15,17 @@ import {
   selector: 'lab-folder-inline-select',
   templateUrl: './lab-folder-inline-select.component.html',
   styleUrls: ['./lab-folder-inline-select.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
 })
 export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFolder> {
-
   @Input() updateFolderHelpText?: string;
 
   @Output() selectionChange: EventEmitter<LabFolder | null> = new EventEmitter();
 
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private portalService: FlPortalService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private portalService: FlPortalService
+  ) {
     super(ngControl);
   }
 
@@ -33,8 +33,7 @@ export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFold
     this.selectionChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: LabFolder): void {
     this.value = obj;
@@ -43,31 +42,27 @@ export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFold
   openPortal(event: MouseEvent): void {
     if (this.disabled) return;
 
-    const config = this.portalService.configureRelativePortalFromMouseEvent(event,
-      ['bottom'],
-      {
-        disposeOnNavigation: true,
-        disposeOnOutsideClick: true
-      });
+    const config = this.portalService.configureRelativePortalFromMouseEvent(event, ['bottom'], {
+      disposeOnNavigation: true,
+      disposeOnOutsideClick: true,
+    });
 
     const data: LabFolderSelectPortalInput = {
       folder: this.value,
-      helpText: this.updateFolderHelpText
+      helpText: this.updateFolderHelpText,
     };
 
-    this.portalService.createPortal(LabFolderSelectPortalComponent, config, data).detachments().subscribe(
-      folder => this.onPortalClosed(folder)
-    );
+    this.portalService
+      .createPortal(LabFolderSelectPortalComponent, config, data)
+      .detachments()
+      .subscribe((folder) => this.onPortalClosed(folder));
   }
 
   private onPortalClosed(result: LabFolderSelectPortalResult): void {
     if (result == null) return;
 
     const folder = result.folder;
-    if (this.value?.id === folder?.id || this.value == null && folder == null) return;
+    if (this.value?.id === folder?.id || (this.value == null && folder == null)) return;
     this.setAndEmitValue(folder);
   }
-
-
 }
-

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSearchDateIntervalComponent} from './fl-search-date-interval.component';
+import { FlSearchDateIntervalComponent } from './fl-search-date-interval.component';
 
 describe('FlSearchDateIntervalComponent', () => {
   let component: FlSearchDateIntervalComponent;
@@ -8,9 +8,8 @@ describe('FlSearchDateIntervalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSearchDateIntervalComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSearchDateIntervalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

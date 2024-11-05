@@ -1,28 +1,38 @@
 @if (folder$ | async; as folder) {
-
   @if (folder.chatEnabled) {
-    <button mat-icon-button type="button" (click)="openChat(folder)"
-            [matTooltip]="'show_folder_chat' | translate"
-            [caNotificationMark]="folderId$" caNotificationObjectType="MESSAGE"
-            [caNotificationAssociatedObjectIds]="1">
+    <button
+      mat-icon-button
+      type="button"
+      (click)="openChat(folder)"
+      [matTooltip]="'show_folder_chat' | translate"
+      [caNotificationMark]="folderId$"
+      caNotificationObjectType="MESSAGE"
+      [caNotificationAssociatedObjectIds]="1">
       <mat-icon>comment</mat-icon>
     </button>
   }
 
-  <button mat-icon-button type="button" (click)="openDescription(folder)"
-          [matTooltip]="'show_folder_description' | translate">
+  <button
+    mat-icon-button
+    type="button"
+    (click)="openDescription(folder)"
+    [matTooltip]="'show_folder_description' | translate">
     <mat-icon>article</mat-icon>
   </button>
 
-  <button mat-icon-button [matMenuTriggerFor]="menu"
-          [matTooltip]="'folder_add_object' | translate">
+  <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="'folder_add_object' | translate">
     <mat-icon>add</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-
     <!--   hidden button upload files     -->
-    <input flInputFile [multiple]="true" type="file" (fileChange)="uploadFile($event)"
-           #fileInput [autoClearHtmlInput]="true" class="file-input">
+    <input
+      flInputFile
+      [multiple]="true"
+      type="file"
+      (fileChange)="uploadFile($event)"
+      #fileInput
+      [autoClearHtmlInput]="true"
+      class="file-input" />
 
     <button mat-menu-item (click)="fileInput.click()" type="button">
       <mat-icon>cloud_upload</mat-icon>
@@ -40,10 +50,7 @@
     </button>
   </mat-menu>
 
-  <button mat-icon-button type="button"
-          (click)="openFolderActionMenu(folder, $event)">
+  <button mat-icon-button type="button" (click)="openFolderActionMenu(folder, $event)">
     <mat-icon>more_vert</mat-icon>
   </button>
-
-
 }

@@ -6,18 +6,16 @@ import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
 @Component({
   selector: 'ca-space-search-form',
   templateUrl: './ca-space-search-form.component.html',
-  styleUrls: ['./ca-space-search-form.component.scss']
+  styleUrls: ['./ca-space-search-form.component.scss'],
 })
 export class CaSpaceSearchFormComponent implements OnInit {
-
   formGp: UntypedFormGroup;
 
-  spaceTypes: CaSpaceType[] = ['PERSONAL', 'ENTREPRISE']
+  spaceTypes: CaSpaceType[] = ['PERSONAL', 'ENTREPRISE'];
 
-  constructor(private searchState: FlSearchState<any>) { }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
   }
-
 }

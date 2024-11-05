@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlCardImageComponent} from './fl-card-image.component';
+import { FlCardImageComponent } from './fl-card-image.component';
 
 describe('LibCardImageComponent', () => {
   let component: FlCardImageComponent;
@@ -8,9 +8,8 @@ describe('LibCardImageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlCardImageComponent ]
-    })
-    .compileComponents();
+      declarations: [FlCardImageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

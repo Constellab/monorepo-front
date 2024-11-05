@@ -1,5 +1,5 @@
-import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
 
 /**
  * Translation file for the Spreadsheet module
@@ -11,8 +11,8 @@ const flFormulaI18nFr: FlLangTranslation = {
     add_formula: 'Ajouter une formule',
     edit_formula: 'Éditer la formule',
     formula_preview: 'Aperçu',
-    formula_help_text: 'L\'éditeur de formule est basé sur le TeX, voici la documentation'
-  }
+    formula_help_text: "L'éditeur de formule est basé sur le TeX, voici la documentation",
+  },
 };
 
 const flFormulaI18nEn: FlLangTranslation = {
@@ -22,11 +22,11 @@ const flFormulaI18nEn: FlLangTranslation = {
     add_formula: 'Add formula',
     edit_formula: 'Edit formula',
     formula_preview: 'Preview',
-    formula_help_text: 'The formula editor is based on TeX, here is the documentation'
-  }
+    formula_help_text: 'The formula editor is based on TeX, here is the documentation',
+  },
 };
 
 export const flFormulaI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: flFormulaI18nEn,
-  [ClSupportedLanguage.fr]: flFormulaI18nFr
+  [ClSupportedLanguage.fr]: flFormulaI18nFr,
 };

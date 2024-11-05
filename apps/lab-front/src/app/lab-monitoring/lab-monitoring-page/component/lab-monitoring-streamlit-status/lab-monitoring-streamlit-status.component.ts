@@ -10,27 +10,28 @@ import { LabStreamlitStatus } from '../../../../lab-core/model/global/lab-stream
 @Component({
   selector: 'lab-monitoring-streamlit-status',
   templateUrl: './lab-monitoring-streamlit-status.component.html',
-  styleUrl: './lab-monitoring-streamlit-status.component.scss'
+  styleUrl: './lab-monitoring-streamlit-status.component.scss',
 })
 export class LabMonitoringStreamlitStatusComponent {
-
   status$: Observable<LabStreamlitStatus> = this.streamlitService.getStatus();
 
-  constructor(private streamlitService: LabStreamlitService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private streamlitService: LabStreamlitService,
+    private dialogService: FlDialogService
+  ) {}
 
   stopApp(): void {
     const input: FlConfirmDialogInput = {
       title: 'monitoring.streamlit_stop_app',
       content: 'monitoring.streamlit_stop_app_confirmation',
       observable: this.streamlitService.stopApp(),
-      successMessage: 'monitoring.streamlit_app_stopped'
+      successMessage: 'monitoring.streamlit_app_stopped',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      (result: FlConfirmDialogResult) => this.onConfirmationClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => this.onConfirmationClosed(result));
   }
 
   private onConfirmationClosed(result: FlConfirmDialogResult): void {

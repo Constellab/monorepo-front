@@ -1,18 +1,18 @@
-:host{
+:host {
   height: inherit;
   width: 100%;
   min-width: 30vw;
   background-color: var(--main-background);
 }
 
-.comments-portal-div{
+.comments-portal-div {
   width: 30vw;
   padding: 1em 2em;
   height: inherit;
   overflow-y: auto;
 }
 
-.comments-portal{
+.comments-portal {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,41 +20,41 @@
   margin-bottom: 1em;
 }
 
-.comment-write-card{
+.comment-write-card {
   padding: 0.5em 0;
   margin: 0.25em;
 }
 
-.comment-write-card-content{
+.comment-write-card-content {
   margin: 0.5em 0;
 }
 
-.send-comment-bt{
+.send-comment-bt {
   margin-left: auto;
 }
 
-.text-editor{
+.text-editor {
   height: fit-content;
   width: 100%;
   max-width: 100%;
   min-height: 10em !important;
 }
 
-.comment-write-card-footer{
+.comment-write-card-footer {
   display: flex;
   flex-direction: row;
   justify-content: end;
   padding: 0 16px;
 }
 
-.comments-list-div{
+.comments-list-div {
   margin-top: 2em;
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
-.login-div{
+.login-div {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,18 +64,17 @@
 }
 
 @media (max-width: 1100px) {
-  .comments-portal-div{
+  .comments-portal-div {
     width: 60vw;
   }
 }
 
-
 @media (max-width: 700px) {
-  :host{
+  :host {
     min-width: 100vw;
   }
 
-  .comments-portal-div{
+  .comments-portal-div {
     width: calc(100% - 4em);
   }
 }

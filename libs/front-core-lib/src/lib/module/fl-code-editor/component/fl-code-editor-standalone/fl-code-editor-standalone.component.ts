@@ -1,21 +1,30 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import {Component, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID, ViewChild,} from '@angular/core';
-import {CommonModule, isPlatformBrowser} from '@angular/common';
-import {EditorState, Extension} from '@codemirror/state';
-import {EditorView, keymap} from '@codemirror/view';
-import {basicSetup} from 'codemirror';
-import {defaultKeymap, indentWithTab} from '@codemirror/commands';
-import {FormControl} from '@angular/forms';
-import {FlCodeEditorLanguage, FlThemeService} from '@monorepo/front-core-lib';
-import {HighlightStyle, StreamLanguage, syntaxHighlighting,} from '@codemirror/language';
-import {tags as t} from '@lezer/highlight';
-import {python} from '@codemirror/lang-python';
-import {json} from '@codemirror/lang-json';
-import {shell} from '@codemirror/legacy-modes/mode/shell';
-import {r} from '@codemirror/legacy-modes/mode/r';
-import {yaml} from '@codemirror/legacy-modes/mode/yaml';
-import {julia} from '@codemirror/legacy-modes/mode/julia';
-import {perl} from '@codemirror/legacy-modes/mode/perl';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { EditorState, Extension } from '@codemirror/state';
+import { EditorView, keymap } from '@codemirror/view';
+import { basicSetup } from 'codemirror';
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
+import { FormControl } from '@angular/forms';
+import { FlCodeEditorLanguage, FlThemeService } from '@monorepo/front-core-lib';
+import { HighlightStyle, StreamLanguage, syntaxHighlighting } from '@codemirror/language';
+import { tags as t } from '@lezer/highlight';
+import { python } from '@codemirror/lang-python';
+import { json } from '@codemirror/lang-json';
+import { shell } from '@codemirror/legacy-modes/mode/shell';
+import { r } from '@codemirror/legacy-modes/mode/r';
+import { yaml } from '@codemirror/legacy-modes/mode/yaml';
+import { julia } from '@codemirror/legacy-modes/mode/julia';
+import { perl } from '@codemirror/legacy-modes/mode/perl';
 
 /**
  * Python IDE editor component using CodeMirror.
@@ -30,20 +39,21 @@ import {perl} from '@codemirror/legacy-modes/mode/perl';
   styleUrls: ['./fl-code-editor-standalone.component.scss'],
 })
 export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
-  @Input({required: true}) language: FlCodeEditorLanguage;
+  @Input({ required: true }) language: FlCodeEditorLanguage;
 
-  @Input({required: true}) formCtrl: FormControl;
+  @Input({ required: true }) formCtrl: FormControl;
 
   @Input() focus: boolean = false;
 
-  @ViewChild('editor', {static: true}) editor: ElementRef<HTMLElement>;
+  @ViewChild('editor', { static: true }) editor: ElementRef<HTMLElement>;
 
   private editorState: EditorState;
   private editorView: any;
 
-  constructor(private themeService: FlThemeService,
-              @Inject(PLATFORM_ID) private platformId: object) {
-  }
+  constructor(
+    private themeService: FlThemeService,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -129,19 +139,14 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
     };
 
     const materialDarkHighlightStyle = HighlightStyle.define([
-      {tag: t.keyword, color: config.keyword},
+      { tag: t.keyword, color: config.keyword },
       {
         tag: [t.name, t.deleted, t.character, t.macroName],
         color: config.variable,
       },
-      {tag: [t.propertyName], color: config.function},
+      { tag: [t.propertyName], color: config.function },
       {
-        tag: [
-          t.processingInstruction,
-          t.string,
-          t.inserted,
-          t.special(t.string),
-        ],
+        tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)],
         color: config.string,
       },
       {
@@ -152,40 +157,32 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
         tag: [t.color, t.constant(t.name), t.standard(t.name)],
         color: config.constant,
       },
-      {tag: [t.definition(t.name), t.separator], color: config.variable},
-      {tag: [t.className], color: config.class},
+      { tag: [t.definition(t.name), t.separator], color: config.variable },
+      { tag: [t.className], color: config.class },
       {
-        tag: [
-          t.number,
-          t.changed,
-          t.annotation,
-          t.modifier,
-          t.self,
-          t.namespace,
-        ],
+        tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace],
         color: config.number,
       },
-      {tag: [t.typeName], color: config.type, fontStyle: config.type},
-      {tag: [t.operator, t.operatorKeyword], color: config.keyword},
-      {tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp},
-      {tag: [t.meta, t.comment], color: config.comment},
-      {tag: t.strong, fontWeight: 'bold'},
-      {tag: t.emphasis, fontStyle: 'italic'},
-      {tag: t.link, textDecoration: 'underline'},
-      {tag: t.heading, fontWeight: 'bold', color: config.heading},
+      { tag: [t.typeName], color: config.type, fontStyle: config.type },
+      { tag: [t.operator, t.operatorKeyword], color: config.keyword },
+      { tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp },
+      { tag: [t.meta, t.comment], color: config.comment },
+      { tag: t.strong, fontWeight: 'bold' },
+      { tag: t.emphasis, fontStyle: 'italic' },
+      { tag: t.link, textDecoration: 'underline' },
+      { tag: t.heading, fontWeight: 'bold', color: config.heading },
       {
         tag: [t.atom, t.bool, t.special(t.variableName)],
         color: config.variable,
       },
-      {tag: t.invalid, color: config.invalid},
-      {tag: t.strikethrough, textDecoration: 'line-through'},
+      { tag: t.invalid, color: config.invalid },
+      { tag: t.strikethrough, textDecoration: 'line-through' },
     ]);
 
     return [syntaxHighlighting(materialDarkHighlightStyle)];
   }
 
   ngOnDestroy(): void {
-    if (this.editorView)
-      this.editorView.destroy();
+    if (this.editorView) this.editorView.destroy();
   }
 }

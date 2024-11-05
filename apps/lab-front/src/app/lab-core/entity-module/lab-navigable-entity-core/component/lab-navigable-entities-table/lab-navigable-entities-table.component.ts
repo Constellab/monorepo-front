@@ -1,16 +1,18 @@
-import { Component, ComponentRef, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 import {
-  LabScenarioTableComponent
-} from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+  Component,
+  ComponentRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
+import { LabScenarioTableComponent } from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib';
 import { LabNoteTableComponent } from '../../../lab-note-core/component/lab-note-table/lab-note-table.component';
-import {
-  LabResourceTableComponent
-} from '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component';
-import {
-  LabViewConfigTableComponent
-} from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
+import { LabResourceTableComponent } from '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component';
+import { LabViewConfigTableComponent } from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
 
 /**
  * Show a table of navigable entities based on the type
@@ -18,18 +20,16 @@ import {
 @Component({
   selector: 'lab-navigable-entities-table',
   templateUrl: './lab-navigable-entities-table.component.html',
-  styleUrl: './lab-navigable-entities-table.component.scss'
+  styleUrl: './lab-navigable-entities-table.component.scss',
 })
 export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) type: LabEntityType;
 
-  @Input({required: true}) type: LabEntityType;
+  @Input({ required: true }) entities: any[];
 
-  @Input({required: true}) entities: any[];
-
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private componentRef: ComponentRef<any>;
-
 
   async ngOnInit(): Promise<void> {
     switch (this.type) {

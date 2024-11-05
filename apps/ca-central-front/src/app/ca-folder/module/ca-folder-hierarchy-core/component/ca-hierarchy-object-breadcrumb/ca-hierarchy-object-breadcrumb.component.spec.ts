@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaHierarchyObjectBreadcrumbComponent} from './ca-hierarchy-object-breadcrumb.component';
+import { CaHierarchyObjectBreadcrumbComponent } from './ca-hierarchy-object-breadcrumb.component';
 
 describe('CaFolderBreadcrumbComponent', () => {
   let component: CaHierarchyObjectBreadcrumbComponent;
@@ -8,9 +8,8 @@ describe('CaFolderBreadcrumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaHierarchyObjectBreadcrumbComponent ]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectBreadcrumbComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectBreadcrumbComponent);
     component = fixture.componentInstance;

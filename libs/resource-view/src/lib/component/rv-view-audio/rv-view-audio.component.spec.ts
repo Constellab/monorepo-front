@@ -8,9 +8,8 @@ describe('RvViewAudioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RvViewAudioComponent]
-    })
-    .compileComponents();
+      declarations: [RvViewAudioComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RvViewAudioComponent);
     component = fixture.componentInstance;

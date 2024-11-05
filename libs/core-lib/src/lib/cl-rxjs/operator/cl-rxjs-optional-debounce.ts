@@ -1,5 +1,5 @@
-import {Observable} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 /**
  * Simple RXJS operator to make the optional debounce timer optional
@@ -11,6 +11,6 @@ import {debounceTime} from 'rxjs/operators';
  */
 export function clRxjsOptionalDebounce(time?: number) {
   return <T>(source: Observable<T>): Observable<T> => {
-    return (time == null || time === 0) ? source : source.pipe(debounceTime(time));
+    return time == null || time === 0 ? source : source.pipe(debounceTime(time));
   };
 }

@@ -1,18 +1,27 @@
-import {Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2} from '@angular/core';
-import {DateTime} from 'luxon';
-import {ClDateHelper} from '@monorepo/core-lib';
-import {FlKeyboardKey} from '../../../../utils/fl-keyboard.helper';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+  Renderer2,
+} from '@angular/core';
+import { DateTime } from 'luxon';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { FlKeyboardKey } from '../../../../utils/fl-keyboard.helper';
 
 @Directive({
   selector: '[flElementEditable]',
 })
 export class FlElementEditableDirective {
-
   /**
    * Make element editable
    */
   @HostBinding('class.g-fl-element-editable-true')
-  @Input() flElementEditable: boolean | string = false;
+  @Input()
+  flElementEditable: boolean | string = false;
 
   @Output() flElementEditableChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -28,7 +37,8 @@ export class FlElementEditableDirective {
    * Disable editable element
    */
   @HostBinding('class.g-fl-element-editable-disabled')
-  @Input() flElementDisabled: boolean = false;
+  @Input()
+  flElementDisabled: boolean = false;
 
   @Input() flIgnoreEnterKey: boolean = false;
 
@@ -79,15 +89,17 @@ export class FlElementEditableDirective {
     if (event.key === FlKeyboardKey.ENTER && !this.flIgnoreEnterKey) {
       event.preventDefault();
       this.setNotEditable();
-    }else if(event.key === FlKeyboardKey.ESCAPE){
+    } else if (event.key === FlKeyboardKey.ESCAPE) {
       event.preventDefault();
       this.elementRef.nativeElement.innerText = this.previousValue;
       this.setNotEditable();
     }
   }
 
-  constructor(private elementRef: ElementRef,
-              private renderer: Renderer2) {
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2
+  ) {
     // add a default class to the element
     renderer.addClass(elementRef.nativeElement, 'g-fl-element-editable');
   }
@@ -107,7 +119,10 @@ export class FlElementEditableDirective {
 
     // only emit if value has changed
     const newValue = this.elementRef.nativeElement.innerText;
-    if ((this.minLength && newValue.length < this.minLength) || (this.maxLength && newValue.length > this.maxLength)) {
+    if (
+      (this.minLength && newValue.length < this.minLength) ||
+      (this.maxLength && newValue.length > this.maxLength)
+    ) {
       this.elementRef.nativeElement.innerText = this.previousValue;
       return;
     }
@@ -116,5 +131,4 @@ export class FlElementEditableDirective {
       this.flElementValueChange.emit(newValue);
     }
   }
-
 }

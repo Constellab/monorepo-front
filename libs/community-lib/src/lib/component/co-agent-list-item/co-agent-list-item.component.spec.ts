@@ -8,9 +8,8 @@ describe('CoAgentListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CoAgentListItemComponent ]
-    })
-    .compileComponents();
+      declarations: [CoAgentListItemComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

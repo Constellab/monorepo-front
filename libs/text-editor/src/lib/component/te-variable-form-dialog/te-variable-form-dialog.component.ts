@@ -1,8 +1,7 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TeVariableFormInfo, TeVariableFormType} from '../../model/te-variable.class';
-
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TeVariableFormInfo, TeVariableFormType } from '../../model/te-variable.class';
 
 @Component({
   selector: 'te-variable-form-dialog',
@@ -10,22 +9,21 @@ import {TeVariableFormInfo, TeVariableFormType} from '../../model/te-variable.cl
   styleUrl: './te-variable-form-dialog.component.scss',
 })
 export class TeVariableFormDialogComponent implements OnInit {
-
   @Input() formGroup: FormGroup = new FormBuilder().group({
     name: '',
     description: '',
     type: 'string' as TeVariableFormType,
-    value: null as string
+    value: null as string,
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: TeVariableFormInfo,
-              private dialogRef: MatDialogRef<TeVariableFormDialogComponent>) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: TeVariableFormInfo,
+    private dialogRef: MatDialogRef<TeVariableFormDialogComponent>
+  ) {}
 
   ngOnInit(): void {
     this.formGroup.patchValue(this.input);
   }
-
 
   save(): void {
     if (this.formGroup.valid) {

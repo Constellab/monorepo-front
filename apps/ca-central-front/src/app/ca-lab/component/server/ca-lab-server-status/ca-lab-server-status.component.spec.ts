@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabServerStatusComponent} from './ca-lab-server-status.component';
+import { CaLabServerStatusComponent } from './ca-lab-server-status.component';
 
 describe('CaLabServerStatusComponent', () => {
   let component: CaLabServerStatusComponent;
@@ -8,9 +8,8 @@ describe('CaLabServerStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabServerStatusComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabServerStatusComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabServerStatusComponent);
     component = fixture.componentInstance;

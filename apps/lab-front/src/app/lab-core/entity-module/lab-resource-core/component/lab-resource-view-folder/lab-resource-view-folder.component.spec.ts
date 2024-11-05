@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceViewFolderComponent} from './lab-resource-view-folder.component';
+import { LabResourceViewFolderComponent } from './lab-resource-view-folder.component';
 
 describe('LabResourceFolderComponent', () => {
   let component: LabResourceViewFolderComponent;
@@ -8,9 +8,8 @@ describe('LabResourceFolderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceViewFolderComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceViewFolderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

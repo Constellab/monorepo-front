@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUserProfileEditDialogComponent} from './ca-user-profile-edit-dialog.component';
+import { CaUserProfileEditDialogComponent } from './ca-user-profile-edit-dialog.component';
 
 describe('CaUserProfileEditDialogComponent', () => {
   let component: CaUserProfileEditDialogComponent;
@@ -8,9 +8,8 @@ describe('CaUserProfileEditDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaUserProfileEditDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaUserProfileEditDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaUserProfileEditDialogComponent);
     component = fixture.componentInstance;

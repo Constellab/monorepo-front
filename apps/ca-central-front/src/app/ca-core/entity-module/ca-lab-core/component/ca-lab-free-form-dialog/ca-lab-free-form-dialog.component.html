@@ -1,38 +1,40 @@
 <fl-dialog-header>
-  {{'free_data_lab_update' | translate}}
+  {{ 'free_data_lab_update' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="free-lab-form" [formGroup]="formGp">
-
     <!--  Usage limite  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'free_data_lab_hour_limit' | translate}}</mat-label>
-      <input matInput formControlName="usageLimitInHours" required type="number"
-             [placeholder]="'free_data_lab_hour_limit' | translate">
+      <mat-label>{{ 'free_data_lab_hour_limit' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="usageLimitInHours"
+        required
+        type="number"
+        [placeholder]="'free_data_lab_hour_limit' | translate" />
       <mat-error *ngIf="formGp.get('usageLimitInHours').hasError('required')">
-        {{'free_data_lab_hour_limit' | flErrorRequired}}
+        {{ 'free_data_lab_hour_limit' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <!--    Start Date      -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'free_data_lab_expiration_date' | translate}}</mat-label>
-      <input matInput formControlName="expirationDate"
-             [matDatepicker]="startingPicker"
-             [placeholder]="'flDate.date_picker_placeholder' | translate">
+      <mat-label>{{ 'free_data_lab_expiration_date' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="expirationDate"
+        [matDatepicker]="startingPicker"
+        [placeholder]="'flDate.date_picker_placeholder' | translate" />
       <mat-datepicker-toggle matSuffix [for]="startingPicker"></mat-datepicker-toggle>
       <mat-datepicker #startingPicker startView="month"></mat-datepicker>
     </mat-form-field>
-
-
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-raised-button color="primary" type="submit" form="free-lab-form"
-          class="g-centered">
-    {{'save' | translate}}
+  <button mat-raised-button color="primary" type="submit" form="free-lab-form" class="g-centered">
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

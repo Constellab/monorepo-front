@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaServerCloudSearchFormComponent} from './ca-server-cloud-search-form.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaServerCloudSearchFormComponent } from './ca-server-cloud-search-form.component';
 
 describe('CaServerInfoSearchFormComponent', () => {
   let component: CaServerCloudSearchFormComponent;

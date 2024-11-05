@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceTeamsPageComponent} from './ca-current-space-teams-page.component';
+import { CaCurrentSpaceTeamsPageComponent } from './ca-current-space-teams-page.component';
 
 describe('CaCurrentSpaceTeamsPageComponent', () => {
   let component: CaCurrentSpaceTeamsPageComponent;

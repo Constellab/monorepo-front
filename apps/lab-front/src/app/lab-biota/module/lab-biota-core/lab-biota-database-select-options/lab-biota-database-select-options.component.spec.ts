@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBiotaDatabaseSelectOptionsComponent} from './lab-biota-database-select-options.component';
+import { LabBiotaDatabaseSelectOptionsComponent } from './lab-biota-database-select-options.component';
 
 describe('BiotaDatabaseSelectOptionsComponent', () => {
   let component: LabBiotaDatabaseSelectOptionsComponent;
@@ -8,9 +8,8 @@ describe('BiotaDatabaseSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBiotaDatabaseSelectOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBiotaDatabaseSelectOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

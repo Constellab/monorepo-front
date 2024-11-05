@@ -1,20 +1,20 @@
-.back-link{
+.back-link {
   display: block;
   width: fit-content;
   margin-bottom: 1.5em;
 }
 
-.agent-page-div{
+.agent-page-div {
   min-height: calc(100vh - var(--navbar-height) - 19px);
   margin-top: 19px;
 }
 
-.main-agent-panel{
+.main-agent-panel {
   height: 100%;
 }
 
 .agent-user-div {
-  .agent-user-title{
+  .agent-user-title {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -22,7 +22,7 @@
     margin-bottom: 10px;
   }
 
-  .agent-user-line{
+  .agent-user-line {
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -8,9 +8,8 @@ describe('CaAdminLabsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminLabsPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAdminLabsPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaAdminLabsPageComponent);
     component = fixture.componentInstance;

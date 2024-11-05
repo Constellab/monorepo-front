@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitorBetweenDatesDialogComponent} from './lab-monitor-between-dates-dialog.component';
+import { LabMonitorBetweenDatesDialogComponent } from './lab-monitor-between-dates-dialog.component';
 
 describe('LabMonitorBetweenDatesDialogComponent', () => {
   let component: LabMonitorBetweenDatesDialogComponent;
@@ -8,9 +8,8 @@ describe('LabMonitorBetweenDatesDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitorBetweenDatesDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabMonitorBetweenDatesDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabMonitorBetweenDatesDialogComponent);
     component = fixture.componentInstance;

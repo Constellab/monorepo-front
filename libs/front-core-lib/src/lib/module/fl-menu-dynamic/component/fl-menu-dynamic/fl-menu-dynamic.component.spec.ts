@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlMenuDynamicComponent} from './fl-menu-dynamic.component';
+import { FlMenuDynamicComponent } from './fl-menu-dynamic.component';
 
 describe('FlMenuDynamicComponent', () => {
   let component: FlMenuDynamicComponent;
@@ -8,9 +8,8 @@ describe('FlMenuDynamicComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlMenuDynamicComponent ]
-    })
-    .compileComponents();
+      declarations: [FlMenuDynamicComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

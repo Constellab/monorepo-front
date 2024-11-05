@@ -3,25 +3,21 @@ import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.en
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabSelectTypeDialogComponent,
-  LabSelectTypeDialogInput
+  LabSelectTypeDialogInput,
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
 import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { Observable } from 'rxjs';
 import { LabResource } from '../../../../lab-core/model/entities/resource/lab-resource.entity';
-import {
-  LabSelectResourceDialogComponent
-} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
+import { LabSelectResourceDialogComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import {
   LabSelectScenarioTemplateDialogComponent,
-  LabSelectScenarioTemplateDialogInput
+  LabSelectScenarioTemplateDialogInput,
 } from '../../../../lab-core/entity-module/lab-scenario-template-core/component/lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabAgent } from '../../../../lab-core/model/entities/lab-agent.entity';
-import {
-  LabSelectCommunityAgentDialogComponent
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-agent-dialog/lab-select-community-agent-dialog.component';
+import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-agent-dialog/lab-select-community-agent-dialog.component';
 
 /**
  * Actions button for the workflow
@@ -29,28 +25,29 @@ import {
 @Component({
   selector: 'lab-workflow-actions',
   templateUrl: './lab-workflow-actions.component.html',
-  styleUrls: ['./lab-workflow-actions.component.scss']
+  styleUrls: ['./lab-workflow-actions.component.scss'],
 })
 export class LabWorkflowActionsComponent implements OnInit {
   scenario$: Observable<LabScenario>;
 
-  constructor(private workflowEditState: LabWorkflowEditConfig,
-              private dialogService: FlDialogService,
-              private scenarioState: LabScenarioDetailPageState) {
-  }
+  constructor(
+    private workflowEditState: LabWorkflowEditConfig,
+    private dialogService: FlDialogService,
+    private scenarioState: LabScenarioDetailPageState
+  ) {}
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();
   }
 
-
   addProcess(): void {
     const data: LabSelectTypeDialogInput = {
-      searchConfig: { mode: 'process' }
+      searchConfig: { mode: 'process' },
     };
-    this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data: data }).afterClosed().subscribe(
-      processType => this.onSelectTypeClosed(processType)
-    );
+    this.dialogService
+      .openBigDialog(LabSelectTypeDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((processType) => this.onSelectTypeClosed(processType));
   }
 
   private onSelectTypeClosed(processType?: LabTypeEntity): void {
@@ -60,9 +57,10 @@ export class LabWorkflowActionsComponent implements OnInit {
   }
 
   addResource(): void {
-    this.dialogService.openBigDialog(LabSelectResourceDialogComponent).afterClosed().subscribe(
-      resource => this.onSelectResourceClosed(resource)
-    );
+    this.dialogService
+      .openBigDialog(LabSelectResourceDialogComponent)
+      .afterClosed()
+      .subscribe((resource) => this.onSelectResourceClosed(resource));
   }
 
   private onSelectResourceClosed(resource?: LabResource): void {
@@ -73,11 +71,12 @@ export class LabWorkflowActionsComponent implements OnInit {
 
   addScenarioTemplate(): void {
     const data: LabSelectScenarioTemplateDialogInput = {
-      rowSelectable: true
+      rowSelectable: true,
     };
-    this.dialogService.openBigDialog(LabSelectScenarioTemplateDialogComponent, { data: data }).afterClosed().subscribe(
-      scenarioTemplate => this.onSelectScenarioTemplateClosed(scenarioTemplate)
-    );
+    this.dialogService
+      .openBigDialog(LabSelectScenarioTemplateDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((scenarioTemplate) => this.onSelectScenarioTemplateClosed(scenarioTemplate));
   }
 
   private onSelectScenarioTemplateClosed(scenarioTemplate?: LabScenarioTemplate): void {
@@ -87,13 +86,14 @@ export class LabWorkflowActionsComponent implements OnInit {
   }
 
   addCommunityAgent(): void {
-    this.dialogService.openMediumDialog(LabSelectCommunityAgentDialogComponent).afterClosed().subscribe(
-      (agentVersion: LabAgent) => {
+    this.dialogService
+      .openMediumDialog(LabSelectCommunityAgentDialogComponent)
+      .afterClosed()
+      .subscribe((agentVersion: LabAgent) => {
         if (agentVersion) {
           this.workflowEditState.addCommunityAgent(agentVersion.id, agentVersion.title);
         }
-      }
-    );
+      });
   }
 
   addEmptyProtocol(): void {

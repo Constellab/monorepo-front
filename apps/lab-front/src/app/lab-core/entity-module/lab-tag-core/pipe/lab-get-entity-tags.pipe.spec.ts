@@ -1,4 +1,4 @@
-import {LabGetEntityTagsPipe} from './lab-get-entity-tags.pipe';
+import { LabGetEntityTagsPipe } from './lab-get-entity-tags.pipe';
 
 describe('LabGetEntityTagsPipe', () => {
   it('create an instance', () => {

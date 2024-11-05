@@ -1,14 +1,22 @@
-import {SpSheetChartSelection} from './sp-sheet-chart-selection.class';
-import {SpSheet} from '../sp-sheet.class';
-import {SpSheetChart2dSerieSelectionForm} from './sp-sheet-chart-selection-form.class';
-import {ChChart2dMultiSerie, ChChartConfig, ChChartLine2d, ChChartScatterPlot2d, ChChartType} from '@monorepo/chart';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetChart2dSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
+import {
+  ChChart2dMultiSerie,
+  ChChartConfig,
+  ChChartLine2d,
+  ChChartScatterPlot2d,
+  ChChartType,
+} from '@monorepo/chart';
 
 export class SpSheetChartSelectionBasic extends SpSheetChartSelection {
-
-
-  constructor(sheet: SpSheet, private chartType: ChChartType.LINE | ChChartType.SCATTER_PLOT,
-              private series: SpSheetChart2dSerieSelectionForm[],
-              private xAxisLabel?: string, private yAxisLabel?: string) {
+  constructor(
+    sheet: SpSheet,
+    private chartType: ChChartType.LINE | ChChartType.SCATTER_PLOT,
+    private series: SpSheetChart2dSerieSelectionForm[],
+    private xAxisLabel?: string,
+    private yAxisLabel?: string
+  ) {
     super(sheet);
   }
 
@@ -27,6 +35,4 @@ export class SpSheetChartSelectionBasic extends SpSheetChartSelection {
       return new ChChartScatterPlot2d(series);
     }
   }
-
-
 }

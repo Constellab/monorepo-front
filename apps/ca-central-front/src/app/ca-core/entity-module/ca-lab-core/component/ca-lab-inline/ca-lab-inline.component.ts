@@ -7,6 +7,5 @@ import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
   styleUrls: ['./ca-lab-inline.component.scss'],
 })
 export class CaLabInlineComponent {
-
   @Input() lab: CaLab;
 }

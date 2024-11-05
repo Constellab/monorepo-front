@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 /**
  * Container for the {@link FlArticleComponent}, {@link FlArticleLeftSideComponent} and {@link FlArticleRightSideComponent}
@@ -10,13 +10,10 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'fl-article-container',
   templateUrl: './fl-article-container.component.html',
-  styleUrls: ['./fl-article-container.component.scss']
+  styleUrls: ['./fl-article-container.component.scss'],
 })
 export class FlArticleContainerComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

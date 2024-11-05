@@ -8,9 +8,8 @@ describe('CoCommunityIconSelectDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CoCommunityIconSelectDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CoCommunityIconSelectDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoCommunityIconSelectDialogComponent);
     component = fixture.componentInstance;

@@ -1,15 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'fl-section-actions',
   templateUrl: './fl-section-actions.component.html',
-  styleUrls: ['./fl-section-actions.component.scss']
+  styleUrls: ['./fl-section-actions.component.scss'],
 })
 export class FlSectionActionsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

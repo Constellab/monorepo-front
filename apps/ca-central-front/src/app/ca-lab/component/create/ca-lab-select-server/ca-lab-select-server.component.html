@@ -1,6 +1,4 @@
 <div [formGroup]="formGp">
-
-
   <div class="section">
     <h2 class="title">{{ 'select_lab_usage' | translate }}</h2>
 
@@ -10,16 +8,14 @@
   <!--  Standard server  -->
   @if (serverStandards$) {
     <div class="section">
-
       <h2 class="title">{{ 'select_lab_server' | translate }}</h2>
 
       @if (serverStandards$ | async; as serverStandards) {
-
-        <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
-                         formControlName="standardServer">
+        <mat-radio-group
+          class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
+          formControlName="standardServer">
           @for (standardServer of serverStandards; track standardServer.id) {
-            <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig
-                              color="accent">
+            <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig color="accent">
               <div>
                 {{ standardServer.name }}
               </div>
@@ -50,13 +46,13 @@
       <h2 class="title">{{ 'select_lab_cloud_provider' | translate }}</h2>
 
       @if (serverClouds$ | async; as serverClouds) {
-
-        <mat-radio-group class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
-                         formControlName="serverCloud">
+        <mat-radio-group
+          class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+          formControlName="serverCloud">
           @for (serverCloud of serverClouds; track serverCloud.id) {
-            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig
-                              color="accent">
-              <ca-cloud-provider-inline [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
+            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig color="accent">
+              <ca-cloud-provider-inline
+                [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
               <div class="g-text-small g-text-light radio-description">
                 <div>{{ serverCloud.cloudProvider.description }}</div>
@@ -95,11 +91,11 @@
       <h2 class="title">{{ 'select_lab_location' | translate }}</h2>
 
       @if (regions$ | async; as regions) {
-        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
-                         formControlName="region">
+        <mat-radio-group
+          class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+          formControlName="region">
           @for (region of regions; track region.id) {
-            <mat-radio-button [value]="region" class="radio-button" flRadioButtonBig
-                              color="accent">
+            <mat-radio-button [value]="region" class="radio-button" flRadioButtonBig color="accent">
               <ca-cloud-provider-region-multilines [region]="region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }
@@ -107,13 +103,10 @@
       } @else {
         <fl-loader></fl-loader>
       }
-
     </div>
   }
 
   @if (formGp.get('region').valid) {
-
-
     <!-- Daily backup region -->
     <div class="section">
       <h2 class="title">{{ 'create_lab_backup_title' | translate }}</h2>
@@ -124,15 +117,14 @@
       </fl-text-icon>
 
       @if (s3Regions | flDatasourceConnect | async; as s3Regions) {
-
         <!-- Daily backup region -->
         <h3 class="title">{{ 'daily_backup' | translate }}</h3>
 
-        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
-                         formControlName="dailyBackupRegion">
+        <mat-radio-group
+          class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+          formControlName="dailyBackupRegion">
           @for (s3Region of s3Regions; track s3Region.id) {
-            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig
-                              color="accent">
+            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig color="accent">
               <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }
@@ -141,11 +133,11 @@
         <!-- Weeekly backup region -->
         <h3 class="title">{{ 'weekly_backup' | translate }}</h3>
 
-        <mat-radio-group class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
-                         formControlName="weeklyBackupRegion">
+        <mat-radio-group
+          class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
+          formControlName="weeklyBackupRegion">
           @for (s3Region of s3Regions; track s3Region.id) {
-            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig
-                              color="accent">
+            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig color="accent">
               <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }
@@ -157,9 +149,6 @@
       } @else {
         <fl-loader></fl-loader>
       }
-
     </div>
-
   }
 </div>
-

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlUserProfilePictureComponent} from './fl-user-profile-picture.component';
+import { FlUserProfilePictureComponent } from './fl-user-profile-picture.component';
 
 describe('FlUserProfilePictureComponent', () => {
   let component: FlUserProfilePictureComponent;
@@ -8,9 +8,8 @@ describe('FlUserProfilePictureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlUserProfilePictureComponent]
-    })
-      .compileComponents();
+      declarations: [FlUserProfilePictureComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

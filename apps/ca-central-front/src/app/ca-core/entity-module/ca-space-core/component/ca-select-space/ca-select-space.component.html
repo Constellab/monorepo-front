@@ -1,18 +1,16 @@
-<fl-input-search [selectedItem]="selectedSpace"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="spaceDatasource"
-                 [placeholder]="placeholder"
-                 [required]="required"
-                 [disabled]="disabled"
-                 (focused)="onFocused($event)">
-
+<fl-input-search
+  [selectedItem]="selectedSpace"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="spaceDatasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  (focused)="onFocused($event)">
   <div class="photo" *flInputSearchPrefix="spaceDatasource as currentSpace">
-    <ca-space-photo *ngIf="currentSpace; else noUser" [space]="currentSpace"
-                    size="small"></ca-space-photo>
+    <ca-space-photo *ngIf="currentSpace; else noUser" [space]="currentSpace" size="small"></ca-space-photo>
     <ng-template #noUser>
       <mat-icon flIcon="space"></mat-icon>
     </ng-template>
-
   </div>
 
   <ca-space-inline *flInputSearchOption="spaceDatasource as space" [space]="space"></ca-space-inline>

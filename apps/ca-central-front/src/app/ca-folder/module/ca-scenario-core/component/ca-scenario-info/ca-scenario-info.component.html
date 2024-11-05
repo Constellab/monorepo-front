@@ -1,7 +1,9 @@
 @if (scenario.isValidated) {
   <!--  Validated info  -->
-  <ca-validated-object-info class="separator" [object]="scenario"
-                            *ngIf="scenario.isValidated"></ca-validated-object-info>
+  <ca-validated-object-info
+    class="separator"
+    [object]="scenario"
+    *ngIf="scenario.isValidated"></ca-validated-object-info>
 }
 
 <!-- Sync ino -->
@@ -10,7 +12,10 @@
 <div>
   <!-- Description-->
   @if (!(scenario.description | teRichTextIsEmpty)) {
-    <te-text-editor [ngModel]="scenario.description" [disabled]="true"
-                    [config]="textEditorConfig" class="g-scrollable-element"></te-text-editor>
+    <te-text-editor
+      [ngModel]="scenario.description"
+      [disabled]="true"
+      [config]="textEditorConfig"
+      class="g-scrollable-element"></te-text-editor>
   }
 </div>

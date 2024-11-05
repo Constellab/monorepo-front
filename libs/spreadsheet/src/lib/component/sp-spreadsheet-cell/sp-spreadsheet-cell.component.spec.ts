@@ -8,9 +8,8 @@ describe('SpSpreadsheetCellComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSpreadsheetCellComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSpreadsheetCellComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

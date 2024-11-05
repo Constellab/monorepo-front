@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
-import {LabAppComponent} from './lab-app.component';
-import {RouterTestingModule} from '@angular/router/testing';
+import { TestBed } from '@angular/core/testing';
+import { LabAppComponent } from './lab-app.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HaAppComponent', () => {
   beforeEach(async () => {
@@ -26,8 +26,6 @@ describe('HaAppComponent', () => {
     const fixture = TestBed.createComponent(LabAppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to lab-front!'
-    );
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to lab-front!');
   });
 });

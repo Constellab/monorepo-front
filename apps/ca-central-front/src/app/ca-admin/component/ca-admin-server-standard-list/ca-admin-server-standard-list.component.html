@@ -1,5 +1,4 @@
 <fl-card class="g-full-height">
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">dns</mat-icon>
@@ -7,22 +6,33 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-icon-button type="button" (click)="openCreateDialog()"
-              [matTooltip]="'create_server_standard' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openCreateDialog()"
+        [matTooltip]="'create_server_standard' | translate">
         <mat-icon>add</mat-icon>
       </button>
 
       <!--   Decision tree   -->
-      <button mat-icon-button type="button" (click)="downloadDecisionTree()"
-              [matTooltip]="'download_server_decision_tree' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="downloadDecisionTree()"
+        [matTooltip]="'download_server_decision_tree' | translate">
         <mat-icon>cloud_download</mat-icon>
       </button>
 
-      <fl-input-file-icon-container [matTooltip]="'upload_server_decision_tree' | translate" icon="cloud_upload">
-        <input flInputFile [multiple]="false" type="file" (fileChange)="uploadDecisionTree($any($event))"
-               accept="application/json">
+      <fl-input-file-icon-container
+        [matTooltip]="'upload_server_decision_tree' | translate"
+        icon="cloud_upload">
+        <input
+          flInputFile
+          [multiple]="false"
+          type="file"
+          (fileChange)="uploadDecisionTree($any($event))"
+          accept="application/json" />
       </fl-input-file-icon-container>
-
     </fl-card-actions>
   </fl-card-header>
 
@@ -31,6 +41,4 @@
       <ca-server-standard-table [datasource]="serverStandards"></ca-server-standard-table>
     </fl-infinite-scroll>
   </fl-card-body>
-
-
 </fl-card>

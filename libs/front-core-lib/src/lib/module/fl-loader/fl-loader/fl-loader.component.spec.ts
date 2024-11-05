@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlLoaderComponent} from './fl-loader.component';
+import { FlLoaderComponent } from './fl-loader.component';
 
 describe('LibLoaderComponent', () => {
   let component: FlLoaderComponent;
@@ -8,9 +8,8 @@ describe('LibLoaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlLoaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FlLoaderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

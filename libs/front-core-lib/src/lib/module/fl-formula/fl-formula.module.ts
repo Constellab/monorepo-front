@@ -16,15 +16,8 @@ import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [
-    FlFormulaComponent,
-    FlFormulaComponent,
-    FlFormulaDialogComponent,
-  ],
-  exports: [
-    FlFormulaComponent,
-    FlFormulaComponent
-  ],
+  declarations: [FlFormulaComponent, FlFormulaComponent, FlFormulaDialogComponent],
+  exports: [FlFormulaComponent, FlFormulaComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -40,14 +33,10 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-  ]
+  ],
 })
 export class FlFormulaModule {
-
   constructor(translateService: FlTranslateService) {
-    translateService.addModuleTranslation(
-      'FlFormulaModule',
-      flFormulaI18n
-    );
+    translateService.addModuleTranslation('FlFormulaModule', flFormulaI18n);
   }
 }

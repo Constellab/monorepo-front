@@ -1,15 +1,14 @@
-<fl-input-search [selectedItem]="selectedLab"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="labDatasource"
-                 [placeholder]="placeholder"
-                 [required]="required"
-                 [disabled]="disabled">
-
+<fl-input-search
+  [selectedItem]="selectedLab"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="labDatasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled">
   <div class="photo" *flInputSearchPrefix="labDatasource as currentLab">
     <mat-icon *ngIf="currentLab" [matTooltip]="currentLab.typeTooltip | translate">
-      {{currentLab.typeIcon}}
+      {{ currentLab.typeIcon }}
     </mat-icon>
-
   </div>
 
   <ca-lab-inline *flInputSearchOption="labDatasource as lab" [lab]="lab"></ca-lab-inline>

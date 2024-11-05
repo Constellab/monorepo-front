@@ -16,15 +16,18 @@ export interface LabProcessEditStyleFormData {
 @Component({
   selector: 'lab-process-edit-style-dialog',
   templateUrl: './lab-process-edit-style-dialog.component.html',
-  styleUrl: './lab-process-edit-style-dialog.component.scss'
+  styleUrl: './lab-process-edit-style-dialog.component.scss',
 })
-export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>
-  implements OnInit{
-
+export class LabProcessEditStyleDialogComponent
+  extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>
+  implements OnInit
+{
   process: LabProcess;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: LabProcessEditStyleDialogInputData,
-              private protocolService: LabProtocolService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: LabProcessEditStyleDialogInputData,
+    private protocolService: LabProtocolService
+  ) {
     super();
     this.process = data.object;
   }
@@ -35,7 +38,7 @@ export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDire
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      style: [this.process.style, Validators.required]
+      style: [this.process.style, Validators.required],
     });
   }
 
@@ -52,6 +55,10 @@ export class LabProcessEditStyleDialogComponent extends FlFormDialogAbstractDire
   }
 
   update(formValue: LabProcessEditStyleFormData): Observable<LabProcess> {
-    return this.protocolService.updateStyle(this.process.parentProtocolId, this.process.instanceName, formValue.style);
+    return this.protocolService.updateStyle(
+      this.process.parentProtocolId,
+      this.process.instanceName,
+      formValue.style
+    );
   }
 }

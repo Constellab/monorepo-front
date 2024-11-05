@@ -2,7 +2,7 @@ import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } fro
 import { FlMouseButton, FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectDatasource
+  CaHierarchyObjectDatasource,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { ClHelpService } from '@monorepo/core-lib';
 
@@ -15,7 +15,7 @@ export interface CaHierarchyObjectTableEvent {
 @Component({
   selector: 'ca-hierarchy-object-table',
   templateUrl: './ca-hierarchy-object-table.component.html',
-  styleUrl: './ca-hierarchy-object-table.component.scss'
+  styleUrl: './ca-hierarchy-object-table.component.scss',
 })
 export class CaHierarchyObjectTableComponent {
   @Input({ required: true }) datasource: CaHierarchyObjectDatasource<any>;
@@ -38,7 +38,7 @@ export class CaHierarchyObjectTableComponent {
       this.rowEvent.emit({
         action: 'click',
         hierarchyObject: object,
-        event: event
+        event: event,
       });
     }
   }
@@ -59,7 +59,7 @@ export class CaHierarchyObjectTableComponent {
       this.rowEvent.emit({
         action: 'middleClick',
         hierarchyObject: object,
-        event: event
+        event: event,
       });
     }
   }

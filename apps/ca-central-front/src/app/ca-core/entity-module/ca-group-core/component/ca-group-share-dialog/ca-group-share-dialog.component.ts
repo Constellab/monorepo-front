@@ -16,18 +16,18 @@ export interface CaGroupShareDialogInput {
 @Component({
   selector: 'ca-group-share-dialog',
   templateUrl: './ca-group-share-dialog.component.html',
-  styleUrls: ['./ca-group-share-dialog.component.scss']
+  styleUrls: ['./ca-group-share-dialog.component.scss'],
 })
 export class CaGroupShareDialogComponent implements OnInit {
-
   formControl: FormControl<CaGroup>;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaGroupShareDialogInput,
-              private dialogRef: MatDialogRef<CaGroupShareDialogComponent>,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaGroupShareDialogInput,
+    private dialogRef: MatDialogRef<CaGroupShareDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.formControl = new FormControl<CaGroup>(null, Validators.required);
@@ -42,15 +42,14 @@ export class CaGroupShareDialogComponent implements OnInit {
   private shareObject(group: CaGroup): void {
     this.isLoading = true;
     this.input.share(group).subscribe({
-      next: result => this.shareObjectSuccess(result),
-      error: () => this.isLoading = false
+      next: (result) => this.shareObjectSuccess(result),
+      error: () => (this.isLoading = false),
     });
   }
 
   private shareObjectSuccess(result: any): void {
-    this.snackBarService.openSuccessMessage({text: 'object_shared', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'object_shared', translateText: true });
     this.isLoading = false;
     this.dialogRef.close(result);
   }
-
 }

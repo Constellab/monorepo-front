@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaStatusHistoryCardComponent} from './ca-status-history-card.component';
+import { CaStatusHistoryCardComponent } from './ca-status-history-card.component';
 
 describe('StatusHistoryCardComponent', () => {
   let component: CaStatusHistoryCardComponent;
@@ -8,9 +8,8 @@ describe('StatusHistoryCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaStatusHistoryCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CaStatusHistoryCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

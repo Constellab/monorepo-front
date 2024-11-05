@@ -8,9 +8,8 @@ describe('FlDialogLoadersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlPortalActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlPortalActionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

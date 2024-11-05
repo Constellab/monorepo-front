@@ -1,7 +1,7 @@
 import {
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryService
+  TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,10 +10,9 @@ import { FlApiService } from '@monorepo/front-core-lib';
 import { CaFolderService } from '../service-api/ca-folder.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaConstellabDocumentHistoryService implements TeTextEditorHistoryService {
-
   constructor(private folderService: CaFolderService) {}
 
   getHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {

@@ -16,21 +16,17 @@ export interface FlTag {
   value?: FlTagValue;
 }
 
-
 export class FlTagDatasource<T extends FlTag = FlTag> extends FlArrayObs<T> {
-
   protected equals(a: T, b: T): boolean {
     return a.key === b.key && a.value === b.value;
   }
 }
 
 export class FlTagDatasourcePaginated<T extends FlTag = FlTag> extends FlDatasourcePaginated<T> {
-
   protected equals(a: T, b: T): boolean {
     return a.key === b.key && a.value === b.value;
   }
 }
-
 
 export type FlTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'DATETIME';
 
@@ -65,13 +61,12 @@ export interface FlTagSelectedEvent {
 }
 
 export class FlTagHelper {
-
   public static readonly MAX_LENGTH = 20;
 
   public static addOrReplaceTag(tags: FlTag[], tag: FlTag): FlTag[] {
     if (!tags) return [tag];
 
-    const existingTag: number = tags.findIndex(t => t.key === tag.key);
+    const existingTag: number = tags.findIndex((t) => t.key === tag.key);
     if (existingTag >= 0) {
       const newTags = [...tags];
       newTags[existingTag] = tag;
@@ -80,7 +75,6 @@ export class FlTagHelper {
       return [...tags, tag];
     }
   }
-
 
   /**
    * Group a list of tag by keys
@@ -113,13 +107,13 @@ export class FlTagHelper {
   public static tagGroupsToTagWithColors(tags: Record<string, string[]>, colors: string[]): FlTagWithColor[] {
     const tagsColors: FlTagWithColor[] = [];
     let i = 0;
-    Object.keys(tags).forEach(tagKey => {
+    Object.keys(tags).forEach((tagKey) => {
       // generate a color for each tag value
-      tags[tagKey].forEach(tagValue => {
+      tags[tagKey].forEach((tagValue) => {
         tagsColors.push({
           key: tagKey,
           value: tagValue,
-          color: colors[i % colors.length]
+          color: colors[i % colors.length],
         });
         i++;
       });
@@ -147,8 +141,9 @@ export interface FlTagSearchFilter {
 }
 
 export abstract class FlTagService {
-
-  public abstract searchTag(filters: Partial<FlTagSearchFilter>, page: number, pageSize: number): Observable<ClPageI<any>>;
-
+  public abstract searchTag(
+    filters: Partial<FlTagSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<any>>;
 }
-

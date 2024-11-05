@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTypeDetailComponent} from './lab-type-detail.component';
+import { LabTypeDetailComponent } from './lab-type-detail.component';
 
 describe('BioxProcessTypeCardComponent', () => {
   let component: LabTypeDetailComponent;
@@ -8,9 +8,8 @@ describe('BioxProcessTypeCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTypeDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTypeDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

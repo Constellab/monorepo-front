@@ -1,13 +1,11 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {SpSheet} from './sp-sheet.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { SpSheet } from './sp-sheet.class';
 
 export class SpSpreadsheet {
-
   private readonly sheets$: BehaviorSubject<SpSheet[]> = new BehaviorSubject([]);
   private readonly currentSheet$: BehaviorSubject<SpSheet> = new BehaviorSubject(null);
 
-  constructor() {
-  }
+  constructor() {}
 
   ///////////////////////////// SHEET //////////////////////////////
   public get currentSheet(): SpSheet {
@@ -43,17 +41,16 @@ export class SpSpreadsheet {
   }
 
   public getSheet(id: number): SpSheet {
-    return this.sheets.find(sheet => sheet.id === id);
+    return this.sheets.find((sheet) => sheet.id === id);
   }
 
   public get sheets(): SpSheet[] {
     return this.sheets$.value;
   }
 
-
   public destroy(): void {
     this.sheets$.complete();
     this.currentSheet$.complete();
-    this.sheets.forEach(sheet => sheet.destroy());
+    this.sheets.forEach((sheet) => sheet.destroy());
   }
 }

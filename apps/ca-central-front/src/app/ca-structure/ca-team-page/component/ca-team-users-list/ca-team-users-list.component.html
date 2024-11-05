@@ -2,17 +2,15 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">people</mat-icon>
-      <h2>{{'team_users' | translate}}</h2>
+      <h2>{{ 'team_users' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button"
-              class="g-button-small" (click)="openAddUserDialog()">
+      <button mat-stroked-button type="button" class="g-button-small" (click)="openAddUserDialog()">
         <mat-icon>add</mat-icon>
-        {{'team_add_user' | translate}}
+        {{ 'team_add_user' | translate }}
       </button>
     </fl-card-actions>
-
   </fl-card-header>
 
   <fl-card-body class="limit-height">
@@ -21,6 +19,3 @@
     </fl-infinite-table-container>
   </fl-card-body>
 </fl-card>
-
-
-

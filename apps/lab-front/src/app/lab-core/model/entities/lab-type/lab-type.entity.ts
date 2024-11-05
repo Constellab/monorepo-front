@@ -7,13 +7,12 @@ import {
   TdTypeObjectType,
   TdTypeRefDTO,
   TdTypeStyle,
-  TdTypeTypingEntity
+  TdTypeTypingEntity,
 } from '@monorepo/technical-doc';
 
 export interface LabFileTypeAdditionalInfo {
   default_extensions: string[];
 }
-
 
 export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl {
   @Expose({ name: 'object_type' })
@@ -79,7 +78,7 @@ export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl 
       typing_name: this.typingName,
       human_name: this.humanName,
       brick_version: this.brickVersion,
-      style: this.style
+      style: this.style,
     };
   }
 
@@ -99,12 +98,9 @@ export class LabTypeEntity extends LabBaseEntity implements FlSearchObjectToUrl 
       parentTypingName: this.parent?.typing_name ?? null,
       parentHumanName: this.parent?.human_name ?? null,
       parentVersion: this.parent?.brick_version ?? null,
-      parentStyle: this.parent?.style ?? null
+      parentStyle: this.parent?.style ?? null,
     };
-
   }
-
 }
 
 export type LabTypeEntityDatasource<F = void> = FlDatasourcePaginated<LabTypeEntity, F>;
-

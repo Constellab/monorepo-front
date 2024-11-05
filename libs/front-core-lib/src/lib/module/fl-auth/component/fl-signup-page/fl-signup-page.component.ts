@@ -11,10 +11,9 @@ import { Observable, switchMap } from 'rxjs';
 @Component({
   selector: 'fl-signup-page',
   templateUrl: './fl-signup-page.component.html',
-  styleUrls: ['./fl-signup-page.component.scss']
+  styleUrls: ['./fl-signup-page.component.scss'],
 })
 export class FlSignupPageComponent implements OnInit {
-
   /**
    * Redirection route after the signup is successful, do nothing if not provided
    */
@@ -30,16 +29,16 @@ export class FlSignupPageComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private themeService: FlThemeService,
-              private userAccountService: FlUserAccountService,
-              private snackBarService: FlSnackBarService,
-              private router: Router,
-              private captchaService: FlCaptchaService) {
-  }
+  constructor(
+    private themeService: FlThemeService,
+    private userAccountService: FlUserAccountService,
+    private snackBarService: FlSnackBarService,
+    private router: Router,
+    private captchaService: FlCaptchaService
+  ) {}
 
   ngOnInit(): void {
-    this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo :
-      this.lightThemeLogo;
+    this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo : this.lightThemeLogo;
   }
 
   submit(): void {
@@ -53,16 +52,18 @@ export class FlSignupPageComponent implements OnInit {
   private signupUser(user: FlSignUpUser): void {
     this.isLoading = true;
 
-    this.generateCaptcha().pipe(
-      switchMap((token) => {
-        user.captcha = token;
+    this.generateCaptcha()
+      .pipe(
+        switchMap((token) => {
+          user.captcha = token;
 
-        return this.userAccountService.signup(user);
-      })
-    ).subscribe({
-      next: () => this.onSignupSuccess(),
-      error: () => this.isLoading = false
-    });
+          return this.userAccountService.signup(user);
+        })
+      )
+      .subscribe({
+        next: () => this.onSignupSuccess(),
+        error: () => (this.isLoading = false),
+      });
   }
 
   private generateCaptcha(): Observable<string> {
@@ -78,5 +79,4 @@ export class FlSignupPageComponent implements OnInit {
       this.router.navigate([this.redirectionRoute]);
     }
   }
-
 }

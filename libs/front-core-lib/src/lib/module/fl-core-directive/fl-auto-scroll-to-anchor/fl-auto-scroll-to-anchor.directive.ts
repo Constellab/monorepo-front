@@ -1,16 +1,15 @@
-import {AfterViewInit, Directive, ElementRef, Input, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Router, RoutesRecognized, Scroll} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, RoutesRecognized, Scroll } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 /**
  * Auto scroll to anchor in element
  */
 
 @Directive({
-  selector: '[flAutoScrollToAnchor]'
+  selector: '[flAutoScrollToAnchor]',
 })
 export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
-
   // Observable that emits true when the component using targeted is loaded
   @Input() flAutoScrollIsLoaded$: Observable<boolean> = null;
 
@@ -24,48 +23,49 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   constructor(
     private elementRef: ElementRef<HTMLElement>,
     private route: ActivatedRoute,
-    private router: Router,
-  ) {
-  }
+    private router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     this.fragment = this.route.fragment;
 
     // Scroll on fragment change
-    this.subscriptions.push(this.fragment.subscribe(anchor => {
-      if (anchor) {
-        this.scrollToAnchor(anchor)
-      }
-    }));
+    this.subscriptions.push(
+      this.fragment.subscribe((anchor) => {
+        if (anchor) {
+          this.scrollToAnchor(anchor);
+        }
+      })
+    );
 
+    this.subscriptions.push(
+      this.router.events.subscribe((e) => {
+        // Scroll on route change
+        if (e instanceof RoutesRecognized && e.url === e.urlAfterRedirects) {
+          const anchor: string = e.url.split('#')[1];
+          this.scrollToAnchor(anchor);
+        }
 
-    this.subscriptions.push(this.router.events.subscribe(e => {
-      // Scroll on route change
-      if (e instanceof RoutesRecognized && e.url === e.urlAfterRedirects) {
-        const anchor: string = e.url.split('#')[1];
-        this.scrollToAnchor(anchor);
-      }
-
-      // Scroll on scroll event
-      if (e instanceof Scroll && e.anchor != null){
-        this.scrollToAnchor(e.anchor);
-      }
-    }));
+        // Scroll on scroll event
+        if (e instanceof Scroll && e.anchor != null) {
+          this.scrollToAnchor(e.anchor);
+        }
+      })
+    );
 
     // Scroll on load if flAutoScrollIsLoaded$ is provided
-    if (this.flAutoScrollHasIsLoaded){
-      this.subscriptions.push(this.flAutoScrollIsLoaded$.subscribe((loaded) => {
-        if (loaded){
-          this.scrollToAnchor(this.route.snapshot.fragment);
-        }
-      }));
+    if (this.flAutoScrollHasIsLoaded) {
+      this.subscriptions.push(
+        this.flAutoScrollIsLoaded$.subscribe((loaded) => {
+          if (loaded) {
+            this.scrollToAnchor(this.route.snapshot.fragment);
+          }
+        })
+      );
     }
   }
 
-
-
   private scrollToAnchor(anchor: string): void {
-
     // If the anchor is null or contains %, do not scroll
     if (!anchor) return;
     if (anchor.includes('%')) {
@@ -85,8 +85,7 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
     // Find the element with the anchor
     const children: HTMLElement = this.elementRef.nativeElement.querySelector(`#${anchor}`);
 
-
-    if(children){
+    if (children) {
       // Scroll to the element
       children.scrollIntoView(true);
       this.lastScrolledAnchor = anchor;
@@ -94,7 +93,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
-
 }

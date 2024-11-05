@@ -1,21 +1,21 @@
-import {FlColorHelper} from '@monorepo/front-core-lib';
-import {PrPort} from '../pr-io.class';
-import {BehaviorSubject, map, Observable} from 'rxjs';
-import {TdIOSpec} from '@monorepo/technical-doc';
+import { FlColorHelper } from '@monorepo/front-core-lib';
+import { PrPort } from '../pr-io.class';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { TdIOSpec } from '@monorepo/technical-doc';
 
 export type PrWorkflowPortType = 'input' | 'output';
 
 export class PrWorkflowPort {
-
   private static readonly INPUT_NAME_PREFIX: string = 'input_';
   private static readonly OUTPUT_NAME_PREFIX: string = 'output_';
 
   private object$: BehaviorSubject<PrPort>;
 
-
-  constructor(public name: string,
-              port: PrPort,
-              public type: PrWorkflowPortType) {
+  constructor(
+    public name: string,
+    port: PrPort,
+    public type: PrWorkflowPortType
+  ) {
     this.object$ = new BehaviorSubject(port);
   }
 
@@ -38,9 +38,7 @@ export class PrWorkflowPort {
   }
 
   public getResourceId$(): Observable<string> {
-    return this.object$.asObservable().pipe(
-      map(port => port.resource_id)
-    );
+    return this.object$.asObservable().pipe(map((port) => port.resource_id));
   }
 
   get humanName(): string {
@@ -65,27 +63,29 @@ export class PrWorkflowPort {
 
   public getDefaultColor$(): Observable<string> {
     return this.getObject$().pipe(
-      map(port => {
+      map((port) => {
         if (port.specs == null || port.specs.resource_types.length === 0) {
           return '#ffffff';
         }
 
-        if(port.specs.resource_types[0].style?.background_color){
+        if (port.specs.resource_types[0].style?.background_color) {
           return port.specs.resource_types[0].style.background_color;
         }
 
-        if (port.specs.resource_types[0].typing_name == null || port.specs.resource_types[0].typing_name.length === 0) {
+        if (
+          port.specs.resource_types[0].typing_name == null ||
+          port.specs.resource_types[0].typing_name.length === 0
+        ) {
           return '#ffffff';
         } else {
           return FlColorHelper.stringToRGBColor(port.specs.resource_types[0].typing_name);
         }
-
       })
     );
   }
 
   public getResourceTypingNames(): string[] {
-    return this.currentSpecs.resource_types.map(spec => spec.typing_name);
+    return this.currentSpecs.resource_types.map((spec) => spec.typing_name);
   }
 
   public destroy(): void {

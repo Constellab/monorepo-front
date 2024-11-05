@@ -7,34 +7,37 @@ import {
   FlDialogService,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import {
   LabNote,
   LabNoteContent,
   LabNoteDatasource,
   LabNoteForm,
-  LabNoteInsertTemplateDTO
+  LabNoteInsertTemplateDTO,
 } from '../model/entities/lab-note.entity';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { LabScenario } from '../model/entities/lab-scenario.entity';
-import { LabNoteSearch, LabNoteSearchFields } from '../entity-module/lab-note-core/model/lab-note-search.class';
+import {
+  LabNoteSearch,
+  LabNoteSearchFields,
+} from '../entity-module/lab-note-core/model/lab-note-search.class';
 import {
   TeRichText,
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryService
+  TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 
 @Injectable({ providedIn: 'root' })
-export class LabNoteService implements TeTextEditorHistoryService{
-
+export class LabNoteService implements TeTextEditorHistoryService {
   private route: string = 'note';
 
-  constructor(private apiService: FlApiService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private apiService: FlApiService,
+    private dialogService: FlDialogService
+  ) {}
 
   public create(note: LabNoteForm): Observable<LabNote> {
     return this.apiService.post(this.route, this.noteFormToBody(note), LabNote);
@@ -60,7 +63,7 @@ export class LabNoteService implements TeTextEditorHistoryService{
     return {
       title: note.title,
       folder_id: note.folder?.id ?? null,
-      template_id: note.template?.id ?? null
+      template_id: note.template?.id ?? null,
     };
   }
 
@@ -95,7 +98,10 @@ export class LabNoteService implements TeTextEditorHistoryService{
     return this.apiService.delete(`${this.route}/${noteId}/remove-scenario/${scenarioId}`, null);
   }
 
-  public removeScenarioWithConfirmation(noteId: string, scenarioId: string): Observable<FlConfirmDialogResult<void>> {
+  public removeScenarioWithConfirmation(
+    noteId: string,
+    scenarioId: string
+  ): Observable<FlConfirmDialogResult<void>> {
     const input: FlConfirmDialogInput = {
       title: 'biox.note_unlink_scenario',
       content: 'biox.note_unlink_scenario_confirmation',
@@ -128,27 +134,37 @@ export class LabNoteService implements TeTextEditorHistoryService{
     return this.apiService.get(`${this.route}/${noteId}/scenarios`, LabScenario);
   }
 
-
   public getSearchDatasource(): LabNoteDatasource<LabNoteSearchFields> {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.search(page, pageSize, data),
-      20, false
+      20,
+      false
     );
   }
 
-  public search(page: number, pageSize: number,
-                data: FlDatasourceGetPageData<LabNoteSearchFields>): Observable<ClPageI<LabNote>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      LabNoteSearch.filterConverter, LabNoteSearch.sortConverter);
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LabNoteSearchFields>
+  ): Observable<ClPageI<LabNote>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LabNoteSearch.filterConverter,
+      LabNoteSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/search`, searchInput, LabNote, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
   public searchByNameDatasource(): LabNoteDatasource<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, data) => this.searchByName(page, pageSize, data.filtersCriteria.searchText),
-      20, false
+      (page: number, pageSize: number, data) =>
+        this.searchByName(page, pageSize, data.filtersCriteria.searchText),
+      20,
+      false
     );
   }
 
@@ -158,13 +174,18 @@ export class LabNoteService implements TeTextEditorHistoryService{
       return this.search(page, pageSize, null);
     }
     return this.apiService.get(`${this.route}/search-name/${name}`, LabNote, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
   public getByResource(resourceId: string, page: number, pageSize: number): Observable<ClPageI<LabNote>> {
-    return this.apiService.get(`${this.route}/resource/${resourceId}`, LabNote,
-      { resultIsPaginated: true, page: page, pageSize: pageSize });
+    return this.apiService.get(`${this.route}/resource/${resourceId}`, LabNote, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: pageSize,
+    });
   }
 
   ///////////////////////////////////////////// ARCHIVE /////////////////////////////////////////////
@@ -187,7 +208,10 @@ export class LabNoteService implements TeTextEditorHistoryService{
   }
 
   rollbackContent(entityId: string, modificationId: string): Observable<LabNote> {
-    return this.apiService.put(`${this.route}/${entityId}/history/rollback/${modificationId}`, LabNote, LabNote);
+    return this.apiService.put(
+      `${this.route}/${entityId}/history/rollback/${modificationId}`,
+      LabNote,
+      LabNote
+    );
   }
-
 }

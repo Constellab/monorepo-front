@@ -6,14 +6,21 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" class="g-button-small"
-              (click)="openLabBackupStatusesAdmin()" *caIsAdmin>
+      <button
+        mat-stroked-button
+        type="button"
+        class="g-button-small"
+        (click)="openLabBackupStatusesAdmin()"
+        *caIsAdmin>
         {{ 'lab_backup_statuses_details' | translate }}
       </button>
 
-      <button mat-stroked-button type="button" class="g-button-small delete-button"
-              color="warn"
-              (click)="deleteLabBackups()">
+      <button
+        mat-stroked-button
+        type="button"
+        class="g-button-small delete-button"
+        color="warn"
+        (click)="deleteLabBackups()">
         {{ 'lab_delete_backup' | translate }}
       </button>
     </fl-card-actions>
@@ -22,8 +29,10 @@
   <fl-card-body>
     <fl-async-section [arrayObs]="backupsStatuses">
       <ng-container *flSectionBody>
-        <ca-lab-backup-status-table [datasource]="backupsStatuses" [columns]="columns"
-                                    [labId]="labId"></ca-lab-backup-status-table>
+        <ca-lab-backup-status-table
+          [datasource]="backupsStatuses"
+          [columns]="columns"
+          [labId]="labId"></ca-lab-backup-status-table>
       </ng-container>
     </fl-async-section>
   </fl-card-body>

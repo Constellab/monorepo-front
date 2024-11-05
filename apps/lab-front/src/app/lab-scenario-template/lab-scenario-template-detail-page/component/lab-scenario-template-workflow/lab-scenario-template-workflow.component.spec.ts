@@ -8,9 +8,8 @@ describe('LabScenarioTemplateWorkflowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabScenarioTemplateWorkflowComponent]
-    })
-    .compileComponents();
+      declarations: [LabScenarioTemplateWorkflowComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabScenarioTemplateWorkflowComponent);
     component = fixture.componentInstance;

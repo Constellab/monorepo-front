@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabShareLinkActionsMenuComponent} from './lab-share-link-actions-menu.component';
+import { LabShareLinkActionsMenuComponent } from './lab-share-link-actions-menu.component';
 
 describe('LabShareLinkActionsMenuComponent', () => {
   let component: LabShareLinkActionsMenuComponent;
@@ -8,9 +8,8 @@ describe('LabShareLinkActionsMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabShareLinkActionsMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [LabShareLinkActionsMenuComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabShareLinkActionsMenuComponent);
     component = fixture.componentInstance;

@@ -1,28 +1,26 @@
-import {Component, OnInit, Signal} from '@angular/core';
-import {HaAgentService} from '../../../ha-core/ha-service/ha-agent.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {HaAgent} from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {HaUser} from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { Component, OnInit, Signal } from '@angular/core';
+import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {
   HaCoAuthorDialogComponent,
-  HaCoAuthorsDialogInput
+  HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import {HaRouterService} from '../../../ha-core/ha-service/ha-router.service';
-import {first} from 'rxjs';
-import {HaAgentPageState} from '../../state/ha-agent-page.state';
-
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { first } from 'rxjs';
+import { HaAgentPageState } from '../../state/ha-agent-page.state';
 
 @Component({
   selector: 'ha-agent-page',
   templateUrl: './ha-agent-page.component.html',
   styleUrls: ['./ha-agent-page.component.scss'],
-  providers: [HaAgentPageState]
+  providers: [HaAgentPageState],
 })
 export class HaAgentPageComponent implements OnInit {
-
   profileRoute = HaRouterService.getProfileRoute();
-  agentsListRoute= HaRouterService.getAgentsListRoute();
+  agentsListRoute = HaRouterService.getAgentsListRoute();
 
   agent: Signal<HaAgent> = this.agentPageState.getAgent();
   notFound: Signal<boolean> = this.agentPageState.isAgentError;
@@ -35,11 +33,10 @@ export class HaAgentPageComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private dialogService: FlDialogService,
     private agentPageState: HaAgentPageState,
-    private router: Router) {
-  }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-
     this.activeRoute.params.pipe(first()).subscribe((params) => {
       if (!params.id) {
         return;
@@ -48,18 +45,20 @@ export class HaAgentPageComponent implements OnInit {
     });
   }
 
-
   openLtCoAuthorsDialog(): void {
     const input: HaCoAuthorsDialogInput = {
       id: this.agent().id,
       service: this.agentService,
-      inviteText: 'invite_agent_coauthor_information'
-    }
+      inviteText: 'invite_agent_coauthor_information',
+    };
 
-    this.dialogService.openSmallDialog(HaCoAuthorDialogComponent, {data: input}).afterClosed().subscribe(() => {
-      if(this.agent()){
-        this.agentPageState.initCoAuthors();
-      }
-    });
+    this.dialogService
+      .openSmallDialog(HaCoAuthorDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe(() => {
+        if (this.agent()) {
+          this.agentPageState.initCoAuthors();
+        }
+      });
   }
 }

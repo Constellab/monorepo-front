@@ -6,28 +6,22 @@ import {
   FlSearchConfig,
   FlSearchState,
   FlTag,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabScenarioSearch, LabScenarioSearchFields } from '../../model/lab-scenario-search.class';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { LabScenarioFormDialogComponent } from '../lab-scenario-form-dialog/lab-scenario-form-dialog.component';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import {
-  LabImportScenarioFromLinkComponent
-} from '../lab-import-scenario-from-link/lab-import-scenario-from-link.component';
-
+import { LabImportScenarioFromLinkComponent } from '../lab-import-scenario-from-link/lab-import-scenario-from-link.component';
 
 @Component({
   selector: 'lab-scenario-search',
   templateUrl: './lab-scenario-search.component.html',
   styleUrls: ['./lab-scenario-search.component.scss'],
-  providers: [
-    FlSearchState
-  ]
+  providers: [FlSearchState],
 })
 export class LabScenarioSearchComponent implements OnInit {
-
   @Input() scenarioSelectable: boolean = false;
 
   @Input() fullPageSearch: boolean = true;
@@ -36,12 +30,13 @@ export class LabScenarioSearchComponent implements OnInit {
 
   datasource: LabScenarioDatasource<LabScenarioSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private scenarioService: LabScenarioService,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private scenarioService: LabScenarioService,
+    private dialogService: FlDialogService,
+    private routerService: LabRouterService,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -51,10 +46,10 @@ export class LabScenarioSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: LabScenarioSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: this.fullPageSearch,
-      defaultSort: { key: 'lastModification', direction: 'DESC' }
+      defaultSort: { key: 'lastModification', direction: 'DESC' },
     };
 
     this.datasource = this.scenarioService.searchDatasource();
@@ -74,8 +69,8 @@ export class LabScenarioSearchComponent implements OnInit {
         filtersCriteria: {
           creationTypes: ['MANUAL', 'IMPORTED'],
           isNotValidated: false,
-          isArchived: false
-        } as Partial<LabScenarioSearchFields>
+          isArchived: false,
+        } as Partial<LabScenarioSearchFields>,
       },
       {
         searchName: 'lab-scenario',
@@ -85,18 +80,18 @@ export class LabScenarioSearchComponent implements OnInit {
         version: 1,
         default: false,
         filtersCriteria: {
-          isArchived: true
-        } as Partial<LabScenarioSearchFields>
-      }
+          isArchived: true,
+        } as Partial<LabScenarioSearchFields>,
+      },
     ];
   }
 
   createScenario(): void {
     const input: FlFormDialogInput<LabScenario> = { mode: 'create' };
-    this.dialogService.openSmallDialog(LabScenarioFormDialogComponent,
-      { data: input, panelClass: 'g-dialog-allow-overflow' }).afterClosed().subscribe(
-      scenario => this.onCreateScenarioClosed(scenario)
-    );
+    this.dialogService
+      .openSmallDialog(LabScenarioFormDialogComponent, { data: input, panelClass: 'g-dialog-allow-overflow' })
+      .afterClosed()
+      .subscribe((scenario) => this.onCreateScenarioClosed(scenario));
   }
 
   private onCreateScenarioClosed(scenario?: LabScenario): void {
@@ -111,7 +106,7 @@ export class LabScenarioSearchComponent implements OnInit {
 
   searchOnTag(tag: FlTag): void {
     const search: Partial<LabScenarioSearchFields> = {
-      tags: [tag]
+      tags: [tag],
     };
     this.searchState.callAdvancedSearchFromObject(search);
   }

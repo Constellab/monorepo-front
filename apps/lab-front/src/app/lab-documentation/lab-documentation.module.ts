@@ -6,16 +6,7 @@ import { LabCoreModule } from '../lab-core/lab-core.module';
 import { LabTypeCoreModule } from '../lab-core/entity-module/lab-type-core/lab-type-core.module';
 
 @NgModule({
-  declarations: [
-    LabTechnicalDocPageComponent
-  ],
-  imports: [
-    CommonModule,
-    LabCoreModule,
-    LabTypeCoreModule,
-
-    LabDocumentationRoutingModule,
-  ]
+  declarations: [LabTechnicalDocPageComponent],
+  imports: [CommonModule, LabCoreModule, LabTypeCoreModule, LabDocumentationRoutingModule],
 })
-export class LabDocumentationModule {
-}
+export class LabDocumentationModule {}

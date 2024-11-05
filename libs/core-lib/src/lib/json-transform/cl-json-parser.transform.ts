@@ -9,11 +9,13 @@ export function ClJSONParserTransform(): PropertyDecorator {
   // convert date to time
   const transformToPlain = Transform(
     (param: ClTransformFnParams<Record<any, any>>) => JSON.stringify(param.value),
-    {toPlainOnly: true});
+    { toPlainOnly: true }
+  );
 
   const transformToClass: PropertyDecorator = Transform(
     (param: ClTransformFnParams<string>): any => JSON.parse(param.value),
-    {toClassOnly: true});
+    { toClassOnly: true }
+  );
 
   return (target: any, key: string): void => {
     transformToPlain(target, key);

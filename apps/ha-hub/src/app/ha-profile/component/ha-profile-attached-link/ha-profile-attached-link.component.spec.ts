@@ -8,10 +8,9 @@ describe('HaProfileAttachedLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaProfileAttachedLinkComponent]
-    })
-    .compileComponents();
-    
+      declarations: [HaProfileAttachedLinkComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(HaProfileAttachedLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

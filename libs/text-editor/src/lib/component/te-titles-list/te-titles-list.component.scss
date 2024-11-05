@@ -1,27 +1,27 @@
-:host{
+:host {
   display: flex;
   flex-direction: column;
 }
 
-.side-box-title{
+.side-box-title {
   font-size: 1.2em;
   font-weight: 500;
   margin-top: 1em;
   margin-bottom: 0.5em;
 }
 
-.title{
+.title {
   border-radius: 10px;
   padding: 7px 8px;
   margin-top: 8px;
 }
 
-.big-title{
+.big-title {
   background-color: var(--main-background);
   font-weight: 500;
 }
 
-.small-title{
+.small-title {
   background-color: var(--hover-color);
   margin-left: 16px;
 }

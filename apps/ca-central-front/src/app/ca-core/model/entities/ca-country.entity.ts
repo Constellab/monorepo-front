@@ -1,7 +1,7 @@
-import {CaCity} from './ca-city.entity';
-import {Type} from 'class-transformer';
+import { CaCity } from './ca-city.entity';
+import { Type } from 'class-transformer';
 
-export class CaCountry{
+export class CaCountry {
   id: string;
 
   name: string;

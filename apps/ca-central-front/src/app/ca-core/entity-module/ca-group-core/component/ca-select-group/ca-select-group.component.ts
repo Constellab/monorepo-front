@@ -1,5 +1,9 @@
 import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
-import { FlEntityPaginatedDatasource, FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib';
+import {
+  FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
+  FlInputSearchFilter,
+} from '@monorepo/front-core-lib';
 import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
@@ -10,20 +14,19 @@ import { ClHelpService } from '@monorepo/core-lib';
   selector: 'ca-select-group',
   templateUrl: './ca-select-group.component.html',
   styleUrls: ['./ca-select-group.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent}]
-
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
 })
-export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup>
-  implements OnInit {
-
+export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {
   @Output() groupChange: EventEmitter<CaGroup> = new EventEmitter<CaGroup>();
 
   selectGroup: CaGroup | Observable<CaGroup>;
 
   datasource: CaGroupDatasource<FlInputSearchFilter>;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private groupService: CaGroupService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private groupService: CaGroupService
+  ) {
     super(ngControl);
   }
 
@@ -33,9 +36,16 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup>
         if (ClHelpService.isNullOrEmpty(data.filtersCriteria.searchText)) {
           return this.groupService.getAllCurrentGroups(page, size);
         } else {
-          return this.groupService.searchGroupInCurrentSpaceByLabel(data.filtersCriteria.searchText, page, size);
+          return this.groupService.searchGroupInCurrentSpaceByLabel(
+            data.filtersCriteria.searchText,
+            page,
+            size
+          );
         }
-      }, 20, false);
+      },
+      20,
+      false
+    );
   }
 
   writeValue(obj: CaGroup): void {
@@ -59,7 +69,5 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup>
     this.selectGroup = value;
   }
 
-  onDisableChange(): void {
-  }
-
+  onDisableChange(): void {}
 }

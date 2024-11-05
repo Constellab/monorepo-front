@@ -8,7 +8,6 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { LabSystemService } from '../../../../service/lab-system.service';
 import { LabEnvironmentHelper } from '../../../../utils/lab-environment.helper';
 
-
 interface LabFolderFlatNode {
   folder: LabFolder;
   level: number;
@@ -19,12 +18,12 @@ interface LabFolderFlatNode {
 @Component({
   selector: 'lab-folder-select',
   templateUrl: './lab-folder-select.component.html',
-  styleUrls: ['./lab-folder-select.component.scss']
+  styleUrls: ['./lab-folder-select.component.scss'],
 })
 export class LabFolderSelectComponent
   extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LabFolder[] | LabFolder>
-  implements OnInit {
-
+  implements OnInit
+{
   /**
    * If true, the user can select multiple folders
    * If false, the user can select only one folder
@@ -49,24 +48,25 @@ export class LabFolderSelectComponent
       folder: node,
       expandable: node.children?.length > 0,
       level: level,
-      selected: false
+      selected: false,
     };
   };
 
   hasChild = (_: number, node: LabFolderFlatNode): boolean => node.expandable;
 
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private folderService: LabFolderService,
-              private systemService: LabSystemService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private folderService: LabFolderService,
+    private systemService: LabSystemService
+  ) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.folderService.getFolderTrees().subscribe({
-      next: folders => this.getFolderTreesSuccess(folders),
-      error: () => this.isLoading = false
+      next: (folders) => this.getFolderTreesSuccess(folders),
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -76,14 +76,21 @@ export class LabFolderSelectComponent
     }
 
     this.value = new FlFlatTreeControl<LabFolderFlatNode, string>(
-      node => node.level, node => node.expandable, {
-        trackBy: node => node.folder.id
-      });
+      (node) => node.level,
+      (node) => node.expandable,
+      {
+        trackBy: (node) => node.folder.id,
+      }
+    );
 
     // object to flatten tree
-    const treeFlattener: MatTreeFlattener<LabFolderWithChildren, LabFolderFlatNode, string> = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.expandable,
-      node => node.children);
+    const treeFlattener: MatTreeFlattener<LabFolderWithChildren, LabFolderFlatNode, string> =
+      new MatTreeFlattener(
+        this._transformer,
+        (node) => node.level,
+        (node) => node.expandable,
+        (node) => node.children
+      );
 
     // create the datasource and set data
     this.dataSource = new MatTreeFlatDataSource(this.value, treeFlattener, folders);
@@ -96,20 +103,17 @@ export class LabFolderSelectComponent
   }
 
   private handleEmptyFolderList(): void {
-    this.systemService.getSystemInfo().subscribe(
-      systemInfo => {
-        this.labDashboardRoute = LabEnvironmentHelper.getSpaceDashboardLabUrl(systemInfo.id);
-        this.isEmpty = true;
-      }
-    );
+    this.systemService.getSystemInfo().subscribe((systemInfo) => {
+      this.labDashboardRoute = LabEnvironmentHelper.getSpaceDashboardLabUrl(systemInfo.id);
+      this.isEmpty = true;
+    });
   }
 
   callChangeEvent(value: LabFolder[] | LabFolder): void {
     this.selectionChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: LabFolder[] | LabFolder): void {
     const folders: LabFolder[] = ClHelpService.convertObjectOrArrayToArray(obj);
@@ -119,7 +123,7 @@ export class LabFolderSelectComponent
   private selectFolders(folders: LabFolder[]): void {
     if (this.value) {
       for (const node of this.value.dataNodes) {
-        if (folders.find(folder => folder.id === node.folder.id) != null) {
+        if (folders.find((folder) => folder.id === node.folder.id) != null) {
           node.selected = true;
           this.value.expandAncestors(node);
         } else {
@@ -130,9 +134,10 @@ export class LabFolderSelectComponent
     this.tempSelectedFolders = folders;
   }
 
-
-  protected convertInnerToOuter(innerValue: FlFlatTreeControl<LabFolderFlatNode, string>): LabFolder[] | LabFolder {
-    const folders = innerValue.dataNodes.filter(node => node.selected).map(node => node.folder);
+  protected convertInnerToOuter(
+    innerValue: FlFlatTreeControl<LabFolderFlatNode, string>
+  ): LabFolder[] | LabFolder {
+    const folders = innerValue.dataNodes.filter((node) => node.selected).map((node) => node.folder);
     if (!this.multiple) {
       return folders.length > 0 ? folders[0] : null;
     }
@@ -145,7 +150,9 @@ export class LabFolderSelectComponent
     folder.selected = !folder.selected;
 
     if (!this.multiple) {
-      this.value.dataNodes.filter(node => node.selected && node !== folder).forEach(node => node.selected = false);
+      this.value.dataNodes
+        .filter((node) => node.selected && node !== folder)
+        .forEach((node) => (node.selected = false));
     }
     this.emitCurrentValue();
   }
@@ -158,6 +165,4 @@ export class LabFolderSelectComponent
   toggleExpandFolder(node: LabFolderFlatNode): void {
     this.value.toggle(node);
   }
-
-
 }

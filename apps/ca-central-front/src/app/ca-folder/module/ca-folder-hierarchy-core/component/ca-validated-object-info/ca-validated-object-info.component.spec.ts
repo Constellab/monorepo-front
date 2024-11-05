@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaValidatedObjectInfoComponent} from './ca-validated-object-info.component';
+import { CaValidatedObjectInfoComponent } from './ca-validated-object-info.component';
 
 describe('CaValidatedObjectInfoComponent', () => {
   let component: CaValidatedObjectInfoComponent;
@@ -8,9 +8,8 @@ describe('CaValidatedObjectInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaValidatedObjectInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [CaValidatedObjectInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

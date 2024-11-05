@@ -1,4 +1,4 @@
-import {FlAutofocusDirective} from './fl-autofocus.directive';
+import { FlAutofocusDirective } from './fl-autofocus.directive';
 
 describe('FlAutofocusDirective', () => {
   it('should create an instance', () => {

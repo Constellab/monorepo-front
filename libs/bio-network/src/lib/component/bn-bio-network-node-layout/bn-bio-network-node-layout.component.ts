@@ -1,12 +1,12 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, Optional} from '@angular/core';
-import {BnBioNetworkService, BnUpdateMetabolite} from '../../service/bn-bio-network.service';
-import {BnBioNetworkNode} from '../../model/bn-bio-network-node.class';
-import {BnBioNetworkMetaboliteLevel} from '../../model/bn-bio-network.class';
-import {Observable, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {BnBioNetworkDrawerState} from '../../state/bn-bio-network-drawer.state';
-import {BnBioNetworkNodeMetabolite} from '../../model/bn-bio-network-node-metabolite.class';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { BnBioNetworkService, BnUpdateMetabolite } from '../../service/bn-bio-network.service';
+import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
+import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
+import { BnBioNetworkNodeMetabolite } from '../../model/bn-bio-network-node-metabolite.class';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
 
 /**
  * Component to show the position of the node with possibility to save them to biota
@@ -15,10 +15,9 @@ import {FlSnackBarService} from '@monorepo/front-core-lib';
 @Component({
   selector: 'bn-bio-network-node-layout',
   templateUrl: './bn-bio-network-node-layout.component.html',
-  styleUrls: ['./bn-bio-network-node-layout.component.scss']
+  styleUrls: ['./bn-bio-network-node-layout.component.scss'],
 })
 export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
-
   node$: Observable<BnBioNetworkNode>;
   metabolites$: Observable<BnBioNetworkNodeMetabolite>;
 
@@ -32,23 +31,22 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(@Optional() private bioNetworkService: BnBioNetworkService,
-              private drawerState: BnBioNetworkDrawerState,
-              private snackBarService: FlSnackBarService,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    @Optional() private bioNetworkService: BnBioNetworkService,
+    private drawerState: BnBioNetworkDrawerState,
+    private snackBarService: FlSnackBarService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.node$ = this.drawerState.getState$().pipe(
-      map(state => state.selectedNode)
-    );
+    this.node$ = this.drawerState.getState$().pipe(map((state) => state.selectedNode));
     this.metabolites$ = this.node$.pipe(
-      map(node => node instanceof BnBioNetworkNodeMetabolite ? node : null)
+      map((node) => (node instanceof BnBioNetworkNodeMetabolite ? node : null))
     );
 
     this.serviceIsEnabled = this.bioNetworkService?.enableSave() ?? false;
 
-    this.subscription = this.node$.subscribe(node => this.nodeLevel = node.getLevel());
+    this.subscription = this.node$.subscribe((node) => (this.nodeLevel = node.getLevel()));
   }
 
   savePositions(metabolite: BnBioNetworkNodeMetabolite): void {
@@ -60,12 +58,12 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
         cluster_id: metabolite.cluster.clusterId,
         x: metabolite.x,
         y: metabolite.y,
-        level: this.nodeLevel
+        level: this.nodeLevel,
       };
 
       this.bioNetworkService.saveMetaboliteLayout(updateMetabolite).subscribe({
-        next: result => this.savePositionsSuccess(result),
-        error: () => this.onError()
+        next: (result) => this.savePositionsSuccess(result),
+        error: () => this.onError(),
       });
     }
   }
@@ -74,7 +72,7 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
     if (result) {
       this.snackBarService.openSuccessMessage({
         text: 'bnBioNetwork.save_metabolite_success',
-        translateText: true
+        translateText: true,
       });
     }
     this.saveIsLoading = false;
@@ -89,6 +87,4 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

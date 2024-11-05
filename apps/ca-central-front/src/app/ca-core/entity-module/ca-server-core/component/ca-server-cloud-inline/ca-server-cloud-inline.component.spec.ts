@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaServerCloudInlineComponent} from './ca-server-cloud-inline.component';
+import { CaServerCloudInlineComponent } from './ca-server-cloud-inline.component';
 
 describe('CaServerInfoInlineComponent', () => {
   let component: CaServerCloudInlineComponent;
@@ -8,9 +8,8 @@ describe('CaServerInfoInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaServerCloudInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [CaServerCloudInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaServerCloudInlineComponent);
     component = fixture.componentInstance;

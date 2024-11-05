@@ -8,9 +8,8 @@ describe('CaScenarioTechnicalReportGraphComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaScenarioTechnicalReportGraphComponent]
-    })
-      .compileComponents();
+      declarations: [CaScenarioTechnicalReportGraphComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

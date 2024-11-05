@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAdminCloudProviderRegionsListComponent} from './ca-admin-cloud-provider-regions-list.component';
+import { CaAdminCloudProviderRegionsListComponent } from './ca-admin-cloud-provider-regions-list.component';
 
 describe('CaAdminCloudProviderRegionsListComponent', () => {
   let component: CaAdminCloudProviderRegionsListComponent;
@@ -8,9 +8,8 @@ describe('CaAdminCloudProviderRegionsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminCloudProviderRegionsListComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAdminCloudProviderRegionsListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaAdminCloudProviderRegionsListComponent);
     component = fixture.componentInstance;

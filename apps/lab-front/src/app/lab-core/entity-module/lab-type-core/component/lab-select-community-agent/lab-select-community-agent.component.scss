@@ -1,8 +1,8 @@
-:host{
+:host {
   height: 100%;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: row;
   gap: 32px;
@@ -10,7 +10,7 @@
   height: inherit;
 }
 
-.left-side{
+.left-side {
   width: 227px;
   min-width: 227px;
   display: flex;
@@ -18,19 +18,19 @@
   gap: 8px;
 }
 
-.right-side{
+.right-side {
   flex: auto;
 }
 
-.search-bar-title{
+.search-bar-title {
   width: 100%;
 }
 
-.search-bar{
+.search-bar {
   width: 100%;
 }
 
-.agents-list-div{
+.agents-list-div {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -40,7 +40,7 @@
   height: calc(100% - 5em);
 }
 
-.agent-card{
+.agent-card {
   display: flex;
   flex-direction: row;
   padding: 8px;
@@ -49,22 +49,22 @@
   justify-content: space-between;
 }
 
-.agent-card:hover{
+.agent-card:hover {
   cursor: pointer;
 }
 
-.agent-card-inner{
+.agent-card-inner {
   width: 372px;
   background-color: var(--card-background);
   border-radius: 8px;
   padding: 8px;
 }
 
-.space-list-option{
+.space-list-option {
   cursor: pointer;
   width: fit-content !important;
 }
 
-.agent-item{
+.agent-item {
   background-color: var(--main-background) !important;
 }

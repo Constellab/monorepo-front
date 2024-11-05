@@ -1,11 +1,11 @@
-import {TeComponentBlock} from './te-component-block.class';
-import {TeFigureComponent} from '../component/te-figure/te-figure.component';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {Type} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
-import {PasteEvent} from '@editorjs/editorjs';
-import {TeHelper} from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
+import { TeFigureComponent } from '../component/te-figure/te-figure.component';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { Type } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
+import { PasteEvent } from '@editorjs/editorjs';
+import { TeHelper } from '../model/te.helper';
 
 export interface TeUploadedImage {
   filename: string;
@@ -23,23 +23,19 @@ export interface TeFigureBlockData {
   naturalHeight: number;
 }
 
-
 /**
  * Config for the text editor to manage image (upload and retrieve)
  */
 export interface TeFigureBlockConfig {
-
   getImageUrl(filename: string): string;
 
   imageUploader: (file: File) => Observable<TeUploadedImage>;
 }
 
-
 /**
  * Figure block for editor js
  */
 export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
-
   public static readonly TAG_NAME = 'te-figure';
 
   static override get toolbox(): ToolboxConfig {
@@ -56,7 +52,6 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
         mimeTypes: ['image/*'],
       },
     };
-
   }
 
   get figureConfig(): TeFigureBlockConfig {

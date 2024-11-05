@@ -10,10 +10,9 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
 @Component({
   selector: 'lab-configure-protocol',
   templateUrl: './lab-configure-protocol.component.html',
-  styleUrls: ['./lab-configure-protocol.component.scss']
+  styleUrls: ['./lab-configure-protocol.component.scss'],
 })
 export class LabConfigureProtocolComponent implements OnInit {
-
   @Input() protocolId: string;
 
   selectedProcess$: Observable<LabProcess>;
@@ -22,20 +21,19 @@ export class LabConfigureProtocolComponent implements OnInit {
 
   processes$: Observable<LabProcess[]>;
 
-  constructor(private scenarioState: LabScenarioDetailPageState) {
-  }
+  constructor(private scenarioState: LabScenarioDetailPageState) {}
 
   ngOnInit(): void {
-    this.processes$ = this.scenarioState.getProtocol$(this.protocolId).pipe(
-      map(protocol => Object.values(protocol.data.nodes))
-    );
+    this.processes$ = this.scenarioState
+      .getProtocol$(this.protocolId)
+      .pipe(map((protocol) => Object.values(protocol.data.nodes)));
 
     this.selectedProcess$ = this.selectedProcessId.asObservable().pipe(
-      filter(processName => processName != null),
-      switchMap(processName => this.processes$.pipe()
-        .pipe(
-          map(processes => processes.find(process => process.instanceName === processName))
-        )
+      filter((processName) => processName != null),
+      switchMap((processName) =>
+        this.processes$
+          .pipe()
+          .pipe(map((processes) => processes.find((process) => process.instanceName === processName)))
       )
     );
   }

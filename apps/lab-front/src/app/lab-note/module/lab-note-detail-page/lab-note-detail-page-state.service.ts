@@ -6,22 +6,20 @@ import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class LabNoteDetailPageState implements OnDestroy {
-
   private note$: BehaviorSubject<LabNote> = new BehaviorSubject(null);
   private noteContent$: BehaviorSubject<LabNoteContent> = new BehaviorSubject(null);
 
-  constructor(private noteService: LabNoteService) {
-  }
+  constructor(private noteService: LabNoteService) {}
 
   public init(noteId: string): void {
     this.noteService.getNote(noteId).subscribe({
-      next: note => this.note$.next(note),
-      error: error => this.note$.error(error)
+      next: (note) => this.note$.next(note),
+      error: (error) => this.note$.error(error),
     });
 
     this.noteService.getNoteContent(noteId).subscribe({
-      next: content => this.noteContent$.next(content),
-      error: error => this.noteContent$.error(error)
+      next: (content) => this.noteContent$.next(content),
+      error: (error) => this.noteContent$.error(error),
     });
   }
 
@@ -30,11 +28,11 @@ export class LabNoteDetailPageState implements OnDestroy {
   }
 
   public getNote$(): Observable<LabNote> {
-    return this.note$.asObservable().pipe(filter(note => note != null));
+    return this.note$.asObservable().pipe(filter((note) => note != null));
   }
 
   public getContent$(): Observable<LabNoteContent> {
-    return this.noteContent$.asObservable().pipe(filter(note => note != null));
+    return this.noteContent$.asObservable().pipe(filter((note) => note != null));
   }
 
   public updateNote(note: LabNote): void {
@@ -48,10 +46,9 @@ export class LabNoteDetailPageState implements OnDestroy {
 
   public refreshNote(): void {
     this.noteService.getNote(this.currentNote.id).subscribe({
-      next: note => this.note$.next(note),
-      error: error => this.note$.error(error)
+      next: (note) => this.note$.next(note),
+      error: (error) => this.note$.error(error),
     });
-
   }
 
   public updateContent(content: LabNoteContent): void {
@@ -62,6 +59,4 @@ export class LabNoteDetailPageState implements OnDestroy {
     this.note$.complete();
     this.noteContent$.complete();
   }
-
-
 }

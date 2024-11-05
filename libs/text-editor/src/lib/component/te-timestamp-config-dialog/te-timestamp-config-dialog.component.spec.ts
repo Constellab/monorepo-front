@@ -8,9 +8,8 @@ describe('TeTimestampConfigDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTimestampConfigDialogComponent]
-    })
-    .compileComponents();
+      declarations: [TeTimestampConfigDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTimestampConfigDialogComponent);
     component = fixture.componentInstance;

@@ -1,23 +1,22 @@
-import {Injectable} from '@angular/core';
-import {SpSpreadsheetActions} from './sp-spreadsheet-actions.state';
-import {SpSpreadsheetChartState} from './sp-spreadsheet-chart.state';
-import {SpSpreadsheetClipboardState} from './sp-spreadsheet-clipboard.state';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {FlMenuDynamic, FlMenuDynamicService} from '@monorepo/front-core-lib';
-
+import { Injectable } from '@angular/core';
+import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
+import { SpSpreadsheetChartState } from './sp-spreadsheet-chart.state';
+import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib';
 
 /**
  * State to handle context menu
  */
 @Injectable()
 export class SpSpreadsheetContextMenu {
-
-  constructor(private state: SpSpreadsheetState,
-              private action: SpSpreadsheetActions,
-              private chartState: SpSpreadsheetChartState,
-              private clipboardState: SpSpreadsheetClipboardState,
-              private menuDynamicService: FlMenuDynamicService) {
-  }
+  constructor(
+    private state: SpSpreadsheetState,
+    private action: SpSpreadsheetActions,
+    private chartState: SpSpreadsheetChartState,
+    private clipboardState: SpSpreadsheetClipboardState,
+    private menuDynamicService: FlMenuDynamicService
+  ) {}
 
   public openCellContextMenu(mouseEvent: MouseEvent): void {
     this.menuDynamicService.openDynamicMenuFromMouseEvent(this.getCellConfig(), mouseEvent);
@@ -39,20 +38,21 @@ export class SpSpreadsheetContextMenu {
     const menu = this.getCopyPasteConfig(readOnly);
 
     if (!readOnly) {
-      menu.push(  // button to create a row
+      menu.push(
+        // button to create a row
         // button to create a column
         {
           type: 'button',
-          text: {text: 'spSpreadsheet.add', translateText: true},
+          text: { text: 'spSpreadsheet.add', translateText: true },
           icon: 'add',
-          onClick: () => this.action.addColumn()
+          onClick: () => this.action.addColumn(),
         },
         // button to delete columns
         {
           type: 'button',
-          text: {text: 'spSpreadsheet.delete', translateText: true},
+          text: { text: 'spSpreadsheet.delete', translateText: true },
           icon: 'delete',
-          onClick: () => this.action.deleteColumns()
+          onClick: () => this.action.deleteColumns(),
         }
       );
     }
@@ -69,10 +69,11 @@ export class SpSpreadsheetContextMenu {
     const menu = this.getCopyPasteConfig(readOnly);
 
     if (!readOnly) {
-      menu.push(  // button to create a row
+      menu.push(
+        // button to create a row
         {
           type: 'button',
-          text: {text: 'spSpreadsheet.add', translateText: true},
+          text: { text: 'spSpreadsheet.add', translateText: true },
           icon: 'add',
           onClick: () => this.action.addRow(),
           divider: true,
@@ -80,10 +81,11 @@ export class SpSpreadsheetContextMenu {
         // button to delete rows
         {
           type: 'button',
-          text: {text: 'spSpreadsheet.delete', translateText: true},
+          text: { text: 'spSpreadsheet.delete', translateText: true },
           icon: 'delete',
-          onClick: () => this.action.deleteRows()
-        });
+          onClick: () => this.action.deleteRows(),
+        }
+      );
     }
 
     menu.push(this.getCreateChartConfig());
@@ -99,39 +101,38 @@ export class SpSpreadsheetContextMenu {
 
     menu.push(this.getCreateChartConfig());
 
-
     return menu;
   }
 
   private getCreateChartConfig(): FlMenuDynamic {
     return {
       type: 'button',
-      text: {text: 'spSpreadsheet.create_chart', translateText: true},
+      text: { text: 'spSpreadsheet.create_chart', translateText: true },
       icon: 'addchart',
       onClick: () => this.chartState.openChartSelectionPortal(),
-      divider: true
+      divider: true,
     };
   }
 
   private getCopyPasteConfig(readOnly: boolean): FlMenuDynamic[] {
-    const menu: FlMenuDynamic[] = [{
-      type: 'button',
-      text: {text: 'spSpreadsheet.copy', translateText: true},
-      icon: 'content_copy',
-      onClick: () => this.clipboardState.copyCurrentSelectionToClipboard(),
-    }];
+    const menu: FlMenuDynamic[] = [
+      {
+        type: 'button',
+        text: { text: 'spSpreadsheet.copy', translateText: true },
+        icon: 'content_copy',
+        onClick: () => this.clipboardState.copyCurrentSelectionToClipboard(),
+      },
+    ];
 
     if (!readOnly) {
       menu.push({
         type: 'button',
-        text: {text: 'spSpreadsheet.paste', translateText: true},
+        text: { text: 'spSpreadsheet.paste', translateText: true },
         icon: 'content_paste',
-        onClick: () => this.clipboardState.pasteClipboardValueToSelection()
+        onClick: () => this.clipboardState.pasteClipboardValueToSelection(),
       });
     }
 
     return menu;
   }
-
-
 }

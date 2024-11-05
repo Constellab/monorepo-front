@@ -1,19 +1,15 @@
 <div class="g-page">
-
   <fl-async-section [arrayObs]="labsDatasource" emptyText="no_lab">
-
     <fl-section-header class="g-page-title">
       <fl-text-icon iconPosition="start">
-        <mat-icon class="g-icon-big g-icon-background g-primary-background"
-                  flIcon="lab"></mat-icon>
-        <h1>{{'my_labs' | translate}}</h1>
+        <mat-icon class="g-icon-big g-icon-background g-primary-background" flIcon="lab"></mat-icon>
+        <h1>{{ 'my_labs' | translate }}</h1>
       </fl-text-icon>
 
       <fl-section-actions>
-        <button mat-flat-button type="button"
-                (click)="openCreateLabDialog()">
+        <button mat-flat-button type="button" (click)="openCreateLabDialog()">
           <mat-icon>add</mat-icon>
-          <span>{{'add_new_lab' | translate}}</span>
+          <span>{{ 'add_new_lab' | translate }}</span>
         </button>
       </fl-section-actions>
     </fl-section-header>
@@ -27,7 +23,5 @@
 
       <fl-infinite-load-more-result [datasource]="labsDatasource"></fl-infinite-load-more-result>
     </ng-container>
-
   </fl-async-section>
-
 </div>

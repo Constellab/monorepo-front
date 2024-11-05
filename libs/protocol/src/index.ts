@@ -1,6 +1,5 @@
 export * from './lib/pr-protocol.module';
 
-
 // model node
 export * from './lib/model/node/pr-workflow-node.class';
 export * from './lib/model/node/pr-workflow-node-resource.class';
@@ -35,7 +34,6 @@ export * from './lib/state/pr-workflow-action-state';
 export * from './lib/state/pr-workflow-manager-state';
 export * from './lib/state/pr-workflow-resources.state';
 
-
 // component
 export * from './lib/component/pr-ioface-info-portal/pr-ioface-info-portal.component';
 export * from './lib/component/pr-process-config-info-dialog/pr-process-config-info-dialog.component';
@@ -49,4 +47,3 @@ export * from './lib/component/pr-workflow-port-action-portal/pr-workflow-port-a
 
 // directive
 export * from './lib/directive/pr-workflow-node.directive';
-

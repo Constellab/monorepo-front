@@ -1,4 +1,4 @@
-.loader-div{
+.loader-div {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   margin-bottom: 1em;
 }
 
-.content{
+.content {
   display: flex;
   flex-direction: row;
   gap: 32px;
@@ -15,7 +15,7 @@
   max-height: 80vh;
 }
 
-.left-side{
+.left-side {
   width: 227px;
   min-width: 227px;
   display: flex;
@@ -23,45 +23,45 @@
   gap: 8px;
 }
 
-.right-side{
+.right-side {
   flex: auto;
   height: 80vh;
 }
 
-.search-bar-title{
+.search-bar-title {
   width: 100%;
 }
 
-.search-bar{
+.search-bar {
   width: 100%;
 }
 
-.space-list-option{
+.space-list-option {
   cursor: pointer;
   width: fit-content !important;
 }
 
-.community-bricks-list{
+.community-bricks-list {
   height: calc(100% - 5em);
 }
 
-.community-bricks-list-div{
+.community-bricks-list-div {
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
 }
 
-.brick-item{
+.brick-item {
   background-color: var(--main-background) !important;
   cursor: pointer;
 }
 
-.selected-brick-item{
+.selected-brick-item {
   background-color: var(--main-background) !important;
 }
 
-.brick-div-info{
+.brick-div-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -70,15 +70,15 @@
   width: 100%;
 }
 
-.brick-div-info .selected-brick-div{
+.brick-div-info .selected-brick-div {
   width: 100%;
 }
 
-.brick-div-info button{
+.brick-div-info button {
   margin-top: 1em;
 }
 
-.select-version-title-div{
+.select-version-title-div {
   width: 100%;
   display: flex;
 

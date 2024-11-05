@@ -1,4 +1,4 @@
-import {FlTagsToListPipe} from './fl-tags-to-list.pipe';
+import { FlTagsToListPipe } from './fl-tags-to-list.pipe';
 
 describe('FlTagsToListPipe', () => {
   it('create an instance', () => {

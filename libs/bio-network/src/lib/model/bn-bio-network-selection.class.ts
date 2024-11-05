@@ -1,14 +1,20 @@
-import {BnBioNetworkNode} from './bn-bio-network-node.class';
-import {BnBioNetworkLink} from './bn-bio-network-node-link.class';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
+import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 
 /**
  * Different selection modes
  */
-export type BnBioNetworkSelectionMode = 'none' | 'singleNode' | 'singleNodeByClick'
-  | 'multipleNodes' | 'linkByValue' | 'nodesByCompartments';
+export type BnBioNetworkSelectionMode =
+  | 'none'
+  | 'singleNode'
+  | 'singleNodeByClick'
+  | 'multipleNodes'
+  | 'linkByValue'
+  | 'nodesByCompartments';
 
-
-export type BnBioNetworkSelectionEvent = BnBioNetworkSelectionEventSingleNode | BnBioNetworkSelectionEventMultipleNodes
+export type BnBioNetworkSelectionEvent =
+  | BnBioNetworkSelectionEventSingleNode
+  | BnBioNetworkSelectionEventMultipleNodes
   | BnBioNetworkSelectionEventOther;
 
 export interface BnBioNetworkSelectionEventBase {
@@ -26,7 +32,6 @@ export interface BnBioNetworkSelectionEventMultipleNodes extends BnBioNetworkSel
   mode: 'multipleNodes';
   selectedNodes: BnBioNetworkNode[];
 }
-
 
 export interface BnBioNetworkSelectionEventOther extends BnBioNetworkSelectionEventBase {
   mode: 'none' | 'linkByValue' | 'nodesByCompartments' | 'singleNodeByClick';

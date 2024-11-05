@@ -1,33 +1,28 @@
-import {ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {
-  FlDynamicFieldTextareaComponent
-} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
-  FlDynamicFieldConfigSelect
+  FlDynamicFieldConfigSelect,
 } from './fl-dynamic-field-config.class';
-import {FlDynamicFieldAbstractDirective} from './fl-dynamic-field-abstract.directive';
-import {FlDynamicFieldInputComponent} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
-import {FlDynamicFieldSelectComponent} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
-import {FlDynamicFieldListComponent} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
-import {FlDynamicFieldBooleanComponent} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
-import {
-  FlDynamicFieldSelectSearchComponent
-} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
+import { FlDynamicFieldInputComponent } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import { FlDynamicFieldSelectComponent } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import { FlDynamicFieldListComponent } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import { FlDynamicFieldBooleanComponent } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import { FlDynamicFieldSelectSearchComponent } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
  * Override the getAdditionalConfig method to add new field type
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlDynamicFieldConfigService {
-
   /**
    * return custom additional config for the field.
    * Key = type {@link FlDynamicFieldConfig}
@@ -47,9 +42,11 @@ export class FlDynamicFieldConfigService {
    * @param viewContainer
    * @param formCtrl
    */
-  public generateComponent(config: FlDynamicFieldConfig,
-                           viewContainer: ViewContainerRef, formCtrl: FormControl): ComponentRef<FlDynamicFieldAbstractDirective> {
-
+  public generateComponent(
+    config: FlDynamicFieldConfig,
+    viewContainer: ViewContainerRef,
+    formCtrl: FormControl
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     let viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
 
     // if the type is supported by the module config, use it
@@ -65,7 +62,10 @@ export class FlDynamicFieldConfigService {
           viewComponentRef = this.createSelectComponent(viewContainer, config as FlDynamicFieldConfigSelect);
           break;
         case 'select-search':
-          viewComponentRef = this.createSelectSearchComponent(viewContainer, config as FlDynamicFieldConfigSelect);
+          viewComponentRef = this.createSelectSearchComponent(
+            viewContainer,
+            config as FlDynamicFieldConfigSelect
+          );
           break;
         case 'list':
           viewComponentRef = this.createListComponent(viewContainer, config as FlDynamicFieldConfigList);
@@ -81,7 +81,6 @@ export class FlDynamicFieldConfigService {
       }
     }
 
-
     // add generic properties
     viewComponentRef.instance.formCtrl = formCtrl;
     viewComponentRef.instance.placeholder = config.placeholder;
@@ -92,9 +91,10 @@ export class FlDynamicFieldConfigService {
     return viewComponentRef;
   }
 
-
-  private createInputComponent(viewContainer: ViewContainerRef,
-                               config: FlDynamicFieldConfigInput): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createInputComponent(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigInput
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const inputComponent = viewContainer.createComponent(FlDynamicFieldInputComponent);
     inputComponent.instance.prefix = config.prefix;
     inputComponent.instance.suffix = config.suffix;
@@ -105,8 +105,10 @@ export class FlDynamicFieldConfigService {
     return inputComponent;
   }
 
-  private createSelectComponent(viewContainer: ViewContainerRef,
-                                config: FlDynamicFieldConfigSelect): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createSelectComponent(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigSelect
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectComponent);
     selectComponent.instance.selectOptions = config.selectOptions;
     selectComponent.instance.prefix = config.prefix;
@@ -114,29 +116,39 @@ export class FlDynamicFieldConfigService {
     return selectComponent;
   }
 
-  private createSelectSearchComponent(viewContainer: ViewContainerRef,
-                                      config: FlDynamicFieldConfigSelect): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createSelectSearchComponent(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigSelect
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectSearchComponent);
     selectComponent.instance.selectOptions = config.selectOptions;
     return selectComponent;
   }
 
-  private createListComponent(viewContainer: ViewContainerRef,
-                              config: FlDynamicFieldConfigList): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createListComponent(
+    viewContainer: ViewContainerRef,
+    config: FlDynamicFieldConfigList
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const listComponent = viewContainer.createComponent(FlDynamicFieldListComponent);
     listComponent.instance.prefix = config.prefix;
     listComponent.instance.suffix = config.suffix;
     return listComponent;
   }
 
-  private createBooleanComponent(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createBooleanComponent(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(FlDynamicFieldBooleanComponent);
   }
 
-  private createTextareaComponent(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
+  private createTextareaComponent(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(FlDynamicFieldTextareaComponent);
   }
 }
 
-export type FlDynamicFieldAdditionalConfig = (viewContainer: ViewContainerRef,
-                                              config: FlDynamicFieldConfigBase) => ComponentRef<FlDynamicFieldAbstractDirective>;
+export type FlDynamicFieldAdditionalConfig = (
+  viewContainer: ViewContainerRef,
+  config: FlDynamicFieldConfigBase
+) => ComponentRef<FlDynamicFieldAbstractDirective>;

@@ -1,26 +1,25 @@
-.visibility-badge-div{
+.visibility-badge-div {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 12px;
-
 }
 
-.space-badge-photo{
+.space-badge-photo {
   width: 25px;
   border-radius: 50%;
 }
 
-.public-badge-div{
+.public-badge-div {
   border: solid 3px var(--accent-color);
 }
 
-.space-badge-div{
+.space-badge-div {
   border: solid 3px var(--warn-color);
 }
 
-@media screen and (max-width: 768px){
-  .visibility-badge-div{
+@media screen and (max-width: 768px) {
+  .visibility-badge-div {
     gap: 4px;
     font-size: 0.8em;
   }

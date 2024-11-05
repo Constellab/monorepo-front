@@ -1,13 +1,12 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 /**
  * Simple pipe to log piped value
  */
 @Pipe({
-  name: 'flDebug'
+  name: 'flDebug',
 })
 export class FlDebugPipe implements PipeTransform {
-
   transform(value: any, tag?: string): any {
     if (tag == null) {
       tag = '';
@@ -18,5 +17,4 @@ export class FlDebugPipe implements PipeTransform {
 
     return value;
   }
-
 }

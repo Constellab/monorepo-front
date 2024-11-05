@@ -2,4 +2,7 @@
   {{ title | translate }}
 </fl-dialog-header>
 
-<co-agent-create-dialog-form [formGp]="formGp" [spaces$]="spaces$" (submitEvent)="submit($event)"></co-agent-create-dialog-form>
+<co-agent-create-dialog-form
+  [formGp]="formGp"
+  [spaces$]="spaces$"
+  (submitEvent)="submit($event)"></co-agent-create-dialog-form>

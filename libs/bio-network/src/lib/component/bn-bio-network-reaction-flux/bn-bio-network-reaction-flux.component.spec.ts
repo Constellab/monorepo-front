@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkReactionFluxComponent} from './bn-bio-network-reaction-flux.component';
+import { BnBioNetworkReactionFluxComponent } from './bn-bio-network-reaction-flux.component';
 
 describe('BnBioNetworkReactionFluxComponent', () => {
   let component: BnBioNetworkReactionFluxComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkReactionFluxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkReactionFluxComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkReactionFluxComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BnBioNetworkReactionFluxComponent);
     component = fixture.componentInstance;

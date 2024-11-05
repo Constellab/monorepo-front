@@ -6,24 +6,21 @@ import { MatSelect } from '@angular/material/select';
 @Component({
   selector: 'lab-scenario-status-options',
   templateUrl: './lab-scenario-status-options.component.html',
-  styleUrls: ['./lab-scenario-status-options.component.scss']
+  styleUrls: ['./lab-scenario-status-options.component.scss'],
 })
-export class LabScenarioStatusOptionsComponent extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit {
-
+export class LabScenarioStatusOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit
+{
   statusList: FlStatus[] = Object.values(labScenarioStatusDict);
 
   constructor(@Host() @Optional() public select: MatSelect) {
     super(select);
   }
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();
   }
-
-
 }

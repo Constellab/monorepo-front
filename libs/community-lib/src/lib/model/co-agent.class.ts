@@ -20,7 +20,7 @@ export class CoAgent {
 
 export enum CoAgentType {
   PUBLIC = 'PUBLIC',
-  SPACE = 'SPACE'
+  SPACE = 'SPACE',
 }
 
 export class CoCreateAgentFormData {

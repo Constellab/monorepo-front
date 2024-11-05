@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabUpdateResourceNameDialogComponent} from './lab-update-resource-name-dialog.component';
+import { LabUpdateResourceNameDialogComponent } from './lab-update-resource-name-dialog.component';
 
 describe('LabUpdateResourceNameDialogComponent', () => {
   let component: LabUpdateResourceNameDialogComponent;
@@ -8,9 +8,8 @@ describe('LabUpdateResourceNameDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabUpdateResourceNameDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabUpdateResourceNameDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

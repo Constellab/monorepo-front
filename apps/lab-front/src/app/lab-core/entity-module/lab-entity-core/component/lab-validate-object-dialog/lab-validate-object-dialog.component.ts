@@ -25,10 +25,9 @@ export interface LabValidateObjectDialogInput {
 @Component({
   selector: 'lab-validate-object-dialog',
   templateUrl: './lab-validate-object-dialog.component.html',
-  styleUrls: ['./lab-validate-object-dialog.component.scss']
+  styleUrls: ['./lab-validate-object-dialog.component.scss'],
 })
 export class LabValidateObjectDialogComponent implements OnInit {
-
   title: string;
   helpText: string;
 
@@ -36,9 +35,11 @@ export class LabValidateObjectDialogComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private dialogInput: LabValidateObjectDialogInput,
-              private dialogRef: MatDialogRef<LabValidateObjectDialogComponent>,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private dialogInput: LabValidateObjectDialogInput,
+    private dialogRef: MatDialogRef<LabValidateObjectDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {
     this.title = this.dialogInput.title;
     this.helpText = this.dialogInput.helpText;
   }
@@ -60,15 +61,14 @@ export class LabValidateObjectDialogComponent implements OnInit {
 
   private validateObject(folder: LabFolder): void {
     this.dialogInput.validate(folder).subscribe(
-      object => this.validateSuccess(object),
-      () => this.isLoading = false
+      (object) => this.validateSuccess(object),
+      () => (this.isLoading = false)
     );
   }
 
   private validateSuccess(object: any): void {
     this.isLoading = false;
-    this.snackBarService.openSuccessMessage({text: this.dialogInput.successMessage, translateText: true});
+    this.snackBarService.openSuccessMessage({ text: this.dialogInput.successMessage, translateText: true });
     this.dialogRef.close(object);
   }
-
 }

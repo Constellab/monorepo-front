@@ -8,21 +8,21 @@ import { CaRequestNewLicensesDto } from '../../../../ca-core/model/entities/spac
 @Component({
   selector: 'ca-request-new-licenses',
   templateUrl: './ca-request-new-licenses.component.html',
-  styleUrls: ['./ca-request-new-licenses.component.scss']
+  styleUrls: ['./ca-request-new-licenses.component.scss'],
 })
 export class CaRequestNewLicensesComponent {
-
   isLoading: boolean = false;
 
   formGroup = new FormBuilder().group({
     nbLicenses: [0, Validators.required],
-    text: ''
+    text: '',
   });
 
-  constructor(private dialogRef: MatDialogRef<CaRequestNewLicensesComponent>,
-              private spaceService: CaSpaceService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<CaRequestNewLicensesComponent>,
+    private spaceService: CaSpaceService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   submit(): void {
     if (!this.isLoading && this.formGroup.valid) {
@@ -34,7 +34,7 @@ export class CaRequestNewLicensesComponent {
     this.isLoading = true;
     this.spaceService.requestNewLicenses(request).subscribe({
       next: () => this.onSuccess(),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -43,5 +43,4 @@ export class CaRequestNewLicensesComponent {
     this.isLoading = false;
     this.dialogRef.close();
   }
-
 }

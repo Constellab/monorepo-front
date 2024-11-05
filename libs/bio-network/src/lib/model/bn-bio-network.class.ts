@@ -1,4 +1,4 @@
-import {FlCoord} from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib';
 
 /**
  * Complete Structured data of a pathway
@@ -15,7 +15,7 @@ export interface BnBioNetwork {
 export enum BnBioNetworkMetaboliteLevel {
   MAJOR = 1,
   MINOR = 2,
-  COFACTOR = 3
+  COFACTOR = 3,
 }
 
 export interface BnBioNetworkObject {
@@ -40,7 +40,6 @@ export interface BnBioNetworkMetabolite extends BnBioNetworkObject {
 export function bnBioNetworkIsCofactor(type: BnBioNetworkMetaboliteType): boolean {
   return type === 'cofactor' || type === 'residue';
 }
-
 
 export interface BnBioNetworkReaction extends BnBioNetworkObject {
   metabolites: Record<string, number>;
@@ -113,7 +112,6 @@ export interface BnBioNetworkClusterSelection {
   highlighted: boolean;
   color: string;
 }
-
 
 export interface BnBioNetworkReactionData {
   simulations?: Record<string, BnBioNetworkReactionDataFlux>;

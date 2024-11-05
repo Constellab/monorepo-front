@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaStoragePriceTableComponent} from './ca-storage-price-table.component';
+import { CaStoragePriceTableComponent } from './ca-storage-price-table.component';
 
 describe('CaStoragePriceTableComponent', () => {
   let component: CaStoragePriceTableComponent;
@@ -8,9 +8,8 @@ describe('CaStoragePriceTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaStoragePriceTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaStoragePriceTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaStoragePriceTableComponent);
     component = fixture.componentInstance;

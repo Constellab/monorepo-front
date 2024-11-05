@@ -8,9 +8,8 @@ describe('CaFolderDetailActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaFolderDetailActionsComponent]
-    })
-    .compileComponents();
+      declarations: [CaFolderDetailActionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderDetailActionsComponent);
     component = fixture.componentInstance;

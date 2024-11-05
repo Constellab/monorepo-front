@@ -1,4 +1,12 @@
-import { Component, ComponentRef, Inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
 import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
 import { CaFolderScenarioPreviewComponent } from '../ca-folder-scenario-preview/ca-folder-scenario-preview.component';
@@ -6,9 +14,7 @@ import { CaFolderChatRightPanelComponent } from '../ca-folder-chat-right-panel/c
 import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-settings.component';
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
-import {
-  CaConstellabDocumentPreviewComponent
-} from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
+import { CaConstellabDocumentPreviewComponent } from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
 
 /**
  * Right panel of the folder detail page
@@ -16,17 +22,14 @@ import {
 @Component({
   selector: 'ca-folder-detail-right-panel',
   templateUrl: './ca-folder-detail-right-panel.component.html',
-  styleUrls: ['./ca-folder-detail-right-panel.component.scss']
+  styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
 })
 export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
-
-
   @ViewChild('container', { static: true, read: ViewContainerRef }) container: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<any>;
 
-  constructor(@Inject(FL_PORTAL_DATA) private data: CaFolderDetailRightPanel) {
-  }
+  constructor(@Inject(FL_PORTAL_DATA) private data: CaFolderDetailRightPanel) {}
 
   ngOnInit(): void {
     this.createComponent(this.data);
@@ -75,6 +78,4 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyViewComponentRef();
   }
-
-
 }

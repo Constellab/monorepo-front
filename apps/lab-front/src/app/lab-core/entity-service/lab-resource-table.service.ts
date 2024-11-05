@@ -1,44 +1,55 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabResourceView} from '../model/entities/resource/lab-resource-view.entity';
-import {RvResourceViewTable} from '@monorepo/resource-view';
-import {LabResourceService} from './lab-resource.service';
-import {PrConfigValues} from '@monorepo/protocol';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
+import { RvResourceViewTable } from '@monorepo/resource-view';
+import { LabResourceService } from './lab-resource.service';
+import { PrConfigValues } from '@monorepo/protocol';
 
-export type LabTableChartType = 'line-plot-2d' | 'scatter-plot-2d' | 'vulcano-plot' |
-  'bar-plot' | 'stack-bar-plot' | 'histogram' |
-  'box-plot' | 'heatmap' | 'venn-diagram';
+export type LabTableChartType =
+  | 'line-plot-2d'
+  | 'scatter-plot-2d'
+  | 'vulcano-plot'
+  | 'bar-plot'
+  | 'stack-bar-plot'
+  | 'histogram'
+  | 'box-plot'
+  | 'heatmap'
+  | 'venn-diagram';
 
 /**
  * Service to call methods on table resource
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabResourceTableService {
-
   private readonly route: string = 'resource-table';
 
   private readonly tableViewFromRowParam = 'from_row';
   private readonly tableViewNbOfRowsPerPageParam = 'number_of_rows_per_page';
   private readonly tableDefaultPageSize: number = 100;
 
-  constructor(private apiService: FlApiService,
-              private resourceService: LabResourceService) {
-  }
+  constructor(
+    private apiService: FlApiService,
+    private resourceService: LabResourceService
+  ) {}
 
   /**
    * Method used by the Table view to call a Chart view on it
    */
-  public callChartOnTable(resourceId: string, tableViewMethodName: string, tableViewConfig: PrConfigValues,
-                          chartType: LabTableChartType, chartConfig: PrConfigValues): Observable<LabResourceView> {
-
+  public callChartOnTable(
+    resourceId: string,
+    tableViewMethodName: string,
+    tableViewConfig: PrConfigValues,
+    chartType: LabTableChartType,
+    chartConfig: PrConfigValues
+  ): Observable<LabResourceView> {
     const data = {
       table_view_name: tableViewMethodName,
       table_config_values: tableViewConfig,
       chart_type: chartType,
-      chart_config_values: chartConfig
+      chart_config_values: chartConfig,
     };
 
     return this.apiService.post(`${this.route}/${resourceId}/call-chart`, data, LabResourceView);
@@ -51,14 +62,21 @@ export class LabResourceTableService {
    * @param config
    * @param fromRow the first row to load (including)
    */
-  public callNextPage(id: string, viewMethodName: string, config: PrConfigValues,
-                      fromRow: number): Observable<RvResourceViewTable> {
+  public callNextPage(
+    id: string,
+    viewMethodName: string,
+    config: PrConfigValues,
+    fromRow: number
+  ): Observable<RvResourceViewTable> {
     // merge config with pagination config,
     // add 1 to the fromRow because communication are made using 1-based index
-    const viewConfig = Object.assign(config, {[this.tableViewFromRowParam]: fromRow + 1});
+    const viewConfig = Object.assign(config, { [this.tableViewFromRowParam]: fromRow + 1 });
 
-    return this.resourceService.callResourceViewData(id, viewMethodName,
-      viewConfig) as Observable<RvResourceViewTable>;
+    return this.resourceService.callResourceViewData(
+      id,
+      viewMethodName,
+      viewConfig
+    ) as Observable<RvResourceViewTable>;
   }
 
   /**
@@ -68,8 +86,12 @@ export class LabResourceTableService {
    * @param config
    * @param toRow the last row to load (excluding)
    */
-  public callPreviousPage(id: string, viewMethodName: string, config: PrConfigValues,
-                          toRow: number): Observable<RvResourceViewTable> {
+  public callPreviousPage(
+    id: string,
+    viewMethodName: string,
+    config: PrConfigValues,
+    toRow: number
+  ): Observable<RvResourceViewTable> {
     let pageSize = config[this.tableViewNbOfRowsPerPageParam] ?? this.tableDefaultPageSize;
     let fromRow = toRow - pageSize;
 
@@ -84,10 +106,13 @@ export class LabResourceTableService {
     // add 1 to the fromRow because communication are made using 1-based index
     const viewConfig = Object.assign(config, {
       [this.tableViewFromRowParam]: fromRow + 1,
-      [this.tableViewNbOfRowsPerPageParam]: pageSize
+      [this.tableViewNbOfRowsPerPageParam]: pageSize,
     });
 
-    return this.resourceService.callResourceViewData(id, viewMethodName,
-      viewConfig) as Observable<RvResourceViewTable>;
+    return this.resourceService.callResourceViewData(
+      id,
+      viewMethodName,
+      viewConfig
+    ) as Observable<RvResourceViewTable>;
   }
 }

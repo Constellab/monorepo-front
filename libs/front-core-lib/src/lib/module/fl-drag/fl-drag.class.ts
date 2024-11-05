@@ -7,8 +7,7 @@ export interface FlDropEvent<T = any> {
   event: DragEvent;
 }
 
-
-export interface FlDragData{
+export interface FlDragData {
   type: string;
   data: any;
 }

@@ -5,7 +5,7 @@ import { FlArrayObs, FlDialogService, FlEntityArrayObs, FlTableColumnStatic } fr
 import { CaLabGreenOption } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 import {
   CaLabGreenOptionFormDialogComponent,
-  CaLabGreenOptionFormDialogInput
+  CaLabGreenOptionFormDialogInput,
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 
 @Component({
@@ -14,16 +14,15 @@ import {
   styleUrls: ['./ca-lab-green-options.component.scss'],
 })
 export class CaLabGreenOptionsComponent implements OnInit {
-
   labGreenOptions$: FlArrayObs<CaLabGreenOption>;
 
   columns: FlTableColumnStatic<CaLabGreenOption>[] = ['type', 'isPersistent', 'value', 'created', 'actions'];
 
-
-  constructor(private labService: CaLabService,
-              private state: CaLabDetailPageState,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private state: CaLabDetailPageState,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.labGreenOptions$ = new FlEntityArrayObs(this.labService.getGreenOptions(this.state.getLabId()));
@@ -32,20 +31,18 @@ export class CaLabGreenOptionsComponent implements OnInit {
   openCreateGreenOptionDialog(): void {
     const data: CaLabGreenOptionFormDialogInput = {
       mode: 'create',
-      labId: this.state.getLabId()
+      labId: this.state.getLabId(),
     };
 
-    this.dialogService.openSmallDialog(CaLabGreenOptionFormDialogComponent,
-      {data: data, autoFocus: false}).afterClosed().subscribe(
-      (greenOption: CaLabGreenOption) => this.onCreateGreenOptionClosed(greenOption)
-    );
+    this.dialogService
+      .openSmallDialog(CaLabGreenOptionFormDialogComponent, { data: data, autoFocus: false })
+      .afterClosed()
+      .subscribe((greenOption: CaLabGreenOption) => this.onCreateGreenOptionClosed(greenOption));
   }
 
   private onCreateGreenOptionClosed(greenOption?: CaLabGreenOption): void {
     if (greenOption) {
       this.labGreenOptions$.addItem(greenOption);
     }
-
   }
-
 }

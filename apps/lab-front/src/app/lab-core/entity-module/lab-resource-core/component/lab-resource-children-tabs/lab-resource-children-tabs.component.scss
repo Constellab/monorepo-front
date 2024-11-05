@@ -1,4 +1,4 @@
-.container{
+.container {
   position: relative;
 }
 
@@ -7,15 +7,15 @@
   overflow-x: auto;
 }
 
-.size-element{
+.size-element {
   width: fit-content;
 }
 
-  /* width and height */
-  .scrollable-container::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+/* width and height */
+.scrollable-container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 
 .card {
   background-color: var(--card-background);
@@ -33,10 +33,10 @@
 
 .selected-card {
   background-color: var(--primary-color);
-  color: var(--primary-color-contrast)
+  color: var(--primary-color-contrast);
 }
 
-.scroll-button{
+.scroll-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -44,10 +44,10 @@
   color: var(--primary-color-contrast);
 }
 
-.scroll-button-left{
+.scroll-button-left {
   left: 0;
 }
 
-.scroll-button-right{
+.scroll-button-right {
   right: 0;
 }

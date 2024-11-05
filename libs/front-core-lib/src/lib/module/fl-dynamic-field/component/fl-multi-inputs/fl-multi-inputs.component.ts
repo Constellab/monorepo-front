@@ -7,10 +7,10 @@ import {
   OnInit,
   Optional,
   Output,
-  Self
+  Self,
 } from '@angular/core';
-import {NgControl} from '@angular/forms';
-import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
+import { NgControl } from '@angular/forms';
+import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 
 /**
  * Input to handle multiple string values
@@ -20,10 +20,9 @@ import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-
   templateUrl: './fl-multi-inputs.component.html',
   styleUrls: ['./fl-multi-inputs.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
 })
 export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> implements OnInit {
-
   @Input() placeholder: string;
 
   @Input() hint: string;
@@ -36,14 +35,14 @@ export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[
 
   private readonly separator: string = '\n';
 
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private cdr: ChangeDetectorRef
+  ) {
     super(ngControl);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onValueChange(): void {
     this.emitCurrentValue();
@@ -53,8 +52,7 @@ export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[
     this.valuesChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: string[]): void {
     if (obj == null) {
@@ -64,17 +62,15 @@ export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[
     this.value = this.convertOuterToInner(obj);
   }
 
-
   protected convertOuterToInner(outerValue: string[]): string {
     // remove empty and null values and return a string
-    return outerValue.filter(value => value).join(this.separator);
+    return outerValue.filter((value) => value).join(this.separator);
   }
 
   protected convertInnerToOuter(innerValue: string): string[] {
     if (innerValue == null) return [];
-    return innerValue.split(this.separator).filter(value => value);
+    return innerValue.split(this.separator).filter((value) => value);
   }
-
 
   setErrorState(isError: boolean): void {
     super.setErrorState(isError);

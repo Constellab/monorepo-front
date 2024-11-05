@@ -8,9 +8,8 @@ describe('CaLabDashboardPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabDashboardPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabDashboardPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabDashboardPageComponent);
     component = fixture.componentInstance;

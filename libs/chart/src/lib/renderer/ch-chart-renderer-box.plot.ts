@@ -1,21 +1,21 @@
-import {ChChart2AxisRendererWithColors} from './ch-chart-renderer.class';
-import {select} from 'd3';
-import {ChChartDataWithSerie} from '../model/data/ch-chart-serie.class';
-import {ChChartScale, ChChartScaleBand} from '../model/scale/ch-chart-scale.class';
-import {ChChartBoxPlotData} from '../model/data/ch-chart-box-plot-data.class';
-import {ChChartPortalHandler} from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChart2AxisRendererWithColors } from './ch-chart-renderer.class';
+import { select } from 'd3';
+import { ChChartDataWithSerie } from '../model/data/ch-chart-serie.class';
+import { ChChartScale, ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
+import { ChChartBoxPlotData } from '../model/data/ch-chart-box-plot-data.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import {
   ChChartBoxPlotDataPortalComponent,
-  ChChartBoxPlotDataPortalInput
+  ChChartBoxPlotDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
-import {ChChartMultiSerie} from '../model/data/ch-chart-multi-serie.class';
-import {ChChartColorFunction} from '../model/scale/ch-chart-scale-color.class';
-import {FlColorHelper, FlTagColorer, FlTagWithColor} from '@monorepo/front-core-lib';
+import { ChChartMultiSerie } from '../model/data/ch-chart-multi-serie.class';
+import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
+import { FlColorHelper, FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib';
 
-
-export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChChartMultiSerie<ChChartBoxPlotData>,
-  ChChartDataWithSerie<ChChartBoxPlotData>> {
-
+export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<
+  ChChartMultiSerie<ChChartBoxPlotData>,
+  ChChartDataWithSerie<ChChartBoxPlotData>
+> {
   private readonly groupClassName: string = 'group';
   private readonly boxPlotGroupClassName: string = 'group-box-plot';
   private readonly verticalLineClassName: string = 'vertical-line';
@@ -24,21 +24,18 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
 
   private portalHandler: ChChartPortalHandler = new ChChartPortalHandler();
 
-
-  constructor(defaultColorFunction: ChChartColorFunction<ChChartDataWithSerie<ChChartBoxPlotData>>,
-              private tagColorer: FlTagColorer) {
+  constructor(
+    defaultColorFunction: ChChartColorFunction<ChChartDataWithSerie<ChChartBoxPlotData>>,
+    private tagColorer: FlTagColorer
+  ) {
     super(defaultColorFunction);
   }
 
   renderFirst(): void {
-
     this.refreshRender();
 
-    this.tagColorer.getSelectedTags$().subscribe(
-      tags => this.onSelectedTagUpdate(tags)
-    );
+    this.tagColorer.getSelectedTags$().subscribe((tags) => this.onSelectedTagUpdate(tags));
   }
-
 
   refreshRender(): void {
     const data: ChChartDataWithSerie<ChChartBoxPlotData>[][] = this.data.data.invert();
@@ -51,17 +48,17 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
       .selectAll(`.${this.groupClassName}`)
       .data(data)
       .join('g')
-      .attr('class', this.groupClassName)  // I add the class line to be able to modify this line later on.
-      .attr('transform', (d, i) =>
-        this.getGroupTranslate(this.data.xAxis.scale, this.data.chartWidth, i))
-      .each((data, index, nodes) =>
-        this.drawBoxPlotGroup(nodes[index] as any, data, bandWidth));
+      .attr('class', this.groupClassName) // I add the class line to be able to modify this line later on.
+      .attr('transform', (d, i) => this.getGroupTranslate(this.data.xAxis.scale, this.data.chartWidth, i))
+      .each((data, index, nodes) => this.drawBoxPlotGroup(nodes[index] as any, data, bandWidth));
   }
 
   //draw the groups for each box plot
-  private drawBoxPlotGroup(group: SVGElement, groupData: ChChartDataWithSerie<ChChartBoxPlotData>[],
-                           parentGroupWidth: number): void {
-
+  private drawBoxPlotGroup(
+    group: SVGElement,
+    groupData: ChChartDataWithSerie<ChChartBoxPlotData>[],
+    parentGroupWidth: number
+  ): void {
     const groupWidth: number = parentGroupWidth / groupData.length;
     // Draw the main vertical line
     select(group)
@@ -73,14 +70,15 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
       .on('mouseover', (event, d) => this.openPortal(event, d, false))
       .on('mouseout', () => this.closePortal())
       .on('click', (event, d) => this.openPortal(event, d, true))
-      .each((data, index, nodes) =>
-        this.drawBoxPlot(nodes[index] as any, data, groupWidth));
+      .each((data, index, nodes) => this.drawBoxPlot(nodes[index] as any, data, groupWidth));
   }
 
   // draw on box plot in the group
-  private drawBoxPlot(group: SVGElement, dataWithSerie: ChChartDataWithSerie<ChChartBoxPlotData>,
-                      groupWidth: number): void {
-
+  private drawBoxPlot(
+    group: SVGElement,
+    dataWithSerie: ChChartDataWithSerie<ChChartBoxPlotData>,
+    groupWidth: number
+  ): void {
     if (dataWithSerie.data == null) {
       return;
     }
@@ -89,7 +87,7 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
 
     const padding = 2;
     const x1 = padding;
-    const width = groupWidth - (padding * 2);
+    const width = groupWidth - padding * 2;
 
     const theme = this.getTheme();
 
@@ -101,8 +99,8 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
       .attr('class', this.verticalLineClassName)
       .attr('x1', xCenter)
       .attr('x2', xCenter)
-      .attr('y1', d => this.data.yAxis.scale.scale(d.data.lowerWhisker))
-      .attr('y2', d => this.data.yAxis.scale.scale(d.data.upperWhisker))
+      .attr('y1', (d) => this.data.yAxis.scale.scale(d.data.lowerWhisker))
+      .attr('y2', (d) => this.data.yAxis.scale.scale(d.data.upperWhisker))
       .attr('stroke', theme.foreground);
 
     // Place the box
@@ -111,8 +109,8 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
       .data([dataWithSerie])
       .join('rect')
       .attr('x', x1)
-      .attr('y', d => this.data.yAxis.scale.scale(d.data.q3))
-      .attr('height', d => (this.data.yAxis.scale.scale(d.data.q1) - this.data.yAxis.scale.scale(d.data.q3)))
+      .attr('y', (d) => this.data.yAxis.scale.scale(d.data.q3))
+      .attr('height', (d) => this.data.yAxis.scale.scale(d.data.q1) - this.data.yAxis.scale.scale(d.data.q3))
       .attr('width', width)
       .attr('stroke', theme.foreground)
       .attr('class', this.rectColorClassName)
@@ -135,14 +133,18 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
   private getGroupTranslate(xScale: ChChartScale, chartWidth: number, index: number): string {
     const scale: number = xScale.scale(index);
     // if the scale return null set the group outside chart
-    return 'translate(' + (scale == null ? (chartWidth + 10) : scale) + ',0)';
+    return 'translate(' + (scale == null ? chartWidth + 10 : scale) + ',0)';
   }
 
-  private openPortal(event: MouseEvent, data: ChChartDataWithSerie<ChChartBoxPlotData>, fixPortal: boolean): void {
+  private openPortal(
+    event: MouseEvent,
+    data: ChChartDataWithSerie<ChChartBoxPlotData>,
+    fixPortal: boolean
+  ): void {
     const input: ChChartBoxPlotDataPortalInput = {
       data: data,
       color: this.defaultColorFunction(data),
-      tagColorer: this.tagColorer
+      tagColorer: this.tagColorer,
     };
     this.portalHandler.openPortal(event.target as any, ChChartBoxPlotDataPortalComponent, input, fixPortal);
   }
@@ -153,7 +155,9 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
 
   private onSelectedTagUpdate(selectedTags: FlTagWithColor[]): void {
     if (selectedTags.length > 0) {
-      const colorFunction: (d: ChChartDataWithSerie<ChChartBoxPlotData>) => string = (d: ChChartDataWithSerie<ChChartBoxPlotData>) => {
+      const colorFunction: (d: ChChartDataWithSerie<ChChartBoxPlotData>) => string = (
+        d: ChChartDataWithSerie<ChChartBoxPlotData>
+      ) => {
         return FlTagColorer.getObjectColor(d.data.tags, selectedTags, FlColorHelper.transparentBlack);
       };
       this.setColorFunction(colorFunction);
@@ -164,9 +168,6 @@ export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<ChCha
 
   protected refreshColor(colorFunction: (d: ChChartDataWithSerie<ChChartBoxPlotData>) => string): void {
     // update the color of the rects
-    this.data.container.selectAll(`.${this.rectColorClassName}`)
-      .style('fill', colorFunction);
+    this.data.container.selectAll(`.${this.rectColorClassName}`).style('fill', colorFunction);
   }
-
-
 }

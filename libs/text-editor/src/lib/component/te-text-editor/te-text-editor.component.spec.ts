@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TeTextEditorComponent} from './te-text-editor.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TeTextEditorComponent } from './te-text-editor.component';
 
 describe('TeTextEditorComponent', () => {
   let component: TeTextEditorComponent;

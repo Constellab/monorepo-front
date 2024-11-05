@@ -8,14 +8,19 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import {ChChartState} from '../../state/ch-chart.state';
-import {ClHelpService} from '@monorepo/core-lib';
-import {ChChartConfig} from '../../model/ch-chart-config.class';
-import {debounceTime, filter, map} from 'rxjs/operators';
-import {ChChartRightSectionDirective} from '../ch-chart-right-section/ch-chart-right-section.directive';
-import {FlMenuDynamic, FlMenuDynamicService, FlResizeObservable, FlThemeService} from '@monorepo/front-core-lib';
+import { ChChartState } from '../../state/ch-chart.state';
+import { ClHelpService } from '@monorepo/core-lib';
+import { ChChartConfig } from '../../model/ch-chart-config.class';
+import { debounceTime, filter, map } from 'rxjs/operators';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section/ch-chart-right-section.directive';
+import {
+  FlMenuDynamic,
+  FlMenuDynamicService,
+  FlResizeObservable,
+  FlThemeService,
+} from '@monorepo/front-core-lib';
 
 interface Size {
   width: number;
@@ -31,11 +36,9 @@ interface Size {
   selector: 'ch-chart',
   templateUrl: './ch-chart.component.html',
   styleUrls: ['./ch-chart.component.scss'],
-  providers: [ChChartState]
+  providers: [ChChartState],
 })
 export class ChChartComponent implements OnInit, OnDestroy {
-
-
   @Input() chart: ChChartConfig;
 
   /**
@@ -43,11 +46,10 @@ export class ChChartComponent implements OnInit, OnDestroy {
    */
   @Input() contextMenuItems: FlMenuDynamic[];
 
-  @ViewChild('grid', {static: true}) grid: ElementRef;
-  @ViewChild('chartContainer', {static: true}) chartContainer: ElementRef;
+  @ViewChild('grid', { static: true }) grid: ElementRef;
+  @ViewChild('chartContainer', { static: true }) chartContainer: ElementRef;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
-
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private previousWidth: number;
   private previousHeight: number;
@@ -59,18 +61,18 @@ export class ChChartComponent implements OnInit, OnDestroy {
 
   private legendComponentRef: ComponentRef<ChChartRightSectionDirective>;
 
-
   @HostListener('contextmenu', ['$event'])
   contextMenu(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.openContextMenu(event);
   }
 
-  constructor(private themeService: FlThemeService,
-              private state: ChChartState,
-              private menuService: FlMenuDynamicService,
-              private ngZone: NgZone) {
-  }
+  constructor(
+    private themeService: FlThemeService,
+    private state: ChChartState,
+    private menuService: FlMenuDynamicService,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     // run the whole chart outside angular zone to improve performance
@@ -105,12 +107,14 @@ export class ChChartComponent implements OnInit, OnDestroy {
   private subscribeToResize(): void {
     this.resizeObs = new FlResizeObservable(this.grid.nativeElement);
 
-    this.resizeObs.getObs().pipe(
-      debounceTime(250),
-      map(() => this.svgSize),
-      filter(size => size.width !== this.previousWidth || size.height !== this.previousHeight)).subscribe(
-      size => this.redrawChart(size)
-    );
+    this.resizeObs
+      .getObs()
+      .pipe(
+        debounceTime(250),
+        map(() => this.svgSize),
+        filter((size) => size.width !== this.previousWidth || size.height !== this.previousHeight)
+      )
+      .subscribe((size) => this.redrawChart(size));
   }
 
   // clear the svg and rebuild the chart
@@ -120,17 +124,15 @@ export class ChChartComponent implements OnInit, OnDestroy {
     }
     console.log('Redraw chart');
     this.state.chartSVG.svg.remove();
-    this.state.initChart(this.chartContainer.nativeElement,
-      containerSize.width, containerSize.height);
+    this.state.initChart(this.chartContainer.nativeElement, containerSize.width, containerSize.height);
   }
 
   private get svgSize(): Size {
     return {
       width: this.chartContainerWidth,
-      height: this.chartContainerHeight - this.chartContainerPadding
+      height: this.chartContainerHeight - this.chartContainerPadding,
     };
   }
-
 
   private get chartContainerWidth(): number {
     return this.chartContainer.nativeElement.clientWidth;
@@ -140,26 +142,27 @@ export class ChChartComponent implements OnInit, OnDestroy {
     return this.chartContainer.nativeElement.clientHeight;
   }
 
-
   private openContextMenu(mouseEvent: MouseEvent): void {
     const menu: FlMenuDynamic[] = [
       // Export to SVG button
       {
         type: 'button',
-        text: {text: 'chChart.export_chart', translateText: true},
+        text: { text: 'chChart.export_chart', translateText: true },
         icon: 'file_download',
-        onClick: () => this.state.downloadSVG()
-      }];
+        onClick: () => this.state.downloadSVG(),
+      },
+    ];
 
     if (this.state.zoomBrush) {
       menu.push(
         // Reset zoom
         {
           type: 'button',
-          text: {text: 'chChart.reset_zoom', translateText: true},
+          text: { text: 'chChart.reset_zoom', translateText: true },
           icon: 'search',
-          onClick: () => this.state.resetZoom()
-        });
+          onClick: () => this.state.resetZoom(),
+        }
+      );
     }
 
     if (this.contextMenuItems?.length > 0) {
@@ -187,6 +190,4 @@ export class ChChartComponent implements OnInit, OnDestroy {
     this.destroyLegendComponentRef();
     this.chart?.destroy();
   }
-
-
 }

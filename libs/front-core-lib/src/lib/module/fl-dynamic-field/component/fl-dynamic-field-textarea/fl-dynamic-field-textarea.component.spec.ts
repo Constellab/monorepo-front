@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDynamicFieldTextareaComponent} from './fl-dynamic-field-textarea.component';
+import { FlDynamicFieldTextareaComponent } from './fl-dynamic-field-textarea.component';
 
 describe('FlDynamicFieldTextareaComponent', () => {
   let component: FlDynamicFieldTextareaComponent;
@@ -8,9 +8,8 @@ describe('FlDynamicFieldTextareaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDynamicFieldTextareaComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDynamicFieldTextareaComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlDynamicFieldTextareaComponent);
     component = fixture.componentInstance;

@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Date -->
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef>
@@ -64,18 +63,16 @@
     <mat-cell *matCellDef="let row" class="g-layout-col g-layout-center-start col-cell">
       <fl-key-value>
         <fl-key>{{ 'lab_backup_frequency' | translate }}</fl-key>
-        {{ ('lab_backup_frequency_' + row.frequency) | translate }}
+        {{ 'lab_backup_frequency_' + row.frequency | translate }}
       </fl-key-value>
 
       <fl-key-value>
         <fl-key>{{ 'lab_backup_trigger_mode' | translate }}</fl-key>
-        {{ ('lab_backup_trigger_mode_' + row.triggerMode) | translate }}
+        {{ 'lab_backup_trigger_mode_' + row.triggerMode | translate }}
       </fl-key-value>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

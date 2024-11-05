@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaServerCloudFormDialogComponent} from './ca-server-cloud-form-dialog.component';
+import { CaServerCloudFormDialogComponent } from './ca-server-cloud-form-dialog.component';
 
 describe('ServerInfoFormDialogComponent', () => {
   let component: CaServerCloudFormDialogComponent;
@@ -8,9 +8,8 @@ describe('ServerInfoFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaServerCloudFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaServerCloudFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

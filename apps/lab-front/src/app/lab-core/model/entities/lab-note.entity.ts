@@ -7,36 +7,36 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { LabNoteTemplate } from './lab-note-template.entity';
 import {
-  TeRichTextContent, TeTextEditorHistoryBlockModification,
+  TeRichTextContent,
+  TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryModificationDifference,
-  TeTextEditorHistoryModificationType
+  TeTextEditorHistoryModificationType,
 } from '@monorepo/text-editor';
 
 export type LabNoteContent = TeRichTextContent;
 
 export class LabNote extends LabBaseEntityWithUser implements LabFolderObject {
-
   title: string;
 
   @Type(() => LabFolder)
   folder: LabFolder;
 
-  @Expose({name: 'is_validated'})
+  @Expose({ name: 'is_validated' })
   isValidated: boolean;
 
-  @Expose({name: 'validated_by'})
+  @Expose({ name: 'validated_by' })
   @Type(() => LabUser)
   validatedBy?: LabUser;
 
-  @Expose({name: 'validated_at'})
+  @Expose({ name: 'validated_at' })
   @ClLuxonDateTimeTransform()
   validatedAt?: DateTime;
 
-  @Expose({name: 'last_sync_at'})
+  @Expose({ name: 'last_sync_at' })
   @ClLuxonDateTimeTransform()
   lastSyncAt?: DateTime;
 
-  @Expose({name: 'last_sync_by'})
+  @Expose({ name: 'last_sync_by' })
   @Type(() => LabUser)
   lastSyncBy?: LabUser;
 

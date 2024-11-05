@@ -39,6 +39,6 @@ export class ClRecordWrapper<T> {
   }
 
   public toArray(): ClRecordItem<T>[] {
-    return Object.entries(this.record).map(([key, value]) => ({value: value, key: key}));
+    return Object.entries(this.record).map(([key, value]) => ({ value: value, key: key }));
   }
 }

@@ -1,9 +1,12 @@
-import {SimulationNodeDatum} from 'd3';
-import {BnBioNetworkMetabolite, BnBioNetworkMetaboliteLevel, BnBioNetworkReaction} from './bn-bio-network.class';
-import {BnBioNetworkLink} from './bn-bio-network-node-link.class';
-import {BnBioNetworkGraphObject} from './bn-bio-network-graph.class';
-import {FlCoord} from '@monorepo/front-core-lib';
-
+import { SimulationNodeDatum } from 'd3';
+import {
+  BnBioNetworkMetabolite,
+  BnBioNetworkMetaboliteLevel,
+  BnBioNetworkReaction,
+} from './bn-bio-network.class';
+import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
+import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
+import { FlCoord } from '@monorepo/front-core-lib';
 
 export type BnBioNetworkNodeType = 'metabolite' | 'reaction' | 'cofactor';
 
@@ -11,7 +14,6 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
   private static globalId: number = 0;
 
   public readonly id: number;
-
 
   // the following properties are set by d3
   // Node’s zero-based index into nodes array. This property is set during the initialization process of a simulation.
@@ -38,25 +40,27 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
 
   public isVisible: boolean = true;
 
-  protected constructor(public name: string, public type: BnBioNetworkNodeType,
-                        public defaultColor: string, public strokeColor: string,
-                        public data: BnBioNetworkMetabolite | BnBioNetworkReaction) {
+  protected constructor(
+    public name: string,
+    public type: BnBioNetworkNodeType,
+    public defaultColor: string,
+    public strokeColor: string,
+    public data: BnBioNetworkMetabolite | BnBioNetworkReaction
+  ) {
     super();
     this.id = BnBioNetworkNode.globalId++;
   }
 
-
   protected abstract _getLevel(): BnBioNetworkMetaboliteLevel;
-
 
   ///////////////////////////////////////////// POSITIONS ////////////////////////////////
 
   public getCoords(): FlCoord {
     return {
-      x: this.x, y: this.y
+      x: this.x,
+      y: this.y,
     };
   }
-
 
   /**
    * Set the position of the node
@@ -78,12 +82,11 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
     return this.x != null && this.y != null;
   }
 
-  public savePosition(): void {
-  }
+  public savePosition(): void {}
 
   public initPosition(): void {
     if (this.x == null && this.y == null) {
-      this.setPosition({x: 0, y: 0});
+      this.setPosition({ x: 0, y: 0 });
     }
   }
 
@@ -100,11 +103,11 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
   }
 
   public getNextNodes(): BnBioNetworkNode[] {
-    return this.departureLinks.map(link => link.target);
+    return this.departureLinks.map((link) => link.target);
   }
 
   public getPreviousNodes(): BnBioNetworkNode[] {
-    return this.arrivalLinks.map(link => link.source);
+    return this.arrivalLinks.map((link) => link.source);
   }
 
   public getConnectedNodes(): BnBioNetworkNode[] {
@@ -121,15 +124,15 @@ export abstract class BnBioNetworkNode extends BnBioNetworkGraphObject implement
    */
   public getLinkToNode(nodeId: number): BnBioNetworkLink | null {
     // search on departure links
-    let link = this.departureLinks.find(link => link.target.id === nodeId);
+    let link = this.departureLinks.find((link) => link.target.id === nodeId);
     if (link) return link;
 
     // search on arrival links
-    link = this.arrivalLinks.find(link => link.source.id === nodeId);
+    link = this.arrivalLinks.find((link) => link.source.id === nodeId);
     return link;
   }
 
   public getLinkMaxValue(): number {
-    return Math.max(...[...this.departureLinks, ...this.arrivalLinks].map(link => link.absValue));
+    return Math.max(...[...this.departureLinks, ...this.arrivalLinks].map((link) => link.absValue));
   }
 }

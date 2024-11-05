@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabManagerConfigComponent} from './ca-lab-manager-config.component';
+import { CaLabManagerConfigComponent } from './ca-lab-manager-config.component';
 
 describe('CaLabConfigComponent', () => {
   let component: CaLabManagerConfigComponent;
@@ -8,9 +8,8 @@ describe('CaLabConfigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabManagerConfigComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabManagerConfigComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

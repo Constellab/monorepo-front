@@ -6,11 +6,10 @@ import { FlArrayObs } from '@monorepo/front-core-lib';
   selector: 'ca-notes-list',
   templateUrl: './ca-notes-list.component.html',
   styleUrls: ['./ca-notes-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaNotesListComponent {
-
-  @Input({required: true}) notes: FlArrayObs<CaNote>;
+  @Input({ required: true }) notes: FlArrayObs<CaNote>;
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;

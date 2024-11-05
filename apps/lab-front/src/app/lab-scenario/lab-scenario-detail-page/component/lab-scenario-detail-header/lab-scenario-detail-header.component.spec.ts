@@ -8,9 +8,8 @@ describe('BioxScenarioDetailCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioDetailHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioDetailHeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

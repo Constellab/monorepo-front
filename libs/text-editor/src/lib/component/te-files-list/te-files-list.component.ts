@@ -1,6 +1,5 @@
 import { Component, input, Input, OnInit } from '@angular/core';
-import {TeFileBlockData} from '../../block/te-file-block';
-
+import { TeFileBlockData } from '../../block/te-file-block';
 
 @Component({
   selector: 'te-files-list',

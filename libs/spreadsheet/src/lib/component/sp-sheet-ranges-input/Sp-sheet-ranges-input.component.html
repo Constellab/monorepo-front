@@ -1,42 +1,46 @@
 <div [formGroup]="formGp">
-
   <div class="g-layout-row g-layout-between-center g-layout-gap-1em">
-
     <mat-radio-group formControlName="type">
-      <mat-radio-button value="range">{{'spSpreadsheet.sheet_selection_range' | translate}}</mat-radio-button>
-      <mat-radio-button value="columns">{{'spSpreadsheet.sheet_selection_columns' | translate}}</mat-radio-button>
+      <mat-radio-button value="range">{{
+        'spSpreadsheet.sheet_selection_range' | translate
+      }}</mat-radio-button>
+      <mat-radio-button value="columns">{{
+        'spSpreadsheet.sheet_selection_columns' | translate
+      }}</mat-radio-button>
     </mat-radio-group>
 
-    <sp-spreadsheet-selection-listener [group]="selectionListenerGroup"
-                                       (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
+    <sp-spreadsheet-selection-listener
+      [group]="selectionListenerGroup"
+      (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
   </div>
-
 
   <!--  In range mode -->
   <mat-form-field *ngIf="mode === 'range'; else columns" class="g-full input">
-    <mat-label>{{placeholder}}</mat-label>
-    <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required">
+    <mat-label>{{ placeholder }}</mat-label>
+    <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required" />
 
     <mat-error *ngIf="formGp.get('rangeSelection').hasError('required')">
-      {{placeholder | flErrorRequired}}
+      {{ placeholder | flErrorRequired }}
     </mat-error>
     <mat-error *ngIf="formGp.get('rangeSelection').hasError('invalidFormat')">
-      {{'spSpreadsheet.series_data_wrong_format' | translate}}
-      {{formGp.get('rangeSelection').getError('invalidFormat')}}
+      {{ 'spSpreadsheet.series_data_wrong_format' | translate }}
+      {{ formGp.get('rangeSelection').getError('invalidFormat') }}
     </mat-error>
     <mat-error *ngIf="formGp.get('rangeSelection').hasError('selectionOutOfBound')">
-      {{'spSpreadsheet.selection_out_of_bound' | translate: formGp.get('rangeSelection').getError('selectionOutOfBound') }}
+      {{
+        'spSpreadsheet.selection_out_of_bound'
+          | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
+      }}
     </mat-error>
   </mat-form-field>
 
-
   <!--  In columns mode -->
   <ng-template #columns>
-    <fl-autocomplete-multiple formControlName="columnsSelection" [placeholder]="placeholder"
-                              [searchFunc]="columnSearchFunc"
-                              [allowNewString]="true">
+    <fl-autocomplete-multiple
+      formControlName="columnsSelection"
+      [placeholder]="placeholder"
+      [searchFunc]="columnSearchFunc"
+      [allowNewString]="true">
     </fl-autocomplete-multiple>
-
-
   </ng-template>
 </div>

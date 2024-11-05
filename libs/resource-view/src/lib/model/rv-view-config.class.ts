@@ -3,4 +3,4 @@ export interface RvViewConfig {
   configValues: RvConfigValues;
 }
 
-export type RvConfigValues = Record<string, any>
+export type RvConfigValues = Record<string, any>;

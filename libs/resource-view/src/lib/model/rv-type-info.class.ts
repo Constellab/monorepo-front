@@ -15,80 +15,79 @@ import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.c
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
-  viewComponent: ComponentType<RvResourceViewDirective> |
+  viewComponent:
+    | ComponentType<RvResourceViewDirective>
     // Lazy load the component
-    {
-      load: () => Promise<ComponentType<RvResourceViewDirective>>;
-    };
+    | {
+        load: () => Promise<ComponentType<RvResourceViewDirective>>;
+      };
 }
-
 
 /**
  * List of default views supported by the resource view library
  */
 export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTypeInfo> = {
   'json-view': {
-    viewComponent: RvViewJsonComponent
+    viewComponent: RvViewJsonComponent,
   },
   'text-view': {
-    viewComponent: RvViewTextComponent
+    viewComponent: RvViewTextComponent,
   },
   'html-view': {
-    viewComponent: RvViewHtmlComponent
+    viewComponent: RvViewHtmlComponent,
   },
   'table-view': {
-    viewComponent: RvViewSpreadsheetComponent
+    viewComponent: RvViewSpreadsheetComponent,
   },
   'tabular-view': {
-    viewComponent: RvViewSpreadsheetComponent
+    viewComponent: RvViewSpreadsheetComponent,
   },
   'dataset-view': {
-    viewComponent: RvViewSpreadsheetComponent
+    viewComponent: RvViewSpreadsheetComponent,
   },
   'network-view': {
-    viewComponent: RvViewNetworkComponent
+    viewComponent: RvViewNetworkComponent,
   },
   'image-view': {
-    viewComponent: RvViewImageComponent
+    viewComponent: RvViewImageComponent,
   },
   'scatter-plot-2d-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'line-plot-2d-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'vulcano-plot-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'bar-plot-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'stacked-bar-plot-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'histogram-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'box-plot-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'multi-view': {
-    viewComponent: RvViewMultiViewsComponent
+    viewComponent: RvViewMultiViewsComponent,
   },
   'venn-diagram-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'heatmap-view': {
-    viewComponent: RvViewChart2dComponent
+    viewComponent: RvViewChart2dComponent,
   },
   'plotly-view': {
-    viewComponent: RvViewPlotlyComponent
+    viewComponent: RvViewPlotlyComponent,
   },
   'streamlit-view': {
-    viewComponent: RvViewStreamlitComponent
+    viewComponent: RvViewStreamlitComponent,
   },
   'audio-view': {
-    viewComponent: RvViewAudioComponent
-  }
+    viewComponent: RvViewAudioComponent,
+  },
 };
-

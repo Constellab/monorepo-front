@@ -8,9 +8,8 @@ describe('CaLabCityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCityComponent]
-    })
-      .compileComponents();
+      declarations: [CaCityComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

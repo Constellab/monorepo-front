@@ -1,19 +1,18 @@
-import {Directive, ElementRef, Host, Inject, Input, PLATFORM_ID} from '@angular/core';
-import {MatIcon, MatIconRegistry} from '@angular/material/icon';
-import {FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon} from '../fl-icon-config.class';
-import {DomSanitizer} from '@angular/platform-browser';
-import {isPlatformServer} from '@angular/common';
+import { Directive, ElementRef, Host, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { MatIcon, MatIconRegistry } from '@angular/material/icon';
+import { FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon } from '../fl-icon-config.class';
+import { DomSanitizer } from '@angular/platform-browser';
+import { isPlatformServer } from '@angular/common';
 
 /**
  * directive to be placed on a mat-icon. It set the icon and support both
  * mat icon and svg icon
  */
 @Directive({
-  selector: 'mat-icon[flIcon]'
+  selector: 'mat-icon[flIcon]',
 })
 export class FlIconDirective {
-
-  @Input({required: true}) set flIcon(flIcon: string) {
+  @Input({ required: true }) set flIcon(flIcon: string) {
     this.setIcon(flIcon);
   }
 
@@ -23,13 +22,14 @@ export class FlIconDirective {
    */
   private static dynamicRegisteredIcons: Record<string, string> = {};
 
-  constructor(@Host() private matIcon: MatIcon,
-              @Inject(FL_ICON_MODULE) private config: FlIconConfig,
-              private elementRef: ElementRef<HTMLElement>,
-              private matIconRegistry: MatIconRegistry,
-              private domSanitizer: DomSanitizer,
-              @Inject(PLATFORM_ID) private platformId: any) {
-  }
+  constructor(
+    @Host() private matIcon: MatIcon,
+    @Inject(FL_ICON_MODULE) private config: FlIconConfig,
+    private elementRef: ElementRef<HTMLElement>,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {}
 
   private setIcon(icon: string): void {
     if (icon == null || isPlatformServer(this.platformId)) {
@@ -58,7 +58,6 @@ export class FlIconDirective {
       this.matIcon.fontSet = null;
       this.setSvgIcon(icon);
     } else {
-
       // if the mat icon is register use the mat icon name
       const matIcon = (registerIcon as FlMatIcon)?.matIconName ?? icon;
       this.setSvgIcon(null);
@@ -66,10 +65,9 @@ export class FlIconDirective {
     }
   }
 
-
   // return true if this is an SVG icon and not a material icon
   private getRegisterIcon(icon: string): FlIcon {
-    return this.config.iconsToRegister.find(svgIcon => svgIcon.name === icon);
+    return this.config.iconsToRegister.find((svgIcon) => svgIcon.name === icon);
   }
 
   private setMatIcon(icon: string): void {
@@ -79,5 +77,4 @@ export class FlIconDirective {
   private setSvgIcon(icon: string): void {
     this.matIcon.svgIcon = icon;
   }
-
 }

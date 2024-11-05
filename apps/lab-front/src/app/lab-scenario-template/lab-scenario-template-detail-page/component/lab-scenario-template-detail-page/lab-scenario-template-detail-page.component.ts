@@ -8,41 +8,37 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'lab-scenario-template-detail-page',
   templateUrl: './lab-scenario-template-detail-page.component.html',
-  styleUrls: ['./lab-scenario-template-detail-page.component.scss']
+  styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
 })
 export class LabScenarioTemplateDetailPageComponent implements OnInit {
-
   template$: Observable<LabScenarioTemplate>;
 
   selectedTabIndex: number = 0;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private scenarioTemplateService: LabScenarioTemplateService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private scenarioTemplateService: LabScenarioTemplateService
+  ) {}
 
   ngOnInit(): void {
     this.template$ = this.route.params.pipe(
-      switchMap(params => this.scenarioTemplateService.getScenarioTemplate(params.id))
+      switchMap((params) => this.scenarioTemplateService.getScenarioTemplate(params.id))
     );
 
     // init the tab base on query param
-    this.route.queryParams.pipe(first()).subscribe(
-      queryParams => this.selectedTabIndex = queryParams.tab ?? 0
-    );
+    this.route.queryParams
+      .pipe(first())
+      .subscribe((queryParams) => (this.selectedTabIndex = queryParams.tab ?? 0));
   }
 
   // on tab change, update the query param
   tabIndexChange(index: number): void {
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: {tab: index},
-        queryParamsHandling: 'merge',
-        replaceUrl: true
-      });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab: index },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
-
-
 }

@@ -3,9 +3,12 @@ import {
   FlDialogService,
   FlMenuDynamicService,
   FlPortalActionsService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import { CaDocument, CaDocumentDatasource } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import {
+  CaDocument,
+  CaDocumentDatasource,
+} from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -14,10 +17,9 @@ import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../ca-document-a
 @Component({
   selector: 'ca-document-table',
   templateUrl: './ca-document-table.component.html',
-  styleUrls: ['./ca-document-table.component.scss']
+  styleUrls: ['./ca-document-table.component.scss'],
 })
 export class CaDocumentTableComponent {
-
   @Input() datasource: CaDocumentDatasource;
 
   @Input() isTrash: boolean = false;
@@ -26,12 +28,13 @@ export class CaDocumentTableComponent {
 
   @Output() documentAction: EventEmitter<CaDocumentActionEvent> = new EventEmitter();
 
-  constructor(private folderService: CaFolderService,
-              private routerService: CaRouterService,
-              private dialogService: FlDialogService,
-              private menuDynamicService: FlMenuDynamicService,
-              private actionService: FlPortalActionsService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private routerService: CaRouterService,
+    private dialogService: FlDialogService,
+    private menuDynamicService: FlMenuDynamicService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   openDocumentPreview(document: CaDocument): void {
     if (document.canTokenPreview) {
@@ -46,10 +49,15 @@ export class CaDocumentTableComponent {
 
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const documentActionMenu = new CaDocumentActionMenu(this.dialogService, this.folderService,
-      this.menuDynamicService, this.actionService, document.basicInfo);
+    const documentActionMenu = new CaDocumentActionMenu(
+      this.dialogService,
+      this.folderService,
+      this.menuDynamicService,
+      this.actionService,
+      document.basicInfo
+    );
 
-    documentActionMenu.openActionMenu(true, event).subscribe(event => {
+    documentActionMenu.openActionMenu(true, event).subscribe((event) => {
       this.onDocumentAction(event, document);
     });
   }
@@ -76,6 +84,4 @@ export class CaDocumentTableComponent {
     }
     this.documentAction.emit(event);
   }
-
-
 }

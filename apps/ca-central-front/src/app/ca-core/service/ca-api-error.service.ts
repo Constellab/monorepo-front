@@ -9,13 +9,12 @@ import {
   FlLoginSavedRoute,
   FlServerError,
   FlSnackBarService,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { caConstLoginRoute } from '../utils/ca-base-route';
 import { PlatformLocation } from '@angular/common';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 import { ClApiError } from '@monorepo/core-lib';
-
 
 /**
  * Manage the errors of the application
@@ -23,11 +22,13 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class CaApiErrorService extends FlApiErrorService {
-  constructor(snackBarService: FlSnackBarService,
-              translateService: FlTranslateService,
-              private router: Router,
-              private cookieService: FlCookieService,
-              private platformLocation: PlatformLocation) {
+  constructor(
+    snackBarService: FlSnackBarService,
+    translateService: FlTranslateService,
+    private router: Router,
+    private cookieService: FlCookieService,
+    private platformLocation: PlatformLocation
+  ) {
     super(snackBarService, translateService);
   }
 
@@ -43,8 +44,12 @@ export class CaApiErrorService extends FlApiErrorService {
    * @param defaultError the default error if the api does not return an explicit error
    * @return throw a formatted error
    */
-  public handleServerError(errorResponse: HttpErrorResponse, hideError: boolean = false,
-                           snackBarDuration?: number, defaultError: string = 'Server error'): Observable<never> {
+  public handleServerError(
+    errorResponse: HttpErrorResponse,
+    hideError: boolean = false,
+    snackBarDuration?: number,
+    defaultError: string = 'Server error'
+  ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
       message: null,
@@ -52,8 +57,13 @@ export class CaApiErrorService extends FlApiErrorService {
 
     // check if the error is formatted from nest api
     const nestError: ClApiError = errorResponse.error;
-    if (nestError && nestError.code != null && nestError.instanceId != null
-      && nestError.detail != null && nestError.status != null) {
+    if (
+      nestError &&
+      nestError.code != null &&
+      nestError.instanceId != null &&
+      nestError.detail != null &&
+      nestError.status != null
+    ) {
       serverError.nestedError = nestError;
     }
 
@@ -62,8 +72,6 @@ export class CaApiErrorService extends FlApiErrorService {
       // connection lost error
       serverError.message = this.translateService.translate('connection_lost');
     } else {
-
-
       // handle session expired specifically
       if (serverError.nestedError?.code === 'error.wrong_token') {
         return this.sessionExpired(serverError, snackBarDuration);
@@ -80,10 +88,7 @@ export class CaApiErrorService extends FlApiErrorService {
 
     // throw the error to propagate it
     return throwError(() => serverError);
-
-
   }
-
 
   /**
    * Redirect the user to the login page
@@ -100,12 +105,14 @@ export class CaApiErrorService extends FlApiErrorService {
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie, {
-      sameSite: 'Strict', path: '/', secure: false,
-      domain: CaEnvironmentHelper.getFrontDomain()
+      sameSite: 'Strict',
+      path: '/',
+      secure: false,
+      domain: CaEnvironmentHelper.getFrontDomain(),
     });
 
     // redirect the user to the login page, with autoRedirect param to avoid infinite loop
-    this.router.navigate([caConstLoginRoute], {queryParams: {autoRedirect: false}});
+    this.router.navigate([caConstLoginRoute], { queryParams: { autoRedirect: false } });
 
     serverError.message = this.translateService.translate('session_expired');
 
@@ -123,4 +130,3 @@ export class CaApiErrorService extends FlApiErrorService {
     return error?.detail ?? defaultError;
   }
 }
-

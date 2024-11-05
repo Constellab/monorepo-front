@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectBucketCredentialsOptionsComponent} from './ca-select-bucket-credentials-options.component';
+import { CaSelectBucketCredentialsOptionsComponent } from './ca-select-bucket-credentials-options.component';
 
 describe('CaSelectBucketCredentialsOptionsComponent', () => {
   let component: CaSelectBucketCredentialsOptionsComponent;
@@ -8,9 +8,8 @@ describe('CaSelectBucketCredentialsOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSelectBucketCredentialsOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSelectBucketCredentialsOptionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSelectBucketCredentialsOptionsComponent);
     component = fixture.componentInstance;

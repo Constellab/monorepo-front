@@ -7,15 +7,15 @@ import { CaActivityDatasource } from '../../../../model/entities/ca-activity.cla
   selector: 'ca-activity-search',
   templateUrl: './ca-activity-search.component.html',
   styleUrls: ['./ca-activity-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class CaActivitySearchComponent implements OnInit {
+  @Input({ required: true }) datasource: CaActivityDatasource<CaActivitySearchFields>;
 
-  @Input({required: true}) datasource: CaActivityDatasource<CaActivitySearchFields>;
-
-  constructor(private searchState: FlSearchState<any>,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -25,26 +25,26 @@ export class CaActivitySearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: CaActivitySearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: true,
-      defaultSort: {key: 'creation', direction: 'DESC'}
+      defaultSort: { key: 'creation', direction: 'DESC' },
     };
 
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-activity',
-      id: null,
-      label: 'All activity',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaActivitySearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-activity',
+        id: null,
+        label: 'All activity',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaActivitySearchFields>,
+      },
+    ];
   }
-
 }
-

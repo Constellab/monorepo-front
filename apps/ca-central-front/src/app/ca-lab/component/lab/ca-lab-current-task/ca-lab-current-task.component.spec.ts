@@ -8,9 +8,8 @@ describe('CaLabCurrentTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabCurrentTaskComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabCurrentTaskComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabCurrentTaskComponent);
     component = fixture.componentInstance;

@@ -1,5 +1,5 @@
-import {TestBed} from '@angular/core/testing';
-import {CaGroupService} from './ca-group.service.service';
+import { TestBed } from '@angular/core/testing';
+import { CaGroupService } from './ca-group.service.service';
 
 describe('CaGroupService', () => {
   let service: CaGroupService;

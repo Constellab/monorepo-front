@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlTextOkNokComponent} from './fl-text-ok-nok.component';
+import { FlTextOkNokComponent } from './fl-text-ok-nok.component';
 
 describe('FlTextOkNokComponent', () => {
   let component: FlTextOkNokComponent;
@@ -8,9 +8,8 @@ describe('FlTextOkNokComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlTextOkNokComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTextOkNokComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlTextOkNokComponent);
     component = fixture.componentInstance;

@@ -1,8 +1,6 @@
-import {AfterViewInit, Component, Host, Input, OnInit} from '@angular/core';
-import {MatSelect} from '@angular/material/select';
-import {
-  FlEmbeddedOptionsAbstractDirective
-} from '../../../../abstract-directive/fl-embedded-options-abstract.directive';
+import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
+import { MatSelect } from '@angular/material/select';
+import { FlEmbeddedOptionsAbstractDirective } from '../../../../abstract-directive/fl-embedded-options-abstract.directive';
 
 /**
  * List of option for a {@link ClUserCategory}
@@ -10,11 +8,12 @@ import {
 @Component({
   selector: 'fl-select-user-category-option',
   templateUrl: './fl-select-user-category-option.component.html',
-  styleUrls: ['./fl-select-user-category-option.component.scss']
+  styleUrls: ['./fl-select-user-category-option.component.scss'],
 })
-export class FlSelectUserCategoryOptionComponent extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit {
-
+export class FlSelectUserCategoryOptionComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit
+{
   // in basic mode, the ADMIN category is not shown
   @Input() mode: 'all' | 'basic' = 'basic';
 
@@ -22,12 +21,9 @@ export class FlSelectUserCategoryOptionComponent extends FlEmbeddedOptionsAbstra
     super(select);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();
   }
-
-
 }

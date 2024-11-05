@@ -1,22 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TdTypingName} from '../../model/td-typing-name.class';
-import {TdTypeObjectType} from '../../model/td-type.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { TdTypingName } from '../../model/td-typing-name.class';
+import { TdTypeObjectType } from '../../model/td-type.class';
 
 @Component({
   selector: 'td-type-unavailable',
   templateUrl: './td-type-unavailable.component.html',
-  styleUrls: ['./td-type-unavailable.component.scss']
+  styleUrls: ['./td-type-unavailable.component.scss'],
 })
 export class TdTypeUnavailableComponent implements OnInit {
-
   @Input() typingName: string;
 
   brickName: string;
   objectType: TdTypeObjectType;
 
-
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     const typingName = new TdTypingName(this.typingName);
@@ -35,5 +32,4 @@ export class TdTypeUnavailableComponent implements OnInit {
 
     return null;
   }
-
 }

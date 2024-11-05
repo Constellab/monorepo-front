@@ -1,30 +1,28 @@
-.div-spec{
+.div-spec {
   padding: 1em 35px;
   height: auto;
 }
 
-.div-head{
+.div-head {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.div-head h3{
+.div-head h3 {
   padding-left: 1em;
 }
 
-.divider{
+.divider {
   margin-top: 1em;
 }
 
-.key-val{
+.key-val {
   padding-top: 1em;
 }
 
 @media (max-width: 1279px) {
-
-  .div-spec{
+  .div-spec {
     padding: 1em 0;
   }
 }
-

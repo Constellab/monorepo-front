@@ -1,5 +1,4 @@
-
-.doc-title-div{
+.doc-title-div {
   display: flex;
   padding-top: 1em;
   margin: auto;
@@ -10,11 +9,11 @@
   padding-bottom: 0.2em;
 }
 
-.deprecated-chip{
+.deprecated-chip {
   margin-right: 0.75em;
 }
 
-.resource-color-div{
+.resource-color-div {
   height: 1.2em;
   width: 1.2em;
   border-radius: 1.2em;
@@ -22,28 +21,26 @@
   margin-right: 0.35em;
 }
 
-.title-tech-doc{
+.title-tech-doc {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.doc-title{
+.doc-title {
   margin-left: 8px;
   line-height: 1.1em;
-
 }
 
 @media (max-width: 850px) {
-  .doc-title-div{
+  .doc-title-div {
     padding-left: 0;
     width: calc(100vw - 30px);
   }
 }
 
-
 @media (max-width: 500px) {
-  .doc-title{
+  .doc-title {
     font-size: 1.25em;
   }
 }

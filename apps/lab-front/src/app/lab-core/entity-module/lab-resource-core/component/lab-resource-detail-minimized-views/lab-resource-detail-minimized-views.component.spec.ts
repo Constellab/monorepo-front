@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabResourceDetailMinimizedViewsComponent} from './lab-resource-detail-minimized-views.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabResourceDetailMinimizedViewsComponent } from './lab-resource-detail-minimized-views.component';
 
 describe('LabResourceDetailMinimzedViewsComponent', () => {
   let component: LabResourceDetailMinimizedViewsComponent;

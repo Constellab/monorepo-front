@@ -1,49 +1,44 @@
-import {Route, RouterModule} from '@angular/router';
-import {HaStoryListPageComponent} from './module/ha-story-list-page/ha-story-list-page.component';
-import {HaStoryEditPageComponent} from './module/ha-story-edit-page/ha-story-edit-page.component';
-import {HaStoryPageComponent} from './module/ha-story-page/ha-story-page.component';
-import {NgModule} from '@angular/core';
-import {HaLoginGuard} from '../ha-core/ha-guard/ha-login.guard';
-import {HaStoryGuard} from '../ha-core/ha-guard/ha-story.guard';
-import {HaStoryInvitePageComponent} from './module/ha-story-invite-page/ha-story-invite-page.component';
-import {Ha404Component} from '../ha-public/module/ha404/ha404.component';
+import { Route, RouterModule } from '@angular/router';
+import { HaStoryListPageComponent } from './module/ha-story-list-page/ha-story-list-page.component';
+import { HaStoryEditPageComponent } from './module/ha-story-edit-page/ha-story-edit-page.component';
+import { HaStoryPageComponent } from './module/ha-story-page/ha-story-page.component';
+import { NgModule } from '@angular/core';
+import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
+import { HaStoryGuard } from '../ha-core/ha-guard/ha-story.guard';
+import { HaStoryInvitePageComponent } from './module/ha-story-invite-page/ha-story-invite-page.component';
+import { Ha404Component } from '../ha-public/module/ha404/ha404.component';
 
 const routes: Route[] = [
   {
     path: '',
-    component: HaStoryListPageComponent
+    component: HaStoryListPageComponent,
   },
   {
     path: 'edit/:id',
     component: HaStoryEditPageComponent,
-    canActivate: [HaStoryGuard]
+    canActivate: [HaStoryGuard],
   },
   {
     path: '404',
-    component: Ha404Component
+    component: Ha404Component,
   },
   {
     path: 'invite/:token',
     component: HaStoryInvitePageComponent,
-    canActivate: [HaLoginGuard]
+    canActivate: [HaLoginGuard],
   },
   {
     path: ':id',
-    component: HaStoryPageComponent
+    component: HaStoryPageComponent,
   },
   {
     path: ':id/:title',
-    component: HaStoryPageComponent
-  }
-]
+    component: HaStoryPageComponent,
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class HaStoryRoutingModule {
-}
+export class HaStoryRoutingModule {}

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabUpdateResourceTypeComponent} from './lab-update-resource-type.component';
+import { LabUpdateResourceTypeComponent } from './lab-update-resource-type.component';
 
 describe('LabUpdateFileTypeComponent', () => {
   let component: LabUpdateResourceTypeComponent;
@@ -8,9 +8,8 @@ describe('LabUpdateFileTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabUpdateResourceTypeComponent ]
-    })
-    .compileComponents();
+      declarations: [LabUpdateResourceTypeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

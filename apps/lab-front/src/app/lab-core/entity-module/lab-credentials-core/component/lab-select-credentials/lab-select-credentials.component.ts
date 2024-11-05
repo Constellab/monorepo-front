@@ -4,14 +4,14 @@ import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchFilter,
-  FlTranslatableText
+  FlTranslatableText,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import {
   LabCredentials,
   LabCredentialsDatasource,
-  LabCredentialsType
+  LabCredentialsType,
 } from '../../../../model/entities/lab-credentials.entity';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-field/lab-credentials-search.class';
@@ -20,11 +20,9 @@ import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-fi
   selector: 'lab-select-credentials',
   templateUrl: './lab-select-credentials.component.html',
   styleUrls: ['./lab-select-credentials.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
 })
-export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCredentials>
-  implements OnInit {
-
+export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCredentials> implements OnInit {
   @Input() placeholder: FlTranslatableText = { text: 'biox.select_credentials', translateText: true };
 
   @Input() type: LabCredentialsType;
@@ -35,8 +33,10 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
 
   datasource: LabCredentialsDatasource<FlInputSearchFilter>;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private credentialsService: LabCredentialsService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private credentialsService: LabCredentialsService
+  ) {
     super(ngControl);
   }
 
@@ -46,12 +46,15 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
         const searchFields: FlDatasourceGetPageData<LabCredentialsSearchFields> = {
           filtersCriteria: {
             name: data.filtersCriteria.searchText,
-            type: this.type
+            type: this.type,
           },
-          sortsCriteria: [{ key: 'name', direction: 'ASC' }]
+          sortsCriteria: [{ key: 'name', direction: 'ASC' }],
         };
         return this.credentialsService.search(page, size, searchFields);
-      }, 20, false);
+      },
+      20,
+      false
+    );
   }
 
   writeValue(obj: LabCredentials): void {
@@ -78,9 +81,5 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
     this.selectedCredentials = value;
   }
 
-  onDisableChange(): void {
-  }
-
-
+  onDisableChange(): void {}
 }
-

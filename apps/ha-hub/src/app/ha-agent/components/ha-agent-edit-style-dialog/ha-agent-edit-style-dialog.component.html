@@ -1,19 +1,19 @@
 <fl-dialog-header>
-  {{(isVersion ? 'edit_agent_version_style' : 'edit_agent_style') | translate}}
+  {{ (isVersion ? 'edit_agent_version_style' : 'edit_agent_style') | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form [formGroup]="formGp" (ngSubmit)="submit()">
     <co-update-type-icon-form formControlName="style"></co-update-type-icon-form>
 
-    @if (!isVersion){
-      <mat-checkbox formControlName="allVersionsChecked">{{'modify_style_for_all_agent_versions' | translate}}</mat-checkbox>
+    @if (!isVersion) {
+      <mat-checkbox formControlName="allVersionsChecked">{{
+        'modify_style_for_all_agent_versions' | translate
+      }}</mat-checkbox>
     }
 
     <button mat-raised-button color="primary" type="submit" [disabled]="formGp.invalid">
-      {{'save' | translate}}
+      {{ 'save' | translate }}
     </button>
   </form>
 </mat-dialog-content>
-
-

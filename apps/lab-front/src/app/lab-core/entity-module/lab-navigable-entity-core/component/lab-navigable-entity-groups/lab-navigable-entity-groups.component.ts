@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {LabNavigableEntityGrouped} from '../../../../model/entities/lab-navigable-entity.entity';
+import { Component, Input } from '@angular/core';
+import { LabNavigableEntityGrouped } from '../../../../model/entities/lab-navigable-entity.entity';
 
 @Component({
   selector: 'lab-navigable-entity-groups',
@@ -7,6 +7,5 @@ import {LabNavigableEntityGrouped} from '../../../../model/entities/lab-navigabl
   styleUrls: ['./lab-navigable-entity-groups.component.scss'],
 })
 export class LabNavigableEntityGroupsComponent {
-
   @Input() groups: LabNavigableEntityGrouped[];
 }

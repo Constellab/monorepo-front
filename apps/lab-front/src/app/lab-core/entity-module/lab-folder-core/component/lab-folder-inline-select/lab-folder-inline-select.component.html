@@ -6,9 +6,13 @@
   </div>
 
   <ng-template #noFolder>
-    <button mat-stroked-button type="button" [disabled]="disabled"
-            (click)="openPortal($event)" class="g-button-small">
-      {{'biox.select_folder' | translate}}
+    <button
+      mat-stroked-button
+      type="button"
+      [disabled]="disabled"
+      (click)="openPortal($event)"
+      class="g-button-small">
+      {{ 'biox.select_folder' | translate }}
     </button>
   </ng-template>
 </fl-text-icon>

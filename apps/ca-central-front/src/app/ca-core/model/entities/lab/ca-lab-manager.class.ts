@@ -1,6 +1,6 @@
-import {FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {CoBrick} from '@monorepo/community-lib';
+import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { CoBrick } from '@monorepo/community-lib';
 
 export type CaLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP';
 
@@ -8,12 +8,10 @@ const caLabContainersStatusDict: FlStatusDict<CaLabContainersStatus> = {
   STOP: FlStatusHelper.getErrorStatus('STOP', 'lab_containers_stopped', 'stop'),
   DOWN: FlStatusHelper.getErrorStatus('DOWN', 'lab_containers_down'),
   UP: FlStatusHelper.getSuccessStatus('UP', 'lab_containers_up'),
-  PARTIALLY_UP: FlStatusHelper.getWarningStatus('PARTIALLY_UP', 'lab_containers_partially_up')
+  PARTIALLY_UP: FlStatusHelper.getWarningStatus('PARTIALLY_UP', 'lab_containers_partially_up'),
 };
 
-
 export class CaLabContainerStatusInfo {
-
   @FlStatusTransform(caLabContainersStatusDict)
   status: FlStatus<CaLabContainersStatus>;
 
@@ -21,7 +19,6 @@ export class CaLabContainerStatusInfo {
 }
 
 export type caLabDockerState = 'created' | 'running' | 'exited' | 'none';
-
 
 const caLabDockerStateDict: FlStatusDict<caLabDockerState> = {
   created: FlStatusHelper.getWarningStatus('created', 'lab_container_created'),
@@ -49,7 +46,6 @@ export class CaLabDockerPsFull extends CaLabDockerPs {
   status: string;
 }
 
-
 export interface CaLabComposeUpOptions {
   updateContainers?: boolean;
   pruneSystem?: boolean;
@@ -68,7 +64,7 @@ export type CaLabTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR';
 const caLabTaskStatusDict: FlStatusDict<CaLabTaskStatus> = {
   RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR')
+  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
 };
 
 export class CaLabTaskStatusInfo {

@@ -1,17 +1,17 @@
-@if (!space){
+@if (!space) {
   <div class="g-badge visibility-badge-div public-badge-div">
     <fl-text-icon [gap]="'6px'">
       <mat-icon>public</mat-icon>
-      {{'public' | translate}}
+      {{ 'public' | translate }}
     </fl-text-icon>
   </div>
 } @else {
   <div class="g-badge visibility-badge-div space-badge-div g-text-dense-height">
-    @if(space.photo){
-      <img [ngSrc]="spacePhoto" height="25" width="25" class="space-badge-photo"/>
+    @if (space.photo) {
+      <img [ngSrc]="spacePhoto" height="25" width="25" class="space-badge-photo" />
     } @else {
       <mat-icon>lock</mat-icon>
     }
-    <span>{{space.name.trim()}}</span>
+    <span>{{ space.name.trim() }}</span>
   </div>
 }

@@ -3,7 +3,7 @@ import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectWithChildren
+  CaHierarchyObjectWithChildren,
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -12,10 +12,9 @@ import { toObservable } from '@angular/core/rxjs-interop';
   selector: 'ca-chat-page',
   templateUrl: './ca-chat-page.component.html',
   styleUrl: './ca-chat-page.component.scss',
-  providers: [CaChatState]
+  providers: [CaChatState],
 })
 export class CaChatPageComponent {
-
   isLoading: Signal<boolean>;
   folders$: Observable<CaHierarchyObjectWithChildren[]>;
 

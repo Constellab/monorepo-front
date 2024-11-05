@@ -1,8 +1,7 @@
-import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
-import {IconUnderline} from '@codexteam/icons';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
+import { IconUnderline } from '@codexteam/icons';
 
-export class TeUnderlineInlineTool implements InlineTool{
-
+export class TeUnderlineInlineTool implements InlineTool {
   /**
    * Specifies Tool as Inline Toolbar Tool
    *
@@ -14,7 +13,6 @@ export class TeUnderlineInlineTool implements InlineTool{
    * Title for hover-tooltip
    */
   public static title = 'Underline';
-
 
   /**
    * Sanitizer Rule
@@ -45,7 +43,7 @@ export class TeUnderlineInlineTool implements InlineTool{
   /**
    * Elements
    */
-  private nodes: {button: HTMLButtonElement} = {
+  private nodes: { button: HTMLButtonElement } = {
     button: undefined,
   };
 
@@ -89,5 +87,4 @@ export class TeUnderlineInlineTool implements InlineTool{
   public get shortcut(): string {
     return 'CMD+U';
   }
-
 }

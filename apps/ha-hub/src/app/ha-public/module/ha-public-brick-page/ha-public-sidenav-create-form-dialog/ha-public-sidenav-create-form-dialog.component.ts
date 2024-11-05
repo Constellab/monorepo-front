@@ -11,10 +11,12 @@ import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-doc
 @Component({
   selector: 'ha-public-sidenav-create-form-dialog',
   templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
-  styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss']
+  styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
 })
-export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>> implements OnInit {
-
+export class HaPublicSidenavCreateFormDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>>
+  implements OnInit
+{
   isLoadingImport: boolean = false;
   isUpdate: boolean = false;
   type: string;
@@ -25,8 +27,10 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
     return file.brick_name != null && file.brick_version != null && file.json_version != null;
   }
 
-  constructor(private folderService: HaFolderService,
-              private documentationService: HaDocumentationService) {
+  constructor(
+    private folderService: HaFolderService,
+    private documentationService: HaDocumentationService
+  ) {
     super();
   }
 
@@ -41,7 +45,7 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
       id: [null],
       title: [null, Validators.required],
       isFolder: [false],
-      type: [HaNodeType.DOC]
+      type: [HaNodeType.DOC],
     });
   }
 
@@ -69,7 +73,7 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
       this.errorFileText = 'file_wrong_type';
     }
 
-    if (typeof (FileReader) !== 'undefined' && !this.errorFile) {
+    if (typeof FileReader !== 'undefined' && !this.errorFile) {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
@@ -82,17 +86,16 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
           this.errorFileText = 'file_wrong_type';
         }
         this.isLoading = false;
-
       };
 
       reader.readAsText($event);
     }
-
   }
 
-
   update(formValue: HaNodeDTO): Observable<HaFolder | HaDocumentation> {
-    return this.formGp.value.isFolder ? this.folderService.update(formValue) : this.documentationService.update(formValue);
+    return this.formGp.value.isFolder
+      ? this.folderService.update(formValue)
+      : this.documentationService.update(formValue);
   }
 
   getCreateSuccessMessage(): string {
@@ -102,6 +105,4 @@ export class HaPublicSidenavCreateFormDialogComponent extends FlFormDialogAbstra
   getUpdateSuccessMessage(): string {
     return this.formGp.value.isFolder ? 'folder_updated' : 'documentation_updated';
   }
-
-
 }

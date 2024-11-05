@@ -8,9 +8,8 @@ describe('LabImportScenarioFromLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LabImportScenarioFromLinkComponent]
-    })
-    .compileComponents();
+      declarations: [LabImportScenarioFromLinkComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabImportScenarioFromLinkComponent);
     component = fixture.componentInstance;

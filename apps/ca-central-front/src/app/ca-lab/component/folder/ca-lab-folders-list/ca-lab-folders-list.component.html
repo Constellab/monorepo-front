@@ -1,5 +1,4 @@
 <fl-card>
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon flIcon="folder"></mat-icon>
@@ -7,8 +6,11 @@
     </fl-text-icon>
 
     <fl-card-actions *ngIf="isOwner$ | async">
-      <button mat-icon-button type="button" (click)="openAddFolderDialog()"
-              [matTooltip]="'lab_add_folder' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openAddFolderDialog()"
+        [matTooltip]="'lab_add_folder' | translate">
         <mat-icon>add</mat-icon>
       </button>
     </fl-card-actions>
@@ -18,15 +20,12 @@
     <p class="g-text-light">{{ 'lab_folders_section_help' | translate }}</p>
 
     <fl-async-section [arrayObs]="datasource" emptyText="no_lab_folder">
-
       <ng-container *flSectionBodyDatasource>
         <div class="g-infinite-table g-scrollable-element">
-          <ca-lab-folders-table [datasource]="datasource" [columns]="columns$ | async"
-                                [labId]="labId">
+          <ca-lab-folders-table [datasource]="datasource" [columns]="columns$ | async" [labId]="labId">
           </ca-lab-folders-table>
         </div>
       </ng-container>
-
     </fl-async-section>
   </fl-card-body>
 </fl-card>

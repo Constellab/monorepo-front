@@ -1,13 +1,12 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Version -->
   <ng-container matColumnDef="version">
     <mat-header-cell *matHeaderCellDef>
-      {{'version' | translate}}
+      {{ 'version' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let version">
       <div>
-        {{version.version.toString()}}
+        {{ version.version.toString() }}
       </div>
     </mat-cell>
   </ng-container>
@@ -15,11 +14,11 @@
   <!-- Repo type -->
   <ng-container matColumnDef="repoType">
     <mat-header-cell *matHeaderCellDef>
-      {{'repo_type' | translate}}
+      {{ 'repo_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let version">
       <div>
-        {{version.repoType}}
+        {{ version.repoType }}
       </div>
     </mat-cell>
   </ng-container>
@@ -27,7 +26,7 @@
   <!-- Last modified -->
   <ng-container matColumnDef="lastModified">
     <mat-header-cell *matHeaderCellDef>
-      {{'last_modification_info' | translate}}
+      {{ 'last_modification_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let version">
       <fl-user-with-date [user]="version.lastModifiedBy" [date]="version.lastModifiedAt"></fl-user-with-date>
@@ -36,17 +35,14 @@
 
   <!-- information -->
   <ng-container matColumnDef="informations">
-    <mat-header-cell *matHeaderCellDef class="info-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="info-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let version" class="info-cell">
-      <div >
+      <div>
         <mat-icon class="bt-info" (click)="openBrickVersionDetail(version)">info</mat-icon>
       </div>
-
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

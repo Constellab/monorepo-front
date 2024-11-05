@@ -1,7 +1,6 @@
-import {Component, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-import {FlDialogService} from '@monorepo/front-core-lib';
-
+import { Component, EventEmitter, Input, OnDestroy, Output, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FlDialogService } from '@monorepo/front-core-lib';
 
 /**
  * Component inside text editor to show title and caption with possibility to edit them
@@ -9,10 +8,9 @@ import {FlDialogService} from '@monorepo/front-core-lib';
 @Component({
   selector: 'te-title-caption',
   templateUrl: './te-title-caption.component.html',
-  styleUrls: ['./te-title-caption.component.scss']
+  styleUrls: ['./te-title-caption.component.scss'],
 })
 export class TeTitleCaptionComponent implements OnDestroy {
-
   @Input() title: string;
   @Output() titleChange: EventEmitter<string> = new EventEmitter();
 
@@ -25,8 +23,7 @@ export class TeTitleCaptionComponent implements OnDestroy {
 
   private dialogRef: MatDialogRef<any>;
 
-  constructor(private dialogService: FlDialogService) {
-  }
+  constructor(private dialogService: FlDialogService) {}
 
   openEditDialog(): void {
     this.dialogRef = this.dialogService.openSmallDialog(this.templatePortalContent);

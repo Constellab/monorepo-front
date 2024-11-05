@@ -1,7 +1,6 @@
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 
 export interface PrAddNodeWithConnection {
-
   node: PrWorkflowNode;
 
   connection: PrConnection;
@@ -13,7 +12,6 @@ export interface PrConnection {
   toNode: string;
   toPort: string;
 }
-
 
 /**
  * Object to describe the position of a new node relative to another node (usually because they are linked)

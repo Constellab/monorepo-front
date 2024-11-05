@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {CaStatusHistory} from '../../../model/entities/ca-status-history.class';
-import {FlArrayObs} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { CaStatusHistory } from '../../../model/entities/ca-status-history.class';
+import { FlArrayObs } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface CaStatusHistoryListDialogInput {
   statusHistoriesObs: FlArrayObs<CaStatusHistory<any>>;
@@ -13,17 +13,14 @@ export interface CaStatusHistoryListDialogInput {
 @Component({
   selector: 'ca-status-history-list-dialog',
   templateUrl: './ca-status-history-list-dialog.component.html',
-  styleUrls: ['./ca-status-history-list-dialog.component.scss']
+  styleUrls: ['./ca-status-history-list-dialog.component.scss'],
 })
 export class CaStatusHistoryListDialogComponent implements OnInit {
-
   statusHistories: FlArrayObs<CaStatusHistory<any>>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private dialogInput: CaStatusHistoryListDialogInput) {
-  }
+  constructor(@Inject(MAT_DIALOG_DATA) private dialogInput: CaStatusHistoryListDialogInput) {}
 
   ngOnInit(): void {
     this.statusHistories = this.dialogInput.statusHistoriesObs;
   }
-
 }

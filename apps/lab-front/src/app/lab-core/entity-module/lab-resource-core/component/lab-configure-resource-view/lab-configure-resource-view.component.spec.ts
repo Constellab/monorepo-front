@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabConfigureResourceViewComponent} from './lab-configure-resource-view.component';
+import { LabConfigureResourceViewComponent } from './lab-configure-resource-view.component';
 
 describe('BioxConfigureResourceViewComponent', () => {
   let component: LabConfigureResourceViewComponent;
@@ -8,9 +8,8 @@ describe('BioxConfigureResourceViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabConfigureResourceViewComponent ]
-    })
-    .compileComponents();
+      declarations: [LabConfigureResourceViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

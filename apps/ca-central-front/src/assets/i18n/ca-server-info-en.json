@@ -96,7 +96,7 @@
   "storage_price": "Storage price",
   "volume_storage_price": "Volume storage price",
   "backup_storage_price": "Backup storage price",
-  "backup_transfert_price" : "Backup transfert price",
+  "backup_transfert_price": "Backup transfert price",
   "storage_price_unit": " € / GB / month",
   "storage_prices": "All storage prices",
   "create_storage_price": "Create storage price",

@@ -1,11 +1,11 @@
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
-export enum CoIconType{
+export enum CoIconType {
   COMMUNITY_ICON = 'COMMUNITY_ICON',
-  COMMUNITY_IMAGE = 'COMMUNITY_IMAGE'
+  COMMUNITY_IMAGE = 'COMMUNITY_IMAGE',
 }
 
-export class CoIcon{
+export class CoIcon {
   id: string;
   technicalName: string;
   name: string;
@@ -14,7 +14,7 @@ export class CoIcon{
   type: CoIconType;
 }
 
-export interface CoIconDatasourceFilters{
+export interface CoIconDatasourceFilters {
   subNameFilter: string;
 }
 

@@ -4,7 +4,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CaCreateServerPriceDTO, CaServerPrice } from '../../../../model/entities/server/ca-server-price.class';
+import {
+  CaCreateServerPriceDTO,
+  CaServerPrice,
+} from '../../../../model/entities/server/ca-server-price.class';
 
 export interface CaServerPriceFormDialogInput extends FlFormDialogInput<CaCreateServerPriceDTO> {
   standardServerId: string;
@@ -13,13 +16,13 @@ export interface CaServerPriceFormDialogInput extends FlFormDialogInput<CaCreate
 @Component({
   selector: 'ca-server-price-form-dialog',
   templateUrl: './ca-server-price-form-dialog.component.html',
-  styleUrl: './ca-server-price-form-dialog.component.scss'
+  styleUrl: './ca-server-price-form-dialog.component.scss',
 })
 export class CaServerPriceFormDialogComponent
-  extends FlFormDialogAbstractDirective<CaCreateServerPriceDTO, CaServerPrice> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<CaCreateServerPriceDTO, CaServerPrice>
+  implements OnInit
+{
   dialogInput: CaServerPriceFormDialogInput = inject(MAT_DIALOG_DATA);
-
 
   constructor(private serverService: CaServerService) {
     super();
@@ -51,6 +54,4 @@ export class CaServerPriceFormDialogComponent
   getUpdateSuccessMessage(): string {
     return '';
   }
-
-
 }

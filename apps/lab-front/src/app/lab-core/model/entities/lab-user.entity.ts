@@ -8,10 +8,10 @@ export class LabUser implements FlUser {
 
   email: string;
 
-  @Expose({name: 'first_name'})
+  @Expose({ name: 'first_name' })
   firstname: string;
 
-  @Expose({name: 'last_name'})
+  @Expose({ name: 'last_name' })
   lastname: string;
 
   theme: ClTheme;
@@ -30,15 +30,13 @@ export class LabUser implements FlUser {
 }
 
 export class LabBaseEntityWithUser extends LabBaseEntity {
-
-  @Expose({name: 'created_by'})
+  @Expose({ name: 'created_by' })
   @Type(() => LabUser)
   createdBy: LabUser;
 
-  @Expose({name: 'last_modified_by'})
+  @Expose({ name: 'last_modified_by' })
   @Type(() => LabUser)
   lastModifiedBy: LabUser;
 }
 
-
-export type LabUserDatasourcePaginated<F = void> = FlDatasourcePaginated<LabUser, F>
+export type LabUserDatasourcePaginated<F = void> = FlDatasourcePaginated<LabUser, F>;

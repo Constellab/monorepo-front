@@ -8,9 +8,8 @@ describe('TeTextEditorHistoryModificationVisualizerDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTextEditorHistoryModificationVisualizerDialogComponent]
-    })
-    .compileComponents();
+      declarations: [TeTextEditorHistoryModificationVisualizerDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTextEditorHistoryModificationVisualizerDialogComponent);
     component = fixture.componentInstance;

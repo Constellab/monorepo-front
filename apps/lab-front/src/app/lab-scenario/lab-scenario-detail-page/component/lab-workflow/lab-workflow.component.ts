@@ -7,14 +7,12 @@ import { LabWorkflowNodeMenuConfig } from '../../model/lab-workflow-node-menu.co
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { first } from 'rxjs/operators';
 
-
 @Component({
   selector: 'lab-workflow',
   templateUrl: './lab-workflow.component.html',
   styleUrls: ['./lab-workflow.component.scss'],
 })
 export class LabWorkflowComponent implements OnInit, AfterViewInit {
-
   workflowIsLoading: boolean = true;
   error: boolean = false;
 
@@ -23,15 +21,15 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
 
   viewConfig: LabWorkflowNodeMenuConfig;
 
-  constructor(private scenarioState: LabScenarioDetailPageState,
-              private dialogService: FlDialogService,
-              private editConfig: LabWorkflowEditConfig) {
-  }
+  constructor(
+    private scenarioState: LabScenarioDetailPageState,
+    private dialogService: FlDialogService,
+    private editConfig: LabWorkflowEditConfig
+  ) {}
 
   ngOnInit(): void {
     this.viewConfig = new LabWorkflowNodeMenuConfig(this.dialogService, this.editConfig);
   }
-
 
   ngAfterViewInit(): void {
     setTimeout(() => this.loadScenarioFlow(), 0);
@@ -39,10 +37,13 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
 
   private loadScenarioFlow(): void {
     // wait for the main protocol to be loaded
-    this.scenarioState.isReady$().pipe(first()).subscribe({
-      next: () => this.loadScenarioFlowSuccess(),
-      error: () => this.onError()
-    });
+    this.scenarioState
+      .isReady$()
+      .pipe(first())
+      .subscribe({
+        next: () => this.loadScenarioFlowSuccess(),
+        error: () => this.onError(),
+      });
   }
 
   private loadScenarioFlowSuccess(): void {
@@ -55,5 +56,4 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
     this.workflowIsLoading = false;
     this.error = true;
   }
-
 }

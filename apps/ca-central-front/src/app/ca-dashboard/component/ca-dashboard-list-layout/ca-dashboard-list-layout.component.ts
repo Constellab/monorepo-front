@@ -8,10 +8,9 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-dashboard-list-layout',
   templateUrl: './ca-dashboard-list-layout.component.html',
-  styleUrls: ['./ca-dashboard-list-layout.component.scss']
+  styleUrls: ['./ca-dashboard-list-layout.component.scss'],
 })
 export class CaDashboardListLayoutComponent {
-
   public static maxItems = 4;
 
   @Input() datasource: FlDatasourcePaginated<any>;
@@ -40,5 +39,4 @@ export class CaDashboardListLayoutComponent {
   addClicked(event: MouseEvent): void {
     this.addClick.emit(event);
   }
-
 }

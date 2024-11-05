@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaConstellabDocument, CaDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import {
+  CaConstellabDocument,
+  CaDocument,
+} from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import {
   FlDialogService,
   FlMenuDynamicService,
-  FlPortalActionsService, FlPortalService,
+  FlPortalActionsService,
+  FlPortalService,
   FlServerError,
-  FlSnackBarService
+  FlSnackBarService,
 } from '@monorepo/front-core-lib';
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
 import { FormControl } from '@angular/forms';
@@ -17,7 +21,7 @@ import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaDocumentActionDetailMenu,
   CaDocumentActionEvent,
-  CaDocumentActionMenu
+  CaDocumentActionMenu,
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
 import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/service/ca-constellab-document-history.service';
@@ -28,10 +32,9 @@ import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/servi
 @Component({
   selector: 'ca-document-detail-page',
   templateUrl: './ca-document-detail-page.component.html',
-  styleUrls: ['./ca-document-detail-page.component.scss']
+  styleUrls: ['./ca-document-detail-page.component.scss'],
 })
 export class CaDocumentDetailPageComponent implements OnInit {
-
   document: CaDocument;
 
   getIsLoading: boolean = true;
@@ -40,44 +43,45 @@ export class CaDocumentDetailPageComponent implements OnInit {
   contentFormControl: FormControl<TeRichTextContent> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichTextContent) => Observable<CaConstellabDocument>;
 
-  constructor(private route: ActivatedRoute,
-              private folderService: CaFolderService,
-              private state: CaHierarchyObjectDetailState,
-              private dialogService: FlDialogService,
-              private menuDynamicService: FlMenuDynamicService,
-              private actionService: FlPortalActionsService,
-              private snackBarService: FlSnackBarService,
-              private portalService: FlPortalService,
-              private constellabDocumentService: CaConstellabDocumentHistoryService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private folderService: CaFolderService,
+    private state: CaHierarchyObjectDetailState,
+    private dialogService: FlDialogService,
+    private menuDynamicService: FlMenuDynamicService,
+    private actionService: FlPortalActionsService,
+    private snackBarService: FlSnackBarService,
+    private portalService: FlPortalService,
+    private constellabDocumentService: CaConstellabDocumentHistoryService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => this.init(params.id)
-    );
-
+    this.route.params.subscribe((params) => this.init(params.id));
   }
 
   private init(id: string): void {
     this.folderService.getConstellabDocument(id).subscribe({
-      next: doc => this.getDocumentSuccess(doc),
-      error: () => this.getIsLoading = false
+      next: (doc) => this.getDocumentSuccess(doc),
+      error: () => (this.getIsLoading = false),
     });
   }
 
   private getDocumentSuccess(constellabDocument: CaConstellabDocument): void {
     this.document = constellabDocument.document;
     this.contentFormControl.patchValue(constellabDocument.content, { emitEvent: false });
-    this.textEditorConfig = new CaDocumentTextEditorConfig(constellabDocument.document.id,
-      this.folderService);
+    this.textEditorConfig = new CaDocumentTextEditorConfig(
+      constellabDocument.document.id,
+      this.folderService
+    );
     this.getIsLoading = false;
 
     this.saveDescriptionFunc = (value: TeRichTextContent) =>
       this.folderService.updateConstellabDocument(this.document.id, value).pipe(
         tap({
-          next: doc => this.saveContentSuccess(doc),
-          error: error => this.onError(error)
-        }));
+          next: (doc) => this.saveContentSuccess(doc),
+          error: (error) => this.onError(error),
+        })
+      );
   }
 
   private saveContentSuccess(document: CaConstellabDocument): void {
@@ -93,10 +97,18 @@ export class CaDocumentDetailPageComponent implements OnInit {
 
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const documentActionMenu = new CaDocumentActionDetailMenu(this.dialogService, this.folderService,
-      this.menuDynamicService, this.actionService, document.basicInfo,  this.constellabDocumentService, this.portalService, this.textEditorConfig);
+    const documentActionMenu = new CaDocumentActionDetailMenu(
+      this.dialogService,
+      this.folderService,
+      this.menuDynamicService,
+      this.actionService,
+      document.basicInfo,
+      this.constellabDocumentService,
+      this.portalService,
+      this.textEditorConfig
+    );
 
-    documentActionMenu.openActionMenu(false, event).subscribe(event => {
+    documentActionMenu.openActionMenu(false, event).subscribe((event) => {
       this.onDocumentAction(event);
     });
   }
@@ -114,7 +126,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
       // use emitFalse to avoid the value change event
       this.contentFormControl.enable({ emitEvent: false });
       this.folderService.checkEditConstellabDocument(this.document.id).subscribe({
-        error: () => this.contentFormControl.disable({ emitEvent: false })
+        error: () => this.contentFormControl.disable({ emitEvent: false }),
       });
     } else {
       this.contentFormControl.disable({ emitEvent: false });

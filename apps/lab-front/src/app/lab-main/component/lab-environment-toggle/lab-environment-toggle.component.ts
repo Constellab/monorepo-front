@@ -9,10 +9,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 @Component({
   selector: 'lab-environment-toggle',
   templateUrl: './lab-environment-toggle.component.html',
-  styleUrls: ['./lab-environment-toggle.component.scss']
+  styleUrls: ['./lab-environment-toggle.component.scss'],
 })
 export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
-
   checked: boolean;
 
   devApiRunning: boolean = false;
@@ -21,34 +20,33 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private labEnvStore: LabEnvStore,
-              private labEnvService: LabDevEnvironmentService,
-              private routerService: LabRouterService,
-              private router: Router) {
-  }
+  constructor(
+    private labEnvStore: LabEnvStore,
+    private labEnvService: LabDevEnvironmentService,
+    private routerService: LabRouterService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.labEnvStore.getLabEnvironment$().subscribe(
-      (env) => this.checked = env === 'dev'
-    );
+    this.subscription = this.labEnvStore
+      .getLabEnvironment$()
+      .subscribe((env) => (this.checked = env === 'dev'));
     this.checkDevApi();
   }
 
   // disable the toggle if the dev api is not running
   private checkDevApi(): void {
-    this.labEnvService.devApiIsRunning().subscribe(
-      isRunning => {
-        this.devApiRunning = isRunning;
-        this.ready = true;
-      }
-    );
+    this.labEnvService.devApiIsRunning().subscribe((isRunning) => {
+      this.devApiRunning = isRunning;
+      this.ready = true;
+    });
   }
 
   toggleChange(change: MatSlideToggleChange): void {
     if (change.checked) {
       this.labEnvService.activateDevEnvironment().subscribe({
-        next: result => this.onActivateDevEnvironment(result),
-        error: () => this.checked = false
+        next: (result) => this.onActivateDevEnvironment(result),
+        error: () => (this.checked = false),
       });
     } else {
       this.labEnvStore.setLabEnvironment('prod');
@@ -66,14 +64,19 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   }
 
   private redirectToScenarioList(): void {
-    if (this.router.isActive(LabRouterService.getScenarioListRoute(),
-      {fragment: 'ignored', paths: 'exact', matrixParams: 'ignored', queryParams: 'ignored'})) {
+    if (
+      this.router.isActive(LabRouterService.getScenarioListRoute(), {
+        fragment: 'ignored',
+        paths: 'exact',
+        matrixParams: 'ignored',
+        queryParams: 'ignored',
+      })
+    ) {
       location.reload();
     } else {
       this.routerService.navigateToScenarioListRoute();
     }
   }
-
 
   get disabled(): boolean {
     // only disable the toggle if it is not check and the dev api is not running
@@ -93,6 +96,4 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

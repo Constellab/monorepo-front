@@ -8,19 +8,19 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'lab-update-resource-name-dialog',
   templateUrl: './lab-update-resource-name-dialog.component.html',
-  styleUrls: ['./lab-update-resource-name-dialog.component.scss']
+  styleUrls: ['./lab-update-resource-name-dialog.component.scss'],
 })
 export class LabUpdateResourceNameDialogComponent implements OnInit {
-
   formCtrl: FormControl<string>;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private resource: LabResource,
-              private dialogRef: MatDialogRef<LabUpdateResourceNameDialogComponent>,
-              private resourceService: LabResourceService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private resource: LabResource,
+    private dialogRef: MatDialogRef<LabUpdateResourceNameDialogComponent>,
+    private resourceService: LabResourceService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.formCtrl = new FormControl<string>(this.resource.name, [Validators.required]);
@@ -35,16 +35,14 @@ export class LabUpdateResourceNameDialogComponent implements OnInit {
   private updateName(name: string): void {
     this.isLoading = true;
     this.resourceService.updateName(this.resource.id, name).subscribe(
-      resource => this.updateNameSuccess(resource),
-      () => this.isLoading = false
+      (resource) => this.updateNameSuccess(resource),
+      () => (this.isLoading = false)
     );
   }
 
   private updateNameSuccess(resource: LabResource): void {
-    this.snackBarService.openSuccessMessage({text:'biox.resource_name_updated',  translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'biox.resource_name_updated', translateText: true });
     this.dialogRef.close(resource);
     this.isLoading = false;
   }
-
-
 }

@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Volume storage price -->
   <ng-container matColumnDef="volumeStoragePrice">
     <mat-header-cell *matHeaderCellDef>
@@ -52,14 +51,13 @@
     </mat-cell>
   </ng-container>
 
-
   <!-- Dates -->
   <ng-container matColumnDef="dates">
     <mat-header-cell *matHeaderCellDef>
       {{ 'storages_dates' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{ row.startDate  | flDate }} - {{ row.endDate  | flDate }}</div>
+      <div>{{ row.startDate | flDate }} - {{ row.endDate | flDate }}</div>
     </mat-cell>
   </ng-container>
 
@@ -75,18 +73,14 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="deletePrice(row)">
+        <button mat-menu-item type="button" (click)="deletePrice(row)">
           <mat-icon color="warn">clear</mat-icon>
           <span class="g-warn-text">{{ 'delete_server_price' | translate }}</span>
         </button>
@@ -94,8 +88,6 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

@@ -1,27 +1,30 @@
 <fl-async-section [object]="freeLabDTO$">
   <ng-container *flSectionBody="freeLabDTO$ as freeLabDTO">
-
     <fl-card>
       <fl-card-header>
         <fl-text-icon>
           <mat-icon flIcon="lab"></mat-icon>
-          <h2>{{'free_data_lab' | translate}}</h2>
+          <h2>{{ 'free_data_lab' | translate }}</h2>
         </fl-text-icon>
 
         <fl-card-actions *caIsAdmin>
           <ng-container *ngIf="freeLabDTO.freeLab">
-            <button mat-icon-button type="button"
-                    (click)="updateFreeLab(freeLabDTO)"
-                    [matTooltip]="'free_data_lab_update' | translate">
+            <button
+              mat-icon-button
+              type="button"
+              (click)="updateFreeLab(freeLabDTO)"
+              [matTooltip]="'free_data_lab_update' | translate">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button type="button" color="warn"
-                    (click)="deleteFreeLab(freeLabDTO)"
-                    [matTooltip]="'free_data_lab_delete' | translate">
+            <button
+              mat-icon-button
+              type="button"
+              color="warn"
+              (click)="deleteFreeLab(freeLabDTO)"
+              [matTooltip]="'free_data_lab_delete' | translate">
               <mat-icon>delete</mat-icon>
             </button>
           </ng-container>
-
         </fl-card-actions>
       </fl-card-header>
 

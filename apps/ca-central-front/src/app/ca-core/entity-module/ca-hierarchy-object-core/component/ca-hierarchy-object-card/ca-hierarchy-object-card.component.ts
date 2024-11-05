@@ -5,9 +5,8 @@ import { CaHierarchyObject } from '../../../../model/entities/folder/ca-hierarch
   selector: 'ca-hierarchy-object-card',
   templateUrl: './ca-hierarchy-object-card.component.html',
   styleUrl: './ca-hierarchy-object-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaHierarchyObjectCardComponent {
-
-  @Input({required: true}) hierarchyObject: CaHierarchyObject;
+  @Input({ required: true }) hierarchyObject: CaHierarchyObject;
 }

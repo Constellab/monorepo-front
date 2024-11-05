@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTypeShowDetailButtonComponent} from './lab-type-show-detail-button.component';
+import { LabTypeShowDetailButtonComponent } from './lab-type-show-detail-button.component';
 
 describe('LabProcessTypeShowDetailButtonComponent', () => {
   let component: LabTypeShowDetailButtonComponent;
@@ -8,9 +8,8 @@ describe('LabProcessTypeShowDetailButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTypeShowDetailButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTypeShowDetailButtonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

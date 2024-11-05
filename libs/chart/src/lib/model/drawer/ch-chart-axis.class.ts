@@ -1,10 +1,9 @@
-import {ChChartScale, ChChartScaleBand} from '../scale/ch-chart-scale.class';
-import {axisBottom, axisLeft, axisRight, axisTop, Numeric} from 'd3';
-import {Selection} from 'd3-selection';
-import {Axis, AxisScale} from 'd3-axis';
-import {ChD3SelectionSimple} from '../ch-d3.class';
-import {ChChartLabelFormatFunction, ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
-
+import { ChChartScale, ChChartScaleBand } from '../scale/ch-chart-scale.class';
+import { axisBottom, axisLeft, axisRight, axisTop, Numeric } from 'd3';
+import { Selection } from 'd3-selection';
+import { Axis, AxisScale } from 'd3-axis';
+import { ChD3SelectionSimple } from '../ch-d3.class';
+import { ChChartLabelFormatFunction, ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
 
 /**
  * The type define the position of the axis
@@ -12,7 +11,6 @@ import {ChChartLabelFormatFunction, ChChartLabelFormatter} from '../ch-chart-lab
 export type ChChartAxisType = 'left' | 'bottom' | 'right' | 'top';
 
 export class ChChartAxis {
-
   // height needed for 1 char of the x tick label rotated
   private static readonly xRotateRequiredHeightPerChar: number = 5;
   // width needed for 1 char of the y tick label
@@ -68,7 +66,8 @@ export class ChChartAxis {
   }
 
   public draw(parent: Selection<any, void, null, undefined>, chartHeight: number, chartWidth: number): void {
-    this.axisContainer = parent.append('g')
+    this.axisContainer = parent
+      .append('g')
       .attr('transform', this.getAxisTransform(chartHeight, chartWidth))
       .call(this.createAxis());
 
@@ -79,13 +78,12 @@ export class ChChartAxis {
   // draw the axis label
   private drawAxisLabel(): void {
     if (this.label) {
-
       let x: number;
-      let y : number;
+      let y: number;
       let transform: string = null;
       if (this.type === 'left') {
         x = -(this.axisContainer.node().getBBox().height / 2);
-        y = -this.getTickLabelSize()
+        y = -this.getTickLabelSize();
         // write text vertically
         transform = 'translate(0)rotate(270)';
       } else if (this.type === 'bottom') {
@@ -93,7 +91,8 @@ export class ChChartAxis {
         y = this.getTickLabelSize();
       }
       // on top of the axis, centered
-      this.axisContainer.append('text')
+      this.axisContainer
+        .append('text')
         .text(this.label)
         .attr('x', x)
         .attr('y', y)
@@ -117,11 +116,15 @@ export class ChChartAxis {
   }
 
   private getTickLabelSize(): number {
-    const charSize = this.type === 'left' ? ChChartAxis.yRequiredWidthPerChar : ChChartAxis.xRotateRequiredHeightPerChar;
+    const charSize =
+      this.type === 'left' ? ChChartAxis.yRequiredWidthPerChar : ChChartAxis.xRotateRequiredHeightPerChar;
 
-    const maxLabelLength = Math.min(this.getTickFormatter().shortFormatMaxLength, ChChartAxis.maxTickLabelLength);
+    const maxLabelLength = Math.min(
+      this.getTickFormatter().shortFormatMaxLength,
+      ChChartAxis.maxTickLabelLength
+    );
     // calculate size of the text + padding
-    return (maxLabelLength * charSize) + ChChartAxis.tickLabelPadding;
+    return maxLabelLength * charSize + ChChartAxis.tickLabelPadding;
   }
 
   /**
@@ -149,7 +152,7 @@ export class ChChartAxis {
     this.getTickTextSelection()
       // add a title to each tick
       .append('title')
-      .text(d => tickFormatter.formatLong(d));
+      .text((d) => tickFormatter.formatLong(d));
   }
 
   private getTickTextSelection(): ChD3SelectionSimple {
@@ -162,8 +165,7 @@ export class ChChartAxis {
     // set the tick method if exists
     const tickFormat = this.getTickFormatter();
     // set the tick format method and limit length of tick
-    axis.tickFormat((d, index) =>
-      tickFormat.formatShort(d.valueOf(), index, ChChartAxis.maxTickLabelLength));
+    axis.tickFormat((d, index) => tickFormat.formatShort(d.valueOf(), index, ChChartAxis.maxTickLabelLength));
 
     return axis;
   }
@@ -223,7 +225,10 @@ export class ChChartAxis {
 
   private refreshAxis(): void {
     // recreate the axis
-    this.axisContainer.transition().duration(this.zoomDuration).call(this.createAxis())
+    this.axisContainer
+      .transition()
+      .duration(this.zoomDuration)
+      .call(this.createAxis())
       // wait for the end of transition to add the tick title otherwise it is overwritten
       .on('end', () => this.refreshTickTitle());
     // directly rotate the text, this is not overwritten
@@ -235,16 +240,12 @@ export class ChChartAxis {
  * Specific axis manager for the axis that use a scale band
  */
 export class ChChartAxisBand extends ChChartAxis {
-
-
   // width of 1 character in tick
   public static readonly tickCharacterWidth: number = 5;
   // width needed by the tick in X when the text is rotated to prevent superposition
   public static readonly tickXRotateWidth: number = ChChartAxisBand.tickCharacterWidth * 3;
 
-
   public scale: ChChartScaleBand;
-
 
   public setScale(scale: ChChartScaleBand): this {
     return super.setScale(scale);
@@ -258,12 +259,8 @@ export class ChChartAxisBand extends ChChartAxis {
    * @param tickFormat
    */
   public setSmartTickFormat(tickSize: number, tickFormat?: ChChartLabelFormatter): this {
-
     if (tickFormat == null) {
-      tickFormat = new ChChartLabelFormatter(
-        (d) => d?.toString() ?? null,
-        ChChartAxis.maxTickLabelLength
-      );
+      tickFormat = new ChChartLabelFormatter((d) => d?.toString() ?? null, ChChartAxis.maxTickLabelLength);
     }
 
     const format: ChChartLabelFormatFunction = (d, index) => {
@@ -281,6 +278,4 @@ export class ChChartAxisBand extends ChChartAxis {
 
     return this;
   }
-
-
 }

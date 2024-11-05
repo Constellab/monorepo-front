@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSpreadsheetHeaderInfoComponent} from './sp-spreadsheet-header-info.component';
+import { SpSpreadsheetHeaderInfoComponent } from './sp-spreadsheet-header-info.component';
 
 describe('SpSpreadsheetHeaderInfoComponent', () => {
   let component: SpSpreadsheetHeaderInfoComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetHeaderInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSpreadsheetHeaderInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSpreadsheetHeaderInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

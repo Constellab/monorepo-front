@@ -28,7 +28,7 @@ export class CaLabStatusRunRequest {
 /**
  * Only for hourly billed labs, it contains the price for the running period
  */
-export class CaLabRunningStatusBilling{
+export class CaLabRunningStatusBilling {
   nbOfHours: number;
   pricePerHour: number;
   totalPrice: number;
@@ -67,7 +67,6 @@ export class CaLabStatusRunResponse {
 }
 
 export class CaLabRunningStatusArrayObs extends FlArrayObs<CaLabRunningStatus> {
-
   protected equals(a: CaLabRunningStatus, b: CaLabRunningStatus): boolean {
     return a == b;
   }
@@ -88,7 +87,6 @@ export class CaLabVolumePeriod {
   volumePrice: number;
 
   durationInHour: number;
-
 }
 
 export class CaLabBackupPeriod {
@@ -108,9 +106,7 @@ export class CaLabBackupPeriod {
   durationInHour: number;
 }
 
-
 export class CaLabStorageResponse {
-
   @ClLuxonDateTransform()
   fromDate: DateTime;
   @ClLuxonDateTransform()
@@ -138,10 +134,4 @@ export class CaLabStorageResponse {
   get totalBackupNbOfMillionSeconds(): number {
     return this.totalBackupStorageNbOfHours * 60 * 60 * 1000;
   }
-
 }
-
-
-
-
-

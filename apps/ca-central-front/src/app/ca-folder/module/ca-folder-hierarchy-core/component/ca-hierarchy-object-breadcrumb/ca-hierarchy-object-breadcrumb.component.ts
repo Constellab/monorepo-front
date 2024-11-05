@@ -6,7 +6,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
 import { CaHierarchyObjectDetailState } from '../../state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectType
+  CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 interface BreadcrumbLink {
@@ -15,7 +15,6 @@ interface BreadcrumbLink {
   url: string;
 }
 
-
 /**
  * Breadcrumb for hierarchy, note and scenarios
  * It gets the hierarchy from the api
@@ -23,23 +22,23 @@ interface BreadcrumbLink {
 @Component({
   selector: 'ca-hierarchy-object-breadcrumb',
   templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
-  styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss']
+  styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
 })
 export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
-
   links$: Observable<BreadcrumbLink[]>;
 
   hasChildren$: Observable<boolean> = this.state.hasSubFolders$();
 
-  constructor(private state: CaHierarchyObjectDetailState,
-              private translateService: FlTranslateService) {
-  }
+  constructor(
+    private state: CaHierarchyObjectDetailState,
+    private translateService: FlTranslateService
+  ) {}
 
   ngOnInit(): void {
     // read children route params
-    this.links$ = this.state.getAncestorsFolders$().pipe(
-      map(ancestors => this.ancestorsToLinks(ancestors))
-    );
+    this.links$ = this.state
+      .getAncestorsFolders$()
+      .pipe(map((ancestors) => this.ancestorsToLinks(ancestors)));
   }
 
   private ancestorsToLinks(ancestors: CaHierarchyObject[]): BreadcrumbLink[] {
@@ -49,7 +48,7 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
       links.unshift({
         id: ancestor.id,
         title: ancestor.name,
-        url: this.getAncestorLink(ancestor)
+        url: this.getAncestorLink(ancestor),
       });
     }
 
@@ -57,9 +56,8 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
     links.unshift({
       id: '1',
       title: this.translateService.translate('home'),
-      url: CaRouterService.getHomeRoute()
+      url: CaRouterService.getHomeRoute(),
     });
-
 
     return links;
   }
@@ -82,5 +80,4 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
   toggleTree(): void {
     this.state.toggleTree();
   }
-
 }

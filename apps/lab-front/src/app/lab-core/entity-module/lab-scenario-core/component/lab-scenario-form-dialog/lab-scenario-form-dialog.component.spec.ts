@@ -8,9 +8,8 @@ describe('BioxScenarioFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

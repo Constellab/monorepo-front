@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BnBioNetworkReaction} from '../../model/bn-bio-network.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { BnBioNetworkReaction } from '../../model/bn-bio-network.class';
 
 @Component({
   selector: 'bn-bio-network-reaction-detail',
@@ -7,12 +7,9 @@ import {BnBioNetworkReaction} from '../../model/bn-bio-network.class';
   styleUrls: ['./bn-bio-network-reaction-detail.component.scss'],
 })
 export class BnBioNetworkReactionDetailComponent implements OnInit {
-
   @Input() reaction: BnBioNetworkReaction;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

@@ -11,9 +11,7 @@ import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-
  */
 @Injectable()
 export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
-
   private resources: Record<string, ClCachedObservable<LabResource>> = {};
-
 
   constructor(private resourceService: LabResourceService) {
     super();
@@ -42,6 +40,4 @@ export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
 
     return this.resources[resourceId].value.toPrResource();
   }
-
-
 }

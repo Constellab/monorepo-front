@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabSharedEntityInfoDialogComponent} from './lab-shared-entity-info-dialog.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabSharedEntityInfoDialogComponent } from './lab-shared-entity-info-dialog.component';
 
 describe('LabSharedEntityInfoDialogComponent', () => {
   let component: LabSharedEntityInfoDialogComponent;

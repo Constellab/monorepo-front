@@ -8,9 +8,8 @@ describe('LabRunningScenarioTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabRunningScenarioTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabRunningScenarioTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabRunningScenarioTableComponent);
     component = fixture.componentInstance;

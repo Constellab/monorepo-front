@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlPortalHeaderButtonsComponent} from './fl-portal-header-buttons.component';
+import { FlPortalHeaderButtonsComponent } from './fl-portal-header-buttons.component';
 
 describe('FlPortalHeaderButtonsComponent', () => {
   let component: FlPortalHeaderButtonsComponent;
@@ -8,9 +8,8 @@ describe('FlPortalHeaderButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlPortalHeaderButtonsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlPortalHeaderButtonsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

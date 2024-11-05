@@ -6,13 +6,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'fl-portal-footer',
   templateUrl: './fl-portal-footer.component.html',
-  styleUrls: ['./fl-portal-footer.component.scss']
+  styleUrls: ['./fl-portal-footer.component.scss'],
 })
 export class FlPortalFooterComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -1,9 +1,12 @@
 <fl-portal class="portal-notifications mat-elevation-z5">
   <fl-portal-content class="portal-notifications-content">
-    <fl-infinite-scroll [datasource]="notifications" class="infinite-scroll" [textNoResult]="'no_notifications'"
-                        [textNoMoreResult]="'no_more_notifications'">
+    <fl-infinite-scroll
+      [datasource]="notifications"
+      class="infinite-scroll"
+      [textNoResult]="'no_notifications'"
+      [textNoMoreResult]="'no_more_notifications'">
       <div class="g-layout-row">
-        <h2>{{'notifications' | translate}}</h2>
+        <h2>{{ 'notifications' | translate }}</h2>
         <!--        <div class="g-layout-row head-notif-portal">-->
         <!--          <p>{{'view_read_notifications' | translate}}</p>-->
         <!--          <mat-slide-toggle class="slide" color="primary" [checked]="true" (change)="onSlideChange($event)"></mat-slide-toggle>-->
@@ -12,28 +15,33 @@
       <mat-divider class="divider"></mat-divider>
       <div class="g-layout-row">
         <span>{{ 'most_recent' | translate }}</span>
-        <span class="g-text-link read-all-text"
-              (click)="markAllNotificationsAsRead()">{{ 'mark_all_as_read' | translate }}</span>
+        <span class="g-text-link read-all-text" (click)="markAllNotificationsAsRead()">{{
+          'mark_all_as_read' | translate
+        }}</span>
       </div>
 
-      @for (notif of notifications | flDatasourceConnect | async ; track notif.id) {
-
-        <a class="notification"
-           [routerLink]="getNotificationLink(notif.link)" [queryParams]="getNotificationQueryParams(notif.link)"
-           (click)="markAsRead(notif)">
+      @for (notif of notifications | flDatasourceConnect | async; track notif.id) {
+        <a
+          class="notification"
+          [routerLink]="getNotificationLink(notif.link)"
+          [queryParams]="getNotificationQueryParams(notif.link)"
+          (click)="markAsRead(notif)">
           <div class="created-by-pp">
             <fl-user-profile-picture [user]="notif.createdBy" [size]="4"></fl-user-profile-picture>
           </div>
           <div class="notification-content">
-            <div class="notification-text g-text-dense-height"
-                 [matTooltip]="notif.text" [matTooltipShowDelay]="1000">{{ notif.text }}
+            <div
+              class="notification-text g-text-dense-height"
+              [matTooltip]="notif.text"
+              [matTooltipShowDelay]="1000">
+              {{ notif.text }}
             </div>
-
 
             <!--      Detail informations    -->
             <fl-text-icon iconPosition="start" gap="3px">
-              <mat-icon class="g-icon-tiny g-text-light"
-                        [flIcon]="getNotificationObjectIcon(notif.objectType)">
+              <mat-icon
+                class="g-icon-tiny g-text-light"
+                [flIcon]="getNotificationObjectIcon(notif.objectType)">
               </mat-icon>
               <span class="g-text-tiny g-text-light">{{ notif.text2 }}</span>
             </fl-text-icon>

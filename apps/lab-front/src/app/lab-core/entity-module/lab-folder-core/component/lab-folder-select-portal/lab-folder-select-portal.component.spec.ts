@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabFolderSelectPortalComponent} from './lab-folder-select-portal.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabFolderSelectPortalComponent } from './lab-folder-select-portal.component';
 
 describe('LabFolderSelectPortalComponent', () => {
   let component: LabFolderSelectPortalComponent;

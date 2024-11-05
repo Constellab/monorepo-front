@@ -1,12 +1,10 @@
 import NestedList from '@editorjs/nested-list';
-import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeHelper} from '../model/te.helper';
-import {FlKeyboardKey} from '@monorepo/front-core-lib';
+import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { TeHelper } from '../model/te.helper';
+import { FlKeyboardKey } from '@monorepo/front-core-lib';
 
 export class TeNestedListBlock extends NestedList implements BlockTool {
-
-
   constructor(private options: BlockToolConstructorOptions) {
     super(options);
   }
@@ -19,8 +17,7 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
     const node = super.render();
 
     if (!this.options.readOnly) {
-      node.addEventListener('keydown', (event: KeyboardEvent) =>
-        this.handleKeyDown(event, node));
+      node.addEventListener('keydown', (event: KeyboardEvent) => this.handleKeyDown(event, node));
     }
 
     return node;
@@ -35,7 +32,6 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
       TeHelper.handleRightArrow(event);
     }
   }
-
 
   /**
    * Handle UL, OL and LI tags paste and returns List data
@@ -73,7 +69,6 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
    * @param ulElement
    */
   fixNestedList(ulElement: HTMLElement): HTMLElement {
-
     for (let i = 0; i < ulElement.children.length; i++) {
       const child: HTMLElement = ulElement.children[i] as HTMLElement;
 
@@ -94,9 +89,6 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
       }
     }
 
-
     return ulElement;
   }
-
-
 }

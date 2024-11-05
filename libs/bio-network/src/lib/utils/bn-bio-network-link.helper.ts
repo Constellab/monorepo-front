@@ -1,5 +1,4 @@
-
-export class BnBioNetworkLinkHelper{
+export class BnBioNetworkLinkHelper {
   /**
    * Get the link of a reaction from Rhea database
    * @param rheaId formatted as RHEA:12345 or 12345

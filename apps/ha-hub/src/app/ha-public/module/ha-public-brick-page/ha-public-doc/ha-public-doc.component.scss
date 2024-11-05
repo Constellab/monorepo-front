@@ -1,15 +1,13 @@
-
-
-.loader{
+.loader {
   margin: auto;
 }
 
-.doc-div{
+.doc-div {
   width: 60rem;
   max-width: calc(100vw - 18px);
 }
 
-.save-info-and-bt-div{
+.save-info-and-bt-div {
   display: flex;
   flex-direction: row;
   gap: 0.2em;
@@ -17,32 +15,30 @@
   margin-left: auto;
 }
 
-
 @media (max-width: 900px) {
-  .doc-div{
+  .doc-div {
     padding: 0px;
   }
 }
 
-.doc-div-content{
+.doc-div-content {
   min-height: 90vh;
   display: flex;
   flex-direction: column;
 }
 
-form{
+form {
   //take all the available flex space
   flex: 1;
   display: flex;
 }
 
-.doc-title-div{
+.doc-title-div {
   display: flex;
   align-items: center;
 }
 
-.content-editor{
+.content-editor {
   border: none;
   width: 100%;
 }
-

@@ -1,13 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
 
 @Pipe({
-  name: 'flYesNo'
+  name: 'flYesNo',
 })
 export class FlYesNoPipe implements PipeTransform {
-
-  constructor(private translateService: FlTranslateService) {
-  }
+  constructor(private translateService: FlTranslateService) {}
 
   /**
    * Transform pipe method

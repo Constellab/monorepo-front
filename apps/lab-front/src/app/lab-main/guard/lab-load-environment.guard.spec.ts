@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {LabLoadEnvironmentGuard} from './lab-load-environment.guard';
+import { LabLoadEnvironmentGuard } from './lab-load-environment.guard';
 
 describe('LoadLabEnvironmentGuard', () => {
   let guard: LabLoadEnvironmentGuard;

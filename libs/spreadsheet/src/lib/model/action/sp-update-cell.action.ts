@@ -1,14 +1,17 @@
-import {SpSheet} from '../sp-sheet.class';
-import {SpSheetAction} from './sp-sheet.action';
-import {SpCellsRange} from '../selection/sp-cells-range.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetAction } from './sp-sheet.action';
+import { SpCellsRange } from '../selection/sp-cells-range.class';
 
 /**
  * Sheet action to update multiple cells value
  */
 export class SpUpdateCellsAction extends SpSheetAction {
-
-  constructor(sheetId: number, range: SpCellsRange,
-              private newValues: any[][], private previousValues: any[][]) {
+  constructor(
+    sheetId: number,
+    range: SpCellsRange,
+    private newValues: any[][],
+    private previousValues: any[][]
+  ) {
     super(sheetId, range);
   }
 
@@ -27,8 +30,7 @@ export class SpUpdateCellsAction extends SpSheetAction {
  * Sheet action to update single cell value
  */
 export class SpSingleUpdateCellAction extends SpUpdateCellsAction {
-
-  constructor(sheetId: number, range: SpCellsRange, newValue: any, previousValue: any,) {
+  constructor(sheetId: number, range: SpCellsRange, newValue: any, previousValue: any) {
     super(sheetId, range, [[newValue]], [[previousValue]]);
   }
 }

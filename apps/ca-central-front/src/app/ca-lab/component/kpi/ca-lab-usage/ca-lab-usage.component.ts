@@ -9,14 +9,14 @@ import {
   CaLabStatusRunPeriod,
   CaLabStatusRunRequest,
   CaLabStatusRunResponse,
-  CaLabStorageResponse
+  CaLabStorageResponse,
 } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
 import { FlArrayObs, FlDialogService } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
 import { ClDateHelper } from '@monorepo/core-lib';
 import {
   CaLabStoragePriceDialogComponent,
-  CaLabStoragePriceDialogInput
+  CaLabStoragePriceDialogInput,
 } from '../ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
 
 @Component({
@@ -25,10 +25,9 @@ import {
   styleUrls: ['./ca-lab-usage.component.scss'],
 })
 export class CaLabUsageComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) labId: string;
 
-  @Input({required: true}) labId: string;
-
-  @Input({required: true}) isCloud$: Observable<boolean>;
+  @Input({ required: true }) isCloud$: Observable<boolean>;
 
   periods: any = CaLabStatusRunPeriod;
   customPeriod: CaLabStatusRunPeriod = CaLabStatusRunPeriod.CUSTOM;
@@ -48,39 +47,38 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService) {
-
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
-    this.subscription = this.formGroup.valueChanges.pipe(debounceTime(500), startWith(null)).subscribe(
-      () => this.callKpi(this.formGroup.getRawValue())
-    );
+    this.subscription = this.formGroup.valueChanges
+      .pipe(debounceTime(500), startWith(null))
+      .subscribe(() => this.callKpi(this.formGroup.getRawValue()));
   }
 
   private callKpi(request: CaLabStatusRunRequest): void {
     if (this.formGroup.valid) {
       const obs = this.labService.getLabRunningStats(this.labId, request).pipe(share());
       this.runResponse$ = obs;
-      this.runStatuses$ = new CaLabRunningStatusArrayObs(obs.pipe(map(response => response.statuses)));
+      this.runStatuses$ = new CaLabRunningStatusArrayObs(obs.pipe(map((response) => response.statuses)));
 
       // the observable is not subscribed for non cloud lab
       this.storageKpi$ = this.labService.getLabStorageStats(this.labId, request);
     }
   }
 
-  openStorageDetail(storage: CaLabStorageResponse): void{
+  openStorageDetail(storage: CaLabStorageResponse): void {
     const input: CaLabStoragePriceDialogInput = {
       volumes: storage.volumes,
       backups: storage.backupStorages,
-    }
+    };
 
-    this.dialogService.openMediumDialog(CaLabStoragePriceDialogComponent, {data: input});
+    this.dialogService.openMediumDialog(CaLabStoragePriceDialogComponent, { data: input });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }

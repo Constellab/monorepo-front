@@ -1,6 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
-
   <!-- alias -->
   <ng-container matColumnDef="alias">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -42,11 +40,10 @@
     <mat-cell *matCellDef="let user">
       <div>
         <div class="g-text-tiny email">{{ user.category | translate }}</div>
-        <div class="g-text-small g-text-light">{{ ('license_' + user.license) | translate }}</div>
+        <div class="g-text-small g-text-light">{{ 'license_' + user.license | translate }}</div>
       </div>
     </mat-cell>
   </ng-container>
-
 
   <!-- Last login success -->
   <ng-container matColumnDef="lastLogin">
@@ -59,8 +56,7 @@
       }
 
       @if (user.statusMailNotValidated()) {
-        <fl-text-ok-nok [value]="false"
-                        [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+        <fl-text-ok-nok [value]="false" [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
       }
 
       @if (isLocked(user)) {
@@ -71,10 +67,8 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="adminActions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
@@ -108,21 +102,18 @@
             <span class="g-warn-text">{{ 'lock_user' | translate }}</span>
           </button>
         }
-
       </mat-menu>
     </mat-cell>
   </ng-container>
 
   <!-- Custom action where template is defined by parent -->
   <ng-container matColumnDef="customTemplate">
-    <mat-header-cell *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let user">
       <ng-container *ngTemplateOutlet="templateRef; context: getUserViewContext(user)"></ng-container>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

@@ -1,19 +1,17 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FlTranslateModule} from '../fl-translate/fl-translate.module';
-import {FlSnackBarService} from './fl-snack-bar.service';
-import {FlSnackBarInfoComponent} from './component/fl-snack-bar-info/fl-snack-bar-info.component';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlSnackBarService } from './fl-snack-bar.service';
+import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-bar-info.component';
 
-import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 /**
  * Core modules containing components
  */
 @NgModule({
-  declarations: [
-    FlSnackBarInfoComponent
-  ],
+  declarations: [FlSnackBarInfoComponent],
   exports: [],
   imports: [
     CommonModule,
@@ -23,14 +21,13 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     // Material
     MatSnackBarModule,
     MatButtonModule,
-  ]
+  ],
 })
 export class FlSnackBarModule {
-
   public static forRoot(): ModuleWithProviders<FlSnackBarModule> {
     return {
       ngModule: FlSnackBarModule,
-      providers: [FlSnackBarService]
+      providers: [FlSnackBarService],
     };
   }
 }

@@ -5,7 +5,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import {
   FL_PORTAL_DATA,
@@ -14,27 +14,26 @@ import {
   FlKeyboardKey,
   FlOverlayRef,
   FlUser,
-  FlUserDatasource
+  FlUserDatasource,
 } from '@monorepo/front-core-lib';
-import {ClHelpService} from '@monorepo/core-lib';
-import {Observable} from 'rxjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
 import { TeMentionConfig, TeMentionSearchFilter } from '../../plugin/te-mention.class';
 
 export interface TeMentionPortalInput {
   config: TeMentionConfig;
   filter$: Observable<string>;
   element: HTMLElement;
-  caretCoordinates: { top: number, left: number };
+  caretCoordinates: { top: number; left: number };
 }
 
 @Component({
   selector: 'te-mention-portal',
   templateUrl: './te-mention-portal.component.html',
   styleUrl: './te-mention-portal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeMentionPortalComponent implements OnInit, OnDestroy {
-
   public static PORTAL_MAX_WIDTH = 400;
   public static PORTAL_MAX_HEIGHT = 300;
 
@@ -45,31 +44,30 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
   hoveredIndex: number = 0;
   private listener: () => void;
 
-  constructor(private overlayRef: FlOverlayRef,
-              private renderer: Renderer2,
-              private changeDetectorRef: ChangeDetectorRef) {
-  }
+  constructor(
+    private overlayRef: FlOverlayRef,
+    private renderer: Renderer2,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.users$ = new FlEntityPaginatedDatasource(
-      (page, pageSize, requestData) =>
-        this.input.config.getUsers(requestData, page, pageSize),
-      20, false);
+      (page, pageSize, requestData) => this.input.config.getUsers(requestData, page, pageSize),
+      20,
+      false
+    );
 
     this.input.filter$.subscribe({
       next: (value: string) => {
         this.hoveredIndex = 0;
         this.users$.getFirstPage({ text: value });
       },
-      complete: () => this.overlayRef.dispose()
+      complete: () => this.overlayRef.dispose(),
     });
 
-    this.listener = this.renderer.listen(this.input.element, 'keydown',
-      (event) => this.onKeydown(event));
+    this.listener = this.renderer.listen(this.input.element, 'keydown', (event) => this.onKeydown(event));
 
-    this.users$.connect().subscribe(
-      () => this.recalculatePortalPosition()
-    );
+    this.users$.connect().subscribe(() => this.recalculatePortalPosition());
   }
 
   selectHoveredUser(): void {
@@ -129,5 +127,4 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
       this.listener();
     }
   }
-
 }

@@ -8,9 +8,8 @@ describe('TeTextEditorHistoryModificationGroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTextEditorHistoryModificationGroupComponent]
-    })
-    .compileComponents();
+      declarations: [TeTextEditorHistoryModificationGroupComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTextEditorHistoryModificationGroupComponent);
     component = fixture.componentInstance;

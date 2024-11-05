@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlTextIconComponent} from './fl-text-icon.component';
+import { FlTextIconComponent } from './fl-text-icon.component';
 
 describe('LibTextIconComponent', () => {
   let component: FlTextIconComponent;
@@ -8,9 +8,8 @@ describe('LibTextIconComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlTextIconComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTextIconComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

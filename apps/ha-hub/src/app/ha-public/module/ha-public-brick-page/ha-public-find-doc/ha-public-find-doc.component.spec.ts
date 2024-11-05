@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {HaPublicFindDocComponent} from './ha-public-find-doc.component';
+import { HaPublicFindDocComponent } from './ha-public-find-doc.component';
 
 describe('HaPublicFindDocDialogComponent', () => {
   let component: HaPublicFindDocComponent;
@@ -8,9 +8,8 @@ describe('HaPublicFindDocDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaPublicFindDocComponent]
-    })
-      .compileComponents();
+      declarations: [HaPublicFindDocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

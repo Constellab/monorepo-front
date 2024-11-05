@@ -4,7 +4,7 @@ import {
   labConvertTransformFormToParams,
   LabTransformerParams,
   LabTransformerWithConfig,
-  LabTransformForm
+  LabTransformForm,
 } from '../../../../model/global/lab-transformer.class';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
@@ -26,24 +26,24 @@ export interface LabTransformResourcePortalInput {
 @Component({
   selector: 'lab-transform-resource-portal',
   templateUrl: './lab-transform-resource-portal.component.html',
-  styleUrls: ['./lab-transform-resource-portal.component.scss']
+  styleUrls: ['./lab-transform-resource-portal.component.scss'],
 })
 export class LabTransformResourcePortalComponent {
-
   resourceTypingName: string;
 
   resourceName: string;
 
   formGp = new FormBuilder().group({
-    transformers: LabTransformResourceComponent.buildFormArray(
-      this.input.currentTransformers, 1)
+    transformers: LabTransformResourceComponent.buildFormArray(this.input.currentTransformers, 1),
   });
   isLoading: boolean = false;
 
-  constructor(@Inject(FL_PORTAL_DATA) private input: LabTransformResourcePortalInput,
-              private resourceService: LabResourceService,
-              private overlayRef: FlOverlayRef,
-              private routerService: LabRouterService) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) private input: LabTransformResourcePortalInput,
+    private resourceService: LabResourceService,
+    private overlayRef: FlOverlayRef,
+    private routerService: LabRouterService
+  ) {
     this.resourceTypingName = input.resourceTypingName;
     this.resourceName = input.resourceName;
   }
@@ -60,8 +60,8 @@ export class LabTransformResourcePortalComponent {
     const transformers: LabTransformerParams[] = labConvertTransformFormToParams(formValue);
     this.isLoading = true;
     this.resourceService.transformResource(transformers, this.input.resourceId).subscribe({
-      next: scenario => this.onTransformSuccess(scenario),
-      error: () => this.isLoading = false
+      next: (scenario) => this.onTransformSuccess(scenario),
+      error: () => (this.isLoading = false),
     });
   }
 

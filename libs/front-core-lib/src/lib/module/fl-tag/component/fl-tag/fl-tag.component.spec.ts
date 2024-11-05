@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlTagComponent} from './fl-tag.component';
+import { FlTagComponent } from './fl-tag.component';
 
 describe('FlTagComponent', () => {
   let component: FlTagComponent;
@@ -8,9 +8,8 @@ describe('FlTagComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlTagComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTagComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

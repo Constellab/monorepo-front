@@ -17,9 +17,7 @@ import { PrProcess, prProcessStatusDict } from '../pr-process.class';
 import { PrWorkflowNode } from '../node/pr-workflow-node.class';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
-
 export class PrWorkflowFactory {
-
   /**
    * Object to store the match between the PrProcess and the PrProtocol
    * key is the process id, value is the PrProtocol
@@ -27,11 +25,13 @@ export class PrWorkflowFactory {
    */
   private conversionMatch: Record<string, PrProtocol> = {};
 
-  constructor(private graph: PrProtocolGraph, private id: string,
-              private ngZone: NgZone,
-              private resourceState: PrWorkflowResourcesState,
-              private actionState: PrWorkflowActionState) {
-  }
+  constructor(
+    private graph: PrProtocolGraph,
+    private id: string,
+    private ngZone: NgZone,
+    private resourceState: PrWorkflowResourcesState,
+    private actionState: PrWorkflowActionState
+  ) {}
 
   public createWorkflow(): PrWorkflow {
     let rootLayer = PrWorkflowLayer.rootLayer(this.id, this.resourceState, this.actionState);
@@ -41,11 +41,15 @@ export class PrWorkflowFactory {
     return new PrWorkflow(rootLayer, 'readOnly', this.ngZone);
   }
 
-  private createSubLayer(graph: PrProtocolGraph, id: string, instanceName: string, title: string): PrWorkflowLayer {
+  private createSubLayer(
+    graph: PrProtocolGraph,
+    id: string,
+    instanceName: string,
+    title: string
+  ): PrWorkflowLayer {
     const layer = new PrWorkflowLayer(id, id, instanceName, title, this.resourceState, this.actionState);
     return this.createLayerObjects(layer, graph);
   }
-
 
   private createLayerObjects(layer: PrWorkflowLayer, graph: PrProtocolGraph): PrWorkflowLayer {
     const layout: PrProtocolLayout = graph.layout;
@@ -62,7 +66,7 @@ export class PrWorkflowFactory {
         fromNode: link.from.node,
         toNode: link.to.node,
         fromPort: link.from.port,
-        toPort: link.to.port
+        toPort: link.to.port,
       });
     }
 
@@ -83,21 +87,43 @@ export class PrWorkflowFactory {
     return layer;
   }
 
-  private createProcessNode(process: PrProtocol, name: string, protocolId: string,
-                            layout?: FlCoord): PrWorkflowNode {
+  private createProcessNode(
+    process: PrProtocol,
+    name: string,
+    protocolId: string,
+    layout?: FlCoord
+  ): PrWorkflowNode {
     const prProcess = this.caProcessToPrProcess(process, name, protocolId);
     this.conversionMatch[prProcess.id] = process;
 
     let processNode: PrWorkflowNode;
     if (process.process_typing_name === TdTypingName.task.source.typingName) {
-      processNode = new PrWorkflowNodeSource(prProcess.instanceName, protocolId, prProcess,
-        false, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeSource(
+        prProcess.instanceName,
+        protocolId,
+        prProcess,
+        false,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.process_typing_name === TdTypingName.task.output.typingName) {
-      processNode = new PrWorkflowNodeOutput(prProcess.instanceName, protocolId, prProcess,
-        false, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeOutput(
+        prProcess.instanceName,
+        protocolId,
+        prProcess,
+        false,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.process_typing_name === TdTypingName.task.viewer) {
-      processNode = new PrWorkflowNodeViewer(prProcess.instanceName, protocolId, prProcess,
-        false, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeViewer(
+        prProcess.instanceName,
+        protocolId,
+        prProcess,
+        false,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.graph != null) {
       const layer: () => Observable<PrWorkflowLayer> = () =>
         of(this.createSubLayer(process.graph, prProcess.id, prProcess.instanceName, name));
@@ -127,7 +153,7 @@ export class PrWorkflowFactory {
       typeStatus: null,
       processType: process.process_type,
       isProtocol: process.graph != null,
-      style: process.style ?? tdTypeStyleDefault
+      style: process.style ?? tdTypeStyleDefault,
     };
   }
 

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaAdminCloudProviderRegionTableComponent} from './ca-admin-cloud-provider-region-table.component';
+import { CaAdminCloudProviderRegionTableComponent } from './ca-admin-cloud-provider-region-table.component';
 
 describe('CaCloudProviderRegionTableComponent', () => {
   let component: CaAdminCloudProviderRegionTableComponent;
@@ -8,9 +8,8 @@ describe('CaCloudProviderRegionTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaAdminCloudProviderRegionTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaAdminCloudProviderRegionTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaAdminCloudProviderRegionTableComponent);
     component = fixture.componentInstance;

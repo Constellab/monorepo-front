@@ -1,6 +1,6 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlInfiniteLoadMoreResultComponent} from './fl-infinite-load-more-result.component';
+import { FlInfiniteLoadMoreResultComponent } from './fl-infinite-load-more-result.component';
 
 describe('LoadMoreResultComponent', () => {
   let component: FlInfiniteLoadMoreResultComponent;
@@ -8,9 +8,8 @@ describe('LoadMoreResultComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlInfiniteLoadMoreResultComponent ]
-    })
-    .compileComponents();
+      declarations: [FlInfiniteLoadMoreResultComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

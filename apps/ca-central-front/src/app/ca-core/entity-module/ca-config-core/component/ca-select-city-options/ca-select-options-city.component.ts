@@ -1,22 +1,26 @@
-import {AfterViewInit, Component, Host, OnInit} from '@angular/core';
-import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {CaCountry} from '../../../../model/entities/ca-country.entity';
-import {CaCountryService} from '../../../../service-api/ca-country.service';
-import {MatSelect} from '@angular/material/select';
+import { AfterViewInit, Component, Host, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { CaCountry } from '../../../../model/entities/ca-country.entity';
+import { CaCountryService } from '../../../../service-api/ca-country.service';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'ca-select-city-options',
   templateUrl: './ca-select-options-city.component.html',
-  styleUrls: ['./ca-select-options-city.component.scss']
+  styleUrls: ['./ca-select-options-city.component.scss'],
 })
-export class CaSelectOptionsCityComponent extends FlEmbeddedOptionsAbstractDirective implements OnInit, AfterViewInit {
-
+export class CaSelectOptionsCityComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit
+{
   countries: CaCountry[];
 
   isLoading: boolean = false;
 
-  constructor(private countryService: CaCountryService,
-              @Host() private select: MatSelect) {
+  constructor(
+    private countryService: CaCountryService,
+    @Host() private select: MatSelect
+  ) {
     super(select);
   }
 
@@ -28,8 +32,8 @@ export class CaSelectOptionsCityComponent extends FlEmbeddedOptionsAbstractDirec
   private getCountries(): void {
     this.isLoading = true;
     this.countryService.get().subscribe(
-      countries => this.getCountriesSuccess(countries),
-      () => this.isLoading = false
+      (countries) => this.getCountriesSuccess(countries),
+      () => (this.isLoading = false)
     );
   }
 
@@ -41,5 +45,4 @@ export class CaSelectOptionsCityComponent extends FlEmbeddedOptionsAbstractDirec
   ngAfterViewInit(): void {
     this.initOptions();
   }
-
 }

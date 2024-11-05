@@ -1,10 +1,10 @@
-import {CaEntity} from './ca-entity.entity';
-import {Type} from 'class-transformer';
-import {ClVersion} from '@monorepo/core-lib';
+import { CaEntity } from './ca-entity.entity';
+import { Type } from 'class-transformer';
+import { ClVersion } from '@monorepo/core-lib';
 
 export enum CaRepoType {
   PIP = 'PIP',
-  GIT = 'GIT'
+  GIT = 'GIT',
 }
 
 /**
@@ -12,7 +12,6 @@ export enum CaRepoType {
  * A lab is configured with multiple bricks
  */
 export class CaBrick extends CaEntity {
-
   name: string;
 
   pipRepo: string;
@@ -23,16 +22,15 @@ export class CaBrick extends CaEntity {
 export enum CaVersionState {
   STABLE = 'STABLE',
   LATEST = 'LATEST',
-  NEXT = 'NEXT'
+  NEXT = 'NEXT',
 }
 
 export enum CaVersionType {
   NORMAL = 'NORMAL',
-  BETA = 'BETA'
+  BETA = 'BETA',
 }
 
 export class CaBrickVersion extends CaEntity {
-
   version: string;
 
   versionState: CaVersionState;
@@ -50,7 +48,6 @@ export class CaBrickVersion extends CaEntity {
 }
 
 export class CaBrickVersionComplete extends CaBrickVersion {
-
   @Type(() => CaBrick)
   brick: CaBrick;
 }

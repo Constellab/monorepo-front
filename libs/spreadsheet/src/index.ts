@@ -66,7 +66,6 @@ export * from './lib/model/sp-sheet-headers.class';
 export * from './lib/model/sp-spreadsheet.class';
 export * from './lib/model/sp-spreadsheet-page.class';
 
-
 // Export the utils
 export * from './lib/utils/sp-spreadsheet.factory';
 export * from './lib/utils/sp-spreadsheet.helper';

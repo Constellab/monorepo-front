@@ -7,18 +7,23 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { TAB } from '@angular/cdk/keycodes';
 import { UntypedFormControl } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlTagKeyModel, FlTagSearchFilter, FlTagService, FlTagValue, FlTagValueModel } from '../../fl-tag.class';
+import {
+  FlTagKeyModel,
+  FlTagSearchFilter,
+  FlTagService,
+  FlTagValue,
+  FlTagValueModel,
+} from '../../fl-tag.class';
 import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
 import { FlEntityPaginatedDatasource } from '../../../../model/datasource/fl-entity-datasource.class';
 import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
 
 export interface FlAddTagEvent {
   key: string;
@@ -40,10 +45,9 @@ type FlTagMode = 'key' | 'value';
   selector: 'fl-add-tag-input',
   templateUrl: './fl-add-tag-input.component.html',
   styleUrls: ['./fl-add-tag-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlAddTagInputComponent implements OnInit, OnDestroy {
-
   @Input() searchDebounceTime: number = 300;
 
   @Input() label: string = 'flTag.tags';
@@ -71,23 +75,19 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private tagService: FlTagService) {
-  }
+  constructor(private tagService: FlTagService) {}
 
   // TODO TO TEST
   ngOnInit(): void {
     this.filteredOptions = new FlEntityPaginatedDatasource<any, FlTagSearchFilter>(
       (page, size, filter) => this.tagService.searchTag(filter.filtersCriteria, page, size),
-      20, false
+      20,
+      false
     );
 
-    combineLatest([
-      this.inputCtrl.valueChanges.pipe(startWith('')),
-      this.mode$.asObservable()
-    ]).pipe(
-      debounceTime(this.searchDebounceTime)
-    ).subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
-
+    combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])
+      .pipe(debounceTime(this.searchDebounceTime))
+      .subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
   }
 
   private loadPage(inputText: string, mode: FlTagMode): void {
@@ -143,7 +143,6 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   private addChip(value: any): void {
     if (!value) return;
     if (this.mode$.value === 'value') {
-
       let tagValue: FlTagValue;
       if (typeof value === 'string') {
         tagValue = value;
@@ -153,7 +152,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       this.addTag.emit({
         key: this.currentTagKey.key,
         value: tagValue,
-        defaultIsPropagable: this.currentTagKey.defaultIsPropagable
+        defaultIsPropagable: this.currentTagKey.defaultIsPropagable,
       });
 
       this.switchMode('key');
@@ -162,7 +161,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
         // create a new tag key
         this.currentTagKey = { key: value, defaultIsPropagable: false };
       } else {
-        const key: FlTagKeyModel = (value as FlTagKeyModel);
+        const key: FlTagKeyModel = value as FlTagKeyModel;
         // find the selected tag and save it
         this.currentTagKey = { key: key.key, defaultIsPropagable: key.isPropagable };
       }

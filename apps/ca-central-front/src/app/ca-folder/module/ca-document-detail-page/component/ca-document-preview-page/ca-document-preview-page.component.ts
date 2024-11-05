@@ -11,26 +11,24 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ca-document-preview-page',
   templateUrl: './ca-document-preview-page.component.html',
-  styleUrl: './ca-document-preview-page.component.scss'
+  styleUrl: './ca-document-preview-page.component.scss',
 })
 export class CaDocumentPreviewPageComponent implements OnInit {
-
   documentPreview$: Observable<SafeUrl>;
 
-  constructor(private folderService: CaFolderService,
-              private route: ActivatedRoute,
-              private sanitizer: DomSanitizer) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit(): void {
-    this.documentPreview$ = this.route.params.pipe(
-      mergeMap(params => this.init(params.id))
-    );
+    this.documentPreview$ = this.route.params.pipe(mergeMap((params) => this.init(params.id)));
   }
 
   private init(id: string): Observable<SafeUrl> {
-    return this.folderService.generateDocumentPreview(id).pipe(
-      map(preview => this.sanitizer.bypassSecurityTrustResourceUrl(preview.previewUrl))
-    );
+    return this.folderService
+      .generateDocumentPreview(id)
+      .pipe(map((preview) => this.sanitizer.bypassSecurityTrustResourceUrl(preview.previewUrl)));
   }
 }

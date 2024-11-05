@@ -14,12 +14,11 @@ import { FlApiErrorService } from './fl-api-error.service';
  */
 @Injectable()
 export class FlApiService {
-
-
-  constructor(protected http: HttpClient,
-              private configService: FlApiServiceConfig,
-              private flErrorService: FlApiErrorService) {
-  }
+  constructor(
+    protected http: HttpClient,
+    private configService: FlApiServiceConfig,
+    private flErrorService: FlApiErrorService
+  ) {}
 
   /**
    * HTTP GET. Get a single element with the id.
@@ -29,13 +28,16 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public getById(route: string, id: string, classReference?: ClDeserializationRef,
-                 options: FlHttpOption = {}): Observable<any> {
-
+  public getById(
+    route: string,
+    id: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     return this.http.get(this.getUrlForId(route, id, options.overrideApiUrl), options).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
   }
 
@@ -45,15 +47,16 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public get(route: string, classReference?: ClDeserializationRef,
-             options: FlHttpOption = {}): Observable<any> {
+  public get(
+    route: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     return this.http.get(this.getUrl(route, options), options).pipe(
-      catchError(err =>
-        this.catchError(err, options)
-      ),
-      map(result => {
-        return this.deserialize(result, classReference, options.resultIsPaginated)
+      catchError((err) => this.catchError(err, options)),
+      map((result) => {
+        return this.deserialize(result, classReference, options.resultIsPaginated);
       })
     );
   }
@@ -65,17 +68,19 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public put(route: string, body: any, classReference?: ClDeserializationRef,
-             options: FlHttpOption = {}): Observable<any> {
+  public put(
+    route: string,
+    body: any,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.put(
-      this.getUrl(route, options),
-      this.convertObjectToPlain(body, options.serialization),
-      options
-    ).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
-    );
+    return this.http
+      .put(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .pipe(
+        catchError((err) => this.catchError(err, options)),
+        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+      );
   }
 
   /**
@@ -85,17 +90,19 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public patch(route: string, body: any, classReference?: ClDeserializationRef,
-               options: FlHttpOption = {}): Observable<any> {
+  public patch(
+    route: string,
+    body: any,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.patch(
-      this.getUrl(route, options),
-      this.convertObjectToPlain(body, options.serialization),
-      options
-    ).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
-    );
+    return this.http
+      .patch(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .pipe(
+        catchError((err) => this.catchError(err, options)),
+        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+      );
   }
 
   /**
@@ -105,17 +112,19 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public post(route: string, body: any, classReference?: ClDeserializationRef,
-              options: FlHttpOption = {}): Observable<any> {
+  public post(
+    route: string,
+    body: any,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
-    return this.http.post(
-      this.getUrl(route, options),
-      this.convertObjectToPlain(body, options.serialization),
-      options
-    ).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
-    );
+    return this.http
+      .post(this.getUrl(route, options), this.convertObjectToPlain(body, options.serialization), options)
+      .pipe(
+        catchError((err) => this.catchError(err, options)),
+        map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
+      );
   }
 
   /**
@@ -126,12 +135,16 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public deleteById(route: string, id: string, classReference?: ClDeserializationRef,
-                    options: FlHttpOption = {}): Observable<any> {
+  public deleteById(
+    route: string,
+    id: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     return this.http.delete(this.getUrlForId(route, id, options.overrideApiUrl), options).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
   }
 
@@ -141,12 +154,15 @@ export class FlApiService {
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public delete(route: string, classReference?: ClDeserializationRef,
-                options: FlHttpOption = {}): Observable<any> {
+  public delete(
+    route: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): Observable<any> {
     options.headers = this.mergeHeader(options.headers);
     return this.http.delete(this.getUrl(route, options), options).pipe(
-      catchError(err => this.catchError(err, options)),
-      map(result => this.deserialize(result, classReference, options.resultIsPaginated))
+      catchError((err) => this.catchError(err, options)),
+      map((result) => this.deserialize(result, classReference, options.resultIsPaginated))
     );
   }
 
@@ -157,20 +173,19 @@ export class FlApiService {
    * @param directDownload if true, the file is directly downloaded on users' computer
    * @param options custom http options
    */
-  public downloadFile(route: string, filename ?: string,
-                      directDownload: boolean = true,
-                      options: FlHttpOption = {}): Observable<Blob> {
+  public downloadFile(
+    route: string,
+    filename?: string,
+    directDownload: boolean = true,
+    options: FlHttpOption = {}
+  ): Observable<Blob> {
     options.headers = this.mergeHeader(options.headers);
     options.responseType = 'blob';
-    return this.http.get(
-      this.getUrl(route),
-      options
-    ).pipe(
-      tap(file => this.downloadFileSuccess(file as Blob, filename, directDownload)),
-      catchError(err => this.catchError(err, options)),
+    return this.http.get(this.getUrl(route), options).pipe(
+      tap((file) => this.downloadFileSuccess(file as Blob, filename, directDownload)),
+      catchError((err) => this.catchError(err, options))
     ) as Observable<Blob>;
   }
-
 
   /**
    * Call HTTP Post request that returns a file.
@@ -180,18 +195,18 @@ export class FlApiService {
    * @param directDownload if true, the file is directly downloaded on users' computer
    * @param options custom http options
    */
-  public downloadFilePost(route: string, body: any, filename ?: string,
-                          directDownload: boolean = true,
-                          options: FlHttpOption = {}): Observable<Blob> {
+  public downloadFilePost(
+    route: string,
+    body: any,
+    filename?: string,
+    directDownload: boolean = true,
+    options: FlHttpOption = {}
+  ): Observable<Blob> {
     options.headers = this.mergeHeader(options.headers);
     options.responseType = 'blob';
-    return this.http.post(
-      this.getUrl(route),
-      this.convertObjectToPlain(body),
-      options
-    ).pipe(
-      tap(file => this.downloadFileSuccess(file as Blob, filename, directDownload)),
-      catchError(err => this.catchError(err, options)),
+    return this.http.post(this.getUrl(route), this.convertObjectToPlain(body), options).pipe(
+      tap((file) => this.downloadFileSuccess(file as Blob, filename, directDownload)),
+      catchError((err) => this.catchError(err, options))
     ) as Observable<Blob>;
   }
 
@@ -203,7 +218,6 @@ export class FlApiService {
    */
   public deserialize(json: any, classReference: ClDeserializationRef, isPaginated: boolean = false): any {
     if (json && classReference) {
-
       try {
         if (isPaginated) {
           // deserialize page
@@ -247,7 +261,6 @@ export class FlApiService {
       if (options.pageSize != null) {
         fullRoute += `${firstCharacter}${this.configService.pageSizeQueryParam}=${options.pageSize}`;
       }
-
     }
     return fullRoute;
   }
@@ -284,7 +297,6 @@ export class FlApiService {
     return (overrideApiUrl == null ? this.configService.getApiUrl() : overrideApiUrl) + route;
   }
 
-
   // download the file to the user's computer is direct download is set to true
   private downloadFileSuccess(file: Blob, filename: string, directDownload: boolean): void {
     if (directDownload) {
@@ -298,7 +310,7 @@ export class FlApiService {
 
     if (headers != null) {
       // append the header of the request
-      headers.keys().map(key => ((headers as any)[key] = headers.get(key)));
+      headers.keys().map((key) => ((headers as any)[key] = headers.get(key)));
     }
 
     if (Object.keys(headerObject).length === 0) return null;
@@ -325,19 +337,31 @@ export class FlApiService {
     // read the error from the blob response
     return FlFileHelper.readBlobContent(response.error, true).pipe(
       // create an new HttpErrorResponse object with the error from the blob
-      mergeMap((error: any) => this.callHandleServerError(Object.assign({}, response, {error: error}), options))
+      mergeMap((error: any) =>
+        this.callHandleServerError(Object.assign({}, response, { error: error }), options)
+      )
     );
   }
 
-  private callHandleServerError(errorResponse: HttpErrorResponse, httpOptions: FlHttpOption = {}): Observable<never> {
-    return this.flErrorService.handleServerError(errorResponse, httpOptions.hideSnackBarError,
-      httpOptions.errorSnackBarDuration, httpOptions.defaultError);
+  private callHandleServerError(
+    errorResponse: HttpErrorResponse,
+    httpOptions: FlHttpOption = {}
+  ): Observable<never> {
+    return this.flErrorService.handleServerError(
+      errorResponse,
+      httpOptions.hideSnackBarError,
+      httpOptions.errorSnackBarDuration,
+      httpOptions.defaultError
+    );
   }
 
   /**
    * Convert the classes or object to plain json object
    */
-  private convertObjectToPlain(object: any, serializationOption: FlHttpOptionSerialization = 'classToPlain'): any {
+  private convertObjectToPlain(
+    object: any,
+    serializationOption: FlHttpOptionSerialization = 'classToPlain'
+  ): any {
     if (object instanceof FormData || serializationOption === 'none') {
       return object;
     }
@@ -351,7 +375,6 @@ export class FlApiService {
       } else {
         return JSON.stringify(object);
       }
-
     } catch (e) {
       console.error('Error while serializing object before api call', object);
       throw e;

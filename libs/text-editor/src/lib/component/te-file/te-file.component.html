@@ -1,18 +1,21 @@
 @if (fileUrl) {
-  <div class="g-layout-row g-layout-start-center g-layout-gap-05em file-container"
-       (click)="openDocumentPreview()">
+  <div
+    class="g-layout-row g-layout-start-center g-layout-gap-05em file-container"
+    (click)="openDocumentPreview()">
     <fl-file-text-icon [filename]="data.name"></fl-file-text-icon>
     <div class="g-text-light">{{ data.size | flByteText }}</div>
   </div>
 } @else {
   <fl-input-file-container color="primary" *ngIf="!uploadIsLoading" class="file-input-container">
-    <input flInputFile type="file" [autoClearHtmlInput]="true" [disabled]="disabled"
-           (fileChange)="onFileSelected($any($event))">
+    <input
+      flInputFile
+      type="file"
+      [autoClearHtmlInput]="true"
+      [disabled]="disabled"
+      (fileChange)="onFileSelected($any($event))" />
   </fl-input-file-container>
 
   <div class="g-text-centered" *ngIf="uploadIsLoading">
     <fl-loader size="medium"></fl-loader>
   </div>
 }
-
-

@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Store the subject for a group and how many are registered to it
@@ -14,9 +14,8 @@ interface GroupSelected {
  * When two components are in the same group they can't be activated at the same time. An activation
  * deactivate other components (like radio button)
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SpSpreadsheetSelectionListenerManagerService {
-
   private groups: Map<string, GroupSelected> = new Map();
 
   public unregisterListener(group: string): void {
@@ -44,7 +43,7 @@ export class SpSpreadsheetSelectionListenerManagerService {
    */
   public subscribeToSelection(group: string): Observable<symbol> {
     if (!this.groups.has(group)) {
-      this.groups.set(group, {count: 1, subject: new Subject()});
+      this.groups.set(group, { count: 1, subject: new Subject() });
     } else {
       this.groups.get(group).count++;
     }

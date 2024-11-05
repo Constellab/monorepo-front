@@ -1,19 +1,18 @@
-<form [formGroup]="formGp" (ngSubmit)="submit()"
-      class="g-layout-row g-layout-start-center g-layout-gap-1em">
+<form [formGroup]="formGp" (ngSubmit)="submit()" class="g-layout-row g-layout-start-center g-layout-gap-1em">
   <!--    Filter by name    -->
   <mat-form-field class="g-form-field-compact-height name-search" subscriptSizing="dynamic">
     <mat-label>{{ 'name' | translate }}</mat-label>
-    <input matInput [placeholder]="'name' | translate" formControlName="name">
+    <input matInput [placeholder]="'name' | translate" formControlName="name" />
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
-
 
   <!--   Filter by object type     -->
   <mat-form-field class="g-form-field-compact-height" subscriptSizing="dynamic">
     <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
-    <mat-select formControlName="objectType"
-                panelClass="g-mat-select-panel-no-max-height"
-                [placeholder]="'folder_object_type' | translate">
+    <mat-select
+      formControlName="objectType"
+      panelClass="g-mat-select-panel-no-max-height"
+      [placeholder]="'folder_object_type' | translate">
       @if (typeIsSelected()) {
         <mat-select-trigger>
           {{ getSelectedTypeLabel() | translate }}
@@ -39,5 +38,4 @@
   </mat-form-field>
 
   <ca-user-list-inline [users$]="users$" formControlName="users"></ca-user-list-inline>
-
 </form>

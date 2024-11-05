@@ -21,24 +21,14 @@ import { CaLabFreeInfoComponent } from './component/ca-lab-free-info/ca-lab-free
 import { CaLabFreeFormDialogComponent } from './component/ca-lab-free-form-dialog/ca-lab-free-form-dialog.component';
 import { CaFolderCoreModule } from '../ca-folder-core/ca-folder-core.module';
 import { CaLabFreeCardInfoComponent } from './component/ca-lab-free-card-info/ca-lab-free-card-info.component';
-import {
-  CaLabFreeCreateButtonComponent
-} from './component/ca-lab-free-create-button/ca-lab-free-create-button.component';
-import {
-  CaLabBackupHistoryTableComponent
-} from './component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
+import { CaLabFreeCreateButtonComponent } from './component/ca-lab-free-create-button/ca-lab-free-create-button.component';
+import { CaLabBackupHistoryTableComponent } from './component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
 import { CaSelectLabComponent } from './component/ca-select-lab/ca-select-lab.component';
 import { CaLabInlineComponent } from './component/ca-lab-inline/ca-lab-inline.component';
-import {
-  CaLabFreeAdminFormDialogComponent
-} from './component/ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
+import { CaLabFreeAdminFormDialogComponent } from './component/ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
-import {
-  CaLabBackupHistoryDetailComponent
-} from './component/ca-lab-backup-history-detail/ca-lab-backup-history-detail.component';
-import {
-  CaLabBackupHistoryDetailPortalComponent
-} from './component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
+import { CaLabBackupHistoryDetailComponent } from './component/ca-lab-backup-history-detail/ca-lab-backup-history-detail.component';
+import { CaLabBackupHistoryDetailPortalComponent } from './component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
 import { CaLabBackupHistoryDetailPortalDirective } from './directive/ca-lab-backup-history-detail-portal.directive';
 
 /**
@@ -67,7 +57,7 @@ import { CaLabBackupHistoryDetailPortalDirective } from './directive/ca-lab-back
     CaLabFreeAdminFormDialogComponent,
     CaLabBackupHistoryDetailComponent,
     CaLabBackupHistoryDetailPortalDirective,
-    CaLabBackupHistoryDetailPortalComponent
+    CaLabBackupHistoryDetailPortalComponent,
   ],
   exports: [
     CaLabCardComponent,
@@ -87,7 +77,7 @@ import { CaLabBackupHistoryDetailPortalDirective } from './directive/ca-lab-back
     CaSelectLabComponent,
     CaLabInlineComponent,
     CaLabBackupHistoryDetailComponent,
-    CaLabBackupHistoryDetailPortalComponent
+    CaLabBackupHistoryDetailPortalComponent,
   ],
   imports: [
     CommonModule,
@@ -103,8 +93,7 @@ import { CaLabBackupHistoryDetailPortalDirective } from './directive/ca-lab-back
     CaCoreModule,
     CaFolderCoreModule,
     CaObjectStorageCoreModule,
-    NgOptimizedImage
-  ]
+    NgOptimizedImage,
+  ],
 })
-export class CaLabCoreModule {
-}
+export class CaLabCoreModule {}

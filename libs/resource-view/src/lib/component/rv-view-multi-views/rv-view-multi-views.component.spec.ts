@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewMultiViewsComponent} from './rv-view-multi-views.component';
+import { RvViewMultiViewsComponent } from './rv-view-multi-views.component';
 
 describe('BioxResourceMultiViewComponent', () => {
   let component: RvViewMultiViewsComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceMultiViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvViewMultiViewsComponent ]
-    })
-    .compileComponents();
+      declarations: [RvViewMultiViewsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

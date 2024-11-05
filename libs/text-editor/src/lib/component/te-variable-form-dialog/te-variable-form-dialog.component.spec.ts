@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TeVariableFormDialogComponent} from './te-variable-form-dialog.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TeVariableFormDialogComponent } from './te-variable-form-dialog.component';
 
 describe('TeVariableFormComponent', () => {
   let component: TeVariableFormDialogComponent;

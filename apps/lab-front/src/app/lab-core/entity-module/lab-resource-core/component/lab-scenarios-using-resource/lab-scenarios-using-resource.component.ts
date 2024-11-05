@@ -9,18 +9,16 @@ import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/l
 @Component({
   selector: 'lab-scenarios-using-resource',
   templateUrl: './lab-scenarios-using-resource.component.html',
-  styleUrls: ['./lab-scenarios-using-resource.component.scss']
+  styleUrls: ['./lab-scenarios-using-resource.component.scss'],
 })
 export class LabScenariosUsingResourceComponent implements OnInit {
-
   @Input() resourceId: string;
 
   datasource: LabScenarioDatasource;
 
   columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status'];
 
-  constructor(private scenarioService: LabScenarioService) {
-  }
+  constructor(private scenarioService: LabScenarioService) {}
 
   ngOnInit(): void {
     this.getDatasource();
@@ -28,8 +26,7 @@ export class LabScenariosUsingResourceComponent implements OnInit {
 
   public getDatasource(): void {
     this.datasource = new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.scenarioService.getByInputResource(this.resourceId,
-        page, pageSize),
+      (page, pageSize) => this.scenarioService.getByInputResource(this.resourceId, page, pageSize),
       5
     );
   }

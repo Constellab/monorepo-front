@@ -7,10 +7,9 @@ import { Type } from 'class-transformer';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { CoBrick } from '@monorepo/community-lib';
 
-
 export enum HaBrickVisibility {
   PRIVATE = 'private',
-  PUBLIC = 'public'
+  PUBLIC = 'public',
 }
 
 export class HaBrick extends HaEntity implements CoBrick {
@@ -59,7 +58,6 @@ export class HaBrickCreationDTO {
   space?: HaSpace;
   imageLink?: string;
 }
-
 
 export class HaEditBrickDTO {
   id: string;

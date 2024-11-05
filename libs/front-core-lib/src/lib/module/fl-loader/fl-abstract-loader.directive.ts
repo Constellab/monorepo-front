@@ -1,4 +1,4 @@
-import {Directive, Input} from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 /**
  * Abstract directive for loader component, the size can be set with the input or set with CSS. If you
@@ -17,7 +17,6 @@ import {Directive, Input} from '@angular/core';
 @Directive()
 export class FlAbstractLoaderDirective {
   @Input() size: 'small' | 'medium' | 'large' | 'extra-large' | number = 'medium';
-
 
   get sizeInPixel(): number {
     switch (this.size) {

@@ -1,25 +1,22 @@
-import {FlBasicCell, SpCell} from './sp-cell.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {debounceTime, map} from 'rxjs/operators';
-import {SpCellCoord} from './sp-cell-coord.class';
+import { FlBasicCell, SpCell } from './sp-cell.class';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { SpCellCoord } from './sp-cell-coord.class';
 import {
   SpSheetColumnSortDirection,
   SpSheetHeader,
   SpSheetHeaderInfo,
   SpSheetHeaderInfoInput,
   SpSheetHeaders,
-  SpSheetRow
+  SpSheetRow,
 } from './sp-sheet-headers.class';
-import {SpSpreadsheetHelper} from '../utils/sp-spreadsheet.helper';
-
+import { SpSpreadsheetHelper } from '../utils/sp-spreadsheet.helper';
 
 /**
  * Class to manage one sheet of a spreadsheet
  * It contains and manage all the cells of the sheet
  */
 export class SpSheet {
-
-
   private static idGenerator: number = 0;
   public id: number;
 
@@ -154,9 +151,7 @@ export class SpSheet {
   }
 
   public getColumnsCount$(): Observable<number> {
-    return this.columnsChanged.asObservable().pipe(
-      debounceTime(50)
-    );
+    return this.columnsChanged.asObservable().pipe(debounceTime(50));
   }
 
   public findColumnIndex(name: string): number {
@@ -199,7 +194,7 @@ export class SpSheet {
             index: i,
             name: columnInfo.name,
             tags: columnInfo.tags,
-            sort: columnInfo.sort
+            sort: columnInfo.sort,
           });
         }
         return columns;
@@ -313,14 +308,12 @@ export class SpSheet {
   }
 
   public getRowsCount$(): Observable<number> {
-    return this.rowsChanged.asObservable().pipe(
-      debounceTime(50)
-    );
+    return this.rowsChanged.asObservable().pipe(debounceTime(50));
   }
 
   public getRows$(): Observable<SpSheetRow[]> {
     return this.getRowsCount$().pipe(
-      map(count => {
+      map((count) => {
         const rows: SpSheetRow[] = [];
 
         for (let i = 0; i < count; i++) {
@@ -347,7 +340,7 @@ export class SpSheet {
     this.appendMultipleRows(data.length, false);
 
     // set cell values
-    this.setValuesFromCoord(data, {row: fromRowIndex, column: 0});
+    this.setValuesFromCoord(data, { row: fromRowIndex, column: 0 });
     // set row info
     this.rows.setInfoFromIndex(rowInfos, fromRowIndex);
   }
@@ -360,7 +353,7 @@ export class SpSheet {
     this.insertMultipleRows(0, data.length - 1, false);
 
     // set cell values
-    this.setValuesFromCoord(data, {row: 0, column: 0});
+    this.setValuesFromCoord(data, { row: 0, column: 0 });
     // set row info
     this.rows.setInfoFromIndex(rowInfos, 0);
 
@@ -408,7 +401,6 @@ export class SpSheet {
 
   /////////////////////////////////// ROWS HEADER /////////////////////
 
-
   public getRowInfo(rowIndex: number): SpSheetHeaderInfo {
     return this.rows.getInfo(rowIndex);
   }
@@ -418,7 +410,6 @@ export class SpSheet {
   }
 
   ////////////////////////////// CELL ///////////////////////////////
-
 
   private insertCell(rowIndex: number, columnIndex: number): void {
     this.cells[rowIndex].splice(columnIndex, 0, new FlBasicCell());
@@ -431,14 +422,13 @@ export class SpSheet {
     );
   }
 
-
   private emitCellChange(): void {
     this.cellsChanged.next();
   }
 
   public findCell(id: number): SpCell {
     for (const row of this.cells) {
-      const cell: SpCell | null = row.find(cell => cell.id === id);
+      const cell: SpCell | null = row.find((cell) => cell.id === id);
       if (cell != null) {
         return cell;
       }
@@ -454,10 +444,9 @@ export class SpSheet {
     const cells: SpCell[][] = this.getCellsFromCoords(from, to);
     const flatCells: SpCell[] = [];
 
-    cells.forEach(row => flatCells.push(...row));
+    cells.forEach((row) => flatCells.push(...row));
 
     return flatCells;
-
   }
 
   public getCellsFromCoords(from: SpCellCoord, to: SpCellCoord): SpCell[][] {
@@ -469,7 +458,6 @@ export class SpSheet {
 
     return cells;
   }
-
 
   public setValuesFromCoord(values: any[][], from: SpCellCoord): void {
     for (let i = 0; i < values.length; i++) {
@@ -494,7 +482,7 @@ export class SpSheet {
    */
   public setColumnValues(column: number, values: any[], fromRow: number = 0): void {
     // create new rows if needed
-    const newRowsCount = (values.length + fromRow) - this.loadedRowsCount;
+    const newRowsCount = values.length + fromRow - this.loadedRowsCount;
     if (newRowsCount > 0) {
       this.appendMultipleRows(newRowsCount);
     }
@@ -519,7 +507,6 @@ export class SpSheet {
     return cells;
   }
 
-
   ////////////////////////////// Other ///////////////////////////////
   public getLoadedColumnsCount(): number {
     return this.loadedColumnsCount;
@@ -533,16 +520,24 @@ export class SpSheet {
    * return true if the coord is within loaded cells of sheet
    */
   public coordIsLoaded(coord: SpCellCoord): boolean {
-    return coord.row >= 0 && coord.row < this.loadedRowsCount &&
-      coord.column >= 0 && coord.column < this.loadedColumnsCount;
+    return (
+      coord.row >= 0 &&
+      coord.row < this.loadedRowsCount &&
+      coord.column >= 0 &&
+      coord.column < this.loadedColumnsCount
+    );
   }
 
   /**
    * return true if the coord is within total size of the sheet
    */
   public coordIsValid(coord: SpCellCoord): boolean {
-    return coord.row >= 0 && coord.row < this.totalRowsCount &&
-      coord.column >= 0 && coord.column < this.totalColumnsCount;
+    return (
+      coord.row >= 0 &&
+      coord.row < this.totalRowsCount &&
+      coord.column >= 0 &&
+      coord.column < this.totalColumnsCount
+    );
   }
 
   public getCoordsWithOffset(coord: SpCellCoord): SpCellCoord {
@@ -556,6 +551,6 @@ export class SpSheet {
     this.rowsChanged.complete();
     this.columnsChanged.complete();
     this.cellsChanged.complete();
-    this.getCellsFlat().forEach(cell => cell.destroy());
+    this.getCellsFlat().forEach((cell) => cell.destroy());
   }
 }

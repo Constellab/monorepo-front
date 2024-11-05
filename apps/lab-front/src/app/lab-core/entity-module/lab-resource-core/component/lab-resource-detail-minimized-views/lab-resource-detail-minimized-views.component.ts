@@ -1,7 +1,7 @@
-import {Component, Signal} from '@angular/core';
-import {LabMinimizedView, LabResourceDetailState} from '../../state/lab-resource-detail.state';
-import {FlMouseButton} from '@monorepo/front-core-lib';
-import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource/lab-resource-view-type.class';
+import { Component, Signal } from '@angular/core';
+import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { FlMouseButton } from '@monorepo/front-core-lib';
+import { labConstResourceViewTypeInfos } from '../../../../model/entities/resource/lab-resource-view-type.class';
 
 /**
  * Component inside the resource detail to list the minimized views
@@ -12,11 +12,9 @@ import {labConstResourceViewTypeInfos} from '../../../../model/entities/resource
   styleUrls: ['./lab-resource-detail-minimized-views.component.scss'],
 })
 export class LabResourceDetailMinimizedViewsComponent {
-
   minimizedViews: Signal<LabMinimizedView[]> = this.state.minimizedViews;
 
-  constructor(private state: LabResourceDetailState) {
-  }
+  constructor(private state: LabResourceDetailState) {}
 
   openView(view: LabMinimizedView): void {
     this.state.openMinimizedView(view);

@@ -1,4 +1,4 @@
-import {CaIsSpaceAdminDirective} from './ca-is-space-admin.directive';
+import { CaIsSpaceAdminDirective } from './ca-is-space-admin.directive';
 
 describe('CaIsSpaceAdminDirective', () => {
   it('should create an instance', () => {

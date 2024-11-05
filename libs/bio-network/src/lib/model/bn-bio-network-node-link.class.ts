@@ -1,22 +1,28 @@
-import {curveCatmullRom, line, select, SimulationLinkDatum} from 'd3';
-import {BnBioNetworkMetaboliteLevel} from './bn-bio-network.class';
-import {BnBioNetworkNode} from './bn-bio-network-node.class';
-import {BnBioNetworkNodeCofactor} from './bn-bio-network-node-cofactor.class';
-import {BnBioNetworkNodeReaction} from './bn-bio-network-node-reaction.class';
-import {BnBioNetworkGraphObject} from './bn-bio-network-graph.class';
-import {FlCoord, FlCoordHelper} from '@monorepo/front-core-lib';
-
+import { curveCatmullRom, line, select, SimulationLinkDatum } from 'd3';
+import { BnBioNetworkMetaboliteLevel } from './bn-bio-network.class';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
+import { BnBioNetworkNodeCofactor } from './bn-bio-network-node-cofactor.class';
+import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
+import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
+import { FlCoord, FlCoordHelper } from '@monorepo/front-core-lib';
 
 // const lineFunction = line<FlCoord>().x(d => d.x).y(d => d.y);
 // const lineFunction = line<FlCoord>().x(d => d.x).y(d => d.y).curve(curveStep);
-const lineFunction = line<FlCoord>().x(d => d.x).y(d => d.y).curve(curveCatmullRom.alpha(1));
+const lineFunction = line<FlCoord>()
+  .x((d) => d.x)
+  .y((d) => d.y)
+  .curve(curveCatmullRom.alpha(1));
 
 export class BnBioNetworkLinkPoint implements FlCoord {
   private static id: number = 0;
 
   id: number;
 
-  constructor(public x: number, public y: number, public link: BnBioNetworkLink) {
+  constructor(
+    public x: number,
+    public y: number,
+    public link: BnBioNetworkLink
+  ) {
     this.id = BnBioNetworkLinkPoint.id++;
   }
 
@@ -29,7 +35,7 @@ export class BnBioNetworkLinkPoint implements FlCoord {
   public toCoord(): FlCoord {
     return {
       x: this.x,
-      y: this.y
+      y: this.y,
     };
   }
 
@@ -40,10 +46,10 @@ export class BnBioNetworkLinkPoint implements FlCoord {
 
 export type BnBioNetworkLinkType = 'link' | 'cofactor-link' | 'cross-cluster-link';
 
-
-export class BnBioNetworkLink extends BnBioNetworkGraphObject
-  implements SimulationLinkDatum<BnBioNetworkNode> {
-
+export class BnBioNetworkLink
+  extends BnBioNetworkGraphObject
+  implements SimulationLinkDatum<BnBioNetworkNode>
+{
   private static id: number = 0;
 
   id: number;
@@ -61,10 +67,13 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
 
   isVisible: boolean = true;
 
-  constructor(source: BnBioNetworkNode, target: BnBioNetworkNode,
-              fluxValue: number,
-              public defaultColor: string,
-              public type: BnBioNetworkLinkType) {
+  constructor(
+    source: BnBioNetworkNode,
+    target: BnBioNetworkNode,
+    fluxValue: number,
+    public defaultColor: string,
+    public type: BnBioNetworkLinkType
+  ) {
     super();
     this.source = source;
     this.target = target;
@@ -102,14 +111,13 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
   }
 
   isLinkedToAnyNode(nodeIds: number[]): boolean {
-    return nodeIds.some(nodeIndex => this.isLinkedToNode(nodeIndex));
+    return nodeIds.some((nodeIndex) => this.isLinkedToNode(nodeIndex));
   }
 
   // return true if the link is linked to a cofactor
   isLinkedToCofactor(): boolean {
     return this.source instanceof BnBioNetworkNodeCofactor || this.target instanceof BnBioNetworkNodeCofactor;
   }
-
 
   ////////////////////////////////////// POINTS //////////////////////////////////////
   public getPathAttr(): string {
@@ -123,7 +131,6 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
     return [startCoord, ...this.pointPositions, endCoord];
   }
 
-
   /**
    * Insert a new point in the points. It calculates where to insert the points
    * @param coord
@@ -135,10 +142,14 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
       this.pointPositions.push(point);
     } else {
       // get all points including the source and target
-      const points: FlCoord[] = [{x: this.source.x, y: this.source.y}, ...this.pointPositions, {
-        x: this.target.x,
-        y: this.target.y
-      }];
+      const points: FlCoord[] = [
+        { x: this.source.x, y: this.source.y },
+        ...this.pointPositions,
+        {
+          x: this.target.x,
+          y: this.target.y,
+        },
+      ];
       // we have to insert the point at a logical position
       let minDist = Infinity;
       let minDistIndex = -1;
@@ -158,14 +169,17 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
   }
 
   public deletePoint(id: number): void {
-    const index = this.pointPositions.findIndex(point => point.id === id);
+    const index = this.pointPositions.findIndex((point) => point.id === id);
     if (index !== -1) {
       this.pointPositions.splice(index, 1);
       // this.savePoints();
     }
 
     // remove the circle element
-    select(this.groupElement).selectAll('circle').filter((d: BnBioNetworkLinkPoint) => d.id === id).remove();
+    select(this.groupElement)
+      .selectAll('circle')
+      .filter((d: BnBioNetworkLinkPoint) => d.id === id)
+      .remove();
   }
 
   // public pointsToCoords(): FlCoord[] {
@@ -185,7 +199,6 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
   //   }
   // }
 
-
   public get reaction(): BnBioNetworkNodeReaction {
     if (this.target instanceof BnBioNetworkNodeReaction) return this.target;
     if (this.source instanceof BnBioNetworkNodeReaction) return this.source;
@@ -201,7 +214,6 @@ export class BnBioNetworkLink extends BnBioNetworkGraphObject
   public getLength(): number {
     return Math.sqrt((this.source.x - this.target.x) ** 2 + (this.source.y - this.target.y) ** 2);
   }
-
 
   protected _getLevel(): BnBioNetworkMetaboliteLevel {
     // the link takes the highest level of the connected nodes

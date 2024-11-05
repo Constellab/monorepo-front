@@ -2,7 +2,9 @@
  * Generic config for a FormGroup, FormArray or FormControl
  */
 export type FlDynamicFormAbstractControl =
-  FlDynamicFormGroupConfig | FlDynamicFormArrayConfig | FlDynamicFieldConfig
+  | FlDynamicFormGroupConfig
+  | FlDynamicFormArrayConfig
+  | FlDynamicFieldConfig;
 
 /**
  * Base object for configs
@@ -32,19 +34,17 @@ export interface FlDynamicFormArrayConfig extends FlDynamicFormConfigBase {
   newElementDefaultValue?: any; // value used to initialize a new element in the array
 }
 
-
 /**
  * Configuration for a FormControl
  */
 export type FlDynamicFieldConfig =
-  FlDynamicFieldConfigInput
+  | FlDynamicFieldConfigInput
   | FlDynamicFieldConfigSelect
   | FlDynamicFieldConfigSelectSearch
   | FlDynamicFieldConfigList
   | FlDynamicFieldConfigBoolean
   | FlDynamicFieldConfigTextArea
   | FlDynamicFieldConfigUnknown;
-
 
 export interface FlDynamicFieldConfigBase extends FlDynamicFormConfigBase {
   controlType: 'formControl';
@@ -63,7 +63,6 @@ export interface FlDynamicFieldConfigMaterialInput extends FlDynamicFieldConfigB
 
   prefix?: string;
   suffix?: string;
-
 }
 
 export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialInput {
@@ -106,7 +105,4 @@ export interface FlDynamicFieldConfigUnknown extends FlDynamicFieldConfigBase {
   type: string;
   // use to pass additional information to the component
   additionalInfo?: any;
-
 }
-
-

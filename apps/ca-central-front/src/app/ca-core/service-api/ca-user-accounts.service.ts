@@ -7,10 +7,9 @@ import { FlApiService, FlUserAccountService } from '@monorepo/front-core-lib';
  * Service to manage users' accounts
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaUserAccountsService extends FlUserAccountService {
-
   private readonly route: string = 'accounts';
 
   constructor(private apiService: FlApiService) {
@@ -39,7 +38,6 @@ export class CaUserAccountsService extends FlUserAccountService {
     return this.apiService.post(`${this.route}/reset-password/${token}`, { password: password });
   }
 
-
   /**
    * Public route to accept an invitation when a new user is registered
    * @param code
@@ -58,12 +56,11 @@ export class CaUserAccountsService extends FlUserAccountService {
     return this.apiService.put(`${this.route}/${userId}/lock`, null, CaUser);
   }
 
-  public resendActivationMail(userId: string): Observable<void>{
+  public resendActivationMail(userId: string): Observable<void> {
     return this.apiService.put(`${this.route}/${userId}/resend-activation-mail`, null);
   }
 
   public updateLicense(userId: string, license: CaUserUpdateLicenseDTO): Observable<CaUser> {
     return this.apiService.put(`${this.route}/${userId}/license`, license, CaUser);
   }
-
 }

@@ -8,9 +8,8 @@ describe('ScenarioWorkflowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabWorkflowComponent ]
-    })
-    .compileComponents();
+      declarations: [LabWorkflowComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

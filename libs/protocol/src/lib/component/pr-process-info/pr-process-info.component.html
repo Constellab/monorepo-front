@@ -1,14 +1,15 @@
 <!-- Header -->
 <div class="g-layout-row g-layout-start-center">
-  <td-type-inline [text]="process.name" [style]="process.style" class="g-text-big g-flex-auto"></td-type-inline>
-
+  <td-type-inline
+    [text]="process.name"
+    [style]="process.style"
+    class="g-text-big g-flex-auto"></td-type-inline>
 
   <!--   Mat menu containing action buttons   -->
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="before">
-
     @if (docUrl) {
       <a mat-menu-item [href]="docUrl" target="_blank">
         <mat-icon>info</mat-icon>
@@ -17,18 +18,15 @@
     }
 
     @if (process.config | flIsNotEmpty) {
-      <button mat-menu-item
-              type="button" (click)="openConfigDetail()">
+      <button mat-menu-item type="button" (click)="openConfigDetail()">
         <mat-icon>settings</mat-icon>
         {{ 'pr.show_config_detail' | translate }}
       </button>
     }
   </mat-menu>
-
 </div>
 
 <div class="container">
-
   <div>
     <fl-key-value>
       <fl-key>{{ 'pr.instance_name' | translate }}</fl-key>
@@ -52,7 +50,6 @@
       </fl-key-value>
     }
   </div>
-
 
   <div>
     <div>{{ 'pr.process_configuration' | translate }}</div>

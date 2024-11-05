@@ -14,7 +14,7 @@
   min-height: 0; // don't overflow parent grid
 }
 
-.actions{
+.actions {
   flex-shrink: 0;
   display: flex;
 }
@@ -25,11 +25,10 @@
   flex-direction: column;
 }
 
-.table-container{
+.table-container {
   min-height: 0;
   flex: 1;
 }
-
 
 .drop-info {
   position: absolute;

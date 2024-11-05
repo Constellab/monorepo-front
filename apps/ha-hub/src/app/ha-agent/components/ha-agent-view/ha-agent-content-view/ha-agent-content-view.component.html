@@ -1,8 +1,10 @@
 @defer (on viewport) {
-  @if (view$ != null){
-    <rv-rich-text-resource-view  [view$]="view$" [viewTitle]="viewConfig.title"
-                             [caption]="viewConfig.caption"
-                             [editable]="false"></rv-rich-text-resource-view >
+  @if (view$ != null) {
+    <rv-rich-text-resource-view
+      [view$]="view$"
+      [viewTitle]="viewConfig.title"
+      [caption]="viewConfig.caption"
+      [editable]="false"></rv-rich-text-resource-view>
   }
 } @placeholder {
   <div></div>

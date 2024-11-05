@@ -5,18 +5,18 @@ import { LabCreateTagResponse } from '../../../../model/entities/lab-tag.entity'
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
-
 /**
  * Dialog to create of update a tag
  */
 @Component({
   selector: 'lab-tag-form-dialog',
   templateUrl: './lab-tag-form-dialog.component.html',
-  styleUrls: ['./lab-tag-form-dialog.component.scss']
+  styleUrls: ['./lab-tag-form-dialog.component.scss'],
 })
-export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlTag, LabCreateTagResponse>
-  implements OnInit {
-
+export class LabTagFormDialogComponent
+  extends FlFormDialogAbstractDirective<FlTag, LabCreateTagResponse>
+  implements OnInit
+{
   maxLength = FlTagHelper.MAX_LENGTH;
 
   constructor(private tagService: LabTagService) {
@@ -30,10 +30,13 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
   buildForm(): UntypedFormGroup {
     const defaultKey = this.dialogInput.object?.key ?? null;
     return new FormBuilder().group({
-      key: [{
-        value: defaultKey,
-        disabled: defaultKey != null
-      }, Validators.required],
+      key: [
+        {
+          value: defaultKey,
+          disabled: defaultKey != null,
+        },
+        Validators.required,
+      ],
       value: [null, Validators.required],
     });
   }
@@ -51,13 +54,14 @@ export class LabTagFormDialogComponent extends FlFormDialogAbstractDirective<FlT
   }
 
   update(formValue: FlTag): Observable<LabCreateTagResponse> {
-    return this.tagService.updateTag(this.dialogInput.object.key,
-      this.dialogInput.object.value, formValue.value);
+    return this.tagService.updateTag(
+      this.dialogInput.object.key,
+      this.dialogInput.object.value,
+      formValue.value
+    );
   }
-
 
   get title(): string {
     return this.isCreateMode() ? 'tag_create' : 'tag_update';
   }
-
 }

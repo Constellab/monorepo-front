@@ -5,7 +5,7 @@ import {
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-  FlTag
+  FlTag,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabResourceViewType } from '../../../model/entities/resource/lab-resource-view.entity';
@@ -31,7 +31,6 @@ export class LabViewConfigSearchFields {
 }
 
 export class LabViewConfigSearch {
-
   /**
    * Const to configure Form Input Manager for advanced search
    */
@@ -42,9 +41,8 @@ export class LabViewConfigSearch {
     // group the creation date into one chip
     createdAt: 'creation_date',
     tags: 'flTag.tags',
-    includeNotFavorite: 'biox.view_include_not_favorite'
+    includeNotFavorite: 'biox.view_include_not_favorite',
   };
-
 
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
@@ -57,31 +55,28 @@ export class LabViewConfigSearch {
     createdAt: FlSearchConverter.dateInterval('created_at'),
     tags: { key: 'tags', operator: 'EQ' },
     includeNotFavorite: { key: 'include_not_favorite', operator: 'EQ' },
-    id: { key: 'id', operator: 'EQ' }
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
     title: 'title',
-    lastModifiedAt: 'last_modified_at'
+    lastModifiedAt: 'last_modified_at',
   };
 
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        title: [null],
-        folder: [null],
-        viewType: [null],
-        createdAt: new FormBuilder().group({
-          from: [null],
-          to: [null]
-        }),
-        tags: [null],
-        includeNotFavorite: [null],
-        id: [null]
-      }
-    );
+    return new FormBuilder().group({
+      title: [null],
+      folder: [null],
+      viewType: [null],
+      createdAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      tags: [null],
+      includeNotFavorite: [null],
+      id: [null],
+    });
   }
-
 
   /**
    * Simple converter for the view type param to add similar view type when a type is selected
@@ -92,5 +87,4 @@ export class LabViewConfigSearch {
     if (viewType == null) return null;
     return viewType.type;
   }
-
 }

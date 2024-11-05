@@ -1,8 +1,12 @@
-<ca-dashboard-list-layout [datasource]="foldersDatasource"
-                          sectionTitle="my_folders" titleIcon="folder" emptyText="no_folder"
-                          addText="add_new_folder"
-                          [completeListRoute]="myFoldersRoute" completeListText="all_folders"
-                          (addClick)="openCreateFolderDialog()">
+<ca-dashboard-list-layout
+  [datasource]="foldersDatasource"
+  sectionTitle="my_folders"
+  titleIcon="folder"
+  emptyText="no_folder"
+  addText="add_new_folder"
+  [completeListRoute]="myFoldersRoute"
+  completeListText="all_folders"
+  (addClick)="openCreateFolderDialog()">
   <ng-template let-item>
     <ca-hierarchy-object-card [hierarchyObject]="item"></ca-hierarchy-object-card>
   </ng-template>

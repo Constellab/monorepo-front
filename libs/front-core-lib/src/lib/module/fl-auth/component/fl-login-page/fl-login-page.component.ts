@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FlThemeService} from '../../../fl-theme/fl-theme.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FlThemeService } from '../../../fl-theme/fl-theme.service';
 
 @Component({
   selector: 'fl-login-page',
   templateUrl: './fl-login-page.component.html',
-  styleUrls: ['./fl-login-page.component.scss']
+  styleUrls: ['./fl-login-page.component.scss'],
 })
 export class FlLoginPageComponent implements OnInit {
-
   /**
    * Redirection route after the login is successful, do nothing if not provided
    */
@@ -21,16 +20,13 @@ export class FlLoginPageComponent implements OnInit {
 
   logo: string;
 
-  constructor(private themeService: FlThemeService) {
-  }
+  constructor(private themeService: FlThemeService) {}
 
   ngOnInit(): void {
-    this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo :
-      this.lightThemeLogo;
+    this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo : this.lightThemeLogo;
   }
 
   onLoginSuccess(): void {
     this.loginSuccess.emit();
   }
-
 }

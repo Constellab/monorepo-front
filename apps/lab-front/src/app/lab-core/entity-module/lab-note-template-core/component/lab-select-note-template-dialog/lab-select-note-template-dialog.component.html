@@ -1,8 +1,10 @@
 <fl-dialog-header>
-  {{'biox.select_note_template' | translate }}
+  {{ 'biox.select_note_template' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <lab-note-template-search [noteTemplateSelectable]="rowSelectable" [fullPageSearch]="false"
-                     (noteTemplateSelected)="onTemplateSelected($event)"></lab-note-template-search>
+  <lab-note-template-search
+    [noteTemplateSelectable]="rowSelectable"
+    [fullPageSearch]="false"
+    (noteTemplateSelected)="onTemplateSelected($event)"></lab-note-template-search>
 </mat-dialog-content>

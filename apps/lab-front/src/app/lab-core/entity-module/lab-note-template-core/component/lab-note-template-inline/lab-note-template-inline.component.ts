@@ -7,6 +7,5 @@ import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.en
   styleUrls: ['./lab-note-template-inline.component.scss'],
 })
 export class LabNoteTemplateInlineComponent {
-  @Input({required: true}) noteTemplate: LabNoteTemplate;
-
+  @Input({ required: true }) noteTemplate: LabNoteTemplate;
 }

@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LabNoteTemplateRoutingModule } from './lab-note-template-routing.module';
-import {
-  LabNoteTemplatesSearchPageModule
-} from './lab-note-templates-search-page/lab-note-templates-search-page.module';
+import { LabNoteTemplatesSearchPageModule } from './lab-note-templates-search-page/lab-note-templates-search-page.module';
 import { LabNoteTemplateDetailPageModule } from './lab-note-template-detail-page/lab-note-template-detail-page.module';
-
 
 @NgModule({
   declarations: [],
@@ -16,7 +13,6 @@ import { LabNoteTemplateDetailPageModule } from './lab-note-template-detail-page
     LabNoteTemplateDetailPageModule,
 
     LabNoteTemplateRoutingModule,
-  ]
+  ],
 })
-export class LabNoteTemplateModule {
-}
+export class LabNoteTemplateModule {}

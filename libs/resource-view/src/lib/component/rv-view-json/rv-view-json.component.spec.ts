@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewJsonComponent} from './rv-view-json.component';
+import { RvViewJsonComponent } from './rv-view-json.component';
 
 describe('BioxResourceJsonComponent', () => {
   let component: RvViewJsonComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceJsonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvViewJsonComponent ]
-    })
-    .compileComponents();
+      declarations: [RvViewJsonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -5,19 +5,16 @@ import { CaScenario } from '../../../ca-core/model/entities/folder/ca-scenario.c
 @Component({
   selector: 'ca-dashboard-last-scenarios',
   templateUrl: './ca-dashboard-last-scenarios.component.html',
-  styleUrls: ['./ca-dashboard-last-scenarios.component.scss']
+  styleUrls: ['./ca-dashboard-last-scenarios.component.scss'],
 })
 export class CaDashboardLastScenariosComponent implements OnInit {
-
   lastScenarios: CaScenario[];
 
-  constructor(private scenarioService: CaScenarioService) {
-  }
+  constructor(private scenarioService: CaScenarioService) {}
 
   ngOnInit(): void {
-    this.scenarioService.findCurrentUserLastScenarios().subscribe(
-      (res: CaScenario[]) => this.lastScenarios = res
-    );
+    this.scenarioService
+      .findCurrentUserLastScenarios()
+      .subscribe((res: CaScenario[]) => (this.lastScenarios = res));
   }
-
 }

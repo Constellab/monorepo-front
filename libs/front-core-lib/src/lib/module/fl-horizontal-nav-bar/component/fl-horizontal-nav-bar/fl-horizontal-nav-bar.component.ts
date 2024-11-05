@@ -1,10 +1,10 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {FlHorizontalNavBarItem} from '../../fl-horizontal-nav-bar.class';
-import {Observable, startWith} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {MatMenuTrigger} from '@angular/material/menu';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {NavigationEnd, Router} from '@angular/router';
+import { Component, Input, ViewChild } from '@angular/core';
+import { FlHorizontalNavBarItem } from '../../fl-horizontal-nav-bar.class';
+import { Observable, startWith } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { NavigationEnd, Router } from '@angular/router';
 
 /**
  * Horizontal navigation bar that takes full width of the screen
@@ -16,27 +16,26 @@ import {NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
 })
 export class FlHorizontalNavBarComponent {
-
   @Input() items: FlHorizontalNavBarItem[];
 
-  @ViewChild(MatMenuTrigger, {static: false}) trigger: MatMenuTrigger;
+  @ViewChild(MatMenuTrigger, { static: false }) trigger: MatMenuTrigger;
 
   private smallScreenMatches = [Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium];
 
-  showSmallMenu$: Observable<boolean> = this.breakpointObserver.observe(this.smallScreenMatches).pipe(
-    map((state) => state.matches)
-  );
+  showSmallMenu$: Observable<boolean> = this.breakpointObserver
+    .observe(this.smallScreenMatches)
+    .pipe(map((state) => state.matches));
 
   activeItem$: Observable<FlHorizontalNavBarItem> = this.router.events.pipe(
     startWith(null),
-    filter(event => event == null || event instanceof NavigationEnd),
+    filter((event) => event == null || event instanceof NavigationEnd),
     map(() => this.getActiveItem())
   );
 
-  constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router) {
-  }
-
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private router: Router
+  ) {}
 
   openMenu(): void {
     this.trigger.openMenu();
@@ -44,17 +43,18 @@ export class FlHorizontalNavBarComponent {
 
   private getActiveItem(): FlHorizontalNavBarItem {
     for (const item of this.items) {
-      if (item.route && this.router.isActive(item.route, {
-        paths: item.linkActiveExact ? 'exact' : 'subset',
-        fragment: 'ignored',
-        matrixParams: 'ignored',
-        queryParams: 'ignored'
-      })) {
+      if (
+        item.route &&
+        this.router.isActive(item.route, {
+          paths: item.linkActiveExact ? 'exact' : 'subset',
+          fragment: 'ignored',
+          matrixParams: 'ignored',
+          queryParams: 'ignored',
+        })
+      ) {
         return item;
       }
     }
     return null;
   }
-
-
 }

@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabViewConfigFavoriteComponent} from './lab-view-config-favorite.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabViewConfigFavoriteComponent } from './lab-view-config-favorite.component';
 
 describe('LabViewConfigFavoriteComponent', () => {
   let component: LabViewConfigFavoriteComponent;

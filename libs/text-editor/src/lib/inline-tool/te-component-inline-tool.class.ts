@@ -1,5 +1,5 @@
-import {InlineTool, InlineToolConstructorOptions} from '@editorjs/editorjs/types/tools/inline-tool';
-import {TeElementInlineDirective} from '../model/te-element.directive';
+import { InlineTool, InlineToolConstructorOptions } from '@editorjs/editorjs/types/tools/inline-tool';
+import { TeElementInlineDirective } from '../model/te-element.directive';
 
 /**
  * Custom abstract class for editor js inline tool to support angular component
@@ -7,14 +7,11 @@ import {TeElementInlineDirective} from '../model/te-element.directive';
  *
  */
 export abstract class TeComponentInlineTool<T> implements InlineTool {
-
   protected element: HTMLElement;
 
   protected inlineButton: HTMLElement;
 
-
-  constructor(protected options: InlineToolConstructorOptions) {
-  }
+  constructor(protected options: InlineToolConstructorOptions) {}
 
   static get title(): string {
     return null;
@@ -27,7 +24,6 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
   abstract getDefaultData(range: Range): T;
 
   abstract getInlineElementTag(): string;
-
 
   /**
    * The button that is created when the user selects a text
@@ -48,7 +44,6 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
     this.inlineButton.classList.toggle(this.options.api.styles.inlineToolButtonActive, isVariable);
     return isVariable;
   }
-
 
   surround(range: Range): void {
     if (!range) return;
@@ -130,5 +125,4 @@ export abstract class TeComponentInlineTool<T> implements InlineTool {
     this.element = variableElement;
     return variableElement;
   }
-
 }

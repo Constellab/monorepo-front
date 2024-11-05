@@ -1,15 +1,15 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {LabShareLink} from '../../../../model/entities/lab-share.entity';
-import {LabShareLinkService} from '../../../../entity-service/lab-share-link.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { LabShareLink } from '../../../../model/entities/lab-share.entity';
+import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
 import {
   FlClipboardService,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
-  FlDialogService
+  FlDialogService,
 } from '@monorepo/front-core-lib';
 import {
   LabShareLinkFormDialogComponent,
-  LabShareLinkFormDialogInput
+  LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
 
 /**
@@ -18,10 +18,9 @@ import {
 @Component({
   selector: 'lab-share-link-actions-menu',
   templateUrl: './lab-share-link-actions-menu.component.html',
-  styleUrls: ['./lab-share-link-actions-menu.component.scss']
+  styleUrls: ['./lab-share-link-actions-menu.component.scss'],
 })
 export class LabShareLinkActionsMenuComponent {
-
   @Input() shareLink: LabShareLink;
 
   @Input() showLinkToEntity: boolean = false;
@@ -29,13 +28,14 @@ export class LabShareLinkActionsMenuComponent {
   @Output() update: EventEmitter<LabShareLink> = new EventEmitter();
   @Output() delete: EventEmitter<LabShareLink> = new EventEmitter();
 
-  constructor(private shareLinkService: LabShareLinkService,
-              private dialogService: FlDialogService,
-              private clipboard: FlClipboardService) {
-  }
+  constructor(
+    private shareLinkService: LabShareLinkService,
+    private dialogService: FlDialogService,
+    private clipboard: FlClipboardService
+  ) {}
 
   copyLinkToClipboard(): void {
-    this.clipboard.copy(this.shareLink.link, {text: 'biox.share_link_copied', translateText: true});
+    this.clipboard.copy(this.shareLink.link, { text: 'biox.share_link_copied', translateText: true });
   }
 
   openUpdateDialog(): void {
@@ -44,9 +44,10 @@ export class LabShareLinkActionsMenuComponent {
       object: this.shareLink,
     };
 
-    this.dialogService.openSmallDialog(LabShareLinkFormDialogComponent, {data: input}).afterClosed().subscribe(
-      result => this.onUpdateClosed(result)
-    );
+    this.dialogService
+      .openSmallDialog(LabShareLinkFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result) => this.onUpdateClosed(result));
   }
 
   private onUpdateClosed(entity?: LabShareLink): void {
@@ -63,9 +64,10 @@ export class LabShareLinkActionsMenuComponent {
       successMessage: 'biox.share_link_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
@@ -73,5 +75,4 @@ export class LabShareLinkActionsMenuComponent {
       this.delete.emit(this.shareLink);
     }
   }
-
 }

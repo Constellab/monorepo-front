@@ -7,25 +7,9 @@ import { CaChatWriteMessageComponent } from './component/ca-chat-write-message/c
 import { CaNotificationCoreModule } from '../ca-notification-core/ca-notification-core.module';
 import { FormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [
-    CaChatFolderComponent,
-    CaChatMessageComponent,
-    CaChatWriteMessageComponent,
-  ],
-  exports: [
-    CaChatFolderComponent,
-    CaChatMessageComponent,
-    CaChatWriteMessageComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-
-    CaCoreModule,
-    CaNotificationCoreModule,
-  ]
+  declarations: [CaChatFolderComponent, CaChatMessageComponent, CaChatWriteMessageComponent],
+  exports: [CaChatFolderComponent, CaChatMessageComponent, CaChatWriteMessageComponent],
+  imports: [CommonModule, FormsModule, CaCoreModule, CaNotificationCoreModule],
 })
-export class CaChatCoreModule {
-}
+export class CaChatCoreModule {}

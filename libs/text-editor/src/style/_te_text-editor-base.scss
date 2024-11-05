@@ -1,6 +1,5 @@
 @use '@angular/material' as mat;
 
-
 @mixin _text-editor-theme-base($mat-theme) {
   $primary: map-get($mat-theme, primary);
   $accent: map-get($mat-theme, accent);
@@ -50,7 +49,8 @@
   .g-text-editor-hide-toolbar {
     // hide the main toolbar
     // hide the convert button in the inline toolbar
-    .ce-toolbar, .ce-inline-toolbar__dropdown {
+    .ce-toolbar,
+    .ce-inline-toolbar__dropdown {
       display: none;
     }
   }
@@ -120,7 +120,7 @@
       --color-text-primary: var(--light-color);
       --color-text-secondary: var(--light-color);
       --color-border-icon: var(--hover-color);
-      --color-border-icon-disabled: #EFF0F1;
+      --color-border-icon-disabled: #eff0f1;
       --color-text-icon-active: var(--light-color);
       --color-background-icon-active: var(--hover-color);
       --color-background-item-focus: var(--hover-color);
@@ -135,10 +135,11 @@
 
     // ce-toolbar = style for main toolbar
     // .ce-inline-toolbar .ce-popover--nested = style for convertTo popup toolbar
-    .ce-toolbar, .ce-inline-toolbar .ce-popover--nested {
-
+    .ce-toolbar,
+    .ce-inline-toolbar .ce-popover--nested {
       // style for the tools button and icons
-      .ce-popover-item__icon, .ce-conversion-tool__icon {
+      .ce-popover-item__icon,
+      .ce-conversion-tool__icon {
         background-color: var(--card-background);
         width: 40px;
         height: 40px;
@@ -156,7 +157,7 @@
       }
 
       // for button that have children, this override the style of the chevron right icon
-      .ce-popover-item__icon--chevron-right{
+      .ce-popover-item__icon--chevron-right {
         border: none;
         background-color: transparent;
       }
@@ -180,7 +181,8 @@
       }
 
       // color of the search icon and search text
-      .cdx-search-field__input, .cdx-search-field__icon svg {
+      .cdx-search-field__input,
+      .cdx-search-field__icon svg {
         color: var(--light-color);
       }
 
@@ -196,12 +198,14 @@
       }
     }
 
-
     ///////////////////////// INLINE TOOLBAR /////////////////////////
     .ce-inline-toolbar {
       color: var(--light-color);
       background-color: var(--card-background);
-      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+      box-shadow:
+        0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 14px 0px rgba(0, 0, 0, 0.12);
       border: none;
 
       // input used in inline tool (for link for example)
@@ -233,12 +237,12 @@
     }
 
     ///////////////////////// PARAGRAPH /////////////////////////
-    .ce-paragraph, p {
+    .ce-paragraph,
+    p {
       padding: 5px 0;
       margin: 0;
-      line-height: 1.50em;
+      line-height: 1.5em;
     }
-
 
     // color the paragraph placeholder
     .ce-paragraph[data-placeholder-active]:empty:before {
@@ -246,19 +250,18 @@
       opacity: 0.5 !important;
     }
 
-
     // use to show the placeholder on first paragraph if text editor is empty and not disable (no need to focus)
-    .codex-editor--empty .ce-block:first-child .ce-paragraph[data-placeholder-active][contenteditable=true][data-empty=true]:before {
+    .codex-editor--empty
+      .ce-block:first-child
+      .ce-paragraph[data-placeholder-active][contenteditable='true'][data-empty='true']:before {
       content: attr(data-placeholder-active);
     }
-
-
 
     ///////////////////////// HEADER /////////////////////////
     h1 {
       font-size: 24px;
       font-weight: 600;
-      margin-top: 1em
+      margin-top: 1em;
     }
 
     h2 {
@@ -402,7 +405,8 @@
       --toggler-dots-color-hovered: var(--light-color);
     }
 
-    .tc-popover, .tc-wrap {
+    .tc-popover,
+    .tc-wrap {
       --color-border: var(--hover-color);
       --color-background: var(--card-background);
       --color-background-hover: var(--hover-color);
@@ -420,7 +424,8 @@
       border-right: 1px solid var(--hover-color);
     }
 
-    .tc-add-row:hover svg, .tc-add-column:hover svg {
+    .tc-add-row:hover svg,
+    .tc-add-column:hover svg {
       color: var(--light-color);
     }
 
@@ -430,15 +435,16 @@
       background-color: var(--card-background);
     }
 
-
     ///////////////////////// INLINE TOOLS  /////////////////////////
-    code, te-variable-inline, te-mention-inline {
+    code,
+    te-variable-inline,
+    te-mention-inline {
       padding: 2px 7px;
       font-size: 85%;
       border-radius: 3px;
       display: inline;
       line-height: normal;
-      font-family: "Poppins", "Helvetica Neue", sans-serif;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
     }
 
     ///////////////////////// CODE INLINE /////////////////////////

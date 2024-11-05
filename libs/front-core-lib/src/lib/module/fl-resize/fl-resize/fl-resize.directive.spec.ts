@@ -1,4 +1,4 @@
-import {FlResizeDirective} from './fl-resize.directive';
+import { FlResizeDirective } from './fl-resize.directive';
 
 describe('FlResizeDirective', () => {
   it('should create an instance', () => {

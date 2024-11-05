@@ -5,12 +5,10 @@ import { CaHierarchyObjectType } from '../../../../model/entities/folder/ca-hier
 @Component({
   selector: 'ca-folder-inline',
   templateUrl: './ca-folder-inline.component.html',
-  styleUrls: ['./ca-folder-inline.component.scss']
+  styleUrls: ['./ca-folder-inline.component.scss'],
 })
 export class CaFolderInlineComponent {
-
   @Input({ required: true }) folder: CaFolder;
 
   folderObjectType = CaHierarchyObjectType.FOLDER;
-
 }

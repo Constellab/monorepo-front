@@ -3,10 +3,7 @@ import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/fron
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabUser,
-  CaLabUserRole
-} from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
+import { CaLabUser, CaLabUserRole } from '../../../../ca-core/model/entities/lab/ca-lab-user.class';
 import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -19,18 +16,16 @@ interface CaLabUserForm {
   role: CaLabUserRole;
 }
 
-
 @Component({
   selector: 'ca-lab-user-form-dialog',
   templateUrl: './ca-lab-user-form-dialog.component.html',
-  styleUrls: ['./ca-lab-user-form-dialog.component.scss']
+  styleUrls: ['./ca-lab-user-form-dialog.component.scss'],
 })
 export class CaLabUserFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabUserForm, CaLabUser>
-  implements OnInit {
-
+  implements OnInit
+{
   dialogInput: LabUserFormDialogInput = inject(MAT_DIALOG_DATA);
-
 
   constructor(private labService: CaLabService) {
     super();
@@ -43,19 +38,17 @@ export class CaLabUserFormDialogComponent
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       //in update mode can't change user
-      user: [{value: null, disabled: this.isUpdateMode()}, Validators.required],
+      user: [{ value: null, disabled: this.isUpdateMode() }, Validators.required],
       role: ['USER', Validators.required],
     });
   }
 
   create(formValue: CaLabUserForm): Observable<CaLabUser> {
-    return this.labService.addUserToLab(this.dialogInput.labId, formValue.user.id,
-      formValue.role);
+    return this.labService.addUserToLab(this.dialogInput.labId, formValue.user.id, formValue.role);
   }
 
   update(formValue: CaLabUserForm): Observable<CaLabUser> {
-    return this.labService.updateUserLabRole(this.dialogInput.labId, formValue.user.id,
-      formValue.role);
+    return this.labService.updateUserLabRole(this.dialogInput.labId, formValue.user.id, formValue.role);
   }
 
   get title(): string {
@@ -69,6 +62,4 @@ export class CaLabUserFormDialogComponent
   getUpdateSuccessMessage(): string {
     return 'lab_user_role_updated';
   }
-
-
 }

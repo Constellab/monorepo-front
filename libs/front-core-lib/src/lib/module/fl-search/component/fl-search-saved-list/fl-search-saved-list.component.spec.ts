@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSearchSavedListComponent} from './fl-search-saved-list.component';
+import { FlSearchSavedListComponent } from './fl-search-saved-list.component';
 
 describe('FlSearchSavedListComponent', () => {
   let component: FlSearchSavedListComponent;
@@ -8,9 +8,8 @@ describe('FlSearchSavedListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSearchSavedListComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSearchSavedListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

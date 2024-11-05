@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectDiskTypeOptionsComponent} from './ca-select-disk-type-options.component';
+import { CaSelectDiskTypeOptionsComponent } from './ca-select-disk-type-options.component';
 
 describe('ServerInfoDiskTypeSelectOptionsComponent', () => {
   let component: CaSelectDiskTypeOptionsComponent;
@@ -8,9 +8,8 @@ describe('ServerInfoDiskTypeSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSelectDiskTypeOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSelectDiskTypeOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

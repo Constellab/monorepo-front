@@ -1,8 +1,9 @@
 <fl-dialog-header>
-  {{'select_server_cloud' | translate }}
+  {{ 'select_server_cloud' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <ca-server-cloud-search mode="selection"
-                         (serverCloudSelected)="selectServerCloud($event)"></ca-server-cloud-search>
+  <ca-server-cloud-search
+    mode="selection"
+    (serverCloudSelected)="selectServerCloud($event)"></ca-server-cloud-search>
 </mat-dialog-content>

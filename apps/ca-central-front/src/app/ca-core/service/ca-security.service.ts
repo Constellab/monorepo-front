@@ -5,17 +5,16 @@ import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user
  * Service that group all the method to check if the current user can make an action
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaSecurityService {
-
-  constructor(private authenticatedUserService: CaAuthenticatedUserService) {
-  }
-
+  constructor(private authenticatedUserService: CaAuthenticatedUserService) {}
 
   public canEditFolder(folderLeaderId: string): boolean {
-    if(folderLeaderId == null) return false;
-    return this.authenticatedUserService.isCurrentSpaceAdmin() ||
-      this.authenticatedUserService.getCurrentUser().id === folderLeaderId;
+    if (folderLeaderId == null) return false;
+    return (
+      this.authenticatedUserService.isCurrentSpaceAdmin() ||
+      this.authenticatedUserService.getCurrentUser().id === folderLeaderId
+    );
   }
 }

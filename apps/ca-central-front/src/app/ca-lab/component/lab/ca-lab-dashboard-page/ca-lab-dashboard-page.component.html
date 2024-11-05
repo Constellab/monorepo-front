@@ -1,22 +1,19 @@
 <fl-async-section [object]="lab$" class="g-flex-grow">
   <ng-container *flSectionBody="lab$ as lab">
     <div class="g-layout-col g-flex-grow">
-
       <div class="g-layout-row g-layout-between-stretch g-section">
         <ca-lab-detail class="half-section"></ca-lab-detail>
 
-        <ca-lab-server-info-card *ngIf="lab.isCloud" [labId]="lab.id"
-                                 class="half-section"></ca-lab-server-info-card>
-
+        <ca-lab-server-info-card
+          *ngIf="lab.isCloud"
+          [labId]="lab.id"
+          class="half-section"></ca-lab-server-info-card>
       </div>
       <ca-lab-users-list class="g-section" [labId]="lab.id"></ca-lab-users-list>
 
-      <ca-lab-folders-list class="g-section"
-                           [labId]="lab.id"></ca-lab-folders-list>
+      <ca-lab-folders-list class="g-section" [labId]="lab.id"></ca-lab-folders-list>
 
-      <ca-lab-free-card-info class="g-section" *ngIf="lab.isFreeLab"
-                             [labId]="lab.id"></ca-lab-free-card-info>
-
+      <ca-lab-free-card-info class="g-section" *ngIf="lab.isFreeLab" [labId]="lab.id"></ca-lab-free-card-info>
     </div>
   </ng-container>
 </fl-async-section>

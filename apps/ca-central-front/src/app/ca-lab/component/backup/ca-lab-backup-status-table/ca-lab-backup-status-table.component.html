@@ -1,12 +1,11 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Frequency -->
   <ng-container matColumnDef="frequency">
     <mat-header-cell *matHeaderCellDef>
       {{ 'lab_backup_frequency' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ ('lab_backup_frequency_' + row.frequency) | translate }}
+      {{ 'lab_backup_frequency_' + row.frequency | translate }}
     </mat-cell>
   </ng-container>
 
@@ -56,8 +55,7 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
       @if (row.lastSuccessBackupId) {
         <!--   Mat menu containing action buttons   -->
@@ -75,6 +73,5 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

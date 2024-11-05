@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceFormDialogComponent} from './ca-space-form-dialog.component';
+import { CaSpaceFormDialogComponent } from './ca-space-form-dialog.component';
 
 describe('CaSpaceFormDialogComponent', () => {
   let component: CaSpaceFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

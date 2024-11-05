@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlResetPasswordPageComponent} from './fl-reset-password-page.component';
+import { FlResetPasswordPageComponent } from './fl-reset-password-page.component';
 
 describe('ResetPasswordPageComponent', () => {
   let component: FlResetPasswordPageComponent;
@@ -8,9 +8,8 @@ describe('ResetPasswordPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlResetPasswordPageComponent ]
-    })
-    .compileComponents();
+      declarations: [FlResetPasswordPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

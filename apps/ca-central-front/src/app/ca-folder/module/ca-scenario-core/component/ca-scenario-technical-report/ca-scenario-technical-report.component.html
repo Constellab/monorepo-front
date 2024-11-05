@@ -5,23 +5,27 @@
       <h2>{{ 'technical_report' | translate }}</h2>
     </fl-text-icon>
     <fl-card-actions>
-      <button mat-stroked-button
-              (click)="openLabConfigDialog()">{{ 'view_lab_config' | translate }}
-      </button>
+      <button mat-stroked-button (click)="openLabConfigDialog()">{{ 'view_lab_config' | translate }}</button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <mat-tab-group mat-align-tabs="start" animationDuration="0ms" dynamicHeight
-                   *ngIf="workflow; else noGraph">
-      <mat-tab label="{{'protocol' | translate}}">
+    <mat-tab-group
+      mat-align-tabs="start"
+      animationDuration="0ms"
+      dynamicHeight
+      *ngIf="workflow; else noGraph">
+      <mat-tab label="{{ 'protocol' | translate }}">
         <ng-template matTabContent>
           <div class="tech-report-workflow">
-            <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="workflowConfig"></pr-workflow>
+            <pr-workflow
+              [workflow]="workflow"
+              [mode$]="workflowMode$"
+              [viewConfig]="workflowConfig"></pr-workflow>
           </div>
         </ng-template>
       </mat-tab>
-      <mat-tab label="{{'list' | translate}}">
+      <mat-tab label="{{ 'list' | translate }}">
         <ng-template matTabContent>
           <ca-scenario-technical-report-graph
             [graph]="technicalReport.data.graph"></ca-scenario-technical-report-graph>

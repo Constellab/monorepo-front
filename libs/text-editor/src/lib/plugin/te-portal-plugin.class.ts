@@ -6,7 +6,6 @@ import { FlHtmlHelper, FlOverlayRef } from '@monorepo/front-core-lib';
  * Class to simplify the creation of a plugin that opens a portal
  */
 export abstract class TePortalPlugin {
-
   protected keyListener: TeKeyListener;
   protected textNode: Node;
   protected cursorOffset: number;
@@ -60,16 +59,14 @@ export abstract class TePortalPlugin {
     // store the overlay reference
     TeHelper.setOverlay(overlayRef);
 
-    overlayRef.detachments().subscribe(
-      (value: any) => {
-        TeHelper.clearOverlay();
+    overlayRef.detachments().subscribe((value: any) => {
+      TeHelper.clearOverlay();
 
-        this.onClose(value);
+      this.onClose(value);
 
-        // clean up
-        this.keyListener.destroy();
-      }
-    );
+      // clean up
+      this.keyListener.destroy();
+    });
   }
 
   protected abstract buildKeyListener(): TeKeyListener;

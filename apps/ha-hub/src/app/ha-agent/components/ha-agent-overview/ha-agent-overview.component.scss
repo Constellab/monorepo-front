@@ -1,4 +1,4 @@
-.agent-utils-div{
+.agent-utils-div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -6,54 +6,53 @@
   align-items: center;
 }
 
-.agent-buttons{
+.agent-buttons {
   display: flex;
   flex-direction: row;
   gap: 8px;
   align-items: center;
 }
 
-.user-date-info{
+.user-date-info {
   display: flex;
   align-items: center;
 }
 
-.date-info{
+.date-info {
   margin-left: 8px;
   padding-left: 8px;
   border-left: solid 1px var(--light-color);
 }
 
-.card-header{
+.card-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.description-editor{
+.description-editor {
   border: none;
   padding: 0.5em 0.5em;
   min-height: 5em;
   margin-top: 0.5em;
 }
 
-.editor-border{
+.editor-border {
   border: solid 1px var(--hover-color);
 }
 
 @media (max-width: 700px) {
-  .agent-utils-div{
+  .agent-utils-div {
     flex-direction: column;
     gap: 1em;
     align-items: start;
 
-    .agent-buttons{
+    .agent-buttons {
       width: 100%;
 
-      .agent-like-bt{
+      .agent-like-bt {
         margin-left: auto;
       }
     }
-
   }
 }

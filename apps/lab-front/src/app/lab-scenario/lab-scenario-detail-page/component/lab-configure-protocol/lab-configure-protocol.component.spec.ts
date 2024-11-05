@@ -8,9 +8,8 @@ describe('LabConfigureProtocolComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabConfigureProtocolComponent ]
-    })
-    .compileComponents();
+      declarations: [LabConfigureProtocolComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,10 +1,8 @@
 <fl-portal>
-
   <fl-portal-content>
-
     <fl-key-value>
-      <fl-key>{{'spSpreadsheet.cell_value' | translate}}</fl-key>
-      <span class="name">{{cell.value$ | async}}</span>
+      <fl-key>{{ 'spSpreadsheet.cell_value' | translate }}</fl-key>
+      <span class="name">{{ cell.value$ | async }}</span>
     </fl-key-value>
 
     <!-- Column  -->
@@ -12,11 +10,12 @@
       <mat-divider class="divider"></mat-divider>
       <div class="g-text-small header">
         <fl-key-value>
-          <fl-key>{{'spSpreadsheet.column' | translate}}</fl-key>
-          <span class="name">{{columnInfo.name}}</span>
+          <fl-key>{{ 'spSpreadsheet.column' | translate }}</fl-key>
+          <span class="name">{{ columnInfo.name }}</span>
         </fl-key-value>
-        <sp-spreadsheet-header-tags [tags]="columnInfo.tags"
-                                    [tagColorer]="columnInfo.tagColorer"></sp-spreadsheet-header-tags>
+        <sp-spreadsheet-header-tags
+          [tags]="columnInfo.tags"
+          [tagColorer]="columnInfo.tagColorer"></sp-spreadsheet-header-tags>
       </div>
     </ng-container>
 
@@ -25,13 +24,13 @@
       <mat-divider class="divider"></mat-divider>
       <div class="g-text-small header">
         <fl-key-value>
-          <fl-key>{{'spSpreadsheet.row' | translate}}</fl-key>
-          <span class="name">{{rowInfo.name}}</span>
+          <fl-key>{{ 'spSpreadsheet.row' | translate }}</fl-key>
+          <span class="name">{{ rowInfo.name }}</span>
         </fl-key-value>
-        <sp-spreadsheet-header-tags [tags]="rowInfo.tags"
-                                    [tagColorer]="rowInfo.tagColorer"></sp-spreadsheet-header-tags>
+        <sp-spreadsheet-header-tags
+          [tags]="rowInfo.tags"
+          [tagColorer]="rowInfo.tagColorer"></sp-spreadsheet-header-tags>
       </div>
     </ng-container>
   </fl-portal-content>
 </fl-portal>
-

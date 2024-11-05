@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeCodeComponent} from './te-code.component';
+import { TeCodeComponent } from './te-code.component';
 
 describe('TeCodeComponent', () => {
   let component: TeCodeComponent;
@@ -8,9 +8,8 @@ describe('TeCodeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TeCodeComponent]
-    })
-    .compileComponents();
+      imports: [TeCodeComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeCodeComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlStatusChipComponent} from './fl-status-chip.component';
+import { FlStatusChipComponent } from './fl-status-chip.component';
 
 describe('StatusChipComponent', () => {
   let component: FlStatusChipComponent;
@@ -8,9 +8,8 @@ describe('StatusChipComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlStatusChipComponent ]
-    })
-    .compileComponents();
+      declarations: [FlStatusChipComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

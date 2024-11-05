@@ -4,7 +4,8 @@ import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaStory,
-  HaStoryDatasourcePaginated, HaStoryFilters
+  HaStoryDatasourcePaginated,
+  HaStoryFilters,
 } from '../ha-model/ha-entities/ha-story.class';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
@@ -15,7 +16,7 @@ import {
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
   TeTextEditorHistoryService,
-  TeUploadedImage
+  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { RvResourceView } from '@monorepo/resource-view';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
@@ -25,14 +26,14 @@ import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-f
 import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService {
+export class HaStoryService
+  implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
+{
   private readonly route: string = 'story';
 
-  constructor(private apiService: FlApiService) {
-
-  }
+  constructor(private apiService: FlApiService) {}
 
   /**
    * Call http post to create a story
@@ -63,14 +64,21 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
 
   public getAllPaginatedFiltered(pageSize: number = 10): HaStoryDatasourcePaginated<HaStoryFilters> {
     return new FlEntityPaginatedDatasource(
-      (page, size, filters) => this.getAllByFilter(filters, page, size), pageSize, false);
+      (page, size, filters) => this.getAllByFilter(filters, page, size),
+      pageSize,
+      false
+    );
   }
 
-  private getAllByFilter(data: FlDatasourceGetPageData<HaStoryFilters>, page: number, size: number): Observable<ClPage<HaListStoryDto>> {
+  private getAllByFilter(
+    data: FlDatasourceGetPageData<HaStoryFilters>,
+    page: number,
+    size: number
+  ): Observable<ClPage<HaListStoryDto>> {
     return this.apiService.post(this.route + '/filter', data.filtersCriteria, HaStory, {
       page: page,
       pageSize: size,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
@@ -78,13 +86,18 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
     return this.apiService.get(this.route + '/user/' + userId, HaListStoryDto, {
       page: page,
       pageSize: size,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
-  public getUserStoriesPaginated(pageSize: number = 4): HaStoryDatasourcePaginated<HaProfileDatasourceFilters> {
-    return new FlEntityPaginatedDatasource((page, size, filters) =>
-      this.getUserStories(filters.filtersCriteria.userId, page, size), pageSize, false);
+  public getUserStoriesPaginated(
+    pageSize: number = 4
+  ): HaStoryDatasourcePaginated<HaProfileDatasourceFilters> {
+    return new FlEntityPaginatedDatasource(
+      (page, size, filters) => this.getUserStories(filters.filtersCriteria.userId, page, size),
+      pageSize,
+      false
+    );
   }
 
   /**
@@ -114,7 +127,11 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
    * return a story
    */
   public updateContentEdition(id: string, content: TeRichTextContent): Observable<HaStory> {
-    return this.apiService.put(this.route + '/' + id + '/content-edition', { contentEdition: content }, HaStory);
+    return this.apiService.put(
+      this.route + '/' + id + '/content-edition',
+      { contentEdition: content },
+      HaStory
+    );
   }
 
   public saveContent(id: string): Observable<HaStory> {
@@ -154,14 +171,23 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
   getMyStoriesForList(): HaStoryDatasourcePaginated<HaStoryFilters> {
-    return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilters>((page, size, filters) =>
-      this.getMyStoriesForListPaginated(page, size, filters), 10, false);
+    return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilters>(
+      (page, size, filters) => this.getMyStoriesForListPaginated(page, size, filters),
+      10,
+      false
+    );
   }
 
-  private getMyStoriesForListPaginated(page: number, size: number,
-                                       data: FlDatasourceGetPageData<HaStoryFilters>): Observable<ClPage<HaListStoryDto>> {
-    return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria,
-      HaStory, { page: page, pageSize: size, resultIsPaginated: true });
+  private getMyStoriesForListPaginated(
+    page: number,
+    size: number,
+    data: FlDatasourceGetPageData<HaStoryFilters>
+  ): Observable<ClPage<HaListStoryDto>> {
+    return this.apiService.post(this.route + '/my-filtered', data.filtersCriteria, HaStory, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   /***
@@ -225,14 +251,16 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
   inviteCoAuthor(storyId: string, coAuthorMail: string): Observable<boolean> {
-    return this.apiService.post(`${this.route}/${storyId}/invite-co-author`, { coAuthorMail: coAuthorMail }, Boolean);
+    return this.apiService.post(
+      `${this.route}/${storyId}/invite-co-author`,
+      { coAuthorMail: coAuthorMail },
+      Boolean
+    );
   }
-
 
   getStoryFiles(storyId: string): Observable<HaFile[]> {
     return this.apiService.get(`${this.route}/story-files/${storyId}`, HaFile, { resultIsPaginated: false });
   }
-
 
   uploadFile(file: File, storyId: string): Observable<HaFile> {
     const formData = new FormData();
@@ -249,7 +277,9 @@ export class HaStoryService implements HaCoAuthorService, HaFileServiceInterface
   }
 
   getCoAuthorsPendingInvites(storyId: string): Observable<HaStoryCoAuthorInvite[]> {
-    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryCoAuthorInvite, { resultIsPaginated: false });
+    return this.apiService.get(`${this.route}/${storyId}/co-authors-pending-invites`, HaStoryCoAuthorInvite, {
+      resultIsPaginated: false,
+    });
   }
 
   deleteCoAuthorInvite(inviteId: string): Observable<void> {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabLogTableComponent} from './lab-log-table.component';
+import { LabLogTableComponent } from './lab-log-table.component';
 
 describe('LabLogTableComponent', () => {
   let component: LabLogTableComponent;
@@ -8,9 +8,8 @@ describe('LabLogTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabLogTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabLogTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabLogTableComponent);
     component = fixture.componentInstance;

@@ -1,9 +1,10 @@
 <div class="g-full-height g-max-article-width container g-layout-col">
-
   @if (view.data.title) {
     <h2 class="title">{{ view.data.title }}</h2>
   }
-  <te-text-editor [(ngModel)]="view.data.content" [disabled]="true"
-                  class="text-editor g-scrollable-element"
-                  [config]="textEditorConfig"></te-text-editor>
+  <te-text-editor
+    [(ngModel)]="view.data.content"
+    [disabled]="true"
+    class="text-editor g-scrollable-element"
+    [config]="textEditorConfig"></te-text-editor>
 </div>

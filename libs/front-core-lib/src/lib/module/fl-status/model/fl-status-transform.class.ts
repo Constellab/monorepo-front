@@ -1,7 +1,6 @@
-import {Transform} from 'class-transformer';
-import {ClTransformFnParams} from '@monorepo/core-lib';
-import {FlStatus, FlStatusDict} from './fl-status.class';
-
+import { Transform } from 'class-transformer';
+import { ClTransformFnParams } from '@monorepo/core-lib';
+import { FlStatus, FlStatusDict } from './fl-status.class';
 
 /**
  * Transformer to convert a string status to a FlStatus object
@@ -9,14 +8,13 @@ import {FlStatus, FlStatusDict} from './fl-status.class';
  * @constructor
  */
 export function FlStatusTransform(statusList: FlStatusDict): PropertyDecorator {
-  const transformToPlain = Transform(
-    (params: ClTransformFnParams<FlStatus>) => params.value?.value ?? null,
-    {toPlainOnly: true}
-  );
+  const transformToPlain = Transform((params: ClTransformFnParams<FlStatus>) => params.value?.value ?? null, {
+    toPlainOnly: true,
+  });
 
   const transformToClass = Transform(
-    (params: ClTransformFnParams<string | null>) => params.value == null ? null : statusList[params.value],
-    {toClassOnly: true}
+    (params: ClTransformFnParams<string | null>) => (params.value == null ? null : statusList[params.value]),
+    { toClassOnly: true }
   );
 
   return (target: any, key: string): void => {

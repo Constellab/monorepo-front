@@ -1,20 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {TdTechDocFunction, TdResourceFunctionArg} from '../../model/td-resource-type.class';
-import {ClStringHelper} from '@monorepo/core-lib';
+import { Component, Input, OnInit } from '@angular/core';
+import { TdTechDocFunction, TdResourceFunctionArg } from '../../model/td-resource-type.class';
+import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
   selector: 'td-resource-doc-func-info',
   templateUrl: './td-resource-doc-func-info.component.html',
-  styleUrls: ['./td-resource-doc-func-info.component.scss']
+  styleUrls: ['./td-resource-doc-func-info.component.scss'],
 })
-export class TdResourceDocFuncInfoComponent implements OnInit{
-
-  @Input({required: true}) func: TdTechDocFunction;
+export class TdResourceDocFuncInfoComponent implements OnInit {
+  @Input({ required: true }) func: TdTechDocFunction;
   cleanedFuncDoc: string[];
   funcAgrsDocs: string[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.cleanedFuncDoc = this.getFunctionCleanDocInfo(this.func);
@@ -31,12 +29,16 @@ export class TdResourceDocFuncInfoComponent implements OnInit{
     const cleanLines = [];
     const techLines = [];
     for (const line of lines) {
-      if (line.includes(':type') || line.includes(':param') || line.includes(':return') || line.includes(':rtype')) {
+      if (
+        line.includes(':type') ||
+        line.includes(':param') ||
+        line.includes(':return') ||
+        line.includes(':rtype')
+      ) {
         techLines.push(line.trim());
       } else {
         cleanLines.push(line);
       }
-
     }
     if (getTechInfo) {
       return techLines;
@@ -47,8 +49,7 @@ export class TdResourceDocFuncInfoComponent implements OnInit{
   getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string {
     const techDocLines = this.getFunctionCleanDocInfo(func, true);
     let res: string = '';
-    if(techDocLines == null || techDocLines.length == 0)
-      return res;
+    if (techDocLines == null || techDocLines.length == 0) return res;
     for (const line of techDocLines) {
       if (line.includes(':param ' + arg.arg_name)) {
         res += line.replace(':param ' + arg.arg_name + ':', '');

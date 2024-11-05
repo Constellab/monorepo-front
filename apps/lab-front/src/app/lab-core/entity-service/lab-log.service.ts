@@ -1,18 +1,15 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {LabLogCompleteInfo, LabLogsStatus} from '../model/entities/lab-log.entity';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { LabLogCompleteInfo, LabLogsStatus } from '../model/entities/lab-log.entity';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabLogService {
-
   private readonly route = 'log';
 
-
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public getLogsStatus(): Observable<LabLogsStatus> {
     return this.apiService.get(this.route + '/status', LabLogsStatus);
@@ -25,5 +22,4 @@ export class LabLogService {
   public getDownloadUrl(logName: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${logName}/download`);
   }
-
 }

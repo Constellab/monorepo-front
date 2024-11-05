@@ -17,12 +17,10 @@ export interface FlStatus<STATUS = string> {
  */
 export type FlStatusDict<STATUS extends string = string> = Record<STATUS, FlStatus<STATUS>>;
 
-
 /**
  * Class that contains generic icon, background class and text class for status
  */
 export class FlStatusHelper {
-
   public static successIcon: string = 'check';
   public static errorIcon: string = 'error';
   public static warningIcon: string = 'warnings';
@@ -34,7 +32,6 @@ export class FlStatusHelper {
   public static stoppedIcon: string = 'stop';
   public static debugIcon: string = 'bug_report';
 
-
   public static successBackgroundClass: string = flThemeClass.primaryBackground;
   public static errorBackgroundClass: string = flThemeClass.warnBackground;
   public static warningBackgroundClass: string = flThemeClass.accentBackground;
@@ -45,60 +42,67 @@ export class FlStatusHelper {
   public static warningTextClass: string = flThemeClass.accentText;
   public static infoTextClass: string = flThemeClass.greyText;
 
-  public static getSuccessStatus<STATUS = string>(value: STATUS,
-                                                  name: string = 'flStatus.success',
-                                                  icon = FlStatusHelper.successIcon,
-                                                  description?: string): FlStatus<STATUS> {
+  public static getSuccessStatus<STATUS = string>(
+    value: STATUS,
+    name: string = 'flStatus.success',
+    icon = FlStatusHelper.successIcon,
+    description?: string
+  ): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.successTextClass,
       backgroundColorClass: FlStatusHelper.successBackgroundClass,
       icon: icon,
-      description: description
+      description: description,
     };
   }
 
-  public static getErrorStatus<STATUS = string>(value: STATUS,
-                                                name: string = 'flStatus.error',
-                                                icon = FlStatusHelper.errorIcon,
-                                                description?: string): FlStatus<STATUS> {
+  public static getErrorStatus<STATUS = string>(
+    value: STATUS,
+    name: string = 'flStatus.error',
+    icon = FlStatusHelper.errorIcon,
+    description?: string
+  ): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.errorTextClass,
       backgroundColorClass: FlStatusHelper.errorBackgroundClass,
       icon: icon,
-      description
+      description,
     };
   }
 
-
-  public static getWarningStatus<STATUS = string>(value: STATUS,
-                                                  name: string = 'flStatus.warning',
-                                                  icon = FlStatusHelper.warningIcon,
-                                                  description?: string): FlStatus<STATUS> {
+  public static getWarningStatus<STATUS = string>(
+    value: STATUS,
+    name: string = 'flStatus.warning',
+    icon = FlStatusHelper.warningIcon,
+    description?: string
+  ): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.warningTextClass,
       backgroundColorClass: FlStatusHelper.warningBackgroundClass,
       icon: icon,
-      description: description
+      description: description,
     };
   }
 
-  public static getInfoStatus<STATUS = string>(value: STATUS,
-                                               name: string = 'flStatus.info',
-                                               icon = FlStatusHelper.infoIcon,
-                                               description?: string): FlStatus<STATUS> {
+  public static getInfoStatus<STATUS = string>(
+    value: STATUS,
+    name: string = 'flStatus.info',
+    icon = FlStatusHelper.infoIcon,
+    description?: string
+  ): FlStatus<STATUS> {
     return {
       name: name,
       value: value,
       textColorClass: FlStatusHelper.infoTextClass,
       backgroundColorClass: FlStatusHelper.infoBackgroundClass,
       icon: icon,
-      description: description
+      description: description,
     };
   }
 
@@ -132,5 +136,3 @@ export class FlStatusHelper {
     return FlStatusHelper.getInfoStatus(value, 'flStatus.debug', FlStatusHelper.debugIcon);
   }
 }
-
-

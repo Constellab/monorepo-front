@@ -1,4 +1,4 @@
-import {FlImageFullscreenDirective} from './fl-image-fullscreen.directive';
+import { FlImageFullscreenDirective } from './fl-image-fullscreen.directive';
 
 describe('FlImageFullscreenDirective', () => {
   it('should create an instance', () => {

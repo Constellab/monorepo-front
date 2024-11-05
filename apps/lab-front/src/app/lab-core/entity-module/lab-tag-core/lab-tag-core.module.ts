@@ -6,12 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabTagFormDialogComponent } from './component/lab-tag-form-dialog/lab-tag-form-dialog.component';
 import { LabTagHelpDialogComponent } from './component/lab-tag-help-dialog/lab-tag-help-dialog.component';
 import { LabGetEntityTagsPipe } from './pipe/lab-get-entity-tags.pipe';
-import {
-  LabManageEntityTagsDialogComponent
-} from './component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
-import {
-  LabTagCheckPropagationComponent
-} from './component/lab-tag-check-propagation/lab-tag-check-propagation.component';
+import { LabManageEntityTagsDialogComponent } from './component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import { LabTagCheckPropagationComponent } from './component/lab-tag-check-propagation/lab-tag-check-propagation.component';
 import { LabNavigableEntityCoreModule } from '../lab-navigable-entity-core/lab-navigable-entity-core.module';
 import { LabTagListComponent } from './component/lab-tag-list/lab-tag-list.component';
 import { LabTagDetailPortalComponent } from './component/lab-tag-detail-portal/lab-tag-detail-portal.component';
@@ -30,7 +26,7 @@ import { LabTagOriginsComponent } from './component/lab-tag-origins/lab-tag-orig
     LabTagListComponent,
     LabTagDetailPortalComponent,
     LabTagFiltersComponent,
-    LabTagOriginsComponent
+    LabTagOriginsComponent,
   ],
   exports: [
     LabTagEntityDetailComponent,
@@ -39,7 +35,7 @@ import { LabTagOriginsComponent } from './component/lab-tag-origins/lab-tag-orig
     LabManageEntityTagsDialogComponent,
     LabTagListComponent,
     LabTagDetailPortalComponent,
-    LabTagFiltersComponent
+    LabTagFiltersComponent,
   ],
   imports: [
     CommonModule,
@@ -48,8 +44,7 @@ import { LabTagOriginsComponent } from './component/lab-tag-origins/lab-tag-orig
     RouterModule,
 
     LabCoreModule,
-    LabNavigableEntityCoreModule
-  ]
+    LabNavigableEntityCoreModule,
+  ],
 })
-export class LabTagCoreModule {
-}
+export class LabTagCoreModule {}

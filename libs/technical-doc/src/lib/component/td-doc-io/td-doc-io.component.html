@@ -8,28 +8,34 @@
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-start">
-      <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_optional"
-               [matTooltip]="'td.optional_tooltip' | translate" size="small">
+      <fl-chip
+        class="g-primary-background chip"
+        *ngIf="ioSpec.is_optional"
+        [matTooltip]="'td.optional_tooltip' | translate"
+        size="small">
         {{ 'td.optional' | translate }}
       </fl-chip>
-      <fl-chip class="g-primary-background chip" *ngIf="ioSpec.is_constant"
-               [matTooltip]="'td.constant_tooltip' | translate" size="small">
+      <fl-chip
+        class="g-primary-background chip"
+        *ngIf="ioSpec.is_constant"
+        [matTooltip]="'td.constant_tooltip' | translate"
+        size="small">
         {{ 'td.constant' | translate }}
       </fl-chip>
     </div>
 
     <div *ngIf="showEditButton">
-      <button mat-icon-button [matMenuTriggerFor]="menu"
-              class="g-button-icon-small">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="g-button-icon-small">
         <mat-icon>more_vert</mat-icon>
       </button>
     </div>
   </div>
 
-
   <div class="g-layout-row-wrap resource-types">
-    <td-io-resource *ngFor="let resourceType of ioSpec.resource_types" [resource]="resourceType"
-                    class="resource-type"></td-io-resource>
+    <td-io-resource
+      *ngFor="let resourceType of ioSpec.resource_types"
+      [resource]="resourceType"
+      class="resource-type"></td-io-resource>
   </div>
 </div>
 
@@ -43,5 +49,4 @@
     <mat-icon color="warn">clear</mat-icon>
     <span class="g-warn-text">{{ 'td.remove_port' | translate }}</span>
   </button>
-
 </mat-menu>

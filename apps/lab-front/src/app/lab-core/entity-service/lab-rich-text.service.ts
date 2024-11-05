@@ -7,7 +7,7 @@ import {
   TeFileBlockConfig,
   TeFileBlockData,
   TeRichTextContent,
-  TeUploadedImage
+  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
@@ -19,11 +19,9 @@ export enum LabRichTextObjectType {
 
 @Injectable({ providedIn: 'root' })
 export class LabRichTextService {
-
   private route: string = 'rich-text';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   uploadImage(objectType: LabRichTextObjectType, objectId: string, file: File): Observable<TeUploadedImage> {
     const formData = new FormData();
@@ -45,8 +43,15 @@ export class LabRichTextService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${objectType}/${objectId}/file/${filename}`);
   }
 
-  getFileView(objectType: LabRichTextObjectType, objectId: string, filename: string): Observable<LabResourceView> {
-    return this.apiService.get(`${this.route}/${objectType}/${objectId}/file-view/${filename}`, LabResourceView);
+  getFileView(
+    objectType: LabRichTextObjectType,
+    objectId: string,
+    filename: string
+  ): Observable<LabResourceView> {
+    return this.apiService.get(
+      `${this.route}/${objectType}/${objectId}/file-view/${filename}`,
+      LabResourceView
+    );
   }
 
   transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
@@ -56,12 +61,13 @@ export class LabRichTextService {
   }
 }
 
-
 export class LabRichTextImageConfig implements TeFigureBlockConfig {
-
   private richTextService: LabRichTextService;
 
-  constructor(private objectType: LabRichTextObjectType, private objectId: string) {
+  constructor(
+    private objectType: LabRichTextObjectType,
+    private objectId: string
+  ) {
     this.richTextService = flRootInjector.get(LabRichTextService);
   }
 
@@ -75,10 +81,12 @@ export class LabRichTextImageConfig implements TeFigureBlockConfig {
 }
 
 export class LabRichTextFileConfig implements TeFileBlockConfig {
-
   private richTextService: LabRichTextService;
 
-  constructor(private objectType: LabRichTextObjectType, private objectId: string) {
+  constructor(
+    private objectType: LabRichTextObjectType,
+    private objectId: string
+  ) {
     this.richTextService = flRootInjector.get(LabRichTextService);
   }
 
@@ -92,7 +100,6 @@ export class LabRichTextFileConfig implements TeFileBlockConfig {
 }
 
 export class LabRichTextAudioTranscriptionConfig implements TeAudioTranscriptionConfig {
-
   private richTextService: LabRichTextService;
 
   constructor() {
@@ -102,5 +109,4 @@ export class LabRichTextAudioTranscriptionConfig implements TeAudioTranscription
   transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
     return this.richTextService.transcribeAudio(audio);
   }
-
 }

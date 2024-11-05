@@ -8,9 +8,8 @@ describe('HaPublicTechDocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicTechDocComponent ]
-    })
-      .compileComponents();
+      declarations: [HaPublicTechDocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

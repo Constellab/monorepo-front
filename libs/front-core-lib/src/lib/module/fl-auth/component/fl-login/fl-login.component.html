@@ -1,13 +1,10 @@
 <form [formGroup]="formGp" (ngSubmit)="login()" class="form">
-
   <fl-login-form [formGp]="formGp"></fl-login-form>
 
-  <button mat-flat-button color="accent" type="submit"
-          class="connection-button g-button-big">
-    {{'flAuth.sign_in' | translate}}
+  <button mat-flat-button color="accent" type="submit" class="connection-button g-button-big">
+    {{ 'flAuth.sign_in' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 
   <ng-content></ng-content>
 </form>
-

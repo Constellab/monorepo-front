@@ -5,9 +5,7 @@ import { CaCoreModule } from '../../../ca-core/ca-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaDocumentCoreModule } from '../ca-document-core/ca-document-core.module';
-import {
-  CaDocumentPreviewPageComponent
-} from './component/ca-document-preview-page/ca-document-preview-page.component';
+import { CaDocumentPreviewPageComponent } from './component/ca-document-preview-page/ca-document-preview-page.component';
 
 @NgModule({
   declarations: [CaDocumentDetailPageComponent, CaDocumentPreviewPageComponent],
@@ -21,5 +19,4 @@ import {
     CaDocumentCoreModule,
   ],
 })
-export class CaDocumentDetailPageModule {
-}
+export class CaDocumentDetailPageModule {}

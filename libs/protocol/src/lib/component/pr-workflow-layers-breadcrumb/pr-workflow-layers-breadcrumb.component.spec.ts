@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PrWorkflowLayersBreadcrumbComponent} from './pr-workflow-layers-breadcrumb.component';
+import { PrWorkflowLayersBreadcrumbComponent } from './pr-workflow-layers-breadcrumb.component';
 
 describe('PrWorkflowLayersBreadcrumbComponent', () => {
   let component: PrWorkflowLayersBreadcrumbComponent;
@@ -8,9 +8,8 @@ describe('PrWorkflowLayersBreadcrumbComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrWorkflowLayersBreadcrumbComponent]
-    })
-      .compileComponents();
+      declarations: [PrWorkflowLayersBreadcrumbComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

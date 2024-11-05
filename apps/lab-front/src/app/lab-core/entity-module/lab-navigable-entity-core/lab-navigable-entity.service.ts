@@ -7,13 +7,13 @@ import {
   FlPortalActionResult,
   FlPortalActionsService,
   FlTranslatableText,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable, switchMap } from 'rxjs';
 import { LabNavigableEntityImpact } from '../../model/entities/lab-navigable-entity.entity';
 import {
   LabNavigableImpactDialogComponent,
-  LabNavigableImpactDialogInput
+  LabNavigableImpactDialogInput,
 } from './component/lab-navigable-impact-dialog/lab-navigable-impact-dialog.component';
 import { map } from 'rxjs/operators';
 
@@ -25,22 +25,20 @@ export interface LabNavigableImpactConfig {
   callAction: () => Observable<any>;
 }
 
-
 export interface LabNavigableCallActionResult<T = any> {
   success: boolean;
   result?: T;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabNavigableEntityService {
-
-  constructor(private dialogService: FlDialogService,
-              private translateService: FlTranslateService,
-              private actionService: FlPortalActionsService) {
-
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private translateService: FlTranslateService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   /**
    * Method to check the impact of an action and call the action if the user confirms
@@ -48,18 +46,17 @@ export class LabNavigableEntityService {
    */
   public callImpactMethodOnAction(data: LabNavigableImpactConfig): Observable<FlPortalActionResult> {
     const obs = this.callImpactMethod(data).pipe(
-      map(
-        (result: LabNavigableCallActionResult) => {
-          // if the call was not a success, mark the action as error
-          if (!result.success) throw new Error('Cancel');
-          return result.result;
-        }
-      ));
+      map((result: LabNavigableCallActionResult) => {
+        // if the call was not a success, mark the action as error
+        if (!result.success) throw new Error('Cancel');
+        return result.result;
+      })
+    );
 
     const action: FlPortalAction = {
       text: data.title,
       type: 'call-impact',
-      action: obs
+      action: obs,
     };
 
     return this.actionService.addAction(action);
@@ -70,13 +67,15 @@ export class LabNavigableEntityService {
    * @param data
    */
   public callImpactMethod(data: LabNavigableImpactConfig): Observable<LabNavigableCallActionResult> {
-    return data.checkImpact().pipe(
-      switchMap((result: LabNavigableEntityImpact) => this.onCheckImpactSuccess(result, data))
-    );
+    return data
+      .checkImpact()
+      .pipe(switchMap((result: LabNavigableEntityImpact) => this.onCheckImpactSuccess(result, data)));
   }
 
-  private onCheckImpactSuccess(result: LabNavigableEntityImpact,
-                               data: LabNavigableImpactConfig): Observable<LabNavigableCallActionResult> {
+  private onCheckImpactSuccess(
+    result: LabNavigableEntityImpact,
+    data: LabNavigableImpactConfig
+  ): Observable<LabNavigableCallActionResult> {
     // if no entities are impact
     if (!result.hasEntities) {
       return this.showNoImpactConfirmDialog(data);
@@ -85,56 +84,59 @@ export class LabNavigableEntityService {
     }
   }
 
-  private showNoImpactConfirmDialog(data: LabNavigableImpactConfig): Observable<LabNavigableCallActionResult> {
+  private showNoImpactConfirmDialog(
+    data: LabNavigableImpactConfig
+  ): Observable<LabNavigableCallActionResult> {
     const input: FlConfirmDialogInput = {
       title: data.title,
       content: data.noImpactConfirmText,
-      observable: data.callAction()
+      observable: data.callAction(),
     };
 
-    return this.dialogService.openConfirmDialog(input).afterClosed().pipe(
-      map((result: FlConfirmDialogResult) => this.onNoImpactResult(result))
-    );
+    return this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .pipe(map((result: FlConfirmDialogResult) => this.onNoImpactResult(result)));
   }
 
   private onNoImpactResult(result: FlConfirmDialogResult): LabNavigableCallActionResult {
     if (result?.choice) {
       return {
         success: true,
-        result: result.result
+        result: result.result,
       };
     }
     return {
-      success: false
+      success: false,
     };
   }
 
-  private showImpactConfirmDialog(result: LabNavigableEntityImpact,
-                                  data: LabNavigableImpactConfig): Observable<LabNavigableCallActionResult> {
+  private showImpactConfirmDialog(
+    result: LabNavigableEntityImpact,
+    data: LabNavigableImpactConfig
+  ): Observable<LabNavigableCallActionResult> {
     const input: LabNavigableImpactDialogInput = {
       impactedEntities: result.impactedEntities,
-      config: data
+      config: data,
     };
     // open the impact confirmation dialog
-    return this.dialogService.openMediumDialog(LabNavigableImpactDialogComponent, {
-      data: input,
-      panelClass: 'g-dialog-main-background'
-    }).afterClosed().pipe(
-      map((result: any) => this.onImpactResult(result))
-    );
+    return this.dialogService
+      .openMediumDialog(LabNavigableImpactDialogComponent, {
+        data: input,
+        panelClass: 'g-dialog-main-background',
+      })
+      .afterClosed()
+      .pipe(map((result: any) => this.onImpactResult(result)));
   }
-
 
   private onImpactResult(result?: FlConfirmDialogResult): LabNavigableCallActionResult {
-    if (result?.choice) return {
-      success: true,
-      result: result.result
-    };
+    if (result?.choice)
+      return {
+        success: true,
+        result: result.result,
+      };
     return {
-      success: false
+      success: false,
     };
   }
-
-
 }
-

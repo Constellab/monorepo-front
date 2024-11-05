@@ -1,9 +1,12 @@
 <fl-dialog-header>
-  {{title | flTranslatableText | async}}
+  {{ title | flTranslatableText | async }}
 
   <fl-dialog-header-actions>
-    <button mat-icon-button type="button" (click)="copyToClipboard()"
-            [matTooltip]="'flJsonEditor.copy_json_to_clipboard' | translate">
+    <button
+      mat-icon-button
+      type="button"
+      (click)="copyToClipboard()"
+      [matTooltip]="'flJsonEditor.copy_json_to_clipboard' | translate">
       <mat-icon>copy</mat-icon>
     </button>
   </fl-dialog-header-actions>
@@ -12,6 +15,3 @@
 <mat-dialog-content>
   <fl-pretty-json [object]="object"></fl-pretty-json>
 </mat-dialog-content>
-
-
-

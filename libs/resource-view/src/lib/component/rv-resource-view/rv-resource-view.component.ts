@@ -1,4 +1,13 @@
-import { Component, ComponentRef, Inject, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { RvResourceViewBase } from '../../model/rv-resource-view.class';
 
 import { RvViewConfig } from '../../model/rv-view-config.class';
@@ -11,10 +20,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 @Component({
   selector: 'rv-resource-view',
   templateUrl: './rv-resource-view.component.html',
-  styleUrls: ['./rv-resource-view.component.scss']
+  styleUrls: ['./rv-resource-view.component.scss'],
 })
 export class RvResourceViewComponent implements OnInit, OnDestroy {
-
   @Input() set view(value: RvResourceViewBase) {
     this._view = value;
     if (this.isReady) {
@@ -24,7 +32,6 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   _view: RvResourceViewBase;
 
-
   @Input() resourceId?: string;
 
   @Input() config?: RvViewConfig;
@@ -32,7 +39,7 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
   // if provided the view will support a right click. (only supported by view chart2d for now)
   @Input() contextMenuItems?: FlMenuDynamic[];
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private isReady: boolean = false;
 
@@ -40,9 +47,7 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   viewNotSupportedError: boolean = false;
 
-
-  constructor(@Inject(RV_MODULE_CONFIG) private moduleConfig: RvResourceViewModuleConfig) {
-  }
+  constructor(@Inject(RV_MODULE_CONFIG) private moduleConfig: RvResourceViewModuleConfig) {}
 
   ngOnInit(): void {
     this.isReady = true;
@@ -90,5 +95,4 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyViewComponentRef();
   }
-
 }

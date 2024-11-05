@@ -16,10 +16,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/bio-network/**/*.ts",
-          "libs/bio-network/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/bio-network/**/*.ts", "libs/bio-network/**/*.html"]
       }
     }
   },

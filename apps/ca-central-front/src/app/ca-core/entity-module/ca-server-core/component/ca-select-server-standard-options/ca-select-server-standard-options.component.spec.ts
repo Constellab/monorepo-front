@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectServerStandardOptionsComponent} from './ca-select-server-standard-options.component';
+import { CaSelectServerStandardOptionsComponent } from './ca-select-server-standard-options.component';
 
 describe('CaSelectServerStandardOptionsComponent', () => {
   let component: CaSelectServerStandardOptionsComponent;
@@ -8,9 +8,8 @@ describe('CaSelectServerStandardOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaSelectServerStandardOptionsComponent]
-    })
-    .compileComponents();
+      declarations: [CaSelectServerStandardOptionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSelectServerStandardOptionsComponent);
     component = fixture.componentInstance;

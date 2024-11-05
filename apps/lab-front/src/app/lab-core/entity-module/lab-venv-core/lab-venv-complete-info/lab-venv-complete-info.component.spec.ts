@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabVenvCompleteInfoComponent} from './lab-venv-complete-info.component';
+import { LabVenvCompleteInfoComponent } from './lab-venv-complete-info.component';
 
 describe('LabVenvCompleteInfoComponent', () => {
   let component: LabVenvCompleteInfoComponent;
@@ -8,9 +8,8 @@ describe('LabVenvCompleteInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabVenvCompleteInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [LabVenvCompleteInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabVenvCompleteInfoComponent);
     component = fixture.componentInstance;

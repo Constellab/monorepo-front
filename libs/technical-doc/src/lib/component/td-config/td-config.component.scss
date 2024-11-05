@@ -1,4 +1,4 @@
-.config-spec{
+.config-spec {
   margin-top: 2em;
   display: flex;
   flex-direction: column;
@@ -7,28 +7,28 @@
   border-left: solid 2px var(--card-background);
 }
 
-.config-spec-head{
+.config-spec-head {
   width: 100%;
   align-items: center;
 }
 
-.chip-div{
+.chip-div {
   align-items: start;
 }
 
-.key-val{
+.key-val {
   padding-top: 1em;
 }
 
-.chip{
+.chip {
   margin-right: 1em;
 }
 
-.param-set-margin{
+.param-set-margin {
   margin-left: 1.5em;
 }
 
-.code1-v2{
+.code1-v2 {
   //TODO: check font family
   //font-family: IBM Plex Mono;
   font-size: 12px;
@@ -38,10 +38,10 @@
   letter-spacing: 0.32px;
 }
 
-.spacing-6-v2{
+.spacing-6-v2 {
   margin-bottom: 16px;
 }
 
-.spacing-4-v2{
+.spacing-4-v2 {
   margin-bottom: 8px;
 }

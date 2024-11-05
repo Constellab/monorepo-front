@@ -10,7 +10,7 @@ import {
   LabTableChartConfigScatterPlot,
   LabTableChartConfigStackedBarPlot,
   LabTableChartConfigVennDiagram,
-  LabTableChartConfigVulcanoPlot
+  LabTableChartConfigVulcanoPlot,
 } from '../../model/lab-table-chart-config.class';
 import { LabResourceTableService } from '../../../../entity-service/lab-resource-table.service';
 import { LabResourceSpreadsheetPageLoader } from '../../model/lab-resource-spreadsheet-page-loader.class';
@@ -22,10 +22,12 @@ import { FlPortalService } from '@monorepo/front-core-lib';
 @Component({
   selector: 'lab-resource-view-spreadsheet',
   templateUrl: './lab-resource-view-spreadsheet.component.html',
-  styleUrls: ['./lab-resource-view-spreadsheet.component.scss']
+  styleUrls: ['./lab-resource-view-spreadsheet.component.scss'],
 })
-export class LabResourceViewSpreadsheetComponent extends RvResourceViewDirective<RvResourceViewTable> implements OnInit {
-
+export class LabResourceViewSpreadsheetComponent
+  extends RvResourceViewDirective<RvResourceViewTable>
+  implements OnInit
+{
   @Input() view: RvResourceViewTable;
 
   spreadSheet: SpSpreadsheet;
@@ -34,8 +36,11 @@ export class LabResourceViewSpreadsheetComponent extends RvResourceViewDirective
 
   pagination: LabResourceSpreadsheetPageLoader;
 
-  constructor(private resourceTableService: LabResourceTableService, private portalService: FlPortalService,
-              private viewContainerRef: ViewContainerRef) {
+  constructor(
+    private resourceTableService: LabResourceTableService,
+    private portalService: FlPortalService,
+    private viewContainerRef: ViewContainerRef
+  ) {
     super();
   }
 
@@ -43,35 +48,90 @@ export class LabResourceViewSpreadsheetComponent extends RvResourceViewDirective
     if (this.config) {
       // list all available charts
       this.chartConfig = [
-        new LabTableChartConfigLinePlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigScatterPlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigVulcanoPlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigBarPlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigStackedBarPlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigHistogram(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigBoxPlot(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigHeatMap(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef),
-        new LabTableChartConfigVennDiagram(this.resourceId, this.config.methodName, this.config.configValues,
-          this.resourceTableService, this.portalService, this.viewContainerRef)
+        new LabTableChartConfigLinePlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigScatterPlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigVulcanoPlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigBarPlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigStackedBarPlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigHistogram(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigBoxPlot(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigHeatMap(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
+        new LabTableChartConfigVennDiagram(
+          this.resourceId,
+          this.config.methodName,
+          this.config.configValues,
+          this.resourceTableService,
+          this.portalService,
+          this.viewContainerRef
+        ),
       ];
     }
-
 
     this.spreadSheet = rvTableToSpreadsheet(this.view);
 
     // activate the pagination only for the table-view
     if (this.view.type === 'table-view') {
-      this.pagination = new LabResourceSpreadsheetPageLoader(this.resourceTableService,
-        this.resourceId, this.config);
+      this.pagination = new LabResourceSpreadsheetPageLoader(
+        this.resourceTableService,
+        this.resourceId,
+        this.config
+      );
     }
   }
-
 }

@@ -8,9 +8,8 @@ describe('HaPublicVersionsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicVersionsComponent ]
-    })
-      .compileComponents();
+      declarations: [HaPublicVersionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

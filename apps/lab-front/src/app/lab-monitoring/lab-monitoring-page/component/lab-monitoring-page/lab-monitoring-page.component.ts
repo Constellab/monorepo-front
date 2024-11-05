@@ -1,56 +1,54 @@
-import {Component} from '@angular/core';
-import {LabRouterService} from '../../../../lab-core/service/lab-router.service';
-import {FlHorizontalNavBarItem} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
+import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-monitoring-page',
   templateUrl: './lab-monitoring-page.component.html',
-  styleUrls: ['./lab-monitoring-page.component.scss']
+  styleUrls: ['./lab-monitoring-page.component.scss'],
 })
 export class LabMonitoringPageComponent {
-
   routes: FlHorizontalNavBarItem[] = [
     {
-      label: {text: 'monitoring.dashboard', translateText: true},
+      label: { text: 'monitoring.dashboard', translateText: true },
       icon: 'dashboard',
       route: LabRouterService.getMonitoringRoute(),
-      linkActiveExact: true
+      linkActiveExact: true,
     },
     {
-      label: {text: 'monitoring.monitoring', translateText: true},
+      label: { text: 'monitoring.monitoring', translateText: true },
       icon: 'monitor_heart',
-      route: LabRouterService.getMonitoringUsageRoute()
+      route: LabRouterService.getMonitoringUsageRoute(),
     },
     {
-      label: {text: 'tags', translateText: true},
+      label: { text: 'tags', translateText: true },
       icon: 'local_offer',
-      route: LabRouterService.getMonitoringTagsRoute()
+      route: LabRouterService.getMonitoringTagsRoute(),
     },
     {
-      label: {text: 'monitoring.venv_list', translateText: true},
+      label: { text: 'monitoring.venv_list', translateText: true },
       icon: 'takeout_dining',
-      route: LabRouterService.getMonitoringVenvsRoute()
+      route: LabRouterService.getMonitoringVenvsRoute(),
     },
     {
-      label: {text: 'monitoring.logs', translateText: true},
+      label: { text: 'monitoring.logs', translateText: true },
       icon: 'description',
-      route: LabRouterService.getMonitoringLogsRoute()
+      route: LabRouterService.getMonitoringLogsRoute(),
     },
     {
-      label: {text: 'biox.credentials', translateText: true},
+      label: { text: 'biox.credentials', translateText: true },
       icon: 'key',
-      route: LabRouterService.getMonitoringCredentialsRoute()
+      route: LabRouterService.getMonitoringCredentialsRoute(),
     },
     {
-      label: {text: 'monitoring.activities', translateText: true},
+      label: { text: 'monitoring.activities', translateText: true },
       icon: 'task',
-      route: LabRouterService.getMonitoringActivityRoute()
+      route: LabRouterService.getMonitoringActivityRoute(),
     },
     {
-      label: {text: 'monitoring.other', translateText: true},
+      label: { text: 'monitoring.other', translateText: true },
       icon: 'source',
-      route: LabRouterService.getOtherRoute()
-    }
+      route: LabRouterService.getOtherRoute(),
+    },
   ];
-
 }

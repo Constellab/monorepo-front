@@ -8,9 +8,8 @@ describe('LabNoteFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabNoteFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabNoteFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

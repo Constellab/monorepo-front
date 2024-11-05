@@ -1,4 +1,4 @@
-import {CaDetailRoutePipe} from './ca-detail-route.pipe';
+import { CaDetailRoutePipe } from './ca-detail-route.pipe';
 
 describe('CaDetailRoutePipe', () => {
   it('create an instance', () => {

@@ -15,10 +15,9 @@ export interface FlCompleteLoginQueryParam {
   selector: 'fl-complete-login',
   templateUrl: './fl-complete-login.component.html',
   styleUrls: ['./fl-complete-login.component.scss'],
-  providers: [FlQueryParamHandler]
+  providers: [FlQueryParamHandler],
 })
 export class FlCompleteLoginComponent implements OnInit {
-
   /**
    * Redirection route after the login is successful, do nothing if not provided
    */
@@ -28,16 +27,16 @@ export class FlCompleteLoginComponent implements OnInit {
 
   currentView$: Observable<'login' | '2fa'>;
 
-
-  constructor(private router: Router,
-              private queryParamHandler: FlQueryParamHandler<FlCompleteLoginQueryParam>,
-              private authService: FlAuthService) {
-  }
+  constructor(
+    private router: Router,
+    private queryParamHandler: FlQueryParamHandler<FlCompleteLoginQueryParam>,
+    private authService: FlAuthService
+  ) {}
 
   ngOnInit(): void {
-    this.currentView$ = this.queryParamHandler.getQueryParams().pipe(
-      map(queryParams => queryParams.twoFAUrlCode == null ? 'login' : '2fa')
-    );
+    this.currentView$ = this.queryParamHandler
+      .getQueryParams()
+      .pipe(map((queryParams) => (queryParams.twoFAUrlCode == null ? 'login' : '2fa')));
   }
 
   onLoginSuccess(result: FlAuthLoginResponse): void {
@@ -46,12 +45,10 @@ export class FlCompleteLoginComponent implements OnInit {
     } else {
       this.switchTo2FAView(result);
     }
-
-
   }
 
   private switchTo2FAView(result: FlAuthLoginResponse): void {
-    this.queryParamHandler.mergeQueryParams({twoFAUrlCode: result.twoFAUrlCode});
+    this.queryParamHandler.mergeQueryParams({ twoFAUrlCode: result.twoFAUrlCode });
   }
 
   onLogin2FASuccess(result: FlAuthLogin2FaResponse): void {
@@ -65,7 +62,9 @@ export class FlCompleteLoginComponent implements OnInit {
       // redirect to the app
       // if a route has been saved, redirect to this route
       if (FlLoginSavedRoute.hasRoute()) {
-        this.router.navigate([FlLoginSavedRoute.getRoutePath()], {queryParams: FlLoginSavedRoute.getRouteQueryParams()});
+        this.router.navigate([FlLoginSavedRoute.getRoutePath()], {
+          queryParams: FlLoginSavedRoute.getRouteQueryParams(),
+        });
         FlLoginSavedRoute.clearRoute();
       } else {
         this.router.navigate([this.redirectionRoute]);
@@ -74,5 +73,4 @@ export class FlCompleteLoginComponent implements OnInit {
 
     this.loginSuccess.next();
   }
-
 }

@@ -6,9 +6,12 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
-import { CaServerCloud, CaServerCloudDatasource } from '../../../../model/entities/server/ca-server-cloud.class';
+import {
+  CaServerCloud,
+  CaServerCloudDatasource,
+} from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
@@ -17,21 +20,21 @@ import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-s
   selector: 'ca-server-cloud-search',
   templateUrl: './ca-server-cloud-search.component.html',
   styleUrls: ['./ca-server-cloud-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class CaServerCloudSearchComponent implements OnInit {
-
   @Input() mode: 'search' | 'selection' = 'search';
 
   @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
 
   datasource: CaServerCloudDatasource<CaServerCloudSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private serverService: CaServerService,
-              private themeService: FlThemeService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private serverService: CaServerService,
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -41,39 +44,43 @@ export class CaServerCloudSearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: CaServerCloudSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: this.mode === 'search',
-      defaultSort: {key: 'technicalName', direction: 'ASC'}
+      defaultSort: { key: 'technicalName', direction: 'ASC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.serverService.searchServerCloud(page, size, filters),
-      20, false);
+      20,
+      false
+    );
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-server-info',
-      id: null,
-      label: 'All server',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaServerCloudSearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-server-info',
+        id: null,
+        label: 'All server',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaServerCloudSearchFields>,
+      },
+    ];
   }
 
   openCreateServerCloud(): void {
     const dialogInput: FlFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openSmallDialog(CaServerCloudFormDialogComponent, {data: dialogInput}).afterClosed()
-      .subscribe(
-        serverCloud => this.onCreateServerCloud(serverCloud)
-      );
+    this.dialogService
+      .openSmallDialog(CaServerCloudFormDialogComponent, { data: dialogInput })
+      .afterClosed()
+      .subscribe((serverCloud) => this.onCreateServerCloud(serverCloud));
   }
 
   private onCreateServerCloud(serverCloud?: CaServerCloud): void {
@@ -86,4 +93,3 @@ export class CaServerCloudSearchComponent implements OnInit {
     this.serverCloudSelected.emit(serverCloud);
   }
 }
-

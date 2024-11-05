@@ -1,26 +1,26 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Name -->
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'lab_green_option_type' | translate}}</span>
+      <span> {{ 'lab_green_option_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let option">
-      {{('lab_green_option_' + option.type) | translate}}
+      {{ 'lab_green_option_' + option.type | translate }}
     </mat-cell>
   </ng-container>
 
   <!-- Is persistent -->
   <ng-container matColumnDef="isPersistent">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'lab_green_option_persistent' | translate}}</span>
+      <span> {{ 'lab_green_option_persistent' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let option">
-      <fl-text-ok-nok [value]="option.isPersistent"
-                      [okText]="'lab_green_option_persistent' | translate"
-                      [nokText]="'lab_green_option_not_persistent' | translate"
-                      [okTooltip]="'lab_green_option_persistent_detail' | translate"
-                      [nokTooltip]="'lab_green_option_not_persistent_detail' | translate">
+      <fl-text-ok-nok
+        [value]="option.isPersistent"
+        [okText]="'lab_green_option_persistent' | translate"
+        [nokText]="'lab_green_option_not_persistent' | translate"
+        [okTooltip]="'lab_green_option_persistent_detail' | translate"
+        [nokTooltip]="'lab_green_option_not_persistent_detail' | translate">
       </fl-text-ok-nok>
     </mat-cell>
   </ng-container>
@@ -28,7 +28,7 @@
   <!-- Value -->
   <ng-container matColumnDef="value">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'lab_green_option_value' | translate}}</span>
+      <span> {{ 'lab_green_option_value' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let option">
       <ca-lab-green-option-value [greenOption]="option"></ca-lab-green-option-value>
@@ -38,7 +38,7 @@
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'creation_info' | translate}}</span>
+      <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <fl-user-with-date [user]="template.createdBy" [date]="template.createdAt"></fl-user-with-date>
@@ -47,24 +47,21 @@
 
   <!-- Action -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let greenOption" class="g-table-icon-button-cell">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
         <button mat-menu-item type="button" (click)="updateGreenOption(greenOption)">
           <mat-icon>edit</mat-icon>
-          <span>{{'lab_update_green_option' | translate}}</span>
+          <span>{{ 'lab_update_green_option' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="deleteGreenOption(greenOption)">
           <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{'lab_delete_green_option' | translate}}</span>
+          <span class="g-warn-text">{{ 'lab_delete_green_option' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
@@ -73,8 +70,5 @@
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
-
-
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

@@ -8,19 +8,19 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import {
   FlInputSearchOptionContext,
-  FlInputSearchOptionDirective
+  FlInputSearchOptionDirective,
 } from '../../directive/fl-input-search-option.directive';
 import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
 import { ClHelpService, clRxjsElasticSearch } from '@monorepo/core-lib';
 import {
   FlInputSearchPrefixContext,
-  FlInputSearchPrefixDirective
+  FlInputSearchPrefixDirective,
 } from '../../directive/fl-input-search-prefix.directive';
 
 /**
@@ -28,7 +28,7 @@ import {
  * to open an advanced search dialog.
  * The dialog must return the selected item.
  */
-export interface FlInputSearchAdvancedButton<T>{
+export interface FlInputSearchAdvancedButton<T> {
   onClick: () => Observable<T | null>;
 }
 
@@ -43,10 +43,9 @@ export interface FlInputSearchFilter {
 @Component({
   selector: 'fl-input-search',
   templateUrl: './fl-input-search.component.html',
-  styleUrls: ['./fl-input-search.component.scss']
+  styleUrls: ['./fl-input-search.component.scss'],
 })
 export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
-
   @Input() set selectedItem(selectedItem: T | Observable<T>) {
     this.clearInitObs();
     if (selectedItem instanceof Observable) {
@@ -94,13 +93,17 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   @Output() inputBlur: EventEmitter<void> = new EventEmitter();
 
-  @ViewChild('input', {static: false, read: ElementRef}) input: ElementRef<HTMLInputElement>;
+  @ViewChild('input', { static: false, read: ElementRef }) input: ElementRef<HTMLInputElement>;
 
   // get the option template
-  @ContentChild(FlInputSearchOptionDirective, {read: TemplateRef}) optionTemplate: TemplateRef<FlInputSearchOptionContext<T>>;
+  @ContentChild(FlInputSearchOptionDirective, { read: TemplateRef }) optionTemplate: TemplateRef<
+    FlInputSearchOptionContext<T>
+  >;
 
   // get the prefix template
-  @ContentChild(FlInputSearchPrefixDirective, {read: TemplateRef}) prefixTemplate?: TemplateRef<FlInputSearchPrefixContext<T>>;
+  @ContentChild(FlInputSearchPrefixDirective, { read: TemplateRef }) prefixTemplate?: TemplateRef<
+    FlInputSearchPrefixContext<T>
+  >;
 
   items$: Observable<T[]>;
 
@@ -108,7 +111,6 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
 
   // true when an observable is used to init the selected item
   initIsLoading: boolean = false;
-
 
   // if true, the next focus event will be ignored
   private ignoreFocus: boolean = false;
@@ -121,11 +123,11 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
     this.items$ = this.datasource.connect();
 
-    this.inputControl.valueChanges.pipe(
-      clRxjsElasticSearch(350, this.minInputSearchLength)
-    ).subscribe(value => {
-      this.datasource.getFirstPage({ searchText: value } as FlInputSearchFilter);
-    });
+    this.inputControl.valueChanges
+      .pipe(clRxjsElasticSearch(350, this.minInputSearchLength))
+      .subscribe((value) => {
+        this.datasource.getFirstPage({ searchText: value } as FlInputSearchFilter);
+      });
   }
 
   itemSelected(): void {
@@ -157,12 +159,11 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     }
 
     // initialize the search when the input is focused and empty and datasouce is empty
-    if(this.initSearchOnFocus && !this.inputControl.value && this.datasource.isEmpty()){
+    if (this.initSearchOnFocus && !this.inputControl.value && this.datasource.isEmpty()) {
       this.datasource.getFirstPage({ searchText: '' } as FlInputSearchFilter);
     }
 
     this.focused.emit(this._selectedItem);
-
   }
 
   onBlur(): void {
@@ -186,18 +187,18 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
    * that there is not value for the prefix template
    */
   getPrefixTemplateContext(): FlInputSearchPrefixContext<T> {
-    const selectedItem: T | null = this._selectedItem && typeof this.inputControl.value !== 'string' ?
-      this._selectedItem : null;
+    const selectedItem: T | null =
+      this._selectedItem && typeof this.inputControl.value !== 'string' ? this._selectedItem : null;
     return {
       $implicit: selectedItem,
-      flInputSearchPrefix: selectedItem
+      flInputSearchPrefix: selectedItem,
     };
   }
 
   getOptionTemplateContext(item: T): FlInputSearchOptionContext<T> {
     return {
       $implicit: item,
-      flInputSearchOption: item
+      flInputSearchOption: item,
     };
   }
 
@@ -219,7 +220,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   private initWithObs(obs: Observable<T>): void {
     this.initIsLoading = true;
     this.initSubscription = obs.subscribe({
-      next: item => {
+      next: (item) => {
         this.initIsLoading = false;
         // if a item was selected before the init, we don't override it
         if (this._selectedItem) return;
@@ -227,7 +228,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
         this.setSelectedItemAndEmit(item);
         this.refreshInputCtrl();
       },
-      error: () => this.initIsLoading = false
+      error: () => (this.initIsLoading = false),
     });
   }
 
@@ -243,7 +244,7 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
     // stop the event propagation to avoid the focus event on the input which open the autocomplete
     ClHelpService.stopEventPropagation(event);
     if (this.advancedButton) {
-      this.advancedButton.onClick().subscribe(item => {
+      this.advancedButton.onClick().subscribe((item) => {
         if (item) {
           this.setSelectedItemAndEmit(item);
           this.refreshInputCtrl();
@@ -255,6 +256,4 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.clearInitObs();
   }
-
-
 }

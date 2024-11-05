@@ -1,4 +1,4 @@
-import {ChChartScalePipe} from './ch-chart-scale.pipe';
+import { ChChartScalePipe } from './ch-chart-scale.pipe';
 
 describe('ChChartScalePipe', () => {
   it('create an instance', () => {

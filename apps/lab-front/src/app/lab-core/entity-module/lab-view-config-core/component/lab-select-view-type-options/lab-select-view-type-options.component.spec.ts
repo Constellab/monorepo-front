@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSelectViewTypeOptionsComponent} from './lab-select-view-type-options.component';
+import { LabSelectViewTypeOptionsComponent } from './lab-select-view-type-options.component';
 
 describe('LabSelectViewTypeOptionsComponent', () => {
   let component: LabSelectViewTypeOptionsComponent;
@@ -8,9 +8,8 @@ describe('LabSelectViewTypeOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSelectViewTypeOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSelectViewTypeOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

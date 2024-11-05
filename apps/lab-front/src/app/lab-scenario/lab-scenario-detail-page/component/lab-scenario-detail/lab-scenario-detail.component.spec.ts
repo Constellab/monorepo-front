@@ -8,9 +8,8 @@ describe('LabScenarioDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

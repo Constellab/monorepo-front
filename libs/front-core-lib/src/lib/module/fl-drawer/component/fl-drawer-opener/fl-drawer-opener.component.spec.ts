@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDrawerOpenerComponent} from './fl-drawer-opener.component';
+import { FlDrawerOpenerComponent } from './fl-drawer-opener.component';
 
 describe('FlDrawerOpenerComponent', () => {
   let component: FlDrawerOpenerComponent;
@@ -8,9 +8,8 @@ describe('FlDrawerOpenerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDrawerOpenerComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDrawerOpenerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

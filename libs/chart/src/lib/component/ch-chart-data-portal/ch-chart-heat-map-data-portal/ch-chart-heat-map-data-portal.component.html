@@ -1,12 +1,13 @@
 <fl-portal>
   <fl-portal-content>
-
     <div class="g-layout-col">
-
       <div class="child">
         <ch-chart-value name="x" [value]="x" [formatter]="xLabelFormatter"></ch-chart-value>
         <ch-chart-value name="y" [value]="y" [formatter]="yLabelFormatter"></ch-chart-value>
-        <ch-chart-value [name]="'chChart.value' | translate" [value]="z" [formatter]="zLabelFormatter"></ch-chart-value>
+        <ch-chart-value
+          [name]="'chChart.value' | translate"
+          [value]="z"
+          [formatter]="zLabelFormatter"></ch-chart-value>
       </div>
 
       <fl-tag-list [tags]="data.tags"></fl-tag-list>

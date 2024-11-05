@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabViewConfigPreviewComponent} from './lab-view-config-preview.component';
+import { LabViewConfigPreviewComponent } from './lab-view-config-preview.component';
 
 describe('LabViewConfigPreviewComponent', () => {
   let component: LabViewConfigPreviewComponent;
@@ -8,9 +8,8 @@ describe('LabViewConfigPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabViewConfigPreviewComponent ]
-    })
-    .compileComponents();
+      declarations: [LabViewConfigPreviewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabViewConfigPreviewComponent);
     component = fixture.componentInstance;

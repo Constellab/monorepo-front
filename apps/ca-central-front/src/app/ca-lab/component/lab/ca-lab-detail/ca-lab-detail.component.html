@@ -1,11 +1,12 @@
 @if (lab$ | async; as lab) {
   <fl-card class="g-full-height">
-
     <fl-card-header>
       <fl-text-icon>
         <mat-icon flIcon="lab"></mat-icon>
-        <h2 flElementEditable [flElementDisabled]="(isOwner$ | async) !== true"
-            (flElementValueChange)="updateLabName($event, lab)">
+        <h2
+          flElementEditable
+          [flElementDisabled]="(isOwner$ | async) !== true"
+          (flElementValueChange)="updateLabName($event, lab)">
           {{ lab.name | translate }}
         </h2>
       </fl-text-icon>
@@ -16,8 +17,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-
-          @if (lab.isDesktop && (isOwner$| async)) {
+          @if (lab.isDesktop && (isOwner$ | async)) {
             <button mat-menu-item type="button" (click)="openLabDesktopUpdate(lab)">
               <mat-icon>edit</mat-icon>
               <span>{{ 'update_lab' | translate }}</span>
@@ -33,14 +33,11 @@
             <mat-icon>info</mat-icon>
             {{ 'lab_installed_brick' | translate }}
           </button>
-
         </mat-menu>
       </fl-card-actions>
     </fl-card-header>
 
-
     <fl-card-body>
-
       <!--   Lab type   -->
       <fl-text-icon>
         <mat-icon>{{ lab.typeIcon }}</mat-icon>
@@ -50,15 +47,17 @@
         </fl-key-value>
       </fl-text-icon>
 
-
       <!--   Lab url   -->
       @if (lab.isOnServer) {
         <fl-text-icon>
           <mat-icon>link</mat-icon>
           <fl-key-value>
             <fl-key>{{ 'url' | translate }}</fl-key>
-            <a [href]="lab.frontUrl" target="_blank" class="g-text-link"
-               [matTooltip]="'open_lab_in_new_tab' | translate">
+            <a
+              [href]="lab.frontUrl"
+              target="_blank"
+              class="g-text-link"
+              [matTooltip]="'open_lab_in_new_tab' | translate">
               {{ lab.frontUrl }}
             </a>
           </fl-key-value>
@@ -114,16 +113,12 @@
       }
 
       <ca-lab-current-task [showConfigRouteLink]="true"></ca-lab-current-task>
-
     </fl-card-body>
 
     <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
-
       @if (lab.isOnServer) {
-
         @if (lab.isHttpAccessible) {
-          <ca-lab-login-button [labId]="lab.id"
-                               [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
+          <ca-lab-login-button [labId]="lab.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
         }
 
         @if (lab.isCloud && (isOwner$ | async)) {
@@ -132,14 +127,11 @@
       }
 
       @if (lab.isDesktop) {
-        <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(lab)"
-                type="button">
+        <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(lab)" type="button">
           <mat-icon>cloud_download</mat-icon>
           <span>{{ 'download_desktop_config' | translate }}</span>
         </button>
       }
-
-
     </fl-card-footer>
   </fl-card>
 }

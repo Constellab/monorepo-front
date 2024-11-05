@@ -7,21 +7,20 @@ import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
 @Component({
   selector: 'lab-technical-doc-page',
   templateUrl: './lab-technical-doc-page.component.html',
-  styleUrls: ['./lab-technical-doc-page.component.scss']
+  styleUrls: ['./lab-technical-doc-page.component.scss'],
 })
 export class LabTechnicalDocPageComponent implements OnInit {
-
   type$: Observable<LabTypeEntity>;
 
-
-  constructor(private route: ActivatedRoute,
-              private typeService: LabTypeService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private typeService: LabTypeService
+  ) {}
 
   ngOnInit(): void {
     this.type$ = this.route.params.pipe(
-      mergeMap(params => {
-        return this.typeService.getTyping(params.typingName.replaceAll('-', '.'))
+      mergeMap((params) => {
+        return this.typeService.getTyping(params.typingName.replaceAll('-', '.'));
       })
     );
   }

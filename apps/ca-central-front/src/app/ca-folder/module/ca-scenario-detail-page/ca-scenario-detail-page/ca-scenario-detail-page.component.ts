@@ -11,10 +11,9 @@ import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-scenario-detail-page',
   templateUrl: './ca-scenario-detail-page.component.html',
-  styleUrls: ['./ca-scenario-detail-page.component.scss']
+  styleUrls: ['./ca-scenario-detail-page.component.scss'],
 })
 export class CaScenarioDetailPageComponent implements OnInit {
-
   scenarioId$: Observable<string>;
   scenario: CaScenario;
 
@@ -22,18 +21,15 @@ export class CaScenarioDetailPageComponent implements OnInit {
 
   notes: FlArrayObs<CaNote>;
 
-  constructor(private route: ActivatedRoute,
-              private scenarioService: CaScenarioService,
-              private noteService: CaNoteService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private scenarioService: CaScenarioService,
+    private noteService: CaNoteService
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => this.init(params.id)
-    );
-    this.scenarioId$ = this.route.params.pipe(
-      map(params => params.id)
-    );
+    this.route.params.subscribe((params) => this.init(params.id));
+    this.scenarioId$ = this.route.params.pipe(map((params) => params.id));
   }
 
   private init(id: string): void {
@@ -44,8 +40,8 @@ export class CaScenarioDetailPageComponent implements OnInit {
   private getScenario(id: string): void {
     this.isLoading = true;
     this.scenarioService.findById(id).subscribe({
-      next: scenario => this.getScenarioSuccess(scenario),
-      error: () => this.isLoading = false
+      next: (scenario) => this.getScenarioSuccess(scenario),
+      error: () => (this.isLoading = false),
     });
   }
 

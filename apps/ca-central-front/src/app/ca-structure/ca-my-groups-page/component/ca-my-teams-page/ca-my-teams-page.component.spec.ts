@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaMyTeamsPageComponent} from './ca-my-teams-page.component';
+import { CaMyTeamsPageComponent } from './ca-my-teams-page.component';
 
 describe('CaMyGroupsPageComponent', () => {
   let component: CaMyTeamsPageComponent;
@@ -8,9 +8,8 @@ describe('CaMyGroupsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaMyTeamsPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaMyTeamsPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

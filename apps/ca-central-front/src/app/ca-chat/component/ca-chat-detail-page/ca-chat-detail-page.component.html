@@ -1,17 +1,15 @@
 <div class="container g-max-article-width">
-
   <div class="header g-layout-row g-layout-between-center">
     <div class="g-layout-row-wrap g-layout-start-center">
       @if (folder()) {
-        <ca-hierarchy-object-icon [objectType]="folder().objectType"
-                                  [objectName]="folder().name"></ca-hierarchy-object-icon>
+        <ca-hierarchy-object-icon
+          [objectType]="folder().objectType"
+          [objectName]="folder().name"></ca-hierarchy-object-icon>
         <h1 class="folder-name">{{ folder().name }}</h1>
       }
-
     </div>
     <ca-user-list-inline [users$]="users$" [disabled]="true"></ca-user-list-inline>
   </div>
 
   <ca-chat-folder [folderId]="folderId()" class="chat"></ca-chat-folder>
 </div>
-

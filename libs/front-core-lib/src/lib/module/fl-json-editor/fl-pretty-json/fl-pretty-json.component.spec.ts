@@ -8,9 +8,8 @@ describe('FlPrettyJsonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlPrettyJsonComponent ]
-    })
-    .compileComponents();
+      declarations: [FlPrettyJsonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

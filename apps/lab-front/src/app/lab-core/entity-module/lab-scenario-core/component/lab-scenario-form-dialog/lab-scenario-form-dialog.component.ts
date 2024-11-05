@@ -19,11 +19,12 @@ export interface LabScenarioFormDialogInput extends FlFormDialogInput<LabScenari
 @Component({
   selector: 'lab-scenario-form-dialog',
   templateUrl: './lab-scenario-form-dialog.component.html',
-  styleUrls: ['./lab-scenario-form-dialog.component.scss']
+  styleUrls: ['./lab-scenario-form-dialog.component.scss'],
 })
-export class LabScenarioFormDialogComponent extends FlFormDialogAbstractDirective<LabScenarioSimpleForm, LabScenario>
-  implements OnInit {
-
+export class LabScenarioFormDialogComponent
+  extends FlFormDialogAbstractDirective<LabScenarioSimpleForm, LabScenario>
+  implements OnInit
+{
   dialogInput: LabScenarioFormDialogInput = inject(MAT_DIALOG_DATA);
 
   sameTitleCount$: Observable<number>;
@@ -82,11 +83,9 @@ export class LabScenarioFormDialogComponent extends FlFormDialogAbstractDirectiv
       this.sameTitleCount$ = of(0);
     } else {
       this.sameTitleCount$ = this.scenarioService.countByTitle(title).pipe(
-        map(result => result.count),
+        map((result) => result.count),
         catchError(() => of(0))
       );
     }
   }
-
-
 }

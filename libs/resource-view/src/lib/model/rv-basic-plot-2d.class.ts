@@ -6,9 +6,9 @@ import {
   ChChartLine2d,
   ChChartScatterPlot2d,
   ChChartSerie,
-  ChChartStackedBar
+  ChChartStackedBar,
 } from '@monorepo/chart';
-import {RvResourceViewBase} from './rv-resource-view.class';
+import { RvResourceViewBase } from './rv-resource-view.class';
 
 export interface RvResourceViewBasicPlot2d extends RvResourceViewBase {
   type: 'scatter-plot-2d-view' | 'line-plot-2d-view' | 'bar-plot-view' | 'stacked-bar-plot-view';
@@ -26,7 +26,7 @@ export interface RvResourceViewChart2dSerie {
   data: {
     x: number[];
     y: number[];
-    tags?: Record<string, string>[]
+    tags?: Record<string, string>[];
   };
   name?: string;
 }
@@ -50,8 +50,9 @@ export function rvBasicPlotToChart(view: RvResourceViewBasicPlot2d): ChChartConf
   }
 }
 
-
-export function rvResourceBuildBasicChart2d(viewData: RvResourceViewChart2dData): ChChart2dMultiSerie<ChChart2dDatum> {
+export function rvResourceBuildBasicChart2d(
+  viewData: RvResourceViewChart2dData
+): ChChart2dMultiSerie<ChChart2dDatum> {
   const series: ChChart2dMultiSerie<ChChart2dDatum> = new ChChart2dMultiSerie();
 
   let serieIndex: number = 1;
@@ -74,10 +75,10 @@ export function rvResourceBuildBasicChart2d(viewData: RvResourceViewChart2dData)
   }
 
   // set the labels
-  if(viewData.x_label) {
+  if (viewData.x_label) {
     series.axisXLabel = viewData.x_label;
   }
-  if(viewData.y_label) {
+  if (viewData.y_label) {
     series.axisYLabel = viewData.y_label;
   }
 

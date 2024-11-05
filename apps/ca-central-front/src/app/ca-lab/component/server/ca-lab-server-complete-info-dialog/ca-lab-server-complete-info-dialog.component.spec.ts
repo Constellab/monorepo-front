@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabServerCompleteInfoDialogComponent} from './ca-lab-server-complete-info-dialog.component';
+import { CaLabServerCompleteInfoDialogComponent } from './ca-lab-server-complete-info-dialog.component';
 
 describe('CaLabServerCompleteInfoDialogComponent', () => {
   let component: CaLabServerCompleteInfoDialogComponent;
@@ -8,9 +8,8 @@ describe('CaLabServerCompleteInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabServerCompleteInfoDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabServerCompleteInfoDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabServerCompleteInfoDialogComponent);
     component = fixture.componentInstance;

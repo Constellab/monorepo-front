@@ -1,4 +1,4 @@
-import {HaStory} from './ha-story.class';
+import { HaStory } from './ha-story.class';
 
 export class HaTopic {
   id: string;

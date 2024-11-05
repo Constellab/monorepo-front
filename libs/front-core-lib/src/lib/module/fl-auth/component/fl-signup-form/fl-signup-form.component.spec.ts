@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSignupFormComponent} from './fl-signup-form.component';
+import { FlSignupFormComponent } from './fl-signup-form.component';
 
 describe('FlSignupFormComponent', () => {
   let component: FlSignupFormComponent;
@@ -8,9 +8,8 @@ describe('FlSignupFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSignupFormComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSignupFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlSignupFormComponent);
     component = fixture.componentInstance;

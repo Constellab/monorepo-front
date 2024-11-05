@@ -1,6 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
-import { CaSpaceStorage, CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
+import {
+  CaSpaceStorage,
+  CaSpaceUpdateStorageLocationDTO,
+} from '../../../../model/entities/space/ca-space.dto';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { Observable } from 'rxjs';
@@ -9,14 +12,15 @@ import { UntypedFormGroup } from '@angular/forms';
 
 export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStorageLocationDTO>;
 
-
 @Component({
   selector: 'ca-space-storage-form-dialog',
   templateUrl: './ca-space-storage-form-dialog.component.html',
-  styleUrl: './ca-space-storage-form-dialog.component.scss'
+  styleUrl: './ca-space-storage-form-dialog.component.scss',
 })
-export class CaSpaceStorageFormDialogComponent extends FlFormDialogAbstractDirective<CaSpaceUpdateStorageLocationDTO, CaSpaceStorage>
-  implements OnInit {
+export class CaSpaceStorageFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaSpaceUpdateStorageLocationDTO, CaSpaceStorage>
+  implements OnInit
+{
   dialogInput: CaSpaceStorageFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private spaceService: CaSpaceService) {

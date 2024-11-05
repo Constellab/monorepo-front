@@ -1,6 +1,6 @@
 // Import drawflow style
 @use '@angular/material' as mat;
-@import "drawflow/dist/drawflow.min.css";
+@import 'drawflow/dist/drawflow.min.css';
 
 @mixin drawflow-theme($theme) {
   $primary: map-get($theme, primary);
@@ -20,7 +20,6 @@
     cursor: pointer !important;
     border-width: 0;
 
-
     // style for the process node
     &.node-process {
       color: var(--color-foreground);
@@ -28,12 +27,17 @@
       border-radius: 30px;
     }
 
-    &.interface, &.outerface, &.task-source, &.task-output, &.task-viewer {
+    &.interface,
+    &.outerface,
+    &.task-source,
+    &.task-output,
+    &.task-viewer {
       border-radius: 10px;
     }
 
     // width and height of input and output port
-    .input, .output {
+    .input,
+    .output {
       width: 12px;
       height: 12px;
     }
@@ -54,7 +58,6 @@
       position: initial;
       overflow: initial !important;
     }
-
   }
 
   .drawflow .connection {
@@ -62,7 +65,8 @@
       stroke: var(--hover-color);
     }
 
-    .main-path.selected, .main-path:hover {
+    .main-path.selected,
+    .main-path:hover {
       stroke: mat.m2-get-color-from-palette($primary);
     }
   }

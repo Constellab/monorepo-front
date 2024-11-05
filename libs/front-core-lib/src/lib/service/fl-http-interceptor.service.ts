@@ -5,9 +5,7 @@ import { FlTranslateService } from '../module/fl-translate/service/fl-translate.
 
 @Injectable()
 export class FlHttpInterceptorService implements HttpInterceptor {
-
-  constructor(private translateService: FlTranslateService) {
-  }
+  constructor(private translateService: FlTranslateService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add lang to the headers
@@ -21,9 +19,11 @@ export class FlHttpInterceptorService implements HttpInterceptor {
 
     req = req.clone({
       withCredentials: true,
-      headers: req.headers ? req.headers.append('lang', lang) : new HttpHeaders({
-        lang: lang
-      })
+      headers: req.headers
+        ? req.headers.append('lang', lang)
+        : new HttpHeaders({
+            lang: lang,
+          }),
     });
     return next.handle(req);
   }

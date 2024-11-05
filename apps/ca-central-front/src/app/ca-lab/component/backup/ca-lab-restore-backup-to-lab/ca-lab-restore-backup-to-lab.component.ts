@@ -1,11 +1,11 @@
-import {Component, inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CaLabBackupStatusDTO} from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import {CaLab} from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import {CaLabService} from '../../../../ca-core/service-api/ca-lab.service';
-import {FormBuilder, Validators} from '@angular/forms';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {CaLabManagerRestoreBackupConfigDTO} from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
+import { Component, inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CaLabBackupStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
+import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { CaLabManagerRestoreBackupConfigDTO } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 
 export interface CaLabRestoreBackupToLabDialogInput {
   labId: string;
@@ -15,10 +15,9 @@ export interface CaLabRestoreBackupToLabDialogInput {
 @Component({
   selector: 'ca-lab-restore-backup-to-lab',
   templateUrl: './ca-lab-restore-backup-to-lab.component.html',
-  styleUrl: './ca-lab-restore-backup-to-lab.component.scss'
+  styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
 })
 export class CaLabRestoreBackupToLabComponent {
-
   data: CaLabRestoreBackupToLabDialogInput = inject(MAT_DIALOG_DATA);
 
   formGp = this.formBuilder.group({
@@ -30,11 +29,12 @@ export class CaLabRestoreBackupToLabComponent {
 
   isLoading: boolean = false;
 
-  constructor(private labService: CaLabService,
-              private dialogRef: MatDialogRef<CaLabRestoreBackupToLabComponent>,
-              private dialogService: FlDialogService,
-              private formBuilder: FormBuilder) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogRef: MatDialogRef<CaLabRestoreBackupToLabComponent>,
+    private dialogService: FlDialogService,
+    private formBuilder: FormBuilder
+  ) {}
 
   submit(): void {
     if (!this.isLoading && this.formGp.valid) {
@@ -55,11 +55,18 @@ export class CaLabRestoreBackupToLabComponent {
     const input: FlConfirmDialogInput = {
       title: 'restore_backup_to_lab',
       content: 'restore_backup_to_lab_confirmation',
-      observable: this.labService.restoreBackup(this.data.labId, this.data.backupStatus.lastSuccessBackupId, configDTO),
+      observable: this.labService.restoreBackup(
+        this.data.labId,
+        this.data.backupStatus.lastSuccessBackupId,
+        configDTO
+      ),
       successMessage: 'restore_backup_to_lab_started',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(res => this.restoreBackupSuccess(res));
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((res) => this.restoreBackupSuccess(res));
   }
 
   private restoreBackupSuccess(result: FlConfirmDialogResult<CaLab>): void {

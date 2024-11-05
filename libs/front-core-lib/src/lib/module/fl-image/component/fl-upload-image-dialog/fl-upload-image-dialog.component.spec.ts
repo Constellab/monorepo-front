@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlUploadImageDialogComponent} from './fl-upload-image-dialog.component';
+import { FlUploadImageDialogComponent } from './fl-upload-image-dialog.component';
 
 describe('FlReshapeImageDialogComponent', () => {
   let component: FlUploadImageDialogComponent;
@@ -8,9 +8,8 @@ describe('FlReshapeImageDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlUploadImageDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [FlUploadImageDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

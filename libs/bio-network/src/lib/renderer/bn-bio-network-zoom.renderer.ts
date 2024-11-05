@@ -1,15 +1,13 @@
-import {Injectable} from '@angular/core';
-import {BnBioNetworkMainRenderer} from './bn-bio-network-main.renderer';
-import {BnBioNetworkSelectionState} from '../state/bn-bio-network-selection.state';
-import {BnBioNetworkSelectionEvent} from '../model/bn-bio-network-selection.class';
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-import {combineLatest} from 'rxjs';
-import {ForceGraphInstance} from 'force-graph';
-
+import { Injectable } from '@angular/core';
+import { BnBioNetworkMainRenderer } from './bn-bio-network-main.renderer';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { combineLatest } from 'rxjs';
+import { ForceGraphInstance } from 'force-graph';
 
 @Injectable()
 export class BnBioNetworkZoomRenderer {
-
   public static readonly minZoomScale: number = 0.01;
   public static readonly maxZoomScale: number = 10;
   public static readonly defaultZoomScale: number = 0.25;
@@ -19,14 +17,15 @@ export class BnBioNetworkZoomRenderer {
 
   private readonly zoomDuration: number = 750;
 
-  constructor(private mainRenderer: BnBioNetworkMainRenderer,
-              private selectionState: BnBioNetworkSelectionState) {
-  }
-
+  constructor(
+    private mainRenderer: BnBioNetworkMainRenderer,
+    private selectionState: BnBioNetworkSelectionState
+  ) {}
 
   public init(): void {
     combineLatest([this.mainRenderer.getGraphRenderer$(), this.selectionState.getSelectionMode$()]).subscribe(
-      ([graphRenderer, selection]) => this.zoomOnSelection(graphRenderer.graph, selection));
+      ([graphRenderer, selection]) => this.zoomOnSelection(graphRenderer.graph, selection)
+    );
   }
 
   private zoomOnSelection(graph: ForceGraphInstance, selection: BnBioNetworkSelectionEvent): void {
@@ -38,18 +37,20 @@ export class BnBioNetworkZoomRenderer {
     }
   }
 
-
   /**
    * Method to zoom to a position
    */
-  private zoomToPosition(graph: ForceGraphInstance, posX: number, posY: number,
-                         scale: number = this.zoomToPositionScale): void {
+  private zoomToPosition(
+    graph: ForceGraphInstance,
+    posX: number,
+    posY: number,
+    scale: number = this.zoomToPositionScale
+  ): void {
     graph.centerAt(posX, posY, this.zoomDuration);
     graph.zoom(scale, this.zoomDuration);
   }
 
   private zoomToSelectedElements(graph: ForceGraphInstance): void {
-    graph.zoomToFit(this.zoomDuration, 100,
-      (node: BnBioNetworkNode) => node.selected);
+    graph.zoomToFit(this.zoomDuration, 100, (node: BnBioNetworkNode) => node.selected);
   }
 }

@@ -4,11 +4,10 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabUser } from '../../model/entities/lab-user.entity';
-
 
 export class LabNoteTemplateSearchFields {
   title: string;
@@ -25,9 +24,7 @@ export class LabNoteTemplateSearchFields {
   @Type(() => FlSearchDateInterval)
   lastModifiedAt: FlSearchDateInterval;
 
-
   id: string;
-
 }
 
 export class LabNoteTemplateSearch {
@@ -43,17 +40,16 @@ export class LabNoteTemplateSearch {
     lastModifiedBy: 'last_modified_by',
   };
 
-
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static filterConverter: FlSearchFilterCriteriaConverter<LabNoteTemplateSearchFields> = {
-    title: {key: 'title', operator: 'CONTAINS'},
-    createdBy: {key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    title: { key: 'title', operator: 'CONTAINS' },
+    createdBy: { key: 'created_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('created_at'),
     lastModifiedAt: FlSearchConverter.dateInterval('last_modified_at'),
-    lastModifiedBy: {key: 'last_modified_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    id: {key: 'id', operator: 'EQ'},
+    lastModifiedBy: { key: 'last_modified_by', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
@@ -62,23 +58,20 @@ export class LabNoteTemplateSearch {
     lastModification: 'last_modified_at',
   };
 
-
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        title: [null],
-        createdBy: [null],
-        createdAt: new FormBuilder().group({
-          from: [null],
-          to: [null],
-        }),
-        lastModifiedBy: [null],
-        lastModifiedAt: new FormBuilder().group({
-          from: [null],
-          to: [null],
-        }),
-        id: [null],
-      }
-    );
+    return new FormBuilder().group({
+      title: [null],
+      createdBy: [null],
+      createdAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      lastModifiedBy: [null],
+      lastModifiedAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      id: [null],
+    });
   }
 }

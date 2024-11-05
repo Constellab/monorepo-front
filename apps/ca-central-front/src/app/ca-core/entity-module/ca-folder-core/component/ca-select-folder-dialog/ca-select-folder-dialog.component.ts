@@ -7,14 +7,10 @@ import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
-  CaHierarchyObjectType
+  CaHierarchyObjectType,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import {
-  CaHierarchyObjectSearchFields
-} from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
-import {
-  CaHierarchyObjectTableEvent
-} from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectTableEvent } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 
 export interface CaSelectFolderDialogInput {
   /**
@@ -33,10 +29,9 @@ export interface CaSelectFolderDialogInput {
 @Component({
   selector: 'ca-select-folder-dialog',
   templateUrl: './ca-select-folder-dialog.component.html',
-  styleUrl: './ca-select-folder-dialog.component.scss'
+  styleUrl: './ca-select-folder-dialog.component.scss',
 })
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
-
   foldersDatasource: CaHierarchyObjectDatasource;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
@@ -47,10 +42,11 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
 
   dialogInput: CaSelectFolderDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private dialogRef: MatDialogRef<CaSelectFolderDialogComponent>,
-              private folderService: CaFolderService,
-              private authenticatedUserService: CaAuthenticatedUserService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<CaSelectFolderDialogComponent>,
+    private folderService: CaFolderService,
+    private authenticatedUserService: CaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
     // for any mode, we add a custom template column to add a button to zoom to folder
@@ -66,9 +62,9 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   }
 
   private initForFolder(currentObjectId: string): void {
-    this.folderService.getObjectFolderAncestors(currentObjectId).subscribe(
-      ancestors => this.initParentFolders(ancestors)
-    );
+    this.folderService
+      .getObjectFolderAncestors(currentObjectId)
+      .subscribe((ancestors) => this.initParentFolders(ancestors));
   }
 
   private initParentFolders(ancestors: CaHierarchyObject[]): void {
@@ -144,10 +140,9 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
 
     this.getChildren(parentFolder.id);
     // update the list of parent
-    const index = this.parentFolders.findIndex(p => p.id === parentFolder.id);
+    const index = this.parentFolders.findIndex((p) => p.id === parentFolder.id);
     this.parentFolders = this.parentFolders.slice(0, index + 1);
     this.selectedFolder = parentFolder;
-
   }
 
   private getChildren(folderId: string): void {

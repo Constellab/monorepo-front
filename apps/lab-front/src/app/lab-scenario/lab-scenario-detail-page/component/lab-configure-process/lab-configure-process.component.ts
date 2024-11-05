@@ -13,25 +13,20 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
 @Component({
   selector: 'lab-configure-process',
   templateUrl: './lab-configure-process.component.html',
-  styleUrls: ['./lab-configure-process.component.scss']
+  styleUrls: ['./lab-configure-process.component.scss'],
 })
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
-
   @Input() process$: Observable<LabProcess>;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private subscription: Subscription;
 
-  constructor(private nodeState: LabProcessDashboardState) {
-  }
+  constructor(private nodeState: LabProcessDashboardState) {}
 
   ngOnInit(): void {
-    this.subscription = this.process$.subscribe(
-      process => this.showProcessConfig(process)
-    );
+    this.subscription = this.process$.subscribe((process) => this.showProcessConfig(process));
   }
-
 
   private showProcessConfig(process: LabProcess): void {
     // Check if the config has changed since the last process to avoid reloading the component
@@ -55,6 +50,4 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
     this.clearViewRef();
     this.subscription?.unsubscribe();
   }
-
-
 }

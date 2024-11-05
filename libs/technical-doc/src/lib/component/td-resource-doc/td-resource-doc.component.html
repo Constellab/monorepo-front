@@ -1,19 +1,17 @@
 <td-main-doc [entity]="resource"></td-main-doc>
 
 <div class="methods-div">
-  <h4>{{'td.views' | translate}}</h4>
-  @if(orderedViews && orderedViews.length > 0){
-    <div *ngFor="let v of orderedViews"  class="method-card">
+  <h4>{{ 'td.views' | translate }}</h4>
+  @if (orderedViews && orderedViews.length > 0) {
+    <div *ngFor="let v of orderedViews" class="method-card">
       <div class="view-title">
         <td-type-icon-badge *ngIf="v.style" [style]="v.style" [iconSize]="30"></td-type-icon-badge>
-        <span>{{v.human_name?.length > 0 ? v.human_name?.toUpperCase() : v.method_name}}</span>
-        <mat-chip *ngIf="v.default_view" color="primary">{{'td.default_view' | translate}}</mat-chip>
+        <span>{{ v.human_name?.length > 0 ? v.human_name?.toUpperCase() : v.method_name }}</span>
+        <mat-chip *ngIf="v.default_view" color="primary">{{ 'td.default_view' | translate }}</mat-chip>
       </div>
-      <span class="view-description" *ngIf="v?.short_description">{{v.short_description}}</span>
+      <span class="view-description" *ngIf="v?.short_description">{{ v.short_description }}</span>
     </div>
   }
 </div>
 
-<td-vars-methods-doc [funcs]="resource.methods.funcs" [variables]="resource.variables">
-
-</td-vars-methods-doc>
+<td-vars-methods-doc [funcs]="resource.methods.funcs" [variables]="resource.variables"> </td-vars-methods-doc>

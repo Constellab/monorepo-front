@@ -1,9 +1,9 @@
-import {ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Type} from '@angular/core';
-import {BlockTool, BlockToolConstructorOptions} from '@editorjs/editorjs/types/tools/block-tool';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {TeElementBlockDirective} from '../model/te-element.directive';
-import {PasteConfig} from '@editorjs/editorjs/types/configs/paste-config';
+import { ApplicationRef, ComponentRef, createComponent, EnvironmentInjector, Type } from '@angular/core';
+import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { TeElementBlockDirective } from '../model/te-element.directive';
+import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
 
 /**
  * Specific data that can be passed when creating the block to pass config to the component,
@@ -21,16 +21,16 @@ export interface TeComponentInitData {
  * Custom abstract class for editor js block to support angular component
  */
 export abstract class TeComponentBlock<T extends TeElementBlockDirective> implements BlockTool {
-
   protected htmlElement: HTMLElement;
 
   protected componentRef: ComponentRef<T>;
 
-  constructor(protected options: BlockToolConstructorOptions,
-              protected readonly envInjector: EnvironmentInjector,
-              protected readonly applicationRef: ApplicationRef,
-              protected readonly additionalData?: any) {
-  }
+  constructor(
+    protected options: BlockToolConstructorOptions,
+    protected readonly envInjector: EnvironmentInjector,
+    protected readonly applicationRef: ApplicationRef,
+    protected readonly additionalData?: any
+  ) {}
 
   static get toolbox(): ToolboxConfig {
     return null;
@@ -64,7 +64,6 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
     return this.options.readOnly;
   }
 
-
   render(): HTMLElement {
     this.htmlElement = document.createElement(this.getTagName());
     this.htmlElement.classList.add(...this.blockClasses());
@@ -92,7 +91,6 @@ export abstract class TeComponentBlock<T extends TeElementBlockDirective> implem
   blockClasses(): string[] {
     return ['g-te-block'];
   }
-
 
   destroy(): void {
     this.componentRef?.destroy();

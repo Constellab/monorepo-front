@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { filter, Observable } from 'rxjs';
 import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
@@ -17,10 +24,9 @@ import { FormControl } from '@angular/forms';
   selector: 'bn-bio-network-node-search',
   templateUrl: './bn-bio-network-node-search.component.html',
   styleUrls: ['./bn-bio-network-node-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
-
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   objects: BnBioNetworkObject[];
@@ -30,40 +36,43 @@ export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private state: BnBioNetworkState,
-              private selectionState: BnBioNetworkSelectionState,
-              private drawerState: BnBioNetworkDrawerState,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    private state: BnBioNetworkState,
+    private selectionState: BnBioNetworkSelectionState,
+    private drawerState: BnBioNetworkDrawerState,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getChartData();
 
     // Observable that refresh the filteredOptions each time a key is typed
-    this.filteredObjects$ = this.searchControl.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(250),
-        map((value: string | BnBioNetworkObject) => typeof value === 'string' ? value : value.name),
-        map(name => name ? this.filter(name) : this.objects.slice())
-      );
+    this.filteredObjects$ = this.searchControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(250),
+      map((value: string | BnBioNetworkObject) => (typeof value === 'string' ? value : value.name)),
+      map((name) => (name ? this.filter(name) : this.objects.slice()))
+    );
 
     // use to close the autocomplete panel when the drawer is closed
-    this.subscription.add(this.drawerState.drawnOpenChange()
-      .pipe(filter(drawnOpen => !drawnOpen))
-      .subscribe(() => this.autocomplete.closePanel())
+    this.subscription.add(
+      this.drawerState
+        .drawnOpenChange()
+        .pipe(filter((drawnOpen) => !drawnOpen))
+        .subscribe(() => this.autocomplete.closePanel())
     );
   }
 
   private getChartData(): void {
-    this.subscription.add(this.state.getChartData$().subscribe(
-      network => this.onNewChartData(network)
-    ));
+    this.subscription.add(this.state.getChartData$().subscribe((network) => this.onNewChartData(network)));
   }
 
   private onNewChartData(bioNetwork: BnBioNetworkGraph): void {
     if (bioNetwork) {
-      this.objects = ClHelpService.sortAlphabeticalOrder(bioNetwork.getMetabolitesAndReactionData(), object => object.name);
+      this.objects = ClHelpService.sortAlphabeticalOrder(
+        bioNetwork.getMetabolitesAndReactionData(),
+        (object) => object.name
+      );
     } else {
       this.objects = [];
     }
@@ -84,14 +93,14 @@ export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
 
   // method to filter metabolites based on string
   private filter(searchValue: string): BnBioNetworkObject[] {
-    return this.objects.filter(object => ClStringHelper.stringContains(object.name, searchValue, true, true, true) ||
-      ClStringHelper.stringContains(object.id, searchValue, true, true, true)
+    return this.objects.filter(
+      (object) =>
+        ClStringHelper.stringContains(object.name, searchValue, true, true, true) ||
+        ClStringHelper.stringContains(object.id, searchValue, true, true, true)
     );
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

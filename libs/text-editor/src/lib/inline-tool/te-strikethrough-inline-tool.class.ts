@@ -1,8 +1,7 @@
-import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
-import {IconStrikethrough} from '@codexteam/icons';
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
+import { IconStrikethrough } from '@codexteam/icons';
 
-export class TeStrikethroughInlineTool implements InlineTool{
-
+export class TeStrikethroughInlineTool implements InlineTool {
   /**
    * Specifies Tool as Inline Toolbar Tool
    *
@@ -14,7 +13,6 @@ export class TeStrikethroughInlineTool implements InlineTool{
    * Title for hover-tooltip
    */
   public static title = 'Strikethrough';
-
 
   /**
    * Sanitizer Rule
@@ -45,7 +43,7 @@ export class TeStrikethroughInlineTool implements InlineTool{
   /**
    * Elements
    */
-  private nodes: {button: HTMLButtonElement} = {
+  private nodes: { button: HTMLButtonElement } = {
     button: undefined,
   };
 
@@ -89,5 +87,4 @@ export class TeStrikethroughInlineTool implements InlineTool{
   public get shortcut(): string {
     return 'CMD+D';
   }
-
 }

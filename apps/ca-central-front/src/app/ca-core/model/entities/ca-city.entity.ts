@@ -1,4 +1,4 @@
-import {CaCountry} from './ca-country.entity';
+import { CaCountry } from './ca-country.entity';
 
 export class CaCity {
   id: string;

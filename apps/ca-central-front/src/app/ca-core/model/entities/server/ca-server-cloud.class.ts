@@ -9,9 +9,8 @@ import { CaServerStandard } from './ca-server-standard.class';
  */
 export enum CaDiskType {
   SSD = 'SSD',
-  HDD = 'HDD'
+  HDD = 'HDD',
 }
-
 
 export class CaServerCloud extends CaEntity {
   @Type(() => CaCloudProvider)
@@ -46,7 +45,6 @@ export class CaServerCloud extends CaEntity {
 
   toString(): string {
     return this.serverStandard.name + ' - ' + this.technicalName;
-
   }
 }
 

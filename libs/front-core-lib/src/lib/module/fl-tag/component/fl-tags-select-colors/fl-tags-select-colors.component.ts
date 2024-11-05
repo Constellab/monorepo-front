@@ -7,13 +7,13 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  TrackByFunction
+  TrackByFunction,
 } from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlTagValue, FlTagWithColor} from '../../fl-tag.class';
-import {FlTagColorer, FlTagColorWithSelection} from '../../fl-tag-colorer.class';
-import {Subscription} from 'rxjs';
+import { ThemePalette } from '@angular/material/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTagValue, FlTagWithColor } from '../../fl-tag.class';
+import { FlTagColorer, FlTagColorWithSelection } from '../../fl-tag-colorer.class';
+import { Subscription } from 'rxjs';
 
 interface FlTagGroupColor {
   key: string;
@@ -33,10 +33,9 @@ interface FlTagColor {
   selector: 'fl-tags-select-colors',
   templateUrl: './fl-tags-select-colors.component.html',
   styleUrls: ['./fl-tags-select-colors.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
-
   @Input() tagColorer: FlTagColorer;
 
   @Input() groupLayout: 'column' | 'row wrap' = 'row wrap';
@@ -50,33 +49,27 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   trackByGroupKey: TrackByFunction<FlTagGroupColor> = (_: number, item: FlTagGroupColor) => item.key;
   trackByTag: TrackByFunction<FlTagColor> = (_: number, item: FlTagColor) => item.value;
 
-
-
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.subscription = this.tagColorer.getTags$().subscribe(
-      tags => this.initTagGroups(tags)
-    );
+    this.subscription = this.tagColorer.getTags$().subscribe((tags) => this.initTagGroups(tags));
   }
 
   private initTagGroups(tags: FlTagColorWithSelection[]): void {
     const tagGroups: FlTagGroupColor[] = [];
     for (const tag of tags) {
-      let tagGroup = tagGroups.find(tagGroup => tagGroup.key === tag.key);
+      let tagGroup = tagGroups.find((tagGroup) => tagGroup.key === tag.key);
 
       // create the group if it doesn't exist yet
       if (tagGroup == null) {
-        tagGroup = {key: tag.key, tags: []};
+        tagGroup = { key: tag.key, tags: [] };
         tagGroups.push(tagGroup);
       }
 
       tagGroup.tags.push({
         value: tag.value,
         color: tag.color,
-        activeColor: tag.selected
+        activeColor: tag.selected,
       });
     }
 
@@ -111,7 +104,6 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
 
   private removeTagColor(tag: FlTagColor): void {
     tag.activeColor = false;
-
   }
 
   emitColors(): void {
@@ -139,7 +131,7 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   }
 
   groupIsColorized(group: FlTagGroupColor): boolean {
-    return group.tags.every(tag => tag.activeColor);
+    return group.tags.every((tag) => tag.activeColor);
   }
 
   openColorSelector(tag: FlTagColor, event: MouseEvent): void {
@@ -149,6 +141,4 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

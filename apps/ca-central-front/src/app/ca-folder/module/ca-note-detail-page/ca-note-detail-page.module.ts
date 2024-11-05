@@ -9,12 +9,8 @@ import { CaScenarioCoreModule } from '../ca-scenario-core/ca-scenario-core.modul
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 
-
 @NgModule({
-  declarations: [
-    CaNoteDetailPageComponent,
-    CaNoteDetailComponent
-  ],
+  declarations: [CaNoteDetailPageComponent, CaNoteDetailComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +20,6 @@ import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
     CaFolderHierarchyCoreModule,
     CaScenarioCoreModule,
     CaNoteCoreModule,
-  ]
+  ],
 })
-export class CaNoteDetailPageModule {
-}
+export class CaNoteDetailPageModule {}

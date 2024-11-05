@@ -13,16 +13,11 @@ import { CaExternalSpaceLinkDirective } from './pipe/ca-external-space-link.dire
 import { CaSpaceSearchComponent } from './component/ca-space-search/ca-space-search.component';
 import { CaSpaceSearchFormComponent } from './component/ca-space-search-form/ca-space-search-form.component';
 import { CaSpaceUserSearchComponent } from './component/ca-space-user-search/ca-space-user-search.component';
-import {
-  CaSpaceUserSearchFormComponent
-} from './component/ca-space-user-search-form/ca-space-user-search-form.component';
+import { CaSpaceUserSearchFormComponent } from './component/ca-space-user-search-form/ca-space-user-search-form.component';
 import { CaSelectSpaceComponent } from './component/ca-select-space/ca-select-space.component';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
-import {
-  CaSpaceStorageFormDialogComponent
-} from './component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
+import { CaSpaceStorageFormDialogComponent } from './component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
 import { CaSpaceStorageFormComponent } from './component/ca-space-storage-form/ca-space-storage-form.component';
-
 
 @NgModule({
   declarations: [
@@ -39,7 +34,7 @@ import { CaSpaceStorageFormComponent } from './component/ca-space-storage-form/c
     CaSpaceUserSearchFormComponent,
     CaSelectSpaceComponent,
     CaSpaceStorageFormDialogComponent,
-    CaSpaceStorageFormComponent
+    CaSpaceStorageFormComponent,
   ],
   exports: [
     CaSpaceTableComponent,
@@ -54,7 +49,7 @@ import { CaSpaceStorageFormComponent } from './component/ca-space-storage-form/c
     CaSpaceUserSearchComponent,
     CaSpaceUserSearchFormComponent,
     CaSelectSpaceComponent,
-    CaSpaceStorageFormDialogComponent
+    CaSpaceStorageFormDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -63,8 +58,7 @@ import { CaSpaceStorageFormComponent } from './component/ca-space-storage-form/c
     RouterModule,
 
     CaCoreModule,
-    CaObjectStorageCoreModule
-  ]
+    CaObjectStorageCoreModule,
+  ],
 })
-export class CaSpaceCoreModule {
-}
+export class CaSpaceCoreModule {}

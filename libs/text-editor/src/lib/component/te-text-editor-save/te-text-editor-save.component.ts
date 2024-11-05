@@ -11,10 +11,9 @@ import { FlDebouncer } from '@monorepo/front-core-lib';
 @Component({
   selector: 'te-text-editor-save',
   templateUrl: './te-text-editor-save.component.html',
-  styleUrl: './te-text-editor-save.component.scss'
+  styleUrl: './te-text-editor-save.component.scss',
 })
 export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
-
   /**
    * Form control of the text editor content.
    */
@@ -32,28 +31,23 @@ export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   ngOnInit(): void {
-    this.subscription = this.formCtrl.valueChanges.pipe(
-      tap(() => this.saveIsLoading = true),
-      debounceTime(FlDebouncer.LONG_AUTO_SAVE_DEBOUNCE_TIME)
-    ).subscribe(
-      value => this.saveDocument(value)
-    );
+    this.subscription = this.formCtrl.valueChanges
+      .pipe(
+        tap(() => (this.saveIsLoading = true)),
+        debounceTime(FlDebouncer.LONG_AUTO_SAVE_DEBOUNCE_TIME)
+      )
+      .subscribe((value) => this.saveDocument(value));
   }
 
   private saveDocument(value: TeRichTextContent): void {
-    this.saveFunc(value).subscribe(
-      () => this.saveDocumentSuccess()
-    );
+    this.saveFunc(value).subscribe(() => this.saveDocumentSuccess());
   }
 
   private saveDocumentSuccess(): void {
     this.saveIsLoading = false;
   }
 
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

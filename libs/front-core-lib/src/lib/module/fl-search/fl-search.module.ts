@@ -19,14 +19,11 @@ import { FlSearchSavedListComponent } from './component/fl-search-saved-list/fl-
 import { FlSearchDateIntervalComponent } from './component/fl-search-date-interval/fl-search-date-interval.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FlSearchDrawerToggleDirective } from './directive/fl-search-drawer-toggle/fl-search-drawer-toggle.directive';
-import {
-  FlSearchHeaderActionsComponent
-} from './component/fl-search-header-actions/fl-search-header-actions.component';
+import { FlSearchHeaderActionsComponent } from './component/fl-search-header-actions/fl-search-header-actions.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FlSearchTableSortDirective } from './directive/fl-search-table-sort/fl-search-table-sort.directive';
-
 
 @NgModule({
   declarations: [
@@ -63,7 +60,6 @@ import { FlSearchTableSortDirective } from './directive/fl-search-table-sort/fl-
     MatInputModule,
     MatDatepickerModule,
 
-
     FlInfiniteScrollModule,
     FlLoaderModule,
     FlDrawerModule,
@@ -75,5 +71,4 @@ export class FlSearchModule {
   constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('FlSearchModule', flSearchI18n);
   }
-
 }

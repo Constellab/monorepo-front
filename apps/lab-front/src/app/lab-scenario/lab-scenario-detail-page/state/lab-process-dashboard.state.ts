@@ -12,12 +12,10 @@ import { LabProcess } from '../../../lab-core/model/entities/process/lab-process
  */
 @Injectable()
 export class LabProcessDashboardState {
-
   private task: LabProcess;
   private taskFormGp: UntypedFormGroup;
 
-  constructor(private workflowEditConfig: LabWorkflowEditConfig) {
-  }
+  constructor(private workflowEditConfig: LabWorkflowEditConfig) {}
 
   // save the current task and its form group to be able to save it from the dashboard
   // (outside the form component)
@@ -37,15 +35,23 @@ export class LabProcessDashboardState {
   }
 
   private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
-    const configValue: PrConfigValues = {...config.public, ...config.protected};
+    const configValue: PrConfigValues = { ...config.public, ...config.protected };
     // update the task config values
-    return this.workflowEditConfig.updateProcessConfig(this.task.parentProtocolId, this.task.instanceName, configValue);
+    return this.workflowEditConfig.updateProcessConfig(
+      this.task.parentProtocolId,
+      this.task.instanceName,
+      configValue
+    );
   }
 
   /**
    * return truc if the config has changed compared to the current task
    */
   public configHasChanged(process: LabProcess): boolean {
-    return !this.task || this.task.id !== process.id || !prConfigValueAreEqual(this.task.config.values, process.config.values);
+    return (
+      !this.task ||
+      this.task.id !== process.id ||
+      !prConfigValueAreEqual(this.task.config.values, process.config.values)
+    );
   }
 }

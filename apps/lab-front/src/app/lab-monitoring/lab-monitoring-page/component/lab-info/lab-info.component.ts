@@ -1,42 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {LabSystemService} from '../../../../lab-core/service/lab-system.service';
-import {LabSystemInfo} from '../../../../lab-core/model/global/lab-system.class';
+import { Component, OnInit } from '@angular/core';
+import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
+import { LabSystemInfo } from '../../../../lab-core/model/global/lab-system.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService
+  FlPortalActionsService,
 } from '@monorepo/front-core-lib';
-import {LabTypeService} from '../../../../lab-core/entity-service/lab-type.service';
-import {LabSynchroDialogComponent} from '../lab-synchro-dialog/lab-synchro-dialog.component';
-import {
-  LabSystemConfigDialogComponent
-} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
+import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
+import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 
 @Component({
   selector: 'lab-info',
   templateUrl: './lab-info.component.html',
-  styleUrls: ['./lab-info.component.scss']
+  styleUrls: ['./lab-info.component.scss'],
 })
 export class LabInfoComponent implements OnInit {
-
   labInfo: LabSystemInfo;
   isLoading: boolean = true;
 
-
-  constructor(private systemService: LabSystemService,
-              private typeService: LabTypeService,
-              private dialogService: FlDialogService,
-              private actionService: FlPortalActionsService) {
-  }
+  constructor(
+    private systemService: LabSystemService,
+    private typeService: LabTypeService,
+    private dialogService: FlDialogService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   ngOnInit(): void {
-    this.systemService.getSystemInfo().subscribe(
-      {
-        next: labInfo => this.onSuccess(labInfo),
-        error: () => this.onError()
-      }
-    );
+    this.systemService.getSystemInfo().subscribe({
+      next: (labInfo) => this.onSuccess(labInfo),
+      error: () => this.onError(),
+    });
   }
 
   private onSuccess(labInfo: LabSystemInfo): void {
@@ -62,32 +57,32 @@ export class LabInfoComponent implements OnInit {
     this.dialogService.openSmallDialog(LabSynchroDialogComponent);
   }
 
-
   cleanLab(): void {
     const input: FlConfirmDialogInput = {
       title: 'monitoring.clean_lab',
       content: 'monitoring.clean_lab_confirmation',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onCleanLabClosed(result)
-    );
-
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onCleanLabClosed(result));
   }
 
   private onCleanLabClosed(result: FlConfirmDialogResult): void {
     if (result.choice) {
-      this.actionService.addAction({
-        type: 'lab-garbage-collector',
-        action: this.systemService.triggerGarbageCollection(),
-        text: {text: 'monitoring.clean_lab', translateText: true},
-      }, true);
+      this.actionService.addAction(
+        {
+          type: 'lab-garbage-collector',
+          action: this.systemService.triggerGarbageCollection(),
+          text: { text: 'monitoring.clean_lab', translateText: true },
+        },
+        true
+      );
     }
   }
 
-
-  openPipPackageList(): void{
+  openPipPackageList(): void {
     this.dialogService.openSmallDialog(LabSystemConfigDialogComponent);
   }
 }
-

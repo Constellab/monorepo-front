@@ -1,23 +1,25 @@
 <div class="g-layout-col g-full-height">
   <lab-resource-children-tabs *ngIf="hasChildren()"></lab-resource-children-tabs>
-  <lab-resource-detail-header [displayMode]="displayMode"
-                              class="header"></lab-resource-detail-header>
+  <lab-resource-detail-header [displayMode]="displayMode" class="header"></lab-resource-detail-header>
 
   <!-- View -->
-  <fl-async-section [object]="selectedView()" [isFlStatusEvent]="true" [showServerErrorText]="true"
-                    class="g-flex-auto main-view">
+  <fl-async-section
+    [object]="selectedView()"
+    [isFlStatusEvent]="true"
+    [showServerErrorText]="true"
+    class="g-flex-auto main-view">
     <ng-container *flSectionBodyStatusEvent="selectedView() as view">
-      <lab-resource-view-detail *ngIf="view"
-                                [labView]="view" class="g-full-height">
-        <button mat-icon-button type="button" [matTooltip]="'biox.undock_view' | translate"
-                (click)="undockView()">
+      <lab-resource-view-detail *ngIf="view" [labView]="view" class="g-full-height">
+        <button
+          mat-icon-button
+          type="button"
+          [matTooltip]="'biox.undock_view' | translate"
+          (click)="undockView()">
           <mat-icon>open_in_browser</mat-icon>
         </button>
       </lab-resource-view-detail>
     </ng-container>
   </fl-async-section>
 
-
   <lab-resource-detail-minimized-views></lab-resource-detail-minimized-views>
 </div>
-

@@ -1,4 +1,4 @@
-.content{
+.content {
   max-height: 80vh;
   overflow-y: hidden;
   display: flex;
@@ -7,37 +7,37 @@
   gap: 0.75em;
 }
 
-.current-agent-div{
+.current-agent-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.divider{
+.divider {
   width: 100%;
 }
 
-.all-agent-list-div{
+.all-agent-list-div {
   width: 100%;
   height: calc(80vh - 10em);
 }
 
-.all-agent-list-div-short{
+.all-agent-list-div-short {
   height: calc(80vh - 24em);
 }
 
-.existant-agent-info-div{
+.existant-agent-info-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-bottom: 0.5em;
 }
 
-.current-agent{
+.current-agent {
   background-color: var(--main-background) !important;
   width: 40rem;
 }
 
-.create-agent-button{
+.create-agent-button {
   background-color: var(--main-background);
 }

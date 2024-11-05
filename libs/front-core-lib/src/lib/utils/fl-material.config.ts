@@ -1,6 +1,5 @@
-import {MatFormFieldDefaultOptions} from '@angular/material/form-field';
-import {MatTooltipDefaultOptions} from '@angular/material/tooltip';
-
+import { MatFormFieldDefaultOptions } from '@angular/material/form-field';
+import { MatTooltipDefaultOptions } from '@angular/material/tooltip';
 
 /**
  * Default configuration for the form-field
@@ -8,7 +7,7 @@ import {MatTooltipDefaultOptions} from '@angular/material/tooltip';
 export const flMatFormFieldConfig: MatFormFieldDefaultOptions = {
   appearance: 'outline',
   floatLabel: 'auto',
-  hideRequiredMarker: false
+  hideRequiredMarker: false,
 };
 
 /**
@@ -17,7 +16,7 @@ export const flMatFormFieldConfig: MatFormFieldDefaultOptions = {
 export const flTooltipConfig: MatTooltipDefaultOptions = {
   showDelay: 0,
   hideDelay: 0,
-  touchendHideDelay: 0
+  touchendHideDelay: 0,
 };
 
 /**

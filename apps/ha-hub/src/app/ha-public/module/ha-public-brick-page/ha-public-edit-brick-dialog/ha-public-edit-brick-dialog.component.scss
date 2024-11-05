@@ -1,38 +1,36 @@
-textarea{
+textarea {
   min-height: 5em;
   resize: none !important;
 }
 
-.radio-bt{
+.radio-bt {
   margin-top: 0.3em;
   margin-right: 1em;
 }
 
-.no-margin-bottom{
+.no-margin-bottom {
   margin-bottom: 0;
 }
 
-.input-repo{
+.input-repo {
   margin-top: 2em;
 }
 
-.error-repo{
+.error-repo {
   font-size: 80%;
-  margin-top:  0.667em;
+  margin-top: 0.667em;
   padding-left: 1em;
   color: var(--warn-color);
 }
 
-.brick-image-div{
+.brick-image-div {
   width: 150px;
   height: 150px;
   margin-inline: auto;
   margin-bottom: 2em;
 
-  img{
+  img {
     width: 100%;
     height: 100%;
   }
 }
-
-

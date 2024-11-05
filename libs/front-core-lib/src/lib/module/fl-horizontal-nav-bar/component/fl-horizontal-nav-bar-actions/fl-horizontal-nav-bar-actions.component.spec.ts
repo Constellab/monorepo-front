@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlHorizontalNavBarActionsComponent} from './fl-horizontal-nav-bar-actions.component';
+import { FlHorizontalNavBarActionsComponent } from './fl-horizontal-nav-bar-actions.component';
 
 describe('FlHorizontalNavBarActionsComponent', () => {
   let component: FlHorizontalNavBarActionsComponent;
@@ -8,9 +8,8 @@ describe('FlHorizontalNavBarActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlHorizontalNavBarActionsComponent]
-    })
-    .compileComponents();
+      declarations: [FlHorizontalNavBarActionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlHorizontalNavBarActionsComponent);
     component = fixture.componentInstance;

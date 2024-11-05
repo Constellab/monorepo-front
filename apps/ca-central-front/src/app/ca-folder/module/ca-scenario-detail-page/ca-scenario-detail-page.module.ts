@@ -9,11 +9,8 @@ import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-l
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 
-
 @NgModule({
-  declarations: [
-    CaScenarioDetailPageComponent,
-  ],
+  declarations: [CaScenarioDetailPageComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -25,7 +22,6 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
     CaScenarioCoreModule,
     CaLabCoreModule,
     CaNoteCoreModule,
-  ]
+  ],
 })
-export class CaScenarioDetailPageModule {
-}
+export class CaScenarioDetailPageModule {}

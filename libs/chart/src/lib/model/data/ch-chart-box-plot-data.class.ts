@@ -1,6 +1,6 @@
-import {ascending, quantile} from 'd3';
-import {ChChartSerie} from './ch-chart-serie.class';
-import {ChChartData} from './ch-chart-data.class';
+import { ascending, quantile } from 'd3';
+import { ChChartSerie } from './ch-chart-serie.class';
+import { ChChartData } from './ch-chart-data.class';
 
 export interface ChChartBoxPlotData extends ChChartData {
   q1: number;
@@ -17,13 +17,10 @@ export interface ChChartBoxPlotData extends ChChartData {
  * Specific serie type for the box plot
  */
 export class ChChartBoxPlotSerie extends ChChartSerie<ChChartBoxPlotData> {
-
   constructor(boxPlotData: ChChartBoxPlotData[], serieName: string) {
     // we set an array of number as data to have a correct domain
     super(boxPlotData, serieName);
   }
-
-
 }
 
 /**
@@ -33,9 +30,9 @@ export class ChChartBoxPlotSerie extends ChChartSerie<ChChartBoxPlotData> {
 export function chChartGetBoxPlotData(data: number[]): ChChartBoxPlotData {
   const sortedData: number[] = data.sort(ascending);
 
-  const q1 = quantile(sortedData, .25);
-  const median = quantile(sortedData, .5);
-  const q3 = quantile(sortedData, .75);
+  const q1 = quantile(sortedData, 0.25);
+  const median = quantile(sortedData, 0.5);
+  const q3 = quantile(sortedData, 0.75);
   const interQuantileRange = q3 - q1;
   const lowerWhisker = q1 - 1.5 * interQuantileRange;
   const upperWhisker = q3 + 1.5 * interQuantileRange;
@@ -54,4 +51,3 @@ export function chChartGetBoxPlotData(data: number[]): ChChartBoxPlotData {
     // nbOfData: data.length
   };
 }
-

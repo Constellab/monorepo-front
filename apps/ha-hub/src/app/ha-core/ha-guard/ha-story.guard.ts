@@ -22,19 +22,12 @@ export class HaStoryGuard {
 
   canActivate(
     route: ActivatedRouteSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // save the current url for rerouting after login
     const currentRoute = this.platformLocation.pathname;
 
     // save the url if it's different
-    if (
-      currentRoute !== HaRouterService.getLoginRoute() &&
-      currentRoute !== '/'
-    ) {
+    if (currentRoute !== HaRouterService.getLoginRoute() && currentRoute !== '/') {
       FlLoginSavedRoute.route = currentRoute;
     }
 

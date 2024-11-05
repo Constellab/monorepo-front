@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
-
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -9,11 +8,9 @@
       <div class="text g-text-dense-height">{{ row.title }}</div>
 
       <!--    Invisible link  -->
-      <a *ngIf="!rowSelectable" [routerLink]="row | labDetailRoute"
-         class="g-row-link"></a>
+      <a *ngIf="!rowSelectable" [routerLink]="row | labDetailRoute" class="g-row-link"></a>
     </mat-cell>
   </ng-container>
-
 
   <!-- Creation -->
   <ng-container matColumnDef="creation">
@@ -35,9 +32,9 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (click)="rowClicked(row)"></mat-row>
-
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)"></mat-row>
 </mat-table>

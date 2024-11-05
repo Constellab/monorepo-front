@@ -8,11 +8,11 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
-import {DOCUMENT} from '@angular/common';
-import {FlHtmlFindParentOptions, FlHtmlHelper} from '../../../../utils/fl-html.helper';
-import {ScrollDispatcher} from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
+import { FlHtmlFindParentOptions, FlHtmlHelper } from '../../../../utils/fl-html.helper';
+import { ScrollDispatcher } from '@angular/cdk/overlay';
 
 /**
  * Mode for the infinite scroll
@@ -35,10 +35,9 @@ export type FlInfiniteScrollMode = 'container' | 'body' | 'auto' | FlHtmlFindPar
  *
  */
 @Directive({
-  selector: '[flInfiniteScroll]'
+  selector: '[flInfiniteScroll]',
 })
 export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestroy {
-
   /**
    * Distance from bottom (in pixel) when the flTrigger is called
    *
@@ -98,17 +97,16 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
 
   private scrollableElement: HTMLElement;
 
-
-  constructor(private elementRef: ElementRef<HTMLElement>,
-              private renderer: Renderer2,
-              @Inject(DOCUMENT) private document: Document,
-              private scrollDispatcher: ScrollDispatcher) {
-  }
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: Document,
+    private scrollDispatcher: ScrollDispatcher
+  ) {}
 
   ngOnInit(): void {
     const element = this.getElement();
-    this.listener = this.renderer.listen(element, 'scroll',
-      (event: Event) => this.checkDistance(event));
+    this.listener = this.renderer.listen(element, 'scroll', (event: Event) => this.checkDistance(event));
   }
 
   private getElement(): HTMLElement {
@@ -121,11 +119,14 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
         this.scrollableElement = this.flInfiniteMode;
       } else if (this.flInfiniteMode === 'auto') {
         // retrieve scrollable parents
-        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(this.elementRef.nativeElement.parentElement);
+        const scrollableElements = this.scrollDispatcher.getAncestorScrollContainers(
+          this.elementRef.nativeElement.parentElement
+        );
 
         // if there are some scrollable parent, use the first one
         if (scrollableElements.length > 0) {
-          this.scrollableElement = scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
+          this.scrollableElement =
+            scrollableElements[scrollableElements.length - 1].getElementRef().nativeElement;
         } else {
           this.scrollableElement = this.elementRef.nativeElement;
         }
@@ -142,7 +143,6 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
     }
     return this.scrollableElement;
   }
-
 
   ngAfterViewInit(): void {
     if (this.flInfiniteCheckOnInit) {
@@ -173,15 +173,12 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
       if (distance <= this.flInfiniteTriggerDistance) {
         this.emitEvent(event);
       }
-
     } else {
-
       const distanceFromBottom = totalHeight - (distanceFromTop + height);
       // check if the distance from bottom is lower than the defined limit
       if (distanceFromBottom <= this.flInfiniteTriggerDistance) {
         this.emitEvent(event);
       }
-
     }
   }
 
@@ -193,13 +190,13 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
     if (this.flInfiniteAfterDebounce > 0) {
       this.isWaiting = true;
       // reset the waiting to false after x milliseconds
-      setTimeout(() => this.isWaiting = false, this.flInfiniteAfterDebounce);
+      setTimeout(() => (this.isWaiting = false), this.flInfiniteAfterDebounce);
     }
   }
 
   private getDistanceFromTop(): number {
     if (this.flInfiniteMode === 'body') {
-      return ((document.body.getBoundingClientRect() as any).y * -1) || 0;
+      return (document.body.getBoundingClientRect() as any).y * -1 || 0;
     } else {
       return this.getElement().scrollTop;
     }
@@ -226,6 +223,4 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
       this.listener();
     }
   }
-
-
 }

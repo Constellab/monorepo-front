@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
-  CaHierarchyObjectType
+  CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
@@ -19,20 +19,19 @@ import {
   FlMenuDynamicService,
   FlPortalActionsService,
   FlSearchState,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { CaHierarchyObjectTableEvent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import {
-  CaHierarchyObjectTableEvent
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
-import { CaHierarchyObjectActionEvent, CaHierarchyObjectActionMenu } from '../../ca-hierarchy-object-action-menu';
+  CaHierarchyObjectActionEvent,
+  CaHierarchyObjectActionMenu,
+} from '../../ca-hierarchy-object-action-menu';
 import {
   CaFolderActionEvent,
-  CaFolderActionsMenu
+  CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import {
-  CaHierarchyObjectSearchFields
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
@@ -43,28 +42,35 @@ import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-f
   selector: 'ca-folder-detail-page',
   templateUrl: './ca-folder-detail-page.component.html',
   styleUrls: ['./ca-folder-detail-page.component.scss'],
-  providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState]
+  providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState],
 })
 export class CaFolderDetailPageComponent implements OnInit {
-
   folderId$: Observable<string>;
   folder$: Observable<CaFolder>;
 
   children: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
-  columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt', 'statusIcons', 'customAction'];
+  columns: FlTableColumnStatic<CaHierarchyObject>[] = [
+    'name',
+    'user',
+    'lastModifiedAt',
+    'statusIcons',
+    'customAction',
+  ];
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private routerService: CaRouterService,
-              private state: CaFolderDetailState,
-              private rightPanelState: CaFolderRightPanelState,
-              private folderService: CaFolderService,
-              private folderActionService: CaFolderActionService,
-              private actionService: FlPortalActionsService,
-              private dialogService: FlDialogService,
-              private menuDynamicService: FlMenuDynamicService,
-              private securityService: CaSecurityService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private routerService: CaRouterService,
+    private state: CaFolderDetailState,
+    private rightPanelState: CaFolderRightPanelState,
+    private folderService: CaFolderService,
+    private folderActionService: CaFolderActionService,
+    private actionService: FlPortalActionsService,
+    private dialogService: FlDialogService,
+    private menuDynamicService: FlMenuDynamicService,
+    private securityService: CaSecurityService
+  ) {
     this.state.init(this.getIds$());
   }
 
@@ -95,13 +101,13 @@ export class CaFolderDetailPageComponent implements OnInit {
       case 'openChat':
         this.rightPanelState.updateRightPanelState({
           type: 'chat',
-          objectId: event.hierarchyObject.id
+          objectId: event.hierarchyObject.id,
         });
         break;
       case 'openDescription':
         this.rightPanelState.updateRightPanelState({
           type: 'description',
-          objectId: event.hierarchyObject.id
+          objectId: event.hierarchyObject.id,
         });
         break;
     }
@@ -118,23 +124,30 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   hierarchyObjectHasActionMenu(hierarchyObject: CaHierarchyObject): boolean {
-    return [CaHierarchyObjectType.FOLDER, CaHierarchyObjectType.DOCUMENT, CaHierarchyObjectType.CONSTELLAB_DOCUMENT]
-      .includes(hierarchyObject.objectType);
+    return [
+      CaHierarchyObjectType.FOLDER,
+      CaHierarchyObjectType.DOCUMENT,
+      CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
+    ].includes(hierarchyObject.objectType);
   }
 
   cardRightClick(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     const folder = this.state.getCurrentFolder();
     if (!folder) return;
-    const folderActionsMenu = new CaFolderActionsMenu(this.dialogService,
+    const folderActionsMenu = new CaFolderActionsMenu(
+      this.dialogService,
       this.folderActionService,
-      this.menuDynamicService, this.securityService, {
+      this.menuDynamicService,
+      this.securityService,
+      {
         id: folder.id,
         name: folder.name,
-        leader: folder.leader
-      });
+        leader: folder.leader,
+      }
+    );
 
-    folderActionsMenu.openFolderChildrenActionMenu(event).subscribe(event => {
+    folderActionsMenu.openFolderChildrenActionMenu(event).subscribe((event) => {
       this.onFolderAction(event);
     });
   }
@@ -148,9 +161,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   private getIds$(): Observable<string> {
-    return this.route.params.pipe(
-      map(params => params.id)
-    );
+    return this.route.params.pipe(map((params) => params.id));
   }
 
   private onHierarchyObjectClicked(hierarchyObject: CaHierarchyObject): void {
@@ -161,19 +172,19 @@ export class CaFolderDetailPageComponent implements OnInit {
       case CaHierarchyObjectType.NOTE:
         this.rightPanelState.updateRightPanelState({
           type: 'note',
-          objectId: hierarchyObject.id
+          objectId: hierarchyObject.id,
         });
         break;
       case CaHierarchyObjectType.SCENARIO:
         this.rightPanelState.updateRightPanelState({
           type: 'scenario',
-          objectId: hierarchyObject.id
+          objectId: hierarchyObject.id,
         });
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         this.rightPanelState.updateRightPanelState({
           type: 'constellab-document',
-          objectId: hierarchyObject.id
+          objectId: hierarchyObject.id,
         });
         break;
       case CaHierarchyObjectType.DOCUMENT:
@@ -193,15 +204,26 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   private openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
-    const service = new CaHierarchyObjectActionMenu(this.dialogService, this.folderService,
-      this.folderActionService, this.actionService,
-      this.menuDynamicService, this.securityService, hierarchyObject);
-    service.openActionMenu(event).subscribe(
-      hierarchyObjectActionEvent => this.onHierarchyObjectActionMenuEvent(hierarchyObjectActionEvent, hierarchyObject)
+    const service = new CaHierarchyObjectActionMenu(
+      this.dialogService,
+      this.folderService,
+      this.folderActionService,
+      this.actionService,
+      this.menuDynamicService,
+      this.securityService,
+      hierarchyObject
     );
+    service
+      .openActionMenu(event)
+      .subscribe((hierarchyObjectActionEvent) =>
+        this.onHierarchyObjectActionMenuEvent(hierarchyObjectActionEvent, hierarchyObject)
+      );
   }
 
-  private onHierarchyObjectActionMenuEvent(event: CaHierarchyObjectActionEvent, hierarchyObject: CaHierarchyObject): void {
+  private onHierarchyObjectActionMenuEvent(
+    event: CaHierarchyObjectActionEvent,
+    hierarchyObject: CaHierarchyObject
+  ): void {
     if (!event) return;
 
     if (event.entity === 'folder') {
@@ -258,7 +280,6 @@ export class CaFolderDetailPageComponent implements OnInit {
     }
   }
 
-
   private onFolderAction(folderEvent: CaFolderActionEvent): void {
     if (!folderEvent) return;
     if (folderEvent.action === 'createChild') {
@@ -267,6 +288,4 @@ export class CaFolderDetailPageComponent implements OnInit {
       this.routerService.navigateToDocumentDetail(folderEvent.document.document.id);
     }
   }
-
-
 }

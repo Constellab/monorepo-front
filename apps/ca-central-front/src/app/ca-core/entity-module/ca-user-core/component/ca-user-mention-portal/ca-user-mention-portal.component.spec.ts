@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaUserMentionPortalComponent} from './ca-user-mention-portal.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaUserMentionPortalComponent } from './ca-user-mention-portal.component';
 
 describe('CaUserMentionPortalComponent', () => {
   let component: CaUserMentionPortalComponent;

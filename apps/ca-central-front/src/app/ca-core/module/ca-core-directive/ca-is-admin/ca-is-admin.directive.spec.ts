@@ -1,4 +1,4 @@
-import {CaIsAdminDirective} from './ca-is-admin.directive';
+import { CaIsAdminDirective } from './ca-is-admin.directive';
 
 describe('IsAdminDirective', () => {
   it('should create an instance', () => {

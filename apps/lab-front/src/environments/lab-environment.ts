@@ -1,4 +1,4 @@
-import {LabEnvironment} from './lab-environment.class';
+import { LabEnvironment } from './lab-environment.class';
 
 /**
  * File for local environment, env is defined in main file.

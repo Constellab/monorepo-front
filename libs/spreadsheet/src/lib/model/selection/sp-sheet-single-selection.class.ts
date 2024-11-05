@@ -1,27 +1,24 @@
-import {SpSheet} from '../sp-sheet.class';
-import {SpCell} from '../sp-cell.class';
-import {SpSheetSelection} from './sp-sheet-selection.class';
-import {SpCellsRange, SpCellsRangeType} from './sp-cells-range.class';
-import {SpCellCoord, SpCellCoordRange} from '../sp-cell-coord.class';
-import {SpSheetSelectionRange} from '../chart/sp-sheet-chart-selection-form.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpCell } from '../sp-cell.class';
+import { SpSheetSelection } from './sp-sheet-selection.class';
+import { SpCellsRange, SpCellsRangeType } from './sp-cells-range.class';
+import { SpCellCoord, SpCellCoordRange } from '../sp-cell-coord.class';
+import { SpSheetSelectionRange } from '../chart/sp-sheet-chart-selection-form.class';
 
 export interface SpCellWithCoord {
   coord: SpCellCoord;
   cell: SpCell;
 }
 
-
 /**
  * Class containing the selection of a sheet with only read method
  * This object is immutable
  */
 export class SpSheetSingleSelection implements SpSheetSelection {
-
   protected constructor(
     protected sheet: SpSheet,
-    protected range: SpCellsRange) {
-  }
-
+    protected range: SpCellsRange
+  ) {}
 
   public getCellsFlat(): SpCell[] {
     return this.sheet.getCellsFromCoordsFlat(this.range.from, this.range.to);
@@ -32,11 +29,11 @@ export class SpSheetSingleSelection implements SpSheetSelection {
   }
 
   public getCellsValues(): any[][] {
-    return this.getCells().map(rows => rows.map(cell => cell.value));
+    return this.getCells().map((rows) => rows.map((cell) => cell.value));
   }
 
   public getCellsValuesFlat(): any[] {
-    return this.getCellsFlat().map(cell => cell.value);
+    return this.getCellsFlat().map((cell) => cell.value);
   }
 
   /**
@@ -117,13 +114,11 @@ export class SpSheetSingleSelection implements SpSheetSelection {
 
   public getFirstSelectedCellCoord(): SpCellCoord {
     return this.range.getFirstSelectedCellCoord();
-
   }
 
   // return true if the coord are within the selection
   public coordIsSelected(coord: SpCellCoord): boolean {
     return this.range.coordIsSelected(coord);
-
   }
 
   // return true if the row is within selection
@@ -148,20 +143,21 @@ export class SpSheetSingleSelection implements SpSheetSelection {
     if (this.type === 'columns') {
       return {
         type: 'columns',
-        selection: this.sheet.getColumnNames(this.from.column, this.to.column)
+        selection: this.sheet.getColumnNames(this.from.column, this.to.column),
       };
     } else {
       const coords = this.getRange().toCoords();
       return {
         type: 'range',
-        selection: [{
-          from: this.sheet.getCoordsWithOffset(coords.from),
-          to: this.sheet.getCoordsWithOffset(coords.to)
-        }]
+        selection: [
+          {
+            from: this.sheet.getCoordsWithOffset(coords.from),
+            to: this.sheet.getCoordsWithOffset(coords.to),
+          },
+        ],
       };
     }
   }
-
 
   // public getDifference(newSelection: SpSheetSelectionChange): SpSheetSelectionDifference {
   //   // the difference only work if both selection have the same start
@@ -184,9 +180,7 @@ export class SpSheetSingleSelection implements SpSheetSelection {
  * This object is immutable, it returns new objects
  */
 export class SpSheetSingleSelectionFull extends SpSheetSingleSelection {
-  constructor(
-    sheet: SpSheet,
-    range: SpCellsRange) {
+  constructor(sheet: SpSheet, range: SpCellsRange) {
     super(sheet, range);
   }
 
@@ -194,14 +188,24 @@ export class SpSheetSingleSelectionFull extends SpSheetSingleSelection {
     return new SpSheetSingleSelectionFull(sheet, new SpCellsRange('single', row, column, row, column));
   }
 
-  public static Multiple(sheet: SpSheet,
-                         startRow: number, startColumn: number,
-                         endRow: number, endColumn: number): SpSheetSingleSelectionFull {
-    return new SpSheetSingleSelectionFull(sheet, new SpCellsRange('multiple', startRow, startColumn, endRow, endColumn));
+  public static Multiple(
+    sheet: SpSheet,
+    startRow: number,
+    startColumn: number,
+    endRow: number,
+    endColumn: number
+  ): SpSheetSingleSelectionFull {
+    return new SpSheetSingleSelectionFull(
+      sheet,
+      new SpCellsRange('multiple', startRow, startColumn, endRow, endColumn)
+    );
   }
 
   public static Columns(sheet: SpSheet, from: number, to: number): SpSheetSingleSelectionFull {
-    return new SpSheetSingleSelectionFull(sheet, new SpCellsRange('columns', 0, from, sheet.getLoadedRowsCount() - 1, to));
+    return new SpSheetSingleSelectionFull(
+      sheet,
+      new SpCellsRange('columns', 0, from, sheet.getLoadedRowsCount() - 1, to)
+    );
   }
 
   public static ColumnName(sheet: SpSheet, columnName: string): SpSheetSingleSelectionFull {
@@ -215,14 +219,20 @@ export class SpSheetSingleSelectionFull extends SpSheetSingleSelection {
   }
 
   public static Rows(sheet: SpSheet, from: number, to: number): SpSheetSingleSelectionFull {
-    return new SpSheetSingleSelectionFull(sheet, new SpCellsRange('rows', from, 0, to, sheet.getLoadedColumnsCount() - 1));
+    return new SpSheetSingleSelectionFull(
+      sheet,
+      new SpCellsRange('rows', from, 0, to, sheet.getLoadedColumnsCount() - 1)
+    );
   }
 
   public static FromRange(sheet: SpSheet, range: SpCellsRange): SpSheetSingleSelectionFull {
     return new SpSheetSingleSelectionFull(sheet, range);
   }
 
-  public static FromCellCoordsRange(sheet: SpSheet, cellsRange: SpCellCoordRange): SpSheetSingleSelectionFull {
+  public static FromCellCoordsRange(
+    sheet: SpSheet,
+    cellsRange: SpCellCoordRange
+  ): SpSheetSingleSelectionFull {
     const range = SpCellsRange.MultipleFromCellCoordsRange(cellsRange);
     range.to.column -= sheet.columnOffset;
     range.to.row -= sheet.rowOffset;
@@ -243,7 +253,13 @@ export class SpSheetSingleSelectionFull extends SpSheetSingleSelection {
 
   // return a new instance of SpSheetSelectionChange wih expanded selection
   public expandSelection(row: number, column: number): SpSheetSingleSelectionFull {
-    return SpSheetSingleSelectionFull.Multiple(this.sheet, this.range.startRow, this.range.startColumn, row, column);
+    return SpSheetSingleSelectionFull.Multiple(
+      this.sheet,
+      this.range.startRow,
+      this.range.startColumn,
+      row,
+      column
+    );
   }
 
   // return a new instance of SpSheetSelectionChange wih expanded selection
@@ -259,7 +275,7 @@ export class SpSheetSingleSelectionFull extends SpSheetSingleSelection {
   public getEndCoord(): SpCellCoord {
     return {
       row: this.range.endRow,
-      column: this.range.endColumn
+      column: this.range.endColumn,
     };
   }
 }

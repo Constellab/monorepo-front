@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabUserFormDialogComponent} from './ca-lab-user-form-dialog.component';
+import { CaLabUserFormDialogComponent } from './ca-lab-user-form-dialog.component';
 
 describe('LabUserFormDialogComponent', () => {
   let component: CaLabUserFormDialogComponent;
@@ -8,9 +8,8 @@ describe('LabUserFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabUserFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabUserFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

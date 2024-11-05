@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewTextComponent} from './rv-view-text.component';
+import { RvViewTextComponent } from './rv-view-text.component';
 
 describe('BioxResourceTextComponent', () => {
   let component: RvViewTextComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceTextComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvViewTextComponent ]
-    })
-    .compileComponents();
+      declarations: [RvViewTextComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -21,7 +21,9 @@ export abstract class FlUserConfig {
   /**
    * Use by the {@link FlSelectUserComponent} to search users by name
    */
-  public abstract getSearchByNamesDatasource(mode: FlUserConfigSearchNameMode): FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
+  public abstract getSearchByNamesDatasource(
+    mode: FlUserConfigSearchNameMode
+  ): FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
   /**
    * Use by the {@link FlSelectUserComponent} to get the current user

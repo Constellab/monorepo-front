@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FlSnackBarInfoInput, FlSnackBarMode} from '../../model/fl-snack-bar.class';
-import {FlTranslatableText} from '../../../fl-translate/model/fl-translate-param';
-import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material/snack-bar';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FlSnackBarInfoInput, FlSnackBarMode } from '../../model/fl-snack-bar.class';
+import { FlTranslatableText } from '../../../fl-translate/model/fl-translate-param';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
 /**
  * Simple snack bar to display an error or success message
@@ -9,18 +9,18 @@ import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material/snack-bar';
 @Component({
   selector: 'fl-snack-bar-info',
   templateUrl: './fl-snack-bar-info.component.html',
-  styleUrls: ['./fl-snack-bar-info.component.scss']
+  styleUrls: ['./fl-snack-bar-info.component.scss'],
 })
 export class FlSnackBarInfoComponent implements OnInit {
-
-
   mode: FlSnackBarMode;
   text: FlTranslatableText;
   showCloseButton: boolean;
   showDetailButton: boolean;
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) private data: FlSnackBarInfoInput,
-              private snackBarRef: MatSnackBarRef<FlSnackBarInfoComponent>) {
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) private data: FlSnackBarInfoInput,
+    private snackBarRef: MatSnackBarRef<FlSnackBarInfoComponent>
+  ) {
     if (data.mode == null) {
       console.error('The mode input is missing in the snack bar info');
     }
@@ -34,8 +34,7 @@ export class FlSnackBarInfoComponent implements OnInit {
     this.showDetailButton = data.additionalConfig.detailButton != null;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   closeSnackBar(): void {
     this.snackBarRef.dismiss();
@@ -44,5 +43,4 @@ export class FlSnackBarInfoComponent implements OnInit {
   openDetailDialog(event: MouseEvent): void {
     this.data.additionalConfig.detailButton(event);
   }
-
 }

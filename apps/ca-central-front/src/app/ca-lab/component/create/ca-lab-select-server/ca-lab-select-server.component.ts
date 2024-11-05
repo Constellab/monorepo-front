@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   CaCloudProviderRegion,
-  CaCloudProviderRegionDatasource
+  CaCloudProviderRegionDatasource,
 } from '../../../../ca-core/model/entities/ca-cloud-provider.class';
 import { CaCloudProviderService } from '../../../../ca-core/service-api/ca-cloud-provider.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,7 +11,6 @@ import { CaServerService } from '../../../../ca-core/service-api/ca-server.servi
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaServerStandard } from '../../../../ca-core/model/entities/server/ca-server-standard.class';
 import { CaLabValidator } from '../../../../ca-core/model/entities/lab/ca-lab.validator';
-
 
 export interface CaLabSelectServerForm {
   standardServer: FormControl<CaServerStandard>;
@@ -24,12 +23,10 @@ export interface CaLabSelectServerForm {
 @Component({
   selector: 'ca-lab-select-server',
   templateUrl: './ca-lab-select-server.component.html',
-  styleUrl: './ca-lab-select-server.component.scss'
+  styleUrl: './ca-lab-select-server.component.scss',
 })
 export class CaLabSelectServerComponent implements OnInit, OnDestroy {
-
-  @Input({required: true}) formGp: FormGroup<CaLabSelectServerForm>;
-
+  @Input({ required: true }) formGp: FormGroup<CaLabSelectServerForm>;
 
   serverStandards$: Observable<CaServerStandard[]>;
   serverClouds$: Observable<CaServerCloud[]>;
@@ -37,39 +34,44 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
 
   s3Regions: CaCloudProviderRegionDatasource = this.cloudProviderService.getRegionsByType('S3');
 
-
   formGroupOrders: Record<keyof CaLabSelectServerForm, number> = {
     standardServer: 1,
     serverCloud: 2,
     region: 3,
     dailyBackupRegion: 4,
-    weeklyBackupRegion: 4
+    weeklyBackupRegion: 4,
   };
 
   private subscriptions = new ClSubscriptionHandler();
 
-  constructor(private cloudProviderService: CaCloudProviderService,
-              private serverService: CaServerService) {
-
-  }
+  constructor(
+    private cloudProviderService: CaCloudProviderService,
+    private serverService: CaServerService
+  ) {}
 
   ngOnInit(): void {
     for (const [name, groupOrder] of Object.entries(this.formGroupOrders)) {
-      this.subscriptions.add(this.formGp.get(name).valueChanges.subscribe(
-        (value) => this.onChange(name as keyof CaLabSelectServerForm, groupOrder, value)
-      ));
+      this.subscriptions.add(
+        this.formGp
+          .get(name)
+          .valueChanges.subscribe((value) =>
+            this.onChange(name as keyof CaLabSelectServerForm, groupOrder, value)
+          )
+      );
     }
   }
 
-
   public static createFormGp(): FormGroup<CaLabSelectServerForm> {
-    return new FormBuilder().group({
-      standardServer: [null, Validators.required],
-      serverCloud: [null, Validators.required],
-      region: [null, Validators.required],
-      dailyBackupRegion: [null, Validators.required],
-      weeklyBackupRegion: [null, Validators.required]
-    }, {validators: CaLabValidator.differentBackupRegionValidator()}) as FormGroup<CaLabSelectServerForm>;
+    return new FormBuilder().group(
+      {
+        standardServer: [null, Validators.required],
+        serverCloud: [null, Validators.required],
+        region: [null, Validators.required],
+        dailyBackupRegion: [null, Validators.required],
+        weeklyBackupRegion: [null, Validators.required],
+      },
+      { validators: CaLabValidator.differentBackupRegionValidator() }
+    ) as FormGroup<CaLabSelectServerForm>;
   }
 
   onDecisionTreeChange(serverStandardNames: string[]): void {

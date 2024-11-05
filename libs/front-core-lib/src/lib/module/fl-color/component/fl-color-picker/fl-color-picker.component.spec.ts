@@ -8,9 +8,8 @@ describe('FlColorPickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlColorPickerComponent]
-    })
-    .compileComponents();
+      declarations: [FlColorPickerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlColorPickerComponent);
     component = fixture.componentInstance;

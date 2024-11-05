@@ -6,10 +6,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 @Component({
   selector: 'lab-scenario-table',
   templateUrl: './lab-scenario-table.component.html',
-  styleUrls: ['./lab-scenario-table.component.scss']
+  styleUrls: ['./lab-scenario-table.component.scss'],
 })
 export class LabScenarioTableComponent {
-
   @Input() datasource: FlArrayObs<LabScenario>;
 
   @Input() columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status', 'tags', 'lastModification'];

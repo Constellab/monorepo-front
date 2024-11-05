@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceDetailComponent} from './ca-current-space-detail.component';
+import { CaCurrentSpaceDetailComponent } from './ca-current-space-detail.component';
 
 describe('CaSpaceDetailComponent', () => {
   let component: CaCurrentSpaceDetailComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCurrentSpaceDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpaceDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

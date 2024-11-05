@@ -1,12 +1,10 @@
 <div class="ql-bubble td-doc-content">
-  <td-resource-doc [resource]="$any(technicalDoc)"
-                   *ngIf="technicalDoc.objectType === 'RESOURCE'">
+  <td-resource-doc [resource]="$any(technicalDoc)" *ngIf="technicalDoc.objectType === 'RESOURCE'">
   </td-resource-doc>
-  <td-process-doc [process]="$any(technicalDoc)"
-                  *ngIf="technicalDoc.objectType === 'TASK' ||
-                  technicalDoc.objectType === 'PROTOCOL'">
+  <td-process-doc
+    [process]="$any(technicalDoc)"
+    *ngIf="technicalDoc.objectType === 'TASK' || technicalDoc.objectType === 'PROTOCOL'">
   </td-process-doc>
-  <td-other-class-doc [otherClass]="$any(technicalDoc)"
-                      *ngIf="technicalDoc.objectType === 'OTHER_CLASS'">
+  <td-other-class-doc [otherClass]="$any(technicalDoc)" *ngIf="technicalDoc.objectType === 'OTHER_CLASS'">
   </td-other-class-doc>
 </div>

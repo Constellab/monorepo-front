@@ -4,18 +4,18 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalAction,
-  FlPortalActionsService
+  FlPortalActionsService,
 } from '@monorepo/front-core-lib';
 import { CaFolderService } from '../../service-api/ca-folder.service';
 import { filter, Observable } from 'rxjs';
 import {
   CaFolderFormDialogComponent,
-  CaFolderFormDialogInput
+  CaFolderFormDialogInput,
 } from './component/ca-folder-form-dialog/ca-folder-form-dialog.component';
 import { CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
 import {
   CaDocumentNameFormDialogComponent,
-  CaDocumentNameFormDialogInput
+  CaDocumentNameFormDialogInput,
 } from '../../../ca-folder/module/ca-document-core/component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 import { CaConstellabDocument } from '../../model/entities/folder/ca-document.class';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -26,45 +26,50 @@ import { map } from 'rxjs/operators';
  * Service to gather action on folder that can be done in multiple location from the UI
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaFolderActionService {
-
   private uploadDocumentActionName = 'upload-document-action';
 
-  constructor(private folderService: CaFolderService,
-              private dialogService: FlDialogService,
-              private actionService: FlPortalActionsService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private dialogService: FlDialogService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
-    return this.dialogService.openSmallDialog(CaFolderFormDialogComponent, { data: dialogInput })
+    return this.dialogService
+      .openSmallDialog(CaFolderFormDialogComponent, { data: dialogInput })
       .afterClosed();
   }
 
   public openChildCreation(folderId: string): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
       mode: 'create',
-      parentId: folderId
+      parentId: folderId,
     };
 
-    return this.dialogService.openSmallDialog(CaFolderFormDialogComponent, {
-      data: dialogInput
-    }).afterClosed();
+    return this.dialogService
+      .openSmallDialog(CaFolderFormDialogComponent, {
+        data: dialogInput,
+      })
+      .afterClosed();
   }
 
   public openUpdateFolderDialog(folderId: string): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
       mode: 'update',
-      folderId: folderId
+      folderId: folderId,
     };
 
-    return this.dialogService.openSmallDialog(CaFolderFormDialogComponent, {
-      data: dialogInput
-    }).afterClosed();
+    return this.dialogService
+      .openSmallDialog(CaFolderFormDialogComponent, {
+        data: dialogInput,
+      })
+      .afterClosed();
   }
 
   public openDeleteFolderDialog(folderId: string): Observable<FlConfirmDialogResult<void>> {
@@ -72,7 +77,7 @@ export class CaFolderActionService {
       title: 'delete_folder',
       content: 'delete_folder_confirm',
       observable: this.folderService.delete(folderId),
-      successMessage: 'folder_deleted'
+      successMessage: 'folder_deleted',
     };
 
     return this.dialogService.openConfirmDialog(input).afterClosed();
@@ -81,10 +86,11 @@ export class CaFolderActionService {
   public createConstellabDocument(folderId: string): Observable<CaConstellabDocument | null> {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'create',
-      parentFolderId: folderId
+      parentFolderId: folderId,
     };
 
-    return this.dialogService.openSmallDialog(CaDocumentNameFormDialogComponent, { data: input })
+    return this.dialogService
+      .openSmallDialog(CaDocumentNameFormDialogComponent, { data: input })
       .afterClosed();
   }
 
@@ -92,32 +98,30 @@ export class CaFolderActionService {
     const files = ClHelpService.convertObjectOrArrayToArray(fileEvent);
 
     for (const file of files) {
-
       const action: FlPortalAction = {
         type: this.uploadDocumentActionName,
         action: this.folderService.uploadDocument(file, folderId),
         text: {
           text: 'uploading_document',
           translateText: true,
-          translateParam: { param: { name: file.name } }
+          translateParam: { param: { name: file.name } },
         },
-        additionalInformation: folderId
+        additionalInformation: folderId,
       };
 
       this.actionService.addAction(action, false);
     }
   }
 
-  public getUploadedDocumentActionResult(): Observable<{ folderId: string, document: CaHierarchyObject }> {
+  public getUploadedDocumentActionResult(): Observable<{ folderId: string; document: CaHierarchyObject }> {
     return this.actionService.getResult$(this.uploadDocumentActionName).pipe(
-      filter(action => action.status === 'success'),
-      map(action => {
+      filter((action) => action.status === 'success'),
+      map((action) => {
         return {
           folderId: action.additionalInformation,
-          document: action.result
+          document: action.result,
         };
       })
     );
   }
-
 }

@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {ChChart3dDatum} from '../../../model/data/ch-chart-data.class';
-import {ChChartLabelFormatter} from '../../../model/ch-chart-label-formatter.class';
-import {FL_PORTAL_DATA} from '@monorepo/front-core-lib';
+import { Component, Inject } from '@angular/core';
+import { ChChart3dDatum } from '../../../model/data/ch-chart-data.class';
+import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
 
 export interface ChChartHeatMapDataPortalInput {
   data: ChChart3dDatum;
@@ -12,10 +12,9 @@ export interface ChChartHeatMapDataPortalInput {
 @Component({
   selector: 'ch-chart-heat-map-data-portal',
   templateUrl: './ch-chart-heat-map-data-portal.component.html',
-  styleUrls: ['./ch-chart-heat-map-data-portal.component.scss']
+  styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
 })
-export class ChChartHeatMapDataPortalComponent  {
-
+export class ChChartHeatMapDataPortalComponent {
   data: ChChart3dDatum;
 
   x: number;
@@ -34,7 +33,4 @@ export class ChChartHeatMapDataPortalComponent  {
     this.xLabelFormatter = input.xLabelFormatter;
     this.yLabelFormatter = input.yLabelFormatter;
   }
-
-
-
 }

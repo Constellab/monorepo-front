@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceTableComponent} from './ca-space-table.component';
+import { CaSpaceTableComponent } from './ca-space-table.component';
 
 describe('CaSpaceTableComponent', () => {
   let component: CaSpaceTableComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

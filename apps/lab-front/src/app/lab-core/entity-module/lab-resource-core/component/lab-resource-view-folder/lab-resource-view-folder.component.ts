@@ -1,8 +1,8 @@
-import {Component, OnInit, Optional} from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import {
   LabResourceViewFolder,
   LabResourceViewFolderContent,
-  LabResourceViewFolderContentFlat
+  LabResourceViewFolderContentFlat,
 } from '../../../../model/entities/resource/lab-resource-view-folder.class';
 import {
   FlClipboardService,
@@ -11,19 +11,19 @@ import {
   FlMenuDynamic,
   FlMenuDynamicService,
   FlPortalAction,
-  FlPortalActionsService
+  FlPortalActionsService,
 } from '@monorepo/front-core-lib';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {LabFileResourceService} from '../../../../entity-service/lab-file-resource.service';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import {
   LabFsNodeTypesSelectionDialogComponent,
   LabFsNodeTypesSelectionDialogInput,
-  LabFsNodeTypesSelectionDialogResult
+  LabFsNodeTypesSelectionDialogResult,
 } from '../lab-fs-node-types-selection-dialog/lab-fs-node-types-selection-dialog.component';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabRouterService} from '../../../../service/lab-router.service';
-import {RvResourceViewDirective} from '@monorepo/resource-view';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabRouterService } from '../../../../service/lab-router.service';
+import { RvResourceViewDirective } from '@monorepo/resource-view';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
 /**
  * Resource view for folder
@@ -31,31 +31,38 @@ import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
 @Component({
   selector: 'lab-resource-view-folder',
   templateUrl: './lab-resource-view-folder.component.html',
-  styleUrls: ['./lab-resource-view-folder.component.scss']
+  styleUrls: ['./lab-resource-view-folder.component.scss'],
 })
-export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabResourceViewFolder> implements OnInit {
-
+export class LabResourceViewFolderComponent
+  extends RvResourceViewDirective<LabResourceViewFolder>
+  implements OnInit
+{
   treeControl: FlFlatTreeControl<LabResourceViewFolderContentFlat>;
 
   dataSource: MatTreeFlatDataSource<LabResourceViewFolderContent, LabResourceViewFolderContentFlat>;
 
-  constructor(private fileService: LabFileResourceService,
-              private dialogService: FlDialogService,
-              private routerService: LabRouterService,
-              private menuDynamicService: FlMenuDynamicService,
-              @Optional() private resourceState: LabResourceDetailState,
-              private clipboardService: FlClipboardService,
-              private actionService: FlPortalActionsService) {
+  constructor(
+    private fileService: LabFileResourceService,
+    private dialogService: FlDialogService,
+    private routerService: LabRouterService,
+    private menuDynamicService: FlMenuDynamicService,
+    @Optional() private resourceState: LabResourceDetailState,
+    private clipboardService: FlClipboardService,
+    private actionService: FlPortalActionsService
+  ) {
     super();
   }
 
-  private _transformer = (node: LabResourceViewFolderContent, level: number): LabResourceViewFolderContentFlat => {
+  private _transformer = (
+    node: LabResourceViewFolderContent,
+    level: number
+  ): LabResourceViewFolderContentFlat => {
     return {
       name: node.name,
       resource_model_id: node.resource_model_id,
       isFolder: !!node.children && node.children.length > 0,
       level: level,
-      isLoading: false
+      isLoading: false,
     };
   };
 
@@ -63,33 +70,42 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
 
   ngOnInit(): void {
     this.treeControl = new FlFlatTreeControl<LabResourceViewFolderContentFlat>(
-      node => node.level, node => node.isFolder);
+      (node) => node.level,
+      (node) => node.isFolder
+    );
 
     // object to flatten tree
-    const treeFlattener: MatTreeFlattener<LabResourceViewFolderContent, LabResourceViewFolderContentFlat> = new MatTreeFlattener(
-      this._transformer, node => node.level, node => node.isFolder, node => node.children);
+    const treeFlattener: MatTreeFlattener<LabResourceViewFolderContent, LabResourceViewFolderContentFlat> =
+      new MatTreeFlattener(
+        this._transformer,
+        (node) => node.level,
+        (node) => node.isFolder,
+        (node) => node.children
+      );
 
     // create the datasource and set data
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
     this.dataSource.data = this.view.data.content.children;
   }
 
-
   // open the dialog to select the node type
   extractNode(node: LabResourceViewFolderContentFlat): void {
     const input: LabFsNodeTypesSelectionDialogInput = {
       dialogMode: node.isFolder ? 'folder' : 'files',
       filenames: [node.name],
-      helpText: 'biox.extract_fs_node_help'
+      helpText: 'biox.extract_fs_node_help',
     };
 
-    this.dialogService.openSmallDialog(LabFsNodeTypesSelectionDialogComponent, {data: input}).afterClosed().subscribe(
-      result => this.selectNodeTypeClosed(result, node)
-    );
+    this.dialogService
+      .openSmallDialog(LabFsNodeTypesSelectionDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result) => this.selectNodeTypeClosed(result, node));
   }
 
-
-  private selectNodeTypeClosed(result: LabFsNodeTypesSelectionDialogResult, node: LabResourceViewFolderContentFlat): void {
+  private selectNodeTypeClosed(
+    result: LabFsNodeTypesSelectionDialogResult,
+    node: LabResourceViewFolderContentFlat
+  ): void {
     if (result == null) return;
 
     const path: string = this.getNodePath(node);
@@ -97,8 +113,8 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
 
     node.isLoading = true;
     this.fileService.extractNode(this.resourceId, path, typingName).subscribe({
-      next: resource => this.extractFileSuccess(node, resource),
-      error: () => node.isLoading = false
+      next: (resource) => this.extractFileSuccess(node, resource),
+      error: () => (node.isLoading = false),
     });
   }
 
@@ -107,7 +123,6 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
     node.resource_model_id = resource.id;
     this.routerService.navigateToResourceDetail(resource.id);
   }
-
 
   // retrieve the node full path by calling ancestors, with '/' separator
   private getNodePath(node: LabResourceViewFolderContentFlat): string {
@@ -138,17 +153,17 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         type: 'button',
         text: {
           text: 'biox.folder_view_sub_files',
-          translateText: true
+          translateText: true,
         },
         onClick: () => this.callFileView(node),
-        icon: 'visibility'
+        icon: 'visibility',
       });
     }
 
     if (node.resource_model_id) {
       menuDynamic.push({
         type: 'link',
-        text: {text: 'resource', translateText: true},
+        text: { text: 'resource', translateText: true },
         link: LabRouterService.getResourceDetailRoute(node.resource_model_id),
         icon: 'resource',
       });
@@ -158,10 +173,10 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
         type: 'button',
         text: {
           text: node.isFolder ? 'biox.folder_extract_folder' : 'biox.folder_extract_file',
-          translateText: true
+          translateText: true,
         },
         onClick: () => this.extractNode(node),
-        icon: 'drive_file_move'
+        icon: 'drive_file_move',
       });
     }
 
@@ -170,10 +185,10 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
       type: 'button',
       text: {
         text: 'biox.download_folder_sub_node',
-        translateText: true
+        translateText: true,
       },
       onClick: () => this.downloadFolderSubFile(node),
-      icon: 'cloud_download'
+      icon: 'cloud_download',
     });
 
     // button to copy the node path
@@ -181,13 +196,14 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
       type: 'button',
       text: {
         text: 'biox.folder_copy_node_path',
-        translateText: true
+        translateText: true,
       },
-      onClick: () => this.clipboardService.copy(this.getNodePath(node), {
-        text: 'biox.folder_node_path_copied',
-        translateText: true
-      }),
-      icon: 'content_copy'
+      onClick: () =>
+        this.clipboardService.copy(this.getNodePath(node), {
+          text: 'biox.folder_node_path_copied',
+          translateText: true,
+        }),
+      icon: 'content_copy',
     });
 
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
@@ -195,17 +211,19 @@ export class LabResourceViewFolderComponent extends RvResourceViewDirective<LabR
 
   // open the dialog to select the node type
   private callFileView(node: LabResourceViewFolderContentFlat): void {
-    this.resourceState.callView(this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)), node.name);
+    this.resourceState.callView(
+      this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)),
+      node.name
+    );
   }
 
   private downloadFolderSubFile(node: LabResourceViewFolderContentFlat): void {
     const action: FlPortalAction = {
       type: 'download-folder-sub-node',
       action: this.fileService.downloadFolderSubFile(this.resourceId, this.getNodePath(node)),
-      text: {text: 'biox.folder_sub_node_downloading', translateText: true},
-    }
+      text: { text: 'biox.folder_sub_node_downloading', translateText: true },
+    };
 
     this.actionService.addAction(action);
   }
-
 }

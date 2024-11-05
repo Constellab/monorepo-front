@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabCredentialsInlineComponent} from './lab-credentials-inline.component';
+import { LabCredentialsInlineComponent } from './lab-credentials-inline.component';
 
 describe('LabCredentialsInlineComponent', () => {
   let component: LabCredentialsInlineComponent;

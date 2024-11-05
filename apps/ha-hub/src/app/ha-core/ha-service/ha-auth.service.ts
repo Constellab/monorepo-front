@@ -1,25 +1,26 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlApiService,
   FlAuthLogin2FaResponse,
   FlAuthLoginResponse,
   FlAuthService,
   FlCleanerService,
-  FlCookieService
+  FlCookieService,
 } from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaAuthService extends FlAuthService {
-
   private readonly route: string = 'auth';
 
-  constructor(private apiService: FlApiService,
-              cookieService: FlCookieService) {
+  constructor(
+    private apiService: FlApiService,
+    cookieService: FlCookieService
+  ) {
     super(cookieService);
   }
 

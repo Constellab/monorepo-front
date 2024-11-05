@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDynamicAbstractFormComponent} from './fl-dynamic-abstract-form.component';
+import { FlDynamicAbstractFormComponent } from './fl-dynamic-abstract-form.component';
 
 describe('FlDynamicAbstractFormComponent', () => {
   let component: FlDynamicAbstractFormComponent;
@@ -8,9 +8,8 @@ describe('FlDynamicAbstractFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDynamicAbstractFormComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDynamicAbstractFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -2,9 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
-import {
-  CaNotificationsPortalComponent
-} from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
+import { CaNotificationsPortalComponent } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
 import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
@@ -18,10 +16,9 @@ import { CaNotificationState } from '../../../ca-core/state/ca-notification.stat
 @Component({
   selector: 'ca-main-app',
   templateUrl: './ca-main-app.component.html',
-  styleUrls: ['./ca-main-app.component.scss']
+  styleUrls: ['./ca-main-app.component.scss'],
 })
 export class CaMainAppComponent implements OnInit {
-
   @ViewChild(MatSidenav, { static: true, read: ElementRef }) sidenav: ElementRef<HTMLElement>;
 
   menuExpanded: boolean = true;
@@ -35,22 +32,21 @@ export class CaMainAppComponent implements OnInit {
 
   otherSpaceNotificationsNumber$: Observable<string>;
 
-  constructor(private authenticatedUserService: CaAuthenticatedUserService,
-              private currentSpaceService: CaCurrentSpaceService,
-              private portalService: FlPortalService,
-              private notificationState: CaNotificationState) {
-  }
+  constructor(
+    private authenticatedUserService: CaAuthenticatedUserService,
+    private currentSpaceService: CaCurrentSpaceService,
+    private portalService: FlPortalService,
+    private notificationState: CaNotificationState
+  ) {}
 
   ngOnInit(): void {
     this.initAccessibleLinks();
 
     // if the current space has a photo, use it, otherwise, use the default logo of gencovery
-    this.spaceLogo$ = this.currentSpaceService.getCurrentSpacePhoto$().pipe(
-      map(photo => photo ?? 'assets/fl-logo/constellab-logo.svg')
-    );
-    this.spaceName$ = this.currentSpaceService.getCurrentSpace$().pipe(
-      map(space => space?.name ?? null)
-    );
+    this.spaceLogo$ = this.currentSpaceService
+      .getCurrentSpacePhoto$()
+      .pipe(map((photo) => photo ?? 'assets/fl-logo/constellab-logo.svg'));
+    this.spaceName$ = this.currentSpaceService.getCurrentSpace$().pipe(map((space) => space?.name ?? null));
     this.notificationState.init();
 
     this.numberOfNotifications$ = this.notificationState.getNotReadNotificationsNumber();
@@ -61,7 +57,10 @@ export class CaMainAppComponent implements OnInit {
     const accessibleLinks: CaMainMenuLink[] = [];
     for (const link of caMainMenuLinks) {
       // if the user doesn't have access to the link
-      if (link.authorizedCategories && !this.authenticatedUserService.isCategory(...link.authorizedCategories)) {
+      if (
+        link.authorizedCategories &&
+        !this.authenticatedUserService.isCategory(...link.authorizedCategories)
+      ) {
         continue;
       }
       accessibleLinks.push(link);
@@ -71,27 +70,36 @@ export class CaMainAppComponent implements OnInit {
   }
 
   openMySpacesPortal(): void {
-    const config = this.portalService.configureRelativePortal(this.sidenav.nativeElement, [{
-      originX: 'end',
-      overlayX: 'start',
-      originY: 'top',
-      overlayY: 'top'
-    }], {
-      disposeOnOutsideClick: true,
-      disposeOnNavigation: true
-    });
+    const config = this.portalService.configureRelativePortal(
+      this.sidenav.nativeElement,
+      [
+        {
+          originX: 'end',
+          overlayX: 'start',
+          originY: 'top',
+          overlayY: 'top',
+        },
+      ],
+      {
+        disposeOnOutsideClick: true,
+        disposeOnNavigation: true,
+      }
+    );
 
     this.portalService.createPortal(CaMySpacesPortalComponent, config);
   }
 
   openNotificationDiv(): void {
-    const config: FlPortalConfig = this.portalService.configureAbsolutePortal({
-      bottom: '4.5em',
-      left: '5em'
-    }, {
-      disposeOnNavigation: true,
-      disposeOnOutsideClick: true
-    });
+    const config: FlPortalConfig = this.portalService.configureAbsolutePortal(
+      {
+        bottom: '4.5em',
+        left: '5em',
+      },
+      {
+        disposeOnNavigation: true,
+        disposeOnOutsideClick: true,
+      }
+    );
 
     this.portalService.createPortal(CaNotificationsPortalComponent, config).detachments().subscribe();
   }

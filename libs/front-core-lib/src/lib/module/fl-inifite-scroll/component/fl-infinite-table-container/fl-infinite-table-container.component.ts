@@ -7,11 +7,10 @@ import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasourc
 @Component({
   selector: 'fl-infinite-table-container',
   templateUrl: './fl-infinite-table-container.component.html',
-  styleUrls: ['./fl-infinite-table-container.component.scss']
+  styleUrls: ['./fl-infinite-table-container.component.scss'],
 })
 export class FlInfiniteTableContainerComponent {
-
-  @Input({required: true}) datasource: FlDatasourcePaginated<any, any>;
+  @Input({ required: true }) datasource: FlDatasourcePaginated<any, any>;
 
   /**
    * Text translated show if the datasource is empty.

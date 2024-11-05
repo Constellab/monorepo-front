@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDateRangeComponent} from './fl-date-range.component';
+import { FlDateRangeComponent } from './fl-date-range.component';
 
 describe('DateRangeComponent', () => {
   let component: FlDateRangeComponent;
@@ -8,9 +8,8 @@ describe('DateRangeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDateRangeComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDateRangeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -5,7 +5,6 @@ import { FlThemeService } from '@monorepo/front-core-lib';
 import { map, Observable, of } from 'rxjs';
 
 export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
-
   protected initPorts(object: PrProcess): void {
     this.generatePorts(object.inputs.ports, 'input');
     this.generatePorts(object.outputs.ports, 'output');
@@ -24,9 +23,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
   }
 
   getResourceId$(): Observable<string | null> {
-    return this.getObject$().pipe(
-      map(process => this.getResourceId(process))
-    );
+    return this.getObject$().pipe(map((process) => this.getResourceId(process)));
   }
 
   getCurrentInputResourceId(): string | null {
@@ -42,9 +39,7 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
   }
 
   inputIsProvided$(): Observable<boolean> {
-    return this.getResourceId$().pipe(
-      map(resource => resource != null)
-    );
+    return this.getResourceId$().pipe(map((resource) => resource != null));
   }
 
   outputIsProvided$(): Observable<boolean> {
@@ -53,9 +48,9 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
 
   // generate a button on the right to show the next scenarios
   getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null> {
-    if(!this.showExternalButtons) return of(null);
+    if (!this.showExternalButtons) return of(null);
     return this.getResourceId$().pipe(
-      map(resourceId => {
+      map((resourceId) => {
         if (!resourceId) return null;
 
         return {
@@ -66,9 +61,9 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
             this.actionState.newAction({
               action: 'showNextScenarios',
               resourceId: resourceId,
-              element: event.target as HTMLElement
+              element: event.target as HTMLElement,
             });
-          }
+          },
         };
       })
     );
@@ -77,6 +72,4 @@ export class PrWorkflowNodeOutput extends PrWorkflowNodeResource<PrProcess> {
   protected getDefaultIcon(): string {
     return 'logout';
   }
-
-
 }

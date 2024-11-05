@@ -2,7 +2,7 @@ import { CaBaseEntity } from './ca-base-entity.class';
 import {
   FlDatasourceGetPageFunction,
   FlDatasourcePaginated,
-  FlEntityPaginatedDatasource
+  FlEntityPaginatedDatasource,
 } from '@monorepo/front-core-lib';
 import { CaUser } from './ca-user.class';
 import { Type } from 'class-transformer';
@@ -23,9 +23,9 @@ export class CaGroup extends CaBaseEntity {
 
   // provided only for SingleUser groups
   @Type(() => CaUser)
-  user?: CaUser
+  user?: CaUser;
 
-  toString(): string{
+  toString(): string {
     return this.label;
   }
 }
@@ -37,9 +37,7 @@ export interface CaSaveTeamDTO {
   label: string;
 }
 
-
 export class CaUserGroup {
-
   groupId: string;
 
   @Type(() => CaUser)
@@ -52,14 +50,16 @@ export class CaUserGroup {
   createdBy: CaUser;
 }
 
-
 export class CaUserGroupDatasource extends FlDatasourcePaginated<CaUserGroup> {
-
-  constructor(getPageFunction: FlDatasourceGetPageFunction<CaUserGroup>, pageSize: number, initFirstPage: boolean = true) {
+  constructor(
+    getPageFunction: FlDatasourceGetPageFunction<CaUserGroup>,
+    pageSize: number,
+    initFirstPage: boolean = true
+  ) {
     super(getPageFunction, pageSize, initFirstPage);
   }
 
   protected equals(a: CaUserGroup, b: CaUserGroup): boolean {
-    return ClHelpService.compareFnIds(a.user, b.user) && a.groupId === b.groupId
+    return ClHelpService.compareFnIds(a.user, b.user) && a.groupId === b.groupId;
   }
 }

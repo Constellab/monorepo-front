@@ -8,9 +8,8 @@ describe('CaDashboardLastScenariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaDashboardLastScenariosComponent]
-    })
-      .compileComponents();
+      declarations: [CaDashboardLastScenariosComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

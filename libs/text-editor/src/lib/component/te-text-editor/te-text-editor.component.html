@@ -1,10 +1,11 @@
 @if (!browserSide) {
   <te-text-editor-server-side [value]="value"></te-text-editor-server-side>
 } @else {
-
-  <te-text-editor-browser-side [config]="config" [placeholder]="placeholder" [event]="event"
-                               [disabled]="disabled"
-                               (textChange)="onTextChange($event)"
-                               [value]="value"></te-text-editor-browser-side>
+  <te-text-editor-browser-side
+    [config]="config"
+    [placeholder]="placeholder"
+    [event]="event"
+    [disabled]="disabled"
+    (textChange)="onTextChange($event)"
+    [value]="value"></te-text-editor-browser-side>
 }
-

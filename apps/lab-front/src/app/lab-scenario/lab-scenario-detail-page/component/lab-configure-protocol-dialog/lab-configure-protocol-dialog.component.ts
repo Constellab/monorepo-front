@@ -13,17 +13,14 @@ export interface LabConfigureProtocolDialogInput {
   selector: 'lab-configure-protocol-dialog',
   templateUrl: './lab-configure-protocol-dialog.component.html',
   styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
-  providers: [LabProcessDashboardState]
+  providers: [LabProcessDashboardState],
 })
 export class LabConfigureProtocolDialogComponent implements OnInit {
-
   protocolId: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) input: LabConfigureProtocolDialogInput) {
     this.protocolId = input.protocolId;
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

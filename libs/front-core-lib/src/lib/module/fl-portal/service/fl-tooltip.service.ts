@@ -1,28 +1,29 @@
-import {ElementRef, Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-import {FlPortalService} from './fl-portal.service';
-import {FlOverlayConfig, FlPortalConnectedPosition} from '../model/fl-portal.class';
-import {FlOverlayRef} from '../model/fl-overlay-ref.class';
-import {FlPortalConfig} from '../model/fl-portal-config.class';
-import {FlTooltipComponent} from '../component/fl-tooltip/fl-tooltip.component';
-import {FlTranslateService} from '../../fl-translate/service/fl-translate.service';
-import {FlTranslateParam} from '../../fl-translate/model/fl-translate-param';
+import { ElementRef, Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { FlPortalService } from './fl-portal.service';
+import { FlOverlayConfig, FlPortalConnectedPosition } from '../model/fl-portal.class';
+import { FlOverlayRef } from '../model/fl-overlay-ref.class';
+import { FlPortalConfig } from '../model/fl-portal-config.class';
+import { FlTooltipComponent } from '../component/fl-tooltip/fl-tooltip.component';
+import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
+import { FlTranslateParam } from '../../fl-translate/model/fl-translate-param';
 
 /**
  * Service to create tooltip in typescript
  */
 @Injectable()
 export class FlTooltipService implements OnDestroy {
-
   // store the current overlay
   private overlays: Map<string, FlOverlayRef> = new Map();
 
   // store the current subject to dispose overlay
   private disposeTooltip: Map<string, Subject<string>> = new Map();
 
-  constructor(private portalService: FlPortalService, private translateService: FlTranslateService) {
-  }
+  constructor(
+    private portalService: FlPortalService,
+    private translateService: FlTranslateService
+  ) {}
 
   /**
    * Open a message in tooltip in a portal.
@@ -34,11 +35,13 @@ export class FlTooltipService implements OnDestroy {
    * @param uniqueId unique id for the tooltip (to be able to close it and prevent reopening it)
    * @param duration duration of the tooltip
    */
-  public openTooltip(element: Element | ElementRef,
-                     message: string,
-                     position: FlPortalConnectedPosition[],
-                     uniqueId: string,
-                     duration: number = 3000): FlOverlayRef {
+  public openTooltip(
+    element: Element | ElementRef,
+    message: string,
+    position: FlPortalConnectedPosition[],
+    uniqueId: string,
+    duration: number = 3000
+  ): FlOverlayRef {
     // check if the overlay already exists
     if (this.overlays.has(uniqueId)) {
       // emit a value in the subject to reset the debounce timer
@@ -49,13 +52,11 @@ export class FlTooltipService implements OnDestroy {
     // configure the portal
     const config: FlOverlayConfig = {
       disposeOnNavigation: true,
-      scrollStrategy: this.portalService.getCloseOnScrollStrategy()
+      scrollStrategy: this.portalService.getCloseOnScrollStrategy(),
     };
 
-
     // configure the portal position
-    const configurer: FlPortalConfig =
-      this.portalService.configureRelativePortal(element, position, config);
+    const configurer: FlPortalConfig = this.portalService.configureRelativePortal(element, position, config);
 
     // create the portal
     const overlay = this.portalService.createPortal(FlTooltipComponent, configurer, message);
@@ -68,9 +69,7 @@ export class FlTooltipService implements OnDestroy {
     this.disposeTooltip.set(uniqueId, subject$);
 
     // dispose the overlay after 'duration' time of idle (not reopened the tooltip)
-    subject$.pipe(debounceTime(duration)).subscribe(
-      id => this.disposeOverlay(id)
-    );
+    subject$.pipe(debounceTime(duration)).subscribe((id) => this.disposeOverlay(id));
 
     return overlay;
   }
@@ -86,14 +85,21 @@ export class FlTooltipService implements OnDestroy {
    * @param duration duration of the tooltip
    * @param translateParams translate params
    */
-  public openTooltipWithTranslate(element: Element | ElementRef,
-                                  message: string,
-                                  position: FlPortalConnectedPosition[],
-                                  uniqueId: string,
-                                  duration: number = 3000,
-                                  translateParams: FlTranslateParam = {}): FlOverlayRef {
-    return this.openTooltip(element, this.translateService.translate(message, translateParams),
-      position, uniqueId, duration);
+  public openTooltipWithTranslate(
+    element: Element | ElementRef,
+    message: string,
+    position: FlPortalConnectedPosition[],
+    uniqueId: string,
+    duration: number = 3000,
+    translateParams: FlTranslateParam = {}
+  ): FlOverlayRef {
+    return this.openTooltip(
+      element,
+      this.translateService.translate(message, translateParams),
+      position,
+      uniqueId,
+      duration
+    );
   }
 
   // dispose the overlay and clear the saved object and subject

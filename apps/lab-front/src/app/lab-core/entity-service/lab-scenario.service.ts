@@ -5,35 +5,32 @@ import {
   FlEntityPaginatedDatasource,
   FlFileHelper,
   FlInputSearchFilter,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import { Observable, of, switchMap } from 'rxjs';
 import {
   LabRunningScenarioInfo,
   LabScenario,
   LabScenarioDatasource,
-  LabScenarioSimpleForm
+  LabScenarioSimpleForm,
 } from '../model/entities/lab-scenario.entity';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import {
   LabScenarioSearch,
-  LabScenarioSearchFields
+  LabScenarioSearchFields,
 } from '../entity-module/lab-scenario-core/model/lab-scenario-search.class';
 import { map } from 'rxjs/operators';
 import { TeRichTextContent } from '@monorepo/text-editor';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabScenarioService {
-
   private route: string = 'scenario';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public getScenario(id: string): Observable<LabScenario> {
     return this.apiService.get(`${this.route}/${id}`, LabScenario);
@@ -68,13 +65,14 @@ export class LabScenarioService {
           title: scenario.title,
           folder_id: scenario.folder?.id ?? null,
           scenario_template_id: scenario.scenarioTemplate?.id ?? null,
-          scenario_template_json: json
-        })));
+          scenario_template_json: json,
+        }))
+      );
     }
     return of({
       title: scenario.title,
       folder_id: scenario.folder?.id ?? null,
-      scenario_template_id: scenario.scenarioTemplate?.id ?? null
+      scenario_template_id: scenario.scenarioTemplate?.id ?? null,
     });
   }
 
@@ -119,30 +117,39 @@ export class LabScenarioService {
   public searchDatasource(): LabScenarioDatasource<LabScenarioSearchFields> {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.advancedSearch(page, pageSize, data),
-      20, false
+      20,
+      false
     );
   }
 
-
-  public advancedSearch(page: number, pageSize: number,
-                        data: FlDatasourceGetPageData<LabScenarioSearchFields>): Observable<ClPageI<LabScenario>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data, LabScenarioSearch.filterConverter,
-      LabScenarioSearch.sortConverter);
+  public advancedSearch(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LabScenarioSearchFields>
+  ): Observable<ClPageI<LabScenario>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LabScenarioSearch.filterConverter,
+      LabScenarioSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/advanced-search`, searchInput, LabScenario, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
   public searchByTitleDatasource(): LabScenarioDatasource<FlInputSearchFilter> {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number, data) => this.searchByTitle(page, pageSize, data.filtersCriteria.searchText),
-      20, false
+      (page: number, pageSize: number, data) =>
+        this.searchByTitle(page, pageSize, data.filtersCriteria.searchText),
+      20,
+      false
     );
   }
 
   public countByTitle(title: string): Observable<{ count: number }> {
-    return this.apiService.get(`${this.route}/title/${title}/count`, null,
-      { hideSnackBarError: true });
+    return this.apiService.get(`${this.route}/title/${title}/count`, null, { hideSnackBarError: true });
   }
 
   public searchByTitle(page: number, pageSize: number, title: string): Observable<ClPageI<LabScenario>> {
@@ -151,7 +158,9 @@ export class LabScenarioService {
       return this.advancedSearch(page, pageSize, null);
     }
     return this.apiService.get(`${this.route}/search-title/${title}`, LabScenario, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
@@ -159,9 +168,16 @@ export class LabScenarioService {
     return this.apiService.get(`${this.route}/running`, LabRunningScenarioInfo);
   }
 
-  public getByInputResource(resourceId: string, page: number, pageSize: number): Observable<ClPageI<LabScenario>> {
-    return this.apiService.get(`${this.route}/input-resource/${resourceId}`, LabScenario,
-      { resultIsPaginated: true, page: page, pageSize: pageSize });
+  public getByInputResource(
+    resourceId: string,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<LabScenario>> {
+    return this.apiService.get(`${this.route}/input-resource/${resourceId}`, LabScenario, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: pageSize,
+    });
   }
 
   ////////////////////////////////////// ARCHIVE //////////////////////////////////////
@@ -179,7 +195,6 @@ export class LabScenarioService {
   }
 
   public importScenarioFromLab(url: string, mode: string): Observable<LabScenario> {
-    return this.apiService.post(`${this.route}/import-from-lab`,
-      { url: url, mode: mode }, LabResource);
+    return this.apiService.post(`${this.route}/import-from-lab`, { url: url, mode: mode }, LabResource);
   }
 }

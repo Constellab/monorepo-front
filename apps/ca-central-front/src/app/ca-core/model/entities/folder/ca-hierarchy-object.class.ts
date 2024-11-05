@@ -20,7 +20,7 @@ export const caHierarchyObjectTypeLabels: Record<CaHierarchyObjectType, string> 
   [CaHierarchyObjectType.CONSTELLAB_DOCUMENT]: 'constellab_document',
   // [CaFolderObjectType.HIDDEN_DOCUMENT]: 'Hidden document',
   [CaHierarchyObjectType.NOTE]: 'note',
-  [CaHierarchyObjectType.SCENARIO]: 'scenario'
+  [CaHierarchyObjectType.SCENARIO]: 'scenario',
 };
 
 export class CaHierarchyObject extends CaEntity {
@@ -58,7 +58,6 @@ export class CaHierarchyObject extends CaEntity {
 export type CaHierarchyObjectDatasource<F = void> = FlEntityPaginatedDatasource<CaHierarchyObject, F>;
 
 export class CaHierarchyObjectWithChildren extends CaHierarchyObject {
-
   @Type(() => CaHierarchyObjectWithChildren)
   children: CaHierarchyObjectWithChildren[];
 

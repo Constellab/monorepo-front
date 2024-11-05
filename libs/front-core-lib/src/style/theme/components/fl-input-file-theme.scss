@@ -16,7 +16,7 @@
 
   .mat-accent .input-file-trigger {
     background-color: mat.m2-get-color-from-palette($accent);
-    color: mat.m2-get-color-from-palette($accent, default-contrast)
+    color: mat.m2-get-color-from-palette($accent, default-contrast);
   }
 
   .mat-accent .input-container-drop-hover {
@@ -35,7 +35,7 @@
 
 // specific css on the for the Input File component
 fl-input-file-container input,
-fl-input-file-icon-container input{
+fl-input-file-icon-container input {
   position: absolute;
   top: 0;
   left: 0;
@@ -45,16 +45,16 @@ fl-input-file-icon-container input{
   height: 100%;
 }
 
-.fl-input-file-container-disabled .input-file-trigger{
+.fl-input-file-container-disabled .input-file-trigger {
   background-color: rgba(0, 0, 0, 0.26) !important;
   cursor: default !important;
 }
 
-.fl-input-file-container-disabled input{
+.fl-input-file-container-disabled input {
   cursor: default !important;
 }
 
-.fl-input-file-container-disabled button{
+.fl-input-file-container-disabled button {
   cursor: default !important;
   color: rgba(0, 0, 0, 0.26);
 }
@@ -62,4 +62,3 @@ fl-input-file-icon-container input{
 .input-container-drop-hover {
   border-color: black !important;
 }
-

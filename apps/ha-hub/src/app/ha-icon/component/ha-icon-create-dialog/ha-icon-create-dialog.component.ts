@@ -1,8 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-} from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaIconCreateFormData } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -39,19 +36,9 @@ export class HaIconCreateDialogComponent
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      technicalName: [
-        null,
-        [
-          Validators.required,
-          Validators.max(30),
-          Validators.pattern(/^[a-z0-9_]+$/),
-        ],
-      ],
+      technicalName: [null, [Validators.required, Validators.max(30), Validators.pattern(/^[a-z0-9_]+$/)]],
       name: [null, [Validators.required, Validators.max(30)]],
-      subNames: [
-        null,
-        [Validators.required, Validators.pattern(/^[^\t\n\r"'`]+$/)],
-      ],
+      subNames: [null, [Validators.required, Validators.pattern(/^[^\t\n\r"'`]+$/)]],
       type: [CoIconType.COMMUNITY_ICON, Validators.required],
       file: [null, Validators.required],
     });

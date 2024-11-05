@@ -8,9 +8,8 @@ describe('CaHierarchyObjectTree2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectTreeComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectTreeComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectTreeComponent);
     component = fixture.componentInstance;

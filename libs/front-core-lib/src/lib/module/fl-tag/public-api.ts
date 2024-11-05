@@ -8,7 +8,6 @@ export * from './component/fl-add-tag-input/fl-add-tag-input.component';
 export * from './component/fl-tag-list/fl-tag-list.component';
 export * from './component/fl-tags-select-colors/fl-tags-select-colors.component';
 
-
 // pipe
 export * from './pipe/fl-tag-color.pipe';
 export * from './pipe/fl-tag-value-to-string.pipe';

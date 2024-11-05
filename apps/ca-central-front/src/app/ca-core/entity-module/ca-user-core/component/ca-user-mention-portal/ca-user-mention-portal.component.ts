@@ -1,8 +1,8 @@
-import {Component, Inject, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {CaUser} from '../../../../model/entities/ca-user.class';
-import {FL_PORTAL_DATA, FlKeyboardKey, FlOverlayRef} from '@monorepo/front-core-lib';
-import {BehaviorSubject, combineLatest, distinctUntilChanged, Observable, Subscription, tap} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { CaUser } from '../../../../model/entities/ca-user.class';
+import { FL_PORTAL_DATA, FlKeyboardKey, FlOverlayRef } from '@monorepo/front-core-lib';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, Subscription, tap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface CaUserMentionPortalInput {
   users$: Observable<CaUser[]>;
@@ -19,14 +19,12 @@ export interface CaUserMentionPortalResult {
   searchInput: string;
 }
 
-
 @Component({
   selector: 'ca-user-mention-portal',
   templateUrl: './ca-user-mention-portal.component.html',
   styleUrl: './ca-user-mention-portal.component.scss',
 })
 export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
-
   showEveryoneButton: number = 0;
   users: CaUser[];
 
@@ -36,14 +34,13 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   private listener: () => void;
   private searchInput: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(@Inject(FL_PORTAL_DATA) private data: CaUserMentionPortalInput,
-              private overlayRef: FlOverlayRef,
-              private renderer: Renderer2) {
-  }
+  constructor(
+    @Inject(FL_PORTAL_DATA) private data: CaUserMentionPortalInput,
+    private overlayRef: FlOverlayRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
-
-
     this.listener = this.renderer.listen(this.data.nodeBlock, 'keydown', (event: KeyboardEvent) => {
       this.handleKeyboardEvent(event);
     });
@@ -52,17 +49,13 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
       this.data.users$,
       this.searchInput.asObservable().pipe(
         distinctUntilChanged(),
-        tap(text => this.showEveryoneButton = text.length == 0 ? 1 : 0)
-      )
+        tap((text) => (this.showEveryoneButton = text.length == 0 ? 1 : 0))
+      ),
     ]).pipe(
-      map(([users, text]) =>
-        users.filter(user => user.alias.toLowerCase().includes(text.toLowerCase()))
-      )
+      map(([users, text]) => users.filter((user) => user.alias.toLowerCase().includes(text.toLowerCase())))
     );
 
-    this.subscription = filteredUsers$.subscribe((users: CaUser[]) =>
-      this.onUsersChange(users)
-    );
+    this.subscription = filteredUsers$.subscribe((users: CaUser[]) => this.onUsersChange(users));
   }
 
   private onUsersChange(users: CaUser[]): void {
@@ -135,7 +128,7 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
       userFullname: userFullname,
       textNode: this.data.textNode,
       atPosition: this.data.initialCaretPosition,
-      searchInput: this.searchInput.value
+      searchInput: this.searchInput.value,
     };
     this.overlayRef.dispose(result);
   }
@@ -157,7 +150,6 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
       const range = selection.getRangeAt(0);
 
       return range.startOffset;
-
     } else {
       return null;
     }

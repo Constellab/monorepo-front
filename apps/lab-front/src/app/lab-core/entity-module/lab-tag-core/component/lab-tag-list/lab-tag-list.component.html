@@ -1,12 +1,13 @@
 <div class="g-layout-row">
-
   <div class="g-flex-auto">
     @if (tags | flDatasourceConnect | async; as tagList) {
-      <fl-tag *ngFor="let tag of tagList"
-              [flTag]="tag" class="tag"
-              [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
-              (deleteTag)="deleteTag(tag)"
-              (click)="showTagDetail(tag, $event)"></fl-tag>
+      <fl-tag
+        *ngFor="let tag of tagList"
+        [flTag]="tag"
+        class="tag"
+        [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
+        (deleteTag)="deleteTag(tag)"
+        (click)="showTagDetail(tag, $event)"></fl-tag>
     }
 
     @if (showNoTagMessage && tags.isEmpty()) {
@@ -19,8 +20,12 @@
   </div>
 
   @if (entityInformationProvided) {
-    <button mat-icon-button type="button" class="g-button-icon-small edit-button"
-            (click)="openManageEntityTagDialog()" [matTooltip]="'update_tags' | translate">
+    <button
+      mat-icon-button
+      type="button"
+      class="g-button-icon-small edit-button"
+      (click)="openManageEntityTagDialog()"
+      [matTooltip]="'update_tags' | translate">
       <mat-icon>edit</mat-icon>
     </button>
   }

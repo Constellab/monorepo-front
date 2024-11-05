@@ -4,13 +4,12 @@ import {
   TeFakeInlineTool,
   TeStrikethroughInlineTool,
   TeTools,
-  TeUnderlineInlineTool
+  TeUnderlineInlineTool,
 } from '@monorepo/text-editor';
 
 export class HaCommentTextEditorConfig extends TeConfig {
-
   constructor() {
-    super({hideToolbar: true, dense: true});
+    super({ hideToolbar: true, dense: true });
   }
 
   override getTools(): TeTools {
@@ -21,7 +20,7 @@ export class HaCommentTextEditorConfig extends TeConfig {
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
       cleanStyle: TeCleanStyleInlineTool,
-      fake: TeFakeInlineTool
+      fake: TeFakeInlineTool,
     };
   }
 

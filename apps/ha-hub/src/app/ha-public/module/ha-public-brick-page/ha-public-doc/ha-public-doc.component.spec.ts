@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {HaPublicDocComponent} from './ha-public-doc.component';
+import { HaPublicDocComponent } from './ha-public-doc.component';
 
 describe('HaPublicDocPageComponent', () => {
   let component: HaPublicDocComponent;
@@ -8,9 +8,8 @@ describe('HaPublicDocPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaPublicDocComponent]
-    })
-      .compileComponents();
+      declarations: [HaPublicDocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

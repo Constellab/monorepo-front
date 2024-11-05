@@ -1,5 +1,10 @@
 import { ClHelpService } from '../utils/cl-help.service';
-import { ClassTransformOptions, instanceToPlain, plainToInstance, TransformationType } from 'class-transformer';
+import {
+  ClassTransformOptions,
+  instanceToPlain,
+  plainToInstance,
+  TransformationType,
+} from 'class-transformer';
 import { ClClassReference } from '../model/cl-class-reference.class';
 
 /**
@@ -17,7 +22,6 @@ export interface ClTransformFnParams<T = any> {
   type: TransformationType;
   options: ClassTransformOptions;
 }
-
 
 // type of method to serialize item
 export type ClSerializeItem<T> = (object: T) => any;
@@ -41,7 +45,6 @@ export type ClDeserializationRef<T = any> = ClClassReference<T> | ClConstructorF
  *
  */
 export class ClCoreJsonConvert {
-
   /**
    * Tries to deserialize given JSON to a TypeScript object or array of objects.
    *
@@ -100,13 +103,12 @@ export class ClCoreJsonConvert {
     }
   }
 
-
   /**
    * Deep clone a class object with class-transformer (doesn't work with cyclic object)
    * @param object object to clone
    * @param classReference the class reference
    */
-  public static deepCloneClass<A>(object: A, classReference: new() => A): A {
+  public static deepCloneClass<A>(object: A, classReference: new () => A): A {
     return ClCoreJsonConvert.deserialize(ClHelpService.deepClone(object), classReference) as A;
   }
 
@@ -117,7 +119,11 @@ export class ClCoreJsonConvert {
    * @param partialObject the partial object to merge with the cloned object
    * @param classReference the class reference
    */
-  public static deepCloneClassAndMerge<A>(object: A, partialObject: Partial<any>, classReference: new() => A): A {
+  public static deepCloneClassAndMerge<A>(
+    object: A,
+    partialObject: Partial<any>,
+    classReference: new () => A
+  ): A {
     const cloned = ClCoreJsonConvert.deepCloneClass(object, classReference);
     return Object.assign(cloned, partialObject);
   }
@@ -127,7 +133,7 @@ export class ClCoreJsonConvert {
    * @param object object to clone
    * @param classReference the class reference
    */
-  public static deepCloneClassArray<A>(object: A[], classReference: new() => A): A[] {
+  public static deepCloneClassArray<A>(object: A[], classReference: new () => A): A[] {
     return ClCoreJsonConvert.deserialize(ClHelpService.deepClone(object), classReference) as A[];
   }
 }

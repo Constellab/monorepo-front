@@ -8,9 +8,7 @@ import { CaUserDetailPageRoutingModule } from './ca-user-detail-page-routing.mod
 import { CaUserSettingsDialogComponent } from './component/ca-user-settings-dialog/ca-user-settings-dialog.component';
 import { CaThemeSelectionComponent } from './component/ca-theme-selection/ca-theme-selection.component';
 import { CaLanguageSelectionComponent } from './component/ca-language-selection/ca-language-selection.component';
-import {
-  CaUserProfileEditDialogComponent
-} from './component/ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
+import { CaUserProfileEditDialogComponent } from './component/ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
 import { CaUserTwoFaToggleComponent } from './component/ca-user-two-fa-toggle/ca-user-two-fa-toggle.component';
 import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 import { CaSpaceCoreModule } from '../ca-core/entity-module/ca-space-core/ca-space-core.module';
@@ -29,7 +27,7 @@ import { CaLabCoreModule } from '../ca-core/entity-module/ca-lab-core/ca-lab-cor
     CaThemeSelectionComponent,
     CaLanguageSelectionComponent,
     CaUserProfileEditDialogComponent,
-    CaUserTwoFaToggleComponent
+    CaUserTwoFaToggleComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +41,6 @@ import { CaLabCoreModule } from '../ca-core/entity-module/ca-lab-core/ca-lab-cor
     CaUserCoreModule,
 
     CaUserDetailPageRoutingModule,
-  ]
+  ],
 })
-export class CaUserDetailPageModule {
-}
+export class CaUserDetailPageModule {}

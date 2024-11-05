@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {TeRichText, TeRichTextContent} from '../../model/te-rich-text.class';
+import { Pipe, PipeTransform } from '@angular/core';
+import { TeRichText, TeRichTextContent } from '../../model/te-rich-text.class';
 
 @Pipe({
   name: 'teRichTextIsEmpty',

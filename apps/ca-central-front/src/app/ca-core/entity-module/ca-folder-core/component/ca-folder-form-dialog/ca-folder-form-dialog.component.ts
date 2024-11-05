@@ -19,14 +19,18 @@ export interface CaFolderFormDialogInput {
 @Component({
   selector: 'ca-folder-form-dialog',
   templateUrl: './ca-folder-form-dialog.component.html',
-  styleUrls: ['./ca-folder-form-dialog.component.scss']
+  styleUrls: ['./ca-folder-form-dialog.component.scss'],
 })
-export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder> implements OnInit {
-
+export class CaFolderFormDialogComponent
+  extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder>
+  implements OnInit
+{
   dialogInput: CaFolderFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private folderService: CaFolderService,
-              private spaceService: CaSpaceService) {
+  constructor(
+    private folderService: CaFolderService,
+    private spaceService: CaSpaceService
+  ) {
     super();
   }
 
@@ -42,45 +46,42 @@ export class CaFolderFormDialogComponent extends FlFormDialogAbstractDirective<C
     this.init();
 
     if (this.showStorage) {
-      this.spaceService.getCurrentSpaceSettings().subscribe(
-        spaceSettings => {
-          this.formGp.get('mainStorage').setValue(spaceSettings.defaultFolderStorageLocation);
-          this.formGp.get('backupStorage').setValue(spaceSettings.defaultFolderBackupStorageLocation);
-        }
-      );
+      this.spaceService.getCurrentSpaceSettings().subscribe((spaceSettings) => {
+        this.formGp.get('mainStorage').setValue(spaceSettings.defaultFolderStorageLocation);
+        this.formGp.get('backupStorage').setValue(spaceSettings.defaultFolderBackupStorageLocation);
+      });
     }
 
     this.formGp.disable();
     if (this.isUpdateMode()) {
-      this.folderService.getById(this.dialogInput.folderId).subscribe(
-        folder => {
-          this.formGp.patchValue(folder);
-          this.formGp.enable();
-        }
-      );
+      this.folderService.getById(this.dialogInput.folderId).subscribe((folder) => {
+        this.formGp.patchValue(folder);
+        this.formGp.enable();
+      });
     } else if (this.isCreateMode() && this.dialogInput.parentId) {
       // in create child mode, we copy the date from the parent folder
-      this.folderService.getById(this.dialogInput.parentId).subscribe(
-        parentFolder => {
-          this.formGp.get('startingDate').setValue(parentFolder.startingDate);
-          this.formGp.get('endingDate').setValue(parentFolder.endingDate);
-          this.formGp.enable();
-        }
-      );
+      this.folderService.getById(this.dialogInput.parentId).subscribe((parentFolder) => {
+        this.formGp.get('startingDate').setValue(parentFolder.startingDate);
+        this.formGp.get('endingDate').setValue(parentFolder.endingDate);
+        this.formGp.enable();
+      });
     } else {
       this.formGp.enable();
     }
   }
 
   buildForm(): UntypedFormGroup {
-    return new FormBuilder().group({
-      name: [null, Validators.required],
-      code: [null],
-      startingDate: [null],
-      endingDate: [null],
-      mainStorage: [null, this.showStorage ? Validators.required : null],
-      backupStorage: [null]
-    }, { validators: this.showStorage ? this.differentStorageValidator() : null });
+    return new FormBuilder().group(
+      {
+        name: [null, Validators.required],
+        code: [null],
+        startingDate: [null],
+        endingDate: [null],
+        mainStorage: [null, this.showStorage ? Validators.required : null],
+        backupStorage: [null],
+      },
+      { validators: this.showStorage ? this.differentStorageValidator() : null }
+    );
   }
 
   create(formValue: CnSaveFolderDTO): Observable<CaFolder> {

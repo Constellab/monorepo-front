@@ -357,7 +357,7 @@
   "lab_backup_message": "Message",
   "lab_open_config_tab": "Open configuration",
   "lab_manager_section_help": "The lab manager is a service that is running on the lab server and is responsible for managing the lab. It is used to start, stop restart and configure the lab. It is also responsible for the lab's backups.",
-  "lab_manager_config_section_help" : "This section allows you to configure the lab by defining the brick (with their version) that will be installed in the lab. Once the configuration is changed, the lab needs to be restarted to install new brick versions.",
+  "lab_manager_config_section_help": "This section allows you to configure the lab by defining the brick (with their version) that will be installed in the lab. Once the configuration is changed, the lab needs to be restarted to install new brick versions.",
   "lab_server_section_help": "This section allows you to manage the server of the lab. Only use this section if you know what you are doing.",
   "lab_users_section_help": "This section allows you to manage the users of the lab. You can add, update and delete users if you are the owner of the lab.",
   "lab_folders_section_help": "This section allows you to manage the folders accessible in the lab. Once the folder is shared with a lab, the scenarios and notes of the lab can be associated with it. You can add, update and remove folders if you are the owner of the lab.",
@@ -395,7 +395,7 @@
   "restore_backup_to_lab_confirmation": "Are you sure you want to restore the backup to the lab ? This is not possible if there is data in the destination lab. This can take a few minutes.",
   "restore_backup_to_lab_started": "Restore backup started",
   "destination_lab": "Destination lab",
-  "restore_db" : "Restore database",
+  "restore_db": "Restore database",
   "restore_data": "Restore data",
   "force_restore": "Force restore (replace existing data)",
   "lab_volume_history": "Volume history"

@@ -8,9 +8,8 @@ describe('CaScenarioTechnicalReportConfigInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrProcessConfigInfoDialogComponent]
-    })
-      .compileComponents();
+      declarations: [PrProcessConfigInfoDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PrProcessConfigInfoDialogComponent);
     component = fixture.componentInstance;

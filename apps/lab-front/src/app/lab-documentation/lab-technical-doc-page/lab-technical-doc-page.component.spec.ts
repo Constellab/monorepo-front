@@ -8,9 +8,8 @@ describe('LabTechnicalDocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTechnicalDocPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTechnicalDocPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

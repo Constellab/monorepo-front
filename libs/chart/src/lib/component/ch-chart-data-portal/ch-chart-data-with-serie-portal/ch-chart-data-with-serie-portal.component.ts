@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {ChChartDataWithSerie} from '../../../model/data/ch-chart-serie.class';
-import {ChChart2dDatum} from '../../../model/data/ch-chart-data.class';
-import {ChChartLabelFormatter} from '../../../model/ch-chart-label-formatter.class';
-import {FL_PORTAL_DATA, FlOverlayRef, FlTagColorer} from '@monorepo/front-core-lib';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
+import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
+import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
+import { FL_PORTAL_DATA, FlOverlayRef, FlTagColorer } from '@monorepo/front-core-lib';
 
 export interface ChChartDataWithSeriePortalInput {
   data: ChChartDataWithSerie<ChChart2dDatum>;
@@ -19,11 +19,9 @@ export interface ChChartDataWithSeriePortalInput {
   selector: 'ch-chart-data-with-serie-portal',
   templateUrl: './ch-chart-data-with-serie-portal.component.html',
   styleUrls: ['./ch-chart-data-with-serie-portal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChChartDataWithSeriePortalComponent  {
-
-
+export class ChChartDataWithSeriePortalComponent {
   data: ChChartDataWithSerie<ChChart2dDatum>;
   color: string;
   tagColorer?: FlTagColorer;
@@ -34,8 +32,10 @@ export class ChChartDataWithSeriePortalComponent  {
   xLabelFormatter: ChChartLabelFormatter;
   yLabelFormatter: ChChartLabelFormatter;
 
-  constructor(@Inject(FL_PORTAL_DATA) input: ChChartDataWithSeriePortalInput,
-              private overlayRef: FlOverlayRef) {
+  constructor(
+    @Inject(FL_PORTAL_DATA) input: ChChartDataWithSeriePortalInput,
+    private overlayRef: FlOverlayRef
+  ) {
     this.data = input.data;
     this.color = input.color;
     this.tagColorer = input.tagColorer;
@@ -45,10 +45,7 @@ export class ChChartDataWithSeriePortalComponent  {
     this.yLabelFormatter = input.yLabelFormatter;
   }
 
-
-
   closePortal(): void {
     this.overlayRef.dispose();
   }
-
 }

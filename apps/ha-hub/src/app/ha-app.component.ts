@@ -5,15 +5,16 @@ import { isPlatformServer } from '@angular/common';
 @Component({
   selector: 'ha-monorepo-root',
   templateUrl: './ha-app.component.html',
-  styleUrls: ['./ha-app.component.scss']
+  styleUrls: ['./ha-app.component.scss'],
 })
 export class HaAppComponent implements OnInit {
   title = 'ha-documentation';
   message: string;
 
-  constructor(private transferState: TransferState,
-              @Inject(PLATFORM_ID) private platformId: object) {
-  }
+  constructor(
+    private transferState: TransferState,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   ngOnInit(): void {
     const MESSAGE_KEY = makeStateKey<string>('message');
@@ -25,5 +26,4 @@ export class HaAppComponent implements OnInit {
       this.transferState.remove(MESSAGE_KEY);
     }
   }
-
 }

@@ -1,6 +1,6 @@
-import {FlTranslatableText} from '../fl-translate/model/fl-translate-param';
+import { FlTranslatableText } from '../fl-translate/model/fl-translate-param';
 
-export interface FlHorizontalNavBarItem{
+export interface FlHorizontalNavBarItem {
   label: FlTranslatableText;
   icon: string;
   route: string;

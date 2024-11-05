@@ -1,17 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Meta, Title} from '@angular/platform-browser';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { Injectable } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaMetadataService {
-
   constructor(
     private metaService: Meta,
     private titleService: Title,
     private translateService: FlTranslateService
-  ) { }
+  ) {}
 
   setPageTitle(title: string, hasTranslation: boolean = true, data?: any): void {
     if (hasTranslation) {
@@ -26,10 +25,10 @@ export class HaMetadataService {
   addMetaTag(name: string, content: string, hasTranslation: boolean = true, data?: any): void {
     if (hasTranslation) {
       this.translateService.get(content, data).subscribe((contentTrad: string) => {
-        this.metaService.updateTag({name: name, content: contentTrad});
+        this.metaService.updateTag({ name: name, content: contentTrad });
       });
     } else {
-      this.metaService.updateTag({name: name, content: content});
+      this.metaService.updateTag({ name: name, content: content });
     }
   }
 }

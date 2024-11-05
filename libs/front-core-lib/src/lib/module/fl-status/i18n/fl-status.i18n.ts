@@ -1,5 +1,5 @@
-import {ClSupportedLanguage} from '@monorepo/core-lib';
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
 
 /**
  * Translation file for the status module
@@ -15,8 +15,8 @@ const flStatusFr: FlLangTranslation = {
     draft: 'Brouillon',
     stopped: 'Arrêté',
     critical: 'Critique',
-    debug: 'Debug'
-  }
+    debug: 'Debug',
+  },
 };
 
 const flStatusEn: FlLangTranslation = {
@@ -30,11 +30,11 @@ const flStatusEn: FlLangTranslation = {
     draft: 'Draft',
     stopped: 'Stopped',
     critical: 'Critical',
-    debug: 'Debug'
-  }
+    debug: 'Debug',
+  },
 };
 
 export const flStatusI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: flStatusEn,
-  [ClSupportedLanguage.fr]: flStatusFr
+  [ClSupportedLanguage.fr]: flStatusFr,
 };

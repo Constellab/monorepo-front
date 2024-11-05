@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlLimitHeightComponent} from './fl-limit-height.component';
+import { FlLimitHeightComponent } from './fl-limit-height.component';
 
 describe('LimitHeightComponent', () => {
   let component: FlLimitHeightComponent;
@@ -8,9 +8,8 @@ describe('LimitHeightComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlLimitHeightComponent ]
-    })
-    .compileComponents();
+      declarations: [FlLimitHeightComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

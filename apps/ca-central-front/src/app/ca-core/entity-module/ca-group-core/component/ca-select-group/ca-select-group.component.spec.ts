@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectGroupComponent} from './ca-select-group.component';
+import { CaSelectGroupComponent } from './ca-select-group.component';
 
 describe('CaSelectGroupComponent', () => {
   let component: CaSelectGroupComponent;

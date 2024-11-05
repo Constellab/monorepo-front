@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {LabFileResourceService} from './lab-file-resource.service';
+import { LabFileResourceService } from './lab-file-resource.service';
 
 describe('LabFileService', () => {
   let service: LabFileResourceService;

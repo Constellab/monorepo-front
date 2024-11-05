@@ -1,103 +1,103 @@
 <fl-dialog-header>
-  {{'folder_configure_notifications_title' | translate}}
+  {{ 'folder_configure_notifications_title' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-
   <fl-section [object]="userConfig" [isLoading]="getIsLoading">
-
     <ng-container *flSectionBody>
       <form [formGroup]="formGp" (submit)="submit()" id="folder-user-config">
-
-
         <!---------------------   FOLDER   ---------------------->
         <div class="label">
           <fl-text-icon>
             <mat-icon flIcon="folder"></mat-icon>
-            <label>{{'folder_notif_folder' | translate}}</label>
+            <label>{{ 'folder_notif_folder' | translate }}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="folderNotif">
-            <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
-              {{('folder_notif_' + notificationOptions[key]) | translate}}
+            <mat-radio-button
+              *ngFor="let key of notificationOptions | flObjectKeys"
+              [value]="notificationOptions[key]">
+              {{ 'folder_notif_' + notificationOptions[key] | translate }}
             </mat-radio-button>
           </mat-radio-group>
         </div>
-
 
         <!---------------------   MESSAGE   ---------------------->
         <div class="label">
           <fl-text-icon>
             <mat-icon flIcon="comment"></mat-icon>
-            <label>{{'folder_notif_message' | translate}}</label>
+            <label>{{ 'folder_notif_message' | translate }}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="messageNotif">
-            <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
-              {{('folder_notif_' + notificationOptions[key]) | translate}}
+            <mat-radio-button
+              *ngFor="let key of notificationOptions | flObjectKeys"
+              [value]="notificationOptions[key]">
+              {{ 'folder_notif_' + notificationOptions[key] | translate }}
             </mat-radio-button>
           </mat-radio-group>
         </div>
-
 
         <!---------------------   NOTE   ---------------------->
         <div class="label">
           <fl-text-icon>
             <mat-icon flIcon="note"></mat-icon>
-            <label>{{'folder_notif_note' | translate}}</label>
+            <label>{{ 'folder_notif_note' | translate }}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="scenarioNotif">
-            <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
-              {{('folder_notif_' + notificationOptions[key]) | translate}}
+            <mat-radio-button
+              *ngFor="let key of notificationOptions | flObjectKeys"
+              [value]="notificationOptions[key]">
+              {{ 'folder_notif_' + notificationOptions[key] | translate }}
             </mat-radio-button>
           </mat-radio-group>
         </div>
-
 
         <!---------------------   SCENARIO   ---------------------->
         <div class="label">
           <fl-text-icon>
             <mat-icon flIcon="scenario"></mat-icon>
-            <label>{{'folder_notif_scenario' | translate}}</label>
+            <label>{{ 'folder_notif_scenario' | translate }}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="noteNotif">
-            <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
-              {{('folder_notif_' + notificationOptions[key]) | translate}}
+            <mat-radio-button
+              *ngFor="let key of notificationOptions | flObjectKeys"
+              [value]="notificationOptions[key]">
+              {{ 'folder_notif_' + notificationOptions[key] | translate }}
             </mat-radio-button>
           </mat-radio-group>
         </div>
-
 
         <!---------------------   DOCUMENT   ---------------------->
         <div class="label">
           <fl-text-icon>
             <mat-icon flIcon="insert_drive_file"></mat-icon>
-            <label>{{'folder_notif_document' | translate}}</label>
+            <label>{{ 'folder_notif_document' | translate }}</label>
           </fl-text-icon>
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="documentNotif">
-            <mat-radio-button *ngFor="let key of notificationOptions | flObjectKeys" [value]="notificationOptions[key]">
-              {{('folder_notif_' + notificationOptions[key]) | translate}}
+            <mat-radio-button
+              *ngFor="let key of notificationOptions | flObjectKeys"
+              [value]="notificationOptions[key]">
+              {{ 'folder_notif_' + notificationOptions[key] | translate }}
             </mat-radio-button>
           </mat-radio-group>
         </div>
       </form>
     </ng-container>
   </fl-section>
-
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="folder-user-config"
-          class="g-centered-forced">
-    {{'save' | translate}}
+  <button mat-flat-button color="primary" type="submit" form="folder-user-config" class="g-centered-forced">
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

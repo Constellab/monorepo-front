@@ -13,11 +13,12 @@ export type CaCloudProviderFormDialogInput = FlFormDialogInput<CaCloudProvider>;
 @Component({
   selector: 'ca-cloud-provider-form-dialog',
   templateUrl: './ca-cloud-provider-form-dialog.component.html',
-  styleUrls: ['./ca-cloud-provider-form-dialog.component.scss']
+  styleUrls: ['./ca-cloud-provider-form-dialog.component.scss'],
 })
-export class CaCloudProviderFormDialogComponent extends FlFormDialogAbstractDirective<Partial<CaCloudProvider>, CaCloudProvider>
-  implements OnInit {
-
+export class CaCloudProviderFormDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<CaCloudProvider>, CaCloudProvider>
+  implements OnInit
+{
   constructor(private cloudProviderService: CaCloudProviderService) {
     super();
   }
@@ -43,7 +44,6 @@ export class CaCloudProviderFormDialogComponent extends FlFormDialogAbstractDire
     return this.cloudProviderService.update(formValue);
   }
 
-
   get title(): string {
     return this.isCreateMode() ? 'create_cloud_provider' : 'update_cloud_provider';
   }
@@ -55,5 +55,4 @@ export class CaCloudProviderFormDialogComponent extends FlFormDialogAbstractDire
   getUpdateSuccessMessage(): string {
     return 'cloud_provider_updated';
   }
-
 }

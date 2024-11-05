@@ -1,39 +1,40 @@
 <mat-table mat-table [dataSource]="datasource" class="table">
-
-
   <!-- Entity type -->
   <ng-container matColumnDef="entityType">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'biox.share_link_entity_type' | translate}}</span>
+      <span> {{ 'biox.share_link_entity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <mat-icon color="warn" *ngIf="row.status === 'ERROR'"
-                [matTooltip]="'biox.share_link_object_not_found'| translate">
+      <mat-icon
+        color="warn"
+        *ngIf="row.status === 'ERROR'"
+        [matTooltip]="'biox.share_link_object_not_found' | translate">
         errors
       </mat-icon>
-      <div>{{('lab_entity_type_' + row.labObjectType) | translate}}</div>
+      <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- Name -->
   <ng-container matColumnDef="entityName">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'name' | translate}}</span>
+      <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{row.entityName}}
+      {{ row.entityName }}
     </mat-cell>
   </ng-container>
 
   <!-- Valid until -->
   <ng-container matColumnDef="validUntil">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'biox.share_link_valid_until' | translate}}</span>
+      <span> {{ 'biox.share_link_valid_until' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div [matTooltip]="row.validUntil | flDate:'DATE_TIME_WITH_SECONDS'"
-           [ngClass]="{'g-warn-text' : !row.isValid()}">
-        {{row.validUntil | flDate}}
+      <div
+        [matTooltip]="row.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+        [ngClass]="{ 'g-warn-text': !row.isValid() }">
+        {{ row.validUntil | flDate }}
       </div>
     </mat-cell>
   </ng-container>
@@ -41,7 +42,7 @@
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{'creation_info' | translate}}</span>
+      <span> {{ 'creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -51,30 +52,31 @@
   <!-- Download link -->
   <ng-container matColumnDef="downloadLink">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{'biox.share_link_download' | translate}}</span>
+      <span> {{ 'biox.share_link_download' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
-      <div class="download-link g-text-tiny g-text-link" (click)="copyDownloadLink(row)"
-           [matTooltip]="'biox.share_link_click_to_copy' | translate">
-        {{row.link}}
+      <div
+        class="download-link g-text-tiny g-text-link"
+        (click)="copyDownloadLink(row)"
+        [matTooltip]="'biox.share_link_click_to_copy' | translate">
+        {{ row.link }}
       </div>
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
-      <lab-share-link-actions-menu [shareLink]="row" [showLinkToEntity]="true"
-                                   (update)="onLinkUpdated($event)"
-                                   (delete)="onLinkDeleted($event)"></lab-share-link-actions-menu>
+      <lab-share-link-actions-menu
+        [shareLink]="row"
+        [showLinkToEntity]="true"
+        (update)="onLinkUpdated($event)"
+        (delete)="onLinkDeleted($event)"></lab-share-link-actions-menu>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>

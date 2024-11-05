@@ -5,13 +5,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'lab-biota-database-search-form',
   templateUrl: './lab-biota-database-search-form.component.html',
-  styleUrls: ['./lab-biota-database-search-form.component.scss']
+  styleUrls: ['./lab-biota-database-search-form.component.scss'],
 })
 export class LabBiotaDatabaseSearchFormComponent {
-
   formGp = new FormBuilder().group({
     typingName: [null, Validators.required],
-    searchText: [null, Validators.required]
+    searchText: [null, Validators.required],
   });
 
   @Output() search: EventEmitter<LabBiotaDatabaseSearch> = new EventEmitter();
@@ -21,5 +20,4 @@ export class LabBiotaDatabaseSearchFormComponent {
       this.search.emit(this.formGp.getRawValue());
     }
   }
-
 }

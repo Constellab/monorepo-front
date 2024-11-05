@@ -8,15 +8,7 @@ import { LabScenarioCoreModule } from '../../lab-core/entity-module/lab-scenario
  * Module for the list of scenarios
  */
 @NgModule({
-  declarations: [
-    LabScenariosListPageComponent
-  ],
-  imports: [
-    CommonModule,
-
-    LabCoreModule,
-    LabScenarioCoreModule,
-  ]
+  declarations: [LabScenariosListPageComponent],
+  imports: [CommonModule, LabCoreModule, LabScenarioCoreModule],
 })
-export class LabScenariosPageModule {
-}
+export class LabScenariosPageModule {}

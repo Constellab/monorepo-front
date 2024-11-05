@@ -1,5 +1,4 @@
 <fl-card>
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">storage</mat-icon>
@@ -11,14 +10,12 @@
       <button mat-stroked-button type="button" class="g-button-small" (click)="openPricesDialog()">
         {{ 'storage_prices' | translate }}
       </button>
-
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
     <fl-async-section [object]="currentPrice$">
       <ng-container *flSectionBody="currentPrice$ as currentPrice">
-
         <fl-key-value>
           <fl-key>{{ 'volume_storage_price' | translate }}</fl-key>
           {{ currentPrice.volumeStoragePrice }} {{ 'storage_price_unit' | translate }}
@@ -36,9 +33,10 @@
 
         <fl-key-value>
           <fl-key>{{ 'storage_total_price' | translate }}</fl-key>
-          {{ currentPrice.totalPrice }} {{ 'storage_price_unit' | translate }} ({{ currentPrice.totalPriceDescription }})
+          {{ currentPrice.totalPrice }} {{ 'storage_price_unit' | translate }} ({{
+            currentPrice.totalPriceDescription
+          }})
         </fl-key-value>
-
 
         <!--        <div class="g-text-big g-text-centered">-->
         <!--          {{ currentPrice }} {{ 'storage_price_unit' | translate }}-->
@@ -46,6 +44,4 @@
       </ng-container>
     </fl-async-section>
   </fl-card-body>
-
-
 </fl-card>

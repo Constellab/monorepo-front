@@ -1,41 +1,43 @@
 <fl-dialog-header>
-  <h2>{{'queue_jobs' | translate}}</h2>
+  <h2>{{ 'queue_jobs' | translate }}</h2>
 </fl-dialog-header>
 
 <mat-dialog-content>
-
   <fl-async-section [arrayObs]="runningScenarios" emptyText="biox.no_running_scenario">
-
     <fl-section-header>
-      <h2>{{'biox.running_scenario_list' | translate}}</h2>
+      <h2>{{ 'biox.running_scenario_list' | translate }}</h2>
     </fl-section-header>
 
     <ng-container *flSectionBodyDatasource>
-      <lab-running-scenario-table [datasource]="runningScenarios" [columns]="scenarioColumns"
-                                    class="content"></lab-running-scenario-table>
+      <lab-running-scenario-table
+        [datasource]="runningScenarios"
+        [columns]="scenarioColumns"
+        class="content"></lab-running-scenario-table>
     </ng-container>
-
   </fl-async-section>
 
-
-  <fl-section [object]="jobs" [isLoading]="isLoading" emptyText="empty_queue"
-              class="queue">
-
+  <fl-section [object]="jobs" [isLoading]="isLoading" emptyText="empty_queue" class="queue">
     <fl-section-header>
-      <h2>{{'biox.scenarios_in_queue_list' | translate}}</h2>
+      <h2>{{ 'biox.scenarios_in_queue_list' | translate }}</h2>
     </fl-section-header>
 
     <ng-container *flSectionBody>
       <mat-list class="content">
         <mat-list-item *ngFor="let job of jobs; let index = index">
-          <h3 matListItemTitle><a [routerLink]="job.scenario | labDetailRoute" class="g-text-link">{{job.scenario.title}}</a>
+          <h3 matListItemTitle>
+            <a [routerLink]="job.scenario | labDetailRoute" class="g-text-link">{{ job.scenario.title }}</a>
           </h3>
-          <p matListItemLine><span>{{job.user.alias}}</span></p>
-
+          <p matListItemLine>
+            <span>{{ job.user.alias }}</span>
+          </p>
 
           <span matListItemMeta>
-            <button mat-icon-button type="button" color="warn" (click)="removeScenarioFromQueue(job, index)"
-                    [matTooltip]="'biox.remove_scenario_from_queue' | translate">
+            <button
+              mat-icon-button
+              type="button"
+              color="warn"
+              (click)="removeScenarioFromQueue(job, index)"
+              [matTooltip]="'biox.remove_scenario_from_queue' | translate">
               <mat-icon>stop</mat-icon>
             </button>
           </span>
@@ -43,5 +45,4 @@
       </mat-list>
     </ng-container>
   </fl-section>
-
 </mat-dialog-content>

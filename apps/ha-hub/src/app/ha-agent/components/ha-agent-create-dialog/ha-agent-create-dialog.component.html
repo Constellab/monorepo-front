@@ -1,13 +1,18 @@
 <fl-dialog-header>
-  {{'create_agent' | translate}}
+  {{ 'create_agent' | translate }}
 </fl-dialog-header>
 
 <co-agent-create-dialog-form [formGp]="formGp" [spaces$]="spaces$" (submitEvent)="onSubmitEvent($event)">
   <div>
-    <div class="agent-version-file-div">{{'agent_version_file' | translate}}</div>
+    <div class="agent-version-file-div">{{ 'agent_version_file' | translate }}</div>
     <fl-input-file-container color="primary" [placeholder]="'import_agent_version_file' | translate">
-      <input flInputFile type="file" [strictMode]="true" [autoClearHtmlInput]="true" accept="application/json" (fileChange)="onFileSelected($any($event))">
+      <input
+        flInputFile
+        type="file"
+        [strictMode]="true"
+        [autoClearHtmlInput]="true"
+        accept="application/json"
+        (fileChange)="onFileSelected($any($event))" />
     </fl-input-file-container>
   </div>
 </co-agent-create-dialog-form>
-

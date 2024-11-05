@@ -1,22 +1,24 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
     <!--  Firstname  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'firstname' | translate }}</mat-label>
-      <input matInput formControlName="firstname" [placeholder]="'firstname' | translate" autocomplete="off">
+      <mat-label>{{ 'firstname' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="firstname"
+        [placeholder]="'firstname' | translate"
+        autocomplete="off" />
     </mat-form-field>
 
     <!--  Lastname  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'lastname' | translate }}</mat-label>
-      <input matInput formControlName="lastname" [placeholder]="'lastname' | translate" autocomplete="off">
+      <mat-label>{{ 'lastname' | translate }}</mat-label>
+      <input matInput formControlName="lastname" [placeholder]="'lastname' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Category  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'user_category' | translate }}</mat-label>
+      <mat-label>{{ 'user_category' | translate }}</mat-label>
       <mat-select formControlName="category" [placeholder]="'user_category' | translate" [multiple]="true">
         <fl-select-user-category-option mode="all"></fl-select-user-category-option>
       </mat-select>
@@ -25,11 +27,10 @@
     <!--  License  -->
     <mat-form-field class="g-search-field">
       <mat-label>{{ 'license' | translate }}</mat-label>
-      <mat-select formControlName="license"
-                  [placeholder]="'license' | translate">
+      <mat-select formControlName="license" [placeholder]="'license' | translate">
         @for (license of licenses; track license) {
           <mat-option [value]="license">
-            {{ ('license_' + license) | translate }}
+            {{ 'license_' + license | translate }}
           </mat-option>
         }
       </mat-select>
@@ -37,49 +38,42 @@
 
     <!--  Status  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'status' | translate }}</mat-label>
+      <mat-label>{{ 'status' | translate }}</mat-label>
       <mat-select formControlName="status" [placeholder]="'status' | translate" [multiple]="true">
         @for (status of statuses; track status) {
-          <mat-option [value]="status">{{status}}</mat-option>
+          <mat-option [value]="status">{{ status }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
 
     <!--  Company  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'company' | translate }}</mat-label>
-      <input matInput formControlName="company" [placeholder]="'company' | translate" autocomplete="off">
+      <mat-label>{{ 'company' | translate }}</mat-label>
+      <input matInput formControlName="company" [placeholder]="'company' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Email  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'email' | translate }}</mat-label>
-      <input matInput formControlName="email" [placeholder]="'email' | translate" autocomplete="off">
+      <mat-label>{{ 'email' | translate }}</mat-label>
+      <input matInput formControlName="email" [placeholder]="'email' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Id -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'id' | translate }}</mat-label>
-      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+      <mat-label>{{ 'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small">{{'creation_date' | translate}}</p>
-      <fl-search-date-interval formGroupName="createdAt">
-      </fl-search-date-interval>
+      <p class="g-text-small">{{ 'creation_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
 
     <!--  Last login  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small">{{'last_login' | translate}}</p>
-      <fl-search-date-interval formGroupName="lastLoginSuccess">
-      </fl-search-date-interval>
+      <p class="g-text-small">{{ 'last_login' | translate }}</p>
+      <fl-search-date-interval formGroupName="lastLoginSuccess"> </fl-search-date-interval>
     </div>
-
-
   </div>
-
 </div>
-
-

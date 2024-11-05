@@ -8,9 +8,8 @@ describe('HaTextEditorRightSidePanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaTextEditorRightSidePanelComponent]
-    })
-      .compileComponents();
+      declarations: [HaTextEditorRightSidePanelComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaTextEditorRightSidePanelComponent);
     component = fixture.componentInstance;

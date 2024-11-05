@@ -12,9 +12,7 @@ import { LabScenarioTemplate } from '../../../model/entities/process/lab-scenari
   name: 'labGetEntityTags',
 })
 export class LabGetEntityTagsPipe implements PipeTransform {
-
-  constructor(private tagService: LabTagService) {
-  }
+  constructor(private tagService: LabTagService) {}
 
   transform(entity: FlEntity): LabTagDatasource {
     if (entity == null) return new LabTagDatasource([]);

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceUsersPageComponent} from './ca-current-space-users-page.component';
+import { CaCurrentSpaceUsersPageComponent } from './ca-current-space-users-page.component';
 
 describe('CaCurrentSpaceUsersPageComponent', () => {
   let component: CaCurrentSpaceUsersPageComponent;
@@ -8,9 +8,8 @@ describe('CaCurrentSpaceUsersPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCurrentSpaceUsersPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpaceUsersPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCurrentSpaceUsersPageComponent);
     component = fixture.componentInstance;

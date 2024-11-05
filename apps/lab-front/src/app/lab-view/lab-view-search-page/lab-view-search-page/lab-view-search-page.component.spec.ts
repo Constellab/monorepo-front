@@ -8,9 +8,8 @@ describe('LabViewboxPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabViewSearchPageComponent ]
-    })
-    .compileComponents();
+      declarations: [LabViewSearchPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabViewSearchPageComponent);
     component = fixture.componentInstance;

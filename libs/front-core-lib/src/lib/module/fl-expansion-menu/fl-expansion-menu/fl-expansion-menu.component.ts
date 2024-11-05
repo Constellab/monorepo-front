@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 /**
  * Menu bar that can grow and shrink.
@@ -6,10 +6,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'fl-expansion-menu',
   templateUrl: './fl-expansion-menu.component.html',
-  styleUrls: ['./fl-expansion-menu.component.scss']
+  styleUrls: ['./fl-expansion-menu.component.scss'],
 })
 export class FlExpansionMenuComponent {
-
   @Input() expanded: boolean = false;
   @Output() expandedChange: EventEmitter<boolean> = new EventEmitter();
 

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaServerStandardTableComponent} from './ca-server-standard-table.component';
+import { CaServerStandardTableComponent } from './ca-server-standard-table.component';
 
 describe('CaServerStandardTableComponent', () => {
   let component: CaServerStandardTableComponent;
@@ -8,9 +8,8 @@ describe('CaServerStandardTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaServerStandardTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaServerStandardTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaServerStandardTableComponent);
     component = fixture.componentInstance;

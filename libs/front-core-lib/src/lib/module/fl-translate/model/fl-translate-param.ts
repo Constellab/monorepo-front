@@ -15,7 +15,6 @@ export type FlLangTranslation = ClObject;
  * Optional params when translating a field
  */
 export interface FlTranslateParam {
-
   /**
    * Params of the translation.
    * This is a key value object that will replace the parameters in the translation
@@ -38,24 +37,26 @@ export interface FlTranslateParam {
  */
 export type FlTranslateObject = {
   [K in ClSupportedLanguage]: FlLangTranslation;
-}
+};
 
 /**
  * Object for text to translate or not. If value is string, the text is translated
  */
-export type FlTranslatableText = string | {
-  /**
-   * Text to translate or not
-   */
-  text: string;
-  /**
-   * If false the text is not translated
-   * Default is true
-   */
-  translateText?: boolean;
+export type FlTranslatableText =
+  | string
+  | {
+      /**
+       * Text to translate or not
+       */
+      text: string;
+      /**
+       * If false the text is not translated
+       * Default is true
+       */
+      translateText?: boolean;
 
-  /**
-   * Param for the translation
-   */
-  translateParam?: FlTranslateParam;
-}
+      /**
+       * Param for the translation
+       */
+      translateParam?: FlTranslateParam;
+    };

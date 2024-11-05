@@ -1,8 +1,6 @@
-import {HaEnvironmentHelper} from './ha-environment.helper';
-
+import { HaEnvironmentHelper } from './ha-environment.helper';
 
 export class HaConstellabHelper {
-
   /////////////////////////////// FRONT ///////////////////////////////
 
   public static getConstellabUrl(): string {

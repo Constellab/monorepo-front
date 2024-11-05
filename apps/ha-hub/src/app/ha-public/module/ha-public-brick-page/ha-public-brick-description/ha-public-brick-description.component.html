@@ -3,31 +3,34 @@
     <div class="title-div">
       <div class="icon-title">
         <div class="brick-icon">
-          <img [ngSrc]="brick().imageLink | haBrickImage" fill priority>
+          <img [ngSrc]="brick().imageLink | haBrickImage" fill priority />
         </div>
         <h2 class="g-text-dense-height">{{ brick().name }}</h2>
       </div>
       <div class="brick-like-edit-button-div">
         <div class="brick-like-edit-button brick-like-edit-button-top">
-          <co-visibility-badge [space]="brick().space">
-          </co-visibility-badge>
-          <ha-like-button (clicked)="toggleLikeBrickButton()" [isLiked]="brickIsLiked"
-                          [likesCount]="brick().likes"></ha-like-button>
+          <co-visibility-badge [space]="brick().space"> </co-visibility-badge>
+          <ha-like-button
+            (clicked)="toggleLikeBrickButton()"
+            [isLiked]="brickIsLiked"
+            [likesCount]="brick().likes"></ha-like-button>
         </div>
         <div class="brick-like-edit-button">
           @if (userHasEditRight()) {
-            <button mat-stroked-button type="button" (click)="createEditBrickDialog()"
-                    class="edit-brick-button">{{ 'edit' | translate }}
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="createEditBrickDialog()"
+              class="edit-brick-button">
+              {{ 'edit' | translate }}
             </button>
           }
         </div>
       </div>
     </div>
 
-
-
     <div class="description-div">
-      <h5>{{ 'description' | translate }} : </h5>
+      <h5>{{ 'description' | translate }} :</h5>
       <p>{{ brick().description }}</p>
     </div>
     <div class="version-div" *ngIf="brick() && latestBrickVersion()">
@@ -48,13 +51,13 @@
 
     <div class="tech-info-div" *ngIf="brick().gitRepo">
       <span>
-        {{ 'repo_git' | translate }} : <ha-github-star-button [repo]="brick().gitRepo"></ha-github-star-button>
+        {{ 'repo_git' | translate }} :
+        <ha-github-star-button [repo]="brick().gitRepo"></ha-github-star-button>
       </span>
       <div class="git-div">
         <p class="g-scrollable-element tech-info">{{ brick().gitRepo }}</p>
       </div>
     </div>
-
 
     <div class="tech-info-div" *ngIf="brick().pipRepo">
       {{ 'repo_pip' | translate }} :

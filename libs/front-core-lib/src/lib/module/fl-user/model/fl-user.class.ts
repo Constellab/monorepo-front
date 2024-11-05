@@ -15,7 +15,6 @@ export interface FlUser extends FlEntity {
   company?: string;
 
   activity?: string;
-
 }
 
 export type FlUserDatasource<F = void> = FlDatasourcePaginated<FlUser, F>;

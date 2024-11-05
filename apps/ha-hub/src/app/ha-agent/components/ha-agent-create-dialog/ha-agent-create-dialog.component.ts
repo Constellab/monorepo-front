@@ -8,7 +8,7 @@ import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import {
   HaAgentVersion,
-  HaAgentVersionFileInput
+  HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
 
@@ -17,15 +17,19 @@ export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
 @Component({
   selector: 'ha-agent-create-dialog',
   templateUrl: './ha-agent-create-dialog.component.html',
-  styleUrls: ['./ha-agent-create-dialog.component.scss']
+  styleUrls: ['./ha-agent-create-dialog.component.scss'],
 })
-export class HaAgentCreateDialogComponent extends FlFormDialogAbstractDirective<HaCreateAgentDto, HaAgentVersion> implements OnInit {
-
+export class HaAgentCreateDialogComponent
+  extends FlFormDialogAbstractDirective<HaCreateAgentDto, HaAgentVersion>
+  implements OnInit
+{
   spaces$: Observable<HaSpace[]>;
   inputFile: any;
 
-  constructor(private agentService: HaAgentService,
-              private spaceService: HaSpaceService) {
+  constructor(
+    private agentService: HaAgentService,
+    private spaceService: HaSpaceService
+  ) {
     super();
   }
 
@@ -40,7 +44,7 @@ export class HaAgentCreateDialogComponent extends FlFormDialogAbstractDirective<
       title: [null, Validators.required],
       type: [null, Validators.required],
       versionFile: [null, Validators.required],
-      space: [null]
+      space: [null],
     });
   }
 
@@ -71,7 +75,7 @@ export class HaAgentCreateDialogComponent extends FlFormDialogAbstractDirective<
       return;
     }
 
-    if (typeof (FileReader) !== 'undefined') {
+    if (typeof FileReader !== 'undefined') {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {

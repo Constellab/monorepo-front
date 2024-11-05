@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   LabCreateTagResponse,
   LabTagKeyModel,
   LabTagValueModel,
-  LabTagValueModelDatasource
+  LabTagValueModelDatasource,
 } from '../../../../model/entities/lab-tag.entity';
 import {
   FlConfirmDialogInput,
@@ -11,11 +11,11 @@ import {
   FlDialogService,
   FlEntityPaginatedDatasource,
   FlFormDialogInput,
-  FlTag
+  FlTag,
 } from '@monorepo/front-core-lib';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {LabTagFormDialogComponent} from '../lab-tag-form-dialog/lab-tag-form-dialog.component';
-import {ClHelpService} from '@monorepo/core-lib';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
+import { LabTagFormDialogComponent } from '../lab-tag-form-dialog/lab-tag-form-dialog.component';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Component to show the LabTagEntity information
@@ -26,36 +26,39 @@ import {ClHelpService} from '@monorepo/core-lib';
   selector: 'lab-tag-entity-detail',
   templateUrl: './lab-tag-entity-detail.component.html',
   styleUrls: ['./lab-tag-entity-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabTagEntityDetailComponent implements OnInit {
-
   @Input() tagEntity: LabTagKeyModel;
 
   @Output() lastTagValueDeleted: EventEmitter<void> = new EventEmitter();
 
   tagValues: LabTagValueModelDatasource;
 
-  constructor(private tagService: LabTagService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private tagService: LabTagService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.tagValues = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchValues(this.tagEntity.key, null, page, size),
-      5, true);
+      5,
+      true
+    );
   }
 
   openAddValueDialog(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     const input: FlFormDialogInput<FlTag> = {
       mode: 'create',
-      object: {key: this.tagEntity.key, value: null}
+      object: { key: this.tagEntity.key, value: null },
     };
 
-    this.dialogService.openSmallDialog(LabTagFormDialogComponent, {data: input}).afterClosed().subscribe(
-      createResponse => this.addClosed(createResponse)
-    );
+    this.dialogService
+      .openSmallDialog(LabTagFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((createResponse) => this.addClosed(createResponse));
   }
 
   private addClosed(createResponse?: LabCreateTagResponse): void {
@@ -64,16 +67,16 @@ export class LabTagEntityDetailComponent implements OnInit {
     }
   }
 
-
   openUpdateValueDialog(tag: LabTagValueModel): void {
     const input: FlFormDialogInput<FlTag> = {
       mode: 'update',
-      object: tag
+      object: tag,
     };
 
-    this.dialogService.openSmallDialog(LabTagFormDialogComponent, {data: input}).afterClosed().subscribe(
-      createResponse => this.updateClosed(createResponse)
-    );
+    this.dialogService
+      .openSmallDialog(LabTagFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((createResponse) => this.updateClosed(createResponse));
   }
 
   private updateClosed(createResponse?: LabCreateTagResponse): void {
@@ -90,13 +93,13 @@ export class LabTagEntityDetailComponent implements OnInit {
       successMessage: 'tag_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, tag)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, tag));
   }
 
-  private onDeleteClosed(result: FlConfirmDialogResult,
-                         tag: LabTagValueModel): void {
+  private onDeleteClosed(result: FlConfirmDialogResult, tag: LabTagValueModel): void {
     if (!result.choice) return;
     this.tagValues.removeItem(tag);
 
@@ -104,5 +107,4 @@ export class LabTagEntityDetailComponent implements OnInit {
       this.lastTagValueDeleted.next();
     }
   }
-
 }

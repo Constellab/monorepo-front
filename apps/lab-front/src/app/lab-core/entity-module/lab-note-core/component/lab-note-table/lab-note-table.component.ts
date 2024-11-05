@@ -6,11 +6,10 @@ import { ClHelpService } from '@monorepo/core-lib';
 @Component({
   selector: 'lab-note-table',
   templateUrl: './lab-note-table.component.html',
-  styleUrls: ['./lab-note-table.component.scss']
+  styleUrls: ['./lab-note-table.component.scss'],
 })
 export class LabNoteTableComponent {
-
-  @Input({required: true}) datasource: FlDatasource<LabNote>;
+  @Input({ required: true }) datasource: FlDatasource<LabNote>;
 
   @Input() columns: FlTableColumnStatic<LabNote>[] = ['title', 'tags', 'creation', 'lastModification'];
 
@@ -22,7 +21,6 @@ export class LabNoteTableComponent {
   @Output() noteSelected: EventEmitter<LabNote> = new EventEmitter();
 
   @Output() noteUnlink: EventEmitter<LabNote> = new EventEmitter();
-
 
   rowClicked(note: LabNote): void {
     if (this.rowSelectable) {

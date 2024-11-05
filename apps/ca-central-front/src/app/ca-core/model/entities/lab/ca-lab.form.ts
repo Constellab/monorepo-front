@@ -6,7 +6,6 @@ import { CaLabBillingMode, CaLabDesktopPlatform, CaLabType } from './ca-lab.clas
 import { CaLabManagerConfig } from './ca-lab-manager.class';
 import { CaLabVolumeType } from './ca-lab-volume.class';
 
-
 export class CaLabAdminForm {
   id: string;
   name: string;
@@ -32,7 +31,6 @@ export class CaLabAdminForm {
   @Type(() => CaCloudProviderRegion)
   region?: CaCloudProviderRegion;
 
-
   @Type(() => CaSpace)
   space?: CaSpace;
   desktopPlatform?: CaLabDesktopPlatform;
@@ -49,7 +47,6 @@ export class CaLabDesktopForm {
   name: string;
   desktopPlatform: CaLabDesktopPlatform;
 }
-
 
 /**
  * Object used when a user wants to create a lab

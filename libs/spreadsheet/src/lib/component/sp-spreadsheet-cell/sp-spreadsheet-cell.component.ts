@@ -9,33 +9,40 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {columnIdAttributeName, SpCell, SpCellEditChange, rowIdAttributeName} from '../../model/sp-cell.class';
-import {SpSpreadsheetSelectionState} from '../../state/sp-spreadsheet-selection.state';
-import {SpCellWithCoord, SpSheetSingleSelection} from '../../model/selection/sp-sheet-single-selection.class';
-import {ClSubscriptionHandler} from '@monorepo/core-lib';
-import {SpSpreadsheetActions} from '../../state/sp-spreadsheet-actions.state';
-import {SpCellsRange} from '../../model/selection/sp-cells-range.class';
-import {SpSpreadsheetState} from '../../state/sp-spreadsheet.state';
-import {SpCellCoord} from '../../model/sp-cell-coord.class';
-import {SpSpreadsheetCellInfoComponent} from '../sp-spreadsheet-cell-info/sp-spreadsheet-cell-info.component';
+import {
+  columnIdAttributeName,
+  SpCell,
+  SpCellEditChange,
+  rowIdAttributeName,
+} from '../../model/sp-cell.class';
+import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
+import {
+  SpCellWithCoord,
+  SpSheetSingleSelection,
+} from '../../model/selection/sp-sheet-single-selection.class';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { SpSpreadsheetActions } from '../../state/sp-spreadsheet-actions.state';
+import { SpCellsRange } from '../../model/selection/sp-cells-range.class';
+import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
+import { SpCellCoord } from '../../model/sp-cell-coord.class';
+import { SpSpreadsheetCellInfoComponent } from '../sp-spreadsheet-cell-info/sp-spreadsheet-cell-info.component';
 import {
   FlKeyboardHelper,
   FlKeyboardKey,
   FlOverlayRef,
   FlPortalConnectedPosition,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'sp-spreadsheet-cell',
   templateUrl: './sp-spreadsheet-cell.component.html',
   styleUrls: ['./sp-spreadsheet-cell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
-
   // use to check change detection
   // todo to remove
   private static id: number = 0;
@@ -45,11 +52,12 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
 
   // theses attributes are used to retrieve the cell coords from html element
   @HostBinding('attr.' + columnIdAttributeName)
-  @Input() column: number;
+  @Input()
+  column: number;
 
   @HostBinding('attr.' + rowIdAttributeName)
-  @Input() row: number;
-
+  @Input()
+  row: number;
 
   @ViewChild('input') input: ElementRef<HTMLElement>;
 
@@ -67,12 +75,15 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
 
   private overlayRef: FlOverlayRef;
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef<HTMLElement>,
-              private state: SpSpreadsheetState,
-              private selectionState: SpSpreadsheetSelectionState,
-              private actionState: SpSpreadsheetActions,
-              private cdr: ChangeDetectorRef,
-              private portalService: FlPortalService) {
+  constructor(
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLElement>,
+    private state: SpSpreadsheetState,
+    private selectionState: SpSpreadsheetSelectionState,
+    private actionState: SpSpreadsheetActions,
+    private cdr: ChangeDetectorRef,
+    private portalService: FlPortalService
+  ) {
     this.id = SpSpreadsheetCellComponent.id++;
   }
 
@@ -92,9 +103,7 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
   /////////////////////////////// VALUE ///////////////////////////////
 
   private subscribeToValue(): void {
-    this.subscription.add(this.cell.value$.subscribe(
-      value => this.onNewValue(value)
-    ));
+    this.subscription.add(this.cell.value$.subscribe((value) => this.onNewValue(value)));
   }
 
   private onNewValue(value: any): void {
@@ -103,18 +112,17 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
     this.cdr.detectChanges();
   }
 
-
   /////////////////////////////// SELECTION ///////////////////////////////
 
   private subscribeToSelection(): void {
-    this.subscription.add(this.selectionState.getSelection$().subscribe(
-      selection => this.onSelectionChange(selection)
-    ));
+    this.subscription.add(
+      this.selectionState.getSelection$().subscribe((selection) => this.onSelectionChange(selection))
+    );
   }
 
   private onSelectionChange(selection: SpSheetSingleSelection): void {
     // check if the current cell is selected
-    if (selection && selection.coordIsSelected({row: this.row, column: this.column})) {
+    if (selection && selection.coordIsSelected({ row: this.row, column: this.column })) {
       this.selectCell(selection.getRange());
     } else {
       this.unSelectCell();
@@ -148,13 +156,10 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
     }
   }
 
-
   /////////////////////////////// EDIT ///////////////////////////////
 
   private subscribeToEdit(): void {
-    this.subscription.add(this.cell.edit$.subscribe(
-      edit => this.onEditChange(edit)
-    ));
+    this.subscription.add(this.cell.edit$.subscribe((edit) => this.onEditChange(edit)));
   }
 
   private onEditChange(editEvent: SpCellEditChange): void {
@@ -172,8 +177,7 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
       const cellValue: any = this.cell.value;
       this.edit = true;
 
-      if (value != null &&
-        (typeof this.cell.value === 'number' || typeof this.cell.value === 'string')) {
+      if (value != null && (typeof this.cell.value === 'number' || typeof this.cell.value === 'string')) {
         this.inputValue = cellValue + value;
       } else {
         this.inputValue = cellValue;
@@ -211,18 +215,17 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
     this.input?.nativeElement.focus();
   }
 
-
   get cellWithCoord(): SpCellWithCoord {
     return {
       cell: this.cell,
-      coord: this.coord
+      coord: this.coord,
     };
   }
 
   get coord(): SpCellCoord {
     return {
       column: this.column,
-      row: this.row
+      row: this.row,
     };
   }
 
@@ -270,7 +273,11 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
       disposeOnOutsideClick: true,
     });
 
-    this.overlayRef = this.portalService.createPortal(SpSpreadsheetCellInfoComponent, config, this.cellWithCoord);
+    this.overlayRef = this.portalService.createPortal(
+      SpSpreadsheetCellInfoComponent,
+      config,
+      this.cellWithCoord
+    );
   }
 
   closePortal(): void {
@@ -281,5 +288,4 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
 }

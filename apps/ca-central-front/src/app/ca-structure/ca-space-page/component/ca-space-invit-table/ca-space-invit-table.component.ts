@@ -5,11 +5,11 @@ import {
   FlConfirmDialogResult,
   FlDatasourcePaginated,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import {
   CaSpaceUserRoleDialogComponent,
-  CaSpaceUserRoleDialogInput
+  CaSpaceUserRoleDialogInput,
 } from '../ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
@@ -20,29 +20,34 @@ import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-u
 @Component({
   selector: 'ca-space-invit-table',
   templateUrl: './ca-space-invit-table.component.html',
-  styleUrls: ['./ca-space-invit-table.component.scss']
+  styleUrls: ['./ca-space-invit-table.component.scss'],
 })
 export class CaSpaceInvitTableComponent {
-
   @Input() datasource: FlDatasourcePaginated<CaSpaceInvit>;
 
-  @Input() columns: FlTableColumnStatic<CaSpaceInvit>[] = ['userMail', 'role', 'validUntil', 'sentThe', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaSpaceInvit>[] = [
+    'userMail',
+    'role',
+    'validUntil',
+    'sentThe',
+    'actions',
+  ];
 
-  constructor(private spaceInvitService: CaSpaceInvitService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private spaceInvitService: CaSpaceInvitService,
+    private dialogService: FlDialogService
+  ) {}
 
   openUpdateRoleDialog(invitation: CaSpaceInvit): void {
     const data: CaSpaceUserRoleDialogInput = {
       currentRole: invitation.role,
-      updateRole: (role) =>
-        this.spaceInvitService.updateInvitationRole(invitation.id, role)
+      updateRole: (role) => this.spaceInvitService.updateInvitationRole(invitation.id, role),
     };
 
-    this.dialogService.openSmallDialog(CaSpaceUserRoleDialogComponent, { data }).afterClosed().subscribe(
-      role => this.onUpdateRoleClosed(invitation, role)
-    );
-
+    this.dialogService
+      .openSmallDialog(CaSpaceUserRoleDialogComponent, { data })
+      .afterClosed()
+      .subscribe((role) => this.onUpdateRoleClosed(invitation, role));
   }
 
   private onUpdateRoleClosed(invitation: CaSpaceInvit, role?: CaSpaceRole): void {
@@ -70,9 +75,10 @@ export class CaSpaceInvitTableComponent {
       successMessage: 'invitation_expiration_refreshed',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onRefreshClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onRefreshClosed(result));
   }
 
   private onRefreshClosed(result: FlConfirmDialogResult<CaSpaceInvit>): void {
@@ -89,9 +95,10 @@ export class CaSpaceInvitTableComponent {
       successMessage: 'invitation_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, invitation)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, invitation));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult<void>, invitation: CaSpaceInvit): void {

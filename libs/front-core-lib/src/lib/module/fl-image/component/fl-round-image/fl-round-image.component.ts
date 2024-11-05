@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 /**
  * Graphic component to show a round image with a light shadow
@@ -9,10 +9,9 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'fl-round-image',
   templateUrl: './fl-round-image.component.html',
-  styleUrls: ['./fl-round-image.component.scss']
+  styleUrls: ['./fl-round-image.component.scss'],
 })
 export class FlRoundImageComponent implements OnInit {
-
   /**
    * Image url
    */
@@ -23,10 +22,7 @@ export class FlRoundImageComponent implements OnInit {
    */
   @Input() size: string = '3em';
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

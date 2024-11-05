@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabCodeEditorDynamicFieldComponent} from './lab-code-editor-dynamic-field.component';
+import { LabCodeEditorDynamicFieldComponent } from './lab-code-editor-dynamic-field.component';
 
 describe('LabPythonCodeDynamicFieldComponent', () => {
   let component: LabCodeEditorDynamicFieldComponent;
@@ -8,9 +8,8 @@ describe('LabPythonCodeDynamicFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabCodeEditorDynamicFieldComponent ]
-    })
-    .compileComponents();
+      declarations: [LabCodeEditorDynamicFieldComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabCodeEditorDynamicFieldComponent);
     component = fixture.componentInstance;

@@ -21,39 +21,50 @@
 
             <span class="g-text-small date-info">
               <fl-from-now
-                [date]="story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt"></fl-from-now>
+                [date]="
+                  story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt
+                "></fl-from-now>
             </span>
           </p>
           @if (storyCoAuthors?.length > 0) {
             <fl-key-value class="g-text-small co-author-key-val user-date-info">
               <fl-key>{{ 'coauthors' | translate }}</fl-key>
               <span class="co-author-span">
-            @for (coAuthor of storyCoAuthors; track coAuthor.id) {
-              <a [routerLink]="profileRoute + coAuthor.id">
-                <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
-              </a>
-            }
-          </span>
+                @for (coAuthor of storyCoAuthors; track coAuthor.id) {
+                  <a [routerLink]="profileRoute + coAuthor.id">
+                    <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+                  </a>
+                }
+              </span>
             </fl-key-value>
           }
         </div>
         <div class="story-like-comment-infos-div">
           <div class="story-like-comment">
-            <ha-like-button (clicked)="toggleLikeStoryButton()" [isLiked]="storyIsLiked"
-                            [likesCount]="story.likes"></ha-like-button>
-            <ha-comment-button (clicked)="openCommentsPannel()" [commentsCount]="story.comments"></ha-comment-button>
+            <ha-like-button
+              (clicked)="toggleLikeStoryButton()"
+              [isLiked]="storyIsLiked"
+              [likesCount]="story.likes"></ha-like-button>
+            <ha-comment-button
+              (clicked)="openCommentsPannel()"
+              [commentsCount]="story.comments"></ha-comment-button>
           </div>
           @if (hasRightToEdit) {
-            <a mat-flat-button color="primary" [routerLink]="storiesListRoute + 'edit/'+ story.id" class="edit-button">
+            <a
+              mat-flat-button
+              color="primary"
+              [routerLink]="storiesListRoute + 'edit/' + story.id"
+              class="edit-button">
               <mat-icon>edit</mat-icon>
               {{ 'edit' | translate }}
             </a>
           }
         </div>
-
       </div>
-      <te-text-editor [formControl]="formControl" [config]="textEditorConfig"
-                      class="g-scrollable-element border-none"></te-text-editor>
+      <te-text-editor
+        [formControl]="formControl"
+        [config]="textEditorConfig"
+        class="g-scrollable-element border-none"></te-text-editor>
     </div>
   </div>
 } @else if (notFound) {
@@ -66,9 +77,11 @@
   </div>
 }
 
-
-@if ((story && story.content || storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix) && !notFound) {
-  <ha-text-editor-right-side-panel [content]="story.content" [files]="storyFiles"
-                                   [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
+@if (
+  ((story && story.content) || (storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix)) && !notFound
+) {
+  <ha-text-editor-right-side-panel
+    [content]="story.content"
+    [files]="storyFiles"
+    [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
 }
-

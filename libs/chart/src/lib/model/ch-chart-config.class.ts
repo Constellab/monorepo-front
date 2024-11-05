@@ -1,9 +1,9 @@
-import {ChChartContainer} from './drawer/ch-chart-container.class';
-import {ChChartSVGLegend} from './legend/ch-chart-legend.class';
-import {ChChartBrush} from './drawer/ch-chart-brush.class';
-import {Type} from '@angular/core';
-import {ChChartRightSectionDirective} from '../component/ch-chart-right-section/ch-chart-right-section.directive';
-import {FlThemeDetail, FlThemeService} from '@monorepo/front-core-lib';
+import { ChChartContainer } from './drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from './legend/ch-chart-legend.class';
+import { ChChartBrush } from './drawer/ch-chart-brush.class';
+import { Type } from '@angular/core';
+import { ChChartRightSectionDirective } from '../component/ch-chart-right-section/ch-chart-right-section.directive';
+import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib';
 
 /**
  * Configuration to create the component for the right section of the chart (usually the legend)
@@ -16,23 +16,23 @@ export interface ChChartRightSectionConfig {
 /**
  * Configure the size of the chart
  */
-export type ChChartSizeConfig = {
-  // the complete chart will fit the container
-  type: 'fit-container';
-} |
+export type ChChartSizeConfig =
+  | {
+      // the complete chart will fit the container
+      type: 'fit-container';
+    }
   // define a fixed size for the chart renderer (excluding the legend, axis, etc.)
-  {
-    type: 'fixed';
-    width: number;
-    height: number;
-  }
+  | {
+      type: 'fixed';
+      width: number;
+      height: number;
+    };
 
 /**
  * Config object to draw a new chart
  */
 export abstract class ChChartConfig {
-
-  public sizeConfig: ChChartSizeConfig = {type: 'fit-container'};
+  public sizeConfig: ChChartSizeConfig = { type: 'fit-container' };
 
   private _theme: FlThemeDetail;
 

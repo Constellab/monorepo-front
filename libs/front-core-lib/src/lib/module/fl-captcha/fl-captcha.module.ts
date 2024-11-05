@@ -14,11 +14,10 @@ function configureReCaptcha(config: FlCaptchaModuleConfig): string {
 @NgModule({
   imports: [RecaptchaV3Module],
   providers: [
-    {provide: RECAPTCHA_V3_SITE_KEY, useFactory: configureReCaptcha, deps: [FL_CAPTCHA_MODULE_CONFIG]},
-  ]
+    { provide: RECAPTCHA_V3_SITE_KEY, useFactory: configureReCaptcha, deps: [FL_CAPTCHA_MODULE_CONFIG] },
+  ],
 })
 export class FlCaptchaModule {
-
   constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('FlCaptchaModule', flCaptchaI18n);
   }

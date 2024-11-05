@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {LabVenvService} from '../../../../lab-core/entity-service/lab-venv.service';
-import {Observable, share} from 'rxjs';
-import {LabVenvArrayObs, LabVEnvsStatus} from '../../../../lab-core/model/entities/lab-venv.entity';
-import {FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService} from '@monorepo/front-core-lib';
-import {map} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { LabVenvService } from '../../../../lab-core/entity-service/lab-venv.service';
+import { Observable, share } from 'rxjs';
+import { LabVenvArrayObs, LabVEnvsStatus } from '../../../../lab-core/model/entities/lab-venv.entity';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { map } from 'rxjs/operators';
 
 /**
  * Sub-page of monitoring to list all venvs
@@ -12,21 +12,21 @@ import {map} from 'rxjs/operators';
 @Component({
   selector: 'lab-monitoring-venvs-page',
   templateUrl: './lab-monitoring-venvs-page.component.html',
-  styleUrls: ['./lab-monitoring-venvs-page.component.scss']
+  styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
 })
 export class LabMonitoringVenvsPageComponent implements OnInit {
-
   venvsStatus$: Observable<LabVEnvsStatus>;
 
   venvsList: LabVenvArrayObs;
 
-  constructor(private venvService: LabVenvService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private venvService: LabVenvService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.venvsStatus$ = this.venvService.getVenvsStatus().pipe(share());
-    this.venvsList = new LabVenvArrayObs(this.venvsStatus$.pipe(map(status => status.envs)));
+    this.venvsList = new LabVenvArrayObs(this.venvsStatus$.pipe(map((status) => status.envs)));
   }
 
   openDeleteAllEnvsDialog(): void {
@@ -37,9 +37,10 @@ export class LabMonitoringVenvsPageComponent implements OnInit {
       successMessage: 'monitoring.delete_all_venvs_success',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteAllEnvsClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteAllEnvsClosed(result));
   }
 
   private onDeleteAllEnvsClosed(result: FlConfirmDialogResult): void {
@@ -47,5 +48,4 @@ export class LabMonitoringVenvsPageComponent implements OnInit {
       this.venvsList.clear();
     }
   }
-
 }

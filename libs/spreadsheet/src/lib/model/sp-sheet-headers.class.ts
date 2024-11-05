@@ -1,8 +1,8 @@
-import {SpCell} from './sp-cell.class';
-import {ClHelpService, ClStringHelper} from '@monorepo/core-lib';
-import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {FlColorHelper, FlTagColorer, FlTagHelper, FlTagWithColor} from '@monorepo/front-core-lib';
+import { SpCell } from './sp-cell.class';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { FlColorHelper, FlTagColorer, FlTagHelper, FlTagWithColor } from '@monorepo/front-core-lib';
 
 export type SpSheetColumnSortDirection = 'Ascending' | 'Descending';
 
@@ -13,14 +13,12 @@ export interface SpSheetHeader {
   sort?: SpSheetColumnSortDirection;
 }
 
-
 export interface SpSheetRow extends SpSheetHeader {
   cells: SpCell[];
 }
 
 // type of the header (mainly for column)
 export type SpSheetHeaderType = 'INTEGER' | 'FLOAT' | 'STRING' | 'BOOLEAN' | 'OBJECT';
-
 
 /**
  * Input object about row or column information
@@ -42,20 +40,21 @@ export interface SpSheetHeaderInfo {
   sort?: SpSheetColumnSortDirection;
 }
 
-
 /**
  * Class to manage columns or rows header infos
  */
 export class SpSheetHeaders {
-
   private readonly _info: SpSheetHeaderInfoInput[];
 
   public tagColorer: FlTagColorer;
 
-  constructor(info: SpSheetHeaderInfoInput[] = [], private sort?: {
-    headerName: string;
-    direction: SpSheetColumnSortDirection;
-  }) {
+  constructor(
+    info: SpSheetHeaderInfoInput[] = [],
+    private sort?: {
+      headerName: string;
+      direction: SpSheetColumnSortDirection;
+    }
+  ) {
     this._info = info;
     this.initTagsColors();
   }
@@ -63,7 +62,7 @@ export class SpSheetHeaders {
   public getInfo(index: number): SpSheetHeaderInfo {
     // if it doesn't exist, return a default value
     if (!this._info || this._info[index] == null) {
-      return {name: '', tags: {}, tagColorer: this.tagColorer, sort: null};
+      return { name: '', tags: {}, tagColorer: this.tagColorer, sort: null };
     }
     const headerInfo = this._info[index];
     return {
@@ -71,7 +70,7 @@ export class SpSheetHeaders {
       tags: headerInfo.tags,
       tagColorer: this.tagColorer,
       type: headerInfo.type,
-      sort: this.sort?.headerName === headerInfo.name ? this.sort.direction : null
+      sort: this.sort?.headerName === headerInfo.name ? this.sort.direction : null,
     };
   }
 
@@ -86,7 +85,7 @@ export class SpSheetHeaders {
     }
 
     // update the tag colors
-    const groupedTags = FlTagHelper.groupTagsByKey(this.info.map(info => info.tags));
+    const groupedTags = FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags));
     this.tagColorer.addTags(groupedTags);
   }
 
@@ -118,8 +117,8 @@ export class SpSheetHeaders {
   public searchByName(name: string): string[] {
     if (!this._info) return [];
     const result = this._info
-      .filter(info => info.name && ClStringHelper.stringContains(info.name, name))
-      .map(info => info.name);
+      .filter((info) => info.name && ClStringHelper.stringContains(info.name, name))
+      .map((info) => info.name);
     return ClHelpService.sortAlphabeticalOrder(result);
   }
 
@@ -137,15 +136,15 @@ export class SpSheetHeaders {
 
   public findIndexByName(name: string): number {
     if (!this._info) return -1;
-    return this._info.findIndex(info => info.name === name);
+    return this._info.findIndex((info) => info.name === name);
   }
 
   private emptyInfo(): SpSheetHeaderInfoInput {
-    return {name: null, tags: {}};
+    return { name: null, tags: {} };
   }
 
   private groupTagByKeys(): Record<string, string[]> {
-    return FlTagHelper.groupTagsByKey(this.info.map(info => info.tags));
+    return FlTagHelper.groupTagsByKey(this.info.map((info) => info.tags));
   }
 
   private initTagsColors(): void {
@@ -154,9 +153,9 @@ export class SpSheetHeaders {
   }
 
   public getSelectedIndexTagColors(index: number): Observable<string[]> {
-    return this.tagColorer.getSelectedTags$().pipe(
-      map(selectedTags => this.getHeaderColors(this.getInfo(index).tags, selectedTags))
-    );
+    return this.tagColorer
+      .getSelectedTags$()
+      .pipe(map((selectedTags) => this.getHeaderColors(this.getInfo(index).tags, selectedTags)));
   }
 
   private getHeaderColors(headerTags: Record<string, string>, selectedTags: FlTagWithColor[]): string[] {

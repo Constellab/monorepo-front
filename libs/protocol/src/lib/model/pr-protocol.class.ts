@@ -23,7 +23,6 @@ export interface PrProtocolGraph {
 }
 
 export interface PrProtocol {
-
   name: string;
 
   instance_name: string;
@@ -49,7 +48,6 @@ export interface PrProtocol {
 
   style: TdTypeStyle | null;
 }
-
 
 export interface PrProtocolLink {
   from: PrProtocolLinkPart;

@@ -1,32 +1,47 @@
 <div class="left-panel" haLeftPanel>
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-  <button mat-flat-button type="button" class="bt first-bt" *haIsAuthenticated (click)="openCreateStoryDialog()">
+  <button
+    mat-flat-button
+    type="button"
+    class="bt first-bt"
+    *haIsAuthenticated
+    (click)="openCreateStoryDialog()">
     <mat-icon>add_circle</mat-icon>
-    {{'create_story' | translate}}
+    {{ 'create_story' | translate }}
   </button>
 
-  <button mat-flat-button type="button" class="bt my-stories-bt" *haIsAuthenticated
-          (click)="selectMyStories()" [class]="myStoriesBool ? 'bt-primary' : ''">
-    {{'my_stories' | translate}}
+  <button
+    mat-flat-button
+    type="button"
+    class="bt my-stories-bt"
+    *haIsAuthenticated
+    (click)="selectMyStories()"
+    [class]="myStoriesBool ? 'bt-primary' : ''">
+    {{ 'my_stories' | translate }}
   </button>
 
-  <p class="left-side-div-title">{{'categories' | translate}} :</p>
+  <p class="left-side-div-title">{{ 'categories' | translate }} :</p>
 
   <div class="left-side-div-categories">
-    <div *ngFor="let cat of categories" class="category small-text" (click)="changeSelectState(cat)"
-         [ngClass]="cat.active ? 'category-selected' : ''">
-      {{cat.cat.toLowerCase() | translate}}
+    <div
+      *ngFor="let cat of categories"
+      class="category small-text"
+      (click)="changeSelectState(cat)"
+      [ngClass]="cat.active ? 'category-selected' : ''">
+      {{ cat.cat.toLowerCase() | translate }}
     </div>
   </div>
 
-  <p class="left-side-div-title" flHide.lt-sm>{{'popular_topics' | translate}} :</p>
+  <p class="left-side-div-title" flHide.lt-sm>{{ 'popular_topics' | translate }} :</p>
 
-  @if(popularTopics$){
+  @if (popularTopics$) {
     <mat-chip-listbox selectable multiple>
-      <mat-chip-option *ngFor="let topic of popularTopics$ | async" [value]="isSelected(topic)"
-                       (click)="selectTopic(topic)"
-                        class="g-cursor-hover">
-        {{topic.name}}
+      <mat-chip-option
+        *ngFor="let topic of popularTopics$ | async"
+        [value]="isSelected(topic)"
+        (click)="selectTopic(topic)"
+        class="g-cursor-hover">
+        {{ topic.name }}
       </mat-chip-option>
     </mat-chip-listbox>
   }
@@ -34,7 +49,6 @@
 
 <div class="main-panel">
   <fl-infinite-scroll *ngIf="stories" [datasource]="stories" infiniteMode="auto" class="list-section">
-
     <div class="section-title">
       <h1 class="title">{{ 'stories' | translate }}</h1>
     </div>
@@ -42,17 +56,23 @@
     <div class="search-bar-title">
       <form (submit)="search()">
         <mat-form-field class="section-search-bar">
-          <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
+          <input
+            matInput
+            [formControl]="titleFormControl"
+            placeholder="{{ 'search_by_title' | translate }}" />
           <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
       </form>
-
     </div>
     <div class="stories-list">
-      <a *ngFor="let story of stories | flDatasourceConnect  | async" [routerLink]="story.publishedAt == null ? 'edit/' + story.id: (story | haDetailRoute)">
-        <co-story-list-item [story]="story" [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+      <a
+        *ngFor="let story of stories | flDatasourceConnect | async"
+        [routerLink]="story.publishedAt == null ? 'edit/' + story.id : (story | haDetailRoute)">
+        <co-story-list-item
+          [story]="story"
+          [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
       </a>
     </div>
   </fl-infinite-scroll>

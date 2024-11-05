@@ -7,6 +7,5 @@ import { CaBucketLocationDTO } from '../../../../model/entities/ca-object-storag
   styleUrls: ['./ca-bucket-location-inline.component.scss'],
 })
 export class CaBucketLocationInlineComponent {
-
-  @Input({required: true}) bucketLocation: CaBucketLocationDTO;
+  @Input({ required: true }) bucketLocation: CaBucketLocationDTO;
 }

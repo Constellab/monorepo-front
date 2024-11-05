@@ -6,7 +6,7 @@ import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlGlobalValidators,
-  FlPlatformService
+  FlPlatformService,
 } from '@monorepo/front-core-lib';
 import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
 import { CaLabAdminForm } from '../../../../model/entities/lab/ca-lab.form';
@@ -24,11 +24,12 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
 @Component({
   selector: 'ca-lab-admin-form-dialog',
   templateUrl: './ca-lab-admin-form-dialog.component.html',
-  styleUrls: ['./ca-lab-admin-form-dialog.component.scss']
+  styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
 })
-export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabAdminForm, CaLabWithSpace>
-  implements OnInit {
-
+export class CaLabAdminFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaLabAdminForm, CaLabWithSpace>
+  implements OnInit
+{
   dialogInput: CaLabAdminFormDialogInput = inject(MAT_DIALOG_DATA);
 
   maxNameLength = CaLabWithSpace.MAX_NAME_LENGTH;
@@ -37,8 +38,10 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
 
   updateIsInitiated = false;
 
-  constructor(private platformService: FlPlatformService,
-              private labService: CaLabService) {
+  constructor(
+    private platformService: FlPlatformService,
+    private labService: CaLabService
+  ) {
     super();
   }
 
@@ -77,7 +80,7 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
       space: [null, Validators.required],
       desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
       dailyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]],
-      weeklyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]]
+      weeklyBackupRegion: [{ value: null, disabled: this.isUpdateMode() }, [Validators.required]],
     });
   }
 
@@ -87,14 +90,13 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
    */
   protected patchUpdate(): void {
     this.labService.getByIdAdmin(this.dialogInput.id).subscribe({
-      next: lab => {
+      next: (lab) => {
         this.updateIsInitiated = true;
         this.formGp.patchValue(lab);
         this.onTypeChange(this.formGp.getRawValue().type);
-      }
+      },
     });
   }
-
 
   submit(): void {
     for (const [key, control] of Object.entries(this.formGp.controls)) {
@@ -121,7 +123,9 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
         this.formGp.get('region').enable();
 
         this.formGp.get('desktopPlatform').disable();
-        this.formGp.get('virtualHost').setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(true)]);
+        this.formGp
+          .get('virtualHost')
+          .setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(true)]);
         if (this.isCreateMode()) {
           this.formGp.get('dailyBackupRegion').enable();
           this.formGp.get('weeklyBackupRegion').enable();
@@ -144,8 +148,9 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
         this.formGp.get('dailyBackupRegion').disable();
         this.formGp.get('weeklyBackupRegion').disable();
 
-
-        this.formGp.get('virtualHost').setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(false)]);
+        this.formGp
+          .get('virtualHost')
+          .setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(false)]);
         break;
       case 'DESKTOP':
         this.formGp.get('desktopPlatform').enable();
@@ -195,5 +200,4 @@ export class CaLabAdminFormDialogComponent extends FlFormDialogAbstractDirective
   getUpdateSuccessMessage(): string {
     return 'lab_updated';
   }
-
 }

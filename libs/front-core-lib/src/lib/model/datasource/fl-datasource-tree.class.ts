@@ -1,18 +1,15 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
 export class FlTree<T> {
   id: string;
   children: FlTree<T>[];
 }
 
 export class FlDatasourceTree<T extends FlTree<T>> {
-
   private tree$: BehaviorSubject<T> = new BehaviorSubject<T>(null);
 
   private readonly childrenOrder: (a: T, b: T) => number;
-
 
   constructor(data?: T, childrenOrder?: (a: T, b: T) => number) {
     if (data) {
@@ -38,7 +35,6 @@ export class FlDatasourceTree<T extends FlTree<T>> {
     this.tree$.complete();
   }
 
-
   /////////////////////////////// FIND ///////////////////////////////
 
   public findNode(nodeId: string): T | null {
@@ -47,9 +43,7 @@ export class FlDatasourceTree<T extends FlTree<T>> {
   }
 
   public findNode$(nodeId: string): Observable<T | null> {
-    return this.tree$.pipe(
-      map(tree => this.findNodeRecur(tree, nodeId))
-    );
+    return this.tree$.pipe(map((tree) => this.findNodeRecur(tree, nodeId)));
   }
 
   public findParentNode(nodeId: string): T | null {
@@ -58,7 +52,7 @@ export class FlDatasourceTree<T extends FlTree<T>> {
   }
 
   private findNodeRecur(currentNode: T, nodeId: string): T {
-    if(!currentNode) return null;
+    if (!currentNode) return null;
     if (currentNode.id === nodeId) {
       return currentNode;
     }
@@ -129,7 +123,7 @@ export class FlDatasourceTree<T extends FlTree<T>> {
     const parentNode = this.findParentNode(nodeId);
     if (!parentNode) return;
 
-    parentNode.children = parentNode.children.filter(child => child.id !== nodeId);
+    parentNode.children = parentNode.children.filter((child) => child.id !== nodeId);
     this.tree$.next(this.tree);
   }
 

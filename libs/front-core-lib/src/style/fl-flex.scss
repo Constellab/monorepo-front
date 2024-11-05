@@ -1,7 +1,6 @@
 // wrap with body to override material style
 // autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 body {
-
   .g-layout-col {
     flex-direction: column;
     box-sizing: border-box;
@@ -128,7 +127,7 @@ body {
   }
 
   //////////////////////////////// FLEX ////////////////////////////////
-  .g-flex{
+  .g-flex {
     display: flex;
   }
 

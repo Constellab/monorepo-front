@@ -10,10 +10,19 @@ export class ClStringHelper {
    * @param toLowerCase if true, the string are converted to lower case for comparison
    * @param replaceAccent if false the accent are replace by the letter (an 'é' equals 'e')
    */
-  public static stringContains(container: string, partialString: string, trim: boolean = true,
-                               toLowerCase: boolean = true, replaceAccent: boolean = false): boolean {
-    if (container == null || partialString == null ||
-      typeof container !== 'string' || typeof partialString !== 'string') {
+  public static stringContains(
+    container: string,
+    partialString: string,
+    trim: boolean = true,
+    toLowerCase: boolean = true,
+    replaceAccent: boolean = false
+  ): boolean {
+    if (
+      container == null ||
+      partialString == null ||
+      typeof container !== 'string' ||
+      typeof partialString !== 'string'
+    ) {
       return false;
     }
 
@@ -37,7 +46,6 @@ export class ClStringHelper {
 
     return containerStr.indexOf(partialStr) !== -1;
   }
-
 
   public static getCleanUrlPath(str: string): string {
     if (str == null) return null;
@@ -99,7 +107,7 @@ export class ClStringHelper {
    * @param str string
    */
   public static isHttpLink(str: string): boolean {
-    return str != null && str?.substring(0, 8) === 'https://' || str?.substring(0, 7) === 'http://';
+    return (str != null && str?.substring(0, 8) === 'https://') || str?.substring(0, 7) === 'http://';
   }
 
   /**
@@ -149,7 +157,8 @@ export class ClStringHelper {
    */
   public static generateUUID(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      const r = (Math.random() * 16) | 0,
+        v = c == 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
     });
   }
@@ -189,7 +198,12 @@ export class ClStringHelper {
     return indices;
   }
 
-  public static replaceAt(str: string, index: number, replacementLength: number, replacement: string): string {
+  public static replaceAt(
+    str: string,
+    index: number,
+    replacementLength: number,
+    replacement: string
+  ): string {
     return str.substring(0, index) + replacement + str.substring(index + replacementLength);
   }
 
@@ -224,31 +238,29 @@ export class ClStringHelper {
    * @param url
    */
   public static getLowestDomainFromUrl(url: string): string {
-    if(url == null) return null;
-    url = url.replace('https://', '')
-      .replace('http://', '');
+    if (url == null) return null;
+    url = url.replace('https://', '').replace('http://', '');
     const domains = url.split('.');
-    if(domains.length < 2) return null;
+    if (domains.length < 2) return null;
     return domains[0];
   }
-
 
   /**
    * Return a valid id/string for url parameters
    * @param str
    */
-  public static toIdForUrl(str: string): string{
+  public static toIdForUrl(str: string): string {
     if (str == null) return null;
     if (typeof str !== 'string') {
       str = (str as any).toString();
     }
     str = str.replace(new RegExp(/[&?~/|\\'"[()\]%!§:;.,*^¨}{@°`]/g), '');
     str.replace('--', '-');
-    while(str[0] == '-'){
+    while (str[0] == '-') {
       str = str.slice();
     }
 
-    while (str[str.length-1] == '-'){
+    while (str[str.length - 1] == '-') {
       str = str.slice(0, -1);
     }
 

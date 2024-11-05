@@ -1,15 +1,13 @@
 import { LabBaseEntityWithUser } from './lab-user.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 
-
 export enum LabCredentialsType {
   BASIC = 'BASIC',
   S3 = 'S3',
-  OTHER = 'OTHER'
+  OTHER = 'OTHER',
 }
 
 export class LabCredentials extends LabBaseEntityWithUser {
-
   name: string;
 
   type: LabCredentialsType;

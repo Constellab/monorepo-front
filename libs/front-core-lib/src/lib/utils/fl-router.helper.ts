@@ -1,10 +1,8 @@
-import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
-import {distinctUntilChanged, Observable, startWith} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { distinctUntilChanged, Observable, startWith } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 export class FlRouterHelper {
-
   /**
    * Method used to listen to params of children routes. The paramsInheritanceStrategy: 'always' option must
    * be set in the main RouterModule config (RouterModule.forRoot)
@@ -15,10 +13,11 @@ export class FlRouterHelper {
     return router.events.pipe(
       // have a first emission
       startWith(new NavigationEnd(0, '', '')),
-      filter(event => event instanceof NavigationEnd),
+      filter((event) => event instanceof NavigationEnd),
       // prevent triggering when the query params changed
       distinctUntilChanged(
-        (previous: NavigationEnd, current: NavigationEnd) => previous.url.split('?')[0] === current.url.split('?')[0]
+        (previous: NavigationEnd, current: NavigationEnd) =>
+          previous.url.split('?')[0] === current.url.split('?')[0]
       ),
       // retrieve the child route
       map(() => {
@@ -27,7 +26,7 @@ export class FlRouterHelper {
           currentRoute = currentRoute.firstChild;
         }
         return currentRoute.params;
-      }),
+      })
     );
   }
 }

@@ -8,7 +8,7 @@ describe('HaNavigationPanelComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HaNavigationPanelComponent]
+      imports: [HaNavigationPanelComponent],
     });
     fixture = TestBed.createComponent(HaNavigationPanelComponent);
     component = fixture.componentInstance;

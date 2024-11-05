@@ -8,9 +8,10 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class FlQueryParamHandler<T extends Params = Params> {
-
-  constructor(private router: Router, private route: ActivatedRoute) {
-  }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   /**
    * Get the query params only one time
@@ -37,7 +38,7 @@ export class FlQueryParamHandler<T extends Params = Params> {
       relativeTo: this.route,
       queryParams: params,
       replaceUrl: replaceUrl,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: 'merge',
     });
   }
 }

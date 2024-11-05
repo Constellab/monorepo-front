@@ -8,9 +8,8 @@ describe('TeTimestrampComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTimestampComponent]
-    })
-    .compileComponents();
+      declarations: [TeTimestampComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTimestampComponent);
     component = fixture.componentInstance;

@@ -11,7 +11,7 @@ import {
   PrWorkflowNodeProtocol,
   PrWorkflowNodeSource,
   PrWorkflowNodeViewer,
-  PrWorkflowResourcesState
+  PrWorkflowResourcesState,
 } from '@monorepo/protocol';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import { Observable } from 'rxjs';
@@ -19,13 +19,13 @@ import { Injectable, NgZone } from '@angular/core';
 
 @Injectable()
 export class LabWorkflowFactory {
-
   private createSubLayer: (protocolId: string) => Observable<PrWorkflowLayer>;
 
-  constructor(private ngZone: NgZone,
-              private resourceState: PrWorkflowResourcesState,
-              private actionState: PrWorkflowActionState) {
-  }
+  constructor(
+    private ngZone: NgZone,
+    private resourceState: PrWorkflowResourcesState,
+    private actionState: PrWorkflowActionState
+  ) {}
 
   public initCreateSubLayerFunc(layerLoader: (protocolId: string) => Observable<PrWorkflowLayer>): void {
     this.createSubLayer = layerLoader;
@@ -37,13 +37,18 @@ export class LabWorkflowFactory {
   }
 
   public createLayer(protocol: LabProtocol, rootLayer: boolean): PrWorkflowLayer {
-
     let layer: PrWorkflowLayer;
     if (rootLayer) {
       layer = PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
     } else {
-      layer = new PrWorkflowLayer(protocol.id, protocol.id, protocol.instanceName, protocol.name,
-        this.resourceState, this.actionState);
+      layer = new PrWorkflowLayer(
+        protocol.id,
+        protocol.id,
+        protocol.instanceName,
+        protocol.name,
+        this.resourceState,
+        this.actionState
+      );
     }
 
     const protocolLayout = protocol.data.layout;
@@ -61,7 +66,7 @@ export class LabWorkflowFactory {
         fromNode: link.from.node,
         fromPort: link.from.port,
         toNode: link.to.node,
-        toPort: link.to.port
+        toPort: link.to.port,
       });
     }
 
@@ -78,21 +83,43 @@ export class LabWorkflowFactory {
     return layer;
   }
 
-
   public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNode {
     let processNode: PrWorkflowNode;
     if (process.isSource()) {
-      processNode = new PrWorkflowNodeSource(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        true, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeSource(
+        process.instanceName,
+        process.parentProtocolId,
+        process.toPrProcess(),
+        true,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.isOutput()) {
-      processNode = new PrWorkflowNodeOutput(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        true, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeOutput(
+        process.instanceName,
+        process.parentProtocolId,
+        process.toPrProcess(),
+        true,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.isViewer()) {
-      processNode = new PrWorkflowNodeViewer(process.instanceName, process.parentProtocolId, process.toPrProcess(),
-        true, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeViewer(
+        process.instanceName,
+        process.parentProtocolId,
+        process.toPrProcess(),
+        true,
+        this.resourceState,
+        this.actionState
+      );
     } else if (process.isProtocol) {
       const loadSubLayer: () => Observable<PrWorkflowLayer> = () => this.createSubLayer(process.id);
-      processNode = new PrWorkflowNodeProtocol(process.toPrProcess(), loadSubLayer, this.resourceState, this.actionState);
+      processNode = new PrWorkflowNodeProtocol(
+        process.toPrProcess(),
+        loadSubLayer,
+        this.resourceState,
+        this.actionState
+      );
     } else {
       processNode = new PrWorkflowNodeProcess(process.toPrProcess(), this.resourceState, this.actionState);
     }
@@ -104,8 +131,10 @@ export class LabWorkflowFactory {
     return processNode;
   }
 
-
-  public labProcessWithLinkToNodeWithLink(process: LabProcess, link: PrProtocolLink): PrAddNodeWithConnection {
+  public labProcessWithLinkToNodeWithLink(
+    process: LabProcess,
+    link: PrProtocolLink
+  ): PrAddNodeWithConnection {
     const node = this.labProcessToWorkflowNode(process);
 
     return {
@@ -114,8 +143,8 @@ export class LabWorkflowFactory {
         fromNode: link.from.node,
         fromPort: link.from.port,
         toNode: link.to.node,
-        toPort: link.to.port
-      }
+        toPort: link.to.port,
+      },
     };
   }
 }

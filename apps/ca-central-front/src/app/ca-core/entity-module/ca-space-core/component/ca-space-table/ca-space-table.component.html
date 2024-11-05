@@ -1,9 +1,8 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'name' | translate}}
+      {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let space">
       <ca-space-inline [space]="space"></ca-space-inline>
@@ -13,17 +12,17 @@
   <!-- type -->
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'type' | translate}}
+      {{ 'type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let space">
-      {{space.type}}
+      {{ space.type }}
     </mat-cell>
   </ng-container>
 
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'creation_info' | translate}}
+      {{ 'creation_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let space">
       <fl-user-with-date [user]="space.createdBy" [date]="space.createdAt"></fl-user-with-date>
@@ -33,29 +32,30 @@
   <!-- Last modified -->
   <ng-container matColumnDef="lastModified">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'last_modification_info' | translate}}
+      {{ 'last_modification_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let space">
       <fl-user-with-date [user]="space.lastModifiedBy" [date]="space.lastModifiedAt"></fl-user-with-date>
-
     </mat-cell>
   </ng-container>
 
   <!-- Detail url  -->
   <ng-container matColumnDef="detail">
     <mat-header-cell *matHeaderCellDef>
-      {{'detail' | translate}}
+      {{ 'detail' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let space">
-      <a mat-stroked-button class="g-button-small" [caExternalSpaceLink]="currentSpaceRoute"
-         [caExternalSpaceDomain]="space.domain">
+      <a
+        mat-stroked-button
+        class="g-button-small"
+        [caExternalSpaceLink]="currentSpaceRoute"
+        [caExternalSpaceDomain]="space.domain">
         <mat-icon>visibility</mat-icon>
-        <span>{{'detail' | translate}}</span>
+        <span>{{ 'detail' | translate }}</span>
       </a>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

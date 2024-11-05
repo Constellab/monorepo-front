@@ -9,7 +9,7 @@ import {
   Optional,
   Output,
   Renderer2,
-  Self
+  Self,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -31,11 +31,12 @@ import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[flInputFile][type=file]',
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }]
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }],
 })
-export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
-  implements OnInit, ControlValueAccessor, OnDestroy {
-
+export class FlInputFileDirective
+  extends FlFormFieldMultipleDirective<File>
+  implements OnInit, ControlValueAccessor, OnDestroy
+{
   private subscription: Subscription;
 
   /**
@@ -58,7 +59,6 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
    */
   @Input() maxFileSize: number = 0;
 
-
   /**
    *  @ignore
    *  call when a file is added
@@ -72,14 +72,14 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
     }
   }
 
-
-  constructor(private elementRef: ElementRef<HTMLInputElement>,
-              private renderer: Renderer2,
-              private snackBarService: FlSnackBarService,
-              @Optional() @Self() ngControl: NgControl) {
+  constructor(
+    private elementRef: ElementRef<HTMLInputElement>,
+    private renderer: Renderer2,
+    private snackBarService: FlSnackBarService,
+    @Optional() @Self() ngControl: NgControl
+  ) {
     super(ngControl);
   }
-
 
   ngOnInit(): void {
     this.elementRef.nativeElement.multiple = this.multiple;
@@ -128,11 +128,15 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
     setTimeout(() => {
       if (disable) {
         // add disable class to the parent to style label
-        this.renderer.addClass(this.elementRef.nativeElement.parentElement,
-          'fl-input-file-container-disabled');
+        this.renderer.addClass(
+          this.elementRef.nativeElement.parentElement,
+          'fl-input-file-container-disabled'
+        );
       } else {
-        this.renderer.removeClass(this.elementRef.nativeElement.parentElement,
-          'fl-input-file-container-disabled');
+        this.renderer.removeClass(
+          this.elementRef.nativeElement.parentElement,
+          'fl-input-file-container-disabled'
+        );
       }
     }, 0);
   }
@@ -181,24 +185,26 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
   private handleError(): void {
     if (this.maxFileSize) {
       this.snackBarService.openErrorMessage({
-        text: 'flFileInput.file_too_big', translateText: true,
+        text: 'flFileInput.file_too_big',
+        translateText: true,
         translateParam: {
           param: {
-            maxSize: FlFileHelper.getFileSizeText(this.maxFileSize)
-          }
-        }
+            maxSize: FlFileHelper.getFileSizeText(this.maxFileSize),
+          },
+        },
       });
       return;
     }
 
     if (this.getAcceptAttribute()?.length > 0) {
       this.snackBarService.openErrorMessage({
-        text: 'flFileInput.file_wrong_format', translateText: true,
+        text: 'flFileInput.file_wrong_format',
+        translateText: true,
         translateParam: {
           param: {
-            formats: this.getAcceptAttribute().join(', ')
-          }
-        }
+            formats: this.getAcceptAttribute().join(', '),
+          },
+        },
       });
       return;
     }
@@ -207,6 +213,4 @@ export class FlInputFileDirective extends FlFormFieldMultipleDirective<File>
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

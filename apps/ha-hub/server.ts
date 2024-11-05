@@ -11,7 +11,6 @@ import cookieParser from 'cookie-parser';
 import { REQUEST } from '@monorepo/front-core-lib';
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 
-
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
   constellabApiUrl: process?.env['CONSTELLAB_API_URL'] || 'https://api.preconstellab.com',
@@ -19,7 +18,7 @@ environment.settings = {
   communityFrontUrl: process?.env['COMMUNITY_FRONT_URL'] || 'http://localhost:4200',
   captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || '123465',
   googleAnalyticsId: process?.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
-  discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM'
+  discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -44,37 +43,42 @@ export function app(): express.Express {
       res.setHeader('X-Content-Type-Options', 'nosniff');
       res.setHeader('X-Xss-Protection', '1; mode=block');
       // TODO: CHECK IF THERE IS A BETTER WAY
-      const defaultSrc = 'default-src \'self\' *.constellab.community';
+      const defaultSrc = "default-src 'self' *.constellab.community";
       //'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' is for the inline script in the index.html
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
-      const scriptSrc = 'script-src \'self\' \'unsafe-hashes\' \'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=\' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:';
+      const scriptSrc =
+        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:";
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
-      const frameSrc = 'frame-src \'self\' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com';
-      const workerSrc = 'worker-src  *.gencovery.com *.constellab.community data: \'self\' blob:';
-      const styleSrc = 'style-src \'self\' \'unsafe-inline\' *.gencovery.com *.constellab.community https://fonts.googleapis.com';
-      const fontSrc = 'font-src \'self\' data: http: https: fonts.googleapis.com fonts.gstatic.com';
-      const imgSrc = 'img-src \'self\' blob: data: http: https: *.gencovery.com *.constellab.community';
+      const frameSrc =
+        "frame-src 'self' *.gencovery.com *.constellab.community *.gencovery.io *.constellab.app youtube.com www.youtube.com https://www.google.com";
+      const workerSrc = "worker-src  *.gencovery.com *.constellab.community data: 'self' blob:";
+      const styleSrc =
+        "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com";
+      const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
+      const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
-      const connectSrc = 'connect-src \'self\' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com';
+      const connectSrc =
+        "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com";
       // eslint-disable-next-line max-len
-      res.setHeader('Content-Security-Policy', `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`);
+      res.setHeader(
+        'Content-Security-Policy',
+        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`
+      );
 
       res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 
       res.setHeader(
         'Feature-Policy',
         // eslint-disable-next-line max-len
-        'accelerometer \'none\'; autoplay \'none\'; camera \'none\'; encrypted-media \'none\'; geolocation \'none\'; gyroscope \'none\'; magnetometer \'none\'; microphone \'self\'; midi \'none\'; payment \'none\''
+        "accelerometer 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'self'; midi 'none'; payment 'none'"
       );
     }
 
-
     next();
   };
-
 
   server.use(securityHeadersMiddleware);
   server.use(cookieParser());
@@ -95,14 +99,14 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
       const now = new Date();
       const oneDayInMs = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
-      if (lastSiteMapUpdate === null || (now.getTime() - lastSiteMapUpdate.getTime()) > oneDayInMs) {
-        const smStream = new SitemapStream({hostname: environment.settings.communityFrontUrl});
+      if (lastSiteMapUpdate === null || now.getTime() - lastSiteMapUpdate.getTime() > oneDayInMs) {
+        const smStream = new SitemapStream({ hostname: environment.settings.communityFrontUrl });
 
         const urls = [
-          {url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1},
-          {url: '/stories', changefreq: EnumChangefreq.MONTHLY, priority: 1},
-          {url: '/bricks', changefreq: EnumChangefreq.MONTHLY, priority: 1},
-          {url: '/login', changefreq: EnumChangefreq.MONTHLY, priority: 1}
+          { url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: '/stories', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: '/bricks', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: '/login', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
         ];
 
         const dynamicBricksUrls = await fetchBricksMap();
@@ -126,7 +130,6 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     }
   });
 
-
   server.use((req, res, next) => {
     // Set the cache control headers for specific file types
     if (req.url.match(/(dark-theme\.css|light-theme\.css|\.json)$/)) {
@@ -148,15 +151,17 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('**', express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: 'index.html',
-  }));
-
+  server.get(
+    '**',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+      index: 'index.html',
+    })
+  );
 
   // All regular routes use the Angular engine
   server.get('*', async (req, res, next) => {
-    const {protocol, originalUrl, baseUrl, headers} = req;
+    const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
       .render({
         bootstrap: AppServerModule,
@@ -164,11 +169,11 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
         providers: [
-          {provide: APP_BASE_HREF, useValue: baseUrl},
+          { provide: APP_BASE_HREF, useValue: baseUrl },
           // provide the request object to the DI so it can be access in SSR
           // check if this is still useful with new hydrate method
           // TODO check if this is really useful once app built
-          {provide: REQUEST, useValue: req},
+          { provide: REQUEST, useValue: req },
         ],
       })
       .then((html) => {
@@ -187,11 +192,11 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           res.status(404);
         }
 
-        res.send(html)
+        res.send(html);
       })
       .catch((err) => {
         console.error(err);
-        next(err)
+        next(err);
       });
   });
   return server;
@@ -235,7 +240,6 @@ function getMetaTagContent(html: string, tagName: string): string {
   return content?.split('"')[0];
 }
 
-
 function run(): void {
   const port = process.env['PORT'] || 4000;
   // Start up the Node server
@@ -246,5 +250,3 @@ function run(): void {
 }
 
 run();
-
-

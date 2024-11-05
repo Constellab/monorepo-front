@@ -3,11 +3,9 @@
   cursor: pointer;
 }
 
-
 .title-link:hover h2 {
   text-decoration: underline;
 }
-
 
 .all-button {
   flex-direction: row;
@@ -27,7 +25,6 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-
 
 @media (max-width: 1279px) {
   .grid-4-cols {

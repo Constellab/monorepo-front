@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {LabBiotaDatabaseService} from './lab-biota-database.service';
+import { LabBiotaDatabaseService } from './lab-biota-database.service';
 
 describe('BiotaDatabaseService', () => {
   let service: LabBiotaDatabaseService;

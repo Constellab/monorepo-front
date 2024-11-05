@@ -13,13 +13,18 @@ import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
  * Node for the interfaces
  */
 export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface> {
-
   // real name of the interface (the name might have been changed to make it unique)
   public interfaceName: string;
 
-  constructor(interfaceObject: PrInterface, parentLayerId: string, interfaceName: string,
-              private connectedNode: PrWorkflowNodeProcess, private connectedPort: PrWorkflowPort,
-              resourceState: PrWorkflowResourcesState, actionState: PrWorkflowActionState) {
+  constructor(
+    interfaceObject: PrInterface,
+    parentLayerId: string,
+    interfaceName: string,
+    private connectedNode: PrWorkflowNodeProcess,
+    private connectedPort: PrWorkflowPort,
+    resourceState: PrWorkflowResourcesState,
+    actionState: PrWorkflowActionState
+  ) {
     super(interfaceObject.name, parentLayerId, interfaceObject, true, resourceState, actionState);
     this.interfaceName = interfaceName;
   }
@@ -29,10 +34,14 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
   }
 
   protected initPorts(object: PrInterface): void {
-    this.createPort(object.portName, {
-      specs: object.portType,
-      resource_id: null
-    }, 'output');
+    this.createPort(
+      object.portName,
+      {
+        specs: object.portType,
+        resource_id: null,
+      },
+      'output'
+    );
   }
 
   getPort(): PrWorkflowPort {
@@ -56,15 +65,13 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
   }
 
   getResourceId$(): Observable<string> {
-    return this.connectedNode.getObject$().pipe(
-      map(process => process.inputs.ports[this.connectedPort.name]?.resource_id ?? null)
-    );
+    return this.connectedNode
+      .getObject$()
+      .pipe(map((process) => process.inputs.ports[this.connectedPort.name]?.resource_id ?? null));
   }
 
   getResource$(): Observable<FlStatusEvent<PrResource>> {
-    return this.connectedNode.getObject$().pipe(
-      switchMap(node => this.getResourceFromProcess(node))
-    );
+    return this.connectedNode.getObject$().pipe(switchMap((node) => this.getResourceFromProcess(node)));
   }
 
   private getResourceFromProcess(process: PrProcess): Observable<FlStatusEvent<PrResource>> {
@@ -96,15 +103,13 @@ export class PrWorkflowNodeInterface extends PrWorkflowNodeResource<PrInterface>
           type: 'interface',
           name: this.interfaceName,
           object: this.currentObject,
-          parentLayerId: this.parentLayerId
+          parentLayerId: this.parentLayerId,
         });
-      }
+      },
     });
   }
 
   protected getDefaultIcon(): string {
     return 'login';
   }
-
-
 }

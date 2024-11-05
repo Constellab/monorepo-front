@@ -5,10 +5,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 @Component({
   selector: 'ca-lab-login-button',
   templateUrl: './ca-lab-login-button.component.html',
-  styleUrls: ['./ca-lab-login-button.component.scss']
+  styleUrls: ['./ca-lab-login-button.component.scss'],
 })
 export class CaLabLoginButtonComponent implements OnInit {
-
   @Input() labId: string;
 
   @Input() isRunning: boolean = false;
@@ -17,18 +16,16 @@ export class CaLabLoginButtonComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private labService: CaLabService) {
-  }
+  constructor(private labService: CaLabService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   loginToLab(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.isLoading = true;
     this.labService.logUserToLab(this.labId).subscribe({
-      next: result => this.loginSuccess(result.url),
-      error: () => this.isLoading = false
+      next: (result) => this.loginSuccess(result.url),
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -46,5 +43,4 @@ export class CaLabLoginButtonComponent implements OnInit {
   stopEventPropagation(event: Event): void {
     event.stopPropagation();
   }
-
 }

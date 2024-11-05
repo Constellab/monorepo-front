@@ -1,5 +1,4 @@
 <fl-card>
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>history</mat-icon>
@@ -8,20 +7,29 @@
 
     <fl-card-actions>
       @if (isOwner$ | async) {
-        <button mat-stroked-button type="button" color="primary"
-                class="g-button-small" (click)="backupProd()">{{ 'backup_lab_production' | translate }}
+        <button
+          mat-stroked-button
+          type="button"
+          color="primary"
+          class="g-button-small"
+          (click)="backupProd()">
+          {{ 'backup_lab_production' | translate }}
         </button>
 
-        <button mat-stroked-button type="button" color="warn"
-                class="g-button-small" (click)="stopCurrentBackup()">{{ 'stop_lab_current_backups' | translate }}
+        <button
+          mat-stroked-button
+          type="button"
+          color="warn"
+          class="g-button-small"
+          (click)="stopCurrentBackup()">
+          {{ 'stop_lab_current_backups' | translate }}
         </button>
       }
 
-      <button mat-stroked-button type="button" (click)="syncHistory()"
-              class="g-button-small">
+      <button mat-stroked-button type="button" (click)="syncHistory()" class="g-button-small">
         <mat-icon>refresh</mat-icon>
         {{ 'lab_backup_history_sync' | translate }}
-        @if(syncIsLoading){
+        @if (syncIsLoading) {
           <fl-button-loader size="small"></fl-button-loader>
         }
       </button>

@@ -1,4 +1,4 @@
-import {CaSpacePhotoPipe} from './ca-space-photo.pipe';
+import { CaSpacePhotoPipe } from './ca-space-photo.pipe';
 
 describe('CaSpacePhotoPipe', () => {
   it('create an instance', () => {

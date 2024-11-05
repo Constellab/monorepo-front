@@ -1,13 +1,13 @@
-:host{
+:host {
   background-color: var(--card-background);
   border-radius: var(--card-radius);
   padding: 5px;
 }
 
-.edit-button{
+.edit-button {
   opacity: 0;
 }
 
-:host:hover .edit-button{
+:host:hover .edit-button {
   opacity: 1;
 }

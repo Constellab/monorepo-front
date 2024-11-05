@@ -9,18 +9,15 @@ export * from './lib/component/ch-chart-type-select-options/ch-chart-type-select
 // ChChartDataPortal
 export * from './lib/component/ch-chart-data-portal/ch-chart-bin-data-portal/ch-chart-bin-data-portal.component';
 export * from './lib/component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
-export *
-  from './lib/component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
+export * from './lib/component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
 export * from './lib/component/ch-chart-data-portal/ch-chart-heat-map-data-portal/ch-chart-heat-map-data-portal.component';
-export *
-  from './lib/component/ch-chart-data-portal/ch-chart-stacked-bar-data-portal/ch-chart-stacked-bar-data-portal.component';
+export * from './lib/component/ch-chart-data-portal/ch-chart-stacked-bar-data-portal/ch-chart-stacked-bar-data-portal.component';
 export * from './lib/component/ch-chart-data-portal/ch-chart-value/ch-chart-value.component';
 export * from './lib/component/ch-chart-data-portal/ch-chart-venn-data-portal/ch-chart-venn-data-portal.component';
 // Right section
 export * from './lib/component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
 export * from './lib/component/ch-chart-right-section/ch-chart-legend-multi-series/ch-chart-legend-multi-series.component';
-export *
-  from './lib/component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
+export * from './lib/component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
 
 // Pipes
 export * from './lib/pipe/ch-chart-color-function.pipe';
@@ -29,7 +26,6 @@ export * from './lib/pipe/ch-chart-value-formatter.pipe';
 
 // Export the service
 export * from './lib/service/ch-chart-portal.service';
-
 
 // States
 export * from './lib/state/ch-chart.state';
@@ -74,7 +70,6 @@ export * from './lib/model/ch-chart-config.class';
 export * from './lib/model/ch-chart-domain.class';
 export * from './lib/model/ch-chart-label-formatter.class';
 export * from './lib/model/ch-d3.class';
-
 
 // Renderer
 export * from './lib/renderer/ch-chart-renderer.class';

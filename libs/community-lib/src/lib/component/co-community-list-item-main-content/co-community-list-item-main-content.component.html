@@ -1,11 +1,11 @@
 <span class="title-space-span">
-  <h2>{{title}}</h2>
-  @if(showVisibility){
+  <h2>{{ title }}</h2>
+  @if (showVisibility) {
     <co-visibility-badge [space]="space"></co-visibility-badge>
   }
 </span>
 
-<p class="small-text description">{{description}}</p>
+<p class="small-text description">{{ description }}</p>
 <ng-content></ng-content>
 <div class="lower-info-div">
   <p class="small-text user-info">
@@ -15,16 +15,16 @@
     </span>
   </p>
   <div class="like-comment-div">
-    @if(likes !== null){
+    @if (likes !== null) {
       <fl-text-icon iconPosition="start" [gap]="'8px'">
         <mat-icon svgIcon="heart"></mat-icon>
-        <span>{{likes}}</span>
+        <span>{{ likes }}</span>
       </fl-text-icon>
     }
-    @if(comments !== null){
+    @if (comments !== null) {
       <fl-text-icon iconPosition="start" [gap]="'8px'">
         <mat-icon svgIcon="comment-accent"></mat-icon>
-        <span>{{comments}}</span>
+        <span>{{ comments }}</span>
       </fl-text-icon>
     }
   </div>

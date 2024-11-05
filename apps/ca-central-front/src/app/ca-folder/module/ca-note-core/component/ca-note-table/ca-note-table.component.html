@@ -5,7 +5,6 @@
       <span> {{ 'title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let note">
-
       @if (!rowSelectable) {
         <!--    Invisible link  -->
         <a [routerLink]="note | caDetailRoute" class="g-row-link"></a>
@@ -13,8 +12,10 @@
 
       <div [caNotificationMark]="note.id" caNotificationObjectType="NOTE">{{ note.title }}</div>
       @if (note.isValidated) {
-        <mat-icon class="status-icon g-row-button"
-                  [matTooltip]="'note_validated' | translate" flIcon="validated"></mat-icon>
+        <mat-icon
+          class="status-icon g-row-button"
+          [matTooltip]="'note_validated' | translate"
+          flIcon="validated"></mat-icon>
       }
     </mat-cell>
   </ng-container>
@@ -39,11 +40,11 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (click)="rowClicked(row)"></mat-row>
-
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)"></mat-row>
 </mat-table>

@@ -1,14 +1,14 @@
 <div class="page g-layout-row g-layout-center-center">
   <fl-card class="card" flClass.xs="card-xs">
     <fl-card-body>
-      <img [src]="logo" alt="Gencovery logo" class="logo"/>
+      <img [src]="logo" alt="Gencovery logo" class="logo" />
 
-      <fl-complete-login [redirectionRoute]="redirectionRoute" (loginSuccess)="onLoginSuccess()"
-                         class="login">
+      <fl-complete-login
+        [redirectionRoute]="redirectionRoute"
+        (loginSuccess)="onLoginSuccess()"
+        class="login">
         <ng-content></ng-content>
       </fl-complete-login>
     </fl-card-body>
   </fl-card>
-
 </div>
-

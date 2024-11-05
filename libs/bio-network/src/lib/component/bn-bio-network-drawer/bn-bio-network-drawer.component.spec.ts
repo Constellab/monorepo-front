@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkDrawerComponent} from './bn-bio-network-drawer.component';
+import { BnBioNetworkDrawerComponent } from './bn-bio-network-drawer.component';
 
 describe('FlPathwayDrawerActionComponent', () => {
   let component: BnBioNetworkDrawerComponent;
@@ -8,9 +8,8 @@ describe('FlPathwayDrawerActionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkDrawerComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkDrawerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

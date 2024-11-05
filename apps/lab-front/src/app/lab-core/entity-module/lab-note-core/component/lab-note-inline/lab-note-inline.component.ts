@@ -7,6 +7,5 @@ import { LabNote } from '../../../../model/entities/lab-note.entity';
   styleUrls: ['./lab-note-inline.component.scss'],
 })
 export class LabNoteInlineComponent {
-
   @Input() note: LabNote;
 }

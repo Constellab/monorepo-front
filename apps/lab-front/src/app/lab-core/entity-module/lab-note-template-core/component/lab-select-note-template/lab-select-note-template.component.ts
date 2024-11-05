@@ -3,25 +3,27 @@ import {
   FlDialogService,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
-  FlInputSearchFilter
+  FlInputSearchFilter,
 } from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
-import { LabNoteTemplate, LabNoteTemplateDatasource } from '../../../../model/entities/lab-note-template.entity';
+import {
+  LabNoteTemplate,
+  LabNoteTemplateDatasource,
+} from '../../../../model/entities/lab-note-template.entity';
 import { LabNoteTemplateService } from '../../../../entity-service/lab-note-template.service';
 import { Observable } from 'rxjs';
 import {
   LabSelectNoteTemplateDialogComponent,
-  LabSelectNoteTemplateDialogInput
+  LabSelectNoteTemplateDialogInput,
 } from '../lab-select-note-template-dialog/lab-select-note-template-dialog.component';
 
 @Component({
   selector: 'lab-select-note-template',
   templateUrl: './lab-select-note-template.component.html',
   styleUrls: ['./lab-select-note-template.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
 })
 export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNoteTemplate> implements OnInit {
-
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<LabNoteTemplate> = new EventEmitter();
@@ -32,9 +34,11 @@ export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNote
 
   advancedButton: FlInputSearchAdvancedButton<LabNoteTemplate>;
 
-  constructor(private noteTemplateService: LabNoteTemplateService,
-              private dialogService: FlDialogService,
-              @Optional() @Self() ngControl: NgControl) {
+  constructor(
+    private noteTemplateService: LabNoteTemplateService,
+    private dialogService: FlDialogService,
+    @Optional() @Self() ngControl: NgControl
+  ) {
     super(ngControl);
   }
 
@@ -43,7 +47,8 @@ export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNote
 
     const data: LabSelectNoteTemplateDialogInput = { mode: 'selection' };
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(LabSelectNoteTemplateDialogComponent, { data }).afterClosed()
+      onClick: () =>
+        this.dialogService.openBigDialog(LabSelectNoteTemplateDialogComponent, { data }).afterClosed(),
     };
   }
 
@@ -52,8 +57,7 @@ export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNote
     this.selectedNoteTemplate = value;
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: LabNoteTemplate): void {
     if (obj == null || (typeof obj != 'string' && obj.id == null)) {
@@ -73,6 +77,4 @@ export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNote
 
     this.value = obj;
   }
-
 }
-

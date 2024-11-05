@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PrWorkflowPortActionPortalComponent} from './pr-workflow-port-action-portal.component';
+import { PrWorkflowPortActionPortalComponent } from './pr-workflow-port-action-portal.component';
 
 describe('PrWorkflowPortActionPortalComponent', () => {
   let component: PrWorkflowPortActionPortalComponent;
@@ -8,9 +8,8 @@ describe('PrWorkflowPortActionPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrWorkflowPortActionPortalComponent]
-    })
-      .compileComponents();
+      declarations: [PrWorkflowPortActionPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PrWorkflowPortActionPortalComponent);
     component = fixture.componentInstance;

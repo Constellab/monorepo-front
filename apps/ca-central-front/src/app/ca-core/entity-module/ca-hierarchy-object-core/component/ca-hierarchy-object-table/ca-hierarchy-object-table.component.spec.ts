@@ -8,9 +8,8 @@ describe('CaFolderTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectTableComponent);
     component = fixture.componentInstance;

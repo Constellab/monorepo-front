@@ -1,11 +1,11 @@
-:host{
+:host {
   height: fit-content;
   width: inherit;
   background-color: inherit;
   cursor: inherit;
 }
 
-.community-list-item{
+.community-list-item {
   background-color: inherit;
   height: fit-content;
   width: inherit;
@@ -14,17 +14,16 @@
   border-radius: 18px;
 }
 
-.community-list-item:hover{
-
+.community-list-item:hover {
 }
 
-.community-list-item-left-side{
+.community-list-item-left-side {
   display: flex;
   flex-direction: column;
   flex: auto;
 }
 
-.community-list-item-right-side{
+.community-list-item-right-side {
   width: fit-content;
 }
 

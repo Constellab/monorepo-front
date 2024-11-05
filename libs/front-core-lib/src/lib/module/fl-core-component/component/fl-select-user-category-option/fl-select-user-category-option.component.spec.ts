@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSelectUserCategoryOptionComponent} from './fl-select-user-category-option.component';
+import { FlSelectUserCategoryOptionComponent } from './fl-select-user-category-option.component';
 
 describe('SelectUserCategoryOptionComponent', () => {
   let component: FlSelectUserCategoryOptionComponent;
@@ -8,9 +8,8 @@ describe('SelectUserCategoryOptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSelectUserCategoryOptionComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSelectUserCategoryOptionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

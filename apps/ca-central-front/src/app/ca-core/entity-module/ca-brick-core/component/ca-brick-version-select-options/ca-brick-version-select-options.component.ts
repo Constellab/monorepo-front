@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, Host, Input, OnInit} from '@angular/core';
-import {FlEmbeddedOptionsAbstractDirective} from '@monorepo/front-core-lib';
-import {MatSelect} from '@angular/material/select';
-import {mergeMap, Observable, of} from 'rxjs';
-import {CaBrickVersion} from '../../../../model/entities/ca-brick.class';
-import {CaBrickService} from '../../../../service-api/ca-brick.service';
-import {map} from 'rxjs/operators';
-import {ClVersion} from '@monorepo/core-lib';
+import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { MatSelect } from '@angular/material/select';
+import { mergeMap, Observable, of } from 'rxjs';
+import { CaBrickVersion } from '../../../../model/entities/ca-brick.class';
+import { CaBrickService } from '../../../../service-api/ca-brick.service';
+import { map } from 'rxjs/operators';
+import { ClVersion } from '@monorepo/core-lib';
 
 /**
  * Automatically search for available brick version and use version string as value
@@ -13,11 +13,12 @@ import {ClVersion} from '@monorepo/core-lib';
 @Component({
   selector: 'ca-brick-version-select-options',
   templateUrl: './ca-brick-version-select-options.component.html',
-  styleUrls: ['./ca-brick-version-select-options.component.scss']
+  styleUrls: ['./ca-brick-version-select-options.component.scss'],
 })
-export class CaBrickVersionSelectOptionsComponent extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit {
-
+export class CaBrickVersionSelectOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements OnInit, AfterViewInit
+{
   @Input() set brickName(brickName: string) {
     this.loadVersions(brickName);
   }
@@ -29,19 +30,20 @@ export class CaBrickVersionSelectOptionsComponent extends FlEmbeddedOptionsAbstr
 
   versions$: Observable<CaBrickVersion[]>;
 
-  constructor(@Host() private select: MatSelect,
-              private brickService: CaBrickService) {
+  constructor(
+    @Host() private select: MatSelect,
+    private brickService: CaBrickService
+  ) {
     super(select);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private loadVersions(brickName: string): void {
     if (brickName) {
-      this.versions$ = this.brickService.getBrickVersions(brickName).pipe(
-        mergeMap(brickVersions => this.filterVersionObservable(brickVersions))
-      );
+      this.versions$ = this.brickService
+        .getBrickVersions(brickName)
+        .pipe(mergeMap((brickVersions) => this.filterVersionObservable(brickVersions)));
     } else {
       this.versions$ = of([]);
     }
@@ -50,9 +52,7 @@ export class CaBrickVersionSelectOptionsComponent extends FlEmbeddedOptionsAbstr
   private filterVersionObservable(brickVersions: CaBrickVersion[]): Observable<CaBrickVersion[]> {
     if (this.minVersion$ == null) return of(brickVersions);
 
-    return this.minVersion$.pipe(
-      map(minVersion => this.filterVersions(brickVersions, minVersion))
-    );
+    return this.minVersion$.pipe(map((minVersion) => this.filterVersions(brickVersions, minVersion)));
   }
 
   private filterVersions(brickVersions: CaBrickVersion[], minVersion?: string): CaBrickVersion[] {
@@ -60,13 +60,10 @@ export class CaBrickVersionSelectOptionsComponent extends FlEmbeddedOptionsAbstr
 
     const minVersionObj = ClVersion.fromString(minVersion);
 
-    return brickVersions.filter(brickVersion => brickVersion.isEqualOrHigher(minVersionObj));
+    return brickVersions.filter((brickVersion) => brickVersion.isEqualOrHigher(minVersionObj));
   }
-
 
   ngAfterViewInit(): void {
     this.initOptions();
   }
-
-
 }

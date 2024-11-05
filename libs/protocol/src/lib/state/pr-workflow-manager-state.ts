@@ -1,18 +1,16 @@
-import {PrWorkflowNode} from '../model/node/pr-workflow-node.class';
-import {PrWorkflow, PrWorkflowMode} from '../model/workflow/pr-workflow.class';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {PrWorkflowLayer} from '../model/workflow/pr-workflow-layer.class';
-import {PrWorkflowNodeProtocol} from '../model/node/pr-workflow-node-protocol.class';
-import {PrWorkflowNodeMenuConfig} from '../model/workflow/pr-workflow-node-menu.config';
-
+import { PrWorkflowNode } from '../model/node/pr-workflow-node.class';
+import { PrWorkflow, PrWorkflowMode } from '../model/workflow/pr-workflow.class';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PrWorkflowLayer } from '../model/workflow/pr-workflow-layer.class';
+import { PrWorkflowNodeProtocol } from '../model/node/pr-workflow-node-protocol.class';
+import { PrWorkflowNodeMenuConfig } from '../model/workflow/pr-workflow-node-menu.config';
 
 /**
  * State for the workflow, it is created for the module and can only manage on state a the time
  */
 @Injectable()
 export class PrWorkflowManagerState {
-
   public workflow: PrWorkflow = null;
   public viewConfig: PrWorkflowNodeMenuConfig = null;
 
@@ -21,9 +19,7 @@ export class PrWorkflowManagerState {
   private mode$: Observable<PrWorkflowMode>;
   private currentMode: PrWorkflowMode;
 
-  constructor() {
-  }
-
+  constructor() {}
 
   // unique function stored to override workflow event
   private stopEventFunction = (event: any): void => {
@@ -32,9 +28,12 @@ export class PrWorkflowManagerState {
 
   //////////////////////// LAYER ////////////////////////////
 
-  public init(element: HTMLElement, workflow: PrWorkflow,
-              mode$: Observable<PrWorkflowMode>,
-              viewConfig: PrWorkflowNodeMenuConfig): PrWorkflow {
+  public init(
+    element: HTMLElement,
+    workflow: PrWorkflow,
+    mode$: Observable<PrWorkflowMode>,
+    viewConfig: PrWorkflowNodeMenuConfig
+  ): PrWorkflow {
     this.workflowElement = element;
     this.mode$ = mode$;
     this.currentMode = 'edit';
@@ -45,7 +44,6 @@ export class PrWorkflowManagerState {
     this.workflow.start(element);
 
     this.subscribeToMode();
-
 
     return this.workflow;
   }
@@ -69,7 +67,6 @@ export class PrWorkflowManagerState {
     this.workflow = null;
   }
 
-
   public getCurrentLayerHierarchy$(): Observable<PrWorkflowLayer[]> {
     return this.workflow.getCurrentLayerHierarchy$();
   }
@@ -81,7 +78,7 @@ export class PrWorkflowManagerState {
    * @private
    */
   private subscribeToMode(): void {
-    this.mode$.subscribe(mode => {
+    this.mode$.subscribe((mode) => {
       this.currentMode = mode;
       if (mode === 'readOnly') {
         this.workflowElement.addEventListener('contextmenu', this.stopEventFunction, true);
@@ -101,4 +98,3 @@ export class PrWorkflowManagerState {
     return this.currentMode;
   }
 }
-

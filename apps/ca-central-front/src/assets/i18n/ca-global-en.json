@@ -218,7 +218,7 @@
   "request_licenses_comment": "Comment",
   "no_notifications": "No notification in the last 30 days",
   "no_more_notifications": "No more notifications in the last 30 days",
-  "two_fa":  "Two factor authentication",
+  "two_fa": "Two factor authentication",
   "activate_two_fa": "Activate two factor authentication",
   "activate_two_fa_confirmation": "Activate two factor authentication. On each connection you will receive a code by mail to enter to complete you login.",
   "two_fa_enabled": "Two factor authentication activated",

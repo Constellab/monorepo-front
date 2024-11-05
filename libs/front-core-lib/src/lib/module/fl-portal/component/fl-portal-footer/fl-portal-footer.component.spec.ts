@@ -8,9 +8,8 @@ describe('FlPortalFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlPortalFooterComponent ]
-    })
-    .compileComponents();
+      declarations: [FlPortalFooterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

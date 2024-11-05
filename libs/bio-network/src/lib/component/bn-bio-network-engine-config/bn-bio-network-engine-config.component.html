@@ -1,50 +1,47 @@
-<h2>{{'bnBioNetwork.engine_config' | translate}}</h2>
+<h2>{{ 'bnBioNetwork.engine_config' | translate }}</h2>
 
 <form [formGroup]="formGp">
-
   <mat-checkbox formControlName="liveDrawing" color="primary" class="g-full checkbox">
-    {{'bnBioNetwork.live_drawing' | translate}}
+    {{ 'bnBioNetwork.live_drawing' | translate }}
   </mat-checkbox>
 
   <mat-checkbox formControlName="ignoreNodePositions" color="primary" class="g-full checkbox">
-    {{'bnBioNetwork.ignore_node_positions' | translate}}
+    {{ 'bnBioNetwork.ignore_node_positions' | translate }}
   </mat-checkbox>
 
   <div class="g-full g-layout-row-wrap g-layout-between-center g-form-field-compact">
-
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.alpha_min' | translate}}</mat-label>
-      <input type="number" matInput formControlName="alphaMin">
+      <mat-label>{{ 'bnBioNetwork.alpha_min' | translate }}</mat-label>
+      <input type="number" matInput formControlName="alphaMin" />
     </mat-form-field>
 
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.alpha_decay' | translate}}</mat-label>
-      <input type="number" matInput formControlName="alphaDecay">
+      <mat-label>{{ 'bnBioNetwork.alpha_decay' | translate }}</mat-label>
+      <input type="number" matInput formControlName="alphaDecay" />
     </mat-form-field>
 
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.velocity_decay' | translate}}</mat-label>
-      <input type="number" matInput formControlName="velocityDecay">
+      <mat-label>{{ 'bnBioNetwork.velocity_decay' | translate }}</mat-label>
+      <input type="number" matInput formControlName="velocityDecay" />
     </mat-form-field>
 
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.node_strength' | translate}}</mat-label>
-      <input type="number" matInput formControlName="nodeStrength">
+      <mat-label>{{ 'bnBioNetwork.node_strength' | translate }}</mat-label>
+      <input type="number" matInput formControlName="nodeStrength" />
     </mat-form-field>
 
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.center_strength' | translate}}</mat-label>
-      <input type="number" matInput formControlName="centerStrength">
+      <mat-label>{{ 'bnBioNetwork.center_strength' | translate }}</mat-label>
+      <input type="number" matInput formControlName="centerStrength" />
     </mat-form-field>
 
     <mat-form-field class="g-search-field input">
-      <mat-label>{{'bnBioNetwork.link_distance' | translate}}</mat-label>
-      <input type="number" matInput formControlName="linkDistance">
+      <mat-label>{{ 'bnBioNetwork.link_distance' | translate }}</mat-label>
+      <input type="number" matInput formControlName="linkDistance" />
     </mat-form-field>
   </div>
 
   <a href="https://github.com/d3/d3-force" target="_blank" class="g-text-link link">
-    <p>{{'bnBioNetwork.engine_help_link' | translate}}</p>
+    <p>{{ 'bnBioNetwork.engine_help_link' | translate }}</p>
   </a>
-
 </form>

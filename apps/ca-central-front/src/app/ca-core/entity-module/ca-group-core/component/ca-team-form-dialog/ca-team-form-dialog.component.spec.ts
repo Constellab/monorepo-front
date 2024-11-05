@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamFormDialogComponent} from './ca-team-form-dialog.component';
+import { CaTeamFormDialogComponent } from './ca-team-form-dialog.component';
 
 describe('CaGroupFormDialogComponent', () => {
   let component: CaTeamFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaGroupFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaTeamFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaTeamFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

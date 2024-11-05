@@ -9,6 +9,5 @@ export * from './fl-local-storage.service';
 export * from './fl-luxon-date-adapter.service';
 export * from './fl-plateform.service';
 
-
 // export the models
 export * from './model/fl-cookie.class';

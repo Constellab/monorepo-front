@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceInvitFormDialogComponent} from './ca-space-invit-form-dialog.component';
+import { CaSpaceInvitFormDialogComponent } from './ca-space-invit-form-dialog.component';
 
 describe('CaSpaceInvitFormDialogComponent', () => {
   let component: CaSpaceInvitFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceInvitFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceInvitFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceInvitFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpaceInvitFormDialogComponent);
     component = fixture.componentInstance;

@@ -1,10 +1,4 @@
-import {
-  computed,
-  Injectable,
-  Signal,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HaAgent } from '../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
@@ -24,8 +18,7 @@ import { FlStatusEvent, FlStatusEventSuccess } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class HaAgentPageState {
-  private agentStatusEvent: WritableSignal<FlStatusEvent<HaAgent>> =
-    signal<FlStatusEvent<HaAgent>>(null);
+  private agentStatusEvent: WritableSignal<FlStatusEvent<HaAgent>> = signal<FlStatusEvent<HaAgent>>(null);
   public isAgentError: Signal<boolean> = computed(() => {
     return this.agentStatusEvent() && this.agentStatusEvent().status == 'error';
   });
@@ -38,40 +31,25 @@ export class HaAgentPageState {
     return this.agent().likes;
   });
   private isAgentLoading: Signal<boolean> = computed(() => {
-    return (
-      this.agentStatusEvent() && this.agentStatusEvent().status == 'loading'
-    );
+    return this.agentStatusEvent() && this.agentStatusEvent().status == 'loading';
   });
-  private agentVersionsList: WritableSignal<HaAgentVersion[]> =
-    signal<HaAgentVersion[]>(null);
-  private agentVersionStatusEvent: WritableSignal<
-    FlStatusEvent<HaAgentVersion>
-  > = signal<FlStatusEvent<HaAgentVersion>>(null);
+  private agentVersionsList: WritableSignal<HaAgentVersion[]> = signal<HaAgentVersion[]>(null);
+  private agentVersionStatusEvent: WritableSignal<FlStatusEvent<HaAgentVersion>> =
+    signal<FlStatusEvent<HaAgentVersion>>(null);
   public agentVersion: Signal<HaAgentVersion> = computed(() => {
-    if (
-      this.agentVersionStatusEvent() &&
-      this.agentVersionStatusEvent().status == 'success'
-    )
-      return (
-        this.agentVersionStatusEvent() as FlStatusEventSuccess<HaAgentVersion>
-      ).object;
+    if (this.agentVersionStatusEvent() && this.agentVersionStatusEvent().status == 'success')
+      return (this.agentVersionStatusEvent() as FlStatusEventSuccess<HaAgentVersion>).object;
     return null;
   });
   public agentVersionIsEditable: Signal<boolean> = computed(() => {
     return this.agentVersion()?.versionState === HaAgentVersionState.DRAFT;
   });
   public isAgentVersionLoading: Signal<boolean> = computed(() => {
-    return (
-      this.agentVersionStatusEvent() &&
-      this.agentVersionStatusEvent().status == 'loading'
-    );
+    return this.agentVersionStatusEvent() && this.agentVersionStatusEvent().status == 'loading';
   });
 
   public isAgentVersionError: Signal<boolean> = computed(() => {
-    return (
-      this.agentVersionStatusEvent() &&
-      this.agentVersionStatusEvent().status == 'error'
-    );
+    return this.agentVersionStatusEvent() && this.agentVersionStatusEvent().status == 'error';
   });
 
   private agentCoAuthors: WritableSignal<HaUser[]> = signal<HaUser[]>(null);
@@ -93,9 +71,7 @@ export class HaAgentPageState {
       return false;
     }
 
-    return this.agentCoAuthors().some(
-      (coAuthor) => coAuthor.id === this.currentUser().id
-    );
+    return this.agentCoAuthors().some((coAuthor) => coAuthor.id === this.currentUser().id);
   });
   public isAuthor: Signal<boolean> = computed(() => {
     if (this.canEditAgent()) {
@@ -103,10 +79,8 @@ export class HaAgentPageState {
     }
     return false;
   });
-  private brickDependencies: WritableSignal<HaBrickVersion[]> =
-    signal<HaBrickVersion[]>(null);
-  private agentDescription: WritableSignal<TeRichTextContent> =
-    signal<TeRichTextContent>(null);
+  private brickDependencies: WritableSignal<HaBrickVersion[]> = signal<HaBrickVersion[]>(null);
+  private agentDescription: WritableSignal<TeRichTextContent> = signal<TeRichTextContent>(null);
   private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
   constructor(
@@ -170,10 +144,7 @@ export class HaAgentPageState {
     return this.brickDependencies;
   }
 
-  public setAgentVersionByVersionNumber(
-    agentId: string,
-    versionNumber: string
-  ): void {
+  public setAgentVersionByVersionNumber(agentId: string, versionNumber: string): void {
     this.agentVersionStatusEvent.set({ status: 'waiting' });
     if (!ClStringHelper.isUUID(agentId)) {
       this.agentVersionStatusEvent.set({
@@ -187,26 +158,24 @@ export class HaAgentPageState {
       return;
     }
 
-    this.agentService
-      .getAgentVersionByVersionNumber(agentId, versionNumber)
-      .subscribe({
-        next: (agentVersion) => {
-          if (agentVersion == null || agentVersion.id == null) {
-            this.agentVersionStatusEvent.set({
-              status: 'error',
-              error: 'agent_version_not_found',
-            });
-          } else {
-            this.setAgentVersion(agentVersion);
-          }
-        },
-        error: () => {
+    this.agentService.getAgentVersionByVersionNumber(agentId, versionNumber).subscribe({
+      next: (agentVersion) => {
+        if (agentVersion == null || agentVersion.id == null) {
           this.agentVersionStatusEvent.set({
             status: 'error',
             error: 'agent_version_not_found',
           });
-        },
-      });
+        } else {
+          this.setAgentVersion(agentVersion);
+        }
+      },
+      error: () => {
+        this.agentVersionStatusEvent.set({
+          status: 'error',
+          error: 'agent_version_not_found',
+        });
+      },
+    });
   }
 
   public setLatestAgentVersion(agentId: string): void {
@@ -253,9 +222,7 @@ export class HaAgentPageState {
 
   public updateAgentVersion(agentVersion: HaAgentVersion): void {
     this.agentVersionsList.update((agentVersions) => {
-      return agentVersions.map((lt) =>
-        lt.id === agentVersion.id ? agentVersion : lt
-      );
+      return agentVersions.map((lt) => (lt.id === agentVersion.id ? agentVersion : lt));
     });
 
     if (this.agentVersion().id === agentVersion.id) {
@@ -298,10 +265,7 @@ export class HaAgentPageState {
 
           if (paramTitle !== ClStringHelper.getCleanUrlPath(agent.title)) {
             this.httpRedirectionService.redirectTo(
-              HaRouterService.getAgentRoute(
-                agent.id,
-                ClStringHelper.getCleanUrlPath(agent.title)
-              )
+              HaRouterService.getAgentRoute(agent.id, ClStringHelper.getCleanUrlPath(agent.title))
             );
           }
         } else {
@@ -324,11 +288,9 @@ export class HaAgentPageState {
     if (agent == null) {
       return;
     }
-    this.agentService
-      .getPublishedAgentVersions(agent.id)
-      .subscribe((agentVersions) => {
-        this.agentVersionsList.set(agentVersions);
-      });
+    this.agentService.getPublishedAgentVersions(agent.id).subscribe((agentVersions) => {
+      this.agentVersionsList.set(agentVersions);
+    });
   }
 
   private initUser(agentId: string, paramTitle: string): void {
@@ -342,18 +304,14 @@ export class HaAgentPageState {
     if (agent == null) {
       return;
     }
-    this.likeService
-      .checkIfLiked(HaLikeType.AGENT_LIKE, agent.id)
-      .subscribe((isLiked) => {
-        this.setIsLiked(isLiked);
-      });
+    this.likeService.checkIfLiked(HaLikeType.AGENT_LIKE, agent.id).subscribe((isLiked) => {
+      this.setIsLiked(isLiked);
+    });
   }
 
   private checkBrickDependencies(agentVersion: HaAgentVersion): void {
-    this.agentService
-      .getAgentVersionBrickDependencies(agentVersion.id)
-      .subscribe((brickDependencies) => {
-        this.brickDependencies.set(brickDependencies);
-      });
+    this.agentService.getAgentVersionBrickDependencies(agentVersion.id).subscribe((brickDependencies) => {
+      this.brickDependencies.set(brickDependencies);
+    });
   }
 }

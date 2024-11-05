@@ -1,4 +1,4 @@
-import {CaNotificationMarkDirective} from './ca-notification-mark.directive';
+import { CaNotificationMarkDirective } from './ca-notification-mark.directive';
 
 describe('CaNotificationMarkDirective', () => {
   it('should create an instance', () => {

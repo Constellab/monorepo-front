@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Observable, Subscription} from 'rxjs';
+import { Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
 import katex from 'katex';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'fl-formula-standalone',
@@ -11,7 +11,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
   templateUrl: './fl-formula-standalone.component.html',
   styleUrl: './fl-formula-standalone.component.scss',
   // use encapsulation to import KaTeX styles
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class FlFormulaStandaloneComponent implements OnDestroy {
   @Input() set formula(formula: string | Observable<string>) {
@@ -30,8 +30,7 @@ export class FlFormulaStandaloneComponent implements OnDestroy {
   katexResult: SafeHtml;
   katexError: string;
 
-  constructor(private sanitizer: DomSanitizer) {
-  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   private onFormulaChange(formula: string): void {
     const macros = {
@@ -41,7 +40,7 @@ export class FlFormulaStandaloneComponent implements OnDestroy {
     try {
       const katexResult = katex.renderToString(formula ?? '', {
         macros,
-        throwOnError: true
+        throwOnError: true,
       });
 
       this.katexResult = this.sanitizer.bypassSecurityTrustHtml(katexResult);

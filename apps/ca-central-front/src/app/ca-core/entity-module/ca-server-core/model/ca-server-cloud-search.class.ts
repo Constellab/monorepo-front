@@ -2,7 +2,7 @@ import {
   FlFormInputsManagerConfig,
   FlSearchConverter,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -56,21 +56,20 @@ export class CaServerCloudSearch {
     return 0;
   }
 
-
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
    */
   public static filterConverter: FlSearchFilterCriteriaConverter<CaServerCloudSearchFields> = {
-    technicalName: {key: 'technicalName', operator: 'CONTAINS'},
-    cloudProvider: {key: 'cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    serverStandard: {key: 'serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
-    ram: {key: 'ram', operator: 'EQ'},
-    diskSpace: {key: 'diskSpace', operator: 'EQ'},
-    diskType: {key: 'diskType', operator: 'EQ'},
-    cpuCount: {key: 'cpuCount', operator: 'EQ'},
-    cpuType: {key: 'cpuType', operator: 'CONTAINS'},
-    hasGpu: {key: 'gpuCount', operator: 'GE', convertValue: CaServerCloudSearch.convertHasGpuValue},
-    id: {key: 'id', operator: 'EQ'},
+    technicalName: { key: 'technicalName', operator: 'CONTAINS' },
+    cloudProvider: { key: 'cloudProvider.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    serverStandard: { key: 'serverStandard.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
+    ram: { key: 'ram', operator: 'EQ' },
+    diskSpace: { key: 'diskSpace', operator: 'EQ' },
+    diskType: { key: 'diskType', operator: 'EQ' },
+    cpuCount: { key: 'cpuCount', operator: 'EQ' },
+    cpuType: { key: 'cpuType', operator: 'CONTAINS' },
+    hasGpu: { key: 'gpuCount', operator: 'GE', convertValue: CaServerCloudSearch.convertHasGpuValue },
+    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
@@ -83,22 +82,18 @@ export class CaServerCloudSearch {
     gpu: 'gpuCount',
   };
 
-
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        technicalName: [null],
-        cloudProvider: [null],
-        serverStandard : [null],
-        ram: [null],
-        diskSpace: [null],
-        diskType: [null],
-        cpuCount: [null],
-        cpuType: [null],
-        hasGpu: [null],
-        id: [null],
-      }
-    );
+    return new FormBuilder().group({
+      technicalName: [null],
+      cloudProvider: [null],
+      serverStandard: [null],
+      ram: [null],
+      diskSpace: [null],
+      diskType: [null],
+      cpuCount: [null],
+      cpuType: [null],
+      hasGpu: [null],
+      id: [null],
+    });
   }
-
 }

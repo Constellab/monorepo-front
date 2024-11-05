@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUserSpacesListComponent} from './ca-user-spaces-list.component';
+import { CaUserSpacesListComponent } from './ca-user-spaces-list.component';
 
 describe('CaUserSpacesListComponent', () => {
   let component: CaUserSpacesListComponent;

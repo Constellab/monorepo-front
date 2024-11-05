@@ -1,28 +1,27 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   FlApiService,
   FlAuthLogin2FaResponse,
   FlAuthLoginResponse,
   FlAuthService,
   FlCleanerService,
-  FlCookieService
+  FlCookieService,
 } from '@monorepo/front-core-lib';
-import {tap} from 'rxjs/operators';
-import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
-
+import { tap } from 'rxjs/operators';
+import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 
 /**
  * Service to handle login and logout and store cookie to check if user is connected
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabAuthService extends FlAuthService {
-
-
-  constructor(private apiService: FlApiService,
-              cookieService: FlCookieService) {
+  constructor(
+    private apiService: FlApiService,
+    cookieService: FlCookieService
+  ) {
     super(cookieService);
   }
 
@@ -42,7 +41,6 @@ export class LabAuthService extends FlAuthService {
   checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse> {
     return this.apiService.post('login-2fa', credentials);
   }
-
 
   /**
    * Remove the JWT from the memory and localstorage, clear the user data

@@ -1,39 +1,44 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {LabVenvArrayObs, LabVenvBasicInfo} from '../../../model/entities/lab-venv.entity';
+import { LabVenvArrayObs, LabVenvBasicInfo } from '../../../model/entities/lab-venv.entity';
 import {
   LabVenvDetailDialogComponent,
-  LabVenvDetailDialogInput
+  LabVenvDetailDialogInput,
 } from '../lab-venv-detail-dialog/lab-venv-detail-dialog.component';
-import {LabVenvService} from '../../../entity-service/lab-venv.service';
+import { LabVenvService } from '../../../entity-service/lab-venv.service';
 
 @Component({
   selector: 'lab-venv-table',
   templateUrl: './lab-venv-table.component.html',
-  styleUrls: ['./lab-venv-table.component.scss']
+  styleUrls: ['./lab-venv-table.component.scss'],
 })
 export class LabVenvTableComponent {
-
   @Input() datasource: LabVenvArrayObs;
 
-  @Input() columns: FlTableColumnStatic<LabVenvBasicInfo>[]
-    = ['name', 'type', 'configFileOrigin', 'createdAt', 'actions'];
+  @Input() columns: FlTableColumnStatic<LabVenvBasicInfo>[] = [
+    'name',
+    'type',
+    'configFileOrigin',
+    'createdAt',
+    'actions',
+  ];
 
-  constructor(private dialogService: FlDialogService,
-              private venvService: LabVenvService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private venvService: LabVenvService
+  ) {}
 
   openVenvDetailDialog(venv: LabVenvBasicInfo): void {
     const input: LabVenvDetailDialogInput = {
-      venvName: venv.name
+      venvName: venv.name,
     };
 
-    this.dialogService.openMediumDialog(LabVenvDetailDialogComponent, {data: input});
+    this.dialogService.openMediumDialog(LabVenvDetailDialogComponent, { data: input });
   }
 
   openDeleteVenvDialog(venv: LabVenvBasicInfo): void {
@@ -44,9 +49,10 @@ export class LabVenvTableComponent {
       successMessage: 'monitoring.delete_venv_success',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, venv)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, venv));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, venv: LabVenvBasicInfo): void {
@@ -54,6 +60,4 @@ export class LabVenvTableComponent {
       this.datasource.removeItem(venv);
     }
   }
-
-
 }

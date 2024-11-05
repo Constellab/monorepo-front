@@ -8,9 +8,8 @@ describe('FlLoadingCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlLoadingCardComponent ]
-    })
-    .compileComponents();
+      declarations: [FlLoadingCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

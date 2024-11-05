@@ -1,20 +1,18 @@
-import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
-import {Observable} from 'rxjs';
-import {BnBioNetworkOptions} from '../state/bn-bio-network-options.state';
-import {BnBioNetworkGraphRenderer} from './bn-bio-network-main.renderer';
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
+import { Observable } from 'rxjs';
+import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
 
 /**
  * Renderer for the background grid
  */
 export class BnBioNetworkGridRenderer {
-
-
-  constructor(private graphRenderer: BnBioNetworkGraphRenderer,
-              private color: string,
-              options$: Observable<BnBioNetworkOptions>) {
-    options$.subscribe(
-      action => this.updateGrid(action.showGrid)
-    );
+  constructor(
+    private graphRenderer: BnBioNetworkGraphRenderer,
+    private color: string,
+    options$: Observable<BnBioNetworkOptions>
+  ) {
+    options$.subscribe((action) => this.updateGrid(action.showGrid));
   }
 
   private updateGrid(showGrid: boolean): void {

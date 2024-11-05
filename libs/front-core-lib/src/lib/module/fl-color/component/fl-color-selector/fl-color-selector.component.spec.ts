@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlColorSelectorComponent} from './fl-color-selector.component';
+import { FlColorSelectorComponent } from './fl-color-selector.component';
 
 describe('FlColorSelectorComponent', () => {
   let component: FlColorSelectorComponent;
@@ -8,9 +8,8 @@ describe('FlColorSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlColorSelectorComponent ]
-    })
-    .compileComponents();
+      declarations: [FlColorSelectorComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

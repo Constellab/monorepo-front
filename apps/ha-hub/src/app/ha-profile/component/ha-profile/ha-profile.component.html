@@ -13,15 +13,20 @@
           }
         </div>
         <div class="links-div">
-          <ha-profile-attached-link [linkType]="'x'" [attachedLink]="user.xLink"
-                                    *ngIf="user.xLink"></ha-profile-attached-link>
-          <ha-profile-attached-link [linkType]="'linkedin'" [attachedLink]="user.linkedinLink"
-                                    *ngIf="user.linkedinLink"></ha-profile-attached-link>
-          <ha-profile-attached-link [linkType]="'github'" [attachedLink]="user.githubLink"
-                                    *ngIf="user.githubLink"></ha-profile-attached-link>
+          <ha-profile-attached-link
+            [linkType]="'x'"
+            [attachedLink]="user.xLink"
+            *ngIf="user.xLink"></ha-profile-attached-link>
+          <ha-profile-attached-link
+            [linkType]="'linkedin'"
+            [attachedLink]="user.linkedinLink"
+            *ngIf="user.linkedinLink"></ha-profile-attached-link>
+          <ha-profile-attached-link
+            [linkType]="'github'"
+            [attachedLink]="user.githubLink"
+            *ngIf="user.githubLink"></ha-profile-attached-link>
         </div>
       </div>
-
 
       <div>
         <p>{{ 'interests' | translate }} :</p>
@@ -50,12 +55,20 @@
             {{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span>
           </fl-text-icon>
         </h4>
-        <fl-infinite-scroll [datasource]="stories$" infiniteMode="auto" class="list g-scrollable-element"
-                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_story_yet' | translate">
-          <a class="list-element" *ngFor="let story of stories$ | flDatasourceConnect | async"
-             [routerLink]="(story | haDetailRoute)">
-            <co-story-list-item [story]="story"
-                                [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+        <fl-infinite-scroll
+          [datasource]="stories$"
+          infiniteMode="auto"
+          class="list g-scrollable-element"
+          cdkScrollable
+          [textNoMoreResult]="''"
+          [textNoResult]="'no_story_yet' | translate">
+          <a
+            class="list-element"
+            *ngFor="let story of stories$ | flDatasourceConnect | async"
+            [routerLink]="story | haDetailRoute">
+            <co-story-list-item
+              [story]="story"
+              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
           </a>
         </fl-infinite-scroll>
       }
@@ -67,10 +80,17 @@
             {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
           </fl-text-icon>
         </h4>
-        <fl-infinite-scroll [datasource]="agents$" infiniteMode="auto" class="list g-scrollable-element"
-                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_agent_yet' | translate">
-          <a class="list-element" *ngFor="let agent of agents$ | flDatasourceConnect | async"
-             [routerLink]="(agent | haDetailRoute)">
+        <fl-infinite-scroll
+          [datasource]="agents$"
+          infiniteMode="auto"
+          class="list g-scrollable-element"
+          cdkScrollable
+          [textNoMoreResult]="''"
+          [textNoResult]="'no_agent_yet' | translate">
+          <a
+            class="list-element"
+            *ngFor="let agent of agents$ | flDatasourceConnect | async"
+            [routerLink]="agent | haDetailRoute">
             <co-agent-list-item [agent]="agent"></co-agent-list-item>
           </a>
         </fl-infinite-scroll>
@@ -83,15 +103,23 @@
             {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
           </fl-text-icon>
         </h4>
-        <fl-infinite-scroll [datasource]="bricks$" infiniteMode="auto" class="list g-scrollable-element"
-                            cdkScrollable [textNoMoreResult]="''" [textNoResult]="'no_brick_yet' | translate">
-          <a class="list-element" *ngFor="let brick of bricks$ | flDatasourceConnect | async"
-             [routerLink]="(brick | haDetailRoute)">
-            <co-brick-list-item [brick]="brick" [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+        <fl-infinite-scroll
+          [datasource]="bricks$"
+          infiniteMode="auto"
+          class="list g-scrollable-element"
+          cdkScrollable
+          [textNoMoreResult]="''"
+          [textNoResult]="'no_brick_yet' | translate">
+          <a
+            class="list-element"
+            *ngFor="let brick of bricks$ | flDatasourceConnect | async"
+            [routerLink]="brick | haDetailRoute">
+            <co-brick-list-item
+              [brick]="brick"
+              [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
           </a>
         </fl-infinite-scroll>
       }
     </div>
-
   </div>
 }

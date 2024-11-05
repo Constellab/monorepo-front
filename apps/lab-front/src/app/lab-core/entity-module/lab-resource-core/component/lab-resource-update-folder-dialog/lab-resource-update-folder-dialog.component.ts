@@ -1,13 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabFolder} from '../../../../model/entities/lab-folder.class';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {LabScenarioService} from '../../../../entity-service/lab-scenario.service';
-import {FormControl} from '@angular/forms';
-import {FlSnackBarService} from '@monorepo/front-core-lib';
-import {LabScenario} from '../../../../model/entities/lab-scenario.entity';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabFolder } from '../../../../model/entities/lab-folder.class';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
+import { FormControl } from '@angular/forms';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 
 export interface LabResourceUpdateFolderDialogInput {
   resourceId: string;
@@ -29,20 +28,20 @@ export interface LabResourceUpdateFolderDialogOutput {
 @Component({
   selector: 'lab-resource-update-folder-dialog',
   templateUrl: './lab-resource-update-folder-dialog.component.html',
-  styleUrls: ['./lab-resource-update-folder-dialog.component.scss']
+  styleUrls: ['./lab-resource-update-folder-dialog.component.scss'],
 })
 export class LabResourceUpdateFolderDialogComponent implements OnInit {
-
   formControl: FormControl<LabFolder>;
 
   isLoading: boolean;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: LabResourceUpdateFolderDialogInput,
-              private dialogRef: MatDialogRef<LabResourceUpdateFolderDialogComponent>,
-              private resourceService: LabResourceService,
-              private scenarioService: LabScenarioService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: LabResourceUpdateFolderDialogInput,
+    private dialogRef: MatDialogRef<LabResourceUpdateFolderDialogComponent>,
+    private resourceService: LabResourceService,
+    private scenarioService: LabScenarioService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.formControl = new FormControl(this.data.folder);
@@ -67,32 +66,30 @@ export class LabResourceUpdateFolderDialogComponent implements OnInit {
 
   private updateResourceFolder(folderId: string): void {
     this.resourceService.updateFolder(this.data.resourceId, folderId).subscribe({
-      next: resource => this.updateResourceFolderSuccess(resource),
-      error: () => this.isLoading = false
+      next: (resource) => this.updateResourceFolderSuccess(resource),
+      error: () => (this.isLoading = false),
     });
   }
 
   private updateResourceFolderSuccess(resource: LabResource): void {
-    this.snackBarService.openSuccessMessage({text: 'biox.resource_folder_updated', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'biox.resource_folder_updated', translateText: true });
     this.closeDialog(resource.folder);
   }
 
   private updateScenarioFolder(folderId: string): void {
     this.scenarioService.updateFolder(this.data.scenario.id, folderId).subscribe({
-      next: scenario => this.updateScenarioFolderSuccess(scenario),
-      error: () => this.isLoading = false
+      next: (scenario) => this.updateScenarioFolderSuccess(scenario),
+      error: () => (this.isLoading = false),
     });
   }
 
   private updateScenarioFolderSuccess(scenario: LabScenario): void {
-    this.snackBarService.openSuccessMessage({text: 'biox.scenario_folder_updated', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'biox.scenario_folder_updated', translateText: true });
     this.closeDialog(scenario.folder);
   }
 
   private closeDialog(folder: LabFolder): void {
     this.isLoading = false;
-    this.dialogRef.close({folder: folder} as LabResourceUpdateFolderDialogOutput);
+    this.dialogRef.close({ folder: folder } as LabResourceUpdateFolderDialogOutput);
   }
-
-
 }

@@ -4,13 +4,15 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="restore-backup-form" [formGroup]="formGp">
-
     <div [innerHTML]="'restore_backup_to_lab_help' | translate" class="help-text"></div>
 
     <!--  Lab  -->
     <fl-form-field class="g-form-input">
-      <ca-select-lab formControlName="destinationLab" mode="all-cloud" [required]="true"
-                     [placeholder]="'destination_lab' | translate"></ca-select-lab>
+      <ca-select-lab
+        formControlName="destinationLab"
+        mode="all-cloud"
+        [required]="true"
+        [placeholder]="'destination_lab' | translate"></ca-select-lab>
       <mat-error *ngIf="formGp.get('destinationLab').hasError('required')">
         {{ 'destination_lab' | flErrorRequired }}
       </mat-error>
@@ -27,13 +29,11 @@
     <div>
       <mat-checkbox formControlName="force">{{ 'force_restore' | translate }}</mat-checkbox>
     </div>
-
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="restore-backup-form"
-          class="g-centered-forced">
+  <button mat-flat-button color="primary" type="submit" form="restore-backup-form" class="g-centered-forced">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

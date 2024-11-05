@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabLoginButtonComponent} from './ca-lab-login-button.component';
+import { CaLabLoginButtonComponent } from './ca-lab-login-button.component';
 
 describe('CaLabLoginButtonComponent', () => {
   let component: CaLabLoginButtonComponent;
@@ -8,9 +8,8 @@ describe('CaLabLoginButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabLoginButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabLoginButtonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

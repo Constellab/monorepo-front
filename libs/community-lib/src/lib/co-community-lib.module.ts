@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import {
-  FlCardModule, FlColorModule,
+  FlCardModule,
+  FlColorModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
@@ -13,7 +14,7 @@ import {
   FlTextIconModule,
   FlTranslateModule,
   FlTranslateService,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import { coCommunityLibI18n } from './co-community-lib.i18n';
 import { CoAgentListItemComponent } from './component/co-agent-list-item/co-agent-list-item.component';
@@ -24,13 +25,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CoAgentCreateDialogFormComponent
-} from './component/co-agent-create-dialog-form/co-agent-create-dialog-form.component';
+import { CoAgentCreateDialogFormComponent } from './component/co-agent-create-dialog-form/co-agent-create-dialog-form.component';
 import { CoCommunityListItemComponent } from './component/co-community-list-item/co-community-list-item.component';
-import {
-  CoCommunityListItemMainContentComponent
-} from './component/co-community-list-item-main-content/co-community-list-item-main-content.component';
+import { CoCommunityListItemMainContentComponent } from './component/co-community-list-item-main-content/co-community-list-item-main-content.component';
 import { CoVisibilityBadgeComponent } from './component/co-visibility-badge/co-visibility-badge.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CoStoryListItemComponent } from './component/co-story-list-item/co-story-list-item.component';
@@ -107,18 +104,11 @@ import { MatDivider } from '@angular/material/divider';
 })
 export class CoCommunityLibModule {
   constructor(translateService: FlTranslateService) {
-    translateService.addModuleTranslation(
-      'CoCommunityLibModule',
-      coCommunityLibI18n
-    );
+    translateService.addModuleTranslation('CoCommunityLibModule', coCommunityLibI18n);
   }
 
-  public static forRoot(
-    apiServiceConfig: Type<CoConfig>
-  ): ModuleWithProviders<CoCommunityLibModule> {
-    const providers: Provider[] = [
-      { provide: CoConfig, useClass: apiServiceConfig },
-    ];
+  public static forRoot(apiServiceConfig: Type<CoConfig>): ModuleWithProviders<CoCommunityLibModule> {
+    const providers: Provider[] = [{ provide: CoConfig, useClass: apiServiceConfig }];
 
     return {
       ngModule: CoCommunityLibModule,

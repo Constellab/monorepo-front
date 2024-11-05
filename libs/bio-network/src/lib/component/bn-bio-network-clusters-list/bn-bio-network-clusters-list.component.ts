@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {BnBioNetworkState} from '../../state/bn-bio-network.state';
-import {BnBioNetworkOptionsState} from '../../state/bn-bio-network-options.state';
-import {BnBioNetworkClusterSelection} from '../../model/bn-bio-network.class';
-import {MatSelectChange} from '@angular/material/select';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BnBioNetworkState } from '../../state/bn-bio-network.state';
+import { BnBioNetworkOptionsState } from '../../state/bn-bio-network-options.state';
+import { BnBioNetworkClusterSelection } from '../../model/bn-bio-network.class';
+import { MatSelectChange } from '@angular/material/select';
 
 /**
  * Show the list of cluster with possibility to select them and color them
@@ -11,16 +11,16 @@ import {MatSelectChange} from '@angular/material/select';
 @Component({
   selector: 'bn-bio-network-clusters-list',
   templateUrl: './bn-bio-network-clusters-list.component.html',
-  styleUrls: ['./bn-bio-network-clusters-list.component.scss']
+  styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
 })
 export class BnBioNetworkClustersListComponent implements OnInit {
-
   clusters$: Observable<BnBioNetworkClusterSelection[]>;
   clustersAllSelected: boolean = false;
 
-
-  constructor(private state: BnBioNetworkState, private optionState: BnBioNetworkOptionsState) {
-  }
+  constructor(
+    private state: BnBioNetworkState,
+    private optionState: BnBioNetworkOptionsState
+  ) {}
 
   ngOnInit(): void {
     // if there is multiple network we set the list to add a mat-select
@@ -30,7 +30,6 @@ export class BnBioNetworkClustersListComponent implements OnInit {
   onNetworkChange(change: MatSelectChange): void {
     this.state.selectNetwork(change.value);
   }
-
 
   /////////////////////// CLUSTER SELECTION ///////////////////////
 
@@ -55,9 +54,7 @@ export class BnBioNetworkClustersListComponent implements OnInit {
   }
 
   private getSelectedClusters(): BnBioNetworkClusterSelection[] {
-    return this.state.getCurrentClusters().filter(
-      cluster => cluster.selected
-    );
+    return this.state.getCurrentClusters().filter((cluster) => cluster.selected);
   }
 
   ////////////////// COLOR //////////////////
@@ -68,28 +65,23 @@ export class BnBioNetworkClustersListComponent implements OnInit {
     this.emitClusterColored();
   }
 
-
   toggleAllClusterColors(): void {
     const selectedClusters: BnBioNetworkClusterSelection[] = this.getSelectedClusters();
 
     if (!this.clustersAllColored) {
-      selectedClusters.forEach(cluster => cluster.highlighted = true);
+      selectedClusters.forEach((cluster) => (cluster.highlighted = true));
     } else {
-      selectedClusters.forEach(cluster => cluster.highlighted = false);
+      selectedClusters.forEach((cluster) => (cluster.highlighted = false));
     }
     this.emitClusterColored();
   }
 
   private emitClusterColored(): void {
-    this.optionState.setColoredClusters(this.getSelectedClusters().filter(cluster => cluster.highlighted));
+    this.optionState.setColoredClusters(this.getSelectedClusters().filter((cluster) => cluster.highlighted));
   }
 
   get clustersAllColored(): boolean {
     const selectedClusters: BnBioNetworkClusterSelection[] = this.getSelectedClusters();
-    return selectedClusters.length > 0 && selectedClusters.every(cluster => cluster.highlighted);
+    return selectedClusters.length > 0 && selectedClusters.every((cluster) => cluster.highlighted);
   }
-
-
-
-
 }

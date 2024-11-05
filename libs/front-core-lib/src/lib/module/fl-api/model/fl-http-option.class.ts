@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { ClClassReference } from '@monorepo/core-lib';
 
-export interface FlHttpGetUrlOption{
+export interface FlHttpGetUrlOption {
   /**
    * the N° of the page if the request if paginated
    */
@@ -30,13 +30,15 @@ export interface FlHttpGetUrlOption{
  */
 export type FlHttpOptionSerialization = 'classToPlain' | 'stringify' | 'none' | ClClassReference;
 
-export interface FlHttpOption extends FlHttpGetUrlOption{
+export interface FlHttpOption extends FlHttpGetUrlOption {
   headers?: HttpHeaders;
   observe?: 'events' | any;
   responseType?: 'blob' | 'arraybuffer' | 'text' | any;
-  params?: HttpParams | {
-    [param: string]: string | string[];
-  };
+  params?:
+    | HttpParams
+    | {
+        [param: string]: string | string[];
+      };
   reportProgress?: boolean;
 
   /**
@@ -66,6 +68,5 @@ export interface FlHttpOption extends FlHttpGetUrlOption{
   /**
    * Option for the serialization
    */
-  serialization?: FlHttpOptionSerialization
+  serialization?: FlHttpOptionSerialization;
 }
-

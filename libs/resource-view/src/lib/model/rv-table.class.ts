@@ -1,10 +1,10 @@
-import {RvResourceViewBase} from './rv-resource-view.class';
+import { RvResourceViewBase } from './rv-resource-view.class';
 import {
   SpSheet,
   SpSheetColumnSortDirection,
   SpSheetHeaders,
   SpSpreadsheet,
-  SpSpreadsheetFactory
+  SpSpreadsheetFactory,
 } from '@monorepo/spreadsheet';
 
 export interface RvResourceViewTable extends RvResourceViewBase {
@@ -38,7 +38,10 @@ export interface RvResourceViewTableHeader {
  * @param table
  * @param ignoreOffsets if true the offsets (fromRow and fromCol) are ignored
  */
-export function rvTableToSpreadsheet(table: RvResourceViewTable, ignoreOffsets: boolean = false): SpSpreadsheet {
+export function rvTableToSpreadsheet(
+  table: RvResourceViewTable,
+  ignoreOffsets: boolean = false
+): SpSpreadsheet {
   const spreadSheet: SpSpreadsheet = new SpSpreadsheet();
   // if the resource is a csv file
   const sheet: SpSheet = SpSpreadsheetFactory.fromArray(table.data.table, table.title ?? 'Sheet 1');
@@ -46,10 +49,9 @@ export function rvTableToSpreadsheet(table: RvResourceViewTable, ignoreOffsets: 
   sheet.totalColumnsCount = table.data.total_number_of_columns;
   sheet.totalRowsCount = table.data.total_number_of_rows;
 
-
   sheet.columns = new SpSheetHeaders(table.data.columns, {
     headerName: table.data.sort?.column,
-    direction: table.data.sort?.direction
+    direction: table.data.sort?.direction,
   });
   sheet.rows = new SpSheetHeaders(table.data.rows);
 

@@ -8,10 +8,9 @@ describe('PrProcessInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrProcessInfoDialogComponent]
-    })
-    .compileComponents();
-    
+      declarations: [PrProcessInfoDialogComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(PrProcessInfoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

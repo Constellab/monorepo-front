@@ -2,9 +2,7 @@
   {{ 'pr.process_configuration' | translate }}
 </fl-dialog-header>
 
-
 <mat-table mat-table [dataSource]="configs">
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
@@ -49,9 +47,7 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
-
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>

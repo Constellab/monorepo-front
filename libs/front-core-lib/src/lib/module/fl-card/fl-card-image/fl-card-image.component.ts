@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 /**
  * Simple graphic component to display a round image on the left of the card
@@ -8,10 +8,9 @@ import {Component, Input, OnInit} from '@angular/core';
 @Component({
   selector: 'fl-card-image',
   templateUrl: './fl-card-image.component.html',
-  styleUrls: ['./fl-card-image.component.scss']
+  styleUrls: ['./fl-card-image.component.scss'],
 })
 export class FlCardImageComponent implements OnInit {
-
   /**
    * Image url
    */
@@ -22,10 +21,7 @@ export class FlCardImageComponent implements OnInit {
    */
   @Input() size: string = '3em';
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

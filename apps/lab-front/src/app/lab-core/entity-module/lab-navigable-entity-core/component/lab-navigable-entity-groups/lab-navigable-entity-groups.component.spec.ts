@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabNavigableEntityGroupsComponent} from './lab-navigable-entity-groups.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabNavigableEntityGroupsComponent } from './lab-navigable-entity-groups.component';
 
 describe('LabNavigableEntityGroupsComponent', () => {
   let component: LabNavigableEntityGroupsComponent;

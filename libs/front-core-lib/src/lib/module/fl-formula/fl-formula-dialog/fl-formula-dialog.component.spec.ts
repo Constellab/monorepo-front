@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlFormulaDialogComponent} from './fl-formula-dialog.component';
+import { FlFormulaDialogComponent } from './fl-formula-dialog.component';
 
 describe('TeFormulaDialogComponent', () => {
   let component: FlFormulaDialogComponent;
@@ -8,9 +8,8 @@ describe('TeFormulaDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FlFormulaDialogComponent]
-    })
-    .compileComponents();
+      imports: [FlFormulaDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlFormulaDialogComponent);
     component = fixture.componentInstance;

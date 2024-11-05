@@ -1,15 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'fl-article',
   templateUrl: './fl-article.component.html',
-  styleUrls: ['./fl-article.component.scss']
+  styleUrls: ['./fl-article.component.scss'],
 })
 export class FlArticleComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

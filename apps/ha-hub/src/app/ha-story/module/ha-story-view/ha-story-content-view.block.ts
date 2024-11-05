@@ -1,13 +1,14 @@
-import {TeComponentBlock, TeHelper} from '@monorepo/text-editor';
-import {Type} from '@angular/core';
-import {BlockToolData} from '@editorjs/editorjs/types/tools/block-tool-data';
-import {HaStoryContentViewComponent} from './ha-story-content-view/ha-story-content-view.component';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {ClStringHelper} from '@monorepo/core-lib';
+import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
+import { Type } from '@angular/core';
+import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
+import { HaStoryContentViewComponent } from './ha-story-content-view/ha-story-content-view.component';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { ClStringHelper } from '@monorepo/core-lib';
 import {
-  HaStoryResourceViewInputDialogComponent, HaStoryResourceViewInputDialogOutputData
+  HaStoryResourceViewInputDialogComponent,
+  HaStoryResourceViewInputDialogOutputData,
 } from './ha-story-resource-view-input-dialog/ha-story-resource-view-input-dialog.component';
 
 export interface HaStoryViewConfig {
@@ -18,7 +19,6 @@ export interface HaStoryViewConfig {
 }
 
 export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentViewComponent> {
-
   public static readonly TAG_NAME = 'ha-story-content-view';
 
   static override get toolbox(): ToolboxConfig {
@@ -57,8 +57,10 @@ export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentView
 
   public openSelectResourceView(): void {
     const dialogService: FlDialogService = this.envInjector.get(FlDialogService);
-    dialogService.openSmallDialog(HaStoryResourceViewInputDialogComponent, {data: {storyId: this.additionalData}}).afterClosed()
-      .subscribe(res => this.insertResourceView(res));
+    dialogService
+      .openSmallDialog(HaStoryResourceViewInputDialogComponent, { data: { storyId: this.additionalData } })
+      .afterClosed()
+      .subscribe((res) => this.insertResourceView(res));
   }
 
   private insertResourceView(res?: HaStoryResourceViewInputDialogOutputData): void {
@@ -71,10 +73,8 @@ export class HaStoryContentViewBlock extends TeComponentBlock<HaStoryContentView
       id: ClStringHelper.generateUUID() + '_' + new Date().getTime(),
       filename: res.filename,
       title: res.view.title,
-      caption: null
+      caption: null,
     };
     this.initInputs(this.data);
   }
 }
-
-

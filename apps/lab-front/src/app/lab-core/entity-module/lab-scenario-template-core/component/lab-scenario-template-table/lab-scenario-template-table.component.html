@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -7,9 +6,8 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <!--    Invisible link  -->
-      @if(!rowSelectable) {
-        <a [routerLink]="template | labDetailRoute"
-           [target]="rowLinkTarget" class="g-row-link"></a>
+      @if (!rowSelectable) {
+        <a [routerLink]="template | labDetailRoute" [target]="rowLinkTarget" class="g-row-link"></a>
       }
       <div class="text g-text-dense-height">{{ template.name }}</div>
     </mat-cell>
@@ -31,10 +29,11 @@
       <span> {{ 'last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
-      <fl-user-with-date [user]="template.lastModifiedBy" [date]="template.lastModifiedAt"></fl-user-with-date>
+      <fl-user-with-date
+        [user]="template.lastModifiedBy"
+        [date]="template.lastModifiedAt"></fl-user-with-date>
     </mat-cell>
   </ng-container>
-
 
   <!-- Tags -->
   <ng-container matColumnDef="tags">
@@ -52,24 +51,25 @@
 
   <!-- Open in new tab -->
   <ng-container matColumnDef="openInNewTab">
-    <mat-header-cell *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let template">
-      <a mat-stroked-button [routerLink]="template | labDetailRoute"
-         target="_blank" class="g-button-small" (click)="openInNewTab($event)">
+      <a
+        mat-stroked-button
+        [routerLink]="template | labDetailRoute"
+        target="_blank"
+        class="g-button-small"
+        (click)="openInNewTab($event)">
         {{ 'biox.open_in_new_tab' | translate }}
         <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (click)="rowClicked(row)"></mat-row>
-
-
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (click)="rowClicked(row)"></mat-row>
 </mat-table>
-

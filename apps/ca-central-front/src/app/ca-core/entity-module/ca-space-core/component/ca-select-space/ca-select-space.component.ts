@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
-import { FlEntityPaginatedDatasource, FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib';
+import {
+  FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
+  FlInputSearchFilter,
+} from '@monorepo/front-core-lib';
 import { CaSpace, CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
@@ -10,11 +14,9 @@ import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.
   selector: 'ca-select-space',
   templateUrl: './ca-select-space.component.html',
   styleUrls: ['./ca-select-space.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent}]
-
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
 })
 export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {
-
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<CaSpace> = new EventEmitter();
@@ -23,16 +25,19 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   spaceDatasource: CaSpaceDatasource<FlInputSearchFilter>;
 
-  constructor(private spaceService: CaSpaceService,
-              private currentSpaceService: CaCurrentSpaceService,
-              @Optional() @Self() ngControl: NgControl) {
+  constructor(
+    private spaceService: CaSpaceService,
+    private currentSpaceService: CaCurrentSpaceService,
+    @Optional() @Self() ngControl: NgControl
+  ) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.spaceDatasource = new FlEntityPaginatedDatasource(
       (page, size, data) => this.spaceService.searchByNames(data.filtersCriteria.searchText, page, size),
-      20, false
+      20,
+      false
     );
   }
 
@@ -41,8 +46,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
     this.selectedSpace = value;
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: CaSpace): void {
     if (obj == null || obj.id == null) {
@@ -75,5 +79,4 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
     this.spaceDatasource.setPageData(users);
   }
-
 }

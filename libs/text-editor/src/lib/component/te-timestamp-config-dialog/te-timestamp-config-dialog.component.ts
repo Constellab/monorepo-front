@@ -20,13 +20,12 @@ interface TeTimestampFormatOptions {
 @Component({
   selector: 'te-timestamp-config-dialog',
   templateUrl: './te-timestamp-config-dialog.component.html',
-  styleUrl: './te-timestamp-config-dialog.component.scss'
+  styleUrl: './te-timestamp-config-dialog.component.scss',
 })
 export class TeTimestampConfigDialogComponent {
-
   formGp = new FormBuilder().group({
     timestamp: null as DateTime,
-    format: null as TeTimestampFormat
+    format: null as TeTimestampFormat,
   });
 
   formatOptions: TeTimestampFormatOptions[] = [
@@ -36,24 +35,26 @@ export class TeTimestampConfigDialogComponent {
     },
     {
       value: 'DATE_TIME_WITH_SECONDS',
-      label: 'teTextEditor.timestamp_format_date_time_seconds'
+      label: 'teTextEditor.timestamp_format_date_time_seconds',
     },
     {
       value: 'DATE',
-      label: 'teTextEditor.timestamp_format_date'
+      label: 'teTextEditor.timestamp_format_date',
     },
     {
       value: 'TIME_WITH_SECONDS',
-      label: 'teTextEditor.timestamp_format_time'
+      label: 'teTextEditor.timestamp_format_time',
     },
     {
       value: 'fromNow',
-      label: 'teTextEditor.timestamp_format_from_now'
-    }
+      label: 'teTextEditor.timestamp_format_from_now',
+    },
   ];
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: TeTimestampConfigDialogInput,
-              private dialogRef: MatDialogRef<TeTimestampConfigDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: TeTimestampConfigDialogInput,
+    private dialogRef: MatDialogRef<TeTimestampConfigDialogComponent>
+  ) {
     this.formGp.patchValue(input);
   }
 

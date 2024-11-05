@@ -14,7 +14,6 @@ interface SpSpreadsheetRangeForm {
   columnsSelection?: string[];
 }
 
-
 /**
  * Component for chart generation. It is a NgModel component to manage multiple range selection
  * It supports multiple mode :
@@ -25,11 +24,12 @@ interface SpSpreadsheetRangeForm {
   selector: 'sp-sheet-ranges-input',
   templateUrl: './Sp-sheet-ranges-input.component.html',
   styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }]
+  providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
 })
-export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
-  implements OnInit, OnDestroy {
-
+export class SpSheetRangesInputComponent
+  extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
+  implements OnInit, OnDestroy
+{
   @Input() placeholder: string;
 
   @Input() initialSelection: SpSheetSingleSelection;
@@ -46,15 +46,17 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
 
   private subscription: Subscription;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private state: SpSpreadsheetState) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private state: SpSpreadsheetState
+  ) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.initForm();
 
-    this.columnSearchFunc = (searchString => of(this.state.currentSheet.searchColumns(searchString)));
+    this.columnSearchFunc = (searchString) => of(this.state.currentSheet.searchColumns(searchString));
 
     if (this.initialSelection) {
       this.onNewSelection(this.initialSelection);
@@ -62,21 +64,20 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
 
     // use a timeout to prevent change detection error
     setTimeout(() => {
-      this.formGp.valueChanges.subscribe(
-        value => this.setAndEmitValue(value)
-      );
+      this.formGp.valueChanges.subscribe((value) => this.setAndEmitValue(value));
     }, 0);
   }
 
   private initForm(): void {
-    const rangeValidation = this.rangeMode === 'multi' ?
-      SpSpreadsheetChartSelectionHelper.multipleSelectionValidator(this.state.currentSheet) :
-      SpSpreadsheetChartSelectionHelper.singleSelectionValidator(this.state.currentSheet);
+    const rangeValidation =
+      this.rangeMode === 'multi'
+        ? SpSpreadsheetChartSelectionHelper.multipleSelectionValidator(this.state.currentSheet)
+        : SpSpreadsheetChartSelectionHelper.singleSelectionValidator(this.state.currentSheet);
     // init form Group here, because the writeValue can be called before ngOnInit
     this.formGp = new FormBuilder().group({
       type: ['range'],
       rangeSelection: [null, [rangeValidation]],
-      columnsSelection: [null]
+      columnsSelection: [null],
     });
 
     if (this.value != null) {
@@ -88,8 +89,7 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
     this.selectionChange.next(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: SpSheetSelectionRange): void {
     this.value = this.convertOuterToInner(obj);
@@ -100,7 +100,6 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
       this.formGp.patchValue(this.value);
     }
   }
-
 
   get mode(): 'range' | 'columns' {
     return this.formGp.value.type;
@@ -114,13 +113,13 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
       return {
         type: 'range',
         rangeSelection: multipleRange.toString(),
-        columnsSelection: null
+        columnsSelection: null,
       };
     } else {
       return {
         type: 'columns',
         columnsSelection: outerValue.selection,
-        rangeSelection: null
+        rangeSelection: null,
       };
     }
   }
@@ -133,13 +132,13 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
       const multipleRange = SpCellsMultipleRange.fromString(innerValue.rangeSelection);
       return {
         type: 'range',
-        selection: multipleRange.toCoords()
+        selection: multipleRange.toCoords(),
       };
     } else {
       if (!innerValue.columnsSelection) return null;
       return {
         type: 'columns',
-        selection: innerValue.columnsSelection
+        selection: innerValue.columnsSelection,
       };
     }
   }
@@ -150,10 +149,7 @@ export class SpSheetRangesInputComponent extends FlFormFieldDirective<SpSpreadsh
     this.writeValue(selection.toSpSheetSelectionRange());
   }
 
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

@@ -7,10 +7,9 @@ import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 @Component({
   selector: 'ca-lab-card',
   templateUrl: './ca-lab-card.component.html',
-  styleUrls: ['./ca-lab-card.component.scss']
+  styleUrls: ['./ca-lab-card.component.scss'],
 })
 export class CaLabCardComponent {
-
   @Input() lab: CaLab;
 
   // prevent ripple effect when used on card

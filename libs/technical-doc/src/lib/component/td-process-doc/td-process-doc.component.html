@@ -1,9 +1,14 @@
 <td-main-doc [entity]="process"></td-main-doc>
 
-<fl-key-value *ngIf="process.additionalInfo && process.additionalInfo.supported_extensions && process.additionalInfo.supported_extensions.length > 0"
-              class="key-val div-spec">
-  <fl-key>{{'td.supported_extensions' |translate}}</fl-key>
-  {{process.additionalInfo.supported_extensions.join(', ')}}
+<fl-key-value
+  *ngIf="
+    process.additionalInfo &&
+    process.additionalInfo.supported_extensions &&
+    process.additionalInfo.supported_extensions.length > 0
+  "
+  class="key-val div-spec">
+  <fl-key>{{ 'td.supported_extensions' | translate }}</fl-key>
+  {{ process.additionalInfo.supported_extensions.join(', ') }}
 </fl-key-value>
 
 <ng-container *ngIf="process.inputSpecs.specs | flIsNotEmpty">
@@ -12,7 +17,7 @@
   <div class="div-spec">
     <div class="div-head">
       <mat-icon>login</mat-icon>
-      <h3>{{'td.input' | translate}}</h3>
+      <h3>{{ 'td.input' | translate }}</h3>
     </div>
     <td-io-docs [ioSpecs]="process.inputSpecs"></td-io-docs>
   </div>
@@ -24,19 +29,19 @@
   <div class="div-spec">
     <div class="div-head">
       <mat-icon>logout</mat-icon>
-      <h3>{{'td.output' | translate}}</h3>
+      <h3>{{ 'td.output' | translate }}</h3>
     </div>
     <td-io-docs [ioSpecs]="process.outputSpecs"></td-io-docs>
   </div>
 </ng-container>
 
 <ng-container *ngIf="process.configSpecs | flIsNotEmpty">
-  <mat-divider class="divider" ></mat-divider>
+  <mat-divider class="divider"></mat-divider>
 
   <div class="div-spec markdown">
     <div class="div-head">
       <mat-icon>settings</mat-icon>
-      <h3>{{'td.configuration' | translate}}</h3>
+      <h3>{{ 'td.configuration' | translate }}</h3>
     </div>
 
     <td-config [configSpecs]="process.configSpecs"></td-config>

@@ -8,11 +8,10 @@ import {
   FlCookieService,
   FlServerError,
   FlSnackBarService,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { isPlatformBrowser } from '@angular/common';
 import { ClApiError } from '@monorepo/core-lib';
-
 
 /**
  * Manage the errors of the application
@@ -20,12 +19,13 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class HaApiErrorService extends FlApiErrorService {
-  constructor(snackBarService: FlSnackBarService,
-              translateService: FlTranslateService,
-              private router: Router,
-              private cookieService: FlCookieService,
-              // eslint-disable-next-line @typescript-eslint/ban-types
-              @Inject(PLATFORM_ID) private platformId: Object
+  constructor(
+    snackBarService: FlSnackBarService,
+    translateService: FlTranslateService,
+    private router: Router,
+    private cookieService: FlCookieService,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     super(snackBarService, translateService);
   }
@@ -49,8 +49,12 @@ export class HaApiErrorService extends FlApiErrorService {
    * @param defaultError the default error if the api does not return an explicit error
    * @return throw a formatted error
    */
-  public handleServerError(errorResponse: HttpErrorResponse, hideError: boolean = false,
-                           snackBarDuration?: number, defaultError: string = 'Server error'): Observable<never> {
+  public handleServerError(
+    errorResponse: HttpErrorResponse,
+    hideError: boolean = false,
+    snackBarDuration?: number,
+    defaultError: string = 'Server error'
+  ): Observable<never> {
     const serverError: FlServerError = {
       response: errorResponse,
       message: null,
@@ -58,18 +62,21 @@ export class HaApiErrorService extends FlApiErrorService {
 
     // check if the error is formatted from nest api
     const nestError: ClApiError = errorResponse.error;
-    if (nestError && nestError.code != null && nestError.instanceId != null
-      && nestError.detail != null && nestError.status != null) {
+    if (
+      nestError &&
+      nestError.code != null &&
+      nestError.instanceId != null &&
+      nestError.detail != null &&
+      nestError.status != null
+    ) {
       serverError.nestedError = nestError;
     }
 
     // specific handling or connection error because it is not thrown by the API
     if (errorResponse.status === 0 || errorResponse.status === 504) {
-
       // connection lost error
       serverError.message = this.translateService.translate('connection_lost');
     } else {
-
       // handle session expired specifically
       if (serverError.nestedError?.code === 'error.wrong_token') {
         return this.sessionExpired(serverError, snackBarDuration);
@@ -86,16 +93,12 @@ export class HaApiErrorService extends FlApiErrorService {
 
     // throw the error to propagate it
     return throwError(() => serverError);
-
-
   }
-
 
   /**
    * Redirect the user to the login page
    */
   private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
-
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie);
@@ -110,7 +113,4 @@ export class HaApiErrorService extends FlApiErrorService {
     // throw the error to propagate it
     return throwError(() => serverError);
   }
-
-
 }
-

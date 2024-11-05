@@ -10,7 +10,7 @@ import {
   FlSearchState,
   FlTableColumnStatic,
   FlTag,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabResourceSearch, LabResourceSearchFields } from '../../model/lab-resource-search.class';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
@@ -19,18 +19,15 @@ import {
   LabFsNodeTypesSelectionDialogComponent,
   LabFsNodeTypesSelectionDialogInput,
   LabFsNodeTypesSelectionDialogMode,
-  LabFsNodeTypesSelectionDialogResult
+  LabFsNodeTypesSelectionDialogResult,
 } from '../lab-fs-node-types-selection-dialog/lab-fs-node-types-selection-dialog.component';
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import { Subscription } from 'rxjs';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import {
-  LabImportResourceFromLinkComponent
-} from '../lab-import-resource-from-link/lab-import-resource-from-link.component';
+import { LabImportResourceFromLinkComponent } from '../lab-import-resource-from-link/lab-import-resource-from-link.component';
 
 export const labResourceSearchName: string = 'biox-resource';
-
 
 /**
  * Complete component to search on resource. It supports a select mode and manage file upload.
@@ -39,11 +36,9 @@ export const labResourceSearchName: string = 'biox-resource';
   selector: 'lab-resource-search',
   templateUrl: './lab-resource-search.component.html',
   styleUrls: ['./lab-resource-search.component.scss'],
-  providers: [FlSearchState]
-
+  providers: [FlSearchState],
 })
 export class LabResourceSearchComponent implements OnInit, OnDestroy {
-
   @Input() resourceSelectable: boolean = false;
 
   @Input() fullPageSearch: boolean = true;
@@ -56,7 +51,6 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   @Output() resourceSelected: EventEmitter<LabResource> = new EventEmitter<LabResource>();
 
-
   datasource: FlDatasourcePaginated<LabResource>;
 
   columns: FlTableColumnStatic<LabResource>[];
@@ -65,23 +59,23 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   private actionSubscription: Subscription;
 
-  constructor(private searchState: FlSearchState<any>,
-              private dialogService: FlDialogService,
-              private actionsService: FlPortalActionsService,
-              private fileResourceService: LabFileResourceService,
-              private resourceService: LabResourceService,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private dialogService: FlDialogService,
+    private actionsService: FlPortalActionsService,
+    private fileResourceService: LabFileResourceService,
+    private resourceService: LabResourceService,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
-    this.columns = this.fullPageSearch ?
-      ['name', 'type', 'tags', 'lastModification', 'viewResource', 'flagged'] :
-      ['name', 'type', 'lastModification', 'viewResource']; // no tags, flagged
+    this.columns = this.fullPageSearch
+      ? ['name', 'type', 'tags', 'lastModification', 'viewResource', 'flagged']
+      : ['name', 'type', 'lastModification', 'viewResource']; // no tags, flagged
     // in none selectable mode, we add the action column
     if (!this.resourceSelectable) {
       this.columns.push('action');
     }
-
 
     const searchConfig: FlSearchConfig = {
       version: 1,
@@ -90,14 +84,17 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       savedSearch: this.savedSearches(),
       advancedFormManager: {
         config: LabResourceSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: this.fullPageSearch,
-      defaultSort: { key: 'creation', direction: 'DESC' }
+      defaultSort: { key: 'creation', direction: 'DESC' },
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(this.resourceService.getAdvancedSearchFunction(),
-      20, false);
+    this.datasource = new FlEntityPaginatedDatasource(
+      this.resourceService.getAdvancedSearchFunction(),
+      20,
+      false
+    );
 
     this.searchState.init(searchConfig, this.datasource);
     this.listenToUploadAction();
@@ -111,11 +108,10 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
     const tags = this.searchState.advancedSearchFormGroup.value.tags ?? [];
     const newTags = [...tags, tag];
     const search: Partial<LabResourceSearchFields> = {
-      tags: newTags
+      tags: newTags,
     };
     this.searchState.patchFormValueAndCallSearch(search);
   }
-
 
   //////////////////////////// FILE ///////////////////////
   openUploadFiles(fileEvent: File | File[]): void {
@@ -134,12 +130,14 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
     const data: LabFsNodeTypesSelectionDialogInput = {
       dialogMode: selectedNodes,
-      filenames: files.map(file => file.name)
+      filenames: files.map((file) => file.name),
     };
-    this.dialogService.openSmallDialog(LabFsNodeTypesSelectionDialogComponent, { data: data }).afterClosed().subscribe({
-      next: result => this.onUploadFsNodeClosed(result, files)
-    });
-
+    this.dialogService
+      .openSmallDialog(LabFsNodeTypesSelectionDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe({
+        next: (result) => this.onUploadFsNodeClosed(result, files),
+      });
 
     // clear the list of files
     this.files = [];
@@ -155,14 +153,13 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   private uploadFiles(fileTypingNames: string[], files: File[]): void {
-
     for (let i = 0; i < fileTypingNames.length; i++) {
       const action: FlPortalAction = {
         text: { text: files[i].name, translateText: false },
         type: LabFileResourceService.uploadFileActon,
         action: this.fileResourceService.uploadFile(files[i], fileTypingNames[i]),
         trackHttpEvents: true,
-        successLink: result => LabRouterService.getResourceDetailRoute(result.id)
+        successLink: (result) => LabRouterService.getResourceDetailRoute(result.id),
       };
 
       this.actionsService.addAction(action, false);
@@ -174,29 +171,28 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       text: { text: 'databox.uploading_folder', translateText: true },
       type: LabFileResourceService.uploadFileActon,
       action: this.fileResourceService.uploadFolder(folderTypingName, files),
-      trackHttpEvents: true
+      trackHttpEvents: true,
     };
 
     this.actionsService.addAction(action, false);
   }
 
-
   public listenToUploadAction(): void {
-    this.actionSubscription = this.actionsService.getResult$(LabFileResourceService.uploadFileActon).subscribe(
-      result => {
+    this.actionSubscription = this.actionsService
+      .getResult$(LabFileResourceService.uploadFileActon)
+      .subscribe((result) => {
         if (result.status == 'success') {
           this.datasource.addItem(ClCoreJsonConvert.deserialize(result.result, LabResource), () => true);
         }
-      }
-    );
+      });
   }
 
   private savedSearches(): FlSavedSearch[] {
     const savedSearchCloned: FlSavedSearch[] = ClHelpService.deepClone(this.getSavedSearch());
     if (this.customSavedSearches?.length > 0) {
       // if one of the custom saved search is the default one, we override the default
-      if (this.customSavedSearches.some(search => search.default)) {
-        savedSearchCloned.forEach(search => search.default = false);
+      if (this.customSavedSearches.some((search) => search.default)) {
+        savedSearchCloned.forEach((search) => (search.default = false));
       }
 
       // add the custom search to the list
@@ -216,7 +212,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {} as Partial<LabResourceSearchFields>
+        filtersCriteria: {} as Partial<LabResourceSearchFields>,
       },
       {
         searchName: labResourceSearchName,
@@ -225,8 +221,8 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: false,
-        filtersCriteria: { includeNotFlagged: true } as Partial<LabResourceSearchFields>
-      }
+        filtersCriteria: { includeNotFlagged: true } as Partial<LabResourceSearchFields>,
+      },
     ];
   }
 
@@ -237,6 +233,4 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.actionSubscription?.unsubscribe();
   }
-
-
 }

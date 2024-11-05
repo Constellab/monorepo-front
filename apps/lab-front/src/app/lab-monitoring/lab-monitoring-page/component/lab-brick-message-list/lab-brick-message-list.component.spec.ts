@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBrickMessageListComponent} from './lab-brick-message-list.component';
+import { LabBrickMessageListComponent } from './lab-brick-message-list.component';
 
 describe('LabBrickMessageListComponent', () => {
   let component: LabBrickMessageListComponent;
@@ -8,9 +8,8 @@ describe('LabBrickMessageListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBrickMessageListComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBrickMessageListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -18,10 +18,12 @@ export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
 @Component({
   selector: 'lab-note-form-dialog',
   templateUrl: './lab-note-form-dialog.component.html',
-  styleUrls: ['./lab-note-form-dialog.component.scss']
+  styleUrls: ['./lab-note-form-dialog.component.scss'],
 })
-export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<LabNoteForm, LabNote> implements OnInit {
-
+export class LabNoteFormDialogComponent
+  extends FlFormDialogAbstractDirective<LabNoteForm, LabNote>
+  implements OnInit
+{
   dialogInput: LabNoteFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private noteService: LabNoteService) {
@@ -39,8 +41,10 @@ export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<La
   buildForm(): UntypedFormGroup {
     const formGroup = new FormBuilder().group({
       title: [null, Validators.required],
-      folder: [{value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null}],
-      template: [{value: null, disabled: this.isUpdateMode()}]
+      folder: [
+        { value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null },
+      ],
+      template: [{ value: null, disabled: this.isUpdateMode() }],
     });
 
     if (this.dialogInput.disableFolder) {
@@ -72,9 +76,7 @@ export class LabNoteFormDialogComponent extends FlFormDialogAbstractDirective<La
 
   onTemplateSelected(template: LabNoteTemplate): void {
     if (!this.formGp.value.title) {
-      this.formGp.patchValue({title: template.title});
+      this.formGp.patchValue({ title: template.title });
     }
   }
-
-
 }

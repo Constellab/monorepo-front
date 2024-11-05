@@ -7,10 +7,9 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 @Component({
   selector: 'fl-datetime-picker',
   templateUrl: './fl-datetime-picker.component.html',
-  styleUrls: ['./fl-datetime-picker.component.scss']
+  styleUrls: ['./fl-datetime-picker.component.scss'],
 })
 export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> implements OnInit {
-
   @Input({ required: true }) placeholder: string;
 
   @Input() minDate?: DateTime;
@@ -31,14 +30,12 @@ export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> im
   minDateHours: number = 0;
   minDateMinutes: number = 0;
 
-
   constructor(@Optional() @Self() ngControl: NgControl) {
     super(ngControl);
   }
 
   ngOnInit(): void {
-    if (this.minDate)
-      this.minDateDay = this.minDate.set({ hour: 0, minute: 0 });
+    if (this.minDate) this.minDateDay = this.minDate.set({ hour: 0, minute: 0 });
     this.updateHoursSelection();
     this.updateMinuteSelection();
   }
@@ -89,7 +86,11 @@ export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> im
   onHoursChange(event: number): void {
     this.selectedHours = event;
 
-    if (this.minDate && this.selectedDate.day == this.minDate.day && this.selectedHours == this.minDate.hour) {
+    if (
+      this.minDate &&
+      this.selectedDate.day == this.minDate.day &&
+      this.selectedHours == this.minDate.hour
+    ) {
       this.minDateMinutes = this.minDate.minute;
     } else {
       this.minDateMinutes = 0;
@@ -109,7 +110,6 @@ export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> im
       this.setAndEmitValue(this.selectedDate.set({ hour: this.selectedHours, minute: this.selectedMinutes }));
     }
   }
-
 
   private updateMaxMinutes(): void {
     if (this.checkIfDateTimeIsMaxDate() && this.selectedHours === this.maxHours) {
@@ -137,5 +137,4 @@ export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> im
       this.minutes.push(i);
     }
   }
-
 }

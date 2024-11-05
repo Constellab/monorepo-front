@@ -1,5 +1,5 @@
-import {Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 /**
  * Abstract class to simplify creation of structural directive that
@@ -7,7 +7,6 @@ import {Observable, Subscription} from 'rxjs';
  */
 @Directive()
 export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
-
   /**
    * Current status of the view
    * Show --> the template under if is shown
@@ -27,13 +26,12 @@ export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
 
   protected constructor(
     protected templateRef: TemplateRef<any>,
-    protected viewContainer: ViewContainerRef) {
-  }
+    protected viewContainer: ViewContainerRef
+  ) {}
 
   ngOnInit(): void {
     this.updateView();
   }
-
 
   /**
    * Method to update the view (hide or show content)
@@ -42,9 +40,7 @@ export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
     const showView: boolean | Observable<boolean> = this.showView();
 
     if (showView instanceof Observable) {
-      this.subscription = showView.subscribe(
-        result => this.toggleView(result)
-      );
+      this.subscription = showView.subscribe((result) => this.toggleView(result));
     } else {
       this.toggleView(showView);
     }
@@ -57,7 +53,6 @@ export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
       this.destroyTemplate();
     }
   }
-
 
   private createTemplate(): void {
     // check if it's hidden or not
@@ -95,6 +90,4 @@ export abstract class FlAbstractIfDirective implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

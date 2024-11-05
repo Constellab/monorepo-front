@@ -1,4 +1,4 @@
-import {FlSearchDrawerToggleDirective} from './fl-search-drawer-toggle.directive';
+import { FlSearchDrawerToggleDirective } from './fl-search-drawer-toggle.directive';
 
 describe('FlSearchDrawerToggleDirective', () => {
   it('should create an instance', () => {

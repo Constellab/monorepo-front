@@ -1,85 +1,100 @@
 <!--    Action bar on the bottom  -->
 <div class="action-bar" *ngIf="isReady; else notReady">
-
-
   <div class="g-layout-row">
     <bn-bio-network-compartments class="half-section"></bn-bio-network-compartments>
 
     <bn-bio-network-selection-info class="half-section"></bn-bio-network-selection-info>
   </div>
 
-  <p>{{'bnBioNetwork.options' | translate}}</p>
-
+  <p>{{ 'bnBioNetwork.options' | translate }}</p>
 
   <div class="g-layout-row-wrap g-mat-checkbox-include-bottom">
-
     <mat-checkbox [(ngModel)]="showMinors" (change)="toggleShowMinors()" color="primary" class="checkbox">
-      {{'bnBioNetwork.toggle_show_minor' | translate}}
+      {{ 'bnBioNetwork.toggle_show_minor' | translate }}
     </mat-checkbox>
 
     <mat-checkbox [(ngModel)]="showText" (change)="toggleShowTexts()" color="primary" class="checkbox">
-      {{'bnBioNetwork.toggle_show_texts' | translate}}
+      {{ 'bnBioNetwork.toggle_show_texts' | translate }}
     </mat-checkbox>
 
     <mat-checkbox [(ngModel)]="showGrid" (change)="toggleShowGrid()" color="primary" class="checkbox">
-      {{'bnBioNetwork.toggle_show_grid' | translate}}
+      {{ 'bnBioNetwork.toggle_show_grid' | translate }}
     </mat-checkbox>
 
     <mat-checkbox [(ngModel)]="showArrows" (change)="toggleShowArrows()" color="primary" class="checkbox">
-      {{'bnBioNetwork.toggle_show_link_arrow' | translate}}
+      {{ 'bnBioNetwork.toggle_show_link_arrow' | translate }}
     </mat-checkbox>
-
   </div>
 
-
   <div *ngIf="maxFluxValue > 0" class="g-layout-col">
-    <p>{{'bnBioNetwork.flux_options' | translate}}</p>
+    <p>{{ 'bnBioNetwork.flux_options' | translate }}</p>
 
-    <mat-checkbox [(ngModel)]="showParticles" (change)="toggleShowParticles()"
-                  color="primary" class="toggle-particles">
-      {{'bnBioNetwork.toggle_show_link_particles' | translate}}
+    <mat-checkbox
+      [(ngModel)]="showParticles"
+      (change)="toggleShowParticles()"
+      color="primary"
+      class="toggle-particles">
+      {{ 'bnBioNetwork.toggle_show_link_particles' | translate }}
     </mat-checkbox>
 
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-start-center">
-
       <mat-form-field class="g-search-field input">
-        <mat-label>{{'bnBioNetwork.particle_size' | translate}}</mat-label>
-        <input type="number" matInput [(ngModel)]="particleSize" (change)="particleSizeChange()">
+        <mat-label>{{ 'bnBioNetwork.particle_size' | translate }}</mat-label>
+        <input type="number" matInput [(ngModel)]="particleSize" (change)="particleSizeChange()" />
       </mat-form-field>
 
       <mat-form-field class="g-search-field input">
-        <mat-label>{{'bnBioNetwork.particle_density_threshold' | translate}}</mat-label>
-        <input type="number" matInput [(ngModel)]="particleDensityThreshold" (change)="particleDensityThresholdChange()"
-               [max]="1">
+        <mat-label>{{ 'bnBioNetwork.particle_density_threshold' | translate }}</mat-label>
+        <input
+          type="number"
+          matInput
+          [(ngModel)]="particleDensityThreshold"
+          (change)="particleDensityThresholdChange()"
+          [max]="1" />
       </mat-form-field>
 
       <mat-form-field class="g-search-field input">
-        <mat-label>{{'bnBioNetwork.particle_speed_threshold' | translate}}</mat-label>
-        <input type="number" matInput [(ngModel)]="particleSpeedThreshold" (change)="particleSpeedThresholdChange()"
-               [max]="1">
+        <mat-label>{{ 'bnBioNetwork.particle_speed_threshold' | translate }}</mat-label>
+        <input
+          type="number"
+          matInput
+          [(ngModel)]="particleSpeedThreshold"
+          (change)="particleSpeedThresholdChange()"
+          [max]="1" />
       </mat-form-field>
 
       <mat-form-field class="g-search-field input">
-        <mat-label>{{'bnBioNetwork.particles_color' | translate}}</mat-label>
-        <mat-select [(ngModel)]="particlesColorMode" (selectionChange)="setParticlesColors()"
-                    [placeholder]="'bnBioNetwork.particles_color' | translate">
-          <mat-option value="linear">{{'bnBioNetwork.particle_color_linear' | translate}}</mat-option>
-          <mat-option value="log2">{{'bnBioNetwork.particle_color_log_2' | translate}}</mat-option>
-          <mat-option value="log10">{{'bnBioNetwork.particle_color_log_10' | translate}}</mat-option>
-          <mat-option value="threshold-75">{{'bnBioNetwork.particle_color_threshold_75' | translate}}</mat-option>
-          <mat-option value="threshold-95">{{'bnBioNetwork.particle_color_threshold_95' | translate}}</mat-option>
+        <mat-label>{{ 'bnBioNetwork.particles_color' | translate }}</mat-label>
+        <mat-select
+          [(ngModel)]="particlesColorMode"
+          (selectionChange)="setParticlesColors()"
+          [placeholder]="'bnBioNetwork.particles_color' | translate">
+          <mat-option value="linear">{{ 'bnBioNetwork.particle_color_linear' | translate }}</mat-option>
+          <mat-option value="log2">{{ 'bnBioNetwork.particle_color_log_2' | translate }}</mat-option>
+          <mat-option value="log10">{{ 'bnBioNetwork.particle_color_log_10' | translate }}</mat-option>
+          <mat-option value="threshold-75">{{
+            'bnBioNetwork.particle_color_threshold_75' | translate
+          }}</mat-option>
+          <mat-option value="threshold-95">{{
+            'bnBioNetwork.particle_color_threshold_95' | translate
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <!--   Slider to hide link     -->
     <div class="g-slider-full-width">
-      <p class="g-text-small g-text-light">{{'bnBioNetwork.flux_threshold' | translate}} : {{fluxThreshold}}</p>
-      <mat-slider discrete class="slider g-slider-full-width" color="primary"
-                  [max]="maxFluxValue"
-                  [min]="0"
-                  [step]="1">
-        <input matSliderThumb (valueChange)="fluxThresholdChange($event)" [(ngModel)]="fluxThreshold">
+      <p class="g-text-small g-text-light">
+        {{ 'bnBioNetwork.flux_threshold' | translate }} : {{ fluxThreshold }}
+      </p>
+      <mat-slider
+        discrete
+        class="slider g-slider-full-width"
+        color="primary"
+        [max]="maxFluxValue"
+        [min]="0"
+        [step]="1">
+        <input matSliderThumb (valueChange)="fluxThresholdChange($event)" [(ngModel)]="fluxThreshold" />
       </mat-slider>
     </div>
   </div>
@@ -88,7 +103,7 @@
 
   <div class="g-text-centered download-button">
     <button mat-stroked-button (click)="exportAllNetwork()" type="button" color="primary">
-      {{'bnBioNetwork.export_position_to_json' | translate}}
+      {{ 'bnBioNetwork.export_position_to_json' | translate }}
       <mat-icon>file_download</mat-icon>
     </button>
   </div>

@@ -19,11 +19,9 @@
   width: var(--expanded-menu-large-width);
 }
 
-
 // style of the buttons inside the menu
 ::ng-deep {
   fl-expansion-menu {
-
     .expansion-menu-button {
       opacity: 0.7 !important;
       height: 34px !important;

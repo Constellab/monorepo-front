@@ -8,9 +8,8 @@ describe('CaSelectFolderDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaSelectFolderDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaSelectFolderDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSelectFolderDialogComponent);
     component = fixture.componentInstance;

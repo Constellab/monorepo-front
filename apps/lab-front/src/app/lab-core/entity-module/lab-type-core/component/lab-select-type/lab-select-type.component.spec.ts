@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSelectTypeComponent} from './lab-select-type.component';
+import { LabSelectTypeComponent } from './lab-select-type.component';
 
 describe('LabSelectTypeComponent', () => {
   let component: LabSelectTypeComponent;

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
-import { CaBucketCredentials, CaBucketCredentialsFull } from '../../../../model/entities/ca-object-storage.class';
+import {
+  CaBucketCredentials,
+  CaBucketCredentialsFull,
+} from '../../../../model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -10,12 +13,12 @@ export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCrede
 @Component({
   selector: 'ca-bucket-credentials-form-dialog',
   templateUrl: './ca-bucket-credentials-form-dialog.component.html',
-  styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss']
+  styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
 })
 export class CaBucketCredentialsFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentials>
-  implements OnInit {
-
+  implements OnInit
+{
   constructor(private objectStorageService: CaObjectStorageService) {
     super();
   }
@@ -33,7 +36,7 @@ export class CaBucketCredentialsFormDialogComponent
       cloudProvider: [null],
       space: [null],
       s3Username: [null],
-      shortDescription: [null]
+      shortDescription: [null],
     });
   }
 
@@ -56,6 +59,4 @@ export class CaBucketCredentialsFormDialogComponent
   get title(): string {
     return this.isCreateMode() ? 'create_bucket_credentials' : 'update_bucket_credentials';
   }
-
-
 }

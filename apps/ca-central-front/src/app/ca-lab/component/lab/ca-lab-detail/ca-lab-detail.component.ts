@@ -6,26 +6,25 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import {
   CaLabConfigDialogComponent,
-  CaLabConfigDialogInput
+  CaLabConfigDialogInput,
 } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabDesktopDownloadConfigComponent,
-  CaLabDesktopDownloadConfigInput
+  CaLabDesktopDownloadConfigInput,
 } from '../../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import {
   CaLabDesktopUpdateDialogComponent,
-  LabDesktopUpdateDialogInput
+  LabDesktopUpdateDialogInput,
 } from '../ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-lab-detail',
   templateUrl: './ca-lab-detail.component.html',
-  styleUrls: ['./ca-lab-detail.component.scss']
+  styleUrls: ['./ca-lab-detail.component.scss'],
 })
 export class CaLabDetailComponent implements OnInit {
-
   lab$: Observable<CaLab>;
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
   labIsRunning$: Observable<boolean> = this.state.labIsRunning$();
@@ -33,11 +32,12 @@ export class CaLabDetailComponent implements OnInit {
 
   desktopDocUrl: string;
 
-  constructor(private state: CaLabDetailPageState,
-              private dialogService: FlDialogService,
-              private labService: CaLabService,
-              private communityHelper: CoCommunityHelperService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private dialogService: FlDialogService,
+    private labService: CaLabService,
+    private communityHelper: CoCommunityHelperService
+  ) {}
 
   ngOnInit(): void {
     this.desktopDocUrl = this.communityHelper.getDesktopDocUrl();
@@ -45,42 +45,40 @@ export class CaLabDetailComponent implements OnInit {
   }
 
   openCodelabInfo(lab: CaLab): void {
-    this.dialogService.openMediumDialog(CaLabCodelabInfoComponent, {data: lab.id});
+    this.dialogService.openMediumDialog(CaLabCodelabInfoComponent, { data: lab.id });
   }
-
 
   openLabConfig(lab: CaLab): void {
     const input: CaLabConfigDialogInput = {
       labConfig: this.labService.getConfig(lab.id),
-      title: {text: 'lab_installed_brick', translateText: true},
-      helpText: {text: 'lab_installed_brick_help', translateText: true}
+      title: { text: 'lab_installed_brick', translateText: true },
+      helpText: { text: 'lab_installed_brick_help', translateText: true },
     };
 
-    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, {data: input});
+    this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });
   }
 
   getDesktopConfigDownloadUrl(lab: CaLab): void {
     const input: CaLabDesktopDownloadConfigInput = {
       labId: lab.id,
     };
-    this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, {data: input});
+    this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, { data: input });
   }
 
   openLabDesktopUpdate(lab: CaLab): void {
     const input: LabDesktopUpdateDialogInput = {
       id: lab.id,
       name: lab.name,
-      desktopPlatform: lab.desktopPlatform
+      desktopPlatform: lab.desktopPlatform,
     };
-    this.dialogService.openSmallDialog(CaLabDesktopUpdateDialogComponent, {data: input}).afterClosed().subscribe(
-      lab => this.onUpdateClosed(lab)
-    );
+    this.dialogService
+      .openSmallDialog(CaLabDesktopUpdateDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((lab) => this.onUpdateClosed(lab));
   }
 
   updateLabName(name: string, lab: CaLab): void {
-    this.labService.updateLabName(lab.id, name).subscribe(
-      lab => this.onUpdateClosed(lab)
-    );
+    this.labService.updateLabName(lab.id, name).subscribe((lab) => this.onUpdateClosed(lab));
   }
 
   private onUpdateClosed(lab?: CaLab): void {
@@ -88,5 +86,4 @@ export class CaLabDetailComponent implements OnInit {
       this.state.updateLab(lab);
     }
   }
-
 }

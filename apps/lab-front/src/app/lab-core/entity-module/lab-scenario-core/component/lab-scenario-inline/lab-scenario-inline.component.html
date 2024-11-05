@@ -1,7 +1,5 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-  <fl-user-profile-picture [user]="scenario.createdBy"
-                           size="small">
-  </fl-user-profile-picture>
+  <fl-user-profile-picture [user]="scenario.createdBy" size="small"> </fl-user-profile-picture>
 
   <div>
     <div>{{ scenario.title }}</div>
@@ -9,8 +7,9 @@
     @if (scenario.folder) {
       <div class="g-layout-row g-layout-start-center g-text-tiny g-text-light">
         <mat-icon flIcon="folder" class="g-icon-tiny icon"></mat-icon>
-        <div class="folder-circle folder-content"
-             [style.background-color]="scenario.folder?.id | flStringToRgb"></div>
+        <div
+          class="folder-circle folder-content"
+          [style.background-color]="scenario.folder?.id | flStringToRgb"></div>
         <div class="folder-content">{{ scenario.folder.title }}</div>
       </div>
     }

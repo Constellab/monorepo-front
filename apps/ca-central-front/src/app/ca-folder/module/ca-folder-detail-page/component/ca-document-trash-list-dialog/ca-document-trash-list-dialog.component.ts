@@ -1,5 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { CaDocument, CaDocumentDatasource } from '../../../../../ca-core/model/entities/folder/ca-document.class';
+import {
+  CaDocument,
+  CaDocumentDatasource,
+} from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
@@ -18,19 +21,19 @@ export interface CaDocumentTrashListDialogInput {
   styleUrls: ['./ca-document-trash-list-dialog.component.scss'],
 })
 export class CaDocumentTrashListDialogComponent {
-
   documentDatasource: CaDocumentDatasource;
 
   restoredDocuments: CaDocument[] = [];
 
-  constructor(private folderService: CaFolderService,
-              @Inject(MAT_DIALOG_DATA) private input: CaDocumentTrashListDialogInput,
-              private dialogRef: MatDialogRef<CaDocumentTrashListDialogComponent>,
-              private dialogService: FlDialogService) {
+  constructor(
+    private folderService: CaFolderService,
+    @Inject(MAT_DIALOG_DATA) private input: CaDocumentTrashListDialogInput,
+    private dialogRef: MatDialogRef<CaDocumentTrashListDialogComponent>,
+    private dialogService: FlDialogService
+  ) {
     this.documentDatasource = folderService.getTrashedDocuments(input.folderId);
 
-    this.dialogRef.backdropClick()
-      .subscribe(() => this.dialogRef.close(this.restoredDocuments));
+    this.dialogRef.backdropClick().subscribe(() => this.dialogRef.close(this.restoredDocuments));
   }
 
   onDocumentAction(event: CaDocumentActionEvent): void {
@@ -45,17 +48,17 @@ export class CaDocumentTrashListDialogComponent {
       content: 'empty_trash_confirmation',
       observable: this.folderService.emptyTrash(this.input.folderId),
       successMessage: 'trash_emptied',
-    }
+    };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onEmptyClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onEmptyClosed(result));
   }
 
-  private onEmptyClosed(result: FlConfirmDialogResult<void>): void{
-    if(result.choice){
+  private onEmptyClosed(result: FlConfirmDialogResult<void>): void {
+    if (result.choice) {
       this.documentDatasource.getFirstPage();
     }
   }
-
 }

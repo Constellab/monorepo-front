@@ -5,10 +5,9 @@ import { CaGroup } from '../../../../model/entities/ca-group.entity';
 @Component({
   selector: 'ca-team-table',
   templateUrl: './ca-team-table.component.html',
-  styleUrls: ['./ca-team-table.component.scss']
+  styleUrls: ['./ca-team-table.component.scss'],
 })
 export class CaTeamTableComponent {
-
   @Input({ required: true }) datasource: FlArrayObs<CaGroup>;
 
   @Input() columns: FlTableColumnStatic<CaGroup>[] = ['label', 'creation', 'actions'];
@@ -16,5 +15,4 @@ export class CaTeamTableComponent {
   onTeamDeleted(team: CaGroup): void {
     this.datasource.removeItem(team);
   }
-
 }

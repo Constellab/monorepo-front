@@ -8,9 +8,8 @@ describe('FlProgressLoaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlProgressLoaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FlProgressLoaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

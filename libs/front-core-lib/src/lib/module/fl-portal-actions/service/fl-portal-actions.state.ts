@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlCleanableService, FlCleanerService} from '../../../utils/fl-cleanable-service';
-import {FlPortalAction, FlPortalActionDetail, FlPortalActionResult} from '../model/fl-portal-actions.class';
-import {filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlCleanableService, FlCleanerService } from '../../../utils/fl-cleanable-service';
+import { FlPortalAction, FlPortalActionDetail, FlPortalActionResult } from '../model/fl-portal-actions.class';
+import { filter } from 'rxjs/operators';
 
 /**
  * Service to handle the state of the actions
@@ -12,7 +12,6 @@ import {filter} from 'rxjs/operators';
  */
 @Injectable()
 export class FlPortalActionsState implements FlCleanableService {
-
   private actions$: BehaviorSubject<FlPortalActionDetail[]> = new BehaviorSubject<FlPortalActionDetail[]>([]);
 
   // each time an action success or error, it is emitting in this subject
@@ -39,9 +38,7 @@ export class FlPortalActionsState implements FlCleanableService {
     const actionDetail: FlPortalActionDetail = new FlPortalActionDetail(action);
 
     // subscribe to the action on add
-    actionDetail.callAction().subscribe(
-      result => this.emitResult(result)
-    );
+    actionDetail.callAction().subscribe((result) => this.emitResult(result));
 
     // append new actions to current actions
     const allActions: FlPortalActionDetail[] = [actionDetail, ...this.currentActions];
@@ -59,13 +56,12 @@ export class FlPortalActionsState implements FlCleanableService {
     return this.actions$.asObservable();
   }
 
-
   public emitResult(result: FlPortalActionResult): void {
     this.results$.next(result);
   }
 
   public allActionFinished(): boolean {
-    return this.actions$.value.every(action => action.isFinished());
+    return this.actions$.value.every((action) => action.isFinished());
   }
 
   /**
@@ -75,14 +71,12 @@ export class FlPortalActionsState implements FlCleanableService {
   public getResult$(type: string | string[] = []): Observable<FlPortalActionResult> {
     const types = ClHelpService.convertObjectOrArrayToArray(type);
 
-    return this.results$.asObservable().pipe(
-      filter(result => types.length === 0 || types.includes(result.action.type))
-    );
+    return this.results$
+      .asObservable()
+      .pipe(filter((result) => types.length === 0 || types.includes(result.action.type)));
   }
 
   clean(): void {
     this.actions$.next([]);
   }
-
-
 }

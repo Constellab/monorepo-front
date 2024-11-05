@@ -1,4 +1,4 @@
-import {FlColorSelectorDirective} from './fl-color-selector.directive';
+import { FlColorSelectorDirective } from './fl-color-selector.directive';
 
 describe('FlColorSelectorDirective', () => {
   it('should create an instance', () => {

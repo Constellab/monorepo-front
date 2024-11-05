@@ -13,78 +13,73 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
 @Component({
   selector: 'ca-lab-header',
   templateUrl: './ca-lab-header.component.html',
-  styleUrls: ['./ca-lab-header.component.scss']
+  styleUrls: ['./ca-lab-header.component.scss'],
 })
 export class CaLabHeaderComponent implements OnInit {
-
   navBarItems$: Observable<FlHorizontalNavBarItem[]>;
 
   lab$: Observable<CaLab> = this.state.getLab$();
-  labStatus$: Observable<FlStatus<CaLabStatus>> = this.state.getStatus$().pipe(
-    map(status => status.labStatus)
-  );
+  labStatus$: Observable<FlStatus<CaLabStatus>> = this.state
+    .getStatus$()
+    .pipe(map((status) => status.labStatus));
 
-  constructor(private state: CaLabDetailPageState,
-              private authenticatedUserService: CaAuthenticatedUserService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private authenticatedUserService: CaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
-    this.navBarItems$ = combineLatest([
-      this.state.getLab$(),
-      this.state.isLabOwner$()])
-      .pipe(
-        map(([lab, isOwner]) => this.init(lab, isOwner))
-      );
+    this.navBarItems$ = combineLatest([this.state.getLab$(), this.state.isLabOwner$()]).pipe(
+      map(([lab, isOwner]) => this.init(lab, isOwner))
+    );
   }
 
   private init(lab: CaLab, isOwner: boolean): FlHorizontalNavBarItem[] {
     const items: FlHorizontalNavBarItem[] = [
       {
-        label: {text: 'dashboard', translateText: true},
+        label: { text: 'dashboard', translateText: true },
         route: CaRouterService.getLabDetailRoute(lab.id),
         icon: 'dashboard',
-        linkActiveExact: true
-      }
+        linkActiveExact: true,
+      },
     ];
 
     if (isOwner) {
       items.push({
-        label: {text: 'lab_configuration', translateText: true},
+        label: { text: 'lab_configuration', translateText: true },
         route: CaRouterService.getLabConfigRoute(lab.id),
-        icon: 'settings'
+        icon: 'settings',
       });
     }
 
-
     items.push({
-      label: {text: 'lab_usage', translateText: true},
+      label: { text: 'lab_usage', translateText: true },
       route: CaRouterService.getLabUsageRoute(lab.id),
-      icon: 'data_usage'
+      icon: 'data_usage',
     });
 
     if (lab.isCloud) {
       items.push({
-        label: {text: 'lab_backup', translateText: true},
+        label: { text: 'lab_backup', translateText: true },
         route: CaRouterService.getLabBackupRoute(lab.id),
-        icon: 'cloud_done'
+        icon: 'cloud_done',
       });
     }
 
     items.push({
-      label: {text: 'status_history', translateText: true},
+      label: { text: 'status_history', translateText: true },
       route: CaRouterService.getLabStatusHistoryRoute(lab.id),
-      icon: 'history'
+      icon: 'history',
     });
 
-    if(this.authenticatedUserService.isCurrentSpaceAdmin()){
+    if (this.authenticatedUserService.isCurrentSpaceAdmin()) {
       items.push({
-        label: {text: 'lab_support', translateText: true},
+        label: { text: 'lab_support', translateText: true },
         route: CaRouterService.getLabSupportRoute(lab.id),
-        icon: 'support'
+        icon: 'support',
       });
     }
 
     return items;
   }
-
 }

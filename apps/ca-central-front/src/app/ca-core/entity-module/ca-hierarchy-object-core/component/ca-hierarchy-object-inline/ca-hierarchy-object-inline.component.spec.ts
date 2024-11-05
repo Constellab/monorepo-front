@@ -8,9 +8,8 @@ describe('CaFolderInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectInlineComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectInlineComponent);
     component = fixture.componentInstance;

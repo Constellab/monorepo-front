@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabServerCompleteInfoDialogComponent
-} from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import { CaLabDetailPageState } from './ca-lab-detail-page.state';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalActionsService,
-  FlTranslatableText
+  FlTranslatableText,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
   CaLabManagerUpdateDialogComponent,
-  CaLabManagerUpdateDialogInput
+  CaLabManagerUpdateDialogInput,
 } from '../component/manager/ca-lab-manager-update-dialog/ca-lab-manager-update-dialog.component';
 
 /**
@@ -22,17 +20,17 @@ import {
  */
 @Injectable()
 export class CaLabDetailServerState {
-
-
-  constructor(private state: CaLabDetailPageState,
-              private labService: CaLabService,
-              private dialogService: FlDialogService,
-              private portalService: FlPortalActionsService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private labService: CaLabService,
+    private dialogService: FlDialogService,
+    private portalService: FlPortalActionsService
+  ) {}
 
   openServerInfoDialog(): void {
-    this.dialogService.openMediumDialog(CaLabServerCompleteInfoDialogComponent,
-      {data: this.state.getLabId()});
+    this.dialogService.openMediumDialog(CaLabServerCompleteInfoDialogComponent, {
+      data: this.state.getLabId(),
+    });
   }
 
   initServer(): void {
@@ -62,22 +60,21 @@ export class CaLabDetailServerState {
     this.openDialog(input, this.labService.configureServer(this.state.getLabId()));
   }
 
-
   updateLabManager(currentVersion: string, recommendedVersion: string): void {
     const input: CaLabManagerUpdateDialogInput = {
       labId: this.state.getLabId(),
       labManagerCurrentVersion: currentVersion,
-      labManagerRecommendedVersion: recommendedVersion
+      labManagerRecommendedVersion: recommendedVersion,
     };
 
-    this.dialogService.openSmallDialog(CaLabManagerUpdateDialogComponent, {data: input}).afterClosed().subscribe(
-      (result: Observable<any>) => {
+    this.dialogService
+      .openSmallDialog(CaLabManagerUpdateDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((result: Observable<any>) => {
         if (result) {
           this.addPortalAction('lab_update_lab_manager', result);
         }
-      }
-    );
-
+      });
   }
 
   updateLabConfigurerRepo(): void {
@@ -126,12 +123,17 @@ export class CaLabDetailServerState {
   }
 
   private openDialog(input: FlConfirmDialogInput, action: Observable<any>): void {
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      (result: FlConfirmDialogResult) => this.onDialogClosed(result, input.title, action)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => this.onDialogClosed(result, input.title, action));
   }
 
-  private onDialogClosed(result: FlConfirmDialogResult, text: FlTranslatableText, action: Observable<any>): void {
+  private onDialogClosed(
+    result: FlConfirmDialogResult,
+    text: FlTranslatableText,
+    action: Observable<any>
+  ): void {
     if (result.choice) {
       this.addPortalAction(text, action);
     }
@@ -141,9 +143,7 @@ export class CaLabDetailServerState {
     this.portalService.addAction({
       type: CaLabDetailPageState.actionType,
       text: text,
-      action: action
+      action: action,
     });
   }
-
-
 }

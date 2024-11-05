@@ -1,29 +1,27 @@
-
-.container{
+.container {
   display: grid;
   grid-template-columns: 13em 1fr;
   padding-bottom: 1em;
 }
 
-.left-section{
+.left-section {
   border-right: 1px solid var(--hover-color);
   //width: 13em;
   //flex-shrink: 0;
 }
 
-.process{
+.process {
   cursor: pointer;
   padding: 1em;
   border-bottom: 1px solid var(--hover-color);
-
 }
 
-.process:hover, .process-selected{
+.process:hover,
+.process-selected {
   background-color: var(--hover-color);
 }
 
-
-.right-section{
+.right-section {
   min-width: 20em;
   //flex: 1 0 auto;
 }

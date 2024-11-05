@@ -8,9 +8,8 @@ describe('RvReportResourceViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvRichTextResourceViewComponent ]
-    })
-    .compileComponents();
+      declarations: [RvRichTextResourceViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkSelectionInfoComponent} from './bn-bio-network-selection-info.component';
+import { BnBioNetworkSelectionInfoComponent } from './bn-bio-network-selection-info.component';
 
 describe('BnBioNetworkSelectionInfoComponent', () => {
   let component: BnBioNetworkSelectionInfoComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkSelectionInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkSelectionInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkSelectionInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlTooltipService} from '../../fl-portal/service/fl-tooltip.service';
-import {FlPortalDefaultPosition} from '../../fl-portal/model/fl-portal.class';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTooltipService } from '../../fl-portal/service/fl-tooltip.service';
+import { FlPortalDefaultPosition } from '../../fl-portal/model/fl-portal.class';
 
 /**
  * Directive to be placed in a input or a textarea to limit the length of it and if the user reached
@@ -10,10 +10,9 @@ import {FlPortalDefaultPosition} from '../../fl-portal/model/fl-portal.class';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'input[flInputMaxLength], textarea[flInputMaxLength]',
-  providers: [FlTooltipService]
+  providers: [FlTooltipService],
 })
 export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
-
   /**
    * Max length of the input
    */
@@ -31,17 +30,18 @@ export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
    */
   @Input('flInputMaxLengthPosition') position: FlPortalDefaultPosition = 'right';
 
-
   private keyUpListener: () => void;
 
-  constructor(private elementRef: ElementRef<HTMLInputElement | HTMLTextAreaElement>,
-              private renderer: Renderer2,
-              private tooltipService: FlTooltipService) {
-  }
+  constructor(
+    private elementRef: ElementRef<HTMLInputElement | HTMLTextAreaElement>,
+    private renderer: Renderer2,
+    private tooltipService: FlTooltipService
+  ) {}
 
   ngOnInit(): void {
-    this.keyUpListener = this.renderer.listen(this.elementRef.nativeElement, 'keyup',
-      () => this.onInputChange());
+    this.keyUpListener = this.renderer.listen(this.elementRef.nativeElement, 'keyup', () =>
+      this.onInputChange()
+    );
   }
 
   // convert max length to number and set it
@@ -56,24 +56,29 @@ export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
   }
 
   private onInputChange(): void {
-    if (this.elementRef.nativeElement.maxLength !== -1 &&
-      (this.elementRef.nativeElement.value?.length ?? 0) >= this.elementRef.nativeElement.maxLength) {
+    if (
+      this.elementRef.nativeElement.maxLength !== -1 &&
+      (this.elementRef.nativeElement.value?.length ?? 0) >= this.elementRef.nativeElement.maxLength
+    ) {
       this.openTooltipPortal();
     }
   }
 
   // open the portal if it doesn't already exist
   private openTooltipPortal(): void {
-    this.tooltipService.openTooltipWithTranslate(this.elementRef, 'input_max_length', [this.position],
-      'flInputMaxLength', this.duration,
-      {param: {count: this.elementRef.nativeElement.maxLength}});
+    this.tooltipService.openTooltipWithTranslate(
+      this.elementRef,
+      'input_max_length',
+      [this.position],
+      'flInputMaxLength',
+      this.duration,
+      { param: { count: this.elementRef.nativeElement.maxLength } }
+    );
   }
-
 
   ngOnDestroy(): void {
     if (this.keyUpListener) {
       this.keyUpListener();
     }
   }
-
 }

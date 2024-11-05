@@ -8,9 +8,8 @@ describe('LabFolderInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabFolderInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [LabFolderInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabFolderInlineComponent);
     component = fixture.componentInstance;

@@ -8,10 +8,7 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "libs/front-core-lib/src/**/*.ts",
-          "libs/front-core-lib/src/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/front-core-lib/src/**/*.ts", "libs/front-core-lib/src/**/*.html"]
       }
     },
     "test": {

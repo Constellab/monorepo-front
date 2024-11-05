@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
-import {CoConfig} from '@monorepo/community-lib';
-import {LabEnvironmentHelper} from '../../utils/lab-environment.helper';
+import { Injectable } from '@angular/core';
+import { CoConfig } from '@monorepo/community-lib';
+import { LabEnvironmentHelper } from '../../utils/lab-environment.helper';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabCoServiceConfig extends CoConfig {
-
   getSpacePhotoUrl(filename: string): string {
     return LabEnvironmentHelper.getSpaceApiUrl() + '/spaces/photo/' + filename;
   }
@@ -18,5 +17,4 @@ export class LabCoServiceConfig extends CoConfig {
   getCommunityFrontUrl(): string {
     return LabEnvironmentHelper.getCommunityFrontUrl();
   }
-
 }

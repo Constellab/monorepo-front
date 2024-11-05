@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceActionsMenuComponent} from './lab-resource-actions-menu.component';
+import { LabResourceActionsMenuComponent } from './lab-resource-actions-menu.component';
 
 describe('LabResourceActionsMenuComponent', () => {
   let component: LabResourceActionsMenuComponent;
@@ -8,9 +8,8 @@ describe('LabResourceActionsMenuComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceActionsMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceActionsMenuComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

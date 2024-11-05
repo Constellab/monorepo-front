@@ -7,7 +7,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlTranslateParam,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
@@ -24,28 +24,29 @@ interface CaFreeLabInfo {
 @Component({
   selector: 'ca-lab-free-create-button',
   templateUrl: './ca-lab-free-create-button.component.html',
-  styleUrls: ['./ca-lab-free-create-button.component.scss']
+  styleUrls: ['./ca-lab-free-create-button.component.scss'],
 })
 export class CaLabFreeCreateButtonComponent {
-
   freeLabInfo$: Observable<CaFreeLabInfo> = combineLatest([
     this.labService.getCurrentUserFreeLab(),
-    this.currentSpaceService.getCurrentSpace$()]).pipe(
+    this.currentSpaceService.getCurrentSpace$(),
+  ]).pipe(
     map(([freeLab, space]) => {
       return {
         showCreateFreeLab: freeLab.status === 'NOT_USED' && space.type === 'PERSONAL',
-        freeLab
+        freeLab,
       };
     })
   );
 
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService,
-              private router: CaRouterService,
-              private translateService: FlTranslateService,
-              private communityHelper: CoCommunityHelperService,
-              private currentSpaceService: CaCurrentSpaceService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService,
+    private router: CaRouterService,
+    private translateService: FlTranslateService,
+    private communityHelper: CoCommunityHelperService,
+    private currentSpaceService: CaCurrentSpaceService
+  ) {}
 
   createFreeLab(freeLab: CaLabFreeGetDto): void {
     const params: FlTranslateParam = {
@@ -56,8 +57,8 @@ export class CaLabFreeCreateButtonComponent {
         storageSize: freeLab.standardInfo.diskSize,
         supportMail: CaEnvironmentHelper.getSupportMail(),
         overviewLink: this.communityHelper.getDataLabOverviewRoute(),
-        configureLink: this.communityHelper.getDataLabManagementRoute()
-      }
+        configureLink: this.communityHelper.getDataLabManagementRoute(),
+      },
     };
 
     const content = `<p>${this.translateService.translate('start_free_data_lab_confirmation_1', params)}</p></br>
@@ -71,19 +72,18 @@ export class CaLabFreeCreateButtonComponent {
       title: 'start_free_data_lab',
       content: { text: content, translateText: false },
       observable: this.labService.createFreeLabCurrentUser(),
-      successMessage: 'free_data_lab_started'
+      successMessage: 'free_data_lab_started',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onCreateFreeLabDialogClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onCreateFreeLabDialogClosed(result));
   }
 
   private onCreateFreeLabDialogClosed(result: FlConfirmDialogResult<CaLab>): void {
     if (result.choice) {
       this.router.navigateToLabDetail(result.result.id);
     }
-
   }
-
 }

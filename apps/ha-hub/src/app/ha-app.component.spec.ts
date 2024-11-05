@@ -26,8 +26,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(HaAppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to ha-documentation!'
-    );
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to ha-documentation!');
   });
 });

@@ -7,23 +7,18 @@ import {
   CaCloudProviderName,
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
-  CaCloudProviderRegionType
+  CaCloudProviderRegionType,
 } from '../model/entities/ca-cloud-provider.class';
 import { ClPageI } from '@monorepo/core-lib';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CaCloudProviderService {
-
   private readonly route = 'cloud-providers';
   private readonly regionsRoute: string = this.route + '/regions';
 
-
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   ////////////////// CLOUD PROVIDER //////////////////
-
 
   public create(cloudProvider: Partial<CaCloudProvider>): Observable<CaCloudProvider> {
     return this.apiService.post(this.route, cloudProvider, CaCloudProvider);
@@ -38,16 +33,19 @@ export class CaCloudProviderService {
   }
 
   public findAll(page: number, size: number): Observable<ClPageI<CaCloudProvider>> {
-    return this.apiService.get(this.route, CaCloudProvider,
-      {page: page, pageSize: size, resultIsPaginated: true});
+    return this.apiService.get(this.route, CaCloudProvider, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   public findAllDatasource(): CaCloudProviderDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.findAll(page, pageSize), 20
+      (page: number, pageSize: number) => this.findAll(page, pageSize),
+      20
     );
   }
-
 
   ////////////////// REGIONS /////////////////
 
@@ -65,26 +63,37 @@ export class CaCloudProviderService {
 
   public getAllRegionsDatasource(): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.apiService.get(this.regionsRoute, CaCloudProviderRegion, {
-        page: page, pageSize: pageSize, resultIsPaginated: true
-      }), 20
+      (page: number, pageSize: number) =>
+        this.apiService.get(this.regionsRoute, CaCloudProviderRegion, {
+          page: page,
+          pageSize: pageSize,
+          resultIsPaginated: true,
+        }),
+      20
     );
   }
 
   public getRegionsByType(type: CaCloudProviderRegionType): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.apiService.get(`${this.regionsRoute}/type/${type}`, CaCloudProviderRegion, {
-        page: page, pageSize: pageSize, resultIsPaginated: true
-      }), 20
+      (page: number, pageSize: number) =>
+        this.apiService.get(`${this.regionsRoute}/type/${type}`, CaCloudProviderRegion, {
+          page: page,
+          pageSize: pageSize,
+          resultIsPaginated: true,
+        }),
+      20
     );
   }
 
   public getRegionsByCloudProvider(type: CaCloudProviderName): CaCloudProviderRegionDatasource {
     return new FlEntityPaginatedDatasource(
-      (page: number, pageSize: number) => this.apiService.get(`${this.regionsRoute}/cloud-provider/${type}`, CaCloudProviderRegion, {
-        page: page, pageSize: pageSize, resultIsPaginated: true
-      }), 20
+      (page: number, pageSize: number) =>
+        this.apiService.get(`${this.regionsRoute}/cloud-provider/${type}`, CaCloudProviderRegion, {
+          page: page,
+          pageSize: pageSize,
+          resultIsPaginated: true,
+        }),
+      20
     );
   }
-
 }

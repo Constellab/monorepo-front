@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { FlApiService, FlDatasourceGetPageData, FlSearchConverter, FLSearchFunction } from '@monorepo/front-core-lib';
+import {
+  FlApiService,
+  FlDatasourceGetPageData,
+  FlSearchConverter,
+  FLSearchFunction,
+} from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import { LabViewConfig, LabViewType } from '../model/entities/resource/lab-view-config.entity';
 import {
   LabViewConfigSearch,
-  LabViewConfigSearchFields
+  LabViewConfigSearchFields,
 } from '../entity-module/lab-view-config-core/model/lab-view-config-search.class';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 
 @Injectable({ providedIn: 'root' })
 export class LabViewConfigService {
-
   private route: string = 'view-config';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public getById(id: string): Observable<LabViewConfig> {
     return this.apiService.get(`${this.route}/${id}`, LabViewConfig);
@@ -33,40 +36,65 @@ export class LabViewConfigService {
     return this.apiService.put(`${this.route}/${id}/favorite`, { is_favorite: isFavorite }, LabViewConfig);
   }
 
-  public getByResource(resourceId: string, onlyFavorite: boolean, page: number, pageSize: number): Observable<ClPageI<LabViewConfig>> {
-    return this.apiService.get(`${this.route}/resource/${resourceId}/favorite/${onlyFavorite}`, LabViewConfig,
+  public getByResource(
+    resourceId: string,
+    onlyFavorite: boolean,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<LabViewConfig>> {
+    return this.apiService.get(
+      `${this.route}/resource/${resourceId}/favorite/${onlyFavorite}`,
+      LabViewConfig,
       {
-        resultIsPaginated: true, page: page, pageSize: pageSize
-      });
+        resultIsPaginated: true,
+        page: page,
+        pageSize: pageSize,
+      }
+    );
   }
 
   ///////////////////////////////////////////// SEARCH /////////////////////////////////////////////
 
   public getViewConfigSearchFunction(noteId?: string): FLSearchFunction<LabViewConfig> {
     if (noteId) {
-      return (page: number, pageSize: number, data) =>
-        this.searchForNote(noteId, page, pageSize, data);
+      return (page: number, pageSize: number, data) => this.searchForNote(noteId, page, pageSize, data);
     } else {
-      return (page: number, pageSize: number, data) =>
-        this.search(page, pageSize, data);
+      return (page: number, pageSize: number, data) => this.search(page, pageSize, data);
     }
   }
 
-  private search(page: number, pageSize: number,
-                 data: FlDatasourceGetPageData<LabViewConfigSearchFields>): Observable<ClPageI<LabViewConfig>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      LabViewConfigSearch.filterConverter, LabViewConfigSearch.sortConverter);
+  private search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LabViewConfigSearchFields>
+  ): Observable<ClPageI<LabViewConfig>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LabViewConfigSearch.filterConverter,
+      LabViewConfigSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/search`, searchInput, LabViewConfig, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
-  private searchForNote(noteId: string, page: number, pageSize: number,
-                          data: FlDatasourceGetPageData<LabViewConfigSearchFields>): Observable<ClPageI<LabViewConfig>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      LabViewConfigSearch.filterConverter, LabViewConfigSearch.sortConverter);
+  private searchForNote(
+    noteId: string,
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LabViewConfigSearchFields>
+  ): Observable<ClPageI<LabViewConfig>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LabViewConfigSearch.filterConverter,
+      LabViewConfigSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/search/note/${noteId}`, searchInput, LabViewConfig, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
@@ -74,6 +102,4 @@ export class LabViewConfigService {
   public getViewTypes(): Observable<LabViewType[]> {
     return this.apiService.get(`${this.route}/types/list`, LabViewType);
   }
-
-
 }

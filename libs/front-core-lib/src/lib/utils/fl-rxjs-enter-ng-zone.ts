@@ -1,5 +1,5 @@
-import {NgZone} from '@angular/core';
-import {Observable} from 'rxjs';
+import { NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
 
 /**
  * RXJS operator to force the observable into the ngZone
@@ -7,11 +7,11 @@ import {Observable} from 'rxjs';
  */
 export function flRxjsEnterNgZone(zone: NgZone) {
   return <T>(source: Observable<T>) =>
-    new Observable<T>(observer =>
+    new Observable<T>((observer) =>
       source.subscribe({
         next: (x) => zone.run(() => observer.next(x)),
         error: (err) => zone.run(() => observer.error(err)),
-        complete: () => zone.run(() => observer.complete())
+        complete: () => zone.run(() => observer.complete()),
       })
     );
 }

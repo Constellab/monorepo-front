@@ -10,18 +10,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'lab-select-scenario-dialog',
   templateUrl: './lab-select-scenario-dialog.component.html',
-  styleUrls: ['./lab-select-scenario-dialog.component.scss']
+  styleUrls: ['./lab-select-scenario-dialog.component.scss'],
 })
 export class LabSelectScenarioDialogComponent implements OnInit {
+  constructor(private dialogRef: MatDialogRef<LabSelectScenarioDialogComponent>) {}
 
-  constructor(private dialogRef: MatDialogRef<LabSelectScenarioDialogComponent>) {
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onScenarioSelected(scenario: LabScenario): void {
     this.dialogRef.close(scenario);
   }
-
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 /**
  * Header of the <fl-card> {@link FlCardComponent}
@@ -8,14 +8,10 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'fl-card-header',
   templateUrl: './fl-card-header.component.html',
-  styleUrls: ['./fl-card-header.component.scss']
+  styleUrls: ['./fl-card-header.component.scss'],
 })
 export class FlCardHeaderComponent implements OnInit {
+  constructor() {}
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

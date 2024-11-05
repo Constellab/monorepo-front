@@ -4,19 +4,8 @@ import { LabResourceSearchPageComponent } from './lab-resource-search-page/lab-r
 import { LabCoreModule } from '../../lab-core/lab-core.module';
 import { LabResourceCoreModule } from '../../lab-core/entity-module/lab-resource-core/lab-resource-core.module';
 
-
 @NgModule({
-  declarations: [
-    LabResourceSearchPageComponent,
-  ],
-  imports: [
-    CommonModule,
-
-    LabCoreModule,
-
-
-    LabResourceCoreModule,
-  ]
+  declarations: [LabResourceSearchPageComponent],
+  imports: [CommonModule, LabCoreModule, LabResourceCoreModule],
 })
-export class LabResourceSearchPageModule {
-}
+export class LabResourceSearchPageModule {}

@@ -38,29 +38,26 @@ export class CaDocument extends CaBaseEntity {
       id: this.id,
       name: this.name,
       isConstellabDocument: this.isConstellabDocument(),
-      inTrash: this.inTrash
-    }
+      inTrash: this.inTrash,
+    };
   }
 }
 
 export type CaDocumentDatasource = FlDatasourcePaginated<CaDocument>;
 
-
 export class CaConstellabDocument {
-
   @Type(() => CaDocument)
   document: CaDocument;
 
   content: TeRichTextContent;
 }
 
-
 export enum CaFolderDocumentStorageType {
   UPLOADED_DOCUMENT = 'UPLOADED_DOCUMENT',
   CONSTELLAB_DOCUMENT = 'CONSTELLAB_DOCUMENT',
   DESCRIPTION = 'DESCRIPTION',
   NOTE = 'NOTE',
-  MESSAGE = 'MESSAGE'
+  MESSAGE = 'MESSAGE',
 }
 
 export class CaStorageUsageDTO {
@@ -89,7 +86,6 @@ export class CaFolderStorageUsageDTO {
   hasMultipleStorageLocations(): boolean {
     return this.dataHubDetails != null && this.cloudDetails != null;
   }
-
 }
 
 export class CaDocumentPreviewDTO {

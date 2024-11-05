@@ -1,5 +1,4 @@
 <div class="view-spec g-layout-row g-layout-start-center" matRipple>
-
   <div class="view-image-container">
     <td-type-icon-badge [style]="style" [iconSize]="50"></td-type-icon-badge>
   </div>
@@ -7,7 +6,10 @@
   <div>
     <div>{{ name }}</div>
     <p *ngIf="shortDescription" class="text g-text-tiny g-text-light">{{ shortDescription }}</p>
-    <fl-user-with-date [user]="user" [date]="creationDate" *ngIf="user && creationDate"
-                       class="g-text-tiny"></fl-user-with-date>
+    <fl-user-with-date
+      [user]="user"
+      [date]="creationDate"
+      *ngIf="user && creationDate"
+      class="g-text-tiny"></fl-user-with-date>
   </div>
 </div>

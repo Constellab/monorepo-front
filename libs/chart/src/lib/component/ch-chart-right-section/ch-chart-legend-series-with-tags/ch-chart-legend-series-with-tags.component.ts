@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ChChartSerieSimple} from '../../../model/data/ch-chart-serie.class';
-import {ChChartRightSectionDirective} from '../ch-chart-right-section.directive';
-import {Observable} from 'rxjs';
-import {ChChartScaleColor} from '../../../model/scale/ch-chart-scale-color.class';
-import {FlTagColorer, FlTagWithColor} from '@monorepo/front-core-lib';
+import { Component, OnInit } from '@angular/core';
+import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
+import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
+import { Observable } from 'rxjs';
+import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
+import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib';
 
 export interface ChChartLegendSerieWithTagsInput {
   series: ChChartSerieSimple[];
@@ -18,11 +18,12 @@ export interface ChChartLegendSerieWithTagsInput {
 @Component({
   selector: 'ch-chart-legend-series-with-tags',
   templateUrl: './ch-chart-legend-series-with-tags.component.html',
-  styleUrls: ['./ch-chart-legend-series-with-tags.component.scss']
+  styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
 })
-export class ChChartLegendSeriesWithTagsComponent extends ChChartRightSectionDirective<ChChartLegendSerieWithTagsInput>
-  implements OnInit {
-
+export class ChChartLegendSeriesWithTagsComponent
+  extends ChChartRightSectionDirective<ChChartLegendSerieWithTagsInput>
+  implements OnInit
+{
   tagAreSelected: boolean = false;
 
   hasTag$: Observable<boolean>;

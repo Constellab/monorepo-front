@@ -1,7 +1,7 @@
 <div *ngIf="object" class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
   <ng-container *ngIf="showText">
     <mat-icon>sync</mat-icon>
-    <div>{{'last_sync' | translate}} :</div>
+    <div>{{ 'last_sync' | translate }} :</div>
   </ng-container>
   <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>
 </div>

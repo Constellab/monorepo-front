@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
 
-    loadChildren: () => import('./ha-main/ha-main.module').then(m => m.HaMainModule)
+    loadChildren: () => import('./ha-main/ha-main.module').then((m) => m.HaMainModule),
   },
 ];
 
@@ -19,13 +19,10 @@ const routes: Routes = [
         scrollPositionRestoration: 'enabled',
         paramsInheritanceStrategy: 'always',
         anchorScrolling: 'enabled',
-        onSameUrlNavigation: 'reload'
+        onSameUrlNavigation: 'reload',
       }
     ),
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class HaAppRoutingModule {
-}
+export class HaAppRoutingModule {}

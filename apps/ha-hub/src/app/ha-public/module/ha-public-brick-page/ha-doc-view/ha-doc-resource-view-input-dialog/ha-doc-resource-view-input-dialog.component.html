@@ -7,9 +7,19 @@
     @if (isLoading) {
       <fl-loader></fl-loader>
     } @else {
-      <fl-input-file-container color="primary" [placeholder]="'select_file' | translate" [autoClear]="true" class="select-file-button">
-        <input flInputFile type="file" accept="application/json" (fileChange)="uploadFile($event)" class="select-file-button"
-               [autoClearHtmlInput]="true" [strictMode]="true">
+      <fl-input-file-container
+        color="primary"
+        [placeholder]="'select_file' | translate"
+        [autoClear]="true"
+        class="select-file-button">
+        <input
+          flInputFile
+          type="file"
+          accept="application/json"
+          (fileChange)="uploadFile($event)"
+          class="select-file-button"
+          [autoClearHtmlInput]="true"
+          [strictMode]="true" />
       </fl-input-file-container>
     }
   </div>

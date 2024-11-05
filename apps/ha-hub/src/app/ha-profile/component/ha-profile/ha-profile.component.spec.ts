@@ -8,10 +8,9 @@ describe('HaProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaProfileComponent]
-    })
-    .compileComponents();
-    
+      declarations: [HaProfileComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(HaProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

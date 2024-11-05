@@ -1,9 +1,8 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- User -->
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'user' | translate}}
+      {{ 'user' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-inline [user]="row.user"></fl-user-inline>
@@ -13,17 +12,17 @@
   <!-- Role -->
   <ng-container matColumnDef="role">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'role' | translate}}
+      {{ 'role' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{row.role}}</div>
+      <div>{{ row.role }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- AddedInfo -->
   <ng-container matColumnDef="addedInfo">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'space_user_added_info' | translate}}
+      {{ 'space_user_added_info' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.addedBy" [date]="row.createdAt"></fl-user-with-date>
@@ -33,67 +32,66 @@
   <!-- active -->
   <ng-container matColumnDef="active">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'active_license' | translate}}
+      {{ 'active_license' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{row.active | flYesNo}}</div>
+      <div>{{ row.active | flYesNo }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- Last login success -->
   <ng-container matColumnDef="lastLogin">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{'last_login' | translate}}</span>
+      <span>{{ 'last_login' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-from-now *ngIf="row.user.lastLoginSuccess" [date]="row.user.lastLoginSuccess"></fl-from-now>
-      <fl-text-ok-nok *ngIf="row.user.statusMailNotValidated()" [value]="false"
-                      [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+      <fl-text-ok-nok
+        *ngIf="row.user.statusMailNotValidated()"
+        [value]="false"
+        [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="onUpdateRole(row)">
+        <button mat-menu-item type="button" (click)="onUpdateRole(row)">
           <mat-icon>edit</mat-icon>
-          <span>{{'space_update_role' | translate}}</span>
+          <span>{{ 'space_update_role' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" *ngIf="row.active; else inactive"
-                class="g-warn-text" (click)="onDeactivateUser(row)">
+        <button
+          mat-menu-item
+          type="button"
+          *ngIf="row.active; else inactive"
+          class="g-warn-text"
+          (click)="onDeactivateUser(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span>{{'space_deactivate_license' | translate}}</span>
+          <span>{{ 'space_deactivate_license' | translate }}</span>
         </button>
 
         <ng-template #inactive>
-          <button mat-menu-item type="button"
-                  (click)="onActivateUser(row)">
+          <button mat-menu-item type="button" (click)="onActivateUser(row)">
             <mat-icon>check</mat-icon>
-            <span>{{'space_activate_license' | translate}}</span>
+            <span>{{ 'space_activate_license' | translate }}</span>
           </button>
         </ng-template>
 
-        <button mat-menu-item type="button"
-                class="g-warn-text" (click)="onRemoveUser(row)">
+        <button mat-menu-item type="button" class="g-warn-text" (click)="onRemoveUser(row)">
           <mat-icon color="warn">clear</mat-icon>
-          <span>{{'space_remove_user' | translate}}</span>
+          <span>{{ 'space_remove_user' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

@@ -10,7 +10,7 @@ import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class'
 export type PrWorkflowMode = 'edit' | 'readOnly';
 
 export type PrWorkflowEvent =
-  PrWorkflowDeleteNodeEvent
+  | PrWorkflowDeleteNodeEvent
   | PrWorkflowConnectionEvent
   | PrWorkflowNodeMovedEvent;
 
@@ -33,12 +33,10 @@ export interface PrWorkflowNodeMovedEvent {
   protocolId: string;
 }
 
-
 /**
  * Class to manage Drawflow
  */
 export class PrWorkflow {
-
   private containerElement: HTMLElement;
   private editor: Drawflow;
 
@@ -49,11 +47,11 @@ export class PrWorkflow {
 
   private workflowEvent$: Subject<PrWorkflowEvent> = new Subject<PrWorkflowEvent>();
 
-  constructor(layer: PrWorkflowLayer,
-              mode: PrWorkflowMode = 'edit',
-              private ngZone: NgZone) {
-
-
+  constructor(
+    layer: PrWorkflowLayer,
+    mode: PrWorkflowMode = 'edit',
+    private ngZone: NgZone
+  ) {
     // set edit or readonly mode
     this.setMode(mode);
 
@@ -63,7 +61,6 @@ export class PrWorkflow {
     // init subject
     this.currentLayer$ = new BehaviorSubject<PrWorkflowLayer>(layer);
   }
-
 
   public start(element: HTMLElement): void {
     this.containerElement = element;
@@ -83,17 +80,17 @@ export class PrWorkflow {
   }
 
   private initListeners(): void {
-    this.editor.on('connectionCreated',
-      (connection) => this.ngZone.run(() => this.onConnectionCreated(connection)));
-
-    this.editor.on('connectionRemoved',
-      (connection) => this.ngZone.run(() => this.onConnectionRemoved(connection)));
-
-    this.editor.on('nodeRemoved', node => this.ngZone.run(() => this.onNodeRemoved(node)));
-
-    this.editor.on('nodeMoved',
-      (node) => this.ngZone.run(() => this.onNodeMoved(node))
+    this.editor.on('connectionCreated', (connection) =>
+      this.ngZone.run(() => this.onConnectionCreated(connection))
     );
+
+    this.editor.on('connectionRemoved', (connection) =>
+      this.ngZone.run(() => this.onConnectionRemoved(connection))
+    );
+
+    this.editor.on('nodeRemoved', (node) => this.ngZone.run(() => this.onNodeRemoved(node)));
+
+    this.editor.on('nodeMoved', (node) => this.ngZone.run(() => this.onNodeMoved(node)));
   }
 
   ////////////////////// LAYERS ///////////////////////////
@@ -147,43 +144,42 @@ export class PrWorkflow {
     if (this.isDrawflowReady() && selectLayer) {
       this.selectLayer(layer.id);
     }
-
   }
 
   public hasLayer(layerId: string): boolean {
     return this.findLayerById(layerId) != null;
   }
 
-
   // return the layer with the id
   public findLayerById(layerId: string): PrWorkflowLayer {
-    return this.layers.find(layer => layer.id === layerId);
+    return this.layers.find((layer) => layer.id === layerId);
   }
 
   public getCurrentLayerHierarchy$(): Observable<PrWorkflowLayer[]> {
-    return this.currentLayer$.asObservable().pipe(
-      map(layer => layer.getLayerHierarchy())
-    );
+    return this.currentLayer$.asObservable().pipe(map((layer) => layer.getLayerHierarchy()));
   }
 
   public loadSubProtocolLayer(protocol: PrWorkflowNodeProtocol, selectLayer: boolean): void {
     const currentLayerId = this.currentLayer.id;
 
     protocol.setLoading(true);
-    protocol.loadSubLayer().pipe(first()).subscribe({
-      next: layer => {
-        if (!this.hasLayer(layer.id)) {
-          this.addLayer(layer, currentLayerId, selectLayer);
-        } else {
-          this.selectLayer(layer.id);
-        }
-        protocol.setLoading(false);
-      },
-      error: (error) => {
-        console.error(error);
-        protocol.setLoading(false);
-      }
-    });
+    protocol
+      .loadSubLayer()
+      .pipe(first())
+      .subscribe({
+        next: (layer) => {
+          if (!this.hasLayer(layer.id)) {
+            this.addLayer(layer, currentLayerId, selectLayer);
+          } else {
+            this.selectLayer(layer.id);
+          }
+          protocol.setLoading(false);
+        },
+        error: (error) => {
+          console.error(error);
+          protocol.setLoading(false);
+        },
+      });
   }
 
   public deleteLayerAndChildren(layerId: string): void {
@@ -226,14 +222,14 @@ export class PrWorkflow {
 
     // if we can't find the node, we don't need to do anything
     // the node was already deleted by code
-    if(!node) return;
+    if (!node) return;
     layer.removeChildrenNode(nodeId.toString());
     if (node) {
       this.workflowEvent$.next({
         action: 'deleteNode',
         node: node,
         connections: layer.findConnectionsByNode(node.instanceName),
-        protocolId: this.currentLayer.id
+        protocolId: this.currentLayer.id,
       });
     }
   }
@@ -265,7 +261,7 @@ export class PrWorkflow {
       this.workflowEvent$.next({
         action: 'nodeMoved',
         node: node,
-        protocolId: layer.id
+        protocolId: layer.id,
       });
     }
   }
@@ -281,7 +277,10 @@ export class PrWorkflow {
 
     // if the connection already exists, we don't need to do anything
     // this happened when the add_connection is called and the connection is added by code not user
-    if (this.findConnection(outputNode.drawflowId, inputNode.drawflowId, outputPort.name, inputPort.name) != null) {
+    if (
+      this.findConnection(outputNode.drawflowId, inputNode.drawflowId, outputPort.name, inputPort.name) !=
+      null
+    ) {
       return;
     }
 
@@ -289,19 +288,27 @@ export class PrWorkflow {
     // refuse if there are more than one connection (the new one is counting)
     const port = inputNode.findInputPortByDrawflowName(connectionEvent.input_class);
     if (inputNode.countInputConnections(port.name) > 1) {
-
       // remove the connection
-      this.editor.removeSingleConnection(connectionEvent.output_id, connectionEvent.input_id,
-        connectionEvent.output_class, connectionEvent.input_class);
+      this.editor.removeSingleConnection(
+        connectionEvent.output_id,
+        connectionEvent.input_id,
+        connectionEvent.output_class,
+        connectionEvent.input_class
+      );
       return;
     }
 
-    const newConnection = this.currentLayer.saveUserConnectionAdded(outputNode, inputNode, outputPort, inputPort);
+    const newConnection = this.currentLayer.saveUserConnectionAdded(
+      outputNode,
+      inputNode,
+      outputPort,
+      inputPort
+    );
     if (connectionEvent) {
       this.workflowEvent$.next({
         action: 'addConnection',
         connection: newConnection,
-        protocolId: this.currentLayer.id
+        protocolId: this.currentLayer.id,
       });
     }
   }
@@ -311,7 +318,6 @@ export class PrWorkflow {
     // this happened when the removeConnection is called and the connection was deleted by code not user
     const connection = this.currentLayer.findConnectionByConnectionEvent(connectionEvent);
     if (connection) {
-
       const layer = this.currentLayer;
       // for readonly mode cancel the deletion
       if (this.mode === 'readOnly') {
@@ -326,23 +332,28 @@ export class PrWorkflow {
       // was deleted because a node was deleted
       setTimeout(() => {
         layer.saveUserConnectionRemoved(connection);
-        if (layer.findNodeByName(connection.inputNode.instanceName) == null
-          || layer.findNodeByName(connection.outputNode.instanceName) == null) {
+        if (
+          layer.findNodeByName(connection.inputNode.instanceName) == null ||
+          layer.findNodeByName(connection.outputNode.instanceName) == null
+        ) {
           return;
         }
 
         this.workflowEvent$.next({
           action: 'deleteConnection',
           connection: connection,
-          protocolId: this.currentLayer.id
+          protocolId: this.currentLayer.id,
         });
       }, 0);
     }
   }
 
-
-  public findConnection(outputNodeId: string, inputNodeId: string,
-                        outputPortName: string, inputPortName: string): PrWorkflowConnection {
+  public findConnection(
+    outputNodeId: string,
+    inputNodeId: string,
+    outputPortName: string,
+    inputPortName: string
+  ): PrWorkflowConnection {
     for (const layer of this.layers) {
       const connection = layer.findConnection(outputNodeId, inputNodeId, outputPortName, inputPortName);
       if (connection != null) {
@@ -361,7 +372,6 @@ export class PrWorkflow {
   public setMode(mode: PrWorkflowMode): void {
     this.mode = mode;
   }
-
 
   public getWorkflowEvent$(): Observable<PrWorkflowEvent> {
     return this.workflowEvent$.asObservable();

@@ -1,54 +1,63 @@
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-import {BnBioNetworkNodeMetabolite} from '../model/bn-bio-network-node-metabolite.class';
-import {BnBioNetworkMetaboliteRenderer} from './bn-bio-network-metabolite.renderer';
-import {BnBioNetworkNodeReaction} from '../model/bn-bio-network-node-reaction.class';
-import {BnBioNetworkReactionRenderer} from './bn-bio-network-reaction.renderer';
-import {BnBioNetworkSelectionState} from '../state/bn-bio-network-selection.state';
-import {BnBioNetworkGridState} from '../state/bn-bio-network-grid.state';
-import {BnBioNetworkNodeCofactor} from '../model/bn-bio-network-node-cofactor.class';
-import {BnBioNetworkCofactorRenderer} from './bn-bio-network-cofactor.renderer';
-import {BnBioNetworkOptions} from '../state/bn-bio-network-options.state';
-import {Observable} from 'rxjs';
-import {BnBioNetworkObjectColorFunction, BnBioNetworkObjectRenderer} from './bn-bio-network-object.renderer';
-import {BnBioNetworkGraphRenderer} from './bn-bio-network-main.renderer';
-import {BnBioNetworkMetaboliteLevel} from '../model/bn-bio-network.class';
-import {BnBioNetworkSelectionEvent, BnBioNetworkSelectionMode} from '../model/bn-bio-network-selection.class';
-import {FlThemeDetail} from '@monorepo/front-core-lib';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { BnBioNetworkNodeMetabolite } from '../model/bn-bio-network-node-metabolite.class';
+import { BnBioNetworkMetaboliteRenderer } from './bn-bio-network-metabolite.renderer';
+import { BnBioNetworkNodeReaction } from '../model/bn-bio-network-node-reaction.class';
+import { BnBioNetworkReactionRenderer } from './bn-bio-network-reaction.renderer';
+import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
+import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
+import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
+import { BnBioNetworkCofactorRenderer } from './bn-bio-network-cofactor.renderer';
+import { BnBioNetworkOptions } from '../state/bn-bio-network-options.state';
+import { Observable } from 'rxjs';
+import {
+  BnBioNetworkObjectColorFunction,
+  BnBioNetworkObjectRenderer,
+} from './bn-bio-network-object.renderer';
+import { BnBioNetworkGraphRenderer } from './bn-bio-network-main.renderer';
+import { BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
+import {
+  BnBioNetworkSelectionEvent,
+  BnBioNetworkSelectionMode,
+} from '../model/bn-bio-network-selection.class';
+import { FlThemeDetail } from '@monorepo/front-core-lib';
 
 /**
  * Class to render nodes of the network (metabolites, reactions and cofactors)
  */
 export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
-
   public positions: {
-    fromX: number,
-    fromY: number,
-    toX: number,
-    toY: number
+    fromX: number;
+    fromY: number;
+    toX: number;
+    toY: number;
   };
 
-  constructor(graphRenderer: BnBioNetworkGraphRenderer,
-              options$: Observable<BnBioNetworkOptions>,
-              selection$: Observable<BnBioNetworkSelectionEvent>,
-              private selectionState: BnBioNetworkSelectionState,
-              private gridState: BnBioNetworkGridState,
-              greyColor: string,
-              private themeDetail: FlThemeDetail) {
+  constructor(
+    graphRenderer: BnBioNetworkGraphRenderer,
+    options$: Observable<BnBioNetworkOptions>,
+    selection$: Observable<BnBioNetworkSelectionEvent>,
+    private selectionState: BnBioNetworkSelectionState,
+    private gridState: BnBioNetworkGridState,
+    greyColor: string,
+    private themeDetail: FlThemeDetail
+  ) {
     super(graphRenderer, options$, selection$, greyColor);
   }
-
 
   public render(): void {
     // draw the node
     this.graphRenderer.graph
       // draw the pointer area for interactions
       .nodePointerAreaPaint((node: BnBioNetworkNode, color: string, ctx: CanvasRenderingContext2D) =>
-        this.nodePaintPointerArea(node, ctx, color))
+        this.nodePaintPointerArea(node, ctx, color)
+      )
       .nodeVal(() => 5)
       // .nodeRelSize(6)
-      .onNodeClick((node: BnBioNetworkNode) => this.selectionState.selectNodeAndDirectLinks(node, 'singleNodeByClick'))
+      .onNodeClick((node: BnBioNetworkNode) =>
+        this.selectionState.selectNodeAndDirectLinks(node, 'singleNodeByClick')
+      )
       .onNodeDrag((node: BnBioNetworkNode) => {
-        const coord = {x: node.x, y: node.y};
+        const coord = { x: node.x, y: node.y };
         const newPos = this.gridState.roundCoordOnGrid(coord);
         if (newPos) {
           node.setPositionAndFreeze(newPos);
@@ -69,13 +78,16 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     }
 
     this.graphRenderer.graph.nodeCanvasObject((node: BnBioNetworkNode, ctx: CanvasRenderingContext2D) =>
-      this.nodePaint(node, ctx, colorFunc, options.showTexts));
+      this.nodePaint(node, ctx, colorFunc, options.showTexts)
+    );
   }
 
-  public updateVisibility(visibleLevels: BnBioNetworkMetaboliteLevel[],
-                          selectionMode: BnBioNetworkSelectionMode,
-                          selectedNode: BnBioNetworkNode | null,
-                          showRelatedCofactor: boolean): void {
+  public updateVisibility(
+    visibleLevels: BnBioNetworkMetaboliteLevel[],
+    selectionMode: BnBioNetworkSelectionMode,
+    selectedNode: BnBioNetworkNode | null,
+    showRelatedCofactor: boolean
+  ): void {
     let visibilityNode: (object: BnBioNetworkNode) => boolean;
 
     const levelVisibility = this.getLevelVisibilityFunction(visibleLevels, selectionMode);
@@ -95,12 +107,20 @@ export class BnBioNetworkNodesRenderer extends BnBioNetworkObjectRenderer {
     this.graphRenderer.graph.nodeVisibility(visibilityNode);
   }
 
-
-  private nodePaint(node: BnBioNetworkNode, ctx: CanvasRenderingContext2D,
-                    colorFunc: BnBioNetworkObjectColorFunction, showText: boolean): void {
+  private nodePaint(
+    node: BnBioNetworkNode,
+    ctx: CanvasRenderingContext2D,
+    colorFunc: BnBioNetworkObjectColorFunction,
+    showText: boolean
+  ): void {
     // if node position are not  inside positions
-    if (this.positions && (node.x < this.positions.fromX || node.x > this.positions.toX ||
-      node.y < this.positions.fromY || node.y > this.positions.toY)) {
+    if (
+      this.positions &&
+      (node.x < this.positions.fromX ||
+        node.x > this.positions.toX ||
+        node.y < this.positions.fromY ||
+        node.y > this.positions.toY)
+    ) {
       return;
     }
 

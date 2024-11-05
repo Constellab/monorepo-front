@@ -1,7 +1,7 @@
-import {DateTime} from 'luxon';
-import {ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme} from '@monorepo/core-lib';
-import {FlUser} from '@monorepo/front-core-lib';
-import {CoUser} from '@monorepo/community-lib';
+import { DateTime } from 'luxon';
+import { ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
+import { FlUser } from '@monorepo/front-core-lib';
+import { CoUser } from '@monorepo/community-lib';
 
 export class HaUserDetailDto {
   id: string;
@@ -17,7 +17,6 @@ export class HaUserDetailDto {
 }
 
 export class HaUser extends CoUser implements FlUser {
-
   email: string;
 
   theme: ClTheme;
@@ -29,7 +28,6 @@ export class HaUser extends CoUser implements FlUser {
 
   category: HaUserCategory;
 }
-
 
 export enum HaUserCategory {
   ADMIN = 'ADMIN',

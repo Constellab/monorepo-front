@@ -1,8 +1,8 @@
-.loader{
+.loader {
   margin: auto;
 }
 
-.doc-div{
+.doc-div {
   width: 60rem;
   max-width: 100%;
   overflow: hidden;
@@ -12,22 +12,22 @@
   align-items: center;
 }
 
-.doc-div-content{
+.doc-div-content {
   width: 60rem;
   max-width: calc(100vw - 30px);
   overflow: hidden;
 }
 
-.doc-title-div{
+.doc-title-div {
   display: flex;
   align-items: center;
 }
 
-.doc-title-div > button{
+.doc-title-div > button {
   margin-left: auto;
 }
 
-.right-div{
+.right-div {
   max-width: max-content;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -41,7 +41,7 @@
   min-height: 20%;
 }
 
-.right-div *{
+.right-div * {
   display: block;
   max-width: max-content;
   text-overflow: ellipsis;
@@ -50,11 +50,11 @@
   margin-bottom: 0.25em;
 }
 
-.right-div p{
+.right-div p {
   padding-left: 1em;
   margin: 0 !important;
 }
 
-.content-editor{
+.content-editor {
   border: none;
 }

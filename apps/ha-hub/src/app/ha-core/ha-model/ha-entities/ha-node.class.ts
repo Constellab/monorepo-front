@@ -1,10 +1,9 @@
-import {MatTreeFlatDataSource} from '@angular/material/tree';
-import {FlEntity} from '@monorepo/front-core-lib';
-import {Type} from 'class-transformer';
-import {HaBaseEntity, HaEntity} from './ha-entity.class';
+import { MatTreeFlatDataSource } from '@angular/material/tree';
+import { FlEntity } from '@monorepo/front-core-lib';
+import { Type } from 'class-transformer';
+import { HaBaseEntity, HaEntity } from './ha-entity.class';
 
-export class HaNode extends HaBaseEntity{
-
+export class HaNode extends HaBaseEntity {
   path: string;
 
   completePath: string;
@@ -18,22 +17,29 @@ export class HaNode extends HaBaseEntity{
 
   parentId: string;
 
-  constructor(id: string, path: string, completePath: string, name: string, order: number, parentId: string, children?: HaNode[]) {
+  constructor(
+    id: string,
+    path: string,
+    completePath: string,
+    name: string,
+    order: number,
+    parentId: string,
+    children?: HaNode[]
+  ) {
     super();
     this.id = id;
     this.path = path;
     this.completePath = completePath;
-    this.name= name;
+    this.name = name;
     this.order = order;
     this.parentId = parentId;
-    if(children){
+    if (children) {
       this.children = children;
     }
   }
-
 }
 
-export class HaNodeDTO extends HaEntity{
+export class HaNodeDTO extends HaEntity {
   title: string;
   path: string;
   folderId?: string;
@@ -41,30 +47,30 @@ export class HaNodeDTO extends HaEntity{
   type: HaNodeType;
 }
 
-export enum HaNodeType{
+export enum HaNodeType {
   DOC = 'DOC',
   FOL = 'FOL',
-  TEC = 'TEC'
+  TEC = 'TEC',
 }
 
-export class EntityWithPotentialsChildren<T> implements FlEntity{
+export class EntityWithPotentialsChildren<T> implements FlEntity {
   id: string;
   children?: T[];
 }
 
-
-export class HaMateTreeFlatDataSource<T extends EntityWithPotentialsChildren<T>, F, K = F> extends MatTreeFlatDataSource<T, F, K>{
-
-  findNode(nodeId: string, data: T[]): T{
-    const node: T = data.find(n => n.id == nodeId);
-    if(node) {
+export class HaMateTreeFlatDataSource<
+  T extends EntityWithPotentialsChildren<T>,
+  F,
+  K = F,
+> extends MatTreeFlatDataSource<T, F, K> {
+  findNode(nodeId: string, data: T[]): T {
+    const node: T = data.find((n) => n.id == nodeId);
+    if (node) {
       return node;
     }
-    data.map(n => {
+    data.map((n) => {
       return this.findNode(nodeId, n.children);
     });
     return null;
   }
-
-
 }

@@ -1,14 +1,14 @@
-import {Injectable, NgZone, Renderer2} from '@angular/core';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
-import {debounceTime, filter, startWith} from 'rxjs/operators';
-import {ClHelpService, ClSubscriptionHandler} from '@monorepo/core-lib';
-import {SpSpreadsheetSelectionState} from './sp-spreadsheet-selection.state';
-import {SpSheetRow} from '../model/sp-sheet-headers.class';
-import {SpSpreadsheetElementState} from './sp-spreadsheet-element.state';
-import {SpSheetSingleSelection} from '../model/selection/sp-sheet-single-selection.class';
-import {SpSpreadsheetPaginationState} from './sp-spreadsheet-pagination.state';
-import {FlHtmlHelper, FlRendererListenerObs, flRxjsEnterNgZone} from '@monorepo/front-core-lib';
+import { Injectable, NgZone, Renderer2 } from '@angular/core';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, filter, startWith } from 'rxjs/operators';
+import { ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
+import { SpSheetRow } from '../model/sp-sheet-headers.class';
+import { SpSpreadsheetElementState } from './sp-spreadsheet-element.state';
+import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
+import { SpSpreadsheetPaginationState } from './sp-spreadsheet-pagination.state';
+import { FlHtmlHelper, FlRendererListenerObs, flRxjsEnterNgZone } from '@monorepo/front-core-lib';
 
 export interface Interval {
   from: number;
@@ -23,7 +23,6 @@ export interface Interval {
  */
 @Injectable()
 export class SpSpreadsheetScrollState {
-
   private rowsToDisplay$: BehaviorSubject<SpSheetRow[]> = new BehaviorSubject(null);
 
   // parent of the heightSimulator that scroll
@@ -43,17 +42,21 @@ export class SpSpreadsheetScrollState {
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private renderer: Renderer2,
-              private state: SpSpreadsheetState,
-              private ngZone: NgZone,
-              private selectionState: SpSpreadsheetSelectionState,
-              private elementState: SpSpreadsheetElementState,
-              private paginationState: SpSpreadsheetPaginationState) {
-  }
+  constructor(
+    private renderer: Renderer2,
+    private state: SpSpreadsheetState,
+    private ngZone: NgZone,
+    private selectionState: SpSpreadsheetSelectionState,
+    private elementState: SpSpreadsheetElementState,
+    private paginationState: SpSpreadsheetPaginationState
+  ) {}
 
-
-  public init(tableContainer: HTMLElement, scroller: HTMLElement, heightSimulator: HTMLElement,
-              horizontalScroller: HTMLElement): void {
+  public init(
+    tableContainer: HTMLElement,
+    scroller: HTMLElement,
+    heightSimulator: HTMLElement,
+    horizontalScroller: HTMLElement
+  ): void {
     this.tableContainer = tableContainer;
     this.verticalScroller = scroller;
     this.heightSimulator = heightSimulator;
@@ -61,12 +64,11 @@ export class SpSpreadsheetScrollState {
     this.listenToScroll();
 
     // listen to the selection event to scroll to last selection rows if not visible
-    this.selectionState.getSelection$()
+    this.selectionState
+      .getSelection$()
       // don't scroll on empty or columns selection
-      .pipe(filter(selection => selection != null))
-      .subscribe(
-        selection => this.scrollToCell(selection)
-      );
+      .pipe(filter((selection) => selection != null))
+      .subscribe((selection) => this.scrollToCell(selection));
   }
 
   private listenToScroll(): void {
@@ -74,29 +76,32 @@ export class SpSpreadsheetScrollState {
 
     this.ngZone.runOutsideAngular(() => {
       // listen to wheel event on spreadsheet to trigger a scroll event on scroller
-      this.wheelListener = this.renderer.listen(this.tableContainer, 'wheel',
-        (event: WheelEvent) => this.onWheelEvent(event));
+      this.wheelListener = this.renderer.listen(this.tableContainer, 'wheel', (event: WheelEvent) =>
+        this.onWheelEvent(event)
+      );
 
       this.scrollListener = new FlRendererListenerObs(this.renderer, this.verticalScroller, 'scroll');
       this.windowsResizeListener = new FlRendererListenerObs(this.renderer, 'window', 'resize');
 
-      this.subscriptions.add(combineLatest([
-        this.state.getCurrentSheetRows$(),
-        this.scrollListener.onEvent$().pipe(startWith('')),
-        this.windowsResizeListener.onEvent$().pipe(startWith(''), debounceTime(100))
-      ]).subscribe(
-        ([rows]) => this.refreshRowsToDisplay(rows)
-      ));
+      this.subscriptions.add(
+        combineLatest([
+          this.state.getCurrentSheetRows$(),
+          this.scrollListener.onEvent$().pipe(startWith('')),
+          this.windowsResizeListener.onEvent$().pipe(startWith(''), debounceTime(100)),
+        ]).subscribe(([rows]) => this.refreshRowsToDisplay(rows))
+      );
     });
   }
 
   private onWheelEvent(event: WheelEvent): void {
-
     // if we reached the bottom of the vertical scroller.
     // we load the next page and don't override the scroll logic
     // # Use round to
-    if (Math.round(this.verticalScroller.scrollTop + 0.5) >= (this.verticalScroller.scrollHeight - this.verticalScroller.offsetHeight)
-        && event.deltaY > 0)  {
+    if (
+      Math.round(this.verticalScroller.scrollTop + 0.5) >=
+        this.verticalScroller.scrollHeight - this.verticalScroller.offsetHeight &&
+      event.deltaY > 0
+    ) {
       this.paginationState.callNextPage();
       return;
     }
@@ -107,7 +112,6 @@ export class SpSpreadsheetScrollState {
       this.paginationState.callPreviousPage();
       return;
     }
-
 
     ClHelpService.stopEventPropagation(event);
     this.triggerScrollY(event.deltaY);
@@ -153,18 +157,15 @@ export class SpSpreadsheetScrollState {
     // + 4 is to include to header row and the last row
     // and a little more to be sure the last line is always visible
     // because horizontal scroll bar can hide it
-    this.renderer.setStyle(this.heightSimulator, 'height',
-      (this.cellHeight * (rowCount + 4)) + 'px');
+    this.renderer.setStyle(this.heightSimulator, 'height', this.cellHeight * (rowCount + 4) + 'px');
   }
-
 
   public getRowsToDisplay$(): Observable<SpSheetRow[]> {
     return this.rowsToDisplay$.asObservable().pipe(
-      filter(cells => cells != null),
+      filter((cells) => cells != null),
       flRxjsEnterNgZone(this.ngZone)
     );
   }
-
 
   public scrollOnePage(direction: 'up' | 'down'): void {
     const factor: number = direction === 'up' ? -1 : 1;
@@ -184,7 +185,6 @@ export class SpSpreadsheetScrollState {
       this.scrollToColumn(columnId);
       this.scrollToRow(rowId);
     }
-
   }
 
   // scroll to the rowId if it's not visible
@@ -246,7 +246,7 @@ export class SpSpreadsheetScrollState {
       from: rows[0].index,
       // we consider the last row as not visible because it is often cut
       // so we do a - 1
-      to: rows[rows.length - 1].index - 1
+      to: rows[rows.length - 1].index - 1,
     };
   }
 }

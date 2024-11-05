@@ -7,7 +7,6 @@ import { CaSpaceRole } from './ca-space-user.class';
 export type CaSpaceType = 'ENTREPRISE' | 'PERSONAL';
 
 export class CaSpace extends CaBaseEntity {
-
   name: string;
 
   photo: string;
@@ -27,7 +26,6 @@ export class CaSpace extends CaBaseEntity {
       case 'PERSONAL':
         return 'person';
     }
-
   }
 }
 
@@ -42,5 +40,3 @@ export class CaSpaceInfoDto {
 
   roleInSpace: CaSpaceRole;
 }
-
-

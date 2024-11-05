@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabRestoreBackupToLabComponent} from './ca-lab-restore-backup-to-lab.component';
+import { CaLabRestoreBackupToLabComponent } from './ca-lab-restore-backup-to-lab.component';
 
 describe('CaLabRestoreBackupToLabComponent', () => {
   let component: CaLabRestoreBackupToLabComponent;
@@ -8,9 +8,8 @@ describe('CaLabRestoreBackupToLabComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabRestoreBackupToLabComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabRestoreBackupToLabComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabRestoreBackupToLabComponent);
     component = fixture.componentInstance;

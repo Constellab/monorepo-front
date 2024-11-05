@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDocumentTableComponent} from './ca-document-table.component';
+import { CaDocumentTableComponent } from './ca-document-table.component';
 
 describe('CaDocumentTableComponent', () => {
   let component: CaDocumentTableComponent;
@@ -8,9 +8,8 @@ describe('CaDocumentTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDocumentTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDocumentTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaDocumentTableComponent);
     component = fixture.componentInstance;

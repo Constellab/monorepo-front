@@ -1,7 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
-import {FlDynamicFormAbstractControl, FlDynamicFormGroupConfig} from '../../model/fl-dynamic-field-config.class';
-import {FlDynamicAbstractFormDirective} from '../../model/fl-dynamic-abstract-form.directive';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import {
+  FlDynamicFormAbstractControl,
+  FlDynamicFormGroupConfig,
+} from '../../model/fl-dynamic-field-config.class';
+import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 
 /**
  * Component to create dynamic form group
@@ -10,10 +13,9 @@ import {FlDynamicAbstractFormDirective} from '../../model/fl-dynamic-abstract-fo
   selector: 'fl-dynamic-form-group',
   templateUrl: './fl-dynamic-form-group.component.html',
   styleUrls: ['./fl-dynamic-form-group.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFormDirective {
-
   /**
    * Form where control will be added
    */
@@ -21,11 +23,9 @@ export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFor
 
   @Input() config: FlDynamicFormGroupConfig;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getControlClass(config: FlDynamicFormAbstractControl): string {
     // different classe based on type
@@ -39,6 +39,4 @@ export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFor
     }
     return 'group-container';
   }
-
-
 }

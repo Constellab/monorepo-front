@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDocumentDetailPageComponent} from './ca-document-detail-page.component';
+import { CaDocumentDetailPageComponent } from './ca-document-detail-page.component';
 
 describe('CaDocumentDetailPageComponent', () => {
   let component: CaDocumentDetailPageComponent;
@@ -8,9 +8,8 @@ describe('CaDocumentDetailPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDocumentDetailPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDocumentDetailPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaDocumentDetailPageComponent);
     component = fixture.componentInstance;

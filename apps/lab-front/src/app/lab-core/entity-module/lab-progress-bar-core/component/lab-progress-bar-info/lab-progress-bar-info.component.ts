@@ -3,7 +3,7 @@ import {
   LabProgressBar,
   LabProgressBarMessages,
   LabProgressMessage,
-  LabProgressMessageDatasource
+  LabProgressMessageDatasource,
 } from '../../../../model/entities/lab-progress-bar.entity';
 import { mergeMap, Observable, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
@@ -12,7 +12,6 @@ import { LabProgressBarService } from '../../../../entity-service/lab-progress-b
 interface LabProgressWithMessage {
   progressBar?: LabProgressBar;
   messages: LabProgressBarMessages;
-
 }
 
 /**
@@ -21,10 +20,9 @@ interface LabProgressWithMessage {
 @Component({
   selector: 'lab-progress-bar-info',
   templateUrl: './lab-progress-bar-info.component.html',
-  styleUrls: ['./lab-progress-bar-info.component.scss']
+  styleUrls: ['./lab-progress-bar-info.component.scss'],
 })
 export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
-
   @Input({ required: true }) progressBar$: Observable<LabProgressBar>;
 
   @Input({ required: true }) scrollableElement: HTMLElement;
@@ -52,25 +50,21 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
   private readonly nbOfMessages = 20;
   private progressBarId: string;
 
-  constructor(private progressBarService: LabProgressBarService) {
-
-  }
+  constructor(private progressBarService: LabProgressBarService) {}
 
   ngOnInit(): void {
     this.messageDatasource = new LabProgressMessageDatasource();
     this.messages$ = this.messageDatasource.connect();
 
-    this.elapsedTime$ = this.progressBar$.pipe(
-      map(progressBar => progressBar.elapsedTime)
-    );
+    this.elapsedTime$ = this.progressBar$.pipe(map((progressBar) => progressBar.elapsedTime));
 
     // every time the progress bar updated (reload from state), refresh the message list
-    this.subscription = this.progressBar$.pipe(
-      filter(() => this.liveMode !== false),
-      mergeMap(progressBar => this.getMessages(progressBar)))
-      .subscribe(
-        messages => this.addMessageToList(messages)
-      );
+    this.subscription = this.progressBar$
+      .pipe(
+        filter(() => this.liveMode !== false),
+        mergeMap((progressBar) => this.getMessages(progressBar))
+      )
+      .subscribe((messages) => this.addMessageToList(messages));
   }
 
   private getMessages(progressBar: LabProgressBar): Observable<LabProgressWithMessage> {
@@ -85,9 +79,9 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
       this.showLiveModeToggle = progressBar.endedAt != null;
     }
     // get the last 20 messages
-    return this.progressBarService.getProgressBarMessages(progressBar.id, this.nbOfMessages).pipe(
-      map(messages => ({ progressBar, messages: messages }))
-    );
+    return this.progressBarService
+      .getProgressBarMessages(progressBar.id, this.nbOfMessages)
+      .pipe(map((messages) => ({ progressBar, messages: messages })));
   }
 
   loadMoreMessagesManually(): void {
@@ -100,15 +94,18 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
 
     this.loadMoreIsLoading = true;
 
-    const lastMessageDatetime = this.messageDatasource.array[this.messageDatasource.array.length - 1]?.datetime;
+    const lastMessageDatetime =
+      this.messageDatasource.array[this.messageDatasource.array.length - 1]?.datetime;
     if (lastMessageDatetime) {
       // load message that are older than the last message in the list
-      this.progressBarService.getProgressBarMessages(this.progressBarId, this.nbOfMessages, lastMessageDatetime).subscribe(
-        {
-          next: messages => this.loadMoreMessagesSuccess({
-            messages: messages
-          }),
-          error: () => this.loadMoreIsLoading = false
+      this.progressBarService
+        .getProgressBarMessages(this.progressBarId, this.nbOfMessages, lastMessageDatetime)
+        .subscribe({
+          next: (messages) =>
+            this.loadMoreMessagesSuccess({
+              messages: messages,
+            }),
+          error: () => (this.loadMoreIsLoading = false),
         });
     }
   }
@@ -150,10 +147,11 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     if (this.liveMode === true) {
       this.messageDatasource.clear();
       this.loadMoreCompleted = false;
-      this.progressBar$.pipe(first()).subscribe(progressBar => this.getMessages(progressBar).subscribe(
-        messages => this.addMessageToList(messages)
-      ));
-
+      this.progressBar$
+        .pipe(first())
+        .subscribe((progressBar) =>
+          this.getMessages(progressBar).subscribe((messages) => this.addMessageToList(messages))
+        );
     }
   }
 
@@ -161,5 +159,4 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
     this.messageDatasource.disconnect();
   }
-
 }

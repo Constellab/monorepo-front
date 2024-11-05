@@ -1,13 +1,13 @@
-import {FlApiServiceConfig} from '@monorepo/front-core-lib';
-import {ClCoreJsonConvert, ClDeserializationRef, ClPageI} from '@monorepo/core-lib';
-import {Injectable} from '@angular/core';
-import {HaEnvironmentHelper} from './ha-environment.helper';
+import { FlApiServiceConfig } from '@monorepo/front-core-lib';
+import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { Injectable } from '@angular/core';
+import { HaEnvironmentHelper } from './ha-environment.helper';
 
 /**
  * Class to configure the FlApiService
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaApiServiceConfig extends FlApiServiceConfig {
   deserializePage(json: any, classReference: ClDeserializationRef): ClPageI<any> {
@@ -35,6 +35,4 @@ export class HaApiServiceConfig extends FlApiServiceConfig {
   get pageSizeQueryParam(): string {
     return 'size';
   }
-
-
 }

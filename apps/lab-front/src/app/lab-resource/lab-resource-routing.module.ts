@@ -13,10 +13,12 @@ import { LabRouterService } from '../lab-core/service/lab-router.service';
 export class LabViewRouteRedirectGuard {
   constructor(
     private viewConfigService: LabViewConfigService,
-    private router: Router,
+    private router: Router
   ) {}
 
-  canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(
+    route: ActivatedRouteSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const viewId = route.params.id;
 
     if (!viewId) {
@@ -28,7 +30,7 @@ export class LabViewRouteRedirectGuard {
         const route = LabRouterService.getViewConfigDetailRoute(viewConfig.resource.id, viewConfig.id);
         return this.router.createUrlTree([route.route], { queryParams: route.queryParams });
       }),
-      catchError(() => of(this.router.createUrlTree([LabRouterService.getDataboxRoute()]))),
+      catchError(() => of(this.router.createUrlTree([LabRouterService.getDataboxRoute()])))
     );
   }
 }
@@ -37,7 +39,11 @@ const routes: Routes = [
   { path: '', component: LabResourceSearchPageComponent },
   { path: ':id', component: LabResourceDetailPageComponent },
   // special route to redirect to the view config page in the resource detail page, there might be a better way to do this
-  { path: 'view-redirect/:id', canActivate: [LabViewRouteRedirectGuard], component: LabResourceSearchPageComponent },
+  {
+    path: 'view-redirect/:id',
+    canActivate: [LabViewRouteRedirectGuard],
+    component: LabResourceSearchPageComponent,
+  },
 ];
 
 @NgModule({

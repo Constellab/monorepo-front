@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-.container{
+.container {
   height: 100%;
 }
 
@@ -14,13 +14,13 @@
   max-width: 30rem;
 }
 
-.center{
+.center {
   height: 100%;
   width: 50%;
 }
 
 @media print {
-  .center{
+  .center {
     width: 100%;
     max-width: none !important;
   }

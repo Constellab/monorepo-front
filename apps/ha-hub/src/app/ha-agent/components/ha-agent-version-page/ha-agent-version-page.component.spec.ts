@@ -8,7 +8,7 @@ describe('HaAgentVersionPageComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [HaAgentVersionPageComponent]
+      declarations: [HaAgentVersionPageComponent],
     });
     fixture = TestBed.createComponent(HaAgentVersionPageComponent);
     component = fixture.componentInstance;

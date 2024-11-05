@@ -1,69 +1,75 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FlCheckCredentialsDialogComponent,
   FlCheckCredentialsDialogInput,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import {
   CaBucketCredentials,
   CaBucketCredentialsDatasource,
-  CaBucketCredentialsFull
+  CaBucketCredentialsFull,
 } from '../../../../model/entities/ca-object-storage.class';
 import {
   CaBucketCredentialsFormDialogComponent,
-  CaBucketCredentialsFormDialogInput
+  CaBucketCredentialsFormDialogInput,
 } from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
-import {CaObjectStorageService} from '../../../../service-api/ca-object-storage.service';
-import {ClCredentials} from '@monorepo/core-lib';
+import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
+import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-bucket-credentials-table',
   templateUrl: './ca-bucket-credentials-table.component.html',
-  styleUrls: ['./ca-bucket-credentials-table.component.scss']
+  styleUrls: ['./ca-bucket-credentials-table.component.scss'],
 })
 export class CaBucketCredentialsTableComponent implements OnInit {
-
   @Input() datasource: CaBucketCredentialsDatasource;
 
-  @Input() columns: FlTableColumnStatic<CaBucketCredentials>[] =
-    ['name', 'cloudProvider', 'space', 's3Username', 'description', 'lastModified', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaBucketCredentials>[] = [
+    'name',
+    'cloudProvider',
+    'space',
+    's3Username',
+    'description',
+    'lastModified',
+    'actions',
+  ];
 
-  constructor(private dialogService: FlDialogService,
-              private objectStorageService: CaObjectStorageService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private objectStorageService: CaObjectStorageService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   updateBucketCredential(credentials: CaBucketCredentials): void {
-
     // open user check credentials dialog
     const dialogInput: FlCheckCredentialsDialogInput = {
       onSubmit: (userCredentials: ClCredentials) =>
-        this.objectStorageService.getCredentialsData(credentials.id, userCredentials)
+        this.objectStorageService.getCredentialsData(credentials.id, userCredentials),
     };
 
-    this.dialogService.openSmallDialog(FlCheckCredentialsDialogComponent, {
-      data: dialogInput
-    }).afterClosed().subscribe(
-      result => this.openUpdateCredentials(result)
-    );
-
+    this.dialogService
+      .openSmallDialog(FlCheckCredentialsDialogComponent, {
+        data: dialogInput,
+      })
+      .afterClosed()
+      .subscribe((result) => this.openUpdateCredentials(result));
   }
 
   private openUpdateCredentials(credentials: CaBucketCredentialsFull): void {
-    if(credentials == null) return;
+    if (credentials == null) return;
     const input: CaBucketCredentialsFormDialogInput = {
       mode: 'update',
-      object: credentials
+      object: credentials,
     };
 
-    this.dialogService.openSmallDialog(CaBucketCredentialsFormDialogComponent, {data: input}).afterClosed().subscribe(
-      credentials => this.onUpdateClosed(credentials)
-    );
+    this.dialogService
+      .openSmallDialog(CaBucketCredentialsFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((credentials) => this.onUpdateClosed(credentials));
   }
 
   private onUpdateClosed(credentials?: CaBucketCredentials): void {
@@ -80,9 +86,10 @@ export class CaBucketCredentialsTableComponent implements OnInit {
       successMessage: 'bucket_credentials_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, credentials)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, credentials));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, credentials: CaBucketCredentials): void {
@@ -90,6 +97,4 @@ export class CaBucketCredentialsTableComponent implements OnInit {
       this.datasource.removeItem(credentials);
     }
   }
-
-
 }

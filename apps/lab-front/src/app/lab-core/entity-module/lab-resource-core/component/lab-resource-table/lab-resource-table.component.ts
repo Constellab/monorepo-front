@@ -6,7 +6,7 @@ import {
   FlEntityArrayObs,
   FlTableColumnStatic,
   FlTag,
-  FlTagSelectedEvent
+  FlTagSelectedEvent,
 } from '@monorepo/front-core-lib';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -21,11 +21,10 @@ import { Observable } from 'rxjs';
   selector: 'lab-resource-table',
   templateUrl: './lab-resource-table.component.html',
   styleUrls: ['./lab-resource-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabResourceTableComponent implements OnInit {
-
-  @Input({required: true}) datasource: FlArrayObs<LabResource>;
+  @Input({ required: true }) datasource: FlArrayObs<LabResource>;
 
   @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'lastModification', 'viewResource'];
 
@@ -51,13 +50,14 @@ export class LabResourceTableComponent implements OnInit {
   expandedChildrenResources$: FlEntityArrayObs<LabResource>;
   expandedChildrenStatus$: Observable<FlArrayObsStatus>;
 
-  constructor(private resourceService: LabResourceService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private resourceService: LabResourceService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     // remove the tag column from the sub table
-    this.subTableColumns = this.columns.filter(c => c !== 'tags');
+    this.subTableColumns = this.columns.filter((c) => c !== 'tags');
   }
 
   rowClicked(resource: LabResource): void {
@@ -69,7 +69,6 @@ export class LabResourceTableComponent implements OnInit {
   emitResourceSelected(resource: LabResource): void {
     this.resourceSelected.next(resource);
   }
-
 
   stopEventPropagation(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -97,7 +96,7 @@ export class LabResourceTableComponent implements OnInit {
     this.dialogService.openBigDialog(LabResourceDetailDialogComponent, {
       data: resource.id,
       panelClass: 'g-dialog-main-background',
-      closeOnNavigation: true
+      closeOnNavigation: true,
     });
   }
 
@@ -111,10 +110,11 @@ export class LabResourceTableComponent implements OnInit {
   toggleResourceChildren(resource: LabResource, event: MouseEvent): void {
     this.expandedResource = this.expandedResource === resource ? null : resource;
 
-    this.expandedChildrenResources$ = new FlEntityArrayObs(this.resourceService.getResourceChildren(resource.id));
+    this.expandedChildrenResources$ = new FlEntityArrayObs(
+      this.resourceService.getResourceChildren(resource.id)
+    );
     this.expandedChildrenStatus$ = this.expandedChildrenResources$.getStatus$();
 
     ClHelpService.stopEventPropagation(event);
   }
-
 }

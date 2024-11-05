@@ -1,46 +1,53 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {CaServerCloud} from '../../../../model/entities/server/ca-server-cloud.class';
-import {CaServerCloudFormDialogComponent} from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import {
   FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlFormDialogInput,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {CaServerService} from '../../../../service-api/ca-server.service';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
   selector: 'ca-server-cloud-table',
   templateUrl: './ca-server-cloud-table.component.html',
-  styleUrls: ['./ca-server-cloud-table.component.scss']
+  styleUrls: ['./ca-server-cloud-table.component.scss'],
 })
 export class CaServerCloudTableComponent {
+  @Input({ required: true }) datasource: FlArrayObs<CaServerCloud>;
 
-  @Input({required: true}) datasource: FlArrayObs<CaServerCloud>;
-
-  @Input() columns: FlTableColumnStatic<CaServerCloud>[] = ['cloudProvider', 'technicalName', 'serverStandard', 'cpu', 'ram',
-    'disk', 'gpu', 'actions'];
+  @Input() columns: FlTableColumnStatic<CaServerCloud>[] = [
+    'cloudProvider',
+    'technicalName',
+    'serverStandard',
+    'cpu',
+    'ram',
+    'disk',
+    'gpu',
+    'actions',
+  ];
 
   @Input() rowSelectable: boolean = false;
 
   @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
 
-
-  constructor(private dialogService: FlDialogService,
-              private serverService: CaServerService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private serverService: CaServerService
+  ) {}
 
   openEditServerCloud(serverCloud: CaServerCloud): void {
     const dialogInput: FlFormDialogInput = {
       mode: 'update',
-      object: serverCloud
+      object: serverCloud,
     };
-    this.dialogService.openSmallDialog(CaServerCloudFormDialogComponent, {data: dialogInput}).afterClosed()
-      .subscribe(
-        result => this.onOpenEditServerCloud(result)
-      );
+    this.dialogService
+      .openSmallDialog(CaServerCloudFormDialogComponent, { data: dialogInput })
+      .afterClosed()
+      .subscribe((result) => this.onOpenEditServerCloud(result));
   }
 
   private onOpenEditServerCloud(serverCloud?: CaServerCloud): void {
@@ -57,9 +64,10 @@ export class CaServerCloudTableComponent {
       successMessage: 'server_cloud_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, serverCloud)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, serverCloud));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, serverCloud: CaServerCloud): void {

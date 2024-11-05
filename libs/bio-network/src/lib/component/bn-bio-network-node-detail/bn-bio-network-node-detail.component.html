@@ -1,16 +1,15 @@
 <div *ngIf="node$ | async as node; else noNode">
-
-
   <ng-container [ngSwitch]="node.type">
     <bn-bio-network-node-reaction-detail *ngSwitchCase="'reaction'"></bn-bio-network-node-reaction-detail>
-    <bn-bio-network-node-metabolite-detail *ngSwitchCase="'metabolite'"></bn-bio-network-node-metabolite-detail>
+    <bn-bio-network-node-metabolite-detail
+      *ngSwitchCase="'metabolite'"></bn-bio-network-node-metabolite-detail>
     <bn-bio-network-node-cofactor-detail *ngSwitchCase="'cofactor'"></bn-bio-network-node-cofactor-detail>
   </ng-container>
 
   <mat-expansion-panel class="detail-panel">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{'bnBioNetwork.details' | translate}}
+        {{ 'bnBioNetwork.details' | translate }}
       </mat-panel-title>
     </mat-expansion-panel-header>
 

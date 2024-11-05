@@ -1,17 +1,18 @@
-import {Directive, ElementRef, HostListener, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Directive({
-  selector: '[haSidenavButton]'
+  selector: '[haSidenavButton]',
 })
 export class HaSidenavButtonDirective implements OnInit {
   isOpen: boolean = false;
   isActivated: boolean = false;
   windowSize: number;
 
-  constructor(private elementRef: ElementRef,
-              private router: Router) {
-  }
+  constructor(
+    private elementRef: ElementRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.elementRef.nativeElement.innerHTML = 'menu';
@@ -32,7 +33,7 @@ export class HaSidenavButtonDirective implements OnInit {
   onResize(event: any): void {
     const sidenav: any = this.elementRef.nativeElement.closest('.left-panel');
     this.windowSize = event.target.innerWidth;
-    if(this.windowSize > 1160 && this.isActivated) {
+    if (this.windowSize > 1160 && this.isActivated) {
       sidenav.style.left = 'var(--margin-side)';
       this.isOpen = false;
       this.elementRef.nativeElement.innerHTML = 'menu';
@@ -69,5 +70,4 @@ export class HaSidenavButtonDirective implements OnInit {
       }
     }
   }
-
 }

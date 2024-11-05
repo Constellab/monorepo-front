@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TdTypeIconComponent} from './td-type-icon.component';
+import { TdTypeIconComponent } from './td-type-icon.component';
 
 describe('TdTypeIconComponent', () => {
   let component: TdTypeIconComponent;
@@ -8,9 +8,8 @@ describe('TdTypeIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TdTypeIconComponent]
-    })
-    .compileComponents();
+      declarations: [TdTypeIconComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TdTypeIconComponent);
     component = fixture.componentInstance;

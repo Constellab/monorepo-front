@@ -1,14 +1,16 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {FlDatasource} from './fl-datasource.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { FlDatasource } from './fl-datasource.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Status of the {@link FlArrayObs}
  */
-export type FlArrayObsStatus = FlArrayObsStatusWaiting | FlArrayObsStatusSuccess
-  | FlArrayObsStatusError | FlArrayObsStatusComplete;
-
+export type FlArrayObsStatus =
+  | FlArrayObsStatusWaiting
+  | FlArrayObsStatusSuccess
+  | FlArrayObsStatusError
+  | FlArrayObsStatusComplete;
 
 export interface FlArrayObsStatusWaiting {
   status: 'waiting';
@@ -22,7 +24,6 @@ export interface FlArrayObsStatusSuccess<T = any> {
   result: T[];
 }
 
-
 export interface FlArrayObsStatusError<T = any> {
   status: 'error';
   error: T;
@@ -32,19 +33,17 @@ export interface FlArrayObsStatusComplete {
   status: 'complete';
 }
 
-
 /**
  * Simple class to simplify array management (add update or delete item)
  *
  *  /!\ WARNING: call the disconnect method destroying the object to clear the observable
  */
 export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
-
   // emit when the array has changed
   private array$: BehaviorSubject<T[]> = new BehaviorSubject(null);
 
   // last status of the array obs
-  private status$: BehaviorSubject<FlArrayObsStatus> = new BehaviorSubject({status: 'waiting'});
+  private status$: BehaviorSubject<FlArrayObsStatus> = new BehaviorSubject({ status: 'waiting' });
 
   private filters: Record<string, (item: T) => boolean> = {};
 
@@ -54,7 +53,10 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * not automatically disconnect the array obs. It needs to be done manually (call manualDisconnect method)
    * @protected
    */
-  constructor(data?: T[] | Observable<T[]>, private disableAutoDisconnect: boolean = false) {
+  constructor(
+    data?: T[] | Observable<T[]>,
+    private disableAutoDisconnect: boolean = false
+  ) {
     this.initData(data);
   }
 
@@ -64,8 +66,8 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
         this.array = data;
       } else if (data instanceof Observable) {
         data.subscribe({
-          next: array => this.array = array,
-          error: error => this.error(error, true)
+          next: (array) => (this.array = array),
+          error: (error) => this.error(error, true),
         });
       }
     }
@@ -76,7 +78,6 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    */
   protected abstract equals(a: T, b: T): boolean;
 
-
   ////////////////// ADD ////////////////////////
   /**
    * Add an item to the array
@@ -84,8 +85,11 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * @param order if filled the item is added on the position when order returns < 0
    * @param skipIfExists if true the item is not added if it already exists
    */
-  public addItem(item: T | T[], order ?: (a: T, b: T, index: number) => boolean,
-                 skipIfExists: boolean = true): void {
+  public addItem(
+    item: T | T[],
+    order?: (a: T, b: T, index: number) => boolean,
+    skipIfExists: boolean = true
+  ): void {
     const items: T[] = this.convertObjectOrArrayToArray(item);
 
     if (items.length === 0) {
@@ -160,7 +164,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * @param item
    * @param order
    */
-  public addOrUpdateItem(item: T | T[], order ?: (a: T, b: T, index: number) => boolean): void {
+  public addOrUpdateItem(item: T | T[], order?: (a: T, b: T, index: number) => boolean): void {
     const items: T[] = this.convertObjectOrArrayToArray(item);
 
     if (items.length === 0) {
@@ -186,7 +190,6 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     this.array = array;
   }
 
-
   ////////////////// REMOVE ////////////////////////
   /**
    * Remove an item from the list
@@ -203,7 +206,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     const array: T[] = this.array;
 
     for (const item of items) {
-      const index = array.findIndex(v => this.equals(item, v));
+      const index = array.findIndex((v) => this.equals(item, v));
 
       if (index >= 0) {
         array.splice(index, 1);
@@ -230,11 +233,11 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
   //////////////////////// GET /////////////////////////
   public findItem(item: T): T | null {
-    return this.array.find(v => this.equals(item, v));
+    return this.array.find((v) => this.equals(item, v));
   }
 
   public findIndex(item: T): number {
-    return this.array.findIndex(v => this.equals(item, v));
+    return this.array.findIndex((v) => this.equals(item, v));
   }
 
   /////////////////////// ARRAY ////////////////////////
@@ -246,7 +249,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   public set array(array: T[]) {
     this.array$.next(array);
     // update the status to success
-    this.status = {status: 'success', result: array};
+    this.status = { status: 'success', result: array };
   }
 
   /**
@@ -255,7 +258,6 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   public clear(): void {
     this.array = [];
   }
-
 
   ///////////////////////// STATUS ///////////////////////
   // return a copy of the array
@@ -273,7 +275,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
    * @param throwErrorInArray if true the error is thrown in the main array observable  (this will close the array observable)
    */
   public error(error: any, throwErrorInArray: boolean = false): void {
-    this.status = {status: 'error', error: error};
+    this.status = { status: 'error', error: error };
 
     if (throwErrorInArray) {
       this.array$.error(error);
@@ -301,15 +303,14 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     return ClHelpService.convertObjectOrArrayToArray(object);
   }
 
-
   /**
    * Subscribe to array changes
    */
   public connect(): Observable<T[]> {
     return this.array$.asObservable().pipe(
-      filter(array => array != null),
+      filter((array) => array != null),
       // return a copy of the array
-      map(array => {
+      map((array) => {
         let newArray = array.slice();
         // apply filters
         for (const filter of Object.values(this.filters)) {
@@ -330,14 +331,11 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
   public manualDisconnect(): void {
     this.array$.complete();
-    this.status = {status: 'complete'};
+    this.status = { status: 'complete' };
     this.status$.complete();
   }
-
 
   public isEmpty(): boolean {
     return this.array == null || this.array.length === 0;
   }
-
-
 }

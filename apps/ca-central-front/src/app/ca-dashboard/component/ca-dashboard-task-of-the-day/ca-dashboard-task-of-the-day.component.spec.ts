@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDashboardTaskOfTheDayComponent} from './ca-dashboard-task-of-the-day.component';
+import { CaDashboardTaskOfTheDayComponent } from './ca-dashboard-task-of-the-day.component';
 
 describe('CaDashboardTaskOfTheDayComponent', () => {
   let component: CaDashboardTaskOfTheDayComponent;
@@ -8,9 +8,8 @@ describe('CaDashboardTaskOfTheDayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaDashboardTaskOfTheDayComponent]
-    })
-      .compileComponents();
+      declarations: [CaDashboardTaskOfTheDayComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

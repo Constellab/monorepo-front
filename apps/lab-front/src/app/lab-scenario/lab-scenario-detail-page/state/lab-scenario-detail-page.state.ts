@@ -9,7 +9,7 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlSnackBarService
+  FlSnackBarService,
 } from '@monorepo/front-core-lib';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
@@ -20,7 +20,6 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabScenarioDetailPageState {
-
   private scenario$: BehaviorSubject<LabScenario>;
   private scenarioDescription$: BehaviorSubject<TeRichTextContent>;
   private tags$: LabTagDatasource;
@@ -40,28 +39,27 @@ export class LabScenarioDetailPageState {
 
   private scenarioIsStarting: boolean = false;
 
-  constructor(private scenarioService: LabScenarioService,
-              private protocolService: LabProtocolService,
-              private workflowFactory: LabWorkflowFactory,
-              private snackBarService: FlSnackBarService,
-              private dialogService: FlDialogService,
-              private tagService: LabTagService) {
-  }
+  constructor(
+    private scenarioService: LabScenarioService,
+    private protocolService: LabProtocolService,
+    private workflowFactory: LabWorkflowFactory,
+    private snackBarService: FlSnackBarService,
+    private dialogService: FlDialogService,
+    private tagService: LabTagService
+  ) {}
 
   public init(scenarioId: string): void {
     this.ready$ = new BehaviorSubject(false);
     this.scenario$ = new BehaviorSubject(null);
     this.scenarioDescription$ = new BehaviorSubject(null);
     this.protocols = {};
-    this.scenarioService.getScenario(scenarioId).subscribe(
-      {
-        next: scenario => this.getScenarioSuccess(scenario),
-        error: error => {
-          this.scenario$.error(error);
-          this.ready$.error(error);
-        }
-      }
-    );
+    this.scenarioService.getScenario(scenarioId).subscribe({
+      next: (scenario) => this.getScenarioSuccess(scenario),
+      error: (error) => {
+        this.scenario$.error(error);
+        this.ready$.error(error);
+      },
+    });
     this.tags$ = this.tagService.getEntityTagsDatasource('SCENARIO', scenarioId);
   }
 
@@ -72,18 +70,19 @@ export class LabScenarioDetailPageState {
     this.protocols[this.mainProtocolId] = new BehaviorSubject(null);
 
     this.protocolService.getProtocol(this.mainProtocolId).subscribe({
-      next: protocol => this.onMainProtocolLoaded(protocol),
-      error: error => {
+      next: (protocol) => this.onMainProtocolLoaded(protocol),
+      error: (error) => {
         this.protocols[this.mainProtocolId].error(error);
         this.ready$.error(error);
-      }
+      },
     });
   }
 
   private onMainProtocolLoaded(protocol: LabProtocol): void {
-    const createSubLayer = (protocolId: string): Observable<PrWorkflowLayer> => this.getProtocol$(protocolId).pipe(
-      map(protocol => this.workflowFactory.createLayer(protocol, false))
-    );
+    const createSubLayer = (protocolId: string): Observable<PrWorkflowLayer> =>
+      this.getProtocol$(protocolId).pipe(
+        map((protocol) => this.workflowFactory.createLayer(protocol, false))
+      );
 
     this.workflowFactory.initCreateSubLayerFunc(createSubLayer);
     this.workflow = this.workflowFactory.protocolToWorkflow(protocol);
@@ -93,9 +92,7 @@ export class LabScenarioDetailPageState {
   }
 
   public getScenario$(): Observable<LabScenario> {
-    return this.scenario$.asObservable().pipe(
-      filter(scenario => scenario != null),
-    );
+    return this.scenario$.asObservable().pipe(filter((scenario) => scenario != null));
   }
 
   public get currentScenario(): LabScenario {
@@ -103,13 +100,11 @@ export class LabScenarioDetailPageState {
   }
 
   public isEditable$(): Observable<boolean> {
-    return this.getScenario$().pipe(map(scenario => scenario.protocolIsEditable()));
+    return this.getScenario$().pipe(map((scenario) => scenario.protocolIsEditable()));
   }
 
   public isReady$(): Observable<boolean> {
-    return this.ready$.asObservable().pipe(
-      filter(ready => ready)
-    );
+    return this.ready$.asObservable().pipe(filter((ready) => ready));
   }
 
   /**
@@ -145,13 +140,12 @@ export class LabScenarioDetailPageState {
   }
 
   public refreshScenario(): void {
-    this.scenarioSubscription = this.scenarioService.getScenario(this.currentScenario.id).subscribe(
-      scenario => this.updateScenario(scenario)
-    );
+    this.scenarioSubscription = this.scenarioService
+      .getScenario(this.currentScenario.id)
+      .subscribe((scenario) => this.updateScenario(scenario));
   }
 
   ////////////////////////////////////////// PROTOCOL //////////////////////////////////////////
-
 
   /**
    * Check if the scenario is waiting or running and start to refresh the protocol if yes
@@ -161,14 +155,15 @@ export class LabScenarioDetailPageState {
     const mainProtocol = this.protocols[this.mainProtocolId].value;
     const scenario = this.currentScenario;
     // Stop refresh if scenario is not running (including queue) and the main protocol is finished
-    if ((!scenario.isRunning() && scenario.status.value !== 'IN_QUEUE') && !mainProtocol.isRunning()) return;
+    if (!scenario.isRunning() && scenario.status.value !== 'IN_QUEUE' && !mainProtocol.isRunning()) return;
 
     this.timeout = setTimeout(() => {
       this.timeout = null;
 
       // retrieve all not finished protocols
       const notFinishedProtocolIds: string[] = this.getCurrentProtocols()
-        .filter(protocol => !protocol.isFinished()).map(protocol => protocol.id);
+        .filter((protocol) => !protocol.isFinished())
+        .map((protocol) => protocol.id);
       this.refreshProtocolsTick(notFinishedProtocolIds);
       this.refreshScenario();
     }, this.refreshIntervalDuration);
@@ -179,7 +174,7 @@ export class LabScenarioDetailPageState {
    */
   public startProtocolsRefresh(): void {
     // retrieve all not finished protocols
-    const allProtocols: string[] = this.getCurrentProtocols().map(protocol => protocol.id);
+    const allProtocols: string[] = this.getCurrentProtocols().map((protocol) => protocol.id);
     this.refreshProtocolsTick(allProtocols);
   }
 
@@ -189,27 +184,22 @@ export class LabScenarioDetailPageState {
    * @private
    */
   private refreshProtocolsTick(protocolIds: string[]): void {
-    this.refreshSubscription = this.refreshProtocols(protocolIds).subscribe(
-      {
-        complete: () => this.checkAndStartRefreshProtocol()
-      }
-    );
+    this.refreshSubscription = this.refreshProtocols(protocolIds).subscribe({
+      complete: () => this.checkAndStartRefreshProtocol(),
+    });
   }
 
   private refreshAllProtocols(): void {
-    this.refreshProtocols(this.getCurrentProtocols().map(process => process.id)).subscribe();
+    this.refreshProtocols(this.getCurrentProtocols().map((process) => process.id)).subscribe();
   }
 
   private getCurrentProtocols(): LabProtocol[] {
-    return Object.values(this.protocols)
-      .map(behavior => behavior.value);
+    return Object.values(this.protocols).map((behavior) => behavior.value);
   }
 
   private refreshProtocols(protocolIds: string[]): Observable<LabProtocol> {
-    const obs: Observable<LabProtocol>[] = protocolIds.map(id => this.protocolService.getProtocol(id));
-    return merge(...obs).pipe(
-      tap(protocol => this.refreshProtocolSuccess(protocol)),
-    );
+    const obs: Observable<LabProtocol>[] = protocolIds.map((id) => this.protocolService.getProtocol(id));
+    return merge(...obs).pipe(tap((protocol) => this.refreshProtocolSuccess(protocol)));
   }
 
   /**
@@ -223,8 +213,9 @@ export class LabScenarioDetailPageState {
     this.refreshProtocolSuccess(dbProtocol);
 
     // refresh other protocols
-    const otherProtocols = this.getCurrentProtocols().filter(process => process.id !== dbProtocol.id)
-      .map(process => process.id);
+    const otherProtocols = this.getCurrentProtocols()
+      .filter((process) => process.id !== dbProtocol.id)
+      .map((process) => process.id);
     this.refreshProtocols(otherProtocols).subscribe();
 
     this.refreshScenario();
@@ -238,7 +229,7 @@ export class LabScenarioDetailPageState {
 
     // refresh the stored process
     const subProtocol$ = this.protocols[process.parentProtocolId];
-    if(subProtocol$) {
+    if (subProtocol$) {
       subProtocol$.value.data.nodes[process.instanceName] = process;
     }
   }
@@ -261,9 +252,7 @@ export class LabScenarioDetailPageState {
   }
 
   public getLabProcess$(protocolId: string, instanceName: string): Observable<LabProcess> {
-    return this.protocols[protocolId].pipe(
-      map(protocol => protocol.data.nodes[instanceName])
-    );
+    return this.protocols[protocolId].pipe(map((protocol) => protocol.data.nodes[instanceName]));
   }
 
   public getProtocol$(protocolId: string): Observable<LabProtocol> {
@@ -271,13 +260,11 @@ export class LabScenarioDetailPageState {
     if (this.protocols[protocolId] == null) {
       this.protocols[protocolId] = new BehaviorSubject(null);
       this.protocolService.getProtocol(protocolId).subscribe({
-        next: protocol => this.refreshProtocolSuccess(protocol),
-        error: error => this.protocols[protocolId].error(error)
+        next: (protocol) => this.refreshProtocolSuccess(protocol),
+        error: (error) => this.protocols[protocolId].error(error),
       });
     }
-    return this.protocols[protocolId].asObservable().pipe(
-      filter(protocol => protocol != null)
-    );
+    return this.protocols[protocolId].asObservable().pipe(filter((protocol) => protocol != null));
   }
 
   /////////////////////////////////// FLOW ////////////////////////////////////
@@ -316,12 +303,12 @@ export class LabScenarioDetailPageState {
     this.scenarioIsStarting = true;
     this.scenarioService.startScenario(scenario.id).subscribe({
       next: (exp) => this.onStartSuccess(exp),
-      error: () => this.scenarioIsStarting = false
+      error: () => (this.scenarioIsStarting = false),
     });
   }
 
   private onStartSuccess(scenario: LabScenario): void {
-    this.snackBarService.openSuccessMessage({text: 'biox.scenario_started', translateText: true});
+    this.snackBarService.openSuccessMessage({ text: 'biox.scenario_started', translateText: true });
     this.scenarioIsStarting = false;
     this.updateScenario(scenario);
     this.startProtocolsRefresh();
@@ -335,15 +322,15 @@ export class LabScenarioDetailPageState {
       successMessage: 'biox.scenario_stopped',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      (result: FlConfirmDialogResult<LabScenario>) => {
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult<LabScenario>) => {
         if (result.choice) {
           this.updateScenario(result.result);
         }
-      }
-    );
+      });
   }
-
 
   ////////////////////// OTHER //////////////////////
 

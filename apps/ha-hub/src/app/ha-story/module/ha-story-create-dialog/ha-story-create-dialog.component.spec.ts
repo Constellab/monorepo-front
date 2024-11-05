@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {HaStoryCreateDialogComponent} from './ha-story-create-dialog.component';
+import { HaStoryCreateDialogComponent } from './ha-story-create-dialog.component';
 
 describe('HaStoryCreateDialogComponent', () => {
   let component: HaStoryCreateDialogComponent;
@@ -8,9 +8,8 @@ describe('HaStoryCreateDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaStoryCreateDialogComponent]
-    })
-      .compileComponents();
+      declarations: [HaStoryCreateDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaStoryCreateDialogComponent);
     component = fixture.componentInstance;

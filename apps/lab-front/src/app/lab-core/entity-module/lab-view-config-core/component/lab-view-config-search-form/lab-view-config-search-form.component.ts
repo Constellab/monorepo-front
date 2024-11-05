@@ -5,16 +5,14 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'lab-view-config-search-form',
   templateUrl: './lab-view-config-search-form.component.html',
-  styleUrls: ['./lab-view-config-search-form.component.scss']
+  styleUrls: ['./lab-view-config-search-form.component.scss'],
 })
 export class LabViewConfigSearchFormComponent implements OnInit {
-
   @Input() showFolderFilter: boolean = true;
 
   formGp: FormGroup;
 
-  constructor(private searchState: FlSearchState<any>) {
-  }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

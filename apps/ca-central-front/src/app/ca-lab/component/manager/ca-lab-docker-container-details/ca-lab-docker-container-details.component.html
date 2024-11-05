@@ -1,14 +1,31 @@
 <fl-async-section [object]="container$">
-
   <ng-container *flSectionBody="container$ as container">
-    <p>Status : <span class="g-text-light">{{container.status}}</span></p>
-    <p>Running for : <span class="g-text-light">{{container.runningFor}}</span></p>
-    <p>Image : <span class="g-text-light">{{container.image}}</span></p>
-    <p>Mounts : <span class="g-text-light">{{container.mounts}}</span></p>
-    <p>Networks : <span class="g-text-light">{{container.networks}}</span></p>
-    <p>Ports : <span class="g-text-light">{{container.ports}}</span></p>
-    <p>Size : <span class="g-text-light">{{container.size}}</span></p>
-    <p>Id : <span class="g-text-light">{{container.id}}</span></p>
-    <p>Command : <span class="g-text-light">{{container.command}}</span></p>
+    <p>
+      Status : <span class="g-text-light">{{ container.status }}</span>
+    </p>
+    <p>
+      Running for : <span class="g-text-light">{{ container.runningFor }}</span>
+    </p>
+    <p>
+      Image : <span class="g-text-light">{{ container.image }}</span>
+    </p>
+    <p>
+      Mounts : <span class="g-text-light">{{ container.mounts }}</span>
+    </p>
+    <p>
+      Networks : <span class="g-text-light">{{ container.networks }}</span>
+    </p>
+    <p>
+      Ports : <span class="g-text-light">{{ container.ports }}</span>
+    </p>
+    <p>
+      Size : <span class="g-text-light">{{ container.size }}</span>
+    </p>
+    <p>
+      Id : <span class="g-text-light">{{ container.id }}</span>
+    </p>
+    <p>
+      Command : <span class="g-text-light">{{ container.command }}</span>
+    </p>
   </ng-container>
 </fl-async-section>

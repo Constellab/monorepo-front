@@ -9,23 +9,22 @@ import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 @Component({
   selector: 'fl-reset-password-page',
   templateUrl: './fl-reset-password-page.component.html',
-  styleUrls: ['./fl-reset-password-page.component.scss']
+  styleUrls: ['./fl-reset-password-page.component.scss'],
 })
 export class FlResetPasswordPageComponent {
-
   formGp = new FormBuilder().group({
     password: [null, [Validators.required, FlGlobalValidators.passwordValidator()]],
-    repeatPassword: [null, [Validators.required,
-      FlGlobalValidators.repeatPasswordValidator('password')]]
+    repeatPassword: [null, [Validators.required, FlGlobalValidators.repeatPasswordValidator('password')]],
   });
 
   isLoading: boolean = false;
 
-  constructor(private route: ActivatedRoute,
-              private userAccountService: FlUserAccountService,
-              private snackBarService: FlSnackBarService,
-              private router: Router) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private userAccountService: FlUserAccountService,
+    private snackBarService: FlSnackBarService,
+    private router: Router
+  ) {}
 
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {
@@ -33,16 +32,14 @@ export class FlResetPasswordPageComponent {
       const password: string = this.formGp.value.password;
 
       // get the token from URL and call reset password
-      this.route.params.pipe(first()).subscribe(
-        params => this.resetPassword(password, params.token)
-      );
+      this.route.params.pipe(first()).subscribe((params) => this.resetPassword(password, params.token));
     }
   }
 
   private resetPassword(password: string, token: string): void {
     this.userAccountService.resetPassword(password, token).subscribe({
       next: () => this.resetSuccess(),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -52,5 +49,4 @@ export class FlResetPasswordPageComponent {
     this.isLoading = false;
     this.router.navigate(['/']);
   }
-
 }

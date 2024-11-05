@@ -1,4 +1,4 @@
-import {FlEntity} from '../../../model/fl-entity.class';
+import { FlEntity } from '../../../model/fl-entity.class';
 
 /**
  * Interface representing a saved search

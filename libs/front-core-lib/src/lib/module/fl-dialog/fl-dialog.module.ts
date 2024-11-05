@@ -7,9 +7,7 @@ import { FlDialogService } from './fl-dialog.service';
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
-import {
-  FlDialogHeaderActionsComponent
-} from './component/fl-dialog-header-actions/fl-dialog-header-actions.component';
+import { FlDialogHeaderActionsComponent } from './component/fl-dialog-header-actions/fl-dialog-header-actions.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -24,17 +22,8 @@ import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
  * Core modules containing components
  */
 @NgModule({
-  declarations: [
-    FlConfirmDialogComponent,
-    FlDialogHeaderComponent,
-    FlDialogHeaderActionsComponent
-  ],
-  exports: [
-    FlDialogHeaderComponent,
-    FlDialogHeaderActionsComponent,
-
-    MatDialogModule
-  ],
+  declarations: [FlConfirmDialogComponent, FlDialogHeaderComponent, FlDialogHeaderActionsComponent],
+  exports: [FlDialogHeaderComponent, FlDialogHeaderActionsComponent, MatDialogModule],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -50,14 +39,14 @@ import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
     MatTooltipModule,
     MatFormFieldModule,
     MatInputModule,
-    FlCorePipeModule
-  ]
+    FlCorePipeModule,
+  ],
 })
 export class FlDialogModule {
   public static forRoot(): ModuleWithProviders<FlDialogModule> {
     return {
       ngModule: FlDialogModule,
-      providers: [FlDialogService]
+      providers: [FlDialogService],
     };
   }
 

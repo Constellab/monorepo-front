@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaLabUsagePageComponent} from './ca-lab-usage-page.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaLabUsagePageComponent } from './ca-lab-usage-page.component';
 
 describe('CaLabUsagePageComponent', () => {
   let component: CaLabUsagePageComponent;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaStatusHistoryListDialogComponent} from './ca-status-history-list-dialog.component';
+import { CaStatusHistoryListDialogComponent } from './ca-status-history-list-dialog.component';
 
 describe('StatusHistoryListDialogComponent', () => {
   let component: CaStatusHistoryListDialogComponent;
@@ -8,9 +8,8 @@ describe('StatusHistoryListDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaStatusHistoryListDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaStatusHistoryListDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

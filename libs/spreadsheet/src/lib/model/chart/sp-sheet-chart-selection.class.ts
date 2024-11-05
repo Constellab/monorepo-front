@@ -1,17 +1,18 @@
-import {SpSheet} from '../sp-sheet.class';
-import {SpSheetMultiSelection} from '../selection/sp-sheet-multi-selection.class';
-import {SpSheetSelection} from '../selection/sp-sheet-selection.class';
-import {ClHelpService, ClNumberHelper} from '@monorepo/core-lib';
-import {SpSheetChart2dSerieSelectionForm, SpSheetSelectionRange} from './sp-sheet-chart-selection-form.class';
-import {ChChart2dDatum, ChChartConfig, ChChartSerie} from '@monorepo/chart';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetMultiSelection } from '../selection/sp-sheet-multi-selection.class';
+import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
+import { ClHelpService, ClNumberHelper } from '@monorepo/core-lib';
+import {
+  SpSheetChart2dSerieSelectionForm,
+  SpSheetSelectionRange,
+} from './sp-sheet-chart-selection-form.class';
+import { ChChart2dDatum, ChChartConfig, ChChartSerie } from '@monorepo/chart';
 
 /**
  * Object to store the chart selection and contain a method to export the selection to series
  */
 export abstract class SpSheetChartSelection {
-
-  protected constructor(protected sheet: SpSheet) {
-  }
+  protected constructor(protected sheet: SpSheet) {}
 
   /**
    * Method to convert the selection to a multiple series
@@ -19,7 +20,9 @@ export abstract class SpSheetChartSelection {
   public abstract exportToChart(): ChChartConfig;
 
   protected getMultiSelectionFromSelectionRange(selection: SpSheetSelectionRange): SpSheetMultiSelection {
-    return !ClHelpService.isNullOrEmpty(selection) ? SpSheetMultiSelection.fromSelectionRange(this.sheet, selection) : null;
+    return !ClHelpService.isNullOrEmpty(selection)
+      ? SpSheetMultiSelection.fromSelectionRange(this.sheet, selection)
+      : null;
   }
 
   /**
@@ -35,7 +38,10 @@ export abstract class SpSheetChartSelection {
   /**
    * Convert the selections values to 2d datum with x = xData and y = value as number
    */
-  protected convertSelectionTo2dDatumWithXData(xSelection: SpSheetSelection, ySelection: SpSheetSelection): ChChart2dDatum[] {
+  protected convertSelectionTo2dDatumWithXData(
+    xSelection: SpSheetSelection,
+    ySelection: SpSheetSelection
+  ): ChChart2dDatum[] {
     const xValues: number[] = this.getSelectionValues(xSelection);
     const yValues: number[] = this.getSelectionValues(ySelection);
     const limit = Math.min(xValues.length, yValues.length);
@@ -52,12 +58,17 @@ export abstract class SpSheetChartSelection {
    * @param formSelection
    * @protected
    */
-  protected convert2DFormSelectionToChartSerie(formSelection: SpSheetChart2dSerieSelectionForm): ChChartSerie<any>{
+  protected convert2DFormSelectionToChartSerie(
+    formSelection: SpSheetChart2dSerieSelectionForm
+  ): ChChartSerie<any> {
     const ySelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(formSelection.y);
 
     if (!ClHelpService.isNullOrEmpty(formSelection.x)) {
       const xSelection: SpSheetSelection = this.getMultiSelectionFromSelectionRange(formSelection.x);
-      return new ChChartSerie<any>(this.convertSelectionTo2dDatumWithXData(xSelection, ySelection), formSelection.name);
+      return new ChChartSerie<any>(
+        this.convertSelectionTo2dDatumWithXData(xSelection, ySelection),
+        formSelection.name
+      );
     } else {
       return new ChChartSerie<any>(this.convertSelectionTo2dDatum(ySelection), formSelection.name);
     }
@@ -70,8 +81,6 @@ export abstract class SpSheetChartSelection {
     const values: any[] = selection.getCellsValuesFlat();
 
     // convert the values to number if possible
-    return values.map(value => ClNumberHelper.fromString(value));
+    return values.map((value) => ClNumberHelper.fromString(value));
   }
-
 }
-

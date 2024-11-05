@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlMultiInputsComponent} from './fl-multi-inputs.component';
+import { FlMultiInputsComponent } from './fl-multi-inputs.component';
 
 describe('FlMultiInputsComponent', () => {
   let component: FlMultiInputsComponent;
@@ -8,9 +8,8 @@ describe('FlMultiInputsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlMultiInputsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlMultiInputsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

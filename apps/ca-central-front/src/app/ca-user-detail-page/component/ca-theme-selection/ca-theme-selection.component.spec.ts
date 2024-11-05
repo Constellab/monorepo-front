@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaThemeSelectionComponent} from './ca-theme-selection.component';
+import { CaThemeSelectionComponent } from './ca-theme-selection.component';
 
 describe('ThemeSelectionComponent', () => {
   let component: CaThemeSelectionComponent;
@@ -8,9 +8,8 @@ describe('ThemeSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaThemeSelectionComponent ]
-    })
-    .compileComponents();
+      declarations: [CaThemeSelectionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

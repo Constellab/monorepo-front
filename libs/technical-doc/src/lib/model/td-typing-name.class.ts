@@ -4,20 +4,19 @@ import { TdTypeObjectType } from './td-type.class';
  * Base class to find the unique name or brick name of a typing name
  */
 export class TdTypingName {
-
   public static model = {
     //Typing name of the resource class
-    resource: 'labTypingNameResource'
+    resource: 'labTypingNameResource',
   };
 
   public static task = {
     source: {
       typingName: 'TASK.gws_core.Source',
-      configName: 'resource_id'
+      configName: 'resource_id',
     },
     output: {
       typingName: 'TASK.gws_core.Sink',
-      resourceInput: 'resource'
+      resourceInput: 'resource',
     },
     tableImporter: 'TASK.gws_core.TableImporter',
     viewer: 'TASK.gws_core.Viewer',
@@ -51,7 +50,6 @@ export class TdTypingName {
     this.uniqueName = split[2];
   }
 }
-
 
 export interface TdTaskSourceConfig {
   resource_id: string;

@@ -5,7 +5,6 @@ import { FlSnackBarService } from '../../module/fl-snack-bar/fl-snack-bar.servic
 import { FlFormDialogInput } from '../../model/fl-form.class';
 import { UntypedFormGroup } from '@angular/forms';
 
-
 /**
  * Abstract directive to structure form dialog component that support create and update mode
  *
@@ -16,7 +15,6 @@ import { UntypedFormGroup } from '@angular/forms';
  */
 @Directive()
 export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYPE> {
-
   dialogInput: FlFormDialogInput<FORM_TYPE> = inject(MAT_DIALOG_DATA);
   snackBarService = inject(FlSnackBarService);
   dialogRef = inject(MatDialogRef);
@@ -35,7 +33,6 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
 
   abstract getUpdateSuccessMessage(): string;
 
-
   /**
    * Must call this method on init
    */
@@ -49,7 +46,6 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
   protected patchUpdate(): void {
     this.formGp.patchValue(this.dialogInput.object as any);
   }
-
 
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {
@@ -67,15 +63,15 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
 
   private callCreate(formValue: FORM_TYPE): void {
     this.create(formValue).subscribe({
-      next: newEntity => this.onSaveSuccess(newEntity, this.getCreateSuccessMessage()),
-      error: () => this.isLoading = false
+      next: (newEntity) => this.onSaveSuccess(newEntity, this.getCreateSuccessMessage()),
+      error: () => (this.isLoading = false),
     });
   }
 
   private callUpdate(formValue: FORM_TYPE): void {
     this.update(formValue).subscribe({
-      next: newEntity => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
-      error: () => this.isLoading = false
+      next: (newEntity) => this.onSaveSuccess(newEntity, this.getUpdateSuccessMessage()),
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -93,5 +89,4 @@ export abstract class FlFormDialogAbstractDirective<FORM_TYPE, ENTITY = FORM_TYP
   isUpdateMode(): boolean {
     return this.dialogInput.mode === 'update';
   }
-
 }

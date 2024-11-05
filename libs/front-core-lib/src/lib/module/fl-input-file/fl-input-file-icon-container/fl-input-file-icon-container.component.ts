@@ -1,6 +1,6 @@
-import {Component, ContentChild, ElementRef, Input, OnInit} from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
-import {FlInputFileDirective} from '../fl-input-file.directive';
+import { Component, ContentChild, ElementRef, Input, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { FlInputFileDirective } from '../fl-input-file.directive';
 
 /**
  * Component to style the input file using only an icon button
@@ -18,10 +18,9 @@ import {FlInputFileDirective} from '../fl-input-file.directive';
 @Component({
   selector: 'fl-input-file-icon-container',
   templateUrl: './fl-input-file-icon-container.component.html',
-  styleUrls: ['./fl-input-file-icon-container.component.scss']
+  styleUrls: ['./fl-input-file-icon-container.component.scss'],
 })
 export class FlInputFileIconContainerComponent implements OnInit {
-
   @Input() icon: string;
 
   @Input() color: ThemePalette;
@@ -33,13 +32,12 @@ export class FlInputFileIconContainerComponent implements OnInit {
   @Input() size: 'normal' | 'small' = 'normal';
 
   // retrieve the injected directive in the ng content
-  @ContentChild(FlInputFileDirective, {static: true, read: ElementRef}) private inputFile: ElementRef<HTMLInputElement>;
+  @ContentChild(FlInputFileDirective, { static: true, read: ElementRef })
+  private inputFile: ElementRef<HTMLInputElement>;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openFileExplorer(): void {
     this.inputFile.nativeElement.click();

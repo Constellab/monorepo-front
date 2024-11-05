@@ -23,4 +23,3 @@ export const labConstMonitoringFullRoute = `/${labConstBaseRoute}/${labConstMoni
 export const labConstDocFullRoute = `/${labConstBaseRoute}/${labConstDocRoute}`;
 export const labConstScenarioTemplateFullRoute = `/${labConstBaseRoute}/${labConstScenarioTemplateRoute}`;
 export const labConstNoteTemplateFullRoute = `/${labConstBaseRoute}/${labConstNoteTemplateRoute}`;
-

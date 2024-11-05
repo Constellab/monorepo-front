@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs';
-import {HaUser} from '../../../ha-model/ha-entities/ha-user';
-import {HaCoAuthorInvite} from './ha-co-author-invite.class';
+import { Observable } from 'rxjs';
+import { HaUser } from '../../../ha-model/ha-entities/ha-user';
+import { HaCoAuthorInvite } from './ha-co-author-invite.class';
 
 export interface HaCoAuthorService {
   getCoAuthors(id: string): Observable<HaUser[]>;

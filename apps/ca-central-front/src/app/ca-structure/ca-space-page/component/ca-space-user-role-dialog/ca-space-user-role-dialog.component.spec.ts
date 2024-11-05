@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceUserRoleDialogComponent} from './ca-space-user-role-dialog.component';
+import { CaSpaceUserRoleDialogComponent } from './ca-space-user-role-dialog.component';
 
 describe('CaSpaceUserRoleDialogComponent', () => {
   let component: CaSpaceUserRoleDialogComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceUserRoleDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSpaceUserRoleDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSpaceUserRoleDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpaceUserRoleDialogComponent);
     component = fixture.componentInstance;

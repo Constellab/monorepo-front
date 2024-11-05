@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTagEntityDetailComponent} from './lab-tag-entity-detail.component';
+import { LabTagEntityDetailComponent } from './lab-tag-entity-detail.component';
 
 describe('LabTagDetailComponent', () => {
   let component: LabTagEntityDetailComponent;
@@ -8,9 +8,8 @@ describe('LabTagDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTagEntityDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTagEntityDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

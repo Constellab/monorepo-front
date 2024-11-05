@@ -1,6 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {HaLoginPageComponent} from './ha-login-page.component';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HaLoginPageComponent } from './ha-login-page.component';
 
 describe('DaAdminLoginComponent', () => {
   let component: HaLoginPageComponent;
@@ -8,9 +7,8 @@ describe('DaAdminLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaLoginPageComponent]
-    })
-      .compileComponents();
+      declarations: [HaLoginPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

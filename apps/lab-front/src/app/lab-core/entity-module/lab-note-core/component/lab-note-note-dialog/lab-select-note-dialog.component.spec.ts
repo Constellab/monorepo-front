@@ -8,9 +8,8 @@ describe('LabSelectNoteDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSelectNoteDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSelectNoteDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

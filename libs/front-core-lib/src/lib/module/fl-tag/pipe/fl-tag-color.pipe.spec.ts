@@ -1,4 +1,4 @@
-import {FlTagColorPipe} from './fl-tag-color.pipe';
+import { FlTagColorPipe } from './fl-tag-color.pipe';
 
 describe('FlTagColorPipe', () => {
   it('create an instance', () => {

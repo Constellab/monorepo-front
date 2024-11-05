@@ -1,6 +1,6 @@
-import {DateTime, Duration} from 'luxon';
-import {ClHelpService} from './cl-help.service';
-import {DurationLikeObject} from 'luxon/src/duration';
+import { DateTime, Duration } from 'luxon';
+import { ClHelpService } from './cl-help.service';
+import { DurationLikeObject } from 'luxon/src/duration';
 
 /**
  * Input for {@HelperService} function that support date input. It uses DateInput
@@ -17,14 +17,12 @@ export type ClDateInput = string | number | Date | DateTime;
  */
 export type ClDateScale = 'years' | 'days' | 'hours' | 'minutes' | 'seconds' | 'milliseconds';
 
-
 export enum ClDateFormat {
   DATE = 'DD',
   DATE_TIME = 'd LLL y, HH:mm',
   DATE_TIME_WITH_SECONDS = 'd LLL y, HH:mm:ss',
-  TIME_WITH_SECONDS = 'HH:mm:ss'
+  TIME_WITH_SECONDS = 'HH:mm:ss',
 }
-
 
 /**
  * Help that regroup functions to works with Dates
@@ -32,7 +30,6 @@ export enum ClDateFormat {
  * It works with Luxon
  */
 export class ClDateHelper {
-
   public static readonly ONE_MILLISECOND = 1;
   public static readonly ONE_SECOND = ClDateHelper.ONE_MILLISECOND * 1000;
   public static readonly ONE_MINUTE = ClDateHelper.ONE_SECOND * 60;
@@ -42,28 +39,26 @@ export class ClDateHelper {
   // considering one year is 365 days
   public static readonly ONE_YEAR = ClDateHelper.ONE_DAY * 365;
 
-  private static readonly DATE_SCALE_LIST: { scale: ClDateScale, value: number }[] = [
-    {scale: 'years', value: ClDateHelper.ONE_YEAR},
-    {scale: 'days', value: ClDateHelper.ONE_DAY},
-    {scale: 'hours', value: ClDateHelper.ONE_HOUR},
-    {scale: 'minutes', value: ClDateHelper.ONE_MINUTE},
-    {scale: 'seconds', value: ClDateHelper.ONE_SECOND},
-    {scale: 'milliseconds', value: ClDateHelper.ONE_MILLISECOND},
+  private static readonly DATE_SCALE_LIST: { scale: ClDateScale; value: number }[] = [
+    { scale: 'years', value: ClDateHelper.ONE_YEAR },
+    { scale: 'days', value: ClDateHelper.ONE_DAY },
+    { scale: 'hours', value: ClDateHelper.ONE_HOUR },
+    { scale: 'minutes', value: ClDateHelper.ONE_MINUTE },
+    { scale: 'seconds', value: ClDateHelper.ONE_SECOND },
+    { scale: 'milliseconds', value: ClDateHelper.ONE_MILLISECOND },
   ];
-
 
   /**
    * Get dateTime from date
    * @param date date to convert to dateTime (if null return current dateTime)
    */
-  public static getDate(date ?: ClDateInput): DateTime {
+  public static getDate(date?: ClDateInput): DateTime {
     if (date == null) {
       return DateTime.local();
     }
 
     return ClDateHelper.convertDateInputToDate(date);
   }
-
 
   /**
    * Return the difference in millisecond between two data. Returns positive if the DateAfter > DateBefore
@@ -77,9 +72,9 @@ export class ClDateHelper {
     return dateA.valueOf() - dateB.valueOf();
   }
 
-  public static getCurrentTimeZoneOffset(): number{
-    const offset = new Date().getTimezoneOffset()
-    return offset / 60 * -1;
+  public static getCurrentTimeZoneOffset(): number {
+    const offset = new Date().getTimezoneOffset();
+    return (offset / 60) * -1;
   }
 
   /**
@@ -103,7 +98,6 @@ export class ClDateHelper {
     // get from now string
     return dateTime.toRelative();
   }
-
 
   public static convertDateInputToDate(date: ClDateInput): DateTime {
     if (date === null) {
@@ -197,9 +191,11 @@ export class ClDateHelper {
    * @param precision number of scales (days, hours, min...) to show, the rest is rounded
    * @param maxPrecision where to stop, the rest will be rounded
    */
-  public static toPrettyDuration(milliseconds: number, precision: number = 2,
-                                 maxPrecision: ClDateScale | null = 'seconds'): string {
-
+  public static toPrettyDuration(
+    milliseconds: number,
+    precision: number = 2,
+    maxPrecision: ClDateScale | null = 'seconds'
+  ): string {
     if (milliseconds <= 0) {
       return `0s`;
     }

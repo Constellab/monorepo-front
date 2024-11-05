@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceOriginOptionsComponent} from './lab-resource-origin-options.component';
+import { LabResourceOriginOptionsComponent } from './lab-resource-origin-options.component';
 
 describe('BioxResourceOriginOptionsComponent', () => {
   let component: LabResourceOriginOptionsComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceOriginOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceOriginOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceOriginOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

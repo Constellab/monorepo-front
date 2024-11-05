@@ -10,25 +10,23 @@ import {
   FlEntityPaginatedDatasource,
   FlPortalActionsService,
   FlSearchConfig,
-  FlSearchState
+  FlSearchState,
 } from '@monorepo/front-core-lib';
 import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectDatasource
+  CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields
+  CaHierarchyObjectSearchFields,
 } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
-
 @Injectable()
 export class CaFolderDetailState implements OnDestroy {
-
   private id$: Observable<string>;
 
   private folder$: BehaviorSubject<CaFolder>;
@@ -37,32 +35,38 @@ export class CaFolderDetailState implements OnDestroy {
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private folderService: CaFolderService,
-              private folderActionService: CaFolderActionService,
-              private actionService: FlPortalActionsService,
-              private hierarchyObjectDetailState: CaHierarchyObjectDetailState,
-              private searchState: FlSearchState<CaHierarchyObject>,
-              private securityService: CaSecurityService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private folderActionService: CaFolderActionService,
+    private actionService: FlPortalActionsService,
+    private hierarchyObjectDetailState: CaHierarchyObjectDetailState,
+    private searchState: FlSearchState<CaHierarchyObject>,
+    private securityService: CaSecurityService
+  ) {}
 
   public init(id$: Observable<string>): void {
     this.id$ = id$;
     this.folder$ = new BehaviorSubject(null);
 
-    this.subscription.add(this.id$.pipe(
-      switchMap(id => this.folderService.getById(id))
-    ).subscribe({
-      next: folder => this.initFolder(folder),
-      error: error => this.folder$.error(error)
-    }));
+    this.subscription.add(
+      this.id$.pipe(switchMap((id) => this.folderService.getById(id))).subscribe({
+        next: (folder) => this.initFolder(folder),
+        error: (error) => this.folder$.error(error),
+      })
+    );
 
-    this.childrenDatasource = new FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields>(
-      () => of(clGetEmptyPage()), 30, false);
+    this.childrenDatasource = new FlEntityPaginatedDatasource<
+      CaHierarchyObject,
+      CaHierarchyObjectSearchFields
+    >(() => of(clGetEmptyPage()), 30, false);
 
-    this.users$ = new FlEntityArrayObs(this.id$.pipe(
-      first(), // as the share is handle at the root folder level, not need to refresh it every time
-      switchMap(id => this.folderService.getUsersOfFolder(id))
-    ), true);
+    this.users$ = new FlEntityArrayObs(
+      this.id$.pipe(
+        first(), // as the share is handle at the root folder level, not need to refresh it every time
+        switchMap((id) => this.folderService.getUsersOfFolder(id))
+      ),
+      true
+    );
 
     // init the children search state
     const config: FlSearchConfig = {
@@ -72,16 +76,18 @@ export class CaFolderDetailState implements OnDestroy {
       savedSearch: [],
       advancedFormManager: {
         config: CaHierarchyObjectSearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: true,
-      defaultSort: { key: 'lastModifiedAt', direction: 'DESC' }
+      defaultSort: { key: 'lastModifiedAt', direction: 'DESC' },
     };
     this.searchState.init(config, this.childrenDatasource);
 
-    this.subscription.add(this.folderActionService.getUploadedDocumentActionResult().subscribe(
-      document => this.onDocumentUploaded(document.document, document.folderId)
-    ));
+    this.subscription.add(
+      this.folderActionService
+        .getUploadedDocumentActionResult()
+        .subscribe((document) => this.onDocumentUploaded(document.document, document.folderId))
+    );
   }
 
   public getFolderId$(): Observable<string> {
@@ -93,15 +99,13 @@ export class CaFolderDetailState implements OnDestroy {
   }
 
   public getFolder$(skipNull: boolean = true): Observable<CaFolder> {
-    return this.folder$.asObservable().pipe(
-      filter(folder => !skipNull || folder != null)
-    );
+    return this.folder$.asObservable().pipe(filter((folder) => !skipNull || folder != null));
   }
 
   public isRootFolder$(): Observable<boolean> {
     return this.hierarchyObjectDetailState.getAncestorsFolders$().pipe(
       // using 1 because the current folder is in the ancestors
-      map(ancestors => ancestors.length <= 1)
+      map((ancestors) => ancestors.length <= 1)
     );
   }
 
@@ -111,7 +115,7 @@ export class CaFolderDetailState implements OnDestroy {
 
   public canEditFolder$(): Observable<boolean> {
     return this.getFolder$(false).pipe(
-      map(folder => this.securityService.canEditFolder(folder?.leader.id))
+      map((folder) => this.securityService.canEditFolder(folder?.leader.id))
     );
   }
 
@@ -141,7 +145,11 @@ export class CaFolderDetailState implements OnDestroy {
     const childFolder = this.childrenDatasource.findItemById(hierarchyObjectId);
     if (childFolder) {
       // create a new folder based on the old one and the new data
-      const cloned = ClCoreJsonConvert.deepCloneClassAndMerge(childFolder, hierarchyObject, CaHierarchyObject);
+      const cloned = ClCoreJsonConvert.deepCloneClassAndMerge(
+        childFolder,
+        hierarchyObject,
+        CaHierarchyObject
+      );
       this.childrenDatasource.updateItem(cloned);
     }
 
@@ -194,5 +202,4 @@ export class CaFolderDetailState implements OnDestroy {
     if (currentFolderId !== folderId) return;
     this.childrenDatasource.unshiftItem(hierarchyObject);
   }
-
 }

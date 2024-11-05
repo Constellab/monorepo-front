@@ -1,14 +1,18 @@
 <fl-chip class="chip">
   <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-    <div class="color" [style.background-color]="flTag | flTagColor:tagColorer | async">
+    <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
+
+    <div>
+      {{ flTag.key }} <ng-container *ngIf="flTag.value">: {{ flTag.value }}</ng-container>
     </div>
 
-    <div>{{flTag.key}} <ng-container *ngIf="flTag.value">: {{flTag.value}}</ng-container></div>
-
-    <button *ngIf="showDeleteIcon" mat-icon-button class="g-button-icon-tiny"
-            (click)="onDeleteTag($event)" type="button">
+    <button
+      *ngIf="showDeleteIcon"
+      mat-icon-button
+      class="g-button-icon-tiny"
+      (click)="onDeleteTag($event)"
+      type="button">
       <mat-icon>cancel</mat-icon>
     </button>
   </div>
 </fl-chip>
-

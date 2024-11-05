@@ -1,17 +1,15 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {HaSpace} from '../ha-model/ha-entities/ha-space.class';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { HaSpace } from '../ha-model/ha-entities/ha-space.class';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaSpaceService {
   private readonly route: string = 'space';
 
-  constructor(private apiService: FlApiService) {
-
-  }
+  constructor(private apiService: FlApiService) {}
 
   /**
    * Call http get to get all spaces

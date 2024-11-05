@@ -10,11 +10,12 @@ export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 @Component({
   selector: 'ca-team-form-dialog',
   templateUrl: './ca-team-form-dialog.component.html',
-  styleUrls: ['./ca-team-form-dialog.component.scss']
+  styleUrls: ['./ca-team-form-dialog.component.scss'],
 })
-export class CaTeamFormDialogComponent extends FlFormDialogAbstractDirective<CaSaveTeamDTO, CaGroup>
-  implements OnInit {
-
+export class CaTeamFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaSaveTeamDTO, CaGroup>
+  implements OnInit
+{
   constructor(private groupService: CaGroupService) {
     super();
   }
@@ -26,7 +27,6 @@ export class CaTeamFormDialogComponent extends FlFormDialogAbstractDirective<CaS
   get title(): string {
     return this.isCreateMode() ? 'create_team' : 'update_team';
   }
-
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
@@ -50,5 +50,4 @@ export class CaTeamFormDialogComponent extends FlFormDialogAbstractDirective<CaS
   getUpdateSuccessMessage(): string {
     return 'team_updated';
   }
-
 }

@@ -5,9 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaCoreModule } from '../../ca-core.module';
 import { RouterModule } from '@angular/router';
 import { CaFolderTableComponent } from './component/ca-folder-table/ca-folder-table.component';
-import {
-  CaUpdateFolderLeaderDialogComponent
-} from './component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
+import { CaUpdateFolderLeaderDialogComponent } from './component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
 import { CaFolderInlineComponent } from './component/ca-folder-inline/ca-folder-inline.component';
 import { CaFolderSearchComponent } from './component/ca-folder-search/ca-folder-search.component';
 import { CaFolderSearchFormComponent } from './component/ca-folder-search-form/ca-folder-search-form.component';
@@ -15,9 +13,7 @@ import { CaStatusModule } from '../../module/ca-status/ca-status.module';
 import { CaNotificationCoreModule } from '../ca-notification-core/ca-notification-core.module';
 import { CaObjectStorageCoreModule } from '../ca-object-storage-core/ca-object-storage-core.module';
 import { CaFolderStorageUsageComponent } from './component/ca-folder-storage-usage/ca-folder-storage-usage.component';
-import {
-  CaFolderStorageLocationUsageComponent
-} from './component/ca-folder-storage-location-usage/ca-folder-storage-location-usage.component';
+import { CaFolderStorageLocationUsageComponent } from './component/ca-folder-storage-location-usage/ca-folder-storage-location-usage.component';
 import { CaSelectFolderDialogComponent } from './component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
@@ -34,7 +30,7 @@ import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hier
     CaFolderSearchFormComponent,
     CaFolderStorageUsageComponent,
     CaFolderStorageLocationUsageComponent,
-    CaSelectFolderDialogComponent
+    CaSelectFolderDialogComponent,
   ],
   exports: [
     CaFolderFormDialogComponent,
@@ -44,7 +40,7 @@ import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hier
     CaFolderSearchComponent,
     CaFolderSearchFormComponent,
     CaFolderStorageUsageComponent,
-    CaSelectFolderDialogComponent
+    CaSelectFolderDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -56,8 +52,7 @@ import { CaHierarchyObjectCoreModule } from '../ca-hierarchy-object-core/ca-hier
     CaStatusModule,
     CaNotificationCoreModule,
     CaObjectStorageCoreModule,
-    CaHierarchyObjectCoreModule
-  ]
+    CaHierarchyObjectCoreModule,
+  ],
 })
-export class CaFolderCoreModule {
-}
+export class CaFolderCoreModule {}

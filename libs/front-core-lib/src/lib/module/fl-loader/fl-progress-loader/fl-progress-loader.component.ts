@@ -1,7 +1,7 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {FlAbstractLoaderDirective} from '../fl-abstract-loader.directive';
-import {Observable, Subscription} from 'rxjs';
-import {ClNumberHelper} from '@monorepo/core-lib';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
+import { Observable, Subscription } from 'rxjs';
+import { ClNumberHelper } from '@monorepo/core-lib';
 
 /**
  * Determine loader component that show the progress as percent in a progress spinner
@@ -9,10 +9,9 @@ import {ClNumberHelper} from '@monorepo/core-lib';
 @Component({
   selector: 'fl-progress-loader',
   templateUrl: './fl-progress-loader.component.html',
-  styleUrls: ['./fl-progress-loader.component.scss']
+  styleUrls: ['./fl-progress-loader.component.scss'],
 })
 export class FlProgressLoaderComponent extends FlAbstractLoaderDirective implements OnInit, OnDestroy {
-
   @Input() set percent(percent: number | Observable<number>) {
     this.unsubscribe();
 
@@ -24,9 +23,7 @@ export class FlProgressLoaderComponent extends FlAbstractLoaderDirective impleme
     if (typeof percent === 'number') {
       this.setValue(percent);
     } else {
-      percent.subscribe(
-        val => this.setValue(val)
-      );
+      percent.subscribe((val) => this.setValue(val));
     }
   }
 
@@ -41,7 +38,6 @@ export class FlProgressLoaderComponent extends FlAbstractLoaderDirective impleme
     if (this.fontSize == null) {
       this.fontSize = this.getAutoFontSize();
     }
-
   }
 
   private getAutoFontSize(): number {
@@ -67,9 +63,7 @@ export class FlProgressLoaderComponent extends FlAbstractLoaderDirective impleme
     this.subscription?.unsubscribe();
   }
 
-
   ngOnDestroy(): void {
     this.unsubscribe();
   }
-
 }

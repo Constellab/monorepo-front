@@ -8,9 +8,8 @@ describe('CaLabConstestFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabFreeAdminFormDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabFreeAdminFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabFreeAdminFormDialogComponent);
     component = fixture.componentInstance;

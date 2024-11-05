@@ -10,26 +10,24 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
  */
 @Injectable()
 export class CaSpaceInterceptor implements HttpInterceptor {
-
   private readonly spaceHeader = 'local-space';
 
-  constructor(private currentSpaceService: CaCurrentSpaceService,
-              private coCommunityHelper: CoCommunityHelperService) {
-  }
+  constructor(
+    private currentSpaceService: CaCurrentSpaceService,
+    private coCommunityHelper: CoCommunityHelperService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // If request is for community API, do not add space header
-    if(req.url.includes(this.coCommunityHelper.getCommunityApiUrl())){
+    if (req.url.includes(this.coCommunityHelper.getCommunityApiUrl())) {
       return next.handle(req);
     }
 
     if (!CaEnvironmentHelper.isProduction() && this.currentSpaceService.getCurrentSpaceDomainDev() != null) {
       req = req.clone({
-        headers: req.headers.set(this.spaceHeader, this.currentSpaceService.getCurrentSpaceDomainDev())
+        headers: req.headers.set(this.spaceHeader, this.currentSpaceService.getCurrentSpaceDomainDev()),
       });
     }
     return next.handle(req);
   }
-
-
 }

@@ -1,8 +1,8 @@
-import {TeComponentBlock} from './te-component-block.class';
-import {TeVideoComponent} from '../component/te-video/te-video.component';
-import {Type} from '@angular/core';
-import {ToolboxConfig} from '@editorjs/editorjs/types/tools/tool-settings';
-import {TeHelper} from '../model/te.helper';
+import { TeComponentBlock } from './te-component-block.class';
+import { TeVideoComponent } from '../component/te-video/te-video.component';
+import { Type } from '@angular/core';
+import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
+import { TeHelper } from '../model/te.helper';
 
 export class TeVideoBlockData {
   url: string;
@@ -10,9 +10,7 @@ export class TeVideoBlockData {
   caption?: string;
 }
 
-
 export class TeVideoBlock extends TeComponentBlock<TeVideoComponent> {
-
   public static readonly TAG_NAME = 'te-video';
 
   static override get toolbox(): ToolboxConfig {

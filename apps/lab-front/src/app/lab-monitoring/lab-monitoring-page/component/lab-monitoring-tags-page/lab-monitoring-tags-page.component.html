@@ -6,24 +6,31 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-icon-button type="button" (click)="openAddTagDialog()"
-              [matTooltip]="'tag_create' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openAddTagDialog()"
+        [matTooltip]="'tag_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
 
-      <button mat-icon-button type="button" (click)="openTagHelpDialog()"
-              [matTooltip]="'tag_help_tooltip' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openTagHelpDialog()"
+        [matTooltip]="'tag_help_tooltip' | translate">
         <mat-icon>help</mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <p class="g-text-light help-text">{{'tag_dashboard_help' | translate}}</p>
+    <p class="g-text-light help-text">{{ 'tag_dashboard_help' | translate }}</p>
     <fl-infinite-scroll [datasource]="tagKeys" [textNoResult]="'no_tags_dashboard' | translate">
-      <lab-tag-entity-detail *ngFor="let tagKey of tagKeys | flDatasourceConnect | async"
-                             [tagEntity]="tagKey"
-                             (lastTagValueDeleted)="lastTagValueDeleted(tagKey)">
+      <lab-tag-entity-detail
+        *ngFor="let tagKey of tagKeys | flDatasourceConnect | async"
+        [tagEntity]="tagKey"
+        (lastTagValueDeleted)="lastTagValueDeleted(tagKey)">
       </lab-tag-entity-detail>
     </fl-infinite-scroll>
   </fl-card-body>

@@ -18,7 +18,8 @@ body {
 // wrap with body to override material style
 
 body {
-  .g-form-field-no-hint.mat-mdc-form-field, .g-form-field-no-hint {
+  .g-form-field-no-hint.mat-mdc-form-field,
+  .g-form-field-no-hint {
     .mat-mdc-form-field-subscript-wrapper {
       display: none;
     }
@@ -75,7 +76,6 @@ body {
     @include g-form-field-compact-width;
   }
 
-
   //////////////////////////////////// BUTTON //////////////////////////////////
   // set the button texts to uppercase
   .mdc-button {
@@ -86,10 +86,10 @@ body {
     white-space: nowrap;
 
     // margin to separate the text from the icon
-    .material-icons, .material-icons-outlined {
+    .material-icons,
+    .material-icons-outlined {
       margin-right: 5px;
     }
-
   }
 
   // set the border color of the stroked = to color (not grey)
@@ -103,7 +103,10 @@ body {
   }
 
   // add margin to the button's icons
-  .mat-mdc-outlined-button, .mat-mdc-raised-button, .mat-mdc-button, .mat-mdc-flat-button {
+  .mat-mdc-outlined-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-button,
+  .mat-mdc-flat-button {
     .material-icons {
       margin-right: 5px;
       margin-left: 5px;
@@ -117,7 +120,6 @@ body {
     width: 24px;
   }
 
-
   .mdc-button.g-button-big {
     font-size: 1.3rem;
     padding-inline: 2em;
@@ -128,11 +130,12 @@ body {
     font-size: 0.8rem;
     padding-left: 1em;
     padding-right: 1em;
-    line-height: 2.0em;
+    line-height: 2em;
     height: 25px;
 
     // remove margin of icon
-    .material-icons, .material-icons-outlined {
+    .material-icons,
+    .material-icons-outlined {
       font-size: 21px;
       height: 21px;
       width: 21px;
@@ -147,7 +150,8 @@ body {
     height: 25px;
 
     // remove margin of icon
-    .material-icons, .material-icons-outlined {
+    .material-icons,
+    .material-icons-outlined {
       font-size: 18px;
       height: 18px;
       width: 18px;
@@ -160,9 +164,9 @@ body {
     font-family: initial;
   }
 
-
   .g-button-icon-small {
-    &.mdc-icon-button.mat-mdc-button-base, & .mdc-icon-button.mat-mdc-button-base {
+    &.mdc-icon-button.mat-mdc-button-base,
+    & .mdc-icon-button.mat-mdc-button-base {
       width: 30px;
       height: 30px;
       padding: 2px;
@@ -177,7 +181,8 @@ body {
   }
 
   .g-button-icon-tiny {
-    &.mdc-icon-button.mat-mdc-button-base, & .mdc-icon-button.mat-mdc-button-base {
+    &.mdc-icon-button.mat-mdc-button-base,
+    & .mdc-icon-button.mat-mdc-button-base {
       width: 20px;
       height: 20px;
       padding: 0;
@@ -193,7 +198,8 @@ body {
     }
   }
 
-  .g-button-hide-text span, .g-button-hide-text mat-icon {
+  .g-button-hide-text span,
+  .g-button-hide-text mat-icon {
     display: none;
   }
 
@@ -208,7 +214,6 @@ body {
     overflow: hidden;
     display: block;
   }
-
 
   /***************************** Table *****************************/
 
@@ -306,7 +311,6 @@ body {
   .g-table-base-width-6 mat-cell {
     flex: 3 1 0;
   }
-
 
   // define with for a column (to be placed on the mat-header-cell and the mat-cell)
   mat-cell.g-column-width-0,
@@ -406,7 +410,6 @@ body {
 
   .g-mat-tab-header-card-background .mat-mdc-tab-header {
     background-color: var(--card-background);
-
   }
 
   /************************************* MAT SELECT ***********************************/
@@ -461,12 +464,10 @@ body {
     }
   }
 
-
   /************************************* MAT BUTTON TOGGLE ***********************************/
   .g-mat-button-toggle-small .mat-button-toggle-label-content {
     line-height: 36px;
   }
-
 
   /************************************* MAT OPTION ***********************************/
   // class to hide the checkbox on multiple selectable mat options
@@ -489,7 +490,7 @@ body {
 
   /************************************* MAT TOOLTIP ***********************************/
   .mat-tooltip {
-    font-size: 0.8rem
+    font-size: 0.8rem;
   }
 
   // use in the matTooltipClass to allow multiline in the tooltip with '\n'
@@ -500,7 +501,8 @@ body {
   /************************************* MAT LiST ***********************************/
 
   .g-mat-list-dense {
-    &.mat-list-base .mat-list-item.mat-2-line, &.mat-list-base .mat-list-option.mat-2-line {
+    &.mat-list-base .mat-list-item.mat-2-line,
+    &.mat-list-base .mat-list-option.mat-2-line {
       height: 45px !important;
     }
   }
@@ -509,7 +511,6 @@ body {
   .mat-mdc-menu-panel {
     border-radius: var(--card-radius);
   }
-
 
   /************************************* MAT SNACKBAR ***********************************/
   .g-snackbar-primary {

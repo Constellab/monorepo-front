@@ -4,9 +4,8 @@ import { LabCredentials } from '../../../../model/entities/lab-credentials.entit
 @Component({
   selector: 'lab-credentials-inline',
   templateUrl: './lab-credentials-inline.component.html',
-  styleUrls: ['./lab-credentials-inline.component.scss']
+  styleUrls: ['./lab-credentials-inline.component.scss'],
 })
 export class LabCredentialsInlineComponent {
-
   @Input({ required: true }) credentials: LabCredentials;
 }

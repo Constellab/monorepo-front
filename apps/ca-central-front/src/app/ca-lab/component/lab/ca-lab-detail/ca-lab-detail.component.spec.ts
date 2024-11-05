@@ -8,9 +8,8 @@ describe('LabDetailCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

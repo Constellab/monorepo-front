@@ -8,9 +8,8 @@ describe('FlInfiniteScrollComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlInfiniteScrollComponent ]
-    })
-    .compileComponents();
+      declarations: [FlInfiniteScrollComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

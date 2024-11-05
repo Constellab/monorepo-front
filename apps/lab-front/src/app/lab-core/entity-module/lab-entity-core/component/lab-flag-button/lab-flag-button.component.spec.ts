@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabFlagButtonComponent} from './lab-flag-button.component';
+import { LabFlagButtonComponent } from './lab-flag-button.component';
 
 describe('LabHighlightButtonComponent', () => {
   let component: LabFlagButtonComponent;
@@ -8,9 +8,8 @@ describe('LabHighlightButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabFlagButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [LabFlagButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabFlagButtonComponent);
     component = fixture.componentInstance;

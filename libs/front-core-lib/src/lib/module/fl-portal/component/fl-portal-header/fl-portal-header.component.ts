@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {flCdkOverlayPanelClass} from '../../../../utils/fl-material.config';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { flCdkOverlayPanelClass } from '../../../../utils/fl-material.config';
 
 /**
  * Header of the portal with a ng-content for the title. Contain a close button and
@@ -11,10 +11,9 @@ import {flCdkOverlayPanelClass} from '../../../../utils/fl-material.config';
   selector: 'fl-portal-header',
   templateUrl: './fl-portal-header.component.html',
   styleUrls: ['./fl-portal-header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlPortalHeaderComponent implements OnInit {
-
   /**
    * When true the portal is movable by drag on header
    */
@@ -22,16 +21,13 @@ export class FlPortalHeaderComponent implements OnInit {
 
   dragRootElement = '.' + flCdkOverlayPanelClass;
 
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   // call by another component to disable the drag
   public setEnableDrag(enableDrag: boolean): void {
     this.enableDrag = enableDrag;
     this.cdr.markForCheck();
   }
-
 }

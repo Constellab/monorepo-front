@@ -1,4 +1,4 @@
-import {FlDatasourceConnectPipe} from './fl-datasource-connect.pipe';
+import { FlDatasourceConnectPipe } from './fl-datasource-connect.pipe';
 
 describe('FlDatasourceConnectPipe', () => {
   it('create an instance', () => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {PrWorkflowComponent} from './pr-workflow.component';
+import { PrWorkflowComponent } from './pr-workflow.component';
 
 describe('PrWorkflowComponent', () => {
   let component: PrWorkflowComponent;
@@ -8,9 +8,8 @@ describe('PrWorkflowComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PrWorkflowComponent]
-    })
-      .compileComponents();
+      declarations: [PrWorkflowComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

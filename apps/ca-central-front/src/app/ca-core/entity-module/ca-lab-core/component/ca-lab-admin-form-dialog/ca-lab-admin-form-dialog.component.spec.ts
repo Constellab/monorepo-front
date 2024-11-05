@@ -8,9 +8,8 @@ describe('LabFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabAdminFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabAdminFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {Title} from '@angular/platform-browser';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 /**
  * Page to manager cloud providers, object storage, servers
@@ -8,13 +8,10 @@ import {FlTranslateService} from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-admin-others-page',
   templateUrl: './ca-admin-others-page.component.html',
-  styleUrls: ['./ca-admin-others-page.component.scss']
+  styleUrls: ['./ca-admin-others-page.component.scss'],
 })
 export class CaAdminOthersPageComponent {
-
-  constructor(titleService: Title,
-              translateService: FlTranslateService) {
+  constructor(titleService: Title, translateService: FlTranslateService) {
     titleService.setTitle(`Admin - ${translateService.translate('admin_other_page')}`);
   }
-
 }

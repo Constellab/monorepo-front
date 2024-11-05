@@ -3,7 +3,7 @@ import {
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
-  FlSearchSortCriteriaConverter
+  FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaUser } from '../../../model/entities/ca-user.class';
@@ -19,20 +19,18 @@ export class CaTeamSearchFields {
 
   @Type(() => FlSearchDateInterval)
   createdAt: FlSearchDateInterval;
-
 }
 
 export class CaTeamSearch {
-
   public static searchManagerConfig: FlFormInputsManagerConfig<CaTeamSearchFields> = {
     createdBy: 'created_by',
     createdAt: 'creation_date',
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaTeamSearchFields> = {
-    id: {key: 'id', operator: 'EQ'},
-    label: {key: 'label', operator: 'CONTAINS'},
-    createdBy: {key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId},
+    id: { key: 'id', operator: 'EQ' },
+    label: { key: 'label', operator: 'CONTAINS' },
+    createdBy: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
   };
 

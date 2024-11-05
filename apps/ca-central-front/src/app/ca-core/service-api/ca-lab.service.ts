@@ -9,14 +9,14 @@ import {
   CaLabServerInfoDTO,
   CaLabStatusDTO,
   CaLabStatusHistory,
-  CaLabWithSpace
+  CaLabWithSpace,
 } from '../model/entities/lab/ca-lab.class';
 import {
   FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlFileHelper,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
@@ -29,7 +29,7 @@ import {
   CaLabManagerRestoreBackupConfigDTO,
   CaLabManagerStatus,
   CaLabPullBiotaOptions,
-  CaLabTaskStatusInfo
+  CaLabTaskStatusInfo,
 } from '../model/entities/lab/ca-lab-manager.class';
 import { CaLabUser, CaLabUserRole } from '../model/entities/lab/ca-lab-user.class';
 import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/model/ca-lab-search.class';
@@ -39,31 +39,33 @@ import { CaLabGreenOption, CaLabGreenOptionFormDto } from '../model/entities/lab
 import {
   CaLabStatusRunRequest,
   CaLabStatusRunResponse,
-  CaLabStorageResponse
+  CaLabStorageResponse,
 } from '../model/entities/lab/ca-lab-stats.dto';
-import { CaLabFreeCreateDto, CaLabFreeGetDto, CaLabFreeUpdateDto } from '../model/entities/lab/ca-lab-free.class';
+import {
+  CaLabFreeCreateDto,
+  CaLabFreeGetDto,
+  CaLabFreeUpdateDto,
+} from '../model/entities/lab/ca-lab-free.class';
 import { CaLabBackupHistory, CaLabBackupStatusDTO } from '../model/entities/lab/ca-lab-backup.class';
 import {
   CaLabAdminForm,
   CaLabCloudCreateDTO,
   CaLabDesktopForm,
-  CaRequestLabForm
+  CaRequestLabForm,
 } from '../model/entities/lab/ca-lab.form';
 import {
   CaLabStatusHistorySearch,
-  CaLabStatusHistorySearchFields
+  CaLabStatusHistorySearchFields,
 } from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
 import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaLabService {
-
   private readonly route: string = 'labs';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLab> {
     return this.apiService.post(`${this.route}/cloud`, createLab, CaLab);
@@ -78,15 +80,16 @@ export class CaLabService {
   }
 
   public getCurrentLabsDatasource(pageSize: number = 20): CaLabDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getCurrentLab(page, size), pageSize);
+    return new FlEntityPaginatedDatasource((page, size) => this.getCurrentLab(page, size), pageSize);
   }
 
   private getCurrentLab(page: number, pageSize: number): Observable<ClPageI<CaLab>> {
-    return this.apiService.get(`${this.route}/current`, CaLab,
-      { resultIsPaginated: true, page: page, pageSize: pageSize });
+    return this.apiService.get(`${this.route}/current`, CaLab, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: pageSize,
+    });
   }
-
 
   public startLab(id: string): Observable<CaLab> {
     return this.apiService.put(`${this.route}/${id}/start`, null, CaLab);
@@ -95,7 +98,6 @@ export class CaLabService {
   public stopLab(id: string): Observable<CaLab> {
     return this.apiService.put(`${this.route}/${id}/stop`, null, CaLab);
   }
-
 
   public findById(id: string): Observable<CaLabFindOneDto> {
     return this.apiService.get(`${this.route}/${id}`, CaLabFindOneDto);
@@ -112,12 +114,20 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/login`);
   }
 
-  public searchInCurrentSpace(page: number, pageSize: number,
-                              data: FlDatasourceGetPageData<CaLabSearchFields>): Observable<ClPage<CaLab>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data, CaLabSearch.filterConverter,
-      CaLabSearch.sortConverter);
+  public searchInCurrentSpace(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaLabSearchFields>
+  ): Observable<ClPage<CaLab>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaLabSearch.filterConverter,
+      CaLabSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaLabWithSpace, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 
@@ -146,8 +156,11 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/status/refresh`, null, CaLabStatusDTO);
   }
 
-  public getStatusHistoriesDatasource(id: string, page: number, size: number,
-                                      data: FlDatasourceGetPageData<CaLabStatusHistorySearchFields>
+  public getStatusHistoriesDatasource(
+    id: string,
+    page: number,
+    size: number,
+    data: FlDatasourceGetPageData<CaLabStatusHistorySearchFields>
   ): Observable<ClPageI<CaLabStatusHistory>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
       data,
@@ -157,15 +170,16 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/status/history`, searchInput, CaLabStatusHistory, {
       page: page,
       pageSize: size,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
   //////////////////////////// VOLUME ////////////////////////////////
 
   updateLabVolume(id: string, updateVolume: CaLabUpdateVolumeDTO): Observable<CaLabVolume> {
-    return this.apiService.put(`${this.route}/${id}/volume`, updateVolume, CaLabVolume,
-      { serialization: CaLabUpdateVolumeDTO });
+    return this.apiService.put(`${this.route}/${id}/volume`, updateVolume, CaLabVolume, {
+      serialization: CaLabUpdateVolumeDTO,
+    });
   }
 
   deleteLabVolume(id: string, volumeId: string): Observable<void> {
@@ -174,20 +188,19 @@ export class CaLabService {
 
   getLabVolumeHistory(id: string, page: number, size: number): Observable<ClPage<CaLabVolume>> {
     return this.apiService.get(`${this.route}/${id}/volume`, CaLabVolume, {
-      resultIsPaginated: true, page: page, pageSize: size
+      resultIsPaginated: true,
+      page: page,
+      pageSize: size,
     });
   }
 
-
   //////////////////////////// USERS ////////////////////////////////
   public addUserToLab(labId: string, userId: string, role: CaLabUserRole): Observable<CaLabUser> {
-    return this.apiService.post(`${this.route}/${labId}/user/${userId}/${role}`, null,
-      CaLabUser);
+    return this.apiService.post(`${this.route}/${labId}/user/${userId}/${role}`, null, CaLabUser);
   }
 
   public updateUserLabRole(labId: string, userId: string, role: CaLabUserRole): Observable<CaLabUser> {
-    return this.apiService.put(`${this.route}/${labId}/user/${userId}/${role}`, null,
-      CaLabUser);
+    return this.apiService.put(`${this.route}/${labId}/user/${userId}/${role}`, null, CaLabUser);
   }
 
   public removeUserFromLab(labId: string, userId: string): Observable<CaLabUser> {
@@ -205,8 +218,9 @@ export class CaLabService {
   }
 
   public getLabManagerStatus(id: string): Observable<CaLabManagerStatus> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/status`, CaLabManagerStatus,
-      { hideSnackBarError: true });
+    return this.apiService.get(`${this.route}/${id}/lab-manager/status`, CaLabManagerStatus, {
+      hideSnackBarError: true,
+    });
   }
 
   public getCurrentTask(id: string): Observable<CaLabTaskStatusInfo> {
@@ -218,7 +232,10 @@ export class CaLabService {
   }
 
   public getContainerDetails(id: string, containerName: string): Observable<CaLabDockerPsFull> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}`, CaLabDockerPsFull);
+    return this.apiService.get(
+      `${this.route}/${id}/lab-manager/containers/${containerName}`,
+      CaLabDockerPsFull
+    );
   }
 
   public startComposeContainer(id: string, serviceName: string): Observable<boolean> {
@@ -233,17 +250,18 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/delete`, null);
   }
 
-
   public getLogs(id: string, containerName: string): Observable<string> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null,
-      { responseType: 'text' });
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null, {
+      responseType: 'text',
+    });
   }
 
   public downloadLogs(id: string, containerName: string): Observable<Blob> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs/export`, null,
-      { responseType: 'blob' }).pipe(
-      tap((blob: Blob) => FlFileHelper.downloadBlob(blob, `${containerName}.log`))
-    );
+    return this.apiService
+      .get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs/export`, null, {
+        responseType: 'blob',
+      })
+      .pipe(tap((blob: Blob) => FlFileHelper.downloadBlob(blob, `${containerName}.log`)));
   }
 
   public initAll(id: string): Observable<void> {
@@ -328,7 +346,7 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/backup-history`, CaLabBackupHistory, {
       page: page,
       pageSize: size,
-      resultIsPaginated: true
+      resultIsPaginated: true,
     });
   }
 
@@ -336,9 +354,16 @@ export class CaLabService {
     return this.apiService.delete(`${this.route}/${id}/backup`, null);
   }
 
-  public restoreBackup(id: string, backupHistoryId: string,
-                       restoreConfig: CaLabManagerRestoreBackupConfigDTO): Observable<CaLab> {
-    return this.apiService.post(`${this.route}/${id}/backup-history/${backupHistoryId}/restore`, restoreConfig, CaLab);
+  public restoreBackup(
+    id: string,
+    backupHistoryId: string,
+    restoreConfig: CaLabManagerRestoreBackupConfigDTO
+  ): Observable<CaLab> {
+    return this.apiService.post(
+      `${this.route}/${id}/backup-history/${backupHistoryId}/restore`,
+      restoreConfig,
+      CaLab
+    );
   }
 
   //////////////////////////// SERVER ////////////////////////////////
@@ -381,11 +406,17 @@ export class CaLabService {
 
   //////////////////////////// STATUS RULE  ////////////////////////////////
 
-  public createGreenOption(labId: string, greenOption: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+  public createGreenOption(
+    labId: string,
+    greenOption: CaLabGreenOptionFormDto
+  ): Observable<CaLabGreenOption> {
     return this.apiService.post(`${this.route}/${labId}/green-options`, greenOption, CaLabGreenOption);
   }
 
-  public updateGreenOption(greenOptionId: string, greenOption: CaLabGreenOptionFormDto): Observable<CaLabGreenOption> {
+  public updateGreenOption(
+    greenOptionId: string,
+    greenOption: CaLabGreenOptionFormDto
+  ): Observable<CaLabGreenOption> {
     return this.apiService.put(`${this.route}/green-options/${greenOptionId}`, greenOption, CaLabGreenOption);
   }
 
@@ -404,8 +435,9 @@ export class CaLabService {
   }
 
   public createFreeLab(entity: CaLabFreeCreateDto): Observable<CaLabWithSpace> {
-    return this.apiService.post(`${this.route}/free-lab`, entity, CaLabWithSpace,
-      { serialization: CaLabFreeCreateDto });
+    return this.apiService.post(`${this.route}/free-lab`, entity, CaLabWithSpace, {
+      serialization: CaLabFreeCreateDto,
+    });
   }
 
   public getCurrentUserFreeLab(): Observable<CaLabFreeGetDto> {
@@ -421,25 +453,27 @@ export class CaLabService {
   }
 
   public updateFreeLab(id: string, updateDto: CaLabFreeUpdateDto): Observable<CaLabFreeGetDto> {
-    return this.apiService.put(`${this.route}/free-lab/${id}`, updateDto, CaLabFreeGetDto,
-      { serialization: CaLabFreeUpdateDto });
+    return this.apiService.put(`${this.route}/free-lab/${id}`, updateDto, CaLabFreeGetDto, {
+      serialization: CaLabFreeUpdateDto,
+    });
   }
 
   public deleteFreeLab(id: string): Observable<CaLabFreeGetDto> {
     return this.apiService.delete(`${this.route}/free-lab/${id}`, CaLabFreeGetDto);
   }
 
-
   //////////////////////////// STATS ////////////////////////////////
 
   public getLabRunningStats(id: string, request: CaLabStatusRunRequest): Observable<CaLabStatusRunResponse> {
-    return this.apiService.post(`${this.route}/${id}/stats/running`, request, CaLabStatusRunResponse,
-      { serialization: CaLabStatusRunRequest });
+    return this.apiService.post(`${this.route}/${id}/stats/running`, request, CaLabStatusRunResponse, {
+      serialization: CaLabStatusRunRequest,
+    });
   }
 
   public getLabStorageStats(id: string, request: CaLabStatusRunRequest): Observable<CaLabStorageResponse> {
-    return this.apiService.post(`${this.route}/${id}/stats/storage`, request, CaLabStorageResponse,
-      { serialization: CaLabStatusRunRequest });
+    return this.apiService.post(`${this.route}/${id}/stats/storage`, request, CaLabStorageResponse, {
+      serialization: CaLabStatusRunRequest,
+    });
   }
 
   //////////////////////////// DESKTOP ////////////////////////////////
@@ -449,9 +483,9 @@ export class CaLabService {
   }
 
   public getDesktopConfigDownloadUrl(id: string, config: CaLabDesktopConfig): Observable<Blob> {
-    return this.apiService.post(
-      `${this.route}/${id}/desktop/generate-config`, config, null,
-      { responseType: 'blob' });
+    return this.apiService.post(`${this.route}/${id}/desktop/generate-config`, config, null, {
+      responseType: 'blob',
+    });
   }
 
   public updateLabDesktop(entity: CaLabDesktopForm): Observable<CaLab> {
@@ -460,24 +494,35 @@ export class CaLabService {
 
   //////////////////////////// ADMIN ////////////////////////////////
   public createAdmin(entity: CaLabAdminForm): Observable<CaLabWithSpace> {
-    return this.apiService.post(`${this.route}/admin`, entity, CaLabWithSpace,
-      { serialization: CaLabAdminForm });
+    return this.apiService.post(`${this.route}/admin`, entity, CaLabWithSpace, {
+      serialization: CaLabAdminForm,
+    });
   }
 
   public updateAdmin(entity: CaLabAdminForm): Observable<CaLabWithSpace> {
-    return this.apiService.put(`${this.route}/admin`, entity, CaLabWithSpace, { serialization: CaLabAdminForm });
+    return this.apiService.put(`${this.route}/admin`, entity, CaLabWithSpace, {
+      serialization: CaLabAdminForm,
+    });
   }
 
   public getByIdAdmin(id: string): Observable<CaLabAdminForm> {
     return this.apiService.get(`${this.route}/admin/${id}`, CaLabAdminForm);
   }
 
-  public searchAll(page: number, pageSize: number,
-                   data: FlDatasourceGetPageData<CaLabSearchFields>): Observable<ClPage<CaLabWithSpace>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      CaLabSearch.filterConverter, CaLabSearch.sortConverter);
+  public searchAll(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaLabSearchFields>
+  ): Observable<ClPage<CaLabWithSpace>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaLabSearch.filterConverter,
+      CaLabSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/admin/search`, searchInput, CaLabWithSpace, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 

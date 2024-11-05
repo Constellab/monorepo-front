@@ -1,8 +1,7 @@
-import {CaEnvironment} from '../../../environments/ca-environment.class';
-import {environment} from '../../../environments/ca-environment';
+import { CaEnvironment } from '../../../environments/ca-environment.class';
+import { environment } from '../../../environments/ca-environment';
 
-export class CaEnvironmentHelper{
-
+export class CaEnvironmentHelper {
   public static getEnv(): CaEnvironment {
     return environment;
   }

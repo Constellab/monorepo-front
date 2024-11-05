@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabShareLinkFormDialogComponent} from './lab-share-link-form-dialog.component';
+import { LabShareLinkFormDialogComponent } from './lab-share-link-form-dialog.component';
 
 describe('LabShareLinkFormDialogComponent', () => {
   let component: LabShareLinkFormDialogComponent;
@@ -8,9 +8,8 @@ describe('LabShareLinkFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabShareLinkFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabShareLinkFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabShareLinkFormDialogComponent);
     component = fixture.componentInstance;

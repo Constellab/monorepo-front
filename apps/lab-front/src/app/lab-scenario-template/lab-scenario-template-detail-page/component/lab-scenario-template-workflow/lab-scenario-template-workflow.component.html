@@ -1,5 +1,4 @@
 <div class="g-layout-col g-full-height">
-
   <fl-text-icon class="g-text-light help-text">
     <mat-icon>warning</mat-icon>
     <div>{{ 'biox.scenario_template_beta_warning' | translate }}</div>
@@ -7,8 +6,11 @@
 
   <fl-section [object]="workflow" [isLoading]="workflowIsLoading" class="section">
     <ng-container *flSectionBody>
-      <pr-workflow [workflow]="workflow" [mode$]="workflowMode$" [viewConfig]="viewConfig"
-                   class="workflow"></pr-workflow>
+      <pr-workflow
+        [workflow]="workflow"
+        [mode$]="workflowMode$"
+        [viewConfig]="viewConfig"
+        class="workflow"></pr-workflow>
     </ng-container>
   </fl-section>
 </div>

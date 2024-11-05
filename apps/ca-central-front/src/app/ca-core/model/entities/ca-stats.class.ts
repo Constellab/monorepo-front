@@ -1,4 +1,4 @@
-export class CaStats{
+export class CaStats {
   onGoingFolderNumber: number = 0;
 
   teamsNumber: number = 0;

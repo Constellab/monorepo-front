@@ -4,7 +4,6 @@ import { AxisScale, interpolateRound, Numeric, scaleBand, scaleLinear } from 'd3
 export interface ChD3Scale<Value> extends AxisScale<Value> {
   (value: Value): number;
 
-
   range(): number[];
 
   range(range: Iterable<number>): this;
@@ -14,11 +13,9 @@ export interface ChD3Scale<Value> extends AxisScale<Value> {
   domain(domain: Iterable<Value>): this;
 
   copy(): this;
-
 }
 
 export interface ChD3ScaleLinear extends ChD3Scale<number> {
-
   invert(rangeValue: NumberValue): number;
 
   ticks(count: number): number[];
@@ -39,9 +36,7 @@ export interface ChChartScaleI {
   scale(value: any, defaultValue?: number): any;
 }
 
-
 export abstract class ChChartScale implements ChChartScaleI {
-
   public readonly d3Scale: ChD3Scale<number>;
 
   // save the last set domain to be able to reset the domain
@@ -76,7 +71,6 @@ export abstract class ChChartScale implements ChChartScaleI {
   public scale(value: number, defaultValue?: number): number {
     return this.d3Scale(value) ?? defaultValue;
   }
-
 
   public range(range: [number, number]): this {
     this.d3Scale.range(range);
@@ -137,9 +131,7 @@ export abstract class ChChartScaleLinear extends ChChartScale {
   }
 }
 
-
 export class ChChartScaleNumber extends ChChartScaleLinear {
-
   constructor() {
     super();
   }
@@ -234,13 +226,11 @@ export class ChChartScaleBand extends ChChartScale {
       return 0;
     }
     // compare the position of the first and second group and remove bandwidth to get inner padding width
-    return (this.scale(this.getDomain()[1], 0) - this.scale(this.getDomain()[0], 0) - this.bandwidth());
+    return this.scale(this.getDomain()[1], 0) - this.scale(this.getDomain()[0], 0) - this.bandwidth();
   }
 
   // do nothing on band, because the domain is already good
   nice(): this {
     return this;
   }
-
-
 }

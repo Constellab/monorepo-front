@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUserDetailPageComponent} from './ca-user-detail-page.component';
+import { CaUserDetailPageComponent } from './ca-user-detail-page.component';
 
 describe('UserCompleteInfoPageComponent', () => {
   let component: CaUserDetailPageComponent;
@@ -8,9 +8,8 @@ describe('UserCompleteInfoPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaUserDetailPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaUserDetailPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

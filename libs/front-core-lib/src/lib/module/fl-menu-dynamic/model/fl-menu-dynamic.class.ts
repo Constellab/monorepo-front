@@ -4,7 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 export type FlMenuDynamic = FlMenuDynamicButton | FlMenuDynamicLink | FlMenuDynamicDownloadLink;
 
 export class FlMenuDynamicButton {
-  type : 'button';
+  type: 'button';
   text: FlTranslatableText;
   icon?: string;
   children?: FlMenuDynamic[];
@@ -15,7 +15,7 @@ export class FlMenuDynamicButton {
 }
 
 export class FlMenuDynamicLink {
-  type : 'link';
+  type: 'link';
   text: FlTranslatableText;
   link: string;
 
@@ -25,7 +25,7 @@ export class FlMenuDynamicLink {
 }
 
 export class FlMenuDynamicDownloadLink {
-  type : 'downloadLink';
+  type: 'downloadLink';
   text: FlTranslatableText;
   href: string;
 

@@ -4,7 +4,7 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabActivityDatasource } from '../../../../model/entities/lab-activity.entity';
 import { LabActivityService } from '../../../../entity-service/lab-activity.service';
@@ -14,15 +14,16 @@ import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-acti
   selector: 'lab-activity-search',
   templateUrl: './lab-activity-search.component.html',
   styleUrls: ['./lab-activity-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class LabActivitySearchComponent implements OnInit {
   datasource: LabActivityDatasource<LabActivitySearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private activityService: LabActivityService,
-              private themeService: FlThemeService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private activityService: LabActivityService,
+    private themeService: FlThemeService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -32,29 +33,32 @@ export class LabActivitySearchComponent implements OnInit {
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
         config: LabActivitySearch.searchManagerConfig,
-        skipFalseBoolean: true
+        skipFalseBoolean: true,
       },
       storeSearchInUrl: true,
-      defaultSort: {key: 'date', direction: 'DESC'}
+      defaultSort: { key: 'date', direction: 'DESC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.activityService.search(page, pageSize, data),
-      20, true
+      20,
+      true
     );
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
     // list of predefined search of the resources
-    return [{
-      searchName: 'lab-activity',
-      id: null,
-      label: 'All activities',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {}
-    }];
+    return [
+      {
+        searchName: 'lab-activity',
+        id: null,
+        label: 'All activities',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {},
+      },
+    ];
   }
 }

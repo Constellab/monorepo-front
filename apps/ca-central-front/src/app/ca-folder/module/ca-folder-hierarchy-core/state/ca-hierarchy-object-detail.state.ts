@@ -1,13 +1,18 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, filter, first, firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
-import { FlDatasourceTree, FlEntityArrayObs, FlQueryParamHandler, FlRouterHelper } from '@monorepo/front-core-lib';
+import {
+  FlDatasourceTree,
+  FlEntityArrayObs,
+  FlQueryParamHandler,
+  FlRouterHelper,
+} from '@monorepo/front-core-lib';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectWithChildren
+  CaHierarchyObjectWithChildren,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
@@ -16,7 +21,6 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
  */
 @Injectable()
 export class CaHierarchyObjectDetailState implements OnDestroy {
-
   private ancestorFolders$: FlEntityArrayObs<CaHierarchyObject>;
   private folderTree: FlDatasourceTree<CaHierarchyObjectWithChildren>;
 
@@ -26,44 +30,45 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private folderService: CaFolderService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private routerService: CaRouterService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private routerService: CaRouterService
+  ) {}
 
   public init(): void {
     // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
-    const objectId$: Observable<string> = FlRouterHelper.listenToChildrenParams(this.router, this.route)
-      .pipe(
-        map(params => params.id)
-      );
+    const objectId$: Observable<string> = FlRouterHelper.listenToChildrenParams(this.router, this.route).pipe(
+      map((params) => params.id)
+    );
 
     this.ancestorFolders$ = new FlEntityArrayObs([]);
-    this.subscription = objectId$.pipe(
-      switchMap(objectId => this.folderService.getObjectFolderAncestors(objectId))
-    ).subscribe({
-      next: ancestors => this.getAncestorSuccess(ancestors)
-    });
+    this.subscription = objectId$
+      .pipe(switchMap((objectId) => this.folderService.getObjectFolderAncestors(objectId)))
+      .subscribe({
+        next: (ancestors) => this.getAncestorSuccess(ancestors),
+      });
 
-    this.folderTree = new FlDatasourceTree<CaHierarchyObjectWithChildren>(null,
-      (a, b) => ClHelpService.sortAlphabeticalFunction(a.name, b.name));
-    objectId$.pipe(
-      // as the tree start with the root, it only needs to be loaded once
-      first(),
-      switchMap(objectId => this.folderService.getFolderTree(objectId))
-    ).subscribe({
-      next: folderTree => this.getTreeSuccess(folderTree)
-    });
+    this.folderTree = new FlDatasourceTree<CaHierarchyObjectWithChildren>(null, (a, b) =>
+      ClHelpService.sortAlphabeticalFunction(a.name, b.name)
+    );
+    objectId$
+      .pipe(
+        // as the tree start with the root, it only needs to be loaded once
+        first(),
+        switchMap((objectId) => this.folderService.getFolderTree(objectId))
+      )
+      .subscribe({
+        next: (folderTree) => this.getTreeSuccess(folderTree),
+      });
 
     // force closing the tree if there is no sub folders
-    this.hasSubFolders$().subscribe(
-      hasSubFolders => {
-        if (!hasSubFolders) {
-          this.setTreeOpened(false);
-        }
+    this.hasSubFolders$().subscribe((hasSubFolders) => {
+      if (!hasSubFolders) {
+        this.setTreeOpened(false);
       }
-    );
+    });
 
     this.treeDrawerOpened$ = new BehaviorSubject(false);
 
@@ -91,14 +96,16 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getCurrentParentFolder(): Promise<CaHierarchyObject | null> {
-    return firstValueFrom(this.getAncestorsFolders$().pipe(
-      // the first element is the current object, we return the second element which is the parent
-      map(ancestors => ancestors.length > 1 ? ancestors[1] : null)
-    ));
+    return firstValueFrom(
+      this.getAncestorsFolders$().pipe(
+        // the first element is the current object, we return the second element which is the parent
+        map((ancestors) => (ancestors.length > 1 ? ancestors[1] : null))
+      )
+    );
   }
 
   public navigateToParentFolder(): void {
-    this.getCurrentParentFolder().then(parentFolder => {
+    this.getCurrentParentFolder().then((parentFolder) => {
       if (parentFolder) {
         this.routerService.navigateToFolderDetail(parentFolder.id);
       } else {
@@ -108,14 +115,12 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getFolderTree$(): Observable<CaHierarchyObjectWithChildren> {
-    return this.folderTree.connect().pipe(
-      filter(folderTree => folderTree != null)
-    );
+    return this.folderTree.connect().pipe(filter((folderTree) => folderTree != null));
   }
 
   public hasSubFolders$(): Observable<boolean> {
     return this.getFolderTree$().pipe(
-      map(folderTree => folderTree.children && folderTree.children.length > 0)
+      map((folderTree) => folderTree.children && folderTree.children.length > 0)
     );
   }
 
@@ -140,7 +145,11 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     // update in the tree
     const folderInTree = this.folderTree.findNode(folderId);
     if (folderInTree) {
-      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(folderInTree, folder, CaHierarchyObjectWithChildren);
+      const clone = ClCoreJsonConvert.deepCloneClassAndMerge(
+        folderInTree,
+        folder,
+        CaHierarchyObjectWithChildren
+      );
       this.folderTree.updateNode(clone);
     }
   }
@@ -173,9 +182,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     // init tree open
     this.queryParamHandler.getFirstQueryParams().subscribe(
       // if the query param is not present, the tree is opened
-      params => this.treeDrawerOpened$.next(params.showTree !== 'false')
+      (params) => this.treeDrawerOpened$.next(params.showTree !== 'false')
     );
   }
-
-
 }

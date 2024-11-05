@@ -1,6 +1,6 @@
-import {ClSupportedLanguage} from '@monorepo/core-lib';
+import { ClSupportedLanguage } from '@monorepo/core-lib';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import {FlLangTranslation, FlTranslateObject} from '@monorepo/front-core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
 /* eslint max-len: 0 */
 
 /**
@@ -37,11 +37,9 @@ const spSpreadsheetI18nFr: FlLangTranslation = {
     chart_series: 'Séries',
     chart_nb_of_bins: 'Nombres de classes',
     chart_normalize: 'Normaliser les données',
-    chart_nb_of_bins_error:
-      'Le nombre de classes doit être un entier supérieur à 1',
+    chart_nb_of_bins_error: 'Le nombre de classes doit être un entier supérieur à 1',
     chart_serie_required_error: 'Vous devez définir au moins 1 série',
-    chart_too_many_series_error:
-      'Le type de graphique support au maximum {{maxSeries}} séries',
+    chart_too_many_series_error: 'Le type de graphique support au maximum {{maxSeries}} séries',
     chart_x_threshold: 'Seuil X',
     chart_y_threshold: 'Seuil Y',
     chart_x_axis_label: "Label de l'axe des abscisses",
@@ -113,11 +111,9 @@ const spSpreadsheetI18nEn: FlLangTranslation = {
     chart_series: 'Series',
     chart_nb_of_bins: 'Number of classes',
     chart_normalize: 'Normalize data',
-    chart_nb_of_bins_error:
-      'The number of classes must be an integer higher than 1',
+    chart_nb_of_bins_error: 'The number of classes must be an integer higher than 1',
     chart_serie_required_error: 'You must define at least 1 serie',
-    chart_too_many_series_error:
-      'The chart type supports a maximum of {{maxSeries}} series',
+    chart_too_many_series_error: 'The chart type supports a maximum of {{maxSeries}} series',
     chart_x_threshold: 'X threshold',
     chart_y_threshold: 'Y threshold',
     chart_x_axis_label: 'X axis label',

@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FlFormulaComponent} from './fl-formula.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FlFormulaComponent } from './fl-formula.component';
 
 describe('FlFormulaComponent', () => {
   let component: FlFormulaComponent;

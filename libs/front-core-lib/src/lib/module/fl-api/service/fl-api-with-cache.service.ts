@@ -7,7 +7,6 @@ import { ClCachedObservable, ClDeserializationRef } from '@monorepo/core-lib';
 import { FlApiServiceConfig } from './fl-api-service.config';
 import { FlApiErrorService } from './fl-api-error.service';
 
-
 /**
  * Global service that extends {@link FlApiService}
  * to call make Http request. This service adds a get method that
@@ -17,13 +16,9 @@ import { FlApiErrorService } from './fl-api-error.service';
  */
 @Injectable()
 export class FlApiWithCacheService extends FlApiService implements FlCleanableService {
-
   private routeObservables: Map<string, ClCachedObservable<any>> = new Map();
 
-
-  constructor(http: HttpClient,
-              configService: FlApiServiceConfig,
-              errorService: FlApiErrorService) {
+  constructor(http: HttpClient, configService: FlApiServiceConfig, errorService: FlApiErrorService) {
     super(http, configService, errorService);
     FlCleanerService.getInstance().registerService(this);
   }
@@ -36,12 +31,19 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public getByIdWithCache(route: string, id: string, classReference ?: ClDeserializationRef,
-                          options: FlHttpOption = {}): ClCachedObservable<any> {
+  public getByIdWithCache(
+    route: string,
+    id: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): ClCachedObservable<any> {
     const fullRoute = this.getUrlForId(route, id);
 
     if (!this.routeObservables.has(fullRoute)) {
-      this.routeObservables.set(fullRoute, new ClCachedObservable<any>(super.getById(route, id, classReference, options)));
+      this.routeObservables.set(
+        fullRoute,
+        new ClCachedObservable<any>(super.getById(route, id, classReference, options))
+      );
     }
 
     return this.routeObservables.get(fullRoute);
@@ -53,8 +55,11 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
-  public getWithCache(route: string, classReference ?: ClDeserializationRef,
-                      options: FlHttpOption = {}): ClCachedObservable<any> {
+  public getWithCache(
+    route: string,
+    classReference?: ClDeserializationRef,
+    options: FlHttpOption = {}
+  ): ClCachedObservable<any> {
     if (options.page != null || options.pageSize != null) {
       console.error('The getWithCache method does not support pagination, please use normal get');
       return null;
@@ -63,7 +68,10 @@ export class FlApiWithCacheService extends FlApiService implements FlCleanableSe
     const fullRoute = this.getUrl(route);
 
     if (!this.routeObservables.has(fullRoute)) {
-      this.routeObservables.set(fullRoute, new ClCachedObservable<any>(super.get(route, classReference, options)));
+      this.routeObservables.set(
+        fullRoute,
+        new ClCachedObservable<any>(super.get(route, classReference, options))
+      );
     }
 
     return this.routeObservables.get(fullRoute);

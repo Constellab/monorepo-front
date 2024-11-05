@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderTableComponent} from './ca-folder-table.component';
+import { CaFolderTableComponent } from './ca-folder-table.component';
 
 describe('CaFolderTableComponent', () => {
   let component: CaFolderTableComponent;
@@ -8,9 +8,8 @@ describe('CaFolderTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderTableComponent);
     component = fixture.componentInstance;

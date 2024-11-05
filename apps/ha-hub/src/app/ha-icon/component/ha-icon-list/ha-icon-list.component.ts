@@ -35,11 +35,9 @@ export class HaIconListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.reloadListSubscription = this.reloadList$.subscribe(
-      (value: boolean) => {
-        this.reloadIcons.next(value);
-      }
-    );
+    this.reloadListSubscription = this.reloadList$.subscribe((value: boolean) => {
+      this.reloadIcons.next(value);
+    });
   }
 
   ngOnDestroy(): void {
@@ -59,17 +57,13 @@ export class HaIconListComponent implements OnInit, OnDestroy {
     if (!target) {
       return;
     }
-    const config: FlPortalConfig = this.portalService.configureRelativePortal(
-      target,
-      ['bottom', 'top'],
-      {
-        hasBackdrop: false,
-        disposeOnNavigation: true,
-        disposeOnBackdropClick: true,
-        transparentBackdrop: true,
-        disposeOnOutsideClick: true,
-      }
-    );
+    const config: FlPortalConfig = this.portalService.configureRelativePortal(target, ['bottom', 'top'], {
+      hasBackdrop: false,
+      disposeOnNavigation: true,
+      disposeOnBackdropClick: true,
+      transparentBackdrop: true,
+      disposeOnOutsideClick: true,
+    });
 
     this.portalService
       .createPortal(HaIconInfoPortalComponent, config, icon)

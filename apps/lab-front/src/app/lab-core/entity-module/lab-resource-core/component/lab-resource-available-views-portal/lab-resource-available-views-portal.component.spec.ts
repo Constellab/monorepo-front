@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabResourceAvailableViewsPortalComponent} from './lab-resource-available-views-portal.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabResourceAvailableViewsPortalComponent } from './lab-resource-available-views-portal.component';
 
 describe('LabResourceViewSpecsListVComponent', () => {
   let component: LabResourceAvailableViewsPortalComponent;

@@ -1,16 +1,13 @@
-import {Injectable} from '@angular/core';
-import {FlApiService} from '@monorepo/front-core-lib';
-import {Observable} from 'rxjs';
-import {CaServerDecisionTreeDTO} from '../model/entities/server/ca-server-standard.class';
+import { Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib';
+import { Observable } from 'rxjs';
+import { CaServerDecisionTreeDTO } from '../model/entities/server/ca-server-standard.class';
 
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class CaSettingsService {
-
   private readonly route = 'settings';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public getDecisionTree(): Observable<CaServerDecisionTreeDTO> {
     return this.apiService.get(`${this.route}/server-decision-tree`, CaServerDecisionTreeDTO);
@@ -21,5 +18,4 @@ export class CaSettingsService {
     formData.append('file', decisionTree);
     return this.apiService.put(`${this.route}/server-decision-tree`, formData);
   }
-
 }

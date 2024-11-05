@@ -19,9 +19,7 @@ export enum CaActivityEntityType {
   MESSAGE = 'MESSAGE',
 }
 
-
 export class CaActivity extends CaEntity {
-
   entityType: CaActivityEntityType;
 
   entityId: string;

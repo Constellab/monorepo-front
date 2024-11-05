@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectSpaceComponent} from './ca-select-space.component';
+import { CaSelectSpaceComponent } from './ca-select-space.component';
 
 describe('CaSelectSpaceComponent', () => {
   let component: CaSelectSpaceComponent;
@@ -8,9 +8,8 @@ describe('CaSelectSpaceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSelectSpaceComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSelectSpaceComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSelectSpaceComponent);
     component = fixture.componentInstance;

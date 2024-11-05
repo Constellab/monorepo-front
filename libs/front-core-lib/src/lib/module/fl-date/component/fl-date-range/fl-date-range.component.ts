@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DateTime} from 'luxon';
-import {ClOnChange} from '@monorepo/core-lib';
-import {ClDateFormatKey} from '../../pipe/fl-date/fl-date.pipe';
+import { Component, Input, OnInit } from '@angular/core';
+import { DateTime } from 'luxon';
+import { ClOnChange } from '@monorepo/core-lib';
+import { ClDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
 
 /**
  * Display a date range with text,
@@ -10,26 +10,26 @@ import {ClDateFormatKey} from '../../pipe/fl-date/fl-date.pipe';
 @Component({
   selector: 'fl-date-range',
   templateUrl: './fl-date-range.component.html',
-  styleUrls: ['./fl-date-range.component.scss']
+  styleUrls: ['./fl-date-range.component.scss'],
 })
 export class FlDateRangeComponent implements OnInit {
+  @ClOnChange(function (this: FlDateRangeComponent) {
+    this.initMode();
+  })
+  @Input()
+  startingDate?: DateTime;
 
   @ClOnChange(function (this: FlDateRangeComponent) {
     this.initMode();
   })
-  @Input() startingDate?: DateTime;
-
-  @ClOnChange(function (this: FlDateRangeComponent) {
-    this.initMode();
-  })
-  @Input() endingDate?: DateTime;
+  @Input()
+  endingDate?: DateTime;
 
   @Input() dateFormat: ClDateFormatKey = 'DATE';
 
   mode: 'between' | 'from' | 'to';
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.initMode();
@@ -46,5 +46,4 @@ export class FlDateRangeComponent implements OnInit {
       this.mode = null;
     }
   }
-
 }

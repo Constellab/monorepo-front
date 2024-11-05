@@ -6,7 +6,6 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * the text between the trigger key and the cursor position.
  */
 export class TeKeyListener {
-
   private text$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   private listener: (event: KeyboardEvent) => void;
@@ -20,10 +19,12 @@ export class TeKeyListener {
    * @param triggerKey key used to trigger the listener
    * @param stopListenKeys keys that will stop the listener
    */
-  constructor(private textNode: Node,
-              private initialCursorOffset: number,
-              private triggerKey: string,
-              private stopListenKeys: string[]) {
+  constructor(
+    private textNode: Node,
+    private initialCursorOffset: number,
+    private triggerKey: string,
+    private stopListenKeys: string[]
+  ) {
     this.listen();
   }
 
@@ -66,10 +67,7 @@ export class TeKeyListener {
   }
 
   public getText$(): Observable<string> {
-    return this.text$.asObservable().pipe(
-      distinctUntilChanged(),
-      debounceTime(350)
-    );
+    return this.text$.asObservable().pipe(distinctUntilChanged(), debounceTime(350));
   }
 
   public getCurrentText(): string {
@@ -85,15 +83,14 @@ export class TeKeyListener {
   /**
    * return the index position of the search text in the text node
    */
-  public getSearchTextPosition(): { start: number, end: number } {
+  public getSearchTextPosition(): { start: number; end: number } {
     return {
       start: this.initialCursorOffset,
-      end: this.initialCursorOffset + this.getCurrentText().length + this.triggerKey.length
+      end: this.initialCursorOffset + this.getCurrentText().length + this.triggerKey.length,
     };
   }
 
   public isCompleted(): boolean {
     return this.completed;
   }
-
 }

@@ -14,22 +14,22 @@ export type LabDesktopUpdateDialogInput = CaLabDesktopForm;
 @Component({
   selector: 'ca-lab-desktop-update-dialog',
   templateUrl: './ca-lab-desktop-update-dialog.component.html',
-  styleUrls: ['./ca-lab-desktop-update-dialog.component.scss']
+  styleUrls: ['./ca-lab-desktop-update-dialog.component.scss'],
 })
 export class CaLabDesktopUpdateDialogComponent implements OnInit {
-
   formGp: FormGroup;
 
   maxNameLength = CaLab.MAX_NAME_LENGTH;
 
   isLoading: boolean = false;
 
-  constructor(private snackbarService: FlSnackBarService,
-              @Inject(MAT_DIALOG_DATA) private input: LabDesktopUpdateDialogInput,
-              private labService: CaLabService,
-              private dialogRef: MatDialogRef<CaLabDesktopUpdateDialogComponent>,
-              private formBuilder: FormBuilder) {
-  }
+  constructor(
+    private snackbarService: FlSnackBarService,
+    @Inject(MAT_DIALOG_DATA) private input: LabDesktopUpdateDialogInput,
+    private labService: CaLabService,
+    private dialogRef: MatDialogRef<CaLabDesktopUpdateDialogComponent>,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -47,15 +47,14 @@ export class CaLabDesktopUpdateDialogComponent implements OnInit {
     if (!this.isLoading && this.formGp.valid) {
       this.isLoading = true;
       this.labService.updateLabDesktop(this.formGp.value).subscribe({
-        next: lab => this.onSuccess(lab),
-        error: () => this.isLoading = false
+        next: (lab) => this.onSuccess(lab),
+        error: () => (this.isLoading = false),
       });
-
     }
   }
 
   private onSuccess(lab: CaLab): void {
-    this.snackbarService.openSuccessMessage({text: 'lab_name_updated', translateText: true});
+    this.snackbarService.openSuccessMessage({ text: 'lab_name_updated', translateText: true });
     this.isLoading = false;
     this.dialogRef.close(lab);
   }

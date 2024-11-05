@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBiotaDataCardDialogComponent} from './lab-biota-data-card-dialog.component';
+import { LabBiotaDataCardDialogComponent } from './lab-biota-data-card-dialog.component';
 
 describe('BiotaDataCardDialogComponent', () => {
   let component: LabBiotaDataCardDialogComponent;
@@ -8,9 +8,8 @@ describe('BiotaDataCardDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBiotaDataCardDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBiotaDataCardDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

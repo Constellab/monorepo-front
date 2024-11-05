@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTagDynamicFieldComponent} from './lab-tag-dynamic-field.component';
+import { LabTagDynamicFieldComponent } from './lab-tag-dynamic-field.component';
 
 describe('LabTagDynamicFieldComponent', () => {
   let component: LabTagDynamicFieldComponent;
@@ -8,9 +8,8 @@ describe('LabTagDynamicFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTagDynamicFieldComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTagDynamicFieldComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabTagDynamicFieldComponent);
     component = fixture.componentInstance;

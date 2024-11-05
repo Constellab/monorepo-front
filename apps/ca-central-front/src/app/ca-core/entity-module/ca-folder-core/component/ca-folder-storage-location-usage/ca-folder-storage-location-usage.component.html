@@ -1,5 +1,4 @@
 @if (showTotalInfo) {
-
   <fl-key-value>
     <fl-key>
       {{ 'total_size' | translate }}
@@ -19,7 +18,7 @@
   <div class="g-text-small">
     <fl-key-value>
       <fl-key>
-        {{ ('folder_size_' + key) | translate }}
+        {{ 'folder_size_' + key | translate }}
       </fl-key>
       {{ storageLocation.details[key].totalSize | flByteText }}
       - {{ storageLocation.details[key].totalDocuments }} {{ 'folder_files' | translate }}

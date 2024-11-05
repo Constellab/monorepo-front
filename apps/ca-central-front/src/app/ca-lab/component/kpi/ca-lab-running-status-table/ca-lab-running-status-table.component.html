@@ -1,53 +1,52 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- From date -->
   <ng-container matColumnDef="fromDate">
     <mat-header-cell *matHeaderCellDef>
-      {{'lab_usage_period_from' | translate}}
+      {{ 'lab_usage_period_from' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
-      {{status.fromDate | flDate:'DATE_TIME_WITH_SECONDS'}}
+      {{ status.fromDate | flDate: 'DATE_TIME_WITH_SECONDS' }}
     </mat-cell>
   </ng-container>
 
   <!-- To date -->
   <ng-container matColumnDef="toDate">
     <mat-header-cell *matHeaderCellDef>
-      {{'lab_usage_period_to' | translate}}
+      {{ 'lab_usage_period_to' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
-      {{status.toDate | flDate:'DATE_TIME_WITH_SECONDS'}}
+      {{ status.toDate | flDate: 'DATE_TIME_WITH_SECONDS' }}
     </mat-cell>
   </ng-container>
 
   <!-- Run duration -->
   <ng-container matColumnDef="duration">
     <mat-header-cell *matHeaderCellDef>
-      {{'lab_usage_running_duration' | translate}}
+      {{ 'lab_usage_running_duration' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
-      {{(status.duration * 1000) | flDuration}}
+      {{ status.duration * 1000 | flDuration }}
     </mat-cell>
   </ng-container>
 
   <!-- Price -->
   <ng-container matColumnDef="price">
     <mat-header-cell *matHeaderCellDef>
-      {{'lab_usage_price' | translate}}
+      {{ 'lab_usage_price' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
       <div *ngIf="status.billInfo">
         <fl-key-value>
-          <fl-key>{{'lab_usage_billed_hours' | translate}}</fl-key>
-          {{status.billInfo.nbOfHours}}
+          <fl-key>{{ 'lab_usage_billed_hours' | translate }}</fl-key>
+          {{ status.billInfo.nbOfHours }}
         </fl-key-value>
         <fl-key-value>
-          <fl-key>{{'server_price_detail' | translate}}</fl-key>
-          {{status.billInfo.pricePerHour}}
+          <fl-key>{{ 'server_price_detail' | translate }}</fl-key>
+          {{ status.billInfo.pricePerHour }}
         </fl-key-value>
         <fl-key-value>
-          <fl-key>{{'lab_usage_total_price' | translate}}</fl-key>
-          {{status.billInfo.totalPrice | number:'1.2-2'}} €
+          <fl-key>{{ 'lab_usage_total_price' | translate }}</fl-key>
+          {{ status.billInfo.totalPrice | number: '1.2-2' }} €
         </fl-key-value>
       </div>
     </mat-cell>
@@ -56,7 +55,7 @@
   <!-- User -->
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef>
-      {{'user' | translate}}
+      {{ 'user' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let status">
       <fl-user-inline [user]="status.user"></fl-user-inline>
@@ -64,6 +63,5 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

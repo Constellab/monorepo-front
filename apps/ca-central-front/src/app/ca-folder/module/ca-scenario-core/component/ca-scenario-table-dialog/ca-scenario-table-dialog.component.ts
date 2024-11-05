@@ -14,7 +14,6 @@ export interface CaScenariosListDialogInput {
   styleUrl: './ca-scenario-table-dialog.component.scss',
 })
 export class CaScenarioTableDialogComponent {
-
   scenarios: FlArrayObs<CaScenario>;
   title: FlTranslatableText;
 

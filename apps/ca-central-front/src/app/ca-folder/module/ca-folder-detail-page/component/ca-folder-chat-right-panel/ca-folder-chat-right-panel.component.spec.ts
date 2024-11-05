@@ -8,9 +8,8 @@ describe('CaFolderCommentsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderChatRightPanelComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderChatRightPanelComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderChatRightPanelComponent);
     component = fixture.componentInstance;

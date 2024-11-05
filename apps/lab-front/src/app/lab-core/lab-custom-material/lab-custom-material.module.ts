@@ -6,7 +6,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { DateAdapter, MAT_DATE_FORMATS, MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { FlLuxonDateAdapter, flLuxonDateFormat, flMatFormFieldConfig, flTooltipConfig } from '@monorepo/front-core-lib';
+import {
+  FlLuxonDateAdapter,
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -62,15 +67,14 @@ import { MatSortModule } from '@angular/material/sort';
   ],
   providers: [
     // form field default config
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: flMatFormFieldConfig},
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: flMatFormFieldConfig },
 
     // tooltip default config
-    {provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig},
+    { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
 
     // configure the date picker to work with luxon
-    {provide: DateAdapter, useExisting: FlLuxonDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat},
-  ]
+    { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
+  ],
 })
-export class LabCustomMaterialModule {
-}
+export class LabCustomMaterialModule {}

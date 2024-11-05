@@ -12,12 +12,12 @@ import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.c
 @Component({
   selector: 'ca-lab-free-admin-form-dialog',
   templateUrl: './ca-lab-free-admin-form-dialog.component.html',
-  styleUrl: './ca-lab-free-admin-form-dialog.component.scss'
+  styleUrl: './ca-lab-free-admin-form-dialog.component.scss',
 })
-export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabWithSpace>
-  implements OnInit {
-
-
+export class CaLabFreeAdminFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabWithSpace>
+  implements OnInit
+{
   constructor(private labService: CaLabService) {
     super();
   }
@@ -29,7 +29,7 @@ export class CaLabFreeAdminFormDialogComponent extends FlFormDialogAbstractDirec
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       user: [null, Validators.required],
-      space: [null, Validators.required]
+      space: [null, Validators.required],
     });
   }
 

@@ -21,27 +21,27 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
   {
     label: 'my_folders',
     icon: 'folder',
-    route: CaRouterService.getMyFoldersRoute()
+    route: CaRouterService.getMyFoldersRoute(),
   },
   {
     label: 'my_labs',
     icon: 'lab',
-    route: CaRouterService.getMyLabsRoute()
+    route: CaRouterService.getMyLabsRoute(),
   },
   {
     label: 'chat',
     icon: 'chat',
-    route: CaRouterService.getChatRoute()
+    route: CaRouterService.getChatRoute(),
   },
   {
     label: 'my_teams',
     icon: 'group',
-    route: CaRouterService.getMyTeamsRoute()
+    route: CaRouterService.getMyTeamsRoute(),
   },
   {
     label: 'admin_dashboard',
     icon: 'admin_panel_settings',
     route: CaRouterService.getAdminRoute(),
-    authorizedCategories: [ClUserCategory.ADMIN]
-  }
+    authorizedCategories: [ClUserCategory.ADMIN],
+  },
 ];

@@ -1,14 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HaEnvironmentHelper} from '../ha-model/ha-config/ha-environment.helper';
-import {HaAgentVersion} from '../ha-model/ha-entities/ha-agent-version.class';
-import {ClStringHelper} from '@monorepo/core-lib';
-import {TdBrick} from '@monorepo/technical-doc';
+import { Injectable } from '@angular/core';
+import { HaEnvironmentHelper } from '../ha-model/ha-config/ha-environment.helper';
+import { HaAgentVersion } from '../ha-model/ha-entities/ha-agent-version.class';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { TdBrick } from '@monorepo/technical-doc';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HaRouterService {
-
   public static getAppUrl(): string {
     return HaEnvironmentHelper.getCommunityFrontUrl();
   }
@@ -16,8 +15,6 @@ export class HaRouterService {
   public static getHomeRoute(): string {
     return '/';
   }
-
-
 
   public static getBrickListRoute(): string {
     return '/bricks/';
@@ -52,9 +49,11 @@ export class HaRouterService {
     return `${this.getAgentsListRoute()}${id}/${titlePath}`;
   }
 
-  public static getAgentVersionRoute(agentVersion: HaAgentVersion): string{
-    return `${this.getAgentRoute(agentVersion.agent.id,
-      ClStringHelper.getCleanUrlPath(agentVersion.agent.title))}/version/${agentVersion.version}`;
+  public static getAgentVersionRoute(agentVersion: HaAgentVersion): string {
+    return `${this.getAgentRoute(
+      agentVersion.agent.id,
+      ClStringHelper.getCleanUrlPath(agentVersion.agent.title)
+    )}/version/${agentVersion.version}`;
   }
 
   ////////////////////////// STORIES ////////////////////////////////
@@ -81,12 +80,21 @@ export class HaRouterService {
     return `${this.getBrickPageRoute(brickName, brickMajor)}doc/`;
   }
 
-  public static getDocumentationRoute(brickName: string, brickMajor: string, completePath: string, id: string): string {
+  public static getDocumentationRoute(
+    brickName: string,
+    brickMajor: string,
+    completePath: string,
+    id: string
+  ): string {
     return `${this.getBrickDocsPageRoute(brickName, brickMajor)}${completePath}${id}`;
   }
 
-  public static getTechnicalDocRoute(parentBrickName: string, parentVersion: string,
-                                     objectType: string, docParentUniqueName: string): string {
+  public static getTechnicalDocRoute(
+    parentBrickName: string,
+    parentVersion: string,
+    objectType: string,
+    docParentUniqueName: string
+  ): string {
     return `${this.getBrickDocsPageRoute(parentBrickName, parentVersion)}technical-folder/${objectType}/${docParentUniqueName}`;
   }
 
@@ -95,11 +103,9 @@ export class HaRouterService {
   }
 
   ///////////////////////////// PROFILE ////////////////////////////////
-  public static getProfileRoute(): string{
+  public static getProfileRoute(): string {
     return '/profile/';
   }
-
-
 
   //////////////////////////// OTHERS ////////////////////////////////
 
@@ -118,9 +124,11 @@ export class HaRouterService {
     if (link.startsWith(this.getAppUrl())) {
       link = link.slice(this.getAppUrl().length);
       const url: string[] = link.split('/');
-      return [url.length >= 5 && url[0] === 'bricks' && url[3] == 'doc' && url[4].length > 0, url[4] != 'technical-folder'];
+      return [
+        url.length >= 5 && url[0] === 'bricks' && url[3] == 'doc' && url[4].length > 0,
+        url[4] != 'technical-folder',
+      ];
     }
     return [false, null];
   }
-
 }

@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CaFolderObject} from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 
 /**
  * Simple component to show information about the validation of a folder object
@@ -7,15 +7,12 @@ import {CaFolderObject} from '../../../../../ca-core/model/entities/folder/ca-fo
 @Component({
   selector: 'ca-validated-object-info',
   templateUrl: './ca-validated-object-info.component.html',
-  styleUrls: ['./ca-validated-object-info.component.scss']
+  styleUrls: ['./ca-validated-object-info.component.scss'],
 })
 export class CaValidatedObjectInfoComponent implements OnInit {
-
   @Input() object: CaFolderObject;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

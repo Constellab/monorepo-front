@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
+import { MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx-translate/core';
 
 /**
  *
@@ -15,7 +15,6 @@ import {MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-t
  */
 @Injectable()
 export class FlMissingTranslationLogService extends MissingTranslationHandler {
-
   /**
    * Handle the missing translation and log it to the console
    * @param params the missing translation

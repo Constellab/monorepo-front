@@ -1,56 +1,66 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="biox-form" [formGroup]="formGp">
-
     <!--  title  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'title' | translate}}</mat-label>
-      <input matInput formControlName="title" required flInputMaxLength="50"
-             [placeholder]="'title' | translate" (change)="onTitleChange()">
+      <mat-label>{{ 'title' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+        flInputMaxLength="50"
+        [placeholder]="'title' | translate"
+        (change)="onTitleChange()" />
       <mat-error *ngIf="formGp.get('title').hasError('required')">
-        {{'title' | flErrorRequired}}
+        {{ 'title' | flErrorRequired }}
       </mat-error>
       <mat-hint class="g-warning-text" *ngIf="sameTitleCount$ | async as count">
-        {{'biox.scenario_with_same_name_exist' | translate:{count: count} }}
+        {{ 'biox.scenario_with_same_name_exist' | translate: { count: count } }}
       </mat-hint>
     </mat-form-field>
 
-
     <!--  Protocol template  -->
     <div class="scenario-template" *ngIf="isCreateMode()">
-      <p class="scenario-template-title"><strong>{{'biox.scenario_template' | translate}}</strong></p>
-      <div class="g-text-small g-text-light protocol-help">{{'biox.select_scenario_template_help_text' | translate}}</div>
+      <p class="scenario-template-title">
+        <strong>{{ 'biox.scenario_template' | translate }}</strong>
+      </p>
+      <div class="g-text-small g-text-light protocol-help">
+        {{ 'biox.select_scenario_template_help_text' | translate }}
+      </div>
       <fl-form-field>
-        <lab-select-scenario-template formControlName="scenarioTemplate"
-                                      [placeholder]="'biox.scenario_template' | translate">
+        <lab-select-scenario-template
+          formControlName="scenarioTemplate"
+          [placeholder]="'biox.scenario_template' | translate">
         </lab-select-scenario-template>
       </fl-form-field>
 
-      <p class="or-text">{{'or' | translate}}</p>
+      <p class="or-text">{{ 'or' | translate }}</p>
 
       <!--  Protocol template file  -->
-      <fl-input-file-container color="primary" [placeholder]="'biox.import_scenario_template' | translate"
-                               class="g-centered-forced">
-        <input flInputFile type="file" [strictMode]="true"
-               accept="application/json" formControlName="scenarioTemplateJsonFile">
+      <fl-input-file-container
+        color="primary"
+        [placeholder]="'biox.import_scenario_template' | translate"
+        class="g-centered-forced">
+        <input
+          flInputFile
+          type="file"
+          [strictMode]="true"
+          accept="application/json"
+          formControlName="scenarioTemplateJsonFile" />
       </fl-input-file-container>
-
     </div>
     <!--    Folder      -->
-    <p class="g-text-light helper-text">{{'biox.select_folder_help' | translate}}</p>
+    <p class="g-text-light helper-text">{{ 'biox.select_folder_help' | translate }}</p>
     <lab-folder-select formControlName="folder" [multiple]="false"></lab-folder-select>
-
-
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="biox-form"
-          class="g-centered-forced">
-    {{'save' | translate}}
+  <button mat-flat-button color="primary" type="submit" form="biox-form" class="g-centered-forced">
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

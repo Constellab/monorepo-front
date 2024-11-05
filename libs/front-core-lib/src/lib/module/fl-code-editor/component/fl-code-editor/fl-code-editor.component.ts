@@ -7,10 +7,10 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import {FlCodeEditorLanguage} from '../../fl-code-editor.class';
-import {FormControl} from '@angular/forms';
+import { FlCodeEditorLanguage } from '../../fl-code-editor.class';
+import { FormControl } from '@angular/forms';
 
 /**
  * This component is used to lazy load the code editor component.
@@ -22,22 +22,22 @@ import {FormControl} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlCodeEditorComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) language: FlCodeEditorLanguage;
 
-  @Input({required: true}) language: FlCodeEditorLanguage;
-
-  @Input({required: true}) formCtrl: FormControl;
+  @Input({ required: true }) formCtrl: FormControl;
 
   @Input() focus: boolean = false;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private componentRef: ComponentRef<any>;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit(): Promise<void> {
-    const {FlCodeEditorStandaloneComponent} = await import('../fl-code-editor-standalone/fl-code-editor-standalone.component');
+    const { FlCodeEditorStandaloneComponent } = await import(
+      '../fl-code-editor-standalone/fl-code-editor-standalone.component'
+    );
     this.componentRef = this.viewContainer.createComponent(FlCodeEditorStandaloneComponent);
     this.componentRef.instance.formCtrl = this.formCtrl;
     this.componentRef.instance.language = this.language;
@@ -52,5 +52,4 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.componentRef?.destroy();
   }
-
 }

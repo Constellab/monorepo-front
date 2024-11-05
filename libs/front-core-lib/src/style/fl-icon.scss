@@ -1,7 +1,6 @@
 // wrap with body to override material style
 // autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 body {
-
   // reduce the size of the icon when using an svg icon
   mat-icon svg {
     padding: 2px;
@@ -37,13 +36,11 @@ body {
     padding: 5px;
   }
 
-
   .mat-icon.g-icon-huge {
     font-size: 48px;
     width: 48px;
     height: 48px;
   }
-
 
   /// Icon with a background color
   .mat-icon.g-icon-background {

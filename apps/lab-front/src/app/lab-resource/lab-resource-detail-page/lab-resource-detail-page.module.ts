@@ -6,17 +6,13 @@ import { LabResourceDetailPageComponent } from './lab-resource-detail-page/lab-r
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabConfigCoreModule } from '../../lab-core/entity-module/lab-config-core/lab-config-core.module';
-import {
-  LabTransformerCoreModule
-} from '../../lab-core/entity-module/lab-transformer-core/lab-transformer-core.module';
+import { LabTransformerCoreModule } from '../../lab-core/entity-module/lab-transformer-core/lab-transformer-core.module';
 
 /**
  * Simple module for the resource detail page
  */
 @NgModule({
-  declarations: [
-    LabResourceDetailPageComponent,
-  ],
+  declarations: [LabResourceDetailPageComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -27,7 +23,6 @@ import {
     LabResourceCoreModule,
     LabConfigCoreModule,
     LabTransformerCoreModule,
-  ]
+  ],
 })
-export class LabResourceDetailPageModule {
-}
+export class LabResourceDetailPageModule {}

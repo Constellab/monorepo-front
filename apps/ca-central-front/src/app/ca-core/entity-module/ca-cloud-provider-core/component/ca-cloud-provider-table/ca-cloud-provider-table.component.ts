@@ -1,42 +1,51 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {CaCloudProvider, CaCloudProviderDatasource} from '../../../../model/entities/ca-cloud-provider.class';
-import {CaCloudProviderService} from '../../../../service-api/ca-cloud-provider.service';
+import {
+  CaCloudProvider,
+  CaCloudProviderDatasource,
+} from '../../../../model/entities/ca-cloud-provider.class';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import {
   CaCloudProviderFormDialogComponent,
-  CaCloudProviderFormDialogInput
+  CaCloudProviderFormDialogInput,
 } from '../ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
 
 @Component({
   selector: 'ca-cloud-provider-table',
   templateUrl: './ca-cloud-provider-table.component.html',
-  styleUrls: ['./ca-cloud-provider-table.component.scss']
+  styleUrls: ['./ca-cloud-provider-table.component.scss'],
 })
 export class CaCloudProviderTableComponent {
+  @Input({ required: true }) datasource: CaCloudProviderDatasource;
 
-  @Input({required: true}) datasource: CaCloudProviderDatasource;
+  @Input() columns: FlTableColumnStatic<CaCloudProvider>[] = [
+    'name',
+    'description',
+    'created',
+    'lastModified',
+    'actions',
+  ];
 
-  @Input() columns: FlTableColumnStatic<CaCloudProvider>[] = ['name', 'description', 'created', 'lastModified', 'actions'];
-
-  constructor(private cloudProviderService: CaCloudProviderService,
-              private dialogService: FlDialogService) {
-  }
-
+  constructor(
+    private cloudProviderService: CaCloudProviderService,
+    private dialogService: FlDialogService
+  ) {}
 
   updateCloudProvider(cloudProvider: CaCloudProvider): void {
     const input: CaCloudProviderFormDialogInput = {
       mode: 'update',
-      object: cloudProvider
+      object: cloudProvider,
     };
 
-    this.dialogService.openSmallDialog(CaCloudProviderFormDialogComponent, {data: input}).afterClosed().subscribe(
-      cloudProvider => this.onUpdateClosed(cloudProvider)
-    );
+    this.dialogService
+      .openSmallDialog(CaCloudProviderFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((cloudProvider) => this.onUpdateClosed(cloudProvider));
   }
 
   private onUpdateClosed(cloudProvider?: CaCloudProvider): void {
@@ -53,9 +62,10 @@ export class CaCloudProviderTableComponent {
       successMessage: 'cloud_provider_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, cloudProvider)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, cloudProvider));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, cloudProvider: CaCloudProvider): void {
@@ -63,6 +73,4 @@ export class CaCloudProviderTableComponent {
       this.datasource.removeItem(cloudProvider);
     }
   }
-
-
 }

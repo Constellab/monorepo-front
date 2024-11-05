@@ -1,7 +1,6 @@
-import {DateTime} from 'luxon';
-import {CoSpace} from './co-space.class';
-import {CoUser} from './co-user.class';
-
+import { DateTime } from 'luxon';
+import { CoSpace } from './co-space.class';
+import { CoUser } from './co-user.class';
 
 export interface CoBrick {
   name: string;

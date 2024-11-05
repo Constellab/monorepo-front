@@ -5,10 +5,9 @@ import { RvResourceViewAudio } from '../../model/rv-resource-view.class';
 @Component({
   selector: 'rv-view-audio',
   templateUrl: './rv-view-audio.component.html',
-  styleUrl: './rv-view-audio.component.scss'
+  styleUrl: './rv-view-audio.component.scss',
 })
 export class RvViewAudioComponent extends RvResourceViewDirective<RvResourceViewAudio> implements OnInit {
-
   @ViewChild('audio', { static: true }) audioRef!: ElementRef<HTMLAudioElement>;
 
   ngOnInit(): void {

@@ -1,5 +1,4 @@
 <fl-card>
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">data_usage</mat-icon>
@@ -7,48 +6,49 @@
     </fl-text-icon>
 
     <fl-card-actions>
-
       @if (spaceStorage$ | async; as spaceStorage) {
-        <button mat-stroked-button type="button" class="g-button-small"
-                (click)="updateStorageLimit(spaceStorage)" *caIsAdmin>
+        <button
+          mat-stroked-button
+          type="button"
+          class="g-button-small"
+          (click)="updateStorageLimit(spaceStorage)"
+          *caIsAdmin>
           {{ 'update_space_storage' | translate }}
         </button>
 
-        <button mat-stroked-button type="button" class="g-button-small button"
-                (click)="updateDefaultStorage(spaceStorage)">
+        <button
+          mat-stroked-button
+          type="button"
+          class="g-button-small button"
+          (click)="updateDefaultStorage(spaceStorage)">
           {{ 'update_space_default_storage' | translate }}
         </button>
       }
 
-      <button mat-stroked-button type="button" class="g-button-small button"
-              (click)="openStorageDetail()">
+      <button mat-stroked-button type="button" class="g-button-small button" (click)="openStorageDetail()">
         {{ 'folder_storage_details' | translate }}
       </button>
     </fl-card-actions>
-
   </fl-card-header>
 
   <fl-card-body>
     <fl-async-section [object]="spaceStorage$">
       <ng-container *flSectionBody="spaceStorage$ as spaceStorage">
-
         <!--    Storage usage    -->
         <div class="container g-layout-col g-layout-center-center">
           <div class="circle-container">
-
-            <mat-progress-spinner mode="determinate"
-                                  [color]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
-                                  [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
-            <div class="circle-text">
-              {{ spaceStorage.cloudStorageUsagePercent | number:'1.0-0' }} %
-            </div>
+            <mat-progress-spinner
+              mode="determinate"
+              [color]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
+              [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
+            <div class="circle-text">{{ spaceStorage.cloudStorageUsagePercent | number: '1.0-0' }} %</div>
           </div>
 
           <div class="usage-detail g-text-light">
-            {{ spaceStorage.cloudStorageUsage | flByteText }} / {{ spaceStorage.cloudStorageLimit | flByteText }}
+            {{ spaceStorage.cloudStorageUsage | flByteText }} /
+            {{ spaceStorage.cloudStorageLimit | flByteText }}
           </div>
         </div>
-
 
         <!--    Default storage location    -->
         <fl-key-value *ngIf="spaceStorage.defaultFolderStorageLocation">
@@ -62,7 +62,6 @@
           <ca-bucket-location-inline
             [bucketLocation]="spaceStorage.defaultBackupFolderStorageLocation"></ca-bucket-location-inline>
         </fl-key-value>
-
       </ng-container>
     </fl-async-section>
   </fl-card-body>

@@ -8,10 +8,9 @@ describe('HaProfileEditDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaProfileEditDialogComponent]
-    })
-    .compileComponents();
-    
+      declarations: [HaProfileEditDialogComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(HaProfileEditDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

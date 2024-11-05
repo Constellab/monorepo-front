@@ -1,10 +1,13 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="agent-form" [formGroup]="formGp">
-
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'coCommunityLib.title' | translate }}</mat-label>
-      <input matInput formControlName="title" required flInputMaxLength="100"
-             [placeholder]="'coCommunityLib.title' | translate">
+      <input
+        matInput
+        formControlName="title"
+        required
+        flInputMaxLength="100"
+        [placeholder]="'coCommunityLib.title' | translate" />
       <mat-error *ngIf="formGp.get('title').hasError('required')">
         {{ 'title' | flErrorRequired }}
       </mat-error>
@@ -28,17 +31,21 @@
       </mat-radio-group>
     </div>
 
-    @if(formGp.get('type').value === 'SPACE'){
+    @if (formGp.get('type').value === 'SPACE') {
       <fl-async-section [object]="spaces$">
         <ng-container *flSectionBody="spaces$ as spaces">
           <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>
           <mat-radio-group [formControlName]="'space'" [required]="true">
             <div class="spaces-div">
-              <button mat-flat-button type="button" *ngFor="let space of spaces$ | async" class="space-button">
+              <button
+                mat-flat-button
+                type="button"
+                *ngFor="let space of spaces$ | async"
+                class="space-button">
                 <mat-radio-button labelPosition="before" [value]="space" [color]="'primary'">
                   <div class="space-info">
-                    @if(space.photo){
-                      <img [src]="getSpacePhoto(space.photo)"/>
+                    @if (space.photo) {
+                      <img [src]="getSpacePhoto(space.photo)" />
                     }
                     {{ space.name }}
                   </div>
@@ -55,8 +62,13 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="agent-form" class="g-centered-forced"
-          [disabled]="!formGp.valid && !isLoading">
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    form="agent-form"
+    class="g-centered-forced"
+    [disabled]="!formGp.valid && !isLoading">
     {{ 'coCommunityLib.create' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

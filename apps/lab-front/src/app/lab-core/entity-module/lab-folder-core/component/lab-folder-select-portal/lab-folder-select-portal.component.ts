@@ -1,7 +1,6 @@
-import {Component, Inject} from '@angular/core';
-import {FL_PORTAL_DATA, FlOverlayRef} from '@monorepo/front-core-lib';
-import {LabFolder} from '../../../../model/entities/lab-folder.class';
-
+import { Component, Inject } from '@angular/core';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
+import { LabFolder } from '../../../../model/entities/lab-folder.class';
 
 export interface LabFolderSelectPortalInput {
   folder?: LabFolder;
@@ -18,20 +17,20 @@ export interface LabFolderSelectPortalResult {
   styleUrls: ['./lab-folder-select-portal.component.scss'],
 })
 export class LabFolderSelectPortalComponent {
-
   folders: LabFolder;
   helpText: string;
 
-  constructor(@Inject(FL_PORTAL_DATA) data: LabFolderSelectPortalInput,
-              private overlayRef: FlOverlayRef) {
-
+  constructor(
+    @Inject(FL_PORTAL_DATA) data: LabFolderSelectPortalInput,
+    private overlayRef: FlOverlayRef
+  ) {
     this.folders = data.folder;
     this.helpText = data.helpText;
   }
 
   folderSelected(folder: LabFolder): void {
     const result: LabFolderSelectPortalResult = {
-      folder: folder
+      folder: folder,
     };
     this.overlayRef.dispose(result);
   }

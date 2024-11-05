@@ -1,28 +1,30 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import {
   FlApiService,
   FlAuthLogin2FaResponse,
   FlAuthLoginResponse,
   FlAuthService,
   FlCleanerService,
-  FlCookieService
+  FlCookieService,
 } from '@monorepo/front-core-lib';
-import {CaEnvironmentHelper} from '../../ca-core/utils/ca-environment.helper';
-import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
+import { CaEnvironmentHelper } from '../../ca-core/utils/ca-environment.helper';
+import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 
 /**
  * Service to handle login and logout and store cookie to check if user is connected
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaAuthService extends FlAuthService {
-
   private readonly route: string = 'auth';
 
-  constructor(private apiService: FlApiService, cookieService: FlCookieService) {
+  constructor(
+    private apiService: FlApiService,
+    cookieService: FlCookieService
+  ) {
     super(cookieService);
   }
 
@@ -53,7 +55,6 @@ export class CaAuthService extends FlAuthService {
   public afterLogin(expiresIn: number): void {
     this.storeAuthExpirationCookie(expiresIn, CaEnvironmentHelper.getFrontDomain());
   }
-
 
   /**
    * Clear the store data in the services

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderFormDialogComponent} from './ca-folder-form-dialog.component';
+import { CaFolderFormDialogComponent } from './ca-folder-form-dialog.component';
 
 describe('CaFolderFormDialogComponent', () => {
   let component: CaFolderFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaFolderFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

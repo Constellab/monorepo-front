@@ -1,20 +1,21 @@
-import {FlObjectNode, FlObjectNodeType} from './fl-pretty-json.class';
+import { FlObjectNode, FlObjectNodeType } from './fl-pretty-json.class';
 
 /**
  * Class to construct a list of ObjectNode form a json object
  */
 export class FlPrettyJsonBuilder {
-
   private readonly jsonObject: any;
 
   private id: number = 0;
 
-
-  constructor(object: any, private previewMaxTextLength: number,
-              private previewMaxObjectShowed: number, private maxSubObjectView: number) {
+  constructor(
+    object: any,
+    private previewMaxTextLength: number,
+    private previewMaxObjectShowed: number,
+    private maxSubObjectView: number
+  ) {
     this.jsonObject = this.initObject(object);
   }
-
 
   // prepare and convert the object to json
   private initObject(object: any): any {
@@ -27,16 +28,13 @@ export class FlPrettyJsonBuilder {
       return object;
       // if this is a string,
     } else if (typeof object === 'string') {
-
       // check if the string is parsable
       const firstCarac: string = object[0];
       const lastCarac: string = object[object.length - 1];
-      if ((firstCarac === '{' || firstCarac === '[') &&
-        (lastCarac === '}' || lastCarac === ']')) {
+      if ((firstCarac === '{' || firstCarac === '[') && (lastCarac === '}' || lastCarac === ']')) {
         try {
           return JSON.parse(object);
-        } catch (e) {
-        }
+        } catch (e) {}
       }
 
       return object.split('\n');
@@ -96,7 +94,7 @@ export class FlPrettyJsonBuilder {
         type: 'object',
         preview: null,
         // build the sub array section
-        children: this.buildObjectNodeRecur(subObject, level + 1, offset)
+        children: this.buildObjectNodeRecur(subObject, level + 1, offset),
       };
 
       nodes.push(node);
@@ -104,7 +102,6 @@ export class FlPrettyJsonBuilder {
     }
 
     return nodes;
-
   }
 
   /**
@@ -121,9 +118,8 @@ export class FlPrettyJsonBuilder {
         id: this.id++,
         // set the node key, if there is an key offset, add it to the key
         key: keyOffset > 0 ? (parseInt(key) + keyOffset).toString() : key,
-        type: null
+        type: null,
       };
-
 
       node.type = this.getType(value);
       if (value != null) {
@@ -151,7 +147,6 @@ export class FlPrettyJsonBuilder {
     return nodes;
   }
 
-
   // get the preview text of complexe object (json object or array)
   private getPreview(object: any): string {
     let preview: string = this.getStartChar(object);
@@ -161,13 +156,11 @@ export class FlPrettyJsonBuilder {
     for (const key of keys) {
       const value: any = object[key];
 
-
       if (count > 0) {
         preview += ', ';
       }
 
       if (count < this.previewMaxObjectShowed) {
-
         // if the object is an array, don't show the key
         if (!Array.isArray(object)) {
           preview += key + ': ';
@@ -268,7 +261,7 @@ export class FlPrettyJsonBuilder {
   // convert a map to a json object
   public mapToJson(map: Map<any, any>): any {
     const object: any = {};
-    map.forEach((value, key) => object[key.toString()] = value);
+    map.forEach((value, key) => (object[key.toString()] = value));
     return object;
   }
 }

@@ -8,10 +8,9 @@ import { getFileIconFromExtension } from '../../../fl-svg-icon/fl-icon-config.cl
 @Component({
   selector: 'fl-file-text-icon',
   templateUrl: './fl-file-text-icon.component.html',
-  styleUrls: ['./fl-file-text-icon.component.scss']
+  styleUrls: ['./fl-file-text-icon.component.scss'],
 })
 export class FlFileTextIconComponent implements OnInit {
-
   @Input({ required: true }) filename: string;
 
   @Input() isConstellabDocument: boolean = false;

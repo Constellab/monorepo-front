@@ -2,7 +2,6 @@
  * Helper class with only static methods to simplify Number management
  */
 export class ClNumberHelper {
-
   /**
    * convert a string to a number. It supports the ',' and scientific notation, it also remove weird character
    * @param str

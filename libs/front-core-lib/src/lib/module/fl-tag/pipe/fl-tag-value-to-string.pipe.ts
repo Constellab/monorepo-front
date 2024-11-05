@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {FlTagHelper, FlTagValue} from '../fl-tag.class';
+import { Pipe, PipeTransform } from '@angular/core';
+import { FlTagHelper, FlTagValue } from '../fl-tag.class';
 
 @Pipe({
   name: 'flTagValueToString',

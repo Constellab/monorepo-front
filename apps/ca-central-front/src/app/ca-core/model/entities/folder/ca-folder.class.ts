@@ -15,7 +15,6 @@ export interface CaFolderInfo {
 }
 
 export class CaFolder extends CaBaseEntity {
-
   code: string;
 
   name: string;
@@ -35,17 +34,15 @@ export class CaFolder extends CaBaseEntity {
     return {
       id: this.id,
       name: this.name,
-      leader: this.leader
+      leader: this.leader,
     };
   }
 }
 
 export class CaFolderWithHierarchy extends CaFolder {
-
   @Type(() => CaHierarchyObject)
   hierarchyRepresentation: CaHierarchyObject;
 }
-
 
 export type CaFolderDatasource<F = void> = FlEntityPaginatedDatasource<CaFolder, F>;
 
@@ -68,7 +65,6 @@ export class CnSaveFolderDTO {
  * Interface representing an object inside a folder that can be validated and synchronized with central
  */
 export interface CaFolderObject extends FlEntity {
-
   isValidated: boolean;
   validatedBy?: CaUser;
   validatedAt?: DateTime;

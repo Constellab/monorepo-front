@@ -1,12 +1,10 @@
-import {TrackByFunction} from '@angular/core';
+import { TrackByFunction } from '@angular/core';
 
 /**
  * Class with static method to simplify dev
  */
 export class ClHelpService {
-
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Deep clone an object (doesn't work with cyclic object)
@@ -16,7 +14,6 @@ export class ClHelpService {
     if (object == null) return null;
     return JSON.parse(JSON.stringify(object));
   }
-
 
   /**
    * Compare element on ids
@@ -57,8 +54,11 @@ export class ClHelpService {
    * @param array array
    * @param order function to compare elements. Inserted when order returns true
    */
-  public static insertIntoOrderedArray<T>(item: T, array: T[],
-                                          order: (a: T, b: T, index: number) => boolean): void {
+  public static insertIntoOrderedArray<T>(
+    item: T,
+    array: T[],
+    order: (a: T, b: T, index: number) => boolean
+  ): void {
     // true if the element has been added in the loop
     let added: boolean = false;
 
@@ -80,7 +80,11 @@ export class ClHelpService {
    * @param array array
    * @param compareFn function to compare elements
    */
-  public static removeSingleElementInArray(item: any, array: any[], compareFn: (a: any, b: any) => boolean): void {
+  public static removeSingleElementInArray(
+    item: any,
+    array: any[],
+    compareFn: (a: any, b: any) => boolean
+  ): void {
     for (let i = 0; i < array.length; i++) {
       if (compareFn(item, array[i])) {
         array.splice(i, 1);
@@ -126,7 +130,6 @@ export class ClHelpService {
     }
   }
 
-
   /**
    * Coerces a data-bound value (typically a string) to a boolean.
    *
@@ -167,8 +170,13 @@ export class ClHelpService {
    * @param value to check
    */
   public static isNullOrEmpty(value: any): boolean {
-    return value == null || ClHelpService.isEmptyArray(value) || ClHelpService.isEmptyString(value)
-      || ClHelpService.isEmptyObject(value) || value === 0;
+    return (
+      value == null ||
+      ClHelpService.isEmptyArray(value) ||
+      ClHelpService.isEmptyString(value) ||
+      ClHelpService.isEmptyObject(value) ||
+      value === 0
+    );
   }
 
   /**
@@ -204,15 +212,17 @@ export class ClHelpService {
     return false;
   }
 
-
   /**
    * Sort an array in the alphabetical order
    * @param array array to sort
    * @param getSortableAttribute method to access sortable attribute
    * @param nullMode mode for null values
    */
-  public static sortAlphabeticalOrder<T>(array: T[], getSortableAttribute?: (item: T) => string,
-                                         nullMode: 'nullLast' | 'nullFirst' = 'nullLast'): T[] {
+  public static sortAlphabeticalOrder<T>(
+    array: T[],
+    getSortableAttribute?: (item: T) => string,
+    nullMode: 'nullLast' | 'nullFirst' = 'nullLast'
+  ): T[] {
     if (array == null) {
       return null;
     }
@@ -236,8 +246,11 @@ export class ClHelpService {
    * @param b string to compare
    * @param nullMode mode for null values
    */
-  public static sortAlphabeticalFunction(a: string, b: string,
-                                         nullMode: 'nullLast' | 'nullFirst' = 'nullLast'): number {
+  public static sortAlphabeticalFunction(
+    a: string,
+    b: string,
+    nullMode: 'nullLast' | 'nullFirst' = 'nullLast'
+  ): number {
     const nullValue = nullMode === 'nullLast' ? -1 : 1;
 
     if (a == null && b == null) {
@@ -267,7 +280,7 @@ export class ClHelpService {
    */
   public static flatArray<T>(array2d: T[][]): T[] {
     const flatArray: T[] = [];
-    array2d.forEach(subArray => flatArray.push(...subArray));
+    array2d.forEach((subArray) => flatArray.push(...subArray));
     return flatArray;
   }
 
@@ -276,6 +289,6 @@ export class ClHelpService {
    * @param array
    */
   public static transpose2dArray(array: any[][]): any[][] {
-    return array[0].map((col, i) => array.map(row => row[i]));
+    return array[0].map((col, i) => array.map((row) => row[i]));
   }
 }

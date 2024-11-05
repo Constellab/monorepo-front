@@ -9,11 +9,12 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'ca-user-profile-edit-dialog',
   templateUrl: './ca-user-profile-edit-dialog.component.html',
-  styleUrls: ['./ca-user-profile-edit-dialog.component.scss']
+  styleUrls: ['./ca-user-profile-edit-dialog.component.scss'],
 })
-export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirective<Partial<CaUser>, CaUser>
-  implements OnInit {
-
+export class CaUserProfileEditDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<CaUser>, CaUser>
+  implements OnInit
+{
   dialogInput: FlFormDialogInput<CaUser> = inject(MAT_DIALOG_DATA);
 
   constructor(private authenticatedUserService: CaAuthenticatedUserService) {
@@ -50,6 +51,4 @@ export class CaUserProfileEditDialogComponent extends FlFormDialogAbstractDirect
   update(formValue: Partial<CaUser>): Observable<CaUser> {
     return this.authenticatedUserService.editUser(formValue);
   }
-
-
 }

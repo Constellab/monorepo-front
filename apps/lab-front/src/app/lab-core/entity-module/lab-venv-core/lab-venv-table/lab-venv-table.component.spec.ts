@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabVenvTableComponent} from './lab-venv-table.component';
+import { LabVenvTableComponent } from './lab-venv-table.component';
 
 describe('LabVenvTableComponent', () => {
   let component: LabVenvTableComponent;
@@ -8,9 +8,8 @@ describe('LabVenvTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabVenvTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabVenvTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabVenvTableComponent);
     component = fixture.componentInstance;

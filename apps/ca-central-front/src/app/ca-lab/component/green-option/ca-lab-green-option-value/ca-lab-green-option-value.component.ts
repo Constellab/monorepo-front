@@ -3,7 +3,7 @@ import {
   CaLabGreenOption,
   CaLabGreenOptionStopAfterInactivityValue,
   CaLabGreenOptionStopAfterTimeValue,
-  CaLabGreenOptionType
+  CaLabGreenOptionType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 
 @Component({
@@ -12,18 +12,16 @@ import {
   styleUrls: ['./ca-lab-green-option-value.component.scss'],
 })
 export class CaLabGreenOptionValueComponent {
-
   @Input() greenOption: CaLabGreenOption;
 
   afterTime = CaLabGreenOptionType.STOP_AFTER_TIME;
   afterInactivity = CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME;
 
-  get afterTimeValue(): CaLabGreenOptionStopAfterTimeValue{
+  get afterTimeValue(): CaLabGreenOptionStopAfterTimeValue {
     return this.greenOption.value as CaLabGreenOptionStopAfterTimeValue;
   }
 
-  get afterInactivityValue(): CaLabGreenOptionStopAfterInactivityValue{
+  get afterInactivityValue(): CaLabGreenOptionStopAfterInactivityValue {
     return this.greenOption.value as CaLabGreenOptionStopAfterInactivityValue;
   }
-
 }

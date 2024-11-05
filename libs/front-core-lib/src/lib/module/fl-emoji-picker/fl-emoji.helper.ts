@@ -43,13 +43,11 @@ export interface FlEmojiMartSkin {
   y?: number;
 }
 
-
 export class FlEmojiHelper {
-
   // help pagination for all emoji
   private static allEmojiLastPageInfo = {
     lastPageIndex: -1,
-    nextCategoryIndex: 0
+    nextCategoryIndex: 0,
   };
 
   private static emojisData: FlEmojiMartData = null;
@@ -78,9 +76,12 @@ export class FlEmojiHelper {
     );
   }
 
-  public static allPaginated2(allEmojis: FlEmojiCategory[], page: number, pageSize: number): ClPageI<FlEmojiCategory> {
-    const totalElementEmojis = allEmojis.reduce((acc, category) =>
-      acc + category.emojis.length, 0);
+  public static allPaginated2(
+    allEmojis: FlEmojiCategory[],
+    page: number,
+    pageSize: number
+  ): ClPageI<FlEmojiCategory> {
+    const totalElementEmojis = allEmojis.reduce((acc, category) => acc + category.emojis.length, 0);
 
     const emojisCategories: FlEmojiCategory[] = [];
 
@@ -97,7 +98,7 @@ export class FlEmojiHelper {
       // push the whole category (we round the page per category)
       emojisCategories.push({
         name: allEmojis[categoryIndex].name,
-        emojis: allEmojis[categoryIndex].emojis
+        emojis: allEmojis[categoryIndex].emojis,
       });
       remaining -= allEmojis[categoryIndex].emojis.length;
       categoryIndex++;
@@ -105,7 +106,7 @@ export class FlEmojiHelper {
 
     this.allEmojiLastPageInfo = {
       lastPageIndex: page,
-      nextCategoryIndex: categoryIndex
+      nextCategoryIndex: categoryIndex,
     };
 
     return {
@@ -114,10 +115,9 @@ export class FlEmojiHelper {
       last: categoryIndex >= allEmojis.length,
       totalElements: totalElementEmojis,
       currentPage: page,
-      pageSize: pageSize
+      pageSize: pageSize,
     };
   }
-
 
   private static getAllEmojisCategories(): Observable<FlEmojiCategory[]> {
     const emojiData = from(this.getEmojiData());
@@ -149,20 +149,26 @@ export class FlEmojiHelper {
    * @param page
    * @param pageSize
    */
-  public static searchPaginated(value: string, page: number, pageSize: number): Observable<ClPageI<FlEmojiCategory>> {
+  public static searchPaginated(
+    value: string,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlEmojiCategory>> {
     return this.searchEmoji(value).pipe(
       map((emojis: FlSimpleEmoji[]) => {
         const end = (page + 1) * pageSize;
         return {
-          objects: [{
-            name: '',
-            emojis: emojis.slice(0, end)
-          }],
+          objects: [
+            {
+              name: '',
+              emojis: emojis.slice(0, end),
+            },
+          ],
           first: page === 0,
           last: end >= emojis.length,
           totalElements: emojis.length,
           currentPage: page,
-          pageSize: pageSize
+          pageSize: pageSize,
         };
       })
     );
@@ -206,10 +212,12 @@ export interface FlEmojiSearchFilter {
 
 // TODO TO TEST
 export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory, FlEmojiSearchFilter> {
-
   constructor() {
-    super((page, pageSize, filter) =>
-      FlEmojiHelper.search(filter.filtersCriteria.text, page, pageSize), 200, false);
+    super(
+      (page, pageSize, filter) => FlEmojiHelper.search(filter.filtersCriteria.text, page, pageSize),
+      200,
+      false
+    );
   }
 
   protected equals(a: FlEmojiCategory, b: FlEmojiCategory): boolean {

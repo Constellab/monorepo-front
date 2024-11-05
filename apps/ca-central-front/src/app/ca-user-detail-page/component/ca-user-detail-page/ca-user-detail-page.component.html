@@ -1,21 +1,24 @@
 <div class="g-page page">
   <fl-async-section [object]="user$">
     <ng-container *flSectionBody="user$ as user">
-
       <fl-card>
-
         @if (isCurrentUser) {
           <fl-card-header>
             <fl-card-actions>
-              <button class="g-button-small" mat-stroked-button type="button"
-                      (click)="openEditProfileDialog(user)">
+              <button
+                class="g-button-small"
+                mat-stroked-button
+                type="button"
+                (click)="openEditProfileDialog(user)">
                 <mat-icon>edit</mat-icon>
                 {{ 'edit_profile' | translate }}
               </button>
 
-              <button class="g-button-small button-settings"
-                      mat-stroked-button type="button"
-                      (click)="openSettings()">
+              <button
+                class="g-button-small button-settings"
+                mat-stroked-button
+                type="button"
+                (click)="openSettings()">
                 <mat-icon>settings</mat-icon>
                 {{ 'settings' | translate }}
               </button>
@@ -25,8 +28,11 @@
 
         <fl-card-body>
           <div class="g-layout-row g-layout-center-center">
-            <fl-update-image-container [uploadConfig]="imageConfig" [disabled]="!isCurrentUser"
-                             [deleteConfig]="deleteImageConfig" [showDelete]="!!user.photo">
+            <fl-update-image-container
+              [uploadConfig]="imageConfig"
+              [disabled]="!isCurrentUser"
+              [deleteConfig]="deleteImageConfig"
+              [showDelete]="!!user.photo">
               <fl-user-profile-picture [user]="user" [size]="10"></fl-user-profile-picture>
             </fl-update-image-container>
           </div>
@@ -52,10 +58,8 @@
           }
         </fl-card-body>
       </fl-card>
-
     </ng-container>
   </fl-async-section>
-
 
   <ng-container *caIsAdmin>
     <ca-user-spaces-list class="g-section" [userId]="id"></ca-user-spaces-list>

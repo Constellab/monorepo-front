@@ -8,9 +8,8 @@ describe('HaAgentEditStyleDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaAgentEditStyleDialogComponent]
-    })
-    .compileComponents();
+      declarations: [HaAgentEditStyleDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HaAgentEditStyleDialogComponent);
     component = fixture.componentInstance;

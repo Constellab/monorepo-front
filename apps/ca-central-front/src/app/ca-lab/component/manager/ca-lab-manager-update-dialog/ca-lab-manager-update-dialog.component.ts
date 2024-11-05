@@ -1,8 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {CaLabService} from '../../../../ca-core/service-api/ca-lab.service';
-
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 export interface CaLabManagerUpdateDialogInput {
   labId: string;
@@ -16,17 +15,18 @@ export interface CaLabManagerUpdateDialogInput {
 @Component({
   selector: 'ca-lab-manager-update-dialog',
   templateUrl: './ca-lab-manager-update-dialog.component.html',
-  styleUrls: ['./ca-lab-manager-update-dialog.component.scss']
+  styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
 })
 export class CaLabManagerUpdateDialogComponent implements OnInit {
-
   input: CaLabManagerUpdateDialogInput;
 
   formCtrl: FormControl;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: CaLabManagerUpdateDialogInput,
-              private labService: CaLabService,
-              private dialogRef: MatDialogRef<CaLabManagerUpdateDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: CaLabManagerUpdateDialogInput,
+    private labService: CaLabService,
+    private dialogRef: MatDialogRef<CaLabManagerUpdateDialogComponent>
+  ) {
     this.input = input;
   }
 
@@ -35,12 +35,10 @@ export class CaLabManagerUpdateDialogComponent implements OnInit {
   }
 
   submit(): void {
-    if(this.formCtrl.valid){
-      const obs = this.labService.updateLabManager(this.input.labId,
-        this.formCtrl.value);
+    if (this.formCtrl.valid) {
+      const obs = this.labService.updateLabManager(this.input.labId, this.formCtrl.value);
 
       this.dialogRef.close(obs);
     }
   }
-
 }

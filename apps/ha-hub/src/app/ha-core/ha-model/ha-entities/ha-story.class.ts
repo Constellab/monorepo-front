@@ -8,7 +8,7 @@ import { CoListStoryDto, CoStoryCategory } from '@monorepo/community-lib';
 
 export enum HaStoryStatus {
   DRAFT = 'DRAFT',
-  PUBLISHED = 'PUBLISHED'
+  PUBLISHED = 'PUBLISHED',
 }
 
 export class HaStoryCoAuthor {
@@ -59,13 +59,12 @@ export class HaStory {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
 
-
   getAuthor(): HaUser {
     return this.createdBy;
   }
 
   getCoAuthors(): HaUser[] {
-    return this.storyAuthors?.map(storyAuthor => storyAuthor.user);
+    return this.storyAuthors?.map((storyAuthor) => storyAuthor.user);
   }
 }
 
@@ -73,17 +72,16 @@ export class HaCreateStoryDto {
   title: string;
 
   category: CoStoryCategory;
-
 }
 
-export class HaListStoryDto implements CoListStoryDto{
+export class HaListStoryDto implements CoListStoryDto {
   id: string;
   title: string;
   firstParagraph: string;
   mainPicture?: string;
   topics?: HaTopic[];
   createdAt: DateTime;
-  createdBy: HaUser
+  createdBy: HaUser;
   category: CoStoryCategory;
   publishedAt: DateTime;
   lastModifiedAt: DateTime;
@@ -93,7 +91,6 @@ export class HaListStoryDto implements CoListStoryDto{
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }
-
 }
 
 export class HaStoryFilters {

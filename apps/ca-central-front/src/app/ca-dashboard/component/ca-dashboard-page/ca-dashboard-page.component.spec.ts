@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaDashboardPageComponent} from './ca-dashboard-page.component';
+import { CaDashboardPageComponent } from './ca-dashboard-page.component';
 
 describe('DashboardPageComponent', () => {
   let component: CaDashboardPageComponent;
@@ -8,9 +8,8 @@ describe('DashboardPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaDashboardPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaDashboardPageComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

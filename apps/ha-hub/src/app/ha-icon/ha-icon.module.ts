@@ -7,16 +7,8 @@ import { HaCoreModule } from '../ha-core/ha-core.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    HaIconInfoPortalComponent,
-    HaIconListComponent,
-    HaIconCreateDialogComponent,
-  ],
-  exports: [
-    HaIconInfoPortalComponent,
-    HaIconListComponent,
-    HaIconCreateDialogComponent,
-  ],
+  declarations: [HaIconInfoPortalComponent, HaIconListComponent, HaIconCreateDialogComponent],
+  exports: [HaIconInfoPortalComponent, HaIconListComponent, HaIconCreateDialogComponent],
   imports: [CommonModule, HaCoreModule, FormsModule, ReactiveFormsModule],
 })
 export class HaIconModule {}

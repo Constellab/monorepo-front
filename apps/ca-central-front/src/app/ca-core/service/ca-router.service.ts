@@ -7,7 +7,7 @@ import {
   caConstLabsRoute,
   caConstMyFoldersRoute,
   caConstStructureRoute,
-  caConstUserPageRoute
+  caConstUserPageRoute,
 } from '../utils/ca-base-route';
 import { Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
@@ -19,9 +19,7 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
  */
 @Injectable({ providedIn: 'root' })
 export class CaRouterService {
-
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   public navigate(route: string): void {
     this.router.navigate([route]);
@@ -59,7 +57,6 @@ export class CaRouterService {
   }
 
   //////////////////////////// FOLDER //////////////////////////////
-
 
   public static getFolderDetailRoute(folderId: string): string {
     return CaRouterService.getFullRoute(`${caConstFolderRoute}/${folderId}`);
@@ -109,7 +106,6 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getNoteDetailRoute(noteId)]);
   }
 
-
   //////////////////////////// Lab //////////////////////////////
 
   public static getMyLabsRoute(): string {
@@ -153,7 +149,6 @@ export class CaRouterService {
   }
 
   ////////////////////////// STRUCTURE MODULE ///////////////////////
-
 
   public static getTeamRoute(teamId: string): string {
     return CaRouterService.getFullRoute(`${caConstStructureRoute}/team/${teamId}`);
@@ -244,7 +239,6 @@ export class CaRouterService {
     this.router.navigate([CaRouterService.getAdminRoute()]);
   }
 
-
   ////////////////////////// SETTINGS ///////////////////////
   public static getUserDetailRoute(userId: string): string {
     return CaRouterService.getFullRoute(caConstUserPageRoute + '/' + userId);
@@ -255,7 +249,6 @@ export class CaRouterService {
   }
 
   ////////////////////////// OTHER SPACE URLS ///////////////////////
-
 
   public static getSpaceDomainBaseUrl(spaceDomain: string): string {
     if (CaEnvironmentHelper.isProduction()) {

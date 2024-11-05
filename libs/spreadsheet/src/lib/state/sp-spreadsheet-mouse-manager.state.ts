@@ -1,20 +1,18 @@
-import {ElementRef, Injectable, NgZone, OnDestroy, Renderer2} from '@angular/core';
-import {SpSpreadsheetSelectionState} from './sp-spreadsheet-selection.state';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {SpSheetSingleSelection} from '../model/selection/sp-sheet-single-selection.class';
-import {SpSpreadsheetContextMenu} from './sp-spreadsheet-context-menu.state';
-import {SpSpreadsheetScrollState} from './sp-spreadsheet-scroll.state';
-import {SpCellCoord} from '../model/sp-cell-coord.class';
-import {SpSheetMouseEventCell, SpSpreadsheetElementState} from './sp-spreadsheet-element.state';
-import {FlCoord, FlMouseButton} from '@monorepo/front-core-lib';
-
+import { ElementRef, Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
+import { SpSpreadsheetContextMenu } from './sp-spreadsheet-context-menu.state';
+import { SpSpreadsheetScrollState } from './sp-spreadsheet-scroll.state';
+import { SpCellCoord } from '../model/sp-cell-coord.class';
+import { SpSheetMouseEventCell, SpSpreadsheetElementState } from './sp-spreadsheet-element.state';
+import { FlCoord, FlMouseButton } from '@monorepo/front-core-lib';
 
 /**
  * Unique state shared across the spreadsheet to handle spreadsheet mouse events
  */
 @Injectable()
 export class SpSpreadsheetMouseManagerState implements OnDestroy {
-
   private mouseDownListener: () => void;
   private mouseMoveListener: () => void;
   private mouseUpListener: () => void;
@@ -28,14 +26,16 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
 
   private lastMousePosition: FlCoord;
 
-  constructor(private state: SpSpreadsheetState,
-              private elementState: SpSpreadsheetElementState,
-              private selectionState: SpSpreadsheetSelectionState,
-              private contextMenuState: SpSpreadsheetContextMenu,
-              private scrollState: SpSpreadsheetScrollState,
-              private renderer: Renderer2, private elementRef: ElementRef<HTMLElement>,
-              private ngZone: NgZone) {
-  }
+  constructor(
+    private state: SpSpreadsheetState,
+    private elementState: SpSpreadsheetElementState,
+    private selectionState: SpSpreadsheetSelectionState,
+    private contextMenuState: SpSpreadsheetContextMenu,
+    private scrollState: SpSpreadsheetScrollState,
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLElement>,
+    private ngZone: NgZone
+  ) {}
 
   public init(): void {
     if (this.mouseDownListener != null) {
@@ -45,21 +45,29 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
 
     // run event listener outside angular zone to prevent automatic change detection
     this.ngZone.runOutsideAngular(() => {
+      this.mouseDownListener = this.renderer.listen(
+        this.elementRef.nativeElement,
+        'mousedown',
+        (event: MouseEvent) => this.onMouseDown(event)
+      );
 
-      this.mouseDownListener = this.renderer.listen(this.elementRef.nativeElement, 'mousedown',
-        (event: MouseEvent) => this.onMouseDown(event));
+      this.mouseUpListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseup', () =>
+        this.onMouseUp()
+      );
 
-      this.mouseUpListener = this.renderer.listen(this.elementRef.nativeElement, 'mouseup',
-        () => this.onMouseUp());
-
-      this.dblClickListener = this.renderer.listen(this.elementRef.nativeElement, 'dblclick',
-        (event: MouseEvent) => this.onMouseDblClick(event));
+      this.dblClickListener = this.renderer.listen(
+        this.elementRef.nativeElement,
+        'dblclick',
+        (event: MouseEvent) => this.onMouseDblClick(event)
+      );
     });
 
-    this.contextMenuListener = this.renderer.listen(this.elementRef.nativeElement, 'contextmenu',
-      (event: MouseEvent) => this.onContextMenu(event));
+    this.contextMenuListener = this.renderer.listen(
+      this.elementRef.nativeElement,
+      'contextmenu',
+      (event: MouseEvent) => this.onContextMenu(event)
+    );
   }
-
 
   private onMouseDown(event: MouseEvent): void {
     // on listen to left-click
@@ -87,18 +95,23 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     }
 
     this.clearMouseMoveListener();
-    this.mouseMoveListener = this.renderer.listen(this.elementRef.nativeElement, 'mousemove',
-      (event: MouseEvent) => this.onMouseMove(event));
+    this.mouseMoveListener = this.renderer.listen(
+      this.elementRef.nativeElement,
+      'mousemove',
+      (event: MouseEvent) => this.onMouseMove(event)
+    );
 
-    this.expandSelectionScrollInterval = setInterval(() => this.onMouseInterval(),
-      this.expandSelectionScrollIntervalDuration);
+    this.expandSelectionScrollInterval = setInterval(
+      () => this.onMouseInterval(),
+      this.expandSelectionScrollIntervalDuration
+    );
   }
 
   private onMouseMove(event: MouseEvent): void {
     // save the last mouse position
     this.lastMousePosition = {
       x: event.clientX,
-      y: event.clientY
+      y: event.clientY,
     };
 
     // retrieve the cell form the mouse event to expand the selection
@@ -122,7 +135,6 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     this.selectionState.expandSelectionWithShift(yShift, xShift);
   }
 
-
   // reset the selection
   private selectUnique(cellEvent: SpSheetMouseEventCell): void {
     if (cellEvent.type === 'cell') {
@@ -143,7 +155,11 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
    * @param lockColumn if true, the column is not changed
    * @private
    */
-  private expandSelection(cellEvent: SpSheetMouseEventCell, lockRow: boolean = false, lockColumn: boolean = false): void {
+  private expandSelection(
+    cellEvent: SpSheetMouseEventCell,
+    lockRow: boolean = false,
+    lockColumn: boolean = false
+  ): void {
     const currentSelection: SpSheetSingleSelection = this.selectionState.currentSelection;
 
     if (currentSelection == null) return;
@@ -174,7 +190,10 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
   }
 
   // retrieve cell cord from MouseEventCell and current selection
-  private mouseEventCellToCoord(cellEvent: SpSheetMouseEventCell, currentSelection: SpSheetSingleSelection): SpCellCoord {
+  private mouseEventCellToCoord(
+    cellEvent: SpSheetMouseEventCell,
+    currentSelection: SpSheetSingleSelection
+  ): SpCellCoord {
     if (cellEvent.type === 'cell') {
       return cellEvent.coord;
     }
@@ -182,12 +201,12 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     if (cellEvent.headerType === 'row') {
       return {
         row: cellEvent.index,
-        column: currentSelection.endColumn // use the last column selection to prevent changing column when hovering a row
+        column: currentSelection.endColumn, // use the last column selection to prevent changing column when hovering a row
       };
     } else {
       return {
         row: currentSelection.endRow, // use the last row selection to prevent changing row when hovering a column
-        column: cellEvent.index
+        column: cellEvent.index,
       };
     }
   }
@@ -245,7 +264,6 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     }
   }
 
-
   private clearMouseMoveListener(): void {
     if (this.mouseMoveListener) {
       this.mouseMoveListener();
@@ -261,7 +279,6 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     }
   }
 
-
   // return -1 if the mouse event is in the upper scroll zone
   // 1 if the mouse event is in the lower scroll zone
   // 0 if the mouse event is not in the scroll zone
@@ -270,7 +287,7 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     const relativePosition: number = y - rect.top;
     if (relativePosition < this.expandAutoScrollZoneHeight) {
       return -1;
-    } else if (relativePosition > (rect.height - this.expandAutoScrollZoneHeight)) {
+    } else if (relativePosition > rect.height - this.expandAutoScrollZoneHeight) {
       return 1;
     } else {
       return 0;
@@ -285,7 +302,7 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     const relativePosition: number = x - rect.left;
     if (relativePosition < this.expandAutoScrollZoneWidth) {
       return -1;
-    } else if (relativePosition > (rect.width - this.expandAutoScrollZoneWidth)) {
+    } else if (relativePosition > rect.width - this.expandAutoScrollZoneWidth) {
       return 1;
     } else {
       return 0;
@@ -303,6 +320,4 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
     this.contextMenuListener();
     this.clearMouseMoveListener();
   }
-
-
 }

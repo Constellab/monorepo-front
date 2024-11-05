@@ -1,4 +1,4 @@
-import {FlStringToRgbPipe} from './fl-string-to-rgb.pipe';
+import { FlStringToRgbPipe } from './fl-string-to-rgb.pipe';
 
 describe('FlStringToRgbPipe', () => {
   it('create an instance', () => {

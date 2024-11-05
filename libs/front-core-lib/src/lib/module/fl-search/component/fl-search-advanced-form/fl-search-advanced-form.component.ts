@@ -9,17 +9,15 @@ import { FormGroup } from '@angular/forms';
 @Component({
   selector: 'fl-search-advanced-form',
   templateUrl: './fl-search-advanced-form.component.html',
-  styleUrls: ['./fl-search-advanced-form.component.scss']
+  styleUrls: ['./fl-search-advanced-form.component.scss'],
 })
 export class FlSearchAdvancedFormComponent implements OnInit {
-
   formGp: FormGroup;
 
   formInputConfig: FlFormInputsManagerConfig;
   skipFalseBoolean: boolean;
 
-  constructor(private searchState: FlSearchState<any>) {
-  }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     const config = this.searchState.getConfig();

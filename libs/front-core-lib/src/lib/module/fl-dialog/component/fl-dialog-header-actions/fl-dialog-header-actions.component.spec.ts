@@ -8,9 +8,8 @@ describe('FlDialogHeaderActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDialogHeaderActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDialogHeaderActionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlDialogHeaderActionsComponent);
     component = fixture.componentInstance;

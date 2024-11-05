@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 ];
 
@@ -15,14 +15,14 @@ const routes: Routes = [
       routes,
       // load all lazy module on start
       // load all lazy module on start
-{
-    preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled',
-    paramsInheritanceStrategy: 'always',
-    anchorScrolling: 'enabled'
-}
-    )],
-  exports: [RouterModule]
+      {
+        preloadingStrategy: PreloadAllModules,
+        scrollPositionRestoration: 'enabled',
+        paramsInheritanceStrategy: 'always',
+        anchorScrolling: 'enabled',
+      }
+    ),
+  ],
+  exports: [RouterModule],
 })
-export class CaAppRoutingModule {
-}
+export class CaAppRoutingModule {}

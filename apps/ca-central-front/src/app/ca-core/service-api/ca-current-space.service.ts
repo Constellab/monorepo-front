@@ -5,7 +5,7 @@ import {
   FlCleanableService,
   FlCleanerService,
   FlCookieService,
-  FlDatasourceGetPageData
+  FlDatasourceGetPageData,
 } from '@monorepo/front-core-lib';
 import { BehaviorSubject, filter, firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,10 +20,9 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
  * Service to manage the current space
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaCurrentSpaceService implements FlCleanableService {
-
   private currentSpaceDomainDev: string;
 
   private currentSpace$: BehaviorSubject<CaSpace> = new BehaviorSubject(null);
@@ -32,9 +31,11 @@ export class CaCurrentSpaceService implements FlCleanableService {
   // key use to store the current space in the local storage only for dev env
   private devSpaceStorageKey: string = 'local-space';
 
-  constructor(private spaceService: CaSpaceService,
-              private cookieService: FlCookieService,
-              private titleService: Title) {
+  constructor(
+    private spaceService: CaSpaceService,
+    private cookieService: FlCookieService,
+    private titleService: Title
+  ) {
     FlCleanerService.getInstance().registerService(this);
   }
 
@@ -72,11 +73,8 @@ export class CaCurrentSpaceService implements FlCleanableService {
     this.currentUserRoleInSpace = role;
   }
 
-
   public getCurrentSpace$(): Observable<CaSpace> {
-    return this.currentSpace$.asObservable().pipe(
-      filter(space => space != null)
-    );
+    return this.currentSpace$.asObservable().pipe(filter((space) => space != null));
   }
 
   public getCurrentSpacePromise(): Promise<CaSpace> {
@@ -85,8 +83,7 @@ export class CaCurrentSpaceService implements FlCleanableService {
 
   public getCurrentSpacePhoto$(): Observable<string> {
     return this.getCurrentSpace$().pipe(
-      map(space => space.photo ?
-        this.spaceService.getSpacePhoto(space.photo) : null)
+      map((space) => (space.photo ? this.spaceService.getSpacePhoto(space.photo) : null))
     );
   }
 
@@ -101,8 +98,11 @@ export class CaCurrentSpaceService implements FlCleanableService {
     return this.spaceService.getSpaceSimpleUsersDatasource('current');
   }
 
-  public searchSpaceUsers(page: number, pageSize: number,
-                          data: FlDatasourceGetPageData<CaSpaceUserSearchFields>): Observable<ClPage<CaSpaceUser>> {
+  public searchSpaceUsers(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaSpaceUserSearchFields>
+  ): Observable<ClPage<CaSpaceUser>> {
     return this.spaceService.searchSpaceUsers('current', page, pageSize, data);
   }
 
@@ -126,7 +126,6 @@ export class CaCurrentSpaceService implements FlCleanableService {
     return this.spaceService.removeUserFromSpace('current', userId);
   }
 
-
   clean(): void {
     this.currentSpace$.next(null);
     this.currentUserRoleInSpace = null;
@@ -135,6 +134,4 @@ export class CaCurrentSpaceService implements FlCleanableService {
       this.cookieService.removeCookie(this.devSpaceStorageKey);
     }
   }
-
-
 }

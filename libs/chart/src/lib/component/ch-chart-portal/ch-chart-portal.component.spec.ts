@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartPortalComponent} from './ch-chart-portal.component';
+import { ChChartPortalComponent } from './ch-chart-portal.component';
 
 describe('ChChartDynamicPortalComponent', () => {
   let component: ChChartPortalComponent;
@@ -8,9 +8,8 @@ describe('ChChartDynamicPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartPortalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

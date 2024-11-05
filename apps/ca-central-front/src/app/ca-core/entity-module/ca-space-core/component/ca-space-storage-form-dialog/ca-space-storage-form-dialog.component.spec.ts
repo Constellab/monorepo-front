@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSpaceStorageFormDialogComponent} from './ca-space-storage-form-dialog.component';
+import { CaSpaceStorageFormDialogComponent } from './ca-space-storage-form-dialog.component';
 
 describe('CaSpaceStorageFormDialogComponent', () => {
   let component: CaSpaceStorageFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceStorageFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CaSpaceStorageFormDialogComponent]
-    })
-    .compileComponents();
+      imports: [CaSpaceStorageFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSpaceStorageFormDialogComponent);
     component = fixture.componentInstance;

@@ -4,7 +4,7 @@
  * It is filled when a session_expired error occurred, so if the user login again after
  * the previous route can be retrieve
  */
-import {Params} from '@angular/router';
+import { Params } from '@angular/router';
 
 export class FlLoginSavedRoute {
   public static route: string = null;

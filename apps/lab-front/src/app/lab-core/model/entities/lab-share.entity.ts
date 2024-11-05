@@ -9,17 +9,16 @@ import { LabEntityType } from './lab-navigable-entity.entity';
 export type LabShareLinkType = 'RESOURCE' | 'SCENARIO';
 
 export class LabShareLink extends LabBaseEntityWithUser {
-
-  @Expose({name: 'entity_id'})
+  @Expose({ name: 'entity_id' })
   entityId: string;
 
-  @Expose({name: 'entity_type'})
+  @Expose({ name: 'entity_type' })
   entityType: LabShareLinkType;
 
-  @Expose({name: 'entity_name'})
+  @Expose({ name: 'entity_name' })
   entityName: string;
 
-  @Expose({name: 'valid_until'})
+  @Expose({ name: 'valid_until' })
   @ClLuxonDateTimeTransform()
   validUntil: DateTime;
 
@@ -38,34 +37,32 @@ export class LabShareLink extends LabBaseEntityWithUser {
 
 export type LabShareLinkDatasource = FlDatasourcePaginated<LabShareLink>;
 
-
 export class LabSharedEntity extends LabBaseEntity {
   // above to ts
-  @Expose({name: 'lab_id'})
+  @Expose({ name: 'lab_id' })
   labId: string;
 
-  @Expose({name: 'lab_name'})
+  @Expose({ name: 'lab_name' })
   labName: string;
 
-  @Expose({name: 'user_id'})
+  @Expose({ name: 'user_id' })
   userId: string;
 
-  @Expose({name: 'user_firstname'})
+  @Expose({ name: 'user_firstname' })
   userFirstname: string;
 
-  @Expose({name: 'user_lastname'})
+  @Expose({ name: 'user_lastname' })
   userLastname: string;
 
-  @Expose({name: 'space_id'})
+  @Expose({ name: 'space_id' })
   spaceId: string;
 
-  @Expose({name: 'space_name'})
+  @Expose({ name: 'space_name' })
   spaceName: string;
 
-  @Expose({name: 'created_by'})
+  @Expose({ name: 'created_by' })
   @Type(() => LabUser)
   createdBy: LabUser;
-
 }
 
 export type LabSharedEntityDatasource = FlDatasourcePaginated<LabSharedEntity>;

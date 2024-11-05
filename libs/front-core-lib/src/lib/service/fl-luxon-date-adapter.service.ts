@@ -1,6 +1,6 @@
-import {Inject, Injectable, Optional} from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 
-import {DateTime, Info, Settings} from 'luxon';
+import { DateTime, Info, Settings } from 'luxon';
 /**
  * Default format to use to the MatDataPicker
  *
@@ -10,8 +10,8 @@ import {DateTime, Info, Settings} from 'luxon';
  *
  * See https://momentjs.com/docs/#/parsing/string-format/ form formats
  */
-import {DateAdapter, MAT_DATE_LOCALE, MatDateFormats} from '@angular/material/core';
-import {ClDateFormat} from '@monorepo/core-lib';
+import { DateAdapter, MAT_DATE_LOCALE, MatDateFormats } from '@angular/material/core';
+import { ClDateFormat } from '@monorepo/core-lib';
 
 export const flLuxonDateFormat: MatDateFormats = {
   parse: {
@@ -24,7 +24,7 @@ export const flLuxonDateFormat: MatDateFormats = {
     monthYearLabel: 'MMM yyyy',
     dateA11yLabel: 'DDD',
     monthYearA11yLabel: 'MMMM yyyy',
-  }
+  },
 };
 
 /**
@@ -43,11 +43,10 @@ function range<T>(length: number, valueFunction: (index: number) => T): T[] {
 const SUPPORTS_INTL_API = typeof Intl !== 'undefined';
 
 /** The default date names to use if Intl API is not available. */
-const DEFAULT_DATE_NAMES = range(31, i => String(i + 1));
+const DEFAULT_DATE_NAMES = range(31, (i) => String(i + 1));
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
-
   constructor(@Optional() @Inject(MAT_DATE_LOCALE) matDateLocale: string) {
     super();
     this.setLocale(matDateLocale);
@@ -83,13 +82,11 @@ export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
 
   getDateNames(): string[] {
     if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {day: 'numeric'});
-      return range(31, i => this._stripDirectionalityCharacters(
-        dtf.format(new Date(2017, 0, i + 1))));
+      const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric' });
+      return range(31, (i) => this._stripDirectionalityCharacters(dtf.format(new Date(2017, 0, i + 1))));
     }
     return DEFAULT_DATE_NAMES;
   }
-
 
   getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
     return Info.weekdays(style);
@@ -97,7 +94,7 @@ export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
 
   getYearName(date: DateTime): string {
     if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {year: 'numeric'});
+      const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric' });
       const valueOfDate = date.valueOf();
       return this._stripDirectionalityCharacters(dtf.format(valueOfDate));
     }
@@ -131,15 +128,15 @@ export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
   }
 
   addCalendarYears(date: DateTime, years: number): DateTime {
-    return date.plus({years});
+    return date.plus({ years });
   }
 
   addCalendarMonths(date: DateTime, months: number): DateTime {
-    return date.plus({months});
+    return date.plus({ months });
   }
 
   addCalendarDays(date: DateTime, days: number): DateTime {
-    return date.plus({days});
+    return date.plus({ days });
   }
 
   toIso8601(date: DateTime): string {
@@ -147,7 +144,7 @@ export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
   }
 
   isDateInstance(obj: any): boolean {
-    return (obj instanceof DateTime);
+    return obj instanceof DateTime;
   }
 
   isValid(date: DateTime): boolean {

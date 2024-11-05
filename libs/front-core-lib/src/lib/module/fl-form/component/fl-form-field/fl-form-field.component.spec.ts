@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlFormFieldComponent} from './fl-form-field.component';
+import { FlFormFieldComponent } from './fl-form-field.component';
 
 describe('LibFormFieldComponent', () => {
   let component: FlFormFieldComponent;
@@ -8,9 +8,8 @@ describe('LibFormFieldComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlFormFieldComponent ]
-    })
-    .compileComponents();
+      declarations: [FlFormFieldComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

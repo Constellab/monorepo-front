@@ -8,9 +8,8 @@ describe('CaLabBackupStatusTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabBackupStatusTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabBackupStatusTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabBackupStatusTableComponent);
     component = fixture.componentInstance;

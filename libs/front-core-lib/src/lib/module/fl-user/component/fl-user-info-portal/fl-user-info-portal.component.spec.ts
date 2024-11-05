@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlUserInfoPortalComponent} from './fl-user-info-portal.component';
+import { FlUserInfoPortalComponent } from './fl-user-info-portal.component';
 
 describe('FlUserInfoPortalComponent', () => {
   let component: FlUserInfoPortalComponent;
@@ -8,9 +8,8 @@ describe('FlUserInfoPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlUserInfoPortalComponent ]
-    })
-    .compileComponents();
+      declarations: [FlUserInfoPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlUserInfoPortalComponent);
     component = fixture.componentInstance;

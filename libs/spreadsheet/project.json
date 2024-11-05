@@ -16,10 +16,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/spreadsheet/**/*.ts",
-          "libs/spreadsheet/**/*.html"
-        ]
+        "lintFilePatterns": ["libs/spreadsheet/**/*.ts", "libs/spreadsheet/**/*.html"]
       }
     }
   },

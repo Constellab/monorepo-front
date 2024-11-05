@@ -15,17 +15,15 @@ import {
   TeStrikethroughInlineTool,
   TeTools,
   TeUnderlineInlineTool,
-  TeUploadedImage
+  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib';
 
-
 export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
-
-
-  constructor(private folderId: string,
-              private folderService: CaFolderService) {
-  }
+  constructor(
+    private folderId: string,
+    private folderService: CaFolderService
+  ) {}
 
   imageUploader(file: File): Observable<TeUploadedImage> {
     return this.folderService.uploadMessageImage(file, this.folderId);
@@ -34,23 +32,22 @@ export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
   getImageUrl(filename: string): string {
     return this.folderService.getMessageImageUrl(filename, this.folderId);
   }
-
-
 }
 
 /**
  * Config for the text editor in the note to support view in the editor
  */
 export class CaChatMessageTextEditorConfig extends TeConfig {
-
   public event: TeEvent = new TeEvent();
 
-  constructor(public folderId: string,
-              private folderService: CaFolderService,
-              private mode: 'create' | 'update' = 'create') {
+  constructor(
+    public folderId: string,
+    private folderService: CaFolderService,
+    private mode: 'create' | 'update' = 'create'
+  ) {
     super({
       hideToolbar: true,
-      dense: true
+      dense: true,
     });
   }
 
@@ -59,9 +56,7 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
    * @param envInjector
    * @param applicationRef
    */
-  getTools(envInjector: EnvironmentInjector,
-           applicationRef: ApplicationRef): TeTools {
-
+  getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     // configure and add the image block
     const imageConfig = new CaChatMessageTextEditorImageConfig(this.folderId, this.folderService);
 
@@ -74,7 +69,7 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
       strikethrough: TeStrikethroughInlineTool,
       inlineCode: this.getInlineCodeConfig(),
       cleanStyle: TeCleanStyleInlineTool,
-      fake: TeFakeInlineTool
+      fake: TeFakeInlineTool,
     };
 
     // only enable mention on create mode
@@ -85,17 +80,20 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
     return config;
   }
 
-
   getAdditionalConfig(): TeAdditionalConfig {
     return {
       emoji: true,
       mention: {
-        getUsers: (data, page, pageSize) => this.getUsers(data, page, pageSize)
-      }
+        getUsers: (data, page, pageSize) => this.getUsers(data, page, pageSize),
+      },
     };
   }
 
-  private getUsers(data: FlDatasourceGetPageData<TeMentionSearchFilter>, page: number, pageSize: number): Observable<ClPageI<CaUser>> {
+  private getUsers(
+    data: FlDatasourceGetPageData<TeMentionSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<CaUser>> {
     return this.folderService.searchFolderUser(this.folderId, data.filtersCriteria.text, page, pageSize);
   }
 
@@ -112,14 +110,12 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
   }
 
   addFigureBlock(): void {
-
     this.event.addEvent({
       type: 'insertBlock',
       blockType: 'figure',
       data: {
-        forceNewElement: true
-      } as TeComponentInitData
+        forceNewElement: true,
+      } as TeComponentInitData,
     });
   }
-
 }

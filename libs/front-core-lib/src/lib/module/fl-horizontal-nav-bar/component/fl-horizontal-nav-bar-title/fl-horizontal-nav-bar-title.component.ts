@@ -1,12 +1,8 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'fl-horizontal-nav-bar-title',
-  template: `
-    <ng-content></ng-content>
-  `,
-  styles: ``
+  template: ` <ng-content></ng-content> `,
+  styles: ``,
 })
-export class FlHorizontalNavBarTitleComponent {
-
-}
+export class FlHorizontalNavBarTitleComponent {}

@@ -1,4 +1,4 @@
-import {FlTranslatableTextPipe} from './fl-translatable-text.pipe';
+import { FlTranslatableTextPipe } from './fl-translatable-text.pipe';
 
 describe('FlTranslatableTextPipe', () => {
   it('create an instance', () => {

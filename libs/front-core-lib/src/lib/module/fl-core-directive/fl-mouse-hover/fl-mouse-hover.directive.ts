@@ -1,7 +1,6 @@
-import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
-import {FlMouseHoverAbstractDirective} from '../../../abstract-directive/mouse-hover/fl-mouse-hover-abstract.directive';
-import {ClHelpService} from '@monorepo/core-lib';
-
+import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { FlMouseHoverAbstractDirective } from '../../../abstract-directive/mouse-hover/fl-mouse-hover-abstract.directive';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Event directive that trigger an {@link FlMouseHoverChange} event on hovering status change (enter or leave)
@@ -11,10 +10,9 @@ import {ClHelpService} from '@monorepo/core-lib';
  * Styles or classes can be set to be added during the hover (with the delay)
  */
 @Directive({
-  selector: '[flMouseHover]'
+  selector: '[flMouseHover]',
 })
 export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
-
   /**
    * If filled the style is added during hover (with the delay) and remove after.
    *
@@ -29,10 +27,12 @@ export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
    */
   @Input() flMouseHoverClass: string | string[];
 
-  constructor(elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(
+    elementRef: ElementRef,
+    private renderer: Renderer2
+  ) {
     super(elementRef);
   }
-
 
   onTriggerHoverEnter(): void {
     // set the style if filled
@@ -58,7 +58,6 @@ export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
     }
   }
 
-
   // on hover enter set the style in parameters to the host element
   private setStyles(style: { [key: string]: string }): void {
     for (const key of Object.keys(style)) {
@@ -70,7 +69,6 @@ export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
   private removeStyles(style: { [key: string]: string }): void {
     for (const key of Object.keys(style)) {
       this.renderer.removeStyle(this.elementRef.nativeElement, key);
-
     }
   }
 

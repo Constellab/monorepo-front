@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 /**
  * Graphic component to display a card with a colored header
@@ -19,11 +19,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./fl-card.component.scss'],
 })
 export class FlCardComponent implements OnInit {
+  constructor() {}
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

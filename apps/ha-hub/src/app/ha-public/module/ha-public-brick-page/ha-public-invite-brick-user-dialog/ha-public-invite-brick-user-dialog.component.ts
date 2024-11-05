@@ -13,11 +13,12 @@ export interface HaInviteBrickUserFormData {
 @Component({
   selector: 'ha-public-invite-brick-user-dialog',
   templateUrl: './ha-public-invite-brick-user-dialog.component.html',
-  styleUrls: ['./ha-public-invite-brick-user-dialog.component.css']
+  styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
 })
 export class HaPublicInviteBrickUserDialogComponent
-  extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser>
+  implements OnInit
+{
   constructor(private brickService: HaBrickService) {
     super();
   }
@@ -28,7 +29,7 @@ export class HaPublicInviteBrickUserDialogComponent
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -51,5 +52,4 @@ export class HaPublicInviteBrickUserDialogComponent
 
     return null;
   }
-
 }

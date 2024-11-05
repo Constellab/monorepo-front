@@ -4,26 +4,24 @@ import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
-  FlInputSearchFilter
+  FlInputSearchFilter,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
-import { CaServerCloud, CaServerCloudDatasource } from '../../../../model/entities/server/ca-server-cloud.class';
-import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
-  CaSelectServerCloudDialogComponent
-} from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
+  CaServerCloud,
+  CaServerCloudDatasource,
+} from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
+import { CaSelectServerCloudDialogComponent } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
 
 @Component({
   selector: 'ca-select-server-cloud',
   templateUrl: './ca-select-server-cloud.component.html',
   styleUrl: './ca-select-server-cloud.component.scss',
-  providers: [{provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent}]
-
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
 })
-export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud>
-  implements OnInit {
-
+export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {
   @Output() serverChange: EventEmitter<CaServerCloud> = new EventEmitter();
 
   selectedServer: CaServerCloud | Observable<CaServerCloud>;
@@ -32,10 +30,11 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
 
   advancedButton: FlInputSearchAdvancedButton<CaServerCloud>;
 
-
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private serverService: CaServerService,
-              private dialogService: FlDialogService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private serverService: CaServerService,
+    private dialogService: FlDialogService
+  ) {
     super(ngControl);
   }
 
@@ -43,11 +42,12 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
     this.datasource = new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) =>
         this.serverService.searchServerCloudByName(data.filtersCriteria.searchText, page, pageSize),
-      20, false
+      20,
+      false
     );
 
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(CaSelectServerCloudDialogComponent).afterClosed()
+      onClick: () => this.dialogService.openBigDialog(CaSelectServerCloudDialogComponent).afterClosed(),
     };
   }
 
@@ -72,8 +72,5 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
     this.selectedServer = value;
   }
 
-  onDisableChange(): void {
-  }
-
-
+  onDisableChange(): void {}
 }

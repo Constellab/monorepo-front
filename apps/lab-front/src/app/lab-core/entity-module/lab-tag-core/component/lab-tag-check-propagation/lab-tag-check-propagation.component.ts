@@ -16,10 +16,9 @@ export interface LabTagCheckPropagationInput {
 @Component({
   selector: 'lab-tag-check-propagation',
   templateUrl: './lab-tag-check-propagation.component.html',
-  styleUrls: ['./lab-tag-check-propagation.component.scss']
+  styleUrls: ['./lab-tag-check-propagation.component.scss'],
 })
 export class LabTagCheckPropagationComponent {
-
   impactDTO$: Observable<TagPropagationImpactDTO>;
 
   tags: LabTagDatasource;
@@ -28,13 +27,12 @@ export class LabTagCheckPropagationComponent {
   tagListText: string;
   helpText: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: LabTagCheckPropagationInput,
-              private dialogRef: MatDialogRef<LabTagCheckPropagationComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: LabTagCheckPropagationInput,
+    private dialogRef: MatDialogRef<LabTagCheckPropagationComponent>
+  ) {
     this.impactDTO$ = input.impactDTO$.pipe(share());
-    this.tags = new LabTagDatasource(this.impactDTO$.pipe(
-      map(impactDTO => impactDTO.tags)
-    ));
-
+    this.tags = new LabTagDatasource(this.impactDTO$.pipe(map((impactDTO) => impactDTO.tags)));
 
     this.title = input.mode === 'ADD' ? 'add_tag_propagation_title' : 'delete_tag_propagation_title';
     this.tagListText = input.mode === 'ADD' ? 'tags_to_propagate' : 'tag_to_delete';
@@ -44,9 +42,8 @@ export class LabTagCheckPropagationComponent {
   closeDialog(choice: boolean): void {
     const result: FlConfirmDialogResult = {
       choice: choice,
-      result: null
+      result: null,
     };
     this.dialogRef.close(result);
   }
-
 }

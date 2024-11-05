@@ -1,8 +1,7 @@
-import {CaBaseEntity} from '../ca-base-entity.class';
-import {FlEntityPaginatedDatasource} from '@monorepo/front-core-lib';
+import { CaBaseEntity } from '../ca-base-entity.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 
 export class CaServerStandard extends CaBaseEntity {
-
   name: string;
 
   description: string;
@@ -12,10 +11,10 @@ export class CaServerStandard extends CaBaseEntity {
 
 export type CaServerStandardDatasource = FlEntityPaginatedDatasource<CaServerStandard>;
 
-export interface CaServerStandardSaveDTO{
+export interface CaServerStandardSaveDTO {
   id: string;
   name: string;
-  description: string
+  description: string;
   technicalDescription: string;
   price: number; // only for create mode
 }

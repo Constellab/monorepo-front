@@ -2,19 +2,26 @@
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
   <button mat-flat-button type="button" class="bt first-bt" (click)="openCreateAgentDialog()">
-      <mat-icon>add_circle</mat-icon>
+    <mat-icon>add_circle</mat-icon>
     {{ 'create_agent' | translate }}
-    </button>
-  <button mat-flat-button type="button" class="bt my-agents-bt" (click)="selectSpace('my-agents')"
-          [class]="isSelected('my-agents') ? 'bt-primary' : ''">
+  </button>
+  <button
+    mat-flat-button
+    type="button"
+    class="bt my-agents-bt"
+    (click)="selectSpace('my-agents')"
+    [class]="isSelected('my-agents') ? 'bt-primary' : ''">
     {{ 'my_agents' | translate }}
   </button>
 
   <p class="left-side-div-title">{{ 'visibility' | translate }} :</p>
 
   <div class="left-panel-buttons-div">
-    <mat-chip-option [value]="isSelected('public')" (click)="selectSpace('public')" color="accent"
-                     class="space-list-option">
+    <mat-chip-option
+      [value]="isSelected('public')"
+      (click)="selectSpace('public')"
+      color="accent"
+      class="space-list-option">
       <fl-text-icon [iconPosition]="'start'">
         <mat-icon>public</mat-icon>
         {{ 'public' | translate }}
@@ -23,26 +30,30 @@
     <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
     </ha-selectable-space-list>
   </div>
-
 </div>
 
 <div class="main-panel">
   <fl-infinite-scroll [datasource]="agentsPaginated" infiniteMode="auto" class="list-section">
     <div class="section-title">
-      <h1 class="title">{{'agents' | translate}}</h1>
+      <h1 class="title">{{ 'agents' | translate }}</h1>
     </div>
     <div class="search-bar-title">
       <form type="submit" (ngSubmit)="search($event)">
         <mat-form-field class="section-search-bar">
-          <input matInput [formControl]="titleFormControl" placeholder="{{'search_by_title' | translate}}">
+          <input
+            matInput
+            [formControl]="titleFormControl"
+            placeholder="{{ 'search_by_title' | translate }}" />
           <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
       </form>
     </div>
-    <a class="agent-result-card-div" *ngFor="let agent of agentsPaginated | flDatasourceConnect | async"
-       [routerLink]="(agent | haDetailRoute)">
+    <a
+      class="agent-result-card-div"
+      *ngFor="let agent of agentsPaginated | flDatasourceConnect | async"
+      [routerLink]="agent | haDetailRoute">
       <co-agent-list-item [agent]="agent"></co-agent-list-item>
     </a>
   </fl-infinite-scroll>

@@ -21,22 +21,8 @@ import { MatTooltip } from '@angular/material/tooltip';
     FlStringToRgbPipe,
     FlColorPickerComponent,
   ],
-  exports: [
-    FlColorSelectorComponent,
-    FlColorSelectorDirective,
-    FlStringToRgbPipe,
-    FlColorPickerComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-
-    MatIconModule,
-
-    FlPortalModule,
-    FlTranslateModule,
-    MatTooltip,
-  ],
+  exports: [FlColorSelectorComponent, FlColorSelectorDirective, FlStringToRgbPipe, FlColorPickerComponent],
+  imports: [CommonModule, FormsModule, MatIconModule, FlPortalModule, FlTranslateModule, MatTooltip],
 })
 export class FlColorModule {
   constructor(translateService: FlTranslateService) {

@@ -1,19 +1,21 @@
 import {
   ChangeDetectorRef,
-  Component, computed,
+  Component,
+  computed,
   Inject,
   Input,
   makeStateKey,
   OnInit,
-  PLATFORM_ID, Signal,
+  PLATFORM_ID,
+  Signal,
   StateKey,
-  TransferState
+  TransferState,
 } from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
   HaNode,
   HaNodeDTO,
-  HaNodeType
+  HaNodeType,
 } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlattener } from '@angular/material/tree';
@@ -28,13 +30,11 @@ import {
   FlMenuDynamic,
   FlMenuDynamicService,
   FlOverlayRef,
-  FlPortalActionsService
+  FlPortalActionsService,
 } from '@monorepo/front-core-lib';
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
-import {
-  HaPublicSidenavCreateFormDialogComponent
-} from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
+import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -49,7 +49,6 @@ import { FormControl } from '@angular/forms';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { toObservable } from '@angular/core/rxjs-interop';
 
-
 interface FlatNode {
   expandable: boolean;
   name: string;
@@ -62,10 +61,9 @@ interface FlatNode {
 @Component({
   selector: 'ha-public-sidenav',
   templateUrl: './ha-public-sidenav.component.html',
-  styleUrls: ['./ha-public-sidenav.component.scss']
+  styleUrls: ['./ha-public-sidenav.component.scss'],
 })
 export class HaPublicSidenavComponent implements OnInit {
-
   searchTechDocControl = new FormControl<string>('');
 
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
@@ -86,13 +84,13 @@ export class HaPublicSidenavComponent implements OnInit {
   hoverId: string;
 
   treeControl = new FlatTreeControl<FlatNode>(
-    node => node.level,
-    node => node.expandable
+    (node) => node.level,
+    (node) => node.expandable
   );
 
   techTreeControl = new FlatTreeControl<FlatNode>(
-    node => node.level,
-    node => node.expandable
+    (node) => node.level,
+    (node) => node.expandable
   );
 
   dataSource$: Observable<HaMateTreeFlatDataSource<HaNode, any, any>>;
@@ -117,12 +115,12 @@ export class HaPublicSidenavComponent implements OnInit {
         completePath: node.completePath,
         parentId: node.parentId,
         id: node.id,
-        level: level
+        level: level,
       };
     },
-    node => node.level,
-    node => node.expandable,
-    node => node.children
+    (node) => node.level,
+    (node) => node.expandable,
+    (node) => node.children
   );
 
   treeFlattener = new MatTreeFlattener(
@@ -135,12 +133,12 @@ export class HaPublicSidenavComponent implements OnInit {
         completePath: node.completePath,
         parentId: node.parentId,
         id: node.id,
-        level: level
+        level: level,
       };
     },
-    node => node.level,
-    node => node.expandable,
-    node => node.children
+    (node) => node.level,
+    (node) => node.expandable,
+    (node) => node.children
   );
 
   dataSource = new HaMateTreeFlatDataSource(this.treeControl, this.treeFlattener);
@@ -149,7 +147,6 @@ export class HaPublicSidenavComponent implements OnInit {
   currentCompletePath: string;
 
   trackByIdentity = (index: number, item: any): any => item;
-
 
   constructor(
     private brickService: HaBrickService,
@@ -163,13 +160,12 @@ export class HaPublicSidenavComponent implements OnInit {
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState,
     private portalActionsService: FlPortalActionsService,
-    private brickPageState: HaBrickPageState) {
-  }
+    private brickPageState: HaBrickPageState
+  ) {}
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
 
   ngOnInit(): void {
-
     this.DOCUMENTATIONS_KEY = makeStateKey<object>('DOCUMENTATIONS_KEY');
     this.TECH_DOCUMENTATION_KEY = makeStateKey<object>('TECH_DOCUMENTATION_KEY');
 
@@ -184,7 +180,7 @@ export class HaPublicSidenavComponent implements OnInit {
   private initCurrentCompletePath(pathVersion: string): void {
     this.currentCompletePath = this.router.url.split(pathVersion)[1];
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentCompletePath = event.url.split(pathVersion)[1];
       });
@@ -202,7 +198,7 @@ export class HaPublicSidenavComponent implements OnInit {
       this.onTechDocumentationsData(data);
       return;
     }
-    this.brickService.getTechnicalDocumentation(brick.id, pathVersion).subscribe(data => {
+    this.brickService.getTechnicalDocumentation(brick.id, pathVersion).subscribe((data) => {
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOCUMENTATION_KEY)) {
         this.transferState.set(this.TECH_DOCUMENTATION_KEY, data);
       }
@@ -234,7 +230,6 @@ export class HaPublicSidenavComponent implements OnInit {
     }
   }
 
-
   onClickMenu(event: MouseEvent, isFolder: boolean, hasChild: boolean = false, id?: string): void {
     event.preventDefault();
     event.stopPropagation();
@@ -242,12 +237,14 @@ export class HaPublicSidenavComponent implements OnInit {
       this.openedMenu.overlayRef.detach();
     }
     if (!id) {
-      this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe(res => {
+      this.brickService.getRootFolderId(this.brick()?.id, this.pathVersion()).subscribe((res) => {
         this.openCreateDialog(res.id);
       });
     } else {
-      this.openedMenu =
-        this.contextMenuService.openDynamicMenuFromMouseEvent(this.getContextMenuConfig(isFolder, id, hasChild), event);
+      this.openedMenu = this.contextMenuService.openDynamicMenuFromMouseEvent(
+        this.getContextMenuConfig(isFolder, id, hasChild),
+        event
+      );
       this.menuOpen = true;
     }
   }
@@ -259,21 +256,21 @@ export class HaPublicSidenavComponent implements OnInit {
           type: 'button',
           text: { text: 'create', translateText: true },
           icon: 'add',
-          onClick: () => this.openCreateDialog(id)
+          onClick: () => this.openCreateDialog(id),
         },
         {
           type: 'button',
           text: { text: 'edit_title', translateText: true },
           icon: 'edit',
-          onClick: () => this.prepareEditDialog(id, isFolder)
+          onClick: () => this.prepareEditDialog(id, isFolder),
         },
         {
           type: 'button',
           text: { text: 'delete', translateText: true },
           icon: 'delete',
           onClick: () => this.openResourceDelete(id, isFolder),
-          disabled: hasChild
-        }
+          disabled: hasChild,
+        },
       ];
     }
     return [
@@ -281,14 +278,14 @@ export class HaPublicSidenavComponent implements OnInit {
         type: 'button',
         text: { text: 'edit_title', translateText: true },
         icon: 'edit',
-        onClick: () => this.prepareEditDialog(id, isFolder)
+        onClick: () => this.prepareEditDialog(id, isFolder),
       },
       {
         type: 'button',
         text: { text: 'delete', translateText: true },
         icon: 'delete',
-        onClick: () => this.openResourceDelete(id, isFolder)
-      }
+        onClick: () => this.openResourceDelete(id, isFolder),
+      },
     ];
   }
 
@@ -297,12 +294,15 @@ export class HaPublicSidenavComponent implements OnInit {
       title: 'confirm_deletion',
       content: 'confirm_deletion_message',
       observable: isFolder ? this.folderService.deleteById(id) : this.documentationService.deleteById(id),
-      successMessage: isFolder ? 'folder_deleted' : 'documentation_deleted'
+      successMessage: isFolder ? 'folder_deleted' : 'documentation_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(res => {
-      this.onCloseConfirmDialog(res);
-    });
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((res) => {
+        this.onCloseConfirmDialog(res);
+      });
   }
 
   private onCloseConfirmDialog(res: FlConfirmDialogResult): void {
@@ -321,48 +321,51 @@ export class HaPublicSidenavComponent implements OnInit {
         path: null,
         title: null,
         isFolder: null,
-        folderId: folderId
-      } as HaNodeDTO
+        folderId: folderId,
+      } as HaNodeDTO,
     };
 
     this.openSmallDialog(input);
   }
 
   private openSmallDialog(input: any): void {
-    this.dialogService.openSmallDialog(HaPublicSidenavCreateFormDialogComponent, { data: input }).afterClosed().subscribe(
-      (res) => {
+    this.dialogService
+      .openSmallDialog(HaPublicSidenavCreateFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((res) => {
         if (res != null) {
           if (res[1] == HaNodeType.TEC) {
-            this.portalActionsService.addAction({
-              action: this.brickService.importTechnicalDocumentation({
-                brickName: this.brick().name,
-                importFile: res[0]
-              }),
-              text: {
-                text: 'updating_brick_tech_doc',
-                translateText: true
-              },
-              type: 'brick_tech_doc'
-            }).subscribe((res) => {
-              if (res) {
-                this.getTechnicalDocumentations(this.brick(), this.pathVersion());
-              }
-            });
+            this.portalActionsService
+              .addAction({
+                action: this.brickService.importTechnicalDocumentation({
+                  brickName: this.brick().name,
+                  importFile: res[0],
+                }),
+                text: {
+                  text: 'updating_brick_tech_doc',
+                  translateText: true,
+                },
+                type: 'brick_tech_doc',
+              })
+              .subscribe((res) => {
+                if (res) {
+                  this.getTechnicalDocumentations(this.brick(), this.pathVersion());
+                }
+              });
           } else {
             this.getDocumentations(this.brick(), this.pathVersion());
           }
         }
-      }
-    );
+      });
   }
 
   private prepareEditDialog(id: string, isFolder: boolean): void {
     if (isFolder) {
-      this.folderService.getById(id).subscribe(f => {
+      this.folderService.getById(id).subscribe((f) => {
         this.createEditDialog(isFolder, f);
       });
     } else {
-      this.documentationService.getById(id).subscribe(d => {
+      this.documentationService.getById(id).subscribe((d) => {
         this.createEditDialog(isFolder, d);
       });
     }
@@ -377,7 +380,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
     const input: FlFormDialogInput<HaNodeDTO> = {
       mode: 'update',
-      object: node
+      object: node,
     };
 
     this.openSmallDialog(input);
@@ -385,7 +388,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   addExpandedChildren(node: HaNode, expanded: FlatNode[], result: HaNode[]): HaNode[] {
     result.push(node);
-    const n: FlatNode = this.treeControl.dataNodes.find(n => n.id == node.id);
+    const n: FlatNode = this.treeControl.dataNodes.find((n) => n.id == node.id);
     if (node.children && this.treeControl.isExpanded(n)) {
       node.children.map((child) => this.addExpandedChildren(child, expanded, result));
     }
@@ -413,11 +416,9 @@ export class HaPublicSidenavComponent implements OnInit {
       }
     });
     return result;
-
   }
 
   drop($event: CdkDragDrop<HaNode[]>): void {
-
     // ignore drops outside the tree
     if (!$event.isPointerOverContainer) return;
 
@@ -433,12 +434,12 @@ export class HaPublicSidenavComponent implements OnInit {
     const nodeAtDest = visibleNodes[$event.currentIndex];
     const newSiblings = this.findNodeSiblings(this.changedData, nodeAtDest);
     if (!newSiblings) return;
-    const insertIndex = newSiblings.findIndex(s => s.id === nodeAtDest.id);
+    const insertIndex = newSiblings.findIndex((s) => s.id === nodeAtDest.id);
 
     // remove the node from its old place
     const node = $event.item.data;
     const siblings = this.findNodeSiblings(this.changedData, node);
-    const siblingIndex = siblings.findIndex(n => n.id === node.id);
+    const siblingIndex = siblings.findIndex((n) => n.id === node.id);
     const nodeToInsert: HaNode = siblings.splice(siblingIndex, 1)[0];
     if (nodeAtDest.id === nodeToInsert.id) return;
 
@@ -450,7 +451,6 @@ export class HaPublicSidenavComponent implements OnInit {
     this.rebuildTreeForData(this.changedData);
     this.saveTreeData(this.changedData, node);
   }
-
 
   saveTreeData(nodes: HaNode[], node: any): void {
     nodes = this.updatedTree(nodes, 0);
@@ -464,11 +464,11 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   updatedTree(nodes: HaNode[], levelTheo: number): HaNode[] {
-    nodes.forEach(n => {
-      const newIndex: number = nodes.findIndex(node => node.id == n.id);
+    nodes.forEach((n) => {
+      const newIndex: number = nodes.findIndex((node) => node.id == n.id);
       n.order = n.order != newIndex ? newIndex : n.order;
 
-      const nf: FlatNode = this.treeControl.dataNodes.find(value => value.id == n.id);
+      const nf: FlatNode = this.treeControl.dataNodes.find((value) => value.id == n.id);
       n.parentId = this.getParentId(nf);
 
       if (n.children) {
@@ -490,8 +490,9 @@ export class HaPublicSidenavComponent implements OnInit {
     }
 
     const parentIndex = currentLevel - 1;
-    const parent: FlatNode = this.treeControl.dataNodes
-      .find(p => p.level == parentIndex && this.treeControl.getDescendants(p).includes(node));
+    const parent: FlatNode = this.treeControl.dataNodes.find(
+      (p) => p.level == parentIndex && this.treeControl.getDescendants(p).includes(node)
+    );
     return parent.id;
   }
 
@@ -506,26 +507,34 @@ export class HaPublicSidenavComponent implements OnInit {
   private updateTechDataSource(): void {
     this.technicalDataSource$ = this.searchTechDocControl.valueChanges.pipe(
       startWith(''),
-      map(value => {
+      map((value) => {
         if (value == '') {
           return this.technicalDataSource;
         }
         const techDataSourceData: HaNode[] = JSON.parse(JSON.stringify(this.technicalDataSource.data));
-        techDataSourceData[0].children[0].children = this.technicalDocResources.filter(child =>
-          ClStringHelper.stringContains(child.name, value, true, true, true));
-        techDataSourceData[0].children[1].children = this.technicalDocTasks.filter(child =>
-          ClStringHelper.stringContains(child.name, value, true, true, true));
-        techDataSourceData[0].children[2].children = this.technicalDocProtocols.filter(child =>
-          ClStringHelper.stringContains(child.name, value, true, true, true));
+        techDataSourceData[0].children[0].children = this.technicalDocResources.filter((child) =>
+          ClStringHelper.stringContains(child.name, value, true, true, true)
+        );
+        techDataSourceData[0].children[1].children = this.technicalDocTasks.filter((child) =>
+          ClStringHelper.stringContains(child.name, value, true, true, true)
+        );
+        techDataSourceData[0].children[2].children = this.technicalDocProtocols.filter((child) =>
+          ClStringHelper.stringContains(child.name, value, true, true, true)
+        );
 
-        const res: HaMateTreeFlatDataSource<HaNode, any, any> = new HaMateTreeFlatDataSource(this.techTreeControl, this.techTreeFlattener);
+        const res: HaMateTreeFlatDataSource<HaNode, any, any> = new HaMateTreeFlatDataSource(
+          this.techTreeControl,
+          this.techTreeFlattener
+        );
         const emptyFolder: HaNode[] = [];
         for (const n of techDataSourceData[0].children) {
           if (!n.children || n.children.length == 0) {
             emptyFolder.push(n);
           }
         }
-        techDataSourceData[0].children = techDataSourceData[0].children.filter(v => !emptyFolder.includes(v));
+        techDataSourceData[0].children = techDataSourceData[0].children.filter(
+          (v) => !emptyFolder.includes(v)
+        );
         if (techDataSourceData[0].children.length == 0) {
           techDataSourceData.pop();
         }
@@ -533,9 +542,8 @@ export class HaPublicSidenavComponent implements OnInit {
         res.data = techDataSourceData;
         return res;
       }),
-      tap(value => {
+      tap((value) => {
         if (this.searchTechDocControl.value.length > 0 && value.data && value.data[0]) {
-
           for (const folder of value.data[0].children) {
             if (folder.children.length > 0) {
               this.expandNode(folder);
@@ -551,9 +559,9 @@ export class HaPublicSidenavComponent implements OnInit {
     if (data) {
       this.technicalDataSource.data = [data];
       this.technicalDataSource$ = of(this.technicalDataSource);
-      this.technicalDocResources = data.children.find(td => td?.id.includes('ressource'))?.children;
-      this.technicalDocTasks = data.children.find(td => td?.id.includes('task'))?.children;
-      this.technicalDocProtocols = data.children.find(td => td?.id.includes('protocol'))?.children;
+      this.technicalDocResources = data.children.find((td) => td?.id.includes('ressource'))?.children;
+      this.technicalDocTasks = data.children.find((td) => td?.id.includes('task'))?.children;
+      this.technicalDocProtocols = data.children.find((td) => td?.id.includes('protocol'))?.children;
       this.updateTechDataSource();
     } else {
       this.technicalDataSource.data = [];
@@ -576,7 +584,6 @@ export class HaPublicSidenavComponent implements OnInit {
   }
 
   private expandNode(node: HaNode): void {
-    this.treeControl.expand(this.treeControl.dataNodes.find(n => n.completePath === node.completePath));
+    this.treeControl.expand(this.treeControl.dataNodes.find((n) => n.completePath === node.completePath));
   }
 }
-

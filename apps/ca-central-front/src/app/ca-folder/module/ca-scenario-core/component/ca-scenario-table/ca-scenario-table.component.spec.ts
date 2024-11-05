@@ -8,9 +8,8 @@ describe('CaScenarioTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaScenarioTableComponent]
-    })
-      .compileComponents();
+      declarations: [CaScenarioTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaScenarioTableComponent);
     component = fixture.componentInstance;

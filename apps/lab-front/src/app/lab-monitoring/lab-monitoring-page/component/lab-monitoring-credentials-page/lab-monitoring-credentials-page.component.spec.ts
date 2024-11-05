@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringCredentialsPageComponent} from './lab-monitoring-credentials-page.component';
+import { LabMonitoringCredentialsPageComponent } from './lab-monitoring-credentials-page.component';
 
 describe('LabMonitoringCredentialsPageComponent', () => {
   let component: LabMonitoringCredentialsPageComponent;

@@ -12,11 +12,12 @@ export type CaSpaceFormDialogInput = FlFormDialogInput<CaCreateSpaceDTO>;
 @Component({
   selector: 'ca-space-form-dialog',
   templateUrl: './ca-space-form-dialog.component.html',
-  styleUrls: ['./ca-space-form-dialog.component.scss']
+  styleUrls: ['./ca-space-form-dialog.component.scss'],
 })
-export class CaSpaceFormDialogComponent extends FlFormDialogAbstractDirective<CaCreateSpaceDTO, CaSpaceSettingsDto>
-  implements OnInit {
-
+export class CaSpaceFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaCreateSpaceDTO, CaSpaceSettingsDto>
+  implements OnInit
+{
   dialogInput: CaSpaceFormDialogInput = inject(MAT_DIALOG_DATA);
 
   constructor(private spaceService: CaSpaceService) {

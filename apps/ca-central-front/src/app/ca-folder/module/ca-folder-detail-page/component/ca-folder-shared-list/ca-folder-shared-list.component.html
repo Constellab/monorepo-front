@@ -4,17 +4,18 @@
 
 <mat-dialog-content>
   <fl-async-section [arrayObs]="users$" class="g-full-height">
-
     <ng-container *flSectionBodyDatasource="users$ as users">
-
-
       @for (user of users; track user.id) {
         <div class="g-layout-row g-layout-between-center">
           <fl-user-inline [user]="user"></fl-user-inline>
 
           @if (canEdit) {
-            <button mat-icon-button type="button" (click)="openUnshareDialog(user)"
-                    [matTooltip]="'unshare' | translate" color="warn">
+            <button
+              mat-icon-button
+              type="button"
+              (click)="openUnshareDialog(user)"
+              [matTooltip]="'unshare' | translate"
+              color="warn">
               <mat-icon>clear</mat-icon>
             </button>
           }
@@ -22,14 +23,11 @@
       }
 
       @if (canEdit) {
-        <button mat-stroked-button type="button" (click)="openShareDialog()"
-                class="share-button">
+        <button mat-stroked-button type="button" (click)="openShareDialog()" class="share-button">
           <mat-icon>person_add</mat-icon>
           <span>{{ 'share' | translate }}</span>
         </button>
       }
-
     </ng-container>
-
   </fl-async-section>
 </mat-dialog-content>

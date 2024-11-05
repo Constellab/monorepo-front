@@ -1,9 +1,8 @@
 <fl-dialog-header>
-  {{ dialogInput.title | flTranslatableText | async}}
+  {{ dialogInput.title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-
   <div class="g-layout-row-wrap g-layout-start-center g-text-not-selectable">
     <div class="parent-folder" (click)="moveToRoot()">{{ 'my_folders' | translate }}</div>
     @for (folder of parentFolders; track folder.id) {
@@ -13,23 +12,32 @@
   </div>
 
   @if (foldersDatasource) {
-    <fl-infinite-table-container [datasource]="foldersDatasource" [textNoMoreResult]="null" class="table"
-                                 textNoResult="folder_empty" textNoMoreResult="">
-      <ca-hierarchy-object-table [datasource]="foldersDatasource" [rowSelectable]="true" [columns]="columns"
-                       [selectedObject]="selectedFolder"
-                       (rowEvent)="onFolderEvent($event)"
-                       class="g-text-not-selectable">
-
+    <fl-infinite-table-container
+      [datasource]="foldersDatasource"
+      [textNoMoreResult]="null"
+      class="table"
+      textNoResult="folder_empty"
+      textNoMoreResult="">
+      <ca-hierarchy-object-table
+        [datasource]="foldersDatasource"
+        [rowSelectable]="true"
+        [columns]="columns"
+        [selectedObject]="selectedFolder"
+        (rowEvent)="onFolderEvent($event)"
+        class="g-text-not-selectable">
         <!--   Custom column only showed when sub folder can be selected. Button to open folder   -->
         <ng-template let-folder>
           @if (!isRootMode()) {
-            <button mat-icon-button (click)="openFolder(folder)"
-                    type="button" [matTooltip]="'open_folder_tooltip' | translate" matTooltipClass="g-tooltip-multiline">
+            <button
+              mat-icon-button
+              (click)="openFolder(folder)"
+              type="button"
+              [matTooltip]="'open_folder_tooltip' | translate"
+              matTooltipClass="g-tooltip-multiline">
               <mat-icon>chevron_right</mat-icon>
             </button>
           }
         </ng-template>
-
       </ca-hierarchy-object-table>
     </fl-infinite-table-container>
   }

@@ -1,14 +1,14 @@
-import {HaEntity} from './ha-entity.class';
-import {ClVersion} from '@monorepo/core-lib';
+import { HaEntity } from './ha-entity.class';
+import { ClVersion } from '@monorepo/core-lib';
 
 export enum HaRepoType {
   PIP = 'PIP',
-  GIT = 'GIT'
+  GIT = 'GIT',
 }
 
 export enum HaVersionType {
   NORMAL = 'NORMAL',
-  BETA = 'BETA'
+  BETA = 'BETA',
 }
 
 export class HaVersion extends HaEntity {
@@ -31,7 +31,6 @@ export class HaNewVersionDTO {
   references?: HaReferenceDTO[];
 }
 
-
 export class HaAddVersionInput {
   isNew: boolean;
   name: string;
@@ -41,7 +40,13 @@ export class HaAddVersionInput {
   isBeta: boolean;
   subPatch: number;
 
-  constructor(isNew: boolean, name: string, version: string, environment: HaEnvironmentDTO, technicalInfo: Record<string, any>) {
+  constructor(
+    isNew: boolean,
+    name: string,
+    version: string,
+    environment: HaEnvironmentDTO,
+    technicalInfo: Record<string, any>
+  ) {
     this.isNew = isNew;
     this.name = name;
     this.version = version;
@@ -53,20 +58,20 @@ export class HaAddVersionInput {
     this.brickVersionReferences = [];
     if (environment.bricks) {
       for (const b of environment.bricks) {
-        this.brickVersionReferences.push({name: b.name, version: b.version});
+        this.brickVersionReferences.push({ name: b.name, version: b.version });
       }
     }
     for (const d of environment.pip) {
       for (const p of d.packages) {
         if (p.is_brick) {
-          this.brickVersionReferences.push({name: p.name, version: p.version});
+          this.brickVersionReferences.push({ name: p.name, version: p.version });
         }
       }
     }
     for (const d of environment.git) {
       for (const p of d.packages) {
         if (p.is_brick) {
-          this.brickVersionReferences.push({name: p.name, version: p.version});
+          this.brickVersionReferences.push({ name: p.name, version: p.version });
         }
       }
     }
@@ -88,7 +93,7 @@ export interface HaNewVersionFile {
 
 export enum HaBrickVersionReferenceState {
   DIRECT = 'DIRECT',
-  INDIRECT = 'INDIRECT'
+  INDIRECT = 'INDIRECT',
 }
 
 export interface HaImportReferenceDTO {

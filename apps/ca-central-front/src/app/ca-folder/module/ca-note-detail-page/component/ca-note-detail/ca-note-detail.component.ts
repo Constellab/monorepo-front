@@ -7,11 +7,13 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlEntityArrayObs, FlOverlayRef, FlPortalService
+  FlEntityArrayObs,
+  FlOverlayRef,
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import {
   CaScenariosListDialogInput,
-  CaScenarioTableDialogComponent
+  CaScenarioTableDialogComponent,
 } from '../../../ca-scenario-core/component/ca-scenario-table-dialog/ca-scenario-table-dialog.component';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
@@ -53,9 +55,7 @@ export class CaNoteDetailComponent implements OnInit {
   }
 
   openScenariosListDialog(): void {
-    this.scenarios = new FlEntityArrayObs(
-      this.scenarioService.getScenariosByNote(this.note.id)
-    );
+    this.scenarios = new FlEntityArrayObs(this.scenarioService.getScenariosByNote(this.note.id));
 
     const input: CaScenariosListDialogInput = {
       scenarios: this.scenarios,
@@ -96,7 +96,10 @@ export class CaNoteDetailComponent implements OnInit {
       successMessage: 'note_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((result) => this.onNoteDeleted(result));
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onNoteDeleted(result));
   }
 
   private async onNoteDeleted(result: FlConfirmDialogResult): Promise<void> {

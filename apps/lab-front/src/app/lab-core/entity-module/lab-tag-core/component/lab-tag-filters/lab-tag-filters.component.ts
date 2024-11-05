@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Optional, Output, Self, ViewChild} from '@angular/core';
-import {LabTagKeyModel} from '../../../../model/entities/lab-tag.entity';
+import { Component, EventEmitter, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
+import { LabTagKeyModel } from '../../../../model/entities/lab-tag.entity';
 import {
   FlAddTagEvent,
   FlAddTagInputComponent,
@@ -7,11 +7,11 @@ import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlTag,
-  FlTagDatasource
+  FlTagDatasource,
 } from '@monorepo/front-core-lib';
-import {LabTagService} from '../../../../entity-service/lab-tag.service';
-import {NgControl} from '@angular/forms';
-import {LabRouterService} from '../../../../service/lab-router.service';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
+import { NgControl } from '@angular/forms';
+import { LabRouterService } from '../../../../service/lab-router.service';
 
 /**
  * Component to select tag to filter the list of entity
@@ -23,7 +23,6 @@ import {LabRouterService} from '../../../../service/lab-router.service';
   styleUrls: ['./lab-tag-filters.component.scss'],
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
-
   @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();
 
   @ViewChild(FlAddTagInputComponent) addTagInputComponent: FlAddTagInputComponent;
@@ -34,15 +33,18 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
 
   tagMonitoringRoute = LabRouterService.getMonitoringTagsRoute();
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private tagService: LabTagService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private tagService: LabTagService
+  ) {
     super(ngControl);
   }
 
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchKeys(null, page, size),
-      40, true
+      40,
+      true
     );
   }
 
@@ -52,7 +54,7 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
   }
 
   addTag(tag: FlAddTagEvent): void {
-    this.selectedTags.addItem({key: tag.key, value: tag.value});
+    this.selectedTags.addItem({ key: tag.key, value: tag.value });
     this.setAndEmitValue(this.selectedTags.array);
   }
 
@@ -65,12 +67,9 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
     this.selectionChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: FlTag[]): void {
     this.selectedTags.array = obj ?? [];
   }
-
-
 }

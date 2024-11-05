@@ -1,14 +1,14 @@
 <fl-section [isLoading]="isLoading" [object]="value" class="container">
-
   <ng-container *flSectionBody>
-
-    <mat-tree [dataSource]="dataSource" [treeControl]="value"
-              *ngIf="dataSource && value">
+    <mat-tree [dataSource]="dataSource" [treeControl]="value" *ngIf="dataSource && value">
       <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node *matTreeNodeDef="let node"
-                     matTreeNodePadding [matTreeNodePaddingIndent]="20"
-                     class="g-text-small tree-node" (click)="toggleFolderSelection(node)"
-                     [ngClass]="{'selected' : node.selected}">
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodePadding
+        [matTreeNodePaddingIndent]="20"
+        class="g-text-small tree-node"
+        (click)="toggleFolderSelection(node)"
+        [ngClass]="{ selected: node.selected }">
         <div class="node-content leaf g-layout-row g-layout-start-center">
           <div class="circle-color" [style.background-color]="node.folder.id | flStringToRgb"></div>
 
@@ -18,11 +18,14 @@
         </div>
       </mat-tree-node>
       <!-- This is the tree node template for expandable nodes -->
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
-                     matTreeNodePadding [matTreeNodePaddingIndent]="20"
-                     class="g-text-small tree-node"
-                     (flDoubleClick)="toggleExpandFolder(node)" (flClick)="toggleFolderSelection(node)"
-                     [ngClass]="{'selected' : node.selected}">
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        [matTreeNodePaddingIndent]="20"
+        class="g-text-small tree-node"
+        (flDoubleClick)="toggleExpandFolder(node)"
+        (flClick)="toggleFolderSelection(node)"
+        [ngClass]="{ selected: node.selected }">
         <div class="node-content g-layout-row g-layout-start-center">
           <mat-icon class="expand-icon" (click)="toggleExpandFolderButton(node, $event)">
             {{ value.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
@@ -40,8 +43,9 @@
     <div *ngIf="isEmpty">
       {{ 'biox.no_folder_help' | translate }}
       <strong>
-        <a [href]="labDashboardRoute" target="_blank"
-           class="g-text-link">{{ 'biox.no_folder_help_link' | translate }}</a>
+        <a [href]="labDashboardRoute" target="_blank" class="g-text-link">{{
+          'biox.no_folder_help_link' | translate
+        }}</a>
       </strong>
     </div>
   </ng-container>

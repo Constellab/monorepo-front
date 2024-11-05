@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity';
+import { Component, Input } from '@angular/core';
+import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 
 /**
  * Component to show the detail of a type (resource, task or protocol)
@@ -10,6 +10,5 @@ import {LabTypeEntity} from '../../../../model/entities/lab-type/lab-type.entity
   styleUrls: ['./lab-type-detail.component.scss'],
 })
 export class LabTypeDetailComponent {
-
   @Input() type: LabTypeEntity;
 }

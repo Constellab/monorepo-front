@@ -8,8 +8,14 @@ import { LabScenarioTemplate } from './process/lab-scenario-template.entity';
 import { LabFolder } from './lab-folder.class';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
-export type LabEntityType = 'SCENARIO' | 'RESOURCE' | 'VIEW' | 'NOTE'
-  | 'SCENARIO_TEMPLATE' | 'NOTE_TEMPLATE' | 'FOLDER';
+export type LabEntityType =
+  | 'SCENARIO'
+  | 'RESOURCE'
+  | 'VIEW'
+  | 'NOTE'
+  | 'SCENARIO_TEMPLATE'
+  | 'NOTE_TEMPLATE'
+  | 'FOLDER';
 
 export const labEntityTypeIcon: Record<LabEntityType, string> = {
   SCENARIO: 'scenario',
@@ -18,7 +24,7 @@ export const labEntityTypeIcon: Record<LabEntityType, string> = {
   NOTE: 'note',
   SCENARIO_TEMPLATE: 'scenario_template',
   NOTE_TEMPLATE: 'note_template',
-  FOLDER: 'folder'
+  FOLDER: 'folder',
 };
 
 export class LabNavigableEntity {
@@ -26,10 +32,10 @@ export class LabNavigableEntity {
   type: LabEntityType;
   name: string;
 
-  @Expose({name: 'parent_name'})
+  @Expose({ name: 'parent_name' })
   parentName?: string;
 
-  @Expose({name: 'parent_type'})
+  @Expose({ name: 'parent_type' })
   parentType?: LabEntityType;
 
   get typeIcon(): string {
@@ -67,7 +73,6 @@ const LabNavigableEntityGroupedFactory: any = (json: TypeHelpOptions) => {
   }
 };
 
-
 export class LabNavigableEntityGrouped<T = any> {
   type: LabEntityType;
 
@@ -79,11 +84,11 @@ export class LabNavigableEntityGrouped<T = any> {
   }
 }
 
-export class LabNavigableEntityImpact{
-  @Expose({name: 'has_entities'})
+export class LabNavigableEntityImpact {
+  @Expose({ name: 'has_entities' })
   hasEntities: boolean;
 
-  @Expose({name: 'impacted_entities'})
+  @Expose({ name: 'impacted_entities' })
   @Type(() => LabNavigableEntityGrouped)
   impactedEntities: LabNavigableEntityGrouped[];
 }

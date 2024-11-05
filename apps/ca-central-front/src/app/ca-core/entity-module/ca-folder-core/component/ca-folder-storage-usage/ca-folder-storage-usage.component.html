@@ -21,8 +21,9 @@
         <mat-icon>cloud</mat-icon>
         {{ 'folder_storage_cloud' | translate }}
       </fl-text-icon>
-      <ca-folder-storage-location-usage [storageLocation]="storageUsage.cloudDetails"
-                                         [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-folder-storage-location-usage>
+      <ca-folder-storage-location-usage
+        [storageLocation]="storageUsage.cloudDetails"
+        [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-folder-storage-location-usage>
     }
 
     @if (storageUsage.dataHubDetails) {
@@ -30,9 +31,9 @@
         <mat-icon flIcon="lab"></mat-icon>
         {{ 'folder_storage_datahub' | translate }}
       </fl-text-icon>
-      <ca-folder-storage-location-usage [storageLocation]="storageUsage.dataHubDetails"
-                                         [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-folder-storage-location-usage>
+      <ca-folder-storage-location-usage
+        [storageLocation]="storageUsage.dataHubDetails"
+        [showTotalInfo]="storageUsage.hasMultipleStorageLocations()"></ca-folder-storage-location-usage>
     }
   </ng-container>
 </fl-async-section>
-

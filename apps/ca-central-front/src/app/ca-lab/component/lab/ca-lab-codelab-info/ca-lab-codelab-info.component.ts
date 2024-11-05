@@ -12,21 +12,21 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 @Component({
   selector: 'ca-lab-codelab-info',
   templateUrl: './ca-lab-codelab-info.component.html',
-  styleUrls: ['./ca-lab-codelab-info.component.scss']
+  styleUrls: ['./ca-lab-codelab-info.component.scss'],
 })
 export class CaLabCodelabInfoComponent implements OnInit {
-
   codelabInfo$: Observable<CaLabCodelabDTO>;
 
   communityHelpUrl: string;
 
   showCodeLabToken = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private labId: string,
-              private labService: CaLabService,
-              private clipboardService: FlClipboardService,
-              private communityHelper: CoCommunityHelperService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private labId: string,
+    private labService: CaLabService,
+    private clipboardService: FlClipboardService,
+    private communityHelper: CoCommunityHelperService
+  ) {}
 
   ngOnInit(): void {
     this.communityHelpUrl = this.communityHelper.getDevEnvironmentUrl();
@@ -34,8 +34,7 @@ export class CaLabCodelabInfoComponent implements OnInit {
   }
 
   copyToTokenToClipboard(codelabInfo: CaLabCodelabDTO): void {
-    this.clipboardService.copy(codelabInfo.token,
-      {text: 'codelab_token_copied', translateText: true});
+    this.clipboardService.copy(codelabInfo.token, { text: 'codelab_token_copied', translateText: true });
   }
 
   toggleShowCodeLabToken(): void {

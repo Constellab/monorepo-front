@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {ChChartConfig} from '@monorepo/chart';
-import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
-import {rvBasicPlotToChart} from '../../model/rv-basic-plot-2d.class';
-import {rvBoxPlotToChart} from '../../model/rv-box-plot.class';
-import {rvHeatMapToChart} from '../../model/rv-heat-map.class';
-import {rvHistogramToChart} from '../../model/rv-histogram.class';
-import {rvVennDiagramToChart} from '../../model/rv-venn-diagram.class';
-import {RvViewChartType} from '../../model/rv-resource-view.class';
-import {rvVulcanoPlotToChart} from '../../model/rv-vulcano-plot.class';
+import { Component, OnInit } from '@angular/core';
+import { ChChartConfig } from '@monorepo/chart';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+import { rvBasicPlotToChart } from '../../model/rv-basic-plot-2d.class';
+import { rvBoxPlotToChart } from '../../model/rv-box-plot.class';
+import { rvHeatMapToChart } from '../../model/rv-heat-map.class';
+import { rvHistogramToChart } from '../../model/rv-histogram.class';
+import { rvVennDiagramToChart } from '../../model/rv-venn-diagram.class';
+import { RvViewChartType } from '../../model/rv-resource-view.class';
+import { rvVulcanoPlotToChart } from '../../model/rv-vulcano-plot.class';
 
 /**
  * Resource view component to show 2d charts (Line plot, Scatter plot, heatmap, venn diagram...)
@@ -15,13 +15,10 @@ import {rvVulcanoPlotToChart} from '../../model/rv-vulcano-plot.class';
 @Component({
   selector: 'rv-view-chart-2d',
   templateUrl: './rv-view-chart2d.component.html',
-  styleUrls: ['./rv-view-chart2d.component.scss']
+  styleUrls: ['./rv-view-chart2d.component.scss'],
 })
-export class RvViewChart2dComponent
-  extends RvResourceViewDirective<RvViewChartType> implements OnInit {
-
+export class RvViewChart2dComponent extends RvResourceViewDirective<RvViewChartType> implements OnInit {
   chart: ChChartConfig;
-
 
   ngOnInit(): void {
     this.convertToChartData();
@@ -54,5 +51,4 @@ export class RvViewChart2dComponent
         console.error(`[BioxResourceChart2dComponent] view type ${(this.view as any).type} not supported`);
     }
   }
-
 }

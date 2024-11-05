@@ -10,11 +10,10 @@ import { ClHelpService } from '@monorepo/core-lib';
   selector: 'fl-tag',
   templateUrl: './fl-tag.component.html',
   styleUrls: ['./fl-tag.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlTagComponent {
-
-  @Input({required: true}) flTag: FlTag;
+  @Input({ required: true }) flTag: FlTag;
 
   @Input() tagColorer?: FlTagColorer;
 
@@ -28,5 +27,4 @@ export class FlTagComponent {
 
     this.deleteTag.next(this.flTag);
   }
-
 }

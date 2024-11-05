@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlUser } from '@monorepo/front-core-lib';
 import {
   TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryModificationGroup
+  TeTextEditorHistoryModificationGroup,
 } from '../../model/te-text-editor-history-modification.class';
 import { DateTime } from 'luxon';
 
@@ -14,11 +14,10 @@ export interface TeTextEditorHistoryClickEventData {
 @Component({
   selector: 'te-text-editor-history-modification-group',
   templateUrl: './te-text-editor-history-modification-group.component.html',
-  styleUrl: './te-text-editor-history-modification-group.component.scss'
+  styleUrl: './te-text-editor-history-modification-group.component.scss',
 })
 export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
-
-  @Input({required: true}) group: TeTextEditorHistoryModificationGroup;
+  @Input({ required: true }) group: TeTextEditorHistoryModificationGroup;
 
   @Output() openVisualizerWithData = new EventEmitter<TeTextEditorHistoryClickEventData>();
 
@@ -28,7 +27,7 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
 
   ngOnInit(): void {
     for (const modification of this.group.modifications) {
-      if (!this.users.find(user => user.id === modification.userId)) {
+      if (!this.users.find((user) => user.id === modification.userId)) {
         this.users.push(modification.user);
       }
     }
@@ -43,8 +42,8 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
   openGroupModificationVisualizer(): void {
     const eventData: TeTextEditorHistoryClickEventData = {
       group: this.group,
-      users: this.users
-    }
+      users: this.users,
+    };
     this.openVisualizerWithData.emit(eventData);
   }
 
@@ -53,8 +52,8 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
     group.modifications = [modification];
     const eventData: TeTextEditorHistoryClickEventData = {
       group: group,
-      users: [modification.user]
-    }
+      users: [modification.user],
+    };
     this.openVisualizerWithData.emit(eventData);
   }
 }

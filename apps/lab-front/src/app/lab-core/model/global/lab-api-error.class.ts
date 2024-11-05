@@ -1,4 +1,4 @@
-import {ClApiError} from '@monorepo/core-lib';
+import { ClApiError } from '@monorepo/core-lib';
 
 /**
  * Error returned by the lab api

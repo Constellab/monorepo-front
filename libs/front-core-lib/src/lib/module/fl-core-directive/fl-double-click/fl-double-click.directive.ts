@@ -5,10 +5,9 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
  * The single click event is emitted after a debounce time
  */
 @Directive({
-  selector: '[flDoubleClick]'
+  selector: '[flDoubleClick]',
 })
 export class FlDoubleClickDirective {
-
   @Output() flDoubleClick = new EventEmitter<MouseEvent>();
   @Output() flClick = new EventEmitter<MouseEvent>();
 
@@ -29,5 +28,4 @@ export class FlDoubleClickDirective {
       this.click = 0;
     }, this.debounceTime);
   }
-
 }

@@ -7,22 +7,20 @@ import {
   FlPortalActionsService,
   FlStatusEvent,
   flStatutEventSuccess,
-  FlTranslatableText
+  FlTranslatableText,
 } from '@monorepo/front-core-lib';
 import { BehaviorSubject, distinct, mergeMap, Observable, of, share, Subscription } from 'rxjs';
 import {
   CaLabComposeUpOptions,
   CaLabManagerRecommendedVersion,
-  CaLabManagerStatus
+  CaLabManagerStatus,
 } from '../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { map } from 'rxjs/operators';
 import {
   CaLabDockerUpFormComponent,
-  CaLabDockerUpFormInput
+  CaLabDockerUpFormInput,
 } from '../component/manager/ca-lab-docker-up-form/ca-lab-docker-up-form.component';
-import {
-  CaLabPullBiotaFormDialogComponent
-} from '../component/manager/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
+import { CaLabPullBiotaFormDialogComponent } from '../component/manager/ca-lab-pull-biota-form-dialog/ca-lab-pull-biota-form-dialog.component';
 
 interface CaAdditionalData {
   refreshLabStatus?: boolean;
@@ -33,9 +31,9 @@ interface CaAdditionalData {
  */
 @Injectable()
 export class CaLabDetailManagerState implements OnDestroy {
-
-  private status$: BehaviorSubject<FlStatusEvent<CaLabManagerStatus>>
-    = new BehaviorSubject({status: 'waiting'});
+  private status$: BehaviorSubject<FlStatusEvent<CaLabManagerStatus>> = new BehaviorSubject({
+    status: 'waiting',
+  });
 
   private labManagerRecommendedVersion$: Observable<string>;
 
@@ -54,31 +52,33 @@ export class CaLabDetailManagerState implements OnDestroy {
   // set it to the max count to start auto-refresh, so it will not auto-refresh on the first status
   private autoNotRunningStatusCount = this.autoNotRunningStatusMaxCount;
 
-
-  constructor(private state: CaLabDetailPageState,
-              private labService: CaLabService,
-              private dialogService: FlDialogService,
-              private actionService: FlPortalActionsService) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private labService: CaLabService,
+    private dialogService: FlDialogService,
+    private actionService: FlPortalActionsService
+  ) {}
 
   public init(): void {
     if (!this.initialized) {
       this.initialized = true;
 
-
-      this.state.getStatus$().pipe(
-        // refresh the status when the lab manager is running has changed
-        map(status => status.labManagerIsRunning),
-        distinct(),
-      ).subscribe({
-        next: () => this.refreshStatus(),
-        error: (error) => this.status$.next({status: 'error', error})
-      });
+      this.state
+        .getStatus$()
+        .pipe(
+          // refresh the status when the lab manager is running has changed
+          map((status) => status.labManagerIsRunning),
+          distinct()
+        )
+        .subscribe({
+          next: () => this.refreshStatus(),
+          error: (error) => this.status$.next({ status: 'error', error }),
+        });
 
       // refresh the values on new action result
-      this.actionSubscription = this.actionService.getResult$(this.actionType).subscribe(
-        result => this.onActionResult(result)
-      );
+      this.actionSubscription = this.actionService
+        .getResult$(this.actionType)
+        .subscribe((result) => this.onActionResult(result));
     }
   }
 
@@ -97,17 +97,17 @@ export class CaLabDetailManagerState implements OnDestroy {
       this.autoRefreshTimeout = null;
     }
 
-    this.status$.next({status: 'loading'});
+    this.status$.next({ status: 'loading' });
     this.labService.getLabManagerStatus(this.state.getLabId()).subscribe({
       next: (status: CaLabManagerStatus) => this.refreshStatusSuccess(status),
-      error: (error) => this.status$.next({status: 'error', error})
+      error: (error) => this.status$.next({ status: 'error', error }),
     });
   }
 
   private refreshStatusSuccess(status: CaLabManagerStatus): void {
     this.status$.next({
       status: 'success',
-      object: status
+      object: status,
     });
 
     if (status.currentTask?.status.value === 'RUNNING') {
@@ -128,11 +128,8 @@ export class CaLabDetailManagerState implements OnDestroy {
     return this.status$.asObservable();
   }
 
-
   public getStatus$(): Observable<CaLabManagerStatus> {
-    return this.status$.asObservable().pipe(
-      flStatutEventSuccess(),
-    );
+    return this.status$.asObservable().pipe(flStatutEventSuccess());
   }
 
   /**
@@ -143,9 +140,7 @@ export class CaLabDetailManagerState implements OnDestroy {
       map((status: CaLabManagerStatus) => status.adminerIsRunning),
       mergeMap((adminerIsRunning: boolean) => {
         if (!adminerIsRunning) return of(null);
-        return this.state.getLab$().pipe(
-          map(lab => lab.adminerUrl)
-        );
+        return this.state.getLab$().pipe(map((lab) => lab.adminerUrl));
       })
     );
   }
@@ -166,122 +161,118 @@ export class CaLabDetailManagerState implements OnDestroy {
       action: this.labService.initAll(this.state.getLabId()),
       text: actionText,
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
 
   configureLabManager(): void {
     this.actionService.addAction({
       action: this.labService.configureLabManager(this.state.getLabId()),
-      text: {text: 'configure_lab_manager', translateText: true},
+      text: { text: 'configure_lab_manager', translateText: true },
       type: this.actionType,
     });
   }
 
   upContainers(): void {
-    this.openLabUpForm({mode: 'start'}).subscribe(
-      formValue => {
-        if (formValue) {
-          this.actionService.addAction({
-            action: this.labService.upContainers(this.state.getLabId(), formValue),
-            text: {text: 'up_containers', translateText: true},
-            type: this.actionType,
-            additionalInformation: {refreshLabStatus: true} as CaAdditionalData
-          });
-        }
+    this.openLabUpForm({ mode: 'start' }).subscribe((formValue) => {
+      if (formValue) {
+        this.actionService.addAction({
+          action: this.labService.upContainers(this.state.getLabId(), formValue),
+          text: { text: 'up_containers', translateText: true },
+          type: this.actionType,
+          additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
+        });
       }
-    );
+    });
   }
 
   restartContainers(): void {
-    this.openLabUpForm({mode: 'restart'}).subscribe(
-      formValue => {
-        if (formValue) {
-          this.actionService.addAction({
-            action: this.labService.restartContainers(this.state.getLabId(), formValue),
-            text: {text: 'restart_containers', translateText: true},
-            type: this.actionType,
-            additionalInformation: {refreshLabStatus: true} as CaAdditionalData
-          });
-        }
+    this.openLabUpForm({ mode: 'restart' }).subscribe((formValue) => {
+      if (formValue) {
+        this.actionService.addAction({
+          action: this.labService.restartContainers(this.state.getLabId(), formValue),
+          text: { text: 'restart_containers', translateText: true },
+          type: this.actionType,
+          additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
+        });
       }
-    );
+    });
   }
 
   private openLabUpForm(mode: CaLabDockerUpFormInput): Observable<CaLabComposeUpOptions> {
-    return this.dialogService.openSmallDialog(CaLabDockerUpFormComponent, {data: mode}).afterClosed();
+    return this.dialogService.openSmallDialog(CaLabDockerUpFormComponent, { data: mode }).afterClosed();
   }
 
   stopContainers(): void {
     this.actionService.addAction({
       action: this.labService.stopContainers(this.state.getLabId()),
-      text: {text: 'stop_containers', translateText: true},
+      text: { text: 'stop_containers', translateText: true },
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
-
 
   deleteContainers(): void {
     this.actionService.addAction({
       action: this.labService.deleteContainers(this.state.getLabId()),
-      text: {text: 'delete_containers', translateText: true},
+      text: { text: 'delete_containers', translateText: true },
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
 
   pullContainers(): void {
     this.actionService.addAction({
       action: this.labService.pullContainers(this.state.getLabId()),
-      text: {text: 'pull_containers', translateText: true},
-      type: this.actionType
+      text: { text: 'pull_containers', translateText: true },
+      type: this.actionType,
     });
   }
 
   pullBiotaDb(): void {
-    this.dialogService.openSmallDialog(CaLabPullBiotaFormDialogComponent).afterClosed().subscribe(
-      result => {
+    this.dialogService
+      .openSmallDialog(CaLabPullBiotaFormDialogComponent)
+      .afterClosed()
+      .subscribe((result) => {
         if (result) {
           this.actionService.addAction({
             action: this.labService.pullBiotaDb(this.state.getLabId(), result),
             text: { text: 'pull_biota', translateText: true },
-            type: this.actionType
+            type: this.actionType,
           });
         }
-      }
-    );
+      });
   }
 
   stopCurrentTask(): void {
     this.actionService.addAction({
       action: this.labService.stopCurrentTask(this.state.getLabId()),
-      text: {text: 'stop_current_task', translateText: true},
-      type: this.actionType
+      text: { text: 'stop_current_task', translateText: true },
+      type: this.actionType,
     });
   }
 
   systemPrune(): void {
     this.actionService.addAction({
       action: this.labService.systemPrune(this.state.getLabId()),
-      text: {text: 'system_prune', translateText: true},
-      type: this.actionType
+      text: { text: 'system_prune', translateText: true },
+      type: this.actionType,
     });
   }
 
   startAdminer(): void {
     this.actionService.addAction({
       action: this.labService.startAdminer(this.state.getLabId()),
-      text: {text: 'start_adminer', translateText: true},
-      type: this.actionType
+      text: { text: 'start_adminer', translateText: true },
+      type: this.actionType,
     });
   }
 
   stopAdminer(): void {
     this.actionService.addAction({
       action: this.labService.stopAdminer(this.state.getLabId()),
-      text: {text: 'stop_adminer', translateText: true},
-      type: this.actionType
+      text: { text: 'stop_adminer', translateText: true },
+      type: this.actionType,
     });
   }
 
@@ -290,35 +281,34 @@ export class CaLabDetailManagerState implements OnDestroy {
   startComposeContainer(serviceName: string): void {
     this.actionService.addAction({
       action: this.labService.startComposeContainer(this.state.getLabId(), serviceName),
-      text: {text: 'lab_container_start', translateText: true},
+      text: { text: 'lab_container_start', translateText: true },
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
 
   stopContainer(containerName: string): void {
     this.actionService.addAction({
       action: this.labService.stopContainer(this.state.getLabId(), containerName),
-      text: {text: 'lab_container_stop', translateText: true},
+      text: { text: 'lab_container_stop', translateText: true },
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
-
 
   deleteContainer(containerName: string): void {
     this.actionService.addAction({
       action: this.labService.deleteContainer(this.state.getLabId(), containerName),
-      text: {text: 'lab_container_delete', translateText: true},
+      text: { text: 'lab_container_delete', translateText: true },
       type: this.actionType,
-      additionalInformation: {refreshLabStatus: true} as CaAdditionalData
+      additionalInformation: { refreshLabStatus: true } as CaAdditionalData,
     });
   }
 
   downloadLogs(containerName: string): void {
     this.actionService.addAction({
       action: this.labService.downloadLogs(this.state.getLabId(), containerName),
-      text: {text: 'lab_container_download_logs', translateText: true},
+      text: { text: 'lab_container_download_logs', translateText: true },
       type: this.actionType,
     });
   }
@@ -326,6 +316,4 @@ export class CaLabDetailManagerState implements OnDestroy {
   ngOnDestroy(): void {
     this.actionSubscription?.unsubscribe();
   }
-
-
 }

@@ -1,16 +1,13 @@
 <form [formGroup]="formGp" (ngSubmit)="submit()">
-
-  <fl-form-inputs-manager [config]="formInputConfig"
-                          [skipFalseBoolean]="skipFalseBoolean"></fl-form-inputs-manager>
+  <fl-form-inputs-manager
+    [config]="formInputConfig"
+    [skipFalseBoolean]="skipFalseBoolean"></fl-form-inputs-manager>
 
   <div class="form g-layout-col">
     <ng-content></ng-content>
   </div>
 
-
-  <button mat-flat-button color="primary" type="submit" [disabled]="formGp.invalid"
-          class="g-centered-forced">
-    {{'search' | translate}}
+  <button mat-flat-button color="primary" type="submit" [disabled]="formGp.invalid" class="g-centered-forced">
+    {{ 'search' | translate }}
   </button>
-
 </form>

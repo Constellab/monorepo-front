@@ -39,16 +39,13 @@ export class HaPublicTechDocComponent implements OnInit {
   }
 
   private onTechDoc(techDoc: TdTypeEntity): void {
-    this.metadataService.setPageTitle(
-      'ha.techdocumentation.brick.title',
-      true,
-      { brickTitle: this.brick().name, docTitle: techDoc.humanName }
-    );
-    this.metadataService.addMetaTag(
-      'description',
-      'ha.techdocumentation.brick.description',
-      true,
-      { brickTitle: this.brick().name, docTitle: techDoc.humanName }
-    );
+    this.metadataService.setPageTitle('ha.techdocumentation.brick.title', true, {
+      brickTitle: this.brick().name,
+      docTitle: techDoc.humanName,
+    });
+    this.metadataService.addMetaTag('description', 'ha.techdocumentation.brick.description', true, {
+      brickTitle: this.brick().name,
+      docTitle: techDoc.humanName,
+    });
   }
 }

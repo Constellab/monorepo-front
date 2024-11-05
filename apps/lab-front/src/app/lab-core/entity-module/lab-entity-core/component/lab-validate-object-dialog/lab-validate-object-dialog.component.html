@@ -1,27 +1,24 @@
 <fl-dialog-header>
-  {{title | translate}}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="validation-form">
-
-    <p *ngIf="helpText" class="g-text-light help-text">{{helpText| translate}}</p>
+    <p *ngIf="helpText" class="g-text-light help-text">{{ helpText | translate }}</p>
 
     <!--    Folder      -->
     <fl-form-field>
       <lab-folder-select [formControl]="formControl" [multiple]="false"></lab-folder-select>
       <mat-error *ngIf="formControl.hasError('required')">
-        {{'biox.folder' | flErrorRequired}}
+        {{ 'biox.folder' | flErrorRequired }}
       </mat-error>
     </fl-form-field>
-
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="validation-form"
-          class="g-centered-forced">
-    {{title | translate}}
+  <button mat-flat-button color="primary" type="submit" form="validation-form" class="g-centered-forced">
+    {{ title | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

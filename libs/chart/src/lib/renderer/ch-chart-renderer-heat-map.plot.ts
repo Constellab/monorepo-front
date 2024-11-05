@@ -1,16 +1,15 @@
-import {ChChart2AxisRenderer} from './ch-chart-renderer.class';
-import {ChChartScaleBand} from '../model/scale/ch-chart-scale.class';
-import {ChChart3dDatum} from '../model/data/ch-chart-data.class';
-import {ChChartPortalHandler} from '../model/portal-handler/ch-chart-portal-handler.class';
+import { ChChart2AxisRenderer } from './ch-chart-renderer.class';
+import { ChChartScaleBand } from '../model/scale/ch-chart-scale.class';
+import { ChChart3dDatum } from '../model/data/ch-chart-data.class';
+import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
 import {
   ChChartHeatMapDataPortalComponent,
-  ChChartHeatMapDataPortalInput
+  ChChartHeatMapDataPortalInput,
 } from '../component/ch-chart-data-portal/ch-chart-heat-map-data-portal/ch-chart-heat-map-data-portal.component';
-import {ChChartScaleColor} from '../model/scale/ch-chart-scale-color.class';
-import {ChChartHeatMapDataContainer} from '../model/chart/ch-chart-heat-map.class';
+import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
+import { ChChartHeatMapDataContainer } from '../model/chart/ch-chart-heat-map.class';
 
 export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapDataContainer> {
-
   private portalHandler: ChChartPortalHandler = new ChChartPortalHandler();
 
   constructor(private colorScale: ChChartScaleColor) {
@@ -22,18 +21,19 @@ export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapD
     const xScale: ChChartScaleBand = this.data.xAxis.scale as ChChartScaleBand;
     const yScale: ChChartScaleBand = this.data.yAxis.scale as ChChartScaleBand;
 
-    this.data.container.selectAll()
+    this.data.container
+      .selectAll()
       .data(data)
       .enter()
       .append('rect')
       .on('mouseover', (event, d) => this.onMouseHover(event, d))
       .on('mouseout', () => this.onMouseOut())
       .on('click', (event, d) => this.onMouseClick(event, d))
-      .attr('x', ((d: ChChart3dDatum) => xScale.scale(d.getX())))
-      .attr('y', d => yScale.scale(d.getY()))
+      .attr('x', (d: ChChart3dDatum) => xScale.scale(d.getX()))
+      .attr('y', (d) => yScale.scale(d.getY()))
       .attr('width', xScale.bandwidth())
       .attr('height', yScale.bandwidth())
-      .style('fill', (d) => d.getZ() ? this.colorScale.scale(d.getZ().valueOf()) : null);
+      .style('fill', (d) => (d.getZ() ? this.colorScale.scale(d.getZ().valueOf()) : null));
   }
 
   refreshRender(): void {
@@ -52,7 +52,7 @@ export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapD
     const data: ChChartHeatMapDataPortalInput = {
       data: d,
       xLabelFormatter: this.data.xAxis.getTickFormatter(),
-      yLabelFormatter: this.data.yAxis.getTickFormatter()
+      yLabelFormatter: this.data.yAxis.getTickFormatter(),
     };
     this.portalHandler.openPortal(event.target as any, ChChartHeatMapDataPortalComponent, data, fixPortal);
   }
@@ -60,5 +60,4 @@ export class ChChartRendererHeatMap extends ChChart2AxisRenderer<ChChartHeatMapD
   private onMouseOut(): void {
     this.portalHandler.closePortal();
   }
-
 }

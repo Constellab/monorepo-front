@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartTypeSelectOptionsComponent} from './ch-chart-type-select-options.component';
+import { ChChartTypeSelectOptionsComponent } from './ch-chart-type-select-options.component';
 
 describe('ChChartComponentSelectOptionsComponent', () => {
   let component: ChChartTypeSelectOptionsComponent;
@@ -8,9 +8,8 @@ describe('ChChartComponentSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartTypeSelectOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartTypeSelectOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

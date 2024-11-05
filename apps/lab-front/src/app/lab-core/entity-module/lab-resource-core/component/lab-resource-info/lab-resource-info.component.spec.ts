@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceInfoComponent} from './lab-resource-info.component';
+import { LabResourceInfoComponent } from './lab-resource-info.component';
 
 describe('LabResourceInfoComponent', () => {
   let component: LabResourceInfoComponent;
@@ -8,9 +8,8 @@ describe('LabResourceInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabResourceInfoComponent);
     component = fixture.componentInstance;

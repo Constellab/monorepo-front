@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabManagerStatusComponent} from './ca-lab-manager-status.component';
+import { CaLabManagerStatusComponent } from './ca-lab-manager-status.component';
 
 describe('CaLabManagerStatusComponent', () => {
   let component: CaLabManagerStatusComponent;
@@ -8,9 +8,8 @@ describe('CaLabManagerStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabManagerStatusComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabManagerStatusComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

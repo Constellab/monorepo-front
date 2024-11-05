@@ -15,28 +15,26 @@ import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
 @Component({
   selector: 'lab-main-menu-settings',
   templateUrl: './lab-main-menu-settings.component.html',
-  styleUrls: ['./lab-main-menu-settings.component.scss']
+  styleUrls: ['./lab-main-menu-settings.component.scss'],
 })
 export class LabMainMenuSettingsComponent implements OnInit {
-
   codeServerUrl: string;
 
   monitoringRoute = LabRouterService.getMonitoringRoute();
 
   labConfigRoute: string;
 
-  constructor(private authenticationService: LabAuthService,
-              private router: Router,
-              private dialogService: FlDialogService,
-              private systemService: LabSystemService) {
-  }
+  constructor(
+    private authenticationService: LabAuthService,
+    private router: Router,
+    private dialogService: FlDialogService,
+    private systemService: LabSystemService
+  ) {}
 
   ngOnInit(): void {
     this.codeServerUrl = LabEnvironmentHelper.getCodelabFullUrl();
 
-    this.systemService.getSystemInfo().subscribe(
-      systemInfo => this.getSystemInfoSuccess(systemInfo)
-    );
+    this.systemService.getSystemInfo().subscribe((systemInfo) => this.getSystemInfoSuccess(systemInfo));
   }
 
   private getSystemInfoSuccess(systemInfo: LabSystemInfo): void {
@@ -44,9 +42,7 @@ export class LabMainMenuSettingsComponent implements OnInit {
   }
 
   logout(): void {
-    this.authenticationService.logout().subscribe(
-      () => this.router.navigate([labConstLoginRoute])
-    );
+    this.authenticationService.logout().subscribe(() => this.router.navigate([labConstLoginRoute]));
   }
 
   resetDevEnvironment(): void {
@@ -55,7 +51,7 @@ export class LabMainMenuSettingsComponent implements OnInit {
       content: 'reset_dev_env_confirmation',
       observable: this.systemService.resetDevEnvironment(),
       successMessage: 'dev_env_reset_success',
-      confirmWithText: 'reset-dev-env'
+      confirmWithText: 'reset-dev-env',
     };
 
     this.dialogService.openConfirmDialog(data);

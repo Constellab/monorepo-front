@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeVideoComponent} from './te-video.component';
+import { TeVideoComponent } from './te-video.component';
 
 describe('CaTextEditorVideoComponent', () => {
   let component: TeVideoComponent;
@@ -8,9 +8,8 @@ describe('CaTextEditorVideoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeVideoComponent ]
-    })
-    .compileComponents();
+      declarations: [TeVideoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSelectCredentialsDynamicFieldComponent} from './lab-select-credentials-dynamic-field.component';
+import { LabSelectCredentialsDynamicFieldComponent } from './lab-select-credentials-dynamic-field.component';
 
 describe('LabSelectCredentialsDynamicFieldComponent', () => {
   let component: LabSelectCredentialsDynamicFieldComponent;
@@ -11,9 +11,7 @@ describe('LabSelectCredentialsDynamicFieldComponent', () => {
       declarations: [LabSelectCredentialsDynamicFieldComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(
-      LabSelectCredentialsDynamicFieldComponent
-    );
+    fixture = TestBed.createComponent(LabSelectCredentialsDynamicFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

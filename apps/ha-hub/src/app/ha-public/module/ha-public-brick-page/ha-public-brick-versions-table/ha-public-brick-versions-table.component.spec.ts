@@ -8,9 +8,8 @@ describe('HaPublicBrickVersionsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaPublicBrickVersionsTableComponent ]
-    })
-      .compileComponents();
+      declarations: [HaPublicBrickVersionsTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

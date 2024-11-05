@@ -1,4 +1,12 @@
-import { Component, ComponentRef, inject, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import {
   FlDynamicFieldConfig,
   FlDynamicFormGroupComponent,
@@ -7,14 +15,14 @@ import {
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlFormHelper,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import {
   CaLabGreenOption,
   CaLabGreenOptionFormDto,
   CaLabGreenOptionStopAfterInactivityValue,
   CaLabGreenOptionStopAfterTimeValue,
-  CaLabGreenOptionType
+  CaLabGreenOptionType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -31,15 +39,15 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
 @Component({
   selector: 'ca-lab-green-option-form-dialog',
   templateUrl: './ca-lab-green-option-form-dialog.component.html',
-  styleUrls: ['./ca-lab-green-option-form-dialog.component.scss']
+  styleUrls: ['./ca-lab-green-option-form-dialog.component.scss'],
 })
 export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   dialogInput: CaLabGreenOptionFormDialogInput = inject(MAT_DIALOG_DATA);
 
   greenOptionType: any = CaLabGreenOptionType;
-
 
   @ViewChild('subFormGroup', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
@@ -47,9 +55,10 @@ export class CaLabGreenOptionFormDialogComponent
 
   private viewComponentRef: ComponentRef<FlDynamicFormGroupComponent>;
 
-
-  constructor(private labService: CaLabService,
-              private translateService: FlTranslateService) {
+  constructor(
+    private labService: CaLabService,
+    private translateService: FlTranslateService
+  ) {
     super();
   }
 
@@ -60,7 +69,6 @@ export class CaLabGreenOptionFormDialogComponent
       this.buildSubForm(this.formGp.get('type').value, this.dialogInput.object.value);
     }
   }
-
 
   submit(): void {
     super.submit();
@@ -74,7 +82,7 @@ export class CaLabGreenOptionFormDialogComponent
     return new FormBuilder().group({
       type: [{ value: null, disabled: this.isUpdateMode() }, Validators.required],
       value: [null],
-      isPersistent: [null]
+      isPersistent: [null],
     });
   }
 
@@ -96,7 +104,7 @@ export class CaLabGreenOptionFormDialogComponent
 
     const formConfig: FlDynamicFormGroupConfig = {
       controlType: 'formGroup',
-      subConfigs: this.getSubFormGroupConfig(type)
+      subConfigs: this.getSubFormGroupConfig(type),
     };
     const defaultValue = value ?? this.getDefaultValue(type);
     // create the formGroup using the config
@@ -121,12 +129,12 @@ export class CaLabGreenOptionFormDialogComponent
           hours: null,
           minutes: 0,
           timezone: ClDateHelper.getDate().zoneName,
-          days: null
+          days: null,
         } as CaLabGreenOptionStopAfterTimeValue;
       case CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME:
         return {
           inactivityDuration: null,
-          days: null
+          days: null,
         } as CaLabGreenOptionStopAfterInactivityValue;
       default:
         return {};
@@ -134,7 +142,10 @@ export class CaLabGreenOptionFormDialogComponent
   }
 
   private forcePersistence(type: CaLabGreenOptionType): void {
-    if (type === CaLabGreenOptionType.STOP_AFTER_SCENARIO || type === CaLabGreenOptionType.STOP_AFTER_BACKUP) {
+    if (
+      type === CaLabGreenOptionType.STOP_AFTER_SCENARIO ||
+      type === CaLabGreenOptionType.STOP_AFTER_BACKUP
+    ) {
       this.formGp.get('isPersistent').setValue(false);
       this.formGp.get('isPersistent').disable();
     } else {
@@ -155,7 +166,7 @@ export class CaLabGreenOptionFormDialogComponent
             min: 0,
             max: 23,
             integer: true,
-            required: true
+            required: true,
           },
           minutes: {
             controlType: 'formControl',
@@ -165,15 +176,15 @@ export class CaLabGreenOptionFormDialogComponent
             min: 0,
             max: 60,
             integer: true,
-            required: true
+            required: true,
           },
           timezone: {
             controlType: 'formControl',
             type: 'input',
             placeholder: this.translateService.translate('lab_green_option_timezone'),
             inputType: 'text',
-            disabled: true
-          }
+            disabled: true,
+          },
         };
       case CaLabGreenOptionType.STOP_AFTER_INACTIVITY_TIME:
         return {
@@ -185,8 +196,8 @@ export class CaLabGreenOptionFormDialogComponent
             min: 0,
             max: 1000,
             integer: true,
-            required: true
-          }
+            required: true,
+          },
         };
       default:
         return {};
@@ -206,7 +217,6 @@ export class CaLabGreenOptionFormDialogComponent
     return this.labService.updateGreenOption(this.dialogInput.id, formValue);
   }
 
-
   get title(): string {
     return this.isCreateMode() ? 'lab_create_green_option' : 'lab_update_green_option';
   }
@@ -223,7 +233,4 @@ export class CaLabGreenOptionFormDialogComponent
     this.viewContainer.clear();
     this.viewComponentRef?.destroy();
   }
-
-
 }
-

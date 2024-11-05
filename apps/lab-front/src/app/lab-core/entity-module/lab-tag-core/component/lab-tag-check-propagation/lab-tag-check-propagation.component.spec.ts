@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabTagCheckPropagationComponent} from './lab-tag-check-propagation.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabTagCheckPropagationComponent } from './lab-tag-check-propagation.component';
 
 describe('LabAddTagCheckPropagationComponent', () => {
   let component: LabTagCheckPropagationComponent;

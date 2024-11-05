@@ -3,9 +3,11 @@
 
   @if (isAdmin) {
     <fl-dialog-header-actions>
-      <button mat-icon-button (click)="updateLabVolume()"
-              type="button"
-              [matTooltip]="'update_volume' | translate">
+      <button
+        mat-icon-button
+        (click)="updateLabVolume()"
+        type="button"
+        [matTooltip]="'update_volume' | translate">
         <mat-icon>edit</mat-icon>
       </button>
     </fl-dialog-header-actions>
@@ -14,7 +16,6 @@
 
 <mat-dialog-content>
   <fl-infinite-table-container [datasource]="volumes" textNoMoreResult="">
-    <ca-lab-volume-table [labId]="labId" [datasource]="volumes"
-                         [columns]="columns"></ca-lab-volume-table>
+    <ca-lab-volume-table [labId]="labId" [datasource]="volumes" [columns]="columns"></ca-lab-volume-table>
   </fl-infinite-table-container>
 </mat-dialog-content>

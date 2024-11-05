@@ -8,8 +8,7 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 import { LabRichTextObjectType } from '../../../entity-service/lab-rich-text.service';
 
 // list of available view type
-export type LabResourceViewType = RvResourceViewType | 'view'
-  | 'resources-list-view' | 'folder-view';
+export type LabResourceViewType = RvResourceViewType | 'view' | 'resources-list-view' | 'folder-view';
 
 export class LabResourceViewSpec {
   @Expose({ name: 'method_name' })
@@ -50,7 +49,6 @@ export interface LabResourceViewSpecWithConfig {
   viewConfigValues: PrConfigValues;
 }
 
-
 /**
  * View that list other resources
  */
@@ -60,7 +58,6 @@ export interface LabResourceViewResourcesList extends RvResourceViewBase {
 }
 
 export class LabResourceView {
-
   view: LabResourceViewData;
 
   @Expose({ name: 'resource_id' })
@@ -92,9 +89,17 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
 }
 
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////
-export type LabResourceViewData = RvResourceView | LabResourceViewResourcesList |
-  LabResourceViewFolder | LabResourceViewRichText;
+export type LabResourceViewData =
+  | RvResourceView
+  | LabResourceViewResourcesList
+  | LabResourceViewFolder
+  | LabResourceViewRichText;
 
-export const excludedViewInNote: string[] = ['view', 'folder-view',
-  'resources-list-view', 'empty-view', 'rich-text-view', 'streamlit-view'];
-
+export const excludedViewInNote: string[] = [
+  'view',
+  'folder-view',
+  'resources-list-view',
+  'empty-view',
+  'rich-text-view',
+  'streamlit-view',
+];

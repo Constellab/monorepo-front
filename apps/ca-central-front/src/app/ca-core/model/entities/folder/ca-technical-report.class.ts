@@ -1,4 +1,4 @@
-import {PrProtocolGraph} from '@monorepo/protocol';
+import { PrProtocolGraph } from '@monorepo/protocol';
 
 export class CaTechnicalReport {
   version: number;

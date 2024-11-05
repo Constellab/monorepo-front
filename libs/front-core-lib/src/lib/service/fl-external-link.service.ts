@@ -1,12 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 /**
  * Service to get external link (such as google scholar, wikipedia...)
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FlExternalLinkService {
-
-
   /**
    * Get a search link for google scholar
    * @param search
@@ -28,7 +26,6 @@ export class FlExternalLinkService {
 
     return `https://fr.wikipedia.org/w/index.php?search=${searchParams}`;
   }
-
 
   private static replaceSpacesWithPlus(search: string): string {
     return search.replace(/\s+/g, '+');

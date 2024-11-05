@@ -32,7 +32,6 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
  *   })
  */
 export class FlTranslationLoader implements TranslateLoader {
-
   /**
    * Create the translation loader
    * @param http httpClient to load json files
@@ -40,12 +39,12 @@ export class FlTranslationLoader implements TranslateLoader {
    * @param prefix prefix for all files
    * @param suffix suffix for all file
    */
-  constructor(private http: HttpClient,
-              private filenames: string[] = [''],
-              private prefix: string = 'assets/i18n/',
-              private suffix: string = '.json') {
-
-  }
+  constructor(
+    private http: HttpClient,
+    private filenames: string[] = [''],
+    private prefix: string = 'assets/i18n/',
+    private suffix: string = '.json'
+  ) {}
 
   // load the app translation and add the library translation
   getTranslation(lang: string): Observable<FlTranslateObject> {
@@ -55,16 +54,14 @@ export class FlTranslationLoader implements TranslateLoader {
       obs$.push(this.http.get(`${this.prefix}${file}${lang}${this.suffix}`));
     }
     // wait for all request
-    return zip(...obs$).pipe(
-      map((translations: any[]) => this.getTranslationSuccess(translations))
-    );
+    return zip(...obs$).pipe(map((translations: any[]) => this.getTranslationSuccess(translations)));
   }
 
   // add the translation from the library to the app translation
   private getTranslationSuccess(translations: any[]): FlTranslateObject {
     const translation: FlTranslateObject = {
       [ClSupportedLanguage.en]: {},
-      [ClSupportedLanguage.fr]: {}
+      [ClSupportedLanguage.fr]: {},
     };
 
     // merge all translations

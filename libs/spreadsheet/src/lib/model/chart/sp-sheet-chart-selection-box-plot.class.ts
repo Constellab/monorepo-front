@@ -1,19 +1,22 @@
-import {SpSheetChartSelection} from './sp-sheet-chart-selection.class';
-import {SpSheetChartSerieSelectionForm} from './sp-sheet-chart-selection-form.class';
-import {SpSheet} from '../sp-sheet.class';
-import {SpSheetSelection} from '../selection/sp-sheet-selection.class';
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
+import { SpSheet } from '../sp-sheet.class';
+import { SpSheetSelection } from '../selection/sp-sheet-selection.class';
 import {
   ChChartBoxPlot,
   ChChartBoxPlotSerie,
   ChChartConfig,
   chChartGetBoxPlotData,
-  ChChartMultiSerie
+  ChChartMultiSerie,
 } from '@monorepo/chart';
 
 export class SpSheetChartSelectionBoxPlot extends SpSheetChartSelection {
-
-  constructor(sheet: SpSheet, private series: SpSheetChartSerieSelectionForm[],
-              private xAxisLabel?: string, private yAxisLabel?: string) {
+  constructor(
+    sheet: SpSheet,
+    private series: SpSheetChartSerieSelectionForm[],
+    private xAxisLabel?: string,
+    private yAxisLabel?: string
+  ) {
     super(sheet);
   }
 
@@ -32,6 +35,4 @@ export class SpSheetChartSelectionBoxPlot extends SpSheetChartSelection {
 
     return new ChChartBoxPlot(series);
   }
-
-
 }

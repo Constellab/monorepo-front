@@ -1,6 +1,6 @@
-import {computed, Injectable, OnDestroy, Signal, signal, WritableSignal} from '@angular/core';
-import {HaStoryService} from '../../../ha-core/ha-service/ha-story.service';
-import {HaStory} from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { computed, Injectable, OnDestroy, Signal, signal, WritableSignal } from '@angular/core';
+import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
+import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 
 @Injectable()
 export class HaStoryState implements OnDestroy {
@@ -9,21 +9,18 @@ export class HaStoryState implements OnDestroy {
   private story: WritableSignal<HaStory> = signal(null);
   public readonly story$: Signal<HaStory> = computed(() => this.story());
 
-  constructor(private storyService: HaStoryService) {
-  }
+  constructor(private storyService: HaStoryService) {}
 
   public init(storyId: string) {
     this.storyId.set(storyId);
     this.initStory(storyId);
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   private initStory(storyId: string) {
-    this.storyService.getById(storyId).subscribe(story => {
-      if (story)
-        this.initStorySuccess(story);
+    this.storyService.getById(storyId).subscribe((story) => {
+      if (story) this.initStorySuccess(story);
     });
   }
 

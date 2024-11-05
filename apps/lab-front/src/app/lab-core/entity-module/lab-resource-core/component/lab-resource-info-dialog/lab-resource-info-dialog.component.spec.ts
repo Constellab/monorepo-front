@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabResourceInfoDialogComponent} from './lab-resource-info-dialog.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabResourceInfoDialogComponent } from './lab-resource-info-dialog.component';
 
 describe('LabResourceInfoDialogComponent', () => {
   let component: LabResourceInfoDialogComponent;

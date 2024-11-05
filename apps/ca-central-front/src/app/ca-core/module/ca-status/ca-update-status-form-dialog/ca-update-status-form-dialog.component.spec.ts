@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaUpdateStatusFormDialogComponent} from './ca-update-status-form-dialog.component';
+import { CaUpdateStatusFormDialogComponent } from './ca-update-status-form-dialog.component';
 
 describe('UpdateStatusFormDialogComponent', () => {
   let component: CaUpdateStatusFormDialogComponent;
@@ -8,9 +8,8 @@ describe('UpdateStatusFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaUpdateStatusFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaUpdateStatusFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

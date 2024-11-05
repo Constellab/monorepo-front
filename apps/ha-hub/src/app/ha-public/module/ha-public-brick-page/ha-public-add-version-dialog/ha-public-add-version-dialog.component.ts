@@ -4,7 +4,7 @@ import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service'
 import {
   HaAddVersionInput,
   HaNewVersionDTO,
-  HaNewVersionFile
+  HaNewVersionFile,
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -12,10 +12,12 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'ha-public-add-version-dialog',
   templateUrl: './ha-public-add-version-dialog.component.html',
-  styleUrls: ['./ha-public-add-version-dialog.component.scss']
+  styleUrls: ['./ha-public-add-version-dialog.component.scss'],
 })
-export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>> implements OnInit {
-
+export class HaPublicAddVersionDialogComponent
+  extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>>
+  implements OnInit
+{
   brickId: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
@@ -39,7 +41,7 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
       version: [null, [Validators.pattern(new RegExp('^(\\d+\\.)(\\d+\\.)(\\*|\\d+)$'))]],
       repoType: [null],
       isBeta: [false],
-      subPatch: [null]
+      subPatch: [null],
     });
   }
 
@@ -50,7 +52,11 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
       formValue.subPatch = +this.inputFile.version.split('-beta.')[1];
     }
     formValue.version = this.inputFile.version;
-    return this.brickService.createNewVersion(formValue, this.inputFile.technicalInfo, this.inputFile.brickVersionReferences);
+    return this.brickService.createNewVersion(
+      formValue,
+      this.inputFile.technicalInfo,
+      this.inputFile.brickVersionReferences
+    );
   }
 
   update(): Observable<Partial<HaNewVersionDTO>> {
@@ -75,17 +81,23 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
       this.errorFile = true;
       this.errorFileText = 'file_wrong_type';
     }
-    if (typeof (FileReader) !== 'undefined' && !this.errorFile) {
+    if (typeof FileReader !== 'undefined' && !this.errorFile) {
       const reader = new FileReader();
 
       reader.onload = (e: any) => {
         const srcResult = JSON.parse(e.target.result);
-        if (srcResult as HaNewVersionFile && this.isSettingJson(srcResult)) {
-          this.brickService.isActualBrickAndNewVersion(this.brickId, srcResult.name, srcResult.version)
+        if ((srcResult as HaNewVersionFile) && this.isSettingJson(srcResult)) {
+          this.brickService
+            .isActualBrickAndNewVersion(this.brickId, srcResult.name, srcResult.version)
             .subscribe(([res, res2]) => {
               if (res) {
-                this.inputFile =
-                  new HaAddVersionInput(res, srcResult.name, srcResult.version, srcResult.environment, srcResult.technical_info);
+                this.inputFile = new HaAddVersionInput(
+                  res,
+                  srcResult.name,
+                  srcResult.version,
+                  srcResult.environment,
+                  srcResult.technical_info
+                );
                 this.isUpdate = res2;
               } else {
                 this.errorFile = true;
@@ -107,6 +119,4 @@ export class HaPublicAddVersionDialogComponent extends FlFormDialogAbstractDirec
   private isSettingJson(file: HaNewVersionFile): boolean {
     return file.name != null && file.version != null && file.environment != null;
   }
-
-
 }

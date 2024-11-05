@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {SpSheetAction} from '../model/action/sp-sheet.action';
-import {SpSpreadsheetState} from './sp-spreadsheet.state';
-import {SpSpreadsheetSelectionState} from './sp-spreadsheet-selection.state';
-import {SpSheet} from '../model/sp-sheet.class';
+import { Injectable } from '@angular/core';
+import { SpSheetAction } from '../model/action/sp-sheet.action';
+import { SpSpreadsheetState } from './sp-spreadsheet.state';
+import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
+import { SpSheet } from '../model/sp-sheet.class';
 
 /**
  * Shared instance for a spreadsheet that store the actions
@@ -10,7 +10,6 @@ import {SpSheet} from '../model/sp-sheet.class';
  */
 @Injectable()
 export class SpSpreadsheetActionStore {
-
   // number of saved action to undo/redo
   private readonly actionHistoryLength: number = 100;
 
@@ -20,9 +19,10 @@ export class SpSpreadsheetActionStore {
   // index of the current executed action
   private currentAction: number = 0;
 
-  constructor(private state: SpSpreadsheetState,
-              private selectionState: SpSpreadsheetSelectionState) {
-  }
+  constructor(
+    private state: SpSpreadsheetState,
+    private selectionState: SpSpreadsheetSelectionState
+  ) {}
 
   public executeNewAction(action: SpSheetAction): void {
     this.executeAction(action);

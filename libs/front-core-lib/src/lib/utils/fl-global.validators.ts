@@ -1,7 +1,6 @@
-import {AbstractControl, UntypedFormArray, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, UntypedFormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class FlGlobalValidators {
-
   /**
    * Validator that check if the form value is different from a value (using ===)
    * @param compareValue value to compare with form value
@@ -11,13 +10,13 @@ export class FlGlobalValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
       if (value == null || value.length === 0) {
-        return null;  // don't validate empty values to allow optional controls
+        return null; // don't validate empty values to allow optional controls
       }
 
       if (value !== compareValue) {
         return null;
       } else {
-        return {sameValue: true};
+        return { sameValue: true };
       }
     };
   }
@@ -34,9 +33,8 @@ export class FlGlobalValidators {
 
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
 
-
       if (!passwordRegex.test(control.value)) {
-        return {incorrectPasswordFormat: true};
+        return { incorrectPasswordFormat: true };
       } else {
         return null;
       }
@@ -57,7 +55,7 @@ export class FlGlobalValidators {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       if (control.parent.controls[passwordFormField].value !== control.value) {
-        return {incorrectRepeatPassword: true};
+        return { incorrectRepeatPassword: true };
       }
       return null;
     };
@@ -75,7 +73,7 @@ export class FlGlobalValidators {
       }
 
       if (!Number.isInteger(value)) {
-        return {notInteger: true};
+        return { notInteger: true };
       }
       return null;
     };
@@ -90,7 +88,7 @@ export class FlGlobalValidators {
       const arrayLength = control.value?.length ?? 0;
 
       if (arrayLength < length) {
-        return {minArrayLength: arrayLength};
+        return { minArrayLength: arrayLength };
       }
       return null;
     };
@@ -105,15 +103,14 @@ export class FlGlobalValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
       if (value == null || value.length === 0) {
-        return null;  // don't validate empty values to allow optional controls
+        return null; // don't validate empty values to allow optional controls
       }
 
       if (value === compareValue) {
         return null;
       } else {
-        return {differentValue: true};
+        return { differentValue: true };
       }
     };
   }
-
 }

@@ -9,6 +9,6 @@ export class TeHighlight {
   }
 
   static highlight(code: string, lang: string): string {
-    return hljs.highlight(code, {language: TeHighlight.getLanguage(lang)}).value;
+    return hljs.highlight(code, { language: TeHighlight.getLanguage(lang) }).value;
   }
 }

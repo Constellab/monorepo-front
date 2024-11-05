@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabImportResourceDialogComponent} from './lab-import-resource-dialog.component';
+import { LabImportResourceDialogComponent } from './lab-import-resource-dialog.component';
 
 describe('BioxImportResourceDialogComponent', () => {
   let component: LabImportResourceDialogComponent;
@@ -8,9 +8,8 @@ describe('BioxImportResourceDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabImportResourceDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabImportResourceDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

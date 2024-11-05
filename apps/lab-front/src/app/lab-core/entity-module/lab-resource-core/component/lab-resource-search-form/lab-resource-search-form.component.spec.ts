@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabResourceSearchFormComponent} from './lab-resource-search-form.component';
+import { LabResourceSearchFormComponent } from './lab-resource-search-form.component';
 
 describe('BioxResourceAdvancedSearchFormComponent', () => {
   let component: LabResourceSearchFormComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceAdvancedSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabResourceSearchFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LabResourceSearchFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

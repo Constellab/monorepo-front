@@ -1,8 +1,7 @@
-import {BnBioNetworkNode} from './bn-bio-network-node.class';
+import { BnBioNetworkNode } from './bn-bio-network-node.class';
 
 // different possible actions for the drawer
 export type BnBioNetworkDrawerActionName = 'nodeDetail' | 'config';
-
 
 /**
  * Value of the state for the drawer

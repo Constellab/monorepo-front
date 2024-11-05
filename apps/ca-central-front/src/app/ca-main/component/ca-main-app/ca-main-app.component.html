@@ -1,26 +1,30 @@
 <mat-sidenav-container class="container g-dashboard-background" autosize>
-
-  <mat-sidenav [fixedInViewport]="true"
-               mode="side"
-               [opened]="true"
-               [disableClose]="true"
-               position="start"
-               class="sidenav g-print-hide">
-
+  <mat-sidenav
+    [fixedInViewport]="true"
+    mode="side"
+    [opened]="true"
+    [disableClose]="true"
+    position="start"
+    class="sidenav g-print-hide">
     <fl-expansion-menu [(expanded)]="menuExpanded" class="expansion-menu">
-
-
       <div class="column-container g-scrollable-element g-layout-col">
-
-        <div class="align-container logo-div" [ngClass]="{'align-container-center': menuExpanded}"
-             (click)="openMySpacesPortal()">
-          <div class="g-layout-row g-layout-start-center"
-               [ngClass]="{'logo-expanded': menuExpanded}">
-            <div [matBadge]="otherSpaceNotificationsNumber$ | async" matBadgeColor="warn"
-                 class="logo-container">
-              <img [ngSrc]="spaceLogo$ | async" [priority]="true" [width]="40" [height]="40"
-                   alt="Space logo"
-                   class="logo" flBackupImage="assets/fl-logo/constellab-logo.svg"/>
+        <div
+          class="align-container logo-div"
+          [ngClass]="{ 'align-container-center': menuExpanded }"
+          (click)="openMySpacesPortal()">
+          <div class="g-layout-row g-layout-start-center" [ngClass]="{ 'logo-expanded': menuExpanded }">
+            <div
+              [matBadge]="otherSpaceNotificationsNumber$ | async"
+              matBadgeColor="warn"
+              class="logo-container">
+              <img
+                [ngSrc]="spaceLogo$ | async"
+                [priority]="true"
+                [width]="40"
+                [height]="40"
+                alt="Space logo"
+                class="logo"
+                flBackupImage="assets/fl-logo/constellab-logo.svg" />
             </div>
             <span *ngIf="menuExpanded" class="g-text-light space-name">{{ spaceName$ | async }}</span>
           </div>
@@ -28,14 +32,17 @@
 
         <div class="divider"></div>
 
-
         <!-- List of main menu links   -->
-        <div class="g-flex-auto align-container"
-             [ngClass]="{'align-container-center': menuExpanded}">
+        <div class="g-flex-auto align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
           @for (link of accessibleLinks; track link.route) {
-            <a mat-button [routerLink]="link.route" flExpansionMenuButton
-               class="nav-button" routerLinkActive="selected-menu"
-               [matTooltip]="link.label | translate" matTooltipPosition="after">
+            <a
+              mat-button
+              [routerLink]="link.route"
+              flExpansionMenuButton
+              class="nav-button"
+              routerLinkActive="selected-menu"
+              [matTooltip]="link.label | translate"
+              matTooltipPosition="after">
               <mat-icon [flIcon]="link.icon"></mat-icon>
               <span>{{ link.label | translate }}</span>
             </a>
@@ -44,38 +51,35 @@
 
         <div class="divider"></div>
 
-
         <!--  Additional buttons  -->
-        <div class="align-container" [ngClass]="{'align-container-center': menuExpanded}">
-
+        <div class="align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
           <!--    Grow/Reduce menu button      -->
-          <button mat-button class="reduce-button"
-                  flExpansionMenuButton flExpansionMenuButtonToggle>
+          <button mat-button class="reduce-button" flExpansionMenuButton flExpansionMenuButtonToggle>
             <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
             <span>{{ 'reduce_menu' | translate }}</span>
           </button>
 
           <div [matBadge]="numberOfNotifications$ | async" matBadgeColor="warn">
-            <button mat-button type="button" (click)="openNotificationDiv()"
-                    flExpansionMenuButton class="notif-button">
+            <button
+              mat-button
+              type="button"
+              (click)="openNotificationDiv()"
+              flExpansionMenuButton
+              class="notif-button">
               <mat-icon>notifications</mat-icon>
               <span>
-              {{ 'notifications' | translate }}
-            </span>
+                {{ 'notifications' | translate }}
+              </span>
             </button>
           </div>
 
           <ca-authenticated-user-inline [showName]="menuExpanded"></ca-authenticated-user-inline>
         </div>
       </div>
-
     </fl-expansion-menu>
-
   </mat-sidenav>
 
   <mat-sidenav-content class="content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>
-

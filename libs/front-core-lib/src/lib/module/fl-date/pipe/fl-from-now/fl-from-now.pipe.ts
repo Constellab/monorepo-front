@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {ClDateHelper, ClDateInput} from '@monorepo/core-lib';
+import { Pipe, PipeTransform } from '@angular/core';
+import { ClDateHelper, ClDateInput } from '@monorepo/core-lib';
 
 /**
  * Convert a Date to text such as '5 days ago' or 'il y a 5 secondes'
@@ -7,10 +7,9 @@ import {ClDateHelper, ClDateInput} from '@monorepo/core-lib';
  * Use the date local setup by the translate service
  */
 @Pipe({
-  name: 'flFromNow'
+  name: 'flFromNow',
 })
 export class FlFromNowPipe implements PipeTransform {
-
   /**
    * Convert a Date to text such as '5 days ago'
    *
@@ -20,5 +19,4 @@ export class FlFromNowPipe implements PipeTransform {
   transform(date: ClDateInput): string {
     return ClDateHelper.fromNow(date);
   }
-
 }

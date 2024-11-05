@@ -1,6 +1,6 @@
 <div class="menu top-menu">
   <a routerLink="/" class="community-logo">
-    <img alt="" src="assets/fl-logo/community_logo.svg"/>
+    <img alt="" src="assets/fl-logo/community_logo.svg" />
   </a>
 
   <div class="top-left-buttons">
@@ -20,7 +20,6 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-
 
 <div class="menu bottom-menu">
   <a [routerLink]="storyListRoute" [ngClass]="currentRoute == 'story' ? 'bottom-menu-current-bt' : ''">
@@ -43,17 +42,15 @@
 </div>
 
 <mat-menu #docMenu="matMenu" xPosition="after">
-  <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc'| translate }}</a>
-  <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc'| translate }}</a>
-  <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons'| translate }}</a>
+  <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc' | translate }}</a>
+  <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc' | translate }}</a>
+  <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons' | translate }}</a>
 </mat-menu>
 
-<mat-menu #langMenu='matMenu'>
-
-</mat-menu>
+<mat-menu #langMenu="matMenu"> </mat-menu>
 
 <mat-menu #userMenu="matMenu">
-  @if(userConnected$ | async; as user){
+  @if (userConnected$ | async; as user) {
     <button mat-menu-item [routerLink]="profileRoute + user.id">
       <mat-icon>person</mat-icon>
       {{ 'profile' | translate }}
@@ -75,18 +72,16 @@
       {{ 'french' | translate }}
     }
   </button>
-  <button mat-menu-item
-          (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
+  <button mat-menu-item (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
     <mat-icon>light_mode</mat-icon>
-    {{'light_theme' | translate}}
+    {{ 'light_theme' | translate }}
   </button>
-  <button mat-menu-item
-          (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
+  <button mat-menu-item (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
     <mat-icon>dark_mode</mat-icon>
-    {{'dark_theme' | translate}}
+    {{ 'dark_theme' | translate }}
   </button>
   <button mat-menu-item (click)="logout()" *ngIf="(userConnected$ | async) != null">
     <mat-icon>logout</mat-icon>
-    {{ 'logout' |translate }}
+    {{ 'logout' | translate }}
   </button>
 </mat-menu>

@@ -8,9 +8,8 @@ describe('LabSelectProcessTypeDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSelectCommunityAgentDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSelectCommunityAgentDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

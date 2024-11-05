@@ -1,15 +1,13 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Volume -->
   <ng-container matColumnDef="volume">
     <mat-header-cell *matHeaderCellDef>
       <span>{{ 'lab_volume_size' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.size }}  ({{ 'lab_volume_type_' + row.type | translate }})
+      {{ row.size }} ({{ 'lab_volume_type_' + row.type | translate }})
     </mat-cell>
   </ng-container>
-
 
   <!-- Start date -->
   <ng-container matColumnDef="startDate">
@@ -17,7 +15,7 @@
       {{ 'start_date' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{ row.startDate  | flDate }}</div>
+      <div>{{ row.startDate | flDate }}</div>
     </mat-cell>
   </ng-container>
 
@@ -27,24 +25,20 @@
       {{ 'end_date' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div>{{ row.endDate  | flDate }}</div>
+      <div>{{ row.endDate | flDate }}</div>
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="deleteVolumeHistory(row)">
+        <button mat-menu-item type="button" (click)="deleteVolumeHistory(row)">
           <mat-icon color="warn">clear</mat-icon>
           <span class="g-warn-text">{{ 'delete_volume_history' | translate }}</span>
         </button>
@@ -52,8 +46,6 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

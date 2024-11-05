@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {FlTooltipComponent} from './fl-tooltip.component';
+import { FlTooltipComponent } from './fl-tooltip.component';
 
 describe('LibTooltipComponent', () => {
   let component: FlTooltipComponent;
@@ -8,9 +8,8 @@ describe('LibTooltipComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FlTooltipComponent ]
-    })
-    .compileComponents();
+      declarations: [FlTooltipComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

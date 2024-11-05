@@ -36,7 +36,7 @@ import { FlRecreateViewDirective } from './fl-recreate-view/fl-recreate-view.dir
     FlClassDirective,
     FlHideSamePageLinkDirective,
     FlDoubleClickDirective,
-    FlRecreateViewDirective
+    FlRecreateViewDirective,
   ],
   exports: [
     FlInputMaxLengthDirective,
@@ -53,9 +53,8 @@ import { FlRecreateViewDirective } from './fl-recreate-view/fl-recreate-view.dir
     FlClassDirective,
     FlHideSamePageLinkDirective,
     FlDoubleClickDirective,
-    FlRecreateViewDirective
+    FlRecreateViewDirective,
   ],
-  imports: [CommonModule, FlPortalModule]
+  imports: [CommonModule, FlPortalModule],
 })
-export class FlCoreDirectiveModule {
-}
+export class FlCoreDirectiveModule {}

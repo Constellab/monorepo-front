@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewSpreadsheetComponent} from './rv-view-spreadsheet.component';
+import { RvViewSpreadsheetComponent } from './rv-view-spreadsheet.component';
 
 describe('BioxResourceSpreadsheetComponent', () => {
   let component: RvViewSpreadsheetComponent;
@@ -8,9 +8,8 @@ describe('BioxResourceSpreadsheetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvViewSpreadsheetComponent ]
-    })
-    .compileComponents();
+      declarations: [RvViewSpreadsheetComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

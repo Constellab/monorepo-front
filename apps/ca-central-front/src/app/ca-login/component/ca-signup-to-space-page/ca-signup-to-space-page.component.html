@@ -1,76 +1,71 @@
 <div class="g-page g-dashboard-background">
-
   <fl-async-section [object]="invitation$" [showServerErrorText]="true" class="section">
-
-
     <ng-container *flSectionBody="invitation$ as invitation">
       <fl-card class="card">
         <fl-card-body class="g-layout-col">
-
           <div class="g-layout-row g-layout-evenly-center">
-
-            <img src="assets/fl-logo/constellab-logo.svg" alt="Gencovery logo"
-                 class="logo"/>
+            <img src="assets/fl-logo/constellab-logo.svg" alt="Gencovery logo" class="logo" />
 
             <ng-container *ngIf="invitation.invitation.space.photo">
               <div class="feat">x</div>
-              <img [src]="invitation.invitation.space | caSpacePhoto" alt="Space logo"
-                   class="logo"/>
+              <img [src]="invitation.invitation.space | caSpacePhoto" alt="Space logo" class="logo" />
             </ng-container>
           </div>
 
-          <p class="invitation-text" [innerHTML]="'join_space_invitation' | translate: {
-                    fullname: invitation.invitation.createdBy.alias,
-                    space: invitation.invitation.space.name
-                }">
-
-
+          <p
+            class="invitation-text"
+            [innerHTML]="
+              'join_space_invitation'
+                | translate
+                  : {
+                      fullname: invitation.invitation.createdBy.alias,
+                      space: invitation.invitation.space.name,
+                    }
+            ">
             <!-- Sign up option   -->
+          </p>
+
           <div *ngIf="!invitation.existingUser; else userExist">
-
-
-            <p class="help-text">{{'join_space_sign_up' | translate}}</p>
+            <p class="help-text">{{ 'join_space_sign_up' | translate }}</p>
 
             <form [formGroup]="signupFormGp" (ngSubmit)="signupSubmit()" id="invit-signup">
-
               <fl-signup-form [formGp]="signupFormGp"></fl-signup-form>
 
               <div class="g-text-centered">
-                <button mat-flat-button color="accent" type="submit" form="invit-signup"
-                        class="g-button-big">
-                  {{'flAuth.signup' | translate}}
+                <button mat-flat-button color="accent" type="submit" form="invit-signup" class="g-button-big">
+                  {{ 'flAuth.signup' | translate }}
                   <fl-button-loader *ngIf="isLoading"></fl-button-loader>
                 </button>
               </div>
-
             </form>
           </div>
 
           <!--  Accept invitation when invitation was send to an email link to an account   -->
           <ng-template #userExist>
             <div>
+              <p
+                class="help-text"
+                [innerHTML]="
+                  'join_space_sign_in'
+                    | translate
+                      : {
+                          email: invitation.existingUser.email,
+                        }
+                "></p>
 
-              <p class="help-text" [innerHTML]="'join_space_sign_in' | translate: {
-                    email: invitation.existingUser.email
-                }">
-              </p>
-
-
-              <button mat-flat-button color="primary" type="button" (click)="acceptInvitation()"
-                      class="join-button">
-                {{ 'join_space' | translate: {space: invitation.invitation.space.name} }}
+              <button
+                mat-flat-button
+                color="primary"
+                type="button"
+                (click)="acceptInvitation()"
+                class="join-button">
+                {{ 'join_space' | translate: { space: invitation.invitation.space.name } }}
                 <fl-button-loader *ngIf="isLoading"></fl-button-loader>
               </button>
-
             </div>
           </ng-template>
-
         </fl-card-body>
       </fl-card>
-
     </ng-container>
   </fl-async-section>
-
 </div>
-
-

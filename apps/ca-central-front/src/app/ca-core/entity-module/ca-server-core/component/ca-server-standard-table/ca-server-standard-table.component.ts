@@ -1,42 +1,49 @@
-import {Component, Input} from '@angular/core';
-import {CaServerStandard, CaServerStandardDatasource} from '../../../../model/entities/server/ca-server-standard.class';
+import { Component, Input } from '@angular/core';
+import {
+  CaServerStandard,
+  CaServerStandardDatasource,
+} from '../../../../model/entities/server/ca-server-standard.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic
+  FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import {CaServerService} from '../../../../service-api/ca-server.service';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaServerStandardFormDialogComponent,
-  CaServerStandardFormDialogInput
+  CaServerStandardFormDialogInput,
 } from '../ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
-import {CaServerPricesDialogComponent} from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
+import { CaServerPricesDialogComponent } from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
 
 @Component({
   selector: 'ca-server-standard-table',
   templateUrl: './ca-server-standard-table.component.html',
-  styleUrl: './ca-server-standard-table.component.scss'
+  styleUrl: './ca-server-standard-table.component.scss',
 })
 export class CaServerStandardTableComponent {
+  @Input({ required: true }) datasource: CaServerStandardDatasource;
 
-  @Input({required: true}) datasource: CaServerStandardDatasource;
+  @Input() columns: FlTableColumnStatic<CaServerStandard>[] = [
+    'name',
+    'description',
+    'technicalDescription',
+    'price',
+    'lastModified',
+    'actions',
+  ];
 
-  @Input() columns: FlTableColumnStatic<CaServerStandard>[] =
-    ['name', 'description', 'technicalDescription', 'price', 'lastModified', 'actions'];
-
-  constructor(private serverService: CaServerService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private serverService: CaServerService,
+    private dialogService: FlDialogService
+  ) {}
 
   openServerPricesDialog(serverStandard: CaServerStandard): void {
-    this.dialogService.openMediumDialog(CaServerPricesDialogComponent,
-      {
-        data: serverStandard,
-        autoFocus: false
-      });
+    this.dialogService.openMediumDialog(CaServerPricesDialogComponent, {
+      data: serverStandard,
+      autoFocus: false,
+    });
   }
-
 
   updateServerStandard(serverStandard: CaServerStandard): void {
     const input: CaServerStandardFormDialogInput = {
@@ -46,13 +53,14 @@ export class CaServerStandardTableComponent {
         name: serverStandard.name,
         description: serverStandard.description,
         technicalDescription: serverStandard.technicalDescription,
-        price: null
-      }
+        price: null,
+      },
     };
 
-    this.dialogService.openSmallDialog(CaServerStandardFormDialogComponent, {data: input}).afterClosed().subscribe(
-      serverStandard => this.onUpdateClosed(serverStandard)
-    );
+    this.dialogService
+      .openSmallDialog(CaServerStandardFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((serverStandard) => this.onUpdateClosed(serverStandard));
   }
 
   private onUpdateClosed(serverStandard?: CaServerStandard): void {
@@ -60,7 +68,6 @@ export class CaServerStandardTableComponent {
       this.datasource.updateItem(serverStandard);
     }
   }
-
 
   deleteServerStandard(serverStandard: CaServerStandard): void {
     const input: FlConfirmDialogInput = {
@@ -70,9 +77,10 @@ export class CaServerStandardTableComponent {
       successMessage: 'server_standard_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.onDeleteClosed(result, serverStandard)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, serverStandard));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult, serverStandard: CaServerStandard): void {

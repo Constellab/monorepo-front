@@ -1,11 +1,9 @@
-import {InlineTool, SanitizerConfig} from '@editorjs/editorjs';
-import {InlineToolConstructorOptions} from '@editorjs/editorjs/types/tools/inline-tool';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {TeHelper} from '../model/te.helper';
-
+import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
+import { InlineToolConstructorOptions } from '@editorjs/editorjs/types/tools/inline-tool';
+import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { TeHelper } from '../model/te.helper';
 
 export class TeCleanStyleInlineTool implements InlineTool {
-
   /**
    * Specifies Tool as Inline Toolbar Tool
    *
@@ -20,8 +18,7 @@ export class TeCleanStyleInlineTool implements InlineTool {
     return flRootInjector.get(FlTranslateService).translate('teTextEditor.clean_style');
   }
 
-  constructor(protected options: InlineToolConstructorOptions) {
-  }
+  constructor(protected options: InlineToolConstructorOptions) {}
 
   /**
    * Sanitizer Rule
@@ -30,10 +27,8 @@ export class TeCleanStyleInlineTool implements InlineTool {
    * @returns {object}
    */
   public static get sanitize(): SanitizerConfig {
-    return {
-    };
+    return {};
   }
-
 
   /**
    * Create button for Inline Toolbar
@@ -42,7 +37,7 @@ export class TeCleanStyleInlineTool implements InlineTool {
     const button = document.createElement('button');
     button.type = 'button';
     button.classList.add(this.options.api.styles.inlineToolButton, 'g-text-editor-inline-button');
-    button.innerHTML = TeHelper.getMatIconElement('format_clear')
+    button.innerHTML = TeHelper.getMatIconElement('format_clear');
     return button;
   }
 
@@ -54,7 +49,6 @@ export class TeCleanStyleInlineTool implements InlineTool {
     const textNode = document.createTextNode(range.toString());
     range.deleteContents();
     range.insertNode(textNode);
-
   }
 
   /**
@@ -65,5 +59,4 @@ export class TeCleanStyleInlineTool implements InlineTool {
   public checkState(): boolean {
     return false;
   }
-
 }

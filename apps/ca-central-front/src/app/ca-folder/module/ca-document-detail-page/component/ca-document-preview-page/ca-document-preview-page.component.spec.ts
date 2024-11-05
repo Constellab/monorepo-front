@@ -8,9 +8,8 @@ describe('CaDocumentPreviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaDocumentPreviewPageComponent]
-    })
-    .compileComponents();
+      declarations: [CaDocumentPreviewPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaDocumentPreviewPageComponent);
     component = fixture.componentInstance;

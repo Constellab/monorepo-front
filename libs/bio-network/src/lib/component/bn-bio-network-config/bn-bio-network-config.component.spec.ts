@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkConfigComponent} from './bn-bio-network-config.component';
+import { BnBioNetworkConfigComponent } from './bn-bio-network-config.component';
 
 describe('FlPathwayConfigComponent', () => {
   let component: BnBioNetworkConfigComponent;
@@ -8,9 +8,8 @@ describe('FlPathwayConfigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkConfigComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkConfigComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

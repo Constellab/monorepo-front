@@ -26,7 +26,6 @@ export interface FlSearchObjectToUrl {
 }
 
 export class FlSearchPageUrlHelper {
-
   /**
    * Method to convert search to query param for search page
    * @param search search criteria
@@ -88,7 +87,6 @@ export class FlSearchPageUrlHelper {
     return simpleFilters;
   }
 
-
   private static filterSearchObjectToString(obj: Record<any, any>): Record<any, any> | null {
     // skip object where all values are null
     if (!ClHelpService.objectHasNonNullProperties(obj)) return null;
@@ -124,5 +122,4 @@ export class FlSearchPageUrlHelper {
     }
     return null;
   }
-
 }

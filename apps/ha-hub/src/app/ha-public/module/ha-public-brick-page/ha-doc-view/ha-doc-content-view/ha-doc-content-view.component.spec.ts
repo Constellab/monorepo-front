@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {HaDocContentViewComponent} from './ha-doc-content-view.component';
+import { HaDocContentViewComponent } from './ha-doc-content-view.component';
 
 describe('CaReportContentViewComponent', () => {
   let component: HaDocContentViewComponent;
@@ -8,9 +8,8 @@ describe('CaReportContentViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HaDocContentViewComponent ]
-    })
-    .compileComponents();
+      declarations: [HaDocContentViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

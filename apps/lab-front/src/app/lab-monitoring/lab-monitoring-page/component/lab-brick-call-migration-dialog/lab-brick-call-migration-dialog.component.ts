@@ -13,21 +13,21 @@ import { ClVersion } from '@monorepo/core-lib';
 @Component({
   selector: 'lab-brick-call-migration-dialog',
   templateUrl: './lab-brick-call-migration-dialog.component.html',
-  styleUrls: ['./lab-brick-call-migration-dialog.component.scss']
+  styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
 })
 export class LabBrickCallMigrationDialogComponent implements OnInit {
-
   brickMigrations$: Observable<LabBrickMigration[]>;
 
   formControl: FormControl<ClVersion>;
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private brickName: string,
-              private dialogRef: MatDialogRef<LabBrickCallMigrationDialogComponent>,
-              private brickService: LabBrickService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private brickName: string,
+    private dialogRef: MatDialogRef<LabBrickCallMigrationDialogComponent>,
+    private brickService: LabBrickService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.brickMigrations$ = this.brickService.getBrickMigrations(this.brickName);
@@ -43,18 +43,18 @@ export class LabBrickCallMigrationDialogComponent implements OnInit {
   private callMigration(version: ClVersion): void {
     this.isLoading = true;
 
-    this.brickService.callMigration(this.brickName, version.toString()).subscribe(
-      {
-        next: () => this.onSuccess(),
-        error: () => this.isLoading = false
-      });
+    this.brickService.callMigration(this.brickName, version.toString()).subscribe({
+      next: () => this.onSuccess(),
+      error: () => (this.isLoading = false),
+    });
   }
 
   private onSuccess(): void {
-    this.snackBarService.openSuccessMessage({text: 'monitoring.call_migration_success', translateText: true});
+    this.snackBarService.openSuccessMessage({
+      text: 'monitoring.call_migration_success',
+      translateText: true,
+    });
     this.isLoading = false;
     this.dialogRef.close();
   }
-
-
 }

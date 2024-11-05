@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {CaEnvironment} from './ca-environment.class';
+import { CaEnvironment } from './ca-environment.class';
 
 /**
  * File for local environment, env is defined in main file.
@@ -17,8 +17,8 @@ export const environment: CaEnvironment = {
     communityApiUrl: '',
     communityFrontUrl: '',
     frontDomain: '',
-    captchaSiteKey: ''
-  }
+    captchaSiteKey: '',
+  },
 };
 
 /*

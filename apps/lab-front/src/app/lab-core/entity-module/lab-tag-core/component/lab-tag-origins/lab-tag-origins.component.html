@@ -1,9 +1,7 @@
 <div>{{ 'tag_origins' | translate }}</div>
 
 <fl-async-section [object]="origins$">
-
   <ng-container *flSectionBody="origins$ as origins">
-
     <ul>
       @for (origin of origins; track origin) {
         <li>
@@ -13,10 +11,12 @@
             @if (origin.isUserOrigin) {
               <fl-user-inline [user]="$any(origin.originObject)" class="user-inline"></fl-user-inline>
             } @else if (origin.originEntityType) {
-              <a [routerLink]="origin.originId | labDetailRoute:origin.originEntityType"
-                 target="_blank" class="g-text-link">{{ origin.originObject ?? origin.originId }}
+              <a
+                [routerLink]="origin.originId | labDetailRoute: origin.originEntityType"
+                target="_blank"
+                class="g-text-link"
+                >{{ origin.originObject ?? origin.originId }}
               </a>
-
             } @else {
               {{ origin.originObject ?? origin.originId }}
             }
@@ -24,6 +24,5 @@
         </li>
       }
     </ul>
-
   </ng-container>
 </fl-async-section>

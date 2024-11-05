@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabViewConfigSearchComponent} from './lab-view-config-search.component';
+import { LabViewConfigSearchComponent } from './lab-view-config-search.component';
 
 describe('LabViewConfigSearchComponent', () => {
   let component: LabViewConfigSearchComponent;
@@ -8,9 +8,8 @@ describe('LabViewConfigSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabViewConfigSearchComponent ]
-    })
-    .compileComponents();
+      declarations: [LabViewConfigSearchComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

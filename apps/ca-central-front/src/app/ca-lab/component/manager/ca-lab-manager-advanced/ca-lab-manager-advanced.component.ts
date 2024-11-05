@@ -3,27 +3,23 @@ import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.st
 import { Observable } from 'rxjs';
 import { CaLabManagerStatus } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 
-
 /**
  * Advanced configuration for the lab manager
  */
 @Component({
   selector: 'ca-lab-manager-advanced',
   templateUrl: './ca-lab-manager-advanced.component.html',
-  styleUrls: ['./ca-lab-manager-advanced.component.scss']
+  styleUrls: ['./ca-lab-manager-advanced.component.scss'],
 })
 export class CaLabManagerAdvancedComponent implements OnInit {
-
   labStatus$: Observable<CaLabManagerStatus> = this.managerState.getStatus$();
 
-  constructor(private managerState: CaLabDetailManagerState) {
-  }
+  constructor(private managerState: CaLabDetailManagerState) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   initAll(): void {
-    this.managerState.initAll({text: 'lab_manager_initialize', translateText: true});
+    this.managerState.initAll({ text: 'lab_manager_initialize', translateText: true });
   }
 
   configureLabManager(): void {
@@ -69,5 +65,4 @@ export class CaLabManagerAdvancedComponent implements OnInit {
   stopAdminer(): void {
     this.managerState.stopAdminer();
   }
-
 }

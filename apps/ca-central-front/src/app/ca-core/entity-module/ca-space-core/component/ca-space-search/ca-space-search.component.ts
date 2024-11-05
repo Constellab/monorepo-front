@@ -6,33 +6,32 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlThemeService
+  FlThemeService,
 } from '@monorepo/front-core-lib';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaSpaceSearch, CaSpaceSearchFields } from '../../model/ca-space-search.class';
 import { CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
 import {
   CaSpaceFormDialogComponent,
-  CaSpaceFormDialogInput
+  CaSpaceFormDialogInput,
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
 import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
-
 
 @Component({
   selector: 'ca-space-search',
   templateUrl: './ca-space-search.component.html',
   styleUrls: ['./ca-space-search.component.scss'],
-  providers: [FlSearchState]
+  providers: [FlSearchState],
 })
 export class CaSpaceSearchComponent implements OnInit {
-
   datasource: CaSpaceDatasource<CaSpaceSearchFields>;
 
-  constructor(private searchState: FlSearchState<any>,
-              private spaceService: CaSpaceService,
-              private themeService: FlThemeService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private searchState: FlSearchState<any>,
+    private spaceService: CaSpaceService,
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -41,38 +40,43 @@ export class CaSpaceSearchComponent implements OnInit {
       advancedFormClass: CaSpaceSearchFields,
       savedSearch: this.getSavedSearch(),
       advancedFormManager: {
-        config: CaSpaceSearch.searchManagerConfig
+        config: CaSpaceSearch.searchManagerConfig,
       },
       storeSearchInUrl: true,
-      defaultSort: { key: 'created', direction: 'DESC' }
+      defaultSort: { key: 'created', direction: 'DESC' },
     };
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.spaceService.search(page, size, filters),
-      20, false);
+      20,
+      false
+    );
     this.searchState.init(config, this.datasource);
   }
 
   private getSavedSearch(): FlSavedSearch[] {
-    return [{
-      searchName: 'ca-space',
-      id: null,
-      label: 'All spaces',
-      color: this.themeService.getCurrentThemeDetail().primary,
-      version: 1,
-      default: true,
-      filtersCriteria: {} as Partial<CaSpaceSearchFields>
-    }];
+    return [
+      {
+        searchName: 'ca-space',
+        id: null,
+        label: 'All spaces',
+        color: this.themeService.getCurrentThemeDetail().primary,
+        version: 1,
+        default: true,
+        filtersCriteria: {} as Partial<CaSpaceSearchFields>,
+      },
+    ];
   }
 
   createSpace(): void {
     const input: CaSpaceFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
 
-    this.dialogService.openSmallDialog(CaSpaceFormDialogComponent, { data: input }).afterClosed().subscribe(
-      version => this.onCreateClosed(version)
-    );
+    this.dialogService
+      .openSmallDialog(CaSpaceFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((version) => this.onCreateClosed(version));
   }
 
   private onCreateClosed(spaceSettings?: CaSpaceSettingsDto): void {
@@ -91,6 +95,4 @@ export class CaSpaceSearchComponent implements OnInit {
 
     this.dialogService.openConfirmDialog(data);
   }
-
-
 }

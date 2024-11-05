@@ -8,24 +8,23 @@ import {
   Optional,
   Output,
   Self,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import {NgControl, UntypedFormControl} from '@angular/forms';
-import {ENTER, TAB} from '@angular/cdk/keycodes';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
-import {FlTag, FlTagHelper, FlTagValue} from '../../fl-tag.class';
+import { NgControl, UntypedFormControl } from '@angular/forms';
+import { ENTER, TAB } from '@angular/cdk/keycodes';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
+import { FlTag, FlTagHelper, FlTagValue } from '../../fl-tag.class';
 
-type FlTagInput = FlTag[] | Record<string, FlTagValue>
+type FlTagInput = FlTag[] | Record<string, FlTagValue>;
 
 @Component({
   selector: 'fl-tag-input',
   templateUrl: './fl-tag-input.component.html',
   styleUrls: ['./fl-tag-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInput> {
-
   @Input() searchDebounceTime: number = 300;
 
   @Input() label: string = 'flTag.tags';
@@ -50,11 +49,12 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
   // this is a temp storage
   newTag: string;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private cdr: ChangeDetectorRef
+  ) {
     super(ngControl);
   }
-
 
   callChangeEvent(value: FlTagInput): void {
     this.tagChange.next(value);
@@ -83,9 +83,8 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     return this.newTag != null;
   }
 
-
   remove(tag: FlTag): void {
-    const index = this.value.findIndex(t => t.key === tag.key);
+    const index = this.value.findIndex((t) => t.key === tag.key);
 
     if (index >= 0) {
       this.value.splice(index, 1);
@@ -120,7 +119,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
     if (!value) return;
     if (this.isValueSelection) {
       if (this.value == null) this.value = [];
-      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, {key: this.newTag, value: value}));
+      this.setAndEmitValue(FlTagHelper.addOrReplaceTag(this.value, { key: this.newTag, value: value }));
       this.emitCurrentValue();
 
       // clear the new tag key (to switch to key selection)
@@ -141,7 +140,7 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
 
     const tags: FlTag[] = [];
     for (const key of Object.keys(outerValue)) {
-      tags.push({key: key, value: outerValue[key]});
+      tags.push({ key: key, value: outerValue[key] });
     }
     return tags;
   }

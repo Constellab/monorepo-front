@@ -1,10 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {LabMonitorService} from '../../../../lab-core/entity-service/lab-monitor.service';
-import {ClDateHelper} from '@monorepo/core-lib';
-import {Observable} from 'rxjs';
-import {LabMonitor, LabMonitorGraphicsBetweenDates} from '../../../../lab-core/model/entities/lab-monitor.entity';
-import {DateTime} from 'luxon';
-import {FormBuilder, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { LabMonitorService } from '../../../../lab-core/entity-service/lab-monitor.service';
+import { ClDateHelper } from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+import {
+  LabMonitor,
+  LabMonitorGraphicsBetweenDates,
+} from '../../../../lab-core/model/entities/lab-monitor.entity';
+import { DateTime } from 'luxon';
+import { FormBuilder, Validators } from '@angular/forms';
 
 export enum LabMonitoringRunPeriod {
   CURRENT_DAY = 'CURRENT_DAY',
@@ -20,10 +23,9 @@ export enum LabMonitoringRunPeriod {
 @Component({
   selector: 'lab-monitoring-usage-page',
   templateUrl: './lab-monitoring-usage-page.component.html',
-  styleUrls: ['./lab-monitoring-usage-page.component.scss']
+  styleUrls: ['./lab-monitoring-usage-page.component.scss'],
 })
 export class LabMonitoringUsagePageComponent implements OnInit {
-
   monitor$: Observable<LabMonitorGraphicsBetweenDates>;
   periods: any = LabMonitoringRunPeriod;
   fromDate: DateTime;
@@ -40,8 +42,7 @@ export class LabMonitoringUsagePageComponent implements OnInit {
 
   lastMonitor: LabMonitor;
 
-  constructor(private monitorService: LabMonitorService) {
-  }
+  constructor(private monitorService: LabMonitorService) {}
 
   ngOnInit(): void {
     this.fromDate = ClDateHelper.getDate().startOf('day');
@@ -57,15 +58,15 @@ export class LabMonitoringUsagePageComponent implements OnInit {
           this.toDate = ClDateHelper.getDate();
           break;
         case LabMonitoringRunPeriod.LAST_HOUR:
-          this.fromDate = ClDateHelper.getDate().minus({hour: 1});
+          this.fromDate = ClDateHelper.getDate().minus({ hour: 1 });
           this.toDate = ClDateHelper.getDate();
           break;
         case LabMonitoringRunPeriod.LAST_12_HOURS:
-          this.fromDate = ClDateHelper.getDate().minus({hour: 12});
+          this.fromDate = ClDateHelper.getDate().minus({ hour: 12 });
           this.toDate = ClDateHelper.getDate();
           break;
         case LabMonitoringRunPeriod.LAST_24_HOURS:
-          this.fromDate = ClDateHelper.getDate().minus({hour: 24});
+          this.fromDate = ClDateHelper.getDate().minus({ hour: 24 });
           this.toDate = ClDateHelper.getDate();
           break;
         case LabMonitoringRunPeriod.CUSTOM:
@@ -74,7 +75,6 @@ export class LabMonitoringUsagePageComponent implements OnInit {
           break;
       }
       this.updateMonitor();
-
     });
 
     this.formGroup.get('customStartDate').valueChanges.subscribe((value) => {
@@ -105,8 +105,12 @@ export class LabMonitoringUsagePageComponent implements OnInit {
   }
 
   private updateMonitor(): void {
-    if (this.fromDate && this.toDate && this.fromDate <= this.toDate){
-      this.monitor$ = this.monitorService.getMonitorGraphics(this.fromDate, this.toDate, ClDateHelper.getCurrentTimeZoneOffset());
+    if (this.fromDate && this.toDate && this.fromDate <= this.toDate) {
+      this.monitor$ = this.monitorService.getMonitorGraphics(
+        this.fromDate,
+        this.toDate,
+        ClDateHelper.getCurrentTimeZoneOffset()
+      );
     }
   }
 }

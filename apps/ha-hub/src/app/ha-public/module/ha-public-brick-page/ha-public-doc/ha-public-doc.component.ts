@@ -172,20 +172,18 @@ export class HaPublicDocComponent implements OnInit {
   }
 
   private redirectToGettingStartedDoc(): void {
-    this.brickService
-      .getBrickGettingStarted(this.brick().name, this.versionPath())
-      .subscribe((doc) => {
-        if (doc) {
-          this.httpRedirectionService.redirectTo(
-            HaRouterService.getDocumentationRoute(
-              this.brick().name,
-              this.versionPath(),
-              doc.completePath,
-              doc.id
-            )
-          );
-        }
-      });
+    this.brickService.getBrickGettingStarted(this.brick().name, this.versionPath()).subscribe((doc) => {
+      if (doc) {
+        this.httpRedirectionService.redirectTo(
+          HaRouterService.getDocumentationRoute(
+            this.brick().name,
+            this.versionPath(),
+            doc.completePath,
+            doc.id
+          )
+        );
+      }
+    });
   }
 
   private onDocLoaded(doc: HaDocumentation): void {
@@ -199,21 +197,16 @@ export class HaPublicDocComponent implements OnInit {
       // TODO: Get titles
     }
 
-    this.textEditorConfig = new HaDocTextEditorConfig(
-      this.documentationService,
-      doc.id
-    );
+    this.textEditorConfig = new HaDocTextEditorConfig(this.documentationService, doc.id);
 
     this.metadataService.setPageTitle('ha.documentation.brick.title', true, {
       brickTitle: this.brick().name,
       docTitle: doc.title,
     });
-    this.metadataService.addMetaTag(
-      'description',
-      'ha.documentation.brick.description',
-      true,
-      { brickTitle: this.brick().name, docTitle: doc.title }
-    );
+    this.metadataService.addMetaTag('description', 'ha.documentation.brick.description', true, {
+      brickTitle: this.brick().name,
+      docTitle: doc.title,
+    });
   }
 
   private createEditDialog(object: HaDocumentation): void {

@@ -9,10 +9,9 @@ import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
   selector: 'lab-scenario-icons',
   templateUrl: './lab-scenario-icons.component.html',
   styleUrl: './lab-scenario-icons.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabScenarioIconsComponent {
-
   @Input({ required: true }) scenario: LabScenario;
 
   @Input() size: 'normal' | 'big' = 'normal';

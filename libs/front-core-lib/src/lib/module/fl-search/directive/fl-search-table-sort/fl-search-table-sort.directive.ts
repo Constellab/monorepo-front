@@ -9,18 +9,20 @@ import { FlSortDirection } from '../../model/fl-sort.class';
  */
 @Directive({
   selector: 'mat-table[flSearchTableSort]',
-  hostDirectives: [{
-    directive: MatSort,
-    inputs: ['matSortDisabled']
-  }]
+  hostDirectives: [
+    {
+      directive: MatSort,
+      inputs: ['matSortDisabled'],
+    },
+  ],
 })
 export class FlSearchTableSortDirective implements OnInit, OnDestroy {
-
   private subscription: Subscription;
 
-  constructor(@Optional() private searchState: FlSearchState<any>,
-              private sort: MatSort) {
-  }
+  constructor(
+    @Optional() private searchState: FlSearchState<any>,
+    private sort: MatSort
+  ) {}
 
   ngOnInit(): void {
     if (this.sort.disabled) return;
@@ -30,9 +32,7 @@ export class FlSearchTableSortDirective implements OnInit, OnDestroy {
       return;
     }
 
-    this.subscription = this.sort.sortChange.subscribe(event =>
-      this.onSortChange(event)
-    );
+    this.subscription = this.sort.sortChange.subscribe((event) => this.onSortChange(event));
 
     // init the sort
     const sortCriteria = this.searchState.getSortCriteria();

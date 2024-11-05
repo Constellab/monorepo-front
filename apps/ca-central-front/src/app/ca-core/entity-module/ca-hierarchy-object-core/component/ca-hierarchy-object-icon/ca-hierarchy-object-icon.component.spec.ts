@@ -8,9 +8,8 @@ describe('CaFolderIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaHierarchyObjectIconComponent]
-    })
-    .compileComponents();
+      declarations: [CaHierarchyObjectIconComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaHierarchyObjectIconComponent);
     component = fixture.componentInstance;

@@ -1,18 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlUserConfig} from '../../service/fl-user-config.config';
-import {FlUser} from '../../model/fl-user.class';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { FlUserConfig } from '../../service/fl-user-config.config';
+import { FlUser } from '../../model/fl-user.class';
 
 export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 
 @Component({
   selector: 'fl-user-profile-picture',
   templateUrl: './fl-user-profile-picture.component.html',
-  styleUrls: ['./fl-user-profile-picture.component.scss']
+  styleUrls: ['./fl-user-profile-picture.component.scss'],
 })
 export class FlUserProfilePictureComponent implements OnInit {
-
-  @Input({required: true}) set user(user: FlUser) {
+  @Input({ required: true }) set user(user: FlUser) {
     this.setUser(user);
   }
 
@@ -20,7 +18,6 @@ export class FlUserProfilePictureComponent implements OnInit {
    * Default size, if number is provided it will be used as rem
    */
   @Input() size: FlUserProfilePictureSize = 'medium';
-
 
   circleSize: string;
 
@@ -30,8 +27,7 @@ export class FlUserProfilePictureComponent implements OnInit {
 
   imgSrc?: string;
 
-  constructor(private userConfig: FlUserConfig) {
-  }
+  constructor(private userConfig: FlUserConfig) {}
 
   ngOnInit(): void {
     switch (this.size) {
@@ -50,23 +46,20 @@ export class FlUserProfilePictureComponent implements OnInit {
         break;
       default:
         this.circleSize = this.size + 'rem';
-        this.fontSize = (this.size / 4) + 'rem';
+        this.fontSize = this.size / 4 + 'rem';
     }
-
   }
 
   private setUser(user: FlUser): void {
-
-
     if (user) {
-      if(user.alias){
+      if (user.alias) {
         const spaceIndex = user.alias.indexOf(' ');
-        if(spaceIndex !== -1 && user.alias.length > spaceIndex + 1){
+        if (spaceIndex !== -1 && user.alias.length > spaceIndex + 1) {
           this.initials = user.alias.charAt(0) + user.alias.charAt(spaceIndex + 1);
         } else {
           this.initials = user.alias.charAt(0);
         }
-      } else{
+      } else {
         this.initials = (user.firstname?.charAt(0) ?? '') + (user.lastname?.charAt(0) ?? '');
       }
 

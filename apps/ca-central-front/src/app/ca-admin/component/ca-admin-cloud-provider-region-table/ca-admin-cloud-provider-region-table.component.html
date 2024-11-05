@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
@@ -22,7 +21,6 @@
       {{ row.type }}
     </mat-cell>
   </ng-container>
-
 
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">
@@ -57,24 +55,19 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="updateRegion(row)">
+        <button mat-menu-item type="button" (click)="updateRegion(row)">
           <mat-icon>edit</mat-icon>
           <span>{{ 'update_cloud_provider_region' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button"
-                (click)="deleteRegion(row)">
+        <button mat-menu-item type="button" (click)="deleteRegion(row)">
           <mat-icon color="warn">clear</mat-icon>
           <span class="g-warn-text">{{ 'delete_cloud_provider_region' | translate }}</span>
         </button>
@@ -82,8 +75,6 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
 </mat-table>
-

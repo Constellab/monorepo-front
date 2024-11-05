@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { CaFolder, CaFolderWithHierarchy } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import {
+  CaFolder,
+  CaFolderWithHierarchy,
+} from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { FlDialogService, FlMenuDynamicService } from '@monorepo/front-core-lib';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import {
   CaFolderDetailActionEvent,
-  CaFolderDetailActionMenu
+  CaFolderDetailActionMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class';
 import { CaConstellabDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
@@ -16,32 +19,40 @@ import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-f
 @Component({
   selector: 'ca-folder-detail-actions',
   templateUrl: './ca-folder-detail-actions.component.html',
-  styleUrl: './ca-folder-detail-actions.component.scss'
+  styleUrl: './ca-folder-detail-actions.component.scss',
 })
 export class CaFolderDetailActionsComponent {
-
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
 
-  constructor(private dialogService: FlDialogService,
-              private state: CaFolderDetailState,
-              private rightPanelState: CaFolderRightPanelState,
-              private menuDynamicService: FlMenuDynamicService,
-              private folderActionService: CaFolderActionService,
-              private securityService: CaSecurityService,
-              private routerService: CaRouterService) {
-  }
+  constructor(
+    private dialogService: FlDialogService,
+    private state: CaFolderDetailState,
+    private rightPanelState: CaFolderRightPanelState,
+    private menuDynamicService: FlMenuDynamicService,
+    private folderActionService: CaFolderActionService,
+    private securityService: CaSecurityService,
+    private routerService: CaRouterService
+  ) {}
 
   async openFolderActionMenu(folder: CaFolder, event: MouseEvent): Promise<void> {
     const isRootFolder = await firstValueFrom(this.state.isRootFolder$());
-    const folderActionsMenu = new CaFolderDetailActionMenu(this.dialogService, this.folderActionService,
-      this.menuDynamicService, this.securityService, this.rightPanelState, {
+    const folderActionsMenu = new CaFolderDetailActionMenu(
+      this.dialogService,
+      this.folderActionService,
+      this.menuDynamicService,
+      this.securityService,
+      this.rightPanelState,
+      {
         id: folder.id,
         name: folder.name,
-        leader: folder.leader
-      }, isRootFolder, this.state.getUsers());
+        leader: folder.leader,
+      },
+      isRootFolder,
+      this.state.getUsers()
+    );
 
-    folderActionsMenu.openDetailActionMenu(event).subscribe(event => {
+    folderActionsMenu.openDetailActionMenu(event).subscribe((event) => {
       this.onFolderAction(event);
     });
   }
@@ -55,8 +66,8 @@ export class CaFolderDetailActionsComponent {
   }
 
   createConstellabDocument(folder: CaFolder): void {
-
-    this.folderActionService.createConstellabDocument(folder.id)
+    this.folderActionService
+      .createConstellabDocument(folder.id)
       .subscribe((doc: CaConstellabDocument) => this.createConstellabDocClosed(doc));
   }
 
@@ -66,9 +77,9 @@ export class CaFolderDetailActionsComponent {
   }
 
   openChildCreation(folder: CaFolder): void {
-    this.folderActionService.openChildCreation(folder.id).subscribe(
-      folder => this.createChildSuccess(folder)
-    );
+    this.folderActionService
+      .openChildCreation(folder.id)
+      .subscribe((folder) => this.createChildSuccess(folder));
   }
 
   private onFolderAction(folderEvent: CaFolderDetailActionEvent): void {
@@ -95,6 +106,4 @@ export class CaFolderDetailActionsComponent {
       this.state.addChild(folder.hierarchyRepresentation);
     }
   }
-
-
 }

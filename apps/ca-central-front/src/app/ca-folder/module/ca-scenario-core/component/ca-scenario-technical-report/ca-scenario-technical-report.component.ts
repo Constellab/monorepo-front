@@ -14,7 +14,7 @@ import {
   PrWorkflowFactory,
   PrWorkflowMode,
   PrWorkflowNodeProcess,
-  PrWorkflowResourcesState
+  PrWorkflowResourcesState,
 } from '@monorepo/protocol';
 import { filter, Observable, of } from 'rxjs';
 import { CaWorkflowNodeMenuConfig } from '../../model/ca-workflow-node-menu.config';
@@ -22,17 +22,16 @@ import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import {
   CaLabConfigDialogComponent,
-  CaLabConfigDialogInput
+  CaLabConfigDialogInput,
 } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ca-scenario-technical-report',
   templateUrl: './ca-scenario-technical-report.component.html',
-  styleUrls: ['./ca-scenario-technical-report.component.scss']
+  styleUrls: ['./ca-scenario-technical-report.component.scss'],
 })
 export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
-
   @Input() scenario: CaScenario;
 
   technicalReport: CaTechnicalReport;
@@ -47,33 +46,40 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-
-  constructor(private scenarioService: CaScenarioService,
-              private dialogService: FlDialogService,
-              private actionState: PrWorkflowActionState,
-              private ngZone: NgZone,
-              private workflowResourcesState: PrWorkflowResourcesState,
-              private snackBarService: FlSnackBarService,
-              private communityHelper: CoCommunityHelperService) {
-  }
+  constructor(
+    private scenarioService: CaScenarioService,
+    private dialogService: FlDialogService,
+    private actionState: PrWorkflowActionState,
+    private ngZone: NgZone,
+    private workflowResourcesState: PrWorkflowResourcesState,
+    private snackBarService: FlSnackBarService,
+    private communityHelper: CoCommunityHelperService
+  ) {}
 
   ngOnInit(): void {
-    this.scenarioService.getScenarioTechnicalReport(this.scenario.id).subscribe(
-      (res: CaTechnicalReport) => this.onTechnicalReportSuccess(res)
-    );
+    this.scenarioService
+      .getScenarioTechnicalReport(this.scenario.id)
+      .subscribe((res: CaTechnicalReport) => this.onTechnicalReportSuccess(res));
 
     this.workflowConfig = new CaWorkflowNodeMenuConfig(this.scenario.lab, this.snackBarService);
     this.actionState.init();
 
+    this.subscriptions.add(
+      this.actionState
+        .getAction$()
+        .pipe(
+          filter((action) => action?.action === 'selectProcessNode'),
+          map((action) => (action as PrWorkflowActionSelectNode).processNode)
+        )
+        .subscribe((node: PrWorkflowNodeProcess) => this.openNodeDetail(node))
+    );
 
-    this.subscriptions.add(this.actionState.getAction$().pipe(
-      filter(action => action?.action === 'selectProcessNode'),
-      map(action => (action as PrWorkflowActionSelectNode).processNode)
-    ).subscribe((node: PrWorkflowNodeProcess) => this.openNodeDetail(node)));
-
-    this.subscriptions.add(this.actionState.getAction$().pipe(
-      filter(action => action?.action === 'showResource')
-    ).subscribe((action: PrWorkflowActionShowResource) => this.navigateToResource(action.resourceId)));
+    this.subscriptions.add(
+      this.actionState
+        .getAction$()
+        .pipe(filter((action) => action?.action === 'showResource'))
+        .subscribe((action: PrWorkflowActionShowResource) => this.navigateToResource(action.resourceId))
+    );
   }
 
   private navigateToResource(resourceId: string): void {
@@ -85,9 +91,9 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
     if (workflowNode) {
       const input: PrProcessInfoDialogInput = {
         process: process,
-        communityHelper: this.communityHelper
+        communityHelper: this.communityHelper,
       };
-      this.dialogService.openMediumDialog(PrProcessInfoDialogComponent, { data: input, autoFocus: false});
+      this.dialogService.openMediumDialog(PrProcessInfoDialogComponent, { data: input, autoFocus: false });
     }
   }
 
@@ -95,7 +101,7 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
     const input: CaLabConfigDialogInput = {
       labConfig: this.scenarioService.getScenarioLabConfig(this.scenario.id),
       title: { text: 'lab_configuration', translateText: true },
-      helpText: { text: 'scenario_brick_config_help', translateText: true }
+      helpText: { text: 'scenario_brick_config_help', translateText: true },
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input, autoFocus: false });
@@ -103,8 +109,13 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
 
   private onTechnicalReportSuccess(technicalReport: CaTechnicalReport): void {
     this.technicalReport = technicalReport;
-    this.factory = new PrWorkflowFactory(technicalReport.data.graph, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState, this.actionState);
+    this.factory = new PrWorkflowFactory(
+      technicalReport.data.graph,
+      ClStringHelper.generateUUID(),
+      this.ngZone,
+      this.workflowResourcesState,
+      this.actionState
+    );
     this.workflow = this.factory.createWorkflow();
   }
 
@@ -114,5 +125,3 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
     this.subscriptions?.unsubscribe();
   }
 }
-
-

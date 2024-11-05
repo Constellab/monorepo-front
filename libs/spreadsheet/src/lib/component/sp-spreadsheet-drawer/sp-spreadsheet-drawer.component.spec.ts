@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSpreadsheetDrawerComponent} from './sp-spreadsheet-drawer.component';
+import { SpSpreadsheetDrawerComponent } from './sp-spreadsheet-drawer.component';
 
 describe('SpSpreadsheetDrawerComponent', () => {
   let component: SpSpreadsheetDrawerComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetDrawerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSpreadsheetDrawerComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSpreadsheetDrawerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

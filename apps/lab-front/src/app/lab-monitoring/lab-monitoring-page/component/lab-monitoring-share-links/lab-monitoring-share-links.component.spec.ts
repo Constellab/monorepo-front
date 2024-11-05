@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabMonitoringShareLinksComponent} from './lab-monitoring-share-links.component';
+import { LabMonitoringShareLinksComponent } from './lab-monitoring-share-links.component';
 
 describe('LabMonitoringShareLinksPageComponent', () => {
   let component: LabMonitoringShareLinksComponent;
@@ -8,9 +8,8 @@ describe('LabMonitoringShareLinksPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabMonitoringShareLinksComponent ]
-    })
-    .compileComponents();
+      declarations: [LabMonitoringShareLinksComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabMonitoringShareLinksComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TeMentionPortalComponent} from './te-mention-portal.component';
+import { TeMentionPortalComponent } from './te-mention-portal.component';
 
 describe('TeMentionPortalComponent', () => {
   let component: TeMentionPortalComponent;
@@ -8,9 +8,8 @@ describe('TeMentionPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeMentionPortalComponent]
-    })
-    .compileComponents();
+      declarations: [TeMentionPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeMentionPortalComponent);
     component = fixture.componentInstance;

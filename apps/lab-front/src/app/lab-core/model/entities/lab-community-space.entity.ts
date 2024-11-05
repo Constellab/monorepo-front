@@ -1,4 +1,4 @@
-export interface LabCommunitySpace{
+export interface LabCommunitySpace {
   id: string;
   name: string;
 }

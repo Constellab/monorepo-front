@@ -23,17 +23,17 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
     {
       label: 'biox.scenarios',
       icon: 'scenario',
-      route: labConstBioxFullRoute
+      route: labConstBioxFullRoute,
     },
     {
       label: 'resources',
       icon: 'resource',
-      route: labConstResourceFullRoute
+      route: labConstResourceFullRoute,
     },
     {
       label: 'biox.views',
       icon: 'view',
-      route: labConstViewFullRoute
+      route: labConstViewFullRoute,
     },
     {
       label: 'biox.scenario_templates',
@@ -44,7 +44,7 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       label: 'biox.notes',
       icon: 'note',
       route: labConstNoteFullRoute,
-      divider: true
+      divider: true,
     },
     {
       label: 'biox.note_templates',

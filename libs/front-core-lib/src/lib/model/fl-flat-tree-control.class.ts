@@ -1,10 +1,9 @@
-import {FlatTreeControl} from '@angular/cdk/tree';
+import { FlatTreeControl } from '@angular/cdk/tree';
 
 /**
  * Class to improve functionalities of the FlatTreeControl
  */
 export class FlFlatTreeControl<T, K = T> extends FlatTreeControl<T, K> {
-
   /**
    * Retrieve the direct ancestor of a node if it exists
    * @param dataNode

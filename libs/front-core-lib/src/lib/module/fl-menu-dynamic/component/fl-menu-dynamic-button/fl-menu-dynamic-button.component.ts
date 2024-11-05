@@ -3,7 +3,7 @@ import {
   FlMenuDynamic,
   FlMenuDynamicButton,
   FlMenuDynamicDownloadLink,
-  FlMenuDynamicLink
+  FlMenuDynamicLink,
 } from '../../model/fl-menu-dynamic.class';
 import { FlThemeHelper } from '../../../fl-theme/model/fl-theme-detail.class';
 
@@ -13,19 +13,18 @@ import { FlThemeHelper } from '../../../fl-theme/model/fl-theme-detail.class';
 @Component({
   selector: 'fl-menu-dynamic-button',
   templateUrl: './fl-menu-dynamic-button.component.html',
-  styleUrls: ['./fl-menu-dynamic-button.component.scss']
+  styleUrls: ['./fl-menu-dynamic-button.component.scss'],
 })
 export class FlMenuDynamicButtonComponent {
-
   menuDynamic = input.required<FlMenuDynamic>();
 
   link: Signal<FlMenuDynamicLink> = computed(() => this.menuDynamic() as FlMenuDynamicLink);
-  downloadLink: Signal<FlMenuDynamicDownloadLink> = computed(() => this.menuDynamic() as FlMenuDynamicDownloadLink);
+  downloadLink: Signal<FlMenuDynamicDownloadLink> = computed(
+    () => this.menuDynamic() as FlMenuDynamicDownloadLink
+  );
   button: Signal<FlMenuDynamicButton> = computed(() => this.menuDynamic() as FlMenuDynamicButton);
 
-  textColor: Signal<string | null> = computed(
-    () => FlThemeHelper.paletteToTextCssClass(this.button().color)
-  );
+  textColor: Signal<string | null> = computed(() => FlThemeHelper.paletteToTextCssClass(this.button().color));
 
   @Output() buttonClick: EventEmitter<FlMenuDynamic> = new EventEmitter();
 

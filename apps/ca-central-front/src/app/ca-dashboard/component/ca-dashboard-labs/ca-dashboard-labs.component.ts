@@ -6,7 +6,7 @@ import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-d
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaLabFormDialogComponent,
-  CaLabFormDialogInput
+  CaLabFormDialogInput,
 } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
 
 /**
@@ -15,19 +15,19 @@ import {
 @Component({
   selector: 'ca-dashboard-labs',
   templateUrl: './ca-dashboard-labs.component.html',
-  styleUrls: ['./ca-dashboard-labs.component.scss']
+  styleUrls: ['./ca-dashboard-labs.component.scss'],
 })
 export class CaDashboardLabsComponent implements OnInit {
-
   labsDatasource: CaLabDatasource;
 
   myLabsRoute: string = CaRouterService.getMyLabsRoute();
   createLabRoute: string = CaRouterService.getCreateLabRoute();
 
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService,
-              private routerService: CaRouterService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService,
+    private routerService: CaRouterService
+  ) {}
 
   ngOnInit(): void {
     this.getMyLabs();
@@ -39,11 +39,12 @@ export class CaDashboardLabsComponent implements OnInit {
 
   openCreateLabDialog(): void {
     const input: CaLabFormDialogInput = {
-      mode: 'create'
+      mode: 'create',
     };
-    this.dialogService.openSmallDialog(CaLabFormDialogComponent, {data: input}).afterClosed().subscribe(
-      lab => this.onCreateLabDialogClosed(lab)
-    );
+    this.dialogService
+      .openSmallDialog(CaLabFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((lab) => this.onCreateLabDialogClosed(lab));
   }
 
   private onCreateLabDialogClosed(lab?: CaLab): void {
@@ -52,5 +53,4 @@ export class CaDashboardLabsComponent implements OnInit {
       this.routerService.navigateToLabDetail(lab.id);
     }
   }
-
 }

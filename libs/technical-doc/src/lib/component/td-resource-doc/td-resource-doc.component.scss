@@ -1,10 +1,10 @@
-.methods-div{
+.methods-div {
   margin-bottom: 2em;
   padding: 1em;
   border-radius: var(--card-radius);
 }
 
-.method-card{
+.method-card {
   background-color: var(--card-background);
   margin-top: 1em;
   padding: 1em;
@@ -14,7 +14,7 @@
   flex-direction: column;
 }
 
-.view-title{
+.view-title {
   font-size: 1.3em;
   font-weight: bold;
   display: flex;
@@ -23,21 +23,21 @@
   gap: 0.75em;
 }
 
-.view-description{
+.view-description {
   margin-top: 1em;
 }
 
-.variable{
+.variable {
   font-size: 1.25em;
   margin-bottom: 0.5em;
 }
 
-.var-type{
+.var-type {
   color: #c18401;
 }
 
 @media (max-width: 750px) {
-  .methods-div{
+  .methods-div {
     padding: 0;
   }
 }

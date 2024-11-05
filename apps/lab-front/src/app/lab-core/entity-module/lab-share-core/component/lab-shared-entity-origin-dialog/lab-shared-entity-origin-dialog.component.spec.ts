@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabSharedEntityOriginDialogComponent} from './lab-shared-entity-origin-dialog.component';
+import { LabSharedEntityOriginDialogComponent } from './lab-shared-entity-origin-dialog.component';
 
 describe('LabResourceShareOriginDialogComponent', () => {
   let component: LabSharedEntityOriginDialogComponent;
@@ -8,9 +8,8 @@ describe('LabResourceShareOriginDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabSharedEntityOriginDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabSharedEntityOriginDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LabSharedEntityOriginDialogComponent);
     component = fixture.componentInstance;

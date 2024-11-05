@@ -1,10 +1,10 @@
-import {Component, ElementRef, EventEmitter, Input, Optional, Output, Self, ViewChild} from '@angular/core';
-import {FlFormFieldDirective} from '@monorepo/front-core-lib';
-import {LabOpenAiChat, LabOpenAiChatMessage} from '../../model/lab-open-ai.class';
-import {FormControl, NgControl} from '@angular/forms';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabAuthenticatedUserService} from '../../../../service/lab-authenticated-user.service';
-import {LabOpenAiChatMessageAction} from '../lab-open-ai-chat-message/lab-open-ai-chat-message.component';
+import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self, ViewChild } from '@angular/core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { LabOpenAiChat, LabOpenAiChatMessage } from '../../model/lab-open-ai.class';
+import { FormControl, NgControl } from '@angular/forms';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabAuthenticatedUserService } from '../../../../service/lab-authenticated-user.service';
+import { LabOpenAiChatMessageAction } from '../lab-open-ai-chat-message/lab-open-ai-chat-message.component';
 
 /**
  * Form component to show an open AI chat with possibility to add or remove messages
@@ -13,21 +13,22 @@ import {LabOpenAiChatMessageAction} from '../lab-open-ai-chat-message/lab-open-a
   selector: 'lab-open-ai-chat',
   templateUrl: './lab-open-ai-chat.component.html',
   styleUrls: ['./lab-open-ai-chat.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent }],
 })
 export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> {
-
   @Input() placeholder: string;
   @Input() hint: string;
 
   @Output() chatChange: EventEmitter<LabOpenAiChat> = new EventEmitter();
 
-  @ViewChild('textarea', {static: true, read: ElementRef}) textarea: ElementRef<HTMLElement>;
+  @ViewChild('textarea', { static: true, read: ElementRef }) textarea: ElementRef<HTMLElement>;
 
   messageCtrl: FormControl<string> = new FormControl();
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private authenticatedUserService: LabAuthenticatedUserService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private authenticatedUserService: LabAuthenticatedUserService
+  ) {
     super(ngControl);
   }
 
@@ -35,12 +36,11 @@ export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> 
     this.chatChange.emit(value);
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: LabOpenAiChat): void {
     this.value = {
-      messages: obj?.messages ?? []
+      messages: obj?.messages ?? [],
     };
   }
 
@@ -86,7 +86,7 @@ export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> 
     value.messages.push({
       role: 'user',
       content: this.messageCtrl.value,
-      user_id: this.authenticatedUserService.getCurrentUser()?.id
+      user_id: this.authenticatedUserService.getCurrentUser()?.id,
     });
 
     this.setAndEmitValue(value);
@@ -97,6 +97,4 @@ export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> 
     ClHelpService.stopEventPropagation(event);
     this.addMessage();
   }
-
 }
-

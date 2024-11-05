@@ -1,17 +1,16 @@
-import {PrWorkflowNode} from '../node/pr-workflow-node.class';
-import {PrWorkflowPort} from './pr-workflow-port.class';
-import {PrWorkflowNodeInterface} from '../node/pr-workflow-node-interface.class';
-import {PrWorkflowNodeOuterface} from '../node/pr-workflow-node-outerface.class';
-import {Subscription} from 'rxjs';
+import { PrWorkflowNode } from '../node/pr-workflow-node.class';
+import { PrWorkflowPort } from './pr-workflow-port.class';
+import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
+import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
+import { Subscription } from 'rxjs';
 
 export class PrWorkflowConnection {
-
-  constructor(public readonly outputNode: PrWorkflowNode,
-              public readonly inputNode: PrWorkflowNode,
-              public readonly outputPort: PrWorkflowPort,
-              public readonly inputPort: PrWorkflowPort) {
-  }
-
+  constructor(
+    public readonly outputNode: PrWorkflowNode,
+    public readonly inputNode: PrWorkflowNode,
+    public readonly outputPort: PrWorkflowPort,
+    public readonly inputPort: PrWorkflowPort
+  ) {}
 
   public isInterfaceConnection(): boolean {
     return this.outputNode instanceof PrWorkflowNodeInterface;
@@ -30,7 +29,7 @@ export class PrWorkflowConnection {
   }
 
   public colorInputConnection(containerElement: HTMLElement): Subscription {
-    return this.inputNode.inputIsProvided$(this.inputPort.name).subscribe(resourceProvided => {
+    return this.inputNode.inputIsProvided$(this.inputPort.name).subscribe((resourceProvided) => {
       const element = this.getConnectionElement(containerElement);
       if (element == null) return;
 

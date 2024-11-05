@@ -1,18 +1,17 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FlTableColumnStatic} from '@monorepo/front-core-lib';
-import {LabTypeEntity, LabTypeEntityDatasource} from '../../../../model/entities/lab-type/lab-type.entity';
-import {ClHelpService} from '@monorepo/core-lib';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-process-type-table',
   templateUrl: './lab-process-type-table.component.html',
-  styleUrls: ['./lab-process-type-table.component.scss']
+  styleUrls: ['./lab-process-type-table.component.scss'],
 })
 export class LabProcessTypeTableComponent {
+  @Input({ required: true }) datasource: LabTypeEntityDatasource;
 
-  @Input({required: true}) datasource: LabTypeEntityDatasource;
-
-  @Input({required: true}) columns: FlTableColumnStatic<LabTypeEntity>[];
+  @Input({ required: true }) columns: FlTableColumnStatic<LabTypeEntity>[];
 
   // when true, the row become clickable and resourceSelected event is trigger
   @Input() rowSelectable: boolean = false;
@@ -28,6 +27,4 @@ export class LabProcessTypeTableComponent {
   stopEventPropagation(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
   }
-
-
 }

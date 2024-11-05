@@ -2,17 +2,26 @@
  * Define the type of the param spec
  */
 export type TdParamSpecType =
-  'str' | 'text' | 'rich_text_param'
+  | 'str'
+  | 'text'
+  | 'rich_text_param'
   | 'int'
   | 'float'
   | 'list'
   | 'bool'
   | 'param_set'
   | 'tags_param'
-  | 'python_code_param' | 'r_code_param' | 'julia_code_param'
-  | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param'
+  | 'python_code_param'
+  | 'r_code_param'
+  | 'julia_code_param'
+  | 'bash_code_param'
+  | 'perl_code_param'
+  | 'yaml_code_param'
+  | 'json_code_param'
   | 'open_ai_chat_param'
-  | 'credentials_param' | 'note_template_param' | 'note_param';
+  | 'credentials_param'
+  | 'note_template_param'
+  | 'note_param';
 
 /**
  * Visibility of the param spec
@@ -20,7 +29,6 @@ export type TdParamSpecType =
  * - protected: advanced param
  */
 export type TdParamSpecVisibility = 'protected' | 'public';
-
 
 /**
  * Common base for all param spec
@@ -72,16 +80,15 @@ export interface TdParamSpecBase {
 /**
  * All param set spec type including param set spec
  */
-export type TdParamSpec =
-  TdParamSpecSimple
-  | TdParamSpecParamSet;
+export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet;
 
 export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
  * Basic param spec (excluding param set)
  */
 export type TdParamSpecSimple =
-  TdParamSpecString | TdParamSpecText
+  | TdParamSpecString
+  | TdParamSpecText
   | TdParamSpecFloat
   | TdParamSpecList
   | TdParamSpecBoolean
@@ -112,16 +119,13 @@ export interface TdParamSpecText extends TdParamSpecBase {
   type: 'text';
 }
 
-
 export interface TdParamSpecFloat extends TdParamSpecBase {
-
   type: 'int' | 'float';
 
   additional_info: {
     min_value?: number;
     max_value?: number;
   };
-
 }
 
 export interface TdParamSpecBoolean extends TdParamSpecBase {
@@ -141,8 +145,14 @@ export interface TdParamOpenAiChat extends TdParamSpecBase {
 }
 
 export interface TdParamSpecCode extends TdParamSpecBase {
-  type: 'python_code_param' | 'r_code_param' | 'julia_code_param'
-    | 'bash_code_param' | 'perl_code_param' | 'yaml_code_param' | 'json_code_param';
+  type:
+    | 'python_code_param'
+    | 'r_code_param'
+    | 'julia_code_param'
+    | 'bash_code_param'
+    | 'perl_code_param'
+    | 'yaml_code_param'
+    | 'json_code_param';
 }
 
 export interface TdParamSelectCredentials extends TdParamSpecBase {
@@ -177,9 +187,13 @@ export interface TdParamSpecParamSet extends TdParamSpecBase {
   };
 }
 
-
 // list of param spec type that uses a code editor
 export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
-  'python_code_param', 'r_code_param', 'julia_code_param',
-  'bash_code_param', 'perl_code_param', 'yaml_code_param', 'json_code_param',
+  'python_code_param',
+  'r_code_param',
+  'julia_code_param',
+  'bash_code_param',
+  'perl_code_param',
+  'yaml_code_param',
+  'json_code_param',
 ];

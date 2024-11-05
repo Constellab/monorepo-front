@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDynamicFormArrayComponent} from './fl-dynamic-form-array.component';
+import { FlDynamicFormArrayComponent } from './fl-dynamic-form-array.component';
 
 describe('FlDynamicFormArrayComponent', () => {
   let component: FlDynamicFormArrayComponent;
@@ -8,9 +8,8 @@ describe('FlDynamicFormArrayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDynamicFormArrayComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDynamicFormArrayComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

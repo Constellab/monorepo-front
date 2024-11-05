@@ -3,7 +3,7 @@ import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/fron
 import {
   CaLabUpdateVolumeDTO,
   CaLabVolume,
-  CaLabVolumeType
+  CaLabVolumeType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
@@ -17,11 +17,12 @@ export interface CaLabVolumeUpdateDialogInput extends FlFormDialogInput<CaLabUpd
 @Component({
   selector: 'ca-lab-volume-update-dialog',
   templateUrl: './ca-lab-volume-update-dialog.component.html',
-  styleUrl: './ca-lab-volume-update-dialog.component.scss'
+  styleUrl: './ca-lab-volume-update-dialog.component.scss',
 })
 export class CaLabVolumeUpdateDialogComponent
-  extends FlFormDialogAbstractDirective<CaLabUpdateVolumeDTO, CaLabVolume> implements OnInit {
-
+  extends FlFormDialogAbstractDirective<CaLabUpdateVolumeDTO, CaLabVolume>
+  implements OnInit
+{
   dialogInput: CaLabVolumeUpdateDialogInput = inject(MAT_DIALOG_DATA);
 
   labService = inject(CaLabService);
@@ -34,7 +35,7 @@ export class CaLabVolumeUpdateDialogComponent
     return new FormBuilder().group({
       size: [null, [Validators.required, Validators.min(50)]],
       type: ['HIGH_SPEED' as CaLabVolumeType, Validators.required],
-      startDate: [null, Validators.required]
+      startDate: [null, Validators.required],
     });
   }
 

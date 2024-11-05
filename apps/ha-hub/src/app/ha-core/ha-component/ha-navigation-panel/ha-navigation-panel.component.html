@@ -1,8 +1,12 @@
 <div class="navigation-panel">
   <ng-container *ngFor="let navigationPanelItem of navigationPanelItems; index as i">
     <a [routerLink]="getUrl(navigationPanelItem, i)" class="navigation-a">
-      {{navigationPanelItem.translateTitle ? (navigationPanelItem.title | translate): navigationPanelItem.title}}
+      {{
+        navigationPanelItem.translateTitle
+          ? (navigationPanelItem.title | translate)
+          : navigationPanelItem.title
+      }}
     </a>
-    <div class="navigation-panel-divider" *ngIf="i+1 < navigationPanelItems.length">/</div>
+    <div class="navigation-panel-divider" *ngIf="i + 1 < navigationPanelItems.length">/</div>
   </ng-container>
 </div>

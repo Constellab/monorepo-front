@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabTransformResourcePortalComponent} from './lab-transform-resource-portal.component';
+import { LabTransformResourcePortalComponent } from './lab-transform-resource-portal.component';
 
 describe('BioxTransformResourceDialogComponent', () => {
   let component: LabTransformResourcePortalComponent;
@@ -8,9 +8,8 @@ describe('BioxTransformResourceDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabTransformResourcePortalComponent ]
-    })
-    .compileComponents();
+      declarations: [LabTransformResourcePortalComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

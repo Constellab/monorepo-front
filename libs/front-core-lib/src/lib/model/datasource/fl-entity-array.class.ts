@@ -1,10 +1,9 @@
-import {FlArrayObs} from './fl-array-obs.class';
-import {Observable} from 'rxjs';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlEntity} from '../fl-entity.class';
+import { FlArrayObs } from './fl-array-obs.class';
+import { Observable } from 'rxjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlEntity } from '../fl-entity.class';
 
 export class FlEntityArrayObs<T extends FlEntity> extends FlArrayObs<T> {
-
   /**
    * @param data initial data
    * @param disableAutoDisconnect if true the auto disconnect is disabled. mat-table and fl-async-section will

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlCompleteLoginComponent} from './fl-complete-login.component';
+import { FlCompleteLoginComponent } from './fl-complete-login.component';
 
 describe('FlCompleteLoginComponent', () => {
   let component: FlCompleteLoginComponent;
@@ -8,9 +8,8 @@ describe('FlCompleteLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlCompleteLoginComponent ]
-    })
-    .compileComponents();
+      declarations: [FlCompleteLoginComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlCompleteLoginComponent);
     component = fixture.componentInstance;

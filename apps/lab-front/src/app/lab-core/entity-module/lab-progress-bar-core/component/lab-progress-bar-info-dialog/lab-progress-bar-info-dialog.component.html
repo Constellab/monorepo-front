@@ -1,8 +1,11 @@
 <fl-dialog-header>
-  {{'biox.node_progress_detail' | translate}}
+  {{ 'biox.node_progress_detail' | translate }}
   <fl-dialog-header-actions>
-    <a [href]="downloadUrl$ | async" download mat-icon-button
-       [matTooltip]="'biox.download_messages' | translate">
+    <a
+      [href]="downloadUrl$ | async"
+      download
+      mat-icon-button
+      [matTooltip]="'biox.download_messages' | translate">
       <mat-icon>cloud_download</mat-icon>
     </a>
   </fl-dialog-header-actions>
@@ -11,8 +14,10 @@
 <mat-dialog-content #content class="g-styled-scrollbar">
   <fl-async-section [object]="progressBar$">
     <ng-container *flSectionBody>
-      <lab-progress-bar-info [progressBar$]="progressBar$" [scrollableElement]="content"
-                             class="container"></lab-progress-bar-info>
+      <lab-progress-bar-info
+        [progressBar$]="progressBar$"
+        [scrollableElement]="content"
+        class="container"></lab-progress-bar-info>
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

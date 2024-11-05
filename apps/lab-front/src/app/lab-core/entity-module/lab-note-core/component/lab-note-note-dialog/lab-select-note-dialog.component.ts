@@ -8,16 +8,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'lab-select-note-dialog',
   templateUrl: './lab-select-note-dialog.component.html',
-  styleUrls: ['./lab-select-note-dialog.component.scss']
+  styleUrls: ['./lab-select-note-dialog.component.scss'],
 })
 export class LabSelectNoteDialogComponent implements OnInit {
+  constructor(private dialogRef: MatDialogRef<LabSelectNoteDialogComponent>) {}
 
-  constructor(private dialogRef: MatDialogRef<LabSelectNoteDialogComponent>) {
-  }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   onNoteSelected(note: LabNote): void {
     this.dialogRef.close(note);

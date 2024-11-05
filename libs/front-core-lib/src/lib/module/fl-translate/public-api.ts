@@ -12,4 +12,3 @@ export * from './pipe/fl-translatable-text.pipe';
 export * from './model/fl-translate-module-config';
 export * from './model/fl-translate-param';
 export * from './fl-translation-loader';
-

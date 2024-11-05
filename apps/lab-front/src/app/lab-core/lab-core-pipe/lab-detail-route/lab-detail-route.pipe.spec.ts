@@ -1,4 +1,4 @@
-import {LabDetailRoutePipe} from './lab-detail-route.pipe';
+import { LabDetailRoutePipe } from './lab-detail-route.pipe';
 
 describe('LabDetailRoutePipe', () => {
   it('create an instance', () => {

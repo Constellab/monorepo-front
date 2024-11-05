@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaGroupInlineComponent} from './ca-group-inline.component';
+import { CaGroupInlineComponent } from './ca-group-inline.component';
 
 describe('CaGroupInlineComponent', () => {
   let component: CaGroupInlineComponent;
@@ -8,9 +8,8 @@ describe('CaGroupInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaGroupInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [CaGroupInlineComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

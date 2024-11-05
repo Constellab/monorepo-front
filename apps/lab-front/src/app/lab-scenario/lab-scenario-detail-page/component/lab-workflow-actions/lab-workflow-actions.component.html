@@ -1,67 +1,73 @@
 @if (scenario$ | async; as scenario) {
-
   <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
-
     <!-- Add object button  -->
-    <button mat-button type="button" class="g-button-small"
-            [matMenuTriggerFor]="menu" [disabled]="!scenario.protocolIsEditable()">
+    <button
+      mat-button
+      type="button"
+      class="g-button-small"
+      [matMenuTriggerFor]="menu"
+      [disabled]="!scenario.protocolIsEditable()">
       <mat-icon>add</mat-icon>
       {{ 'biox.add_object' | translate }}
     </button>
 
-    <button mat-button type="button" (click)="start()" class="g-button-small"
-            [disabled]="!scenario.protocolIsEditable()">
+    <button
+      mat-button
+      type="button"
+      (click)="start()"
+      class="g-button-small"
+      [disabled]="!scenario.protocolIsEditable()">
       <mat-icon>play_arrow</mat-icon>
       {{ 'biox.scenario_start' | translate }}
     </button>
 
-    <button mat-button type="button" color="warn" class="g-button-small"
-            [disabled]="!scenario.isRunning()"
-            (click)="stopScenario()">
+    <button
+      mat-button
+      type="button"
+      color="warn"
+      class="g-button-small"
+      [disabled]="!scenario.isRunning()"
+      (click)="stopScenario()">
       <mat-icon>stop</mat-icon>
       {{ 'biox.stop_scenario' | translate }}
     </button>
 
     @if (scenario.pidStatus === 'UNEXPECTED_STOPPED') {
-      <button mat-icon-button type="button" color="warn"
-              [matTooltip]="'biox.scenario_pid_stopped' | translate"
-              (click)="stopScenario()">
+      <button
+        mat-icon-button
+        type="button"
+        color="warn"
+        [matTooltip]="'biox.scenario_pid_stopped' | translate"
+        (click)="stopScenario()">
         <mat-icon>error</mat-icon>
       </button>
     }
   </div>
-
 }
 
 <!--  Add object menu  -->
 <mat-menu #menu="matMenu">
-  <button mat-menu-item type="button"
-          (click)="addProcess()">
+  <button mat-menu-item type="button" (click)="addProcess()">
     <mat-icon flIcon="process"></mat-icon>
     <span>{{ 'biox.add_process' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button"
-          (click)="addResource()">
+  <button mat-menu-item type="button" (click)="addResource()">
     <mat-icon flIcon="resource"></mat-icon>
     <span>{{ 'biox.add_resource' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button"
-          (click)="addScenarioTemplate()">
+  <button mat-menu-item type="button" (click)="addScenarioTemplate()">
     <mat-icon flIcon="scenario_template"></mat-icon>
     <span>{{ 'biox.add_scenario_template' | translate }}</span>
   </button>
 
-
-  <button mat-menu-item type="button"
-          (click)="addCommunityAgent()">
+  <button mat-menu-item type="button" (click)="addCommunityAgent()">
     <mat-icon flIcon="code"></mat-icon>
     <span>{{ 'biox.add_community_agent' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button"
-          (click)="addEmptyProtocol()">
+  <button mat-menu-item type="button" (click)="addEmptyProtocol()">
     <mat-icon flIcon="play_circle_filled"></mat-icon>
     <span>{{ 'pr.add_empty_protocol' | translate }}</span>
   </button>

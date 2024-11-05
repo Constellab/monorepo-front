@@ -10,9 +10,7 @@ describe('LabSelectNoteTemplateDynamicFieldComponent', () => {
       declarations: [LabSelectNoteTemplateDynamicFieldComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(
-      LabSelectNoteTemplateDynamicFieldComponent
-    );
+    fixture = TestBed.createComponent(LabSelectNoteTemplateDynamicFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

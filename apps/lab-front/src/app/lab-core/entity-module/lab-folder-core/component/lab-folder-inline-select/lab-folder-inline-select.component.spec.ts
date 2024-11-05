@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabFolderInlineSelectComponent} from './lab-folder-inline-select.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabFolderInlineSelectComponent } from './lab-folder-inline-select.component';
 
 describe('LabFolderInlineSelectComponent', () => {
   let component: LabFolderInlineSelectComponent;

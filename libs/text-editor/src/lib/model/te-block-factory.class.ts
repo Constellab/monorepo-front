@@ -1,12 +1,11 @@
-import {ApplicationRef, EnvironmentInjector, Type} from '@angular/core';
-import {TeElementBlockDirective} from './te-element.directive';
-import {TeComponentBlock} from '../block/te-component-block.class';
+import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
+import { TeElementBlockDirective } from './te-element.directive';
+import { TeComponentBlock } from '../block/te-component-block.class';
 import {
   BlockTool,
   BlockToolConstructable,
-  BlockToolConstructorOptions
+  BlockToolConstructorOptions,
 } from '@editorjs/editorjs/types/tools/block-tool';
-
 
 /**
  * Factory function to create a block tool constructor for editor js configuration
@@ -14,11 +13,7 @@ import {
  * @param blockType
  * @param additionalData
  */
-export function teSimpleBlockFactory(
-  blockType: Type<BlockTool>,
-  additionalData?: any): any {
-
-
+export function teSimpleBlockFactory(blockType: Type<BlockTool>, additionalData?: any): any {
   // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
   return class TeClass {
     static toolbox = (blockType as BlockToolConstructable).toolbox;
@@ -32,7 +27,6 @@ export function teSimpleBlockFactory(
   };
 }
 
-
 /**
  * Factory function to create a block tool constructor for editor js configuration
  * This allow to pass environment injector, application ref and additional data to block constructor
@@ -45,9 +39,8 @@ export function teComponentBlockFactory<T extends TeElementBlockDirective = TeEl
   blockType: Type<TeComponentBlock<T>>,
   environmentInjector: EnvironmentInjector,
   applicationRef: ApplicationRef,
-  additionalData?: any): any {
-
-
+  additionalData?: any
+): any {
   // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
   return class TeClass {
     static toolbox = (blockType as BlockToolConstructable).toolbox;

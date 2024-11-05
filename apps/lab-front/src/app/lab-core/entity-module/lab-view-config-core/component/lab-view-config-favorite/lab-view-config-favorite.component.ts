@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {LabViewConfig} from '../../../../model/entities/resource/lab-view-config.entity';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
+import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-view-config-favorite',
@@ -10,15 +10,13 @@ import {ClHelpService} from '@monorepo/core-lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LabViewConfigFavoriteComponent {
-
   @Input() viewConfig: LabViewConfig;
 
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
 
   private isLoading: boolean = false;
 
-  constructor(private viewConfigService: LabViewConfigService) {
-  }
+  constructor(private viewConfigService: LabViewConfigService) {}
 
   toggle(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -29,8 +27,8 @@ export class LabViewConfigFavoriteComponent {
 
     this.isLoading = true;
     this.viewConfigService.updateFavorite(this.viewConfig.id, this.viewConfig.isFavorite).subscribe({
-      next: entity => this.onSuccess(entity),
-      error: () => this.onError(this.viewConfig.isFavorite)
+      next: (entity) => this.onSuccess(entity),
+      error: () => this.onError(this.viewConfig.isFavorite),
     });
   }
 
@@ -43,7 +41,6 @@ export class LabViewConfigFavoriteComponent {
     this.viewConfig.isFavorite = !highlighted;
     this.isLoading = false;
   }
-
 
   get fontSet(): string {
     return this.viewConfig.isFavorite ? 'material-icons' : 'material-icons-outlined';

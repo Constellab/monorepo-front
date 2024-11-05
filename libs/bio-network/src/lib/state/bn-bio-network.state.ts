@@ -1,26 +1,24 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import {
   BnBioNetwork,
   BnBioNetworkClusterSelection,
   BnBioNetworkCompartment,
-  FlPathwayDatabase
+  FlPathwayDatabase,
 } from '../model/bn-bio-network.class';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {BnBioNetworkFactory} from '../utils/bn-bio-network.factory';
-import {ClHelpService} from '@monorepo/core-lib';
-import {BnBioNetworkHelper} from '../utils/bn-bio-network.helper';
-import {debounceTime, map} from 'rxjs/operators';
-import {BnBioNetworkEngineState} from './bn-bio-network-engine.state';
-import {FlColorHelper, FlFileHelper, FlThemeService, FlTranslateService} from '@monorepo/front-core-lib';
-import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
-
+import { BehaviorSubject, Observable } from 'rxjs';
+import { BnBioNetworkFactory } from '../utils/bn-bio-network.factory';
+import { ClHelpService } from '@monorepo/core-lib';
+import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
+import { debounceTime, map } from 'rxjs/operators';
+import { BnBioNetworkEngineState } from './bn-bio-network-engine.state';
+import { FlColorHelper, FlFileHelper, FlThemeService, FlTranslateService } from '@monorepo/front-core-lib';
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 
 /**
  * State containing the data for the pathway
  */
 @Injectable()
 export class BnBioNetworkState implements OnDestroy {
-
   public networks: BnBioNetwork[];
   private selectedNetwork$: BehaviorSubject<BnBioNetwork | null>;
   private chartData$: BehaviorSubject<BnBioNetworkGraph | null>;
@@ -32,10 +30,11 @@ export class BnBioNetworkState implements OnDestroy {
   // used to cache the list of pathway
   private pathwayListCache: Record<FlPathwayDatabase | string, BnBioNetworkClusterSelection[]>;
 
-  constructor(private translateService: FlTranslateService, private themeService: FlThemeService,
-              private engineState: BnBioNetworkEngineState) {
-  }
-
+  constructor(
+    private translateService: FlTranslateService,
+    private themeService: FlThemeService,
+    private engineState: BnBioNetworkEngineState
+  ) {}
 
   public init(networks: BnBioNetwork | BnBioNetwork[]): void {
     this.initNetworks(networks);
@@ -51,12 +50,12 @@ export class BnBioNetworkState implements OnDestroy {
     // load the db and the list of pathways
     this.selectDatabase();
 
-    this.clustersSelectionChange$.pipe(
-      // use a debounce time to prevent rebuilding the graph to much
-      debounceTime(500)
-    ).subscribe(
-      () => this.selectClusters(this.clusters$.value)
-    );
+    this.clustersSelectionChange$
+      .pipe(
+        // use a debounce time to prevent rebuilding the graph to much
+        debounceTime(500)
+      )
+      .subscribe(() => this.selectClusters(this.clusters$.value));
   }
 
   private initNetworks(networks: BnBioNetwork | BnBioNetwork[]): void {
@@ -75,7 +74,7 @@ export class BnBioNetworkState implements OnDestroy {
 
   public selectNetwork(name: string): void {
     // find the network with the name
-    const network: BnBioNetwork = this.networks.find(network => network.name === name);
+    const network: BnBioNetwork = this.networks.find((network) => network.name === name);
     this.selectedNetwork$.next(network);
     this.clusters$.next([]);
     this.emitClustersSelectionChange();
@@ -115,35 +114,42 @@ export class BnBioNetworkState implements OnDestroy {
 
   // select specific cluster in the network to display
   private selectClusters(clusters: BnBioNetworkClusterSelection[]): void {
-    clusters.forEach(cluster => cluster.highlighted = false);
-    const clusterIds: string[] = clusters.filter(cluster => cluster.selected)
-      .map(cluster => cluster.id);
+    clusters.forEach((cluster) => (cluster.highlighted = false));
+    const clusterIds: string[] = clusters.filter((cluster) => cluster.selected).map((cluster) => cluster.id);
     // if no ids are selected, we return null
-    if (ClHelpService.isNullOrEmpty(clusterIds) || this.getDatabase() == null ||
-      this.getSelectedNetwork() == null) {
+    if (
+      ClHelpService.isNullOrEmpty(clusterIds) ||
+      this.getDatabase() == null ||
+      this.getSelectedNetwork() == null
+    ) {
       this.chartData$.next(null);
       return;
     }
 
-    const factory = new BnBioNetworkFactory(this.themeService.getCurrentThemeDetail(), this.engineState.engineConfig.ignoreNodePositions);
-    const chartData: BnBioNetworkGraph = factory.convertNetworkToNetworkD3(this.getSelectedNetwork(), clusterIds);
+    const factory = new BnBioNetworkFactory(
+      this.themeService.getCurrentThemeDetail(),
+      this.engineState.engineConfig.ignoreNodePositions
+    );
+    const chartData: BnBioNetworkGraph = factory.convertNetworkToNetworkD3(
+      this.getSelectedNetwork(),
+      clusterIds
+    );
 
     this.chartData$.next(chartData);
   }
 
   public selectAllClusters(): void {
-    this.getCurrentClusters().forEach(cluster => cluster.selected = true);
+    this.getCurrentClusters().forEach((cluster) => (cluster.selected = true));
     this.emitClustersSelectionChange();
   }
 
   public unselectAllClusters(): void {
-    this.getCurrentClusters().forEach(cluster => {
+    this.getCurrentClusters().forEach((cluster) => {
       cluster.selected = false;
       cluster.highlighted = false;
     });
     this.emitClustersSelectionChange();
   }
-
 
   private getClustersList(): BnBioNetworkClusterSelection[] {
     if (this.getSelectedNetwork() == null) {
@@ -152,7 +158,6 @@ export class BnBioNetworkState implements OnDestroy {
 
     const network = this.getSelectedNetwork();
     const clusters: BnBioNetworkClusterSelection[] = [];
-
 
     clusters.push({
       id: BnBioNetworkHelper.defaultClusterId,
@@ -163,18 +168,17 @@ export class BnBioNetworkState implements OnDestroy {
     });
     for (const metabolite of network.metabolites) {
       for (const cluster of Object.values(metabolite.layout.clusters)) {
-        if (clusters.find(c => c.id === cluster.id) == null) {
+        if (clusters.find((c) => c.id === cluster.id) == null) {
           clusters.push({
             id: cluster.id,
             name: cluster.name,
             selected: false,
             highlighted: false,
-            color: FlColorHelper.stringToRGBColor(cluster.id)
+            color: FlColorHelper.stringToRGBColor(cluster.id),
           });
         }
       }
     }
-
 
     return clusters;
   }
@@ -209,7 +213,6 @@ export class BnBioNetworkState implements OnDestroy {
   //   return groups;
   // }
 
-
   public emitClustersSelectionChange(): void {
     this.clustersSelectionChange$.next();
   }
@@ -221,7 +224,6 @@ export class BnBioNetworkState implements OnDestroy {
   public getCurrentClusters(): BnBioNetworkClusterSelection[] {
     return this.clusters$.value;
   }
-
 
   /////////////////////////////////////// CHART DATA /////////////////////////////////////////
   public getChartData$(): Observable<BnBioNetworkGraph | null> {
@@ -238,7 +240,7 @@ export class BnBioNetworkState implements OnDestroy {
     // TODO to remove, this is temporary to export a view object
     const viewObject = {
       type: 'network-view',
-      data: network
+      data: network,
     };
 
     FlFileHelper.downloadJsonFile(viewObject, 'network.json');
@@ -248,13 +250,10 @@ export class BnBioNetworkState implements OnDestroy {
     return this.getSelectedNetwork();
   }
 
-
   /////////////////////////////////////// OTHER /////////////////////////////////////////
 
   public getCompartments$(): Observable<BnBioNetworkCompartment[]> {
-    return this.selectedNetwork$.pipe(
-      map(network => network.compartments)
-    );
+    return this.selectedNetwork$.pipe(map((network) => network.compartments));
   }
 
   ngOnDestroy(): void {
@@ -266,4 +265,3 @@ export class BnBioNetworkState implements OnDestroy {
     this.clustersSelectionChange$.complete();
   }
 }
-

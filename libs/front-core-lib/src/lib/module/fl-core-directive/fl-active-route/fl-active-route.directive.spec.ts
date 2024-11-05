@@ -1,4 +1,4 @@
-import {FlActiveRouteDirective} from './fl-active-route.directive';
+import { FlActiveRouteDirective } from './fl-active-route.directive';
 
 describe('FlActiveRouteDirective', () => {
   it('should create an instance', () => {

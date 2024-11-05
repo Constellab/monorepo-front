@@ -3,12 +3,11 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { diffChars } from 'diff';
 import { DateTime } from 'luxon';
 
-
-export enum TeTextEditorHistoryModificationType{
-  CREATED = "CREATED",
-  UPDATED = "UPDATED",
-  DELETED = "DELETED",
-  MOVED = "MOVED"
+export enum TeTextEditorHistoryModificationType {
+  CREATED = 'CREATED',
+  UPDATED = 'UPDATED',
+  DELETED = 'DELETED',
+  MOVED = 'MOVED',
 }
 
 export interface TeTextEditorHistoryModificationDifference {
@@ -33,8 +32,17 @@ export class TeTextEditorHistoryBlockModification {
   blockValue?: Record<string, any>;
   oldIndex?: number;
 
-  constructor(version: string, blockId: string, blockType: string, type: TeTextEditorHistoryModificationType, index: number,
-              userId: string, id?: string, time?: string, user?: FlUser) {
+  constructor(
+    version: string,
+    blockId: string,
+    blockType: string,
+    type: TeTextEditorHistoryModificationType,
+    index: number,
+    userId: string,
+    id?: string,
+    time?: string,
+    user?: FlUser
+  ) {
     this.id = id ?? ClStringHelper.generateUUID();
     this.version = version;
     this.time = DateTime.fromISO(time) ?? DateTime.now();
@@ -47,23 +55,25 @@ export class TeTextEditorHistoryBlockModification {
   }
 }
 
-
-export interface TeTextEditorHistoryModificationList{
+export interface TeTextEditorHistoryModificationList {
   version?: number;
   modifications: TeTextEditorHistoryBlockModification[];
 }
 
-export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistoryModificationList{
+export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistoryModificationList {
   end: DateTime;
   currentIndex?: number;
   modifications: TeTextEditorHistoryBlockModification[];
 
   constructor(end?: DateTime) {
-    this.end = end
+    this.end = end;
   }
 
-  public static getValuesDifferences(oldValue: string, newValue: string): TeTextEditorHistoryModificationDifference[] {
-    const res: TeTextEditorHistoryModificationDifference[] = []
+  public static getValuesDifferences(
+    oldValue: string,
+    newValue: string
+  ): TeTextEditorHistoryModificationDifference[] {
+    const res: TeTextEditorHistoryModificationDifference[] = [];
     const changes = diffChars(oldValue, newValue);
     let i = 0;
     for (const change of changes) {
@@ -73,7 +83,7 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
           added: change.added,
           removed: change.removed,
           value: change.value,
-          count: change.count
+          count: change.count,
         });
       }
       if (!change.removed) {
@@ -83,11 +93,17 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
     return res;
   }
 
-  public static undoDifferences(value: string, differences: TeTextEditorHistoryModificationDifference[]): string {
+  public static undoDifferences(
+    value: string,
+    differences: TeTextEditorHistoryModificationDifference[]
+  ): string {
     let res = value;
     const reversedDifferences = differences.slice().reverse();
     // if the first or last difference value is a /, we don't want to undo it
-    if (reversedDifferences[0].value == '/' || reversedDifferences[reversedDifferences.length - 1].value == '/') {
+    if (
+      reversedDifferences[0].value == '/' ||
+      reversedDifferences[reversedDifferences.length - 1].value == '/'
+    ) {
       return res;
     }
     for (const diff of reversedDifferences) {
@@ -104,7 +120,10 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
     return res;
   }
 
-  public static redoDifferences(value: string, differences: TeTextEditorHistoryModificationDifference[]): string {
+  public static redoDifferences(
+    value: string,
+    differences: TeTextEditorHistoryModificationDifference[]
+  ): string {
     let res = value;
     // if the first or last difference value is a /, we don't want to redo it
     if (differences[0].value == '/' || differences[differences.length - 1].value == '/') {
@@ -134,7 +153,7 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
   }
 
   public mainModificationId(): string {
-    if(this.isEmpty()){
+    if (this.isEmpty()) {
       return null;
     }
     return this.modifications[0].id;
@@ -166,11 +185,13 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
       });
     }
 
-    let removeLastModification = false
+    let removeLastModification = false;
     for (const modification of modifications) {
-      if (lastModification.type == modification.type &&
+      if (
+        lastModification.type == modification.type &&
         lastModification.blockId == modification.blockId &&
-        lastModification.type != TeTextEditorHistoryModificationType.UPDATED) {
+        lastModification.type != TeTextEditorHistoryModificationType.UPDATED
+      ) {
         removeLastModification = true;
       }
     }
@@ -190,27 +211,37 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
     this.currentIndex = this.modifications.length - 1;
   }
 
-  private reduceModifications(modifications: TeTextEditorHistoryBlockModification[]): TeTextEditorHistoryBlockModification[]{
-    const areAllMoved = modifications.every(modification => modification.type === TeTextEditorHistoryModificationType.MOVED);
-    const numMoved = modifications.filter(modification => modification.type === TeTextEditorHistoryModificationType.MOVED).length;
+  private reduceModifications(
+    modifications: TeTextEditorHistoryBlockModification[]
+  ): TeTextEditorHistoryBlockModification[] {
+    const areAllMoved = modifications.every(
+      (modification) => modification.type === TeTextEditorHistoryModificationType.MOVED
+    );
+    const numMoved = modifications.filter(
+      (modification) => modification.type === TeTextEditorHistoryModificationType.MOVED
+    ).length;
 
     // if there is only one moved modification, we remove the modification because it's must be a bug
-    if(numMoved == 1){
-      modifications = modifications.filter(modification => modification.type !== TeTextEditorHistoryModificationType.MOVED);
+    if (numMoved == 1) {
+      modifications = modifications.filter(
+        (modification) => modification.type !== TeTextEditorHistoryModificationType.MOVED
+      );
     }
 
     // if all modifications are moved, we keep only the one with the biggest movement,
     // otherwise there will be a lot of modifications for nothing
-    if(areAllMoved){
+    if (areAllMoved) {
       let moveModification: TeTextEditorHistoryBlockModification = null;
-      modifications.forEach(modification => {
+      modifications.forEach((modification) => {
         const movement = Math.abs(modification.index - modification.oldIndex);
-        const currentMovement = moveModification ? Math.abs(moveModification.index - moveModification.oldIndex) : 0;
-        if(moveModification == null || movement > currentMovement){
+        const currentMovement = moveModification
+          ? Math.abs(moveModification.index - moveModification.oldIndex)
+          : 0;
+        if (moveModification == null || movement > currentMovement) {
           moveModification = modification;
         }
       });
-      if (moveModification){
+      if (moveModification) {
         return [moveModification];
       } else {
         return [];
@@ -219,8 +250,10 @@ export class TeTextEditorHistoryModificationGroup implements TeTextEditorHistory
 
     // Otherwise, we remove all the modifications that are just a /  because they are not useful for the history
     // and we remove all modifications of type MOVED because they must have been created during another modification
-    modifications = modifications.filter((m) => JSON.stringify(m.blockValue) != '{"text":"/"}'
-      && m.type !== TeTextEditorHistoryModificationType.MOVED);
+    modifications = modifications.filter(
+      (m) =>
+        JSON.stringify(m.blockValue) != '{"text":"/"}' && m.type !== TeTextEditorHistoryModificationType.MOVED
+    );
 
     return modifications;
   }

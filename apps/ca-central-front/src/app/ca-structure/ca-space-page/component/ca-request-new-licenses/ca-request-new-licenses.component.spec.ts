@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaRequestNewLicensesComponent} from './ca-request-new-licenses.component';
+import { CaRequestNewLicensesComponent } from './ca-request-new-licenses.component';
 
 describe('CaRequestNewLicensesComponent', () => {
   let component: CaRequestNewLicensesComponent;
@@ -8,9 +8,8 @@ describe('CaRequestNewLicensesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaRequestNewLicensesComponent ]
-    })
-    .compileComponents();
+      declarations: [CaRequestNewLicensesComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaRequestNewLicensesComponent);
     component = fixture.componentInstance;

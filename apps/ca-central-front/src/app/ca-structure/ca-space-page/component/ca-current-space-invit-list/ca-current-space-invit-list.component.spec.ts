@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceInvitListComponent} from './ca-current-space-invit-list.component';
+import { CaCurrentSpaceInvitListComponent } from './ca-current-space-invit-list.component';
 
 describe('CaSpaceInvitListComponent', () => {
   let component: CaCurrentSpaceInvitListComponent;
@@ -8,9 +8,8 @@ describe('CaSpaceInvitListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCurrentSpaceInvitListComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpaceInvitListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCurrentSpaceInvitListComponent);
     component = fixture.componentInstance;

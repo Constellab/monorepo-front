@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaServerStandardPriceComponent} from './ca-server-standard-price.component';
+import { CaServerStandardPriceComponent } from './ca-server-standard-price.component';
 
 describe('CaServerInfoPriceComponent', () => {
   let component: CaServerStandardPriceComponent;
@@ -8,9 +8,8 @@ describe('CaServerInfoPriceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaServerStandardPriceComponent]
-    })
-    .compileComponents();
+      declarations: [CaServerStandardPriceComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaServerStandardPriceComponent);
     component = fixture.componentInstance;

@@ -8,14 +8,12 @@ import { FlSearchState } from '@monorepo/front-core-lib';
 @Component({
   selector: 'lab-resource-search-form',
   templateUrl: './lab-resource-search-form.component.html',
-  styleUrls: ['./lab-resource-search-form.component.scss']
+  styleUrls: ['./lab-resource-search-form.component.scss'],
 })
 export class LabResourceSearchFormComponent implements OnInit {
-
   formGp: UntypedFormGroup;
 
-  constructor(private searchState: FlSearchState<any>) {
-  }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

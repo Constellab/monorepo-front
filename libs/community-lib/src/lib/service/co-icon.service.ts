@@ -19,33 +19,20 @@ export class CoIconService {
   public getAllPaginated(): CoIconDatasourcePaginated<CoIconDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => {
-        return this.getAllByFilter(
-          requestData.filtersCriteria.subNameFilter,
-          page,
-          size
-        );
+        return this.getAllByFilter(requestData.filtersCriteria.subNameFilter, page, size);
       },
       20,
       false
     );
   }
 
-  private getAllByFilter(
-    subNameFilter: string,
-    page: number,
-    size: number
-  ): Observable<ClPage<CoIcon>> {
+  private getAllByFilter(subNameFilter: string, page: number, size: number): Observable<ClPage<CoIcon>> {
     let route = '/' + this.route + '/filter';
-    return this.apiService.post(
-      route,
-      { subNameFilter: subNameFilter },
-      CoIcon,
-      {
-        page: page,
-        resultIsPaginated: true,
-        overrideApiUrl: this.serviceConfig.getCommunityApiUrl(),
-        params: { size: size?.toString() ?? '20' },
-      }
-    );
+    return this.apiService.post(route, { subNameFilter: subNameFilter }, CoIcon, {
+      page: page,
+      resultIsPaginated: true,
+      overrideApiUrl: this.serviceConfig.getCommunityApiUrl(),
+      params: { size: size?.toString() ?? '20' },
+    });
   }
 }

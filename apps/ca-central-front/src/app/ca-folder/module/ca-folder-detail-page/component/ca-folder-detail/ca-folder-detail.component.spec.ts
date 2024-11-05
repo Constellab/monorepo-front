@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderDetailComponent} from './ca-folder-detail.component';
+import { CaFolderDetailComponent } from './ca-folder-detail.component';
 
 describe('CaFolderCardDetailComponent', () => {
   let component: CaFolderDetailComponent;
@@ -8,9 +8,8 @@ describe('CaFolderCardDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,54 +1,56 @@
 <fl-dialog-header>
-  {{'configure_folder_storage' | translate}}
+  {{ 'configure_folder_storage' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-
   <p class="help-text">
-    {{'configure_folder_storage_help' | translate}}
+    {{ 'configure_folder_storage_help' | translate }}
   </p>
   <form (ngSubmit)="submit()" id="cloud-provider-form" [formGroup]="formGp">
-
-
     <!--  main storage  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'folder_main_storage_location' | translate}}</mat-label>
-      <mat-select formControlName="mainStorage" required [placeholder]="'folder_main_storage_location' | translate">
+      <mat-label>{{ 'folder_main_storage_location' | translate }}</mat-label>
+      <mat-select
+        formControlName="mainStorage"
+        required
+        [placeholder]="'folder_main_storage_location' | translate">
         <mat-select-trigger *ngIf="formGp.get('mainStorage').value">
-          <ca-bucket-location-inline [bucketLocation]="formGp.get('mainStorage').value"></ca-bucket-location-inline>
+          <ca-bucket-location-inline
+            [bucketLocation]="formGp.get('mainStorage').value"></ca-bucket-location-inline>
         </mat-select-trigger>
         <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('mainStorage').hasError('required')">
-        {{'folder_main_storage_location' | flErrorRequired}}
+        {{ 'folder_main_storage_location' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <!--  backup storage  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{'folder_backup_storage_location' | translate}}</mat-label>
-      <mat-select formControlName="backupStorage" [placeholder]="'folder_backup_storage_location' | translate">
+      <mat-label>{{ 'folder_backup_storage_location' | translate }}</mat-label>
+      <mat-select
+        formControlName="backupStorage"
+        [placeholder]="'folder_backup_storage_location' | translate">
         <mat-select-trigger *ngIf="formGp.get('backupStorage').value">
-          <ca-bucket-location-inline [bucketLocation]="formGp.get('backupStorage').value"></ca-bucket-location-inline>
+          <ca-bucket-location-inline
+            [bucketLocation]="formGp.get('backupStorage').value"></ca-bucket-location-inline>
         </mat-select-trigger>
         <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
       <mat-error *ngIf="formGp.get('backupStorage').hasError('required')">
-        {{'folder_backup_storage_location' | flErrorRequired}}
+        {{ 'folder_backup_storage_location' | flErrorRequired }}
       </mat-error>
     </mat-form-field>
 
     <mat-error *ngIf="formGp.hasError('sameBackupStorage')">
-      {{'folder_storage_location_same_error' | translate}}
+      {{ 'folder_storage_location_same_error' | translate }}
     </mat-error>
-
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="cloud-provider-form"
-          class="g-centered-forced">
-    {{'save' | translate}}
+  <button mat-flat-button color="primary" type="submit" form="cloud-provider-form" class="g-centered-forced">
+    {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>
 </div>

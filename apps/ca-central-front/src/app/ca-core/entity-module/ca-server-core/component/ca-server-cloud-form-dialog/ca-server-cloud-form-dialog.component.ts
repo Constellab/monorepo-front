@@ -11,10 +11,12 @@ import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-server-cloud-form-dialog',
   templateUrl: './ca-server-cloud-form-dialog.component.html',
-  styleUrls: ['./ca-server-cloud-form-dialog.component.scss']
+  styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
 })
-export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirective<CaServerCloud> implements OnInit {
-
+export class CaServerCloudFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaServerCloud>
+  implements OnInit
+{
   constructor(private serverService: CaServerService) {
     super();
   }
@@ -35,7 +37,7 @@ export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirect
       cpuCount: [null, [Validators.required, Validators.min(0)]],
       cpuType: [null, [Validators.required]],
       gpuCount: [null, [Validators.min(0)]],
-      gpuType: [null]
+      gpuType: [null],
     });
   }
 
@@ -46,7 +48,6 @@ export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirect
   update(formValue: CaServerCloud): Observable<CaServerCloud> {
     return this.serverService.updateServerCloud(formValue);
   }
-
 
   get title(): string {
     return this.isCreateMode() ? 'create_server_cloud' : 'update_server_cloud';
@@ -59,6 +60,4 @@ export class CaServerCloudFormDialogComponent extends FlFormDialogAbstractDirect
   getUpdateSuccessMessage(): string {
     return 'server_cloud_updated';
   }
-
-
 }

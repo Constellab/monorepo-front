@@ -5,10 +5,9 @@ import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.cla
 @Component({
   selector: 'ca-note-table',
   templateUrl: './ca-note-table.component.html',
-  styleUrls: ['./ca-note-table.component.scss']
+  styleUrls: ['./ca-note-table.component.scss'],
 })
 export class CaNoteTableComponent {
-
   @Input({ required: true }) datasource: FlDatasource<CaNote>;
 
   @Input() columns: FlTableColumnStatic<CaNote>[] = ['title', 'createdBy', 'lastSync'];
@@ -23,5 +22,4 @@ export class CaNoteTableComponent {
       this.noteSelected.next(note);
     }
   }
-
 }

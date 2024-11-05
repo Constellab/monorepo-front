@@ -1,6 +1,6 @@
 // Import input-file style
 @use '@angular/material' as mat;
-@import "../components/fl-input-file-theme";
+@import '../components/fl-input-file-theme';
 
 // function to set the background and foreground palette in material theme
 // from https://github.com/angular/components/issues/6244#issuecomment-1017629612
@@ -8,11 +8,11 @@
   $color: map_get($theme, color);
 
   $color: map_merge(
-      $color,
-      (
-        background: $background,
-        foreground: $foreground,
-      )
+    $color,
+    (
+      background: $background,
+      foreground: $foreground,
+    )
   );
   // Define material font
   $typography: mat.m2-define-typography-config(
@@ -24,11 +24,11 @@
     $caption: mat.m2-define-typography-level(10px, 10px, 500, 'Poppins'),
   );
   @return map_merge(
-      $theme,
-      (
-        color: $color,
-        typography: $typography,
-      )
+    $theme,
+    (
+      color: $color,
+      typography: $typography,
+    )
   );
 }
 
@@ -49,10 +49,9 @@
   $background-color: mat.m2-get-color-from-palette($background, background);
   $divider: mat.m2-get-color-from-palette($foreground, dividers);
 
-  $color-success: #22B252;
+  $color-success: #22b252;
   $color-warning: orange;
   $color-error: mat.m2-get-color-from-palette($warn);
-
 
   @include mat.core-theme($mat-theme);
   // apply the material theme
@@ -83,7 +82,6 @@
   body {
     background-color: $background-color;
     color: $foreground-color;
-
 
     /**
      Text with the colors of the palettes
@@ -152,7 +150,6 @@
       color: mat.m2-get-color-from-palette($primary, 800);
     }
 
-
     /**
      Background color based on the theme and set the text color
      */
@@ -161,7 +158,6 @@
       background-color: mat.m2-get-color-from-palette($primary, 200);
       color: mat.m2-get-color-from-palette($primary, '100-contrast');
     }
-
 
     /**
       Contrast border for palette. The best color (white or black) depending on the background
@@ -193,14 +189,12 @@
       color: mat.m2-get-color-from-palette($warn);
     }
 
-
     /**
      * Define colors in the same color as text theme for text, background and border
      */
     .g-text-normal-color {
       color: $foreground-color;
     }
-
 
     //////////////// OTHER /////////////////////
     /**

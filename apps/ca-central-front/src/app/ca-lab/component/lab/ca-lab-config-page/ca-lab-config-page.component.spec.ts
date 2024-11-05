@@ -8,9 +8,8 @@ describe('CaLabConfigPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabConfigPageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabConfigPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabConfigPageComponent);
     component = fixture.componentInstance;

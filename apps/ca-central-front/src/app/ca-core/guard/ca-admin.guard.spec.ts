@@ -1,6 +1,6 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {CaAdminGuard} from './ca-admin-guard.service';
+import { CaAdminGuard } from './ca-admin-guard.service';
 
 describe('AdminGuard', () => {
   let guard: CaAdminGuard;

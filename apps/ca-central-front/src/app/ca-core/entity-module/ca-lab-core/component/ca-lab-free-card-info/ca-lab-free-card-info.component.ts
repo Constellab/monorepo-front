@@ -5,7 +5,7 @@ import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@m
 import { Observable, of } from 'rxjs';
 import {
   CaLabFreeFormDialogComponent,
-  CaLabFreeFormDialogInput
+  CaLabFreeFormDialogInput,
 } from '../ca-lab-free-form-dialog/ca-lab-free-form-dialog.component';
 
 /**
@@ -18,17 +18,16 @@ import {
   styleUrls: ['./ca-lab-free-card-info.component.scss'],
 })
 export class CaLabFreeCardInfoComponent implements OnInit {
-
   @Input() userId: string;
 
   @Input() labId: string;
 
   freeLabDTO$: Observable<CaLabFreeGetDto>;
 
-  constructor(private labService: CaLabService,
-              private dialogService: FlDialogService) {
-
-  }
+  constructor(
+    private labService: CaLabService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     if (this.userId) {
@@ -44,11 +43,13 @@ export class CaLabFreeCardInfoComponent implements OnInit {
     const data: CaLabFreeFormDialogInput = {
       freeLabId: freeLab.freeLab.id,
       usageLimitInHours: freeLab.freeLab.usageLimitInHours,
-      expirationDate: freeLab.freeLab.expirationDate
+      expirationDate: freeLab.freeLab.expirationDate,
     };
 
-    this.dialogService.openSmallDialog(CaLabFreeFormDialogComponent, {data})
-      .afterClosed().subscribe(result => this.onUpdateClosed(result));
+    this.dialogService
+      .openSmallDialog(CaLabFreeFormDialogComponent, { data })
+      .afterClosed()
+      .subscribe((result) => this.onUpdateClosed(result));
   }
 
   private onUpdateClosed(freeLab?: CaLabFreeGetDto): void {
@@ -56,7 +57,6 @@ export class CaLabFreeCardInfoComponent implements OnInit {
       this.freeLabDTO$ = of(freeLab);
     }
   }
-
 
   deleteFreeLab(freeLab: CaLabFreeGetDto): void {
     const input: FlConfirmDialogInput = {
@@ -66,9 +66,10 @@ export class CaLabFreeCardInfoComponent implements OnInit {
       successMessage: 'free_data_lab_deleted',
     };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      result => this.deleteFreeLabSuccess(result)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.deleteFreeLabSuccess(result));
   }
 
   private deleteFreeLabSuccess(result: FlConfirmDialogResult<CaLabFreeGetDto>): void {

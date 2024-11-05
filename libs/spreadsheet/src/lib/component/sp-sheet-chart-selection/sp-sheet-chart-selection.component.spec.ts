@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSheetChartSelectionComponent} from './sp-sheet-chart-selection.component';
+import { SpSheetChartSelectionComponent } from './sp-sheet-chart-selection.component';
 
 describe('SpSpreadsheetChartSelectionComponent', () => {
   let component: SpSheetChartSelectionComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetChartSelectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSheetChartSelectionComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSheetChartSelectionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

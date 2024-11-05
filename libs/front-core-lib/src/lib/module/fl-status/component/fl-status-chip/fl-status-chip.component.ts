@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {FlStatus} from '../../model/fl-status.class';
-import {Observable, of} from 'rxjs';
-import {TooltipPosition} from '@angular/material/tooltip';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { FlStatus } from '../../model/fl-status.class';
+import { Observable, of } from 'rxjs';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 export type FlStatusChipMode = 'iconText' | 'iconOnly' | 'textOnly';
 
@@ -12,10 +12,9 @@ export type FlStatusChipMode = 'iconText' | 'iconOnly' | 'textOnly';
   selector: 'fl-status-chip',
   templateUrl: './fl-status-chip.component.html',
   styleUrls: ['./fl-status-chip.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlStatusChipComponent {
-
   @Input() set status(status: FlStatus | Observable<FlStatus>) {
     if (status instanceof Observable) {
       this.status$ = status;
@@ -40,7 +39,6 @@ export class FlStatusChipComponent {
   @Input() size: 'normal' | 'small' = 'normal';
 
   status$: Observable<FlStatus>;
-
 
   get showIcon(): boolean {
     return this.mode === 'iconText' || this.mode === 'iconOnly';

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaNoSpacePageComponent} from './ca-no-space-page.component';
+import { CaNoSpacePageComponent } from './ca-no-space-page.component';
 
 describe('CaNoSpacePageComponent', () => {
   let component: CaNoSpacePageComponent;
@@ -8,9 +8,8 @@ describe('CaNoSpacePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaNoSpacePageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaNoSpacePageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaNoSpacePageComponent);
     component = fixture.componentInstance;

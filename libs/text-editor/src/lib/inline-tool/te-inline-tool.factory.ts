@@ -1,4 +1,7 @@
-import {InlineToolConstructable, InlineToolConstructorOptions} from '@editorjs/editorjs/types/tools/inline-tool';
+import {
+  InlineToolConstructable,
+  InlineToolConstructorOptions,
+} from '@editorjs/editorjs/types/tools/inline-tool';
 
 /**
  * Factory function to create a block tool constructor for editor js configuration
@@ -6,11 +9,7 @@ import {InlineToolConstructable, InlineToolConstructorOptions} from '@editorjs/e
  * @param blockType
  * @param additionalData
  */
-export function teInlineToolFactory(
-  blockType: any,
-  additionalData?: any): any {
-
-
+export function teInlineToolFactory(blockType: any, additionalData?: any): any {
   // this class implement the BlockToolConstructable interface (but because of constructor it is not recognized as such)
   return class TeClass {
     static isInline = (blockType as InlineToolConstructable).isInline;
@@ -22,4 +21,3 @@ export function teInlineToolFactory(
     }
   };
 }
-

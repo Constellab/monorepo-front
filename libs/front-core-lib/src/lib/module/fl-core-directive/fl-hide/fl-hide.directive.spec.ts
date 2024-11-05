@@ -1,4 +1,4 @@
-import {FlHideDirective} from './fl-hide.directive';
+import { FlHideDirective } from './fl-hide.directive';
 
 describe('FlHideDirective', () => {
   it('should create an instance', () => {

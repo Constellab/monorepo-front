@@ -8,10 +8,9 @@ import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/fol
 @Component({
   selector: 'ca-constellab-document-preview',
   templateUrl: './ca-constellab-document-preview.component.html',
-  styleUrl: './ca-constellab-document-preview.component.scss'
+  styleUrl: './ca-constellab-document-preview.component.scss',
 })
 export class CaConstellabDocumentPreviewComponent implements OnInit {
-
   @Input() documentId: string;
 
   document$: Observable<CaConstellabDocument>;
@@ -20,12 +19,10 @@ export class CaConstellabDocumentPreviewComponent implements OnInit {
 
   constellabDocument = CaHierarchyObjectType.CONSTELLAB_DOCUMENT;
 
-  constructor(private folderService: CaFolderService) {
-  }
+  constructor(private folderService: CaFolderService) {}
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaDocumentTextEditorConfig(this.documentId,
-      this.folderService);
+    this.textEditorConfig = new CaDocumentTextEditorConfig(this.documentId, this.folderService);
     this.document$ = this.folderService.getConstellabDocument(this.documentId);
   }
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaLabManagerAdvancedComponent} from './ca-lab-manager-advanced.component';
+import { CaLabManagerAdvancedComponent } from './ca-lab-manager-advanced.component';
 
 describe('CaLabManagerAdvancedComponent', () => {
   let component: CaLabManagerAdvancedComponent;
@@ -8,9 +8,8 @@ describe('CaLabManagerAdvancedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabManagerAdvancedComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabManagerAdvancedComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabManagerAdvancedComponent);
     component = fixture.componentInstance;

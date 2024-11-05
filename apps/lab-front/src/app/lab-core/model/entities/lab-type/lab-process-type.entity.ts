@@ -1,19 +1,24 @@
-import {LabTypeEntity} from './lab-type.entity';
-import {Expose} from 'class-transformer';
-import {TdIOSpec, TdIOSpecs, TdParamSpecs, TdProcessAdditionalInfoDTO, TdProcessType} from '@monorepo/technical-doc';
+import { LabTypeEntity } from './lab-type.entity';
+import { Expose } from 'class-transformer';
+import {
+  TdIOSpec,
+  TdIOSpecs,
+  TdParamSpecs,
+  TdProcessAdditionalInfoDTO,
+  TdProcessType,
+} from '@monorepo/technical-doc';
 
 export class LabProcessType extends LabTypeEntity {
-
-  @Expose({name: 'input_specs'})
+  @Expose({ name: 'input_specs' })
   inputSpecs: TdIOSpecs;
 
-  @Expose({name: 'output_specs'})
+  @Expose({ name: 'output_specs' })
   outputSpecs: TdIOSpecs;
 
-  @Expose({name: 'config_specs'})
+  @Expose({ name: 'config_specs' })
   configSpecs: TdParamSpecs;
 
-  @Expose({name: 'additional_info'})
+  @Expose({ name: 'additional_info' })
   additionalInfo: TdProcessAdditionalInfoDTO | undefined;
 
   hasConfigSpecs(): boolean {
@@ -27,7 +32,6 @@ export class LabProcessType extends LabTypeEntity {
   getTargetOutputSpec(): TdIOSpec | null {
     return this.outputSpecs.specs['target'] ?? null;
   }
-
 
   toTypeEntity(): TdProcessType {
     return {

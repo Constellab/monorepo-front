@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaFolderConfigureStorageComponent} from './ca-folder-configure-storage.component';
+import { CaFolderConfigureStorageComponent } from './ca-folder-configure-storage.component';
 
 describe('CaFolderConfigureStorageComponent', () => {
   let component: CaFolderConfigureStorageComponent;
@@ -8,9 +8,8 @@ describe('CaFolderConfigureStorageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaFolderConfigureStorageComponent ]
-    })
-    .compileComponents();
+      declarations: [CaFolderConfigureStorageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaFolderConfigureStorageComponent);
     component = fixture.componentInstance;

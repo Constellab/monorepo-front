@@ -3,7 +3,7 @@ import {
   FlDialogService,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
-  FlInputSearchFilter
+  FlInputSearchFilter,
 } from '@monorepo/front-core-lib';
 import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
 import { NgControl } from '@angular/forms';
@@ -12,7 +12,7 @@ import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdTypeObjectType } from '@monorepo/technical-doc';
 import {
   LabSelectTypeDialogComponent,
-  LabSelectTypeDialogInput
+  LabSelectTypeDialogInput,
 } from '../lab-select-type-dialog/lab-select-type-dialog.component';
 
 /**
@@ -22,12 +22,9 @@ import {
   selector: 'lab-select-type',
   templateUrl: './lab-select-type.component.html',
   styleUrls: ['./lab-select-type.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent}]
-
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
 })
-export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
-  implements OnInit {
-
+export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity> implements OnInit {
   @Input() placeholder: string;
 
   @Input() mode: 'process' | 'resource' = 'process';
@@ -40,9 +37,11 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
 
   advancedButton: FlInputSearchAdvancedButton<LabTypeEntity>;
 
-  constructor(@Optional() @Self() ngControl: NgControl,
-              private typeService: LabTypeService,
-              private dialogService: FlDialogService) {
+  constructor(
+    @Optional() @Self() ngControl: NgControl,
+    private typeService: LabTypeService,
+    private dialogService: FlDialogService
+  ) {
     super(ngControl);
   }
 
@@ -53,11 +52,10 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
     const data: LabSelectTypeDialogInput = {
       searchConfig: {
         mode: this.mode,
-      }
+      },
     };
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(LabSelectTypeDialogComponent,
-        {data}).afterClosed()
+      onClick: () => this.dialogService.openBigDialog(LabSelectTypeDialogComponent, { data }).afterClosed(),
     };
   }
 
@@ -82,7 +80,5 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity>
     this.selectedType = value;
   }
 
-  onDisableChange(): void {
-  }
-
+  onDisableChange(): void {}
 }

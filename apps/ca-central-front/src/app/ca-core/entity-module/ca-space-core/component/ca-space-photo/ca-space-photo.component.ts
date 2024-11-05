@@ -1,11 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {CaSpace} from '../../../../model/entities/space/ca-space.class';
-import {CaSpaceService} from '../../../../service-api/ca-space.service';
-import {ClHelpService} from '@monorepo/core-lib';
-import {Observable, Subscription} from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CaSpace } from '../../../../model/entities/space/ca-space.class';
+import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { ClHelpService } from '@monorepo/core-lib';
+import { Observable, Subscription } from 'rxjs';
 
 export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
-
 
 /**
  * Component to show the photo of an space or the initial of the space name
@@ -13,10 +12,9 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
 @Component({
   selector: 'ca-space-photo',
   templateUrl: './ca-space-photo.component.html',
-  styleUrls: ['./ca-space-photo.component.scss']
+  styleUrls: ['./ca-space-photo.component.scss'],
 })
 export class CaSpacePhotoComponent implements OnInit, OnDestroy {
-
   @Input() space: CaSpace | Observable<CaSpace>;
 
   @Input() size: CaSpacePhotoSize | string = 'medium';
@@ -31,12 +29,11 @@ export class CaSpacePhotoComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private spaceService: CaSpaceService) {
-  }
+  constructor(private spaceService: CaSpaceService) {}
 
   ngOnInit(): void {
     if (this.space instanceof Observable) {
-      this.subscription = this.space.subscribe(space => this.initSpace(space));
+      this.subscription = this.space.subscribe((space) => this.initSpace(space));
     } else {
       this.initSpace(this.space);
     }
@@ -45,7 +42,7 @@ export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   private initSpace(space: CaSpace): void {
     if (!ClHelpService.isNullOrEmpty(space.photo)) {
       this.photo = this.spaceService.getSpacePhoto(space.photo);
-    }else{
+    } else {
       this.photo = null;
     }
     this.initial = space.name.charAt(0).toUpperCase();

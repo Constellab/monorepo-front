@@ -5,36 +5,32 @@ import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabHelper } from '../../../../ca-core/utils/ca-lab.helper';
 
 export class CaWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
-
-  constructor(private lab: CaLab,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    private lab: CaLab,
+    private snackBarService: FlSnackBarService
+  ) {
     super();
   }
-
 
   getInputMenu(port: PrWorkflowPort, node: PrWorkflowNode): FlMenuDynamicButton[] {
     const resourceId: string = node.currentObject.inputs.ports[port.name]?.resource_id ?? null;
 
-    return [
-      this.getResourceDetailContextButton(resourceId)
-    ];
+    return [this.getResourceDetailContextButton(resourceId)];
   }
 
   getOutputMenu(port: PrWorkflowPort, node: PrWorkflowNode): FlMenuDynamicButton[] {
     const resourceId: string = node.currentObject.outputs.ports[port.name]?.resource_id ?? null;
 
-    return [
-      this.getResourceDetailContextButton(resourceId)
-    ];
+    return [this.getResourceDetailContextButton(resourceId)];
   }
 
   private getResourceDetailContextButton(resourceId: string | null): FlMenuDynamicButton {
     return {
       type: 'button',
-      text: {text: 'view_resource_in_lab', translateText: true},
+      text: { text: 'view_resource_in_lab', translateText: true },
       icon: 'resource',
       onClick: () => this.openResourceDetail(resourceId),
-      disabled: ClHelpService.isNullOrEmpty(resourceId) || !this.lab.isRunning()
+      disabled: ClHelpService.isNullOrEmpty(resourceId) || !this.lab.isRunning(),
     };
   }
 
@@ -42,8 +38,7 @@ export class CaWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     if (this.lab.isRunning()) {
       window.location.href = CaLabHelper.getResourceUrl(this.lab.frontUrl, resourceId);
     } else {
-      this.snackBarService.openErrorMessage({text: 'view_resource_lab_not_running', translateText: true});
+      this.snackBarService.openErrorMessage({ text: 'view_resource_lab_not_running', translateText: true });
     }
   }
-
 }

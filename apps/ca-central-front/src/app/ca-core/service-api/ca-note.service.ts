@@ -5,18 +5,16 @@ import { Observable } from 'rxjs';
 import {
   TeRichTextContent,
   TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryService
+  TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class CaNoteService{
-
+export class CaNoteService {
   private readonly route: string = 'notes';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   getNotesByScenario(scenarioId: string): Observable<CaNote[]> {
     return this.apiService.get(`${this.route}/scenario/${scenarioId}`, CaNote);
@@ -30,7 +28,7 @@ export class CaNoteService{
     return this.apiService.get(`${this.route}/${noteId}/content`);
   }
 
-  deleteNote(noteId: string): Observable<void>{
+  deleteNote(noteId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${noteId}`);
   }
 
@@ -53,5 +51,4 @@ export class CaNoteService{
   getNotePreviousVersion(noteId: string, modificationId: string): Observable<TeRichTextContent> {
     return this.apiService.get(`${this.route}/${noteId}/history/undo-content/${modificationId}`);
   }
-
 }

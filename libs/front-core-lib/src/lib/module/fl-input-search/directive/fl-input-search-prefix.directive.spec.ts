@@ -1,4 +1,4 @@
-import {FlInputSearchPrefixDirective} from './fl-input-search-prefix.directive';
+import { FlInputSearchPrefixDirective } from './fl-input-search-prefix.directive';
 
 describe('FlInputSearchPrefixDirective', () => {
   it('should create an instance', () => {

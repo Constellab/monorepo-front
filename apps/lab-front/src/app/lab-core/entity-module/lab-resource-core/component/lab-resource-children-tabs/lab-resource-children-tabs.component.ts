@@ -1,6 +1,6 @@
-import {Component, DoCheck, ElementRef, signal, Signal, ViewChild, WritableSignal} from '@angular/core';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
+import { Component, DoCheck, ElementRef, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
 /**
  * Component in the resource detail to show the list of children resources (if ResourceSet)
@@ -12,8 +12,7 @@ import {LabResourceDetailState} from '../../state/lab-resource-detail.state';
   styleUrls: ['./lab-resource-children-tabs.component.scss'],
 })
 export class LabResourceChildrenTabsComponent implements DoCheck {
-
-  @ViewChild('scrollableElement', {static: true}) scrollableElement: ElementRef<HTMLElement>;
+  @ViewChild('scrollableElement', { static: true }) scrollableElement: ElementRef<HTMLElement>;
 
   resource: Signal<LabResource> = this.state.mainResource;
 
@@ -24,8 +23,7 @@ export class LabResourceChildrenTabsComponent implements DoCheck {
   showLeftScrollButton: WritableSignal<boolean> = signal(false);
   showRightScrollButton: WritableSignal<boolean> = signal(false);
 
-  constructor(private state: LabResourceDetailState) {
-  }
+  constructor(private state: LabResourceDetailState) {}
 
   ngDoCheck(): void {
     this.updateShowScrollButtons();
@@ -33,10 +31,11 @@ export class LabResourceChildrenTabsComponent implements DoCheck {
 
   updateShowScrollButtons(): void {
     this.showLeftScrollButton.set(this.scrollableElement.nativeElement.scrollLeft > 0);
-    this.showRightScrollButton.set(this.scrollableElement.nativeElement.scrollLeft + this.scrollableElement.nativeElement.offsetWidth + 1
-      < this.scrollableElement.nativeElement.scrollWidth);
+    this.showRightScrollButton.set(
+      this.scrollableElement.nativeElement.scrollLeft + this.scrollableElement.nativeElement.offsetWidth + 1 <
+        this.scrollableElement.nativeElement.scrollWidth
+    );
   }
-
 
   selectResource(resource: LabResource): void {
     this.state.selectResource(resource.id);

@@ -8,10 +8,9 @@ describe('CaUserUpdateLicenseFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaUserUpdateLicenseFormDialogComponent]
-    })
-    .compileComponents();
-    
+      declarations: [CaUserUpdateLicenseFormDialogComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CaUserUpdateLicenseFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

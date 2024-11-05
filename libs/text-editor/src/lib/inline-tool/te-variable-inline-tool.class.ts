@@ -1,12 +1,10 @@
-import {SanitizerConfig} from '@editorjs/editorjs';
-import {TeVariableFormInfo, teVariableTagName} from '../model/te-variable.class';
-import {TeHelper} from '../model/te.helper';
-import {flRootInjector, FlTranslateService} from '@monorepo/front-core-lib';
-import {TeComponentInlineTool} from './te-component-inline-tool.class';
-
+import { SanitizerConfig } from '@editorjs/editorjs';
+import { TeVariableFormInfo, teVariableTagName } from '../model/te-variable.class';
+import { TeHelper } from '../model/te.helper';
+import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { TeComponentInlineTool } from './te-component-inline-tool.class';
 
 export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableFormInfo> {
-
   static override get title(): string {
     return flRootInjector.get(FlTranslateService).translate('teTextEditor.variable');
   }
@@ -15,14 +13,13 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
     return {
       [teVariableTagName]: {
         'data-jsondata': true,
-      }
+      },
     } as SanitizerConfig;
   }
 
   getInlineElementTag(): string {
     return teVariableTagName;
   }
-
 
   renderInlineButton(): HTMLElement {
     const button = document.createElement('button');
@@ -38,7 +35,6 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
     return button;
   }
 
-
   getDefaultData(range: Range): TeVariableFormInfo {
     // use to retrieve the text of the selected range
     const fragment = range.extractContents();
@@ -48,7 +44,7 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
       name: selectText,
       description: '',
       type: 'string',
-      value: null
+      value: null,
     };
   }
 
@@ -59,8 +55,10 @@ export class TeVariableInlineToolClass extends TeComponentInlineTool<TeVariableF
   }
 
   private selectionIsInParagraph(): boolean {
-    const parent = this.options.api.selection.findParentTag(TeHelper.blockParagraphTagName,
-      TeHelper.blockParagraphClass);
+    const parent = this.options.api.selection.findParentTag(
+      TeHelper.blockParagraphTagName,
+      TeHelper.blockParagraphClass
+    );
     return parent != null;
   }
 }

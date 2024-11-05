@@ -1,8 +1,8 @@
-import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
-import {FlDialogService} from '@monorepo/front-core-lib';
-import {TeVariableFormDialogComponent,} from '../te-variable-form-dialog/te-variable-form-dialog.component';
-import {TeVariableFormInfo} from '../../model/te-variable.class';
-import {TeElementInlineDirective} from '../../model/te-element.directive';
+import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import { TeVariableFormDialogComponent } from '../te-variable-form-dialog/te-variable-form-dialog.component';
+import { TeVariableFormInfo } from '../../model/te-variable.class';
+import { TeElementInlineDirective } from '../../model/te-element.directive';
 
 /**
  * Component as angular element to display a variable in the text editor as inline element
@@ -10,10 +10,12 @@ import {TeElementInlineDirective} from '../../model/te-element.directive';
 @Component({
   selector: 'te-variable-inline',
   templateUrl: './te-variable-inline.component.html',
-  styleUrl: './te-variable-inline.component.scss'
+  styleUrl: './te-variable-inline.component.scss',
 })
-export class TeVariableInlineComponent extends TeElementInlineDirective<TeVariableFormInfo> implements OnInit {
-
+export class TeVariableInlineComponent
+  extends TeElementInlineDirective<TeVariableFormInfo>
+  implements OnInit
+{
   @HostBinding('attr.contenteditable') contenteditable = 'false';
 
   @HostListener('click') onClick(): void {
@@ -35,13 +37,13 @@ export class TeVariableInlineComponent extends TeElementInlineDirective<TeVariab
     return `${this.data.description}`;
   }
 
-
   openFormDialog(): void {
     if (this.disabled) return;
 
-    this.dialogService.openSmallDialog(TeVariableFormDialogComponent, {data: this.data}).afterClosed().subscribe(
-      value => this.onFormDialogClose(value)
-    );
+    this.dialogService
+      .openSmallDialog(TeVariableFormDialogComponent, { data: this.data })
+      .afterClosed()
+      .subscribe((value) => this.onFormDialogClose(value));
   }
 
   private onFormDialogClose(value?: TeVariableFormInfo): void {
@@ -49,5 +51,4 @@ export class TeVariableInlineComponent extends TeElementInlineDirective<TeVariab
       this.setData(value);
     }
   }
-
 }

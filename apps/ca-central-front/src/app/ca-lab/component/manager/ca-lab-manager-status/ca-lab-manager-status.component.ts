@@ -4,8 +4,13 @@ import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.st
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-type CaCurrentStatus = 'NOT_CONFIGURED' | 'NOT_INITIALIZED' | 'NOT_INITIALIZED_SINCE' |
-  'SOME_APPS_DOWN' | 'ALL_APPS_DOWN' | 'CONFIGURED';
+type CaCurrentStatus =
+  | 'NOT_CONFIGURED'
+  | 'NOT_INITIALIZED'
+  | 'NOT_INITIALIZED_SINCE'
+  | 'SOME_APPS_DOWN'
+  | 'ALL_APPS_DOWN'
+  | 'CONFIGURED';
 
 interface CaCurrentStatusInfo {
   status: CaCurrentStatus;
@@ -22,10 +27,9 @@ interface CaCurrentStatusInfo {
 @Component({
   selector: 'ca-lab-manager-status',
   templateUrl: './ca-lab-manager-status.component.html',
-  styleUrls: ['./ca-lab-manager-status.component.scss']
+  styleUrls: ['./ca-lab-manager-status.component.scss'],
 })
 export class CaLabManagerStatusComponent implements OnInit {
-
   managerStatus$: Observable<CaLabManagerStatus> = this.managerState.getStatus$();
 
   adminerUrl$: Observable<string> = this.managerState.getRunningAdminerUrl$();
@@ -34,12 +38,11 @@ export class CaLabManagerStatusComponent implements OnInit {
 
   currentStatus$: Observable<CaCurrentStatusInfo>;
 
-  constructor(private managerState: CaLabDetailManagerState) {
-  }
+  constructor(private managerState: CaLabDetailManagerState) {}
 
   ngOnInit(): void {
     this.currentStatus$ = this.managerStatus$.pipe(
-      map(labStatus => this.convertToCurrentStatus(labStatus))
+      map((labStatus) => this.convertToCurrentStatus(labStatus))
     );
   }
 
@@ -49,7 +52,7 @@ export class CaLabManagerStatusComponent implements OnInit {
         status: 'NOT_CONFIGURED',
         text: 'lab_manager_not_configured',
         icon: 'clear',
-        iconClass: 'g-warn-text'
+        iconClass: 'g-warn-text',
       };
     } else if (!labStatus.isInitialized) {
       return {
@@ -58,7 +61,7 @@ export class CaLabManagerStatusComponent implements OnInit {
         icon: 'clear',
         iconClass: 'g-warn-text',
         buttonText: 'lab_manager_initialize',
-        buttonTooltip: 'lab_initialize_help'
+        buttonTooltip: 'lab_initialize_help',
       };
       // if the lab manager was updated but the init was not done since
     } else if (labStatus.lastInitVersion && labStatus.lastInitVersion !== labStatus.version) {
@@ -68,7 +71,7 @@ export class CaLabManagerStatusComponent implements OnInit {
         icon: 'warnings',
         iconClass: 'g-warn-text',
         buttonText: 'lab_manager_initialize',
-        buttonTooltip: 'lab_initialize_help'
+        buttonTooltip: 'lab_initialize_help',
       };
     } else if (labStatus.containersStatus.status.value === 'PARTIALLY_UP') {
       return {
@@ -77,16 +80,19 @@ export class CaLabManagerStatusComponent implements OnInit {
         icon: 'clear',
         iconClass: 'g-warn-text',
         buttonText: 'lab_manager_restart',
-        buttonTooltip: 'restart_lab_help'
+        buttonTooltip: 'restart_lab_help',
       };
-    } else if (labStatus.containersStatus.status.value === 'DOWN' || labStatus.containersStatus.status.value === 'STOP') {
+    } else if (
+      labStatus.containersStatus.status.value === 'DOWN' ||
+      labStatus.containersStatus.status.value === 'STOP'
+    ) {
       return {
         status: 'ALL_APPS_DOWN',
         text: 'lab_manager_all_apps_down',
         icon: 'clear',
         iconClass: 'g-warn-text',
         buttonText: 'lab_manager_restart',
-        buttonTooltip: 'restart_lab_help'
+        buttonTooltip: 'restart_lab_help',
       };
     }
     return {
@@ -95,12 +101,11 @@ export class CaLabManagerStatusComponent implements OnInit {
       icon: 'check',
       iconClass: 'g-success-text',
       buttonText: 'lab_manager_restart',
-      buttonTooltip: 'restart_lab_help'
+      buttonTooltip: 'restart_lab_help',
     };
   }
 
   currentStatusAction(buttonText: string): void {
-    this.managerState.initAll({text: buttonText, translateText: true});
+    this.managerState.initAll({ text: buttonText, translateText: true });
   }
-
 }

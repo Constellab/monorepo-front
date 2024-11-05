@@ -1,13 +1,13 @@
-import {ComponentType} from '@angular/cdk/overlay';
-import {Injectable, TemplateRef} from '@angular/core';
-import {merge, Observable} from 'rxjs';
-import {NavigationStart, Router} from '@angular/router';
-import {filter, first, map} from 'rxjs/operators';
-import {FlConfirmDialogInput} from './model/fl-confirm-dialog.class';
-import {FlConfirmDialogComponent} from './component/fl-confirm-dialog/fl-confirm-dialog.component';
-import {FlPlatformService} from '../../service/fl-plateform.service';
-import {ClHelpService} from '@monorepo/core-lib';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
+import { ComponentType } from '@angular/cdk/overlay';
+import { Injectable, TemplateRef } from '@angular/core';
+import { merge, Observable } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
+import { filter, first, map } from 'rxjs/operators';
+import { FlConfirmDialogInput } from './model/fl-confirm-dialog.class';
+import { FlConfirmDialogComponent } from './component/fl-confirm-dialog/fl-confirm-dialog.component';
+import { FlPlatformService } from '../../service/fl-plateform.service';
+import { ClHelpService } from '@monorepo/core-lib';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 /**
  * Service to open responsive dialog. The max-height and width of the dialog
@@ -17,10 +17,11 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog
  */
 @Injectable()
 export class FlDialogService {
-
-  constructor(private dialog: MatDialog, private platformService: FlPlatformService,
-              private router: Router) {
-  }
+  constructor(
+    private dialog: MatDialog,
+    private platformService: FlPlatformService,
+    private router: Router
+  ) {}
 
   /**
    * Open a big dialog
@@ -30,8 +31,10 @@ export class FlDialogService {
    * @param config material configuration for the dialog
    * @return The dialog reference
    */
-  public openBigDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                                config: MatDialogConfig = {}): MatDialogRef<T> {
+  public openBigDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig = {}
+  ): MatDialogRef<T> {
     config = this.manageSafariBrowser(config);
 
     return this.openDialog(componentOrTemplateRef, config, 'g-big-dialog');
@@ -45,8 +48,10 @@ export class FlDialogService {
    * @param config material configuration for the dialog
    * @return The dialog reference
    */
-  public openHugeDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                                 config: MatDialogConfig = {}): MatDialogRef<T> {
+  public openHugeDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig = {}
+  ): MatDialogRef<T> {
     config = this.manageSafariBrowser(config);
 
     return this.openDialog(componentOrTemplateRef, config, 'g-huge-dialog');
@@ -62,8 +67,10 @@ export class FlDialogService {
    * @param config material configuration for the dialog
    * @return The dialog reference
    */
-  public openMediumDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                                   config: MatDialogConfig = {}): MatDialogRef<T> {
+  public openMediumDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig = {}
+  ): MatDialogRef<T> {
     config = this.manageSafariBrowser(config);
 
     return this.openDialog(componentOrTemplateRef, config, 'g-medium-dialog');
@@ -79,11 +86,13 @@ export class FlDialogService {
    * @param config material configuration for the dialog
    * @return The dialog reference
    */
-  public openSmallDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                                  config: MatDialogConfig = {}): MatDialogRef<T> {
+  public openSmallDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig = {}
+  ): MatDialogRef<T> {
     config = this.manageSafariBrowser(config);
 
-    return this.openDialog(componentOrTemplateRef, config,  'g-small-dialog');
+    return this.openDialog(componentOrTemplateRef, config, 'g-small-dialog');
   }
 
   /**
@@ -92,8 +101,10 @@ export class FlDialogService {
    * @param config material configuration for the dialog
    * @return The dialog reference
    */
-  public openFullDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                                 config: MatDialogConfig = {}): MatDialogRef<T> {
+  public openFullDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig = {}
+  ): MatDialogRef<T> {
     config = this.manageSafariBrowser(config, false);
 
     return this.openDialog(componentOrTemplateRef, config, 'g-full-dialog');
@@ -107,21 +118,21 @@ export class FlDialogService {
    *
    * @return return a MatDialogRef, the dialog returns a {@link FlConfirmDialogResult}
    */
-  public openConfirmDialog(input: FlConfirmDialogInput)
-    : MatDialogRef<FlConfirmDialogComponent> {
-
+  public openConfirmDialog(input: FlConfirmDialogInput): MatDialogRef<FlConfirmDialogComponent> {
     // disable close to handle it in the dialog
-    return this.openSmallDialog(FlConfirmDialogComponent, {data: input, disableClose: true});
+    return this.openSmallDialog(FlConfirmDialogComponent, { data: input, disableClose: true });
   }
 
   // open the dialog
-  private openDialog<T = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-                              config: MatDialogConfig, panelClass: string): MatDialogRef<T> {
-
+  private openDialog<T = any>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: MatDialogConfig,
+    panelClass: string
+  ): MatDialogRef<T> {
     config.panelClass = this.addPanelClass(config.panelClass, panelClass);
 
     // by default, we activate the clone on navigation
-    if(config.closeOnNavigation == null){
+    if (config.closeOnNavigation == null) {
       config.closeOnNavigation = true;
     }
 
@@ -142,7 +153,6 @@ export class FlDialogService {
   // handle the full screen dialog on safari browser
   // this is because of the safari toolbar not include in the screen size
   private manageSafariBrowser(config: MatDialogConfig, checkInnerWidth: boolean = true): MatDialogConfig {
-
     // if the browser is safari
     if (this.platformService.isSafari()) {
       // is the screen size is lower than 600 -> fullscreen (define by the classes)
@@ -157,30 +167,31 @@ export class FlDialogService {
 
   // function to manage the dialog close, including improve the closeOnNavigation option
   private manageDialogClosing(config: MatDialogConfig, dialogRef: MatDialogRef<any>): void {
-
     if (config.closeOnNavigation) {
-
       const obs$: Observable<boolean>[] = [];
 
       // unsubscribe when the dialog is closed is disposed (thank to the false)
       obs$.push(dialogRef.afterClosed().pipe(map(() => false)));
 
-
       // get the router events
-      obs$.push(this.router.events.pipe(
-        // only trigger on Navigation start
-        filter(value => value instanceof NavigationStart),
-        // set response to true to close the dialog
-        map(() => true))
+      obs$.push(
+        this.router.events.pipe(
+          // only trigger on Navigation start
+          filter((value) => value instanceof NavigationStart),
+          // set response to true to close the dialog
+          map(() => true)
+        )
       );
 
       // merge events and unsubscribe on the first emission
-      merge(...obs$).pipe(first()).subscribe((val) => {
-        // if we received a true --> close the dialog
-        if (val) {
-          dialogRef.close();
-        }
-      });
+      merge(...obs$)
+        .pipe(first())
+        .subscribe((val) => {
+          // if we received a true --> close the dialog
+          if (val) {
+            dialogRef.close();
+          }
+        });
     }
   }
 

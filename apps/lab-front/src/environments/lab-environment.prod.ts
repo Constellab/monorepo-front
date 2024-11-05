@@ -1,4 +1,4 @@
-import {LabEnvironment} from './lab-environment.class';
+import { LabEnvironment } from './lab-environment.class';
 
 /**
  * This file is just to define the skeleton for prod environment and set production to True
@@ -19,5 +19,5 @@ export const environment: LabEnvironment = {
     communityFrontUrl: '',
     communityApiUrl: '',
     captchaSiteKey: '',
-  }
+  },
 };

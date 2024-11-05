@@ -13,20 +13,21 @@ export interface CaUserUpdateLicenseDialogInput {
 @Component({
   selector: 'ca-user-update-license-form-dialog',
   templateUrl: './ca-user-update-license-form-dialog.component.html',
-  styleUrl: './ca-user-update-license-form-dialog.component.scss'
+  styleUrl: './ca-user-update-license-form-dialog.component.scss',
 })
 export class CaUserUpdateLicenseFormDialogComponent {
-
   formCtrl = new FormControl('' as CaUserLicense, Validators.required);
 
   licenses = Object.values(CaUserLicense);
 
   isLoading: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private input: CaUserUpdateLicenseDialogInput,
-              private userAccountService: CaUserAccountsService,
-              private dialogRef: MatDialogRef<CaUserUpdateLicenseFormDialogComponent>,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private input: CaUserUpdateLicenseDialogInput,
+    private userAccountService: CaUserAccountsService,
+    private dialogRef: MatDialogRef<CaUserUpdateLicenseFormDialogComponent>,
+    private snackBarService: FlSnackBarService
+  ) {
     this.formCtrl.setValue(input.license);
   }
 
@@ -37,21 +38,22 @@ export class CaUserUpdateLicenseFormDialogComponent {
   }
 
   private updateLicenses(license: CaUserLicense): void {
-    this.userAccountService.updateLicense(this.input.userId, {
-      license: license
-    }).subscribe({
-      next: (user: CaUser) => this.onUpdateSuccess(user),
-      error: () => this.isLoading = false
-    });
+    this.userAccountService
+      .updateLicense(this.input.userId, {
+        license: license,
+      })
+      .subscribe({
+        next: (user: CaUser) => this.onUpdateSuccess(user),
+        error: () => (this.isLoading = false),
+      });
   }
 
   private onUpdateSuccess(user: CaUser): void {
     this.isLoading = false;
     this.snackBarService.openSuccessMessage({
       text: 'license_updated',
-      translateText: true
+      translateText: true,
     });
     this.dialogRef.close(user);
   }
 }
-

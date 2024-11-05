@@ -4,7 +4,6 @@ import { LabScenarioDetailPageModule } from './lab-scenario-detail-page/lab-scen
 import { LabScenariosPageModule } from './lab-scenarios-page/lab-scenarios-page.module';
 import { LabScenarioRoutingModule } from './lab-scenario-routing.module';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -16,7 +15,6 @@ import { LabScenarioRoutingModule } from './lab-scenario-routing.module';
 
     // routing
     LabScenarioRoutingModule,
-  ]
+  ],
 })
-export class LabScenarioModule {
-}
+export class LabScenarioModule {}

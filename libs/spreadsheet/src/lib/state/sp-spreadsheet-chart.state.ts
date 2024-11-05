@@ -1,12 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  SpSheetChartSelectionComponent
-} from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
+import { SpSheetChartSelectionComponent } from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import {
   SpSheetChartSelectionForm,
   SpSheetChartSelectionResult,
-  SpSpreadsheetChartSelectionInput
+  SpSpreadsheetChartSelectionInput,
 } from '../model/chart/sp-sheet-chart-selection-form.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { Observable, Subscription } from 'rxjs';
@@ -17,9 +15,8 @@ import {
   FlPortalActionsService,
   FlPortalConfig,
   FlPortalService,
-  FlSnackBarService
+  FlSnackBarService,
 } from '@monorepo/front-core-lib';
-
 
 interface SelectionWithOverlay {
   selection: SpSheetChartSelectionForm;
@@ -28,7 +25,6 @@ interface SelectionWithOverlay {
 
 @Injectable()
 export class SpSpreadsheetChartState implements OnDestroy {
-
   private overlayRef: FlOverlayRef;
 
   // store all the current overlay ref and the corresponding selection
@@ -38,15 +34,17 @@ export class SpSpreadsheetChartState implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(private state: SpSpreadsheetState,
-              private portalService: FlPortalService,
-              private selectionState: SpSpreadsheetSelectionState,
-              private snackBarService: FlSnackBarService,
-              private actionService: FlPortalActionsService) {
-
+  constructor(
+    private state: SpSpreadsheetState,
+    private portalService: FlPortalService,
+    private selectionState: SpSpreadsheetSelectionState,
+    private snackBarService: FlSnackBarService,
+    private actionService: FlPortalActionsService
+  ) {
     // listen to chart creation actions
-    this.subscription = this.actionService.getResult$(this.chartActionName).subscribe(
-      (action: FlPortalActionResult<FlOverlayRef>) => {
+    this.subscription = this.actionService
+      .getResult$(this.chartActionName)
+      .subscribe((action: FlPortalActionResult<FlOverlayRef>) => {
         if (action.status === 'success') {
           this.registerPortalOverlay(action.result, action.additionalInformation);
         }
@@ -62,30 +60,30 @@ export class SpSpreadsheetChartState implements OnDestroy {
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
       { centerHorizontally: '0', top: '0' },
       {
-        disposeOnNavigation: true
-      });
+        disposeOnNavigation: true,
+      }
+    );
 
     let data: SpSpreadsheetChartSelectionInput;
     // if we are in update mode
     if (selection != null) {
       data = {
         mode: 'update',
-        selection: selection
+        selection: selection,
       };
     } else {
       data = {
         mode: 'create',
-        currentSelection: this.selectionState.currentSelection
+        currentSelection: this.selectionState.currentSelection,
       };
     }
 
     this.overlayRef = this.portalService.createPortal(SpSheetChartSelectionComponent, portalConfig, data);
 
-    this.overlayRef.detachments().subscribe(
-      (chartSelection) => this.generateChart(chartSelection, selection?.id ?? null)
-    );
+    this.overlayRef
+      .detachments()
+      .subscribe((chartSelection) => this.generateChart(chartSelection, selection?.id ?? null));
   }
-
 
   /**
    * Generate the chart config from select and open portal afterward
@@ -93,7 +91,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
    * @param fromSelectionId if provided and result.mode === 'update', the chart corresponding to the selection is deleted
    * @private
    */
-  private generateChart(result ?: SpSheetChartSelectionResult, fromSelectionId?: symbol): void {
+  private generateChart(result?: SpSheetChartSelectionResult, fromSelectionId?: symbol): void {
     this.overlayRef = null;
 
     if (!result) return;
@@ -105,25 +103,26 @@ export class SpSpreadsheetChartState implements OnDestroy {
 
     // generate chart
     try {
-
       const chartConfig = this.state.getChartConfig(result.formValue.chartType);
 
-      const chartOverlay = chartConfig.generateChart(
-        result.formValue.series, {
-          sheet: this.state.currentSheet,
-          additionalFields: result.formValue.additionalFields,
-          contextMenuItems: this.getContextMenuItem(result.formValue.id),
-          updateSelection: () => this.openUpdateChartSelectionPortal(result.formValue.id)
-        });
+      const chartOverlay = chartConfig.generateChart(result.formValue.series, {
+        sheet: this.state.currentSheet,
+        additionalFields: result.formValue.additionalFields,
+        contextMenuItems: this.getContextMenuItem(result.formValue.id),
+        updateSelection: () => this.openUpdateChartSelectionPortal(result.formValue.id),
+      });
 
       if (chartOverlay instanceof Observable) {
         // call the action service to register the chart creation
-        this.actionService.addAction({
-          type: this.chartActionName,
-          action: chartOverlay,
-          text: { text: 'spSpreadsheet.creating_chart', translateText: true },
-          additionalInformation: result.formValue
-        }, true);
+        this.actionService.addAction(
+          {
+            type: this.chartActionName,
+            action: chartOverlay,
+            text: { text: 'spSpreadsheet.creating_chart', translateText: true },
+            additionalInformation: result.formValue,
+          },
+          true
+        );
       } else {
         this.registerPortalOverlay(chartOverlay, result.formValue);
       }
@@ -141,13 +140,11 @@ export class SpSpreadsheetChartState implements OnDestroy {
     // add the selection to the current
     this.currentSelections.set(formSelection.id, {
       overlayRef: overlay,
-      selection: formSelection
+      selection: formSelection,
     });
 
     // clear selection on chart close
-    overlay.detachments().subscribe(
-      () => this.clearSelection(formSelection.id)
-    );
+    overlay.detachments().subscribe(() => this.clearSelection(formSelection.id));
   }
 
   /**
@@ -161,7 +158,6 @@ export class SpSpreadsheetChartState implements OnDestroy {
       this.openChartSelectionPortal(selection.selection);
     }
   }
-
 
   private closeChartOverlay(selectionId: symbol): void {
     this.currentSelections.get(selectionId)?.overlayRef.dispose();
@@ -188,7 +184,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
       type: 'button',
       text: { text: 'spSpreadsheet.chart_update', translateText: true },
       icon: 'edit',
-      onClick: () => this.openUpdateChartSelectionPortal(selectionId)
+      onClick: () => this.openUpdateChartSelectionPortal(selectionId),
     });
 
     // button to close all overlay
@@ -196,7 +192,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
       type: 'button',
       text: { text: 'spSpreadsheet.chart_close_all', translateText: true },
       icon: 'clear',
-      onClick: () => this.closeAllOverlay()
+      onClick: () => this.closeAllOverlay(),
     });
 
     return menu;
@@ -205,6 +201,4 @@ export class SpSpreadsheetChartState implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

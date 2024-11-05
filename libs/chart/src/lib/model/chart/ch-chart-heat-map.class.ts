@@ -1,24 +1,21 @@
-import {ChChartConfig, ChChartRightSectionConfig} from '../ch-chart-config.class';
-import {ChChartContainer, ChChartContainer2Axis} from '../drawer/ch-chart-container.class';
-import {ChChartSVGLegend} from '../legend/ch-chart-legend.class';
-import {ChChartBrush} from '../drawer/ch-chart-brush.class';
-import {ChChart3dDatum, ChChartDataContainer} from '../data/ch-chart-data.class';
-import {ChChartScaleColor, ChChartScaleColorLinear} from '../scale/ch-chart-scale-color.class';
-import {ChChartDomain} from '../ch-chart-domain.class';
-import {ChChartLegendHeatMap} from '../legend/ch-chart-legend-heat-map.class';
-import {ChChartScaleBand} from '../scale/ch-chart-scale.class';
-import {ChChartAxis, ChChartAxisBand} from '../drawer/ch-chart-axis.class';
-import {ChChartRendererHeatMap} from '../../renderer/ch-chart-renderer-heat-map.plot';
-import {
-  ChChartLegendHeatMapComponent
-} from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
-import {ChChartLabelFormatter} from '../ch-chart-label-formatter.class';
+import { ChChartConfig, ChChartRightSectionConfig } from '../ch-chart-config.class';
+import { ChChartContainer, ChChartContainer2Axis } from '../drawer/ch-chart-container.class';
+import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
+import { ChChartBrush } from '../drawer/ch-chart-brush.class';
+import { ChChart3dDatum, ChChartDataContainer } from '../data/ch-chart-data.class';
+import { ChChartScaleColor, ChChartScaleColorLinear } from '../scale/ch-chart-scale-color.class';
+import { ChChartDomain } from '../ch-chart-domain.class';
+import { ChChartLegendHeatMap } from '../legend/ch-chart-legend-heat-map.class';
+import { ChChartScaleBand } from '../scale/ch-chart-scale.class';
+import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
+import { ChChartRendererHeatMap } from '../../renderer/ch-chart-renderer-heat-map.plot';
+import { ChChartLegendHeatMapComponent } from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
+import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
 
 /**
  * Data container for heat map data
  */
 export class ChChartHeatMapDataContainer implements ChChartDataContainer<ChChart3dDatum> {
-
   // name of the axis
   axisXLabel: string;
   axisYLabel: string;
@@ -33,29 +30,28 @@ export class ChChartHeatMapDataContainer implements ChChartDataContainer<ChChart
    */
   axisYLabelFormat: ChChartLabelFormatter | null;
 
-  constructor(private data: ChChart3dDatum[][]) {
-  }
+  constructor(private data: ChChart3dDatum[][]) {}
 
   getColumnCount(): number {
     return this.data.length;
   }
 
   getRowCount(): number {
-    return Math.max(...this.data.map(d => d.length));
+    return Math.max(...this.data.map((d) => d.length));
   }
 
   getData(): ChChart3dDatum[] {
     const data: ChChart3dDatum[] = [];
-    this.data.forEach(d => data.push(...d));
+    this.data.forEach((d) => data.push(...d));
     return data;
   }
 
   getDomainXComplete(): number[] {
-    return ChChartDomain.getCompleteDomain(this.getData().map(data => data.getX()));
+    return ChChartDomain.getCompleteDomain(this.getData().map((data) => data.getX()));
   }
 
   getDomainYComplete(): number[] {
-    return ChChartDomain.getCompleteDomain(this.getData().map(data => data.getY()));
+    return ChChartDomain.getCompleteDomain(this.getData().map((data) => data.getY()));
   }
 
   /**
@@ -80,31 +76,31 @@ export class ChChartHeatMapDataContainer implements ChChartDataContainer<ChChart
 }
 
 export class ChChartHeatMap extends ChChartConfig {
-
   private readonly colorScale: ChChartScaleColor;
   private readonly domain: [number, number];
 
   // predefined size for the rects
   private readonly rectSize = 18;
 
-
   constructor(protected dataContainer: ChChartHeatMapDataContainer) {
     super();
 
     // build color scale
-    const zValues: number[] = dataContainer.getData().map(data => data.getZ()?.valueOf() ?? null)
-      .filter(data => data != null);
+    const zValues: number[] = dataContainer
+      .getData()
+      .map((data) => data.getZ()?.valueOf() ?? null)
+      .filter((data) => data != null);
     this.domain = ChChartDomain.getLinearDomain(zValues);
     this.colorScale = new ChChartScaleColorLinear(this.domain);
   }
 
   getChartContainer(): ChChartContainer<any> {
-
     // Build X axis
     const xScale: ChChartScaleBand = new ChChartScaleBand()
       .setInitialDomain(this.dataContainer.getDomainXComplete())
       .padding(0.01);
-    const xAxis: ChChartAxis = new ChChartAxisBand('bottom').setScale(xScale)
+    const xAxis: ChChartAxis = new ChChartAxisBand('bottom')
+      .setScale(xScale)
       .setTickFormatter(this.dataContainer.axisXLabelFormat)
       .rotateTickText()
       .setLabel(this.dataContainer.axisXLabel);
@@ -114,12 +110,12 @@ export class ChChartHeatMap extends ChChartConfig {
       // reverse the domain so the y = 0 is on top
       .setInitialDomain(this.dataContainer.getDomainYComplete().reverse())
       .padding(0.01);
-    const yAxis: ChChartAxisBand = new ChChartAxisBand('left').setScale(yScale)
+    const yAxis: ChChartAxisBand = new ChChartAxisBand('left')
+      .setScale(yScale)
       .setTickFormatter(this.dataContainer.axisYLabelFormat)
       .setLabel(this.dataContainer.axisYLabel);
 
-    const chartContainer: ChChartContainer2Axis<ChChartHeatMapDataContainer> =
-      new ChChartContainer2Axis();
+    const chartContainer: ChChartContainer2Axis<ChChartHeatMapDataContainer> = new ChChartContainer2Axis();
     chartContainer
       .initXAxis(xAxis)
       .initAxisY(yAxis)
@@ -132,8 +128,8 @@ export class ChChartHeatMap extends ChChartConfig {
     this.sizeConfig = {
       type: 'fixed',
       width,
-      height
-    }
+      height,
+    };
 
     return chartContainer;
   }
@@ -145,7 +141,7 @@ export class ChChartHeatMap extends ChChartConfig {
   getRightSectionConfig(): ChChartRightSectionConfig {
     return {
       componentType: ChChartLegendHeatMapComponent,
-      data: this.getSVGLegend() // use the svg legend renderer
+      data: this.getSVGLegend(), // use the svg legend renderer
     };
   }
 
@@ -154,7 +150,5 @@ export class ChChartHeatMap extends ChChartConfig {
     return undefined;
   }
 
-  destroy(): void {
-  }
-
+  destroy(): void {}
 }

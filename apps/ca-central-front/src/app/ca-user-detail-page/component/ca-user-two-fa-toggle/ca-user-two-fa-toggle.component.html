@@ -1,14 +1,12 @@
 <fl-section [object]="twoFaEnabled" [isLoading]="isLoading">
-
   <ng-container *flSectionBody>
     <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
       <div>
-        <strong>{{text | translate}}</strong>
+        <strong>{{ text | translate }}</strong>
       </div>
 
-      <button mat-flat-button type="button" [color]="buttonColor"
-              (click)="toggleTwoFa()">
-        {{buttonText | translate}}
+      <button mat-flat-button type="button" [color]="buttonColor" (click)="toggleTwoFa()">
+        {{ buttonText | translate }}
       </button>
     </div>
   </ng-container>

@@ -5,7 +5,6 @@ import { PrWorkflowPortType } from '@monorepo/protocol';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
 
-
 export interface LabDynamicPortConfigDialogInput {
   portType: PrWorkflowPortType;
   portName: string;
@@ -30,13 +29,13 @@ interface LabFormType {
   styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
 })
 export class LabDynamicPortConfigDialogComponent {
-
   portType: PrWorkflowPortType;
   formGp: FormGroup<LabFormType>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: LabDynamicPortConfigDialogInput,
-              private dialogRef: MatDialogRef<LabDynamicPortConfigDialogComponent>) {
-
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: LabDynamicPortConfigDialogInput,
+    private dialogRef: MatDialogRef<LabDynamicPortConfigDialogComponent>
+  ) {
     this.portType = data.portType;
     this.formGp = new FormBuilder().group({
       resourceType: new FormControl(LabTypeEntity.fromResourceType(data.spec.resource_types[0])),
@@ -45,10 +44,9 @@ export class LabDynamicPortConfigDialogComponent {
       isOptional: new FormControl(data.spec.is_optional),
       isConstant: new FormControl(data.spec.is_constant),
       // force subClass to true if portType is output
-      subClass: new FormControl(data.portType === 'output')
+      subClass: new FormControl(data.portType === 'output'),
     });
   }
-
 
   submit(): void {
     if (this.formGp.valid) {
@@ -59,10 +57,9 @@ export class LabDynamicPortConfigDialogComponent {
         short_description: value.shortDescription,
         is_optional: value.isOptional,
         is_constant: value.isConstant,
-        sub_class: value.subClass
+        sub_class: value.subClass,
       };
       this.dialogRef.close(spec);
     }
   }
-
 }

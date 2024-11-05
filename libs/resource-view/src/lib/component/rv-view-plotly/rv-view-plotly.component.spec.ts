@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvViewPlotlyComponent} from './rv-view-plotly.component';
+import { RvViewPlotlyComponent } from './rv-view-plotly.component';
 
 describe('RvViewPlotlyComponent', () => {
   let component: RvViewPlotlyComponent;

@@ -10,24 +10,21 @@ import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.st
   selector: 'ca-lab-detail-page',
   templateUrl: './ca-lab-detail-page.component.html',
   styleUrls: ['./ca-lab-detail-page.component.scss'],
-  providers: [CaLabDetailPageState,
-    CaLabDetailServerState, CaLabDetailManagerState]
+  providers: [CaLabDetailPageState, CaLabDetailServerState, CaLabDetailManagerState],
 })
 export class CaLabDetailPageComponent implements OnInit {
-
   lab$: Observable<CaLab>;
   isOwner$: Observable<boolean>;
 
   isLoading: boolean = false;
 
-  constructor(private state: CaLabDetailPageState,
-              private route: ActivatedRoute) {
-  }
+  constructor(
+    private state: CaLabDetailPageState,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      params => this.getLab(params.id)
-    );
+    this.route.params.subscribe((params) => this.getLab(params.id));
   }
 
   private getLab(id: string): void {

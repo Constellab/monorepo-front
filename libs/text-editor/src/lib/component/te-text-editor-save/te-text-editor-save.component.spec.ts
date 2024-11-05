@@ -8,9 +8,8 @@ describe('TeTextEditorSaveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TeTextEditorSaveComponent]
-    })
-    .compileComponents();
+      declarations: [TeTextEditorSaveComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TeTextEditorSaveComponent);
     component = fixture.componentInstance;

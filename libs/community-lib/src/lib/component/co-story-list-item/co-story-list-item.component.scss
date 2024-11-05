@@ -1,9 +1,9 @@
-:host{
+:host {
   background-color: var(--card-background);
   cursor: pointer;
 }
 
-.story-image{
+.story-image {
   height: 168px;
   width: 174px;
   border-radius: 10px;
@@ -13,9 +13,8 @@
   overflow: hidden;
 }
 
-
-@media (max-width: 768px){
-  .story-image{
+@media (max-width: 768px) {
+  .story-image {
     height: 100px;
     width: 100px;
   }

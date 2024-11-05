@@ -1,5 +1,4 @@
 <fl-card>
-
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>people</mat-icon>
@@ -7,26 +6,25 @@
     </fl-text-icon>
 
     <fl-card-actions *ngIf="isOwner$ | async">
-      <button mat-icon-button type="button" (click)="openAddUserDialog()"
-              [matTooltip]="'lab_user_create' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openAddUserDialog()"
+        [matTooltip]="'lab_user_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-
     <p class="g-text-light">{{ 'lab_users_section_help' | translate }}</p>
     <fl-async-section [arrayObs]="datasource">
-
       <ng-container *flSectionBodyDatasource>
         <div class="g-infinite-table g-scrollable-element">
-          <ca-lab-users-table [datasource]="datasource" [columns]="columns$ | async"
-                                       [labId]="labId">
+          <ca-lab-users-table [datasource]="datasource" [columns]="columns$ | async" [labId]="labId">
           </ca-lab-users-table>
         </div>
       </ng-container>
-
     </fl-async-section>
   </fl-card-body>
 </fl-card>

@@ -29,5 +29,8 @@ export interface FlSearchConfig {
 /**
  * Search function
  */
-export type FLSearchFunction<T = any> = (page: number, pageSize: number, filters: any) => Observable<ClPageI<T>>
-
+export type FLSearchFunction<T = any> = (
+  page: number,
+  pageSize: number,
+  filters: any
+) => Observable<ClPageI<T>>;

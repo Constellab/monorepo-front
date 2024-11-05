@@ -96,7 +96,7 @@
   "storage_price": "Prix du stockage",
   "volume_storage_price": "Prix du stockage de volume",
   "backup_storage_price": "Prix du stockage de sauvegarde",
-  "backup_transfert_price" : "Prix du transfert de sauvegarde",
+  "backup_transfert_price": "Prix du transfert de sauvegarde",
   "storage_price_unit": " € / Go / mois",
   "storage_prices": "Tous les prix du stockage",
   "create_storage_price": "Créer un prix de stockage",

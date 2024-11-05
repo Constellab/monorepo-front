@@ -1,4 +1,4 @@
-import {ChChartColorFunctionPipe} from './ch-chart-color-function.pipe';
+import { ChChartColorFunctionPipe } from './ch-chart-color-function.pipe';
 
 describe('ChChartColorFunctionPipe', () => {
   it('create an instance', () => {

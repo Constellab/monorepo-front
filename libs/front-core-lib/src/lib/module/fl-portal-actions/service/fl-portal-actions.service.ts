@@ -12,8 +12,6 @@ import { FlOverlayRef } from '../../fl-portal/model/fl-overlay-ref.class';
  */
 @Injectable()
 export class FlPortalActionsService {
-
-
   //provided if a portal is currently opened
   private currentOverlay: FlOverlayRef = null;
 
@@ -21,12 +19,11 @@ export class FlPortalActionsService {
   private autoCloseDelay: number = 3000;
   private autoCloseTimer: any = null;
 
-
-  constructor(private portalService: FlPortalService,
-              private actionsState: FlPortalActionsState) {
-    actionsState.getResult$().subscribe(
-      () => this.onResult()
-    );
+  constructor(
+    private portalService: FlPortalService,
+    private actionsState: FlPortalActionsState
+  ) {
+    actionsState.getResult$().subscribe(() => this.onResult());
   }
 
   /**
@@ -36,9 +33,12 @@ export class FlPortalActionsService {
    * @param autoClose if true, the portal is close after all the action finished (with a small delay)
    * @param openPortal when false the portal is not opened if it doesn't exist
    */
-  public addAction(action: FlPortalAction, autoClose?: boolean,
-                   openPortal: boolean = true): Observable<FlPortalActionResult> {
-    if(action == null) return null;
+  public addAction(
+    action: FlPortalAction,
+    autoClose?: boolean,
+    openPortal: boolean = true
+  ): Observable<FlPortalActionResult> {
+    if (action == null) return null;
     // clear the auto close timer if it exists
     this.clearAutoCloseTimer();
 
@@ -57,21 +57,20 @@ export class FlPortalActionsService {
     }
   }
 
-
   private openPortal(action: FlPortalAction): Observable<FlPortalActionResult> {
     // clear the action list
     const obs = this.actionsState.setAction(action);
 
     // set portal on bottom right
     const portalConfig: FlPortalConfig = this.portalService.configureAbsolutePortal(
-      {right: '75px', bottom: '10px'}, {panelClass: 'g-print-hide'});
+      { right: '75px', bottom: '10px' },
+      { panelClass: 'g-print-hide' }
+    );
 
     // open portal
     this.currentOverlay = this.portalService.createPortal(FlPortalActionsComponent, portalConfig);
 
-    this.currentOverlay.detachments().subscribe(
-      () => this.onPortalClosed()
-    );
+    this.currentOverlay.detachments().subscribe(() => this.onPortalClosed());
 
     return obs;
   }

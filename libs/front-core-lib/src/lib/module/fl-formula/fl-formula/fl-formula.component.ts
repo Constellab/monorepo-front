@@ -6,9 +6,9 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fl-formula',
@@ -16,7 +16,6 @@ import {Observable} from 'rxjs';
   styleUrl: './fl-formula.component.scss',
 })
 export class FlFormulaComponent implements OnInit, OnDestroy {
-
   @Input() formula: string | Observable<string>;
 
   /**
@@ -28,13 +27,14 @@ export class FlFormulaComponent implements OnInit, OnDestroy {
 
   private componentRef: ComponentRef<any>;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-  }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit(): Promise<void> {
-    const {FlFormulaStandaloneComponent} = await import('../../fl-formula/fl-formula-standalone/fl-formula-standalone.component');
+    const { FlFormulaStandaloneComponent } = await import(
+      '../../fl-formula/fl-formula-standalone/fl-formula-standalone.component'
+    );
     this.componentRef = this.viewContainer.createComponent(FlFormulaStandaloneComponent);
     this.componentRef.instance.formula = this.formula;
     this.componentRef.instance.mode = this.mode;
@@ -44,6 +44,4 @@ export class FlFormulaComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.componentRef?.destroy();
   }
-
-
 }

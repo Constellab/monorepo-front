@@ -1,4 +1,4 @@
-import {FlBackupImageDirective} from './fl-backup-image.directive';
+import { FlBackupImageDirective } from './fl-backup-image.directive';
 
 describe('FlBackupImageDirective', () => {
   it('should create an instance', () => {

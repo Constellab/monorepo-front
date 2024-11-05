@@ -6,7 +6,6 @@ import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 
-
 export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolderStorageDTO> {
   folderId: string;
 }
@@ -17,14 +16,13 @@ export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolde
 @Component({
   selector: 'ca-folder-configure-storage',
   templateUrl: './ca-folder-configure-storage.component.html',
-  styleUrls: ['./ca-folder-configure-storage.component.scss']
+  styleUrls: ['./ca-folder-configure-storage.component.scss'],
 })
 export class CaFolderConfigureStorageComponent
   extends FlFormDialogAbstractDirective<CaFolderStorageDTO>
-  implements OnInit {
-
+  implements OnInit
+{
   dialogInput: CaFolderConfigureStorageInput = inject(MAT_DIALOG_DATA);
-
 
   constructor(private folderService: CaFolderService) {
     super();
@@ -35,10 +33,16 @@ export class CaFolderConfigureStorageComponent
   }
 
   buildForm(): UntypedFormGroup {
-    return new FormBuilder().group({
-      mainStorage: [{ value: null, disabled: this.dialogInput.object.mainStorage != null }, Validators.required],
-      backupStorage: [{ value: null, disabled: this.dialogInput.object.backupStorage != null }]
-    }, { validator: this.differentBackupStorageValidator() });
+    return new FormBuilder().group(
+      {
+        mainStorage: [
+          { value: null, disabled: this.dialogInput.object.mainStorage != null },
+          Validators.required,
+        ],
+        backupStorage: [{ value: null, disabled: this.dialogInput.object.backupStorage != null }],
+      },
+      { validator: this.differentBackupStorageValidator() }
+    );
   }
 
   create(): Observable<CaFolderStorageDTO> {
@@ -69,6 +73,4 @@ export class CaFolderConfigureStorageComponent
       return null;
     };
   }
-
-
 }

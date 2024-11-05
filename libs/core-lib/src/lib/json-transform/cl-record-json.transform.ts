@@ -1,13 +1,12 @@
-import {Transform} from 'class-transformer';
+import { Transform } from 'class-transformer';
 import {
   ClCoreJsonConvert,
   ClDeserializationRef,
   ClDeserializeItem,
   ClSerializeItem,
-  ClTransformFnParams
+  ClTransformFnParams,
 } from './cl-json.converter';
-import {ClRecordWrapper} from '../model/cl-record-wrapper.class';
-
+import { ClRecordWrapper } from '../model/cl-record-wrapper.class';
 
 /**
  * Converter decorator for Record Wrapper
@@ -19,17 +18,22 @@ import {ClRecordWrapper} from '../model/cl-record-wrapper.class';
  * @constructor
  */
 export function ClRecordWrapperTransform<WRAPPER extends ClRecordWrapper<ITEM>, ITEM>(
-  wrapperReference: new() => WRAPPER,
-  recordItemReference?: new() => ITEM): PropertyDecorator {
+  wrapperReference: new () => WRAPPER,
+  recordItemReference?: new () => ITEM
+): PropertyDecorator {
   // convert date to time
   const transformToPlain = Transform(
-    (params: ClTransformFnParams<WRAPPER>) => clSerializeRecordWrapper(params.value, ClCoreJsonConvert.instanceToPlain),
-    {toPlainOnly: true});
+    (params: ClTransformFnParams<WRAPPER>) =>
+      clSerializeRecordWrapper(params.value, ClCoreJsonConvert.instanceToPlain),
+    { toPlainOnly: true }
+  );
 
   // create date from string
   const transformToClass = Transform(
-    (params: ClTransformFnParams<Record<string, any>>) => clDeserializeRecordWrapper(params.value, wrapperReference, recordItemReference),
-    {toClassOnly: true});
+    (params: ClTransformFnParams<Record<string, any>>) =>
+      clDeserializeRecordWrapper(params.value, wrapperReference, recordItemReference),
+    { toClassOnly: true }
+  );
 
   return (target: any, key: string): void => {
     transformToPlain(target, key);
@@ -40,8 +44,10 @@ export function ClRecordWrapperTransform<WRAPPER extends ClRecordWrapper<ITEM>, 
 /**
  * Function to serialize a record wrapper. It serializes only the record property
  */
-function clSerializeRecordWrapper(recordWrapper: ClRecordWrapper<any>,
-                                  serializeItem: ClSerializeItem<any>): Record<string, any> {
+function clSerializeRecordWrapper(
+  recordWrapper: ClRecordWrapper<any>,
+  serializeItem: ClSerializeItem<any>
+): Record<string, any> {
   if (recordWrapper == null) {
     return null;
   }
@@ -53,9 +59,11 @@ function clSerializeRecordWrapper(recordWrapper: ClRecordWrapper<any>,
 /**
  * Function to deserialize a record wrapper (class that wrap the record)
  */
-export function clDeserializeRecordWrapper<T extends ClRecordWrapper<any>>(record: Record<string, any>,
-                                                                           wrapperReference: new() => T,
-                                                                           itemReference?: new() => any): T {
+export function clDeserializeRecordWrapper<T extends ClRecordWrapper<any>>(
+  record: Record<string, any>,
+  wrapperReference: new () => T,
+  itemReference?: new () => any
+): T {
   if (record == null) {
     return null;
   }
@@ -64,15 +72,15 @@ export function clDeserializeRecordWrapper<T extends ClRecordWrapper<any>>(recor
 
   if (itemReference) {
     // deserialize the record
-    result.record = clDeserializeRecord(record,
-      (item: any) => ClCoreJsonConvert.deserializeObject(item, itemReference));
+    result.record = clDeserializeRecord(record, (item: any) =>
+      ClCoreJsonConvert.deserializeObject(item, itemReference)
+    );
   } else {
     result.record = record;
   }
 
   return result;
 }
-
 
 /**
  * Converter decorator for Record
@@ -83,8 +91,10 @@ export function clDeserializeRecordWrapper<T extends ClRecordWrapper<any>>(recor
  * @constructor
  */
 export function ClRecordTransform<T>(recordItemReference: ClDeserializationRef<T>): PropertyDecorator {
-  return ClRecordTransformOverride((value: any) => ClCoreJsonConvert.deserializeObject(value, recordItemReference),
-    ClCoreJsonConvert.instanceToPlain);
+  return ClRecordTransformOverride(
+    (value: any) => ClCoreJsonConvert.deserializeObject(value, recordItemReference),
+    ClCoreJsonConvert.instanceToPlain
+  );
 }
 
 /**
@@ -96,17 +106,21 @@ export function ClRecordTransform<T>(recordItemReference: ClDeserializationRef<T
  * @param deserializeItem optional method call for each record property to override deserialize
  * @constructor
  */
-export function ClRecordTransformOverride<T>(deserializeItem: ClDeserializeItem<T>,
-                                             classToPlainItem: ClSerializeItem<T> = ClCoreJsonConvert.instanceToPlain): PropertyDecorator {
+export function ClRecordTransformOverride<T>(
+  deserializeItem: ClDeserializeItem<T>,
+  classToPlainItem: ClSerializeItem<T> = ClCoreJsonConvert.instanceToPlain
+): PropertyDecorator {
   // convert date to time
   const transformToPlain = Transform(
     (params: ClTransformFnParams<Record<string, T>>) => clClassToPlainRecord(params.value, classToPlainItem),
-    {toPlainOnly: true});
+    { toPlainOnly: true }
+  );
 
   // create date from string
   const transformToClass = Transform(
     (params: ClTransformFnParams<Record<string, any>>) => clDeserializeRecord(params.value, deserializeItem),
-    {toClassOnly: true});
+    { toClassOnly: true }
+  );
 
   return (target: any, key: string): void => {
     transformToPlain(target, key);
@@ -114,8 +128,10 @@ export function ClRecordTransformOverride<T>(deserializeItem: ClDeserializeItem<
   };
 }
 
-function clClassToPlainRecord<T>(record: Record<string, T>,
-                                 classToPlainItem: ClSerializeItem<T>): Record<string, any> {
+function clClassToPlainRecord<T>(
+  record: Record<string, T>,
+  classToPlainItem: ClSerializeItem<T>
+): Record<string, any> {
   if (record == null) {
     return null;
   }
@@ -128,7 +144,10 @@ function clClassToPlainRecord<T>(record: Record<string, T>,
   return result;
 }
 
-function clDeserializeRecord<T>(record: Record<string, any>, deserializeItem: ClDeserializeItem<T>): Record<string, T> {
+function clDeserializeRecord<T>(
+  record: Record<string, any>,
+  deserializeItem: ClDeserializeItem<T>
+): Record<string, T> {
   if (record == null) {
     return null;
   }
@@ -140,5 +159,3 @@ function clDeserializeRecord<T>(record: Record<string, any>, deserializeItem: Cl
 
   return result;
 }
-
-

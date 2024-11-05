@@ -8,9 +8,8 @@ describe('FlExternalLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlExternalLinkComponent ]
-    })
-    .compileComponents();
+      declarations: [FlExternalLinkComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

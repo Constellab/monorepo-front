@@ -1,4 +1,4 @@
-:host{
+:host {
   background-color: var(--card-background);
   border-radius: var(--card-radius);
   display: block;
@@ -31,8 +31,6 @@ mat-tree-node {
   flex: 1;
   padding-right: 0.5em;
 }
-
-
 
 .node-icon {
   //margin-left: 0.5em;

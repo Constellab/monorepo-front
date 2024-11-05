@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ChChartLegendMultiSeriesComponent} from './ch-chart-legend-multi-series.component';
+import { ChChartLegendMultiSeriesComponent } from './ch-chart-legend-multi-series.component';
 
 describe('ChChartLegendMultiSeriesComponent', () => {
   let component: ChChartLegendMultiSeriesComponent;
@@ -8,9 +8,8 @@ describe('ChChartLegendMultiSeriesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChChartLegendMultiSeriesComponent ]
-    })
-    .compileComponents();
+      declarations: [ChChartLegendMultiSeriesComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

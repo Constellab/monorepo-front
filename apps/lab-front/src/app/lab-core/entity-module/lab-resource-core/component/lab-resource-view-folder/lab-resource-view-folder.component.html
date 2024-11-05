@@ -1,35 +1,46 @@
 <div class="container g-scrollable-element">
   <mat-tree *ngIf="dataSource" [dataSource]="dataSource" [treeControl]="treeControl">
-
-    <mat-tree-node *matTreeNodeDef="let node" [matTreeNodePadding]="node.level" [matTreeNodePaddingIndent]="20">
-      <div class="leaf-container node-container g-layout-row-wrap g-layout-start-center"
-           (contextmenu)="openMenu(node, $event)">
-        <span>{{node.name}}</span>
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      [matTreeNodePadding]="node.level"
+      [matTreeNodePaddingIndent]="20">
+      <div
+        class="leaf-container node-container g-layout-row-wrap g-layout-start-center"
+        (contextmenu)="openMenu(node, $event)">
+        <span>{{ node.name }}</span>
         <fl-loader *ngIf="node.isLoading" size="small" class="loader"></fl-loader>
 
-        <button *ngIf="!node.isLoading" mat-icon-button class="g-button-icon-tiny action-button"
-                (click)="openMenu(node, $event)">
+        <button
+          *ngIf="!node.isLoading"
+          mat-icon-button
+          class="g-button-icon-tiny action-button"
+          (click)="openMenu(node, $event)">
           <mat-icon>more_vert</mat-icon>
         </button>
       </div>
     </mat-tree-node>
 
-
     <!-- This is the tree node template for expandable nodes -->
-    <mat-tree-node *matTreeNodeDef="let node;when: hasChild"
-                   [matTreeNodePadding]="node.level" [matTreeNodePaddingIndent]="20">
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild"
+      [matTreeNodePadding]="node.level"
+      [matTreeNodePaddingIndent]="20">
       <div matTreeNodeToggle class="g-layout-row g-layout-start-center">
-
         <!--      Arrow icon      -->
-        <mat-icon>{{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'}}</mat-icon>
+        <mat-icon>{{ treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
 
-        <div class="node-container g-layout-row-wrap g-layout-start-center" (contextmenu)="openMenu(node, $event)">
-          <span>{{node.name}}</span>
+        <div
+          class="node-container g-layout-row-wrap g-layout-start-center"
+          (contextmenu)="openMenu(node, $event)">
+          <span>{{ node.name }}</span>
 
           <fl-loader *ngIf="node.isLoading" size="small" class="loader"></fl-loader>
 
-          <button *ngIf="!node.isLoading" mat-icon-button class="g-button-icon-tiny action-button"
-                  (click)="openMenu(node, $event)">
+          <button
+            *ngIf="!node.isLoading"
+            mat-icon-button
+            class="g-button-icon-tiny action-button"
+            (click)="openMenu(node, $event)">
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>

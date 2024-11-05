@@ -1,10 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import {
-  CoIcon,
-  CoIconDatasourceFilters,
-  CoIconDatasourcePaginated,
-} from '../../model/co-icon.class';
+import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../../model/co-icon.class';
 import { FormControl } from '@angular/forms';
 import { CoIconService } from '../../service/co-icon.service';
 import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
@@ -15,7 +11,6 @@ import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
   styleUrl: './co-icon-list.component.scss',
 })
 export class CoIconListComponent implements OnInit, OnDestroy {
-
   @Input()
   reloadList$?: Observable<boolean>;
 
@@ -35,13 +30,11 @@ export class CoIconListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadIcons();
     if (this.reloadList$) {
-      this.reloadListSubscription = this.reloadList$.subscribe(
-        (value: boolean) => {
-          if (value) {
-            this.loadIcons();
-          }
+      this.reloadListSubscription = this.reloadList$.subscribe((value: boolean) => {
+        if (value) {
+          this.loadIcons();
         }
-      );
+      });
     }
   }
 

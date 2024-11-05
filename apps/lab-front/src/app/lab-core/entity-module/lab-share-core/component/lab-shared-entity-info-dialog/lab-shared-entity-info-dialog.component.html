@@ -1,49 +1,60 @@
 <fl-dialog-header>
-  {{'biox.share' | translate}}
+  {{ 'biox.share' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <ng-container *ngIf="shareLink$ | async as shareLink; else notShared">
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em g-text-big">
       <div class="g-flex-auto">
-        {{'biox.share_link_exist' | translate }}
-        <span [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-              [ngClass]="{'g-warn-text': !shareLink.isValid()}">{{shareLink.validUntil | flDate}}</span>
-        <span *ngIf="!shareLink.isValid()" class="g-warn-text"> ({{'biox.shared_link_expired' | translate}})</span>
+        {{ 'biox.share_link_exist' | translate }}
+        <span
+          [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+          [ngClass]="{ 'g-warn-text': !shareLink.isValid() }"
+          >{{ shareLink.validUntil | flDate }}</span
+        >
+        <span *ngIf="!shareLink.isValid()" class="g-warn-text">
+          ({{ 'biox.shared_link_expired' | translate }})</span
+        >
       </div>
 
-      <lab-share-link-actions-menu [shareLink]="shareLink" (update)="onShareLinkUpdate($event)"
-                                   (delete)="onShareLinkDelete()" class="button">
+      <lab-share-link-actions-menu
+        [shareLink]="shareLink"
+        (update)="onShareLinkUpdate($event)"
+        (delete)="onShareLinkDelete()"
+        class="button">
       </lab-share-link-actions-menu>
     </div>
 
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <div>{{'biox.shared_by' | translate}}</div>
+      <div>{{ 'biox.shared_by' | translate }}</div>
       <fl-user-inline [user]="shareLink.createdBy"></fl-user-inline>
       <div>-</div>
       <fl-from-now [date]="shareLink.createdAt" class="g-text-light"></fl-from-now>
     </div>
 
-    <div class="g-text-link g-text-small g-text-light link" (click)="copyDownloadLink(shareLink)"
-         [matTooltip]="'biox.share_link_click_to_copy' | translate">
-      {{shareLink.link}}
+    <div
+      class="g-text-link g-text-small g-text-light link"
+      (click)="copyDownloadLink(shareLink)"
+      [matTooltip]="'biox.share_link_click_to_copy' | translate">
+      {{ shareLink.link }}
     </div>
-
   </ng-container>
 
   <ng-template #notShared>
-    <div>{{'biox.no_share_link' | translate}}</div>
+    <div>{{ 'biox.no_share_link' | translate }}</div>
     <div class="g-text-centered share-button">
       <button mat-stroked-button type="button" (click)="openShareDialog()">
         <mat-icon>share</mat-icon>
-        <span>{{shareButtonText | translate}}</span>
+        <span>{{ shareButtonText | translate }}</span>
       </button>
     </div>
   </ng-template>
 
-
-  <div class="section">{{'biox.labs_that_used_share_link' | translate}}</div>
-  <fl-infinite-scroll [datasource]="sharedEntities" class="g-infinite-table" textNoResult="biox.not_shared_yet">
+  <div class="section">{{ 'biox.labs_that_used_share_link' | translate }}</div>
+  <fl-infinite-scroll
+    [datasource]="sharedEntities"
+    class="g-infinite-table"
+    textNoResult="biox.not_shared_yet">
     <lab-shared-entity-table [datasource]="sharedEntities"></lab-shared-entity-table>
   </fl-infinite-scroll>
 </mat-dialog-content>

@@ -1,9 +1,9 @@
-import {enableProdMode} from '@angular/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {LabAppModule} from './app/lab-app.module';
-import {environment} from './environments/lab-environment';
-import {labEnvironmentPath, LabEnvironmentSettings} from './environments/lab-environment.class';
-import {flLoadEnvironmentFromAssets} from '@monorepo/front-core-lib';
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { LabAppModule } from './app/lab-app.module';
+import { environment } from './environments/lab-environment';
+import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib';
 
 if (environment.production) {
   enableProdMode();
@@ -16,9 +16,7 @@ if (environment.production) {
       .bootstrapModule(LabAppModule)
       .catch((err) => console.error(err));
   });
-
 } else {
-
   // set the environment here to simulate the production mode
   // (environment is not loaded before bootstraping the app)
   environment.settings = {
@@ -38,4 +36,3 @@ if (environment.production) {
     .bootstrapModule(LabAppModule)
     .catch((err) => console.error(err));
 }
-

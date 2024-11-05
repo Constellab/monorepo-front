@@ -10,10 +10,9 @@ import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/fol
 @Component({
   selector: 'ca-folder-detail',
   templateUrl: './ca-folder-detail.component.html',
-  styleUrls: ['./ca-folder-detail.component.scss']
+  styleUrls: ['./ca-folder-detail.component.scss'],
 })
 export class CaFolderDetailComponent {
-
   private state = inject(CaFolderDetailState);
 
   folder$: Observable<CaFolder> = this.state.getFolder$();

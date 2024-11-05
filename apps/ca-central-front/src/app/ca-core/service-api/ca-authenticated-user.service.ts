@@ -7,7 +7,7 @@ import {
   FlCleanableService,
   FlCleanerService,
   FlThemeService,
-  FlTranslateService
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
 import { CaCurrentSpaceService } from './ca-current-space.service';
@@ -20,24 +20,24 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
  * Service to handle the current authenticated user
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaAuthenticatedUserService implements FlCleanableService {
-
   private readonly currentUserRoute: string = 'users/current';
 
   private userAuthenticated: CaUser;
   // subject to subscribe to user changes
   private userSubject: BehaviorSubject<CaUser> = new BehaviorSubject<CaUser>(null);
 
-
-  constructor(private apiService: FlApiService,
-              private translateService: FlTranslateService,
-              private themeService: FlThemeService,
-              private spaceService: CaSpaceService,
-              private currentSpaceService: CaCurrentSpaceService,
-              public location: Location,
-              @Inject(DOCUMENT) private document: Document) {
+  constructor(
+    private apiService: FlApiService,
+    private translateService: FlTranslateService,
+    private themeService: FlThemeService,
+    private spaceService: CaSpaceService,
+    private currentSpaceService: CaCurrentSpaceService,
+    public location: Location,
+    @Inject(DOCUMENT) private document: Document
+  ) {
     FlCleanerService.getInstance().registerService(this);
   }
 
@@ -46,9 +46,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
    */
   public loadCurrentInfo(): Observable<CaSpaceInfoDto> {
     this.currentSpaceService.init();
-    return this.spaceService.getCurrentInfo().pipe(
-      map(spaceInfo => this.storeCurrentAuthenticatedInfo(spaceInfo))
-    );
+    return this.spaceService
+      .getCurrentInfo()
+      .pipe(map((spaceInfo) => this.storeCurrentAuthenticatedInfo(spaceInfo)));
   }
 
   public getCurrentUser(): CaUser {
@@ -96,7 +96,6 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   private storeUserAuthenticated(user: CaUser): CaUser {
-
     // check the user language
     this.translateService.changeAppLanguage(user.lang);
 
@@ -117,9 +116,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   /////////////////////////////// METHOD ON AUTHENTICATED USER //////////////////////////
 
   public changeLanguage(lang: ClSupportedLanguage): Observable<void> {
-    return this.apiService.put(`${this.currentUserRoute}/language/${lang}`, null).pipe(
-      tap(() => this.changeLanguageSuccess(lang))
-    );
+    return this.apiService
+      .put(`${this.currentUserRoute}/language/${lang}`, null)
+      .pipe(tap(() => this.changeLanguageSuccess(lang)));
   }
 
   private changeLanguageSuccess(lang: ClSupportedLanguage): void {
@@ -131,9 +130,9 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   public changeTheme(theme: ClTheme): Observable<void> {
-    return this.apiService.put(`${this.currentUserRoute}/theme/${theme}`, null).pipe(
-      tap(() => this.changeThemeSuccess(theme))
-    );
+    return this.apiService
+      .put(`${this.currentUserRoute}/theme/${theme}`, null)
+      .pipe(tap(() => this.changeThemeSuccess(theme)));
   }
 
   private changeThemeSuccess(theme: ClTheme): void {
@@ -161,7 +160,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     );
   }
 
-  public editUser(newUserInfo: Partial<CaUser>,): Observable<CaUser> {
+  public editUser(newUserInfo: Partial<CaUser>): Observable<CaUser> {
     return this.apiService.put(this.currentUserRoute + '/edit', newUserInfo, CaUser).pipe(
       tap((user) => {
         this.userAuthenticated = user;
@@ -171,15 +170,13 @@ export class CaAuthenticatedUserService implements FlCleanableService {
   }
 
   public has2FA(): Observable<boolean> {
-    return this.apiService.get(`${this.currentUserRoute}/2-fa`).pipe(
-      map(response => response.enabled)
-    );
+    return this.apiService.get(`${this.currentUserRoute}/2-fa`).pipe(map((response) => response.enabled));
   }
 
   public set2FA(enabled: boolean): Observable<boolean> {
-    return this.apiService.put(`${this.currentUserRoute}/2-fa`, {enabled}).pipe(
-      map(response => response.enabled)
-    );
+    return this.apiService
+      .put(`${this.currentUserRoute}/2-fa`, { enabled })
+      .pipe(map((response) => response.enabled));
   }
 
   /////////////////////////////// OTHER //////////////////////////
@@ -199,7 +196,7 @@ export class CaAuthenticatedUserService implements FlCleanableService {
     return this.userAuthenticated?.isCategory(...categories) ?? false;
   }
 
-  public hasEntrepriseLicense(): boolean{
+  public hasEntrepriseLicense(): boolean {
     return this.userAuthenticated?.hasEntrepriseLicense() ?? false;
   }
 

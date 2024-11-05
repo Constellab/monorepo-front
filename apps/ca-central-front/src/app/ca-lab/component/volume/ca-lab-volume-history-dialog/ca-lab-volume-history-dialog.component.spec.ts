@@ -8,9 +8,8 @@ describe('CaLabVolumeHistoryDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabVolumeHistoryDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabVolumeHistoryDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabVolumeHistoryDialogComponent);
     component = fixture.componentInstance;

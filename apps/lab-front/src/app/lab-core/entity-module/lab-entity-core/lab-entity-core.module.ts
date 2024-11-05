@@ -1,17 +1,13 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {LabCoreModule} from '../../lab-core.module';
-import {
-  LabValidateObjectDialogComponent
-} from './component/lab-validate-object-dialog/lab-validate-object-dialog.component';
-import {LabSyncObjectButtonComponent} from './component/lab-sync-object-button/lab-sync-object-button.component';
-import {LabObjectSyncInfoComponent} from './component/lab-object-sync-info/lab-object-sync-info.component';
-import {
-  LabObjectValidationInfoComponent
-} from './component/lab-object-validation-info/lab-object-validation-info.component';
-import {LabFolderCoreModule} from '../lab-folder-core/lab-folder-core.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LabFlagButtonComponent} from './component/lab-flag-button/lab-flag-button.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LabCoreModule } from '../../lab-core.module';
+import { LabValidateObjectDialogComponent } from './component/lab-validate-object-dialog/lab-validate-object-dialog.component';
+import { LabSyncObjectButtonComponent } from './component/lab-sync-object-button/lab-sync-object-button.component';
+import { LabObjectSyncInfoComponent } from './component/lab-object-sync-info/lab-object-sync-info.component';
+import { LabObjectValidationInfoComponent } from './component/lab-object-validation-info/lab-object-validation-info.component';
+import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LabFlagButtonComponent } from './component/lab-flag-button/lab-flag-button.component';
 
 /**
  * Module for generic components of entities
@@ -31,14 +27,6 @@ import {LabFlagButtonComponent} from './component/lab-flag-button/lab-flag-butto
     LabObjectValidationInfoComponent,
     LabFlagButtonComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-
-    LabCoreModule,
-    LabFolderCoreModule,
-  ]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, LabCoreModule, LabFolderCoreModule],
 })
-export class LabEntityCoreModule {
-}
+export class LabEntityCoreModule {}

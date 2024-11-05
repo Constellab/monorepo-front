@@ -8,12 +8,9 @@ import { FlSearchState } from '@monorepo/front-core-lib';
   styleUrls: ['./lab-note-template-search-form.component.scss'],
 })
 export class LabNoteTemplateSearchFormComponent implements OnInit {
-
-
   formGp: UntypedFormGroup;
 
-  constructor(private searchState: FlSearchState<any>) {
-  }
+  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

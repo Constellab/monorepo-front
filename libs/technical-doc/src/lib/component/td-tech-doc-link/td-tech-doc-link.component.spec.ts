@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {TdTechDocLinkComponent} from './td-tech-doc-link.component';
+import { TdTechDocLinkComponent } from './td-tech-doc-link.component';
 
 describe('TdTechDocLinkComponent', () => {
   let component: TdTechDocLinkComponent;
@@ -8,9 +8,8 @@ describe('TdTechDocLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TdTechDocLinkComponent]
-    })
-      .compileComponents();
+      declarations: [TdTechDocLinkComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

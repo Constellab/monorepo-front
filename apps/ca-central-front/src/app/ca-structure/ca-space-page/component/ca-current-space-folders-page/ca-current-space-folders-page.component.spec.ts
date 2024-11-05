@@ -8,9 +8,8 @@ describe('CaCurrentSpaceCaFoldersPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCurrentSpaceFoldersPageComponent]
-    })
-      .compileComponents();
+      declarations: [CaCurrentSpaceFoldersPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCurrentSpaceFoldersPageComponent);
     component = fixture.componentInstance;

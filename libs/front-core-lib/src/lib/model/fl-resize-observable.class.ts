@@ -1,5 +1,5 @@
-import {ClHelpService} from '@monorepo/core-lib';
-import {Observable, Subject} from 'rxjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Wrapper of the ResizeObserver to observe the resize of one or more elements
@@ -8,7 +8,6 @@ import {Observable, Subject} from 'rxjs';
  * /!\ This runs outside NgZone
  */
 export class FlResizeObservable {
-
   private readonly elements: HTMLElement[];
 
   private observer: ResizeObserver;
@@ -21,7 +20,7 @@ export class FlResizeObservable {
   }
 
   private createObserver(): void {
-    this.observer = new ResizeObserver(entries => {
+    this.observer = new ResizeObserver((entries) => {
       this.subject.next(entries);
     });
 
@@ -38,11 +37,9 @@ export class FlResizeObservable {
     return this.subject.asObservable();
   }
 
-
   // clear listener and complete subject
   public disconnect(): void {
     this.observer.disconnect();
     this.subject.complete();
   }
-
 }

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {RvTechnicalInfoDialogComponent} from './rv-technical-info-dialog.component';
+import { RvTechnicalInfoDialogComponent } from './rv-technical-info-dialog.component';
 
 describe('LabTechnicalInfoPortalComponent', () => {
   let component: RvTechnicalInfoDialogComponent;
@@ -8,9 +8,8 @@ describe('LabTechnicalInfoPortalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RvTechnicalInfoDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [RvTechnicalInfoDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

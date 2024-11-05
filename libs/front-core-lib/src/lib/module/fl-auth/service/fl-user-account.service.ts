@@ -1,12 +1,10 @@
-import {Observable} from 'rxjs';
-import {FlSignUpUser} from '../model/fl-sign-up-user.class';
+import { Observable } from 'rxjs';
+import { FlSignUpUser } from '../model/fl-sign-up-user.class';
 
 /**
  * Service to manage user account, signup and password forgotten
  */
 export abstract class FlUserAccountService {
-
-
   /**
    * Signup a new user
    */
@@ -20,7 +18,5 @@ export abstract class FlUserAccountService {
   /**
    * Route with a token to reset the user password
    */
-  public abstract resetPassword(password: string, token: string): Observable<void> ;
-
+  public abstract resetPassword(password: string, token: string): Observable<void>;
 }
-

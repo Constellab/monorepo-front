@@ -4,23 +4,17 @@ import { CaHierarchyObjectDetailPageRoutingModule } from './ca-hierarchy-object-
 import { CaFolderDetailPageModule } from '../ca-folder-detail-page/ca-folder-detail-page.module';
 import { CaScenarioDetailPageModule } from '../ca-scenario-detail-page/ca-scenario-detail-page.module';
 import { CaNoteDetailPageModule } from '../ca-note-detail-page/ca-note-detail-page.module';
-import {
-  CaHierarchyObjectDetailPageComponent
-} from './component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component';
+import { CaHierarchyObjectDetailPageComponent } from './component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component';
 import { CaCoreModule } from '../../../ca-core/ca-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { RouterModule } from '@angular/router';
 import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-core.module';
 import { CaDocumentDetailPageModule } from '../ca-document-detail-page/ca-document-detail-page.module';
 import { CaFolderActivityPageModule } from '../ca-folder-activity-page/ca-folder-activity-page.module';
-import {
-  CaHierarchyObjectCoreModule
-} from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 @NgModule({
-  declarations: [
-    CaHierarchyObjectDetailPageComponent
-  ],
+  declarations: [CaHierarchyObjectDetailPageComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -35,8 +29,7 @@ import {
     CaDocumentDetailPageModule,
     CaFolderActivityPageModule,
 
-    CaHierarchyObjectDetailPageRoutingModule
-  ]
+    CaHierarchyObjectDetailPageRoutingModule,
+  ],
 })
-export class CaHierarchyObjectDetailPageModule {
-}
+export class CaHierarchyObjectDetailPageModule {}

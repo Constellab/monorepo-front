@@ -9,13 +9,13 @@ import { LabAuthenticatedUserService } from './lab-authenticated-user.service';
 /**
  * Service to manage the DEV environment
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LabDevEnvironmentService {
-
-  constructor(private httpClient: HttpClient,
-              private labEnvManager: LabEnvStore,
-              private authenticatedUserService: LabAuthenticatedUserService){
-  }
+  constructor(
+    private httpClient: HttpClient,
+    private labEnvManager: LabEnvStore,
+    private authenticatedUserService: LabAuthenticatedUserService
+  ) {}
 
   /**
    * This method is trigger on startup,
@@ -28,7 +28,7 @@ export class LabDevEnvironmentService {
     if (this.labEnvManager.getLabEnvironmentStorageValue() === 'dev') {
       // we check if the dev api is running
       return this.userIsLoggedInDev().pipe(
-        map(isLogged => {
+        map((isLogged) => {
           if (isLogged) {
             this.labEnvManager.setLabEnvironment('dev');
           } else {
@@ -46,7 +46,7 @@ export class LabDevEnvironmentService {
   public devApiIsRunning(): Observable<boolean> {
     return this.httpClient.get(LabEnvironmentHelper.getDevCoreApiUrl() + 'health-check').pipe(
       map(() => true),
-      catchError(() => of(false)),
+      catchError(() => of(false))
     );
   }
 
@@ -54,8 +54,7 @@ export class LabDevEnvironmentService {
   public userIsLoggedInDev(): Observable<boolean> {
     return this.httpClient.get(LabEnvironmentHelper.getDevCoreApiUrl() + 'check-token').pipe(
       map(() => true),
-      catchError(() => of(false)
-      ),
+      catchError(() => of(false))
     );
   }
 
@@ -66,7 +65,7 @@ export class LabDevEnvironmentService {
    */
   public activateDevEnvironment(): Observable<boolean> {
     return this.userIsLoggedInDev().pipe(
-      mergeMap(result => {
+      mergeMap((result) => {
         // if the user is logged in, activate the account
         if (result) {
           this.labEnvManager.setLabEnvironment('dev');
@@ -83,16 +82,16 @@ export class LabDevEnvironmentService {
    * If success, its returns the token for dev env
    */
   private logUserInDevEnv(): Observable<boolean> {
-    return this.authenticatedUserService.generateDevLoginUniqueCode().pipe(
-      mergeMap(code => this.devLogin(code)),
-    );
+    return this.authenticatedUserService
+      .generateDevLoginUniqueCode()
+      .pipe(mergeMap((code) => this.devLogin(code)));
   }
 
   private devLogin(code: string): Observable<boolean> {
     return this.httpClient.post(LabEnvironmentHelper.getDevCoreApiUrl() + `dev-login/${code}`, null).pipe(
       tap(() => this.devLoginSuccess()),
       map(() => true),
-      catchError(() => of(false)),
+      catchError(() => of(false))
     );
   }
 
@@ -100,6 +99,4 @@ export class LabDevEnvironmentService {
   private devLoginSuccess(): void {
     this.labEnvManager.setLabEnvironment('dev');
   }
-
-
 }

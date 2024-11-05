@@ -1,12 +1,11 @@
-import {SpSheetAction} from './sp-sheet.action';
-import {SpSheet} from '../sp-sheet.class';
-import {SpCellsRange} from '../selection/sp-cells-range.class';
+import { SpSheetAction } from './sp-sheet.action';
+import { SpSheet } from '../sp-sheet.class';
+import { SpCellsRange } from '../selection/sp-cells-range.class';
 
 /**
  * Action to create a new Column
  */
 export class SpAddColumnAction extends SpSheetAction {
-
   constructor(sheetId: number, range: SpCellsRange) {
     super(sheetId, range);
     this.disabledSelectionAfterAction = true;
@@ -23,12 +22,10 @@ export class SpAddColumnAction extends SpSheetAction {
   }
 }
 
-
 /**
  * Action to create a new Row
  */
 export class SpAddRowAction extends SpSheetAction {
-
   constructor(sheetId: number, range: SpCellsRange) {
     super(sheetId, range);
     this.disabledSelectionAfterAction = true;
@@ -49,9 +46,11 @@ export class SpAddRowAction extends SpSheetAction {
  * Action to delete columns
  */
 export class SpDeleteColumnAction extends SpSheetAction {
-
-  constructor(sheetId: number, range: SpCellsRange,
-              private values: any[][]) {
+  constructor(
+    sheetId: number,
+    range: SpCellsRange,
+    private values: any[][]
+  ) {
     super(sheetId, range);
     this.disabledSelectionAfterAction = true;
   }
@@ -74,9 +73,11 @@ export class SpDeleteColumnAction extends SpSheetAction {
  * Action to delete rows
  */
 export class SpDeleteRowAction extends SpSheetAction {
-
-  constructor(sheetId: number, range: SpCellsRange,
-              private values: any[][]) {
+  constructor(
+    sheetId: number,
+    range: SpCellsRange,
+    private values: any[][]
+  ) {
     super(sheetId, range);
     this.disabledSelectionAfterAction = true;
   }
@@ -94,4 +95,3 @@ export class SpDeleteRowAction extends SpSheetAction {
     return true;
   }
 }
-

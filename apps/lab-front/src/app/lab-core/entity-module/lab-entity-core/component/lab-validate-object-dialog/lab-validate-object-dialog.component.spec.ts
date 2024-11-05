@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabValidateObjectDialogComponent} from './lab-validate-object-dialog.component';
+import { LabValidateObjectDialogComponent } from './lab-validate-object-dialog.component';
 
 describe('LabValidateObjectComponent', () => {
   let component: LabValidateObjectDialogComponent;
@@ -8,9 +8,8 @@ describe('LabValidateObjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabValidateObjectDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabValidateObjectDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

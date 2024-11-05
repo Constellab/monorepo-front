@@ -1,6 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { FlTranslatableText, FlTranslateMode, FlTranslateObject, FlTranslateParam } from '../model/fl-translate-param';
+import {
+  FlTranslatableText,
+  FlTranslateMode,
+  FlTranslateObject,
+  FlTranslateParam,
+} from '../model/fl-translate-param';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from '../model/fl-translate-module-config';
@@ -12,7 +17,6 @@ import { FlPlatformService } from '../../../service/fl-plateform.service';
 
 @Injectable()
 export class FlTranslateService {
-
   private static instance: FlTranslateService = null;
 
   // key to store the user language in the cookie
@@ -21,11 +25,13 @@ export class FlTranslateService {
   // store the module that have been translated
   private modulesTranslation: string[] = [];
 
-  constructor(private translateService: TranslateService,
-              private platformService: FlPlatformService,
-              private cookieService: CookieService,
-              @Inject(FL_TRANSLATE_MODULE_CONFIG) private config: FlTranslateModuleConfig,
-              private adapter: DateAdapter<any>) {
+  constructor(
+    private translateService: TranslateService,
+    private platformService: FlPlatformService,
+    private cookieService: CookieService,
+    @Inject(FL_TRANSLATE_MODULE_CONFIG) private config: FlTranslateModuleConfig,
+    private adapter: DateAdapter<any>
+  ) {
     // save this instance to static attribute
     FlTranslateService.instance = this;
   }
@@ -53,7 +59,6 @@ export class FlTranslateService {
     this.setAppLanguage(userLang);
   }
 
-
   /**
    * Returns the translation based on a key
    * @param key translation key
@@ -70,7 +75,7 @@ export class FlTranslateService {
    * @param translatableText
    */
   public translatableText(translatableText: FlTranslatableText): string {
-    if(translatableText == null)  return null;
+    if (translatableText == null) return null;
     if (typeof translatableText === 'string') {
       return this.translate(translatableText);
     } else if (translatableText.translateText === false) {
@@ -85,7 +90,7 @@ export class FlTranslateService {
    * @param translatableText
    */
   public translatableTextObs(translatableText: FlTranslatableText): Observable<string> {
-    if(translatableText == null)  return null;
+    if (translatableText == null) return null;
     if (typeof translatableText === 'string') {
       return this.translateService.get(translatableText);
     } else if (translatableText.translateText === false) {
@@ -101,9 +106,9 @@ export class FlTranslateService {
    * @returns A stream of the translated key, or an object of translated keys
    */
   public stream(key: string | Array<string>, params: FlTranslateParam = {}): Observable<string> {
-    return this.translateService.stream(key, params.param).pipe(
-      map(text => this.convertTranslatedTextCase(text, params.mode))
-    );
+    return this.translateService
+      .stream(key, params.param)
+      .pipe(map((text) => this.convertTranslatedTextCase(text, params.mode)));
   }
 
   /**
@@ -132,7 +137,6 @@ export class FlTranslateService {
   public getUserLanguage(): ClSupportedLanguage {
     // check for the platform because of the use of navigator
     if (this.platformService.isBrowserPlatform()) {
-
       // get the language from the cookie if it exists
       const cookieLang: string = this.getUserLanguageCookie();
       // if it exists, returns the lang from the cookie
@@ -171,7 +175,7 @@ export class FlTranslateService {
    */
   public addTranslation(value: FlTranslateObject): void {
     for (const key of Object.keys(value)) {
-      this.translateService.setTranslation(key, (value)[key as keyof typeof value], true);
+      this.translateService.setTranslation(key, value[key as keyof typeof value], true);
     }
   }
 
@@ -204,9 +208,7 @@ export class FlTranslateService {
     if (this.getUserLanguageCookie() === lang) return;
 
     // set the language in the cookies
-    this.cookieService.set(this.cookieKey, lang,
-      this.getDateInTenYears(), '/', null, false
-    );
+    this.cookieService.set(this.cookieKey, lang, this.getDateInTenYears(), '/', null, false);
 
     this.setAppLanguage(lang);
   }
@@ -236,7 +238,6 @@ export class FlTranslateService {
   private langIsSupported(lang: string): boolean {
     return this.config.availableLang.indexOf(lang as ClSupportedLanguage) !== -1;
   }
-
 
   // set the local for dates
   public setDateLocale(lang: ClSupportedLanguage): void {

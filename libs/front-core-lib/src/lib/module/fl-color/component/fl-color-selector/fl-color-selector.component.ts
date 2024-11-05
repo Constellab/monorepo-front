@@ -1,17 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Optional, Output, Self} from '@angular/core';
-import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
-import {NgControl} from '@angular/forms';
-import {FlColorHelper} from '../../../../utils/fl-color-helper.class';
+import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
+import { NgControl } from '@angular/forms';
+import { FlColorHelper } from '../../../../utils/fl-color-helper.class';
 
 @Component({
   selector: 'fl-color-selector',
   templateUrl: './fl-color-selector.component.html',
   styleUrls: ['./fl-color-selector.component.scss'],
-  providers: [{provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent}]
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
 })
-export class FlColorSelectorComponent extends FlFormFieldDirective<string>
-  implements OnInit {
-
+export class FlColorSelectorComponent extends FlFormFieldDirective<string> implements OnInit {
   @Input() placeholder: string;
 
   @Input() availableColor: string[] = FlColorHelper.getColorList();
@@ -32,8 +30,7 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string>
     super(ngControl);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   callChangeEvent(value: string): void {
     this.colorChange.emit(value);
@@ -60,8 +57,5 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string>
     return this.value === color;
   }
 
-  onDisableChange(): void {
-  }
-
-
+  onDisableChange(): void {}
 }

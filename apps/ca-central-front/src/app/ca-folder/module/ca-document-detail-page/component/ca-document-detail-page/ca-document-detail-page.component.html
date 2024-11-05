@@ -1,18 +1,14 @@
 <div class="g-page page">
-
   <ca-hierarchy-object-breadcrumb class="g-print-hide"></ca-hierarchy-object-breadcrumb>
 
   <fl-section [isLoading]="getIsLoading" [object]="document" class="section">
-
     <ng-template flSectionBody>
-
       <div class="card-container g-layout-col">
         <div class="g-layout-row g-layout-between-center">
           <h1 flElementEditable (flElementValueChange)="renameDocument($event)">{{ document.name }}</h1>
 
           <fl-card-actions class="g-print-hide">
-            <button mat-stroked-button type="button" (click)="toggleEditMode()"
-                    class="button g-button-small">
+            <button mat-stroked-button type="button" (click)="toggleEditMode()" class="button g-button-small">
               <mat-icon>{{ contentFormControl.disabled ? 'edit' : 'visibility' }}</mat-icon>
               <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
             </button>
@@ -22,8 +18,7 @@
               <mat-icon>print</mat-icon>
             </button>
 
-            <button mat-icon-button type="button"
-                    (click)="openDocumentActionMenu(document, $event)">
+            <button mat-icon-button type="button" (click)="openDocumentActionMenu(document, $event)">
               <mat-icon>more_vert</mat-icon>
             </button>
           </fl-card-actions>
@@ -36,25 +31,26 @@
             </div>
           }
 
-          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt">
-          </fl-creation-info>
+          <fl-creation-info [user]="document.createdBy" [date]="document.createdAt"> </fl-creation-info>
 
           <div class="g-layout-row g-layout-between-center">
-            <fl-last-modification-info [user]="document.lastModifiedBy"
-                                       [date]="document.lastModifiedAt"></fl-last-modification-info>
+            <fl-last-modification-info
+              [user]="document.lastModifiedBy"
+              [date]="document.lastModifiedAt"></fl-last-modification-info>
 
-            <te-text-editor-save [formCtrl]="contentFormControl" [saveFunc]="saveDescriptionFunc"
-                                 [debounceTime]="2500"></te-text-editor-save>
+            <te-text-editor-save
+              [formCtrl]="contentFormControl"
+              [saveFunc]="saveDescriptionFunc"
+              [debounceTime]="2500"></te-text-editor-save>
           </div>
         </div>
 
-        <te-text-editor [formControl]="contentFormControl" [config]="textEditorConfig"
-                        class="g-print-section text-editor"
-                        [ngClass]="{'text-editor-edit': !contentFormControl.disabled}"></te-text-editor>
-
-
+        <te-text-editor
+          [formControl]="contentFormControl"
+          [config]="textEditorConfig"
+          class="g-print-section text-editor"
+          [ngClass]="{ 'text-editor-edit': !contentFormControl.disabled }"></te-text-editor>
       </div>
-
     </ng-template>
   </fl-section>
 </div>

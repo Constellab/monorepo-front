@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
-import {FlInfiniteScrollMode} from '@monorepo/front-core-lib';
-import {LabResourceService} from '../../../../entity-service/lab-resource.service';
-import {Observable} from 'rxjs';
-import {RvResourceViewDirective, RvResourceViewText} from '@monorepo/resource-view';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { Observable } from 'rxjs';
+import { RvResourceViewDirective, RvResourceViewText } from '@monorepo/resource-view';
 
 /**
  * Component to view a resource as plain text
@@ -13,10 +13,12 @@ import {RvResourceViewDirective, RvResourceViewText} from '@monorepo/resource-vi
   selector: 'lab-resource-view-text',
   templateUrl: './lab-resource-view-text.component.html',
   styleUrls: ['./lab-resource-view-text.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LabResourceViewTextComponent extends RvResourceViewDirective<RvResourceViewText> implements OnInit {
-
+export class LabResourceViewTextComponent
+  extends RvResourceViewDirective<RvResourceViewText>
+  implements OnInit
+{
   @Input() view: RvResourceViewText;
 
   @Input() infiniteScrollMode: FlInfiniteScrollMode = 'body';
@@ -28,8 +30,10 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
 
   isLoading: boolean = false;
 
-  constructor(private resourceService: LabResourceService,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    private resourceService: LabResourceService,
+    private cdr: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -41,16 +45,15 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
     this.reachedFirstPage = this.view.data.is_first_page;
     this.reachedLastPage = this.view.data.is_last_page;
 
-
     this.text = this.toString(this.view.data.text);
   }
 
   loadNextPage(): void {
-    if(this.view.data.is_last_page || this.view.data.next_page == null) return;
+    if (this.view.data.is_last_page || this.view.data.next_page == null) return;
     this.isLoading = true;
     this.callPagination(this.view.data.next_page).subscribe({
-      next: view => this.loadNextPageSuccess(view),
-      error: () => this.onComplete()
+      next: (view) => this.loadNextPageSuccess(view),
+      error: () => this.onComplete(),
     });
   }
 
@@ -64,20 +67,23 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
   }
 
   loadPreviousPage(): void {
-    if(this.view.data.is_first_page || this.view.data.previous_page == null) return;
+    if (this.view.data.is_first_page || this.view.data.previous_page == null) return;
     this.isLoading = true;
     this.callPagination(this.view.data.previous_page).subscribe({
-      next: view => this.loadPreviousPageSuccess(view),
-      error: () => this.onComplete()
+      next: (view) => this.loadPreviousPageSuccess(view),
+      error: () => this.onComplete(),
     });
   }
 
   private callPagination(page: any): Observable<RvResourceViewText> {
     // merge config with pagination config
-    const viewConfig = Object.assign(this.config.configValues, {[this.view.data.page_param_name]: page});
+    const viewConfig = Object.assign(this.config.configValues, { [this.view.data.page_param_name]: page });
 
-    return this.resourceService.callResourceViewData(this.resourceId, this.config.methodName,
-      viewConfig) as Observable<RvResourceViewText>;
+    return this.resourceService.callResourceViewData(
+      this.resourceId,
+      this.config.methodName,
+      viewConfig
+    ) as Observable<RvResourceViewText>;
   }
 
   private loadPreviousPageSuccess(view: RvResourceViewText): void {
@@ -101,5 +107,4 @@ export class LabResourceViewTextComponent extends RvResourceViewDirective<RvReso
       return JSON.stringify(data);
     }
   }
-
 }

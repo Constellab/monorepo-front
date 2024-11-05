@@ -11,13 +11,11 @@ export interface FlCleanableService {
   clean(): void;
 }
 
-
 /**
  * Singleton that store the list of CleanableService services to clean when calling
  * cleanServices
  */
 export class FlCleanerService {
-
   private static instance: FlCleanerService = null;
 
   private registeredServices: FlCleanableService[] = [];

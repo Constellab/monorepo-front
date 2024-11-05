@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabErrorDetailComponent} from './lab-error-detail.component';
+import { LabErrorDetailComponent } from './lab-error-detail.component';
 
 describe('ErrorDetailComponent', () => {
   let component: LabErrorDetailComponent;
@@ -8,9 +8,8 @@ describe('ErrorDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabErrorDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [LabErrorDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

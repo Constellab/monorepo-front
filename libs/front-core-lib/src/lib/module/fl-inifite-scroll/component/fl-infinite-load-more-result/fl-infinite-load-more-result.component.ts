@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-paginated.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasource-paginated.class';
 
 /**
  * Component link to a paginated datasource to show the text 'Load more result' and trigger load
@@ -11,7 +11,6 @@ import {FlDatasourcePaginated} from '../../../../model/datasource/fl-datasource-
   styleUrls: ['./fl-infinite-load-more-result.component.scss'],
 })
 export class FlInfiniteLoadMoreResultComponent implements OnInit {
-
   @Input() datasource: FlDatasourcePaginated<any>;
 
   /**
@@ -26,21 +25,18 @@ export class FlInfiniteLoadMoreResultComponent implements OnInit {
    */
   @Input() textNoMoreResult: string = 'no_more_result';
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   loadMoreResults(): void {
     this.datasource.getNextPage();
   }
 
   get emptyText(): string {
-    if(this.datasource.page.totalElements > 0){
+    if (this.datasource.page.totalElements > 0) {
       return this.textNoMoreResult;
-    }else{
+    } else {
       return this.textNoResult;
     }
   }

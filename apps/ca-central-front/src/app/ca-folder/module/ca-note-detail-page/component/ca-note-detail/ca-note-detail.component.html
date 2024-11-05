@@ -1,17 +1,18 @@
 <fl-card class="container g-layout-col">
-
   <fl-card-header>
     <h1>{{ note.title }}</h1>
 
     <fl-card-actions class="g-print-hide">
-      <button mat-stroked-button type="button" (click)="openScenariosListDialog()"
-              class="g-button-small button">
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="openScenariosListDialog()"
+        class="g-button-small button">
         {{ 'scenarios' | translate }}
         <mat-icon flIcon="scenario"></mat-icon>
       </button>
 
-      <button mat-stroked-button type="button" (click)="printNote()"
-              class="g-button-small button">
+      <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small button">
         {{ 'print_note' | translate }}
         <mat-icon>print</mat-icon>
       </button>
@@ -20,16 +21,14 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="toggleNoteHistoryPanel(note)">
+        <button mat-menu-item type="button" (click)="toggleNoteHistoryPanel(note)">
           <mat-icon>history</mat-icon>
           <span>{{ 'history' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="deleteNote()" *caIsAdmin>
           <mat-icon color="warn">delete</mat-icon>
-          <span class="delete-text">{{'delete_note' | translate}}</span>
+          <span class="delete-text">{{ 'delete_note' | translate }}</span>
         </button>
       </mat-menu>
     </fl-card-actions>
@@ -37,7 +36,7 @@
 
   <fl-card-body>
     <!--  Validated info  -->
-    @if (note.isValidated){
+    @if (note.isValidated) {
       <ca-validated-object-info class="separator" [object]="note"></ca-validated-object-info>
     }
 
@@ -46,12 +45,15 @@
       <ca-sync-object-info class="separator" [object]="note"></ca-sync-object-info>
 
       <!--  Created by & Last modified bt  -->
-      <fl-creation-info class="g-text-small g-text-light" [user]="note.createdBy"
-                        [date]="note.createdAt"></fl-creation-info>
-      <fl-last-modification-info class="g-text-small g-text-light" [user]="note.lastModifiedBy"
-                                 [date]="note.lastModifiedAt"></fl-last-modification-info>
+      <fl-creation-info
+        class="g-text-small g-text-light"
+        [user]="note.createdBy"
+        [date]="note.createdAt"></fl-creation-info>
+      <fl-last-modification-info
+        class="g-text-small g-text-light"
+        [user]="note.lastModifiedBy"
+        [date]="note.lastModifiedAt"></fl-last-modification-info>
     </div>
-
 
     <ca-note-content [noteId]="note.id" class="note-content"></ca-note-content>
   </fl-card-body>

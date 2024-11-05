@@ -1,16 +1,20 @@
-<fl-input-search [selectedItem]="selectedServer"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="datasource"
-                 [placeholder]="'select_server_cloud' | translate"
-                 [required]="required"
-                 [disabled]="disabled"
-                 [minInputSearchLength]="2"
-                 [advancedButton]="advancedButton">
-
+<fl-input-search
+  [selectedItem]="selectedServer"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="'select_server_cloud' | translate"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="2"
+  [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as serverCloud">
     @if (serverCloud) {
-      <img [ngSrc]="serverCloud.cloudProvider.logo" class="image"
-           [alt]="serverCloud.cloudProvider.name" [width]="25" [height]="25">
+      <img
+        [ngSrc]="serverCloud.cloudProvider.logo"
+        class="image"
+        [alt]="serverCloud.cloudProvider.name"
+        [width]="25"
+        [height]="25" />
     }
   </div>
   <ca-server-cloud-inline *flInputSearchOption="datasource as serverCloud" [serverCloud]="serverCloud">

@@ -1,18 +1,19 @@
-import {Platform} from '@angular/cdk/platform';
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser, isPlatformServer} from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 /**
  * Service to get information about the current device such as
  * device, browser and rendering type
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlPlatformService {
-
-  constructor(private platform: Platform, @Inject(PLATFORM_ID) private platformId: any) {
-  }
+  constructor(
+    private platform: Platform,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {}
 
   /**
    * Return true if the current browser is a mobile device
@@ -84,4 +85,3 @@ export class FlPlatformService {
     return this.isBrowserPlatform() && window.frameElement != null;
   }
 }
-

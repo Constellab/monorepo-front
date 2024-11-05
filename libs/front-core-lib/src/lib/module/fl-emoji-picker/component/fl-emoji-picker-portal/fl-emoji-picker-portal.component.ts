@@ -6,7 +6,7 @@ import {
   inject,
   OnDestroy,
   OnInit,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
@@ -30,10 +30,9 @@ interface FlEmojiCoord {
   selector: 'fl-emoji-picker-portal',
   templateUrl: './fl-emoji-picker-portal.component.html',
   styleUrl: './fl-emoji-picker-portal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
-
   public static PORTAL_MAX_WIDTH = 400;
   public static PORTAL_MAX_HEIGHT = 420;
   public static SELECTED_CLASS = 'selected';
@@ -47,15 +46,14 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   private readonly nbOfEmojiPerLine = 10;
   private listener: () => void;
 
-
-  constructor(private overlayRef: FlOverlayRef,
-              private changeDetectorRef: ChangeDetectorRef,
-              private renderer: Renderer2,
-              private elementRef: ElementRef<HTMLElement>) {
-  }
+  constructor(
+    private overlayRef: FlOverlayRef,
+    private changeDetectorRef: ChangeDetectorRef,
+    private renderer: Renderer2,
+    private elementRef: ElementRef<HTMLElement>
+  ) {}
 
   async ngOnInit(): Promise<void> {
-
     this.input.filter.subscribe({
       next: (value: string) => {
         // we use a timeout to let the HTML load
@@ -65,11 +63,10 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
         }, 0);
         this.emojiCategories.getFirstPage({ text: value });
       },
-      complete: () => this.overlayRef.dispose()
+      complete: () => this.overlayRef.dispose(),
     });
 
-    this.listener = this.renderer.listen(this.input.element, 'keydown',
-      (event) => this.onKeydown(event));
+    this.listener = this.renderer.listen(this.input.element, 'keydown', (event) => this.onKeydown(event));
   }
 
   private onKeydown(event: KeyboardEvent): void {
@@ -131,13 +128,13 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     if (categories[coords.categoryIndex].emojis.length > coords.index + 1) {
       return {
         categoryIndex: coords.categoryIndex,
-        index: coords.index + 1
+        index: coords.index + 1,
       };
       // if we go to the next category
     } else if (categories.length > coords.categoryIndex + 1) {
       return {
         categoryIndex: coords.categoryIndex + 1,
-        index: 0
+        index: 0,
       };
     }
     return coords;
@@ -151,14 +148,14 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     if (coords.index > 0) {
       return {
         categoryIndex: coords.categoryIndex,
-        index: coords.index - 1
+        index: coords.index - 1,
       };
       // if we go to the previous category
     } else if (coords.categoryIndex > 0) {
       const newCategoryIndex = coords.categoryIndex - 1;
       return {
         categoryIndex: newCategoryIndex,
-        index: categories[newCategoryIndex].emojis.length - 1
+        index: categories[newCategoryIndex].emojis.length - 1,
       };
     }
     return coords;
@@ -172,14 +169,14 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     if (categories[coords.categoryIndex].emojis.length > coords.index + this.nbOfEmojiPerLine) {
       return {
         categoryIndex: coords.categoryIndex,
-        index: coords.index + this.nbOfEmojiPerLine
+        index: coords.index + this.nbOfEmojiPerLine,
       };
       // if we go to the next category
     } else if (categories.length > coords.categoryIndex + 1) {
       const newCategoryIndex = coords.categoryIndex + 1;
       return {
         categoryIndex: newCategoryIndex,
-        index: coords.index % this.nbOfEmojiPerLine
+        index: coords.index % this.nbOfEmojiPerLine,
       };
     }
     return coords;
@@ -193,7 +190,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
     if (coords.index >= this.nbOfEmojiPerLine) {
       return {
         categoryIndex: coords.categoryIndex,
-        index: coords.index - this.nbOfEmojiPerLine
+        index: coords.index - this.nbOfEmojiPerLine,
       };
       // if we go to the previous category
     } else if (coords.categoryIndex > 0) {
@@ -212,7 +209,7 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
 
       return {
         categoryIndex: newCategoryIndex,
-        index: newIndex
+        index: newIndex,
       };
     }
     return coords;
@@ -244,7 +241,6 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
       return this.elementRef.nativeElement.querySelector(`#${emoji.htmlId}`);
     }
     return null;
-
   }
 
   private selectEmoji(emoji: FlSimpleEmoji): void {
@@ -272,5 +268,4 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.listener();
   }
-
 }

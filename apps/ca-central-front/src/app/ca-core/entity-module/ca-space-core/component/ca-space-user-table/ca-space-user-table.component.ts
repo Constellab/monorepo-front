@@ -8,11 +8,10 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 @Component({
   selector: 'ca-space-user-table',
   templateUrl: './ca-space-user-table.component.html',
-  styleUrls: ['./ca-space-user-table.component.scss']
+  styleUrls: ['./ca-space-user-table.component.scss'],
 })
 export class CaSpaceUserTableComponent {
-
-  @Input({required: true}) datasource: CaSpaceUserDatasource<any>;
+  @Input({ required: true }) datasource: CaSpaceUserDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<CaSpaceUser>[];
 
@@ -39,5 +38,4 @@ export class CaSpaceUserTableComponent {
   onUpdateRole(user: CaSpaceUser): void {
     this.updateRole.emit(user);
   }
-
 }

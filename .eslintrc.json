@@ -52,8 +52,7 @@
         "max-len": [
           "error",
           {
-            "code": 140,
-            "ignorePattern": "^(import|\\} from) .*"
+            "code": 110
           }
         ],
         "no-case-declarations": "off",

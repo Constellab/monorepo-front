@@ -6,12 +6,10 @@ export interface FlCoord {
   y: number;
 }
 
-
 /**
  * Helper to manipulate coords
  */
 export class FlCoordHelper {
-
   /**
    * Get the distance between a point a and segment (line)
    * code from : https://gist.github.com/mattdesl/47412d930dcd8cd765c871a65532ffac
@@ -30,12 +28,14 @@ export class FlCoordHelper {
   private static distToSegmentSquared(point: FlCoord, segmentStart: FlCoord, segmentEnd: FlCoord): number {
     const l2 = FlCoordHelper.distSquared(segmentStart, segmentEnd);
     if (l2 === 0) return FlCoordHelper.distSquared(point, segmentStart);
-    let t = ((point.x - segmentStart.x) * (segmentEnd.x - segmentStart.x) +
-      (point.y - segmentStart.y) * (segmentEnd.y - segmentStart.y)) / l2;
+    let t =
+      ((point.x - segmentStart.x) * (segmentEnd.x - segmentStart.x) +
+        (point.y - segmentStart.y) * (segmentEnd.y - segmentStart.y)) /
+      l2;
     t = Math.max(0, Math.min(1, t));
     return FlCoordHelper.distSquared(point, {
       x: segmentStart.x + t * (segmentEnd.x - segmentStart.x),
-      y: segmentStart.y + t * (segmentEnd.y - segmentStart.y)
+      y: segmentStart.y + t * (segmentEnd.y - segmentStart.y),
     });
   }
 }

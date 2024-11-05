@@ -1,12 +1,11 @@
-import {Component, Input} from '@angular/core';
-import {LabNavigableEntity} from '../../../../model/entities/lab-navigable-entity.entity';
+import { Component, Input } from '@angular/core';
+import { LabNavigableEntity } from '../../../../model/entities/lab-navigable-entity.entity';
 
 @Component({
   selector: 'lab-navigable-entity-inline',
   templateUrl: './lab-navigable-entity-inline.component.html',
-  styleUrl: './lab-navigable-entity-inline.component.scss'
+  styleUrl: './lab-navigable-entity-inline.component.scss',
 })
 export class LabNavigableEntityInlineComponent {
-
   @Input() entity: LabNavigableEntity;
 }

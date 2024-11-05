@@ -1,4 +1,4 @@
-import {FlClassDirective} from './fl-class.directive';
+import { FlClassDirective } from './fl-class.directive';
 
 describe('FlClassDirective', () => {
   it('should create an instance', () => {

@@ -8,9 +8,8 @@ describe('CaScenarioTechnicalReportIntOutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaScenarioTechnicalReportIntOutComponent]
-    })
-      .compileComponents();
+      declarations: [CaScenarioTechnicalReportIntOutComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

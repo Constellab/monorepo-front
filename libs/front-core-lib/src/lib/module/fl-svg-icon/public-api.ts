@@ -1,4 +1,3 @@
-
 // export the module
 export * from './fl-icon.module';
 

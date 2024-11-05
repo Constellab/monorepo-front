@@ -1,4 +1,3 @@
-
 export enum CaFolderNotifOptions {
   NOTIF_AND_EMAIL = 'NOTIF_AND_EMAIL',
   NOTIF_ONLY = 'NOTIF_ONLY',

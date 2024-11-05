@@ -7,7 +7,7 @@ import {
   FlDynamicFormHelper,
   FlFormDialogAbstractDirective,
   FlFormDialogInput,
-  FlFormHelper
+  FlFormHelper,
 } from '@monorepo/front-core-lib';
 import {
   LabCredentials,
@@ -15,7 +15,7 @@ import {
   LabCredentialsDataBasic,
   LabCredentialsDataS3,
   LabCredentialsType,
-  LabSaveCredentialsDTO
+  LabSaveCredentialsDTO,
 } from '../../../../model/entities/lab-credentials.entity';
 import { Observable, of } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -39,8 +39,10 @@ interface LabCredentialsOtherFormData {
   templateUrl: './lab-credentials-form-dialog.component.html',
   styleUrls: ['./lab-credentials-form-dialog.component.scss'],
 })
-export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirective<LabSaveCredentialsDTO, LabCredentials>
-  implements OnInit {
+export class LabCredentialsFormDialogComponent
+  extends FlFormDialogAbstractDirective<LabSaveCredentialsDTO, LabCredentials>
+  implements OnInit
+{
   dialogInput: LabCredentialsFormDialogInput = inject(MAT_DIALOG_DATA);
 
   sameNameExist$: Observable<boolean>;
@@ -50,7 +52,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
   // only provided in update mode
   private originalName: string;
 
-  @ViewChild('subFormGroup', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('subFormGroup', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicAbstractFormComponent>;
 
@@ -62,8 +64,10 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     this.init();
     this.originalName = this.dialogInput.object?.name;
     if (this.isUpdateMode()) {
-      this.dialogInput.object.data = this.convertOtherToForm(this.dialogInput.object.type,
-        this.dialogInput.object.data) as any;
+      this.dialogInput.object.data = this.convertOtherToForm(
+        this.dialogInput.object.type,
+        this.dialogInput.object.data
+      ) as any;
       this.buildDataForm(this.dialogInput.object.type, this.dialogInput.object.data);
     }
   }
@@ -96,11 +100,9 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     this.viewComponentRef.instance.config = formConfig;
     this.viewComponentRef.instance.control = control;
 
-
     this.formGp.setControl('data', control as any);
     this.formGp.updateValueAndValidity();
   }
-
 
   submit(): void {
     FlFormHelper.markAllAsTouched(this.formGp);
@@ -140,7 +142,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
       this.sameNameExist$ = of(false);
     } else {
       this.sameNameExist$ = this.credentialsService.findByName(name).pipe(
-        map(result => result != null),
+        map((result) => result != null),
         catchError(() => of(false))
       );
     }
@@ -157,7 +159,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
       default:
         return {
           controlType: 'formGroup',
-          subConfigs: {}
+          subConfigs: {},
         };
     }
   }
@@ -185,22 +187,22 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
           type: 'input',
           placeholder: 'Access key id',
           inputType: 'text',
-          required: true
+          required: true,
         },
         secret_access_key: {
           controlType: 'formControl',
           type: 'input',
           placeholder: 'Secret access key',
           inputType: 'text',
-          required: true
+          required: true,
         },
         bucket: {
           controlType: 'formControl',
           type: 'input',
           placeholder: 'Bucket name',
           inputType: 'text',
-        }
-      } as Record<keyof LabCredentialsDataS3, FlDynamicFormAbstractControl>
+        },
+      } as Record<keyof LabCredentialsDataS3, FlDynamicFormAbstractControl>,
     };
   }
 
@@ -213,22 +215,22 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
           type: 'input',
           placeholder: 'Username',
           inputType: 'text',
-          required: true
+          required: true,
         },
         password: {
           controlType: 'formControl',
           type: 'input',
           placeholder: 'Password',
           inputType: 'text',
-          required: true
+          required: true,
         },
         url: {
           controlType: 'formControl',
           type: 'input',
           placeholder: 'URL',
           inputType: 'text',
-        }
-      } as Record<keyof LabCredentialsDataBasic, FlDynamicFormAbstractControl>
+        },
+      } as Record<keyof LabCredentialsDataBasic, FlDynamicFormAbstractControl>,
     };
   }
 
@@ -244,17 +246,17 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
             type: 'input',
             placeholder: 'Key',
             inputType: 'text',
-            required: true
+            required: true,
           },
           value: {
             controlType: 'formControl',
             type: 'input',
             placeholder: 'Value',
             inputType: 'text',
-            required: true
-          }
-        }
-      }
+            required: true,
+          },
+        },
+      },
     };
   }
 
@@ -264,7 +266,7 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
 
     const otherValue: LabCredentialsOtherFormData[] = dataFormValue;
     const result: Record<string, string> = {};
-    otherValue.forEach(item => {
+    otherValue.forEach((item) => {
       result[item.key] = item.value;
     });
     return result;
@@ -274,8 +276,8 @@ export class LabCredentialsFormDialogComponent extends FlFormDialogAbstractDirec
     // only modify if type is other
     if (type !== LabCredentialsType.OTHER) return data;
     const result: LabCredentialsOtherFormData[] = [];
-    Object.keys(data).forEach(key => {
-      result.push({key, value: data[key]});
+    Object.keys(data).forEach((key) => {
+      result.push({ key, value: data[key] });
     });
     return result;
   }

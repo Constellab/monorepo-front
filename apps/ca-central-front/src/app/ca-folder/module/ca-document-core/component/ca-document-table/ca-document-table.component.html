@@ -1,13 +1,15 @@
 <mat-table mat-table [dataSource]="datasource">
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
-      <fl-file-text-icon [filename]="row.name" [isConstellabDocument]="row.isConstellabDocument()"
-                         [caNotificationMark]="row.id" caNotificationObjectType="DOCUMENT"></fl-file-text-icon>
+      <fl-file-text-icon
+        [filename]="row.name"
+        [isConstellabDocument]="row.isConstellabDocument()"
+        [caNotificationMark]="row.id"
+        caNotificationObjectType="DOCUMENT"></fl-file-text-icon>
     </mat-cell>
   </ng-container>
 
@@ -31,14 +33,11 @@
     </mat-cell>
   </ng-container>
 
-
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-      <button mat-icon-button type="button"
-              (click)="openDocumentActionMenu(row, $event)">
+      <button mat-icon-button type="button" (click)="openDocumentActionMenu(row, $event)">
         <mat-icon>more_vert</mat-icon>
       </button>
     </mat-cell>
@@ -47,8 +46,8 @@
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <!-- Mode selectable -->
-  <mat-row *matRowDef="let row; columns: columns;"
-           class="g-table-row-selectable"
-           (click)="openDocumentPreview(row)"></mat-row>
-
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable"
+    (click)="openDocumentPreview(row)"></mat-row>
 </mat-table>

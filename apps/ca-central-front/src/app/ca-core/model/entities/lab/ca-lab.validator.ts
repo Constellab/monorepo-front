@@ -5,14 +5,13 @@ import { CaLabAdminForm } from './ca-lab.form';
  * Validator for CaLab
  */
 export class CaLabValidator {
-
   public static readonly SUPPORTED_DOMAINS = ['gencovery.io', 'constellab.app'];
 
   public static virtualHostDomainValidator(cloud: boolean): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value: any = control.value;
       if (value == null || value.length === 0) {
-        return null;  // don't validate empty values to allow optional controls
+        return null; // don't validate empty values to allow optional controls
       }
 
       if (cloud) {
@@ -32,13 +31,11 @@ export class CaLabValidator {
           return { pattern: true };
         }
       } else {
-
         // check that the domain is valid including possibility of subdomain and port, only 1 ':' is allowed followed by a port number
         if (!value.match(/^(?:[a-z0-9-]+\.)*[a-z0-9-]+(?::\d+)?$/)) {
           return { pattern: true };
         }
       }
-
 
       return null;
     };
@@ -60,5 +57,4 @@ export class CaLabValidator {
       return null;
     };
   }
-
 }

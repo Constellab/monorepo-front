@@ -8,36 +8,34 @@
       </fl-text-icon>
 
       <fl-search-header-actions class="g-layout-row g-layout-start-center" *caIsAdmin>
-        <button mat-icon-button type="button"
-                (click)="openCreateLabForm()"
-                [matTooltip]="'create_lab' | translate">
+        <button
+          mat-icon-button
+          type="button"
+          (click)="openCreateLabForm()"
+          [matTooltip]="'create_lab' | translate">
           <mat-icon>add</mat-icon>
         </button>
 
-        <button mat-stroked-button type="button"
-                class="g-button-small"
-                (click)="openCreateLabFreeForm()">
+        <button mat-stroked-button type="button" class="g-button-small" (click)="openCreateLabFreeForm()">
           {{ 'create_lab_free' | translate }}
         </button>
       </fl-search-header-actions>
     </fl-search-header>
-
   </fl-card-header>
 
   <fl-card-body class="g-full-height">
     <fl-search>
-
       <!-- Advanced section in the right in a drawer -->
       <fl-search-advanced-form>
         <ca-lab-search-form [mode]="mode"></ca-lab-search-form>
       </fl-search-advanced-form>
 
-
       <fl-search-result>
-        <ca-lab-table [datasource]="datasource" [columns]="columns"
-                               [disableLink]="mode === 'all'"></ca-lab-table>
+        <ca-lab-table
+          [datasource]="datasource"
+          [columns]="columns"
+          [disableLink]="mode === 'all'"></ca-lab-table>
       </fl-search-result>
-
     </fl-search>
   </fl-card-body>
 </fl-card>

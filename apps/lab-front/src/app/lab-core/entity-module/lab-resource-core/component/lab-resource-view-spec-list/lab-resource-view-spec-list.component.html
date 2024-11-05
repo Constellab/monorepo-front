@@ -1,20 +1,21 @@
 <div class="container g-layout-col">
-
   <fl-text-icon>
     <mat-icon flIcon="view"></mat-icon>
-    <h2>{{'biox.views' | translate}}</h2>
+    <h2>{{ 'biox.views' | translate }}</h2>
   </fl-text-icon>
 
   <ng-content></ng-content>
 
-  <div class="g-flex-grow g-layout-row-wrap g-layout-start-stretch g-layout-gap-05em view-list g-scrollable-element">
-    <lab-resource-view-spec-card *ngFor="let viewSpec of viewSpecs$ | async"
-                                 [viewType]="viewSpec.viewType"
-                                 [name]="viewSpec.getName()"
-                                 [shortDescription]="viewSpec.shortDescription"
-                                 [style]="viewSpec.style"
-                                 class="view-spec"
-                                 (click)="openConfigPortal(viewSpec)">
+  <div
+    class="g-flex-grow g-layout-row-wrap g-layout-start-stretch g-layout-gap-05em view-list g-scrollable-element">
+    <lab-resource-view-spec-card
+      *ngFor="let viewSpec of viewSpecs$ | async"
+      [viewType]="viewSpec.viewType"
+      [name]="viewSpec.getName()"
+      [shortDescription]="viewSpec.shortDescription"
+      [style]="viewSpec.style"
+      class="view-spec"
+      (click)="openConfigPortal(viewSpec)">
     </lab-resource-view-spec-card>
   </div>
 </div>

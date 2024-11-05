@@ -1,12 +1,13 @@
-<div>{{'bnBioNetwork.compartments' | translate}}</div>
+<div>{{ 'bnBioNetwork.compartments' | translate }}</div>
 <div class="container g-layout-col">
   <div class="g-layout-col-wrap grow">
-    <div *ngFor="let compartment of compartments$ | async"
-         (click)="toggleCompartment(compartment.id)"
-         [style.opacity]="getCompartmentOpacity(compartment.id)"
-         class="element g-text-not-selectable g-layout-row g-layout-start-center g-layout-gap-1em">
+    <div
+      *ngFor="let compartment of compartments$ | async"
+      (click)="toggleCompartment(compartment.id)"
+      [style.opacity]="getCompartmentOpacity(compartment.id)"
+      class="element g-text-not-selectable g-layout-row g-layout-start-center g-layout-gap-1em">
       <div class="round" [style.background-color]="compartment.color"></div>
-      <div class="g-text-capitalize-first g-text-small g-text-light">{{compartment.name}}</div>
+      <div class="g-text-capitalize-first g-text-small g-text-light">{{ compartment.name }}</div>
     </div>
   </div>
 </div>

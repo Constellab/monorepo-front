@@ -1,21 +1,21 @@
-import {SpSheetMultiSelection} from '../model/selection/sp-sheet-multi-selection.class';
-import {SpSheet} from '../model/sp-sheet.class';
-import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {SpSpreadsheetHelper} from './sp-spreadsheet.helper';
-import {SpSheetSingleSelection, SpSheetSingleSelectionFull} from '../model/selection/sp-sheet-single-selection.class';
-import {FlTranslateService} from '@monorepo/front-core-lib';
+import { SpSheetMultiSelection } from '../model/selection/sp-sheet-multi-selection.class';
+import { SpSheet } from '../model/sp-sheet.class';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { SpSpreadsheetHelper } from './sp-spreadsheet.helper';
+import {
+  SpSheetSingleSelection,
+  SpSheetSingleSelectionFull,
+} from '../model/selection/sp-sheet-single-selection.class';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 /**
  * Class linked to {@link SpSheetChartSerieSelectionComponent} to help handle different
  * chart types
  */
 export class SpSpreadsheetChartSelectionHelper {
-
-
   public static getDefaultSerieName(index: number): string {
     return FlTranslateService.getInstance().translate('spSpreadsheet.chart_serie') + ' ' + (index + 1);
   }
-
 
   /**
    * Validator to check single selection
@@ -30,7 +30,7 @@ export class SpSpreadsheetChartSelectionHelper {
       }
 
       if (!SpSpreadsheetHelper.getRegexForSingleSelection().test(control.value)) {
-        return {invalidFormat: 'A1:B2'};
+        return { invalidFormat: 'A1:B2' };
       }
 
       const selection: SpSheetSingleSelection = SpSheetSingleSelectionFull.fromString(sheet, control.value);
@@ -38,7 +38,6 @@ export class SpSpreadsheetChartSelectionHelper {
       return SpSpreadsheetChartSelectionHelper.checkSelectOutOfBound(sheet, selection);
     };
   }
-
 
   /**
    * Validator to check multiple selection
@@ -53,7 +52,7 @@ export class SpSpreadsheetChartSelectionHelper {
       }
 
       if (!SpSpreadsheetHelper.getRegexForMultipleSelection().test(control.value)) {
-        return {invalidFormat: 'A1:B2,D1:D2'};
+        return { invalidFormat: 'A1:B2,D1:D2' };
       }
 
       const selections: SpSheetMultiSelection = SpSheetMultiSelection.fromString(sheet, control.value);
@@ -64,7 +63,6 @@ export class SpSpreadsheetChartSelectionHelper {
         if (outOfBound != null) {
           return outOfBound;
         }
-
       }
 
       return null;
@@ -73,19 +71,18 @@ export class SpSpreadsheetChartSelectionHelper {
 
   // Check if a selection is out of bound
   private static checkSelectOutOfBound(sheet: SpSheet, selection: SpSheetSingleSelection): any {
-
     // retrieve max cell coords for a cleaner error message
     const maxCellCoord: string = SpSpreadsheetHelper.coordToString({
       row: sheet.totalRowsCount - 1,
-      column: sheet.totalColumnsCount - 1
+      column: sheet.totalColumnsCount - 1,
     });
 
     if (!sheet.coordIsValid(selection.from)) {
       return {
         selectionOutOfBound: {
           errorSelection: SpSpreadsheetHelper.coordToString(selection.from),
-          maxSelection: maxCellCoord
-        }
+          maxSelection: maxCellCoord,
+        },
       };
     }
 
@@ -93,8 +90,8 @@ export class SpSpreadsheetChartSelectionHelper {
       return {
         selectionOutOfBound: {
           errorSelection: SpSpreadsheetHelper.coordToString(selection.to),
-          maxSelection: maxCellCoord
-        }
+          maxSelection: maxCellCoord,
+        },
       };
     }
 

@@ -21,13 +21,13 @@ export interface CaDocumentNameFormDialogInput extends FlFormDialogInput<CaDocum
 @Component({
   selector: 'ca-document-name-form-dialog',
   templateUrl: './ca-document-name-form-dialog.component.html',
-  styleUrls: ['./ca-document-name-form-dialog.component.scss']
+  styleUrls: ['./ca-document-name-form-dialog.component.scss'],
 })
-export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirective<CaDocumentNameForm, any>
-  implements OnInit {
-
+export class CaDocumentNameFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaDocumentNameForm, any>
+  implements OnInit
+{
   dialogInput: CaDocumentNameFormDialogInput = inject(MAT_DIALOG_DATA);
-
 
   constructor(private folderService: CaFolderService) {
     super();
@@ -39,7 +39,7 @@ export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirec
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      name: [null, Validators.required]
+      name: [null, Validators.required],
     });
   }
 
@@ -62,6 +62,4 @@ export class CaDocumentNameFormDialogComponent extends FlFormDialogAbstractDirec
   get title(): string {
     return this.isUpdateMode() ? 'rename_document' : 'create_constellab_document';
   }
-
-
 }

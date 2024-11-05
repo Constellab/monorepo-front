@@ -4,10 +4,10 @@ import { TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage } from 
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 
 export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockConfig {
-
-  constructor(private folderId: string,
-              private folderService: CaFolderService) {
-  }
+  constructor(
+    private folderId: string,
+    private folderService: CaFolderService
+  ) {}
 
   imageUploader(file: File): Observable<TeUploadedImage> {
     return this.folderService.uploadDescriptionImage(this.folderId, file);
@@ -16,17 +16,16 @@ export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockCo
   getImageUrl(filename: string): string {
     return this.folderService.getDescriptionImageUrl(this.folderId, filename);
   }
-
-
 }
 
 /**
  * Config for the text editor in the note to support view in the editor
  */
 export class CaFolderDescriptionTextEditorConfig extends TeCompleteConfig {
-
-  constructor(private folderId: string,
-              private folderService: CaFolderService) {
+  constructor(
+    private folderId: string,
+    private folderService: CaFolderService
+  ) {
     super({ includeToolbarButton: true });
   }
 

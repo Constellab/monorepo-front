@@ -1,12 +1,12 @@
-import {Selection} from 'd3-selection';
+import { Selection } from 'd3-selection';
 import {
   ChChart2AxisRenderer,
   ChChart2AxisRendererInput,
   ChChartNoAxisRenderer,
-  ChChartNoAxisRendererInput
+  ChChartNoAxisRendererInput,
 } from '../../renderer/ch-chart-renderer.class';
-import {ChChartAxis} from './ch-chart-axis.class';
-import {ClHelpService} from '@monorepo/core-lib';
+import { ChChartAxis } from './ch-chart-axis.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 interface ChChartContainerMargin {
   top: number;
@@ -19,7 +19,10 @@ interface ChChartContainerMargin {
  * Chart container, it can contain multiple renderer
  * to be able to show multi chart type in same container
  */
-export abstract class ChChartContainer<Data, Renderer extends ChChartNoAxisRenderer<Data> = ChChartNoAxisRenderer<Data>> {
+export abstract class ChChartContainer<
+  Data,
+  Renderer extends ChChartNoAxisRenderer<Data> = ChChartNoAxisRenderer<Data>,
+> {
   public group: Selection<any, null, null, null>;
   public chartContainer: Selection<SVGElement, null, null, null>;
 
@@ -30,7 +33,7 @@ export abstract class ChChartContainer<Data, Renderer extends ChChartNoAxisRende
 
   protected renderers: Renderer[] = [];
 
-  public abstract firstChartRendering(): void
+  public abstract firstChartRendering(): void;
 
   public initData(data: Data): this {
     this.dataContainer = data;
@@ -44,20 +47,21 @@ export abstract class ChChartContainer<Data, Renderer extends ChChartNoAxisRende
   }
 
   protected get margin(): ChChartContainerMargin {
-    return {top: 0, right: 0, bottom: 0, left: 0};
+    return { top: 0, right: 0, bottom: 0, left: 0 };
   }
 
-
   public drawChartContainer(parent: Selection<any, any, any, any>): void {
-    this.group = parent.append('g')
+    this.group = parent
+      .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     const clipId = `clip${new Date().getTime()}`;
-    this.chartContainer = this.group.append('g')
-      .attr('clip-path', `url(#${clipId})`) as any;  // prevent elements to overflow
+    this.chartContainer = this.group.append('g').attr('clip-path', `url(#${clipId})`) as any; // prevent elements to overflow
 
     // Add a clipPath: everything out of this area won't be drawn.
-    this.group.append('defs').append('svg:clipPath')
+    this.group
+      .append('defs')
+      .append('svg:clipPath')
       .attr('id', clipId)
       .append('svg:rect')
       .attr('width', this.chartWidth)
@@ -77,13 +81,10 @@ export abstract class ChChartContainer<Data, Renderer extends ChChartNoAxisRende
   // set the width and height, of the chart rendering element and the axis will be added to the size
   public setChartRendererSize(width: number, height: number): void {
     const margin = this.margin;
-    this.setGroupSize(
-      width + margin.left + margin.right,
-      height + margin.top + margin.bottom);
+    this.setGroupSize(width + margin.left + margin.right, height + margin.top + margin.bottom);
   }
 
-  protected onSizeChanged(): void {
-  }
+  protected onSizeChanged(): void {}
 
   public sizeIsSet(): boolean {
     return this._groupWidth != null && this._groupHeight != null;
@@ -112,7 +113,6 @@ export abstract class ChChartContainer<Data, Renderer extends ChChartNoAxisRende
  * Chart container with 2 axis on left and bottom
  */
 export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2AxisRenderer<Data>> {
-
   public xAxis: ChChartAxis;
 
   public yAxis: ChChartAxis;
@@ -120,7 +120,7 @@ export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2
   protected get margin(): ChChartContainerMargin {
     // set some margin so the legends are included
     // noinspection JSSuspiciousNameCombination
-    return {top: 20, right: 10, bottom: this.xAxis.getSize(), left: this.yAxis.getSize()};
+    return { top: 20, right: 10, bottom: this.xAxis.getSize(), left: this.yAxis.getSize() };
   }
 
   public initXAxis(axis: ChChartAxis): this {
@@ -148,14 +148,14 @@ export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2
     this.yAxis.draw(this.group, this.chartHeight, this.chartWidth);
 
     // render the charts
-    this.renderers.forEach(renderer => {
+    this.renderers.forEach((renderer) => {
       renderer.setData(this.getRendererInput());
       renderer.renderFirst();
     });
   }
 
   private refreshChartRendering(): void {
-    this.renderers.forEach(renderer => renderer.refreshRender());
+    this.renderers.forEach((renderer) => renderer.refreshRender());
   }
 
   private getRendererInput(): ChChart2AxisRendererInput<Data> {
@@ -165,14 +165,13 @@ export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2
       xAxis: this.xAxis,
       yAxis: this.yAxis,
       chartHeight: this.chartHeight,
-      chartWidth: this.chartWidth
+      chartWidth: this.chartWidth,
     };
   }
 
   ///////////////////////////////// ZOOM ////////////////////////////////
 
-  public zoom(fromX: number, toX: number,
-              fromY: number, toY: number): void {
+  public zoom(fromX: number, toX: number, fromY: number, toY: number): void {
     if (fromX == null || toX == null || fromY == null || toY == null) {
       return;
     }
@@ -187,7 +186,6 @@ export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2
     this.resetAxisY();
     this.refreshChartRendering();
   }
-
 
   ///////////////////////////////// ZOOM X ////////////////////////////////
 
@@ -253,7 +251,7 @@ export class ChChartContainer2Axis<Data> extends ChChartContainer<Data, ChChart2
 export class ChChartContainerNoAxis<Data> extends ChChartContainer<Data, ChChartNoAxisRenderer<Data>> {
   public firstChartRendering(): void {
     // render the charts
-    this.renderers.forEach(renderer => {
+    this.renderers.forEach((renderer) => {
       renderer.setData(this.getRendererInput());
       renderer.renderFirst();
     });
@@ -264,8 +262,7 @@ export class ChChartContainerNoAxis<Data> extends ChChartContainer<Data, ChChart
       container: this.chartContainer,
       data: this.dataContainer,
       chartHeight: this.chartHeight,
-      chartWidth: this.chartWidth
+      chartWidth: this.chartWidth,
     };
   }
-
 }

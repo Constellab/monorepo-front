@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {HaCoreModule} from '../../ha-core.module';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HaCoreModule } from '../../ha-core.module';
 
 export interface HaNavigationPanelItem {
   title: string;
@@ -13,10 +13,9 @@ export interface HaNavigationPanelItem {
   standalone: true,
   imports: [CommonModule, HaCoreModule],
   templateUrl: './ha-navigation-panel.component.html',
-  styleUrls: ['./ha-navigation-panel.component.scss']
+  styleUrls: ['./ha-navigation-panel.component.scss'],
 })
 export class HaNavigationPanelComponent {
-
   @Input() navigationPanelItems: HaNavigationPanelItem[];
 
   getUrl(navigationPanelItem: HaNavigationPanelItem, index: number): string {

@@ -6,10 +6,9 @@ import { FlFileHelper, getFileIconFromExtension } from '@monorepo/front-core-lib
   selector: 'ca-hierarchy-object-icon',
   templateUrl: './ca-hierarchy-object-icon.component.html',
   styleUrl: './ca-hierarchy-object-icon.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaHierarchyObjectIconComponent {
-
   objectType = input.required<CaHierarchyObjectType>();
 
   objectName = input.required<string>();

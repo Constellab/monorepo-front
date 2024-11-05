@@ -7,7 +7,6 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeHelper } from '../model/te.helper';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 
-
 export class TeHeaderWithIdBlockConfig {
   levels: number[];
 
@@ -26,7 +25,7 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
     levels: [2, 3, 4],
     defaultLevel: 2,
     showCopyLinkButton: false,
-    placeholder: TeHelper.getTranslateService().translate('teTextEditor.title')
+    placeholder: TeHelper.getTranslateService().translate('teTextEditor.title'),
   };
 }
 
@@ -34,13 +33,11 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
  * Override header block to add an id attribute based on the text
  */
 export class TeHeaderWithIdBlock extends Header implements BlockTool {
-
   node: HTMLElement;
 
   constructor(private options: BlockToolConstructorOptions) {
     super(options);
   }
-
 
   static get toolbox(): ToolboxConfig {
     // split the toolbox config into 3 individual buttons
@@ -51,23 +48,23 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
         icon: 'H1',
         title: translateService.translate('teTextEditor.header_1'),
         data: {
-          level: 2
-        }
+          level: 2,
+        },
       },
       {
         icon: 'H2',
         title: translateService.translate('teTextEditor.header_2'),
         data: {
-          level: 3
-        }
+          level: 3,
+        },
       },
       {
         icon: 'H3',
         title: translateService.translate('teTextEditor.header_3'),
         data: {
-          level: 4
-        }
-      }
+          level: 4,
+        },
+      },
     ];
   }
 
@@ -76,7 +73,8 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
 
     if (!this.options.readOnly) {
       this.node.addEventListener('keydown', (event: KeyboardEvent) =>
-        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options));
+        TeHelper.convertBlockToParagraphIfEmpty(event, this.node, this.options)
+      );
     }
 
     if (this.node.innerText.trim() == '') return this.node;
@@ -85,7 +83,6 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
     //remove all special characters and numbers
     id = id.replace(/[^a-zA-Z-]/g, '');
     this.node.setAttribute('id', id);
-
 
     return this.node;
   }
@@ -111,22 +108,22 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
         title: translateService.translate('teTextEditor.header_1'),
         onActivate: () => super.setLevel(2),
         closeOnActivate: true,
-        isActive: super.currentLevel.number === 2
+        isActive: super.currentLevel.number === 2,
       },
       {
         icon: 'H2',
         title: translateService.translate('teTextEditor.header_2'),
         onActivate: () => super.setLevel(3),
         closeOnActivate: true,
-        isActive: super.currentLevel.number === 3
+        isActive: super.currentLevel.number === 3,
       },
       {
         icon: 'H3',
         title: translateService.translate('teTextEditor.header_3'),
         onActivate: () => super.setLevel(4),
         closeOnActivate: true,
-        isActive: super.currentLevel.number === 4
-      }
+        isActive: super.currentLevel.number === 4,
+      },
     ];
 
     if (this.config.showCopyLinkButton) {
@@ -134,16 +131,17 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
         icon: TeHelper.getMatIconElement('content_copy'),
         title: translateService.translate('teTextEditor.copy_link'),
         onActivate: () => {
-
           if (window) {
             // copy url of the header with the anchor
             const url = window.location.href;
             const id = this.node.getAttribute('id');
             const anchor = id ? `#${id}` : '';
-            clipboardService.copy(`${url}${anchor}`,
-              { text: 'teTextEditor.link_copied', translateText: true });
+            clipboardService.copy(`${url}${anchor}`, {
+              text: 'teTextEditor.link_copied',
+              translateText: true,
+            });
           }
-        }
+        },
       });
     }
 

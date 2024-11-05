@@ -8,9 +8,8 @@ describe('CaLabVolumeTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabVolumeTableComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabVolumeTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabVolumeTableComponent);
     component = fixture.componentInstance;

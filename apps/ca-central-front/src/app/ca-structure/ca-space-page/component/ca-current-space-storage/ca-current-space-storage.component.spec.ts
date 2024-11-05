@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCurrentSpaceStorageComponent} from './ca-current-space-storage.component';
+import { CaCurrentSpaceStorageComponent } from './ca-current-space-storage.component';
 
 describe('CaCurrentSpaceStorageUsageComponent', () => {
   let component: CaCurrentSpaceStorageComponent;
@@ -8,9 +8,8 @@ describe('CaCurrentSpaceStorageUsageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaCurrentSpaceStorageComponent]
-    })
-    .compileComponents();
+      declarations: [CaCurrentSpaceStorageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCurrentSpaceStorageComponent);
     component = fixture.componentInstance;

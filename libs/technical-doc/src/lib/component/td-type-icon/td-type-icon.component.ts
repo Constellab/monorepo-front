@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, Input, Signal } from '@angular/core';
-import {TdTypeStyleIconType} from '../../model/td-type.class';
-import {TdServiceConfig} from '../../service/td-service-config.config';
+import { TdTypeStyleIconType } from '../../model/td-type.class';
+import { TdServiceConfig } from '../../service/td-service-config.config';
 
 /**
  * Component to show the icon of a type
@@ -9,11 +9,10 @@ import {TdServiceConfig} from '../../service/td-service-config.config';
   selector: 'td-type-icon',
   templateUrl: './td-type-icon.component.html',
   styleUrl: './td-type-icon.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TdTypeIconComponent {
-
-  iconTechnicalName =  input.required<string>();
+  iconTechnicalName = input.required<string>();
 
   iconType = input.required<TdTypeStyleIconType>();
 
@@ -31,6 +30,5 @@ export class TdTypeIconComponent {
 
   sizePx = computed(() => this.iconSize() + 'px');
 
-  constructor(private configService: TdServiceConfig) {
-  }
+  constructor(private configService: TdServiceConfig) {}
 }

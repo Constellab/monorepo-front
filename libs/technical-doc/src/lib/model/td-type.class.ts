@@ -17,7 +17,7 @@ export const tdTypeStyleDefault: TdTypeStyle = {
   icon_technical_name: 'process',
   icon_type: 'MATERIAL_ICON',
   background_color: '#af3e01',
-  icon_color: '#ffffff'
+  icon_color: '#ffffff',
 };
 
 export interface TdSimpleTypeEntity {
@@ -37,7 +37,7 @@ export interface TdTypeRefDTO {
   short_description?: string;
 }
 
-export interface TdTypeTypingEntity extends TdTypeEntity{
+export interface TdTypeTypingEntity extends TdTypeEntity {
   typingName: string;
 
   shortDescription: string | undefined;
@@ -63,7 +63,6 @@ export interface TdTypeTypingEntity extends TdTypeEntity{
 }
 
 export interface TdTypeEntity {
-
   brickVersion?: string;
 
   humanName: string;

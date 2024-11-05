@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabViewConfigTableComponent} from './lab-view-config-table.component';
+import { LabViewConfigTableComponent } from './lab-view-config-table.component';
 
 describe('LabViewConfigTableComponent', () => {
   let component: LabViewConfigTableComponent;
@@ -8,9 +8,8 @@ describe('LabViewConfigTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabViewConfigTableComponent ]
-    })
-    .compileComponents();
+      declarations: [LabViewConfigTableComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

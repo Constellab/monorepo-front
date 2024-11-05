@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {BnBioNetworkMetabolite} from '../../model/bn-bio-network.class';
+import { Component, Input, OnInit } from '@angular/core';
+import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
 
 /**
  * Detail information for a Metabolite object
@@ -10,12 +10,9 @@ import {BnBioNetworkMetabolite} from '../../model/bn-bio-network.class';
   styleUrls: ['./bn-bio-network-metabolite-detail.component.scss'],
 })
 export class BnBioNetworkMetaboliteDetailComponent implements OnInit {
-
   @Input() metabolite: BnBioNetworkMetabolite;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

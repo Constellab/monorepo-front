@@ -3,7 +3,7 @@ import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service'
 import {
   HaBrick,
   HaBrickDatasourceFilters,
-  HaBrickDatasourcePaginated
+  HaBrickDatasourcePaginated,
 } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
@@ -16,36 +16,39 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 @Component({
   selector: 'ha-public-list-bricks-page',
   templateUrl: './ha-public-list-bricks-page.component.html',
-  styleUrls: ['./ha-public-list-bricks-page.component.scss']
+  styleUrls: ['./ha-public-list-bricks-page.component.scss'],
 })
 export class HaPublicListBricksPageComponent implements OnInit {
-
   bricks: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
   user: HaUser;
 
-  constructor(private haBrickService: HaBrickService,
-              @Inject(PLATFORM_ID) private platformId: object,
-              private transferState: TransferState,
-              private metadataService: HaMetadataService,
-              private authenticatedUserService: HaAuthenticatedUserService){
-  }
+  constructor(
+    private haBrickService: HaBrickService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private transferState: TransferState,
+    private metadataService: HaMetadataService,
+    private authenticatedUserService: HaAuthenticatedUserService
+  ) {}
 
   ngOnInit(): void {
-    this.authenticatedUserService.getUser().subscribe(user => {
+    this.authenticatedUserService.getUser().subscribe((user) => {
       this.user = user;
     });
     this.metadataService.setPageTitle('ha.bricks.title');
     this.metadataService.addMetaTag('description', 'ha.bricks.description');
     this.BRICKS_KEY = makeStateKey('bricks');
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
-      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
+      this.bricks = this.transferState.get(
+        this.BRICKS_KEY,
+        null
+      ) as HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
       this.transferState.remove(this.BRICKS_KEY);
     }
 
-    if(this.bricks == null) {
+    if (this.bricks == null) {
       this.bricks = this.haBrickService.getAllWithFiltersPaginated();
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
         this.transferState.set(this.BRICKS_KEY, this.bricks);
@@ -71,8 +74,8 @@ export class HaPublicListBricksPageComponent implements OnInit {
   updateBricks(): void {
     this.bricks.getFirstPage({
       spacesFilter: this.spaceIdFilter,
-      titleFilter: this.titleFormControl.value
-    })
+      titleFilter: this.titleFormControl.value,
+    });
   }
 
   isSelected(spaceId: string): boolean {
@@ -80,7 +83,7 @@ export class HaPublicListBricksPageComponent implements OnInit {
   }
 
   selectSpace(spaceId: string): void {
-    if(this.isSelected(spaceId)){
+    if (this.isSelected(spaceId)) {
       this.spaceIdFilter = this.spaceIdFilter.filter((id) => id != spaceId);
     } else {
       this.spaceIdFilter.push(spaceId);
@@ -88,7 +91,7 @@ export class HaPublicListBricksPageComponent implements OnInit {
     this.updateBricks();
   }
 
-  onSpace(spaceId: string): void{
-    this.selectSpace(spaceId)
+  onSpace(spaceId: string): void {
+    this.selectSpace(spaceId);
   }
 }

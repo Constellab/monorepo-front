@@ -17,14 +17,15 @@ export interface PrWorkNodeIoExternalButton {
  * Specific node that has only 1 input or output and where 1 resource define it status
  */
 export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> {
-
-  constructor(instanceName: string,
-              // observable of the resource defined in the config
-              parentLayerId: string,
-              object: T,
-              protected showExternalButtons: boolean,
-              protected resourceState: PrWorkflowResourcesState,
-              protected actionState: PrWorkflowActionState) {
+  constructor(
+    instanceName: string,
+    // observable of the resource defined in the config
+    parentLayerId: string,
+    object: T,
+    protected showExternalButtons: boolean,
+    protected resourceState: PrWorkflowResourcesState,
+    protected actionState: PrWorkflowActionState
+  ) {
     super(instanceName, parentLayerId, object);
   }
 
@@ -39,14 +40,16 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
   abstract getExternalButtons$(): Observable<PrWorkNodeIoExternalButton | null>;
 
   onNodeClick(): void {
-    this.getResourceId$().pipe(first()).subscribe(resourceId => {
-      if (resourceId) {
-        this.actionState.newAction({
-          action: 'showResource',
-          resourceId: resourceId
-        });
-      }
-    });
+    this.getResourceId$()
+      .pipe(first())
+      .subscribe((resourceId) => {
+        if (resourceId) {
+          this.actionState.newAction({
+            action: 'showResource',
+            resourceId: resourceId,
+          });
+        }
+      });
   }
 
   getHTML(): string {
@@ -55,11 +58,11 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
 
   getTitle$(): Observable<FlTranslatableText> {
     return this.getResource$().pipe(
-      map(resource => {
+      map((resource) => {
         if (resource?.status === 'success') {
           return {
             text: resource.object != null ? resource.object.name : this.getDefaultName(),
-            translateText: false
+            translateText: false,
           };
         } else if (resource?.status === 'error') {
           return { text: 'pr.error', translateText: true };
@@ -70,17 +73,12 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
     );
   }
 
-
   getNodeColor$(): Observable<string> {
-    return this.getResource$().pipe(
-      map(resource => this.getResourceColor(resource))
-    );
+    return this.getResource$().pipe(map((resource) => this.getResourceColor(resource)));
   }
 
   getPortColor(): Observable<string> {
-    return this.getResource$().pipe(
-      map(resource => this.getResourceColor(resource))
-    );
+    return this.getResource$().pipe(map((resource) => this.getResourceColor(resource)));
   }
 
   private getResourceColor(resource: FlStatusEvent<PrResource>): string {
@@ -91,21 +89,17 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
   }
 
   public getResource$(): Observable<FlStatusEvent<PrResource>> {
-    return this.getResourceId$().pipe(
-      switchMap(resourceId => this.resourceState.getResource(resourceId))
-    );
+    return this.getResourceId$().pipe(switchMap((resourceId) => this.resourceState.getResource(resourceId)));
   }
 
   public getIcon$(): Observable<PrWorkflowNodeIcon> {
-    return this.getResource$().pipe(
-      map(resource => this.getResourceIcon(resource))
-    );
+    return this.getResource$().pipe(map((resource) => this.getResourceIcon(resource)));
   }
 
   private getResourceIcon(resource: FlStatusEvent<PrResource>): PrWorkflowNodeIcon {
     const defaultIcon: PrWorkflowNodeIcon = {
       icon: this.getDefaultIcon(),
-      iconType: 'MATERIAL_ICON'
+      iconType: 'MATERIAL_ICON',
     };
     if (!resource) return defaultIcon;
 
@@ -113,7 +107,7 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
       return {
         icon: 'error',
         iconType: 'MATERIAL_ICON',
-        iconTooltip: 'pr.resource_load_error'
+        iconTooltip: 'pr.resource_load_error',
       };
     }
 
@@ -127,11 +121,10 @@ export abstract class PrWorkflowNodeResource<T = any> extends PrWorkflowNode<T> 
       return {
         icon: resource.object.style.icon_technical_name,
         iconType: resource.object.style.icon_type,
-        iconColor: iconColor
+        iconColor: iconColor,
       };
     }
 
     return defaultIcon;
   }
-
 }

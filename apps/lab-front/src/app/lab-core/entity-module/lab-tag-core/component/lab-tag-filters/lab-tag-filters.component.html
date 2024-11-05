@@ -1,5 +1,4 @@
 <mat-expansion-panel [expanded]="true">
-
   <mat-expansion-panel-header>
     <mat-panel-title>
       <fl-text-icon>
@@ -9,29 +8,32 @@
     </mat-panel-title>
 
     <mat-panel-description class="g-layout-row g-layout-end">
-      <a mat-icon-button [routerLink]="tagMonitoringRoute"
-         [matTooltip]="'go_to_tag_management' | translate">
+      <a mat-icon-button [routerLink]="tagMonitoringRoute" [matTooltip]="'go_to_tag_management' | translate">
         <mat-icon>settings</mat-icon>
       </a>
     </mat-panel-description>
   </mat-expansion-panel-header>
 
-  <fl-tag-list [tags]="selectedTags" class="g-text-small"
-               [showDeleteIcon]="true"
-               (tagDeleted)="removeTag($event)"></fl-tag-list>
+  <fl-tag-list
+    [tags]="selectedTags"
+    class="g-text-small"
+    [showDeleteIcon]="true"
+    (tagDeleted)="removeTag($event)"></fl-tag-list>
 
-  <fl-add-tag-input class="global-input" (addTag)="addTag($event)"
-                    [allowUnknownTag]="false"></fl-add-tag-input>
+  <fl-add-tag-input
+    class="global-input"
+    (addTag)="addTag($event)"
+    [allowUnknownTag]="false"></fl-add-tag-input>
 
-  <fl-infinite-scroll [datasource]="tagKeys" class="tag-key-list g-infinite-table"
-                      textNoResult="no_tags_filters"
-                      textNoMoreResult="">
+  <fl-infinite-scroll
+    [datasource]="tagKeys"
+    class="tag-key-list g-infinite-table"
+    textNoResult="no_tags_filters"
+    textNoMoreResult="">
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
       <ng-container *ngFor="let tagKey of tagKeys | flDatasourceConnect | async">
-
-        <fl-tag class="chip" [flTag]="{'key': tagKey.key}" (click)="onKeyClick(tagKey)"></fl-tag>
+        <fl-tag class="chip" [flTag]="{ key: tagKey.key }" (click)="onKeyClick(tagKey)"></fl-tag>
       </ng-container>
-
     </div>
   </fl-infinite-scroll>
 </mat-expansion-panel>

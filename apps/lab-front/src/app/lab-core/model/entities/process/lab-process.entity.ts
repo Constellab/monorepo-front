@@ -9,7 +9,7 @@ import {
   PrProcess,
   PrProcessStatus,
   prProcessStatusDict,
-  PrProcessStatusHelper
+  PrProcessStatusHelper,
 } from '@monorepo/protocol';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
@@ -28,14 +28,13 @@ export interface LabProcessErrorInfo {
  * Task or protocol inside a flow
  */
 export class LabProcess extends LabBaseEntityWithUser {
-
-  @Expose({name: 'process_typing_name'})
+  @Expose({ name: 'process_typing_name' })
   processTypingName: string;
 
-  @Expose({name: 'scenario_id'})
+  @Expose({ name: 'scenario_id' })
   scenarioId: string;
 
-  @Expose({name: 'parent_protocol_id'})
+  @Expose({ name: 'parent_protocol_id' })
   parentProtocolId: string;
 
   @FlStatusTransform(prProcessStatusDict)
@@ -43,49 +42,49 @@ export class LabProcess extends LabBaseEntityWithUser {
 
   config: PrConfig;
 
-  @Expose({name: 'instance_name'})
+  @Expose({ name: 'instance_name' })
   instanceName: string;
 
   inputs: PrOI;
 
   outputs: PrOI;
 
-  @Expose({name: 'progress_bar'})
+  @Expose({ name: 'progress_bar' })
   @Type(() => LabProgressBar)
   progressBar: LabProgressBar;
 
-  @Expose({name: 'is_archived'})
+  @Expose({ name: 'is_archived' })
   isArchived: boolean;
 
-  @Expose({name: 'is_protocol'})
+  @Expose({ name: 'is_protocol' })
   isProtocol: boolean;
 
-  @Expose({name: 'brick_version_on_create'})
+  @Expose({ name: 'brick_version_on_create' })
   brickVersionOnCreate: string;
 
-  @Expose({name: 'brick_version_on_run'})
+  @Expose({ name: 'brick_version_on_run' })
   brickVersionOnRun: string;
 
-  @Expose({name: 'started_at'})
+  @Expose({ name: 'started_at' })
   @ClLuxonDateTimeTransform()
   startedAt?: DateTime;
 
-  @Expose({name: 'ended_at'})
+  @Expose({ name: 'ended_at' })
   @ClLuxonDateTimeTransform()
   endedAt?: DateTime;
 
-  @Expose({name: 'type_status'})
+  @Expose({ name: 'type_status' })
   typeStatus: TdTypeObjectStatus;
 
-  @Expose({name: 'error_info'})
+  @Expose({ name: 'error_info' })
   errorInfo: LabProcessErrorInfo;
 
-  @Expose({name: 'process_type'})
+  @Expose({ name: 'process_type' })
   processType: TdSimpleTypeEntity;
 
   name: string;
 
-  @Expose({name: 'community_agent_version_id'})
+  @Expose({ name: 'community_agent_version_id' })
   communityAgentVersionId?: string;
 
   style: TdTypeStyle;
@@ -138,17 +137,15 @@ export class LabProcess extends LabBaseEntityWithUser {
       typeStatus: this.typeStatus,
       processType: this.processType,
       isProtocol: this.isProtocol,
-      style: this.style
+      style: this.style,
     };
-
   }
 }
 
 export class LabRunningProcessInfo extends LabEntity {
-
   title: string;
 
-  @Expose({name: 'last_message'})
+  @Expose({ name: 'last_message' })
   @Type(() => LabProgressMessage)
   lastMessage: LabProgressMessage;
 

@@ -8,7 +8,7 @@ import { CoAgentType, CoCreateAgentFormData, CoSpace } from '@monorepo/community
 
 export enum LabCreateCommunityAgentDialogMode {
   CREATE = 'CREATE',
-  FORK = 'FORK'
+  FORK = 'FORK',
 }
 
 export interface LabShareAgentCommunityDialogData {
@@ -20,7 +20,7 @@ export interface LabShareAgentCommunityDialogData {
 @Component({
   selector: 'lab-create-community-agent-dialog',
   templateUrl: './lab-create-community-agent-dialog.component.html',
-  styleUrls: ['./lab-create-community-agent-dialog.component.scss']
+  styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
 })
 export class LabCreateCommunityAgentDialogComponent implements OnInit {
   title: string = 'biox.create_community_agent';
@@ -29,14 +29,16 @@ export class LabCreateCommunityAgentDialogComponent implements OnInit {
   formGp = new FormBuilder().group({
     title: [null as string, Validators.required],
     type: [null as CoAgentType, Validators.required],
-    space: [null as CoSpace]
+    space: [null as CoSpace],
   });
   mode: LabCreateCommunityAgentDialogMode;
   agentVersionId: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: LabShareAgentCommunityDialogData,
-              private protocolService: LabProtocolService,
-              private dialogRef: MatDialogRef<LabCreateCommunityAgentDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: LabShareAgentCommunityDialogData,
+    private protocolService: LabProtocolService,
+    private dialogRef: MatDialogRef<LabCreateCommunityAgentDialogComponent>
+  ) {
     this.processId = data.processId;
     this.mode = data.mode;
     this.agentVersionId = data.agentVersionId;
@@ -51,13 +53,14 @@ export class LabCreateCommunityAgentDialogComponent implements OnInit {
     if (this.formGp.valid) {
       if (this.mode === LabCreateCommunityAgentDialogMode.FORK) {
         if (!this.agentVersionId) return;
-        this.protocolService.forkIntoNewCommunityAgent(this.processId, this.formGp.getRawValue(), this.agentVersionId)
+        this.protocolService
+          .forkIntoNewCommunityAgent(this.processId, this.formGp.getRawValue(), this.agentVersionId)
           .subscribe((res: LabCreateCommunityAgentVersionResDto) => {
             this.dialogRef.close(res);
           });
-
       } else {
-        this.protocolService.createCommunityAgent(this.processId, this.formGp.getRawValue())
+        this.protocolService
+          .createCommunityAgent(this.processId, this.formGp.getRawValue())
           .subscribe((res: LabCreateCommunityAgentVersionResDto) => {
             this.dialogRef.close(res);
           });

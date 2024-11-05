@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlEmojiPickerPortalComponent} from './fl-emoji-picker-portal.component';
+import { FlEmojiPickerPortalComponent } from './fl-emoji-picker-portal.component';
 
 describe('FlEmojiPickerPortal2Component', () => {
   let component: FlEmojiPickerPortalComponent;
@@ -8,9 +8,8 @@ describe('FlEmojiPickerPortal2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlEmojiPickerPortalComponent]
-    })
-    .compileComponents();
+      declarations: [FlEmojiPickerPortalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlEmojiPickerPortalComponent);
     component = fixture.componentInstance;

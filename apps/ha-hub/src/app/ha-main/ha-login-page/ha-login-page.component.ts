@@ -23,9 +23,7 @@ export class HaLoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((params) =>
-      this.checkRouteQueryParams(params)
-    );
+    this.activatedRoute.queryParams.subscribe((params) => this.checkRouteQueryParams(params));
   }
 
   // check if there are any query params 'error' or 'success'

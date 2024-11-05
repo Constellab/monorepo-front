@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkEngineProgressComponent} from './bn-bio-network-engine-progress.component';
+import { BnBioNetworkEngineProgressComponent } from './bn-bio-network-engine-progress.component';
 
 describe('BnBioNetworkEngineProgressComponent', () => {
   let component: BnBioNetworkEngineProgressComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkEngineProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkEngineProgressComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkEngineProgressComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

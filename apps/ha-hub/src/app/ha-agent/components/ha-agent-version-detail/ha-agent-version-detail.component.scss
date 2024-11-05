@@ -1,10 +1,10 @@
-.card-header{
+.card-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.code-editor{
+.code-editor {
   background-color: var(--main-background);
   min-height: 5em;
   font-size: 14px;
@@ -15,53 +15,54 @@
   text-decoration: none;
 }
 
-.card-header{
+.card-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.version-infos-editor{
+.version-infos-editor {
   border: none;
   padding: 0.5em 0.5em;
   min-height: 1.5em;
   margin-top: 0.5em;
 }
 
-.editor-border{
+.editor-border {
   border: solid 1px var(--hover-color);
 }
 
-.io-div{
+.io-div {
   display: flex;
   flex-direction: row;
 }
 
-.i-div, .o-div{
+.i-div,
+.o-div {
   flex: 1;
 }
 
-.i-div{
+.i-div {
   padding-right: 12px;
 }
 
-.o-div{
+.o-div {
   padding-left: 12px;
   border-left: solid 1px var(--hover-color);
 }
 
-.info-version-div{
+.info-version-div {
   background-color: var(--main-background);
   border: 2px solid var(--card-background);
 }
 
-@media (max-width: 672px){
-  .io-div{
+@media (max-width: 672px) {
+  .io-div {
     flex-direction: column;
   }
 }
 
-.brick-dependencies-div{
+.brick-dependencies-div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -69,11 +70,9 @@
   margin-bottom: 1.5em;
 }
 
-
 .info-version-card {
   background-color: var(--main-background);
 }
-
 
 .io-card-div {
   display: flex;
@@ -90,7 +89,7 @@
   margin: 32px 0;
 }
 
-.detail-version-title{
+.detail-version-title {
   margin-bottom: 16px;
 }
 

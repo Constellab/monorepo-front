@@ -12,27 +12,30 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 @Component({
   selector: 'ca-chat-message',
   templateUrl: './ca-chat-message.component.html',
-  styleUrl: './ca-chat-message.component.scss'
+  styleUrl: './ca-chat-message.component.scss',
 })
 export class CaChatMessageComponent implements OnInit, OnDestroy {
-
   message = input.required<CaChatMessage>();
   folderId = input.required<string>();
 
   @Output() messageUpdated = new EventEmitter<CaChatMessage>();
   @Output() messageDeleted = new EventEmitter<CaChatMessage>();
 
-  showButtons = computed(() => this.authUserService.getCurrentUser().id === this.message().createdBy.id &&
-    this.message().createdAt.diffNow('minute').as('minute') > 5);
+  showButtons = computed(
+    () =>
+      this.authUserService.getCurrentUser().id === this.message().createdBy.id &&
+      this.message().createdAt.diffNow('minute').as('minute') > 5
+  );
 
   editMode: boolean = false;
 
   textEditorConfig: CaChatMessageTextEditorConfig;
 
-  constructor(private folderService: CaFolderService,
-              private authUserService: CaAuthenticatedUserService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private folderService: CaFolderService,
+    private authUserService: CaAuthenticatedUserService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId(), this.folderService);
@@ -47,10 +50,9 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   }
 
   updateMessage(content: TeRichTextContent): void {
-    this.folderService.updateMessage(this.folderId(), this.message().id,
-      content).subscribe((message: CaChatMessage) =>
-      this.updateMessageSuccess(message)
-    );
+    this.folderService
+      .updateMessage(this.folderId(), this.message().id, content)
+      .subscribe((message: CaChatMessage) => this.updateMessageSuccess(message));
   }
 
   private updateMessageSuccess(message: CaChatMessage): void {
@@ -62,13 +64,13 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'delete_message',
       content: 'delete_message_confirmation',
-      observable: this.folderService.deleteMessage(this.folderId(),
-        this.message().id),
+      observable: this.folderService.deleteMessage(this.folderId(), this.message().id),
       successMessage: 'delete_message_success',
     };
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe(
-      (res) => this.deleteMessageClosed(res)
-    );
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((res) => this.deleteMessageClosed(res));
   }
 
   private deleteMessageClosed(result: FlConfirmDialogResult): void {

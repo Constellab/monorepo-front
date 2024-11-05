@@ -1,11 +1,10 @@
-
 :host {
   display: flex;
   max-height: 100%;
   width: 100%;
 }
 
-.container{
+.container {
   width: 100%;
 }
 
@@ -29,11 +28,13 @@
 
   // background color for selected lines
   // it must be transparent because cm-selectionBackground is above it
-  .ͼ3 .cm-activeLine { // dark theme
+  .ͼ3 .cm-activeLine {
+    // dark theme
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  .ͼ2 .cm-activeLine { // light theme
+  .ͼ2 .cm-activeLine {
+    // light theme
     background-color: rgba(0, 0, 0, 0.05);
   }
 
@@ -41,7 +42,8 @@
   .ͼ3.cm-focused .cm-selectionBackground, // dark theme
   .ͼ3 .cm-selectionBackground, // dark theme
   .ͼ2.cm-focused .cm-selectionBackground, // light theme
-  .ͼ2 .cm-selectionBackground { // light theme
+  .ͼ2 .cm-selectionBackground {
+    // light theme
     background-color: var(--hover-color);
   }
 }

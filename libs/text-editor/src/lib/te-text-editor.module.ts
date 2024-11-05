@@ -22,7 +22,7 @@ import {
   FlTextIconModule,
   FlTranslateModule,
   FlTranslateService,
-  FlUserModule
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import { TeTitleCaptionComponent } from './component/te-title-caption/te-title-caption.component';
 import { teTextEditorI18n } from './te-text-editor.i18n';
@@ -41,12 +41,8 @@ import { TeRichTextIsEmptyPipe } from './pipe/te-rich-text-is-empty/te-rich-text
 import { TeVariableFormDialogComponent } from './component/te-variable-form-dialog/te-variable-form-dialog.component';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  TeTextEditorBrowserSideComponent
-} from './component/te-text-editor-browser-side/te-text-editor-browser-side.component';
-import {
-  TeTextEditorServerSideComponent
-} from './component/te-text-editor-server-side/te-text-editor-server-side.component';
+import { TeTextEditorBrowserSideComponent } from './component/te-text-editor-browser-side/te-text-editor-browser-side.component';
+import { TeTextEditorServerSideComponent } from './component/te-text-editor-server-side/te-text-editor-server-side.component';
 import { createCustomElement } from '@angular/elements';
 import { TeVariableInlineComponent } from './component/te-variable-inline/te-variable-inline.component';
 import { teVariableTagName } from './model/te-variable.class';
@@ -54,29 +50,17 @@ import { TeMentionPortalComponent } from './component/te-mention-portal/te-menti
 import { TeMentionInlineComponent } from './component/te-mention-inline/te-mention-inline.component';
 import { teMentionTagName } from './plugin/te-mention.class';
 import { TeFileComponent } from './component/te-file/te-file.component';
-import {
-  TeTextEditorHistoryPortalComponent
-} from './component/te-text-editor-history-portal/te-text-editor-history-portal.component';
-import {
-  TeTextEditorHistoryModificationVisualizerDialogComponent
-} from './component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
-import {
-  TeTextEditorHistoryModificationGroupComponent
-} from './component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
-import {
-  TeTextEditorHistoryModificationComponent
-} from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
+import { TeTextEditorHistoryPortalComponent } from './component/te-text-editor-history-portal/te-text-editor-history-portal.component';
+import { TeTextEditorHistoryModificationVisualizerDialogComponent } from './component/te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
+import { TeTextEditorHistoryModificationGroupComponent } from './component/te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
+import { TeTextEditorHistoryModificationComponent } from './component/te-text-editor-history-modification/te-text-editor-history-modification.component';
 import { TeFilesListComponent } from './component/te-files-list/te-files-list.component';
 import { TeTitlesListComponent } from './component/te-titles-list/te-titles-list.component';
 import { RouterLink } from '@angular/router';
-import {
-  TeAudioTranscriptionDialogComponent
-} from './component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
+import { TeAudioTranscriptionDialogComponent } from './component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
 import { MatDivider } from '@angular/material/divider';
 import { TeTimestampComponent } from './component/te-timestamp/te-timestamp.component';
-import {
-  TeTimestampConfigDialogComponent
-} from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
+import { TeTimestampConfigDialogComponent } from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-text-editor-save.component';
 
 @NgModule({
@@ -105,7 +89,7 @@ import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-te
     TeAudioTranscriptionDialogComponent,
     TeTimestampComponent,
     TeTimestampConfigDialogComponent,
-    TeTextEditorSaveComponent
+    TeTextEditorSaveComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -116,7 +100,7 @@ import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-te
     TeTextEditorHistoryPortalComponent,
     TeFilesListComponent,
     TeTitlesListComponent,
-    TeTextEditorSaveComponent
+    TeTextEditorSaveComponent,
   ],
   imports: [
     CommonModule,
@@ -155,8 +139,8 @@ import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-te
     MatOptionModule,
 
     RouterLink,
-    NgOptimizedImage
-  ]
+    NgOptimizedImage,
+  ],
 })
 export class TeTextEditorModule {
   static init: boolean = false;
@@ -166,10 +150,7 @@ export class TeTextEditorModule {
     injector: Injector,
     @Inject(PLATFORM_ID) platformId: any
   ) {
-    translateService.addModuleTranslation(
-      'TeTextEditorModule',
-      teTextEditorI18n
-    );
+    translateService.addModuleTranslation('TeTextEditorModule', teTextEditorI18n);
 
     if (!TeTextEditorModule.init) {
       if (isPlatformBrowser(platformId)) {
@@ -187,10 +168,9 @@ export class TeTextEditorModule {
         // we create a custom event listener call before all others with passive false so the
         // text editor is using this listener and not another one with passive true
         // this is a dirty fix
-        document.addEventListener('keydown', () => {
-        }, {
+        document.addEventListener('keydown', () => {}, {
           passive: false,
-          capture: true
+          capture: true,
         });
       }
       TeTextEditorModule.init = true;

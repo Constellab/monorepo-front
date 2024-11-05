@@ -3,7 +3,7 @@ import {
   FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { CaGroup, CaGroupDatasource, CaUserGroup } from '../model/entities/ca-group.entity';
@@ -11,30 +11,37 @@ import { ClPage, ClPageI } from '@monorepo/core-lib';
 import { CaTeamSearch, CaTeamSearchFields } from '../entity-module/ca-group-core/model/ca-team.search.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CaGroupService {
-
   private readonly route = 'groups';
   private readonly teamRoute = this.route + '/teams';
 
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public getAllCurrentGroups(page: number, size: number): Observable<ClPageI<CaGroup>> {
-    return this.apiService.get(`${this.route}/current`, CaGroup,
-      { page: page, pageSize: size, resultIsPaginated: true });
+    return this.apiService.get(`${this.route}/current`, CaGroup, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
-  public searchGroupInCurrentSpaceByLabel(label: string, page: number, size: number): Observable<ClPageI<CaGroup>> {
-    return this.apiService.get(`${this.route}/current/search/label/${label}`, CaGroup,
-      { page: page, pageSize: size, resultIsPaginated: true });
+  public searchGroupInCurrentSpaceByLabel(
+    label: string,
+    page: number,
+    size: number
+  ): Observable<ClPageI<CaGroup>> {
+    return this.apiService.get(`${this.route}/current/search/label/${label}`, CaGroup, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   public getById(id: string): Observable<CaGroup> {
     return this.apiService.getById(this.route, id, CaGroup);
   }
-
 
   ///////////////////////////// TEAMS ////////////////////////////////////
 
@@ -48,12 +55,16 @@ export class CaGroupService {
   public getMyTeamsDatasource(pageSize: number = 20): CaGroupDatasource {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number) => this.getMyTeams(page, pageSize),
-      pageSize);
+      pageSize
+    );
   }
 
   private getMyTeams(page: number, pageSize: number): Observable<ClPageI<CaGroup>> {
-    return this.apiService.get(`${this.teamRoute}/current`, CaGroup,
-      { resultIsPaginated: true, page: page, pageSize: pageSize });
+    return this.apiService.get(`${this.teamRoute}/current`, CaGroup, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: pageSize,
+    });
   }
 
   public createTeam(label: string): Observable<CaGroup> {
@@ -77,16 +88,27 @@ export class CaGroupService {
   }
 
   public getUsersOfTeam(groupId: string, page: number, size: number): Observable<ClPage<CaUserGroup>> {
-    return this.apiService.get(`${this.teamRoute}/${groupId}/users`, CaUserGroup,
-      { page: page, pageSize: size, resultIsPaginated: true });
+    return this.apiService.get(`${this.teamRoute}/${groupId}/users`, CaUserGroup, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
-  public searchTeamInCurrentSpace(page: number, pageSize: number,
-                                  data: FlDatasourceGetPageData<CaTeamSearchFields>): Observable<ClPageI<CaGroup>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      CaTeamSearch.filterConverter, CaTeamSearch.sortConverter);
+  public searchTeamInCurrentSpace(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaTeamSearchFields>
+  ): Observable<ClPageI<CaGroup>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaTeamSearch.filterConverter,
+      CaTeamSearch.sortConverter
+    );
     return this.apiService.post(`${this.teamRoute}/current-space/search`, searchInput, CaGroup, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
 }

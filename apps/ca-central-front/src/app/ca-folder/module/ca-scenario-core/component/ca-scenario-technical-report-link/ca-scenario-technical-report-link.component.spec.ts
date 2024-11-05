@@ -8,9 +8,8 @@ describe('CaScenarioTechnicalReportLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaScenarioTechnicalReportLinkComponent]
-    })
-      .compileComponents();
+      declarations: [CaScenarioTechnicalReportLinkComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

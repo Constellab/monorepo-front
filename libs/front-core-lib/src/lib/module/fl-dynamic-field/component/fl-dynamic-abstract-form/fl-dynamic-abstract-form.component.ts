@@ -1,10 +1,19 @@
-import {Component, ComponentRef, Input, OnDestroy, OnInit, Type, ViewChild, ViewContainerRef} from '@angular/core';
-import {FlDynamicFormAbstractControl} from '../../model/fl-dynamic-field-config.class';
-import {AbstractControl} from '@angular/forms';
-import {FlDynamicFieldComponent} from '../fl-dynamic-field/fl-dynamic-field.component';
-import {FlDynamicFormGroupComponent} from '../fl-dynamic-form-group/fl-dynamic-form-group.component';
-import {FlDynamicFormArrayComponent} from '../fl-dynamic-form-array/fl-dynamic-form-array.component';
-import {FlDynamicAbstractFormDirective} from '../../model/fl-dynamic-abstract-form.directive';
+import {
+  Component,
+  ComponentRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { FlDynamicFormAbstractControl } from '../../model/fl-dynamic-field-config.class';
+import { AbstractControl } from '@angular/forms';
+import { FlDynamicFieldComponent } from '../fl-dynamic-field/fl-dynamic-field.component';
+import { FlDynamicFormGroupComponent } from '../fl-dynamic-form-group/fl-dynamic-form-group.component';
+import { FlDynamicFormArrayComponent } from '../fl-dynamic-form-array/fl-dynamic-form-array.component';
+import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 
 /**
  * Component to generate a FormGroup, FormArray or FormControl form base on config
@@ -15,18 +24,15 @@ import {FlDynamicAbstractFormDirective} from '../../model/fl-dynamic-abstract-fo
   styleUrls: ['./fl-dynamic-abstract-form.component.scss'],
 })
 export class FlDynamicAbstractFormComponent implements OnInit, OnDestroy {
-
   @Input() config: FlDynamicFormAbstractControl;
 
   @Input() control: AbstractControl;
 
-  @ViewChild('viewContainer', {static: true, read: ViewContainerRef}) viewContainer: ViewContainerRef;
+  @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
 
-
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.viewComponentRef = this.viewContainer.createComponent(this.getComponentType());
@@ -48,6 +54,4 @@ export class FlDynamicAbstractFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.viewComponentRef?.destroy();
   }
-
-
 }

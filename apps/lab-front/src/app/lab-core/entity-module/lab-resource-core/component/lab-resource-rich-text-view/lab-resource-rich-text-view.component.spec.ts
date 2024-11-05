@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {LabResourceRichTextViewComponent} from './lab-resource-rich-text-view.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LabResourceRichTextViewComponent } from './lab-resource-rich-text-view.component';
 
 describe('LabResourceRichTextViewComponent', () => {
   let component: LabResourceRichTextViewComponent;

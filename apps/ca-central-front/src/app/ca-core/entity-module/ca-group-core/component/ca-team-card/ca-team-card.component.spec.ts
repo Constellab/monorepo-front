@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaTeamCardComponent} from './ca-team-card.component';
+import { CaTeamCardComponent } from './ca-team-card.component';
 
 describe('CaGroupCardComponent', () => {
   let component: CaTeamCardComponent;
@@ -8,9 +8,8 @@ describe('CaGroupCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaTeamCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CaTeamCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,15 +1,18 @@
-<div class="container" (click)="onClick($event)"
-     [ngClass]="{'round': uploadConfig.roundImage}">
-
+<div class="container" (click)="onClick($event)" [ngClass]="{ round: uploadConfig.roundImage }">
   @if (!disabled) {
     <div class="background"></div>
   }
   <mat-icon class="icon g-icon-big">edit</mat-icon>
 
   <ng-content></ng-content>
-
 </div>
-<input flInputFile type="file" accept="image/*"
-       (fileChange)="onFileSelected($any($event))"
-       [strictMode]="true" [autoClearHtmlInput]="true" hidden
-       id="input-photo" #input>
+<input
+  flInputFile
+  type="file"
+  accept="image/*"
+  (fileChange)="onFileSelected($any($event))"
+  [strictMode]="true"
+  [autoClearHtmlInput]="true"
+  hidden
+  id="input-photo"
+  #input />

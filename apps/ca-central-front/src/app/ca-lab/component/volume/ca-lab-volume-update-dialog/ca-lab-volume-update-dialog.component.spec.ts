@@ -8,9 +8,8 @@ describe('CaLabVolumeUpdateDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaLabVolumeUpdateDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaLabVolumeUpdateDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabVolumeUpdateDialogComponent);
     component = fixture.componentInstance;

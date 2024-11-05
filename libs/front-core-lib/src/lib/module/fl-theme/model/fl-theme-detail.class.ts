@@ -33,7 +33,7 @@ export const flThemeDetailLight: FlThemeDetail = {
   warnContrast: '#E5E5E5',
 
   cardBackground: '#EAEAEA',
-  hover: '#D2D2D2'
+  hover: '#D2D2D2',
 };
 
 /**
@@ -51,7 +51,7 @@ export const flThemeDetailDark: FlThemeDetail = {
   warnContrast: '#010202',
 
   cardBackground: '#2B2D2E',
-  hover: '#3A3D3D'
+  hover: '#3A3D3D',
 };
 
 /**
@@ -66,11 +66,10 @@ export const flThemeClass = {
   primaryBackground: 'g-primary-background',
   accentBackground: 'g-accent-background',
   warnBackground: 'g-warn-background',
-  greyBackground: 'g-grey-text'
+  greyBackground: 'g-grey-text',
 };
 
 export class FlThemeHelper {
-
   public static paletteToTextCssClass(color: ThemePalette): string | null {
     switch (color) {
       case 'primary':

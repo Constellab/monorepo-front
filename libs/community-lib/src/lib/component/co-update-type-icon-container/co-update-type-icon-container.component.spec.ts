@@ -8,9 +8,8 @@ describe('CoUpdateTypeIconContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CoUpdateTypeIconContainerComponent]
-    })
-    .compileComponents();
+      declarations: [CoUpdateTypeIconContainerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CoUpdateTypeIconContainerComponent);
     component = fixture.componentInstance;

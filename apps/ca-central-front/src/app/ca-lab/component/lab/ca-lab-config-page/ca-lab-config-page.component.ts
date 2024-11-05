@@ -8,16 +8,13 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'ca-lab-config-page',
   templateUrl: './ca-lab-config-page.component.html',
-  styleUrls: ['./ca-lab-config-page.component.scss']
+  styleUrls: ['./ca-lab-config-page.component.scss'],
 })
 export class CaLabConfigPageComponent {
-
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
   isDesktop$: Observable<boolean> = this.state.isDesktop$();
   isHttpAccessible$: Observable<boolean> = this.state.isHttpAccessible$();
 
-  constructor(private state: CaLabDetailPageState) {
-  }
-
+  constructor(private state: CaLabDetailPageState) {}
 }

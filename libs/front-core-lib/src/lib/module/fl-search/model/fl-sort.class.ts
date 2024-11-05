@@ -1,4 +1,4 @@
-import {MatSort, MatSortHeader} from '@angular/material/sort';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
 
 /**
  * Direction for sorting element
@@ -49,10 +49,10 @@ export class FlMatSort {
     matSort.sort({
       id: id,
       start: direction,
-      disableClear: false
+      disableClear: false,
     });
     // use to make the sort arrow appear
-    (matSort.sortables.get(id) as MatSortHeader)?._setAnimationTransitionState({toState: 'active'});
+    (matSort.sortables.get(id) as MatSortHeader)?._setAnimationTransitionState({ toState: 'active' });
   }
 
   public static resetSort(matSort: MatSort): void {
@@ -60,11 +60,6 @@ export class FlMatSort {
       return;
     }
     // reset state so that start is the first sort direction that you will see
-    matSort.sort({id: null, start: 'asc', disableClear: false});
+    matSort.sort({ id: null, start: 'asc', disableClear: false });
   }
-
 }
-
-
-
-

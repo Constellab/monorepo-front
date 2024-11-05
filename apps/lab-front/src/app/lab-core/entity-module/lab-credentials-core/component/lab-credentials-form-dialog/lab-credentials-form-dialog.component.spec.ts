@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabCredentialsFormDialogComponent} from './lab-credentials-form-dialog.component';
+import { LabCredentialsFormDialogComponent } from './lab-credentials-form-dialog.component';
 
 describe('LabCredentialsFormDialogComponent', () => {
   let component: LabCredentialsFormDialogComponent;

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSearchAdvancedFormComponent} from './fl-search-advanced-form.component';
+import { FlSearchAdvancedFormComponent } from './fl-search-advanced-form.component';
 
 describe('FlSearchAdvancedSearchFormComponent', () => {
   let component: FlSearchAdvancedFormComponent;
@@ -8,9 +8,8 @@ describe('FlSearchAdvancedSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSearchAdvancedFormComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSearchAdvancedFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

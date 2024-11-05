@@ -1,7 +1,7 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {FL_PORTAL_DATA} from '../../../fl-portal/model/fl-portal.class';
-import {FlUser} from '../../model/fl-user.class';
-import {FlUserConfig} from '../../service/fl-user-config.config';
+import { Component, inject, OnInit } from '@angular/core';
+import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
+import { FlUser } from '../../model/fl-user.class';
+import { FlUserConfig } from '../../service/fl-user-config.config';
 
 /**
  * Simple portal to show the user information
@@ -9,19 +9,16 @@ import {FlUserConfig} from '../../service/fl-user-config.config';
 @Component({
   selector: 'fl-user-info-portal',
   templateUrl: './fl-user-info-portal.component.html',
-  styleUrls: ['./fl-user-info-portal.component.scss']
+  styleUrls: ['./fl-user-info-portal.component.scss'],
 })
 export class FlUserInfoPortalComponent implements OnInit {
-
-  user: FlUser = inject(FL_PORTAL_DATA)
+  user: FlUser = inject(FL_PORTAL_DATA);
 
   userRoute: string;
 
-  constructor(private userConfig: FlUserConfig) {
-  }
+  constructor(private userConfig: FlUserConfig) {}
 
   ngOnInit(): void {
     this.userRoute = this.userConfig.getUserDetailRoute(this.user.id);
   }
-
 }

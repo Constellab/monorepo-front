@@ -1,8 +1,7 @@
-import {LabTypeEntity} from './lab-type.entity';
-import {TdResourceMethodList, TdResourceType} from '@monorepo/technical-doc';
+import { LabTypeEntity } from './lab-type.entity';
+import { TdResourceMethodList, TdResourceType } from '@monorepo/technical-doc';
 
 export class LabResourceType extends LabTypeEntity {
-
   variables: Record<string, any>;
   methods: TdResourceMethodList;
 
@@ -13,5 +12,4 @@ export class LabResourceType extends LabTypeEntity {
       methods: this.methods,
     };
   }
-
 }

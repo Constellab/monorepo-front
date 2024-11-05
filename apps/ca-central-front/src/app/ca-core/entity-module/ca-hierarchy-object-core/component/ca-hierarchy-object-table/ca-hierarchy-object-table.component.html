@@ -1,13 +1,10 @@
-<mat-table mat-table [dataSource]="datasource" class="table g-table-base-width-2"
-           flSearchTableSort>
-
+<mat-table mat-table [dataSource]="datasource" class="table g-table-base-width-2" flSearchTableSort>
   <!-- Title -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header class="g-column-width-4">
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let folder" class="g-column-width-4">
-
       <!--    Invisible link  -->
       @if (!rowSelectable) {
         <a [routerLink]="folder | caDetailRoute" class="g-row-link"></a>
@@ -39,13 +36,13 @@
 
   <!-- Status icons -->
   <ng-container matColumnDef="statusIcons">
-    <mat-header-cell *matHeaderCellDef class="g-column-width-1">
-    </mat-header-cell>
-    <mat-cell *matCellDef="let folder"
-              class="g-layout-row g-layout-end-center g-column-width-1">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-1"> </mat-header-cell>
+    <mat-cell *matCellDef="let folder" class="g-layout-row g-layout-end-center g-column-width-1">
       @if (folder.isValidated) {
-        <mat-icon class="status-icon g-row-button"
-                  [matTooltip]="'object_validated' | translate" flIcon="validated"></mat-icon>
+        <mat-icon
+          class="status-icon g-row-button"
+          [matTooltip]="'object_validated' | translate"
+          flIcon="validated"></mat-icon>
       }
 
       @if (folder.documentSize) {
@@ -53,39 +50,47 @@
       }
 
       @if (folder.chatEnabled) {
-        <button mat-icon-button type="button" (click)="openChat(folder, $event)"
-                [matTooltip]="'show_folder_chat' | translate"
-                [caNotificationMark]="folder.id" caNotificationObjectType="MESSAGE"
-                [caNotificationAssociatedObjectIds]="1">
+        <button
+          mat-icon-button
+          type="button"
+          (click)="openChat(folder, $event)"
+          [matTooltip]="'show_folder_chat' | translate"
+          [caNotificationMark]="folder.id"
+          caNotificationObjectType="MESSAGE"
+          [caNotificationAssociatedObjectIds]="1">
           <mat-icon>comment</mat-icon>
         </button>
       }
 
       @if (folder.hasDescription) {
-        <button mat-icon-button type="button" (click)="openDescription(folder, $event)"
-                [matTooltip]="'show_folder_description' | translate">
+        <button
+          mat-icon-button
+          type="button"
+          (click)="openDescription(folder, $event)"
+          [matTooltip]="'show_folder_description' | translate">
           <mat-icon>article</mat-icon>
         </button>
       }
-
     </mat-cell>
   </ng-container>
 
   <!-- Custom action where template is defined by parent -->
   <ng-container matColumnDef="customAction">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
       <ng-container *ngTemplateOutlet="templateRef; context: getViewContent(row)"></ng-container>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable g-row-link-container"
-           (flClick)="onFolderClick(row, $event)" (flDoubleClick)="onFolderDblClick(row, $event)"
-           (contextmenu)="rightClick(row, $event)" (mouseup)="mouseUp(row, $event)"
-           [ngClass]="{'selected-row': row.id === selectedObject?.id}">
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    class="g-table-row-selectable g-row-link-container"
+    (flClick)="onFolderClick(row, $event)"
+    (flDoubleClick)="onFolderDblClick(row, $event)"
+    (contextmenu)="rightClick(row, $event)"
+    (mouseup)="mouseUp(row, $event)"
+    [ngClass]="{ 'selected-row': row.id === selectedObject?.id }">
   </mat-row>
 </mat-table>

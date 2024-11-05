@@ -1,19 +1,17 @@
-import {ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
-import {CaNotificationType} from '../../../../model/entities/ca-notification.class';
-import {CaNotificationState, CaNotificationStateFind} from '../../../../state/ca-notification.state';
-import {mergeMap, Observable, of, Subscription} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
+import { CaNotificationState, CaNotificationStateFind } from '../../../../state/ca-notification.state';
+import { mergeMap, Observable, of, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Directive({
   selector: '[caNotificationMark]',
-
 })
 export class CaNotificationMarkDirective implements OnInit, OnDestroy {
-
   /**
    * Notification object id
    */
-  @Input({required: true}) caNotificationMark: string | Observable<string>;
+  @Input({ required: true }) caNotificationMark: string | Observable<string>;
 
   @Input() caNotificationObjectType: CaNotificationType;
 
@@ -32,44 +30,40 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
   @HostBinding('class.g-notification-mark')
   private markShown: boolean = false;
 
-  constructor(private notifState: CaNotificationState,
-              private changeDetectorRef: ChangeDetectorRef) {
-  }
-
+  constructor(
+    private notifState: CaNotificationState,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    if(this.caNotificationMarkDisabled) return;
-    const objectId$: Observable<string> = typeof this.caNotificationMark === 'string' ?
-      of(this.caNotificationMark) : this.caNotificationMark;
+    if (this.caNotificationMarkDisabled) return;
+    const objectId$: Observable<string> =
+      typeof this.caNotificationMark === 'string' ? of(this.caNotificationMark) : this.caNotificationMark;
 
-    const options: Observable<CaNotificationStateFind> =
-      objectId$.pipe(map(
-        objectId => {
-          // reset the mark
-          this.onChange(false);
+    const options: Observable<CaNotificationStateFind> = objectId$.pipe(
+      map((objectId) => {
+        // reset the mark
+        this.onChange(false);
 
-          const options: CaNotificationStateFind = {
-            objectId: objectId,
-            objectType: this.caNotificationObjectType,
-            checkAssociatedObjects: this.caNotificationAssociatedObjectIds
-          };
+        const options: CaNotificationStateFind = {
+          objectId: objectId,
+          objectType: this.caNotificationObjectType,
+          checkAssociatedObjects: this.caNotificationAssociatedObjectIds,
+        };
 
-          // if we include parent object, this means the directive is placed on a parent object
-          // so this is only for indication and we don't want to mark the notification as read
-          if (this.caNotificationAssociatedObjectIds == null) {
-            this.notifState.markNotifAsRead(options);
-          }
-
-          return options;
+        // if we include parent object, this means the directive is placed on a parent object
+        // so this is only for indication and we don't want to mark the notification as read
+        if (this.caNotificationAssociatedObjectIds == null) {
+          this.notifState.markNotifAsRead(options);
         }
-      ));
 
-
-    this.subscription = options.pipe(mergeMap(
-      options => this.notifState.entityHasNotReadNotification(options)
-    )).subscribe(
-      (hasNotif: boolean) => this.onChange(hasNotif)
+        return options;
+      })
     );
+
+    this.subscription = options
+      .pipe(mergeMap((options) => this.notifState.entityHasNotReadNotification(options)))
+      .subscribe((hasNotif: boolean) => this.onChange(hasNotif));
   }
 
   private onChange(hasNotif: boolean): void {
@@ -81,6 +75,4 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

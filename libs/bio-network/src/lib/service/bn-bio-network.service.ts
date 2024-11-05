@@ -1,5 +1,5 @@
-import {Observable} from 'rxjs';
-import {BnBioNetworkMetaboliteLevel} from '../model/bn-bio-network.class';
+import { Observable } from 'rxjs';
+import { BnBioNetworkMetaboliteLevel } from '../model/bn-bio-network.class';
 
 export interface BnUpdateMetabolite {
   chebi_id: string;
@@ -9,10 +9,8 @@ export interface BnUpdateMetabolite {
   level: BnBioNetworkMetaboliteLevel;
 }
 
-export abstract class BnBioNetworkService{
-
+export abstract class BnBioNetworkService {
   abstract enableSave(): boolean;
-
 
   abstract saveMetaboliteLayout(metaboliteInfo: BnUpdateMetabolite): Observable<boolean>;
 }

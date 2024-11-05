@@ -1,17 +1,19 @@
 <fl-card *ngIf="lastScenarios">
   <fl-card-header>
-    <h2>{{'last_scenarios' | translate}}</h2>
+    <h2>{{ 'last_scenarios' | translate }}</h2>
   </fl-card-header>
   <fl-card-body>
     <mat-nav-list *ngIf="lastScenarios.length > 0; else noScenario">
-      <mat-list-item *ngFor="let scenario of lastScenarios"
-                     class="scenario">
+      <mat-list-item *ngFor="let scenario of lastScenarios" class="scenario">
         <a class="scenario-div" [routerLink]="scenario | caDetailRoute">
-          <fl-status-chip mat-list-avatar [status]="scenario.status" [mode]="'iconOnly'"
-                          class="icon"></fl-status-chip>
+          <fl-status-chip
+            mat-list-avatar
+            [status]="scenario.status"
+            [mode]="'iconOnly'"
+            class="icon"></fl-status-chip>
           <div class="scenario-title-folder">
             <div class="scenario-title">
-              {{scenario.title}}
+              {{ scenario.title }}
             </div>
           </div>
           <div class="scenario-date g-text-small">
@@ -22,7 +24,7 @@
     </mat-nav-list>
 
     <ng-template #noScenario>
-      <p>{{'no_scenario' | translate}}</p>
+      <p>{{ 'no_scenario' | translate }}</p>
     </ng-template>
   </fl-card-body>
 </fl-card>

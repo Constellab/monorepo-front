@@ -1,15 +1,13 @@
-<fl-input-search [selectedItem]="selectedType"
-                 (selectedItemChange)="setAndEmitValue($event)"
-                 [datasource]="datasource"
-                 [placeholder]="placeholder"
-                 [required]="required"
-                 [disabled]="disabled"
-                 [minInputSearchLength]="0"
-                 [advancedButton]="advancedButton"
-                 (inputBlur)="markAsTouched()">
-
-
-  <td-type-inline *flInputSearchOption="datasource as type" [text]="type.humanName"
-                  [style]="type.style">
+<fl-input-search
+  [selectedItem]="selectedType"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [advancedButton]="advancedButton"
+  (inputBlur)="markAsTouched()">
+  <td-type-inline *flInputSearchOption="datasource as type" [text]="type.humanName" [style]="type.style">
   </td-type-inline>
 </fl-input-search>

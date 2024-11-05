@@ -1,16 +1,18 @@
 <div class="form g-layout-col" [formGroup]="formGp">
-
   <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
-
     <!--  Technical name  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'technical_name' | translate }}</mat-label>
-      <input matInput formControlName="technicalName" [placeholder]="'technical_name' | translate" autocomplete="off">
+      <mat-label>{{ 'technical_name' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="technicalName"
+        [placeholder]="'technical_name' | translate"
+        autocomplete="off" />
     </mat-form-field>
 
     <!--  Cloud provider  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'cloud_provider' | translate}}</mat-label>
+      <mat-label>{{ 'cloud_provider' | translate }}</mat-label>
       <mat-select formControlName="cloudProvider">
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
       </mat-select>
@@ -18,7 +20,7 @@
 
     <!--  Server standard  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'server_standard' | translate}}</mat-label>
+      <mat-label>{{ 'server_standard' | translate }}</mat-label>
       <mat-select formControlName="serverStandard">
         <ca-select-server-standard-options></ca-select-server-standard-options>
       </mat-select>
@@ -26,19 +28,19 @@
 
     <!--  Ram  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'ram' | translate}}</mat-label>
-      <input matInput formControlName="ram" [placeholder]="'ram' | translate" type="number">
+      <mat-label>{{ 'ram' | translate }}</mat-label>
+      <input matInput formControlName="ram" [placeholder]="'ram' | translate" type="number" />
     </mat-form-field>
 
     <!--  Disk space  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'diskSpace' | translate}}</mat-label>
-      <input matInput formControlName="diskSpace" [placeholder]="'diskSpace' | translate" type="number">
+      <mat-label>{{ 'diskSpace' | translate }}</mat-label>
+      <input matInput formControlName="diskSpace" [placeholder]="'diskSpace' | translate" type="number" />
     </mat-form-field>
 
     <!--  Disk type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'diskType' | translate}}</mat-label>
+      <mat-label>{{ 'diskType' | translate }}</mat-label>
       <mat-select formControlName="diskType">
         <ca-select-disk-type-options></ca-select-disk-type-options>
       </mat-select>
@@ -46,28 +48,23 @@
 
     <!--  Cpu count  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'cpuCount' | translate}}</mat-label>
-      <input matInput formControlName="cpuCount" [placeholder]="'cpuCount' | translate" type="number">
+      <mat-label>{{ 'cpuCount' | translate }}</mat-label>
+      <input matInput formControlName="cpuCount" [placeholder]="'cpuCount' | translate" type="number" />
     </mat-form-field>
 
     <!--  Cpu type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'cpuType' | translate}}</mat-label>
-      <input matInput formControlName="cpuType" [placeholder]="'cpuType' | translate">
+      <mat-label>{{ 'cpuType' | translate }}</mat-label>
+      <input matInput formControlName="cpuType" [placeholder]="'cpuType' | translate" />
     </mat-form-field>
 
     <!--  Id -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{'id' | translate }}</mat-label>
-      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off">
+      <mat-label>{{ 'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Has GPU  -->
-    <mat-checkbox formControlName="hasGpu"
-                  class="checkbox g-full">{{'has_gpus' | translate }}</mat-checkbox>
-
+    <mat-checkbox formControlName="hasGpu" class="checkbox g-full">{{ 'has_gpus' | translate }}</mat-checkbox>
   </div>
-
 </div>
-
-

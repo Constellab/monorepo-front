@@ -1,15 +1,13 @@
 @if (folder$ | async; as folder) {
-
   <div class="g-layout-row g-layout-between-start">
-
     <div class="g-layout-row-wrap g-layout-start-center">
-      <ca-hierarchy-object-icon [objectType]="folderObjectType"
-                                [objectName]="folder.name"
-                                [caNotificationMark]="folder.id"></ca-hierarchy-object-icon>
+      <ca-hierarchy-object-icon
+        [objectType]="folderObjectType"
+        [objectName]="folder.name"
+        [caNotificationMark]="folder.id"></ca-hierarchy-object-icon>
       <h1 class="folder-title">{{ folder.name }}</h1>
 
-      <fl-user-inline [user]="folder.leader"
-                      class="folder-leader"></fl-user-inline>
+      <fl-user-inline [user]="folder.leader" class="folder-leader"></fl-user-inline>
     </div>
   </div>
 }

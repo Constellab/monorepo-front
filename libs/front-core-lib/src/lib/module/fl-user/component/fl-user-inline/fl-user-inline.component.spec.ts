@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlUserInlineComponent} from './fl-user-inline.component';
+import { FlUserInlineComponent } from './fl-user-inline.component';
 
 describe('FlUserInlineComponent', () => {
   let component: FlUserInlineComponent;
@@ -8,9 +8,8 @@ describe('FlUserInlineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlUserInlineComponent ]
-    })
-    .compileComponents();
+      declarations: [FlUserInlineComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlUserInlineComponent);
     component = fixture.componentInstance;

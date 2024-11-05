@@ -7,22 +7,18 @@
         <h2>{{ 'activities' | translate }}</h2>
       </fl-text-icon>
     </fl-search-header>
-
   </fl-card-header>
 
   <fl-card-body class="g-full-height">
     <fl-search>
-
       <!-- Advanced section in the right in a drawer -->
       <fl-search-advanced-form>
         <ca-activity-search-form></ca-activity-search-form>
       </fl-search-advanced-form>
 
-
       <fl-search-result>
         <ca-activity-table [datasource]="datasource"></ca-activity-table>
       </fl-search-result>
-
     </fl-search>
   </fl-card-body>
 </fl-card>

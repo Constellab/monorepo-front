@@ -4,7 +4,7 @@ import {
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-  FlTag
+  FlTag,
 } from '@monorepo/front-core-lib';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
@@ -47,9 +47,7 @@ export class LabResourceSearchFields {
   id: string;
 }
 
-
 export class LabResourceSearch {
-
   /**
    * Const to configure Form Input Manager for advanced search
    */
@@ -67,9 +65,8 @@ export class LabResourceSearch {
     folder: 'biox.folder',
     includeChildrenResource: 'resource_include_children_short',
     includeNotFlagged: 'biox.include_not_flagged_short',
-    generatedByProcess: 'biox.generated_by_process'
+    generatedByProcess: 'biox.generated_by_process',
   };
-
 
   /**
    * Convert used by the advanced search to convert the form result to list of {@link FlSearchCriteria}
@@ -78,7 +75,7 @@ export class LabResourceSearch {
     resourceTypingName: {
       key: 'resource_typing_name',
       operator: 'EQ',
-      convertValue: (value: LabTypeEntity) => value?.typingName
+      convertValue: (value: LabTypeEntity) => value?.typingName,
     },
     resourceTypingNames: { key: 'resource_typing_names', operator: 'IN' },
     name: { key: 'name', operator: 'CONTAINS' },
@@ -93,51 +90,47 @@ export class LabResourceSearch {
     isArchived: { key: 'is_archived', operator: 'EQ', convertValue: LabSearchConverter.includeAllOnCheck },
     includeChildrenResource: {
       key: 'include_children_resource',
-      operator: 'EQ'
+      operator: 'EQ',
     },
     includeNotFlagged: {
       key: 'include_not_flagged',
-      operator: 'EQ'
+      operator: 'EQ',
     },
     id: { key: 'id', operator: 'EQ' },
     generatedByProcess: {
-      key: 'generated_by_task', operator: 'EQ',
-      convertValue: (value: LabTypeEntity) => value?.typingName
-    }
+      key: 'generated_by_task',
+      operator: 'EQ',
+      convertValue: (value: LabTypeEntity) => value?.typingName,
+    },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
     name: 'name',
     creation: 'created_at',
     lastModification: 'last_modified_at',
-    type: 'resource_typing_name'
+    type: 'resource_typing_name',
   };
 
-
   public static getSearchForm(): FormGroup {
-    return new FormBuilder().group(
-      {
-        resourceTypingName: [null],
-        resourceTypingNames: [null],
-        name: [null],
-        tags: [null],
-        origin: [null],
-        data: [null],
-        scenario: [null],
-        createdAt: new FormBuilder().group({
-          from: [null],
-          to: [null]
-        }),
-        createdBy: [null],
-        folder: [null],
-        isArchived: [null],
-        includeChildrenResource: [null],
-        includeNotFlagged: [null],
-        id: [null],
-        generatedByProcess: [null]
-      }
-    );
+    return new FormBuilder().group({
+      resourceTypingName: [null],
+      resourceTypingNames: [null],
+      name: [null],
+      tags: [null],
+      origin: [null],
+      data: [null],
+      scenario: [null],
+      createdAt: new FormBuilder().group({
+        from: [null],
+        to: [null],
+      }),
+      createdBy: [null],
+      folder: [null],
+      isArchived: [null],
+      includeChildrenResource: [null],
+      includeNotFlagged: [null],
+      id: [null],
+      generatedByProcess: [null],
+    });
   }
-
-
 }

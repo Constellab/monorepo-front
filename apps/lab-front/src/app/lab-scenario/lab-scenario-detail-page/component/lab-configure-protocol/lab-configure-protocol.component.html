@@ -1,13 +1,13 @@
 <fl-async-section [object]="processes$" emptyText="biox.process_no_config" class="g-full-height">
-
   <ng-container *flSectionBody="processes$ as processes">
-
     <div class="container g-full-height">
-
       <div class="left-section">
-        <div *ngFor="let process of processes" class="process" matRipple
-             (click)="selectProcess(process.instanceName)"
-             [ngClass]="{'process-selected': process.id === (selectedProcess$ | async)?.id}">
+        <div
+          *ngFor="let process of processes"
+          class="process"
+          matRipple
+          (click)="selectProcess(process.instanceName)"
+          [ngClass]="{ 'process-selected': process.id === (selectedProcess$ | async)?.id }">
           <div>{{ process.name }}</div>
           <div class="g-text-small g-text-light">{{ process.instanceName }}</div>
         </div>
@@ -17,7 +17,5 @@
         <lab-configure-process [process$]="selectedProcess$"></lab-configure-process>
       </div>
     </div>
-
   </ng-container>
-
 </fl-async-section>

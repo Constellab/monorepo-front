@@ -10,24 +10,19 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
 @Component({
   selector: 'ca-folder-note-preview',
   templateUrl: './ca-folder-note-preview.component.html',
-  styleUrls: ['./ca-folder-note-preview.component.scss']
+  styleUrls: ['./ca-folder-note-preview.component.scss'],
 })
 export class CaFolderNotePreviewComponent implements OnInit {
-
   @Input() noteId: string;
 
   note$: Observable<CaNote>;
 
   textEditorConfig: CaNoteTextEditorConfig;
 
-
-  constructor(private noteService: CaNoteService) {
-  }
+  constructor(private noteService: CaNoteService) {}
 
   ngOnInit(): void {
     this.note$ = this.noteService.getById(this.noteId);
     this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.noteId);
-
   }
-
 }

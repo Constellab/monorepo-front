@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDialogHeaderComponent} from './fl-dialog-header.component';
+import { FlDialogHeaderComponent } from './fl-dialog-header.component';
 
 describe('DialogTitleComponent', () => {
   let component: FlDialogHeaderComponent;
@@ -8,9 +8,8 @@ describe('DialogTitleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDialogHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDialogHeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

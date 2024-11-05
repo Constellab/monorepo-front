@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabProgressBarInfoDialogComponent} from './lab-progress-bar-info-dialog.component';
+import { LabProgressBarInfoDialogComponent } from './lab-progress-bar-info-dialog.component';
 
 describe('BioxProgressBarInfoDialogComponent', () => {
   let component: LabProgressBarInfoDialogComponent;
@@ -8,9 +8,8 @@ describe('BioxProgressBarInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabProgressBarInfoDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabProgressBarInfoDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

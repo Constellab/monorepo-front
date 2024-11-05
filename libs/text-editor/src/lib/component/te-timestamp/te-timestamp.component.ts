@@ -5,7 +5,7 @@ import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   TeTimestampConfigDialogComponent,
-  TeTimestampConfigDialogInput
+  TeTimestampConfigDialogInput,
 } from '../te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 
 /**
@@ -16,11 +16,10 @@ import {
   templateUrl: './te-timestamp.component.html',
   styleUrl: './te-timestamp.component.scss',
   host: {
-    'attr.contenteditable': 'false'
-  }
+    'attr.contenteditable': 'false',
+  },
 })
 export class TeTimestampComponent extends TeElementBlockDirective {
-
   @Input({ required: true }) timestamp: DateTime;
 
   @Input() format?: TeTimestampFormat;
@@ -32,12 +31,15 @@ export class TeTimestampComponent extends TeElementBlockDirective {
   openSettings(): void {
     const data: TeTimestampConfigDialogInput = {
       timestamp: this.timestamp,
-      format: this.format
+      format: this.format,
     };
 
-    this.dialogService.openSmallDialog(TeTimestampConfigDialogComponent, {
-      data
-    }).afterClosed().subscribe(result => this.onDialogClosed(result));
+    this.dialogService
+      .openSmallDialog(TeTimestampConfigDialogComponent, {
+        data,
+      })
+      .afterClosed()
+      .subscribe((result) => this.onDialogClosed(result));
   }
 
   private onDialogClosed(result: TeTimestampConfigDialogInput): void {

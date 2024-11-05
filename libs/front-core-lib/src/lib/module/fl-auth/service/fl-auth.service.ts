@@ -1,7 +1,7 @@
-import {Observable} from 'rxjs';
-import {FlCookieService} from '../../../service/fl-cookie.service';
-import {flAuthExpiredCookie} from '../../../service/model/fl-cookie.class';
-import {ClCredentials, ClCredentials2Fa} from '@monorepo/core-lib';
+import { Observable } from 'rxjs';
+import { FlCookieService } from '../../../service/fl-cookie.service';
+import { flAuthExpiredCookie } from '../../../service/model/fl-cookie.class';
+import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 
 export interface FlAuthLoginResponse {
   status: 'LOGGED_IN' | '2FA_REQUIRED';
@@ -18,9 +18,7 @@ export interface FlAuthLogin2FaResponse {
  * Service to enable login and logout method
  */
 export abstract class FlAuthService {
-
-  protected constructor(private cookieService: FlCookieService) {
-  }
+  protected constructor(private cookieService: FlCookieService) {}
 
   /**
    * Log in to API
@@ -35,9 +33,7 @@ export abstract class FlAuthService {
    */
   public abstract checkTwoFA(credentials: ClCredentials2Fa): Observable<FlAuthLogin2FaResponse>;
 
-
   public abstract afterLogin(expiresIn: number): void;
-
 
   /**
    * Call the API to disconnect the user and remove his
@@ -50,13 +46,22 @@ export abstract class FlAuthService {
     const date = new Date(new Date().getTime() + expiresIn);
     // clear the millisecond to get closer to real expiration
     date.setMilliseconds(0);
-    this.cookieService.setCookie(flAuthExpiredCookie, date.getTime(),
-      {expires: date, sameSite: 'Strict', path: '/', secure: false, domain: domain});
+    this.cookieService.setCookie(flAuthExpiredCookie, date.getTime(), {
+      expires: date,
+      sameSite: 'Strict',
+      path: '/',
+      secure: false,
+      domain: domain,
+    });
   }
 
   protected clearAuthExpirationCookie(domain?: string): void {
-    this.cookieService.removeCookie(flAuthExpiredCookie,
-      {sameSite: 'Strict', path: '/', secure: false, domain: domain});
+    this.cookieService.removeCookie(flAuthExpiredCookie, {
+      sameSite: 'Strict',
+      path: '/',
+      secure: false,
+      domain: domain,
+    });
   }
 
   /**

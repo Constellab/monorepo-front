@@ -1,9 +1,9 @@
-import {FlApiServiceConfig} from '@monorepo/front-core-lib';
-import {ClCoreJsonConvert, ClDeserializationRef, ClPageI} from '@monorepo/core-lib';
-import {Injectable} from '@angular/core';
-import {LabEnvStore} from './lab-env.store';
-import {LabAppEnvironment} from '../model/global/lab-environment.class';
-import {LabEnvironmentHelper} from '../utils/lab-environment.helper';
+import { FlApiServiceConfig } from '@monorepo/front-core-lib';
+import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { Injectable } from '@angular/core';
+import { LabEnvStore } from './lab-env.store';
+import { LabAppEnvironment } from '../model/global/lab-environment.class';
+import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 
 /**
  * Format of the paginated result
@@ -32,10 +32,9 @@ interface LabPaginatedResponse {
  * Class to configure the FlApiService
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabApiServiceConfig extends FlApiServiceConfig {
-
   constructor(private labEnvStore: LabEnvStore) {
     super();
   }
@@ -50,7 +49,7 @@ export class LabApiServiceConfig extends FlApiServiceConfig {
         pageSize: json.number_of_items_per_page ?? json.pageSize,
         totalElements: json.total_number_of_items ?? json.totalElements,
         objects: ClCoreJsonConvert.deserialize(json.objects, classReference),
-        totalIsApproximate: json.total_is_approximate
+        totalIsApproximate: json.total_is_approximate,
       };
     } else {
       console.error('Response object not paginated');
@@ -78,6 +77,4 @@ export class LabApiServiceConfig extends FlApiServiceConfig {
   get pageSizeQueryParam(): string {
     return 'number_of_items_per_page';
   }
-
-
 }

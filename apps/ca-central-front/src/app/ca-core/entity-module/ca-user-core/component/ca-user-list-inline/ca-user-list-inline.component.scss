@@ -1,4 +1,3 @@
-
 .user-list div:not(:last-child) {
   margin-left: -8px;
 }
@@ -26,10 +25,10 @@
   border-radius: 50%;
 }
 
-.selected, .additional-user-count-externe:hover {
+.selected,
+.additional-user-count-externe:hover {
   border-color: var(--accent-color);
 }
-
 
 .additional-user-count-interne {
   height: 40px;
@@ -44,12 +43,11 @@
   cursor: pointer;
 }
 
-
 .portal {
   padding: 0;
 }
 
-.portal-user-list{
+.portal-user-list {
   padding: 1em;
   max-width: 20em;
   max-height: 30em;
@@ -65,12 +63,12 @@
   align-items: center;
 }
 
-.additional-user{
+.additional-user {
   cursor: pointer;
   user-select: none;
 }
 
-.load-more{
+.load-more {
   margin-top: 1em;
   display: block;
 }

@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- Cloud provider -->
   <ng-container matColumnDef="cloudProvider">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -46,7 +45,9 @@
       <span>{{ 'disk' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <span>{{ row.diskSpace }} {{ 'flCoreComponent.giga_byte_symbole' | translate }} {{ row.diskType }}</span>
+      <span
+        >{{ row.diskSpace }} {{ 'flCoreComponent.giga_byte_symbole' | translate }} {{ row.diskType }}</span
+      >
     </mat-cell>
   </ng-container>
 
@@ -78,25 +79,19 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef>
-    </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-
-        <button mat-menu-item type="button"
-                (click)="openEditServerCloud(row)">
+        <button mat-menu-item type="button" (click)="openEditServerCloud(row)">
           <mat-icon>edit</mat-icon>
           <span>{{ 'update_server_cloud' | translate }}</span>
         </button>
 
-
-        <button mat-menu-item type="button"
-                (click)="deleteServerCloud(row)">
+        <button mat-menu-item type="button" (click)="deleteServerCloud(row)">
           <mat-icon color="warn">clear</mat-icon>
           <span class="g-warn-text">{{ 'delete_server_cloud' | translate }}</span>
         </button>
@@ -104,10 +99,9 @@
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"
-           [class]="{'g-table-row-selectable': rowSelectable}"
-           (click)="rowClicked(row)"></mat-row>
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    [class]="{ 'g-table-row-selectable': rowSelectable }"
+    (click)="rowClicked(row)"></mat-row>
 </mat-table>
-

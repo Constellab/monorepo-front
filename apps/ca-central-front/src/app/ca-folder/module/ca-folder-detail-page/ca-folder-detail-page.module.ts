@@ -9,58 +9,30 @@ import { CaScenarioCoreModule } from '../ca-scenario-core/ca-scenario-core.modul
 import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
 import { CaGroupCoreModule } from '../../../ca-core/entity-module/ca-group-core/ca-group-core.module';
 import { CaFolderSharedListComponent } from './component/ca-folder-shared-list/ca-folder-shared-list.component';
-import {
-  CaFolderDetailRightPanelComponent
-} from './component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
+import { CaFolderDetailRightPanelComponent } from './component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
 import { CaFolderDescriptionComponent } from './component/ca-folder-description/ca-folder-description.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaFolderNotePreviewComponent } from './component/ca-folder-note-preview/ca-folder-note-preview.component';
-import {
-  CaFolderScenarioPreviewComponent
-} from './component/ca-folder-scenario-preview/ca-folder-scenario-preview.component';
+import { CaFolderScenarioPreviewComponent } from './component/ca-folder-scenario-preview/ca-folder-scenario-preview.component';
 import { CaLabCoreModule } from '../../../ca-core/entity-module/ca-lab-core/ca-lab-core.module';
-import {
-  CaFolderChatRightPanelComponent
-} from './component/ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
+import { CaFolderChatRightPanelComponent } from './component/ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
 import { CaFolderSettingsComponent } from './component/ca-folder-settings/ca-folder-settings.component';
-import {
-  CaFolderStorageSettingsComponent
-} from './component/ca-folder-storage-settings/ca-folder-storage-settings.component';
-import {
-  CaFolderConfigureStorageComponent
-} from './component/ca-folder-configure-storage/ca-folder-configure-storage.component';
-import {
-  CaObjectStorageCoreModule
-} from '../../../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
+import { CaFolderStorageSettingsComponent } from './component/ca-folder-storage-settings/ca-folder-storage-settings.component';
+import { CaFolderConfigureStorageComponent } from './component/ca-folder-configure-storage/ca-folder-configure-storage.component';
+import { CaObjectStorageCoreModule } from '../../../ca-core/entity-module/ca-object-storage-core/ca-object-storage-core.module';
 import { CaDocumentCoreModule } from '../ca-document-core/ca-document-core.module';
 import { CaUserCoreModule } from '../../../ca-core/entity-module/ca-user-core/ca-user-core.module';
-import {
-  CaNotificationCoreModule
-} from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
-import {
-  CaFolderUserConfigDialogComponent
-} from './component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
-import {
-  CaDocumentTrashListDialogComponent
-} from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
-import {
-  CaFolderStorageUsageSectionComponent
-} from './component/ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
-import {
-  CaHierarchyObjectCoreModule
-} from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
-import {
-  CaConstellabDocumentPreviewComponent
-} from './component/ca-constellab-document-preview/ca-constellab-document-preview.component';
+import { CaNotificationCoreModule } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
+import { CaFolderUserConfigDialogComponent } from './component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
+import { CaDocumentTrashListDialogComponent } from './component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
+import { CaFolderStorageUsageSectionComponent } from './component/ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
+import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import { CaConstellabDocumentPreviewComponent } from './component/ca-constellab-document-preview/ca-constellab-document-preview.component';
 import { CaFolderDetailInfoComponent } from './component/ca-folder-detail-info/ca-folder-detail-info.component';
 import { CaChatCoreModule } from '../../../ca-core/entity-module/ca-chat-core/ca-chat-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
-import {
-  CaHierarchyObjectSearchFormComponent
-} from './component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
-import {
-  CaFolderDetailActionsComponent
-} from './component/ca-folder-detail-actions/ca-folder-detail-actions.component';
+import { CaHierarchyObjectSearchFormComponent } from './component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaFolderDetailActionsComponent } from './component/ca-folder-detail-actions/ca-folder-detail-actions.component';
 
 /**
  * Module for the folder detail page
@@ -84,7 +56,7 @@ import {
     CaConstellabDocumentPreviewComponent,
     CaFolderDetailInfoComponent,
     CaHierarchyObjectSearchFormComponent,
-    CaFolderDetailActionsComponent
+    CaFolderDetailActionsComponent,
   ],
   imports: [
     CommonModule,
@@ -104,9 +76,7 @@ import {
     CaObjectStorageCoreModule,
     CaUserCoreModule,
     CaNotificationCoreModule,
-    CaChatCoreModule
-  ]
+    CaChatCoreModule,
+  ],
 })
-export class CaFolderDetailPageModule {
-}
-
+export class CaFolderDetailPageModule {}

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SpSpreadsheetSelectionListenerComponent} from './sp-spreadsheet-selection-listener.component';
+import { SpSpreadsheetSelectionListenerComponent } from './sp-spreadsheet-selection-listener.component';
 
 describe('SpSpreadsheetSelectionInputComponent', () => {
   let component: SpSpreadsheetSelectionListenerComponent;
@@ -8,9 +8,8 @@ describe('SpSpreadsheetSelectionInputComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpSpreadsheetSelectionListenerComponent ]
-    })
-    .compileComponents();
+      declarations: [SpSpreadsheetSelectionListenerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

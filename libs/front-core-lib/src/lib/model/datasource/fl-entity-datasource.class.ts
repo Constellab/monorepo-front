@@ -3,11 +3,13 @@ import { ClCoreJsonConvert, clGetEmptyPage, ClHelpService } from '@monorepo/core
 import { FlEntity } from '../fl-entity.class';
 import { of } from 'rxjs';
 
-
 export class FlEntityPaginatedDatasource<T extends FlEntity, F = void> extends FlDatasourcePaginated<T, F> {
-
-  constructor(getPageFunction: FlDatasourceGetPageFunction<T, F>, pageSize: number, initFirstPage: boolean = true,
-              disableAutoDisconnect: boolean = false) {
+  constructor(
+    getPageFunction: FlDatasourceGetPageFunction<T, F>,
+    pageSize: number,
+    initFirstPage: boolean = true,
+    disableAutoDisconnect: boolean = false
+  ) {
     super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
   }
 
@@ -19,7 +21,7 @@ export class FlEntityPaginatedDatasource<T extends FlEntity, F = void> extends F
     return this.findItem({ id } as T);
   }
 
-  updatePartial(id: string, partial: Partial<T>, classReference: new() => T): void {
+  updatePartial(id: string, partial: Partial<T>, classReference: new () => T): void {
     const item = this.findItemById(id);
     if (item) {
       const cloned = ClCoreJsonConvert.deepCloneClass(item, classReference);

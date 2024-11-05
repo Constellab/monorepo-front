@@ -6,33 +6,27 @@ import {
   PrWorkflowActionShowView,
   PrWorkflowActionState,
   PrWorkflowNode,
-  PrWorkflowNodeProcess
+  PrWorkflowNodeProcess,
 } from '@monorepo/protocol';
-import {
-  LabResourceDetailDialogComponent
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
+import { LabResourceDetailDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {
   LabResourceViewDetailDialogComponent,
-  LabResourceViewDetailDialogInput
+  LabResourceViewDetailDialogInput,
 } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import { FlDialogService, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 import {
   LabWorkflowAction,
   LabWorkflowEditConfig,
-  LabWorkflowEventNodeAdditionalInfo
+  LabWorkflowEventNodeAdditionalInfo,
 } from '../model/lab-workflow-edit-config.class';
 import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
 import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import {
-  LabSelectResourceDialogComponent
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
+import { LabSelectResourceDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import {
-  LabResourceNextObjectsPortalComponent
-} from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 
 /**
@@ -40,30 +34,31 @@ import { LabRouterService } from '../../../lab-core/service/lab-router.service';
  */
 @Injectable()
 export class LabWorkflowNodeDetailState {
-
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(private workflowEditConfig: LabWorkflowEditConfig,
-              private actionState: PrWorkflowActionState,
-              private dialogService: FlDialogService,
-              private viewContainerRef: ViewContainerRef,
-              private scenarioState: LabScenarioDetailPageState,
-              private protocolService: LabProtocolService,
-              private portalService: FlPortalService,
-              private routerService: LabRouterService) {
-  }
+  constructor(
+    private workflowEditConfig: LabWorkflowEditConfig,
+    private actionState: PrWorkflowActionState,
+    private dialogService: FlDialogService,
+    private viewContainerRef: ViewContainerRef,
+    private scenarioState: LabScenarioDetailPageState,
+    private protocolService: LabProtocolService,
+    private portalService: FlPortalService,
+    private routerService: LabRouterService
+  ) {}
 
   public init(): void {
     this.node$ = new BehaviorSubject(null);
 
-    this.subscription.add(this.actionState.getAction$().subscribe(
-      action => this.onNewAction(action)
-    ));
+    this.subscription.add(this.actionState.getAction$().subscribe((action) => this.onNewAction(action)));
 
-    this.subscription.add(this.workflowEditConfig.getActions$([LabWorkflowAction.DELETE_PROCESS]).subscribe(
-      result => this.onNodeDeleted(result.additionalInformation)));
+    this.subscription.add(
+      this.workflowEditConfig
+        .getActions$([LabWorkflowAction.DELETE_PROCESS])
+        .subscribe((result) => this.onNodeDeleted(result.additionalInformation))
+    );
   }
 
   private onNewAction(action: PrWorkflowActionEvent): void {
@@ -96,7 +91,7 @@ export class LabWorkflowNodeDetailState {
     this.dialogService.openBigDialog(LabProcessDashboardComponent, {
       panelClass: ['g-dialog-no-padding', 'g-dialog-main-background'],
       viewContainerRef: this.viewContainerRef,
-      autoFocus: false
+      autoFocus: false,
     });
   }
 
@@ -107,7 +102,12 @@ export class LabWorkflowNodeDetailState {
    */
   private onNodeDeleted(info: LabWorkflowEventNodeAdditionalInfo): void {
     const node = this.node$.value;
-    if (info && node && info.node.instanceName == node.instanceName && info.node.parentLayerId == node.parentLayerId) {
+    if (
+      info &&
+      node &&
+      info.node.instanceName == node.instanceName &&
+      info.node.parentLayerId == node.parentLayerId
+    ) {
       this.setNode(null);
     }
   }
@@ -122,12 +122,10 @@ export class LabWorkflowNodeDetailState {
 
   public getProcess$(): Observable<LabProcess> {
     return this.getNode$().pipe(
-      filter(node => node != null),
-      switchMap(node =>
-        this.scenarioState.getLabProcess$(node.parentLayerId, node.instanceName))
+      filter((node) => node != null),
+      switchMap((node) => this.scenarioState.getLabProcess$(node.parentLayerId, node.instanceName))
     );
   }
-
 
   public clear(): void {
     this.node$.complete();
@@ -164,11 +162,11 @@ export class LabWorkflowNodeDetailState {
   }
 
   private openResourceDetail(resourceId: string): void {
-    this.dialogService.openBigDialog(LabResourceDetailDialogComponent,
-      {
-        data: resourceId, panelClass: 'g-dialog-main-background',
-        closeOnNavigation: true
-      });
+    this.dialogService.openBigDialog(LabResourceDetailDialogComponent, {
+      data: resourceId,
+      panelClass: 'g-dialog-main-background',
+      closeOnNavigation: true,
+    });
   }
 
   private openViewDetail(event: PrWorkflowActionShowView): void {
@@ -178,29 +176,30 @@ export class LabWorkflowNodeDetailState {
       resourceName: event.resourceName,
       viewMethodName: event.config.view_config.view_method_name,
       config: event.config.view_config.config_values,
-      saveViewConfig: true
+      saveViewConfig: true,
     };
     this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, { data: data });
   }
 
   private openResourceSelection(node: PrWorkflowNode): void {
-    this.dialogService.openBigDialog(LabSelectResourceDialogComponent).afterClosed().subscribe(
-      resource => this.onResourceSelectionClosed(node, resource)
-    );
+    this.dialogService
+      .openBigDialog(LabSelectResourceDialogComponent)
+      .afterClosed()
+      .subscribe((resource) => this.onResourceSelectionClosed(node, resource));
   }
 
   private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LabResource): void {
     if (resource) {
       this.workflowEditConfig.updateProcessConfig(node.parentLayerId, node.instanceName, {
-        [TdTypingName.task.source.configName]: resource.id
+        [TdTypingName.task.source.configName]: resource.id,
       });
     }
   }
 
   updateProcessName(process: LabProcess, newName: string): void {
-    this.protocolService.renameProcess(process.parentProtocolId, process.instanceName, newName).subscribe(
-      process => this.onUpdateProcessNameSuccess(process)
-    );
+    this.protocolService
+      .renameProcess(process.parentProtocolId, process.instanceName, newName)
+      .subscribe((process) => this.onUpdateProcessNameSuccess(process));
   }
 
   updateProcessStyle(process: LabProcess): void {
@@ -216,7 +215,7 @@ export class LabWorkflowNodeDetailState {
 
     const config = this.portalService.configureRelativePortal(element, position, {
       disposeOnOutsideClick: true,
-      disposeOnNavigation: true
+      disposeOnNavigation: true,
     });
 
     this.portalService.createPortal(LabResourceNextObjectsPortalComponent, config, resourceId);

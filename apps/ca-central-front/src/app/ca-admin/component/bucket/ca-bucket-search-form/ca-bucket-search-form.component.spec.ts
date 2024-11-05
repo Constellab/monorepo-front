@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaBucketSearchFormComponent} from './ca-bucket-search-form.component';
+import { CaBucketSearchFormComponent } from './ca-bucket-search-form.component';
 
 describe('CaBucketSearchFormComponent', () => {
   let component: CaBucketSearchFormComponent;

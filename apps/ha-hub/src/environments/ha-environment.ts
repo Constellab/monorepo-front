@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import {HaEnvironment} from './ha-environment.class';
+import { HaEnvironment } from './ha-environment.class';
 
 /**
  * File for local environment,env is defined in main file.

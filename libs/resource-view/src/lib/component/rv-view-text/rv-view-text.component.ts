@@ -1,6 +1,6 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {RvResourceViewDirective} from '../../model/rv-resource-view.directive';
-import {RvResourceViewText} from '../../model/rv-resource-view.class';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
+import { RvResourceViewText } from '../../model/rv-resource-view.class';
 
 /**
  * Component to view a resource as plain text
@@ -11,8 +11,6 @@ import {RvResourceViewText} from '../../model/rv-resource-view.class';
   selector: 'rv-view-text',
   templateUrl: './rv-view-text.component.html',
   styleUrls: ['./rv-view-text.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> {
-
-}
+export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> {}

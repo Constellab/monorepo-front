@@ -1,6 +1,5 @@
-import {TdTypeStyle, TdTypeTypingEntity} from './td-type.class';
-import {RvResourceViewType} from '@monorepo/resource-view';
-
+import { TdTypeStyle, TdTypeTypingEntity } from './td-type.class';
+import { RvResourceViewType } from '@monorepo/resource-view';
 
 export interface TdResourceType extends TdTypeTypingEntity {
   variables: Record<string, any>;
@@ -14,7 +13,7 @@ export interface TdResourceMethodList {
 
 export enum TdTechDocFunctionType {
   CLASSMETHOD = 'classmethod',
-  STATICMETHOD = 'staticmethod'
+  STATICMETHOD = 'staticmethod',
 }
 
 export interface TdTechDocFunction {
@@ -31,7 +30,7 @@ export interface TdResourceFunctionArg {
   arg_default_value?: string;
 }
 
-export interface TdResourceView{
+export interface TdResourceView {
   method_name: string;
   view_type: RvResourceViewType;
   human_name: string;

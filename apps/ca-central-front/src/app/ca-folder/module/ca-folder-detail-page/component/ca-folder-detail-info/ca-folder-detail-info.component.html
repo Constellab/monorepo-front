@@ -6,8 +6,11 @@
 
   <fl-section-actions>
     @if (canEditFolder$ | async) {
-      <button mat-icon-button type="button" (click)="openUpdateFolderDialog()"
-              [matTooltip]="'update_folder' | translate">
+      <button
+        mat-icon-button
+        type="button"
+        (click)="openUpdateFolderDialog()"
+        [matTooltip]="'update_folder' | translate">
         <mat-icon>edit</mat-icon>
       </button>
     }
@@ -16,14 +19,12 @@
 
 @if (folder$ | async; as folder) {
   <div class="grid">
-
     <fl-text-icon>
       <mat-icon>label</mat-icon>
       {{ 'name' | translate }}
     </fl-text-icon>
 
     <div>{{ folder.name }}</div>
-
 
     <fl-text-icon>
       <mat-icon>person</mat-icon>
@@ -34,8 +35,12 @@
       <fl-user-inline [user]="folder.leader" class="folder-leader-user"></fl-user-inline>
 
       @if (canEditFolder$ | async) {
-        <button mat-icon-button class="g-button-icon-tiny" type="button" (click)="openUpdateFolderLeaderDialog(folder)"
-                [matTooltip]="'change_folder_leader' | translate">
+        <button
+          mat-icon-button
+          class="g-button-icon-tiny"
+          type="button"
+          (click)="openUpdateFolderLeaderDialog(folder)"
+          [matTooltip]="'change_folder_leader' | translate">
           <mat-icon>edit</mat-icon>
         </button>
       }
@@ -55,8 +60,7 @@
         {{ 'date' | translate }}
       </fl-text-icon>
 
-      <fl-date-range [startingDate]="folder.startingDate" [endingDate]="folder.endingDate">
-      </fl-date-range>
+      <fl-date-range [startingDate]="folder.startingDate" [endingDate]="folder.endingDate"> </fl-date-range>
     }
   </div>
 }

@@ -1,18 +1,16 @@
 <fl-card class="g-full card">
+  @if (showCardHeader) {
+    <fl-card-header>
+      <fl-text-icon>
+        <mat-icon flIcon="scenario"></mat-icon>
+        <h2 class="title g-text-dense-height">{{ scenario.title }}</h2>
+      </fl-text-icon>
 
-  @if(showCardHeader){
-  <fl-card-header>
-    <fl-text-icon>
-      <mat-icon flIcon="scenario"></mat-icon>
-      <h2 class="title g-text-dense-height">{{ scenario.title }}</h2>
-    </fl-text-icon>
-
-    <fl-card-actions>
-      <fl-status-chip [status]="scenario.status"></fl-status-chip>
-    </fl-card-actions>
-  </fl-card-header>
+      <fl-card-actions>
+        <fl-status-chip [status]="scenario.status"></fl-status-chip>
+      </fl-card-actions>
+    </fl-card-header>
   }
-
 
   <fl-card-body>
     <ca-scenario-info [scenario]="scenario"></ca-scenario-info>
@@ -24,5 +22,4 @@
       </a>
     </div>
   </fl-card-body>
-
 </fl-card>

@@ -1,9 +1,9 @@
-import {AfterViewInit, Directive, QueryList, ViewChildren} from '@angular/core';
+import { AfterViewInit, Directive, QueryList, ViewChildren } from '@angular/core';
 import { MatAutocomplete } from '@angular/material/autocomplete';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 
-import {ClHelpService} from '@monorepo/core-lib';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Class to be extended by components with embedded <mat-option>
@@ -17,7 +17,6 @@ import {ClHelpService} from '@monorepo/core-lib';
  */
 @Directive()
 export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewInit {
-
   @ViewChildren(MatOption) protected options: QueryList<MatOption>;
 
   protected constructor(private optionParent: MatSelect | MatAutocomplete) {
@@ -33,7 +32,6 @@ export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewIni
    */
   abstract ngAfterViewInit(): void;
 
-
   /**
    * Call the init method to init the options
    * This method must be called on the AfterViewInit life cycle
@@ -42,9 +40,7 @@ export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewIni
    */
   protected initOptions(): void {
     // the observable is complete on destroy
-    this.options.changes.subscribe(
-      options => this.registerSelectOptions(this.optionParent, options),
-    );
+    this.options.changes.subscribe((options) => this.registerSelectOptions(this.optionParent, options));
     this.registerSelectOptions(this.optionParent, this.options);
   }
 
@@ -54,14 +50,9 @@ export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewIni
    * @param options options to add
    */
   protected registerSelectOptions(select: MatSelect | MatAutocomplete, options: QueryList<MatOption>): void {
-    select.options.reset([
-        ...select.options.toArray(),
-        ...options.toArray()
-      ]
-    );
+    select.options.reset([...select.options.toArray(), ...options.toArray()]);
     select.options.notifyOnChanges();
   }
-
 
   ////////////// METHOD FOR MAT-SELECT /////////////////////////
 
@@ -89,8 +80,7 @@ export abstract class FlEmbeddedOptionsAbstractDirective implements AfterViewIni
       // search and select the values
       for (const val of values) {
         // find the option with the compareWith method
-        const option: MatOption = select.options.toArray()
-          .find(opt => select.compareWith(opt.value, val));
+        const option: MatOption = select.options.toArray().find((opt) => select.compareWith(opt.value, val));
 
         // if the options exist, call the select method on it
         if (option) {

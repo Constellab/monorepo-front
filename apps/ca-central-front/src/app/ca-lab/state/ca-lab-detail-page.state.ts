@@ -1,7 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
 import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
-import { CaLab, CaLabFindOneDto, CaLabStatusDTO, caLabStatusTemp } from '../../ca-core/model/entities/lab/ca-lab.class';
+import {
+  CaLab,
+  CaLabFindOneDto,
+  CaLabStatusDTO,
+  caLabStatusTemp,
+} from '../../ca-core/model/entities/lab/ca-lab.class';
 import { map } from 'rxjs/operators';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 import { CaLabUserRole } from '../../ca-core/model/entities/lab/ca-lab-user.class';
@@ -12,7 +17,6 @@ import { FlPortalActionsService } from '@monorepo/front-core-lib';
  */
 @Injectable()
 export class CaLabDetailPageState implements OnDestroy {
-
   public static readonly actionType = 'CaLabDetailPageState';
 
   private lab$: BehaviorSubject<CaLab>;
@@ -26,27 +30,27 @@ export class CaLabDetailPageState implements OnDestroy {
 
   private subscription: Subscription;
 
-
-  constructor(private labService: CaLabService,
-              private authenticatedUserService: CaAuthenticatedUserService,
-              private portalService: FlPortalActionsService) {
-  }
+  constructor(
+    private labService: CaLabService,
+    private authenticatedUserService: CaAuthenticatedUserService,
+    private portalService: FlPortalActionsService
+  ) {}
 
   public init(id: string): void {
     this.id = id;
     this.lab$ = new BehaviorSubject(null);
     this.userRole$ = new BehaviorSubject(null);
     this.labService.findById(id).subscribe({
-      next: lab => this.getLabSuccess(lab),
-      error: error => this.getLabError(error)
+      next: (lab) => this.getLabSuccess(lab),
+      error: (error) => this.getLabError(error),
     });
 
     this.status$ = new BehaviorSubject(null);
     this.refreshStatus();
 
-    this.subscription = this.portalService.getResult$(CaLabDetailPageState.actionType).subscribe(
-      (result) => this.refreshStatus(result.result)
-    );
+    this.subscription = this.portalService
+      .getResult$(CaLabDetailPageState.actionType)
+      .subscribe((result) => this.refreshStatus(result.result));
   }
 
   private getLabSuccess(lab: CaLabFindOneDto): void {
@@ -65,12 +69,11 @@ export class CaLabDetailPageState implements OnDestroy {
     } else {
       // otherwise, request the status
       this.labService.getStatus(this.id).subscribe({
-        next: status => this.setStatus(status),
-        error: error => this.status$.error(error)
+        next: (status) => this.setStatus(status),
+        error: (error) => this.status$.error(error),
       });
     }
   }
-
 
   public setStatus(status: CaLabStatusDTO): void {
     this.status$.next(status);
@@ -84,23 +87,16 @@ export class CaLabDetailPageState implements OnDestroy {
     }
   }
 
-
   public getLab$(): Observable<CaLab> {
-    return this.lab$.asObservable().pipe(
-      filter(lab => lab != null),
-    );
+    return this.lab$.asObservable().pipe(filter((lab) => lab != null));
   }
 
   public getCurrentUserRole$(): Observable<CaLabUserRole> {
-    return this.userRole$.asObservable().pipe(
-      filter(userRole => userRole != null),
-    );
+    return this.userRole$.asObservable().pipe(filter((userRole) => userRole != null));
   }
 
   public getStatus$(): Observable<CaLabStatusDTO> {
-    return this.status$.asObservable().pipe(
-      filter(status => status != null),
-    );
+    return this.status$.asObservable().pipe(filter((status) => status != null));
   }
 
   /**
@@ -108,7 +104,7 @@ export class CaLabDetailPageState implements OnDestroy {
    */
   public isLabOwner$(): Observable<boolean> {
     return this.getCurrentUserRole$().pipe(
-      map(role => role === 'OWNER' || this.authenticatedUserService.isCurrentSpaceAdmin())
+      map((role) => role === 'OWNER' || this.authenticatedUserService.isCurrentSpaceAdmin())
     );
   }
 
@@ -116,33 +112,25 @@ export class CaLabDetailPageState implements OnDestroy {
    * return true if the lab is on cloud
    */
   public isCloud$(): Observable<boolean> {
-    return this.getLab$().pipe(
-      map(lab => lab.isCloud)
-    );
+    return this.getLab$().pipe(map((lab) => lab.isCloud));
   }
 
   /**
    * return true if the lab is on desktop
    */
   public isDesktop$(): Observable<boolean> {
-    return this.getLab$().pipe(
-      map(lab => lab.isDesktop)
-    );
+    return this.getLab$().pipe(map((lab) => lab.isDesktop));
   }
 
   /**
    * return true if the lab is accessible through http (for cloud and public on premise)
    */
   public isHttpAccessible$(): Observable<boolean> {
-    return this.getLab$().pipe(
-      map(lab => lab.isHttpAccessible)
-    );
+    return this.getLab$().pipe(map((lab) => lab.isHttpAccessible));
   }
 
   public labIsRunning$(): Observable<boolean> {
-    return this.getStatus$().pipe(
-      map(status => status.labIsRunning)
-    );
+    return this.getStatus$().pipe(map((status) => status.labIsRunning));
   }
 
   public updateLab(lab: CaLab): void {
@@ -156,16 +144,16 @@ export class CaLabDetailPageState implements OnDestroy {
 
   refreshLab(): void {
     this.labService.findById(this.getLabId()).subscribe({
-      next: lab => this.updateLab(lab.lab),
-      error: error => this.lab$.error(error)
+      next: (lab) => this.updateLab(lab.lab),
+      error: (error) => this.lab$.error(error),
     });
   }
 
   forceStatusRefresh(): void {
     this.portalService.addAction({
       type: CaLabDetailPageState.actionType,
-      text: {text: 'refresh_status', translateText: true},
-      action: this.labService.refreshStatus(this.getLabId())
+      text: { text: 'refresh_status', translateText: true },
+      action: this.labService.refreshStatus(this.getLabId()),
     });
   }
 
@@ -176,7 +164,6 @@ export class CaLabDetailPageState implements OnDestroy {
     }
   }
 
-
   ngOnDestroy(): void {
     this.lab$?.complete();
     this.userRole$?.complete();
@@ -184,5 +171,4 @@ export class CaLabDetailPageState implements OnDestroy {
     this.subscription?.unsubscribe();
     this.clearTimeout();
   }
-
 }

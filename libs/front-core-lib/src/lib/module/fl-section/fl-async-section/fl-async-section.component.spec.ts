@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlAsyncSectionComponent} from './fl-async-section.component';
+import { FlAsyncSectionComponent } from './fl-async-section.component';
 
 describe('AsyncSectionComponent', () => {
   let component: FlAsyncSectionComponent;
@@ -8,9 +8,8 @@ describe('AsyncSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlAsyncSectionComponent ]
-    })
-    .compileComponents();
+      declarations: [FlAsyncSectionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

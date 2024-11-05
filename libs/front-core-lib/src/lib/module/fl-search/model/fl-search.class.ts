@@ -1,15 +1,26 @@
 /**
  * Supported operation for the search criteria to search in a column
  */
-import {FlSortCriteria} from './fl-sort.class';
+import { FlSortCriteria } from './fl-sort.class';
 
 export type FlSearchOperator = FlSearchOperatorSingle | FlSearchOperatorMultiple;
 
 /**
  * Operator that supports single values
  */
-export type FlSearchOperatorSingle = 'EQ' | 'NEQ' | 'LT' | 'LE' | 'GT' | 'GE' | 'CONTAINS'
-  | 'NULL' | 'NOT_NULL' | 'START_WITH' | 'END_WITH' | 'MATCH';
+export type FlSearchOperatorSingle =
+  | 'EQ'
+  | 'NEQ'
+  | 'LT'
+  | 'LE'
+  | 'GT'
+  | 'GE'
+  | 'CONTAINS'
+  | 'NULL'
+  | 'NOT_NULL'
+  | 'START_WITH'
+  | 'END_WITH'
+  | 'MATCH';
 
 /**
  * Operations that supports multiple values
@@ -55,7 +66,6 @@ export interface SearchCriteriaMultiple<COLUMN = any> {
    */
   value: COLUMN[];
 }
-
 
 /**
  * Object format for advanced search api calls

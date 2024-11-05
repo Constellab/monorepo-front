@@ -8,10 +8,9 @@ describe('FlPlotlyStandaloneComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FlPlotlyStandaloneComponent]
-    })
-    .compileComponents();
-    
+      imports: [FlPlotlyStandaloneComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(FlPlotlyStandaloneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

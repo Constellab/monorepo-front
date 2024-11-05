@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {FlAbstractLoaderDirective} from '../fl-abstract-loader.directive';
+import { Component, OnInit } from '@angular/core';
+import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
 
 /**
  * Loader component, the size can be set with the input or set with CSS. If you
@@ -18,11 +18,8 @@ import {FlAbstractLoaderDirective} from '../fl-abstract-loader.directive';
 @Component({
   selector: 'fl-loader',
   templateUrl: './fl-loader.component.html',
-  styleUrls: ['./fl-loader.component.scss']
+  styleUrls: ['./fl-loader.component.scss'],
 })
 export class FlLoaderComponent extends FlAbstractLoaderDirective implements OnInit {
-
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

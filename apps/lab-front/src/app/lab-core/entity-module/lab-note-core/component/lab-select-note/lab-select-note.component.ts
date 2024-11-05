@@ -3,7 +3,7 @@ import {
   FlDialogService,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
-  FlInputSearchFilter
+  FlInputSearchFilter,
 } from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
 import { LabNote, LabNoteDatasource } from '../../../../model/entities/lab-note.entity';
@@ -16,10 +16,9 @@ import { Observable } from 'rxjs';
   selector: 'lab-select-note',
   templateUrl: './lab-select-note.component.html',
   styleUrls: ['./lab-select-note.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }]
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
 })
 export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implements OnInit {
-
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<LabNote> = new EventEmitter();
@@ -30,9 +29,11 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
 
   advancedButton: FlInputSearchAdvancedButton<LabNote>;
 
-  constructor(private noteService: LabNoteService,
-              private dialogService: FlDialogService,
-              @Optional() @Self() ngControl: NgControl) {
+  constructor(
+    private noteService: LabNoteService,
+    private dialogService: FlDialogService,
+    @Optional() @Self() ngControl: NgControl
+  ) {
     super(ngControl);
   }
 
@@ -40,7 +41,7 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
     this.datasource = this.noteService.searchByNameDatasource();
 
     this.advancedButton = {
-      onClick: () => this.dialogService.openBigDialog(LabSelectNoteDialogComponent).afterClosed()
+      onClick: () => this.dialogService.openBigDialog(LabSelectNoteDialogComponent).afterClosed(),
     };
   }
 
@@ -49,8 +50,7 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
     this.selectedNote = value;
   }
 
-  onDisableChange(): void {
-  }
+  onDisableChange(): void {}
 
   writeValue(obj: LabNote): void {
     if (obj == null || (typeof obj != 'string' && obj.id == null)) {
@@ -70,5 +70,4 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
 
     this.value = obj;
   }
-
 }

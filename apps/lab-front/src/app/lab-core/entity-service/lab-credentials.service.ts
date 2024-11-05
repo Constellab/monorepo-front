@@ -3,31 +3,28 @@ import {
   FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
-  FlSearchConverter
+  FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
   LabCredentials,
   LabCredentialsData,
   LabCredentialsDatasource,
-  LabSaveCredentialsDTO
+  LabSaveCredentialsDTO,
 } from '../model/entities/lab-credentials.entity';
 import { ClCredentials, ClPageI } from '@monorepo/core-lib';
 import {
   LabCredentialsSearch,
-  LabCredentialsSearchFields
+  LabCredentialsSearchFields,
 } from '../entity-module/lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-credentials-search.class';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LabCredentialsService {
-
   private readonly route: string = 'credentials';
 
-
-  constructor(private apiService: FlApiService) {
-  }
+  constructor(private apiService: FlApiService) {}
 
   public create(credentials: LabSaveCredentialsDTO): Observable<LabCredentials> {
     return this.apiService.post(this.route, credentials, LabCredentials);
@@ -58,17 +55,23 @@ export class LabCredentialsService {
   }
 
   public getAllDatasource(): LabCredentialsDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, size) => this.getAll(page, size), 20, true);
+    return new FlEntityPaginatedDatasource((page, size) => this.getAll(page, size), 20, true);
   }
 
-  public search(page: number, pageSize: number,
-                data: FlDatasourceGetPageData<LabCredentialsSearchFields>): Observable<ClPageI<LabCredentials>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(data,
-      LabCredentialsSearch.filterConverter, LabCredentialsSearch.sortConverter);
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<LabCredentialsSearchFields>
+  ): Observable<ClPageI<LabCredentials>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      LabCredentialsSearch.filterConverter,
+      LabCredentialsSearch.sortConverter
+    );
     return this.apiService.post(`${this.route}/search`, searchInput, LabCredentials, {
-      page: page, pageSize: pageSize, resultIsPaginated: true
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
     });
   }
-
 }

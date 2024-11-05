@@ -6,15 +6,15 @@ import { LabBrickDataArrayObs } from '../../../../lab-core/model/global/lab-bric
 @Component({
   selector: 'lab-monitoring-brick-data',
   templateUrl: './lab-monitoring-brick-data.component.html',
-  styleUrls: ['./lab-monitoring-brick-data.component.scss']
+  styleUrls: ['./lab-monitoring-brick-data.component.scss'],
 })
 export class LabMonitoringBrickDataComponent implements OnInit {
-
   brickDataList: LabBrickDataArrayObs;
 
-  constructor(private brickDataService: LabBrickDataService,
-              private dialogService: FlDialogService) {
-  }
+  constructor(
+    private brickDataService: LabBrickDataService,
+    private dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
     this.brickDataList = new LabBrickDataArrayObs(this.brickDataService.getBrickData());
@@ -25,12 +25,13 @@ export class LabMonitoringBrickDataComponent implements OnInit {
       title: 'monitoring.delete_all_brick_data',
       content: 'monitoring.delete_all_brick_data_confirmation',
       observable: this.brickDataService.deleteAllBrickData(),
-      successMessage: 'monitoring.all_brick_data_deleted'
+      successMessage: 'monitoring.all_brick_data_deleted',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      result => this.onDeleteClosed(result)
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result));
   }
 
   private onDeleteClosed(result: FlConfirmDialogResult): void {
@@ -38,5 +39,4 @@ export class LabMonitoringBrickDataComponent implements OnInit {
       this.brickDataList.clear();
     }
   }
-
 }

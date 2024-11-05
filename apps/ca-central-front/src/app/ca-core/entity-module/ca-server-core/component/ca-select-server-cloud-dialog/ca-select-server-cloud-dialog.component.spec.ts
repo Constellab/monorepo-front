@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectServerCloudDialogComponent} from './ca-select-server-cloud-dialog.component';
+import { CaSelectServerCloudDialogComponent } from './ca-select-server-cloud-dialog.component';
 
 describe('CaSelectServerCloudDialogComponent', () => {
   let component: CaSelectServerCloudDialogComponent;
@@ -8,9 +8,8 @@ describe('CaSelectServerCloudDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaSelectServerCloudDialogComponent]
-    })
-    .compileComponents();
+      declarations: [CaSelectServerCloudDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaSelectServerCloudDialogComponent);
     component = fixture.componentInstance;

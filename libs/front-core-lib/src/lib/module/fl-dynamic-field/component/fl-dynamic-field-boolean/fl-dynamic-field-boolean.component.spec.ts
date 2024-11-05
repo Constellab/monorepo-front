@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlDynamicFieldBooleanComponent} from './fl-dynamic-field-boolean.component';
+import { FlDynamicFieldBooleanComponent } from './fl-dynamic-field-boolean.component';
 
 describe('FlDynamicFieldBooleanComponent', () => {
   let component: FlDynamicFieldBooleanComponent;
@@ -8,9 +8,8 @@ describe('FlDynamicFieldBooleanComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlDynamicFieldBooleanComponent ]
-    })
-    .compileComponents();
+      declarations: [FlDynamicFieldBooleanComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlDynamicFieldBooleanComponent);
     component = fixture.componentInstance;

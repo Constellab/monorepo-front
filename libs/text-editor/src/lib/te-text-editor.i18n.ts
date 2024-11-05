@@ -4,7 +4,6 @@ import { I18nConfig } from '@editorjs/editorjs';
 
 /* eslint-disable max-len */
 
-
 /**
  * Translation file for the Spreadsheet module
  */
@@ -18,8 +17,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     hint_scientific: 'Info scientifique',
     url: 'Url',
     youtube_video: 'Vidéo youtube',
-    video_url_error: 'L\'url de la vidéo youtube est invalide',
-    not_youtube_link_error: 'Ce n\'est pas un lien de vidéo youtube',
+    video_url_error: "L'url de la vidéo youtube est invalide",
+    not_youtube_link_error: "Ce n'est pas un lien de vidéo youtube",
     text: 'Texte',
     header_1: 'Titre 1',
     header_2: 'Titre 2',
@@ -70,7 +69,8 @@ const teTextEditorI18nFr: FlLangTranslation = {
     modifications_history: 'Historique des modifications',
     rollback_to_this_content: 'Revenir à ce contenu',
     confirm_rollback_title: 'Confirmer le retour en arrière',
-    confirm_rollback_content: 'Êtes-vous sûr de vouloir revenir à cette version du contenu ? Les modifications apportées après cette version seront supprimées.',
+    confirm_rollback_content:
+      'Êtes-vous sûr de vouloir revenir à cette version du contenu ? Les modifications apportées après cette version seront supprimées.',
     confirm_rollback_success: 'Retour en arrière effectué avec succès',
     modification: 'Modification',
     modification_text: 'a {{action}} un {{type}}',
@@ -78,25 +78,29 @@ const teTextEditorI18nFr: FlLangTranslation = {
     UPDATED: 'mis à jour',
     DELETED: 'supprimé',
     MOVED: 'déplacé',
-    open_modifications_history_panel: 'Ouvrir le panneau d\'historique des modifications',
+    open_modifications_history_panel: "Ouvrir le panneau d'historique des modifications",
     no_modifications: 'Aucune modification',
     attached_files: 'Fichiers attachés',
     table_of_contents: 'Table des matières',
-    formula_help: 'Vous pouvez générez des formules en parlant en utilisant l\'option \'Dicter\'',
+    formula_help: "Vous pouvez générez des formules en parlant en utilisant l'option 'Dicter'",
     // Audio transcription
     dictate: 'Dicter',
-    mic_disabled_error: 'Le microphone est désactivé, veuillez l\'activer pour utiliser cette fonctionnalité.',
-    recording: 'En cours d\'enregistrement',
-    not_recording: 'Pas d\'enregistrement',
-    start_recording: 'Commencer l\'enregistrement',
-    stop_recording_and_transcribe: 'Arrêter l\'enregistrement',
+    mic_disabled_error: "Le microphone est désactivé, veuillez l'activer pour utiliser cette fonctionnalité.",
+    recording: "En cours d'enregistrement",
+    not_recording: "Pas d'enregistrement",
+    start_recording: "Commencer l'enregistrement",
+    stop_recording_and_transcribe: "Arrêter l'enregistrement",
     cancel: 'Annuler',
     transcription_in_progress: 'Transcription en cours',
     voice_command_start: 'Vous pouvez utiliser des commandes vocales pour créer des blocs spécifiques:',
-    voice_command_title: '<strong>titre/en-tête</strong>: Créez un en-tête. Dites en-tête 1,2,3 ou sous-titre pour créer un en-tête à un niveau spécifique.',
-    voice_command_list: '<strong>liste</strong>: Créez une liste. Dites liste à puces ou liste numérotée pour créer une liste du type désiré. Vous pouvez créer des éléments imbriqués.',
-    voice_command_formula: '<strong>formule mathématique</strong>: Créez une formule mathématique. Beta : testez en générant seulement la formule.',
-    voice_command_end: 'Vous pouvez dire "fin de la commande" comme "fin du titre" pour forcer la fin d\'une commande.',
+    voice_command_title:
+      '<strong>titre/en-tête</strong>: Créez un en-tête. Dites en-tête 1,2,3 ou sous-titre pour créer un en-tête à un niveau spécifique.',
+    voice_command_list:
+      '<strong>liste</strong>: Créez une liste. Dites liste à puces ou liste numérotée pour créer une liste du type désiré. Vous pouvez créer des éléments imbriqués.',
+    voice_command_formula:
+      '<strong>formule mathématique</strong>: Créez une formule mathématique. Beta : testez en générant seulement la formule.',
+    voice_command_end:
+      'Vous pouvez dire "fin de la commande" comme "fin du titre" pour forcer la fin d\'une commande.',
     no_text_detected: 'Aucun texte détecté',
     import_audio_file: 'Importer un fichier audio',
     // Timestamp tool
@@ -109,10 +113,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     timestamp_format_from_now: 'À partir de maintenant',
     timestamp_edit: 'Modifier',
     // Settings
-    settings: 'Paramètres'
-  }
+    settings: 'Paramètres',
+  },
 };
-
 
 const teTextEditorI18nEn: FlLangTranslation = {
   teTextEditor: {
@@ -176,7 +179,8 @@ const teTextEditorI18nEn: FlLangTranslation = {
     modifications_history: 'Modifications history',
     rollback_to_this_content: 'Rollback to this content',
     confirm_rollback_title: 'Confirm rollback',
-    confirm_rollback_content: 'Are you sure you want to return to this content version? Changes made after this version will be deleted.',
+    confirm_rollback_content:
+      'Are you sure you want to return to this content version? Changes made after this version will be deleted.',
     confirm_rollback_success: 'Rollback successful',
     modification: 'Modification',
     modification_text: 'has {{action}} a {{type}}',
@@ -188,7 +192,7 @@ const teTextEditorI18nEn: FlLangTranslation = {
     no_modifications: 'No modifications',
     attached_files: 'Attached files',
     table_of_contents: 'Table of contents',
-    formula_help: 'You can generate formulas by speaking using the \'Dictate\' option',
+    formula_help: "You can generate formulas by speaking using the 'Dictate' option",
     // Audio transcription
     dictate: 'Dictate',
     mic_disabled_error: 'Microphone is disabled, please enable it to use this feature.',
@@ -199,9 +203,12 @@ const teTextEditorI18nEn: FlLangTranslation = {
     cancel: 'Cancel',
     transcription_in_progress: 'Transcription in progress',
     voice_command_start: 'You can use voice commands to create specific blocks:',
-    voice_command_title: '<strong>title/header</strong>: Create a header. Say header 1,2,3 or sub header to create a header on a specific level.',
-    voice_command_list: '<strong>list</strong>: Create a list. Say unordered list or ordered list to create a list of the desired type. You can create nested items.',
-    voice_command_formula: '<strong>math formula</strong>: Create a math formula. Beta: test by generating only the formula.',
+    voice_command_title:
+      '<strong>title/header</strong>: Create a header. Say header 1,2,3 or sub header to create a header on a specific level.',
+    voice_command_list:
+      '<strong>list</strong>: Create a list. Say unordered list or ordered list to create a list of the desired type. You can create nested items.',
+    voice_command_formula:
+      '<strong>math formula</strong>: Create a math formula. Beta: test by generating only the formula.',
     voice_command_end: 'You can say "end command" like "end title" to force the end of a command.',
     no_text_detected: 'No text detected',
     import_audio_file: 'Import an audio file',
@@ -215,13 +222,13 @@ const teTextEditorI18nEn: FlLangTranslation = {
     timestamp_format_from_now: 'From now',
     timestamp_edit: 'Edit',
     // Settings
-    settings: 'Settings'
-  }
+    settings: 'Settings',
+  },
 };
 
 export const teTextEditorI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: teTextEditorI18nEn,
-  [ClSupportedLanguage.fr]: teTextEditorI18nFr
+  [ClSupportedLanguage.fr]: teTextEditorI18nFr,
 };
 
 export function teGetI18nConfig(translateService: FlTranslateService): I18nConfig {
@@ -230,35 +237,35 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
       ui: {
         blockTunes: {
           toggler: {
-            'Click to tune': translateService.translate('teTextEditor.click_to_tune')
-          }
+            'Click to tune': translateService.translate('teTextEditor.click_to_tune'),
+          },
         },
         inlineToolbar: {
           converter: {
-            'Convert to': translateService.translate('teTextEditor.convert_to')
-          }
+            'Convert to': translateService.translate('teTextEditor.convert_to'),
+          },
         },
         toolbar: {
           toolbox: {
-            'Add': translateService.translate('teTextEditor.add')
-          }
+            Add: translateService.translate('teTextEditor.add'),
+          },
         },
         popover: {
-          'Filter': translateService.translate('teTextEditor.filter'),
-          'Nothing found': translateService.translate('teTextEditor.no_result')
-        }
+          Filter: translateService.translate('teTextEditor.filter'),
+          'Nothing found': translateService.translate('teTextEditor.no_result'),
+        },
       },
       toolNames: {
-        'Bold': translateService.translate('teTextEditor.bold'),
-        'Italic': translateService.translate('teTextEditor.italic'),
-        'Underline': translateService.translate('teTextEditor.underline'),
-        'Strikethrough': translateService.translate('teTextEditor.strikethrough'),
-        'Link': translateService.translate('teTextEditor.link'),
-        'InlineCode': translateService.translate('teTextEditor.inline_code')
+        Bold: translateService.translate('teTextEditor.bold'),
+        Italic: translateService.translate('teTextEditor.italic'),
+        Underline: translateService.translate('teTextEditor.underline'),
+        Strikethrough: translateService.translate('teTextEditor.strikethrough'),
+        Link: translateService.translate('teTextEditor.link'),
+        InlineCode: translateService.translate('teTextEditor.inline_code'),
       },
       tools: {
         link: {
-          'Add a link': translateService.translate('teTextEditor.add_link')
+          'Add a link': translateService.translate('teTextEditor.add_link'),
         },
         table: {
           'Add column to the left': translateService.translate('teTextEditor.add_column_to_left'),
@@ -267,21 +274,21 @@ export function teGetI18nConfig(translateService: FlTranslateService): I18nConfi
           'Add row above': translateService.translate('teTextEditor.add_row_above'),
           'Add row below': translateService.translate('teTextEditor.add_row_below'),
           'Delete row': translateService.translate('teTextEditor.delete_row'),
-          'Heading': translateService.translate('teTextEditor.table_heading')
-        }
+          Heading: translateService.translate('teTextEditor.table_heading'),
+        },
       },
       blockTunes: {
-        'delete': {
-          'Delete': translateService.translate('teTextEditor.delete'),
-          'Click to delete': translateService.translate('teTextEditor.click_to_delete')
+        delete: {
+          Delete: translateService.translate('teTextEditor.delete'),
+          'Click to delete': translateService.translate('teTextEditor.click_to_delete'),
         },
-        'moveUp': {
-          'Move up': translateService.translate('teTextEditor.move_up')
+        moveUp: {
+          'Move up': translateService.translate('teTextEditor.move_up'),
         },
-        'moveDown': {
-          'Move down': translateService.translate('teTextEditor.move_down')
-        }
-      }
-    }
+        moveDown: {
+          'Move down': translateService.translate('teTextEditor.move_down'),
+        },
+      },
+    },
   };
 }

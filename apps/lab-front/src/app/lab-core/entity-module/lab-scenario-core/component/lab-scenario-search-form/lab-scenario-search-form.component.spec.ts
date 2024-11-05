@@ -8,9 +8,8 @@ describe('BioxScenarioAdvancedSearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabScenarioSearchFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LabScenarioSearchFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

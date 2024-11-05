@@ -1,18 +1,18 @@
-.gencovery-logo{
+.gencovery-logo {
   height: 100%;
   margin: 0;
 }
 
-.gencovery-logo-small{
+.gencovery-logo-small {
   height: 80%;
   margin: 0;
 }
 
-.gencovery-hub-logo img{
+.gencovery-hub-logo img {
   height: 100%;
 }
 
-.nav-bar-links{
+.nav-bar-links {
   background-color: var(--card-background);
   margin: 0 auto;
   padding: 0 7px;
@@ -22,7 +22,7 @@
   height: 100%;
 }
 
-.nav-bar{
+.nav-bar {
   display: flex;
   height: 56px;
   padding: 16px 100px 0 100px;
@@ -31,38 +31,38 @@
   justify-content: space-between;
 }
 
-.option{
+.option {
   font-weight: normal;
   width: auto; //9rem;
   margin: auto 3rem;
   text-align: center;
 }
 
-.option-icon{
+.option-icon {
   width: 30px;
   margin-top: 7.5px;
 }
 
-.brick-icon{
+.brick-icon {
   margin-top: 5px;
 }
 
-.body{
+.body {
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - var(--navbar-height));
   overflow-x: hidden;
 }
 
-.router{
+.router {
   flex: 1 0 auto;
 }
 
-.doc-menu-bt{
+.doc-menu-bt {
   cursor: pointer;
 }
 
-.span-initials{
+.span-initials {
   min-width: 170px;
   display: flex;
   flex-direction: row;
@@ -70,17 +70,17 @@
   justify-content: flex-end;
   align-items: center;
 
-  *:hover{
+  *:hover {
     cursor: pointer;
   }
 }
 
-.doc-menu-item{
+.doc-menu-item {
   width: calc(240px - 32px);
   text-align: center;
 }
 
-.doc-nav-div{
+.doc-nav-div {
   display: flex;
   height: 100%;
   padding-bottom: 8px;
@@ -89,42 +89,42 @@
   justify-content: center;
 }
 
-.doc-nav-div h5{
+.doc-nav-div h5 {
   margin: auto;
 }
 
-.user-profile{
+.user-profile {
   border-radius: 50%;
   border: 1px solid var(--main-background);
 }
 
 @media (max-width: 1160px) {
-  .nav-bar{
+  .nav-bar {
     padding: 16px 50px 0 50px;
   }
 
-  .span-initials{
+  .span-initials {
     min-width: 0;
     margin-right: 15px;
     gap: 4px;
   }
 
-  .option{
+  .option {
     margin: auto 1.5rem;
   }
 }
 
 @media (max-width: 965px) {
-  .nav-bar-links{
+  .nav-bar-links {
     display: none;
   }
 
-  .nav-bar{
+  .nav-bar {
     position: relative;
     padding: 16px 8px 0 8px;
   }
 
-  .gencovery-hub-logo{
+  .gencovery-hub-logo {
     position: absolute;
     top: calc(50% - 16px);
     left: calc(50% - 16px);
@@ -132,28 +132,27 @@
     width: 32px;
   }
 
-  .nav-bar-links{
+  .nav-bar-links {
     padding: 0;
   }
 
-  .option{
+  .option {
     margin: auto 1rem;
   }
 
-  .span-initials{
+  .span-initials {
     gap: 2px;
     margin-right: 0;
     margin-left: auto;
   }
 }
 
-
 @media (max-width: 590px) {
-  .doc-nav-div{
+  .doc-nav-div {
     width: fit-content;
   }
 
-  .option{
+  .option {
     margin: auto 0.5em;
   }
 }

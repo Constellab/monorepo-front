@@ -1,16 +1,15 @@
-import {Injectable} from '@angular/core';
-import {FlPlatformService} from './fl-plateform.service';
-import {Observable, of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { FlPlatformService } from './fl-plateform.service';
+import { Observable, of } from 'rxjs';
 
 /**
  * Service to manage access the browser local storage
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlLocalStorageService {
-  constructor(private platformService: FlPlatformService) {
-  }
+  constructor(private platformService: FlPlatformService) {}
 
   /**
    * Get an item from the local storage as a string
@@ -31,7 +30,11 @@ export class FlLocalStorageService {
    * @param defaultValue the default value if the item key does not exist
    * @param removeItemOnParseError if true, it removes the item if a parse error occurs
    */
-  public getParseItemObs(key: string, defaultValue: any = null, removeItemOnParseError: boolean = true): Observable<any> {
+  public getParseItemObs(
+    key: string,
+    defaultValue: any = null,
+    removeItemOnParseError: boolean = true
+  ): Observable<any> {
     return of(this.getParsedItem(key, defaultValue, removeItemOnParseError));
   }
 
@@ -101,7 +104,7 @@ export class FlLocalStorageService {
     if (!this.platformService.isBrowserPlatform()) {
       return;
     }
-    const items = {...localStorage};
+    const items = { ...localStorage };
 
     try {
       for (const key in items) {

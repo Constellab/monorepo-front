@@ -1,8 +1,8 @@
-import {computed, Injectable, Signal, signal, WritableSignal} from '@angular/core';
-import {FlThemeService} from '@monorepo/front-core-lib';
-import {ClTheme} from '@monorepo/core-lib';
-import {HaAuthenticatedUserService} from '../ha-service/ha-authenticated-user.service';
-import {Subject} from 'rxjs';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { FlThemeService } from '@monorepo/front-core-lib';
+import { ClTheme } from '@monorepo/core-lib';
+import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class HaThemeState {
@@ -12,9 +12,10 @@ export class HaThemeState {
   });
   public onThemeChange$: Subject<ClTheme> = new Subject<ClTheme>();
 
-  constructor(private themeService: FlThemeService,
-              private authUserService: HaAuthenticatedUserService) {
-  }
+  constructor(
+    private themeService: FlThemeService,
+    private authUserService: HaAuthenticatedUserService
+  ) {}
 
   public getCurrentTheme(): Signal<ClTheme> {
     return this.currentTheme;
@@ -22,7 +23,7 @@ export class HaThemeState {
 
   init(): void {
     this.setTheme(this.themeService.getCurrentTheme());
-    this.authUserService.getUser().subscribe(user => {
+    this.authUserService.getUser().subscribe((user) => {
       if (user != null && user.theme != this.currentTheme()) {
         this.changeTheme(user.theme, true);
       }

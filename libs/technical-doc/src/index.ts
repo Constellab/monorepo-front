@@ -1,6 +1,5 @@
 export * from './lib/td-technical-doc.module';
 
-
 // model
 export * from './lib/model/td-brick.class';
 export * from './lib/model/td-config-spec.class';
@@ -35,9 +34,7 @@ export * from './lib/component/td-other-class-doc/td-other-class-doc.component';
 //service
 export * from './lib/service/td-service-config.config';
 
-
 //pipe
 export * from './lib/pipe/td-markdown.pipe';
 export * from './lib/pipe/td-typing-name.pipe';
 export * from './lib/pipe/td-clean-type.pipe';
-

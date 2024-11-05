@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 /**
  * Simple button icon component that support double binding to toggle between
@@ -8,18 +8,15 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
   selector: 'fl-pin-unpin-button',
   templateUrl: './fl-pin-unpin-button.component.html',
   styleUrls: ['./fl-pin-unpin-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlPinUnpinButtonComponent implements OnInit {
-
   @Input() pin: boolean;
   @Output() pinChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get pinToggleText(): string {
     return this.pin ? 'flCoreComponent.unpin' : 'flCoreComponent.pin';

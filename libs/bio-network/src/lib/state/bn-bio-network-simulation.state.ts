@@ -1,10 +1,10 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {ForceManyBody, Simulation} from 'd3-force';
-import {BnBioNetworkNode} from '../model/bn-bio-network-node.class';
-import {ForceCenter, forceCenter, ForceLink, forceLink, forceManyBody, forceSimulation} from 'd3';
-import {BnBioNetworkGraph} from '../model/bn-bio-network-graph.class';
-import {BnBioNetworkEngineConfig} from './bn-bio-network-engine.state';
-import {Observable, Subject} from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ForceManyBody, Simulation } from 'd3-force';
+import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
+import { ForceCenter, forceCenter, ForceLink, forceLink, forceManyBody, forceSimulation } from 'd3';
+import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
+import { BnBioNetworkEngineConfig } from './bn-bio-network-engine.state';
+import { Observable, Subject } from 'rxjs';
 
 export interface BnBioNetworkSimulationProgressEvent {
   status: 'started' | 'ended' | 'progress';
@@ -14,7 +14,6 @@ export interface BnBioNetworkSimulationProgressEvent {
 
 @Injectable()
 export class BnBioNetworkSimulationState implements OnDestroy {
-
   private simulation: Simulation<BnBioNetworkNode, any>;
   private simulationEnded: boolean = false;
 
@@ -24,12 +23,12 @@ export class BnBioNetworkSimulationState implements OnDestroy {
 
   private progress$: Subject<BnBioNetworkSimulationProgressEvent> = new Subject();
 
-
   public initSimulation(data: BnBioNetworkGraph, config: BnBioNetworkEngineConfig): Promise<void> {
     this.simulationEnded = false;
     this.markAsStarted(config);
     this.simulation = forceSimulation(data.getMetabolitesAndReactions())
-      .force('link',
+      .force(
+        'link',
         this.getLinkForce(data, config)
         // .id((d: BnBioNetworkD3Node) => d.id)
       )
@@ -37,8 +36,7 @@ export class BnBioNetworkSimulationState implements OnDestroy {
       .force('center', this.getCenterForce(config))
       .alphaDecay(config.alphaDecay)
       .alphaMin(config.alphaMin)
-      .velocityDecay(config.velocityDecay)
-    ;
+      .velocityDecay(config.velocityDecay);
 
     this.simulation.on('tick', () => {
       this.newTick();
@@ -79,7 +77,6 @@ export class BnBioNetworkSimulationState implements OnDestroy {
   }
 
   public markAsStarted(config: BnBioNetworkEngineConfig): void {
-
     this.startTime = new Date().getTime();
     this.tickCount = 0;
 
@@ -92,13 +89,13 @@ export class BnBioNetworkSimulationState implements OnDestroy {
     }
     this.totalTickExpected = expectedTickCount;
 
-    this.progress$.next({status: 'started', progress: 0, duration: 0});
+    this.progress$.next({ status: 'started', progress: 0, duration: 0 });
     console.log('[BioNetwork] start simulation. Expected tick count: ' + expectedTickCount);
   }
 
   public markAsEnded(): void {
     const duration = new Date().getTime() - this.startTime;
-    this.progress$.next({status: 'ended', progress: 100, duration: duration});
+    this.progress$.next({ status: 'ended', progress: 100, duration: duration });
     console.log(`[BioNetwork] end simulation ${duration / 1000} seconds. Tick count: ${this.tickCount}`);
   }
 
@@ -106,7 +103,7 @@ export class BnBioNetworkSimulationState implements OnDestroy {
     this.tickCount++;
     const progress = (this.tickCount / this.totalTickExpected) * 100;
 
-    this.progress$.next({status: 'progress', progress: progress});
+    this.progress$.next({ status: 'progress', progress: progress });
 
     if (this.simulation) {
       console.log(`Alpha: ${this.simulation.alpha()}. Percent: ${progress}%`);
@@ -121,7 +118,4 @@ export class BnBioNetworkSimulationState implements OnDestroy {
     this.endSimulation();
     this.progress$.complete();
   }
-
-
 }
-

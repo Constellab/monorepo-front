@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {LabResource} from '../../../../model/entities/resource/lab-resource.entity';
-import {FlSavedSearch} from '@monorepo/front-core-lib';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { FlSavedSearch } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface LabSelectResourceDialogInput {
   savedSearches?: FlSavedSearch[];
@@ -15,22 +15,21 @@ export interface LabSelectResourceDialogInput {
 @Component({
   selector: 'lab-select-resource-dialog',
   templateUrl: './lab-select-resource-dialog.component.html',
-  styleUrls: ['./lab-select-resource-dialog.component.scss']
+  styleUrls: ['./lab-select-resource-dialog.component.scss'],
 })
 export class LabSelectResourceDialogComponent implements OnInit {
-
   savedSearch: FlSavedSearch[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: LabSelectResourceDialogInput,
-              private dialogRef: MatDialogRef<LabSelectResourceDialogComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) data: LabSelectResourceDialogInput,
+    private dialogRef: MatDialogRef<LabSelectResourceDialogComponent>
+  ) {
     this.savedSearch = data?.savedSearches;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onResourceSelected(resource: LabResource): void {
     this.dialogRef.close(resource);
   }
-
 }

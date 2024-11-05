@@ -1,12 +1,12 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ClHelpService} from '@monorepo/core-lib';
-import {LabResourceView} from '../../../../model/entities/resource/lab-resource-view.entity';
-import {FlOverlayRef, FlPortalConfig, FlPortalService} from '@monorepo/front-core-lib';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ClHelpService } from '@monorepo/core-lib';
+import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
 import {
   LabResourceViewPortalComponent,
-  LabResourceViewPortalInput
+  LabResourceViewPortalInput,
 } from '../../../lab-resource-core/component/lab-resource-view-portal/lab-resource-view-portal.component';
-import {LabViewConfigService} from '../../../../entity-service/lab-view-config.service';
+import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
 /**
  * Button to open the LabViewConfig preview in a portal
@@ -14,22 +14,21 @@ import {LabViewConfigService} from '../../../../entity-service/lab-view-config.s
 @Component({
   selector: 'lab-view-config-preview',
   templateUrl: './lab-view-config-preview.component.html',
-  styleUrls: ['./lab-view-config-preview.component.scss']
+  styleUrls: ['./lab-view-config-preview.component.scss'],
 })
 export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
-
   @Input() viewConfigId: string;
 
   isLoading: boolean = false;
 
   private overlay?: FlOverlayRef;
 
-  constructor(private viewConfigService: LabViewConfigService,
-              private portalService: FlPortalService) {
-  }
+  constructor(
+    private viewConfigService: LabViewConfigService,
+    private portalService: FlPortalService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showPreview(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -39,16 +38,18 @@ export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
     // load the view and show it in a portal
     this.viewConfigService.callViewConfig(this.viewConfigId).subscribe({
       next: (view) => this.openPortal(view, event.target as any),
-      error: () => this.isLoading = false
+      error: () => (this.isLoading = false),
     });
   }
 
   private openPortal(labView: LabResourceView, element: HTMLElement): void {
     const portalConfig: FlPortalConfig = this.portalService.configureRelativePortal(
-      element, ['left', 'bottom', 'right', 'top'],
+      element,
+      ['left', 'bottom', 'right', 'top'],
       {
         disposeOnNavigation: true,
-      });
+      }
+    );
 
     const config: LabResourceViewPortalInput = {
       labView: labView,

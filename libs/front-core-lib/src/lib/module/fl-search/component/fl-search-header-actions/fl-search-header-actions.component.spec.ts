@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlSearchHeaderActionsComponent} from './fl-search-header-actions.component';
+import { FlSearchHeaderActionsComponent } from './fl-search-header-actions.component';
 
 describe('FlSearchHeaderActionsComponent', () => {
   let component: FlSearchHeaderActionsComponent;
@@ -8,9 +8,8 @@ describe('FlSearchHeaderActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlSearchHeaderActionsComponent ]
-    })
-    .compileComponents();
+      declarations: [FlSearchHeaderActionsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlSearchHeaderActionsComponent);
     component = fixture.componentInstance;

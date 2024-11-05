@@ -1,16 +1,23 @@
-import {SpSheetChartSelection} from './sp-sheet-chart-selection.class';
-import {SpSheetChartSerieSelectionForm} from './sp-sheet-chart-selection-form.class';
-import {SpSheet} from '../sp-sheet.class';
-import {ChChart2dMultiSerie, ChChartBarPlot, ChChartConfig, ChChartStackedBar, ChChartType} from '@monorepo/chart';
-
+import { SpSheetChartSelection } from './sp-sheet-chart-selection.class';
+import { SpSheetChartSerieSelectionForm } from './sp-sheet-chart-selection-form.class';
+import { SpSheet } from '../sp-sheet.class';
+import {
+  ChChart2dMultiSerie,
+  ChChartBarPlot,
+  ChChartConfig,
+  ChChartStackedBar,
+  ChChartType,
+} from '@monorepo/chart';
 
 // Basic bar plot and stack plot
 export class SpSheetChartSelectionBarPlot extends SpSheetChartSelection {
-
-
-  constructor(sheet: SpSheet, private chartType: ChChartType.BAR_PLOT | ChChartType.STACKED_PLOT,
-              private series: SpSheetChartSerieSelectionForm[],
-              private xAxisLabel?: string, private yAxisLabel?: string) {
+  constructor(
+    sheet: SpSheet,
+    private chartType: ChChartType.BAR_PLOT | ChChartType.STACKED_PLOT,
+    private series: SpSheetChartSerieSelectionForm[],
+    private xAxisLabel?: string,
+    private yAxisLabel?: string
+  ) {
     super(sheet);
   }
 
@@ -30,4 +37,3 @@ export class SpSheetChartSelectionBarPlot extends SpSheetChartSelection {
     }
   }
 }
-

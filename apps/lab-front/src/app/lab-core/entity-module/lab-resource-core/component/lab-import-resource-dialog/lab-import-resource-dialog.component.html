@@ -6,7 +6,9 @@
   <!--   Small explanation text     -->
   <div class="g-text-light help-text">
     {{ 'biox.import_resource_text' | translate }}
-    <a [href]="communityHelpUrl" target="_blank" class="g-text-link link">{{ 'biox.import_more_info' | translate }}</a>
+    <a [href]="communityHelpUrl" target="_blank" class="g-text-link link">{{
+      'biox.import_more_info' | translate
+    }}</a>
   </div>
 
   <div class="g-text-centered">
@@ -19,9 +21,7 @@
     <fl-loader size="medium"></fl-loader>
   </div>
 
-
   <form *ngIf="selectedImporterType" (ngSubmit)="submit()" [formGroup]="formGp">
-
     <mat-divider class="divider"></mat-divider>
     <!--   Info about importer with button to see detail     -->
     <div class="g-layout-row g-layout-between-center">
@@ -35,11 +35,10 @@
     </div>
 
     <!--  Show the input to output  -->
-    <div class="g-layout-row g-layout-center-center specs-container"
-         *ngIf="sourceSpec && targetSpec">
+    <div class="g-layout-row g-layout-center-center specs-container" *ngIf="sourceSpec && targetSpec">
       <td-doc-io [ioSpec]="sourceSpec"></td-doc-io>
-      <mat-icon class="g-icon-big spec-separator"
-                [matTooltip]="'biox.import_to' | translate">double_arrow
+      <mat-icon class="g-icon-big spec-separator" [matTooltip]="'biox.import_to' | translate"
+        >double_arrow
       </mat-icon>
       <td-doc-io [ioSpec]="targetSpec"></td-doc-io>
     </div>
@@ -53,11 +52,9 @@
       {{ 'biox.resource_import_no_config' | translate }}
     </div>
 
-    <button mat-flat-button color="primary" type="submit"
-            class="g-centered-forced submit-button">
+    <button mat-flat-button color="primary" type="submit" class="g-centered-forced submit-button">
       {{ 'biox.import_resource' | translate }}
       <fl-button-loader *ngIf="callIsLoading"></fl-button-loader>
     </button>
   </form>
-
 </mat-dialog-content>

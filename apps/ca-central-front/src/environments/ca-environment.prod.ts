@@ -1,4 +1,4 @@
-import {CaEnvironment} from './ca-environment.class';
+import { CaEnvironment } from './ca-environment.class';
 
 /**
  * This file is just to define the skeleton for prod environment and set production to True
@@ -15,7 +15,7 @@ export const environment: CaEnvironment = {
     communityFrontUrl: '',
     frontDomain: '',
     captchaSiteKey: '',
-  }
+  },
 };
 
 // PREPROD

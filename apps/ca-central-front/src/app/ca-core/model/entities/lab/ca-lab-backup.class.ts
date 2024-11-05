@@ -8,7 +8,7 @@ import {
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
-  FlStatusTransform
+  FlStatusTransform,
 } from '@monorepo/front-core-lib';
 import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 
@@ -20,11 +20,10 @@ const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
   IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'flStatus.running'),
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete')
+  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete'),
 };
 
 export class CnLabBackupHistoryDetail extends CaBaseEntity {
-
   type: 'DATA' | 'DB';
 
   // Data info
@@ -53,7 +52,6 @@ export class CnLabBackupHistoryDetail extends CaBaseEntity {
 }
 
 export class CaLabBackupHistory extends CaBaseEntity {
-
   frequency: CaLabBackupFrequency;
 
   @Type(() => CaCloudProviderRegion)
@@ -86,9 +84,8 @@ export type CaLabBackupGlobalStatus = 'SUCCESS' | 'DELETED' | 'NONE';
 const caLabBackupGlobalStatus: FlStatusDict<CaLabBackupGlobalStatus> = {
   SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
   NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup'),
-  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete')
+  DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete'),
 };
-
 
 export class CaLabBackupStatusDTO {
   frequency: CaLabBackupFrequency;
@@ -113,17 +110,14 @@ export class CaLabBackupStatusDTO {
   nbDocumentsInBucket?: number;
 }
 
-export class CaLabCheckBackupSizeResponseDTO  {
+export class CaLabCheckBackupSizeResponseDTO {
   @Type(() => CaLabBackupStatusDTO)
   backupSizes: CaLabBackupStatusDTO[];
   labVolumeSize: number;
 }
 
-
 export class CaLabBackupStatusDatasource extends FlArrayObs<CaLabBackupStatusDTO> {
-
   protected equals(a: CaLabBackupStatusDTO, b: CaLabBackupStatusDTO): boolean {
     return a.region.id === b.region.id && a.frequency === b.frequency;
   }
 }
-

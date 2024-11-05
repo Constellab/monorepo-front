@@ -1,19 +1,17 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {c} from '@codemirror/legacy-modes/mode/clike';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { c } from '@codemirror/legacy-modes/mode/clike';
 
 @Component({
   selector: 'ha-comment-button',
   templateUrl: './ha-comment-button.component.html',
-  styleUrls: ['./ha-comment-button.component.scss']
+  styleUrls: ['./ha-comment-button.component.scss'],
 })
 export class HaCommentButtonComponent {
-
-  @Input({required: true}) commentsCount: number;
+  @Input({ required: true }) commentsCount: number;
 
   @Output() clicked = new EventEmitter<void>();
 
-  constructor() {
-  }
+  constructor() {}
 
   click(): void {
     this.clicked.emit();

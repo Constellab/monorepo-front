@@ -1,4 +1,4 @@
-import {FlDisableAnimationInitDirective} from './fl-disable-animation-init.directive';
+import { FlDisableAnimationInitDirective } from './fl-disable-animation-init.directive';
 
 describe('FlDisableAnimationInitDirective', () => {
   it('should create an instance', () => {

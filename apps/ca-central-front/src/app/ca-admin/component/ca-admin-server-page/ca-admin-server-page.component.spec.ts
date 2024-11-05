@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaAdminServerPageComponent} from './ca-admin-server-page.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaAdminServerPageComponent } from './ca-admin-server-page.component';
 
 describe('CaAdminServerInfoPageComponent', () => {
   let component: CaAdminServerPageComponent;

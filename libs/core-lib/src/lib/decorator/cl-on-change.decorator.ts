@@ -20,8 +20,9 @@ export interface ClSimpleChange<T> {
  *    this.callChange(value);
  *  })
  */
-export function ClOnChange<T>(callback: (value: T, simpleChange: ClSimpleChange<T>) => void): PropertyDecorator {
-
+export function ClOnChange<T>(
+  callback: (value: T, simpleChange: ClSimpleChange<T>) => void
+): PropertyDecorator {
   // use to store the private value called by getter and setter
   const cachedValueKey = Symbol();
   // key to store if it's the first change
@@ -42,7 +43,7 @@ export function ClOnChange<T>(callback: (value: T, simpleChange: ClSimpleChange<
         const simpleChange: ClSimpleChange<T> = {
           previousValue: this[cachedValueKey],
           currentValue: value,
-          firstChange: this[isFirstChangeKey]
+          firstChange: this[isFirstChangeKey],
         };
 
         // update private value
@@ -53,7 +54,7 @@ export function ClOnChange<T>(callback: (value: T, simpleChange: ClSimpleChange<
       // getter to access private value
       get: function (): T {
         return this[cachedValueKey];
-      }
+      },
     });
   };
 }

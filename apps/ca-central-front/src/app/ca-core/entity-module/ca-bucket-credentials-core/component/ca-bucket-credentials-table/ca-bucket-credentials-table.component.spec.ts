@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaBucketCredentialsTableComponent} from './ca-bucket-credentials-table.component';
+import { CaBucketCredentialsTableComponent } from './ca-bucket-credentials-table.component';
 
 describe('CaBucketCredentialsTableComponent', () => {
   let component: CaBucketCredentialsTableComponent;
@@ -8,9 +8,8 @@ describe('CaBucketCredentialsTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaBucketCredentialsTableComponent ]
-    })
-    .compileComponents();
+      declarations: [CaBucketCredentialsTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaBucketCredentialsTableComponent);
     component = fixture.componentInstance;

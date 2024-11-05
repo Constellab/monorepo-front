@@ -1,99 +1,142 @@
 <div class="div-sidenav">
-  <button mat-flat-button type="button" class="bt" (click)="onClickMenu($event, true)" *ngIf="userHasEditRight()">
-    <mat-icon >add_circle</mat-icon>
-    {{'create_element' | translate}}
+  <button
+    mat-flat-button
+    type="button"
+    class="bt"
+    (click)="onClickMenu($event, true)"
+    *ngIf="userHasEditRight()">
+    <mat-icon>add_circle</mat-icon>
+    {{ 'create_element' | translate }}
   </button>
   <div class="sidenav g-scrollable-element">
     <mat-form-field class="input-tech-doc g-form-field-compact-height" appearance="outline">
-      <mat-label>{{'research_doc' | translate}}</mat-label>
+      <mat-label>{{ 'research_doc' | translate }}</mat-label>
       <mat-icon matPrefix>search</mat-icon>
-      <input type="text" matInput [formControl]="searchTechDocControl" autocomplete="off">
+      <input type="text" matInput [formControl]="searchTechDocControl" autocomplete="off" />
     </mat-form-field>
 
-    <a [routerLink]="'.'"
-       [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text"
-       [ngClass]="currentCompletePath === '' ? 'sidenav-item-selected' : ''">
-      {{'introduction' | translate}}
+    <a
+      [routerLink]="'.'"
+      [relativeTo]="activatedRoute"
+      [routerLinkActive]="'active'"
+      class="sidenav-item small-text"
+      [ngClass]="currentCompletePath === '' ? 'sidenav-item-selected' : ''">
+      {{ 'introduction' | translate }}
     </a>
 
-
-    <mat-tree *ngIf="dataSource$ | async" [dataSource]="dataSource$ | async" [treeControl]="treeControl"
-              cdkDropList (cdkDropListDropped)="drop($event)" [trackBy]="trackByIdentity">
+    <mat-tree
+      *ngIf="dataSource$ | async"
+      [dataSource]="dataSource$ | async"
+      [treeControl]="treeControl"
+      cdkDropList
+      (cdkDropListDropped)="drop($event)"
+      [trackBy]="trackByIdentity">
       <!-- This is the tree node template for leaf nodes -->
-      <mat-tree-node *matTreeNodeDef="let node" cdkDrag
-                     [cdkDragDisabled]="!userHasEditRight() || node.name == null" [cdkDragData]="node"
-                     (mouseenter)="hoverId=node.id" (mouseleave)="hoverId=null"
-                     class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder"
-                     [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
-                     [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}">
-        <a [routerLink]="'doc/' + node.completePath + '/' + node.id"
-           [relativeTo]="activatedRoute" [routerLinkActive]="'active'" *ngIf="node.id != null">
-          {{node.name}}
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        cdkDrag
+        [cdkDragDisabled]="!userHasEditRight() || node.name == null"
+        [cdkDragData]="node"
+        (mouseenter)="hoverId = node.id"
+        (mouseleave)="hoverId = null"
+        class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder"
+        [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
+        [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }">
+        <a
+          [routerLink]="'doc/' + node.completePath + '/' + node.id"
+          [relativeTo]="activatedRoute"
+          [routerLinkActive]="'active'"
+          *ngIf="node.id != null">
+          {{ node.name }}
         </a>
         <div class="line-icons">
-          <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small" *ngIf="userHasEditRight() && hoverId===node.id">
+          <mat-icon
+            cdkDragHandle
+            class="drag-drop-bt g-icon-small"
+            *ngIf="userHasEditRight() && hoverId === node.id">
             drag_handle
           </mat-icon>
         </div>
       </mat-tree-node>
 
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" cdkDrag
-                     [cdkDragDisabled]="!userHasEditRight() || node.name == null" [cdkDragData]="node"
-                     (mouseenter)="hoverId=node.id" (mouseleave)="hoverId=null"
-                     class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder icon-pointer"
-                     [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
-                     [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="expansionModel.toggle(node)"
-                     matTreeNodeToggle>
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        cdkDrag
+        [cdkDragDisabled]="!userHasEditRight() || node.name == null"
+        [cdkDragData]="node"
+        (mouseenter)="hoverId = node.id"
+        (mouseleave)="hoverId = null"
+        class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder icon-pointer"
+        [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
+        [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }"
+        (click)="expansionModel.toggle(node)"
+        matTreeNodeToggle>
         <div *ngIf="node.id != null">
-          {{node.name}}
+          {{ node.name }}
         </div>
         <div class="line-icons">
           <mat-icon class="g-icon-small icon-pointer">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
           </mat-icon>
-          <mat-icon (click)="onClickMenu($event, true, false, node.id)" *ngIf="userHasEditRight() && hoverId===node.id"
-                    class="g-icon-small icon-pointer">
+          <mat-icon
+            (click)="onClickMenu($event, true, false, node.id)"
+            *ngIf="userHasEditRight() && hoverId === node.id"
+            class="g-icon-small icon-pointer">
             more_vert
           </mat-icon>
-          <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small" *ngIf="userHasEditRight() && hoverId===node.id">
+          <mat-icon
+            cdkDragHandle
+            class="drag-drop-bt g-icon-small"
+            *ngIf="userHasEditRight() && hoverId === node.id">
             drag_handle
           </mat-icon>
         </div>
       </mat-tree-node>
     </mat-tree>
 
-    <mat-tree *ngIf="technicalDataSource$ | async" [dataSource]="technicalDataSource$ | async"
-              [treeControl]="techTreeControl">
-
-      <mat-tree-node *matTreeNodeDef="let node" class="sidenav-item small-text"
-                     [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
-                     [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}">
-        <a [routerLink]="'doc/' + node.completePath" [relativeTo]="activatedRoute" [routerLinkActive]="'active'"
-           *ngIf="node.id != null">
-          {{node.name}}
+    <mat-tree
+      *ngIf="technicalDataSource$ | async"
+      [dataSource]="technicalDataSource$ | async"
+      [treeControl]="techTreeControl">
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        class="sidenav-item small-text"
+        [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
+        [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }">
+        <a
+          [routerLink]="'doc/' + node.completePath"
+          [relativeTo]="activatedRoute"
+          [routerLinkActive]="'active'"
+          *ngIf="node.id != null">
+          {{ node.name }}
         </a>
-
       </mat-tree-node>
 
-      <mat-tree-node *matTreeNodeDef="let node;when: hasChild" class="sidenav-item sidenav-item-with-icon small-text icon-pointer"
-                     [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
-                     [ngStyle]="{'margin-left' : (node.level)*15 + 'px'}" (click)="techExpansionModel.toggle(node)" matTreeNodeToggle>
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        class="sidenav-item sidenav-item-with-icon small-text icon-pointer"
+        [ngClass]="currentCompletePath?.includes(node.completePath) ? 'sidenav-item-selected' : ''"
+        [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }"
+        (click)="techExpansionModel.toggle(node)"
+        matTreeNodeToggle>
         <div *ngIf="node.id != null">
-          {{node.name}}
+          {{ node.name }}
         </div>
         <div class="line-icons">
           <mat-icon class="g-icon-small icon-pointer">
-            {{techTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            {{ techTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
           </mat-icon>
         </div>
       </mat-tree-node>
-
     </mat-tree>
 
-    <a [routerLink]="'version'" [relativeTo]="activatedRoute" [routerLinkActive]="'active'" class="sidenav-item small-text"
-       [ngClass]="currentCompletePath === '/version' ? 'sidenav-item-selected' : ''">
-      {{'version' | translate}}
+    <a
+      [routerLink]="'version'"
+      [relativeTo]="activatedRoute"
+      [routerLinkActive]="'active'"
+      class="sidenav-item small-text"
+      [ngClass]="currentCompletePath === '/version' ? 'sidenav-item-selected' : ''">
+      {{ 'version' | translate }}
     </a>
   </div>
 </div>
-

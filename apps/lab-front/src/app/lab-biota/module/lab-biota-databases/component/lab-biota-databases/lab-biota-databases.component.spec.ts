@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabBiotaDatabasesComponent} from './lab-biota-databases.component';
+import { LabBiotaDatabasesComponent } from './lab-biota-databases.component';
 
 describe('BiotaDatabasesComponent', () => {
   let component: LabBiotaDatabasesComponent;
@@ -8,9 +8,8 @@ describe('BiotaDatabasesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabBiotaDatabasesComponent ]
-    })
-    .compileComponents();
+      declarations: [LabBiotaDatabasesComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

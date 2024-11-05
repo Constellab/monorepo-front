@@ -8,16 +8,17 @@ import { TeBlockTuneConstructorConfig } from '../model/te-block-tune-factory.cla
  * BLock tune to drag and drop blocks
  */
 export class TeDragBlockTune implements BlockTune {
-
-  constructor(private config: TeBlockTuneConstructorConfig) {
-  }
+  constructor(private config: TeBlockTuneConstructorConfig) {}
 
   static get isTune(): boolean {
     return true;
   }
 
   render(): HTMLElement | MenuConfig {
-    const button = TeHelper.generateTuneButton(TeHelper.getTranslateService().translate('teTextEditor.drag_block'), 'open_with');
+    const button = TeHelper.generateTuneButton(
+      TeHelper.getTranslateService().translate('teTextEditor.drag_block'),
+      'open_with'
+    );
     // enable drag and drop
     button.setAttribute('draggable', 'true');
 
@@ -48,8 +49,5 @@ export class TeDragBlockTune implements BlockTune {
     });
 
     return button;
-
   }
-
-
 }

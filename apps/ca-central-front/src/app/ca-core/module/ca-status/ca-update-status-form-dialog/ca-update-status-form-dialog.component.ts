@@ -10,7 +10,6 @@ export interface UpdateStatusFormDialogInput<S extends string> {
   title?: string;
 
   updateStatus(status: S): Observable<any>;
-
 }
 
 /**
@@ -19,18 +18,19 @@ export interface UpdateStatusFormDialogInput<S extends string> {
 @Component({
   selector: 'ca-update-status-form-dialog',
   templateUrl: './ca-update-status-form-dialog.component.html',
-  styleUrls: ['./ca-update-status-form-dialog.component.scss']
+  styleUrls: ['./ca-update-status-form-dialog.component.scss'],
 })
 export class CaUpdateStatusFormDialogComponent implements OnInit {
-
   formControl: FormControl;
   statusDict: FlStatusDict;
 
   isLoading: boolean;
 
-  constructor(private dialogRef: MatDialogRef<CaUpdateStatusFormDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) private dialogInput: UpdateStatusFormDialogInput<any>,
-              private snackBarService: FlSnackBarService) {
+  constructor(
+    private dialogRef: MatDialogRef<CaUpdateStatusFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) private dialogInput: UpdateStatusFormDialogInput<any>,
+    private snackBarService: FlSnackBarService
+  ) {
     this.statusDict = dialogInput.statusDict;
   }
 
@@ -40,8 +40,10 @@ export class CaUpdateStatusFormDialogComponent implements OnInit {
 
   private initForm(): void {
     // create form control with a validator to verify that the status has changed
-    this.formControl = new FormControl(this.dialogInput.currentStatus.value,
-      [Validators.required, FlGlobalValidators.differentValue(this.dialogInput.currentStatus.value)]);
+    this.formControl = new FormControl(this.dialogInput.currentStatus.value, [
+      Validators.required,
+      FlGlobalValidators.differentValue(this.dialogInput.currentStatus.value),
+    ]);
   }
 
   submit(): void {
@@ -53,8 +55,8 @@ export class CaUpdateStatusFormDialogComponent implements OnInit {
   private updateStatus(status: any): void {
     this.isLoading = true;
     this.dialogInput.updateStatus(status).subscribe({
-      next: entity => this.updateStatusSuccess(entity),
-      error: () => this.isLoading = false
+      next: (entity) => this.updateStatusSuccess(entity),
+      error: () => (this.isLoading = false),
     });
   }
 
@@ -68,5 +70,4 @@ export class CaUpdateStatusFormDialogComponent implements OnInit {
   get title(): string {
     return this.dialogInput.title ?? 'update_status';
   }
-
 }

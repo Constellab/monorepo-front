@@ -1,5 +1,5 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CaActivityTableComponent} from './ca-activity-table.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CaActivityTableComponent } from './ca-activity-table.component';
 
 describe('CaActivityTableComponent', () => {
   let component: CaActivityTableComponent;

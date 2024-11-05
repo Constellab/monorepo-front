@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlResizePortalFullscreenButtonComponent} from './fl-resize-portal-fullscreen-button.component';
+import { FlResizePortalFullscreenButtonComponent } from './fl-resize-portal-fullscreen-button.component';
 
 describe('FlResizeFullscreenButtonComponent', () => {
   let component: FlResizePortalFullscreenButtonComponent;
@@ -8,9 +8,8 @@ describe('FlResizeFullscreenButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlResizePortalFullscreenButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [FlResizePortalFullscreenButtonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

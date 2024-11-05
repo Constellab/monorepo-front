@@ -1,6 +1,6 @@
-import {Component, Directive, ElementRef, HostListener, Inject, Renderer2} from '@angular/core';
-import {FlDialogService} from '../../../fl-dialog/fl-dialog.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { Component, Directive, ElementRef, HostListener, Inject, Renderer2 } from '@angular/core';
+import { FlDialogService } from '../../../fl-dialog/fl-dialog.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 interface FlImageFullscreenDialogInput {
   src: string;
@@ -14,10 +14,11 @@ interface FlImageFullscreenDialogInput {
   selector: 'img[flImageFullscreen]',
 })
 export class FlImageFullscreenDirective {
-
-  constructor(private dialogService: FlDialogService,
-              private elementRef: ElementRef<HTMLImageElement>,
-              private renderer: Renderer2) {
+  constructor(
+    private dialogService: FlDialogService,
+    private elementRef: ElementRef<HTMLImageElement>,
+    private renderer: Renderer2
+  ) {
     this.renderer.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');
   }
 
@@ -29,15 +30,15 @@ export class FlImageFullscreenDirective {
     if (!src) return;
 
     const input: FlImageFullscreenDialogInput = {
-      src, alt: this.elementRef.nativeElement.alt
+      src,
+      alt: this.elementRef.nativeElement.alt,
     };
 
-    this.dialogService.openFullDialog(FlImageFullscreenTestComponent,
-      {
-        data: input,
-        panelClass: ['g-dialog-no-padding', 'g-dialog-no-border-radius', 'g-dialog-transparent'],
-        autoFocus: false
-      });
+    this.dialogService.openFullDialog(FlImageFullscreenTestComponent, {
+      data: input,
+      panelClass: ['g-dialog-no-padding', 'g-dialog-no-border-radius', 'g-dialog-transparent'],
+      autoFocus: false,
+    });
   }
 }
 
@@ -50,36 +51,40 @@ export class FlImageFullscreenDirective {
       <button mat-mini-fab matDialogClose class="close-button g-button-shadow" color="primary">
         <mat-icon>close</mat-icon>
       </button>
-      <img [src]="src" [alt]="alt" (flOutsideClick)="closeDialog()">
+      <img [src]="src" [alt]="alt" (flOutsideClick)="closeDialog()" />
     </div>
   `,
-  styles: [`
-    .container {
-      height: 100%;
-      width: 100%;
-      position: absolute;
-    }
+  styles: [
+    `
+      .container {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
 
-    .close-button {
-      position: absolute;
-      top: 0.5em;
-      right: 0.5em;
-      z-index: 1;
-    }
+      .close-button {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        z-index: 1;
+      }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      max-height: 100%;
-    }`]
+      img {
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+      }
+    `,
+  ],
 })
 export class FlImageFullscreenTestComponent {
-
   src: string;
   alt: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: FlImageFullscreenDialogInput,
-              private dialogRef: MatDialogRef<FlImageFullscreenTestComponent>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) input: FlImageFullscreenDialogInput,
+    private dialogRef: MatDialogRef<FlImageFullscreenTestComponent>
+  ) {
     this.src = input.src;
     this.alt = input.alt;
   }

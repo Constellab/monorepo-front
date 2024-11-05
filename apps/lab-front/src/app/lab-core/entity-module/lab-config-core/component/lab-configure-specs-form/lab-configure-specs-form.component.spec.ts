@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabConfigureSpecsFormComponent} from './lab-configure-specs-form.component';
+import { LabConfigureSpecsFormComponent } from './lab-configure-specs-form.component';
 
 describe('BioxConfigureSpecComponent', () => {
   let component: LabConfigureSpecsFormComponent;
@@ -8,9 +8,8 @@ describe('BioxConfigureSpecComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabConfigureSpecsFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LabConfigureSpecsFormComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

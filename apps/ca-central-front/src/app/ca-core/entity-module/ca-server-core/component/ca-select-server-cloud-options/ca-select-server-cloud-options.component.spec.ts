@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaSelectServerCloudOptionsComponent} from './ca-select-server-cloud-options.component';
+import { CaSelectServerCloudOptionsComponent } from './ca-select-server-cloud-options.component';
 
 describe('ServerInfoSelectOptionsComponent', () => {
   let component: CaSelectServerCloudOptionsComponent;
@@ -8,9 +8,8 @@ describe('ServerInfoSelectOptionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaSelectServerCloudOptionsComponent ]
-    })
-    .compileComponents();
+      declarations: [CaSelectServerCloudOptionsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

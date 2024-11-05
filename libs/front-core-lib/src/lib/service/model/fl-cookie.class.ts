@@ -1,5 +1,5 @@
-import {InjectionToken} from '@angular/core';
-import {ComponentType} from '@angular/cdk/overlay';
+import { InjectionToken } from '@angular/core';
+import { ComponentType } from '@angular/cdk/overlay';
 
 /**
  * Accessible cookie containing the Authorization expiration date
@@ -7,8 +7,6 @@ import {ComponentType} from '@angular/cdk/overlay';
  * Used to know if the user is logged on
  */
 export const flAuthExpiredCookie: string = 'Auth_Expiration';
-
-
 
 /**
  * Object containing default options to pass when setting cookies.
@@ -94,5 +92,4 @@ export interface FlAcceptanceCookie {
   choice?: boolean;
 }
 
-export const COOKIE_MODULE_CONFIG =
-  new InjectionToken<FlAcceptanceCookiesConfig>('COOKIE_CONFIG');
+export const COOKIE_MODULE_CONFIG = new InjectionToken<FlAcceptanceCookiesConfig>('COOKIE_CONFIG');

@@ -8,9 +8,8 @@ describe('LabConfigureProtocolDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabConfigureProtocolDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [LabConfigureProtocolDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

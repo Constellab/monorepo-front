@@ -10,35 +10,36 @@ import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
 @Component({
   selector: 'fl-login',
   templateUrl: './fl-login.component.html',
-  styleUrls: ['./fl-login.component.scss']
+  styleUrls: ['./fl-login.component.scss'],
 })
 export class FlLoginComponent {
-
-
   @Output() loginSuccess: EventEmitter<FlAuthLoginResponse> = new EventEmitter<FlAuthLoginResponse>();
 
   formGp = FlLoginFormComponent.buildForm();
   isLoading = false;
 
-  constructor(private authService: FlAuthService,
-              private captchaService: FlCaptchaService) {
-  }
+  constructor(
+    private authService: FlAuthService,
+    private captchaService: FlCaptchaService
+  ) {}
 
   login(): void {
     if (this.formGp.valid) {
       this.isLoading = true;
 
-      this.generateCaptcha().pipe(
-        switchMap((token) => {
-          const value = this.formGp.getRawValue();
-          value.captcha = token;
+      this.generateCaptcha()
+        .pipe(
+          switchMap((token) => {
+            const value = this.formGp.getRawValue();
+            value.captcha = token;
 
-          return this.authService.login(value);
-        })
-      ).subscribe({
-        next: response => this.onLoginSuccess(response),
-        error: () => this.error()
-      });
+            return this.authService.login(value);
+          })
+        )
+        .subscribe({
+          next: (response) => this.onLoginSuccess(response),
+          error: () => this.error(),
+        });
     } else {
       this.formGp.markAllAsTouched();
     }
@@ -58,5 +59,4 @@ export class FlLoginComponent {
     this.isLoading = false;
     this.formGp.get('password').reset();
   }
-
 }

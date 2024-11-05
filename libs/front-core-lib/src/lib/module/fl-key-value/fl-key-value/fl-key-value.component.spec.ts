@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {FlKeyValueComponent} from './fl-key-value.component';
+import { FlKeyValueComponent } from './fl-key-value.component';
 
 describe('FlKeyValueComponent', () => {
   let component: FlKeyValueComponent;
@@ -8,9 +8,8 @@ describe('FlKeyValueComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlKeyValueComponent ]
-    })
-    .compileComponents();
+      declarations: [FlKeyValueComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

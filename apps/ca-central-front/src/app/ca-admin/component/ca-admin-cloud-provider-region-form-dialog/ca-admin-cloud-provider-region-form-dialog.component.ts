@@ -15,13 +15,12 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
 @Component({
   selector: 'ca-admin-bucket-region-form-dialog',
   templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
-  styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss']
+  styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
 })
 export class CaAdminCloudProviderRegionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCloudProviderRegion, CaCloudProviderRegion>
-  implements OnInit {
-
-
+  implements OnInit
+{
   constructor(private cloudProviderService: CaCloudProviderService) {
     super();
   }
@@ -38,7 +37,7 @@ export class CaAdminCloudProviderRegionFormDialogComponent
       name: [null, Validators.required],
       cloudProvider: [null],
       city: [null, Validators.required],
-      s3Endpoint: [null]
+      s3Endpoint: [null],
     });
   }
 
@@ -61,6 +60,4 @@ export class CaAdminCloudProviderRegionFormDialogComponent
   get title(): string {
     return this.isCreateMode() ? 'create_cloud_provider_region' : 'update_cloud_provider_region';
   }
-
-
 }

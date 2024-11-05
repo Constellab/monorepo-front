@@ -10,12 +10,12 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
-import {FormGroupDirective, NgControl, NgForm} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
-import {first} from 'rxjs/operators';
-import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-field.directive';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 
 /**
  * Component to wrap around a custom form field to handle form error status like mat-form-field
@@ -31,15 +31,14 @@ import {FlFormFieldDirective} from '../../../../abstract-directive/form/fl-form-
   selector: 'fl-form-field',
   templateUrl: './fl-form-field.component.html',
   styleUrls: ['./fl-form-field.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
-
   // mandatory to get the control of the content input
-  @ContentChild(NgControl, {static: true}) control: NgControl;
+  @ContentChild(NgControl, { static: true }) control: NgControl;
 
   // optional, to work with LibFormFieldDirective and set its state
-  @ContentChild(FlFormFieldDirective, {static: true}) libFormFieldDirective: FlFormFieldDirective<any>;
+  @ContentChild(FlFormFieldDirective, { static: true }) libFormFieldDirective: FlFormFieldDirective<any>;
 
   /**
    * If true the predefined space for the mat-error is removed, when the mat-error will appear
@@ -55,12 +54,13 @@ export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(@Host() @Optional() private ngForm: NgForm,
-              @Host() @Optional() private formGroupDirective: FormGroupDirective,
-              private renderer: Renderer2,
-              private elementRef: ElementRef,
-              private cdr: ChangeDetectorRef) {
-  }
+  constructor(
+    @Host() @Optional() private ngForm: NgForm,
+    @Host() @Optional() private formGroupDirective: FormGroupDirective,
+    private renderer: Renderer2,
+    private elementRef: ElementRef,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     if (!this.control) {
@@ -79,9 +79,7 @@ export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
       submitObservable = this.formGroupDirective.ngSubmit;
     }
 
-    this.subscription = submitObservable?.pipe(first()).subscribe(
-      () => this.submitted = true
-    );
+    this.subscription = submitObservable?.pipe(first()).subscribe(() => (this.submitted = true));
   }
 
   ngDoCheck(): void {
@@ -109,12 +107,9 @@ export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
     } else {
       this.renderer.removeClass(this.elementRef.nativeElement, 'core-form-field-invalid');
     }
-
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
-
 }

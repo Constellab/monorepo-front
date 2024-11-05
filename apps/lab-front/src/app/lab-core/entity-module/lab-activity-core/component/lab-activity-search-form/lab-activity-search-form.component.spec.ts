@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabActivitySearchFormComponent} from './lab-activity-search-form.component';
+import { LabActivitySearchFormComponent } from './lab-activity-search-form.component';
 
 describe('LabActivitySearchFormComponent', () => {
   let component: LabActivitySearchFormComponent;

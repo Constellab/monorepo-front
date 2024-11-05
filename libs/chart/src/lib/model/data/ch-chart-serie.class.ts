@@ -1,7 +1,7 @@
-import {ChChartData, ChChartDataContainer} from './ch-chart-data.class';
-import {ClHelpService} from '@monorepo/core-lib';
-import {FlTagHelper} from '@monorepo/front-core-lib';
-import {ChLegend} from '../legend/ch-chart-legend-multi-series.class';
+import { ChChartData, ChChartDataContainer } from './ch-chart-data.class';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlTagHelper } from '@monorepo/front-core-lib';
+import { ChLegend } from '../legend/ch-chart-legend-multi-series.class';
 
 /**
  * Key to distinguish a serie form another
@@ -17,14 +17,12 @@ export interface ChChartSerieWithColor {
   color: string;
 }
 
-export interface ChChartSerieSimple{
+export interface ChChartSerieSimple {
   name: string;
   key: number | string;
 }
 
-
 export class ChChartSerie<Data extends ChChartData> implements ChChartDataContainer<Data>, ChLegend {
-
   private static key: number = 0;
 
   data: Data[];
@@ -42,11 +40,11 @@ export class ChChartSerie<Data extends ChChartData> implements ChChartDataContai
   public getDataWithSerie(getOnlyValid: boolean = false): ChChartDataWithSerie<Data>[] {
     const data: Data[] = getOnlyValid ? this.getValidData() : this.getData();
 
-    return data.map(data => {
+    return data.map((data) => {
       return {
         data: data,
         serieKey: this.key,
-        serieName: this.name
+        serieName: this.name,
       };
     });
   }
@@ -55,7 +53,7 @@ export class ChChartSerie<Data extends ChChartData> implements ChChartDataContai
     return {
       data: this.getData()[index] ?? null,
       serieKey: this.key,
-      serieName: this.name
+      serieName: this.name,
     };
   }
 
@@ -71,7 +69,7 @@ export class ChChartSerie<Data extends ChChartData> implements ChChartDataContai
    * Retrieve only the valid data
    */
   public getValidData(): Data[] {
-    return this.getData().filter(d => d.valid);
+    return this.getData().filter((d) => d.valid);
   }
 
   public addData(data: Data | Data[]): void {

@@ -8,9 +8,8 @@ describe('CaLabGlobalStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaLabGlobalStatusComponent ]
-    })
-    .compileComponents();
+      declarations: [CaLabGlobalStatusComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaLabGlobalStatusComponent);
     component = fixture.componentInstance;

@@ -11,18 +11,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'fl-password-forgotten',
   templateUrl: './fl-password-forgotten.component.html',
-  styleUrls: ['./fl-password-forgotten.component.scss']
+  styleUrls: ['./fl-password-forgotten.component.scss'],
 })
 export class FlPasswordForgottenComponent implements OnInit {
-
   formControl: FormControl<string>;
 
   isLoading: boolean = false;
 
-  constructor(private dialogRef: MatDialogRef<FlPasswordForgottenComponent>,
-              private userAccountsService: FlUserAccountService,
-              private snackBarService: FlSnackBarService) {
-  }
+  constructor(
+    private dialogRef: MatDialogRef<FlPasswordForgottenComponent>,
+    private userAccountsService: FlUserAccountService,
+    private snackBarService: FlSnackBarService
+  ) {}
 
   ngOnInit(): void {
     this.formControl = new FormControl<string>(null, [Validators.required, Validators.email]);
@@ -38,14 +38,16 @@ export class FlPasswordForgottenComponent implements OnInit {
     this.isLoading = true;
     this.userAccountsService.passwordForgotten(email).subscribe(
       () => this.onSuccess(),
-      () => this.isLoading = false
+      () => (this.isLoading = false)
     );
   }
 
   private onSuccess(): void {
-    this.snackBarService.openSuccessMessage({text:'flAuth.password_forgotten_mail_sent',  translateText: true}, 7000);
+    this.snackBarService.openSuccessMessage(
+      { text: 'flAuth.password_forgotten_mail_sent', translateText: true },
+      7000
+    );
 
     this.dialogRef.close();
   }
-
 }

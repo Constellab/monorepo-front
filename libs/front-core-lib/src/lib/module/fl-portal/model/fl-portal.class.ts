@@ -1,5 +1,5 @@
-import {ConnectedPosition, OverlayConfig} from '@angular/cdk/overlay';
-import {InjectionToken} from '@angular/core';
+import { ConnectedPosition, OverlayConfig } from '@angular/cdk/overlay';
+import { InjectionToken } from '@angular/core';
 
 /**
  * @ignore
@@ -48,12 +48,10 @@ export interface FlOverlayConfig extends OverlayConfig {
   size?: FlOverlaySize;
 }
 
-
 /**
  * The configuration to create relative overlay
  */
 export interface FlRelativeOverlayConfig extends FlOverlayConfig {
-
   /**
    * Set a size relative to the host element
    */
@@ -65,7 +63,6 @@ export interface FlRelativeOverlayConfig extends FlOverlayConfig {
    */
   viewPortMargin?: number;
 }
-
 
 /**
  * Injection token for the Overlay's Data.

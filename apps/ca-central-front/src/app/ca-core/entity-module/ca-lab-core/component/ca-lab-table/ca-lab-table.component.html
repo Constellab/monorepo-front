@@ -1,5 +1,4 @@
 <mat-table mat-table [dataSource]="datasource" flSearchTableSort>
-
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -40,7 +39,6 @@
     </mat-cell>
   </ng-container>
 
-
   <!-- Created By -->
   <ng-container matColumnDef="createdBy">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -54,7 +52,7 @@
   <!-- Server cloud -->
   <ng-container matColumnDef="serverCloud">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{'server_cloud' | translate}}
+      {{ 'server_cloud' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let lab">
       <ca-server-cloud-inline *ngIf="lab.serverCloud" [serverCloud]="lab.serverCloud">
@@ -62,20 +60,20 @@
     </mat-cell>
   </ng-container>
 
-
   <!-- Action -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="action-column g-table-icon-button-cell">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="action-column g-table-icon-button-cell"> </mat-header-cell>
     <mat-cell *matCellDef="let lab" class="action-column g-table-icon-button-cell">
-
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="stopEventPropagation($event)">
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-        <a mat-menu-item type="button" [caExternalSpaceLink]="getLabRoute(lab)"
-           [caExternalSpaceDomain]="lab.space.domain">
+        <a
+          mat-menu-item
+          type="button"
+          [caExternalSpaceLink]="getLabRoute(lab)"
+          [caExternalSpaceDomain]="lab.space.domain">
           <mat-icon>visibility</mat-icon>
           <span>{{ 'detail' | translate }}</span>
         </a>
@@ -94,20 +92,18 @@
           <span class="g-warn-text">{{ 'delete' | translate }}</span>
         </button>
       </mat-menu>
-
-
     </mat-cell>
   </ng-container>
-
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
   <ng-container *ngIf="!disableLink; else noLink">
-    <mat-row *matRowDef="let row; columns: columns;" class="g-table-row-selectable"
-             [routerLink]="row | caDetailRoute"></mat-row>
+    <mat-row
+      *matRowDef="let row; columns: columns"
+      class="g-table-row-selectable"
+      [routerLink]="row | caDetailRoute"></mat-row>
   </ng-container>
   <ng-template #noLink>
-    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: columns"></mat-row>
   </ng-template>
 </mat-table>
-

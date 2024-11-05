@@ -1,4 +1,4 @@
-import {FlFromNowPipe} from './fl-from-now.pipe';
+import { FlFromNowPipe } from './fl-from-now.pipe';
 
 describe('LibFromNowPipe', () => {
   it('create an instance', () => {

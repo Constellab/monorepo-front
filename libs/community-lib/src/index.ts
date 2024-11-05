@@ -28,5 +28,3 @@ export * from './lib/model/co-brick.class';
 export * from './lib/model/co-space.class';
 export * from './lib/model/co-user.class';
 export * from './lib/model/co-icon.class';
-
-

@@ -1,28 +1,21 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FlMenuDynamicComponent} from './component/fl-menu-dynamic/fl-menu-dynamic.component';
-import {FlMenuDynamicPortalComponent} from './component/fl-menu-dynamic-portal/fl-menu-dynamic-portal.component';
-import {MatIconModule} from '@angular/material/icon';
-import {FlTranslateModule} from '../fl-translate/fl-translate.module';
-import {FlIconModule} from '../fl-svg-icon/fl-icon.module';
-import {MatDividerModule} from '@angular/material/divider';
-import {RouterModule} from '@angular/router';
-import {FlMenuDynamicButtonComponent} from './component/fl-menu-dynamic-button/fl-menu-dynamic-button.component';
-import {MatMenuModule} from '@angular/material/menu';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FlMenuDynamicComponent } from './component/fl-menu-dynamic/fl-menu-dynamic.component';
+import { FlMenuDynamicPortalComponent } from './component/fl-menu-dynamic-portal/fl-menu-dynamic-portal.component';
+import { MatIconModule } from '@angular/material/icon';
+import { FlTranslateModule } from '../fl-translate/fl-translate.module';
+import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule } from '@angular/router';
+import { FlMenuDynamicButtonComponent } from './component/fl-menu-dynamic-button/fl-menu-dynamic-button.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 /**
  * Module to create mat menu dynamically
  */
 @NgModule({
-  declarations: [
-    FlMenuDynamicComponent,
-    FlMenuDynamicPortalComponent,
-    FlMenuDynamicButtonComponent],
-  exports: [
-    FlMenuDynamicComponent,
-    FlMenuDynamicPortalComponent,
-    FlMenuDynamicButtonComponent
-  ],
+  declarations: [FlMenuDynamicComponent, FlMenuDynamicPortalComponent, FlMenuDynamicButtonComponent],
+  exports: [FlMenuDynamicComponent, FlMenuDynamicPortalComponent, FlMenuDynamicButtonComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -35,5 +28,4 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDividerModule,
   ],
 })
-export class FlMenuDynamicModule {
-}
+export class FlMenuDynamicModule {}

@@ -1,23 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Import theme for material
-@import "../../../libs/front-core-lib/src/style/theme/theme";
+@import '../../../libs/front-core-lib/src/style/theme/theme';
 // Import the style for the library
-@import "../../../libs/front-core-lib/src/style/fl-global";
-@import "../../../libs/front-core-lib/src/style/fl-media-query";
-@import "../../../libs/front-core-lib/src/style/fl-flex";
+@import '../../../libs/front-core-lib/src/style/fl-global';
+@import '../../../libs/front-core-lib/src/style/fl-media-query';
+@import '../../../libs/front-core-lib/src/style/fl-flex';
 
 // Import the style for material
-@import "../../../libs/front-core-lib/src/style/fl-material-override";
-@import "../../../libs/front-core-lib/src/style/fl-dialog";
-@import "../../../libs/front-core-lib/src/style/fl-icon";
+@import '../../../libs/front-core-lib/src/style/fl-material-override';
+@import '../../../libs/front-core-lib/src/style/fl-dialog';
+@import '../../../libs/front-core-lib/src/style/fl-icon';
 
 :root {
   // margin on top and bottom of the main menu
   --main-menu-margin: 1em;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -25,7 +26,8 @@ body {
   margin: 0;
 }
 
-.g-page, .g-page-fixed {
+.g-page,
+.g-page-fixed {
   padding: 1em 2em 0 2em;
   min-height: 100vh;
   width: 100%;
@@ -40,7 +42,8 @@ body {
 }
 
 @media (max-width: 599px) {
-  .g-page, .g-page-fixed {
+  .g-page,
+  .g-page-fixed {
     padding: 1em 1em 0 1em;
   }
 }
@@ -94,7 +97,6 @@ body {
   }
 }
 
-
 .g-grid-4-cols {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -106,7 +108,6 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-
 
 @media (max-width: 959px) {
   .g-grid-4-cols {
@@ -138,14 +139,13 @@ body {
   }
 }
 
-
 ///////////////// caNotificationMark //////////////////////
 .g-notification-mark {
   // make a small circle on top right of the element
   position: relative;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: -5px;
     right: -5px;
@@ -157,7 +157,7 @@ body {
 }
 
 ////////////////// Text Editor ///////////////////////////
-.g-ca-mention{
+.g-ca-mention {
   background-color: var(--hover-color);
   padding: 3px 5px;
   border-radius: 5px;

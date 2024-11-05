@@ -17,10 +17,9 @@ import { LabViewConfig } from '../../model/entities/resource/lab-view-config.ent
  *  Provide an id and the object type
  */
 @Pipe({
-  name: 'labDetailRoute'
+  name: 'labDetailRoute',
 })
 export class LabDetailRoutePipe implements PipeTransform {
-
   transform(value: LabEntity): string;
   transform(value: string, objectType: LabEntityType): string;
   transform(value: string | LabEntity, objectType?: LabEntityType): string {
@@ -49,7 +48,6 @@ export class LabDetailRoutePipe implements PipeTransform {
         console.error(`[labDetailRoute] object type ${objectType} not supported`);
         return null;
     }
-
   }
 
   private getObjectType(obj: any): LabEntityType {
@@ -70,6 +68,4 @@ export class LabDetailRoutePipe implements PipeTransform {
       return null;
     }
   }
-
-
 }

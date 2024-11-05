@@ -1,23 +1,29 @@
-<mat-table mat-table [dataSource]="datasource" flSearchTableSort
-           [ngClass]="{'table-selectable': rowSelectable}">
-
+<mat-table
+  mat-table
+  [dataSource]="datasource"
+  flSearchTableSort
+  [ngClass]="{ 'table-selectable': rowSelectable }">
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2" mat-sort-header>
       {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType" class="g-column-width-2">
-      <mat-icon *ngIf="processType.status === 'UNAVAILABLE'" color="warn"
-                class="type-unavailable" [matTooltip]="'biox.process_type_unavailable_error' | translate">
+      <mat-icon
+        *ngIf="processType.status === 'UNAVAILABLE'"
+        color="warn"
+        class="type-unavailable"
+        [matTooltip]="'biox.process_type_unavailable_error' | translate">
         error
       </mat-icon>
 
-      <td-type-inline [text]="processType.humanName"
-                      [style]="processType.style"></td-type-inline>
+      <td-type-inline [text]="processType.humanName" [style]="processType.style"></td-type-inline>
 
-      <fl-chip *ngIf="processType.deprecatedSince" size="tiny"
-               class="g-warn-background deprecated-chip"
-               [matTooltip]="processType.deprecatedMessage">
+      <fl-chip
+        *ngIf="processType.deprecatedSince"
+        size="tiny"
+        class="g-warn-background deprecated-chip"
+        [matTooltip]="processType.deprecatedMessage">
         {{ 'biox.type_deprecated' | translate }}
       </fl-chip>
     </mat-cell>
@@ -33,7 +39,6 @@
     </mat-cell>
   </ng-container>
 
-
   <!-- Sub type -->
   <ng-container matColumnDef="objectSubType">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -46,18 +51,18 @@
 
   <!-- Detail button -->
   <ng-container matColumnDef="detail">
-    <mat-header-cell *matHeaderCellDef class="detail-column">
-    </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef class="detail-column"> </mat-header-cell>
     <mat-cell *matCellDef="let processType" class="detail-column">
-      <lab-type-show-detail-button [typingName]="processType.typingName"
-                                   (click)="stopEventPropagation($event)">
+      <lab-type-show-detail-button
+        [typingName]="processType.typingName"
+        (click)="stopEventPropagation($event)">
       </lab-type-show-detail-button>
     </mat-cell>
   </ng-container>
 
-
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columns;"
-           [ngClass]="{'g-table-row-selectable': rowSelectable}" (click)="rowClicked(row)"></mat-row>
+  <mat-row
+    *matRowDef="let row; columns: columns"
+    [ngClass]="{ 'g-table-row-selectable': rowSelectable }"
+    (click)="rowClicked(row)"></mat-row>
 </mat-table>
-

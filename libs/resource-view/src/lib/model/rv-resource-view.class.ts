@@ -10,13 +10,19 @@ import { FlPlotlyData } from '@monorepo/front-core-lib';
 
 // list of available view type
 export type RvResourceViewType =
-  'json-view'
+  | 'json-view'
   | 'text-view'
-  | 'table-view' | 'dataset-view' | 'tabular-view'
+  | 'table-view'
+  | 'dataset-view'
+  | 'tabular-view'
   | 'network-view'
   | 'image-view'
-  | 'scatter-plot-2d-view' | 'line-plot-2d-view' | 'vulcano-plot-view'
-  | 'bar-plot-view' | 'stacked-bar-plot-view' | 'histogram-view'
+  | 'scatter-plot-2d-view'
+  | 'line-plot-2d-view'
+  | 'vulcano-plot-view'
+  | 'bar-plot-view'
+  | 'stacked-bar-plot-view'
+  | 'histogram-view'
   | 'box-plot-view'
   | 'multi-view'
   | 'venn-diagram-view'
@@ -41,7 +47,7 @@ export interface RvResourceViewJson extends RvResourceViewBase {
 export interface RvResourceViewText extends RvResourceViewBase {
   type: 'text-view';
   data: {
-    text: string
+    text: string;
     is_first_page: boolean;
     is_last_page: boolean;
     next_page: any;
@@ -106,7 +112,7 @@ export interface RvResourceViewAudio extends RvResourceViewBase {
 
 //////////////////////////// TYPE THAT GROUP ALL VIEW TYPES /////////////////////////////
 export type RvResourceView =
-  RvResourceViewJson
+  | RvResourceViewJson
   | RvResourceViewMulti
   | RvViewChartType
   | RvResourceViewImage
@@ -119,7 +125,7 @@ export type RvResourceView =
   | RvResourceViewAudio;
 
 export type RvViewChartType =
-  RvResourceViewBasicPlot2d
+  | RvResourceViewBasicPlot2d
   | RvResourceViewBoxPlot
   | RvResourceViewHeatMap
   | RvResourceViewHistogram

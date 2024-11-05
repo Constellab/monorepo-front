@@ -8,9 +8,8 @@ describe('LabNoteContentViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabRichTextViewComponent ]
-    })
-    .compileComponents();
+      declarations: [LabRichTextViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

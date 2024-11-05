@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {BnBioNetworkClustersListComponent} from './bn-bio-network-clusters-list.component';
+import { BnBioNetworkClustersListComponent } from './bn-bio-network-clusters-list.component';
 
 describe('BnBioNetworkClustersListComponent', () => {
   let component: BnBioNetworkClustersListComponent;
@@ -8,9 +8,8 @@ describe('BnBioNetworkClustersListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BnBioNetworkClustersListComponent ]
-    })
-    .compileComponents();
+      declarations: [BnBioNetworkClustersListComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {LabProgressBarInfoComponent} from './lab-progress-bar-info.component';
+import { LabProgressBarInfoComponent } from './lab-progress-bar-info.component';
 
 describe('BioxWorkflowNodeProgressComponent', () => {
   let component: LabProgressBarInfoComponent;
@@ -8,9 +8,8 @@ describe('BioxWorkflowNodeProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LabProgressBarInfoComponent ]
-    })
-    .compileComponents();
+      declarations: [LabProgressBarInfoComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {FlCoord} from '@monorepo/front-core-lib';
+import { Injectable } from '@angular/core';
+import { FlCoord } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class BnBioNetworkGridState {
@@ -28,7 +28,8 @@ export class BnBioNetworkGridState {
 
     // return rounded position
     return {
-      x: roundedX, y: roundedY
+      x: roundedX,
+      y: roundedY,
     };
   }
 
@@ -38,8 +39,6 @@ export class BnBioNetworkGridState {
    * @private
    */
   private roundToAxisTick(position: number): number | null {
-
-
     // get diff between left tick and position
     const firstDiff = Math.abs(position % BnBioNetworkGridState.gridStep);
     // retrieve the tick index
@@ -62,5 +61,4 @@ export class BnBioNetworkGridState {
 
     return null;
   }
-
 }

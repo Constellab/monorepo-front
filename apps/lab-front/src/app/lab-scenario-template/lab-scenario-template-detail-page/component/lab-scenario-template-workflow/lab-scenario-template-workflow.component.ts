@@ -7,7 +7,7 @@ import {
   PrWorkflowFactory,
   PrWorkflowMode,
   PrWorkflowNodeMenuConfigEmpty,
-  PrWorkflowResourcesState
+  PrWorkflowResourcesState,
 } from '@monorepo/protocol';
 import { Observable, of } from 'rxjs';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
@@ -16,12 +16,10 @@ import { ClStringHelper } from '@monorepo/core-lib';
 @Component({
   selector: 'lab-scenario-template-workflow',
   templateUrl: './lab-scenario-template-workflow.component.html',
-  styleUrl: './lab-scenario-template-workflow.component.scss'
+  styleUrl: './lab-scenario-template-workflow.component.scss',
 })
 export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
-
   @Input() template: LabScenarioTemplate;
-
 
   viewConfig = new PrWorkflowNodeMenuConfigEmpty();
 
@@ -29,12 +27,12 @@ export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
   workflow: PrWorkflow;
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
 
-  constructor(private actionState: PrWorkflowActionState,
-              private ngZone: NgZone,
-              private workflowResourcesState: PrWorkflowResourcesState,
-              private scenarioTemplateService: LabScenarioTemplateService) {
-
-  }
+  constructor(
+    private actionState: PrWorkflowActionState,
+    private ngZone: NgZone,
+    private workflowResourcesState: PrWorkflowResourcesState,
+    private scenarioTemplateService: LabScenarioTemplateService
+  ) {}
 
   ngOnInit(): void {
     this.actionState.init();
@@ -45,13 +43,18 @@ export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
     this.workflowIsLoading = true;
     this.scenarioTemplateService.getScenarioTemplateGraph(this.template.id).subscribe({
       next: (protocolGraph: PrProtocolGraph) => this.getProtocolGraphSuccess(protocolGraph),
-      error: () => this.workflowIsLoading = false
+      error: () => (this.workflowIsLoading = false),
     });
   }
 
   private getProtocolGraphSuccess(protocolGraph: PrProtocolGraph): void {
-    const factory = new PrWorkflowFactory(protocolGraph, ClStringHelper.generateUUID(),
-      this.ngZone, this.workflowResourcesState, this.actionState);
+    const factory = new PrWorkflowFactory(
+      protocolGraph,
+      ClStringHelper.generateUUID(),
+      this.ngZone,
+      this.workflowResourcesState,
+      this.actionState
+    );
     this.workflow = factory.createWorkflow();
     this.workflowIsLoading = false;
   }

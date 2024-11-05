@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CaCloudProviderFormDialogComponent} from './ca-cloud-provider-form-dialog.component';
+import { CaCloudProviderFormDialogComponent } from './ca-cloud-provider-form-dialog.component';
 
 describe('CaCloudProviderFormDialogComponent', () => {
   let component: CaCloudProviderFormDialogComponent;
@@ -8,9 +8,8 @@ describe('CaCloudProviderFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaCloudProviderFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [CaCloudProviderFormDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CaCloudProviderFormDialogComponent);
     component = fixture.componentInstance;
