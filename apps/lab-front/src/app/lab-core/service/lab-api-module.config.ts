@@ -20,6 +20,12 @@ interface LabPaginatedResponse {
   is_first_page: boolean;
   is_last_page: boolean;
   total_is_approximate?: boolean;
+
+  // API CALL TO COMMUNITY
+  currentPage?: number;
+  pageSize?: number;
+  totalElements?: number;
+  last?: boolean;
 }
 
 /**
@@ -39,10 +45,10 @@ export class LabApiServiceConfig extends FlApiServiceConfig {
     if (json.objects != null && json.objects instanceof Array) {
       return {
         first: json.page === 0,
-        last: json.is_last_page,
-        currentPage: json.page,
-        pageSize: json.number_of_items_per_page,
-        totalElements: json.total_number_of_items,
+        last: json.is_last_page ?? json.last,
+        currentPage: json.page ?? json.currentPage,
+        pageSize: json.number_of_items_per_page ?? json.pageSize,
+        totalElements: json.total_number_of_items ?? json.totalElements,
         objects: ClCoreJsonConvert.deserialize(json.objects, classReference),
         totalIsApproximate: json.total_is_approximate
       };

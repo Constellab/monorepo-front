@@ -362,5 +362,9 @@
   "search": "Search",
   "change_language": "Change language",
   "agent_version_not_found": "Agent version not found",
-  "agent_not_found": "Agent not found"
+  "agent_not_found": "Agent not found",
+  "style_updated_successfully": "Style updated successfully",
+  "edit_agent_style": "Edit agent style",
+  "edit_agent_version_style": "Edit agent version style",
+  "modify_style_for_all_agent_versions": "Modify style for all agent versions"
 }

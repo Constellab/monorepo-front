@@ -2,6 +2,7 @@ import { TeRichTextContent } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 import { CoSpace } from './co-space.class';
 import { CoUser } from './co-user.class';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 export class CoAgent {
   id: string;
@@ -14,6 +15,7 @@ export class CoAgent {
   lastModifiedAt?: DateTime;
   likes: number;
   comments: number;
+  latestStyle?: TdTypeStyle;
 }
 
 export enum CoAgentType {

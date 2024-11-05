@@ -1,12 +1,12 @@
-<mat-table mat-table [dataSource]="datasource" class="table"
+<mat-table mat-table [dataSource]="datasource" class="table g-table-base-width-2"
            flSearchTableSort>
 
   <!-- Title -->
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="g-column-width-4">
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
-    <mat-cell *matCellDef="let folder">
+    <mat-cell *matCellDef="let folder" class="g-column-width-4">
 
       <!--    Invisible link  -->
       @if (!rowSelectable) {
@@ -39,9 +39,10 @@
 
   <!-- Status icons -->
   <ng-container matColumnDef="statusIcons">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef class="g-column-width-1">
     </mat-header-cell>
-    <mat-cell *matCellDef="let folder" class="g-layout-row g-layout-end-center">
+    <mat-cell *matCellDef="let folder"
+              class="g-layout-row g-layout-end-center g-column-width-1">
       @if (folder.isValidated) {
         <mat-icon class="status-icon g-row-button"
                   [matTooltip]="'object_validated' | translate" flIcon="validated"></mat-icon>

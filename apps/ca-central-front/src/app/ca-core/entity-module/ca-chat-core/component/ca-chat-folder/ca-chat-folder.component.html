@@ -1,7 +1,7 @@
 <div class="chat">
 
   <!-- List of messages -->
-  <fl-infinite-scroll [datasource]="messages()" class="message-div" [reverseMode]="true" [textNoResult]="'no_messages'"
+  <fl-infinite-scroll [datasource]="messages()" class="message-div" [reverseMode]="true" [textNoResult]="'no_message'"
                       [textNoMoreResult]="''">
     <div class="messages-container g-layout-col-reverse">
       @for (message of messages() | flDatasourceConnect | async; track message.id) {

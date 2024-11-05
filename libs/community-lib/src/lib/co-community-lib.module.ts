@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import {
-  FlCardModule,
+  FlCardModule, FlColorModule,
   FlCoreDirectiveModule,
   FlCorePipeModule,
   FlDateModule,
@@ -38,7 +38,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CoBrickListItemComponent } from './component/co-brick-list-item/co-brick-list-item.component';
 import { TeTextEditorModule } from '@monorepo/text-editor';
 import { CoConfig } from './service/co-service-config.config';
-
+import { CoUpdateTypeIconContainerComponent } from './component/co-update-type-icon-container/co-update-type-icon-container.component';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { CoUpdateTypeIconFormComponent } from './component/co-update-type-icon-dialog-form/co-update-type-icon-form.component';
+import { CoCommunityIconSelectDialogComponent } from './component/co-community-icon-select-dialog/co-community-icon-select-dialog.component';
+import { CoIconListComponent } from './component/co-icon-list/co-icon-list.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatDivider } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -68,6 +74,10 @@ import { CoConfig } from './service/co-service-config.config';
     FlCardModule,
     NgOptimizedImage,
     FlIconModule,
+    TdTechnicalDocModule,
+    MatTooltip,
+    FlColorModule,
+    MatDivider,
   ],
   declarations: [
     CoAgentListItemComponent,
@@ -76,7 +86,11 @@ import { CoConfig } from './service/co-service-config.config';
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent
+    CoBrickListItemComponent,
+    CoUpdateTypeIconContainerComponent,
+    CoUpdateTypeIconFormComponent,
+    CoCommunityIconSelectDialogComponent,
+    CoIconListComponent,
   ],
   exports: [
     CoAgentListItemComponent,
@@ -85,23 +99,30 @@ import { CoConfig } from './service/co-service-config.config';
     CoCommunityListItemMainContentComponent,
     CoVisibilityBadgeComponent,
     CoStoryListItemComponent,
-    CoBrickListItemComponent
+    CoBrickListItemComponent,
+    CoUpdateTypeIconContainerComponent,
+    CoUpdateTypeIconFormComponent,
+    CoIconListComponent,
   ],
 })
 export class CoCommunityLibModule {
   constructor(translateService: FlTranslateService) {
-    translateService.addModuleTranslation('CoCommunityLibModule', coCommunityLibI18n);
+    translateService.addModuleTranslation(
+      'CoCommunityLibModule',
+      coCommunityLibI18n
+    );
   }
 
-  public static forRoot(apiServiceConfig: Type<CoConfig>): ModuleWithProviders<CoCommunityLibModule> {
-
+  public static forRoot(
+    apiServiceConfig: Type<CoConfig>
+  ): ModuleWithProviders<CoCommunityLibModule> {
     const providers: Provider[] = [
-      {provide: CoConfig, useClass: apiServiceConfig}
+      { provide: CoConfig, useClass: apiServiceConfig },
     ];
 
     return {
       ngModule: CoCommunityLibModule,
-      providers: providers
+      providers: providers,
     };
   }
 }

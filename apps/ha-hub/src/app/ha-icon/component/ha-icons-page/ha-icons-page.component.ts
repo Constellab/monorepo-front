@@ -5,7 +5,7 @@ import {
   HaCreateIconDtoInput,
   HaIconCreateDialogComponent
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
-import {HaIcon} from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
+import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-icons-page',
@@ -24,7 +24,7 @@ export class HaIconsPageComponent implements OnDestroy{
       mode: 'create',
       object: null
     }
-    this.dialogService.openSmallDialog(HaIconCreateDialogComponent, {data: inputData}).afterClosed().subscribe((icon: HaIcon) => {
+    this.dialogService.openSmallDialog(HaIconCreateDialogComponent, {data: inputData}).afterClosed().subscribe((icon: CoIcon) => {
       if (icon) {
         this.reloadList$.next(true);
       }

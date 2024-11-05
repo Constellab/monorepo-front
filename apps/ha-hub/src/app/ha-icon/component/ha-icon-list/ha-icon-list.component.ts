@@ -1,65 +1,55 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { HaIcon, HaIconDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-icon.class';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalConfig,
-  FlPortalService
+  FlPortalService,
 } from '@monorepo/front-core-lib';
 import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-portal.component';
 import {
   HaCreateIconDtoInput,
-  HaIconCreateDialogComponent
+  HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
-import { FormControl } from '@angular/forms';
+import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-icon-list',
   templateUrl: './ha-icon-list.component.html',
-  styleUrls: ['./ha-icon-list.component.scss']
+  styleUrls: ['./ha-icon-list.component.scss'],
 })
 export class HaIconListComponent implements OnInit, OnDestroy {
-
   @Input()
   reloadList$: Observable<boolean> = new Observable<boolean>();
+
   reloadListSubscription: Subscription;
-  icons: HaIconDatasourcePaginated;
 
-  searchFormControl: FormControl<string> = new FormControl('');
+  reloadIcons: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private readonly iconService: HaIconService,
-              private readonly portalService: FlPortalService,
-              private readonly dialogService: FlDialogService,) {
-  }
+  constructor(
+    private readonly iconService: HaIconService,
+    private readonly portalService: FlPortalService,
+    private readonly dialogService: FlDialogService
+  ) {}
 
   ngOnInit(): void {
-    this.loadIcons();
-
-    this.reloadListSubscription = this.reloadList$.subscribe((value: boolean) => {
-      if (value) {
-        this.loadIcons();
+    this.reloadListSubscription = this.reloadList$.subscribe(
+      (value: boolean) => {
+        this.reloadIcons.next(value);
       }
-    });
-  }
-
-  loadMoreResults(): void {
-    this.icons.getNextPage();
+    );
   }
 
   ngOnDestroy(): void {
     this.reloadListSubscription.unsubscribe();
   }
 
-  private loadIcons(): void {
-    this.icons = this.iconService.getAllPaginated();
-    this.searchFormControl.patchValue('');
-  }
-
-  openIconInfoPortal(event: Event, icon: HaIcon): void{
+  openIconInfoPortal(selectedIcon: [Event, CoIcon]): void {
     let target: Element;
+    const event = selectedIcon[0];
+    const icon = selectedIcon[1];
     for (let i = 0; i < event.composedPath().length; i++) {
       if ((event.composedPath()[i] as Element).classList.contains('icon-div')) {
         target = event.composedPath()[i] as Element;
@@ -69,26 +59,30 @@ export class HaIconListComponent implements OnInit, OnDestroy {
     if (!target) {
       return;
     }
-    const config: FlPortalConfig = this.portalService.configureRelativePortal(target, ['bottom', 'top'],
+    const config: FlPortalConfig = this.portalService.configureRelativePortal(
+      target,
+      ['bottom', 'top'],
       {
         hasBackdrop: false,
         disposeOnNavigation: true,
         disposeOnBackdropClick: true,
         transparentBackdrop: true,
         disposeOnOutsideClick: true,
-      });
-
-    this.portalService.createPortal(HaIconInfoPortalComponent, config, icon).detachments().subscribe((result) => {
-      if (result && result.res) {
-        if (result.res === 'DELETE')
-          this.openDeleteIconConfirmDialog(icon);
-        else if (result.res === 'EDIT')
-          this.openEditIconDialog(icon);
       }
-    });
+    );
+
+    this.portalService
+      .createPortal(HaIconInfoPortalComponent, config, icon)
+      .detachments()
+      .subscribe((result) => {
+        if (result && result.res) {
+          if (result.res === 'DELETE') this.openDeleteIconConfirmDialog(icon);
+          else if (result.res === 'EDIT') this.openEditIconDialog(icon);
+        }
+      });
   }
 
-  openEditIconDialog(icon: HaIcon): void {
+  openEditIconDialog(icon: CoIcon): void {
     const inputData: HaCreateIconDtoInput = {
       mode: 'update',
       object: {
@@ -98,35 +92,34 @@ export class HaIconListComponent implements OnInit, OnDestroy {
         subNames: icon.subNames.join(','),
         id: icon.id,
         fileName: icon.fileName,
-        file: {name: icon.fileName} as File
-      }
-    }
-    this.dialogService.openSmallDialog(HaIconCreateDialogComponent, {data: inputData}).afterClosed().subscribe((icon: HaIcon) => {
-      if (icon) {
-        this.loadIcons();
-      }
-    });
+        file: { name: icon.fileName } as File,
+      },
+    };
+    this.dialogService
+      .openSmallDialog(HaIconCreateDialogComponent, { data: inputData })
+      .afterClosed()
+      .subscribe((icon: CoIcon) => {
+        if (icon) {
+          this.reloadIcons.next(true);
+        }
+      });
   }
 
-  openDeleteIconConfirmDialog(icon: HaIcon): void {
+  openDeleteIconConfirmDialog(icon: CoIcon): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_icon',
       successMessage: 'icon_deleted',
       content: 'delete_icon_content',
-      observable: this.iconService.delete(icon.id)
-    }
+      observable: this.iconService.delete(icon.id),
+    };
 
-    this.dialogService.openConfirmDialog(input).afterClosed().subscribe((res: FlConfirmDialogResult) => {
-      if(res.choice && res.result){
-        this.loadIcons();
-      }
-    });
-  }
-
-  search(): void{
-    if (this.searchFormControl.value?.length > 0)
-      this.icons = this.iconService.getAllPaginatedFiltered(this.searchFormControl.value);
-    else
-      this.loadIcons();
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((res: FlConfirmDialogResult) => {
+        if (res.choice && res.result) {
+          this.reloadIcons.next(true);
+        }
+      });
   }
 }

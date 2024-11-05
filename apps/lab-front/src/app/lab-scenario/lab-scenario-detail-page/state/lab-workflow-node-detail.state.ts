@@ -203,6 +203,10 @@ export class LabWorkflowNodeDetailState {
     );
   }
 
+  updateProcessStyle(process: LabProcess): void {
+    this.scenarioState.refreshProcess(process);
+  }
+
   private onUpdateProcessNameSuccess(process: LabProcess): void {
     this.scenarioState.refreshProcess(process);
   }

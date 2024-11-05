@@ -282,5 +282,6 @@
   "update_license": "Update license",
   "license_updated": "License updated",
   "contact": "Contact",
-  "clear": "Clear"
+  "clear": "Clear",
+  "no_message": "No message, write the first one"
 }

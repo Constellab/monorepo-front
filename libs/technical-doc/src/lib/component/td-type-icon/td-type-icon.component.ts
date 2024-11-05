@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Input, Signal } from '@angular/core';
 import {TdTypeStyleIconType} from '../../model/td-type.class';
 import {TdServiceConfig} from '../../service/td-service-config.config';
 
@@ -13,26 +13,24 @@ import {TdServiceConfig} from '../../service/td-service-config.config';
 })
 export class TdTypeIconComponent {
 
-  @Input({required: true}) iconTechnicalName: string;
+  iconTechnicalName =  input.required<string>();
 
-  @Input({required: true}) iconType: TdTypeStyleIconType;
+  iconType = input.required<TdTypeStyleIconType>();
 
   /**
    * Size of the icon in pixels
    */
-  @Input({required: true}) iconSize: number;
+  iconSize = input.required<number>();
 
-  @Input() iconColor: string;
+  iconColor = input<string>();
+
+  iconFull = computed(() => {
+    if (this.iconType() === 'MATERIAL_ICON') return this.iconTechnicalName();
+    return `${this.configService.getCommunityIconBaseApiUrl()}/${this.iconTechnicalName()}`;
+  });
+
+  sizePx = computed(() => this.iconSize() + 'px');
 
   constructor(private configService: TdServiceConfig) {
-  }
-
-  get iconFull(): string {
-    if (this.iconType === 'MATERIAL_ICON') return this.iconTechnicalName;
-    return `${this.configService.getCommunityIconBaseApiUrl()}/${this.iconTechnicalName}`;
-  }
-
-  get sizePx(): string {
-    return this.iconSize + 'px';
   }
 }

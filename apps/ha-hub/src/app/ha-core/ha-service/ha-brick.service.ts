@@ -3,7 +3,7 @@ import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-
 import { Observable } from 'rxjs';
 import {
   HaBrick,
-  HaBrickCreationDTO,
+  HaBrickCreationDTO, HaBrickDatasourceFilters,
   HaBrickDatasourcePaginated,
   HaEditBrickDTO
 } from '../ha-model/ha-entities/ha-brick.class';
@@ -18,6 +18,7 @@ import { HaBrickCoAuthorInvite } from '../entity-module/ha-co-author-core/model/
 import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,7 @@ export class HaBrickService implements HaCoAuthorService {
       });
   }
 
-  public getAllWithFiltersPaginated(pageSize = 10): HaBrickDatasourcePaginated {
+  public getAllWithFiltersPaginated(pageSize = 10): HaBrickDatasourcePaginated<HaBrickDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getAllWithFilters(requestData.filtersCriteria.spacesFilter,
         requestData.filtersCriteria.titleFilter, page, size), pageSize, false);
@@ -83,7 +84,7 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.get(`${this.route}/user/${userId}`, HaBrick, {page: page, pageSize: size, resultIsPaginated: true});
   }
 
-  public getUserBricksPaginated(pageSize = 4): HaBrickDatasourcePaginated {
+  public getUserBricksPaginated(pageSize = 4): HaBrickDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getUserBricks(requestData.filtersCriteria.userId, page, size), pageSize, false);
   }

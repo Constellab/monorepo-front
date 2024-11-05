@@ -1,0 +1,45 @@
+:host{
+  max-height: inherit;
+  height: inherit;
+  overflow: hidden;
+}
+
+.content{
+  max-height: 80%;
+}
+
+.material-icon-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  width: 100%;
+  border-bottom: 1px solid var(--hover-color);
+}
+
+.community-icon-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.material-icons-link{
+  color: var(--primary-color);
+}
+
+.icons-list{
+  max-width: 50rem;
+  margin: -1.5em auto 0 auto;
+}
+
+.material-icon-input-button-div{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+
+  button{
+    margin-top: 0.75em;
+  }
+}

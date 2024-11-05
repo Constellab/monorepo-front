@@ -1,6 +1,10 @@
 import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { HaBrick, HaBrickDatasourcePaginated } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import {
+  HaBrick,
+  HaBrickDatasourceFilters,
+  HaBrickDatasourcePaginated
+} from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
@@ -16,7 +20,7 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 })
 export class HaPublicListBricksPageComponent implements OnInit {
 
-  bricks: HaBrickDatasourcePaginated;
+  bricks: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
@@ -37,7 +41,7 @@ export class HaPublicListBricksPageComponent implements OnInit {
     this.metadataService.addMetaTag('description', 'ha.bricks.description');
     this.BRICKS_KEY = makeStateKey('bricks');
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
-      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrickDatasourcePaginated;
+      this.bricks = this.transferState.get(this.BRICKS_KEY, null) as HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
       this.transferState.remove(this.BRICKS_KEY);
     }
 
