@@ -46,6 +46,11 @@
               </button>
             </ng-container>
 
+            <button mat-menu-item type="button" (click)="openHistoryPanel(note.id)">
+              <mat-icon>history</mat-icon>
+              <span>{{ 'biox.history' | translate }}</span>
+            </button>
+
             <button mat-menu-item type="button" (click)="printNote()">
               <mat-icon>print</mat-icon>
               <span>{{ 'biox.print_note' | translate }}</span>

@@ -34,7 +34,7 @@ export class TeTextEditorHistoryBlockModification {
   oldIndex?: number;
 
   constructor(version: string, blockId: string, blockType: string, type: TeTextEditorHistoryModificationType, index: number,
-              userId: string, id?: string, time?: string) {
+              userId: string, id?: string, time?: string, user?: FlUser) {
     this.id = id ?? ClStringHelper.generateUUID();
     this.version = version;
     this.time = DateTime.fromISO(time) ?? DateTime.now();
@@ -43,6 +43,7 @@ export class TeTextEditorHistoryBlockModification {
     this.type = type;
     this.index = index;
     this.userId = userId;
+    this.user = user;
   }
 }
 

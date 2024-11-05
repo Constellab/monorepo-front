@@ -30,7 +30,7 @@ import {
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
-import { CaConstellabDocumentService } from '../../../ca-core/service-api/ca-constellab-document.service';
+import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-constellab-document-history.service';
 
 export type CaDocumentActionEvent =
   | {
@@ -306,7 +306,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
               menuDynamicService: FlMenuDynamicService,
               actionService: FlPortalActionsService,
               documentInfo: CaDocumentBasicInfo,
-              private constellabDocumentService: CaConstellabDocumentService,
+              private constellabDocumentService: CaConstellabDocumentHistoryService,
               private portalService: FlPortalService,
               private textEditorConfig: TeCompleteConfig
   ) {
@@ -338,6 +338,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
           service: this.constellabDocumentService,
           entityId: this.documentInfo.id,
           textEditorConfig: this.textEditorConfig,
+          isEditable: true
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {

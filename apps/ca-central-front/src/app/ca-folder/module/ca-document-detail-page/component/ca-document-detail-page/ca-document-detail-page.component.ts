@@ -20,7 +20,7 @@ import {
   CaDocumentActionMenu
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
-import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
+import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/service/ca-constellab-document-history.service';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -48,7 +48,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
               private actionService: FlPortalActionsService,
               private snackBarService: FlSnackBarService,
               private portalService: FlPortalService,
-              private constellabDocumentService: CaConstellabDocumentService) {
+              private constellabDocumentService: CaConstellabDocumentHistoryService) {
   }
 
   ngOnInit(): void {

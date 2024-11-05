@@ -23,8 +23,10 @@
 
   </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <div class="dialog-footer">
-    <button mat-stroked-button type="button" (click)="openConfirmRollback()">{{'teTextEditor.rollback_to_this_content' | translate}}</button>
-  </div>
-</mat-dialog-actions>
+@if(this.isEditable){
+  <mat-dialog-actions>
+    <div class="dialog-footer">
+      <button mat-stroked-button type="button" (click)="openConfirmRollback()">{{'teTextEditor.rollback_to_this_content' | translate}}</button>
+    </div>
+  </mat-dialog-actions>
+}

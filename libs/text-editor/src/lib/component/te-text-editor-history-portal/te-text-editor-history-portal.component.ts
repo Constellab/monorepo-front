@@ -20,6 +20,7 @@ export interface TeTextEditorHistoryPortalData {
   entityId: string;
   service: TeTextEditorHistoryService;
   textEditorConfig: TeConfig;
+  isEditable: boolean;
 }
 
 const GROUP_TIME_INTERVAL = Duration.fromObject({ minutes: 10 });
@@ -88,6 +89,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
       service: this.data.service,
       entityId: this.data.entityId,
       users: textEditorHistoryUsers,
+      isEditable: this.data.isEditable
     };
 
     this.dialogService

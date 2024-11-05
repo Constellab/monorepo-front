@@ -422,6 +422,7 @@
     "scenario_import_resource_mode_input_output": "Les ressources d'entrée et de sortie",
     "scenario_import_resource_mode_all": "Toutes les ressources",
     "scenario_import_resource_mode_none": "Aucune ressource",
+    "history": "Historique",
     "edit_process_style": "Modifier le style du processus",
     "process_style_updated": "Style du processus mis à jour"
   }

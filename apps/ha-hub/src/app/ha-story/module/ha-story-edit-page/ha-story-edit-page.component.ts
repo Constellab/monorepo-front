@@ -358,6 +358,7 @@ export class HaStoryEditPageComponent implements OnInit {
           service: this.storyService,
           entityId: this.story.id,
           textEditorConfig: this.textEditorConfig,
+          isEditable: true
         } as TeTextEditorHistoryPortalData
       );
       this.historyOverlayRef.detachments().subscribe(() => {

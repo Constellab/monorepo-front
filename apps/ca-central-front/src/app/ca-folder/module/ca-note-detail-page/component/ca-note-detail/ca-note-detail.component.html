@@ -16,18 +16,30 @@
         <mat-icon>print</mat-icon>
       </button>
 
-      <button mat-icon-button type="button" (click)="deleteNote()"
-              class="g-button-small button" color="warn" *caIsAdmin
-              [matTooltip]="'delete_note' | translate">
-        <mat-icon>delete</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+
+        <button mat-menu-item type="button"
+                (click)="toggleNoteHistoryPanel(note)">
+          <mat-icon>history</mat-icon>
+          <span>{{ 'history' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="deleteNote()" *caIsAdmin>
+          <mat-icon color="warn">delete</mat-icon>
+          <span>{{'delete_note' | translate}}</span>
+        </button>
+      </mat-menu>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
     <!--  Validated info  -->
-    <ca-validated-object-info class="separator" [object]="note"
-                              *ngIf="note.isValidated"></ca-validated-object-info>
+    @if (note.isValidated){
+      <ca-validated-object-info class="separator" [object]="note"></ca-validated-object-info>
+    }
 
     <div class="g-print-hide">
       <!-- Sync info -->
@@ -43,42 +55,4 @@
 
     <ca-note-content [noteId]="note.id" class="note-content"></ca-note-content>
   </fl-card-body>
-
-
-  <!--  <fl-article-container class="g-flex-auto">-->
-
-  <!--    <fl-article-left-side>-->
-
-  <!--      &lt;!&ndash;  Validated info  &ndash;&gt;-->
-  <!--      <ca-validated-object-info class="separator" [object]="note"-->
-  <!--                                *ngIf="note.isValidated"></ca-validated-object-info>-->
-
-  <!--      &lt;!&ndash; Sync info &ndash;&gt;-->
-  <!--      <ca-sync-object-info class="separator" [object]="note"></ca-sync-object-info>-->
-
-
-  <!--      &lt;!&ndash;  Created by & Last modified bt  &ndash;&gt;-->
-  <!--      <p class="g-text-small g-text-light">-->
-  <!--        <fl-creation-info [user]="note.createdBy"-->
-  <!--                          [date]="note.createdAt"></fl-creation-info>-->
-  <!--      </p>-->
-  <!--      <p class="g-text-small g-text-light">-->
-  <!--        <fl-last-modification-info [user]="note.lastModifiedBy"-->
-  <!--                                   [date]="note.lastModifiedAt"></fl-last-modification-info>-->
-  <!--      </p>-->
-  <!--    </fl-article-left-side>-->
-
-  <!--    <fl-article>-->
-  <!--      <ca-note-content [noteId]="note.id"></ca-note-content>-->
-  <!--    </fl-article>-->
-
-  <!--    <fl-article-right-side>-->
-  <!--      <button mat-stroked-button type="button" (click)="printNote()"-->
-  <!--              class="g-button-small print-button">-->
-  <!--        {{ 'print_note' | translate }}-->
-  <!--        <mat-icon>print</mat-icon>-->
-  <!--      </button>-->
-  <!--      <ca-scenarios-list [scenarios]="scenarios" mode="small"></ca-scenarios-list>-->
-  <!--    </fl-article-right-side>-->
-  <!--  </fl-article-container>-->
 </fl-card>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, input } from '@angular/core';
 import {
   FlApiService,
   FlConfirmDialogInput,
@@ -20,10 +20,15 @@ import { Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import { LabScenario } from '../model/entities/lab-scenario.entity';
 import { LabNoteSearch, LabNoteSearchFields } from '../entity-module/lab-note-core/model/lab-note-search.class';
-import { TeRichText } from '@monorepo/text-editor';
+import {
+  TeRichText,
+  TeRichTextContent,
+  TeTextEditorHistoryBlockModification,
+  TeTextEditorHistoryService
+} from '@monorepo/text-editor';
 
 @Injectable({ providedIn: 'root' })
-export class LabNoteService {
+export class LabNoteService implements TeTextEditorHistoryService{
 
   private route: string = 'note';
 
@@ -169,6 +174,20 @@ export class LabNoteService {
 
   public unarchive(id: string): Observable<LabNote> {
     return this.apiService.put(`${this.route}/${id}/unarchive`, null, LabNote);
+  }
+
+  ///////////////////////////////////////////// HISTORY /////////////////////////////////////////////
+
+  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+    return this.apiService.get(`${this.route}/${entityId}/history`);
+  }
+
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+    return this.apiService.get(`${this.route}/${entityId}/history/undo-content/${modificationId}`);
+  }
+
+  rollbackContent(entityId: string, modificationId: string): Observable<LabNote> {
+    return this.apiService.put(`${this.route}/${entityId}/history/rollback/${modificationId}`, LabNote, LabNote);
   }
 
 }
