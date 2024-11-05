@@ -33,6 +33,7 @@ export class TdTypingName {
     tableImporter: 'TASK.gws_core.TableImporter',
     jsonImporter: 'TASK.gws_core.JSONImporter',
     textImporter: 'TASK.gws_core.TextImporter',
+    decompressImporter: 'TASK.gws_core.FileDecompressTask',
   };
 
   typingName: string;

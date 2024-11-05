@@ -166,6 +166,8 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
       return TdTypingName.importer.jsonImporter;
     } else if (extension === 'txt') {
       return TdTypingName.importer.textImporter;
+    } else if (['zip', 'tar', 'tar.gz', 'gz'].includes(extension)) {
+      return TdTypingName.importer.decompressImporter;
     }
 
     return null;
