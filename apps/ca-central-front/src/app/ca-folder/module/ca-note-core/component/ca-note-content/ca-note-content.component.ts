@@ -16,7 +16,7 @@ export class CaNoteContentComponent implements OnInit {
 
   @Input() noteId: string;
 
-  textEditorConfig = input.required<CaNoteTextEditorConfig>();
+  textEditorConfig: CaNoteTextEditorConfig;
 
   content$: Observable<TeRichTextContent>;
 
@@ -26,7 +26,7 @@ export class CaNoteContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.content$ = this.noteService.getContent(this.noteId);
-
+    this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.noteId);
   }
 
 }
