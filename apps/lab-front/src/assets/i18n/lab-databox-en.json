@@ -2,6 +2,8 @@
   "databox": {
     "upload_file": "Upload files",
     "upload_folder": "Upload folder",
+    "upload_file_drop": "Drop files here to upload them in the lab",
+    "drop_folder_error": "Can't drop folder, please use the 'Upload folder' button.",
     "uploading_files": "Uploading {{nbFiles}} files",
     "uploading_folder": "Uploading folder",
     "folder_upload_files_options": "Upload independently all the files of the folder. This will generated 1 file resource for each file of the folder",

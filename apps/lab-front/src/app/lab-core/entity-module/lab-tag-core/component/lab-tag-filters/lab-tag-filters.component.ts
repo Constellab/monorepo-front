@@ -43,7 +43,7 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchKeys(null, page, size),
-      40,
+      10,
       true
     );
   }

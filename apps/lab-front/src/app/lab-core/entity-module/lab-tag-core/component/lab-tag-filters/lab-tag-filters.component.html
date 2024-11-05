@@ -31,9 +31,9 @@
     textNoResult="no_tags_filters"
     textNoMoreResult="">
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
-      <ng-container *ngFor="let tagKey of tagKeys | flDatasourceConnect | async">
+      @for (tagKey of tagKeys | flDatasourceConnect | async; track tagKey.key) {
         <fl-tag class="chip" [flTag]="{ key: tagKey.key }" (click)="onKeyClick(tagKey)"></fl-tag>
-      </ng-container>
+      }
     </div>
   </fl-infinite-scroll>
 </mat-expansion-panel>

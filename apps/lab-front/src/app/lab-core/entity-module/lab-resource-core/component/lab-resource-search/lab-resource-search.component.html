@@ -1,4 +1,4 @@
-<fl-search class="g-full-height">
+<fl-search class="g-full-height drop-zone" flDragHover="drag-file-hover" (flDrop)="onFileDrop($event)">
   <!-- Advanced section in the right in a drawer -->
   <fl-search-advanced-form>
     <lab-resource-search-form></lab-resource-search-form>
@@ -56,10 +56,16 @@
 
   <fl-search-result>
     <lab-resource-table
+      class="card-table"
       [datasource]="datasource"
       [columns]="columns"
       [selectableRow]="resourceSelectable"
       (resourceSelected)="selectResource($event)"
       (tagSelected)="searchOnTag($event)"></lab-resource-table>
+
+    <div class="drop-info g-layout-col g-layout-center-center g-text-centered">
+      <mat-icon>upload_file</mat-icon>
+      <div class="g-text-big">{{ 'databox.upload_file_drop' | translate }}</div>
+    </div>
   </fl-search-result>
 </fl-search>

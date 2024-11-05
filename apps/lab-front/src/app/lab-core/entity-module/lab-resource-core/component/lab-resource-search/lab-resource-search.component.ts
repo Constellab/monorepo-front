@@ -2,12 +2,14 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import {
   FlDatasourcePaginated,
   FlDialogService,
+  FlDropEvent,
   FlEntityPaginatedDatasource,
   FlPortalAction,
   FlPortalActionsService,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
+  FlSnackBarService,
   FlTableColumnStatic,
   FlTag,
   FlThemeService,
@@ -65,7 +67,8 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
     private actionsService: FlPortalActionsService,
     private fileResourceService: LabFileResourceService,
     private resourceService: LabResourceService,
-    private themeService: FlThemeService
+    private themeService: FlThemeService,
+    private snackBarService: FlSnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -114,6 +117,19 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   //////////////////////////// FILE ///////////////////////
+
+  onFileDrop(event: FlDropEvent): void {
+    const items = event.event.dataTransfer.items;
+    for (let i = 0; i < items.length; i++) {
+      const entry = items[i].webkitGetAsEntry();
+      if (entry.isDirectory) {
+        this.snackBarService.openErrorMessage('databox.drop_folder_error');
+        return;
+      }
+    }
+    this.openUploadFiles(event.files);
+  }
+
   openUploadFiles(fileEvent: File | File[]): void {
     this.uploadFsNode(fileEvent, 'files');
   }

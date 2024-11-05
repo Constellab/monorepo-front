@@ -2,6 +2,8 @@
   "databox": {
     "upload_file": "Uploader des fichiers",
     "upload_folder": "Uploader un dossier",
+    "upload_file_drop": "Déposer des fichiers ici pour les uploader dans le lab",
+    "drop_folder_error": "Impossible de déposer des dossier, veuillez utiliser le bouton 'Uploader un dossier'.",
     "uploading_files": "Envoie de {{nbFiles}} fichiers",
     "uploading_folder": "Envoie du dossier",
     "folder_upload_files_options": "Uploader indépendamment tous les fichiers du dossier. Cela va générer 1 ressource fichier par fichier du dossier.",
