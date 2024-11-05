@@ -23,7 +23,7 @@
           [multiple]="true"
           type="file"
           (fileChange)="openUploadFiles($event)"
-          [(ngModel)]="files" />
+          [autoClearHtmlInput]="true" />
       </fl-input-file-icon-container>
 
       <!--   Upload folders     -->
@@ -37,10 +37,10 @@
           type="file"
           (fileChange)="openUploadFolder($event)"
           [multiple]="true"
-          [(ngModel)]="files"
           webkitdirectory
           mozdirectory
-          [strictMode]="false" />
+          [strictMode]="false"
+          [autoClearHtmlInput]="true" />
       </fl-input-file-icon-container>
 
       <button

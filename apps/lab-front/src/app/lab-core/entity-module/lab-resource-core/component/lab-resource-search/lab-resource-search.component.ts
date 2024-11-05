@@ -135,6 +135,14 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   openUploadFolder(fileEvent: File | File[]): void {
+    if (Array.isArray(fileEvent) && fileEvent.length >= 1000) {
+      this.snackBarService.openErrorMessage({
+        text: 'databox.upload_folder_too_many_file_error',
+        translateText: true,
+        translateParam: { param: { maxFiles: 1000 } },
+      });
+      return;
+    }
     this.uploadFsNode(fileEvent, 'filesOrFolder');
   }
 
@@ -154,9 +162,6 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result) => this.onUploadFsNodeClosed(result, files),
       });
-
-    // clear the list of files
-    this.files = [];
   }
 
   private onUploadFsNodeClosed(result: LabFsNodeTypesSelectionDialogResult, files: File[]): void {

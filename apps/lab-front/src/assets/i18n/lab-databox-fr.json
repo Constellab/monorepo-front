@@ -4,6 +4,7 @@
     "upload_folder": "Uploader un dossier",
     "upload_file_drop": "Déposer des fichiers ici pour les uploader dans le lab",
     "drop_folder_error": "Impossible de déposer des dossier, veuillez utiliser le bouton 'Uploader un dossier'.",
+    "upload_folder_too_many_file_error": "Vous ne pouvez pas uploader un dossier contenant plus de {{maxFiles}} fichiers, veuillez compresser votre dossier avant de l'uploader.",
     "uploading_files": "Envoie de {{nbFiles}} fichiers",
     "uploading_folder": "Envoie du dossier",
     "folder_upload_files_options": "Uploader indépendamment tous les fichiers du dossier. Cela va générer 1 ressource fichier par fichier du dossier.",
