@@ -37,7 +37,7 @@ export class FlSearchState<T> implements OnDestroy {
   private hiddenFilters: Record<string, any> = {};
 
   // subject used to prevent search call on form change
-  // it is call when the form is submitted to overide the form change (to avoid calling search twice)
+  // it is call when the form is submitted to override the form change (to avoid calling search twice)
   private skipSearch = new Subject<{ _skipSearch: true }>();
 
   constructor(
@@ -58,11 +58,11 @@ export class FlSearchState<T> implements OnDestroy {
     this.sortCriteria = config.defaultSort;
     this.datasource = datasource;
 
+    this.listenToFromChange();
     if (config.storeSearchInUrl) {
       this.subscribeToNavigation();
     } else {
       this.initFirstSearch();
-      this.initAfterFirstSearch();
     }
   }
 
@@ -70,6 +70,11 @@ export class FlSearchState<T> implements OnDestroy {
     this.callAdvancedSearchFromForm();
     // cancel the search call on form change
     this.skipSearch.next({ _skipSearch: true });
+
+    // if the drawer is in over mode (small screens) close it
+    if (this.drawer?.mode === 'over') {
+      this.closeDrawer();
+    }
   }
 
   // call advanced search form advanced search form
@@ -93,14 +98,8 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   // call advanced search from a saved search
-  public callAdvancedSearchFromSavedSearch(savedSearch: FlSavedSearch): void {
-    this.callAdvancedSearchFromObject(savedSearch.filtersCriteria);
-  }
-
-  // call advanced search from a saved search
-  public callAdvancedSearchFromObject(searchCriteria: Record<string, any>): void {
-    this.resetAdvancedFormGroup(searchCriteria);
-    this.callAdvancedSearchFromForm();
+  public patchFormFromSaveSearch(savedSearch: FlSavedSearch): void {
+    this.resetAdvancedFormGroup(savedSearch.filtersCriteria);
   }
 
   public patchFormValueAndCallSearch(searchCriteria: Record<string, any>): void {
@@ -114,12 +113,11 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   // call the advanced search from a URL change
-  private callAdvancedSearchFromUrl(
+  private patchFormFromUrl(
     filtersCriteria: Record<string, any>,
     sortCriteria: FlDatasourceSortCriteria,
     timestamp: string
   ): void {
-    this.callAdvancedSearch(filtersCriteria, sortCriteria);
     this.lastSearchTimestamp = timestamp;
 
     this.sortCriteria = sortCriteria;
@@ -139,11 +137,6 @@ export class FlSearchState<T> implements OnDestroy {
 
     // call first page and set data
     this.datasource.getFirstPage(fullFiltersCriteria, sortCriteria == null ? null : [sortCriteria]);
-
-    // if the drawer is in over mode (small screens) close it
-    if (this.drawer?.mode === 'over') {
-      this.closeDrawer();
-    }
   }
 
   public getFiltersCriteria(): T {
@@ -155,7 +148,7 @@ export class FlSearchState<T> implements OnDestroy {
     return filtersCriteria;
   }
 
-  /////////////////////////////////////////////////// SORT CRITERIA ///////////////////////////////////////////////////
+  //////////////////////////////////// SORT CRITERIA /////////////////////////////////////
 
   public setSortCriteriaAndCallSearch(sortCriteria: FlDatasourceSortCriteria): void {
     this.sortCriteria = sortCriteria;
@@ -166,16 +159,14 @@ export class FlSearchState<T> implements OnDestroy {
     return this.sortCriteria;
   }
 
-  /////////////////////////////////////////////////// URL ///////////////////////////////////////////////////
+  //////////////////////////////////// URL //////////////////////////////////////////////////
 
   // subscribe to navigation to call advanced search if it is a navigation back
   private subscribeToNavigation(): void {
-    // subscribe to current url on init
-    // init the search with param of url
+    // subscribe to current url on initialization
+    // initialize the search with param of url
     this.route.queryParams.pipe(first()).subscribe((params) => {
       this.initFirstSearch(params as any);
-
-      this.initAfterFirstSearch();
     });
   }
 
@@ -192,7 +183,7 @@ export class FlSearchState<T> implements OnDestroy {
 
     const savedSearch: FlSavedSearch = this.config.savedSearch?.find((search) => search.default) ?? null;
     if (savedSearch) {
-      this.callAdvancedSearchFromSavedSearch(savedSearch);
+      this.patchFormFromSaveSearch(savedSearch);
     }
   }
 
@@ -222,7 +213,7 @@ export class FlSearchState<T> implements OnDestroy {
           key: formValue.sortKey,
           direction: formValue.sortDirection,
         };
-        this.callAdvancedSearchFromUrl(filtersCriteria, sortCriteria, params.timestamp);
+        this.patchFormFromUrl(filtersCriteria, sortCriteria, params.timestamp);
         return true;
       } catch {
         return false;
@@ -237,7 +228,7 @@ export class FlSearchState<T> implements OnDestroy {
    * It will subscribe to the navigation to call the search if the URL change
    * @private
    */
-  private initAfterFirstSearch(): void {
+  private listenToFromChange(): void {
     const subscription = merge(this.advancedSearchFormGroup.valueChanges, this.skipSearch)
       .pipe(
         debounceTime(350),

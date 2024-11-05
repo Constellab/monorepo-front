@@ -20,6 +20,6 @@ export class FlSearchSavedListComponent implements OnInit {
   }
 
   callSavedSearch(savedSearch: FlSavedSearch): void {
-    this.searchState.callAdvancedSearchFromSavedSearch(savedSearch);
+    this.searchState.patchFormFromSaveSearch(savedSearch);
   }
 }

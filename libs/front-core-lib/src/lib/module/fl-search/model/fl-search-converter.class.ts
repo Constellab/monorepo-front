@@ -57,7 +57,8 @@ export type FlSearchFilterCriteriaConverter<T> = {
 };
 
 /**
- * Converter for sorting criteria. The key is the column name use in mat-table, the value is the column name in the backend
+ * Converter for sorting criteria. The key is the column name use in mat-table,
+ * the value is the column name in the backend
  * The value can be an array if it implies a sort on multiple columns (like firstname and lastname for a user)
  */
 export type FlSearchSortCriteriaConverter = Record<string, string | string[]>;
@@ -126,7 +127,11 @@ export class FlSearchConverter {
     if (object == null) return criteria;
 
     for (const key of Object.keys(object)) {
-      const fieldValue: any = (object as any)[key];
+      let fieldValue: any = (object as any)[key];
+
+      if (typeof fieldValue === 'string') {
+        fieldValue = fieldValue.trim();
+      }
 
       // handle specific convert as function
       // for SearchAttributeFunctionCriteriaConverter

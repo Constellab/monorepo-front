@@ -5,7 +5,6 @@ import {
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
-  FlTag,
   FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabScenarioSearch, LabScenarioSearchFields } from '../../model/lab-scenario-search.class';
@@ -102,13 +101,6 @@ export class LabScenarioSearchComponent implements OnInit {
 
   selectScenario(scenario: LabScenario): void {
     this.scenarioSelected.next(scenario);
-  }
-
-  searchOnTag(tag: FlTag): void {
-    const search: Partial<LabScenarioSearchFields> = {
-      tags: [tag],
-    };
-    this.searchState.callAdvancedSearchFromObject(search);
   }
 
   openImportFromUrlDialog(): void {
