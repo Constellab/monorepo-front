@@ -2,8 +2,8 @@ import {
   PrWorkflowLayer,
   PrWorkflowMode,
   PrWorkflowNode,
+  PrWorkflowNodeInput,
   PrWorkflowNodeMenuConfig,
-  PrWorkflowNodeSource,
   PrWorkflowPort,
 } from '@monorepo/protocol';
 import {
@@ -289,7 +289,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   private getPortTypingNames(port: PrWorkflowPort, node: PrWorkflowNode): string[] {
     // special case
     // of the type of the port
-    if (node instanceof PrWorkflowNodeSource && node.getCurrentResource() != null) {
+    if (node instanceof PrWorkflowNodeInput && node.getCurrentResource() != null) {
       return [node.getCurrentResource().resourceTypingName];
     } else {
       // use the port typing names

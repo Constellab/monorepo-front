@@ -10,12 +10,12 @@ export class TdTypingName {
   };
 
   public static task = {
-    source: {
-      typingName: 'TASK.gws_core.Source',
+    input: {
+      typingName: 'TASK.gws_core.InputTask',
       configName: 'resource_id',
     },
     output: {
-      typingName: 'TASK.gws_core.Sink',
+      typingName: 'TASK.gws_core.OutputTask',
       resourceInput: 'resource',
     },
     tableImporter: 'TASK.gws_core.TableImporter',

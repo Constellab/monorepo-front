@@ -9,7 +9,7 @@ import { PrWorkflow } from './pr-workflow.class';
 import { PrWorkflowLayer } from './pr-workflow-layer.class';
 
 import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
-import { PrWorkflowNodeSource } from '../node/pr-workflow-node-source.class';
+import { PrWorkflowNodeInput } from '../node/pr-workflow-node-input.class';
 import { PrWorkflowNodeOutput } from '../node/pr-workflow-node-output.class';
 import { PrWorkflowNodeViewer } from '../node/pr-workflow-node-viewer.class';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
@@ -97,8 +97,8 @@ export class PrWorkflowFactory {
     this.conversionMatch[prProcess.id] = process;
 
     let processNode: PrWorkflowNode;
-    if (process.process_typing_name === TdTypingName.task.source.typingName) {
-      processNode = new PrWorkflowNodeSource(
+    if (process.process_typing_name === TdTypingName.task.input.typingName) {
+      processNode = new PrWorkflowNodeInput(
         prProcess.instanceName,
         protocolId,
         prProcess,

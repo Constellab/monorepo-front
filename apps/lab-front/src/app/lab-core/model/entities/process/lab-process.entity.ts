@@ -90,8 +90,8 @@ export class LabProcess extends LabBaseEntityWithUser {
   style: TdTypeStyle;
 
   // return true if the process is of type Source
-  isSource(): boolean {
-    return this.processTypingName === TdTypingName.task.source.typingName;
+  isInput(): boolean {
+    return this.processTypingName === TdTypingName.task.input.typingName;
   }
 
   // return true if the process is of type Output

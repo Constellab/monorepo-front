@@ -6,10 +6,10 @@ import {
   PrWorkflowActionState,
   PrWorkflowLayer,
   PrWorkflowNode,
+  PrWorkflowNodeInput,
   PrWorkflowNodeOutput,
   PrWorkflowNodeProcess,
   PrWorkflowNodeProtocol,
-  PrWorkflowNodeSource,
   PrWorkflowNodeViewer,
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
@@ -85,8 +85,8 @@ export class LabWorkflowFactory {
 
   public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNode {
     let processNode: PrWorkflowNode;
-    if (process.isSource()) {
-      processNode = new PrWorkflowNodeSource(
+    if (process.isInput()) {
+      processNode = new PrWorkflowNodeInput(
         process.instanceName,
         process.parentProtocolId,
         process.toPrProcess(),

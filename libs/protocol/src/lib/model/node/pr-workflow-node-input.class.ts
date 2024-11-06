@@ -5,7 +5,7 @@ import { FlThemeService } from '@monorepo/front-core-lib';
 import { PrResource } from '../pr-resource.class';
 import { first, map, Observable, of } from 'rxjs';
 
-export class PrWorkflowNodeSource extends PrWorkflowNodeResource<PrProcess> {
+export class PrWorkflowNodeInput extends PrWorkflowNodeResource<PrProcess> {
   protected initPorts(object: PrProcess): void {
     this.generatePorts(object.inputs.ports, 'input');
     this.generatePorts(object.outputs.ports, 'output');

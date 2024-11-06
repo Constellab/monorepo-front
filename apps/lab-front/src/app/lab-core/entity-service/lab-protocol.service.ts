@@ -176,7 +176,8 @@ export class LabProtocolService {
     outputPortName: string
   ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-output/${outputProcessName}/${outputPortName}`,
+      `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-output` +
+        `/${outputProcessName}/${outputPortName}`,
       null,
       LabProtocolUpdateDTO
     );
@@ -197,7 +198,8 @@ export class LabProtocolService {
     inputPortName: string
   ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-input/${inputProcessName}/${inputPortName}`,
+      `${this.baseRoute}/${protocolId}/add-process/${processTypingName}/connected-to-input` +
+        `/${inputProcessName}/${inputPortName}`,
       null,
       LabProtocolUpdateDTO
     );
@@ -337,7 +339,7 @@ export class LabProtocolService {
     inputPortName: string
   ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/add-source/${resourceId}/${processName}/${inputPortName}`,
+      `${this.baseRoute}/${protocolId}/add-resource/${resourceId}/${processName}/${inputPortName}`,
       null,
       LabProtocolUpdateDTO
     );
@@ -345,7 +347,7 @@ export class LabProtocolService {
 
   public addSource(protocolId: string, resourceId: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/add-source/${resourceId}`,
+      `${this.baseRoute}/${protocolId}/add-resource/${resourceId}`,
       null,
       LabProtocolUpdateDTO
     );
@@ -357,7 +359,7 @@ export class LabProtocolService {
     outputPortName: string
   ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/add-sink/${processName}/${outputPortName}`,
+      `${this.baseRoute}/${protocolId}/add-output/${processName}/${outputPortName}`,
       null,
       LabProtocolUpdateDTO
     );
@@ -403,7 +405,7 @@ export class LabProtocolService {
     return this.apiService.put(`${this.baseRoute}/${protocolId}/layout/outerface/${outerfaceName}`, layout);
   }
 
-  ///////////////////////////////////////////////// DYNAMIC PORT /////////////////////////////////////////////////
+  ///////////////////////////////// DYNAMIC PORT ///////////////////////////////////////////
 
   public createDynamicInputPort(protocolId: string, processName: string): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
@@ -486,7 +488,7 @@ export class LabProtocolService {
     );
   }
 
-  ///////////////////////////////////////////////// PROTOCOL TEMPLATE /////////////////////////////////////////////////
+  ///////////////////////////////////// PROTOCOL TEMPLATE //////////////////////////////////
   public createScenarioTemplate(
     protocolId: string,
     template: LabCreateScenarioTemplateDTO

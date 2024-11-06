@@ -7,7 +7,7 @@ export * from './lib/model/node/pr-workflow-node-interface.class';
 export * from './lib/model/node/pr-workflow-node-outerface.class';
 export * from './lib/model/node/pr-workflow-node-process.class';
 export * from './lib/model/node/pr-workflow-node-output.class';
-export * from './lib/model/node/pr-workflow-node-source.class';
+export * from './lib/model/node/pr-workflow-node-input.class';
 export * from './lib/model/node/pr-workflow-node-viewer.class';
 export * from './lib/model/node/pr-workflow-node-protocol.class';
 
