@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
+import { CaLabHelper } from '../../../../../ca-core/utils/ca-lab.helper';
 
 /**
  * Detail card of the scenario used in the scenario page
@@ -20,7 +21,7 @@ export class CaScenarioCardDetailComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.scenario.lab.isRunning()) {
-      this.scenarioRoute = `${this.scenario.lab.frontUrl}/app/biox/scenario/${this.scenario.id}`;
+      this.scenarioRoute = CaLabHelper.getScenarioUrl(this.scenario.lab.frontUrl, this.scenario.id);
     }
   }
 }
