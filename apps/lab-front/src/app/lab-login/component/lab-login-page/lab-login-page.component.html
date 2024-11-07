@@ -1,1 +1,11 @@
-<fl-login-page [redirectionRoute]="appRoute"></fl-login-page>
+<fl-login-page [redirectionRoute]="appRoute">
+  @if (isDevEnv) {
+    <div class="g-text-light g-text-centered">
+      {{ 'login_dev_env' | translate }}
+    </div>
+
+    <button mat-flat-button color="primary" type="button" (click)="switchToProd()" class="g-centered-forced">
+      {{ 'login_switch_to_prod' | translate }}
+    </button>
+  }
+</fl-login-page>

@@ -18,6 +18,8 @@ export const environment: LabEnvironment = {
     communityFrontUrl: '',
     communityApiUrl: 'http://localhost:3333',
     captchaSiteKey: '',
+    prodFrontUrls: '',
+    devFrontUrls: '',
   },
 };
 

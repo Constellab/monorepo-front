@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { LabEnvStore } from './lab-env.store';
 import { LabAuthenticatedUserService } from './lab-authenticated-user.service';
+import { LabEnvStore } from './lab-env.store';
 
 /**
  * Service to manage the DEV environment
@@ -13,34 +13,9 @@ import { LabAuthenticatedUserService } from './lab-authenticated-user.service';
 export class LabDevEnvironmentService {
   constructor(
     private httpClient: HttpClient,
-    private labEnvManager: LabEnvStore,
+    private labEnvStore: LabEnvStore,
     private authenticatedUserService: LabAuthenticatedUserService
   ) {}
-
-  /**
-   * This method is trigger on startup,
-   * it activates the dev environment only if
-   *  - the user is in dev environment (from local storage)
-   *  - the user's dev token is valid
-   */
-  public init(): Observable<void> {
-    // if the user is in dev mode
-    if (this.labEnvManager.getLabEnvironmentStorageValue() === 'dev') {
-      // we check if the dev api is running
-      return this.userIsLoggedInDev().pipe(
-        map((isLogged) => {
-          if (isLogged) {
-            this.labEnvManager.setLabEnvironment('dev');
-          } else {
-            this.labEnvManager.clearLabEnvironmentStorage();
-          }
-          return;
-        })
-      );
-    }
-
-    return of(null);
-  }
 
   // return true if the dev API is running
   public devApiIsRunning(): Observable<boolean> {
@@ -68,7 +43,7 @@ export class LabDevEnvironmentService {
       mergeMap((result) => {
         // if the user is logged in, activate the account
         if (result) {
-          this.labEnvManager.setLabEnvironment('dev');
+          this.devLoginSuccess();
           return of(true);
         }
 
@@ -97,6 +72,6 @@ export class LabDevEnvironmentService {
 
   // store the dev token and switch env to dev
   private devLoginSuccess(): void {
-    this.labEnvManager.setLabEnvironment('dev');
+    this.labEnvStore.setLabEnvironment('dev');
   }
 }

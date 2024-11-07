@@ -15,7 +15,6 @@ import {
 import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
 import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
 import { FlLabRoute } from '@monorepo/front-core-lib';
-import { LabLoadEnvironmentGuard } from './guard/lab-load-environment.guard';
 
 const routes: Routes = [
   {
@@ -33,7 +32,6 @@ const routes: Routes = [
   {
     path: labConstBaseRoute,
     component: LabMainAppComponent,
-    canActivate: [LabLoadEnvironmentGuard],
     children: [
       {
         path: '',

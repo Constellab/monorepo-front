@@ -21,6 +21,7 @@ import {
   FlDialogModule,
   FlHttpInterceptorService,
   FlIconModule,
+  FlLocalStorageService,
   FlPortalActionsModule,
   FlPortalModule,
   flSetRootInjector,
@@ -33,7 +34,7 @@ import {
   FlUserModule,
 } from '@monorepo/front-core-lib';
 import { labSvgIcons } from './lab-core/utils/lab-svg-icon-config';
-import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { LabLoginModule } from './lab-login/lab-login.module';
 import { LabAuthService } from './lab-core/service/lab-auth.service';
 import { LabApiErrorService } from './lab-core/service/lab-api-error.service';
@@ -56,6 +57,7 @@ import { LabRichTextCoreModule } from './lab-core/entity-module/lab-rich-text-co
 import { TranslateLoader } from '@ngx-translate/core';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { LabCoServiceConfig } from './lab-core/model/config/lab-co-service-config.service';
+import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './lab-core/service/lab-env.store';
 
 export function translationLoaderFactory(
   http: HttpClient,
@@ -73,6 +75,28 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     siteKey: LabEnvironmentHelper.getRecaptchaSiteKey(),
     isLocal: !LabEnvironmentHelper.isProduction(),
   };
+}
+
+function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
+  console.log(
+    'provideLabEnvStore',
+    LabEnvironmentHelper.getProdFrontUrls(),
+    LabEnvironmentHelper.getDevFrontUrls()
+  );
+  const prodFrontUrls = LabEnvironmentHelper.getProdFrontUrls();
+  const devFrontUrls = LabEnvironmentHelper.getDevFrontUrls();
+  if (ClHelpService.isNullOrEmpty(prodFrontUrls) || ClHelpService.isNullOrEmpty(devFrontUrls)) {
+    return new LabEnvStoreLocalStorage(localStorage);
+  }
+
+  // if the dev and prod front have the same first url,
+  // we use the local storage mode to switch the environment
+  if (prodFrontUrls[0] === devFrontUrls[0]) {
+    return new LabEnvStoreLocalStorage(localStorage);
+  } else {
+    // otherwise we use the url mode
+    return new LabEnvStoreUrl();
+  }
 }
 
 @NgModule({
@@ -133,6 +157,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
       useFactory: translationLoaderFactory,
       deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
     },
+    { provide: LabEnvStore, useFactory: provideLabEnvStore, deps: [FlLocalStorageService] },
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })

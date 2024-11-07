@@ -19,5 +19,7 @@ export const environment: LabEnvironment = {
     communityFrontUrl: '',
     communityApiUrl: '',
     captchaSiteKey: '',
+    prodFrontUrls: '',
+    devFrontUrls: '',
   },
 };

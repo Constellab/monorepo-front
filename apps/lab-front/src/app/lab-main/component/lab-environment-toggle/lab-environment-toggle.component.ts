@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LabDevEnvironmentService } from '../../../lab-core/service/lab-dev-environment.service';
 import { Subscription } from 'rxjs';
-import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
-import { LabRouterService } from '../../../lab-core/service/lab-router.service';
-import { Router } from '@angular/router';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 
 @Component({
   selector: 'lab-environment-toggle',
@@ -22,15 +20,11 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
 
   constructor(
     private labEnvStore: LabEnvStore,
-    private labEnvService: LabDevEnvironmentService,
-    private routerService: LabRouterService,
-    private router: Router
+    private labEnvService: LabDevEnvironmentService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.labEnvStore
-      .getLabEnvironment$()
-      .subscribe((env) => (this.checked = env === 'dev'));
+    this.checked = this.labEnvStore.isDev();
     this.checkDevApi();
   }
 
@@ -50,7 +44,6 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
       });
     } else {
       this.labEnvStore.setLabEnvironment('prod');
-      this.redirectToScenarioList();
     }
   }
 
@@ -58,23 +51,6 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   private onActivateDevEnvironment(activate: boolean): void {
     if (!activate) {
       this.checked = false;
-    } else {
-      this.redirectToScenarioList();
-    }
-  }
-
-  private redirectToScenarioList(): void {
-    if (
-      this.router.isActive(LabRouterService.getScenarioListRoute(), {
-        fragment: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        queryParams: 'ignored',
-      })
-    ) {
-      location.reload();
-    } else {
-      this.routerService.navigateToScenarioListRoute();
     }
   }
 

@@ -39,6 +39,12 @@ export interface LabEnvironmentSettings {
 
   // captcha site key
   captchaSiteKey: string;
+
+  // url of the prod front
+  prodFrontUrls: string;
+
+  // url of the dev front
+  devFrontUrls: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

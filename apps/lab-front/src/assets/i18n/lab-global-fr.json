@@ -155,5 +155,7 @@
   "lab_usage_period_LAST_24_HOURS": "Dernières 24 heures",
   "lab_usage_period_CUSTOM": "Personnalisé",
   "user": "Utilisateur",
-  "public": "Public"
+  "public": "Public",
+  "login_dev_env": "Attention, c'est l'environnement de dev du lab",
+  "login_switch_to_prod": "Basculer vers l'environnement de prod"
 }

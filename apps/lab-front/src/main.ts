@@ -29,6 +29,8 @@ if (environment.production) {
     communityFrontUrl: 'https://hub-pre-prod.gencovery.com',
     communityApiUrl: 'http://localhost:3333',
     captchaSiteKey: '123456',
+    prodFrontUrls: 'http://localhost:4200',
+    devFrontUrls: 'http://localhost:4200',
   };
 
   // in dev no environment loading

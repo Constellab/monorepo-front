@@ -1,5 +1,6 @@
 import { environment } from '../../../environments/lab-environment';
 import { LabEnvironment } from '../../../environments/lab-environment.class';
+import { ClHelpService } from '@monorepo/core-lib';
 
 /**
  * Static class to access environment
@@ -45,6 +46,22 @@ export class LabEnvironmentHelper {
 
   public static getRecaptchaSiteKey(): string {
     return LabEnvironmentHelper.getEnv().settings.captchaSiteKey;
+  }
+
+  public static getProdFrontUrls(): string[] {
+    const prodUrls = LabEnvironmentHelper.getEnv().settings.prodFrontUrls;
+    if (ClHelpService.isNullOrEmpty(prodUrls)) {
+      return [];
+    }
+    return prodUrls.split(',');
+  }
+
+  public static getDevFrontUrls(): string[] {
+    const devUrls = LabEnvironmentHelper.getEnv().settings.devFrontUrls;
+    if (ClHelpService.isNullOrEmpty(devUrls)) {
+      return [];
+    }
+    return devUrls.split(',');
   }
 
   //////////////////////////// Space ////////////////////////////

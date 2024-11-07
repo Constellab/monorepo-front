@@ -1,8 +1,10 @@
 import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { LabEnvStore } from '../service/lab-env.store';
-import { Observable } from 'rxjs';
 
+/**
+ * Template directive to show the content only if the environment is dev
+ */
 @Directive({
   selector: '[labEnvDev]',
 })
@@ -19,8 +21,8 @@ export class LabEnvDevDirective extends FlAbstractIfDirective implements OnInit,
     super.ngOnInit();
   }
 
-  protected showView(): Observable<boolean> {
-    return this.labEnvStore.isDev$();
+  protected showView(): boolean {
+    return this.labEnvStore.isDev();
   }
 
   ngOnDestroy(): void {

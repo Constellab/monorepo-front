@@ -9,8 +9,12 @@ import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
 import { FlTranslateService } from '../fl-translate/service/fl-translate.service';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { flAuthI18n } from './i18n/fl-auth.i18n';
-import { FlPasswordForgottenComponent } from './component/fl-password-forgotten/fl-password-forgotten.component';
-import { FlResetPasswordPageComponent } from './component/fl-reset-password-page/fl-reset-password-page.component';
+import {
+  FlPasswordForgottenComponent,
+} from './component/fl-password-forgotten/fl-password-forgotten.component';
+import {
+  FlResetPasswordPageComponent,
+} from './component/fl-reset-password-page/fl-reset-password-page.component';
 import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
 import { FlLoaderModule } from '../fl-loader/fl-loader.module';
 import { FlCardModule } from '../fl-card/fl-card.module';
@@ -29,8 +33,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FlSignupPageComponent } from './component/fl-signup-page/fl-signup-page.component';
 import { FlCaptchaModule } from '../fl-captcha/fl-captcha.module';
-import { FlCheckCredentialsDialogComponent } from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
+import {
+  FlCheckCredentialsDialogComponent,
+} from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
 import { FlLoginFormComponent } from './component/fl-login-form/fl-login-form.component';
+import { FlLoginFooterComponent } from './component/fl-login-footer/fl-login-footer.component';
 
 /**
  * Module containing component for authentication, sign up, password reset
@@ -47,6 +54,7 @@ import { FlLoginFormComponent } from './component/fl-login-form/fl-login-form.co
     FlSignupPageComponent,
     FlCheckCredentialsDialogComponent,
     FlLoginFormComponent,
+    FlLoginFooterComponent,
   ],
   exports: [
     FlPasswordForgottenComponent,
@@ -55,6 +63,7 @@ import { FlLoginFormComponent } from './component/fl-login-form/fl-login-form.co
     FlCompleteLoginComponent,
     FlLoginPageComponent,
     FlSignupPageComponent,
+    FlLoginFooterComponent,
   ],
   imports: [
     CommonModule,

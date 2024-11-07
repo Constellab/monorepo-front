@@ -15,8 +15,6 @@ import { LabApiError } from '../model/global/lab-api-error.class';
 import { LabErrorDetailComponent } from '../../lab-main/component/lab-error-detail/lab-error-detail.component';
 import { Router } from '@angular/router';
 import { labConstLoginRoute } from '../utils/lab-base-route';
-import { LabEnvStore } from './lab-env.store';
-import { LabAppEnvironment } from '../model/global/lab-environment.class';
 import { PlatformLocation } from '@angular/common';
 
 @Injectable()
@@ -25,7 +23,6 @@ export class LabApiErrorService extends FlApiErrorService {
     snackBarService: FlSnackBarService,
     translateService: FlTranslateService,
     private dialogService: FlDialogService,
-    private labEnvManager: LabEnvStore,
     private router: Router,
     private cookieService: FlCookieService,
     private platformLocation: PlatformLocation
@@ -93,16 +90,9 @@ export class LabApiErrorService extends FlApiErrorService {
    * @private
    */
   private logoutUser(): void {
-    const env: LabAppEnvironment = this.labEnvManager.getLabEnvironment();
-
-    if (env === 'dev') {
-      //switch to prod environment
-      this.labEnvManager.setLabEnvironment('prod');
-    } else {
-      // for security clear the authentication expiration cookie
-      // to assure the user is disconnected
-      this.cookieService.removeCookie(flAuthExpiredCookie);
-    }
+    // for security clear the authentication expiration cookie
+    // to assure the user is disconnected
+    this.cookieService.removeCookie(flAuthExpiredCookie);
 
     // save the current url for rerouting after login
     const currentRoute = this.platformLocation.pathname;

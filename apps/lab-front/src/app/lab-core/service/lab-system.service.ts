@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LabEnvStore } from './lab-env.store';
 import { LabPipPackage, LabSystemConfig, LabSystemInfo } from '../model/global/lab-system.class';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
+import { LabEnvStore } from './lab-env.store';
 
 @Injectable({
   providedIn: 'root',
