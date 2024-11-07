@@ -1,7 +1,7 @@
 <div *ngIf="resource()" class="g-layout-row g-layout-start-center g-layout-gap-05em container">
   <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
     <!--  Resource,  scenario name & folder name  -->
-    <h1 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">
+    <h1 class="header-title" flElementEditable (flElementValueChange)="updateName($event)">
       {{ resource().name }}
     </h1>
 

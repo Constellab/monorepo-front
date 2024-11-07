@@ -96,9 +96,9 @@ export class LabResourceDetailHeaderComponent {
     this.overlay.detachments().subscribe(() => (this.overlay = null));
   }
 
-  updateTitle(title: string): void {
+  updateName(name: string): void {
     this.resourceService
-      .updateName(this.resource().id, title)
+      .updateName(this.resource().id, name)
       .subscribe((resource) => this.state.updateResource(resource));
   }
 

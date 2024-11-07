@@ -184,7 +184,7 @@ export class LabResourceDetailState implements OnDestroy {
       if (index >= 0) {
         resources[index] = resource;
       }
-      return resources;
+      return [...resources];
     });
   }
 
