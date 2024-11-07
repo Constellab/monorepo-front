@@ -15,9 +15,17 @@
   background-color: var(--card-background);
 }
 
+.name {
+  min-width: 0;
+}
+
 .process-description {
   // align with title
   padding-left: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .process-error {

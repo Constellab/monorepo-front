@@ -1,141 +1,144 @@
 <mat-dialog-content class="content">
   @if (process$ | async; as process) {
-    <div class="header g-layout-row">
-      <co-update-type-icon-container
-        [style]="process.style"
-        [iconSize]="30"
-        (onClickEvent)="openProcessEditStyleDialog(process)"
-        class="update-style"></co-update-type-icon-container>
-      <div class="g-flex-auto">
-        <div class="g-layout-row g-layout-between-start">
-          <div class="g-layout-col g-layout-start-start">
-            <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
-              {{ process.name }}
-            </h2>
-            @if (process.processType?.short_description) {
-              <p class="process-description">{{ process.processType.short_description }}</p>
-            }
-          </div>
-
-          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-            <fl-status-chip [status]="process.status"></fl-status-chip>
-
-            @if (isEditable$ | async) {
-              <button
-                mat-icon-button
-                type="button"
-                (click)="saveConfig()"
-                tabindex="-1"
-                [matTooltip]="'save' | translate"
-                matTooltipPosition="below">
-                <mat-icon>save</mat-icon>
-              </button>
-
-              <button
-                mat-icon-button
-                type="button"
-                (click)="saveConfigAndRunProcess(process)"
-                tabindex="-1"
-                [matTooltip]="'biox.save_config_and_run_process' | translate"
-                matTooltipPosition="below">
-                <mat-icon>play_arrow</mat-icon>
-              </button>
-            }
-
-            @if (isWaiting$ | async) {
-              <mat-icon [matTooltip]="'biox.scenario_is_in_queue' | translate" matTooltipPosition="below">
-                hourglass_empty
-              </mat-icon>
-            }
-
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item type="button" (click)="openTypingDoc(process.processTypingName)">
-                <mat-icon>info</mat-icon>
-                <span>{{ 'biox.process_type_doc' | translate }}</span>
-              </button>
-
-              @if (isAgent$ | async) {
-                <button mat-menu-item [matMenuTriggerFor]="agentMenu">
-                  <mat-icon flIcon="code"></mat-icon>
-                  {{ 'biox.agent' | translate }}
-                </button>
-              }
-
-              @if (isTask$ | async) {
-                <button mat-menu-item type="button" (click)="duplicateTask(process)">
-                  <mat-icon>content_copy</mat-icon>
-                  {{ 'biox.duplicate_task' | translate }}
-                </button>
-              }
-
-              <!--   Progress and logs infos     -->
-              @if (process.progressBar && process.status.value !== 'DRAFT') {
-                <button mat-menu-item type="button" (click)="openProgressDetails()">
-                  <mat-icon>description</mat-icon>
-                  {{ 'biox.node_progress_detail' | translate }}
-                </button>
-
-                <button mat-menu-item type="button" (click)="openProcessLogs(process)">
-                  <mat-icon>description</mat-icon>
-                  {{ 'biox.view_process_logs' | translate }}
-                </button>
-
-                <button mat-menu-item type="button" (click)="openProcessMonitor(process)">
-                  <mat-icon>troubleshoot</mat-icon>
-                  {{ 'biox.view_process_monitoring' | translate }}
-                </button>
-              }
-
-              @if (process.wasRun()) {
-                <button mat-menu-item type="button" (click)="resetProcess()">
-                  <mat-icon color="warn">restart_alt</mat-icon>
-                  <span class="g-warn-text">{{ 'biox.reset_process' | translate }}</span>
-                </button>
-              }
-            </mat-menu>
-
-            <mat-menu #agentMenu>
-              <button mat-menu-item type="button" (click)="downloadAgentFile(process)">
-                <mat-icon>download</mat-icon>
-                {{ 'biox.download_agent_file' | translate }}
-              </button>
-
-              <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process)">
-                <mat-icon>share</mat-icon>
-                {{ 'biox.share_agent_to_community' | translate }}
-              </button>
-
-              @if (isPyAgent$ | async) {
-                <button mat-menu-item type="button" (click)="convertAgentCodeToTask(process)">
-                  <mat-icon>code</mat-icon>
-                  {{ 'biox.convert_agent_code_to_task' | translate }}
-                </button>
-                <button mat-menu-item type="button" (click)="openPipPackageList()">
-                  <mat-icon>inventory_2</mat-icon>
-                  {{ 'monitoring.system_config' | translate }}
-                </button>
-              }
-            </mat-menu>
-          </div>
+    <div class="header">
+      <div class="g-layout-row">
+        <div>
+          <co-update-type-icon-container
+            [style]="process.style"
+            [iconSize]="30"
+            (onClickEvent)="openProcessEditStyleDialog(process)"
+            class="update-style"></co-update-type-icon-container>
+        </div>
+        <div class="g-layout-col g-layout-start-start g-flex-auto name">
+          <h2 flElementEditable (flElementValueChange)="updateProcessName(process, $event)">
+            {{ process.name }}
+          </h2>
+          @if (process.processType?.short_description) {
+            <p class="process-description">{{ process.processType.short_description }}</p>
+          }
         </div>
 
-        @if (process.errorInfo && process.isError()) {
-          <div class="process-error process-run-error g-text-link" (click)="openProgressDetails()">
-            {{ process.errorInfo.detail }}
-          </div>
-        } @else if (process.typeStatus === 'UNAVAILABLE') {
-          <div class="process-error">
-            {{ 'pr.process_not_available' | translate }}
-          </div>
-        }
+        <!--    Top right section with status and buttons    -->
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          <fl-status-chip [status]="process.status"></fl-status-chip>
+
+          @if (isEditable$ | async) {
+            <button
+              mat-icon-button
+              type="button"
+              (click)="saveConfig()"
+              tabindex="-1"
+              [matTooltip]="'save' | translate"
+              matTooltipPosition="below">
+              <mat-icon>save</mat-icon>
+            </button>
+
+            <button
+              mat-icon-button
+              type="button"
+              (click)="saveConfigAndRunProcess(process)"
+              tabindex="-1"
+              [matTooltip]="'biox.save_config_and_run_process' | translate"
+              matTooltipPosition="below">
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+          }
+
+          @if (isWaiting$ | async) {
+            <mat-icon [matTooltip]="'biox.scenario_is_in_queue' | translate" matTooltipPosition="below">
+              hourglass_empty
+            </mat-icon>
+          }
+
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item type="button" (click)="openTypingDoc(process.processTypingName)">
+              <mat-icon>info</mat-icon>
+              <span>{{ 'biox.process_type_doc' | translate }}</span>
+            </button>
+
+            @if (isAgent$ | async) {
+              <button mat-menu-item [matMenuTriggerFor]="agentMenu">
+                <mat-icon flIcon="code"></mat-icon>
+                {{ 'biox.agent' | translate }}
+              </button>
+            }
+
+            @if (isTask$ | async) {
+              <button mat-menu-item type="button" (click)="duplicateTask(process)">
+                <mat-icon>content_copy</mat-icon>
+                {{ 'biox.duplicate_task' | translate }}
+              </button>
+            }
+
+            <!--   Progress and logs infos     -->
+            @if (process.progressBar && process.status.value !== 'DRAFT') {
+              <button mat-menu-item type="button" (click)="openProgressDetails()">
+                <mat-icon>description</mat-icon>
+                {{ 'biox.node_progress_detail' | translate }}
+              </button>
+
+              <button mat-menu-item type="button" (click)="openProcessLogs(process)">
+                <mat-icon>description</mat-icon>
+                {{ 'biox.view_process_logs' | translate }}
+              </button>
+
+              <button mat-menu-item type="button" (click)="openProcessMonitor(process)">
+                <mat-icon>troubleshoot</mat-icon>
+                {{ 'biox.view_process_monitoring' | translate }}
+              </button>
+            }
+
+            @if (process.wasRun()) {
+              <button mat-menu-item type="button" (click)="resetProcess()">
+                <mat-icon color="warn">restart_alt</mat-icon>
+                <span class="g-warn-text">{{ 'biox.reset_process' | translate }}</span>
+              </button>
+            }
+          </mat-menu>
+
+          <mat-menu #agentMenu>
+            <button mat-menu-item type="button" (click)="downloadAgentFile(process)">
+              <mat-icon>download</mat-icon>
+              {{ 'biox.download_agent_file' | translate }}
+            </button>
+
+            <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process)">
+              <mat-icon>share</mat-icon>
+              {{ 'biox.share_agent_to_community' | translate }}
+            </button>
+
+            @if (isPyAgent$ | async) {
+              <button mat-menu-item type="button" (click)="convertAgentCodeToTask(process)">
+                <mat-icon>code</mat-icon>
+                {{ 'biox.convert_agent_code_to_task' | translate }}
+              </button>
+              <button mat-menu-item type="button" (click)="openPipPackageList()">
+                <mat-icon>inventory_2</mat-icon>
+                {{ 'monitoring.system_config' | translate }}
+              </button>
+            }
+          </mat-menu>
+        </div>
       </div>
+
+      <!--   Show process error     -->
+      @if (process.errorInfo && process.isError()) {
+        <div class="process-error process-run-error g-text-link" (click)="openProgressDetails()">
+          {{ process.errorInfo.detail }}
+        </div>
+      } @else if (process.typeStatus === 'UNAVAILABLE') {
+        <div class="process-error">
+          {{ 'pr.process_not_available' | translate }}
+        </div>
+      }
     </div>
   }
 
+  <!-- Content -->
   <div class="g-layout-row g-layout-start-stretch section-container">
     <lab-process-io-panel
       [nodeProcess$]="nodeProcess$"
