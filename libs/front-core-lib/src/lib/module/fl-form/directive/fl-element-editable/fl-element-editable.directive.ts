@@ -113,6 +113,7 @@ export class FlElementEditableDirective {
   }
 
   private setNotEditable(): void {
+    if (!this.flElementEditable) return;
     this.flElementEditable = false;
     this.flElementEditableChange.emit(this.flElementEditable);
     this.renderer.removeAttribute(this.elementRef.nativeElement, 'contentEditable');
