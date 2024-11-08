@@ -22,6 +22,7 @@ import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
   CaLabComposeRestartOptions,
   CaLabComposeUpOptions,
+  CaLabDockerContainerSize,
   CaLabDockerPs,
   CaLabDockerPsFull,
   CaLabManagerConfig,
@@ -236,6 +237,10 @@ export class CaLabService {
       `${this.route}/${id}/lab-manager/containers/${containerName}`,
       CaLabDockerPsFull
     );
+  }
+
+  public getContainerSize(id: string, containerName: string): Observable<CaLabDockerContainerSize> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/size`);
   }
 
   public startComposeContainer(id: string, serviceName: string): Observable<boolean> {

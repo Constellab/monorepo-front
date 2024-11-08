@@ -399,5 +399,14 @@
   "restore_db": "Restaurer la base de données",
   "restore_data": "Restaurer les données",
   "force_restore": "Forcer la restauration (remplace les données existantes)",
-  "lab_volume_history": "Historique du volume"
+  "lab_volume_history": "Historique du volume",
+  "lab_container_status": "Status",
+  "lab_container_running_for": "Démarré depuis",
+  "lab_container_image": "Image",
+  "lab_container_mounts": "Mounts",
+  "lab_container_networks": "Networks",
+  "lab_container_ports": "Ports",
+  "lab_container_command": "Command",
+  "lab_container_size": "Taille",
+  "lab_container_get_size": "Récupérer la taille"
 }

@@ -46,6 +46,10 @@ export class CaLabDockerPsFull extends CaLabDockerPs {
   status: string;
 }
 
+export interface CaLabDockerContainerSize {
+  size: string;
+}
+
 export interface CaLabComposeUpOptions {
   updateContainers?: boolean;
   pruneSystem?: boolean;
