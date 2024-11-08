@@ -10,6 +10,7 @@ const flSearchFr: FlLangTranslation = {
     approximate_result: 'Environ {{count}} résultats',
     begin_date: 'Date de début',
     end_date: 'Date de fin',
+    search: 'Rechercher',
   },
 };
 
@@ -19,6 +20,7 @@ const flSearchEn: FlLangTranslation = {
     approximate_result: 'About {{count}} results',
     begin_date: 'Start date',
     end_date: 'End date',
+    search: 'Search',
   },
 };
 

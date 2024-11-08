@@ -35,6 +35,8 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx","-g","daemon off;"]
 
 ## Code for local test to use when app is already build and just transfered to the container
+## Need to command the dist folder in the .dockerignore file
+
 ## LEAVE THIS CODE COMMENTED
 #FROM nginx:alpine
 ## Copy the dist lab-front

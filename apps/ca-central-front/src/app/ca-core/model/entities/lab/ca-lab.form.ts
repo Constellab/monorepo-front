@@ -20,7 +20,7 @@ export class CaLabAdminForm {
   volumeType?: CaLabVolumeType;
 
   cloudName?: string;
-  glabApiKey?: string;
+  glabProdApiKey?: string;
   labManagerApiKey?: string;
   codelabToken?: string;
   serverInstanceId?: string;

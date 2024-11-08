@@ -148,30 +148,32 @@
             </mat-error>
           </mat-form-field>
 
-          <!--  Volume type  -->
-          <mat-form-field>
-            <mat-label>{{ 'lab_volume_type' | translate }}</mat-label>
-            <mat-select formControlName="volumeType" [placeholder]="'lab_volume_type' | translate" required>
-              <mat-option [value]="'CLASSIC'">{{ 'lab_volume_type_CLASSIC' | translate }}</mat-option>
-              <mat-option [value]="'HIGH_SPEED'">{{ 'lab_volume_type_HIGH_SPEED' | translate }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="formGp.get('volumeType').hasError('required')">
-              {{ 'lab_volume_type' | flErrorRequired }}
-            </mat-error>
-          </mat-form-field>
+          @if (isCreateMode()) {
+            <!--  Volume type  -->
+            <mat-form-field>
+              <mat-label>{{ 'lab_volume_type' | translate }}</mat-label>
+              <mat-select formControlName="volumeType" [placeholder]="'lab_volume_type' | translate" required>
+                <mat-option [value]="'CLASSIC'">{{ 'lab_volume_type_CLASSIC' | translate }}</mat-option>
+                <mat-option [value]="'HIGH_SPEED'">{{ 'lab_volume_type_HIGH_SPEED' | translate }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="formGp.get('volumeType').hasError('required')">
+                {{ 'lab_volume_type' | flErrorRequired }}
+              </mat-error>
+            </mat-form-field>
 
-          <!-- Volume Size -->
-          <mat-form-field>
-            <mat-label>{{ 'lab_volume_size' | translate }}</mat-label>
-            <input
-              matInput
-              formControlName="volumeSize"
-              [placeholder]="'lab_volume_size' | translate"
-              type="number" />
-            <mat-error *ngIf="formGp.get('volumeSize').invalid">
-              {{ 'lab_volume_size_error' | translate }}
-            </mat-error>
-          </mat-form-field>
+            <!-- Volume Size -->
+            <mat-form-field>
+              <mat-label>{{ 'lab_volume_size' | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="volumeSize"
+                [placeholder]="'lab_volume_size' | translate"
+                type="number" />
+              <mat-error *ngIf="formGp.get('volumeSize').invalid">
+                {{ 'lab_volume_size_error' | translate }}
+              </mat-error>
+            </mat-form-field>
+          }
 
           <!--  Backup region    -->
           <ng-container *ngIf="isCreateMode()">
@@ -258,6 +260,46 @@
               [placeholder]="'lab_manager_api_key' | translate" />
           </mat-form-field>
 
+          <!--  Glab Prod Api key  -->
+          <mat-form-field>
+            <mat-label>{{ 'glab_prod_api_key' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="glabProdApiKey"
+              flInputMaxLength="255"
+              [placeholder]="'glab_prod_api_key' | translate" />
+          </mat-form-field>
+
+          <!--  Glab Dev Api key  -->
+          <mat-form-field>
+            <mat-label>{{ 'glab_dev_api_key' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="glabDevApiKey"
+              flInputMaxLength="255"
+              [placeholder]="'glab_dev_api_key' | translate" />
+          </mat-form-field>
+
+          <!--  Prod db password  -->
+          <mat-form-field>
+            <mat-label>{{ 'lab_gws_core_prod_db_password' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="gwsCoreProdDbPassword"
+              flInputMaxLength="255"
+              [placeholder]="'lab_gws_core_prod_db_password' | translate" />
+          </mat-form-field>
+
+          <!--  Dev db password  -->
+          <mat-form-field>
+            <mat-label>{{ 'lab_gws_core_dev_db_password' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="gwsCoreDevDbPassword"
+              flInputMaxLength="255"
+              [placeholder]="'lab_gws_core_dev_db_password' | translate" />
+          </mat-form-field>
+
           <!--  Codelab token  -->
           <mat-form-field>
             <mat-label>{{ 'codelab_token' | translate }}</mat-label>
@@ -268,36 +310,6 @@
               [placeholder]="'codelab_token' | translate" />
           </mat-form-field>
         </ng-container>
-
-        <!--  Glab Api key  -->
-        <mat-form-field>
-          <mat-label>{{ 'glab_api_key' | translate }}</mat-label>
-          <input
-            matInput
-            formControlName="glabApiKey"
-            flInputMaxLength="255"
-            [placeholder]="'glab_api_key' | translate" />
-        </mat-form-field>
-
-        <!--  Prod db password  -->
-        <mat-form-field>
-          <mat-label>{{ 'lab_gws_core_prod_db_password' | translate }}</mat-label>
-          <input
-            matInput
-            formControlName="gwsCoreProdDbPassword"
-            flInputMaxLength="255"
-            [placeholder]="'lab_gws_core_prod_db_password' | translate" />
-        </mat-form-field>
-
-        <!--  Dev db password  -->
-        <mat-form-field>
-          <mat-label>{{ 'lab_gws_core_dev_db_password' | translate }}</mat-label>
-          <input
-            matInput
-            formControlName="gwsCoreDevDbPassword"
-            flInputMaxLength="255"
-            [placeholder]="'lab_gws_core_dev_db_password' | translate" />
-        </mat-form-field>
       </div>
     </form>
   }

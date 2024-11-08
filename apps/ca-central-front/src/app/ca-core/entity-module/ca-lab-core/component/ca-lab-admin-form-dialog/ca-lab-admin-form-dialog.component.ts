@@ -66,9 +66,16 @@ export class CaLabAdminFormDialogComponent
       virtualHost: [null, [Validators.required, CaLabValidator.virtualHostDomainValidator(true)]],
       serverCloud: [null, [Validators.required]],
       billingMode: [null, [Validators.required]],
-      volumeSize: [null, [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)]],
-      volumeType: ['HIGH_SPEED', [Validators.required]],
-      glabApiKey: [null],
+      volumeSize: [
+        {
+          value: null,
+          disabled: this.isUpdateMode(),
+        },
+        [Validators.required, FlGlobalValidators.isInteger, Validators.min(50)],
+      ],
+      volumeType: [{ value: 'HIGH_SPEED', disabled: this.isUpdateMode() }, [Validators.required]],
+      glabProdApiKey: [null],
+      glabDevApiKey: [null],
       labManagerApiKey: [null],
       codelabToken: [null],
       serverInstanceId: [null],
@@ -98,15 +105,6 @@ export class CaLabAdminFormDialogComponent
     });
   }
 
-  submit(): void {
-    for (const [key, control] of Object.entries(this.formGp.controls)) {
-      if (control.invalid && !control.disabled) {
-        console.log(key, control);
-      }
-    }
-    super.submit();
-  }
-
   onTypeChange(type: CaLabType): void {
     this.formGp.clearValidators();
     switch (type) {
@@ -114,8 +112,6 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('virtualHost').enable();
         this.formGp.get('serverCloud').enable();
         this.formGp.get('billingMode').enable();
-        this.formGp.get('volumeSize').enable();
-        this.formGp.get('volumeType').enable();
         this.formGp.get('labManagerApiKey').enable();
         this.formGp.get('codelabToken').enable();
         this.formGp.get('serverInstanceId').enable();
@@ -127,6 +123,8 @@ export class CaLabAdminFormDialogComponent
           .get('virtualHost')
           .setValidators([Validators.required, CaLabValidator.virtualHostDomainValidator(true)]);
         if (this.isCreateMode()) {
+          this.formGp.get('volumeSize').enable();
+          this.formGp.get('volumeType').enable();
           this.formGp.get('dailyBackupRegion').enable();
           this.formGp.get('weeklyBackupRegion').enable();
           this.formGp.addValidators([CaLabValidator.differentBackupRegionValidator()]);
@@ -138,13 +136,13 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('codelabToken').enable();
 
         this.formGp.get('serverCloud').disable();
-        this.formGp.get('volumeSize').disable();
-        this.formGp.get('volumeType').disable();
         this.formGp.get('billingMode').disable();
         this.formGp.get('serverInstanceId').disable();
         this.formGp.get('serverVolumeId').disable();
         this.formGp.get('desktopPlatform').disable();
         this.formGp.get('region').disable();
+        this.formGp.get('volumeSize').disable();
+        this.formGp.get('volumeType').disable();
         this.formGp.get('dailyBackupRegion').disable();
         this.formGp.get('weeklyBackupRegion').disable();
 
@@ -158,13 +156,13 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('virtualHost').disable();
         this.formGp.get('serverCloud').disable();
         this.formGp.get('billingMode').disable();
-        this.formGp.get('volumeSize').disable();
-        this.formGp.get('volumeType').disable();
         this.formGp.get('labManagerApiKey').disable();
         this.formGp.get('codelabToken').disable();
         this.formGp.get('serverInstanceId').disable();
         this.formGp.get('serverVolumeId').disable();
         this.formGp.get('region').disable();
+        this.formGp.get('volumeSize').disable();
+        this.formGp.get('volumeType').disable();
         this.formGp.get('dailyBackupRegion').disable();
         this.formGp.get('weeklyBackupRegion').disable();
 

@@ -76,9 +76,6 @@ export class CaLab extends CaBaseEntity {
   @Type(() => CaLabStatusHistory)
   currentStatus: CaLabStatusHistory = null;
 
-  // api url of the lab
-  apiUrl: string;
-
   // front url of the lab
   frontUrl: string;
 
