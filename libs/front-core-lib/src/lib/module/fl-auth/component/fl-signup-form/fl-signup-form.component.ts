@@ -20,7 +20,6 @@ export class FlSignupFormComponent {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, FlGlobalValidators.passwordValidator()]],
       repeatPassword: [null, [Validators.required, FlGlobalValidators.repeatPasswordValidator('password')]],
-      category: [null, Validators.required],
       validateCGU: [false, FlGlobalValidators.isValue(true)],
       phone: [null],
     });

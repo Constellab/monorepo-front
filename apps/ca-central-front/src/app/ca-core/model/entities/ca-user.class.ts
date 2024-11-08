@@ -18,7 +18,6 @@ export interface CaNewUser {
   firstname: string;
   lastname: string;
   email: string;
-  category: ClUserCategory;
   password: string;
   repeatPassword: string;
 }

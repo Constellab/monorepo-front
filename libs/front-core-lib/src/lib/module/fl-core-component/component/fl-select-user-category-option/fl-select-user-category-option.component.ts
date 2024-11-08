@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
-import { FlEmbeddedOptionsAbstractDirective } from '../../../../abstract-directive/fl-embedded-options-abstract.directive';
+import {
+  FlEmbeddedOptionsAbstractDirective,
+} from '../../../../abstract-directive/fl-embedded-options-abstract.directive';
 
 /**
  * List of option for a {@link ClUserCategory}
@@ -17,7 +19,7 @@ export class FlSelectUserCategoryOptionComponent
   // in basic mode, the ADMIN category is not shown
   @Input() mode: 'all' | 'basic' = 'basic';
 
-  constructor(@Host() private select: MatSelect) {
+  constructor(@Host() select: MatSelect) {
     super(select);
   }
 
