@@ -235,6 +235,10 @@ export class CaRouterService {
     return `${CaRouterService.getAdminRoute()}/servers-info`;
   }
 
+  public static getAdminMailsRoute(): string {
+    return `${CaRouterService.getAdminRoute()}/mails`;
+  }
+
   public navigateToAdmin(): void {
     this.router.navigate([CaRouterService.getAdminRoute()]);
   }

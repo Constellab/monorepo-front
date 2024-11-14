@@ -7,6 +7,7 @@ import { CaAdminUsersPageComponent } from './component/ca-admin-users-page/ca-ad
 import { CaAdminLabsPageComponent } from './component/ca-admin-labs-page/ca-admin-labs-page.component';
 import { CaAdminBucketsPageComponent } from './component/ca-admin-buckets-page/ca-admin-buckets-page.component';
 import { CaAdminServerPageComponent } from './component/ca-admin-server-page/ca-admin-server-page.component';
+import { CaAdminMailsPageComponent } from './component/ca-admin-mails-page/ca-admin-mails-page.component';
 
 const routes: Route[] = [
   {
@@ -20,6 +21,7 @@ const routes: Route[] = [
       { path: 'servers', component: CaAdminOthersPageComponent },
       { path: 'buckets', component: CaAdminBucketsPageComponent },
       { path: 'servers-info', component: CaAdminServerPageComponent },
+      { path: 'mails', component: CaAdminMailsPageComponent },
     ],
   },
 ];

@@ -38,6 +38,11 @@ export class CaAdminPageComponent {
       route: CaRouterService.getAdminServersInfoRoute(),
     },
     {
+      label: { text: 'maMail.mails', translateText: true },
+      icon: 'email',
+      route: CaRouterService.getAdminMailsRoute(),
+    },
+    {
       label: { text: 'admin_other_page', translateText: true },
       icon: 'settings',
       route: CaRouterService.getAdminServersRoute(),

@@ -41,6 +41,7 @@ import { RvResourceViewModule } from '@monorepo/resource-view';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TeTextEditorModule } from '@monorepo/text-editor';
+import { MaMailModule } from 'mail';
 
 /**
  * Regrouped all the needed import from library
@@ -93,6 +94,7 @@ import { TeTextEditorModule } from '@monorepo/text-editor';
     PrProtocolModule,
     TdTechnicalDocModule,
     TeTextEditorModule,
+    MaMailModule,
   ],
 })
 export class CaCustomLibraryModule {}

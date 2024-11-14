@@ -1,0 +1,73 @@
+<mat-table mat-table [dataSource]="datasource" flSearchTableSort>
+  <!-- status -->
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'maMail.status' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-status-chip [status]="row.status" size="small"></fl-status-chip>
+    </mat-cell>
+  </ng-container>
+
+  <!-- recipients -->
+  <ng-container matColumnDef="recipients">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="g-column-width-2">
+      <span> {{ 'maMail.recipients' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2 recipients">
+      {{ row.recipients }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- subject -->
+  <ng-container matColumnDef="subject">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="g-column-width-2">
+      <span> {{ 'maMail.subject' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2">
+      {{ row.subject }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- lastModifiedAt -->
+  <ng-container matColumnDef="lastModifiedAt">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span> {{ 'maMail.lastModifiedAt' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-from-now [date]="row.lastModifiedAt"></fl-from-now>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item type="button" (click)="showMailContent(row)">
+          <mat-icon>email</mat-icon>
+          <span>{{ 'maMail.content' | translate }}</span>
+        </button>
+
+        @if (row.status.value === 'ERROR') {
+          <button mat-menu-item type="button" (click)="showError(row)">
+            <mat-icon>error</mat-icon>
+            <span>{{ 'maMail.error' | translate }}</span>
+          </button>
+        }
+
+        <button mat-menu-item type="button" (click)="resendMail(row)">
+          <mat-icon>send</mat-icon>
+          <span>{{ 'maMail.resendMail' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>
