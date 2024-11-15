@@ -7,6 +7,8 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
  */
 const flAuthI18nFr: FlLangTranslation = {
   flAuth: {
+    email: 'Email',
+    email_invalid: "L'adresse email n'est pas valide",
     password: 'Mot de passe',
     repeat_password: 'Répéter le mot de passe',
     password_forgotten_mail_sent:
@@ -41,6 +43,8 @@ const flAuthI18nFr: FlLangTranslation = {
 
 const flAuthI18nEn: FlLangTranslation = {
   flAuth: {
+    email: 'Email',
+    email_invalid: 'Email address is not valid',
     password: 'Password',
     repeat_password: 'Repeat password',
     password_forgotten_mail_sent:
