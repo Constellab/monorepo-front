@@ -42,7 +42,7 @@
             </div>
           }
 
-          @if (userDatasource) {
+          @if (userDatasource && !userDatasource.page?.last) {
             <fl-infinite-load-more-result
               [datasource]="userDatasource"
               [textNoMoreResult]="null"
