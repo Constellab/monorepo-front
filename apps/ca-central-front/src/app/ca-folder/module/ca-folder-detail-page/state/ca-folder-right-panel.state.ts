@@ -6,7 +6,7 @@ import { CaFolderDetailRightPanelComponent } from '../component/ca-folder-detail
 import { ClHelpService } from '@monorepo/core-lib';
 
 export type CaFolderDetailRightPanel = {
-  type: 'description' | 'note' | 'scenario' | 'chat' | 'settings' | 'constellab-document';
+  type: 'description' | 'note' | 'chat' | 'settings' | 'constellab-document';
   objectId: string;
 };
 
@@ -68,7 +68,8 @@ export class CaFolderRightPanelState implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // unsubscribe the overlay destroy event to prevent calling queryParamHandler.mergeQueryParams which will trigger a navigation
+    // unsubscribe the overlay destroy event to prevent calling queryParamHandler.mergeQueryParams
+    // which will trigger a navigation
     this.subscription?.unsubscribe();
   }
 }

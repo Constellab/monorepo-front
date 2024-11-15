@@ -9,12 +9,16 @@ import {
 } from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
 import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
-import { CaFolderScenarioPreviewComponent } from '../ca-folder-scenario-preview/ca-folder-scenario-preview.component';
-import { CaFolderChatRightPanelComponent } from '../ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
+import {
+  CaFolderChatRightPanelComponent,
+} from '../ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
 import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-settings.component';
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
-import { CaConstellabDocumentPreviewComponent } from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
+import {
+  CaConstellabDocumentPreviewComponent,
+} from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
+
 
 /**
  * Right panel of the folder detail page
@@ -46,11 +50,6 @@ export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
         const noteComponent = this.container.createComponent(CaFolderNotePreviewComponent);
         noteComponent.instance.noteId = rightPanelState.objectId;
         this.viewComponentRef = noteComponent;
-        break;
-      case 'scenario':
-        const expComponent = this.container.createComponent(CaFolderScenarioPreviewComponent);
-        expComponent.instance.scenarioId = rightPanelState.objectId;
-        this.viewComponentRef = expComponent;
         break;
       case 'constellab-document':
         const docComponent = this.container.createComponent(CaConstellabDocumentPreviewComponent);

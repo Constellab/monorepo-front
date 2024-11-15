@@ -22,7 +22,9 @@ import {
   FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaHierarchyObjectTableEvent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import {
+  CaHierarchyObjectTableEvent,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import {
   CaHierarchyObjectActionEvent,
   CaHierarchyObjectActionMenu,
@@ -31,9 +33,13 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectSearchFields,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
-import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaFolderActionService,
+} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 /**
  * Page for a folder detail
@@ -176,10 +182,8 @@ export class CaFolderDetailPageComponent implements OnInit {
         });
         break;
       case CaHierarchyObjectType.SCENARIO:
-        this.rightPanelState.updateRightPanelState({
-          type: 'scenario',
-          objectId: hierarchyObject.id,
-        });
+        // no preview for scenario
+        this.onHierarchyObjectDblClicked(hierarchyObject);
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         this.rightPanelState.updateRightPanelState({
