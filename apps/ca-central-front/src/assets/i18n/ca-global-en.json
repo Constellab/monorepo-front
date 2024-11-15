@@ -281,5 +281,8 @@
   "license_updated": "License updated",
   "contact": "Contact",
   "clear": "Clear",
-  "no_message": "No message, write the first one"
+  "no_message": "No message, write the first one",
+  "synchronise_user_with_community": "Synchronise all user with community",
+  "synchronise_user_with_community_confirmation": "Are you sure you want to synchronise all user with community ?",
+  "all_user_synchronised": "Sync started"
 }

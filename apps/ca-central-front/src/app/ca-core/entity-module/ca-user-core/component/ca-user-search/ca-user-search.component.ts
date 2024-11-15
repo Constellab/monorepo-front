@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  FlConfirmDialogInput,
+  FlDialogService,
   FlEntityPaginatedDatasource,
   FlFileHelper,
   FlSavedSearch,
@@ -35,7 +37,8 @@ export class CaUserSearchComponent implements OnInit {
   constructor(
     private searchState: FlSearchState<any>,
     private userService: CaUsersService,
-    private themeService: FlThemeService
+    private themeService: FlThemeService,
+    private dialogService: FlDialogService
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +83,17 @@ export class CaUserSearchComponent implements OnInit {
       next: (blob) => this.exportSearchSuccess(blob),
       error: () => (this.exportIsLoading = false),
     });
+  }
+
+  syncAllUserWithCommunity(): void {
+    const data: FlConfirmDialogInput = {
+      title: 'synchronise_user_with_community',
+      content: 'synchronise_user_with_community_confirmation',
+      successMessage: 'all_user_synchronised',
+      observable: this.userService.sendAllUserToQueue(),
+    };
+
+    this.dialogService.openConfirmDialog(data);
   }
 
   private exportSearchSuccess(result: Blob): void {

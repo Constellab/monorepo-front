@@ -409,5 +409,8 @@
   "lab_container_command": "Command",
   "lab_container_size": "Taille",
   "lab_container_get_size": "Récupérer la taille",
-  "request_lab": "Ou demander un lab"
+  "request_lab": "Ou demander un lab",
+  "synchronise_user_with_community": "Synchroniser tous les utilisateurs avec Community",
+  "synchronise_user_with_community_confirmation": "Êtes-vous sûr de vouloir synchroniser tous les utilisateurs avec Community ?",
+  "synchronise_user_with_community_started": "Synchronisation démarrée"
 }

@@ -7,14 +7,25 @@
         <h2>{{ 'users' | translate }}</h2>
       </fl-text-icon>
 
-      <fl-search-header-actions>
+      <fl-search-header-actions class="g-layout-row g-layout-start-center">
         <button
           mat-icon-button
           type="button"
           (click)="exportSearch()"
           [matTooltip]="'export_search_to_csv' | translate">
           <mat-icon>cloud_download</mat-icon>
-          <fl-button-loader *ngIf="exportIsLoading" position="override"></fl-button-loader>
+          @if (exportIsLoading) {
+            <fl-button-loader position="override"></fl-button-loader>
+          }
+        </button>
+
+        <button
+          *caIsAdmin
+          mat-icon-button
+          type="button"
+          (click)="syncAllUserWithCommunity()"
+          [matTooltip]="'synchronise_user_with_community' | translate">
+          <mat-icon>cloud_sync</mat-icon>
         </button>
       </fl-search-header-actions>
     </fl-search-header>

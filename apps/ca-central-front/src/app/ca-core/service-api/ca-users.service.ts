@@ -67,4 +67,8 @@ export class CaUsersService {
       { initFirstPage: false }
     );
   }
+
+  public sendAllUserToQueue(): Observable<void> {
+    return this.apiService.post(`${this.route}/send-all-to-queue`, null, null);
+  }
 }
