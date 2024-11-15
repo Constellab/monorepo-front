@@ -124,7 +124,7 @@ export class CaLabConfigBrickComponent implements OnInit {
           this.userId
         ),
       10,
-      false
+      { initFirstPage: false }
     );
     this.updateBricks();
     this.isLoading = false;

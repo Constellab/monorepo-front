@@ -93,11 +93,9 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       defaultSort: { key: 'creation', direction: 'DESC' },
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(
-      this.resourceService.getAdvancedSearchFunction(),
-      20,
-      false
-    );
+    this.datasource = new FlEntityPaginatedDatasource(this.resourceService.getAdvancedSearchFunction(), 20, {
+      initFirstPage: false,
+    });
 
     this.searchState.init(searchConfig, this.datasource);
     this.listenToUploadAction();

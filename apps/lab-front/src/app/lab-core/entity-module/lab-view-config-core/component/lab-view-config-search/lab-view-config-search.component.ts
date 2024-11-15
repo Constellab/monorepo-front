@@ -58,7 +58,7 @@ export class LabViewConfigSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       this.viewConfigService.getViewConfigSearchFunction(this.noteId),
       20,
-      false
+      { initFirstPage: false }
     );
 
     this.searchState.init(config, this.datasource);

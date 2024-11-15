@@ -216,7 +216,7 @@ export class CaSpaceService {
     return new FlEntityPaginatedDatasource(
       (page, size, data) => this.searchSpaceUsersByName(spaceId, data.filtersCriteria.searchText, page, size),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

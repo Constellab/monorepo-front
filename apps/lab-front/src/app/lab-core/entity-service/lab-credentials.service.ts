@@ -55,7 +55,7 @@ export class LabCredentialsService {
   }
 
   public getAllDatasource(): LabCredentialsDatasource {
-    return new FlEntityPaginatedDatasource((page, size) => this.getAll(page, size), 20, true);
+    return new FlEntityPaginatedDatasource((page, size) => this.getAll(page, size), 20);
   }
 
   public search(

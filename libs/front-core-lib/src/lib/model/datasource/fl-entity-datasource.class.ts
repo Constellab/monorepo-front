@@ -1,4 +1,8 @@
-import { FlDatasourceGetPageFunction, FlDatasourcePaginated } from './fl-datasource-paginated.class';
+import {
+  FlDatasourceGetPageFunction,
+  FlDatasourcePaginated,
+  FlDatasourcePaginatedOptions,
+} from './fl-datasource-paginated.class';
 import { ClCoreJsonConvert, clGetEmptyPage, ClHelpService } from '@monorepo/core-lib';
 import { FlEntity } from '../fl-entity.class';
 import { of } from 'rxjs';
@@ -7,10 +11,9 @@ export class FlEntityPaginatedDatasource<T extends FlEntity, F = void> extends F
   constructor(
     getPageFunction: FlDatasourceGetPageFunction<T, F>,
     pageSize: number,
-    initFirstPage: boolean = true,
-    disableAutoDisconnect: boolean = false
+    options?: FlDatasourcePaginatedOptions
   ) {
-    super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
+    super(getPageFunction, pageSize, options);
   }
 
   protected equals(a: T, b: T): boolean {

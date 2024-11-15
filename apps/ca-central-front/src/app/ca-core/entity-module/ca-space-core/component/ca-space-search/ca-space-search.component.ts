@@ -49,7 +49,7 @@ export class CaSpaceSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.spaceService.search(page, size, filters),
       20,
-      false
+      { initFirstPage: false }
     );
     this.searchState.init(config, this.datasource);
   }

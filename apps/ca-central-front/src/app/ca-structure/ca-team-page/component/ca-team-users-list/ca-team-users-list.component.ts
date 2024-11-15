@@ -29,8 +29,7 @@ export class CaTeamUsersListComponent implements OnInit {
   ngOnInit(): void {
     this.datasource = new CaUserGroupDatasource(
       (page, size) => this.groupService.getUsersOfTeam(this.groupId, page, size),
-      20,
-      true
+      20
     );
   }
 

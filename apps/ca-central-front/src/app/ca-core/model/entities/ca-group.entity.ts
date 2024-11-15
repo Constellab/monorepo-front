@@ -2,6 +2,7 @@ import { CaBaseEntity } from './ca-base-entity.class';
 import {
   FlDatasourceGetPageFunction,
   FlDatasourcePaginated,
+  FlDatasourcePaginatedOptions,
   FlEntityPaginatedDatasource,
 } from '@monorepo/front-core-lib';
 import { CaUser } from './ca-user.class';
@@ -54,9 +55,9 @@ export class CaUserGroupDatasource extends FlDatasourcePaginated<CaUserGroup> {
   constructor(
     getPageFunction: FlDatasourceGetPageFunction<CaUserGroup>,
     pageSize: number,
-    initFirstPage: boolean = true
+    options?: FlDatasourcePaginatedOptions
   ) {
-    super(getPageFunction, pageSize, initFirstPage);
+    super(getPageFunction, pageSize, options);
   }
 
   protected equals(a: CaUserGroup, b: CaUserGroup): boolean {

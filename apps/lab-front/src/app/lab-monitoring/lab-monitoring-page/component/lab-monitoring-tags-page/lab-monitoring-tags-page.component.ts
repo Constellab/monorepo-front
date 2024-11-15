@@ -31,7 +31,6 @@ export class LabMonitoringTagsPageComponent implements OnInit {
     this.tagKeys = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchKeys(null, page, size),
       20,
-      true
     );
   }
 

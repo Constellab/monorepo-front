@@ -22,12 +22,12 @@ export class CoIconService {
         return this.getAllByFilter(requestData.filtersCriteria.subNameFilter, page, size);
       },
       20,
-      false
+      { initFirstPage: false }
     );
   }
 
   private getAllByFilter(subNameFilter: string, page: number, size: number): Observable<ClPage<CoIcon>> {
-    let route = '/' + this.route + '/filter';
+    const route = '/' + this.route + '/filter';
     return this.apiService.post(route, { subNameFilter: subNameFilter }, CoIcon, {
       page: page,
       resultIsPaginated: true,

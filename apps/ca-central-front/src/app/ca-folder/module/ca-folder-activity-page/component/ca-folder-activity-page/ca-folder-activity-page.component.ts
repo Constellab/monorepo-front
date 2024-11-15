@@ -28,7 +28,7 @@ export class CaFolderActivityPageComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.folderService.searchActivity(folderId, page, size, filters),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 }

@@ -270,8 +270,9 @@ export class LabResourceDetailState implements OnDestroy {
       this.favoriteViews[resourceId] = new FlEntityPaginatedDatasource(
         (page, pageSize) => this.viewConfigService.getByResource(resourceId, true, page, pageSize),
         10,
-        true,
-        true
+        {
+          disableAutoDisconnect: true,
+        }
       );
     }
     return this.favoriteViews[resourceId];

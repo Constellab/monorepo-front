@@ -58,7 +58,7 @@ export class CaFolderDetailState implements OnDestroy {
     this.childrenDatasource = new FlEntityPaginatedDatasource<
       CaHierarchyObject,
       CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 30, false);
+    >(() => of(clGetEmptyPage()), 30, { initFirstPage: false });
 
     this.users$ = new FlEntityArrayObs(
       this.id$.pipe(

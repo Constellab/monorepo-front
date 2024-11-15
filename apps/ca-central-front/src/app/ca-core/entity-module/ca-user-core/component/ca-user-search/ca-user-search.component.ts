@@ -54,7 +54,7 @@ export class CaUserSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.userService.search(page, size, filters),
       20,
-      false
+      { initFirstPage: false }
     );
 
     this.searchState.init(config, this.datasource);

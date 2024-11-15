@@ -1,4 +1,4 @@
-import { Injectable, input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   FlApiService,
   FlConfirmDialogInput,
@@ -138,7 +138,7 @@ export class LabNoteService implements TeTextEditorHistoryService {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.search(page, pageSize, data),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -164,7 +164,7 @@ export class LabNoteService implements TeTextEditorHistoryService {
       (page: number, pageSize: number, data) =>
         this.searchByName(page, pageSize, data.filtersCriteria.searchText),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

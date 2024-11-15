@@ -66,7 +66,7 @@ export class HaStoryService
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getAllByFilter(filters, page, size),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -96,7 +96,7 @@ export class HaStoryService
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getUserStories(filters.filtersCriteria.userId, page, size),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -174,7 +174,7 @@ export class HaStoryService
     return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilters>(
       (page, size, filters) => this.getMyStoriesForListPaginated(page, size, filters),
       10,
-      false
+      { initFirstPage: false }
     );
   }
 

@@ -53,7 +53,7 @@ export class CaServerCloudSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.serverService.searchServerCloud(page, size, filters),
       20,
-      false
+      { initFirstPage: false }
     );
     this.searchState.init(config, this.datasource);
   }

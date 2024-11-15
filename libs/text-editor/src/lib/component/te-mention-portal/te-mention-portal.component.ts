@@ -54,7 +54,7 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
     this.users$ = new FlEntityPaginatedDatasource(
       (page, pageSize, requestData) => this.input.config.getUsers(requestData, page, pageSize),
       20,
-      false
+      { initFirstPage: false }
     );
 
     this.input.filter$.subscribe({

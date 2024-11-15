@@ -47,8 +47,9 @@ export class CaNotificationState implements OnDestroy {
     this.notifications = new FlEntityPaginatedDatasource(
       (page, size) => notificationService.getCurrentNotifications(page, size),
       this.pageSize,
-      true,
-      true
+      {
+        disableAutoDisconnect: true,
+      }
     );
   }
 

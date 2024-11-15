@@ -27,6 +27,33 @@ export type FlDatasourceGetPageFunction<T, F = void> = (
   data: FlDatasourceGetPageData<F>
 ) => Observable<ClPageI<T>>;
 
+export interface FlDatasourcePaginatedOptions {
+  /**
+   * If true, the first page is called when the datasource is created
+   * Default: true
+   */
+  initFirstPage?: boolean;
+
+  /**
+   * If true, the auto disconnect is disabled. mat-table and fl-async-section will
+   * not automatically disconnect the array obs. It needs to be done manually (call manualDisconnect method)
+   * Default: false
+   */
+  disableAutoDisconnect?: boolean;
+
+  /**
+   * If true, the datasource will throw an error when the first page is empty
+   * Default: false
+   */
+  throwError?: boolean;
+}
+
+const defaultOptions: FlDatasourcePaginatedOptions = {
+  initFirstPage: true,
+  disableAutoDisconnect: false,
+  throwError: false,
+};
+
 /**
  * Datasource that work with a method that returns paginated results.
  * T is the type of the object returned by the method
@@ -53,16 +80,20 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
   private sortsCriteria: FlDatasourceSortCriteria[] = [];
 
+  private readonly throwError: boolean = false;
+
   constructor(
     private getPageFunction: FlDatasourceGetPageFunction<T, F>,
     private pageSize: number,
-    initFirstPage: boolean = true,
-    disableAutoDisconnect: boolean = false
+    options: FlDatasourcePaginatedOptions = defaultOptions
   ) {
-    super(null, disableAutoDisconnect);
-    if (initFirstPage) {
+    super(null, options.disableAutoDisconnect);
+
+    const fullOptions = { ...defaultOptions, ...options };
+    if (fullOptions.initFirstPage) {
       this.getFirstPage();
     }
+    this.throwError = fullOptions.throwError;
   }
 
   // don't emit until the datasource is ready
@@ -141,9 +172,7 @@ export abstract class FlDatasourcePaginated<T, F = void> extends FlArrayObs<T> {
 
     this.clearAfterCall();
     // emit the error status
-    // if the page is the first one, close the observable
-    const isFirstPage: boolean = this.pageNumber === 0;
-    this.error(error, isFirstPage);
+    this.error(error, this.throwError);
   }
 
   // clear loadings and subscriptions

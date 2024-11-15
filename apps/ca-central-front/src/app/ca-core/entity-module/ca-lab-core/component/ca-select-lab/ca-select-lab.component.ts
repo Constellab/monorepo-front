@@ -41,7 +41,7 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements
       (page, size, data) =>
         this.labService.searchAll(page, size, this.getFilter(data.filtersCriteria.searchText)),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

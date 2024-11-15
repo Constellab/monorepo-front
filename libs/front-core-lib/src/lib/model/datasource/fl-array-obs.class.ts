@@ -272,7 +272,8 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
   /**
    * set the status as error
    * @param error
-   * @param throwErrorInArray if true the error is thrown in the main array observable  (this will close the array observable)
+   * @param throwErrorInArray if true the error is thrown in the main array observable
+   * (this will close the array observable)
    */
   public error(error: any, throwErrorInArray: boolean = false): void {
     this.status = { status: 'error', error: error };

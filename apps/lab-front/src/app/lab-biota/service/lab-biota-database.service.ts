@@ -36,7 +36,6 @@ export class LabBiotaDatabaseService {
       (page: number, pageSize: number): Observable<ClPageI<LabBiotaData>> =>
         this.getDatabaseData(typingName, page, pageSize),
       20,
-      true
     );
   }
 
@@ -45,7 +44,6 @@ export class LabBiotaDatabaseService {
       (page: number, pageSize: number): Observable<ClPageI<LabBiotaData>> =>
         this.modelService.search(search, page, pageSize),
       20,
-      true
     );
   }
 }

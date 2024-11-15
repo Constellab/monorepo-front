@@ -22,7 +22,7 @@ export class LabUserService {
     return new FlEntityPaginatedDatasource(
       (page, size, data) => this.searchByName(data.filtersCriteria.searchText, page, size),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

@@ -77,12 +77,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   constructor(private tagService: FlTagService) {}
 
-  // TODO TO TEST
   ngOnInit(): void {
     this.filteredOptions = new FlEntityPaginatedDatasource<any, FlTagSearchFilter>(
       (page, size, filter) => this.tagService.searchTag(filter.filtersCriteria, page, size),
       20,
-      false
+      { initFirstPage: false }
     );
 
     combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])

@@ -61,7 +61,7 @@ export class HaAgentService implements HaCoAuthorService {
           size
         ),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -77,7 +77,7 @@ export class HaAgentService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getUserAgents(requestData.filtersCriteria.userId, page, size),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 

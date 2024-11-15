@@ -62,7 +62,7 @@ export class LabNoteTemplateService {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.search(page, pageSize, data),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -88,7 +88,7 @@ export class LabNoteTemplateService {
       (page: number, pageSize: number, data) =>
         this.searchByName(page, pageSize, data.filtersCriteria.searchText),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

@@ -118,7 +118,7 @@ export class LabScenarioService {
     return new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.advancedSearch(page, pageSize, data),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -144,7 +144,7 @@ export class LabScenarioService {
       (page: number, pageSize: number, data) =>
         this.searchByTitle(page, pageSize, data.filtersCriteria.searchText),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

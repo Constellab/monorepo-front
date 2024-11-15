@@ -210,13 +210,12 @@ export interface FlEmojiSearchFilter {
   text: string;
 }
 
-// TODO TO TEST
 export class FlEmojiDatasource extends FlDatasourcePaginated<FlEmojiCategory, FlEmojiSearchFilter> {
   constructor() {
     super(
       (page, pageSize, filter) => FlEmojiHelper.search(filter.filtersCriteria.text, page, pageSize),
       200,
-      false
+      { initFirstPage: false }
     );
   }
 

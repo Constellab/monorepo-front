@@ -174,7 +174,7 @@ export class LabTypeService {
     return new FlEntityPaginatedDatasource(
       (page, size, data) => this.searchTypeByName(objectTypes, data, page, size),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 }

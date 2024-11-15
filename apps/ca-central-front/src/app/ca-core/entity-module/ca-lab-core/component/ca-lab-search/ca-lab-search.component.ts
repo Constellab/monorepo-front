@@ -95,13 +95,13 @@ export class CaLabSearchComponent implements OnInit {
         return new FlEntityPaginatedDatasource(
           (page, size, data) => this.labService.searchAll(page, size, data),
           20,
-          false
+          { initFirstPage: false }
         );
       case 'current-space':
         return new FlEntityPaginatedDatasource(
           (page, size, filters) => this.labService.searchInCurrentSpace(page, size, filters),
           20,
-          false
+          { initFirstPage: false }
         );
       default:
         throw new Error(`[CaLabSearchComponent] Unknown mode '${this.mode}'`);

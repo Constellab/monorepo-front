@@ -41,8 +41,7 @@ export class LabActivitySearchComponent implements OnInit {
 
     this.datasource = new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => this.activityService.search(page, pageSize, data),
-      20,
-      true
+      20
     );
     this.searchState.init(config, this.datasource);
   }

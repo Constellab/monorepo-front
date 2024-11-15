@@ -44,7 +44,7 @@ export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implem
         }
       },
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

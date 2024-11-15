@@ -43,7 +43,7 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
       (page: number, pageSize: number, data) =>
         this.serverService.searchServerCloudByName(data.filtersCriteria.searchText, page, pageSize),
       20,
-      false
+      { initFirstPage: false }
     );
 
     this.advancedButton = {

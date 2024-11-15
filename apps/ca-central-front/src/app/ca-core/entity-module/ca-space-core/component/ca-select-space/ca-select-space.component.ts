@@ -37,7 +37,7 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
     this.spaceDatasource = new FlEntityPaginatedDatasource(
       (page, size, data) => this.spaceService.searchByNames(data.filtersCriteria.searchText, page, size),
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

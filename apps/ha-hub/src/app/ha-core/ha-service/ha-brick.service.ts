@@ -90,7 +90,7 @@ export class HaBrickService implements HaCoAuthorService {
           size
         ),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 
@@ -106,7 +106,7 @@ export class HaBrickService implements HaCoAuthorService {
     return new FlEntityPaginatedDatasource(
       (page, size, requestData) => this.getUserBricks(requestData.filtersCriteria.userId, page, size),
       pageSize,
-      false
+      { initFirstPage: false }
     );
   }
 

@@ -40,8 +40,7 @@ export class CaLabBackupHistoryComponent implements OnInit {
   private initDatasource(): void {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size) => this.labService.getBackupHistory(this.labId, page, size),
-      20,
-      true
+      20
     );
   }
 

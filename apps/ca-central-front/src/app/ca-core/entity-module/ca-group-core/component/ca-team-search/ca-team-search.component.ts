@@ -48,7 +48,7 @@ export class CaTeamSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, filters) => this.groupService.searchTeamInCurrentSpace(page, size, filters),
       20,
-      false
+      { initFirstPage: false }
     );
     this.searchState.init(config, this.datasource);
   }

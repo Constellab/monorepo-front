@@ -5,6 +5,7 @@ import { CaSpace } from './space/ca-space.class';
 import {
   FlDatasourceGetPageFunction,
   FlDatasourcePaginated,
+  FlDatasourcePaginatedOptions,
   FlEntityPaginatedDatasource,
 } from '@monorepo/front-core-lib';
 import { CaLab } from './lab/ca-lab.class';
@@ -97,10 +98,9 @@ export class CaBucketLocationDatasource extends FlDatasourcePaginated<CaBucketLo
   constructor(
     getPageFunction: FlDatasourceGetPageFunction<CaBucketLocationDTO>,
     pageSize: number,
-    initFirstPage: boolean = true,
-    disableAutoDisconnect: boolean = false
+    options?: FlDatasourcePaginatedOptions
   ) {
-    super(getPageFunction, pageSize, initFirstPage, disableAutoDisconnect);
+    super(getPageFunction, pageSize, options);
   }
 
   protected equals(a: CaBucketLocationDTO, b: CaBucketLocationDTO): boolean {

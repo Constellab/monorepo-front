@@ -43,8 +43,7 @@ export class LabTagEntityDetailComponent implements OnInit {
   ngOnInit(): void {
     this.tagValues = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchValues(this.tagEntity.key, null, page, size),
-      5,
-      true
+      5
     );
   }
 

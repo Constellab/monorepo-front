@@ -53,7 +53,7 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
         return this.credentialsService.search(page, size, searchFields);
       },
       20,
-      false
+      { initFirstPage: false }
     );
   }
 

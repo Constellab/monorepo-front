@@ -94,7 +94,7 @@ export class LabTypeSearchComponent implements OnInit {
       defaultSort: { key: 'name', direction: 'ASC' },
     };
 
-    this.datasource = new FlEntityPaginatedDatasource(searchFunction, 20, false);
+    this.datasource = new FlEntityPaginatedDatasource(searchFunction, 20, { initFirstPage: false });
     this.searchState.init(config, this.datasource);
   }
 

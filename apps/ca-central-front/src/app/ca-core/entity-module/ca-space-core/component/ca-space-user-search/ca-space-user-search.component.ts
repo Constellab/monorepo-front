@@ -65,7 +65,7 @@ export class CaSpaceUserSearchComponent implements OnInit {
     this.datasource = new CaSpaceUserDatasource(
       (page, size, data) => this.currentSpaceService.searchSpaceUsers(page, size, data),
       20,
-      false
+      { initFirstPage: false }
     );
     this.searchState.init(config, this.datasource);
   }

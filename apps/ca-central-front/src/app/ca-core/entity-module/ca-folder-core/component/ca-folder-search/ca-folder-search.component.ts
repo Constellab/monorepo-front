@@ -42,7 +42,7 @@ export class CaFolderSearchComponent implements OnInit {
     this.datasource = new FlEntityPaginatedDatasource(
       (page, size, data) => this.folderService.searchFoldersInCurrentSpace(page, size, data),
       20,
-      false
+      { initFirstPage: false }
     );
     this.searchState.init(config, this.datasource);
   }
