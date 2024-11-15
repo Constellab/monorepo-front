@@ -3,6 +3,11 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
+  <ca-lab-free-create-button class="free-lab">
+    <mat-divider class="divider"></mat-divider>
+    <div class="g-text-big title">{{ 'request_lab' | translate }}</div>
+  </ca-lab-free-create-button>
+
   <form (ngSubmit)="submit()" id="server-info-form" [formGroup]="formGp">
     <!--  Type  -->
     <mat-radio-group
@@ -59,11 +64,11 @@
       <div>{{ 'lab_request_storage' | translate }}</div>
       <mat-radio-group formControlName="storageSize" class="cloud-radio">
         <mat-radio-button value="< 500 GB"
-          ><500 {{ 'flCoreComponent.giga_byte_symbole' | translate }}</mat-radio-button
-        >
+        ><500 {{ 'flCoreComponent.giga_byte_symbole' | translate }}
+        </mat-radio-button>
         <mat-radio-button value="> 500 GB"
-          >>500 {{ 'flCoreComponent.giga_byte_symbole' | translate }}</mat-radio-button
-        >
+        >>500 {{ 'flCoreComponent.giga_byte_symbole' | translate }}
+        </mat-radio-button>
         <mat-radio-button value="I don’t know / Other">I don’t know / Other</mat-radio-button>
       </mat-radio-group>
 

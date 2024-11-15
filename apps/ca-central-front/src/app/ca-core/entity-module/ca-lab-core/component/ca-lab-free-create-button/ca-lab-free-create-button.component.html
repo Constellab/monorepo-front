@@ -1,10 +1,10 @@
 @if (freeLabInfo$ | async; as freeLabInfo) {
   @if (freeLabInfo.showCreateFreeLab) {
-    <div>
       <button mat-flat-button type="button" (click)="createFreeLab(freeLabInfo.freeLab)" color="primary">
-        <mat-icon>not_started</mat-icon>
+        <mat-icon>add</mat-icon>
         {{ 'start_free_data_lab' | translate }}
       </button>
-    </div>
+
+    <ng-content></ng-content>
   }
 }

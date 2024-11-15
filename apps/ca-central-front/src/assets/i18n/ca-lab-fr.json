@@ -408,5 +408,6 @@
   "lab_container_ports": "Ports",
   "lab_container_command": "Command",
   "lab_container_size": "Taille",
-  "lab_container_get_size": "Récupérer la taille"
+  "lab_container_get_size": "Récupérer la taille",
+  "request_lab": "Ou demander un lab"
 }
