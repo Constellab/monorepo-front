@@ -181,7 +181,7 @@ export class LabProcessDashboardComponent {
       .afterClosed()
       .subscribe((process: LabProcess) => {
         if (process) {
-          this.nodeState.updateProcessStyle(process);
+          this.nodeState.updateProcess(process);
           this.process$ = of(process);
         }
       });

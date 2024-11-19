@@ -9,6 +9,7 @@ export * from './lib/model/td-resource-type.class';
 export * from './lib/model/td-type.class';
 export * from './lib/model/td-typing-name.class';
 export * from './lib/model/td-type-other-class.class';
+export * from './lib/model/td-param-spec-config.class';
 
 //component
 export * from './lib/component/td-technical-doc/td-technical-doc.component';
@@ -26,13 +27,20 @@ export * from './lib/component/td-type-icon/td-type-icon.component';
 export * from './lib/component/td-type-icon-badge/td-type-icon-badge.component';
 export * from './lib/component/td-type-inline/td-type-inline.component';
 export * from './lib/component/td-type-unavailable/td-type-unavailable.component';
+// eslint-disable-next-line max-len
 export * from './lib/component/td-resource-doc-function-signature/td-resource-doc-function-signature.component';
 export * from './lib/component/td-resource-doc-func-info/td-resource-doc-func-info.component';
 export * from './lib/component/td-vars-methods-doc/td-vars-methods-doc.component';
 export * from './lib/component/td-other-class-doc/td-other-class-doc.component';
+// eslint-disable-next-line max-len
+export * from './lib/component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+export * from './lib/component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
+export *
+  from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 
 //service
-export * from './lib/service/td-service-config.config';
+export * from './lib/service/td-technical-doc-service-config.config';
+export * from './lib/service/td-abstract-dynamic-param-spec.state';
 
 //pipe
 export * from './lib/pipe/td-markdown.pipe';

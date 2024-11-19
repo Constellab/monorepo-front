@@ -5,7 +5,7 @@ export interface TdTechnicalDocUrl {
   url: string;
 }
 
-export abstract class TdServiceConfig {
+export abstract class TdTechnicalDocServiceConfig {
   /**
    * Get the unique technical documentation url
    * Result can be contain an absolute  link or not

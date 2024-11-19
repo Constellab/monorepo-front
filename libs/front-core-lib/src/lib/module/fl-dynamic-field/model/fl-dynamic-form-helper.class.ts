@@ -12,6 +12,7 @@ import {
   FlDynamicFormAbstractControl,
   FlDynamicFormArrayConfig,
   FlDynamicFormGroupConfig,
+  FlDynamicEditableFormGroupConfig,
 } from './fl-dynamic-field-config.class';
 import { FlGlobalValidators } from '../../../utils/fl-global.validators';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -28,10 +29,23 @@ export class FlDynamicFormHelper {
         return FlDynamicFormHelper.generateFormGroup(config, value);
       case 'formArray':
         return FlDynamicFormHelper.generateFormArray(config, value);
+      case 'editableFormGroup':
+        return FlDynamicFormHelper.generateEditableFormGroup(config, value);
     }
   }
 
   public static generateFormGroup(config: FlDynamicFormGroupConfig, value: any = {}): UntypedFormGroup {
+    const formGroup: UntypedFormGroup = new UntypedFormGroup({});
+
+    for (const key in config.subConfigs) {
+      const val = value ? value[key] : null;
+      formGroup.addControl(key, FlDynamicFormHelper.generateForm(config.subConfigs[key], val));
+    }
+    return formGroup;
+  }
+
+  public static generateEditableFormGroup(config: FlDynamicEditableFormGroupConfig,
+                                          value: any = {}): UntypedFormGroup {
     const formGroup: UntypedFormGroup = new UntypedFormGroup({});
 
     for (const key in config.subConfigs) {

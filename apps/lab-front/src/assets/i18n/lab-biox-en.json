@@ -424,6 +424,7 @@
     "scenario_import_resource_mode_none": "No resource",
     "history": "History",
     "edit_process_style": "Edit process style",
+    "edit_params_specs": "Edit parameters",
     "process_style_updated": "Process style updated"
   }
 }

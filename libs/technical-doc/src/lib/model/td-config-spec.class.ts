@@ -1,3 +1,8 @@
+export interface TdConfig {
+  specs: TdParamSpecs;
+  values: Record<string, any>;
+}
+
 /**
  * Define the type of the param spec
  */
@@ -21,7 +26,9 @@ export type TdParamSpecType =
   | 'open_ai_chat_param'
   | 'credentials_param'
   | 'note_template_param'
-  | 'note_param';
+  | 'note_param'
+  | 'dynamic'
+  | 'dict';
 
 /**
  * Visibility of the param spec
@@ -69,7 +76,7 @@ export interface TdParamSpecBase {
    */
   visibility: TdParamSpecVisibility;
 
-  allowed_values?: any;
+  // allowed_values?: any;
 
   /**
    * Custom properties depending on the type of the param
@@ -80,7 +87,7 @@ export interface TdParamSpecBase {
 /**
  * All param set spec type including param set spec
  */
-export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet;
+export type TdParamSpec = TdParamSpecSimple | TdParamSpecParamSet | TdParamSpecDynamic;
 
 export type TdParamSpecs = Record<string, TdParamSpec>;
 /**
@@ -109,6 +116,7 @@ export interface TdParamSpecString extends TdParamSpecBase {
   additional_info: {
     min_length?: number;
     max_length?: number;
+    allowed_values?: string[];
   };
 }
 
@@ -125,6 +133,7 @@ export interface TdParamSpecFloat extends TdParamSpecBase {
   additional_info: {
     min_value?: number;
     max_value?: number;
+    allowed_values?: number[];
   };
 }
 
@@ -187,6 +196,17 @@ export interface TdParamSpecParamSet extends TdParamSpecBase {
   };
 }
 
+/**
+ * Special param spec that contains dynamic sub params
+ */
+export interface TdParamSpecDynamic extends TdParamSpecBase {
+  type: 'dynamic';
+
+  additional_info: {
+    specs: TdParamSpecs;
+  };
+}
+
 // list of param spec type that uses a code editor
 export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'python_code_param',
@@ -197,3 +217,14 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'yaml_code_param',
   'json_code_param',
 ];
+
+export type TdParamSpecFormInfoList = Record<
+  string,
+  Record<string, TdParamSpecFormInfo | Record<string, TdParamSpecFormInfo>>
+>;
+
+export interface TdParamSpecFormInfo {
+  type: TdParamSpecType;
+  optional: boolean;
+  value: any;
+}

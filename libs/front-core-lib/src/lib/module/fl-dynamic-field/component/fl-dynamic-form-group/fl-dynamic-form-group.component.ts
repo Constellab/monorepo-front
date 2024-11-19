@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
 } from '../../model/fl-dynamic-field-config.class';
@@ -13,19 +14,17 @@ import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-
   selector: 'fl-dynamic-form-group',
   templateUrl: './fl-dynamic-form-group.component.html',
   styleUrls: ['./fl-dynamic-form-group.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFormDirective {
+export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirective {
   /**
    * Form where control will be added
    */
-  @Input() control: UntypedFormGroup;
 
-  @Input() config: FlDynamicFormGroupConfig;
+  control = input<UntypedFormGroup>();
 
-  constructor() {}
+  config = input<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig>();
 
-  ngOnInit(): void {}
+  openEditParamSpecsDialog = output();
 
   getControlClass(config: FlDynamicFormAbstractControl): string {
     // different classe based on type
@@ -38,5 +37,9 @@ export class FlDynamicFormGroupComponent implements OnInit, FlDynamicAbstractFor
       return 'field-container';
     }
     return 'group-container';
+  }
+
+  emitOpenEditParamSpecsDialog(): void {
+    this.openEditParamSpecsDialog.emit();
   }
 }

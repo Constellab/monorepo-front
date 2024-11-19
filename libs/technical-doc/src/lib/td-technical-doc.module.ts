@@ -8,19 +8,24 @@ import { TdProcessDocComponent } from './component/td-process-doc/td-process-doc
 import { MatIconModule } from '@angular/material/icon';
 import {
   FlCoreComponentModule,
+  FlCoreDirectiveModule,
   FlCorePipeModule,
+  FlDialogModule,
+  FlDynamicFieldModule,
+  FlFormModule,
   FlIconModule,
   FlKeyValueModule,
   FlTextIconModule,
   FlThemeModule,
   FlTranslateModule,
   FlTranslateService,
+  FlUserModule,
 } from '@monorepo/front-core-lib';
 import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource.component';
 import { tdTechnicalDocI18n } from './td-technical-doc.i18n';
-import { TdServiceConfig } from './service/td-service-config.config';
+import { TdTechnicalDocServiceConfig } from './service/td-technical-doc-service-config.config';
 import { TdTechDocLinkComponent } from './component/td-tech-doc-link/td-tech-doc-link.component';
 import { TdMarkdownPipe } from './pipe/td-markdown.pipe';
 import { TdConfigComponent } from './component/td-config/td-config.component';
@@ -40,6 +45,28 @@ import { TdResourceDocFuncInfoComponent } from './component/td-resource-doc-func
 import { TdCleanTypePipe } from './pipe/td-clean-type.pipe';
 import { TdVarsMethodsDocComponent } from './component/td-vars-methods-doc/td-vars-methods-doc.component';
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
+import { MatDialogContent } from '@angular/material/dialog';
+import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+} from '@angular/material/table';
+import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatOption } from '@angular/material/autocomplete';
+import { MatSelect } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { TdConfigureParamSpecsTableDialogComponent } from './component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 
 @NgModule({
   imports: [
@@ -61,7 +88,31 @@ import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-othe
     FlIconModule,
     FlTextIconModule,
     FlThemeModule,
-  ],
+    MatDialogContent,
+    FlDialogModule,
+    MatTable,
+    MatHeaderCell,
+    MatCell,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatColumnDef,
+    MatRow,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    ReactiveFormsModule,
+    FlFormModule,
+    FlCoreDirectiveModule,
+    MatError,
+    MatInput,
+    MatLabel,
+    MatFormField,
+    FlUserModule,
+    MatOption,
+    MatSelect,
+    MatCheckbox,
+    FlDynamicFieldModule,
+  ]
   declarations: [
     TdResourceDocComponent,
     TdTechnicalDocComponent,
@@ -84,6 +135,9 @@ import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-othe
     TdVarsMethodsDocComponent,
     TdOtherClassDocComponent,
     TdCleanTypePipe,
+    TdEditableParamSpecsTableComponent,
+    TdEditParamSpecDialogComponent,
+    TdConfigureParamSpecsTableDialogComponent
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -105,6 +159,9 @@ import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-othe
     TdVarsMethodsDocComponent,
     TdOtherClassDocComponent,
     TdCleanTypePipe,
+    TdEditableParamSpecsTableComponent,
+    TdEditParamSpecDialogComponent,
+    TdConfigureParamSpecsTableDialogComponent
   ],
 })
 export class TdTechnicalDocModule {
@@ -112,8 +169,8 @@ export class TdTechnicalDocModule {
     translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n);
   }
 
-  public static forRoot(apiServiceConfig: Type<TdServiceConfig>): ModuleWithProviders<TdTechnicalDocModule> {
-    const providers: Provider[] = [{ provide: TdServiceConfig, useClass: apiServiceConfig }];
+  public static forRoot(apiServiceConfig: Type<TdTechnicalDocServiceConfig>): ModuleWithProviders<TdTechnicalDocModule> {
+    const providers: Provider[] = [{ provide: TdTechnicalDocServiceConfig, useClass: apiServiceConfig }];
 
     return {
       ngModule: TdTechnicalDocModule,

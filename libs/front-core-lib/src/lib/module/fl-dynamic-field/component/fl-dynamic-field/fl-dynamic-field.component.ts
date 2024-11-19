@@ -1,7 +1,9 @@
 import {
   Component,
   ComponentRef,
-  Input,
+  effect,
+  Injector,
+  input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -22,18 +24,31 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
   styleUrls: ['./fl-dynamic-field.component.scss'],
 })
 export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbstractFormDirective {
-  @Input() config: FlDynamicFieldConfig;
+  config = input<FlDynamicFieldConfig>();
 
-  @Input() control: UntypedFormControl;
+  control = input<UntypedFormControl>();
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
 
-  constructor(private fieldConfig: FlDynamicFieldConfigService) {}
+  constructor(
+    private fieldConfig: FlDynamicFieldConfigService,
+    private injector: Injector
+  ) {}
 
   ngOnInit(): void {
-    this.viewComponentRef = this.fieldConfig.generateComponent(this.config, this.viewContainer, this.control);
+    effect(
+      () => {
+        this.ngOnDestroy();
+        this.viewComponentRef = this.fieldConfig.generateComponent(
+          this.config(),
+          this.viewContainer,
+          this.control()
+        );
+      },
+      { injector: this.injector }
+    );
   }
 
   ngOnDestroy(): void {

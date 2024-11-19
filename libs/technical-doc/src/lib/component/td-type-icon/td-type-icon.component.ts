@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, Input, Signal } from '@angular/core';
 import { TdTypeStyleIconType } from '../../model/td-type.class';
-import { TdServiceConfig } from '../../service/td-service-config.config';
+import { TdTechnicalDocServiceConfig } from '../../service/td-technical-doc-service-config.config';
 
 /**
  * Component to show the icon of a type
@@ -30,5 +30,5 @@ export class TdTypeIconComponent {
 
   sizePx = computed(() => this.iconSize() + 'px');
 
-  constructor(private configService: TdServiceConfig) {}
+  constructor(private configService: TdTechnicalDocServiceConfig) {}
 }

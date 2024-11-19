@@ -21,9 +21,9 @@
       <fl-key>{{ 'td.type' | translate }}</fl-key>
       <code>{{ configSpecs[configSpec].type === 'str' ? 'string' : configSpecs[configSpec].type }}</code>
     </fl-key-value>
-    <fl-key-value *ngIf="configSpecs[configSpec].allowed_values" class="code1-v2">
+    <fl-key-value *ngIf="configSpecs[configSpec].additional_info?.allowed_values" class="code1-v2">
       <fl-key>{{ 'td.allowed_values' | translate }}</fl-key>
-      <span *ngFor="let allowedValue of configSpecs[configSpec].allowed_values">
+      <span *ngFor="let allowedValue of configSpecs[configSpec].additional_info?.allowed_values">
         <code>{{ allowedValue }}</code
         >&nbsp;
       </span>

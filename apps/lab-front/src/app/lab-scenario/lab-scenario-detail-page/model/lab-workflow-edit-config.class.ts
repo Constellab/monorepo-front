@@ -32,7 +32,7 @@ import {
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
 import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
-import { TdIOSpec } from '@monorepo/technical-doc';
+import { TdIOSpec, TdParamSpec } from '@monorepo/technical-doc';
 import { map } from 'rxjs/operators';
 import {
   LabNavigableCallActionResult,

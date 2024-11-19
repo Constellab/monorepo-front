@@ -12,7 +12,7 @@ import {
   LabCreateScenarioTemplateDTO,
   LabScenarioTemplate,
 } from '../model/entities/process/lab-scenario-template.entity';
-import { TdIOSpec, TdTypeStyle } from '@monorepo/technical-doc';
+import { TdIOSpec, TdParamSpec, TdParamSpecFormInfoList, TdTypeStyle } from '@monorepo/technical-doc';
 import {
   LabAgent,
   LabAgentDatasourcePaginated,
@@ -23,6 +23,7 @@ import { LabProcess } from '../model/entities/process/lab-process.entity';
 import { ClPage } from '@monorepo/core-lib';
 import { LabCommunitySpace } from '../model/entities/lab-community-space.entity';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
+import { LabConfig } from '../model/entities/lab-config.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -488,7 +489,64 @@ export class LabProtocolService {
     );
   }
 
-  ///////////////////////////////////// PROTOCOL TEMPLATE //////////////////////////////////
+  ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
+
+  public getSimpleParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
+    return this.apiService.get(`${this.baseRoute}/get-simple-param-spec-types`);
+  }
+
+  public addDynamicParamSpec(
+    protocolId: string,
+    processName: string,
+    name: string,
+    paramSpec: TdParamSpec
+  ): Observable<LabConfig> {
+    return this.apiService.post(
+      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      paramSpec,
+      LabConfig
+    );
+  }
+
+  public updateDynamicParamSpec(
+    protocolId: string,
+    processName: string,
+    name: string,
+    paramSpec: TdParamSpec
+  ): Observable<LabConfig> {
+    return this.apiService.put(
+      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      paramSpec,
+      LabConfig
+    );
+  }
+
+  public renameAndUpdateDynamicParamSpec(
+    protocolId: string,
+    processName: string,
+    oldName: string,
+    name: string,
+    paramSpec: TdParamSpec
+  ): Observable<LabConfig> {
+    return this.apiService.put(
+      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${oldName}/rename-and-update/${name}`,
+      paramSpec,
+      LabConfig
+    );
+  }
+
+  public deleteDynamicParamSpec(
+    protocolId: string,
+    processName: string,
+    name: string
+  ): Observable<LabConfig> {
+    return this.apiService.delete(
+      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      LabConfig
+    );
+  }
+
+  ///////////////////////////////////////////////// PROTOCOL TEMPLATE ///////////////////////////////////////
   public createScenarioTemplate(
     protocolId: string,
     template: LabCreateScenarioTemplateDTO

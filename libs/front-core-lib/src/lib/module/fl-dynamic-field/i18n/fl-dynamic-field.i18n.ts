@@ -8,6 +8,7 @@ const flDynamicFieldI18nFr: FlLangTranslation = {
     integer_error_validator: 'The value doit être un entier',
     multi_input_help: 'Renseigner une valeur par ligne',
     add_value_in_array: 'Ajouter une valeur',
+    edit_params_specs: 'Modifier les paramètres',
     remove_value_from_array: 'Supprimer une valeur',
     no_value_in_array: 'Aucune valeur pour cette config',
     form_array_delete_disable:
@@ -23,6 +24,7 @@ const flDynamicFieldI18nEn: FlLangTranslation = {
     integer_error_validator: 'The value must be an integer',
     multi_input_help: 'Specify one value per line',
     add_value_in_array: 'Add a value',
+    edit_params_specs: 'Edit parameters',
     remove_value_from_array: 'Remove value',
     no_value_in_array: 'No value for this config',
     form_array_delete_disable: "Can't delete, it needs at least {{value}} value(s)",

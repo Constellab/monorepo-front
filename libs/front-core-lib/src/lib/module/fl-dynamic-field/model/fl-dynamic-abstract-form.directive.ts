@@ -1,11 +1,14 @@
 import { FlDynamicFormAbstractControl } from './fl-dynamic-field-config.class';
 import { AbstractControl } from '@angular/forms';
+import { OutputEmitterRef, Signal } from '@angular/core';
 
 /**
  * Generic type for the Dynamic control components
  */
 export interface FlDynamicAbstractFormDirective {
-  config: FlDynamicFormAbstractControl;
+  config: Signal<FlDynamicFormAbstractControl>;
 
-  control: AbstractControl;
+  control: Signal<AbstractControl>;
+
+  openEditParamSpecsDialog?: OutputEmitterRef<void>;
 }

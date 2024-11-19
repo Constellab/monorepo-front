@@ -152,4 +152,12 @@ body {
   .g-layout-gap-05em > *:not(:last-child) {
     margin-right: 0.5em;
   }
+
+  .g-gap-1em {
+    gap: 1em;
+  }
+
+  .g-gap-05em {
+    gap: 0.5em;
+  }
 }

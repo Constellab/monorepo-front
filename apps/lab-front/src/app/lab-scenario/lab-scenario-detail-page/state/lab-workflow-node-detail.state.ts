@@ -210,7 +210,7 @@ export class LabWorkflowNodeDetailState {
       .subscribe((process) => this.onUpdateProcessNameSuccess(process));
   }
 
-  updateProcessStyle(process: LabProcess): void {
+  updateProcess(process: LabProcess): void {
     this.scenarioState.refreshProcess(process);
   }
 

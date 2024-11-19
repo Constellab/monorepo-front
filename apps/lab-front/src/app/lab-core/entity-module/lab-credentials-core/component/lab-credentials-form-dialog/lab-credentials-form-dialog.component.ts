@@ -1,4 +1,4 @@
-import { Component, ComponentRef, inject, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, inject, OnInit, signal, ViewChild, ViewContainerRef } from '@angular/core';
 import {
   FlDynamicAbstractFormComponent,
   FlDynamicFormAbstractControl,
@@ -97,8 +97,8 @@ export class LabCredentialsFormDialogComponent
     // create the sub form group component if needed
     this.viewComponentRef = this.viewContainer.createComponent(FlDynamicAbstractFormComponent);
 
-    this.viewComponentRef.instance.config = formConfig;
-    this.viewComponentRef.instance.control = control;
+    this.viewComponentRef.instance.config = signal<FlDynamicFormAbstractControl>(formConfig) as any;
+    this.viewComponentRef.instance.control = signal<AbstractControl>(control) as any;
 
     this.formGp.setControl('data', control as any);
     this.formGp.updateValueAndValidity();

@@ -4,6 +4,7 @@ import { LabConfigureSpecsFormComponent } from '../../../../lab-core/entity-modu
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { LabConfig } from '../../../../lab-core/model/entities/lab-config.entity';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 
 @Component({
   selector: 'lab-configure-task',
@@ -16,7 +17,10 @@ export class LabConfigureTaskComponent implements OnInit {
   formGp: UntypedFormGroup;
   processConfig: LabConfig;
 
-  constructor(private dashboardState: LabProcessDashboardState) {}
+  constructor(
+    private dashboardState: LabProcessDashboardState,
+    private nodeState: LabWorkflowNodeDetailState
+  ) {}
 
   ngOnInit(): void {
     this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.task.config);
@@ -26,5 +30,13 @@ export class LabConfigureTaskComponent implements OnInit {
 
   submit(): void {
     this.dashboardState.saveCurrentTaskConfig();
+  }
+
+  reInitFormGp(config: LabConfig): void {
+    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(config);
+    this.task.config = config;
+    this.processConfig = LabConfig.fromSpecs(config.specs, config.values);
+    this.dashboardState.setCurrentTask(this.task, this.formGp);
+    this.nodeState.updateProcess(this.task);
   }
 }

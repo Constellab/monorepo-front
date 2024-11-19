@@ -10,10 +10,12 @@ import {
   FlDynamicFieldConfigUnknown,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
+  FlDynamicEditableFormGroupConfig,
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
   tdCodeParamSpecTypeList,
+  TdConfig,
   TdParamSpec,
   TdParamSpecs,
   TdParamSpecSimple,
@@ -31,7 +33,7 @@ export interface LabConfigureSpecsForm {
 /**
  * Config object for a process
  */
-export class LabConfig extends LabBaseEntity {
+export class LabConfig extends LabBaseEntity implements TdConfig {
   // object describing the type of the configs and default values
   specs: TdParamSpecs;
 
@@ -82,6 +84,18 @@ export class LabConfig extends LabBaseEntity {
     return configs;
   }
 
+  private convertRecordToEditableFieldConfigs(record: TdParamSpecs): FlDynamicEditableFormGroupConfig {
+    const configs: FlDynamicEditableFormGroupConfig = {
+      controlType: 'editableFormGroup',
+      subConfigs: {},
+      specs: record,
+    };
+    for (const specName in record) {
+      configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
+    }
+    return configs;
+  }
+
   private convertToAbstractConfig(
     spec: TdParamSpec,
     defaultPlaceholder: string
@@ -100,6 +114,8 @@ export class LabConfig extends LabBaseEntity {
             : null,
         newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
       };
+    } else if (spec.type == 'dynamic') {
+      return this.convertRecordToEditableFieldConfigs(spec.additional_info.specs);
     } else {
       return this.convertToControlConfig(spec, defaultPlaceholder);
     }
@@ -107,14 +123,14 @@ export class LabConfig extends LabBaseEntity {
 
   private convertToControlConfig(spec: TdParamSpecSimple, defaultPlaceholder: string): FlDynamicFieldConfig {
     // create a select
-    if (spec.allowed_values) {
-      if (spec.allowed_values.length > 10) {
+    if (spec.additional_info?.allowed_values) {
+      if (spec.additional_info?.allowed_values.length > 10) {
         const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(
           spec,
           defaultPlaceholder
         ) as any;
         config.type = 'select-search';
-        config.selectOptions = spec.allowed_values;
+        config.selectOptions = spec.additional_info.allowed_values;
         return config;
       } else {
         const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(
@@ -122,7 +138,7 @@ export class LabConfig extends LabBaseEntity {
           defaultPlaceholder
         ) as any;
         config.type = 'select';
-        config.selectOptions = spec.allowed_values;
+        config.selectOptions = spec.additional_info.allowed_values;
         config.suffix = spec.unit;
         return config;
       }

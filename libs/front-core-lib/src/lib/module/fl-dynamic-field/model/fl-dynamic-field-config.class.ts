@@ -4,23 +4,35 @@
 export type FlDynamicFormAbstractControl =
   | FlDynamicFormGroupConfig
   | FlDynamicFormArrayConfig
-  | FlDynamicFieldConfig;
+  | FlDynamicFieldConfig
+  | FlDynamicEditableFormGroupConfig;
 
 /**
  * Base object for configs
  */
 interface FlDynamicFormConfigBase {
-  controlType: 'formControl' | 'formGroup' | 'formArray';
+  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup';
   placeholder?: string;
   hint?: string;
+}
+
+export interface FlFormGroupConfig extends FlDynamicFormConfigBase {
+  subConfigs: Record<string, FlDynamicFormAbstractControl>;
 }
 
 /**
  * Config for a FormGroup
  */
-export interface FlDynamicFormGroupConfig extends FlDynamicFormConfigBase {
+export interface FlDynamicFormGroupConfig extends FlFormGroupConfig {
   controlType: 'formGroup';
-  subConfigs: Record<string, FlDynamicFormAbstractControl>;
+}
+
+/**
+ * Config for an editable FormGroup (used for dynamic forms)
+ */
+export interface FlDynamicEditableFormGroupConfig extends FlFormGroupConfig {
+  controlType: 'editableFormGroup';
+  specs: Record<string, any>;
 }
 
 /**

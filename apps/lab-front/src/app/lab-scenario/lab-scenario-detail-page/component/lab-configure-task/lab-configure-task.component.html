@@ -3,6 +3,7 @@
   </fl-error-text>
 
   <div class="g-flex-auto">
-    <lab-configure-specs-form [configData]="processConfig"></lab-configure-specs-form>
+    <lab-configure-specs-form [configData]="processConfig" [process]="task"
+                              (reInitFormGp)="reInitFormGp($event)"></lab-configure-specs-form>
   </div>
 </form>
