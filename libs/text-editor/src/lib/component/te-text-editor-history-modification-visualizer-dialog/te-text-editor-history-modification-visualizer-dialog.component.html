@@ -7,18 +7,18 @@
       <fl-loader></fl-loader>
     } @else {
       <div class="users-list">
-        @for (textEditorHistoryUser of textEditorHistoryUsers; track textEditorHistoryUser.user) {
+        @for (textEditorHistoryUser of textEditorHistoryUsers; track textEditorHistoryUser.user.id) {
           <div class="user-div">
             <fl-user-inline [user]="textEditorHistoryUser.user" [portalOnHover]="false"></fl-user-inline>
             <div class="user-color" [style.background-color]="textEditorHistoryUser.color"></div>
           </div>
         }
       </div>
-      @if (content) {
+      @if (richText) {
         <te-text-editor
           [config]="textEditorConfig"
           [disabled]="true"
-          [ngModel]="content"
+          [ngModel]="richText"
           [event]="textEditorEvent"
           class="g-scrollable-element g-full-height g-max-article-width content"
           cdkScrollable></te-text-editor>

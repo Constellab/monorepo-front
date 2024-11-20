@@ -1,13 +1,13 @@
 import { TeHelper } from '../model/te.helper';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
-import { TeRichTextContent } from '../model/te-rich-text.class';
 import { Observable } from 'rxjs';
 import { TeBlockTune } from '../model/te-block-tune-factory.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { TeAudioTranscriptionDialogComponent } from '../component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
+import { TeRichText } from '../model/lib';
 
 export interface TeAudioTranscriptionConfig {
-  transcribeAudio: (audio: Blob) => Observable<TeRichTextContent>;
+  transcribeAudio: (audio: Blob) => Observable<TeRichText>;
 }
 
 /**
@@ -35,10 +35,10 @@ export class TeAudioTranscriptionBlockTune extends TeBlockTune {
       .subscribe((result) => this.onClosedDialog(blockId, result));
   }
 
-  private onClosedDialog(blockId: string, result?: TeRichTextContent): void {
+  private onClosedDialog(blockId: string, result?: TeRichText): void {
     if (result) {
       let index = this.config.api.blocks.getBlockIndex(blockId);
-      for (const block of result.blocks) {
+      for (const block of result.getBlocks()) {
         this.config.api.blocks.insert(block.type, block.data, null, index);
         index++;
       }

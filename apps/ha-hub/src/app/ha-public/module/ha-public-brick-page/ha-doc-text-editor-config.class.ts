@@ -1,11 +1,11 @@
 import { HaDocumentationService } from '../../../ha-core/ha-service/ha-documentation.service';
 import {
+  TeBlockFigureUploadedResponse,
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
   TeTools,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -19,7 +19,7 @@ export class HaDocTextEditorImageConfig implements TeFigureBlockConfig {
     private docService: HaDocumentationService
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.docService.uploadImage(file, this.docId);
   }
 

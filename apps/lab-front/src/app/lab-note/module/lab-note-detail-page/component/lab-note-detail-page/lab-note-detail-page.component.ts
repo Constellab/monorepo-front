@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LabNote, LabNoteContent } from '../../../../../lab-core/model/entities/lab-note.entity';
+import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
 import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   LabValidateObjectDialogComponent,
   LabValidateObjectDialogInput,
@@ -28,7 +28,8 @@ import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.se
 import { first } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import {
-  TeRichTextContent,
+  TeRichText,
+  TeRichTextDTO,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
@@ -41,7 +42,7 @@ import {
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   note$: Observable<LabNote>;
-  formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText> = new FormControl({ value: null });
 
   textEditorConfig: LabNoteTextEditorConfig;
 
@@ -51,7 +52,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
 
   tags: LabTagDatasource;
 
-  saveContentFunc: (content: TeRichTextContent) => Observable<LabNoteContent>;
+  saveContentFunc: (content: TeRichText) => Observable<TeRichTextDTO>;
 
   private subscription: Subscription;
 
@@ -90,11 +91,8 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.saveContentFunc = (content: TeRichTextContent) =>
-      this.noteService.updateContent(this.state.currentNote.id, content).pipe(
-        // update the content in the state
-        tap((content) => this.state.updateContent(content))
-      );
+    this.saveContentFunc = (richText: TeRichText) =>
+      this.noteService.updateContent(this.state.currentNote.id, richText);
   }
 
   updateTitle(title: string): void {

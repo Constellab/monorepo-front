@@ -1,6 +1,11 @@
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { Observable } from 'rxjs';
-import { TeCompleteConfig, TeFigureBlockConfig, TeTools, TeUploadedImage } from '@monorepo/text-editor';
+import {
+  TeBlockFigureUploadedResponse,
+  TeCompleteConfig,
+  TeFigureBlockConfig,
+  TeTools,
+} from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 
 export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockConfig {
@@ -9,7 +14,7 @@ export class CaFolderDescriptionTextEditorImageConfig implements TeFigureBlockCo
     private folderService: CaFolderService
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.folderService.uploadDescriptionImage(this.folderId, file);
   }
 

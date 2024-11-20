@@ -12,7 +12,7 @@ import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redir
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeType } from '../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaLikeService } from '../../ha-core/ha-service/ha-like.service';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { FlStatusEvent, FlStatusEventSuccess } from '@monorepo/front-core-lib';
 
@@ -79,8 +79,8 @@ export class HaAgentPageState {
     }
     return false;
   });
-  private brickDependencies: WritableSignal<HaBrickVersion[]> = signal<HaBrickVersion[]>(null);
-  private agentDescription: WritableSignal<TeRichTextContent> = signal<TeRichTextContent>(null);
+  private brickDependencies: WritableSignal<HaBrickVersion[]> = signal(null);
+  private agentDescription: WritableSignal<TeRichText> = signal(null);
   private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
   constructor(
@@ -109,11 +109,11 @@ export class HaAgentPageState {
     this.setAgentDescription(agent.description);
   }
 
-  public getAgentDescription(): Signal<TeRichTextContent> {
+  public getAgentDescription(): Signal<TeRichText> {
     return this.agentDescription;
   }
 
-  public setAgentDescription(description: TeRichTextContent): void {
+  public setAgentDescription(description: TeRichText): void {
     this.agentDescription.set(description);
   }
 

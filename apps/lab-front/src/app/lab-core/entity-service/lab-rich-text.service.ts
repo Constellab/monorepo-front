@@ -3,13 +3,15 @@ import { FlApiService, flRootInjector } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
   TeAudioTranscriptionConfig,
+  TeBlockFigureUploadedResponse,
+  TeBlockFileUploadResponse,
   TeFigureBlockConfig,
   TeFileBlockConfig,
-  TeFileBlockData,
-  TeRichTextContent,
-  TeUploadedImage,
+  TeRichText,
+  TeRichTextDTO,
 } from '@monorepo/text-editor';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
+import { map } from 'rxjs/operators';
 
 export enum LabRichTextObjectType {
   NOTE = 'note',
@@ -23,7 +25,11 @@ export class LabRichTextService {
 
   constructor(private apiService: FlApiService) {}
 
-  uploadImage(objectType: LabRichTextObjectType, objectId: string, file: File): Observable<TeUploadedImage> {
+  uploadImage(
+    objectType: LabRichTextObjectType,
+    objectId: string,
+    file: File
+  ): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('image', file);
     return this.apiService.post(`${this.route}/${objectType}/${objectId}/image`, formData);
@@ -33,7 +39,11 @@ export class LabRichTextService {
     return this.apiService.getBaseRouteUrl(`${this.route}/${objectType}/${objectId}/image/${filename}`);
   }
 
-  uploadFile(objectType: LabRichTextObjectType, objectId: string, file: File): Observable<TeFileBlockData> {
+  uploadFile(
+    objectType: LabRichTextObjectType,
+    objectId: string,
+    file: File
+  ): Observable<TeBlockFileUploadResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/${objectType}/${objectId}/file`, formData);
@@ -54,7 +64,7 @@ export class LabRichTextService {
     );
   }
 
-  transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
+  transcribeAudio(audio: Blob): Observable<TeRichTextDTO> {
     const formData: FormData = new FormData();
     formData.append('file', audio);
     return this.apiService.post(`${this.route}/transcribe-audio`, formData);
@@ -71,7 +81,7 @@ export class LabRichTextImageConfig implements TeFigureBlockConfig {
     this.richTextService = flRootInjector.get(LabRichTextService);
   }
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.richTextService.uploadImage(this.objectType, this.objectId, file);
   }
 
@@ -90,7 +100,7 @@ export class LabRichTextFileConfig implements TeFileBlockConfig {
     this.richTextService = flRootInjector.get(LabRichTextService);
   }
 
-  fileUploader(file: File): Observable<TeFileBlockData> {
+  fileUploader(file: File): Observable<TeBlockFileUploadResponse> {
     return this.richTextService.uploadFile(this.objectType, this.objectId, file);
   }
 
@@ -106,7 +116,7 @@ export class LabRichTextAudioTranscriptionConfig implements TeAudioTranscription
     this.richTextService = flRootInjector.get(LabRichTextService);
   }
 
-  transcribeAudio(audio: Blob): Observable<TeRichTextContent> {
-    return this.richTextService.transcribeAudio(audio);
+  transcribeAudio(audio: Blob): Observable<TeRichText> {
+    return this.richTextService.transcribeAudio(audio).pipe(map((richText) => new TeRichText(richText)));
   }
 }

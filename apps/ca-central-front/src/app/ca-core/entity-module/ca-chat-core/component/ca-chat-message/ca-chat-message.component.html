@@ -16,7 +16,7 @@
           mode="update"
           [messageContent]="message().content"
           (send)="updateMessage($event)"
-          (cancel)="disableEditMode()">
+          (cancelEdition)="disableEditMode()">
         </ca-chat-write-message>
       } @else {
         <te-text-editor

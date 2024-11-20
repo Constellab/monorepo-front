@@ -1,11 +1,11 @@
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import {
+  TeBlockFigureUploadedResponse,
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
   TeTools,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -19,7 +19,7 @@ export class HaAgentTextEditorImageConfig implements TeFigureBlockConfig {
     private agentId: string
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.agentService.uploadImage(file, this.agentId);
   }
 

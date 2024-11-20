@@ -1,5 +1,5 @@
-import { Component, input, Input, OnInit } from '@angular/core';
-import { TeFileBlockData } from '../../block/te-file-block';
+import { Component, input } from '@angular/core';
+import { TeBlockFileUploadResponse } from '../../model/lib';
 
 @Component({
   selector: 'te-files-list',
@@ -7,7 +7,7 @@ import { TeFileBlockData } from '../../block/te-file-block';
   styleUrl: './te-files-list.component.scss',
 })
 export class TeFilesListComponent {
-  files = input.required<TeFileBlockData[]>();
+  files = input.required<TeBlockFileUploadResponse[]>();
 
   urlToDownloadPrefix = input.required<string>();
 }

@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
 import { HaNodeDTO } from '../ha-model/ha-entities/ha-node.class';
 import {
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
+  TeBlockFigureUploadedResponse,
+  TeRichText,
+  TeRichTextBlockModificationWithUser,
+  TeRichTextDTO,
   TeTextEditorHistoryService,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { RvResourceView } from '@monorepo/resource-view';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
@@ -53,8 +54,8 @@ export class HaDocumentationService
   /**
    * Call http updateContent
    */
-  public updateContent(id: string, content: TeRichTextContent): Observable<HaDocumentation> {
-    return this.apiService.put(this.route + '/content/' + id, content);
+  public updateContent(id: string, content: TeRichText): Observable<HaDocumentation> {
+    return this.apiService.put(this.route + '/content/' + id, content.toJson());
   }
 
   /**
@@ -79,7 +80,7 @@ export class HaDocumentationService
     return this.apiService.getBaseRouteUrl(`${this.route}/${docId}/image/${filename}`);
   }
 
-  uploadImage(file: File, docId: string): Observable<TeUploadedImage> {
+  uploadImage(file: File, docId: string): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/image/${docId}`, formData);
@@ -126,11 +127,11 @@ export class HaDocumentationService
     return this.apiService.put(`${this.route}/file/${docFileId}/rename`, { humanName: newName }, HaFile);
   }
 
-  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/history/${entityId}/`);
+  getHistory(entityId: string): Observable<TeRichTextBlockModificationWithUser[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`, TeRichTextBlockModificationWithUser);
   }
 
-  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/history/undo-content/${entityId}/${modificationId}`);
   }
 

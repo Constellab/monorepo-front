@@ -1,12 +1,12 @@
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import {
+  TeBlockFigureUploadedResponse,
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
   TeTools,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
@@ -19,7 +19,7 @@ export class HaStoryTextEditorImageConfig implements TeFigureBlockConfig {
     private storyService: HaStoryService
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.storyService.uploadImage(file, this.storyId);
   }
 

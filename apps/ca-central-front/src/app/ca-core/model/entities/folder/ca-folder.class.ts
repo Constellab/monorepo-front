@@ -6,7 +6,7 @@ import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
 import { CaBucketLocationDTO } from '../ca-object-storage.class';
 import { CaHierarchyObject } from './ca-hierarchy-object.class';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export interface CaFolderInfo {
   id: string;
@@ -81,7 +81,8 @@ export class CaFolderStorageDTO {
   backupStorage?: CaBucketLocationDTO;
 }
 
-export interface CaGetFolderDescriptionDTO {
-  description: TeRichTextContent;
+export class CaGetFolderDescriptionDTO {
+  @TeRichTextTransform()
+  description: TeRichText;
   canEdit: boolean; // true if the current user can edit the description
 }

@@ -78,11 +78,6 @@ function configureCaptcha(): FlCaptchaModuleConfig {
 }
 
 function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
-  console.log(
-    'provideLabEnvStore',
-    LabEnvironmentHelper.getProdFrontUrls(),
-    LabEnvironmentHelper.getDevFrontUrls()
-  );
   const prodFrontUrls = LabEnvironmentHelper.getProdFrontUrls();
   const devFrontUrls = LabEnvironmentHelper.getDevFrontUrls();
   if (ClHelpService.isNullOrEmpty(prodFrontUrls) || ClHelpService.isNullOrEmpty(devFrontUrls)) {

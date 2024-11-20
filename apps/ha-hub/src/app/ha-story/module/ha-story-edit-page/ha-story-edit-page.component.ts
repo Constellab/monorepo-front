@@ -21,7 +21,6 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeRichText,
-  TeRichTextContent,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
@@ -59,18 +58,16 @@ export class HaStoryEditPageComponent implements OnInit {
   notFound: boolean = false;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-  contentEditionFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>(
-    TeRichText.emptyContent()
-  );
+  contentEditionFormControl: FormControl<TeRichText> = new FormControl();
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
-  saveContentEdition = (value: TeRichTextContent): Observable<HaStory> =>
+  saveContentEdition = (value: TeRichText): Observable<HaStory> =>
     of(value).pipe(
       mergeMap((value) => this.storyService.updateContentEdition(this.story.id, value)),
       map((story) => {
         this.story = story;
-        this.contentModified = !TeRichText.areSimilar(this.story.contentEdition, this.story.content);
+        this.contentModified = !this.story.contentEdition.contentAreEquals(this.story.content);
         this.syncWithBack = true;
         return story;
       })
@@ -213,7 +210,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   publish(): void {
     if (
-      TeRichText.getFiguresBlocks(this.contentEditionFormControl.value).length > 0 ||
+      this.contentEditionFormControl.value.getFiguresBlocks().length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -240,7 +237,7 @@ export class HaStoryEditPageComponent implements OnInit {
 
   save(): void {
     if (
-      TeRichText.getFirstFigureLink(this.contentEditionFormControl.value)?.length > 0 ||
+      this.contentEditionFormControl.value.getFirstFigureLink().length > 0 ||
       this.story.mainPicture != null
     ) {
       this.contentHasError = false;
@@ -303,7 +300,9 @@ export class HaStoryEditPageComponent implements OnInit {
   }
 
   isMainImageInContent(): boolean {
-    return TeRichText.isLinkInFigures(this.story.contentEdition, this.story.mainPicture);
+    return this.story.contentEdition
+      .getFiguresBlocks()
+      .some((block) => block.data.filename === this.story.mainPicture);
   }
 
   openDeleteStoryConfirmDialog(): void {
@@ -374,12 +373,12 @@ export class HaStoryEditPageComponent implements OnInit {
         this.checkUserIsAuthorOrCoAuthor(story);
 
         this.story = story;
-        this.contentModified = !TeRichText.areSimilar(this.story?.contentEdition, this.story?.content);
+        this.contentModified = this.story?.contentEdition.contentAreEquals(this.story?.content);
         this.syncWithBack = true;
         this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, this.story.id);
         if (this.story.topics.length >= 5) this.topicControl.disable();
         this.formGp.patchValue(this.story);
-        this.contentEditionFormControl.patchValue(this.story.contentEdition ?? TeRichText.emptyContent());
+        this.contentEditionFormControl.patchValue(this.story.contentEdition ?? new TeRichText());
         this.isAuthor$().subscribe((isAuthor) => {
           this.isAuthor = isAuthor;
         });

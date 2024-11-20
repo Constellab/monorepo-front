@@ -6,22 +6,7 @@ import { Observable } from 'rxjs';
 import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
 import { PasteEvent } from '@editorjs/editorjs';
 import { TeHelper } from '../model/te.helper';
-
-export interface TeUploadedImage {
-  filename: string;
-  width: number;
-  height: number;
-}
-
-export interface TeFigureBlockData {
-  filename: string;
-  title?: string;
-  caption?: string;
-  width: number;
-  height: number;
-  naturalWidth: number;
-  naturalHeight: number;
-}
+import { TeBlockFigureData, TeBlockFigureUploadedResponse } from '../model/lib';
 
 /**
  * Config for the text editor to manage image (upload and retrieve)
@@ -29,7 +14,7 @@ export interface TeFigureBlockData {
 export interface TeFigureBlockConfig {
   getImageUrl(filename: string): string;
 
-  imageUploader: (file: File) => Observable<TeUploadedImage>;
+  imageUploader: (file: File) => Observable<TeBlockFigureUploadedResponse>;
 }
 
 /**
@@ -66,17 +51,17 @@ export class TeFigureBlock extends TeComponentBlock<TeFigureComponent> {
     return TeFigureBlock.TAG_NAME;
   }
 
-  initInputs(data: TeFigureBlockData): void {
+  initInputs(data: TeBlockFigureData): void {
     this.componentInstance.data = data;
     this.componentInstance.config = this.figureConfig;
   }
 
-  save(): TeFigureBlockData {
+  save(): TeBlockFigureData {
     return this.componentInstance.data;
   }
 
   // ignore the formula if it is empty
-  validate(blockData: TeFigureBlockData): boolean {
+  validate(blockData: TeBlockFigureData): boolean {
     return blockData?.filename?.length > 0;
   }
 

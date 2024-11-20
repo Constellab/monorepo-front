@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlUser } from '@monorepo/front-core-lib';
-import {
-  TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryModificationGroup,
-} from '../../model/te-text-editor-history-modification.class';
-import { DateTime } from 'luxon';
+import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
+import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
 export interface TeTextEditorHistoryClickEventData {
   group: TeTextEditorHistoryModificationGroup;
@@ -47,8 +44,8 @@ export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
     this.openVisualizerWithData.emit(eventData);
   }
 
-  openModificationVisualizer(modification: TeTextEditorHistoryBlockModification): void {
-    const group = new TeTextEditorHistoryModificationGroup(modification.time as DateTime);
+  openModificationVisualizer(modification: TeRichTextBlockModificationWithUser): void {
+    const group = new TeTextEditorHistoryModificationGroup(modification.time);
     group.modifications = [modification];
     const eventData: TeTextEditorHistoryClickEventData = {
       group: group,

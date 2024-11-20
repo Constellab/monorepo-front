@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 
@@ -16,10 +16,10 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) mode: 'create' | 'update';
 
-  @Input() messageContent: TeRichTextContent;
+  @Input() messageContent: TeRichText;
 
-  @Output() send = new EventEmitter<TeRichTextContent>();
-  @Output() cancel = new EventEmitter<void>();
+  @Output() send = new EventEmitter<TeRichText>();
+  @Output() cancelEdition = new EventEmitter<void>();
 
   textEditorConfig: CaChatMessageTextEditorConfig;
 
@@ -35,14 +35,14 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(): void {
-    if (!TeRichText.isEmpty(this.messageContent)) {
+    if (!this.messageContent.isEmpty()) {
       this.send.emit(this.messageContent);
       this.messageContent = null;
     }
   }
 
   cancelEdit(): void {
-    this.cancel.emit();
+    this.cancelEdition.emit();
   }
 
   addFigureBlock(): void {

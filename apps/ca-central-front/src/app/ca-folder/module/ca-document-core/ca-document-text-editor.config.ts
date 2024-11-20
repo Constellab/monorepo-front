@@ -1,10 +1,10 @@
 import {
+  TeBlockFigureUploadedResponse,
+  TeBlockFileUploadResponse,
   TeCompleteConfig,
   TeFigureBlockConfig,
   TeFileBlockConfig,
-  TeFileBlockData,
   TeTools,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
@@ -16,7 +16,7 @@ export class CaDocumentTextEditorImageConfig implements TeFigureBlockConfig {
     private folderService: CaFolderService
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.folderService.uploadImageToConstellabDocument(file, this.documentId);
   }
 
@@ -31,7 +31,7 @@ export class CaDocumentTextEditorFileConfig implements TeFileBlockConfig {
     private folderService: CaFolderService
   ) {}
 
-  fileUploader(file: File): Observable<TeFileBlockData> {
+  fileUploader(file: File): Observable<TeBlockFileUploadResponse> {
     return this.folderService.uploadFileToConstellabDocument(file, this.documentId);
   }
 

@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { HaFile, HaFileType } from '../../../ha-file-core/model/ha-file';
-import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
 
 @Component({
   selector: 'ha-text-editor-right-side-panel',
@@ -8,7 +8,7 @@ import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
   styleUrl: './ha-text-editor-right-side-panel.component.scss',
 })
 export class HaTextEditorRightSidePanelComponent {
-  content = input.required<TeRichTextContent>();
+  content = input.required<TeRichText>();
 
   urlToDownloadFilePrefix = input.required<string>();
 
@@ -19,6 +19,6 @@ export class HaTextEditorRightSidePanelComponent {
   });
 
   titles = computed(() => {
-    return TeRichText.getTitles(this.content(), [2, 3]);
+    return this.content().getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
 }

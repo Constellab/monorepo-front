@@ -13,7 +13,7 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabRunningProcessInfo } from './process/lab-process.entity';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export type LabScenarioStatus =
   | 'DRAFT'
@@ -64,7 +64,8 @@ export const flScenarioCreationTypes: FlStatusDict<LabScenarioCreationType> = {
 export class LabScenario extends LabBaseEntityWithUser implements LabFolderObject {
   title: string;
 
-  description: TeRichTextContent;
+  @TeRichTextTransform()
+  description: TeRichText;
 
   data: void;
 

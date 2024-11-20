@@ -9,8 +9,7 @@ import {
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ClHelpService } from '@monorepo/core-lib';
 import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
-
-export type TeListType = 'unordered' | 'ordered';
+import { TeBlockListData, TeBlockListType } from './lib';
 
 /**
  * Helper to complete the text editor api
@@ -98,7 +97,8 @@ export class TeHelper {
   }
 
   /**
-   * Return true if the element is included in a block paragraph and the block paragraph has contenteditable = true
+   * Return true if the element is included in a block paragraph and
+   * the block paragraph has contenteditable = true
    * @param element
    */
   public static parentBlockParagraphIsEditable(element: HTMLElement): boolean {
@@ -107,12 +107,15 @@ export class TeHelper {
     return block.getAttribute('contenteditable') === 'true';
   }
 
-  public static getListData(text: string, listType: TeListType = 'unordered'): any {
+  public static getListData(text: string, listType: TeBlockListType = 'unordered'): TeBlockListData {
     return {
       style: listType,
+      meta: {},
       items: [
         {
           content: text,
+          meta: {},
+          items: [],
         },
       ],
     };
@@ -200,7 +203,8 @@ export class TeHelper {
 
         // Case where there is only a space after the cursor
         // we don't add the space as it is already there, but we move the cursor to the end of the div
-        // TODO check if this is fixed in next version of editorjs current (0.29.1) because this was working before
+        // TODO check if this is fixed in next version of editorjs current
+        //  (2.30.2) because this was working before
       } else if (lastChild.previousSibling === cursorContainer && lastChild.textContent.trim() === '') {
         ClHelpService.stopEventPropagation(event);
         FlHtmlHelper.setCaretAtElementEnd(lastChild);

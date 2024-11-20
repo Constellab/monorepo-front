@@ -13,7 +13,7 @@ import {
   LabNoteTemplateDatasource,
   LabNoteTemplateForm,
 } from '../model/entities/lab-note-template.entity';
-import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 import {
   LabNoteTemplateSearch,
   LabNoteTemplateSearchFields,
@@ -37,11 +37,11 @@ export class LabNoteTemplateService {
     return this.apiService.put(`${this.route}/${id}/title`, { title: title }, LabNoteTemplate);
   }
 
-  public updateContent(id: string, content: TeRichTextContent): Observable<TeRichTextContent> {
-    if (content == null) {
-      content = TeRichText.emptyContent();
+  public updateContent(id: string, richText: TeRichText): Observable<TeRichTextDTO> {
+    if (richText == null) {
+      richText = new TeRichText();
     }
-    return this.apiService.put(`${this.route}/${id}/content`, content);
+    return this.apiService.put(`${this.route}/${id}/content`, richText.toJson());
   }
 
   public delete(id: string): Observable<void> {
@@ -54,7 +54,7 @@ export class LabNoteTemplateService {
     return this.apiService.getById(this.route, id, LabNoteTemplate);
   }
 
-  public getNoteTemplateContent(id: string): Observable<TeRichTextContent> {
+  public getNoteTemplateContent(id: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/${id}/content`);
   }
 

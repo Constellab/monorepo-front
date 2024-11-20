@@ -16,12 +16,12 @@ import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
 import { LabWorkflowFactory } from '../model/lab-workflow.factory';
 import { LabTagService } from '../../../lab-core/entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../lab-core/model/entities/lab-tag.entity';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabScenarioDetailPageState {
   private scenario$: BehaviorSubject<LabScenario>;
-  private scenarioDescription$: BehaviorSubject<TeRichTextContent>;
+  private scenarioDescription$: BehaviorSubject<TeRichText>;
   private tags$: LabTagDatasource;
 
   public workflow: PrWorkflow;
@@ -127,15 +127,15 @@ export class LabScenarioDetailPageState {
     return this.tags$;
   }
 
-  public getDescription$(): Observable<TeRichTextContent> {
+  public getDescription$(): Observable<TeRichText> {
     return this.scenarioDescription$.asObservable();
   }
 
-  public get currentDescription(): TeRichTextContent {
+  public get currentDescription(): TeRichText {
     return this.scenarioDescription$.value;
   }
 
-  public updateDescription(description: TeRichTextContent): void {
+  public updateDescription(description: TeRichText): void {
     this.scenarioDescription$.next(description);
   }
 

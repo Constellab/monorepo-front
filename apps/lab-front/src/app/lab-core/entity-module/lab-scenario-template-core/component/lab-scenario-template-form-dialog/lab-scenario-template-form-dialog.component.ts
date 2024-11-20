@@ -9,12 +9,12 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { LabScenarioTemplateService } from '../../../../entity-service/lab-scenario-template.service';
-import { TeBasicConfig, TeRichTextContent } from '@monorepo/text-editor';
+import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 
 export interface LabScenarioTemplateFormDialogInput extends FlFormDialogInput<LabScenarioTemplate> {
   protocolId?: string;
   defaultName?: string;
-  defaultDescription?: TeRichTextContent;
+  defaultDescription?: TeRichText;
 }
 
 @Component({
@@ -23,7 +23,7 @@ export interface LabScenarioTemplateFormDialogInput extends FlFormDialogInput<La
   styleUrls: ['./lab-scenario-template-form-dialog.component.scss'],
 })
 export class LabScenarioTemplateFormDialogComponent
-  extends FlFormDialogAbstractDirective<LabCreateScenarioTemplateDTO>
+  extends FlFormDialogAbstractDirective<LabCreateScenarioTemplateDTO, LabScenarioTemplate>
   implements OnInit
 {
   dialogInput: LabScenarioTemplateFormDialogInput = inject(MAT_DIALOG_DATA);
@@ -48,11 +48,11 @@ export class LabScenarioTemplateFormDialogComponent
     });
   }
 
-  create(formValue: LabCreateScenarioTemplateDTO): Observable<LabCreateScenarioTemplateDTO> {
+  create(formValue: LabCreateScenarioTemplateDTO): Observable<LabScenarioTemplate> {
     return this.protocolService.createScenarioTemplate(this.dialogInput.protocolId, formValue);
   }
 
-  update(formValue: LabCreateScenarioTemplateDTO): Observable<LabCreateScenarioTemplateDTO> {
+  update(formValue: LabCreateScenarioTemplateDTO): Observable<LabScenarioTemplate> {
     return this.scenarioTemplateService.updateScenarioTemplate(this.dialogInput.object.id, formValue);
   }
 

@@ -2,13 +2,13 @@ import { Component, computed, Input, OnInit, Signal } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { FlClipboardService, FlCodeEditorLanguage, FlDebouncer } from '@monorepo/front-core-lib';
-import { TeBasicConfig, TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-// TODO: A voir si c'est possible d'encore ameliorer ce composant
+// TODO @vfoex : A voir si c'est possible d'encore ameliorer ce composant
 @Component({
   selector: 'ha-agent-version-detail',
   templateUrl: './ha-agent-version-detail.component.html',
@@ -34,7 +34,7 @@ export class HaAgentVersionDetailComponent implements OnInit {
 
   lastAgentVersion: number = null;
 
-  versionInfosFormControl: FormControl<TeRichTextContent> = new FormControl<TeRichTextContent>(null);
+  versionInfosFormControl: FormControl<TeRichText> = new FormControl(null);
 
   canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
   isEditable: Signal<boolean> = this.agentPageState.agentVersionIsEditable;
@@ -53,7 +53,7 @@ export class HaAgentVersionDetailComponent implements OnInit {
       this.versionInfosFormControl.setValue(agentVersion?.versionInfos);
       this.versionInfosFormControl.disable();
     } else {
-      const formControl = new FormControl<TeRichTextContent>(null);
+      const formControl = new FormControl<TeRichText>(null);
       if (agentVersion?.versionInfos) {
         formControl.patchValue(agentVersion.versionInfos);
         formControl.disable();
@@ -103,7 +103,8 @@ export class HaAgentVersionDetailComponent implements OnInit {
     return agentVersion;
   });
   isVersionInfosEmpty: Signal<boolean> = computed(() => {
-    return TeRichText.isEmpty(this.agentVersion()?.versionInfos);
+    const versionInfos = this.agentVersion()?.versionInfos;
+    return versionInfos == null || versionInfos.isEmpty();
   });
 
   languageCode: Signal<FlCodeEditorLanguage> = computed(() => {
@@ -212,7 +213,7 @@ export class HaAgentVersionDetailComponent implements OnInit {
     }
 
     this.agentService
-      .saveAgentVersionInfos(this.agentVersion().id, this.versionInfosFormControl.value as TeRichTextContent)
+      .saveAgentVersionInfos(this.agentVersion().id, this.versionInfosFormControl.value)
       .subscribe((agentVersion) => {
         if (agentVersion) this.agentPageState.updateAgentVersion(agentVersion);
         this.versionInfosDisabled = true;
@@ -220,7 +221,7 @@ export class HaAgentVersionDetailComponent implements OnInit {
       });
   }
 
-  onVersionInfosChange(versionInfos: TeRichTextContent): void {
+  onVersionInfosChange(versionInfos: TeRichText): void {
     this.versionInfosFormControl?.setValue(versionInfos);
   }
 }

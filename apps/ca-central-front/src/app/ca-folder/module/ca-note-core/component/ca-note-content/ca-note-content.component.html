@@ -1,7 +1,7 @@
-<fl-async-section [object]="content$" class="g-full-height">
-  <ng-container *flSectionBody="content$ as content">
+<fl-async-section [object]="richText$" class="g-full-height">
+  <ng-container *flSectionBody="richText$ as richText">
     <te-text-editor
-      [ngModel]="content"
+      [ngModel]="richText"
       [disabled]="true"
       class="g-full-height g-print-section g-scrollable-element"
       [config]="textEditorConfig"></te-text-editor>

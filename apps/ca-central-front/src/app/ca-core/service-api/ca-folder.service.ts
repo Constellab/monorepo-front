@@ -26,11 +26,12 @@ import {
   CaActivitySearchFields,
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
 import {
-  TeFigureBlockData,
-  TeFileBlockData,
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
-  TeUploadedImage,
+  TeBlockFigureData,
+  TeBlockFigureUploadedResponse,
+  TeBlockFileUploadResponse,
+  TeRichText,
+  TeRichTextBlockModificationWithUser,
+  TeRichTextDTO,
 } from '@monorepo/text-editor';
 import {
   FlApiService,
@@ -51,7 +52,6 @@ import {
   CaFolderSearch,
   CaFolderSearchFields,
 } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
-import { CaConstellabDocumentHistoryService } from '../service/ca-constellab-document-history.service';
 
 /**
  * Service to manage folder entity
@@ -197,14 +197,14 @@ export class CaFolderService {
   /////////////////////////////////// DESCRIPTION //////////////////////////////////
 
   public getFolderDescription(id: string): Observable<CaGetFolderDescriptionDTO> {
-    return this.apiService.get(`${this.route}/${id}/description`);
+    return this.apiService.get(`${this.route}/${id}/description`, CaGetFolderDescriptionDTO);
   }
 
-  public updateDescription(id: string, description: TeRichTextContent): Observable<void> {
-    return this.apiService.put(`${this.route}/${id}/description`, description);
+  public updateDescription(id: string, description: TeRichText): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/description`, description.toJson());
   }
 
-  uploadDescriptionImage(folderId: string, file: File): Observable<TeUploadedImage> {
+  uploadDescriptionImage(folderId: string, file: File): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${folderId}/description/image`, formData);
@@ -237,22 +237,18 @@ export class CaFolderService {
     });
   }
 
-  public createMessage(folderId: string, content: TeRichTextContent): Observable<CaChatMessage> {
+  public createMessage(folderId: string, richText: TeRichText): Observable<CaChatMessage> {
     return this.apiService.post(
       `${this.route}/${folderId}/chat/message`,
-      { content: content },
+      { content: richText.toJson() },
       CaChatMessage
     );
   }
 
-  public updateMessage(
-    folderId: string,
-    messageId: string,
-    content: TeRichTextContent
-  ): Observable<CaChatMessage> {
+  public updateMessage(folderId: string, messageId: string, richText: TeRichText): Observable<CaChatMessage> {
     return this.apiService.put(
       `${this.route}/${folderId}/chat/message/${messageId}`,
-      { content: content },
+      { content: richText.toJson() },
       CaChatMessage
     );
   }
@@ -261,7 +257,7 @@ export class CaFolderService {
     return this.apiService.delete(`${this.route}/${folderId}/chat/message/${messageId}/delete`, null);
   }
 
-  uploadMessageImage(file: File, folderId: string): Observable<TeUploadedImage> {
+  uploadMessageImage(file: File, folderId: string): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/${folderId}/chat/message/image`, formData);
@@ -337,11 +333,11 @@ export class CaFolderService {
 
   public updateConstellabDocument(
     documentId: string,
-    content: TeRichTextContent
+    richText: TeRichText
   ): Observable<CaConstellabDocument> {
     return this.apiService.put(
       `${this.route}/constellab-document/${documentId}`,
-      content,
+      richText.toJson(),
       CaConstellabDocument,
       { hideSnackBarError: true }
     );
@@ -356,13 +352,16 @@ export class CaFolderService {
     return this.apiService.get(`${this.route}/constellab-document/${documentId}`, CaConstellabDocument);
   }
 
-  public uploadImageToConstellabDocument(file: File, documentId: string): Observable<TeFigureBlockData> {
+  public uploadImageToConstellabDocument(file: File, documentId: string): Observable<TeBlockFigureData> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/constellab-document/${documentId}/image`, formData);
   }
 
-  public uploadFileToConstellabDocument(file: File, documentId: string): Observable<TeFileBlockData> {
+  public uploadFileToConstellabDocument(
+    file: File,
+    documentId: string
+  ): Observable<TeBlockFileUploadResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/constellab-document/${documentId}/file`, formData);
@@ -374,14 +373,14 @@ export class CaFolderService {
     );
   }
 
-  getConstellabDocumentHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/constellab-document/${documentId}/history/`);
+  getConstellabDocumentHistory(documentId: string): Observable<TeRichTextBlockModificationWithUser[]> {
+    return this.apiService.get(
+      `${this.route}/constellab-document/${documentId}/history/`,
+      TeRichTextBlockModificationWithUser
+    );
   }
 
-  getConstellabDocumentUndoContent(
-    documentId: string,
-    modificationId: string
-  ): Observable<TeRichTextContent> {
+  getConstellabDocumentUndoContent(documentId: string, modificationId: string): Observable<TeRichTextDTO> {
     return this.apiService.get(
       `${this.route}/constellab-document/${documentId}/history/undo-content/${modificationId}`
     );

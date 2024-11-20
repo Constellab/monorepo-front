@@ -5,7 +5,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabFolder } from '../../../../lab-core/model/entities/lab-folder.class';
 import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
-import { TeBasicConfig, TeRichTextContent } from '@monorepo/text-editor';
+import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { FormControl } from '@angular/forms';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 
@@ -23,9 +23,9 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  descriptionFormControl: FormControl<TeRichTextContent> = new FormControl({ value: null });
+  descriptionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
 
-  saveDescriptionFunc: (content: TeRichTextContent) => Observable<LabScenario>;
+  saveDescriptionFunc: (content: TeRichText) => Observable<LabScenario>;
 
   private subscription = new ClSubscriptionHandler();
 
@@ -43,7 +43,7 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
     );
     this.tags$ = this.scenarioState.getTags$();
 
-    this.saveDescriptionFunc = (content: TeRichTextContent) =>
+    this.saveDescriptionFunc = (content: TeRichText) =>
       this.scenarioService
         .updateDescription(this.scenarioState.currentScenario.id, content)
         .pipe(tap((exp) => this.scenarioState.updateDescription(exp.description)));

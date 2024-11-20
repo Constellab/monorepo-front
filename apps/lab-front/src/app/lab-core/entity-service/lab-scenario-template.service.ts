@@ -8,6 +8,7 @@ import {
   FlSearchConverter,
 } from '@monorepo/front-core-lib';
 import {
+  LabCreateScenarioTemplateDTO,
   LabScenarioTemplate,
   LabScenarioTemplateDatasource,
 } from '../model/entities/process/lab-scenario-template.entity';
@@ -45,7 +46,9 @@ export class LabScenarioTemplateService {
     id: string,
     data: Partial<LabScenarioTemplate>
   ): Observable<LabScenarioTemplate> {
-    return this.apiService.put(`${this.route}/${id}`, data, LabScenarioTemplate);
+    return this.apiService.put(`${this.route}/${id}`, data, LabScenarioTemplate, {
+      serialization: LabCreateScenarioTemplateDTO,
+    });
   }
 
   public updateScenarioTemplateName(id: string, name: string): Observable<LabScenarioTemplate> {

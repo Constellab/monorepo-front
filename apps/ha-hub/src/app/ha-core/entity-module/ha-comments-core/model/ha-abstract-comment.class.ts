@@ -1,7 +1,7 @@
 import { FlEntity, FlUser } from '@monorepo/front-core-lib';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export enum HaCommentType {
   STORY_COMMENT = 'story',
@@ -25,7 +25,8 @@ export abstract class HaAbstractComment<T extends HaCommentEntity> implements Fl
 
   lastModifiedBy: FlUser;
 
-  content: TeRichTextContent;
+  @TeRichTextTransform()
+  content: TeRichText;
 
   abstract entity: T;
 }

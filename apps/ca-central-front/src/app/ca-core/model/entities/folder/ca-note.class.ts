@@ -5,12 +5,9 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { CaFolderObject } from './ca-folder.class';
 import { RvResourceView } from '@monorepo/resource-view';
-import { TeRichTextContent } from '@monorepo/text-editor';
 
 export class CaNote extends CaBaseEntity implements CaFolderObject {
   title: string;
-
-  content: TeRichTextContent;
 
   isValidated: boolean;
 

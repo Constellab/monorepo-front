@@ -1,7 +1,7 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { FlDatasourcePaginated, FlFileHelper } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { ClRecordTransform } from '@monorepo/core-lib';
 
 export interface CaDocumentBasicInfo {
@@ -49,7 +49,8 @@ export class CaConstellabDocument {
   @Type(() => CaDocument)
   document: CaDocument;
 
-  content: TeRichTextContent;
+  @TeRichTextTransform()
+  content: TeRichText;
 }
 
 export enum CaFolderDocumentStorageType {

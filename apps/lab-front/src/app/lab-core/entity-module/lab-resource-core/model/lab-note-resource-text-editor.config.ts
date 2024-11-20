@@ -1,12 +1,12 @@
 import {
+  TeBlockFigureUploadedResponse,
+  TeBlockFileUploadResponse,
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
-  TeFileBlockData,
   teInlineToolFactory,
   TeTools,
-  TeUploadedImage,
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { flRootInjector } from '@monorepo/front-core-lib';
@@ -26,7 +26,7 @@ export class LabNoteResourceTextEditorImageConfig implements TeFigureBlockConfig
     this.noteResourceService = flRootInjector.get(LabNoteResourceService);
   }
 
-  imageUploader(): Observable<TeUploadedImage> {
+  imageUploader(): Observable<TeBlockFigureUploadedResponse> {
     throw new Error('Method not implemented.');
   }
 
@@ -42,7 +42,7 @@ export class LabNoteResourceTextEditorFileConfig implements TeFileBlockConfig {
     this.noteResourceService = flRootInjector.get(LabNoteResourceService);
   }
 
-  fileUploader(): Observable<TeFileBlockData> {
+  fileUploader(): Observable<TeBlockFileUploadResponse> {
     throw new Error('Method not implemented.');
   }
 

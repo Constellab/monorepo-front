@@ -9,7 +9,7 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
@@ -37,6 +37,7 @@ export class HaStoryPageComponent implements OnInit {
 
   formControl: FormControl<TeRichText> = new FormControl();
 
+  // TODO @vfoex, title encore necessaire ?
   titles: any[];
 
   STORY_KEY: StateKey<object>;
@@ -205,7 +206,10 @@ export class HaStoryPageComponent implements OnInit {
 
     this.formControl.setValue(this.story.content);
     this.formControl.disable({ emitEvent: true });
-    this.titles = TeRichText.getTitles(this.story.content, [2, 3]);
+    this.titles = this.story.content.getHeadersData([
+      TeBlockHeaderLevel.HEADER_1,
+      TeBlockHeaderLevel.HEADER_2,
+    ]);
     if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
       this.transferState.set(this.STORY_KEY, { story: story, titles: this.titles });
     }

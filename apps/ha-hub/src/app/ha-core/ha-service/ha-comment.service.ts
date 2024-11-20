@@ -2,7 +2,7 @@ import { FlApiService, FlDatasourcePaginated, FlEntityPaginatedDatasource } from
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
 import { Injectable } from '@angular/core';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import {
   HaAbstractComment,
   HaCommentEntity,
@@ -19,10 +19,10 @@ export class HaCommentService {
 
   public sendComment(
     commentType: HaCommentType,
-    comment: TeRichTextContent,
+    comment: TeRichText,
     entityId: string
   ): Observable<HaAbstractComment<HaCommentEntity>> {
-    return this.apiService.post(this.route + '/' + commentType + '/' + entityId, comment, null);
+    return this.apiService.post(this.route + '/' + commentType + '/' + entityId, comment.toJson(), null);
   }
 
   public getComments(

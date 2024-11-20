@@ -1,19 +1,11 @@
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { Expose, Type } from 'class-transformer';
-import { FlDatasourcePaginated, FlUser } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabEntity } from '../global/lab-entity.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { LabNoteTemplate } from './lab-note-template.entity';
-import {
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryModificationDifference,
-  TeTextEditorHistoryModificationType,
-} from '@monorepo/text-editor';
-
-export type LabNoteContent = TeRichTextContent;
 
 export class LabNote extends LabBaseEntityWithUser implements LabFolderObject {
   title: string;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TeTextEditorHistoryBlockModification } from '../../model/te-text-editor-history-modification.class';
+import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
 @Component({
   selector: 'te-text-editor-history-modification',
@@ -7,5 +7,5 @@ import { TeTextEditorHistoryBlockModification } from '../../model/te-text-editor
   styleUrl: './te-text-editor-history-modification.component.scss',
 })
 export class TeTextEditorHistoryModificationComponent {
-  @Input({ required: true }) modification: TeTextEditorHistoryBlockModification;
+  @Input({ required: true }) modification: TeRichTextBlockModificationWithUser;
 }

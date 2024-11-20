@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
-import { TeBasicConfig, TeRichTextContent } from '@monorepo/text-editor';
+import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
 import { FormControl } from '@angular/forms';
-import { LabNoteContent } from '../../../../lab-core/model/entities/lab-note.entity';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,11 +17,11 @@ export class LabScenarioTemplateDetailComponent implements OnInit {
 
   tags$: LabTagDatasource;
 
-  formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText> = new FormControl({ value: null });
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
-  saveDescriptionFunc = (value: TeRichTextContent): Observable<any> =>
+  saveDescriptionFunc = (value: TeRichText): Observable<any> =>
     this.scenarioTemplateService.updateScenarioTemplate(this.template.id, { description: value });
 
   constructor(

@@ -1,13 +1,14 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { LabNoteService } from '../../../lab-core/entity-service/lab-note.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LabNote, LabNoteContent } from '../../../lab-core/model/entities/lab-note.entity';
+import { LabNote } from '../../../lab-core/model/entities/lab-note.entity';
 import { filter } from 'rxjs/operators';
+import { TeRichText } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabNoteDetailPageState implements OnDestroy {
   private note$: BehaviorSubject<LabNote> = new BehaviorSubject(null);
-  private noteContent$: BehaviorSubject<LabNoteContent> = new BehaviorSubject(null);
+  private noteContent$: BehaviorSubject<TeRichText> = new BehaviorSubject(null);
 
   constructor(private noteService: LabNoteService) {}
 
@@ -18,7 +19,7 @@ export class LabNoteDetailPageState implements OnDestroy {
     });
 
     this.noteService.getNoteContent(noteId).subscribe({
-      next: (content) => this.noteContent$.next(content),
+      next: (content) => this.noteContent$.next(new TeRichText(content)),
       error: (error) => this.noteContent$.error(error),
     });
   }
@@ -31,7 +32,7 @@ export class LabNoteDetailPageState implements OnDestroy {
     return this.note$.asObservable().pipe(filter((note) => note != null));
   }
 
-  public getContent$(): Observable<LabNoteContent> {
+  public getContent$(): Observable<TeRichText> {
     return this.noteContent$.asObservable().pipe(filter((note) => note != null));
   }
 
@@ -51,8 +52,8 @@ export class LabNoteDetailPageState implements OnDestroy {
     });
   }
 
-  public updateContent(content: LabNoteContent): void {
-    this.noteContent$.next(content);
+  public updateContent(richText: TeRichText): void {
+    this.noteContent$.next(richText);
   }
 
   ngOnDestroy(): void {

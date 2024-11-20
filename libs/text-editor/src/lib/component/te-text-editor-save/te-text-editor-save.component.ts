@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { TeRichTextContent } from '../../model/te-rich-text.class';
 import { debounceTime, Observable, Subscription, tap } from 'rxjs';
 import { FlDebouncer } from '@monorepo/front-core-lib';
+import { TeRichText } from '../../model/lib';
 
 /**
  * Component to automatically save the content of a text editor.
@@ -22,7 +22,7 @@ export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
   /**
    * Function to save the content of the text editor.
    */
-  @Input({ required: true }) saveFunc: (value: TeRichTextContent) => Observable<any>;
+  @Input({ required: true }) saveFunc: (value: TeRichText) => Observable<any>;
 
   @Input() debounceTime: number = FlDebouncer.AUTO_SAVE_DEBOUNCE_TIME;
 
@@ -39,7 +39,7 @@ export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
       .subscribe((value) => this.saveDocument(value));
   }
 
-  private saveDocument(value: TeRichTextContent): void {
+  private saveDocument(value: TeRichText): void {
     this.saveFunc(value).subscribe(() => this.saveDocumentSuccess());
   }
 

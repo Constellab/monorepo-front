@@ -29,17 +29,17 @@ export * from './lib/component/te-titles-list/te-titles-list.component';
 export * from './lib/component/te-text-editor-save/te-text-editor-save.component';
 
 // Model
+export * from './lib/model/lib';
 export * from './lib/model/te.helper';
 export * from './lib/model/te-block-tune-factory.class';
 export * from './lib/model/te-block-factory.class';
 export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
-export * from './lib/model/te-rich-text.class';
+export * from './lib/model/te-event.class';
+export * from './lib/model/te-modifications-group.class';
 export * from './lib/model/te-variable.class';
 export * from './lib/model/te-text-editor-history.service';
-export * from './lib/model/te-text-editor-history-modification.class';
 export * from './lib/model/te-text-editor-history-user.class';
-export * from './lib/model/te-event.class';
 
 // Block
 export * from './lib/block/te-code-block.class';

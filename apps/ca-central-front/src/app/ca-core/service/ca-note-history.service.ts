@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
+  TeRichTextBlockModificationWithUser,
+  TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
@@ -13,11 +13,11 @@ import { CaNoteService } from '../service-api/ca-note.service';
 export class CaNoteHistoryService implements TeTextEditorHistoryService {
   constructor(private noteService: CaNoteService) {}
 
-  getHistory(documentId: string): Observable<TeTextEditorHistoryBlockModification[]> {
+  getHistory(documentId: string): Observable<TeRichTextBlockModificationWithUser[]> {
     return this.noteService.getNoteHistory(documentId);
   }
 
-  getPreviousVersion(documentId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(documentId: string, modificationId: string): Observable<TeRichTextDTO> {
     return this.noteService.getNotePreviousVersion(documentId, modificationId);
   }
 }

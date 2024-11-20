@@ -6,11 +6,7 @@ import { TeHelper } from '../model/te.helper';
 import { TeFileComponent } from '../component/te-file/te-file.component';
 import { PasteEvent } from '@editorjs/editorjs';
 import { PasteConfig } from '@editorjs/editorjs/types/configs/paste-config';
-
-export interface TeFileBlockData {
-  name: string;
-  size: number; // in bytes
-}
+import { TeBlockFileUploadResponse } from '../model/lib';
 
 /**
  * Config for the text editor to manage file (upload and retrieve)
@@ -18,7 +14,7 @@ export interface TeFileBlockData {
 export interface TeFileBlockConfig {
   getFileUrl(filename: string): string;
 
-  fileUploader: (file: File) => Observable<TeFileBlockData>;
+  fileUploader: (file: File) => Observable<TeBlockFileUploadResponse>;
 }
 
 export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
@@ -51,12 +47,12 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
     return TeFileBlock.TAG_NAME;
   }
 
-  initInputs(data: TeFileBlockData): void {
+  initInputs(data: TeBlockFileUploadResponse): void {
     this.componentInstance.data = data;
     this.componentInstance.config = this.fileConfig;
   }
 
-  save(): TeFileBlockData {
+  save(): TeBlockFileUploadResponse {
     return this.componentInstance.data;
   }
 
@@ -65,14 +61,13 @@ export class TeFileBlock extends TeComponentBlock<TeFileComponent> {
   }
 
   // ignore the block if it is empty
-  validate(blockData: TeFileBlockData): boolean {
+  validate(blockData: TeBlockFileUploadResponse): boolean {
     return blockData?.name?.length > 0;
   }
 
   onPaste(event: PasteEvent): void {
     // if a file is pasted, we will get the file here
     if (event.type === 'file') {
-      console.log('file pasted', event.detail);
       this.componentInstance.onFileSelected((event.detail as any).file);
     }
   }

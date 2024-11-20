@@ -20,7 +20,7 @@ import {
   LabScenarioSearchFields,
 } from '../entity-module/lab-scenario-core/model/lab-scenario-search.class';
 import { map } from 'rxjs/operators';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
 
@@ -76,8 +76,8 @@ export class LabScenarioService {
     });
   }
 
-  public updateDescription(scenarioId: string, description: TeRichTextContent): Observable<LabScenario> {
-    return this.apiService.put(`${this.route}/${scenarioId}/description`, description, LabScenario);
+  public updateDescription(scenarioId: string, description: TeRichText): Observable<LabScenario> {
+    return this.apiService.put(`${this.route}/${scenarioId}/description`, description.toJson(), LabScenario);
   }
 
   public syncWithSpace(id: string): Observable<LabScenario> {

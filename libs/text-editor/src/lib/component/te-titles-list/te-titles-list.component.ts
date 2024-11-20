@@ -1,6 +1,5 @@
-import { Component, input, Input, OnInit } from '@angular/core';
-import { TeRichText, TeRichTextContent } from '../../model/te-rich-text.class';
-import { BlockToolData } from '@editorjs/editorjs/types/tools';
+import { Component, input } from '@angular/core';
+import { TeBlockHeaderData, TeBlockHeaderLevel } from '../../model/lib';
 
 @Component({
   selector: 'te-titles-list',
@@ -8,5 +7,7 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools';
   styleUrl: './te-titles-list.component.scss',
 })
 export class TeTitlesListComponent {
-  titles = input.required<BlockToolData[]>();
+  titles = input.required<TeBlockHeaderData[]>();
+
+  header1 = TeBlockHeaderLevel.HEADER_1;
 }

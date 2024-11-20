@@ -1,4 +1,4 @@
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { DateTime } from 'luxon';
 import { CoSpace } from './co-space.class';
 import { CoUser } from './co-user.class';
@@ -7,7 +7,7 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
 export class CoAgent {
   id: string;
   title: string;
-  description?: TeRichTextContent;
+  description?: TeRichText;
   space?: any;
   latestPublishVersion: number;
   createdBy?: CoUser;

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
-  HaCreateAgentDto,
   HaAgent,
-  HaAgentDatasourcePaginated,
   HaAgentDatasourceFilters,
+  HaAgentDatasourcePaginated,
+  HaCreateAgentDto,
 } from '../ha-model/ha-entities/ha-agent.class';
 import { Observable } from 'rxjs';
 import { HaAgentVersion, HaAgentVersionFileInput } from '../ha-model/ha-entities/ha-agent-version.class';
 import { ClPage } from '@monorepo/core-lib';
 import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
-import { TeRichTextContent, TeUploadedImage } from '@monorepo/text-editor';
+import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaAgentCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
@@ -233,8 +233,12 @@ export class HaAgentService implements HaCoAuthorService {
    * @param versionInfos
    * @return the updated agent version
    */
-  saveAgentVersionInfos(agentVersionId: string, versionInfos: TeRichTextContent): Observable<HaAgentVersion> {
-    return this.apiService.put(`${this.route}/version/${agentVersionId}/infos`, versionInfos, HaAgentVersion);
+  saveAgentVersionInfos(agentVersionId: string, versionInfos: TeRichText): Observable<HaAgentVersion> {
+    return this.apiService.put(
+      `${this.route}/version/${agentVersionId}/infos`,
+      versionInfos.toJson(),
+      HaAgentVersion
+    );
   }
 
   /**
@@ -286,7 +290,7 @@ export class HaAgentService implements HaCoAuthorService {
     return this.apiService.put(`${this.route}/co-authors/${id}/remove/${coAuthorId}`, {}, HaAgent);
   }
 
-  uploadImage(file: File, agentId: string): Observable<TeUploadedImage> {
+  uploadImage(file: File, agentId: string): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.post(`${this.route}/image/${agentId}`, formData);

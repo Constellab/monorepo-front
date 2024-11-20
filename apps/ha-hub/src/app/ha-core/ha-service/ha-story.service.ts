@@ -13,10 +13,11 @@ import { HaTopic, HaTopicDto } from '../ha-model/ha-entities/ha-topic.class';
 import { HaStoryCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 import {
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
+  TeBlockFigureUploadedResponse,
+  TeRichText,
+  TeRichTextBlockModificationWithUser,
+  TeRichTextDTO,
   TeTextEditorHistoryService,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { RvResourceView } from '@monorepo/resource-view';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
@@ -126,10 +127,10 @@ export class HaStoryService
    * @param content new content
    * return a story
    */
-  public updateContentEdition(id: string, content: TeRichTextContent): Observable<HaStory> {
+  public updateContentEdition(id: string, content: TeRichText): Observable<HaStory> {
     return this.apiService.put(
       this.route + '/' + id + '/content-edition',
-      { contentEdition: content },
+      { contentEdition: content.toJson() },
       HaStory
     );
   }
@@ -156,7 +157,7 @@ export class HaStoryService
     return `${this.getStoryFilePathPrefix(storyId)}${storyFileId}`;
   }
 
-  uploadImage(file: File, storyId: string): Observable<TeUploadedImage> {
+  uploadImage(file: File, storyId: string): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.put(`${this.route}/image/${storyId}`, formData);
@@ -294,11 +295,11 @@ export class HaStoryService
     return this.apiService.get(`${this.route}/${storyId}/view/${id}`);
   }
 
-  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/history/${entityId}/`);
+  getHistory(entityId: string): Observable<TeRichTextBlockModificationWithUser[]> {
+    return this.apiService.get(`${this.route}/history/${entityId}/`, TeRichTextBlockModificationWithUser);
   }
 
-  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/history/undo-content/${entityId}/${modificationId}`);
   }
 

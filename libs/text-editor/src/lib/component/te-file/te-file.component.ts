@@ -1,7 +1,8 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { TeFileBlockConfig, TeFileBlockData } from '../../block/te-file-block';
+import { TeFileBlockConfig } from '../../block/te-file-block';
 import { FlInputFileDirective } from '@monorepo/front-core-lib';
+import { TeBlockFileUploadResponse } from '../../model/lib';
 
 @Component({
   selector: 'te-file',
@@ -9,7 +10,7 @@ import { FlInputFileDirective } from '@monorepo/front-core-lib';
   styleUrl: './te-file.component.scss',
 })
 export class TeFileComponent extends TeElementBlockDirective implements OnInit {
-  @Input() data: TeFileBlockData;
+  @Input() data: TeBlockFileUploadResponse;
 
   @Input() config: TeFileBlockConfig;
 
@@ -38,7 +39,7 @@ export class TeFileComponent extends TeElementBlockDirective implements OnInit {
     setTimeout(() => this.inputFile.nativeElement.click(), 0);
   }
 
-  private initFile(data: TeFileBlockData): void {
+  private initFile(data: TeBlockFileUploadResponse): void {
     this.fileUrl = this.config.getFileUrl(data.name);
   }
 
@@ -54,7 +55,7 @@ export class TeFileComponent extends TeElementBlockDirective implements OnInit {
     window.open(this.fileUrl, '_blank');
   }
 
-  private onUploadSuccess(data: TeFileBlockData): void {
+  private onUploadSuccess(data: TeBlockFileUploadResponse): void {
     this.data = data;
     this.uploadIsLoading = false;
     this.initFile(data);

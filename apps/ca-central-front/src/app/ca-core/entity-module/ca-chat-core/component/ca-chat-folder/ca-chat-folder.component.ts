@@ -1,7 +1,7 @@
 import { Component, computed, input, OnDestroy, Signal } from '@angular/core';
 import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 
 /**
  * Component to load message of a chat of a folder and show them.
@@ -21,7 +21,7 @@ export class CaChatFolderComponent implements OnDestroy {
 
   constructor(private folderService: CaFolderService) {}
 
-  createNewMessage(content: TeRichTextContent): void {
+  createNewMessage(content: TeRichText): void {
     this.folderService
       .createMessage(this.folderId(), content)
       .subscribe((message) => this.createSuccess(message));

@@ -1,8 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { TeAudioTranscriptionConfig } from '../../block-tune/te-audio-transcription-block-tune.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TeRichTextContent } from '../../model/te-rich-text.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { TeRichText } from '../../model/lib';
 
 /**
  * Dialog to record an audio to write text in the rich text editor
@@ -101,10 +101,10 @@ export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  private transcribeSuccess(result: TeRichTextContent): void {
+  private transcribeSuccess(result: TeRichText): void {
     this.transcriptionLoading = false;
 
-    if (result.blocks.length === 0) {
+    if (result.isEmpty()) {
       this.snackBarService.openErrorMessage({ text: 'teTextEditor.no_text_detected', translateText: true });
       return;
     }

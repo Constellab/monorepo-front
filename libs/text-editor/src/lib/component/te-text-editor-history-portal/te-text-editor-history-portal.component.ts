@@ -2,10 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FL_PORTAL_DATA, FlColorHelper, FlDialogService } from '@monorepo/front-core-lib';
 import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
 import { TeConfig } from '../../model/te-config.class';
-import {
-  TeTextEditorHistoryBlockModification,
-  TeTextEditorHistoryModificationGroup,
-} from '../../model/te-text-editor-history-modification.class';
 import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';
 import { TeTextEditorHistoryClickEventData } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 import {
@@ -13,6 +9,8 @@ import {
   TeTextEditorHistoryModificationVisualizerDialogData,
 } from '../te-text-editor-history-modification-visualizer-dialog/te-text-editor-history-modification-visualizer-dialog.component';
 import { DateTime, Duration } from 'luxon';
+import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
+import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 
 export interface TeTextEditorHistoryPortalData {
   entityId: string;
@@ -43,16 +41,13 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.service.getHistory(this.data.entityId).subscribe((modifications) => {
-      modifications.map((modification) => {
-        modification.time = DateTime.fromISO(modification.time as string);
-      });
       this.pushUsers(modifications);
       this.createGroups(modifications);
       this.isLoading = false;
     });
   }
 
-  openSingleModificationVisualizer(modification: TeTextEditorHistoryBlockModification): void {
+  openSingleModificationVisualizer(modification: TeRichTextBlockModificationWithUser): void {
     const group = new TeTextEditorHistoryModificationGroup(modification.time as DateTime);
     group.modifications = [modification];
     const eventData: TeTextEditorHistoryClickEventData = {
@@ -90,7 +85,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
       .subscribe(() => {});
   }
 
-  private pushUsers(modifications: TeTextEditorHistoryBlockModification[]): void {
+  private pushUsers(modifications: TeRichTextBlockModificationWithUser[]): void {
     for (const modification of modifications) {
       if (!this.findUserById(modification.userId)) {
         this.users.push({
@@ -101,7 +96,7 @@ export class TeTextEditorHistoryPortalComponent implements OnInit {
     }
   }
 
-  private createGroups(modifications: TeTextEditorHistoryBlockModification[]): void {
+  private createGroups(modifications: TeRichTextBlockModificationWithUser[]): void {
     for (const modification of modifications.reverse()) {
       if (
         this.modificationsGroups.length != 0 &&

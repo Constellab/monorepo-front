@@ -18,11 +18,9 @@ import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.se
 import { FormControl } from '@angular/forms';
 import {
   TeRichText,
-  TeRichTextContent,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
-import { BlockToolData } from '@editorjs/editorjs/types/tools';
 import { HaFile } from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http-redirection.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
@@ -57,9 +55,7 @@ export class HaPublicDocComponent implements OnInit {
 
   docFileUrlPrefix: Signal<string> = this.brickPageState.getDocFileUrlPrefix();
 
-  formCtrl = new FormControl<TeRichTextContent>(null);
-
-  titles: BlockToolData[] = [];
+  formCtrl = new FormControl<TeRichText>(null);
 
   textEditorConfig: HaDocTextEditorConfig;
 
@@ -81,7 +77,7 @@ export class HaPublicDocComponent implements OnInit {
     private brickPageState: HaBrickPageState
   ) {}
 
-  saveContent = (value: TeRichTextContent): Observable<HaDocumentation> =>
+  saveContent = (value: TeRichText): Observable<HaDocumentation> =>
     this.documentationService.updateContent(this.documentation().id, value);
 
   ngOnInit(): void {
@@ -191,11 +187,6 @@ export class HaPublicDocComponent implements OnInit {
 
     this.formCtrl.patchValue(doc.content);
     this.formCtrl.disable();
-    this.titles = TeRichText.getTitles(doc.content, [2, 3]);
-
-    if (doc.content) {
-      // TODO: Get titles
-    }
 
     this.textEditorConfig = new HaDocTextEditorConfig(this.documentationService, doc.id);
 

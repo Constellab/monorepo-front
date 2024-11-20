@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
-import { LabNoteContent } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
+import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 
 export interface LabNoteInsertTemplateDialogData {
   noteId: string;
@@ -45,8 +45,8 @@ export class LabNoteInsertTemplateDialogComponent {
       });
   }
 
-  private insertTemplateSuccess(content: LabNoteContent): void {
+  private insertTemplateSuccess(content: TeRichTextDTO): void {
     this.isLoading = false;
-    this.dialogRef.close(content);
+    this.dialogRef.close(new TeRichText(content));
   }
 }

@@ -1,9 +1,10 @@
 import Paragraph from '@editorjs/paragraph';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { TeHelper, TeListType } from '../model/te.helper';
+import { TeHelper } from '../model/te.helper';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { FlKeyboardKey } from '@monorepo/front-core-lib';
+import { TeBlockListType } from '../model/lib';
 
 /**
  * Standard paragraph with custom actions
@@ -57,7 +58,7 @@ export class TeParagraphBlock extends Paragraph implements BlockTool {
 
       // get the content without the bullet point and list type
       let content: string;
-      let listType: TeListType;
+      let listType: TeBlockListType;
       if (innerText.startsWith('- ')) {
         content = innerText.replace('- ', '');
         listType = 'unordered';

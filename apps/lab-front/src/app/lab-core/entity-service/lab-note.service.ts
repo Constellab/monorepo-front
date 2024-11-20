@@ -11,7 +11,6 @@ import {
 } from '@monorepo/front-core-lib';
 import {
   LabNote,
-  LabNoteContent,
   LabNoteDatasource,
   LabNoteForm,
   LabNoteInsertTemplateDTO,
@@ -25,8 +24,8 @@ import {
 } from '../entity-module/lab-note-core/model/lab-note-search.class';
 import {
   TeRichText,
-  TeRichTextContent,
-  TeTextEditorHistoryBlockModification,
+  TeRichTextBlockModificationWithUser,
+  TeRichTextDTO,
   TeTextEditorHistoryService,
 } from '@monorepo/text-editor';
 
@@ -67,14 +66,14 @@ export class LabNoteService implements TeTextEditorHistoryService {
     };
   }
 
-  public updateContent(id: string, content: LabNoteContent): Observable<LabNoteContent> {
-    if (content == null) {
-      content = TeRichText.emptyContent();
+  public updateContent(id: string, richText: TeRichText): Observable<TeRichTextDTO> {
+    if (richText == null) {
+      richText = new TeRichText();
     }
-    return this.apiService.put(`${this.route}/${id}/content`, content);
+    return this.apiService.put(`${this.route}/${id}/content`, richText.toJson());
   }
 
-  public insertNoteTemplate(id: string, data: LabNoteInsertTemplateDTO): Observable<LabNoteContent> {
+  public insertNoteTemplate(id: string, data: LabNoteInsertTemplateDTO): Observable<TeRichTextDTO> {
     return this.apiService.put(`${this.route}/${id}/content/insert-template`, data);
   }
 
@@ -122,7 +121,7 @@ export class LabNoteService implements TeTextEditorHistoryService {
     return this.apiService.getById(this.route, id, LabNote);
   }
 
-  public getNoteContent(id: string): Observable<LabNoteContent> {
+  public getNoteContent(id: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/${id}/content`);
   }
 
@@ -199,11 +198,11 @@ export class LabNoteService implements TeTextEditorHistoryService {
 
   ///////////////////////////////////////////// HISTORY /////////////////////////////////////////////
 
-  getHistory(entityId: string): Observable<TeTextEditorHistoryBlockModification[]> {
-    return this.apiService.get(`${this.route}/${entityId}/history`);
+  getHistory(entityId: string): Observable<TeRichTextBlockModificationWithUser[]> {
+    return this.apiService.get(`${this.route}/${entityId}/history`, TeRichTextBlockModificationWithUser);
   }
 
-  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextContent> {
+  getPreviousVersion(entityId: string, modificationId: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/${entityId}/history/undo-content/${modificationId}`);
   }
 

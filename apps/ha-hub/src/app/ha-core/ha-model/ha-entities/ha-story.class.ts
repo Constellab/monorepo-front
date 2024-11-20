@@ -1,9 +1,9 @@
 import { HaTopic } from './ha-topic.class';
-import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { HaUser } from './ha-user';
 import { DateTime } from 'luxon';
 import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { CoListStoryDto, CoStoryCategory } from '@monorepo/community-lib';
 
 export enum HaStoryStatus {
@@ -22,8 +22,12 @@ export class HaStoryCoAuthor {
 export class HaStory {
   id: string;
   title: string;
-  content: TeRichTextContent;
-  contentEdition: TeRichTextContent;
+
+  @TeRichTextTransform()
+  content: TeRichText;
+
+  @TeRichTextTransform()
+  contentEdition: TeRichText;
 
   status: HaStoryStatus;
 
@@ -106,9 +110,3 @@ export class HaStoryFilters {
 }
 
 export type HaStoryDatasourcePaginated<F = void> = FlDatasourcePaginated<HaListStoryDto, F>;
-
-export class HaStoryContentFormDTO implements FlEntity {
-  id: string;
-  contentEdition: TeRichTextContent;
-  category: CoStoryCategory;
-}

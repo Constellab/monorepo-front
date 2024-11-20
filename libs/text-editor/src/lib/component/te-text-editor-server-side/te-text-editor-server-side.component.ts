@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import edjsHTML from 'editorjs-html';
-import { TeRichTextContent } from '../../model/te-rich-text.class';
+import { TeRichText } from '../../model/lib';
 
 @Component({
   selector: 'te-text-editor-server-side',
@@ -8,14 +8,14 @@ import { TeRichTextContent } from '../../model/te-rich-text.class';
   styleUrl: './te-text-editor-server-side.component.scss',
 })
 export class TeTextEditorServerSideComponent implements OnInit {
-  @Input({ required: true }) value: TeRichTextContent;
+  @Input({ required: true }) richText: TeRichText;
 
   htmlValue: string;
 
   ngOnInit(): void {
-    if (this.value != null) {
+    if (this.richText != null) {
       const parser = edjsHTML();
-      const HTML = parser.parse(this.value);
+      const HTML = parser.parse(this.richText.toHTMLEditorJson());
       this.htmlValue = HTML.map((row: any) => (row instanceof Error ? '' : row)).join('<br>');
     }
   }

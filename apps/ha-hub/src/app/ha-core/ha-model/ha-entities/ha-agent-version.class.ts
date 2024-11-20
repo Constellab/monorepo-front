@@ -2,7 +2,7 @@ import { HaAgent } from './ha-agent.class';
 import { FlEntity } from '@monorepo/front-core-lib';
 import { DateTime } from 'luxon';
 import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export enum HaAgentVersionState {
   PUBLISHED = 'PUBLISHED',
@@ -24,7 +24,9 @@ export class HaAgentVersion implements FlEntity {
   version: number;
   agent: HaAgent;
   versionState: HaAgentVersionState;
-  versionInfos?: TeRichTextContent;
+
+  @TeRichTextTransform()
+  versionInfos?: TeRichText;
   environment: string;
   type: HaAgentVersionType;
   params: string;

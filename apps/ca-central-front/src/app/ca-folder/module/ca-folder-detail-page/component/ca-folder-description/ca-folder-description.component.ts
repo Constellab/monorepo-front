@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
@@ -23,8 +23,8 @@ export class CaFolderDescriptionComponent implements OnInit {
   canEdit: boolean;
 
   textEditorConfig: CaFolderDescriptionTextEditorConfig;
-  formControl: FormControl<TeRichTextContent> = new FormControl({ disabled: true, value: null });
-  saveDescriptionFunc = (value: TeRichTextContent): Observable<void> =>
+  formControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
+  saveDescriptionFunc = (value: TeRichText): Observable<void> =>
     this.folderService.updateDescription(this.folderId, value);
 
   getIsLoading: boolean = false;

@@ -1,12 +1,13 @@
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { PrProtocolGraph } from '@monorepo/protocol';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export class LabScenarioTemplate extends LabBaseEntityWithUser {
   name: string;
 
-  description: TeRichTextContent;
+  @TeRichTextTransform()
+  description: TeRichText;
 
   data?: PrProtocolGraph;
 
@@ -17,7 +18,9 @@ export class LabScenarioTemplate extends LabBaseEntityWithUser {
 
 export type LabScenarioTemplateDatasource<F = void> = FlEntityPaginatedDatasource<LabScenarioTemplate, F>;
 
-export interface LabCreateScenarioTemplateDTO {
+export class LabCreateScenarioTemplateDTO {
   name: string;
-  description: TeRichTextContent;
+
+  @TeRichTextTransform()
+  description: TeRichText;
 }

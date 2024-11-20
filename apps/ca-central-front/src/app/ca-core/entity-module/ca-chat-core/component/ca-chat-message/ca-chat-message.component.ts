@@ -4,7 +4,7 @@ import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 
 /**
  * Component to show a message in a chat
@@ -49,7 +49,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
 
-  updateMessage(content: TeRichTextContent): void {
+  updateMessage(content: TeRichText): void {
     this.folderService
       .updateMessage(this.folderId(), this.message().id, content)
       .subscribe((message: CaChatMessage) => this.updateMessageSuccess(message));

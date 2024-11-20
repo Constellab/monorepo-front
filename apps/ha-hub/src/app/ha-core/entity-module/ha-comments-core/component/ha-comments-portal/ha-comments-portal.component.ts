@@ -31,7 +31,7 @@ export class HaCommentsPortalComponent implements OnInit {
   datasource: FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>>;
   isLoading = false;
   commentType: HaCommentType;
-  commentInputData = TeRichText.emptyContent();
+  commentInputData = new TeRichText();
   loginRoute: string = HaRouterService.getLoginRoute();
 
   constructor(
@@ -53,7 +53,7 @@ export class HaCommentsPortalComponent implements OnInit {
   }
 
   checkCommentValidity(): void {
-    this.commentIsValid = !TeRichText.isEmpty(this.commentInputData);
+    this.commentIsValid = !this.commentInputData.isEmpty();
   }
 
   sendComment(): void {
@@ -63,7 +63,7 @@ export class HaCommentsPortalComponent implements OnInit {
       this.commentService
         .sendComment(this.commentType, this.commentInputData, this.entity.id)
         .subscribe((comment: HaAbstractComment<HaCommentEntity>) => {
-          this.commentInputData = TeRichText.emptyContent();
+          this.commentInputData = new TeRichText();
           this.datasource.unshiftItem(comment);
           this.entity.comments++;
           this.isLoading = false;

@@ -6,7 +6,7 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { CaUser } from '../ca-user.class';
 import { CaFolderObject } from './ca-folder.class';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export type CaScenarioStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED' | 'PARTIALLY_RUN';
 
@@ -21,7 +21,8 @@ export const caScenarioStatusDict: FlStatusDict<CaScenarioStatus> = {
 export class CaScenario extends CaBaseEntity implements CaFolderObject {
   title: string;
 
-  description: TeRichTextContent;
+  @TeRichTextTransform()
+  description: TeRichText;
 
   @Type(() => CaLab)
   lab: CaLab;

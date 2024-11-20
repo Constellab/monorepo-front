@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LabNoteContent } from '../../../lab-core/model/entities/lab-note.entity';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { ActivatedRoute } from '@angular/router';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 import { LabNoteTemplateService } from '../../../lab-core/entity-service/lab-note-template.service';
 import { LabNoteTemplate } from '../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
-import { TeConfig, TeRichTextContent } from '@monorepo/text-editor';
+import { TeConfig, TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -22,9 +21,9 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  formControl: FormControl<LabNoteContent> = new FormControl({ value: null });
+  formControl: FormControl<TeRichText> = new FormControl({ value: null });
 
-  saveContentFunc: (value: TeRichTextContent) => Observable<TeRichTextContent>;
+  saveContentFunc: (value: TeRichText) => Observable<TeRichTextDTO>;
   private noteTemplateId: string;
 
   constructor(
@@ -51,7 +50,7 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
       next: (content) => this.getNoteTemplateContentSuccess(content),
     });
 
-    this.saveContentFunc = (value: TeRichTextContent) =>
+    this.saveContentFunc = (value: TeRichText) =>
       this.noteTemplateService.updateContent(this.noteTemplateId, value);
   }
 
@@ -60,8 +59,8 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
     this.isLoading = false;
   }
 
-  private getNoteTemplateContentSuccess(content: TeRichTextContent): void {
-    this.formControl.patchValue(content, { emitEvent: false });
+  private getNoteTemplateContentSuccess(content: TeRichTextDTO): void {
+    this.formControl.patchValue(new TeRichText(content), { emitEvent: false });
   }
 
   updateTitle(title: string): void {

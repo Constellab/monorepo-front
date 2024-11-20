@@ -13,16 +13,16 @@ import {
 import { TeConfig } from '../../model/te-config.class';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib';
 import { NgControl } from '@angular/forms';
-import { TeRichTextContent } from '../../model/te-rich-text.class';
 import { isPlatformBrowser } from '@angular/common';
 import { TeEvent } from '../../model/te-event.class';
+import { TeRichText } from '../../model/lib';
 
 @Component({
   selector: 'te-text-editor',
   templateUrl: './te-text-editor.component.html',
   styleUrl: './te-text-editor.component.scss',
 })
-export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextContent> implements OnInit {
+export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> implements OnInit {
   @Input({ required: true }) config: TeConfig;
 
   @Input() event: TeEvent;
@@ -34,7 +34,7 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
    */
   @HostBinding('class.g-te-dense') dense: boolean = false;
 
-  @Output() textChange: EventEmitter<TeRichTextContent> = new EventEmitter<TeRichTextContent>();
+  @Output() textChange: EventEmitter<TeRichText> = new EventEmitter();
 
   browserSide: boolean = false;
 
@@ -52,17 +52,17 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichTextConten
     this.dense = this.config.uiConfig.dense;
   }
 
-  callChangeEvent(value: TeRichTextContent): void {
+  callChangeEvent(value: TeRichText): void {
     this.textChange.emit(value);
   }
 
   onDisableChange(): void {}
 
-  writeValue(obj: TeRichTextContent): void {
+  writeValue(obj: TeRichText): void {
     this.value = obj;
   }
 
-  onTextChange(value: TeRichTextContent): void {
+  onTextChange(value: TeRichText): void {
     this.setAndEmitValue(value);
   }
 }

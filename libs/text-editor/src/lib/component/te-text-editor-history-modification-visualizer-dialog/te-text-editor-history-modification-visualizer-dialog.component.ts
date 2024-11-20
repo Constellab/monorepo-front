@@ -1,14 +1,14 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { TeConfig } from '../../model/te-config.class';
 import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
 import { TeTextEditorHistoryClickEventData } from '../te-text-editor-history-modification-group/te-text-editor-history-modification-group.component';
 import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';
-import { TeRichTextContent } from '../../model/te-rich-text.class';
-import { TeTextEditorHistoryModificationGroup } from '../../model/te-text-editor-history-modification.class';
 import { TeHelper } from '../../model/te.helper';
 import { TeEvent } from '../../model/te-event.class';
+import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
+import { TeRichText } from '../../model/lib';
 
 export interface TeTextEditorHistoryModificationVisualizerDialogData {
   textEditorConfig: TeConfig;
@@ -31,7 +31,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   textEditorHistoryUsers: TeTextEditorHistoryUser[] = [];
   textEditorConfig: TeConfig;
   private service: TeTextEditorHistoryService;
-  content: TeRichTextContent;
+  richText: TeRichText;
   private entityId: string;
   isLoading = true;
   isEditable = true;
@@ -39,7 +39,6 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   constructor(
     @Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
     private el: ElementRef,
-    private renderer: Renderer2,
     private dialogService: FlDialogService
   ) {
     this.textEditorConfig = dialogInput.textEditorConfig;
@@ -54,7 +53,7 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
     const modificationId = this.group.mainModificationId();
     this.textEditorEvent = new TeEvent();
     this.service.getPreviousVersion(this.entityId, modificationId).subscribe((content) => {
-      this.content = content;
+      this.richText = new TeRichText(content);
       this.highlightChanges();
     });
   }

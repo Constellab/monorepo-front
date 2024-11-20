@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CaUser } from '../entities/ca-user.class';
 import {
   TeAdditionalConfig,
+  TeBlockFigureUploadedResponse,
   TeCleanStyleInlineTool,
   TeComponentInitData,
   TeConfig,
@@ -15,7 +16,6 @@ import {
   TeStrikethroughInlineTool,
   TeTools,
   TeUnderlineInlineTool,
-  TeUploadedImage,
 } from '@monorepo/text-editor';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib';
 
@@ -25,7 +25,7 @@ export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
     private folderService: CaFolderService
   ) {}
 
-  imageUploader(file: File): Observable<TeUploadedImage> {
+  imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
     return this.folderService.uploadMessageImage(file, this.folderId);
   }
 

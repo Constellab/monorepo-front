@@ -493,7 +493,9 @@ export class LabProtocolService {
     protocolId: string,
     template: LabCreateScenarioTemplateDTO
   ): Observable<LabScenarioTemplate> {
-    return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabScenarioTemplate);
+    return this.apiService.post(`${this.baseRoute}/${protocolId}/template`, template, LabScenarioTemplate, {
+      serialization: LabCreateScenarioTemplateDTO,
+    });
   }
 
   public downloadScenarioTemplate(protocolId: string): Observable<Blob> {

@@ -1,7 +1,6 @@
-import { TeBlockTune, TeHelper } from '@monorepo/text-editor';
+import { TeBlockTune, TeHelper, TeRichText } from '@monorepo/text-editor';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import { FlDialogService } from '@monorepo/front-core-lib';
-import { LabNoteContent } from '../../../../lab-core/model/entities/lab-note.entity';
 import {
   LabNoteInsertTemplateDialogComponent,
   LabNoteInsertTemplateDialogData,
@@ -40,9 +39,9 @@ export class LabNoteInsertTemplateBlockTune extends TeBlockTune {
       .subscribe((result) => this.onClosedDialog(result));
   }
 
-  private onClosedDialog(content: LabNoteContent): void {
+  private onClosedDialog(content: TeRichText): void {
     if (content) {
-      this.config.api.blocks.render(content);
+      this.config.api.blocks.render(content.toHTMLEditorJson());
     }
   }
 

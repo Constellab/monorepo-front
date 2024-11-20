@@ -26,7 +26,6 @@ export abstract class TePortalPlugin {
 
     // if the node is not a text node, create a new text node
     if (this.textNode.nodeType !== Node.TEXT_NODE) {
-      console.log('create new text node');
       const textNode = document.createTextNode('');
       this.textNode.appendChild(textNode);
       this.textNode = textNode;

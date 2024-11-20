@@ -1,8 +1,9 @@
-import { Component, input, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
+import { map } from 'rxjs/operators';
 
 /**
  * Component to show the note content in a disabled text editor
@@ -17,12 +18,12 @@ export class CaNoteContentComponent implements OnInit {
 
   textEditorConfig: CaNoteTextEditorConfig;
 
-  content$: Observable<TeRichTextContent>;
+  richText$: Observable<TeRichText>;
 
   constructor(private noteService: CaNoteService) {}
 
   ngOnInit(): void {
-    this.content$ = this.noteService.getContent(this.noteId);
+    this.richText$ = this.noteService.getContent(this.noteId).pipe(map((content) => new TeRichText(content)));
     this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.noteId);
   }
 }

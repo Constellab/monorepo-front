@@ -10,7 +10,7 @@
       [routerLink]="'.'"
       [fragment]="title.text.toLowerCase().replaceAll(' ', '-')"
       class="title small-text"
-      [ngClass]="title.level === 2 ? 'big-title' : 'small-title'">
+      [ngClass]="title.level === header1 ? 'big-title' : 'small-title'">
       {{ title.text }}
     </a>
   }

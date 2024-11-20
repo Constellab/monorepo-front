@@ -4,8 +4,8 @@ import { LabResourceViewFolder } from './lab-resource-view-folder.class';
 import { LabViewConfig } from './lab-view-config.entity';
 import { PrConfigValues } from '@monorepo/protocol';
 import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
-import { TeRichTextContent } from '@monorepo/text-editor';
 import { LabRichTextObjectType } from '../../../entity-service/lab-rich-text.service';
+import { TeRichTextDTO } from '@monorepo/text-editor';
 
 // list of available view type
 export type LabResourceViewType = RvResourceViewType | 'view' | 'resources-list-view' | 'folder-view';
@@ -82,7 +82,7 @@ export interface LabResourceViewRichText extends RvResourceViewBase {
   type: 'rich-text-view';
   data: {
     title: string;
-    content: TeRichTextContent;
+    content: TeRichTextDTO;
     object_type: LabRichTextObjectType;
     object_id?: string;
   };

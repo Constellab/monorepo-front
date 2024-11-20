@@ -3,7 +3,7 @@ import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.c
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeRichText, TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
@@ -46,21 +46,22 @@ export class HaAgentOverviewComponent implements OnInit {
 
   isAuthor: Signal<boolean> = this.agentPageState.isAuthor;
 
-  agentDescription: Signal<TeRichTextContent> = this.agentPageState.getAgentDescription();
+  agentDescription: Signal<TeRichText> = this.agentPageState.getAgentDescription();
 
-  descriptionFormControl: Signal<FormControl<TeRichTextContent>> = computed(() => {
-    const formControl = new FormControl<TeRichTextContent>(null);
+  descriptionFormControl: Signal<FormControl<TeRichText>> = computed(() => {
+    const formControl = new FormControl<TeRichText>(null);
     if (this.agentDescription()) {
       formControl.patchValue(this.agentDescription());
     } else {
-      formControl.patchValue(TeRichText.emptyContent());
+      formControl.patchValue(new TeRichText());
     }
     formControl.disable();
     return formControl;
   });
 
   agentDescriptionEmpty: Signal<boolean> = computed(() => {
-    return TeRichText.isEmpty(this.agentDescription());
+    const richText = this.agentDescription();
+    return richText == null || richText.isEmpty();
   });
 
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
@@ -90,7 +91,7 @@ export class HaAgentOverviewComponent implements OnInit {
     this.agentPageState.setLatestAgentVersion(id);
   }
 
-  onDescriptionChange(description: TeRichTextContent): void {
+  onDescriptionChange(description: TeRichText): void {
     this.descriptionFormControl().setValue(description);
   }
 

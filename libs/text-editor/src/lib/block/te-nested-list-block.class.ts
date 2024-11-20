@@ -1,16 +1,16 @@
-import NestedList from '@editorjs/nested-list';
+import List from '@editorjs/list';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeHelper } from '../model/te.helper';
 import { FlKeyboardKey } from '@monorepo/front-core-lib';
+import { TeBlockListData } from '../model/lib';
 
-export class TeNestedListBlock extends NestedList implements BlockTool {
+export class TeNestedListBlock extends List implements BlockTool {
   constructor(private options: BlockToolConstructorOptions) {
     super(options);
   }
 
-  save(block: HTMLElement): BlockToolData {
-    return super.save(block);
+  save(): TeBlockListData {
+    return super.save();
   }
 
   render(): HTMLElement {
@@ -42,12 +42,12 @@ export class TeNestedListBlock extends NestedList implements BlockTool {
    */
   pasteHandler(element: HTMLElement): any {
     element = this.fixNestedList(element);
-    return super.pasteHandler(element);
+    return super.pasteHandler(element as HTMLUListElement | HTMLOListElement | HTMLLIElement);
   }
 
   /**
    * Method to fix some pasted nested list
-   * If the nested list is not well formatted, it will fix it. This can happens when copy paste form word
+   * If the nested list is not well formatted, it will fix it. This can happen when copy paste form word
    * Input :
    * <ul>
    *   <li>Coffee</li>

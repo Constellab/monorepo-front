@@ -1,14 +1,14 @@
 import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
 import { Observable } from 'rxjs';
 import {
+  TeBlockFigureUploadedResponse,
+  TeBlockFileUploadResponse,
   TeCompleteConfig,
   teComponentBlockFactory,
   TeFigureBlockConfig,
   TeFileBlockConfig,
-  TeFileBlockData,
   teInlineToolFactory,
   TeTools,
-  TeUploadedImage,
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
@@ -23,7 +23,7 @@ export class CaNoteTextEditorImageConfig implements TeFigureBlockConfig {
     private noteId: string
   ) {}
 
-  imageUploader(): Observable<TeUploadedImage> {
+  imageUploader(): Observable<TeBlockFigureUploadedResponse> {
     throw new Error('Method not implemented.');
   }
 
@@ -38,7 +38,7 @@ export class CaRichTextFileConfig implements TeFileBlockConfig {
     private noteId: string
   ) {}
 
-  fileUploader(): Observable<TeFileBlockData> {
+  fileUploader(): Observable<TeBlockFileUploadResponse> {
     throw new Error('Method not implemented.');
   }
 

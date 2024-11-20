@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CoAgent } from '../../model/co-agent.class';
-import { TeRichText } from '@monorepo/text-editor';
 
 @Component({
   selector: 'co-agent-list-item',
@@ -14,6 +13,6 @@ export class CoAgentListItemComponent implements OnInit {
   description: string;
 
   ngOnInit(): void {
-    this.description = TeRichText.getFirstParagraphsText(this.agent.description);
+    this.description = this.agent.description?.getFirstParagraphsText() ?? '';
   }
 }

@@ -1,4 +1,4 @@
-import { TeRichTextContent } from '@monorepo/text-editor';
+import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { LabEntity } from '../global/lab-entity.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { DateTime } from 'luxon';
@@ -11,7 +11,9 @@ export class LabAgent extends LabEntity {
   created_at?: string;
   last_modified_at?: string;
   created_by?: CoUser;
-  description?: TeRichTextContent;
+
+  @TeRichTextTransform()
+  description?: TeRichText;
   latest_publish_version: number;
   latest_style?: TdTypeStyle;
 

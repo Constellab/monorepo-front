@@ -15,16 +15,19 @@ import {
 } from '@monorepo/front-core-lib';
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
 import { FormControl } from '@angular/forms';
-import { TeRichTextContent } from '@monorepo/text-editor';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { TeRichText } from '@monorepo/text-editor';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaDocumentActionDetailMenu,
   CaDocumentActionEvent,
-  CaDocumentActionMenu,
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
-import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/service/ca-constellab-document-history.service';
+import {
+  CaConstellabDocumentHistoryService,
+} from '../../../../../ca-core/service/ca-constellab-document-history.service';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -40,8 +43,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
   getIsLoading: boolean = true;
 
   textEditorConfig: CaDocumentTextEditorConfig;
-  contentFormControl: FormControl<TeRichTextContent> = new FormControl({ disabled: true, value: null });
-  saveDescriptionFunc: (value: TeRichTextContent) => Observable<CaConstellabDocument>;
+  contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
+  saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
 
   constructor(
     private route: ActivatedRoute,
@@ -75,7 +78,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
     );
     this.getIsLoading = false;
 
-    this.saveDescriptionFunc = (value: TeRichTextContent) =>
+    this.saveDescriptionFunc = (value: TeRichText) =>
       this.folderService.updateConstellabDocument(this.document.id, value).pipe(
         tap({
           next: (doc) => this.saveContentSuccess(doc),
