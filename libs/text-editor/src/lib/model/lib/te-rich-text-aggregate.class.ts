@@ -34,6 +34,7 @@ export type TeRichTextAggregateJsonInput =
   | TeOldRichTextContentWithModificationsI
   | TeNewFullRichTextDTO;
 
+
 export class TeRichTextAggregate {
   private static readonly CURRENT_VERSION = 1;
 
@@ -147,8 +148,8 @@ export class TeRichTextAggregate {
         modif.blockValue = block.data;
         differences.push(modif);
       } else if (
-        TeRichTextBlockModification.stringifyData(oldBlock) !==
-        TeRichTextBlockModification.stringifyData(block)
+        TeRichTextBlockModification.stringifyBlockData(oldBlock) !==
+        TeRichTextBlockModification.stringifyBlockData(block)
       ) {
         // block is updated
         const modif = new TeRichTextBlockModification(

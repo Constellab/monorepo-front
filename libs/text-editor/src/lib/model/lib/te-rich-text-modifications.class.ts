@@ -203,7 +203,7 @@ export class TeRichTextModifications {
         if (
           moveModification == null ||
           movement > currentMovement ||
-          JSON.stringify(moveModification.blockValue).length < JSON.stringify(modification.blockValue).length
+          moveModification.getBlockDataAsString().length < modification.getBlockDataAsString().length
         ) {
           moveModification = modification;
         }
