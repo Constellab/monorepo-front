@@ -70,8 +70,8 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
       );
   }
 
-  getSimpleParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
-    return this.labProtocolService.getSimpleParamSpecsInfos();
+  getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
+    return this.labProtocolService.getParamSpecsInfos();
   }
 
   private updateProcessConfig(config: LabConfig): void {

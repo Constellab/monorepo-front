@@ -1,5 +1,6 @@
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
+  FlDynamicEditableFormGroupConfig,
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
   FlDynamicFieldConfigBoolean,
@@ -9,8 +10,7 @@ import {
   FlDynamicFieldConfigSelectSearch,
   FlDynamicFieldConfigUnknown,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig,
-  FlDynamicEditableFormGroupConfig,
+  FlDynamicFormGroupConfig
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -19,7 +19,7 @@ import {
   TdParamSpec,
   TdParamSpecs,
   TdParamSpecSimple,
-  TdParamSpecVisibility,
+  TdParamSpecVisibility
 } from '@monorepo/technical-doc';
 
 /**
@@ -123,7 +123,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
   private convertToControlConfig(spec: TdParamSpecSimple, defaultPlaceholder: string): FlDynamicFieldConfig {
     // create a select
-    if (spec.additional_info?.allowed_values) {
+    if (spec.additional_info?.allowed_values && spec.additional_info?.allowed_values.length > 0) {
       if (spec.additional_info?.allowed_values.length > 10) {
         const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(
           spec,

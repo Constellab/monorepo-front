@@ -52,6 +52,7 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
   ) {
     effect(() => {
       this.init();
+      console.log('LabConfigureSpecsFormComponent: effect', this.configData());
     });
   }
 

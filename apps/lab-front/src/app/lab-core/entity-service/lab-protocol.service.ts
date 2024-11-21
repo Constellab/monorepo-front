@@ -491,8 +491,8 @@ export class LabProtocolService {
 
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
 
-  public getSimpleParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
-    return this.apiService.get(`${this.baseRoute}/get-simple-param-spec-types`);
+  public getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
+    return this.apiService.get(`${this.baseRoute}/get-param-spec-types`);
   }
 
   public addDynamicParamSpec(

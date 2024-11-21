@@ -43,7 +43,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
   openEditParamSpecDialog(param: TdEditableParamSpec = null): void {
     const input: TdEditParamSpecDialogInput = {
       dynamicParamSpecState: this.dynamicParamSpecState,
-      paramSpecFormInfoList$: this.dynamicParamSpecState.getSimpleParamSpecsInfos(),
+      paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
       name: param?.name,
       spec: param != null ? this.paramSpecs[param.name] : null,
     };

@@ -40,7 +40,6 @@ export class HaAgentVersionDetailComponent implements OnInit {
   brickDependencies: Signal<HaBrickVersion[]> = this.agentPageState.getBrickDependencies();
   isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
   agentVersion: Signal<HaAgentVersion> = computed(() => {
-    console.log('this.agentPageState.agentVersion()', this.agentPageState.agentVersion());
     if (!this.agentPageState.agentVersion()) return null;
     const agentVersion = this.agentPageState.agentVersion();
     if (agentVersion?.version == this.lastAgentVersion) return agentVersion;

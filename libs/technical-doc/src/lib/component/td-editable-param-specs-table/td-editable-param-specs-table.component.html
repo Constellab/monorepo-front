@@ -62,9 +62,7 @@
               @for (key of Object.keys(element.additional_info); track key) {
                 @if (element.additional_info[key]) {
                   <fl-key-value>
-                    <fl-key
-                    ><span>{{ 'td.' + key | translate }}</span></fl-key
-                    >
+                    <fl-key><span>{{ 'td.' + key | translate }}</span></fl-key>
                     {{ element.additional_info[key] }}
                   </fl-key-value>
                 }

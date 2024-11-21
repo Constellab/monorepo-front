@@ -34,7 +34,7 @@ export abstract class TdAbstractDynamicParamSpecState {
 
   abstract deleteParamSpec(paramName: string): Observable<TdConfig>;
 
-  abstract getSimpleParamSpecsInfos(): Observable<TdParamSpecFormInfoList>;
+  abstract getParamSpecsInfos(): Observable<TdParamSpecFormInfoList>;
 
   onDestroy(): void {
     this.paramSpecsTable?.disconnect();
