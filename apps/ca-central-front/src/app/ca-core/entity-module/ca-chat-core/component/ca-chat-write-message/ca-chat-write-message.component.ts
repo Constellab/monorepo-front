@@ -35,10 +35,14 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   }
 
   sendMessage(): void {
-    if (!this.messageContent.isEmpty()) {
-      this.send.emit(this.messageContent);
-      this.messageContent = null;
-    }
+    // use a timeout to wait for the text editor to update the content
+    // useful if send is called just after the text editor content is updated
+    setTimeout(() => {
+      if (this.messageContent && !this.messageContent.isEmpty()) {
+        this.send.emit(this.messageContent);
+        this.messageContent = null;
+      }
+    }, 500);
   }
 
   cancelEdit(): void {

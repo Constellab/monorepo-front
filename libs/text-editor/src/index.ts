@@ -37,9 +37,10 @@ export * from './lib/model/te-config.class';
 export * from './lib/model/te-element.directive';
 export * from './lib/model/te-event.class';
 export * from './lib/model/te-modifications-group.class';
-export * from './lib/model/te-variable.class';
 export * from './lib/model/te-text-editor-history.service';
 export * from './lib/model/te-text-editor-history-user.class';
+export * from './lib/model/te-text-editor-undo-redo.class';
+export * from './lib/model/te-variable.class';
 
 // Block
 export * from './lib/block/te-code-block.class';

@@ -14,7 +14,7 @@ import { TeUser } from './te-user.class';
 
 export class TeRichTextModifications {
   private static readonly CURRENT_VERSION = 2;
-  private static readonly FRONT_TIME_DIFFERENCE = Duration.fromObject({ seconds: 10 });
+  private static readonly FRONT_TIME_DIFFERENCE = Duration.fromObject({ seconds: 5 });
   private static readonly BACK_TIME_DIFFERENCE = Duration.fromObject({ minutes: 3 });
   private static MAX_TIME_DIFFERENCE: Duration = null;
 
