@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { TdParamSpec, TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
 
 @Component({
@@ -8,6 +8,7 @@ import { TdParamSpec, TdParamSpecParamSet, TdParamSpecs } from '../../model/td-c
 })
 export class TdConfigComponent {
   @Input() configSpecs?: TdParamSpecs;
+  values = input<Record<string, any>>(null);
 
   public getParamSet(confSpec: TdParamSpec): TdParamSpecs {
     return (confSpec as TdParamSpecParamSet)?.additional_info?.param_set;

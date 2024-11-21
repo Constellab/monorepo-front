@@ -112,7 +112,7 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     MatSelect,
     MatCheckbox,
     FlDynamicFieldModule,
-  ]
+  ],
   declarations: [
     TdResourceDocComponent,
     TdTechnicalDocComponent,
@@ -137,7 +137,7 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
-    TdConfigureParamSpecsTableDialogComponent
+    TdConfigureParamSpecsTableDialogComponent,
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -161,7 +161,7 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     TdCleanTypePipe,
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
-    TdConfigureParamSpecsTableDialogComponent
+    TdConfigureParamSpecsTableDialogComponent,
   ],
 })
 export class TdTechnicalDocModule {
@@ -169,7 +169,9 @@ export class TdTechnicalDocModule {
     translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n);
   }
 
-  public static forRoot(apiServiceConfig: Type<TdTechnicalDocServiceConfig>): ModuleWithProviders<TdTechnicalDocModule> {
+  public static forRoot(
+    apiServiceConfig: Type<TdTechnicalDocServiceConfig>
+  ): ModuleWithProviders<TdTechnicalDocModule> {
     const providers: Provider[] = [{ provide: TdTechnicalDocServiceConfig, useClass: apiServiceConfig }];
 
     return {

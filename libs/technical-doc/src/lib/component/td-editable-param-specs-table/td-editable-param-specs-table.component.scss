@@ -2,15 +2,15 @@ table {
   width: 100%;
 }
 
-tr.example-detail-row {
+tr.detail-row {
   height: 0;
 }
 
-tr.example-element-row:not(.example-expanded-row):hover {
+tr.element-row:not(.expanded-row):hover {
   background: var(--hover-color);
 }
 
-.example-element-row td {
+.element-row td {
   border-bottom-width: 0;
 }
 
@@ -26,4 +26,9 @@ tr.example-element-row:not(.example-expanded-row):hover {
 
 span {
   font-weight: 525;
+}
+
+.empty-table {
+  margin-top: 0.5em;
+  text-align: center;
 }

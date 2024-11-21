@@ -63,6 +63,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Etes-vous sûr de vouloir supprimer ce paramètre ?',
     confirm_param_spec_deletion_success: 'Le paramètre a été supprimé avec succès',
     save: 'Enregistrer',
+    no_param_spec: 'Aucun paramètre',
   },
 };
 
@@ -127,6 +128,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Are you sure you want to delete this parameter ?',
     confirm_param_spec_deletion_success: 'The parameter has been successfully deleted',
     save: 'Save',
+    no_param_spec: 'No parameter',
   },
 };
 

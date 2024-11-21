@@ -103,23 +103,18 @@
     </fl-card-body>
   </fl-card>
 
-  @if (isEditable() || (agentVersion().params != null && agentVersion().params.length > 0)) {
+  @if (isEditable() || (agentVersion().params)) {
     <fl-card class="agent-version-detail-card">
       <fl-card-header>
         <div class="card-header">
           <h5>
             {{ 'parameters' | translate }}
           </h5>
-          <div>
-            <button mat-stroked-button color="primary" (click)="onCopy('parameters')" class="g-button-small">
-              <mat-icon>content_copy</mat-icon>
-              {{ 'copy_parameters' | translate }}
-            </button>
-          </div>
         </div>
       </fl-card-header>
       <fl-card-body>
-        <fl-code-editor [language]="languageCode()" [formCtrl]="paramsFormControl"></fl-code-editor>
+        <td-config [configSpecs]="agentVersion().params['specs']"
+                   [values]="agentVersion().params['values']" />
       </fl-card-body>
     </fl-card>
   }

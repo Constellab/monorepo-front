@@ -29,7 +29,7 @@ export class HaAgentVersion implements FlEntity {
   versionInfos?: TeRichText;
   environment: string;
   type: HaAgentVersionType;
-  params: string;
+  params: Record<string, any>;
   code: string;
   createdAt: DateTime;
   inputSpecs?: Record<string, any>;
@@ -46,7 +46,7 @@ export class HaAgentVersionFileInputBrick {
 export class HaAgentVersionFileInput {
   json_version: number;
   code: string;
-  params: string;
+  params: string | string[] | Record<string, any>;
   environment: string;
   input_specs: Record<string, any>;
   output_specs: Record<string, any>;

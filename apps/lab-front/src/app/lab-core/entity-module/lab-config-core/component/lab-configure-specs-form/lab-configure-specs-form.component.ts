@@ -1,9 +1,9 @@
-import { Component, effect, input, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, effect, input, OnDestroy, OnInit, output } from '@angular/core';
 import {
   FlDialogService,
   FlDynamicFieldConfigService,
   FlDynamicFormGroupConfig,
-  FlDynamicFormHelper,
+  FlDynamicFormHelper
 } from '@monorepo/front-core-lib';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { ControlContainer, FormBuilder, UntypedFormGroup } from '@angular/forms';
@@ -12,7 +12,7 @@ import { PrConfig } from '@monorepo/protocol';
 import {
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
-  TdParamSpecs,
+  TdParamSpecs
 } from '@monorepo/technical-doc';
 import { LabProcess } from '../../../../model/entities/process/lab-process.entity';
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
@@ -27,7 +27,7 @@ import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.sta
   providers: [
     // configure the dynamic field to support tags and other custom fields
     { provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField },
-    LabDynamicParamSpecStat,
+    LabDynamicParamSpecState,
   ],
 })
 export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
@@ -91,12 +91,12 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
 
       const input: TdConfigureParamSpecsTableDialogInput = {
         paramSpecs: paramsSpecs,
-        dynamicParamSpecState: this.editParamSpecState
+        dynamicParamSpecState: this.editParamSpecState,
       };
 
       this.dialogService
         .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
-          data: input
+          data: input,
         })
         .afterClosed()
         .subscribe((config: LabConfig) => {
