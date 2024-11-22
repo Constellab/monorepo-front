@@ -55,10 +55,6 @@ export class HaStory {
 
   comments: number;
 
-  init(story: HaStory): void {
-    Object.assign(this, story);
-  }
-
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);
   }

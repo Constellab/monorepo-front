@@ -19,6 +19,7 @@ export class HaTextEditorRightSidePanelComponent {
   });
 
   titles = computed(() => {
+    if (!this.content()) return [];
     return this.content().getHeadersData([TeBlockHeaderLevel.HEADER_1, TeBlockHeaderLevel.HEADER_2]);
   });
 }

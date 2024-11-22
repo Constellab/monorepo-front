@@ -128,11 +128,7 @@ export class HaStoryService
    * return a story
    */
   public updateContentEdition(id: string, content: TeRichText): Observable<HaStory> {
-    return this.apiService.put(
-      this.route + '/' + id + '/content-edition',
-      { contentEdition: content.toJson() },
-      HaStory
-    );
+    return this.apiService.put(this.route + '/' + id + '/content-edition', content.toJson(), HaStory);
   }
 
   public saveContent(id: string): Observable<HaStory> {

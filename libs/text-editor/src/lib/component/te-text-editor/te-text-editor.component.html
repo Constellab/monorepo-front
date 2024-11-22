@@ -1,6 +1,4 @@
-@if (!browserSide) {
-  <te-text-editor-server-side [richText]="value"></te-text-editor-server-side>
-} @else {
+@if (browserSide) {
   <te-text-editor-browser-side
     [config]="config"
     [placeholder]="placeholder"
@@ -8,4 +6,6 @@
     [disabled]="disabled"
     (textChange)="onTextChange($event)"
     [richText]="value"></te-text-editor-browser-side>
+} @else {
+  <te-text-editor-server-side [richText]="value" [config]="config"></te-text-editor-server-side>
 }

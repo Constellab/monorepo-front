@@ -5,11 +5,11 @@ import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
 import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ClStringHelper } from '@monorepo/core-lib';
+import { isPlatformBrowser } from '@angular/common';
+import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
+import { TeRichText } from '@monorepo/text-editor';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
@@ -36,9 +36,6 @@ export class HaStoryPageComponent implements OnInit {
   textEditorConfig: HaStoryTextEditorConfig;
 
   formControl: FormControl<TeRichText> = new FormControl();
-
-  // TODO @vfoex, title encore necessaire ?
-  titles: any[];
 
   STORY_KEY: StateKey<object>;
 
@@ -126,10 +123,8 @@ export class HaStoryPageComponent implements OnInit {
 
   private getStory(id: string): void {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.STORY_KEY)) {
-      const story: HaStory = new HaStory();
       const result: any = this.transferState.get(this.STORY_KEY, null);
-      story.init(result.story as HaStory);
-      this.titles = result.titles;
+      const story = ClCoreJsonConvert.deserializeObject(result.story, HaStory);
       this.onStory(story);
       this.transferState.remove(this.STORY_KEY);
     } else {
@@ -206,13 +201,6 @@ export class HaStoryPageComponent implements OnInit {
 
     this.formControl.setValue(this.story.content);
     this.formControl.disable({ emitEvent: true });
-    this.titles = this.story.content.getHeadersData([
-      TeBlockHeaderLevel.HEADER_1,
-      TeBlockHeaderLevel.HEADER_2,
-    ]);
-    if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.STORY_KEY)) {
-      this.transferState.set(this.STORY_KEY, { story: story, titles: this.titles });
-    }
     this.getStoryCoAuthors();
     this.getStoryFiles();
 

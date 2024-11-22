@@ -39,7 +39,7 @@ export class TeRichTextModifications {
       return new TeRichTextModifications();
     }
     const json = JSON.parse(jsonString);
-    return new TeRichTextModifications(json);
+    return TeRichTextModifications.fromJsonObject(json);
   }
 
   public static fromJsonObject(
@@ -74,7 +74,7 @@ export class TeRichTextModifications {
     modifications: TeRichTextBlockModification[] = [],
     version: number = TeRichTextModifications.CURRENT_VERSION
   ) {
-    this.modifications = modifications;
+    this.modifications = modifications || [];
     this.version = version;
   }
 
