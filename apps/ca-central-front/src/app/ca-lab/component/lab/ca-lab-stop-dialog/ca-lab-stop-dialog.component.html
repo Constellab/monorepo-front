@@ -1,0 +1,36 @@
+<fl-dialog-header>
+  {{ 'stop_lab_title' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="backupEnabled$">
+    <ng-content *flSectionBody="backupEnabled$ as backupEnabled">
+      <div class="confirm-text">{{ 'stop_lab_confirm' | translate }}</div>
+
+      @if (backupEnabled) {
+        <mat-checkbox [formControl]="formCtrl" class="confirm-checkbox">
+          {{ 'stop_lab_backup_option' | translate }}
+        </mat-checkbox>
+      }
+    </ng-content>
+  </fl-async-section>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-stroked-button
+    (click)="submit()"
+    type="button"
+    [disabled]="isLoading"
+    tabindex="-1"
+    color="primary"
+    class="yes-button">
+    {{ 'stop_lab_title' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+  <button mat-stroked-button type="button" matDialogClose [disabled]="isLoading" tabindex="-1" color="warn">
+    {{ 'cancel' | translate }}
+  </button>
+</div>

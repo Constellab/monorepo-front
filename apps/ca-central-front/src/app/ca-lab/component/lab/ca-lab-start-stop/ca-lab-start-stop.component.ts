@@ -10,6 +10,10 @@ import {
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  CaLabStopDialogComponent,
+  CaStopLabDialogInput,
+} from '../ca-lab-stop-dialog/ca-lab-stop-dialog.component';
 
 /**
  * Toggle button to start or stop the lab
@@ -48,19 +52,6 @@ export class CaLabStartStopComponent {
       .subscribe((lab) => this.onLabUpdate(lab));
   }
 
-  stopLab(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'stop_lab',
-      content: 'stop_lab_confirm',
-      observable: this.labService.stopLab(this.state.getLabId()),
-    };
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((lab) => this.onLabUpdate(lab));
-  }
-
   private onLabUpdate(result: FlConfirmDialogResult<CaLab>): void {
     if (!result.choice) return;
     let successText: string;
@@ -75,6 +66,22 @@ export class CaLabStartStopComponent {
     }
 
     this.snackBarService.openSuccessMessage({ text: successText, translateText: true });
-    this.state.updateLab(result.result);
+  }
+
+  stopLab(): void {
+    const data: CaStopLabDialogInput = {
+      labId: this.state.getLabId(),
+    };
+
+    this.dialogService
+      .openSmallDialog(CaLabStopDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((lab) => this.onLabStopClosed(lab));
+  }
+
+  private onLabStopClosed(lab?: CaLab): void {
+    if (lab) {
+      this.state.updateLab(lab);
+    }
   }
 }

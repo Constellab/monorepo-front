@@ -9,6 +9,7 @@ import {
   CaLabServerInfoDTO,
   CaLabStatusDTO,
   CaLabStatusHistory,
+  CaLabStopRequestDTO,
   CaLabWithSpace,
 } from '../model/entities/lab/ca-lab.class';
 import {
@@ -96,8 +97,8 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/start`, null, CaLab);
   }
 
-  public stopLab(id: string): Observable<CaLab> {
-    return this.apiService.put(`${this.route}/${id}/stop`, null, CaLab);
+  public stopLab(id: string, stopRequestDTO: CaLabStopRequestDTO): Observable<CaLab> {
+    return this.apiService.put(`${this.route}/${id}/stop`, stopRequestDTO, CaLab);
   }
 
   public findById(id: string): Observable<CaLabFindOneDto> {

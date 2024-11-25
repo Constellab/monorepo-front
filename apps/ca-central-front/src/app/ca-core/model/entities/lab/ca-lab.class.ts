@@ -225,3 +225,7 @@ export class CaLabCodelabDTO {
   token: string;
   url: string;
 }
+
+export interface CaLabStopRequestDTO {
+  backupLabBefore: boolean;
+}
