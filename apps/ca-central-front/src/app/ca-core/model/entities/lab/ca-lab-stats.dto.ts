@@ -23,6 +23,9 @@ export class CaLabStatusRunRequest {
 
   @ClLuxonDateTransform()
   customEndDate?: DateTime;
+
+  @Type(() => CaUser)
+  users?: CaUser[];
 }
 
 /**

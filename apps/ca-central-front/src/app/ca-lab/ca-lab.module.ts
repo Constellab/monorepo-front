@@ -162,6 +162,7 @@ import {
   CaLabStoragePriceDialogComponent,
 } from './component/kpi/ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
 import { CaLabStopDialogComponent } from './component/lab/ca-lab-stop-dialog/ca-lab-stop-dialog.component';
+import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-core.module';
 
 /**
  * Module the lab detail page with iframe for the lab
@@ -249,6 +250,7 @@ import { CaLabStopDialogComponent } from './component/lab/ca-lab-stop-dialog/ca-
     CaCloudProviderCoreModule,
     CoCommunityLibModule,
     CaGroupCoreModule,
+    CaUserCoreModule,
   ],
 })
 export class CaLabModule {}

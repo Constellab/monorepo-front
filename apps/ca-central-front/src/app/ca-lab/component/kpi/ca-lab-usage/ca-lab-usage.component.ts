@@ -11,13 +11,14 @@ import {
   CaLabStatusRunResponse,
   CaLabStorageResponse,
 } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
-import { FlArrayObs, FlDialogService } from '@monorepo/front-core-lib';
+import { FlArrayObs, FlDialogService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
 import { ClDateHelper } from '@monorepo/core-lib';
 import {
   CaLabStoragePriceDialogComponent,
   CaLabStoragePriceDialogInput,
 } from '../ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
+import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
 
 @Component({
   selector: 'ca-lab-usage',
@@ -36,6 +37,7 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
     period: [CaLabStatusRunPeriod.CURRENT_MONTH, Validators.required],
     customStartDate: [null as DateTime],
     customEndDate: [null as DateTime],
+    users: [null],
   });
 
   runResponse$: Observable<CaLabStatusRunResponse>;
@@ -44,6 +46,8 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
   storageKpi$: Observable<CaLabStorageResponse>;
 
   currentDate = ClDateHelper.getDate();
+
+  usersStatus: CaUserDatasourcePaginated;
 
   private subscription: Subscription;
 
@@ -56,6 +60,11 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
     this.subscription = this.formGroup.valueChanges
       .pipe(debounceTime(500), startWith(null))
       .subscribe(() => this.callKpi(this.formGroup.getRawValue()));
+
+    this.usersStatus = new FlEntityPaginatedDatasource(
+      (page, size) => this.labService.getUsersStatus(this.labId, page, size),
+      20
+    );
   }
 
   private callKpi(request: CaLabStatusRunRequest): void {

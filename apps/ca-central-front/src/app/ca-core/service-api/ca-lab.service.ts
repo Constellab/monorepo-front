@@ -60,6 +60,7 @@ import {
   CaLabStatusHistorySearchFields,
 } from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
 import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
+import { CaUser } from '../model/entities/ca-user.class';
 
 @Injectable({
   providedIn: 'root',
@@ -170,6 +171,14 @@ export class CaLabService {
       CaLabStatusHistorySearch.sortConverter
     );
     return this.apiService.post(`${this.route}/${id}/status/history`, searchInput, CaLabStatusHistory, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
+  }
+
+  public getUsersStatus(id: string, page: number, size: number): Observable<ClPage<CaUser>> {
+    return this.apiService.get(`${this.route}/${id}/status/users`, CaUser, {
       page: page,
       pageSize: size,
       resultIsPaginated: true,

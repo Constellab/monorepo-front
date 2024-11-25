@@ -52,6 +52,8 @@
           <mat-datepicker #createdAtTo></mat-datepicker>
         </mat-form-field>
       }
+
+      <ca-user-list-inline formControlName="users" [userDatasource]="usersStatus"></ca-user-list-inline>
     </form>
 
     <div class="section g-layout-row g-layout-start-start">
