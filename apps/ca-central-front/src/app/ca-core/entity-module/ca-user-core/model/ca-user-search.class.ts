@@ -47,13 +47,13 @@ export class CaUserSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaUserSearchFields> = {
-    firstname: { key: 'firstname', operator: 'MATCH' },
-    lastname: { key: 'lastname', operator: 'MATCH' },
-    email: { key: 'email', operator: 'MATCH' },
+    firstname: { key: 'firstname', operator: 'CONTAINS' },
+    lastname: { key: 'lastname', operator: 'CONTAINS' },
+    email: { key: 'email', operator: 'CONTAINS' },
     category: { key: 'category', operator: 'IN' },
     status: { key: 'status', operator: 'IN' },
     license: { key: 'license', operator: 'EQ' },
-    company: { key: 'company', operator: 'MATCH' },
+    company: { key: 'company', operator: 'CONTAINS' },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     lastLoginSuccess: FlSearchConverter.dateInterval('lastLoginSuccess'),
     id: { key: 'id', operator: 'EQ' },

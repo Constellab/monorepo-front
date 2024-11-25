@@ -43,8 +43,8 @@ export class CaFolderSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaFolderSearchFields> = {
-    code: { key: 'code', operator: 'MATCH' },
-    name: { key: 'name', operator: 'MATCH' },
+    code: { key: 'code', operator: 'CONTAINS' },
+    name: { key: 'name', operator: 'CONTAINS' },
     startingDate: FlSearchConverter.dateInterval('startingDate'),
     endingDate: FlSearchConverter.dateInterval('endingDate'),
     leader: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },

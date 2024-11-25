@@ -72,9 +72,9 @@ export class CaLabSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaLabSearchFields> = {
-    name: { key: 'name', operator: 'MATCH' },
+    name: { key: 'name', operator: 'CONTAINS' },
     currentStatus: { key: 'currentStatus.status', operator: 'EQ' },
-    virtualHost: { key: 'virtualHost', operator: 'MATCH' },
+    virtualHost: { key: 'virtualHost', operator: 'CONTAINS' },
     city: { key: 'region.city.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     serverCloud: { key: 'serverCloud.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
     serverStandard: {
@@ -92,7 +92,7 @@ export class CaLabSearch {
       convertValue: FlSearchConverter.getEntityId,
     },
     isFreeLab: { key: 'isFreeLab', operator: 'EQ' },
-    cloudName: { key: 'cloudName', operator: 'MATCH' },
+    cloudName: { key: 'cloudName', operator: 'CONTAINS' },
     serverTaskStatus: { key: 'serverTaskStatus', operator: 'EQ' },
     id: { key: 'id', operator: 'EQ' },
   };

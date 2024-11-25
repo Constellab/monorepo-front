@@ -40,9 +40,9 @@ export class CaSpaceUserSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaSpaceUserSearchFields> = {
-    firstname: { key: 'user.firstname', operator: 'MATCH' },
-    lastname: { key: 'user.lastname', operator: 'MATCH' },
-    email: { key: 'user.email', operator: 'MATCH' },
+    firstname: { key: 'user.firstname', operator: 'CONTAINS' },
+    lastname: { key: 'user.lastname', operator: 'CONTAINS' },
+    email: { key: 'user.email', operator: 'CONTAINS' },
     role: { key: 'role', operator: 'EQ' },
     active: { key: 'active', operator: 'EQ' },
     addedBy: { key: 'addedBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },

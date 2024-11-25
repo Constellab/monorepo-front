@@ -36,8 +36,8 @@ export class CaSpaceSearch {
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaSpaceSearchFields> = {
-    name: { key: 'name', operator: 'MATCH' },
-    domain: { key: 'domain', operator: 'MATCH' },
+    name: { key: 'name', operator: 'CONTAINS' },
+    domain: { key: 'domain', operator: 'CONTAINS' },
     type: { key: 'type', operator: 'EQ' },
     createdAt: FlSearchConverter.dateInterval('createdAt'),
     createdBy: { key: 'createdBy.id', operator: 'EQ', convertValue: FlSearchConverter.getEntityId },
