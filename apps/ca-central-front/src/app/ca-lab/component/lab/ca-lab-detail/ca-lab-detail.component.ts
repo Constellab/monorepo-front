@@ -78,7 +78,7 @@ export class CaLabDetailComponent implements OnInit {
   }
 
   updateLabName(name: string, lab: CaLab): void {
-    this.labService.updateLabName(lab.id, name).subscribe((lab) => this.onUpdateClosed(lab));
+    this.labService.renameLab(lab.id, name).subscribe((lab) => this.onUpdateClosed(lab));
   }
 
   private onUpdateClosed(lab?: CaLab): void {

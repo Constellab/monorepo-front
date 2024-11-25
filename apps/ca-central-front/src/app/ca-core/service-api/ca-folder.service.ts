@@ -86,6 +86,10 @@ export class CaFolderService {
     });
   }
 
+  public renameFolder(id: string, name: string): Observable<CaFolderWithHierarchy> {
+    return this.apiService.put(`${this.route}/${id}/name`, { name: name }, CaFolderWithHierarchy);
+  }
+
   public delete(id: string): Observable<void> {
     return this.apiService.deleteById(this.route, id);
   }

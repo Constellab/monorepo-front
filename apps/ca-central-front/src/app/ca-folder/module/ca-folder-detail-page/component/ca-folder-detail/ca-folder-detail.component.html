@@ -5,7 +5,13 @@
         [objectType]="folderObjectType"
         [objectName]="folder.name"
         [caNotificationMark]="folder.id"></ca-hierarchy-object-icon>
-      <h1 class="folder-title">{{ folder.name }}</h1>
+      <h1
+        class="folder-title"
+        flElementEditable
+        [flElementDisabled]="(canEdit$ | async) === false"
+        (flElementValueChange)="renameFolder($event, folder)">
+        {{ folder.name }}
+      </h1>
 
       <fl-user-inline [user]="folder.leader" class="folder-leader"></fl-user-inline>
     </div>

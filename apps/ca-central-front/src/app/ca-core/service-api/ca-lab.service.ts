@@ -74,8 +74,8 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/cloud`, createLab, CaLab);
   }
 
-  public updateLabName(id: string, name: string): Observable<CaLab> {
-    return this.apiService.put(`${this.route}/${id}/name/${name}`, null, CaLab);
+  public renameLab(id: string, name: string): Observable<CaLab> {
+    return this.apiService.put(`${this.route}/${id}/name`, { name: name }, CaLab);
   }
 
   public requestNewLab(request: CaRequestLabForm): Observable<CaLab> {
