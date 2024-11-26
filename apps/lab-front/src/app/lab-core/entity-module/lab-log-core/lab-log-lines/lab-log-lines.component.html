@@ -1,0 +1,17 @@
+<table>
+  <tbody>
+    @for (line of logLines(); track line) {
+      <tr>
+        <td class="info">
+          <span class="head">{{ line.datetime | flDate: 'DATE_TIME_WITH_SECONDS' }} - {{ line.level }}</span>
+          @if (showScenarioId() && line.scenario_id) {
+            <br /><span class="g-text-tiny" matTooltip="Scenario id">{{ line.scenario_id }}</span>
+          }
+        </td>
+        <td class="message">
+          {{ line.message }}
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

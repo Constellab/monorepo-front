@@ -238,7 +238,6 @@
     "no_folder_help": "No folder linked to the lab. You can add folder from you collaborative space to this lab in",
     "no_folder_help_link": "the lab dashboard page.",
     "view_process_logs": "View server logs",
-    "log_download": "Download logs",
     "view_process_monitoring": "Monitoring",
     "share_resource": "Share resource",
     "share_scenario": "Share scenario",

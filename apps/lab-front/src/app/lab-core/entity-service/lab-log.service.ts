@@ -22,4 +22,8 @@ export class LabLogService {
   public getDownloadUrl(logName: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${logName}/download`);
   }
+
+  public getDownloadJsonUrl(logName: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${logName}/download/json`);
+  }
 }

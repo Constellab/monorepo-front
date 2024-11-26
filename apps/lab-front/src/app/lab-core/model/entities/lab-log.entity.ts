@@ -24,15 +24,9 @@ export class LabLogCompleteInfo {
   @Expose({ name: 'log_info' })
   logInfo: LabLogInfo;
 
-  content: string;
+  @Type(() => LabLogLine)
+  content: LabLogLine[];
 }
-
-// class LogsBetweenDataResponse(TypedDict):
-//
-// logs: List[LogLine]
-// from_date: datetime
-// to_date: datetime
-// from_scenario: bool
 
 export type LabLogLevel = 'ERROR' | 'WARNING' | 'INFO' | 'DEBUG' | 'PROGRESS' | 'EXCEPTION';
 
@@ -47,6 +41,8 @@ export class LabLogLine {
   datetime: DateTime;
 
   message: string;
+
+  scenario_id?: string;
 }
 
 export class LabLogsBetweenDates {

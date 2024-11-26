@@ -10,9 +10,6 @@
   </fl-key-value>
 
   <div class="logs">
-    <div *ngFor="let log of logs.logs" class="g-layout-row">
-      <div class="info">{{ log.level }} - {{ log.datetime | flDate: 'DATE_TIME_WITH_SECONDS' }} -</div>
-      <div>{{ log.message }}</div>
-    </div>
+    <lab-log-lines [logLines]="logs.logs" [showScenarioId]="false"></lab-log-lines>
   </div>
 </div>

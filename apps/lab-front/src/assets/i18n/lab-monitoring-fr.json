@@ -53,6 +53,7 @@
     "from_date": "Depuis",
     "to_date": "Jusqu'à",
     "log_download": "Télécharger le fichier",
+    "log_download_json": "Télécharger le log au format json",
     "global_usage": "Utilisation globale",
     "all_cpu_percent": "Utilisations des CPU",
     "network_consumption": "Consommation réseau",

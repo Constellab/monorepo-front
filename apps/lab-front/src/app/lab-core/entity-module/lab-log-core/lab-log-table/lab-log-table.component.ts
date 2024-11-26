@@ -33,4 +33,9 @@ export class LabLogTableComponent {
     const downloadUrl = this.logService.getDownloadUrl(log.name);
     FlFileHelper.downloadUrl(downloadUrl);
   }
+
+  public downloadJsonLog(log: LabLogInfo): void {
+    const downloadUrl = this.logService.getDownloadJsonUrl(log.name);
+    FlFileHelper.downloadUrl(downloadUrl);
+  }
 }

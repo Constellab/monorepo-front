@@ -6,6 +6,7 @@ import { LabLogCompleteInfoDialogComponent } from './lab-log-complete-info-dialo
 import { LabLogCompleteInfoComponent } from './lab-log-complete-info/lab-log-complete-info.component';
 import { LabLogsBetweenDatesDialogComponent } from './lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
 import { LabLogsBetweenDatesComponent } from './lab-logs-between-dates/lab-logs-between-dates.component';
+import { LabLogLinesComponent } from './lab-log-lines/lab-log-lines.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { LabLogsBetweenDatesComponent } from './lab-logs-between-dates/lab-logs-
     LabLogCompleteInfoComponent,
     LabLogsBetweenDatesDialogComponent,
     LabLogsBetweenDatesComponent,
+    LabLogLinesComponent,
   ],
   exports: [
     LabLogTableComponent,
@@ -21,6 +23,7 @@ import { LabLogsBetweenDatesComponent } from './lab-logs-between-dates/lab-logs-
     LabLogCompleteInfoComponent,
     LabLogsBetweenDatesDialogComponent,
     LabLogsBetweenDatesComponent,
+    LabLogLinesComponent,
   ],
   imports: [CommonModule, LabCoreModule],
 })

@@ -238,7 +238,6 @@
     "no_folder_help": "Aucun dossier lié au lab. Vous pouvez ajouter des dossiers depuis votre espace collaboratif dans la",
     "no_folder_help_link": "page de gestion du lab.",
     "view_process_logs": "Voir les logs serveurs",
-    "log_download": "Télécharger le fichier",
     "view_process_monitoring": "Monitoring",
     "share_resource": "Partager la ressource",
     "share_scenario": "Partager le scénario",

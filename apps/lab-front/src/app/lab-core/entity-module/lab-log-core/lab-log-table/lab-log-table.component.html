@@ -37,6 +37,11 @@
           <mat-icon>download</mat-icon>
           <span>{{ 'monitoring.log_download' | translate }}</span>
         </button>
+
+        <button mat-menu-item type="button" (click)="downloadJsonLog(row)">
+          <mat-icon>download</mat-icon>
+          <span>{{ 'monitoring.log_download_json' | translate }}</span>
+        </button>
       </mat-menu>
     </mat-cell>
   </ng-container>

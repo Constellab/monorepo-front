@@ -53,6 +53,7 @@
     "from_date": "From date",
     "to_date": "To date",
     "log_download": "Download file",
+    "log_download_json": "Download log as json file",
     "global_usage": "Global usage",
     "all_cpu_percent": "CPU usage",
     "network_consumption": "Network consumption",

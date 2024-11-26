@@ -11,6 +11,6 @@
 
   <div class="configuration-container">
     <h2>{{ 'monitoring.log_content' | translate }}</h2>
-    <div class="configuration">{{ log.content }}</div>
+    <lab-log-lines [logLines]="log.content"></lab-log-lines>
   </div>
 </div>
