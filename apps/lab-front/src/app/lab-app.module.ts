@@ -41,10 +41,10 @@ import { LabApiErrorService } from './lab-core/service/lab-api-error.service';
 import { LabApiServiceConfig } from './lab-core/service/lab-api-module.config';
 import { LabAppRoutingModule } from './lab-app-routing.module';
 import { LabTagService } from './lab-core/entity-service/lab-tag.service';
-import { RvResourceViewModule } from '@monorepo/resource-view';
+import { RV_MODULE_CONFIG, RvResourceViewModule } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { LabTdServiceConfig } from './lab-core/service/lab-td-service.config';
-import { labConstResourceViewTypeInfos } from './lab-core/model/entities/resource/lab-resource-view-type.class';
+import { LabResourceViewModuleConfig } from './lab-core/model/entities/resource/lab-resource-view.config';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { LabBioNetworkService } from './lab-core/entity-service/lab-bio-network.service';
 import { LabUserConfig } from './lab-core/model/config/lab-user-config.service';
@@ -126,7 +126,7 @@ function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
     FlAuthModule.forRoot(LabAuthService),
     FlTagModule.forRoot(LabTagService),
     BnBioNetworkModule.forRoot(LabBioNetworkService),
-    RvResourceViewModule.forRoot({ availableViews: labConstResourceViewTypeInfos }),
+    RvResourceViewModule,
     TdTechnicalDocModule.forRoot(LabTdServiceConfig),
     FlUserModule.forRoot(LabUserConfig),
     FlCaptchaModule,
@@ -147,6 +147,7 @@ function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
     },
     { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+    { provide: RV_MODULE_CONFIG, useClass: LabResourceViewModuleConfig },
     {
       provide: TranslateLoader,
       useFactory: translationLoaderFactory,

@@ -11,7 +11,7 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
   styleUrls: ['./lab-resource-view-detail.component.scss'],
 })
 export class LabResourceViewDetailComponent {
-  @Input() labView: LabResourceView;
+  @Input({ required: true }) labView: LabResourceView;
 
   constructor(
     private viewConfigService: LabViewConfigService,

@@ -253,6 +253,7 @@
     "share_link_object_not_found": "L'objet associé a dû être supprimé et n'a pas pu être trouvé, le lien n'est plus valide",
     "share_object_help": "Vous pouvez partager un objet avec un lien qui sera valide pour une durée limitée. Toute personne disposant du lien pourra visualiser et télécharger l'objet. Vous pouvez supprimer le lien de partage à tout moment.",
     "share_link_download": "Lien de téléchargement",
+    "share_link_view": "Lien de visualisation",
     "share_links": "Liens de partage",
     "import_resource_from_link": "Uploader depuis un lien",
     "import_from_link_help": "Vous pouvez importer des ressources depuis un lien. Vous pouvez fournir un lien vers un simple fichier ou un lien de partage depuis un autre lab. La ressource sera importée dans votre lab et vous pourrez l'utiliser comme n'importe quelle autre ressource.",

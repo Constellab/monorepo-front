@@ -3,13 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LabCoreModule } from '../../lab-core.module';
-import { LabShareLinkFormDialogComponent } from './component/lab-share-link-form-dialog/lab-share-link-form-dialog.component';
+import {
+  LabShareLinkFormDialogComponent,
+} from './component/lab-share-link-form-dialog/lab-share-link-form-dialog.component';
 import { LabShareLinkTableComponent } from './component/lab-share-link-table/lab-share-link-table.component';
-import { LabShareLinkActionsMenuComponent } from './component/lab-share-link-actions-menu/lab-share-link-actions-menu.component';
-import { LabSharedEntityOriginComponent } from './component/lab-shared-entity-origin/lab-shared-entity-origin.component';
-import { LabSharedEntityOriginDialogComponent } from './component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
-import { LabSharedEntityTableComponent } from './component/lab-shared-entity-table/lab-shared-entity-table.component';
-import { LabSharedEntityInfoDialogComponent } from './component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
+import {
+  LabShareLinkActionsMenuComponent,
+} from './component/lab-share-link-actions-menu/lab-share-link-actions-menu.component';
+import {
+  LabSharedEntityOriginComponent,
+} from './component/lab-shared-entity-origin/lab-shared-entity-origin.component';
+import {
+  LabSharedEntityOriginDialogComponent,
+} from './component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
+import {
+  LabSharedEntityTableComponent,
+} from './component/lab-shared-entity-table/lab-shared-entity-table.component';
+import {
+  LabSharedEntityInfoDialogComponent,
+} from './component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
+import { LabShareLinkLinksComponent } from './component/lab-share-link-links/lab-share-link-links.component';
 
 /**
  * Module for the share link and shared entity
@@ -23,6 +36,7 @@ import { LabSharedEntityInfoDialogComponent } from './component/lab-shared-entit
     LabSharedEntityOriginDialogComponent,
     LabSharedEntityTableComponent,
     LabSharedEntityInfoDialogComponent,
+    LabShareLinkLinksComponent,
   ],
   exports: [
     LabShareLinkFormDialogComponent,
@@ -32,6 +46,7 @@ import { LabSharedEntityInfoDialogComponent } from './component/lab-shared-entit
     LabSharedEntityOriginDialogComponent,
     LabSharedEntityTableComponent,
     LabSharedEntityInfoDialogComponent,
+    LabShareLinkLinksComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, LabCoreModule],
 })

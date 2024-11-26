@@ -26,9 +26,9 @@ export type LabTableChartType =
 export class LabResourceTableService {
   private readonly route: string = 'resource-table';
 
-  private readonly tableViewFromRowParam = 'from_row';
-  private readonly tableViewNbOfRowsPerPageParam = 'number_of_rows_per_page';
-  private readonly tableDefaultPageSize: number = 100;
+  private static readonly tableViewFromRowParam = 'from_row';
+  private static readonly tableViewNbOfRowsPerPageParam = 'number_of_rows_per_page';
+  private static readonly tableDefaultPageSize: number = 100;
 
   constructor(
     private apiService: FlApiService,
@@ -68,9 +68,7 @@ export class LabResourceTableService {
     config: PrConfigValues,
     fromRow: number
   ): Observable<RvResourceViewTable> {
-    // merge config with pagination config,
-    // add 1 to the fromRow because communication are made using 1-based index
-    const viewConfig = Object.assign(config, { [this.tableViewFromRowParam]: fromRow + 1 });
+    const viewConfig = LabResourceTableService.getViewConfigNextPage(config, fromRow);
 
     return this.resourceService.callResourceViewData(
       id,
@@ -92,7 +90,25 @@ export class LabResourceTableService {
     config: PrConfigValues,
     toRow: number
   ): Observable<RvResourceViewTable> {
-    let pageSize = config[this.tableViewNbOfRowsPerPageParam] ?? this.tableDefaultPageSize;
+    // merge config with pagination config
+    // add 1 to the fromRow because communication are made using 1-based index
+    const viewConfig = LabResourceTableService.getViewConfigPreviousPage(config, toRow);
+
+    return this.resourceService.callResourceViewData(
+      id,
+      viewMethodName,
+      viewConfig
+    ) as Observable<RvResourceViewTable>;
+  }
+
+  public static getViewConfigNextPage(viewConfig: PrConfigValues, fromRow: number): PrConfigValues {
+    // merge config with pagination config,
+    // add 1 to the fromRow because communication are made using 1-based index
+    return Object.assign({}, viewConfig, { [this.tableViewFromRowParam]: fromRow + 1 });
+  }
+
+  public static getViewConfigPreviousPage(viewConfig: PrConfigValues, toRow: number): PrConfigValues {
+    let pageSize = viewConfig[this.tableViewNbOfRowsPerPageParam] ?? this.tableDefaultPageSize;
     let fromRow = toRow - pageSize;
 
     // if the page size is bigger than the remaining rows to load, reduce
@@ -104,15 +120,9 @@ export class LabResourceTableService {
 
     // merge config with pagination config
     // add 1 to the fromRow because communication are made using 1-based index
-    const viewConfig = Object.assign(config, {
+    return Object.assign({}, viewConfig, {
       [this.tableViewFromRowParam]: fromRow + 1,
       [this.tableViewNbOfRowsPerPageParam]: pageSize,
     });
-
-    return this.resourceService.callResourceViewData(
-      id,
-      viewMethodName,
-      viewConfig
-    ) as Observable<RvResourceViewTable>;
   }
 }

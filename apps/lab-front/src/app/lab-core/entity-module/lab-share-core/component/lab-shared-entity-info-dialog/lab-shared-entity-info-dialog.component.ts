@@ -9,7 +9,7 @@ import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import { FlClipboardService, FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import { Observable, of, share } from 'rxjs';
 import { LabShareService } from '../../../../entity-service/lab-share.service';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
@@ -36,8 +36,7 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) input: LabSharedEntityInfoDialogInput,
     private shareService: LabShareService,
     private shareLinkService: LabShareLinkService,
-    private dialogService: FlDialogService,
-    private clipboardService: FlClipboardService
+    private dialogService: FlDialogService
   ) {
     this.entityType = input.entityType;
     this.entityId = input.entityId;
@@ -98,9 +97,5 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
 
   onShareLinkDelete(): void {
     this.shareLink$ = of(null);
-  }
-
-  copyDownloadLink(shareLink: LabShareLink): void {
-    this.clipboardService.copy(shareLink.link, { text: 'biox.share_link_copied', translateText: true });
   }
 }

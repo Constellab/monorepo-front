@@ -41,7 +41,11 @@ import { HaTdServiceConfig } from './ha-core/ha-model/ha-config/ha-td-service.co
 import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config';
 import { HaEnvironmentHelper } from './ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaHttpInterceptorSsrService } from './ha-core/ha-service/ha-http-interceptor-ssr.service';
-import { rvDefaultViewTypeInfos, RvResourceViewModule } from '@monorepo/resource-view';
+import {
+  RV_MODULE_CONFIG,
+  RvResourceViewModule,
+  RvResourceViewModuleBasicConfig,
+} from '@monorepo/resource-view';
 import { TranslateLoader } from '@ngx-translate/core';
 import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -97,7 +101,7 @@ export function TranslationLoaderFactory(
       iconFolder: 'assets/fl-mat-icons/',
       iconsToRegister: haSvgIcons,
     }),
-    RvResourceViewModule.forRoot({ availableViews: rvDefaultViewTypeInfos }),
+    RvResourceViewModule,
     CoCommunityLibModule.forRoot(HaCoServiceConfig),
   ],
   providers: [
@@ -125,6 +129,7 @@ export function TranslationLoaderFactory(
       multi: true,
     },
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+    { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
     {
       provide: TranslateLoader,
       useFactory: TranslationLoaderFactory,

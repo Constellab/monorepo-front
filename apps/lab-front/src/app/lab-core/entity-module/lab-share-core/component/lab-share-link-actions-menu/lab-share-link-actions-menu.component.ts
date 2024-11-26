@@ -35,7 +35,7 @@ export class LabShareLinkActionsMenuComponent {
   ) {}
 
   copyLinkToClipboard(): void {
-    this.clipboard.copy(this.shareLink.link, { text: 'biox.share_link_copied', translateText: true });
+    this.clipboard.copy(this.shareLink.downloadLink, { text: 'biox.share_link_copied', translateText: true });
   }
 
   openUpdateDialog(): void {

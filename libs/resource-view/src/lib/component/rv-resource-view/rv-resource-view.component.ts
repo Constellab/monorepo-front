@@ -1,7 +1,7 @@
 import {
   Component,
   ComponentRef,
-  Inject,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -23,7 +23,7 @@ import { ClHelpService } from '@monorepo/core-lib';
   styleUrls: ['./rv-resource-view.component.scss'],
 })
 export class RvResourceViewComponent implements OnInit, OnDestroy {
-  @Input() set view(value: RvResourceViewBase) {
+  @Input({ required: true }) set view(value: RvResourceViewBase) {
     this._view = value;
     if (this.isReady) {
       this.initView(value);
@@ -36,6 +36,11 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   @Input() config?: RvViewConfig;
 
+  /**
+   * Provide to override the default module config
+   */
+  @Input() moduleConfigOverride: RvResourceViewModuleConfig;
+
   // if provided the view will support a right click. (only supported by view chart2d for now)
   @Input() contextMenuItems?: FlMenuDynamic[];
 
@@ -45,9 +50,9 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
 
   private viewComponentRef: ComponentRef<RvResourceViewDirective>;
 
-  viewNotSupportedError: boolean = false;
+  private moduleConfig: RvResourceViewModuleConfig = inject(RV_MODULE_CONFIG);
 
-  constructor(@Inject(RV_MODULE_CONFIG) private moduleConfig: RvResourceViewModuleConfig) {}
+  viewNotSupportedError: boolean = false;
 
   ngOnInit(): void {
     this.isReady = true;
@@ -61,7 +66,7 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
     setTimeout(async () => {
       this.destroyViewComponentRef();
 
-      const viewTypeInfo: RvResourceViewTypeInfo = this.getViewInfo(view.type);
+      const viewTypeInfo: RvResourceViewTypeInfo = this.getModuleConfig().getViewTypeInfo(view.type);
 
       if (viewTypeInfo == null || viewTypeInfo.viewComponent == null) {
         this.viewNotSupportedError = true;
@@ -80,11 +85,12 @@ export class RvResourceViewComponent implements OnInit, OnDestroy {
       this.viewComponentRef.instance.resourceId = this.resourceId;
       this.viewComponentRef.instance.config = ClHelpService.deepClone(this.config);
       this.viewComponentRef.instance.contextMenuItems = this.contextMenuItems;
+      this.viewComponentRef.instance.moduleConfig = this.getModuleConfig();
     }, 0);
   }
 
-  private getViewInfo(viewType: string): RvResourceViewTypeInfo {
-    return this.moduleConfig.availableViews[viewType];
+  private getModuleConfig(): RvResourceViewModuleConfig {
+    return this.moduleConfigOverride ?? this.moduleConfig;
   }
 
   private destroyViewComponentRef(): void {

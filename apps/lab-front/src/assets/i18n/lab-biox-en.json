@@ -253,6 +253,7 @@
     "share_link_object_not_found": "The associated object might have been deleted and was not found, this link is not valid anymore",
     "share_object_help": "You can share an object with a link that will be valid for a limited time. Anyone with the share link will be able to view and download the object. You can delete the share link at any time.",
     "share_link_download": "Download link",
+    "share_link_preview": "Preview link",
     "share_links": "Share links",
     "import_resource_from_link": "Upload from link",
     "import_from_link_help": "You can import resources from a link. You can provide link to a simple file or a share link from another lab. The resource will be imported in your lab and you will be able to use it like any other resource.",

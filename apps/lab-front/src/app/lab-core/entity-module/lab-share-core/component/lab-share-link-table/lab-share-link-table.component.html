@@ -52,21 +52,18 @@
   <!-- Download link -->
   <ng-container matColumnDef="downloadLink">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'biox.share_link_download' | translate }}</span>
+      <span> {{ 'biox.share_links' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
-      <div
-        class="download-link g-text-tiny g-text-link"
-        (click)="copyDownloadLink(row)"
-        [matTooltip]="'biox.share_link_click_to_copy' | translate">
-        {{ row.link }}
+      <div class="download-link g-text-tiny">
+        <lab-share-link-links [shareLink]="row"></lab-share-link-links>
       </div>
     </mat-cell>
   </ng-container>
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
       <!--   Mat menu containing action buttons   -->
       <lab-share-link-actions-menu

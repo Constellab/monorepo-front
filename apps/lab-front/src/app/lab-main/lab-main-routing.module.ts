@@ -4,11 +4,12 @@ import {
   labConstBaseRoute,
   labConstBiotaRoute,
   labConstDocRoute,
-  labConstExpeirmentRoute,
   labConstMonitoringRoute,
   labConstNoteRoute,
   labConstNoteTemplateRoute,
+  labConstOpenRoute,
   labConstResourceRoute,
+  labConstScenarioRoute,
   labConstScenarioTemplateRoute,
   labConstViewRoute,
 } from '../lab-core/utils/lab-base-route';
@@ -35,13 +36,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: labConstExpeirmentRoute,
+        redirectTo: labConstScenarioRoute,
         pathMatch: 'full',
       },
 
       ////////////////////////  BIOX  /////////////////////////
       {
-        path: labConstExpeirmentRoute,
+        path: labConstScenarioRoute,
         loadChildren: () => import('../lab-scenario/lab-scenario.module').then((m) => m.LabScenarioModule),
       },
 
@@ -95,6 +96,12 @@ const routes: Routes = [
           import('../lab-monitoring/lab-monitoring.module').then((m) => m.LabMonitoringModule),
       },
     ],
+  },
+
+  //////////////////////// OPEN  /////////////////////////
+  {
+    path: labConstOpenRoute,
+    loadChildren: () => import('../lab-open-route/lab-open.routes').then((m) => m.LAB_OPEN_ROUTES),
   },
 ];
 

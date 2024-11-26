@@ -2,10 +2,11 @@ import { Directive, Input } from '@angular/core';
 import { RvResourceViewBase } from './rv-resource-view.class';
 import { RvViewConfig } from './rv-view-config.class';
 import { FlMenuDynamic } from '@monorepo/front-core-lib';
+import { RvResourceViewModuleConfig } from './rv-resource-view-module.config';
 
 @Directive()
 export class RvResourceViewDirective<T extends RvResourceViewBase = RvResourceViewBase> {
-  @Input() view: T;
+  @Input({ required: true }) view: T;
 
   @Input() resourceId?: string;
 
@@ -13,4 +14,9 @@ export class RvResourceViewDirective<T extends RvResourceViewBase = RvResourceVi
 
   // if provided the view will support a right click. (only supported by view chart2d for now)
   @Input() contextMenuItems?: FlMenuDynamic[];
+
+  /**
+   * Config object for the module.
+   */
+  @Input({ required: true }) moduleConfig: RvResourceViewModuleConfig;
 }

@@ -32,8 +32,9 @@ export class LabResourceViewListComponent
     const resources = ClCoreJsonConvert.deserialize(this.view.data, LabResource) as LabResource[];
     this.datasource = new FlEntityArrayObs(resources);
 
-    // if this component is under the ResourceDetailTabsComponent, we don't use link but trigger a resource view load
-    // on sub resource clic
+    // if this component is under the ResourceDetailTabsComponent,
+    // we don't use link but trigger a resource view load
+    // on sub resource click
     this.selectableRow = this.resourceState != null;
   }
 

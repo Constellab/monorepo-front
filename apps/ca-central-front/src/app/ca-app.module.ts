@@ -39,7 +39,11 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { CaAuthService } from './ca-login/service/ca-auth.service';
 import { CaUserAccountsService } from './ca-core/service-api/ca-user-accounts.service';
 import { CaApiErrorService } from './ca-core/service/ca-api-error.service';
-import { rvDefaultViewTypeInfos, RvResourceViewModule } from '@monorepo/resource-view';
+import {
+  RV_MODULE_CONFIG,
+  RvResourceViewModule,
+  RvResourceViewModuleBasicConfig,
+} from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { CaTdServiceConfig } from './ca-core/model/config/ca-td-service.config';
 import { PrProtocolModule } from '@monorepo/protocol';
@@ -102,7 +106,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
     FlPortalActionsModule.forRoot(),
     FlUserModule.forRoot(CaUserConfig),
-    RvResourceViewModule.forRoot({ availableViews: rvDefaultViewTypeInfos }),
+    RvResourceViewModule,
     BnBioNetworkModule.forRoot(),
     TdTechnicalDocModule.forRoot(CaTdServiceConfig),
     CoCommunityLibModule.forRoot(CaCoServiceConfig),
@@ -120,6 +124,8 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     },
     { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+    { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
+
     {
       provide: TranslateLoader,
       useFactory: translationLoaderFactory,

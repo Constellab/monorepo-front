@@ -4,7 +4,7 @@ import {
   LabShareLink,
   LabShareLinkDatasource,
 } from '../../../../model/entities/lab-share.entity';
-import { FlClipboardService, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-share-link-table',
@@ -12,11 +12,9 @@ import { FlClipboardService, FlTableColumnStatic } from '@monorepo/front-core-li
   styleUrls: ['./lab-share-link-table.component.scss'],
 })
 export class LabShareLinkTableComponent {
-  @Input() datasource: LabShareLinkDatasource;
+  @Input({ required: true }) datasource: LabShareLinkDatasource;
 
-  @Input() columns: FlTableColumnStatic<LabSharedEntity>[];
-
-  constructor(private clipboardService: FlClipboardService) {}
+  @Input({ required: true }) columns: FlTableColumnStatic<LabSharedEntity>[];
 
   onLinkUpdated(entity: LabShareLink): void {
     this.datasource.updateItem(entity);
@@ -24,9 +22,5 @@ export class LabShareLinkTableComponent {
 
   onLinkDeleted(entity: LabShareLink): void {
     this.datasource.removeItem(entity);
-  }
-
-  copyDownloadLink(shareLink: LabShareLink): void {
-    this.clipboardService.copy(shareLink.link, { text: 'biox.share_link_copied', translateText: true });
   }
 }

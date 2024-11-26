@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
 import { RvViewJsonComponent } from './component/rv-view-json/rv-view-json.component';
@@ -7,6 +7,7 @@ import {
   FlDialogModule,
   FlIconModule,
   FlImageModule,
+  FlInfiniteScrollModule,
   FlJsonEditorModule,
   FlKeyValueModule,
   FlLoaderModule,
@@ -20,12 +21,17 @@ import { RvViewChart2dComponent } from './component/rv-view-chart-2d/rv-view-cha
 import { RvViewMultiViewsComponent } from './component/rv-view-multi-views/rv-view-multi-views.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RvViewNetworkComponent } from './component/rv-view-network/rv-view-network.component';
-import { RV_MODULE_CONFIG, RvResourceViewModuleConfig } from './model/rv-resource-view-module.config';
 import { RvViewTextComponent } from './component/rv-view-text/rv-view-text.component';
 import { RvViewSpreadsheetComponent } from './component/rv-view-spreadsheet/rv-view-spreadsheet.component';
-import { RvTechnicalInfoButtonComponent } from './component/rv-technical-info-button/rv-technical-info-button.component';
-import { RvTechnicalInfoDialogComponent } from './component/rv-technical-info-dialog/rv-technical-info-dialog.component';
-import { RvRichTextResourceViewComponent } from './component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
+import {
+  RvTechnicalInfoButtonComponent,
+} from './component/rv-technical-info-button/rv-technical-info-button.component';
+import {
+  RvTechnicalInfoDialogComponent,
+} from './component/rv-technical-info-dialog/rv-technical-info-dialog.component';
+import {
+  RvRichTextResourceViewComponent,
+} from './component/rv-rich-text-resource-view/rv-rich-text-resource-view.component';
 import { MatIconModule } from '@angular/material/icon';
 
 import { RvViewImageComponent } from './component/rv-view-image/rv-view-image.component';
@@ -40,6 +46,10 @@ import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-
 import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.component';
 
+/**
+ * When imported a RV_MODULE_CONFIG must be provided, which is an instance of RvResourceViewModuleConfig.
+ * Ex : { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig }
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -59,6 +69,7 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
     FlThemeModule,
     FlIconModule,
     FlPlotlyModule,
+    FlInfiniteScrollModule,
 
     TeTextEditorModule, // for the te-title-caption component
     BnBioNetworkModule,
@@ -103,16 +114,5 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
 export class RvResourceViewModule {
   constructor(translateService: FlTranslateService) {
     translateService.addModuleTranslation('RvResourceViewModule', rvResourceViewI18n);
-  }
-
-  /**
-   * Method to configure the svg icon registrations
-   * @param config
-   */
-  public static forRoot(config: RvResourceViewModuleConfig): ModuleWithProviders<RvResourceViewModule> {
-    return {
-      ngModule: RvResourceViewModule,
-      providers: [{ provide: RV_MODULE_CONFIG, useValue: config }],
-    };
   }
 }

@@ -1,19 +1,10 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/biox',
-    pathMatch: 'full',
-  },
-];
+import { PreloadAllModules, RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
-      routes,
-      // load all lazy module on start
+      [],
       // load all lazy module on start
       {
         preloadingStrategy: PreloadAllModules,

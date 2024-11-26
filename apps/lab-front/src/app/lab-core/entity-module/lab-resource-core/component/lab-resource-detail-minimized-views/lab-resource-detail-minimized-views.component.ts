@@ -1,7 +1,6 @@
 import { Component, Signal } from '@angular/core';
 import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { FlMouseButton } from '@monorepo/front-core-lib';
-import { labConstResourceViewTypeInfos } from '../../../../model/entities/resource/lab-resource-view-type.class';
 
 /**
  * Component inside the resource detail to list the minimized views
@@ -29,6 +28,4 @@ export class LabResourceDetailMinimizedViewsComponent {
       this.deleteView(view);
     }
   }
-
-  protected readonly labConstResourceViewTypeInfos = labConstResourceViewTypeInfos;
 }

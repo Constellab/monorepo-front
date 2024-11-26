@@ -27,8 +27,6 @@ import { LabFolderCoreModule } from '../lab-folder-core/lab-folder-core.module';
 import { LabResourceViewSpecListComponent } from './component/lab-resource-view-spec-list/lab-resource-view-spec-list.component';
 import { LabViewConfigCoreModule } from '../lab-view-config-core/lab-view-config-core.module';
 import { LabResourceViewDetailComponent } from './component/lab-resource-view-detail/lab-resource-view-detail.component';
-import { LabResourceViewSpreadsheetComponent } from './component/lab-resource-view-spreadsheet/lab-resource-view-spreadsheet.component';
-import { LabResourceViewTextComponent } from './component/lab-resource-view-text/lab-resource-view-text.component';
 import { LabResourceViewListComponent } from './component/lab-resource-view-list/lab-resource-view-list.component';
 import { LabResourceViewFolderComponent } from './component/lab-resource-view-folder/lab-resource-view-folder.component';
 import { LabResourceViewHistoricComponent } from './component/lab-resource-view-historic/lab-resource-view-historic.component';
@@ -51,8 +49,6 @@ import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-
 
 @NgModule({
   declarations: [
-    LabResourceViewSpreadsheetComponent,
-    LabResourceViewTextComponent,
     LabResourceViewPortalComponent,
     LabResourceTableComponent,
     LabResourceSearchComponent,

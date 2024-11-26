@@ -24,7 +24,11 @@ export class LabShareLink extends LabBaseEntityWithUser {
 
   status: 'SUCCESS' | 'ERROR';
 
-  link: string;
+  @Expose({ name: 'download_link' })
+  downloadLink: string;
+
+  @Expose({ name: 'preview_link' })
+  previewLink?: string;
 
   isValid(): boolean {
     return this.validUntil > ClDateHelper.getDate();

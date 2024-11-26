@@ -3,7 +3,7 @@
  */
 export const labConstBaseRoute = 'app';
 
-export const labConstExpeirmentRoute = 'scenario';
+export const labConstScenarioRoute = 'scenario';
 export const labConstBiotaRoute = 'biota';
 export const labConstResourceRoute = 'resource';
 export const labConstNoteRoute = 'note';
@@ -12,9 +12,10 @@ export const labConstMonitoringRoute = 'monitoring';
 export const labConstDocRoute = 'doc';
 export const labConstScenarioTemplateRoute = 'scenario-template';
 export const labConstNoteTemplateRoute = 'note-template';
+export const labConstOpenRoute = 'open';
 export const labConstLoginRoute = '/login';
 
-export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstExpeirmentRoute}`;
+export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstScenarioRoute}`;
 export const labConstBiotaFullRoute = `/${labConstBaseRoute}/${labConstBiotaRoute}`;
 export const labConstResourceFullRoute = `/${labConstBaseRoute}/${labConstResourceRoute}`;
 export const labConstNoteFullRoute = `/${labConstBaseRoute}/${labConstNoteRoute}`;
