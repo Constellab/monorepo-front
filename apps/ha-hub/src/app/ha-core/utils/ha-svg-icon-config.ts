@@ -4,8 +4,6 @@ export const haSvgIcons: FlIcon[] = [
   ...flIconsDefault,
   // {name: 'brick-icon', filename: 'brick.svg'},
 
-  { name: 'community-icon', filename: 'community_logo.svg' },
-
   { name: 'comment-accent', filename: 'comment-accent.svg' },
   { name: 'comment-primary', filename: 'comment-primary.svg' },
   { name: 'comment-warn', filename: 'comment-warn.svg' },

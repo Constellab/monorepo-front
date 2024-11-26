@@ -40,6 +40,7 @@ export class TdParamSpecConfig {
       controlType: 'formGroup',
       subConfigs: {},
     };
+
     for (const paramSpecInfoKey in typeParamFormInfo) {
       const paramSpecInfoAttribute = typeParamFormInfo[paramSpecInfoKey];
       if ((paramSpecInfoAttribute as TdParamSpecFormInfo).type) {
@@ -55,6 +56,7 @@ export class TdParamSpecConfig {
         );
       }
     }
+
     return configs;
   }
 
@@ -73,7 +75,7 @@ export class TdParamSpecConfig {
       const config: FlDynamicFieldConfigList = this.convertToBaseFieldConfig(name, specFormInfo) as any;
       config.type = 'list';
       return config;
-    } else if (specFormInfo.type === 'text') {
+    } else if (specFormInfo.type === 'text' || specFormInfo.type === 'dict') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
       config.type = 'textarea';
       config.fullWidth = true;
@@ -86,6 +88,11 @@ export class TdParamSpecConfig {
     } else if (specFormInfo.type === 'rich_text_param') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
       config.type = 'rich_text';
+      config.fullWidth = true;
+      return config;
+    } else if (specFormInfo.type !== 'str' && specFormInfo.type !== 'int' && specFormInfo.type !== 'float') {
+      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
+      config.type = specFormInfo.type;
       config.fullWidth = true;
       return config;
     }

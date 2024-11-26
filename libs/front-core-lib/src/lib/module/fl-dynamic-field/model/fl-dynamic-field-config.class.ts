@@ -91,7 +91,7 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
 export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterialInput {
   type: 'select';
 
-  selectOptions: any[];
+  selectOptions: any[] | Record<string, any>;
 }
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {

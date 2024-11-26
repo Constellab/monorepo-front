@@ -64,6 +64,11 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     confirm_param_spec_deletion_success: 'Le paramètre a été supprimé avec succès',
     save: 'Enregistrer',
     no_param_spec: 'Aucun paramètre',
+    no_additional_info: 'Aucune information supplémentaire',
+    context: 'Context',
+    credentials_type: 'Type de credential',
+    edit: 'Edit',
+    delete: 'Delete',
   },
 };
 
@@ -129,6 +134,11 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     confirm_param_spec_deletion_success: 'The parameter has been successfully deleted',
     save: 'Save',
     no_param_spec: 'No parameter',
+    no_additional_info: 'No additional information',
+    context: 'Context',
+    credentials_type: 'Credentials type',
+    edit: 'Edit',
+    delete: 'Delete',
   },
 };
 

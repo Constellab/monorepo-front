@@ -9,13 +9,18 @@ import { LabProcess } from '../../../model/entities/process/lab-process.entity';
 import { LabConfig } from '../../../model/entities/lab-config.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { LabWorkflowEditConfig } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-edit-config.class';
+import { FlPortalActionResult } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
   protocolId: WritableSignal<string> = signal<string>(null);
   process: WritableSignal<LabProcess> = signal<LabProcess>(null);
 
-  constructor(private labProtocolService: LabProtocolService) {
+  constructor(
+    private labProtocolService: LabProtocolService,
+    private editConfig: LabWorkflowEditConfig
+  ) {
     super();
   }
 
@@ -24,50 +29,79 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
   }
 
   addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
-    return this.labProtocolService
-      .addDynamicParamSpec(this.protocolId(), this.process().instanceName, paramName, paramSpec)
-      .pipe(
-        map((config: LabConfig) => {
+    const obs = this.labProtocolService.addDynamicParamSpec(
+      this.protocolId(),
+      this.process().instanceName,
+      paramName,
+      paramSpec
+    );
+    return this.editConfig.addParamSpecUpdateAction(this.process(), obs).pipe(
+      map((result: FlPortalActionResult | null) => {
+        if (result && result.status == 'success') {
+          const config = result.result as LabConfig;
           this.updateProcessConfig(config);
           return config;
-        })
-      );
+        }
+        return null;
+      })
+    );
   }
 
   deleteParamSpec(paramName: string): Observable<LabConfig> {
-    return this.labProtocolService.deleteDynamicParamSpec(
+    const obs = this.labProtocolService.deleteDynamicParamSpec(
       this.protocolId(),
       this.process().instanceName,
       paramName
     );
+    return this.editConfig.deleteParamSpecUpdateAction(this.process(), obs).pipe(
+      map((result: FlPortalActionResult | null) => {
+        if (result && result.status == 'success') {
+          const config = result.result as LabConfig;
+          this.updateProcessConfig(config);
+          return config;
+        }
+        return null;
+      })
+    );
   }
 
   editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
-    return this.labProtocolService
-      .updateDynamicParamSpec(this.protocolId(), this.process().instanceName, paramName, paramSpec)
-      .pipe(
-        map((config: LabConfig) => {
+    const obs = this.labProtocolService.updateDynamicParamSpec(
+      this.protocolId(),
+      this.process().instanceName,
+      paramName,
+      paramSpec
+    );
+    return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
+      map((result: FlPortalActionResult | null) => {
+        if (result && result.status == 'success') {
+          const config = result.result as LabConfig;
           this.updateProcessConfig(config);
           return config;
-        })
-      );
+        }
+        return null;
+      })
+    );
   }
 
   renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
-    return this.labProtocolService
-      .renameAndUpdateDynamicParamSpec(
-        this.protocolId(),
-        this.process().instanceName,
-        oldName,
-        newName,
-        paramSpec
-      )
-      .pipe(
-        map((config: LabConfig) => {
+    const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
+      this.protocolId(),
+      this.process().instanceName,
+      oldName,
+      newName,
+      paramSpec
+    );
+    return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
+      map((result: FlPortalActionResult | null) => {
+        if (result && result.status == 'success') {
+          const config = result.result as LabConfig;
           this.updateProcessConfig(config);
           return config;
-        })
-      );
+        }
+        return null;
+      })
+    );
   }
 
   getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {

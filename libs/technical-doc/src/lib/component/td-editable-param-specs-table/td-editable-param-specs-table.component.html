@@ -21,25 +21,50 @@
         <th mat-header-cell *matHeaderCellDef>
           <span>{{ 'td.' + column | translate }}</span>
         </th>
-        <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+        <td mat-cell *matCellDef="let element">
+          @if (column === 'default_value' && element[column]) {
+            @if (element[column].name) {
+              {{ element[column].name }}
+            } @else if (element[column].title) {
+              {{ element[column].title }}
+            } @else if (element[column].id) {
+              {{ element[column].id }}
+            } @else if (isObject(element[column])) {
+              Object
+            } @else {
+              @if (String(element[column]).length > 20) {
+                {{ String(element[column]).substring(0, 20) + '...' }}
+              } @else {
+                {{ element[column] }}
+              }
+            }
+          } @else if (column === 'type' && element[column]) {
+            {{ ClStringHelper.snakeCaseToSentence(element[column]) }}
+          } @else if (isBoolean(element[column])) {
+            {{ element[column] | flYesNo }}
+          } @else {
+            {{ element[column] }}
+          }
+        </td>
       </ng-container>
     }
 
-    <ng-container matColumnDef="edit">
+    <ng-container matColumnDef="menu">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="edit" (click)="edit($event, element)">
-          <mat-icon>edit</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="btsMenu">
+          <mat-icon>more_vert</mat-icon>
         </button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delete">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="delete" color="warn" (click)="delete($event, element)">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <mat-menu #btsMenu="matMenu">
+          <button mat-menu-item aria-label="edit" (click)="edit($event, element)">
+            <mat-icon>edit</mat-icon>
+            {{ 'td.edit' | translate }}
+          </button>
+          <button mat-menu-item aria-label="delete" class="button-warn" (click)="delete($event, element)">
+            <mat-icon color="warn">delete</mat-icon>
+            {{ 'td.delete' | translate }}
+          </button>
+        </mat-menu>
       </td>
     </ng-container>
 
@@ -50,9 +75,9 @@
           <div>
             @if (element.short_description?.length > 0) {
               <fl-key-value>
-                <fl-key
-                ><span>{{ 'td.short_description' | translate }}</span></fl-key
-                >
+                <fl-key>
+                  <span>{{ 'td.short_description' | translate }}</span>
+                </fl-key>
                 {{ element.short_description }}
               </fl-key-value>
             }
@@ -69,6 +94,11 @@
               }
             }
           </div>
+          @if (!(element.short_description?.length > 0) && !(Object.keys(element.additional_info).length > 0)) {
+            <div class="empty-table">
+              {{ 'td.no_additional_info' | translate }}
+            </div>
+          }
         </div>
       </td>
     </ng-container>

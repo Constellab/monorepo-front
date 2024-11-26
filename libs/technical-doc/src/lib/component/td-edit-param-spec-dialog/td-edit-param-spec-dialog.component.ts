@@ -42,7 +42,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   paramSpecConfig: TdParamSpecConfig;
 
-  possibleTypes: TdParamSpecType[];
+  possibleTypes: Record<string, TdParamSpecType> = {};
 
   isEdit: boolean;
 
@@ -73,7 +73,11 @@ export class TdEditParamSpecDialogComponent implements OnInit {
   ngOnInit(): void {
     this.paramSpecFormInfoList$.subscribe((paramSpecFormInfoList: TdParamSpecFormInfoList) => {
       this.paramSpecFormInfoList = paramSpecFormInfoList;
-      this.possibleTypes = Object.keys(paramSpecFormInfoList) as TdParamSpecType[];
+      for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
+        const humanName: string = paramSpecFormInfoList[paramSpecInfo]['human_name'] as any;
+        this.possibleTypes[humanName] = paramSpecInfo as TdParamSpecType;
+        delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
+      }
       this.paramSpecConfig = new TdParamSpecConfig(this.paramSpecFormInfoList, this.translateService);
       this.initForm();
     });

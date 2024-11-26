@@ -4,11 +4,10 @@ import {
   effect,
   input,
   OnDestroy,
-  OnInit,
   output,
   Type,
   ViewChild,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { FlDynamicFormAbstractControl } from '../../model/fl-dynamic-field-config.class';
 import { AbstractControl } from '@angular/forms';
@@ -16,7 +15,9 @@ import { FlDynamicFieldComponent } from '../fl-dynamic-field/fl-dynamic-field.co
 import { FlDynamicFormGroupComponent } from '../fl-dynamic-form-group/fl-dynamic-form-group.component';
 import { FlDynamicFormArrayComponent } from '../fl-dynamic-form-array/fl-dynamic-form-array.component';
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
-import { FlDynamicEditableFormGroupComponent } from '../fl-dynamic-editable-form-group/fl-dynamic-editable-form-group.component';
+import {
+  FlDynamicEditableFormGroupComponent
+} from '../fl-dynamic-editable-form-group/fl-dynamic-editable-form-group.component';
 
 /**
  * Component to generate a FormGroup, FormArray or FormControl form base on config

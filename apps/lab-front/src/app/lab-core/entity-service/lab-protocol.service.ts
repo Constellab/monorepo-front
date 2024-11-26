@@ -529,9 +529,18 @@ export class LabProtocolService {
     paramSpec: TdParamSpec
   ): Observable<LabConfig> {
     return this.apiService.put(
-      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${oldName}/rename-and-update/${name}`,
+      `${this.baseRoute}/${protocolId}/process/${processName}` +
+        `/dynamic-param-spec/${oldName}/rename-and-update/${name}`,
       paramSpec,
       LabConfig
+    );
+  }
+
+  public updateProcessCodeParamsVisibility(protocolId: string, processName: string): Observable<LabProcess> {
+    return this.apiService.put(
+      `${this.baseRoute}/${protocolId}/process/${processName}/code-params-visibility`,
+      null,
+      LabProcess
     );
   }
 

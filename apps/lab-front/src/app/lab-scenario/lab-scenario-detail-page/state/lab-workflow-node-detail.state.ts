@@ -214,6 +214,13 @@ export class LabWorkflowNodeDetailState {
     this.scenarioState.refreshProcess(process);
   }
 
+  updateProcessCodeParamsVisibility(process: LabProcess): Observable<LabProcess> {
+    return this.protocolService.updateProcessCodeParamsVisibility(
+      process.parentProtocolId,
+      process.instanceName
+    );
+  }
+
   private onUpdateProcessNameSuccess(process: LabProcess): void {
     this.scenarioState.refreshProcess(process);
   }

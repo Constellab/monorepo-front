@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewContainerRef } from '@angular/core';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { TdConfig, TdParamSpecs } from '../../model/td-config-spec.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -27,7 +27,8 @@ export class TdConfigureParamSpecsTableDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) data: TdConfigureParamSpecsTableDialogInput,
     private dialogService: FlDialogService,
-    private dialogRef: MatDialogRef<TdConfigureParamSpecsTableDialogComponent>
+    private dialogRef: MatDialogRef<TdConfigureParamSpecsTableDialogComponent>,
+    private viewContainerRef: ViewContainerRef
   ) {
     this.dynamicParamSpecState = data.dynamicParamSpecState;
     this.paramSpecs = data.paramSpecs;
@@ -51,6 +52,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
     this.dialogService
       .openMediumDialog(TdEditParamSpecDialogComponent, {
         data: input,
+        viewContainerRef: this.viewContainerRef,
       })
       .afterClosed()
       .subscribe((output: TdConfig) => {

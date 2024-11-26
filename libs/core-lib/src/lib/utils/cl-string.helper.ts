@@ -282,4 +282,16 @@ export class ClStringHelper {
       .replace(/--/g, '-')
       .replace(/^-|-$/g, '');
   }
+
+  /**
+   * Format a snake case string as a human sentence
+   * @param str
+   */
+  public static snakeCaseToSentence(str: string): string {
+    if (str == null) return '';
+
+    str = str.toLowerCase().replaceAll(' ', '').replaceAll('_', ' ');
+
+    return str[0].toUpperCase() + str.substring(1);
+  }
 }

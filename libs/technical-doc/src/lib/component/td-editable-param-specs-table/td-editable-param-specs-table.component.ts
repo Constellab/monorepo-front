@@ -1,10 +1,9 @@
 import { Component, Input, output } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ClHelpService } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { TdParamSpecBase } from '../../model/td-config-spec.class';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
-import { emitDistinctChangesOnlyDefaultValue } from '@angular/compiler';
 
 export interface TdEditableParamSpec extends TdParamSpecBase {
   name: string;
@@ -33,7 +32,7 @@ export class TdEditableParamSpecsTableComponent {
     'human_name',
   ];
 
-  @Input() columnsToDisplayWithExpand = ['expand', ...this.columns, 'edit', 'delete'];
+  @Input() columnsToDisplayWithExpand = ['expand', ...this.columns, 'menu'];
 
   expandedElement: TdEditableParamSpec | null;
 
@@ -53,6 +52,15 @@ export class TdEditableParamSpecsTableComponent {
     this.onDeleteElementClick.emit(element);
   }
 
+  isBoolean(v: any): boolean {
+    return typeof v === 'boolean';
+  }
+
+  isObject(v: any): boolean {
+    return typeof v === 'object' && !Array.isArray(v) && v !== null;
+  }
+
   protected readonly Object = Object;
-  protected readonly emitDistinctChangesOnlyDefaultValue = emitDistinctChangesOnlyDefaultValue;
+  protected readonly ClStringHelper = ClStringHelper;
+  protected readonly String = String;
 }

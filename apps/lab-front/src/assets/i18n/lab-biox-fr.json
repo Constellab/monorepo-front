@@ -425,6 +425,11 @@
     "history": "Historique",
     "edit_process_style": "Modifier le style du processus",
     "edit_params_specs": "Modifier les paramètres",
-    "process_style_updated": "Style du processus mis à jour"
+    "process_style_updated": "Style du processus mis à jour",
+    "show_community_agent_code": "Afficher le code",
+    "hide_community_agent_code": "Cacher le code",
+    "share_a_new_agent_version": "Partager une nouvelle version de l'agent",
+    "community_agent_tooltip": "Cette tâche est un agent de Community",
+    "dynamic_params": "Paramètres dynamiques"
   }
 }

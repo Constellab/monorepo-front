@@ -86,6 +86,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
   private convertRecordToEditableFieldConfigs(record: TdParamSpecs): FlDynamicEditableFormGroupConfig {
     const configs: FlDynamicEditableFormGroupConfig = {
+      placeholder: 'biox.dynamic_params',
       controlType: 'editableFormGroup',
       subConfigs: {},
       specs: record,
@@ -155,11 +156,11 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       return config;
     } else if (spec.type === 'tags_param') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'tags';
+      config.type = 'tags_param';
       return config;
     } else if (spec.type === 'open_ai_chat_param') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'open_ai_chat';
+      config.type = 'open_ai_chat_param';
       config.fullWidth = true;
       return config;
     } else if (spec.type === 'credentials_param') {
@@ -167,7 +168,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
         spec,
         defaultPlaceholder
       ) as any;
-      config.type = 'select_credentials';
+      config.type = 'credentials_param';
       config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
       return config;
     } else if (spec.type === 'note_template_param') {
@@ -175,14 +176,14 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
         spec,
         defaultPlaceholder
       ) as any;
-      config.type = 'select_note_template';
+      config.type = 'note_template_param';
       return config;
     } else if (spec.type === 'note_param') {
       const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
         spec,
         defaultPlaceholder
       ) as any;
-      config.type = 'select_note';
+      config.type = 'note_param';
       return config;
     } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
@@ -196,7 +197,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       return config;
     } else if (spec.type === 'rich_text_param') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'rich_text';
+      config.type = 'rich_text_param';
       config.fullWidth = true;
       return config;
     } else {
@@ -259,6 +260,12 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
       // return an array of 1 element with the default value
       return [defaultConfig];
+    } else if (spec.type === 'dynamic') {
+      const defaultConfig: any = {};
+      for (const subSpecName of Object.keys(spec.additional_info.specs)) {
+        const subSpec: TdParamSpec = spec.additional_info.specs[subSpecName];
+        defaultConfig[subSpecName] = subSpec.default_value;
+      }
     } else {
       return spec.default_value ?? undefined;
     }

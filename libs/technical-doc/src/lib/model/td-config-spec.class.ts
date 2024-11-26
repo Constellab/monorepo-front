@@ -35,7 +35,7 @@ export type TdParamSpecType =
  * - public: basic param
  * - protected: advanced param
  */
-export type TdParamSpecVisibility = 'protected' | 'public';
+export type TdParamSpecVisibility = 'protected' | 'public' | 'private';
 
 /**
  * Common base for all param spec
@@ -220,8 +220,12 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
 
 export type TdParamSpecFormInfoList = Record<
   string,
-  Record<string, TdParamSpecFormInfo | Record<string, TdParamSpecFormInfo>>
+  Record<string, TdParamSpecFormInfoWithHumanName | Record<string, TdParamSpecFormInfoWithHumanName>>
 >;
+
+export interface TdParamSpecFormInfoWithHumanName extends TdParamSpecFormInfo {
+  human_name: string;
+}
 
 export interface TdParamSpecFormInfo {
   type: TdParamSpecType;

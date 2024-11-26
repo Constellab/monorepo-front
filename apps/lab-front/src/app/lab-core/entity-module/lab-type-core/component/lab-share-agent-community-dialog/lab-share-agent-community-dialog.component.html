@@ -8,14 +8,16 @@
       <div class="existant-agent-info-div">
         <span>{{ 'biox.existent_agent_info_1' | translate }}</span>
       </div>
-      <co-agent-list-item
-        class="current-agent"
-        [agent]="currentAgent.toCoAgent()"
-        (click)="onSelectAgent(currentAgent)"></co-agent-list-item>
-      <mat-divider class="divider"></mat-divider>
-    }
-    @if (!isLoading || !agentVersionId) {
       <div class="current-agent-div">
+        <co-agent-list-item
+          class="current-agent"
+          [agent]="currentAgent.toCoAgent()"
+          (click)="onSelectAgent(currentAgent)"></co-agent-list-item>
+      </div>
+    }
+    @if ((!isLoading || !agentVersionId) && !onlyUpdate) {
+      <mat-divider class="divider"></mat-divider>
+      <div class="new-agent-div">
         <button
           (click)="
             openCreateCommunityAgentDialog(
@@ -47,7 +49,8 @@
             (agentSelected)="onSelectAgent($event)"></lab-select-community-agent>
         </div>
       }
-    } @else {
+    } @else if (!onlyUpdate) {
+      <mat-divider class="divider"></mat-divider>
       <fl-loader></fl-loader>
     }
   </div>

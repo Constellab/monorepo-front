@@ -13,6 +13,7 @@ import { LabUser } from '../../../../model/entities/lab-user.entity';
 export interface LabShareAgentCommunityDialogData {
   processId: string;
   agentVersionId: string;
+  onlyUpdate: boolean;
 }
 
 @Component({
@@ -27,6 +28,7 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   currentAgent: LabAgent;
   currentUser: LabUser;
   isLoading: boolean = false;
+  onlyUpdate: boolean = false;
   protected readonly labCreateCommunityAgentDialogMode = LabCreateCommunityAgentDialogMode;
 
   constructor(
@@ -39,6 +41,7 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   ) {
     this.processId = data.processId;
     this.agentVersionId = data.agentVersionId;
+    this.onlyUpdate = data.onlyUpdate;
   }
 
   ngOnInit(): void {

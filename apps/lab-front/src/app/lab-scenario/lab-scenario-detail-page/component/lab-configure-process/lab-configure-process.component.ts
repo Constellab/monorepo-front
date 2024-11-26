@@ -18,6 +18,8 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
   @Input() process$: Observable<LabProcess>;
 
+  @Input() onCodeShownTrigger: Observable<void>;
+
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private subscription: Subscription;
@@ -25,7 +27,9 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
   constructor(private nodeState: LabProcessDashboardState) {}
 
   ngOnInit(): void {
-    this.subscription = this.process$.subscribe((process) => this.showProcessConfig(process));
+    this.subscription = this.process$.subscribe((process) => {
+      this.showProcessConfig(process);
+    });
   }
 
   private showProcessConfig(process: LabProcess): void {
@@ -39,6 +43,7 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
     } else {
       const componentRef = this.viewContainer.createComponent(LabConfigureTaskComponent);
       componentRef.instance.task = process;
+      componentRef.instance.onCodeShownTrigger = this.onCodeShownTrigger;
     }
   }
 

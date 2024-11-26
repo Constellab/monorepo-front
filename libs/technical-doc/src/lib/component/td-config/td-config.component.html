@@ -8,9 +8,6 @@
     <div class="g-layout-row g-layout-between-center config-spec-head">
       <p class="spacing-4-v2">
         {{ configSpec }}
-        @if (values() && values()[configSpec]) {
-          = {{ values()[configSpec] }}
-        }
       </p>
       <div class="chip-div">
         @if (configSpecs[configSpec].optional) {

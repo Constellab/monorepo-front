@@ -1,4 +1,4 @@
-import { Component, effect, input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, effect, input, OnDestroy, OnInit, output, ViewContainerRef } from '@angular/core';
 import {
   FlDialogService,
   FlDynamicFieldConfigService,
@@ -48,11 +48,11 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
   constructor(
     private controlContainer: ControlContainer,
     private dialogService: FlDialogService,
-    private editParamSpecState: LabDynamicParamSpecState
+    private editParamSpecState: LabDynamicParamSpecState,
+    private viewContainerRef: ViewContainerRef
   ) {
     effect(() => {
       this.init();
-      console.log('LabConfigureSpecsFormComponent: effect', this.configData());
     });
   }
 
@@ -96,8 +96,9 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService
-        .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
+        .openBigDialog(TdConfigureParamSpecsTableDialogComponent, {
           data: input,
+          viewContainerRef: this.viewContainerRef,
         })
         .afterClosed()
         .subscribe((config: LabConfig) => {

@@ -32,13 +32,15 @@ import {
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
 import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
-import { TdIOSpec, TdParamSpec } from '@monorepo/technical-doc';
+import { TdIOSpec } from '@monorepo/technical-doc';
 import { map } from 'rxjs/operators';
 import {
   LabNavigableCallActionResult,
   LabNavigableEntityService,
   LabNavigableImpactConfig,
 } from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
+import { LabConfig } from '../../../lab-core/model/entities/lab-config.entity';
+import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 
 export enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',
@@ -54,6 +56,9 @@ export enum LabWorkflowAction {
   RUN_PROCESS = 'workflow-run-process',
   ADD_INTERFACE = 'workflow-add-interface',
   ADD_OUTERFACE = 'workflow-add-outerface',
+  ADD_DYNAMIC_PARAM_SPEC = 'workflow-add-dynamic-param-spec',
+  UPDATE_DYNAMIC_PARAM_SPEC = 'workflow-update-dynamic-param-spec',
+  DELETE_DYNAMIC_PARAM_SPEC = 'workflow-delete-dynamic-param-spec',
 }
 
 interface LabWorkflowEventConnectionAdditionalInfo {
@@ -429,6 +434,45 @@ export class LabWorkflowEditConfig implements OnDestroy {
     };
 
     return this.addIoFace(action, protocolId, processInstanceName);
+  }
+
+  public addParamSpecUpdateAction(
+    process: LabProcess,
+    obs: Observable<LabConfig>
+  ): Observable<FlPortalActionResult | null> {
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
+      action: obs,
+      text: { text: 'biox.adding_param_spec', translateText: true },
+    };
+
+    return this.executeUpdateAction(action, process);
+  }
+
+  public deleteParamSpecUpdateAction(
+    process: LabProcess,
+    obs: Observable<LabConfig>
+  ): Observable<FlPortalActionResult | null> {
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
+      action: obs,
+      text: { text: 'biox.deleting_param_spec', translateText: true },
+    };
+
+    return this.executeUpdateAction(action, process);
+  }
+
+  public updateParamSpecUpdateAction(
+    process: LabProcess,
+    obs: Observable<LabConfig>
+  ): Observable<FlPortalActionResult | null> {
+    const action: FlPortalAction = {
+      type: LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
+      action: obs,
+      text: { text: 'biox.updating_param_spec', translateText: true },
+    };
+
+    return this.executeUpdateAction(action, process);
   }
 
   private addIoFace(
