@@ -1,35 +1,40 @@
 <fl-card>
   <fl-card-header>
-    <h2>{{ 'my_activity' | translate }}</h2>
+    <fl-text-icon>
+      <mat-icon>insights</mat-icon>
+      <h2>{{ 'my_activity' | translate }}</h2>
+    </fl-text-icon>
   </fl-card-header>
 
-  <fl-card-body *ngIf="stats">
-    <div class="activities-div">
-      <div class="activity">
-        <ca-dashboard-activity-card
-          [activityNumber]="stats.onGoingFolderNumber"
-          [activityText]="'ongoing_folders'"></ca-dashboard-activity-card>
+  @if (stats) {
+    <fl-card-body>
+      <div class="activities-div">
+        <div class="activity">
+          <ca-dashboard-activity-card
+            [activityNumber]="stats.onGoingFolderNumber"
+            [activityText]="'ongoing_folders'"></ca-dashboard-activity-card>
+        </div>
+        <div class="activity">
+          <ca-dashboard-activity-card
+            [activityNumber]="stats.teamsNumber"
+            [activityText]="'teams'"></ca-dashboard-activity-card>
+        </div>
+        <div class="activity">
+          <ca-dashboard-activity-card
+            [activityNumber]="stats.runningLabNumber"
+            [activityText]="'running_labs'"></ca-dashboard-activity-card>
+        </div>
+        <div class="activity">
+          <ca-dashboard-activity-card
+            [activityNumber]="stats.validatedScenarioNumber"
+            [activityText]="'scenarios'"></ca-dashboard-activity-card>
+        </div>
+        <div class="activity">
+          <ca-dashboard-activity-card
+            [activityNumber]="stats.validatedNoteNumber"
+            [activityText]="'notes'"></ca-dashboard-activity-card>
+        </div>
       </div>
-      <div class="activity">
-        <ca-dashboard-activity-card
-          [activityNumber]="stats.teamsNumber"
-          [activityText]="'teams'"></ca-dashboard-activity-card>
-      </div>
-      <div class="activity">
-        <ca-dashboard-activity-card
-          [activityNumber]="stats.runningLabNumber"
-          [activityText]="'running_labs'"></ca-dashboard-activity-card>
-      </div>
-      <div class="activity">
-        <ca-dashboard-activity-card
-          [activityNumber]="stats.validatedScenarioNumber"
-          [activityText]="'scenarios'"></ca-dashboard-activity-card>
-      </div>
-      <div class="activity">
-        <ca-dashboard-activity-card
-          [activityNumber]="stats.validatedNoteNumber"
-          [activityText]="'notes'"></ca-dashboard-activity-card>
-      </div>
-    </div>
-  </fl-card-body>
+    </fl-card-body>
+  }
 </fl-card>

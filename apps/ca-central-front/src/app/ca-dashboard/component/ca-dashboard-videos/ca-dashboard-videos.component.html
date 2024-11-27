@@ -1,0 +1,41 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>play_circle</mat-icon>
+      <h2>{{ 'tutorials' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    @if (selectedVideo) {
+      <div class="g-layout-row g-layout-center-center">
+        <!--   Show youtube iframe     -->
+        <button mat-icon-button type="button" (click)="previousVideoManually()">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+
+        <!--    Initial image size : 320 - 180 , here we apply a 3/5 ratio     -->
+        <a [href]="selectedVideo.youtubeLink" target="_blank" class="thumbnail-container">
+          <img [ngSrc]="selectedVideo.thumbnailUrl" [width]="192" [height]="108" alt="thumbnail" />
+        </a>
+
+        <button mat-icon-button type="button" (click)="nextVideoManually()">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+
+      <a [href]="selectedVideo.youtubeLink" target="_blank" class="title g-text-small g-text-link">
+        {{ selectedVideo.title }}
+      </a>
+
+      <div class="g-layout-row g-layout-center-center circles">
+        @for (video of youtubeVideos; track video.videoId) {
+          <div
+            class="circle"
+            [ngClass]="{ 'selected-circle': selectedVideo === video }"
+            (click)="selectVideo(video)"></div>
+        }
+      </div>
+    }
+  </fl-card-body>
+</fl-card>

@@ -21,8 +21,6 @@ export class CaDashboardPageComponent implements OnInit, OnDestroy {
   currentSpace$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
   spaceUsers: CaUserDatasourcePaginated = this.currentSpaceService.getCurrentSpaceUsersDatasource();
 
-  currentDate: Date = new Date();
-
   constructor(
     private currentSpaceService: CaCurrentSpaceService,
     private communityHelper: CoCommunityHelperService

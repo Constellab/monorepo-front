@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { CaServerDecisionTreeDTO } from '../model/entities/server/ca-server-standard.class';
+import { CaServerDecisionTreeDTO, CaYoutubeVideo } from '../model/entities/server/ca-server-standard.class';
 
 @Injectable({ providedIn: 'root' })
 export class CaSettingsService {
@@ -17,5 +17,9 @@ export class CaSettingsService {
     const formData = new FormData();
     formData.append('file', decisionTree);
     return this.apiService.put(`${this.route}/server-decision-tree`, formData);
+  }
+
+  public getTutorialVideos(): Observable<CaYoutubeVideo[]> {
+    return this.apiService.get(`${this.route}/tutorial-videos`, CaYoutubeVideo);
   }
 }

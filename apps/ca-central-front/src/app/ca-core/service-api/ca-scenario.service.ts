@@ -13,10 +13,6 @@ export class CaScenarioService {
 
   constructor(private apiService: FlApiService) {}
 
-  public findCurrentUserLastScenarios(): Observable<CaScenario[]> {
-    return this.apiService.get(`${this.route}/current-last-scenarios`, CaScenario);
-  }
-
   public findById(id: string): Observable<CaScenario> {
     return this.apiService.get(`${this.route}/${id}`, CaScenario);
   }

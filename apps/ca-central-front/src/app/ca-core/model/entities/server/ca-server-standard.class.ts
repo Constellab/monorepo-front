@@ -34,3 +34,13 @@ export class CaServerDecisionTreeOptionDTO {
 export class CaServerDecisionTreeDTO {
   tree: CaServerDecisionTreeOptionDTO[];
 }
+
+export class CaYoutubeVideo {
+  title: string;
+  videoId: string;
+  embedLink: string;
+  youtubeLink: string;
+  thumbnailUrl: string;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
+}

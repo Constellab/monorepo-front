@@ -1,0 +1,44 @@
+.iframe {
+  border: none;
+  flex: 1;
+  box-sizing: border-box;
+  padding-left: 3px;
+  padding-right: 3px;
+  min-width: 0;
+}
+
+.thumbnail-container {
+  box-sizing: border-box;
+  margin-left: 3px;
+  margin-right: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.title {
+  margin-top: 0.5em;
+  margin-inline: auto;
+  min-height: 5em;
+  display: block;
+  // same width as image with margin
+  width: 198px;
+}
+
+.circles {
+  margin-top: 0.5em;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--main-background);
+  margin-left: 3px;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.selected-circle {
+  background-color: var(--hover-color);
+}
