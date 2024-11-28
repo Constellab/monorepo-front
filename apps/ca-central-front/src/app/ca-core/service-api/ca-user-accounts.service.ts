@@ -53,7 +53,7 @@ export class CaUserAccountsService extends FlUserAccountService {
   }
 
   public unlockUser(userId: string): Observable<CaUser> {
-    return this.apiService.put(`${this.route}/${userId}/lock`, null, CaUser);
+    return this.apiService.put(`${this.route}/${userId}/unlock`, null, CaUser);
   }
 
   public resendActivationMail(userId: string): Observable<void> {
