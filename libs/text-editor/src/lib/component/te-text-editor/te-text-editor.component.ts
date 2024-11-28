@@ -59,6 +59,9 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> impl
   onDisableChange(): void {}
 
   writeValue(obj: TeRichText): void {
+    if (obj != null && !(obj instanceof TeRichText)) {
+      obj = new TeRichText(obj);
+    }
     this.value = obj;
   }
 

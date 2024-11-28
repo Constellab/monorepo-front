@@ -6,6 +6,7 @@
   [required]="required"
   [disabled]="disabled"
   [minInputSearchLength]="0"
+  [initSearchOnFocus]="true"
   [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as note">
     <fl-user-profile-picture *ngIf="note" [user]="note.createdBy" size="small"></fl-user-profile-picture>
