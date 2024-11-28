@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
+  FlCleanerService,
   FlCookieService,
   FlDialogService,
   FlLoginSavedRoute,
@@ -74,7 +75,7 @@ export class LabApiErrorService extends FlApiErrorService {
     }
 
     // throw the error to propagate it
-    return throwError(serverError);
+    return throwError(() => serverError);
   }
 
   /**
@@ -94,11 +95,15 @@ export class LabApiErrorService extends FlApiErrorService {
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie);
 
+    if (this.router.url.startsWith(labConstLoginRoute)) return;
+
+    FlCleanerService.getInstance().cleanServices();
+
     // save the current url for rerouting after login
     const currentRoute = this.platformLocation.pathname;
 
     // save the url if it's different
-    if (currentRoute !== labConstLoginRoute && currentRoute !== '/') {
+    if (currentRoute !== '/') {
       FlLoginSavedRoute.route = currentRoute;
     }
     // redirect the user to the login page, with autoRedirect param to avoid infinite loop

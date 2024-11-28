@@ -40,6 +40,8 @@ export class FlSearchState<T> implements OnDestroy {
   // it is call when the form is submitted to override the form change (to avoid calling search twice)
   private skipSearch = new Subject<{ _skipSearch: true }>();
 
+  private isDestroyed = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router
@@ -232,6 +234,10 @@ export class FlSearchState<T> implements OnDestroy {
     const subscription = merge(this.advancedSearchFormGroup.valueChanges, this.skipSearch)
       .pipe(
         debounceTime(350),
+        // skip if the component is destroyed, because of the debounce time,
+        // it can be called after the component is destroyed
+        filter(() => !this.isDestroyed),
+
         // if the event is skip, do not call the search
         filter((value: { _skipSearch: true }) => value?._skipSearch !== true)
       )
@@ -243,7 +249,12 @@ export class FlSearchState<T> implements OnDestroy {
       // subscribe to route change to call search is needed (like back button)
       this.subscriptions.add(
         this.route.queryParams
-          .pipe(debounceTime(350))
+          .pipe(
+            debounceTime(350),
+            // skip if the component is destroyed, because of the debounce time,
+            // it can be called after the component is destroyed
+            filter(() => !this.isDestroyed)
+          )
           .subscribe((params) => this.checkAndCallSearchFromUrl(params as any))
       );
     }
@@ -308,5 +319,6 @@ export class FlSearchState<T> implements OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
     this.skipSearch.complete();
+    this.isDestroyed = true;
   }
 }

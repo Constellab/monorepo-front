@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
+  FlCleanerService,
   FlCookieService,
   FlLoginSavedRoute,
   FlServerError,
@@ -94,14 +95,6 @@ export class CaApiErrorService extends FlApiErrorService {
    * Redirect the user to the login page
    */
   private sessionExpired(serverError: FlServerError, snackBarDuration: number): Observable<never> {
-    // save the current url for rerouting after login
-    const currentRoute = this.platformLocation.pathname;
-
-    // save the url if it's different
-    if (currentRoute !== caConstLoginRoute && currentRoute !== '/') {
-      FlLoginSavedRoute.route = currentRoute;
-    }
-
     // for security clear the authentication expiration cookie
     // to assure the user is disconnected
     this.cookieService.removeCookie(flAuthExpiredCookie, {
@@ -111,8 +104,20 @@ export class CaApiErrorService extends FlApiErrorService {
       domain: CaEnvironmentHelper.getFrontDomain(),
     });
 
-    // redirect the user to the login page, with autoRedirect param to avoid infinite loop
-    this.router.navigate([caConstLoginRoute], { queryParams: { autoRedirect: false } });
+    if (!this.router.url.startsWith(caConstLoginRoute)) {
+      FlCleanerService.getInstance().cleanServices();
+
+      // save the current url for rerouting after login
+      const currentRoute = this.platformLocation.pathname;
+
+      // save the url if it's different
+      if (currentRoute !== '/') {
+        FlLoginSavedRoute.route = currentRoute;
+      }
+
+      // redirect the user to the login page, with autoRedirect param to avoid infinite loop
+      this.router.navigate([caConstLoginRoute], { queryParams: { autoRedirect: false } });
+    }
 
     serverError.message = this.translateService.translate('session_expired');
 
