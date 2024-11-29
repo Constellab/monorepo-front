@@ -11,7 +11,9 @@ import {
 import { Subscription } from 'rxjs';
 import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
 import { map } from 'rxjs/operators';
-import { LabSelectNoteDialogComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
+import {
+  LabSelectNoteDialogComponent,
+} from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
 
 /**
  * Component inside the scenario detail to list the notes linked with the scenario
@@ -43,7 +45,7 @@ export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
       .getResult$(this.actionName)
       .subscribe((result) => this.onAddAction(result));
 
-    this.notes = new FlEntityArrayObs(this.noteService.getByScenario(this.scenarioId));
+    this.notes = new FlEntityArrayObs(this.noteService.getByScenario(this.scenarioId), false);
   }
 
   private onAddAction(result: FlPortalActionResult<LabNote>): void {
@@ -88,5 +90,6 @@ export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.notes?.manualDisconnect();
   }
 }

@@ -9,7 +9,9 @@ import {
   FlPortalActionsService,
   FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
-import { LabSelectScenarioDialogComponent } from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-select-scenario-dialog/lab-select-scenario-dialog.component';
+import {
+  LabSelectScenarioDialogComponent,
+} from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-select-scenario-dialog/lab-select-scenario-dialog.component';
 import { LabScenario } from '../../../../../lab-core/model/entities/lab-scenario.entity';
 import { Subscription } from 'rxjs';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
@@ -48,7 +50,10 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
       this.columns = this.canEdit ? ['title', 'unlinked'] : ['title'];
     });
 
-    this.scenarios = new FlEntityArrayObs(this.noteService.getScenarioByNotes(this.state.currentNote.id));
+    this.scenarios = new FlEntityArrayObs(
+      this.noteService.getScenarioByNotes(this.state.currentNote.id),
+      true
+    );
 
     this.subscription = this.actionService
       .getResult$(this.actionName)
@@ -95,5 +100,6 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+    this.scenarios?.manualDisconnect();
   }
 }
