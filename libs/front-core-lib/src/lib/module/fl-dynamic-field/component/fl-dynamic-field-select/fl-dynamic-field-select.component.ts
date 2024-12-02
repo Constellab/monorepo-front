@@ -25,7 +25,7 @@ export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirecti
     return this.selectOptionsInput().map((str) => {
       return {
         key: str,
-        humanName: st,
+        humanName: str,
       } as FlDynamicFieldSelectKeyNameOption;
     });
   });

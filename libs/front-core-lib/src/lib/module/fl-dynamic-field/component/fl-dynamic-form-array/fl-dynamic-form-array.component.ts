@@ -57,7 +57,7 @@ export class FlDynamicFormArrayComponent implements OnInit, FlDynamicAbstractFor
   get removeTooltip(): string {
     return this.disableRemove
       ? this.translateService.translate('flDynamicField.form_array_delete_disable', {
-          param: { value: this.config().minSze },
+          param: { value: this.config().minSize },
         })
       : this.translateService.translate('flDynamicField.remove_value_from_array');
   }
