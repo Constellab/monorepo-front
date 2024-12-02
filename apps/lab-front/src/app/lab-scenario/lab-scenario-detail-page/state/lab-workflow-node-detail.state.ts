@@ -6,10 +6,10 @@ import {
   PrWorkflowActionShowView,
   PrWorkflowActionState,
   PrWorkflowNode,
-  PrWorkflowNodeProcess,
+  PrWorkflowNodeProcess
 } from '@monorepo/protocol';
 import {
-  LabResourceDetailDialogComponent,
+  LabResourceDetailDialogComponent
 } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {
   LabResourceViewDetailDialogComponent,
@@ -21,7 +21,7 @@ import {
   LabWorkflowEditConfig,
   LabWorkflowEventNodeAdditionalInfo,
 } from '../model/lab-workflow-edit-config.class';
-import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
+import { TdIOSpec, TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import {
   LabProcessDashboardComponent,
@@ -214,10 +214,14 @@ export class LabWorkflowNodeDetailState {
     this.scenarioState.refreshProcess(process);
   }
 
-  updateProcessCodeParamsVisibility(process: LabProcess): Observable<LabProcess> {
-    return this.protocolService.updateProcessCodeParamsVisibility(
+  updateCommunityAgentCodeParamsVisibility(
+    process: LabProcess,
+    visibility: TdParamSpecVisibility
+  ): Observable<LabProcess> {
+    return this.protocolService.updateCommunityAgentCodeParamsVisibility(
       process.parentProtocolId,
-      process.instanceName
+      process.instanceName,
+      visibility
     );
   }
 

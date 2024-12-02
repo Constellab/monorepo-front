@@ -47,18 +47,7 @@ import { TdVarsMethodsDocComponent } from './component/td-vars-methods-doc/td-va
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
 import { MatDialogContent } from '@angular/material/dialog';
 import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
-import {
-  MatCell,
-  MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow,
-  MatHeaderRowDef,
-  MatRow,
-  MatRowDef,
-  MatTable,
-} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -90,16 +79,7 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     FlThemeModule,
     MatDialogContent,
     FlDialogModule,
-    MatTable,
-    MatHeaderCell,
-    MatCell,
-    MatCellDef,
-    MatHeaderCellDef,
-    MatColumnDef,
-    MatRow,
-    MatHeaderRow,
-    MatHeaderRowDef,
-    MatRowDef,
+    MatTableModule,
     ReactiveFormsModule,
     FlFormModule,
     FlCoreDirectiveModule,

@@ -124,7 +124,7 @@ export interface TdParamSpecString extends TdParamSpecBase {
  * Param for long text
  */
 export interface TdParamSpecText extends TdParamSpecBase {
-  type: 'text';
+  type: 'text' | 'dict';
 }
 
 export interface TdParamSpecFloat extends TdParamSpecBase {
@@ -231,4 +231,9 @@ export interface TdParamSpecFormInfo {
   type: TdParamSpecType;
   optional: boolean;
   value: any;
+}
+
+export interface TdParamSpecsValues {
+  specs: TdParamSpecs;
+  values: Record<string, any>;
 }

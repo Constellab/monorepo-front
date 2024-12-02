@@ -2,7 +2,9 @@
   <fl-section [disableEmptyText]="true" class="section">
     <fl-section-header>
       <div>{{ config().placeholder | translate }}</div>
-      <div class="g-text-small g-text-light" *ngIf="config().hint">{{ config().hint }}</div>
+      @if (config().hint) {
+        <div class="g-text-small g-text-light">{{ config().hint }}</div>
+      }
       <fl-section-actions>
         <div>
           <button

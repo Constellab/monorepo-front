@@ -4,7 +4,6 @@ import {
   effect,
   input,
   OnDestroy,
-  output,
   Type,
   ViewChild,
   ViewContainerRef
@@ -32,7 +31,7 @@ export class FlDynamicAbstractFormComponent implements OnDestroy {
 
   control = input<AbstractControl>();
 
-  openEditParamSpecsDialog = output();
+  configName = input<string>();
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
@@ -44,7 +43,9 @@ export class FlDynamicAbstractFormComponent implements OnDestroy {
       this.viewComponentRef = this.viewContainer.createComponent(this.getComponentType());
       this.viewComponentRef.instance.config = this.config;
       this.viewComponentRef.instance.control = this.control;
-      this.viewComponentRef.instance.openEditParamSpecsDialog = this.openEditParamSpecsDialog;
+      if (this.viewComponentRef.instance.configName) {
+        this.viewComponentRef.instance.configName = this.configName;
+      }
     });
   }
 

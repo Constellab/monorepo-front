@@ -6,6 +6,7 @@ import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-
 import { FlTranslateService } from '../../../fl-translate/service/fl-translate.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
+// TODO: check if it's possible to replace getters by computed signals
 @Component({
   selector: 'fl-dynamic-form-array',
   templateUrl: './fl-dynamic-form-array.component.html',
@@ -56,7 +57,7 @@ export class FlDynamicFormArrayComponent implements OnInit, FlDynamicAbstractFor
   get removeTooltip(): string {
     return this.disableRemove
       ? this.translateService.translate('flDynamicField.form_array_delete_disable', {
-          param: { value: this.config().minSize },
+          param: { value: this.config().minSze },
         })
       : this.translateService.translate('flDynamicField.remove_value_from_array');
   }

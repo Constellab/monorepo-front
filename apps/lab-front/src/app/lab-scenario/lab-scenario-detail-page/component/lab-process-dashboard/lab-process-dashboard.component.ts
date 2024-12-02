@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
@@ -6,7 +6,7 @@ import {
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
 import {
@@ -20,7 +20,7 @@ import {
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { TdTypingName } from '@monorepo/technical-doc';
+import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib';
 import {
   LabSystemConfigDialogComponent
@@ -49,7 +49,7 @@ import {
   styleUrls: ['./lab-process-dashboard.component.scss'],
   providers: [LabProcessDashboardState],
 })
-export class LabProcessDashboardComponent implements OnInit {
+export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
 
@@ -70,9 +70,9 @@ export class LabProcessDashboardComponent implements OnInit {
 
   isCommunityAgent: boolean;
 
-  isCodeShown: boolean;
+  isCodeShown$: Subject<boolean> = new Subject();
 
-  onCodeShownTrigger: Subject<void> = new Subject<void>();
+  communityAgentVisibilityChangedSubscription: Subscription;
 
   constructor(
     private nodeState: LabWorkflowNodeDetailState,
@@ -87,11 +87,18 @@ export class LabProcessDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.nodeState.getProcess$().subscribe((process) => {
-      if (process.communityAgentVersionId != null) {
+      if (process?.communityAgentVersionId != null) {
         this.isCommunityAgent = true;
-        this.isCodeShown = process.config.specs['code']?.visibility == 'public';
+        this.isCodeShown$.next(process.config.specs['code']?.visibility == 'public');
       }
     });
+
+    this.communityAgentVisibilityChangedSubscription =
+      this.dashboardState.onCommunityAgentVisibilityChanged.subscribe((visibility: TdParamSpecVisibility) =>
+        this.onVisibilityChanged(visibility)
+      );
+
+    this.dashboardState.init(this.nodeState);
   }
 
   openTypingDoc(typingName: string): void {
@@ -172,9 +179,8 @@ export class LabProcessDashboardComponent implements OnInit {
     this.taskGeneratorService.generateAgentFile(process.parentProtocolId, process.id).subscribe();
   }
 
-  triggerCodeShown(): void {
-    this.onCodeShownTrigger.next();
-    this.isCodeShown = !this.isCodeShown;
+  triggerCodeShown(newVisibility: TdParamSpecVisibility): void {
+    this.dashboardState.changeCommunityAgentVisibilityEvent.emit(newVisibility);
   }
 
   openShareCommunityAgentDialog(process: LabProcess, onlyUpdate = false): void {
@@ -220,5 +226,14 @@ export class LabProcessDashboardComponent implements OnInit {
 
   duplicateTask(process: LabProcess): void {
     this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
+  }
+
+  onVisibilityChanged(visibility: TdParamSpecVisibility): void {
+    this.isCodeShown$.next(visibility == 'public');
+  }
+
+  ngOnDestroy(): void {
+    this.communityAgentVisibilityChangedSubscription?.unsubscribe();
+    this.isCodeShown$.complete();
   }
 }

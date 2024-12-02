@@ -28,10 +28,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     this.onProcess(process);
   }
 
-  addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
+  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
     const obs = this.labProtocolService.addDynamicParamSpec(
       this.protocolId(),
       this.process().instanceName,
+      configSpecName,
       paramName,
       paramSpec
     );
@@ -39,7 +40,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
       map((result: FlPortalActionResult | null) => {
         if (result && result.status == 'success') {
           const config = result.result as LabConfig;
-          this.updateProcessConfig(config);
+          this.updateProcessConfig(configSpecName, config);
           return config;
         }
         return null;
@@ -47,17 +48,18 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
   }
 
-  deleteParamSpec(paramName: string): Observable<LabConfig> {
+  deleteParamSpec(configSpecName: string, paramName: string): Observable<LabConfig> {
     const obs = this.labProtocolService.deleteDynamicParamSpec(
       this.protocolId(),
       this.process().instanceName,
+      configSpecName,
       paramName
     );
     return this.editConfig.deleteParamSpecUpdateAction(this.process(), obs).pipe(
       map((result: FlPortalActionResult | null) => {
         if (result && result.status == 'success') {
           const config = result.result as LabConfig;
-          this.updateProcessConfig(config);
+          this.updateProcessConfig(configSpecName, config);
           return config;
         }
         return null;
@@ -65,10 +67,11 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
   }
 
-  editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
+  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
     const obs = this.labProtocolService.updateDynamicParamSpec(
       this.protocolId(),
       this.process().instanceName,
+      configSpecName,
       paramName,
       paramSpec
     );
@@ -76,7 +79,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
       map((result: FlPortalActionResult | null) => {
         if (result && result.status == 'success') {
           const config = result.result as LabConfig;
-          this.updateProcessConfig(config);
+          this.updateProcessConfig(configSpecName, config);
           return config;
         }
         return null;
@@ -84,19 +87,25 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
   }
 
-  renameAndEditParamSpec(oldName: string, newName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
+  renameAndEditParamSpec(
+    configSpecName: string,
+    oldName: string,
+    newName: string,
+    paramSpec: TdParamSpec
+  ): Observable<LabConfig> {
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
       this.protocolId(),
       this.process().instanceName,
+      configSpecName,
       oldName,
       newName,
       paramSpec
     );
     return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
-      map((result: FlPortalActionResult | null) => {
+      map((result: FlPortalActionResult): LabConfig => {
         if (result && result.status == 'success') {
           const config = result.result as LabConfig;
-          this.updateProcessConfig(config);
+          this.updateProcessConfig(configSpecName, config);
           return config;
         }
         return null;
@@ -105,18 +114,20 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
   }
 
   getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
-    return this.labProtocolService.getParamSpecsInfos();
+    return this.labProtocolService.getParamSpecsInfos(this.protocolId(), this.process().instanceName);
   }
 
-  private updateProcessConfig(config: LabConfig): void {
-    this.setParamSpecs(config.specs['params'].additional_info.specs);
+  private updateProcessConfig(configSpecName: string, config: LabConfig): void {
+    this.setParamSpecs(config.specs[configSpecName].additional_info.specs);
   }
 
   private onProcess(process: LabProcess): void {
     this.protocolId.set(process.parentProtocolId);
     this.process.set(process);
-    if (process.config.specs['params'] && process.config.specs['params'].type == 'dynamic') {
-      this.setParamSpecs(process.config.specs['params'].additional_info.specs);
+    for (const spec of Object.keys(process.config.specs)) {
+      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
+        this.setParamSpecs(process.config.specs[spec].additional_info.specs);
+      }
     }
   }
 }

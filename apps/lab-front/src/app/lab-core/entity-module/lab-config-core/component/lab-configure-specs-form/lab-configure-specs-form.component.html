@@ -1,13 +1,12 @@
 <div class="container">
   <fl-dynamic-form-group
     class="g-form-field-compact"
-    [control]="publicFormGp"
-    [config]="publicConfig"
-    (openEditParamSpecsDialog)="openEditParamSpecsDialog()"></fl-dynamic-form-group>
+    [control]="publicFormGp()"
+    [config]="publicConfig()"></fl-dynamic-form-group>
 </div>
 
-@if (showProtectedConfigs) {
-  <mat-expansion-panel flDisableAnimationInit [expanded]="protectedConfigExpand" class="advanced-config">
+@if (showProtectedConfigs()) {
+  <mat-expansion-panel flDisableAnimationInit [expanded]="protectedConfigExpand()" class="advanced-config">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ 'biox.advanced_configuration' | translate }}
@@ -16,7 +15,7 @@
 
     <fl-dynamic-form-group
       class="g-form-field-compact"
-      [control]="protectedFormGp"
-      [config]="protectedConfig"></fl-dynamic-form-group>
+      [control]="protectedFormGp()"
+      [config]="protectedConfig()"></fl-dynamic-form-group>
   </mat-expansion-panel>
 }

@@ -41,6 +41,8 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   ) {
     this.processId = data.processId;
     this.agentVersionId = data.agentVersionId;
+
+    // if true, only display the add new version to linked community agent part
     this.onlyUpdate = data.onlyUpdate;
   }
 

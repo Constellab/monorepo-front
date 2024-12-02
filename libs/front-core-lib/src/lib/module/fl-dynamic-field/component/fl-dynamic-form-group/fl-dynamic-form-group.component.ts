@@ -1,9 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig,
+  FlDynamicFormGroupConfig
 } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 
@@ -24,8 +24,6 @@ export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirecti
 
   config = input<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig>();
 
-  openEditParamSpecsDialog = output();
-
   getControlClass(config: FlDynamicFormAbstractControl): string {
     // different classe based on type
     // if FormGroup or FormArray --> width 100%
@@ -37,9 +35,5 @@ export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirecti
       return 'field-container';
     }
     return 'group-container';
-  }
-
-  emitOpenEditParamSpecsDialog(): void {
-    this.openEditParamSpecsDialog.emit();
   }
 }

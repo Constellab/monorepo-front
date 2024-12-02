@@ -19,13 +19,6 @@ tr.element-row:not(.expanded-row):hover {
   display: flex;
   flex-direction: column;
 
-  span {
-    font-size: 1.05em;
-  }
-}
-
-span {
-  font-weight: 525;
 }
 
 .empty-table {

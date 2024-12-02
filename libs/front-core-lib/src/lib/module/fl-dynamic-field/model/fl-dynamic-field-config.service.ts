@@ -1,19 +1,32 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import {
+  FlDynamicFieldTextareaComponent
+} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
+  FlDynamicFieldConfigSelectSearch
 } from './fl-dynamic-field-config.class';
 import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
-import { FlDynamicFieldInputComponent } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
-import { FlDynamicFieldSelectComponent } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
-import { FlDynamicFieldListComponent } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
-import { FlDynamicFieldBooleanComponent } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
-import { FlDynamicFieldSelectSearchComponent } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import {
+  FlDynamicFieldInputComponent
+} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import {
+  FlDynamicFieldSelectComponent
+} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import {
+  FlDynamicFieldListComponent
+} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import {
+  FlDynamicFieldBooleanComponent
+} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import {
+  FlDynamicFieldSelectSearchComponent
+} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
@@ -64,7 +77,7 @@ export class FlDynamicFieldConfigService {
         case 'select-search':
           viewComponentRef = this.createSelectSearchComponent(
             viewContainer,
-            config as FlDynamicFieldConfigSelect
+            config as FlDynamicFieldConfigSelectSearch
           );
           break;
         case 'list':
@@ -110,7 +123,7 @@ export class FlDynamicFieldConfigService {
     config: FlDynamicFieldConfigSelect
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectComponent);
-    selectComponent.instance.selectOptions = config.selectOptions;
+    selectComponent.instance.selectOptionsInput = config.selectOptions as any;
     selectComponent.instance.prefix = config.prefix;
     selectComponent.instance.suffix = config.suffix;
     return selectComponent;
@@ -118,7 +131,7 @@ export class FlDynamicFieldConfigService {
 
   private createSelectSearchComponent(
     viewContainer: ViewContainerRef,
-    config: FlDynamicFieldConfigSelect
+    config: FlDynamicFieldConfigSelectSearch
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     const selectComponent = viewContainer.createComponent(FlDynamicFieldSelectSearchComponent);
     selectComponent.instance.selectOptions = config.selectOptions;

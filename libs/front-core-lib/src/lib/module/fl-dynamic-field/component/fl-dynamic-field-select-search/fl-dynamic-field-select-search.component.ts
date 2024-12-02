@@ -11,12 +11,12 @@ import { FlBasicDatasourcePaginated } from '../../../../model/datasource/fl-data
   styleUrl: './fl-dynamic-field-select-search.component.scss',
 })
 export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {
-  @Input() selectOptions: string[] | Record<string, string>;
+  @Input() selectOptions: string[];
 
   datasource: FlBasicDatasourcePaginated<string>;
 
   ngOnInit(): void {
-    this.datasource = FlBasicDatasourcePaginated.fromStringArray(this.selectOptions as string[]);
+    this.datasource = FlBasicDatasourcePaginated.fromStringArray(this.selectOptions);
   }
 
   selectOption(option: string): void {

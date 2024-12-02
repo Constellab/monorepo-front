@@ -1,5 +1,5 @@
 import { Component, Input, output } from '@angular/core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlArrayObs, FlTableColumnStatic, FlTranslateService, FlYesNoPipe } from '@monorepo/front-core-lib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { TdParamSpecBase } from '../../model/td-config-spec.class';
@@ -22,8 +22,6 @@ export interface TdEditableParamSpec extends TdParamSpecBase {
   ],
 })
 export class TdEditableParamSpecsTableComponent {
-  @Input({ required: true }) editParamSpecState: TdAbstractDynamicParamSpecState;
-
   @Input() columns: FlTableColumnStatic<TdEditableParamSpec>[] = [
     'name',
     'type',
@@ -34,13 +32,18 @@ export class TdEditableParamSpecsTableComponent {
 
   @Input() columnsToDisplayWithExpand = ['expand', ...this.columns, 'menu'];
 
+  table: FlArrayObs<TdEditableParamSpec> = this.dynamicParamSpecState.paramSpecsTable;
+
   expandedElement: TdEditableParamSpec | null;
 
   onEditElementClick = output<TdEditableParamSpec>();
 
   onDeleteElementClick = output<TdEditableParamSpec>();
 
-  constructor() {}
+  constructor(
+    private dynamicParamSpecState: TdAbstractDynamicParamSpecState,
+    private translateService: FlTranslateService
+  ) {}
 
   edit(event: Event, element: TdEditableParamSpec): void {
     ClHelpService.stopEventPropagation(event);
@@ -52,15 +55,42 @@ export class TdEditableParamSpecsTableComponent {
     this.onDeleteElementClick.emit(element);
   }
 
-  isBoolean(v: any): boolean {
+  getColumnValue(element: any, column: string): string {
+    if (!element[column]) {
+      return '';
+    }
+
+    if (column === 'default_value') {
+      if (element[column].name) {
+        return element[column].name;
+      } else if (element[column].title) {
+        return element[column].title;
+      } else if (element[column].id) {
+        return element[column].id;
+      } else if (this.isObject(element[column])) {
+        return this.translateService.translate('object');
+      } else {
+        const value: string = String(element[column]);
+        if (value.length > 20) {
+          return value.substring(0, 20) + '...';
+        }
+        return value;
+      }
+    } else if (column === 'type') {
+      return ClStringHelper.snakeCaseToSentence(element[column]);
+    } else if (this.isBoolean(element[column])) {
+      return new FlYesNoPipe(this.translateService).transform(element[column]);
+    }
+    return element[column];
+  }
+
+  private isBoolean(v: any): boolean {
     return typeof v === 'boolean';
   }
 
-  isObject(v: any): boolean {
+  private isObject(v: any): boolean {
     return typeof v === 'object' && !Array.isArray(v) && v !== null;
   }
 
   protected readonly Object = Object;
-  protected readonly ClStringHelper = ClStringHelper;
-  protected readonly String = String;
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, signal } from '@angular/core';
 import {
   TdConfig,
   TdParamSpec,
@@ -13,6 +13,7 @@ import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
 import {
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigSelect,
+  FlDynamicFieldSelectKeyNameOption,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
   FlTranslateService,
@@ -20,8 +21,8 @@ import {
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 
 export interface TdEditParamSpecDialogInput {
+  configSpecName: string;
   paramSpecFormInfoList$: Observable<TdParamSpecFormInfoList>;
-  dynamicParamSpecState: TdAbstractDynamicParamSpecState;
   spec?: TdParamSpec;
   name?: string;
 }
@@ -32,29 +33,32 @@ export interface TdEditParamSpecDialogInput {
   styleUrl: './td-edit-param-spec-dialog.component.scss',
 })
 export class TdEditParamSpecDialogComponent implements OnInit {
-  spec: TdParamSpec;
-  name: string;
-  paramSpecFormInfoList$: Observable<TdParamSpecFormInfoList>;
-  paramSpecFormInfoList: TdParamSpecFormInfoList;
-
   formGroupConfig: FlDynamicFormGroupConfig;
+
   formGroup: UntypedFormGroup;
-
-  paramSpecConfig: TdParamSpecConfig;
-
-  possibleTypes: Record<string, TdParamSpecType> = {};
 
   isEdit: boolean;
 
-  dynamicParamSpecState: TdAbstractDynamicParamSpecState;
+  private spec: TdParamSpec;
+
+  private name: string;
+
+  private paramSpecConfig: TdParamSpecConfig;
+
+  private possibleTypes: FlDynamicFieldSelectKeyNameOption[] = [];
+
+  private paramSpecFormInfoList$: Observable<TdParamSpecFormInfoList>;
+
+  private configSpecName: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: TdEditParamSpecDialogInput,
     private translateService: FlTranslateService,
-    private dialogRef: MatDialogRef<TdEditParamSpecDialogComponent>
+    private dialogRef: MatDialogRef<TdEditParamSpecDialogComponent>,
+    private dynamicParamSpecState: TdAbstractDynamicParamSpecState
   ) {
-    this.dynamicParamSpecState = data.dynamicParamSpecState;
     this.paramSpecFormInfoList$ = data.paramSpecFormInfoList$;
+    this.configSpecName = data.configSpecName;
 
     if (!data.spec) {
       this.isEdit = false;
@@ -72,13 +76,12 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramSpecFormInfoList$.subscribe((paramSpecFormInfoList: TdParamSpecFormInfoList) => {
-      this.paramSpecFormInfoList = paramSpecFormInfoList;
       for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
         const humanName: string = paramSpecFormInfoList[paramSpecInfo]['human_name'] as any;
-        this.possibleTypes[humanName] = paramSpecInfo as TdParamSpecType;
+        this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
         delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
       }
-      this.paramSpecConfig = new TdParamSpecConfig(this.paramSpecFormInfoList, this.translateService);
+      this.paramSpecConfig = new TdParamSpecConfig(paramSpecFormInfoList, this.translateService);
       this.initForm();
     });
   }
@@ -89,16 +92,21 @@ export class TdEditParamSpecDialogComponent implements OnInit {
         const oldName = this.name != this.formGroup.get('name').value ? this.name : null;
         if (oldName) {
           this.dynamicParamSpecState
-            .renameAndEditParamSpec(oldName, this.formGroup.get('name').value, this.formGroup.value)
+            .renameAndEditParamSpec(
+              this.configSpecName,
+              oldName,
+              this.formGroup.get('name').value,
+              this.formGroup.value
+            )
             .subscribe((config: TdConfig) => this.dialogRef.close(config));
         } else {
           this.dynamicParamSpecState
-            .editParamSpec(this.formGroup.get('name').value, this.formGroup.value)
+            .editParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
             .subscribe((config: TdConfig) => this.dialogRef.close(config));
         }
       } else {
         this.dynamicParamSpecState
-          .addParamSpec(this.formGroup.get('name').value, this.formGroup.value)
+          .addParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
           .subscribe((config: TdConfig) => this.dialogRef.close(config));
       }
     }
@@ -143,7 +151,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
   private getTypeDynamicFieldConfigSelect(): FlDynamicFieldConfigSelect {
     return {
       type: 'select',
-      selectOptions: this.possibleTypes,
+      selectOptions: signal(this.possibleTypes),
       controlType: 'formControl',
       placeholder: this.translateService.translate('td.type'),
       required: true,

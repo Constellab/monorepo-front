@@ -1,4 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  OutputRefSubscription,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
 import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
@@ -18,13 +26,13 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
   @Input() process$: Observable<LabProcess>;
 
-  @Input() onCodeShownTrigger: Observable<void>;
-
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private subscription: Subscription;
 
-  constructor(private nodeState: LabProcessDashboardState) {}
+  private visibilitySubscription: OutputRefSubscription;
+
+  constructor(private dashboardState: LabProcessDashboardState) {}
 
   ngOnInit(): void {
     this.subscription = this.process$.subscribe((process) => {
@@ -34,7 +42,7 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
 
   private showProcessConfig(process: LabProcess): void {
     // Check if the config has changed since the last process to avoid reloading the component
-    if (!this.nodeState.configHasChanged(process)) return;
+    if (!this.dashboardState.configHasChanged(process)) return;
     this.clearViewRef();
 
     if (process.isProtocol) {
@@ -43,7 +51,6 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
     } else {
       const componentRef = this.viewContainer.createComponent(LabConfigureTaskComponent);
       componentRef.instance.task = process;
-      componentRef.instance.onCodeShownTrigger = this.onCodeShownTrigger;
     }
   }
 
@@ -54,5 +61,6 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.clearViewRef();
     this.subscription?.unsubscribe();
+    this.visibilitySubscription?.unsubscribe();
   }
 }

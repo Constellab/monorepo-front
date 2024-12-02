@@ -13,7 +13,7 @@ import {
   PrWorkflowNodeInterface,
   PrWorkflowNodeOuterface,
   PrWorkflowNodeProcess,
-  PrWorkflowNodeProtocol,
+  PrWorkflowNodeProtocol
 } from '@monorepo/protocol';
 import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
@@ -27,7 +27,7 @@ import {
   FlPortalActionsService,
   FlSnackBarService,
   FlTranslatableText,
-  FlTranslateService,
+  FlTranslateService
 } from '@monorepo/front-core-lib';
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
@@ -37,7 +37,7 @@ import { map } from 'rxjs/operators';
 import {
   LabNavigableCallActionResult,
   LabNavigableEntityService,
-  LabNavigableImpactConfig,
+  LabNavigableImpactConfig
 } from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
 import { LabConfig } from '../../../lab-core/model/entities/lab-config.entity';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
@@ -443,7 +443,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const action: FlPortalAction = {
       type: LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
       action: obs,
-      text: { text: 'biox.adding_param_spec', translateText: true },
+      text: { text: 'pr.adding_param_spec', translateText: true },
     };
 
     return this.executeUpdateAction(action, process);
@@ -456,7 +456,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const action: FlPortalAction = {
       type: LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
       action: obs,
-      text: { text: 'biox.deleting_param_spec', translateText: true },
+      text: { text: 'pr.deleting_param_spec', translateText: true ,
     };
 
     return this.executeUpdateAction(action, process);
@@ -469,7 +469,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     const action: FlPortalAction = {
       type: LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
       action: obs,
-      text: { text: 'biox.updating_param_spec', translateText: true },
+      text: { text: 'pr.updating_param_spec', translateText: true }
     };
 
     return this.executeUpdateAction(action, process);
@@ -630,7 +630,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
       callAction: () =>
         this.protocolService.resetProcessInProtocol(protocolId, processInstanceName).pipe(
           // on reset result, refresh the protocol, the process will be refreshed by the event
-          // we need the protocol here because the next request (like configure process) might not refresh the protocol
+          // we need the protocol here because the next
+          // request (like configure process) might not refresh the protocol
           tap((result: LabProtocolUpdateDTO) => {
             if (result.protocolUpdated && result.protocol) {
               this.scenarioState.refreshProtocolAndOthers(result.protocol);
@@ -867,6 +868,9 @@ export class LabWorkflowEditConfig implements OnDestroy {
       LabWorkflowAction.RUN_PROCESS,
       LabWorkflowAction.ADD_INTERFACE,
       LabWorkflowAction.ADD_OUTERFACE,
+      LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
+      LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
+      LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC
     ]);
   }
 

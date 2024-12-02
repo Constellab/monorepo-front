@@ -21,6 +21,7 @@ import {
   TdParamSpecSimple,
   TdParamSpecVisibility
 } from '@monorepo/technical-doc';
+import { EventEmitter, signal } from '@angular/core';
 
 /**
  * form structure for the {@link LabConfigureSpecsFormComponent}
@@ -47,7 +48,8 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
   public static fromSpecs(specs: TdParamSpecs, values?: PrConfigValues): LabConfig {
     const config = new LabConfig();
     config.specs = specs;
-    config.values = values ?? config.getDefaultConfig();
+    config.values = config.getCleanConfigValues(values) ?? config.getDefaultConfig();
+    console.log('V', config.values);
     return config;
   }
 
@@ -89,7 +91,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       placeholder: 'biox.dynamic_params',
       controlType: 'editableFormGroup',
       subConfigs: {},
-      specs: record,
+      openEditConfigDialog: new EventEmitter<string>(),
     };
     for (const specName in record) {
       configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
@@ -139,7 +141,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
           defaultPlaceholder
         ) as any;
         config.type = 'select';
-        config.selectOptions = spec.additional_info.allowed_values;
+        config.selectOptions = signal(spec.additional_info.allowed_values);
         config.suffix = spec.unit;
         return config;
       }
@@ -190,7 +192,7 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       config.type = spec.type;
       config.fullWidth = true;
       return config;
-    } else if (spec.type === 'text') {
+    } else if (spec.type === 'text' || spec.type === 'dict') {
       const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
       config.type = 'textarea';
       config.fullWidth = true;
@@ -226,6 +228,23 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       placeholder: spec.human_name ?? defaultPlaceholder,
       hint: spec.short_description,
     };
+  }
+
+  public getCleanConfigValues(values: PrConfigValues, specs?: TdParamSpecs): PrConfigValues {
+    const res: PrConfigValues = {};
+    for (const specName of Object.keys(specs ?? this.specs)) {
+      const spec: TdParamSpec = specs ? specs[specName] : this.specs[specName];
+      if (spec.type === 'dynamic') {
+        res[specName] = this.getCleanConfigValues(values[specName], spec.additional_info['specs']);
+      } else {
+        if (spec.type == 'dict' && specs) {
+          res[specName] = JSON.stringify(values[specName]);
+        } else {
+          res[specName] = values[specName];
+        }
+      }
+    }
+    return res;
   }
 
   /**

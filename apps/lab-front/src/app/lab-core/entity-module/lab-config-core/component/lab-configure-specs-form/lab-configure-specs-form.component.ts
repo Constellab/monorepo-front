@@ -1,21 +1,36 @@
-import { Component, effect, input, OnDestroy, OnInit, output, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  input,
+  OnDestroy,
+  OnInit,
+  Signal,
+  ViewContainerRef
+} from '@angular/core';
 import {
   FlDialogService,
+  FlDynamicEditableFormGroupConfig,
   FlDynamicFieldConfigService,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper
 } from '@monorepo/front-core-lib';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import { ControlContainer, FormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { LabConfigureProcessDynamicField } from '../../lab-configure-process-dynamic-field.service';
 import { PrConfig } from '@monorepo/protocol';
 import {
+  TdAbstractDynamicParamSpecState,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
   TdParamSpecs
 } from '@monorepo/technical-doc';
 import { LabProcess } from '../../../../model/entities/process/lab-process.entity';
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
+import {
+  LabProcessDashboardState
+} from '../../../../../lab-scenario/lab-scenario-detail-page/state/lab-process-dashboard.state';
+import { Subscription } from 'rxjs';
 
 /**
  * Use to create a form to create a configuration based on a spec {@link TdParamSpec}
@@ -27,32 +42,49 @@ import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.sta
   providers: [
     // configure the dynamic field to support tags and other custom fields
     { provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField },
-    LabDynamicParamSpecState,
+    { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
   ],
 })
 export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
   configData = input<LabConfig>();
   process = input<LabProcess>();
 
-  reInitFormGp = output<LabConfig>();
+  publicFormGp: Signal<UntypedFormGroup> = computed(() => {
+    return this.dashboardState.getTaskFormGp()().get('public') as any;
+  });
+  protectedFormGp: Signal<UntypedFormGroup> = computed(() => {
+    return this.dashboardState.getTaskFormGp()().get('protected') as any;
+  });
 
-  publicFormGp: UntypedFormGroup;
-  protectedFormGp: UntypedFormGroup;
+  publicConfig: Signal<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig> = computed(() => {
+    return this.configData().getDynamicFormFieldsConfig('public');
+  });
 
-  publicConfig: FlDynamicFormGroupConfig;
-  protectedConfig: FlDynamicFormGroupConfig;
+  protectedConfig: Signal<FlDynamicFormGroupConfig> = computed(() => {
+    return this.configData().getDynamicFormFieldsConfig('protected');
+  });
 
-  showProtectedConfigs: boolean = false;
-  protectedConfigExpand: boolean = false;
+  showProtectedConfigs: Signal<boolean> = computed(() => this.configData().hasConfigs('protected'));
+  protectedConfigExpand: Signal<boolean> = computed(() => !this.configData().hasConfigs('public'));
+
+  dynamicParamsOnEditSubscriptions: Subscription[] = [];
 
   constructor(
-    private controlContainer: ControlContainer,
     private dialogService: FlDialogService,
-    private editParamSpecState: LabDynamicParamSpecState,
-    private viewContainerRef: ViewContainerRef
+    private editParamSpecState: TdAbstractDynamicParamSpecState,
+    private viewContainerRef: ViewContainerRef,
+    private dashboardState: LabProcessDashboardState
   ) {
     effect(() => {
-      this.init();
+      for (const config of Object.keys(this.publicConfig().subConfigs)) {
+        if (this.publicConfig().subConfigs[config].controlType == 'editableFormGroup') {
+          this.dynamicParamsOnEditSubscriptions.push(
+            (
+              this.publicConfig().subConfigs[config] as FlDynamicEditableFormGroupConfig
+            ).openEditConfigDialog.subscribe((configSpecName) => this.openEditConfigDialog(configSpecName))
+          );
+        }
+      }
     });
   }
 
@@ -71,28 +103,21 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.editParamSpecState.init(this.process());
+    (this.editParamSpecState as LabDynamicParamSpecState).init(this.process());
   }
 
-  init(): void {
-    this.publicConfig = this.configData().getDynamicFormFieldsConfig('public');
-    this.protectedConfig = this.configData().getDynamicFormFieldsConfig('protected');
-    this.publicFormGp = this.controlContainer.control.get('public') as any;
-    this.protectedFormGp = this.controlContainer.control.get('protected') as any;
-    this.showProtectedConfigs = this.configData().hasConfigs('protected');
-    // Automatically expand the advanced config if there is no public config
-    this.protectedConfigExpand = !this.configData().hasConfigs('public');
-  }
-
-  openEditParamSpecsDialog(): void {
+  openEditConfigDialog(configSpecName: string): void {
     if (!this.process()) return;
 
-    if (this.configData().specs['params'] && this.configData().specs['params'].type == 'dynamic') {
-      const paramsSpecs: TdParamSpecs = this.configData().specs['params'].additional_info.specs;
+    if (
+      this.configData().specs[configSpecName] &&
+      this.configData().specs[configSpecName].type == 'dynamic'
+    ) {
+      const paramsSpecs: TdParamSpecs = this.configData().specs[configSpecName].additional_info.specs;
 
       const input: TdConfigureParamSpecsTableDialogInput = {
         paramSpecs: paramsSpecs,
-        dynamicParamSpecState: this.editParamSpecState,
+        configSpecName: configSpecName,
       };
 
       this.dialogService
@@ -103,7 +128,7 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
         .afterClosed()
         .subscribe((config: LabConfig) => {
           if (config) {
-            this.reInitFormGp.emit(config);
+            this.dashboardState.updateConfig(config);
           }
         });
     }
@@ -111,5 +136,9 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.editParamSpecState.onDestroy();
+    for (const configEditSubscription of this.dynamicParamsOnEditSubscriptions) {
+      configEditSubscription.unsubscribe();
+    }
+    this.dynamicParamsOnEditSubscriptions = [];
   }
 }

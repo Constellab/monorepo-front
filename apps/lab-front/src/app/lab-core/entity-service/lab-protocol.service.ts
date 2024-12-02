@@ -12,7 +12,13 @@ import {
   LabCreateScenarioTemplateDTO,
   LabScenarioTemplate,
 } from '../model/entities/process/lab-scenario-template.entity';
-import { TdIOSpec, TdParamSpec, TdParamSpecFormInfoList, TdTypeStyle } from '@monorepo/technical-doc';
+import {
+  TdIOSpec,
+  TdParamSpec,
+  TdParamSpecFormInfoList,
+  TdParamSpecVisibility,
+  TdTypeStyle,
+} from '@monorepo/technical-doc';
 import {
   LabAgent,
   LabAgentDatasourcePaginated,
@@ -489,20 +495,33 @@ export class LabProtocolService {
     );
   }
 
+  public updateCommunityAgentCodeParamsVisibility(
+    protocolId: string,
+    processName: string,
+    visibility: TdParamSpecVisibility
+  ): Observable<LabProcess> {
+    return this.apiService.put(
+      `${this.baseRoute}/${protocolId}/process/${processName}/code-params-visibility/${visibility}`,
+      null,
+      LabProcess
+    );
+  }
+
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
 
-  public getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
-    return this.apiService.get(`${this.baseRoute}/get-param-spec-types`);
+  public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdParamSpecFormInfoList> {
+    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
   }
 
   public addDynamicParamSpec(
     protocolId: string,
     processName: string,
+    configSpecName: string,
     name: string,
     paramSpec: TdParamSpec
   ): Observable<LabConfig> {
     return this.apiService.post(
-      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
       paramSpec,
       LabConfig
     );
@@ -511,11 +530,12 @@ export class LabProtocolService {
   public updateDynamicParamSpec(
     protocolId: string,
     processName: string,
+    configSpecName: string,
     name: string,
     paramSpec: TdParamSpec
   ): Observable<LabConfig> {
     return this.apiService.put(
-      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
       paramSpec,
       LabConfig
     );
@@ -524,33 +544,27 @@ export class LabProtocolService {
   public renameAndUpdateDynamicParamSpec(
     protocolId: string,
     processName: string,
+    configSpecName: string,
     oldName: string,
     name: string,
     paramSpec: TdParamSpec
   ): Observable<LabConfig> {
     return this.apiService.put(
-      `${this.baseRoute}/${protocolId}/process/${processName}` +
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}` +
         `/dynamic-param-spec/${oldName}/rename-and-update/${name}`,
       paramSpec,
       LabConfig
     );
   }
 
-  public updateProcessCodeParamsVisibility(protocolId: string, processName: string): Observable<LabProcess> {
-    return this.apiService.put(
-      `${this.baseRoute}/${protocolId}/process/${processName}/code-params-visibility`,
-      null,
-      LabProcess
-    );
-  }
-
   public deleteDynamicParamSpec(
     protocolId: string,
     processName: string,
+    configSpecName: string,
     name: string
   ): Observable<LabConfig> {
     return this.apiService.delete(
-      `${this.baseRoute}/${protocolId}/process/${processName}/dynamic-param-spec/${name}`,
+      `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
       LabConfig
     );
   }

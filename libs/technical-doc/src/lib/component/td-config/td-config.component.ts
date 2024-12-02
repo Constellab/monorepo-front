@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { TdParamSpec, TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
+import { Component, computed, input, Signal } from '@angular/core';
+import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
 
 @Component({
   selector: 'td-config',
@@ -7,13 +7,25 @@ import { TdParamSpec, TdParamSpecParamSet, TdParamSpecs } from '../../model/td-c
   styleUrls: ['./td-config.component.scss'],
 })
 export class TdConfigComponent {
-  @Input() configSpecs?: TdParamSpecs;
+  configSpecs = input<TdParamSpecs>();
 
-  public getParamSet(confSpec: TdParamSpec): TdParamSpecs {
-    return (confSpec as TdParamSpecParamSet)?.additional_info?.param_set;
-  }
+  paramSet: Signal<Record<string, TdParamSpecs>> = computed(() => {
+    const record: Record<string, TdParamSpecs> = {};
+    for (const configSpec of Object.keys(this.configSpecs())) {
+      record[configSpec] = (
+        this.configSpecs()[configSpec] as TdParamSpecParamSet
+      )?.additional_info?.param_set;
+    }
+    return record;
+  });
 
-  public getMaxParamSetOccurrences(confSpec: TdParamSpec): number {
-    return (confSpec as TdParamSpecParamSet)?.additional_info?.max_number_of_occurrences;
-  }
+  naxParamSetOccurrences: Signal<Record<string, number>> = computed(() => {
+    const record: Record<string, number> = {};
+    for (const configSpec of Object.keys(this.configSpecs())) {
+      record[configSpec] = (
+        this.configSpecs()[configSpec] as TdParamSpecParamSet
+      )?.additional_info?.max_number_of_occurrences;
+    }
+    return record;
+  });
 }

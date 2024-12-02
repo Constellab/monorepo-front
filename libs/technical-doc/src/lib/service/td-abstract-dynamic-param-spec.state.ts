@@ -4,12 +4,9 @@ import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 import { TdEditableParamSpec } from '../component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 
 export abstract class TdAbstractDynamicParamSpecState {
-  private paramSpecs: TdParamSpecs;
-
   public paramSpecsTable: FlArrayObs<TdEditableParamSpec> = new FlEntityArrayObs([], true);
 
   setParamSpecs(paramSpecs: TdParamSpecs): void {
-    this.paramSpecs = paramSpecs;
     this.paramSpecsTable.clear();
     const editableParamSpecs: TdEditableParamSpec[] = [];
     for (const param of Object.keys(paramSpecs)) {
@@ -22,17 +19,26 @@ export abstract class TdAbstractDynamicParamSpecState {
     this.paramSpecsTable.addItem(editableParamSpecs);
   }
 
-  abstract addParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdConfig>;
+  abstract addParamSpec(
+    configSpecName: string,
+    paramName: string,
+    paramSpec: TdParamSpec
+  ): Observable<TdConfig>;
 
-  abstract editParamSpec(paramName: string, paramSpec: TdParamSpec): Observable<TdConfig>;
+  abstract editParamSpec(
+    configSpecName: string,
+    paramName: string,
+    paramSpec: TdParamSpec
+  ): Observable<TdConfig>;
 
   abstract renameAndEditParamSpec(
+    configSpecName: string,
     oldName: string,
     newName: string,
     paramSpec: TdParamSpec
   ): Observable<TdConfig>;
 
-  abstract deleteParamSpec(paramName: string): Observable<TdConfig>;
+  abstract deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfig>;
 
   abstract getParamSpecsInfos(): Observable<TdParamSpecFormInfoList>;
 

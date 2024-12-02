@@ -29,13 +29,13 @@
               </button>
 
               <mat-menu #menuCommunityAgent="matMenu">
-                @if (isCodeShown) {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown()">
+                @if (isCodeShown$ | async) {
+                  <button mat-menu-item type="button" (click)="triggerCodeShown('private')">
                     <mat-icon>visibility_off</mat-icon>
                     {{ 'biox.hide_community_agent_code' | translate }}
                   </button>
                 } @else {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown()">
+                  <button mat-menu-item type="button" (click)="triggerCodeShown('public')">
                     <mat-icon>visibility</mat-icon>
                     {{ 'biox.show_community_agent_code' | translate }}
                   </button>
@@ -174,8 +174,7 @@
 
     <lab-configure-process
       class="section central-section g-scrollable-element"
-      [process$]="process$"
-      [onCodeShownTrigger]="onCodeShownTrigger"></lab-configure-process>
+      [process$]="process$"></lab-configure-process>
 
     <lab-process-io-panel
       [nodeProcess$]="nodeProcess$"

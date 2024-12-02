@@ -14,6 +14,7 @@ import {
   TdParamSpecFormInfoList,
   TdParamSpecType,
 } from './td-config-spec.class';
+import { signal } from '@angular/core';
 
 export class TdParamSpecConfig {
   infoList: TdParamSpecFormInfoList;
@@ -44,7 +45,7 @@ export class TdParamSpecConfig {
     for (const paramSpecInfoKey in typeParamFormInfo) {
       const paramSpecInfoAttribute = typeParamFormInfo[paramSpecInfoKey];
       if ((paramSpecInfoAttribute as TdParamSpecFormInfo).type) {
-        configs.subConfigs[paramSpecInfoKey] = this.convertToAbstractConfig(
+        configs.subConfigs[paramSpecInfoKey] = this.convertParamSpecToAbstractConfig(
           paramSpecInfoKey,
           paramSpecInfoAttribute as TdParamSpecFormInfo
         );
@@ -60,49 +61,64 @@ export class TdParamSpecConfig {
     return configs;
   }
 
-  private convertToAbstractConfig(name: string, specFormInfo: TdParamSpecFormInfo): FlDynamicFieldConfig {
+  private convertParamSpecToAbstractConfig(
+    name: string,
+    specFormInfo: TdParamSpecFormInfo
+  ): FlDynamicFieldConfig {
     if (specFormInfo.value && specFormInfo.type === 'list') {
-      const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(name, specFormInfo) as any;
+      const config: FlDynamicFieldConfigSelect = this.convertParamSpecToBaseFieldConfig(
+        name,
+        specFormInfo
+      ) as any;
       config.type = 'select';
-      config.selectOptions = specFormInfo.value;
+      config.selectOptions = signal(specFormInfo.value);
       return config;
     }
     if (specFormInfo.type === 'bool') {
-      const config: FlDynamicFieldConfigBoolean = this.convertToBaseFieldConfig(name, specFormInfo) as any;
+      const config: FlDynamicFieldConfigBoolean = this.convertParamSpecToBaseFieldConfig(
+        name,
+        specFormInfo
+      ) as any;
       config.type = 'boolean';
       return config;
     } else if (specFormInfo.type === 'list') {
-      const config: FlDynamicFieldConfigList = this.convertToBaseFieldConfig(name, specFormInfo) as any;
+      const config: FlDynamicFieldConfigList = this.convertParamSpecToBaseFieldConfig(
+        name,
+        specFormInfo
+      ) as any;
       config.type = 'list';
       return config;
     } else if (specFormInfo.type === 'text' || specFormInfo.type === 'dict') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
+      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
       config.type = 'textarea';
       config.fullWidth = true;
       return config;
     } else if (tdCodeParamSpecTypeList.includes(specFormInfo.type)) {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
+      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
       config.type = specFormInfo.type;
       config.fullWidth = true;
       return config;
     } else if (specFormInfo.type === 'rich_text_param') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
+      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
       config.type = 'rich_text';
       config.fullWidth = true;
       return config;
     } else if (specFormInfo.type !== 'str' && specFormInfo.type !== 'int' && specFormInfo.type !== 'float') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(name, specFormInfo);
+      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
       config.type = specFormInfo.type;
       config.fullWidth = true;
       return config;
     }
-    const config: FlDynamicFieldConfigInput = this.convertToBaseFieldConfig(name, specFormInfo) as any;
+    const config: FlDynamicFieldConfigInput = this.convertParamSpecToBaseFieldConfig(
+      name,
+      specFormInfo
+    ) as any;
     config.type = 'input';
     config.inputType = specFormInfo.type === 'str' ? 'text' : 'number';
     return config;
   }
 
-  private convertToBaseFieldConfig(
+  private convertParamSpecToBaseFieldConfig(
     name: string,
     specFormInfo: TdParamSpecFormInfo
   ): FlDynamicFieldConfigBase {

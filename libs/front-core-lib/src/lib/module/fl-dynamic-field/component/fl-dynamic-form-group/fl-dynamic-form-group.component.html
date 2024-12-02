@@ -5,7 +5,7 @@
         <fl-dynamic-abstract-form
           [config]="config().subConfigs[controlName]"
           [control]="control().get(controlName)"
-          (openEditParamSpecsDialog)="emitOpenEditParamSpecsDialog()">
+          [configName]="controlName">
         </fl-dynamic-abstract-form>
       </div>
     </ng-container>

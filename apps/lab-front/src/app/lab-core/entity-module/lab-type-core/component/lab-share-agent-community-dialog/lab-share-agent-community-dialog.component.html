@@ -33,7 +33,7 @@
         </button>
       </div>
 
-      @if ((currentAgent && currentAgent.created_by.id == currentUser.id) || !agentVersionId) {
+      @if ((currentAgent && currentAgent.created_by.id === currentUser.id) || !agentVersionId) {
         <mat-divider class="divider"></mat-divider>
         <h3>{{ 'biox.my_agents' | translate }}</h3>
         <div class="existant-agent-info-div">

@@ -1,7 +1,7 @@
-@for (configSpec of configSpecs | flObjectKeys; track configSpec) {
+@for (configSpec of configSpecs() | flObjectKeys; track configSpec) {
   <div
     [class]="
-      (configSpecs | flObjectKeys).indexOf(configSpec) < (configSpecs | flObjectKeys).length - 1
+      (configSpecs() | flObjectKeys).indexOf(configSpec) < (configSpecs() | flObjectKeys).length - 1
         ? 'spacing-6-v2'
         : ''
     ">
@@ -10,30 +10,30 @@
         {{ configSpec }}
       </p>
       <div class="chip-div">
-        @if (configSpecs[configSpec].optional) {
+        @if (configSpecs()[configSpec].optional) {
           <fl-chip class="g-primary-background chip" size="small">
             {{ 'td.optional' | translate }}
           </fl-chip>
         }
-        @if (configSpecs[configSpec].visibility !== 'public') {
+        @if (configSpecs()[configSpec].visibility !== 'public') {
           <fl-chip class="g-primary-background chip" size="small">
             {{ 'td.advanced_parameter' | translate }}
           </fl-chip>
         }
       </div>
     </div>
-    <p class="code1-v2">{{ configSpecs[configSpec].short_description }}</p>
-    @if (configSpecs[configSpec].type !== 'param_set') {
-      @if (configSpecs[configSpec].type) {
+    <p class="code1-v2">{{ configSpecs()[configSpec].short_description }}</p>
+    @if (configSpecs()[configSpec].type !== 'param_set') {
+      @if (configSpecs()[configSpec].type) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.type' | translate }}</fl-key>
-          <code>{{ configSpecs[configSpec].type === 'str' ? 'string' : configSpecs[configSpec].type }}</code>
+          <code>{{ configSpecs()[configSpec].type === 'str' ? 'string' : configSpecs()[configSpec].type }}</code>
         </fl-key-value>
       }
-      @if (configSpecs[configSpec].additional_info?.allowed_values) {
+      @if (configSpecs()[configSpec].additional_info?.allowed_values) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.allowed_values' | translate }}</fl-key>
-          @for (allowedValue of configSpecs[configSpec].additional_info?.allowed_values; track allowedValue) {
+          @for (allowedValue of configSpecs()[configSpec].additional_info?.allowed_values; track allowedValue) {
             <span
               ><code>{{ allowedValue }}</code
               >&nbsp;</span
@@ -41,27 +41,27 @@
           }
         </fl-key-value>
       }
-      @if (configSpecs[configSpec].default_value) {
+      @if (configSpecs()[configSpec].default_value) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.default_value' | translate }}</fl-key>
-          <code>{{ configSpecs[configSpec].default_value }}</code>
+          <code>{{ configSpecs()[configSpec].default_value }}</code>
         </fl-key-value>
       }
     } @else {
-      @if (configSpecs[configSpec].type) {
+      @if (configSpecs()[configSpec].type) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.type' | translate }}</fl-key>
           <code>{{ 'td.param_set' | translate }}</code>
         </fl-key-value>
       }
-      @if (getMaxParamSetOccurrences(configSpecs[configSpec])) {
+      @if (naxParamSetOccurrences()[configSpec]) {
         <fl-key-value class="code1-v2">
           <fl-key>{{ 'td.max_occurrence_number' | translate }}</fl-key>
-          <code>{{ getMaxParamSetOccurrences(configSpecs[configSpec]) }}</code>
+          <code>{{ naxParamSetOccurrences()[configSpec] }}</code>
         </fl-key-value>
       }
-      @if (getParamSet(configSpecs[configSpec]) | flIsNotEmpty) {
-        <td-config [configSpecs]="getParamSet(configSpecs[configSpec])"></td-config>
+      @if (paramSet()[configSpec] | flIsNotEmpty) {
+        <td-config [configSpecs]="paramSet()[configSpec]"></td-config>
       }
     }
   </div>

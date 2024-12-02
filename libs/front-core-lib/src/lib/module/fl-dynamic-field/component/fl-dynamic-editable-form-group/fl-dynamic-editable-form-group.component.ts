@@ -1,4 +1,4 @@
-import { Component, input, OnInit, OutputEmitterRef } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
 import { FlDynamicEditableFormGroupConfig } from '../../model/fl-dynamic-field-config.class';
 import { UntypedFormGroup } from '@angular/forms';
@@ -16,13 +16,13 @@ export class FlDynamicEditableFormGroupComponent implements OnInit, FlDynamicAbs
 
   config = input<FlDynamicEditableFormGroupConfig>();
 
-  openEditParamSpecsDialog: OutputEmitterRef<void>;
+  configName = input<string>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   emitOpenEditParamSpecsDialog(): void {
-    this.openEditParamSpecsDialog.emit();
+    this.config().openEditConfigDialog.emit(this.configName());
   }
 }

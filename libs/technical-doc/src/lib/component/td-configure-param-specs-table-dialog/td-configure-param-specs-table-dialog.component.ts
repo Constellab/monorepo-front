@@ -10,8 +10,8 @@ import {
 } from '../td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 
 export interface TdConfigureParamSpecsTableDialogInput {
+  configSpecName: string;
   paramSpecs: TdParamSpecs;
-  dynamicParamSpecState: TdAbstractDynamicParamSpecState;
 }
 
 @Component({
@@ -20,18 +20,19 @@ export interface TdConfigureParamSpecsTableDialogInput {
   styleUrl: './td-configure-param-specs-table-dialog.component.scss',
 })
 export class TdConfigureParamSpecsTableDialogComponent {
-  dynamicParamSpecState: TdAbstractDynamicParamSpecState;
   paramSpecs: TdParamSpecs;
   config: TdConfig;
+  configSpecName: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: TdConfigureParamSpecsTableDialogInput,
     private dialogService: FlDialogService,
     private dialogRef: MatDialogRef<TdConfigureParamSpecsTableDialogComponent>,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    private dynamicParamSpecState: TdAbstractDynamicParamSpecState
   ) {
-    this.dynamicParamSpecState = data.dynamicParamSpecState;
     this.paramSpecs = data.paramSpecs;
+    this.configSpecName = data.configSpecName;
 
     this.dialogRef.backdropClick().subscribe(() => this.closeDialog());
     this.dialogRef.keydownEvents().subscribe((event: KeyboardEvent) => {
@@ -43,8 +44,8 @@ export class TdConfigureParamSpecsTableDialogComponent {
 
   openEditParamSpecDialog(param: TdEditableParamSpec = null): void {
     const input: TdEditParamSpecDialogInput = {
-      dynamicParamSpecState: this.dynamicParamSpecState,
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
+      configSpecName: this.configSpecName,
       name: param?.name,
       spec: param != null ? this.paramSpecs[param.name] : null,
     };
@@ -58,7 +59,8 @@ export class TdConfigureParamSpecsTableDialogComponent {
       .subscribe((output: TdConfig) => {
         if (output) {
           this.config = output;
-          if (output.specs['params']) this.paramSpecs = output.specs['params'].additional_info.specs;
+          if (output.specs[this.configSpecName])
+            this.paramSpecs = output.specs[this.configSpecName].additional_info.specs;
         }
       });
   }
@@ -68,19 +70,25 @@ export class TdConfigureParamSpecsTableDialogComponent {
       title: 'td.confirm_param_spec_deletion_title',
       content: 'td.confirm_param_spec_deletion_content',
       successMessage: 'td.confirm_param_spec_deletion_success',
-      observable: this.dynamicParamSpecState.deleteParamSpec(param.name),
     };
 
     this.dialogService
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((res: FlConfirmDialogResult<TdConfig>) => {
-        if (!res || !res.choice) {
-          return null;
+        if (res && res.choice) {
+          this.deleteParam(param.name);
         }
-        this.config = res.result;
-        this.dynamicParamSpecState.setParamSpecs(res.result.specs['params'].additional_info.specs);
       });
+  }
+
+  deleteParam(paramName: string): void {
+    this.dynamicParamSpecState.deleteParamSpec(this.configSpecName, paramName).subscribe((res) => {
+      if (res) {
+        this.config = res;
+        this.dynamicParamSpecState.setParamSpecs(res.specs[this.configSpecName].additional_info.specs);
+      }
+    });
   }
 
   closeDialog(): void {

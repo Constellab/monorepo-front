@@ -2,7 +2,7 @@
   <div class="spacer"></div>
 
   <h4 class="detail-version-title">
-    @if (agentVersion()?.agent != null && isOverview) {
+    @if (agentVersion()?.agent && isOverview) {
       {{ ('latest_version_infos' | translate) + ' (V' + agentVersion()?.agent.latestPublishVersion + ')' }}
     } @else {
       {{ 'detail_of_the_version' | translate }}

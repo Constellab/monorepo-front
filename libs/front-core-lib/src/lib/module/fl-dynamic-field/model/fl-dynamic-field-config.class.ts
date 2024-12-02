@@ -1,3 +1,5 @@
+import { EventEmitter, Signal } from '@angular/core';
+
 /**
  * Generic config for a FormGroup, FormArray or FormControl
  */
@@ -32,7 +34,7 @@ export interface FlDynamicFormGroupConfig extends FlFormGroupConfig {
  */
 export interface FlDynamicEditableFormGroupConfig extends FlFormGroupConfig {
   controlType: 'editableFormGroup';
-  specs: Record<string, any>;
+  openEditConfigDialog: EventEmitter<string>;
 }
 
 /**
@@ -84,15 +86,23 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
   // validators (only for numbers)
   min?: number;
   max?: number;
-  // if true the number must be an integer
+  // if true the number must be an insteger
   integer?: boolean;
 }
+
+export interface FlDynamicFieldSelectKeyNameOption {
+  key: string;
+  humanName: string;
+}
+
+export type FlDynamicFieldSelectOptions = any[] | FlDynamicFieldSelectKeyNameOption[];
 
 export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterialInput {
   type: 'select';
 
-  selectOptions: any[] | Record<string, any>;
+  selectOptions: Signal<FlDynamicFieldSelectOptions>;
 }
+
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {
   type: 'select-search';
