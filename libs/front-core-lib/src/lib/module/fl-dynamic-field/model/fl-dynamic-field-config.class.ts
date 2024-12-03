@@ -1,26 +1,40 @@
+import { EventEmitter, Signal } from '@angular/core';
+
 /**
  * Generic config for a FormGroup, FormArray or FormControl
  */
 export type FlDynamicFormAbstractControl =
   | FlDynamicFormGroupConfig
   | FlDynamicFormArrayConfig
-  | FlDynamicFieldConfig;
+  | FlDynamicFieldConfig
+  | FlDynamicEditableFormGroupConfig;
 
 /**
  * Base object for configs
  */
 interface FlDynamicFormConfigBase {
-  controlType: 'formControl' | 'formGroup' | 'formArray';
+  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup';
   placeholder?: string;
   hint?: string;
+}
+
+export interface FlFormGroupConfig extends FlDynamicFormConfigBase {
+  subConfigs: Record<string, FlDynamicFormAbstractControl>;
 }
 
 /**
  * Config for a FormGroup
  */
-export interface FlDynamicFormGroupConfig extends FlDynamicFormConfigBase {
+export interface FlDynamicFormGroupConfig extends FlFormGroupConfig {
   controlType: 'formGroup';
-  subConfigs: Record<string, FlDynamicFormAbstractControl>;
+}
+
+/**
+ * Config for an editable FormGroup (used for dynamic forms)
+ */
+export interface FlDynamicEditableFormGroupConfig extends FlFormGroupConfig {
+  controlType: 'editableFormGroup';
+  openEditConfigDialog: EventEmitter<string>;
 }
 
 /**
@@ -72,15 +86,23 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
   // validators (only for numbers)
   min?: number;
   max?: number;
-  // if true the number must be an integer
+  // if true the number must be an insteger
   integer?: boolean;
 }
+
+export interface FlDynamicFieldSelectKeyNameOption {
+  key: string;
+  humanName: string;
+}
+
+export type FlDynamicFieldSelectOptions = any[] | FlDynamicFieldSelectKeyNameOption[];
 
 export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterialInput {
   type: 'select';
 
-  selectOptions: any[];
+  selectOptions: Signal<FlDynamicFieldSelectOptions>;
 }
+
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {
   type: 'select-search';

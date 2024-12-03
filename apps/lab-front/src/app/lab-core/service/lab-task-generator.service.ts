@@ -24,10 +24,6 @@ export class LabTaskGeneratorService {
    * @param agentId
    */
   public generateAgentFile(protocolId: string, agentId: string): Observable<Blob> {
-    return this.apiService.downloadFilePost(
-      `${this.route}/agent-file/${protocolId}/${agentId}`,
-      null,
-      'agent_file.json'
-    );
+    return this.apiService.downloadFilePost(`${this.route}/agent-file/${agentId}`, null, 'agent_file.json');
   }
 }

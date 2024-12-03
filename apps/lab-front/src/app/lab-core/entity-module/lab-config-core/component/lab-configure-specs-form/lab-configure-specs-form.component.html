@@ -1,23 +1,21 @@
 <div class="container">
   <fl-dynamic-form-group
     class="g-form-field-compact"
-    [control]="publicFormGp"
-    [config]="publicConfig"></fl-dynamic-form-group>
+    [control]="publicFormGp()"
+    [config]="publicConfig()"></fl-dynamic-form-group>
 </div>
 
-<mat-expansion-panel
-  *ngIf="showProtectedConfigs"
-  flDisableAnimationInit
-  [expanded]="protectedConfigExpand"
-  class="advanced-config">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{ 'biox.advanced_configuration' | translate }}
-    </mat-panel-title>
-  </mat-expansion-panel-header>
+@if (showProtectedConfigs()) {
+  <mat-expansion-panel flDisableAnimationInit [expanded]="protectedConfigExpand()" class="advanced-config">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'biox.advanced_configuration' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <fl-dynamic-form-group
-    class="g-form-field-compact"
-    [control]="protectedFormGp"
-    [config]="protectedConfig"></fl-dynamic-form-group>
-</mat-expansion-panel>
+    <fl-dynamic-form-group
+      class="g-form-field-compact"
+      [control]="protectedFormGp()"
+      [config]="protectedConfig()"></fl-dynamic-form-group>
+  </mat-expansion-panel>
+}

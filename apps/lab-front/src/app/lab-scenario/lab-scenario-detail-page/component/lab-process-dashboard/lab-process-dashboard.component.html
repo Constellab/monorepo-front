@@ -18,9 +18,36 @@
           }
         </div>
 
-        <!--    Top right section with status and buttons    -->
-        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-          <fl-status-chip [status]="process.status"></fl-status-chip>
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+            @if (isCommunityAgent) {
+              <button
+                mat-icon-button
+                [matTooltip]="'biox.community_agent_tooltip' | translate"
+                [matMenuTriggerFor]="menuCommunityAgent"
+                matTooltipPosition="below">
+                <mat-icon svgIcon="community-icon"></mat-icon>
+              </button>
+
+              <mat-menu #menuCommunityAgent="matMenu">
+                @if (isCodeShown$ | async) {
+                  <button mat-menu-item type="button" (click)="triggerCodeShown('private')">
+                    <mat-icon>visibility_off</mat-icon>
+                    {{ 'biox.hide_community_agent_code' | translate }}
+                  </button>
+                } @else {
+                  <button mat-menu-item type="button" (click)="triggerCodeShown('public')">
+                    <mat-icon>visibility</mat-icon>
+                    {{ 'biox.show_community_agent_code' | translate }}
+                  </button>
+                }
+                <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process, true)">
+                  <mat-icon>share</mat-icon>
+                  {{ 'biox.share_a_new_agent_version' | translate }}
+                </button>
+              </mat-menu>
+            }
+
+            <fl-status-chip [status]="process.status"></fl-status-chip>
 
           @if (isEditable$ | async) {
             <button

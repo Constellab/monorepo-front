@@ -1,37 +1,43 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
-  LabTypeDialogInput,
+  LabTypeDialogInput
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
-import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import {
+  LabProgressBarInfoDialogComponent
+} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   LabLogBetweenDatesDialogInput,
-  LabLogsBetweenDatesDialogComponent,
+  LabLogsBetweenDatesDialogComponent
 } from '../../../../lab-core/entity-module/lab-log-core/lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { TdTypingName } from '@monorepo/technical-doc';
+import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib';
-import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import {
+  LabSystemConfigDialogComponent
+} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
-  LabMonitorBetweenDatesDialogInput,
+  LabMonitorBetweenDatesDialogInput
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
-import { LabShareAgentCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
+import {
+  LabShareAgentCommunityDialogComponent
+} from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 import {
   LabProcessEditStyleDialogComponent,
-  LabProcessEditStyleDialogInputData,
+  LabProcessEditStyleDialogInputData
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
 
 /**
@@ -43,7 +49,7 @@ import {
   styleUrls: ['./lab-process-dashboard.component.scss'],
   providers: [LabProcessDashboardState],
 })
-export class LabProcessDashboardComponent {
+export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
 
@@ -62,6 +68,12 @@ export class LabProcessDashboardComponent {
     .getProcess$()
     .pipe(map((process) => process.processTypingName.slice(0, 4) === 'TASK'));
 
+  isCommunityAgent: boolean;
+
+  isCodeShown$: Subject<boolean> = new Subject();
+
+  communityAgentVisibilityChangedSubscription: Subscription;
+
   constructor(
     private nodeState: LabWorkflowNodeDetailState,
     private scenarioState: LabScenarioDetailPageState,
@@ -72,6 +84,22 @@ export class LabProcessDashboardComponent {
     private taskGeneratorService: LabTaskGeneratorService,
     private communityHelper: CoCommunityHelperService
   ) {}
+
+  ngOnInit(): void {
+    this.nodeState.getProcess$().subscribe((process) => {
+      if (process?.communityAgentVersionId != null) {
+        this.isCommunityAgent = true;
+        this.isCodeShown$.next(process.config.specs['code']?.visibility == 'public');
+      }
+    });
+
+    this.communityAgentVisibilityChangedSubscription =
+      this.dashboardState.onCommunityAgentVisibilityChanged.subscribe((visibility: TdParamSpecVisibility) =>
+        this.onVisibilityChanged(visibility)
+      );
+
+    this.dashboardState.init(this.nodeState);
+  }
 
   openTypingDoc(typingName: string): void {
     const data: LabTypeDialogInput = {
@@ -151,12 +179,17 @@ export class LabProcessDashboardComponent {
     this.taskGeneratorService.generateAgentFile(process.parentProtocolId, process.id).subscribe();
   }
 
-  openShareCommunityAgentDialog(process: LabProcess): void {
+  triggerCodeShown(newVisibility: TdParamSpecVisibility): void {
+    this.dashboardState.changeCommunityAgentVisibilityEvent.emit(newVisibility);
+  }
+
+  openShareCommunityAgentDialog(process: LabProcess, onlyUpdate = false): void {
     this.dialogService
       .openMediumDialog(LabShareAgentCommunityDialogComponent, {
         data: {
           processId: process.id,
           agentVersionId: process.communityAgentVersionId,
+          onlyUpdate: onlyUpdate,
         },
       })
       .afterClosed()
@@ -181,7 +214,7 @@ export class LabProcessDashboardComponent {
       .afterClosed()
       .subscribe((process: LabProcess) => {
         if (process) {
-          this.nodeState.updateProcessStyle(process);
+          this.nodeState.updateProcess(process);
           this.process$ = of(process);
         }
       });
@@ -193,5 +226,14 @@ export class LabProcessDashboardComponent {
 
   duplicateTask(process: LabProcess): void {
     this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
+  }
+
+  onVisibilityChanged(visibility: TdParamSpecVisibility): void {
+    this.isCodeShown$.next(visibility == 'public');
+  }
+
+  ngOnDestroy(): void {
+    this.communityAgentVisibilityChangedSubscription?.unsubscribe();
+    this.isCodeShown$.complete();
   }
 }

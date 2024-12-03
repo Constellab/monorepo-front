@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: var(--hover-color);
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+.element-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.empty-table {
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.button-warn {
+  color: var(--warn-color);
+
+}

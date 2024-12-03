@@ -1,24 +1,18 @@
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
-  FlDynamicFieldConfig,
-  FlDynamicFieldConfigBase,
-  FlDynamicFieldConfigBoolean,
-  FlDynamicFieldConfigInput,
-  FlDynamicFieldConfigList,
-  FlDynamicFieldConfigSelect,
-  FlDynamicFieldConfigSelectSearch,
-  FlDynamicFieldConfigUnknown,
+  FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig,
+  FlDynamicFormGroupConfig
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
-  tdCodeParamSpecTypeList,
+  TdConfig,
   TdParamSpec,
+  TdParamSpecConfig,
   TdParamSpecs,
-  TdParamSpecSimple,
-  TdParamSpecVisibility,
+  TdParamSpecVisibility
 } from '@monorepo/technical-doc';
+import { EventEmitter } from '@angular/core';
 
 /**
  * form structure for the {@link LabConfigureSpecsFormComponent}
@@ -31,7 +25,7 @@ export interface LabConfigureSpecsForm {
 /**
  * Config object for a process
  */
-export class LabConfig extends LabBaseEntity {
+export class LabConfig extends LabBaseEntity implements TdConfig {
   // object describing the type of the configs and default values
   specs: TdParamSpecs;
 
@@ -45,7 +39,7 @@ export class LabConfig extends LabBaseEntity {
   public static fromSpecs(specs: TdParamSpecs, values?: PrConfigValues): LabConfig {
     const config = new LabConfig();
     config.specs = specs;
-    config.values = values ?? config.getDefaultConfig();
+    config.values = config.getCleanConfigValues(values) ?? config.getDefaultConfig();
     return config;
   }
 
@@ -82,6 +76,19 @@ export class LabConfig extends LabBaseEntity {
     return configs;
   }
 
+  private convertRecordToEditableFieldConfigs(record: TdParamSpecs): FlDynamicEditableFormGroupConfig {
+    const configs: FlDynamicEditableFormGroupConfig = {
+      placeholder: 'biox.dynamic_params',
+      controlType: 'editableFormGroup',
+      subConfigs: {},
+      openEditConfigDialog: new EventEmitter<string>(),
+    };
+    for (const specName in record) {
+      configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
+    }
+    return configs;
+  }
+
   private convertToAbstractConfig(
     spec: TdParamSpec,
     defaultPlaceholder: string
@@ -100,115 +107,28 @@ export class LabConfig extends LabBaseEntity {
             : null,
         newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
       };
+    } else if (spec.type == 'dynamic') {
+      return this.convertRecordToEditableFieldConfigs(spec.additional_info.specs);
     } else {
-      return this.convertToControlConfig(spec, defaultPlaceholder);
+      return TdParamSpecConfig.convertParamSpecToAbstractConfig(spec, defaultPlaceholder);
     }
   }
 
-  private convertToControlConfig(spec: TdParamSpecSimple, defaultPlaceholder: string): FlDynamicFieldConfig {
-    // create a select
-    if (spec.allowed_values) {
-      if (spec.allowed_values.length > 10) {
-        const config: FlDynamicFieldConfigSelectSearch = this.convertToBaseFieldConfig(
-          spec,
-          defaultPlaceholder
-        ) as any;
-        config.type = 'select-search';
-        config.selectOptions = spec.allowed_values;
-        return config;
+  public getCleanConfigValues(values: PrConfigValues, specs?: TdParamSpecs): PrConfigValues {
+    const res: PrConfigValues = {};
+    for (const specName of Object.keys(specs ?? this.specs)) {
+      const spec: TdParamSpec = specs ? specs[specName] : this.specs[specName];
+      if (spec.type === 'dynamic') {
+        res[specName] = this.getCleanConfigValues(values[specName], spec.additional_info['specs']);
       } else {
-        const config: FlDynamicFieldConfigSelect = this.convertToBaseFieldConfig(
-          spec,
-          defaultPlaceholder
-        ) as any;
-        config.type = 'select';
-        config.selectOptions = spec.allowed_values;
-        config.suffix = spec.unit;
-        return config;
+        if (spec.type == 'dict' && specs) {
+          res[specName] = JSON.stringify(values[specName]);
+        } else {
+          res[specName] = values[specName];
+        }
       }
-    } else if (spec.type === 'list') {
-      const config: FlDynamicFieldConfigList = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'list';
-      return config;
-    } else if (spec.type === 'bool') {
-      const config: FlDynamicFieldConfigBoolean = this.convertToBaseFieldConfig(
-        spec,
-        defaultPlaceholder
-      ) as any;
-      config.type = 'boolean';
-      return config;
-    } else if (spec.type === 'tags_param') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'tags';
-      return config;
-    } else if (spec.type === 'open_ai_chat_param') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'open_ai_chat';
-      config.fullWidth = true;
-      return config;
-    } else if (spec.type === 'credentials_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
-        spec,
-        defaultPlaceholder
-      ) as any;
-      config.type = 'select_credentials';
-      config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
-      return config;
-    } else if (spec.type === 'note_template_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
-        spec,
-        defaultPlaceholder
-      ) as any;
-      config.type = 'select_note_template';
-      return config;
-    } else if (spec.type === 'note_param') {
-      const config: FlDynamicFieldConfigUnknown = this.convertToBaseFieldConfig(
-        spec,
-        defaultPlaceholder
-      ) as any;
-      config.type = 'select_note';
-      return config;
-    } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = spec.type;
-      config.fullWidth = true;
-      return config;
-    } else if (spec.type === 'text') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'textarea';
-      config.fullWidth = true;
-      return config;
-    } else if (spec.type === 'rich_text_param') {
-      const config: FlDynamicFieldConfig = this.convertToBaseFieldConfig(spec, defaultPlaceholder) as any;
-      config.type = 'rich_text';
-      config.fullWidth = true;
-      return config;
-    } else {
-      const config: FlDynamicFieldConfigInput = this.convertToBaseFieldConfig(
-        spec,
-        defaultPlaceholder
-      ) as any;
-      config.type = 'input';
-      config.inputType = spec.type === 'str' ? 'text' : 'number';
-      config.suffix = spec.unit;
-
-      if (spec.type === 'int' || spec.type === 'float') {
-        config.min = spec.additional_info.min_value;
-        config.max = spec.additional_info.max_value;
-        config.integer = spec.type === 'int';
-      }
-      return config;
     }
-  }
-
-  private convertToBaseFieldConfig(spec: TdParamSpec, defaultPlaceholder: string): FlDynamicFieldConfigBase {
-    return {
-      controlType: 'formControl',
-      type: null,
-      required: !spec.optional,
-      placeholder: spec.human_name ?? defaultPlaceholder,
-      hint: spec.short_description,
-    };
+    return res;
   }
 
   /**
@@ -243,6 +163,12 @@ export class LabConfig extends LabBaseEntity {
 
       // return an array of 1 element with the default value
       return [defaultConfig];
+    } else if (spec.type === 'dynamic') {
+      const defaultConfig: any = {};
+      for (const subSpecName of Object.keys(spec.additional_info.specs)) {
+        const subSpec: TdParamSpec = spec.additional_info.specs[subSpecName];
+        defaultConfig[subSpecName] = subSpec.default_value;
+      }
     } else {
       return spec.default_value ?? undefined;
     }

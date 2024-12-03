@@ -13,6 +13,7 @@ import { LabUser } from '../../../../model/entities/lab-user.entity';
 export interface LabShareAgentCommunityDialogData {
   processId: string;
   agentVersionId: string;
+  onlyUpdate: boolean;
 }
 
 @Component({
@@ -27,6 +28,7 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   currentAgent: LabAgent;
   currentUser: LabUser;
   isLoading: boolean = false;
+  onlyUpdate: boolean = false;
   protected readonly labCreateCommunityAgentDialogMode = LabCreateCommunityAgentDialogMode;
 
   constructor(
@@ -39,6 +41,9 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   ) {
     this.processId = data.processId;
     this.agentVersionId = data.agentVersionId;
+
+    // if true, only display the add new version to linked community agent part
+    this.onlyUpdate = data.onlyUpdate;
   }
 
   ngOnInit(): void {
@@ -80,7 +85,13 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
       });
   }
 
-  openCreateCommunityAgentDialog(mode: LabCreateCommunityAgentDialogMode): void {
+  openCreateCommunityAgentDialog(agentVersionId?: string): void {
+    let mode: LabCreateCommunityAgentDialogMode;
+    if (agentVersionId) {
+      mode = LabCreateCommunityAgentDialogMode.FORK;
+    } else {
+      mode = LabCreateCommunityAgentDialogMode.CREATE;
+    }
     this.dialogService
       .openSmallDialog(LabCreateCommunityAgentDialogComponent, {
         data: {

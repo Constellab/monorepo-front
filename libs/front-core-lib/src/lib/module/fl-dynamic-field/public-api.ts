@@ -13,6 +13,7 @@ export * from './component/fl-dynamic-form-array/fl-dynamic-form-array.component
 export * from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
 export * from './component/fl-dynamic-field-list/fl-dynamic-field-list.component';
 export * from './component/fl-multi-inputs/fl-multi-inputs.component';
+export * from './component/fl-dynamic-editable-form-group/fl-dynamic-editable-form-group.component';
 
 // Export the models
 export * from './model/fl-dynamic-abstract-form.directive';

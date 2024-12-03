@@ -1,0 +1,26 @@
+@if (control() && config()) {
+  <fl-section [disableEmptyText]="true" class="section">
+    <fl-section-header>
+      <div>{{ config().placeholder | translate }}</div>
+      @if (config().hint) {
+        <div class="g-text-small g-text-light">{{ config().hint }}</div>
+      }
+      <fl-section-actions>
+        <div>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="emitOpenEditParamSpecsDialog()"
+            class="g-button-small">
+            {{ 'flDynamicField.edit_params_specs' | translate }}
+          </button>
+        </div>
+      </fl-section-actions>
+    </fl-section-header>
+    <ng-container *flSectionBody>
+      <div [formGroup]="control()" class="g-full g-layout-col g-gap-1em body">
+        <fl-dynamic-form-group [config]="config()" [control]="control()"></fl-dynamic-form-group>
+      </div>
+    </ng-container>
+  </fl-section>
+}

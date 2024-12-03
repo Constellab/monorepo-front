@@ -1,10 +1,13 @@
-<div [formGroup]="control" class="g-layout-row-wrap g-full container">
-  <ng-container *ngFor="let controlName of config.subConfigs | flObjectKeys">
-    <div [ngClass]="getControlClass(config.subConfigs[controlName])">
-      <fl-dynamic-abstract-form
-        [config]="config.subConfigs[controlName]"
-        [control]="control.get(controlName)">
-      </fl-dynamic-abstract-form>
-    </div>
-  </ng-container>
-</div>
+@if (control() && config()) {
+  <div [formGroup]="control()" class="g-layout-row-wrap g-full container">
+    <ng-container *ngFor="let controlName of config().subConfigs | flObjectKeys">
+      <div [ngClass]="getControlClass(config().subConfigs[controlName])">
+        <fl-dynamic-abstract-form
+          [config]="config().subConfigs[controlName]"
+          [control]="control().get(controlName)"
+          [configName]="controlName">
+        </fl-dynamic-abstract-form>
+      </div>
+    </ng-container>
+  </div>
+}

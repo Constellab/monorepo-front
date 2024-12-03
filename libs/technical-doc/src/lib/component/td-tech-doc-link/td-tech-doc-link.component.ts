@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TdServiceConfig, TdTechnicalDocUrl } from '../../service/td-service-config.config';
+import {
+  TdTechnicalDocServiceConfig,
+  TdTechnicalDocUrl,
+} from '../../service/td-technical-doc-service-config.config';
 import { TdTypingName } from '../../model/td-typing-name.class';
 
 @Component({
@@ -13,7 +16,7 @@ export class TdTechDocLinkComponent {
 
   @Input({ required: true }) version: string;
 
-  constructor(private tdServiceConfig: TdServiceConfig) {}
+  constructor(private tdServiceConfig: TdTechnicalDocServiceConfig) {}
 
   get docUrl(): TdTechnicalDocUrl {
     const typingName: TdTypingName = new TdTypingName(this.typingName);

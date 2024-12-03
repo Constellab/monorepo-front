@@ -424,6 +424,12 @@
     "scenario_import_resource_mode_none": "No resource",
     "history": "History",
     "edit_process_style": "Edit process style",
-    "process_style_updated": "Process style updated"
+    "edit_params_specs": "Edit parameters",
+    "process_style_updated": "Process style updated",
+    "show_community_agent_code": "Show Community agent code",
+    "hide_community_agent_code": "Hide Community agent code",
+    "share_a_new_agent_version": "Share a new agent version",
+    "community_agent_tooltip": "This task is a Community agent",
+    "dynamic_params": "Dynamic params"
   }
 }

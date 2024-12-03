@@ -1,11 +1,13 @@
 import {
   Component,
   ComponentRef,
-  Input,
+  effect,
+  Injector,
+  input,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { FlDynamicFieldConfig } from '../../model/fl-dynamic-field-config.class';
 import { UntypedFormControl } from '@angular/forms';
@@ -22,21 +24,38 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
   styleUrls: ['./fl-dynamic-field.component.scss'],
 })
 export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbstractFormDirective {
-  @Input() config: FlDynamicFieldConfig;
+  config = input<FlDynamicFieldConfig>();
 
-  @Input() control: UntypedFormControl;
+  control = input<UntypedFormControl>();
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
 
-  constructor(private fieldConfig: FlDynamicFieldConfigService) {}
+  constructor(
+    private fieldConfig: FlDynamicFieldConfigService,
+    private injector: Injector
+  ) {}
 
   ngOnInit(): void {
-    this.viewComponentRef = this.fieldConfig.generateComponent(this.config, this.viewContainer, this.control);
+    effect(
+      () => {
+        this.destroy();
+        this.viewComponentRef = this.fieldConfig.generateComponent(
+          this.config(),
+          this.viewContainer,
+          this.control()
+        );
+      },
+      { injector: this.injector }
+    );
   }
 
   ngOnDestroy(): void {
+    this.destroy();
+  }
+
+  private destroy(): void {
     this.viewComponentRef?.destroy();
   }
 }

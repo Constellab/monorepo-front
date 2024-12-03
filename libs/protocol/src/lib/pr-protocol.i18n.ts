@@ -62,6 +62,9 @@ const prProtocolI18nFr: FlLangTranslation = {
     port_name: 'Nom du port',
     add_empty_protocol: 'Ajouter un playground vide',
     adding_empty_protocol: "Ajout d'un playground vide",
+    adding_param_spec: "Ajout d'un paramètre",
+    updating_param_spec: "Modification d'un paramètre",
+    deleting_param_spec: "Suppression d'un paramètre",
   },
 };
 
@@ -122,6 +125,9 @@ const prProtocolI18nEn: FlLangTranslation = {
     port_name: 'Port name',
     add_empty_protocol: 'Add an empty playground',
     adding_empty_protocol: 'Adding an empty playground',
+    adding_param_spec: 'Adding a parameter',
+    updating_param_spec: 'Updating a parameter',
+    deleting_param_spec: 'Deleting a parameter',
   },
 };
 

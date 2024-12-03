@@ -78,6 +78,7 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'constellab_document', matIconName: 'description' },
   { name: 'brick', filename: 'brick.svg' },
   { name: 'agent', filename: 'laptop-code-solid.svg' },
+  { name: 'community-icon', filename: 'community_logo.svg' },
 ];
 
 export function getFileIconFromExtension(extension: string): string {

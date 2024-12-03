@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TdServiceConfig, TdTechnicalDocUrl, TdTypingName } from '@monorepo/technical-doc';
+import { TdTechnicalDocServiceConfig, TdTechnicalDocUrl, TdTypingName } from '@monorepo/technical-doc';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 /**
@@ -8,7 +8,7 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
 @Injectable({
   providedIn: 'root',
 })
-export class CaTdServiceConfig extends TdServiceConfig {
+export class CaTdServiceConfig extends TdTechnicalDocServiceConfig {
   constructor(private communityHelper: CoCommunityHelperService) {
     super();
   }

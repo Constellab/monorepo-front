@@ -1,11 +1,11 @@
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TdConfig, TdParamSpecs } from '@monorepo/technical-doc';
 
 export type PrConfigValues = Record<string, any>;
 
 /**
  * Config object for a process
  */
-export interface PrConfig {
+export interface PrConfig extends TdConfig {
   // object describing the type of the configs and default values
   specs: TdParamSpecs;
 

@@ -7,7 +7,7 @@
   gap: 0.75em;
 }
 
-.current-agent-div {
+.new-agent-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -33,9 +33,14 @@
   margin-bottom: 0.5em;
 }
 
+.current-agent-div {
+  display: block;
+  width: 40rem;
+}
+
 .current-agent {
   background-color: var(--main-background) !important;
-  width: 40rem;
+  cursor: pointer;
 }
 
 .create-agent-button {

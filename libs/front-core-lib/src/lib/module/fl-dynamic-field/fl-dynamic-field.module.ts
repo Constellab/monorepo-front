@@ -29,6 +29,7 @@ import { FlCardModule } from '../fl-card/fl-card.module';
 import { FlDynamicFieldSelectSearchComponent } from './component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 import { FlInputSearchModule } from '../fl-input-search/fl-input-search.module';
 import { FlUserModule } from '../fl-user/fl-user.module';
+import { FlDynamicEditableFormGroupComponent } from './component/fl-dynamic-editable-form-group/fl-dynamic-editable-form-group.component';
 
 /**
  * Module for the {@link FlDynamicFieldComponent} to create dynamic form field input
@@ -47,6 +48,7 @@ import { FlUserModule } from '../fl-user/fl-user.module';
     FlDynamicFieldListComponent,
     FlDynamicFieldTextareaComponent,
     FlDynamicFieldSelectSearchComponent,
+    FlDynamicEditableFormGroupComponent,
   ],
   exports: [
     FlDynamicFieldComponent,

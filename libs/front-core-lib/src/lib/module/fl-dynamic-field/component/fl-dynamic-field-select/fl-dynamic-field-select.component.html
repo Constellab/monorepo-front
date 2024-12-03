@@ -2,7 +2,9 @@
 <mat-form-field class="g-full" subscriptSizing="dynamic">
   <mat-label>{{ placeholder }}</mat-label>
   <mat-select [placeholder]="placeholder" [formControl]="formCtrl" [required]="required">
-    <mat-option *ngFor="let option of selectOptions" [value]="option">{{ option }}</mat-option>
+    @for (option of selectOptions(); track option.key) {
+      <mat-option [value]="option.key">{{ option.humanName }}</mat-option>
+    }
   </mat-select>
 
   <span *ngIf="prefix" matPrefix>{{ prefix }}</span>

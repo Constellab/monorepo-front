@@ -1,7 +1,7 @@
 import { HaAgent } from './ha-agent.class';
 import { FlEntity } from '@monorepo/front-core-lib';
 import { DateTime } from 'luxon';
-import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
+import { TdIOSpecs, TdParamSpecs, TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
 export enum HaAgentVersionState {
@@ -29,11 +29,11 @@ export class HaAgentVersion implements FlEntity {
   versionInfos?: TeRichText;
   environment: string;
   type: HaAgentVersionType;
-  params: string;
+  params: TdParamSpecsValues;
   code: string;
   createdAt: DateTime;
-  inputSpecs?: Record<string, any>;
-  outputSpecs?: Record<string, any>;
+  inputSpecs?: TdIOSpecs;
+  outputSpecs?: TdIOSpecs;
   configSpecs?: TdParamSpecs;
   style?: TdTypeStyle;
 }
@@ -46,10 +46,10 @@ export class HaAgentVersionFileInputBrick {
 export class HaAgentVersionFileInput {
   json_version: number;
   code: string;
-  params: string;
+  params: string | string[] | TdParamSpecsValues;
   environment: string;
-  input_specs: Record<string, any>;
-  output_specs: Record<string, any>;
+  input_specs: TdIOSpecs;
+  output_specs: TdIOSpecs;
   config_specs: Record<string, any>;
   bricks: HaAgentVersionFileInputBrick[];
   task_type: HaAgentVersionType;
