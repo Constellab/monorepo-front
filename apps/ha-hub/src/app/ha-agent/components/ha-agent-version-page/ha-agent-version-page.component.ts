@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { ClStringHelper } from '@monorepo/core-lib';
 import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
@@ -65,6 +64,26 @@ export class HaAgentVersionPageComponent implements OnInit {
             .then(() => {
               this.agentPageState.removeAgentVersionToList(this.agentVersion());
             });
+        }
+      });
+  }
+
+  openAgentEditStyleDialog(): void {
+    const dialogData: HaAgentEditStyleDialogInputData = {
+      mode: 'update',
+      object: {
+        style: this.agentVersion().style,
+        isVersion: true,
+        entityId: this.agentVersion().id,
+      },
+    };
+    this.dialogService
+      .openSmallDialog(HaAgentEditStyleDialogComponent, { data: dialogData })
+      .afterClosed()
+      .subscribe((result: HaAgentVersion) => {
+        if (result) {
+          this.agentPageState.setAgent(result.agent);
+          this.agentPageState.setAgentVersion(result);
         }
       });
   }

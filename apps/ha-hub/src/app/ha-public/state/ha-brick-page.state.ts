@@ -24,12 +24,8 @@ import { HaDocumentationService } from '../../ha-core/ha-service/ha-documentatio
 import { UrlSegment } from '@angular/router';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
-import {
-  HaFile,
-  HaFileType,
-} from '../../ha-core/entity-module/ha-file-core/model/ha-file';
+import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { TdTypeEntity } from '@monorepo/technical-doc';
-import { TeRichText } from '@monorepo/text-editor';
 
 @Injectable()
 export class HaBrickPageState {
@@ -243,7 +239,7 @@ export class HaBrickPageState {
 
     this.docStatusEvent.set({ status: 'success', object: doc });
     this.initDocFileUrlPrefix(doc.id);
-    this.initDocFiles(doc);
+    this.initDocFiles(doc.id);
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
@@ -322,17 +318,15 @@ export class HaBrickPageState {
     this.docFileUrlPrefix.set(this.documentationService.getDocFilePrefix(docId));
   }
 
-  private initDocFiles(doc: HaDocumentation): void {
-    const docFiles: HaFile[] = [];
-    for(const fileBlock of TeRichText.getFileBlocksData(doc.content)){
-      docFiles.push({
-        id: fileBlock.id,
-        name: fileBlock.name,
-        size: fileBlock.size,
-        type: HaFileType.FILE
-      });
-    }
-    this.docFiles.set(docFiles);
+  private initDocFiles(docId: string): void {
+    this.documentationService.getDocFiles(docId).subscribe({
+      next: (docFiles) => {
+        this.docFiles.set(docFiles);
+      },
+      error: (error) => {
+        this.docStatusEvent.set({ status: 'error', error: error });
+      },
+    });
   }
 
   private redirectToCompletePathDoc(url: UrlSegment[]): void {
