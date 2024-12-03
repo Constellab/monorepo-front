@@ -70,7 +70,7 @@
     "@codemirror/language": "^6.10.2",
     "@codemirror/legacy-modes": "^6.4.0",
     "@codexteam/icons": "^0.3.2",
-    "@editorjs/editorjs": "^2.30.2",
+    "@editorjs/editorjs": "^2.30.6",
     "@editorjs/header": "^2.8.7",
     "@editorjs/inline-code": "^1.5.1",
     "@editorjs/nested-list": "^1.4.3",

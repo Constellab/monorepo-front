@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { ClStringHelper } from '@monorepo/core-lib';
 import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
@@ -42,38 +41,8 @@ export class HaAgentVersionPageComponent implements OnInit {
     });
   }
 
-  publishAgentVersion(): void {
-    if (this.agentVersion().versionState === 'PUBLISHED') return;
-    if (this.agentVersion().code == null || this.agentVersion().code === '') {
-      this.snackBarService.openErrorMessage({
-        text: 'cannot_publish_agent_version_without_code',
-        translateText: true,
-      });
-      return;
-    }
-    this.dialogService
-      .openConfirmDialog({
-        title: 'publish_agent_version',
-        content: 'publish_agent_version_confirmation',
-        successMessage: 'agent_version_published',
-        observable: this.agentService.publishAgentVersion(this.agentVersion().id),
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result.choice && result.result != null) {
-          this.agentPageState.updateAgentVersion(result.result);
-          this.router.navigate([
-            HaRouterService.getAgentRoute(
-              this.agentVersion().agent.id,
-              ClStringHelper.getCleanUrlPath(this.agentVersion().agent.title)
-            ),
-          ]);
-        }
-      });
-  }
-
-  updateAgentVersion(agentVersion: HaAgentVersion): void {
-    this.agentPageState.setAgentVersion(agentVersion);
+  publishAgentVersion(agentVersionId: string): void {
+    this.agentPageState.publishAgentVersion(agentVersionId);
   }
 
   deleteAgentVersion(): void {

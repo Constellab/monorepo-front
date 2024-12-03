@@ -18,7 +18,7 @@
       <div class="agent-infos">
         @if (agentVersion().versionState == 'DRAFT') {
           <span class="g-text-small g-warn-text">{{ 'warn_agent_version_not_published' | translate }}</span>
-          <button mat-stroked-button color="primary" (click)="publishAgentVersion()">
+          <button mat-stroked-button color="primary" (click)="publishAgentVersion(agentVersion().id)">
             {{ 'publish' | translate }}
           </button>
         }

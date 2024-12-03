@@ -32,7 +32,7 @@ export class TeDragBlockTune implements BlockTune {
     // while dragging get the text editor drop target block id
     button.addEventListener('drag', () => {
       this.config.api.toolbar.close();
-      blockId = TeHelper.getBlockDropTargetId(this.config.api.ui.nodes.redactor);
+      blockId = TeHelper.getBlockDropTargetId(TeHelper.getRedactorElement());
     });
 
     // handle the drop
