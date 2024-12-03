@@ -39,7 +39,8 @@ export class HaAgentVersionDetailComponent implements OnInit {
   isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
   agentVersion: Signal<HaAgentVersion> = this.agentPageState.agentVersion;
   isVersionInfosEmpty: Signal<boolean> = computed(() => {
-    return TeRichText.isEmpty(this.agentVersion()?.versionInfos);
+    const versionInfos = this.agentVersion()?.versionInfos;
+    return versionInfos == null || versionInfos.isEmpty();
   });
 
   languageCode: Signal<FlCodeEditorLanguage> = computed(() => {
