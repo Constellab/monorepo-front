@@ -16,9 +16,11 @@ export class HaMetadataService {
     if (hasTranslation) {
       this.translateService.get(title, data).subscribe((titleTrad: string) => {
         this.titleService.setTitle(titleTrad);
+        this.metaService.updateTag({ name: 'og:title', content: titleTrad });
       });
     } else {
       this.titleService.setTitle(title);
+      this.metaService.updateTag({ name: 'og:title', content: title });
     }
   }
 
@@ -30,5 +32,45 @@ export class HaMetadataService {
     } else {
       this.metaService.updateTag({ name: name, content: content });
     }
+  }
+
+  setSocialMetaTags(
+    title: string,
+    description: string,
+    image: string,
+    url: string,
+    hasTranslation: boolean = true,
+    data?: any
+  ): void {
+    this.setTwitterMetaTags(title, description, image, hasTranslation, data);
+    this.setOGMetaTags(title, description, image, url, hasTranslation, data);
+  }
+
+  private setTwitterMetaTags(
+    title: string,
+    description: string,
+    image: string,
+    hasTranslation: boolean = true,
+    data?: any
+  ): void {
+    this.addMetaTag('twitter:card', 'summary_large_image');
+    this.addMetaTag('twitter:title', title);
+    this.addMetaTag('twitter:description', description, hasTranslation, data);
+    this.addMetaTag('twitter:image', image);
+    this.addMetaTag('twitter:site', '@Gencovery');
+  }
+
+  private setOGMetaTags(
+    title: string,
+    description: string,
+    image: string,
+    url: string,
+    hasTranslation: boolean = true,
+    data?: any
+  ): void {
+    this.addMetaTag('og:title', title);
+    this.addMetaTag('og:description', description, hasTranslation, data);
+    this.addMetaTag('og:image', image);
+    this.addMetaTag('og:url', url);
   }
 }

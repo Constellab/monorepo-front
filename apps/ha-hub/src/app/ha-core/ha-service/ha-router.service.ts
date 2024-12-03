@@ -65,6 +65,10 @@ export class HaRouterService {
     return `${this.getStoriesListRoute()}${id}/${titlePath}`;
   }
 
+  public static getFullStoryRoute(id: string, titlePath: string): string {
+    return `${this.getAppUrl()}${this.getStoryRoute(id, titlePath)}`;
+  }
+
   public static getStoryEditRoute(id: string): string {
     return `${this.getStoriesListRoute()}edit/${id}`;
   }

@@ -206,7 +206,14 @@ export class HaStoryPageComponent implements OnInit {
 
     this.metadataService.setPageTitle('ha.story.title', true, { title: this.story.title });
     this.metadataService.addMetaTag('description', 'ha.story.description', true, { title: this.story.title });
-    this.metadataService.addMetaTag('og:image', this.getStoryImageLink(this.story.mainPicture), false);
+    this.metadataService.setSocialMetaTags(
+      this.story.title,
+      'ha.story.description',
+      this.getStoryImageLink(this.story.mainPicture),
+      HaRouterService.getFullStoryRoute(this.story.id, ClStringHelper.getCleanUrlPath(this.story.title)),
+      true,
+      { title: this.story.title }
+    );
   }
 
   private redirect404(): void {
