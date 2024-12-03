@@ -38,12 +38,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
     return this.editConfig.addParamSpecUpdateAction(this.process(), obs).pipe(
       map((result: FlPortalActionResult | null) => {
-        if (result && result.status == 'success') {
-          const config = result.result as LabConfig;
-          this.updateProcessConfig(configSpecName, config);
-          return config;
-        }
-        return null;
+        return this.onPortalActionResult(result, configSpecName);
       })
     );
   }
@@ -57,12 +52,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
     return this.editConfig.deleteParamSpecUpdateAction(this.process(), obs).pipe(
       map((result: FlPortalActionResult | null) => {
-        if (result && result.status == 'success') {
-          const config = result.result as LabConfig;
-          this.updateProcessConfig(configSpecName, config);
-          return config;
-        }
-        return null;
+        return this.onPortalActionResult(result, configSpecName);
       })
     );
   }
@@ -77,12 +67,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
     return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
       map((result: FlPortalActionResult | null) => {
-        if (result && result.status == 'success') {
-          const config = result.result as LabConfig;
-          this.updateProcessConfig(configSpecName, config);
-          return config;
-        }
-        return null;
+        return this.onPortalActionResult(result, configSpecName);
       })
     );
   }
@@ -103,18 +88,22 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     );
     return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
       map((result: FlPortalActionResult): LabConfig => {
-        if (result && result.status == 'success') {
-          const config = result.result as LabConfig;
-          this.updateProcessConfig(configSpecName, config);
-          return config;
-        }
-        return null;
+        return this.onPortalActionResult(result, configSpecName);
       })
     );
   }
 
   getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
     return this.labProtocolService.getParamSpecsInfos(this.protocolId(), this.process().instanceName);
+  }
+
+  private onPortalActionResult(result: FlPortalActionResult, configSpecName: string): LabConfig {
+    if (result && result.status == 'success') {
+      const config = result.result as LabConfig;
+      this.updateProcessConfig(configSpecName, config);
+      return config;
+    }
+    return null;
   }
 
   private updateProcessConfig(configSpecName: string, config: LabConfig): void {

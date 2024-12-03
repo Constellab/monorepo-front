@@ -218,20 +218,15 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'json_code_param',
 ];
 
-export type TdParamSpecFormInfoList = Record<
-  string,
-  Record<string, TdParamSpecFormInfoWithHumanName | Record<string, TdParamSpecFormInfoWithHumanName>>
->;
 
-export interface TdParamSpecFormInfoWithHumanName extends TdParamSpecFormInfo {
-  human_name: string;
-}
+export type TdParamSpecFormInfoList = Record<string, TdParamSpecFormInfo>;
 
 export interface TdParamSpecFormInfo {
-  type: TdParamSpecType;
-  optional: boolean;
-  value: any;
+  human_name: string;
+  specs: TdParamSpecFormSpecs;
 }
+
+export type TdParamSpecFormSpecs = Record<string, TdParamSpecSimple | Record<string, TdParamSpecSimple>>;
 
 export interface TdParamSpecsValues {
   specs: TdParamSpecs;

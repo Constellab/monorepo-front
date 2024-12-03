@@ -81,7 +81,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
         this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
         delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
       }
-      this.paramSpecConfig = new TdParamSpecConfig(paramSpecFormInfoList, this.translateService);
+      this.paramSpecConfig = new TdParamSpecConfig(paramSpecFormInfoList);
       this.initForm();
     });
   }

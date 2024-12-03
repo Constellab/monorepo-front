@@ -59,8 +59,10 @@ export class TdConfigureParamSpecsTableDialogComponent {
       .subscribe((output: TdConfig) => {
         if (output) {
           this.config = output;
-          if (output.specs[this.configSpecName])
+          if (output.specs[this.configSpecName]) {
             this.paramSpecs = output.specs[this.configSpecName].additional_info.specs;
+            this.dynamicParamSpecState.setParamSpecs(this.paramSpecs);
+          }
         }
       });
   }

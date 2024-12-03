@@ -8,12 +8,10 @@ import {
   PrWorkflowNode,
   PrWorkflowNodeProcess
 } from '@monorepo/protocol';
-import {
-  LabResourceDetailDialogComponent
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
+import { LabResourceDetailDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {
   LabResourceViewDetailDialogComponent,
-  LabResourceViewDetailDialogInput,
+  LabResourceViewDetailDialogInput
 } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import { FlDialogService, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 import {
@@ -23,18 +21,12 @@ import {
 } from '../model/lab-workflow-edit-config.class';
 import { TdIOSpec, TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import {
-  LabProcessDashboardComponent,
-} from '../component/lab-process-dashboard/lab-process-dashboard.component';
+import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
 import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import {
-  LabSelectResourceDialogComponent,
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
+import { LabSelectResourceDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
 import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import {
-  LabResourceNextObjectsPortalComponent,
-} from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 
 /**

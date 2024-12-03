@@ -85,7 +85,13 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
       });
   }
 
-  openCreateCommunityAgentDialog(mode: LabCreateCommunityAgentDialogMode): void {
+  openCreateCommunityAgentDialog(agentVersionId?: string): void {
+    let mode: LabCreateCommunityAgentDialogMode;
+    if (agentVersionId) {
+      mode = LabCreateCommunityAgentDialogMode.FORK;
+    } else {
+      mode = LabCreateCommunityAgentDialogMode.CREATE;
+    }
     this.dialogService
       .openSmallDialog(LabCreateCommunityAgentDialogComponent, {
         data: {

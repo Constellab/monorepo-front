@@ -5,13 +5,16 @@ import {
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
+  FlDynamicFieldConfigSelectSearch,
+  FlDynamicFieldConfigUnknown,
   FlDynamicFormGroupConfig,
-  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import {
   tdCodeParamSpecTypeList,
-  TdParamSpecFormInfo,
+  TdParamSpec,
   TdParamSpecFormInfoList,
+  TdParamSpecFormSpecs,
+  TdParamSpecSimple,
   TdParamSpecType,
 } from './td-config-spec.class';
 import { signal } from '@angular/core';
@@ -19,10 +22,7 @@ import { signal } from '@angular/core';
 export class TdParamSpecConfig {
   infoList: TdParamSpecFormInfoList;
 
-  constructor(
-    infoList: TdParamSpecFormInfoList,
-    private translateService: FlTranslateService
-  ) {
+  constructor(infoList: TdParamSpecFormInfoList) {
     this.infoList = infoList;
   }
 
@@ -31,29 +31,24 @@ export class TdParamSpecConfig {
     if (!typeParamFormInfo) {
       return null;
     }
-    return this.convertToFieldConfigs(typeParamFormInfo);
+    return this.convertToFieldConfigs(typeParamFormInfo.specs);
   }
 
-  private convertToFieldConfigs(
-    typeParamFormInfo: Record<string, TdParamSpecFormInfo | Record<string, TdParamSpecFormInfo>>
-  ): FlDynamicFormGroupConfig {
+  private convertToFieldConfigs(typeParamFormInfoSpecs: TdParamSpecFormSpecs): FlDynamicFormGroupConfig {
     const configs: FlDynamicFormGroupConfig = {
       controlType: 'formGroup',
       subConfigs: {},
     };
 
-    for (const paramSpecInfoKey in typeParamFormInfo) {
-      const paramSpecInfoAttribute = typeParamFormInfo[paramSpecInfoKey];
-      if ((paramSpecInfoAttribute as TdParamSpecFormInfo).type) {
-        configs.subConfigs[paramSpecInfoKey] = this.convertParamSpecToAbstractConfig(
-          paramSpecInfoKey,
-          paramSpecInfoAttribute as TdParamSpecFormInfo
+    for (const specName of Object.keys(typeParamFormInfoSpecs)) {
+      if (specName === 'additional_info') {
+        configs.subConfigs[specName] = this.convertToFieldConfigs(
+          typeParamFormInfoSpecs[specName] as Record<string, TdParamSpecSimple>
         );
-        continue;
-      }
-      if (Object.keys(paramSpecInfoAttribute as Record<string, TdParamSpecFormInfo>).length > 0) {
-        configs.subConfigs[paramSpecInfoKey] = this.convertToFieldConfigs(
-          paramSpecInfoAttribute as Record<string, TdParamSpecFormInfo | Record<string, TdParamSpecFormInfo>>
+      } else {
+        configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
+          typeParamFormInfoSpecs[specName] as TdParamSpecSimple,
+          ''
         );
       }
     }
@@ -61,72 +56,133 @@ export class TdParamSpecConfig {
     return configs;
   }
 
-  private convertParamSpecToAbstractConfig(
-    name: string,
-    specFormInfo: TdParamSpecFormInfo
+  public static convertParamSpecToAbstractConfig(
+    spec: TdParamSpecSimple,
+    defaultPlaceholder: string
   ): FlDynamicFieldConfig {
-    if (specFormInfo.value && specFormInfo.type === 'list') {
-      const config: FlDynamicFieldConfigSelect = this.convertParamSpecToBaseFieldConfig(
-        name,
-        specFormInfo
-      ) as any;
-      config.type = 'select';
-      config.selectOptions = signal(specFormInfo.value);
-      return config;
+    if (spec.additional_info?.allowed_values && spec.additional_info?.allowed_values.length > 0) {
+      if (spec.additional_info?.allowed_values.length > 10) {
+        const config: FlDynamicFieldConfigSelectSearch = TdParamSpecConfig.convertToBaseFieldConfig(
+          spec,
+          defaultPlaceholder
+        ) as any;
+        config.type = 'select-search';
+        config.selectOptions = spec.additional_info.allowed_values;
+        return config;
+      } else {
+        const config: FlDynamicFieldConfigSelect = TdParamSpecConfig.convertToBaseFieldConfig(
+          spec,
+          defaultPlaceholder
+        ) as any;
+        config.type = 'select';
+        config.selectOptions = signal(spec.additional_info.allowed_values);
+        config.suffix = spec.unit;
+        return config;
+      }
     }
-    if (specFormInfo.type === 'bool') {
-      const config: FlDynamicFieldConfigBoolean = this.convertParamSpecToBaseFieldConfig(
-        name,
-        specFormInfo
+    if (spec.type === 'bool') {
+      const config: FlDynamicFieldConfigBoolean = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
       ) as any;
       config.type = 'boolean';
       return config;
-    } else if (specFormInfo.type === 'list') {
-      const config: FlDynamicFieldConfigList = this.convertParamSpecToBaseFieldConfig(
-        name,
-        specFormInfo
+    } else if (spec.type === 'list') {
+      const config: FlDynamicFieldConfigList = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
       ) as any;
       config.type = 'list';
       return config;
-    } else if (specFormInfo.type === 'text' || specFormInfo.type === 'dict') {
-      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
+    } else if (spec.type === 'text' || spec.type === 'dict') {
+      const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'textarea';
       config.fullWidth = true;
       return config;
-    } else if (tdCodeParamSpecTypeList.includes(specFormInfo.type)) {
-      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
-      config.type = specFormInfo.type;
+    } else if (spec.type === 'tags_param') {
+      const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'tags_param';
+      return config;
+    } else if (spec.type === 'open_ai_chat_param') {
+      const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'open_ai_chat_param';
       config.fullWidth = true;
       return config;
-    } else if (specFormInfo.type === 'rich_text_param') {
-      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
+    } else if (spec.type === 'credentials_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'credentials_param';
+      config.additionalInfo = { credentialsType: spec.additional_info.credentials_type };
+      return config;
+    } else if (spec.type === 'note_template_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'note_template_param';
+      return config;
+    } else if (spec.type === 'note_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'note_param';
+      return config;
+    } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
+      const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = spec.type;
+      config.fullWidth = true;
+      return config;
+    } else if (spec.type === 'rich_text_param') {
+      const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
       config.type = 'rich_text';
       config.fullWidth = true;
       return config;
-    } else if (specFormInfo.type !== 'str' && specFormInfo.type !== 'int' && specFormInfo.type !== 'float') {
-      const config: FlDynamicFieldConfig = this.convertParamSpecToBaseFieldConfig(name, specFormInfo);
-      config.type = specFormInfo.type;
-      config.fullWidth = true;
+    } else {
+      const config: FlDynamicFieldConfigInput = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'input';
+      config.inputType = spec.type === 'str' ? 'text' : 'number';
+      config.suffix = spec.unit;
+
+      if (spec.type === 'int' || spec.type === 'float') {
+        config.min = spec.additional_info.min_value;
+        config.max = spec.additional_info.max_value;
+        config.integer = spec.type === 'int';
+      }
       return config;
     }
-    const config: FlDynamicFieldConfigInput = this.convertParamSpecToBaseFieldConfig(
-      name,
-      specFormInfo
-    ) as any;
-    config.type = 'input';
-    config.inputType = specFormInfo.type === 'str' ? 'text' : 'number';
-    return config;
   }
 
-  private convertParamSpecToBaseFieldConfig(
-    name: string,
-    specFormInfo: TdParamSpecFormInfo
+  public static convertToBaseFieldConfig(
+    spec: TdParamSpec,
+    defaultPlaceholder: string
   ): FlDynamicFieldConfigBase {
     return {
       controlType: 'formControl',
       type: null,
-      required: !specFormInfo.optional,
-      placeholder: this.translateService.translate('td.' + name),
+      required: !spec.optional,
+      placeholder: spec.human_name ?? defaultPlaceholder,
+      hint: spec.short_description,
     };
   }
 }
