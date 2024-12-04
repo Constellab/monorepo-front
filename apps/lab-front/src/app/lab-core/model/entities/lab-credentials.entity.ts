@@ -1,9 +1,12 @@
 import { LabBaseEntityWithUser } from './lab-user.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { TdParamSpecs } from '@monorepo/technical-doc';
+import { Expose, Type } from 'class-transformer';
 
 export enum LabCredentialsType {
   BASIC = 'BASIC',
   S3 = 'S3',
+  LAB = 'LAB',
   OTHER = 'OTHER',
 }
 
@@ -33,16 +36,13 @@ export interface LabSaveCredentialsDTO {
   data: LabCredentialsData;
 }
 
-export interface LabCredentialsDataS3 {
-  endpoint_url: string;
-  region: string;
-  access_key_id: string;
-  secret_access_key: string;
-  bucket?: string;
+export class LabCredentialsDataTypeSpec {
+  type: LabCredentialsType;
+  specs: TdParamSpecs;
 }
 
-export interface LabCredentialsDataBasic {
-  username: string;
-  password: string;
-  url?: string;
+export class LabCredentialsDataSpecs {
+  @Expose({ name: 'data_specs' })
+  @Type(() => LabCredentialsDataTypeSpec)
+  dataSpecs: LabCredentialsDataTypeSpec[];
 }

@@ -19,8 +19,8 @@ import { LabProcessCoreModule } from '../lab-process-core/lab-process-core.modul
 import { LabScenarioTemplateCoreModule } from '../lab-scenario-template-core/lab-scenario-template-core.module';
 import { LabScenarioInlineComponent } from './component/lab-scenario-inline/lab-scenario-inline.component';
 import { LabTypeCoreModule } from '../lab-type-core/lab-type-core.module';
-import { LabImportScenarioFromLinkComponent } from './component/lab-import-scenario-from-link/lab-import-scenario-from-link.component';
 import { LabScenarioIconsComponent } from './component/lab-scenario-icons/lab-scenario-icons.component';
+import { LabSelectScenarioDynamicFieldComponent } from './component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import { LabScenarioIconsComponent } from './component/lab-scenario-icons/lab-sc
     LabSelectScenarioComponent,
     LabRunningScenarioTableComponent,
     LabScenarioInlineComponent,
-    LabImportScenarioFromLinkComponent,
     LabScenarioIconsComponent,
+    LabSelectScenarioDynamicFieldComponent,
   ],
   exports: [
     LabScenarioTableComponent,
@@ -47,8 +47,8 @@ import { LabScenarioIconsComponent } from './component/lab-scenario-icons/lab-sc
     LabSelectScenarioDialogComponent,
     LabSelectScenarioComponent,
     LabRunningScenarioTableComponent,
-    LabImportScenarioFromLinkComponent,
     LabScenarioIconsComponent,
+    LabSelectScenarioDynamicFieldComponent,
   ],
   imports: [
     CommonModule,

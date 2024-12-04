@@ -23,6 +23,7 @@ import { PrConfigValues } from '@monorepo/protocol';
 import { LabSharedEntity } from '../model/entities/lab-share.entity';
 import { LabTransformerParams } from '../model/global/lab-transformer.class';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',
@@ -231,11 +232,11 @@ export class LabResourceService {
     return this.apiService.get(`${this.route}/${id}/shared-origin`, LabSharedEntity);
   }
 
-  public uploadResourceFromLink(url: string, uncompressOption: string): Observable<LabResource> {
-    return this.apiService.post(
-      `${this.route}/upload-from-link`,
-      { url: url, uncompress_option: uncompressOption },
-      LabResource
-    );
+  public importResourceFromLink(configValues: PrConfigValues): Observable<LabResource> {
+    return this.apiService.post(`${this.route}/import-from-link`, configValues, LabResource);
+  }
+
+  public getImportResourceConfigSpecs(): Observable<TdParamSpecs> {
+    return this.apiService.get(`${this.route}/import-from-link/config-specs`);
   }
 }

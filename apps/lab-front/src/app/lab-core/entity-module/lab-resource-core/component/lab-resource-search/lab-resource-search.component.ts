@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDialogService,
@@ -27,7 +27,11 @@ import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
 import { Subscription } from 'rxjs';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import { LabImportResourceFromLinkComponent } from '../lab-import-resource-from-link/lab-import-resource-from-link.component';
+import {
+  LabQuickConfigureProcessDialogComponent,
+  LabQuickConfigureProcessDialogInput,
+} from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
+import { PrConfigValues } from '@monorepo/protocol';
 
 export const labResourceSearchName: string = 'biox-resource';
 
@@ -61,15 +65,13 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
 
   private actionSubscription: Subscription;
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private dialogService: FlDialogService,
-    private actionsService: FlPortalActionsService,
-    private fileResourceService: LabFileResourceService,
-    private resourceService: LabResourceService,
-    private themeService: FlThemeService,
-    private snackBarService: FlSnackBarService
-  ) {}
+  private searchState = inject(FlSearchState);
+  private dialogService = inject(FlDialogService);
+  private actionsService = inject(FlPortalActionsService);
+  private fileResourceService = inject(LabFileResourceService);
+  private resourceService = inject(LabResourceService);
+  private themeService = inject(FlThemeService);
+  private snackBarService = inject(FlSnackBarService);
 
   ngOnInit(): void {
     this.columns = this.fullPageSearch
@@ -246,7 +248,35 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
   }
 
   openImportFromUrlDialog(): void {
-    this.dialogService.openSmallDialog(LabImportResourceFromLinkComponent);
+    const data: LabQuickConfigureProcessDialogInput = {
+      title: 'biox.import_resource_from_link',
+      helpText: 'biox.import_from_link_help',
+      specs$: this.resourceService.getImportResourceConfigSpecs(),
+    };
+
+    this.dialogService
+      .openSmallDialog(LabQuickConfigureProcessDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((configValues) => this.onImportFromUrlClosed(configValues));
+  }
+
+  private onImportFromUrlClosed(configValues: PrConfigValues): void {
+    if (configValues) {
+      this.actionsService.addAction(
+        {
+          type: 'import-resource',
+          action: this.resourceService.importResourceFromLink(configValues),
+          text: { text: 'biox.downloading_resource', translateText: true },
+          successLink: (resource: LabResource) => LabRouterService.getResourceDetailRoute(resource.id),
+        },
+        false
+      );
+
+      this.snackBarService.openSuccessMessage(
+        { text: 'biox.downloading_resource_help_text', translateText: true },
+        5000
+      );
+    }
   }
 
   ngOnDestroy(): void {

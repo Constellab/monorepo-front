@@ -36,7 +36,6 @@ import { LabNoteCoreModule } from '../lab-note-core/lab-note-core.module';
 import { LabResourceInfoComponent } from './component/lab-resource-info/lab-resource-info.component';
 import { LabResourceViewDetailDialogComponent } from './component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
 import { LabShareCoreModule } from '../lab-share-core/lab-share-core.module';
-import { LabImportResourceFromLinkComponent } from './component/lab-import-resource-from-link/lab-import-resource-from-link.component';
 import { LabResourceUpdateFolderDialogComponent } from './component/lab-resource-update-folder-dialog/lab-resource-update-folder-dialog.component';
 import { LabResourceDetailComponent } from './component/lab-resource-detail/lab-resource-detail.component';
 import { LabResourceDetailHeaderComponent } from './component/lab-resource-detail-header/lab-resource-detail-header.component';
@@ -72,7 +71,6 @@ import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-
     LabNotesUsingResourceComponent,
     LabResourceInfoComponent,
     LabResourceViewDetailDialogComponent,
-    LabImportResourceFromLinkComponent,
     LabResourceUpdateFolderDialogComponent,
     LabResourceDetailComponent,
     LabResourceDetailHeaderComponent,
@@ -100,7 +98,6 @@ import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-
     LabResourceViewDetailComponent,
     LabResourceViewDetailDialogComponent,
     LabResourceViewSpecListComponent,
-    LabImportResourceFromLinkComponent,
     LabResourceUpdateFolderDialogComponent,
     LabResourceDetailComponent,
     LabResourceRichTextViewComponent,

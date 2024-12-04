@@ -2,7 +2,7 @@ import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig
+  FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -10,7 +10,7 @@ import {
   TdParamSpec,
   TdParamSpecConfig,
   TdParamSpecs,
-  TdParamSpecVisibility
+  TdParamSpecVisibility,
 } from '@monorepo/technical-doc';
 import { EventEmitter } from '@angular/core';
 
@@ -47,13 +47,6 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
    * Get a FlDynamicFormFieldConfig based on config spec and params to create a form
    */
   public getDynamicFormFieldsConfig(visibility?: TdParamSpecVisibility): FlDynamicFormGroupConfig {
-    return this.convertToFieldConfigs(visibility);
-  }
-
-  /**
-   * Method to convert the ConfigSpec to a FlDynamicFormFieldConfig to create a form
-   */
-  public convertToFieldConfigs(visibility?: TdParamSpecVisibility): FlDynamicFormGroupConfig {
     return this.convertRecordToFieldConfigs(this.specs, visibility);
   }
 
@@ -114,7 +107,9 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
     }
   }
 
+  // TODO @vfoex c'est quoi ça ?
   public getCleanConfigValues(values: PrConfigValues, specs?: TdParamSpecs): PrConfigValues {
+    if (!values) return null;
     const res: PrConfigValues = {};
     for (const specName of Object.keys(specs ?? this.specs)) {
       const spec: TdParamSpec = specs ? specs[specName] : this.specs[specName];

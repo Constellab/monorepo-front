@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, input, OnInit, Optional, output, Self } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
   FlInputSearchAdvancedButton,
   FlInputSearchFilter,
+  FlTranslatableText,
 } from '@monorepo/front-core-lib';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { NgControl } from '@angular/forms';
@@ -18,7 +19,9 @@ import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
 })
 export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario> implements OnInit {
-  @Output() scenarioChange: EventEmitter<LabScenario> = new EventEmitter();
+  placeholder = input<FlTranslatableText>('biox.scenario_select');
+
+  scenarioChange = output<LabScenario>();
 
   selectedScenario: LabScenario | Observable<LabScenario>;
 
@@ -59,7 +62,7 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
   }
 
   callChangeEvent(value: LabScenario): void {
-    this.scenarioChange.next(value);
+    this.scenarioChange.emit(value);
     this.selectedScenario = value;
   }
 

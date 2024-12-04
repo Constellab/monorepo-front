@@ -23,6 +23,8 @@ import { map } from 'rxjs/operators';
 import { TeRichText } from '@monorepo/text-editor';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
+import { TdParamSpecs } from '@monorepo/technical-doc';
+import { PrConfigValues } from '@monorepo/protocol';
 
 @Injectable({
   providedIn: 'root',
@@ -194,7 +196,11 @@ export class LabScenarioService {
     return this.apiService.delete(`${this.route}/${scenarioId}/intermediate-resources`, null);
   }
 
-  public importScenarioFromLab(url: string, mode: string): Observable<LabScenario> {
-    return this.apiService.post(`${this.route}/import-from-lab`, { url: url, mode: mode }, LabResource);
+  public importScenarioFromLab(configValues: PrConfigValues): Observable<LabScenario> {
+    return this.apiService.post(`${this.route}/import-from-lab`, configValues, LabResource);
+  }
+
+  public getImportScenarioConfigSpecs(): Observable<TdParamSpecs> {
+    return this.apiService.get(`${this.route}/import-from-lab/config-specs`);
   }
 }

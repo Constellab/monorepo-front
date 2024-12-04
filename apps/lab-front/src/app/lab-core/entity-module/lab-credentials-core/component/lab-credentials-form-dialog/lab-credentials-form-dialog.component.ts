@@ -1,37 +1,30 @@
-import { Component, ComponentRef, inject, OnInit, signal, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
-  FlDynamicAbstractFormComponent,
   FlDynamicFormAbstractControl,
-  FlDynamicFormArrayConfig,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
-  FlFormDialogAbstractDirective,
   FlFormDialogInput,
   FlFormHelper,
+  FlSnackBarService,
 } from '@monorepo/front-core-lib';
 import {
   LabCredentials,
-  LabCredentialsData,
-  LabCredentialsDataBasic,
-  LabCredentialsDataS3,
+  LabCredentialsDataSpecs,
+  LabCredentialsDataTypeSpec,
   LabCredentialsType,
   LabSaveCredentialsDTO,
 } from '../../../../model/entities/lab-credentials.entity';
 import { Observable, of } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import { catchError, map } from 'rxjs/operators';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import { MatSelectChange } from '@angular/material/select';
+import { LabConfig } from '../../../../model/entities/lab-config.entity';
 
 export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSaveCredentialsDTO> {
   id?: string;
-}
-
-interface LabCredentialsOtherFormData {
-  key: string;
-  value: string;
 }
 
 @Component({
@@ -39,66 +32,77 @@ interface LabCredentialsOtherFormData {
   templateUrl: './lab-credentials-form-dialog.component.html',
   styleUrls: ['./lab-credentials-form-dialog.component.scss'],
 })
-export class LabCredentialsFormDialogComponent
-  extends FlFormDialogAbstractDirective<LabSaveCredentialsDTO, LabCredentials>
-  implements OnInit
-{
+export class LabCredentialsFormDialogComponent implements OnInit {
   dialogInput: LabCredentialsFormDialogInput = inject(MAT_DIALOG_DATA);
 
   sameNameExist$: Observable<boolean>;
 
   credentialsTypes: any = LabCredentialsType;
 
+  isLoading: boolean = false;
+
+  formGp: UntypedFormGroup;
+  dataConfig: FlDynamicFormAbstractControl;
+
   // only provided in update mode
   private originalName: string;
 
-  @ViewChild('subFormGroup', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
+  private credentialsService = inject(LabCredentialsService);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogRef = inject(MatDialogRef);
 
-  private viewComponentRef: ComponentRef<FlDynamicAbstractFormComponent>;
-
-  constructor(private credentialsService: LabCredentialsService) {
-    super();
-  }
+  private specs: LabCredentialsDataSpecs;
 
   ngOnInit(): void {
-    this.init();
     this.originalName = this.dialogInput.object?.name;
+    this.buildForm();
     if (this.isUpdateMode()) {
-      this.dialogInput.object.data = this.convertOtherToForm(
-        this.dialogInput.object.type,
-        this.dialogInput.object.data
-      ) as any;
-      this.buildDataForm(this.dialogInput.object.type, this.dialogInput.object.data);
+      this.formGp.patchValue(this.dialogInput.object);
     }
+    this.getSpecs();
   }
 
-  buildForm(): UntypedFormGroup {
-    return new FormBuilder().group({
+  private buildForm(): void {
+    this.formGp = new FormBuilder().group({
       name: [null, Validators.required],
       type: [null, Validators.required],
-      data: [{}, Validators.required],
+      data: null,
       description: [null],
     });
   }
 
-  onTypeChange(event: MatSelectChange): void {
-    this.buildDataForm(event.value);
+  private getSpecs(): void {
+    this.credentialsService.getCredentialsDataSpecs().subscribe({
+      next: (specs) => this.getSpecsSuccess(specs),
+    });
   }
 
-  private buildDataForm(type: LabCredentialsType, defaultValue?: any): void {
-    this.viewContainer.clear();
-    this.viewComponentRef?.destroy();
+  private getSpecsSuccess(specs: LabCredentialsDataSpecs): void {
+    this.specs = specs;
+    if (this.formGp.get('type').value) {
+      this.buildDataForm(specs, this.formGp.get('type').value, this.dialogInput.object?.data);
+    }
+  }
 
-    const formConfig: FlDynamicFormAbstractControl = this.getDataFormGroupConfig(type);
+  onTypeChange(event: MatSelectChange): void {
+    if (this.specs) {
+      this.buildDataForm(this.specs, event.value, null);
+    }
+  }
+
+  private buildDataForm(specs: LabCredentialsDataSpecs, type: LabCredentialsType, defaultValue: any): void {
+    this.dataConfig = null;
+
+    if (!type) return;
+
+    const spec = specs.dataSpecs.find((s) => s.type === type);
+    if (!spec) {
+      throw new Error(`[LabCredentialsFormDialogComponent] No spec found for type ${type}`);
+    }
+    this.dataConfig = this.getDataFormGroupConfig(spec, defaultValue);
 
     // create the formGroup using the config
-    const control: AbstractControl = FlDynamicFormHelper.generateForm(formConfig, defaultValue);
-
-    // create the sub form group component if needed
-    this.viewComponentRef = this.viewContainer.createComponent(FlDynamicAbstractFormComponent);
-
-    this.viewComponentRef.instance.config = signal<FlDynamicFormAbstractControl>(formConfig) as any;
-    this.viewComponentRef.instance.control = signal<AbstractControl>(control) as any;
+    const control: AbstractControl = FlDynamicFormHelper.generateFormGroup(this.dataConfig, defaultValue);
 
     this.formGp.setControl('data', control as any);
     this.formGp.updateValueAndValidity();
@@ -106,33 +110,42 @@ export class LabCredentialsFormDialogComponent
 
   submit(): void {
     FlFormHelper.markAllAsTouched(this.formGp);
-    super.submit();
+    if (!this.formGp.valid || this.isLoading) return;
+    if (this.isCreateMode()) {
+      this.create(this.formGp.getRawValue());
+    } else {
+      this.update(this.formGp.getRawValue());
+    }
   }
 
-  create(formValue: LabSaveCredentialsDTO): Observable<LabCredentials> {
-    if (formValue.type === LabCredentialsType.OTHER) {
-      formValue.data = this.convertOtherFromForm(formValue.type, formValue.data as any);
-    }
-    return this.credentialsService.create(formValue);
+  create(formValue: LabSaveCredentialsDTO): void {
+    this.credentialsService.create(formValue).subscribe({
+      next: (credentials) => this.onCreateSuccess(credentials),
+      error: () => (this.isLoading = false),
+    });
   }
 
-  update(formValue: LabSaveCredentialsDTO): Observable<LabCredentials> {
-    if (formValue.type === LabCredentialsType.OTHER) {
-      formValue.data = this.convertOtherFromForm(formValue.type, formValue.data as any);
-    }
-    return this.credentialsService.update(this.dialogInput.id, formValue);
+  private onCreateSuccess(credentials: LabCredentials): void {
+    this.isLoading = false;
+    this.snackBarService.openSuccessMessage('biox.credentials_created');
+    this.dialogRef.close(credentials);
+  }
+
+  update(formValue: LabSaveCredentialsDTO): void {
+    this.credentialsService.update(this.dialogInput.id, formValue).subscribe({
+      next: (credentials) => this.onUpdateSuccess(credentials),
+      error: () => (this.isLoading = false),
+    });
+  }
+
+  private onUpdateSuccess(credentials: LabCredentials): void {
+    this.isLoading = false;
+    this.snackBarService.openSuccessMessage('biox.credentials_created');
+    this.dialogRef.close(credentials);
   }
 
   get title(): string {
     return this.isCreateMode() ? 'biox.create_credentials' : 'biox.update_credentials';
-  }
-
-  getCreateSuccessMessage(): string {
-    return 'biox.credentials_created';
-  }
-
-  getUpdateSuccessMessage(): string {
-    return 'biox.credentials_updated';
   }
 
   onNameChange(): void {
@@ -148,137 +161,20 @@ export class LabCredentialsFormDialogComponent
     }
   }
 
-  private getDataFormGroupConfig(type: LabCredentialsType): FlDynamicFormAbstractControl {
-    switch (type) {
-      case LabCredentialsType.S3:
-        return this.getS3FormGroupConfig();
-      case LabCredentialsType.BASIC:
-        return this.getBasicFormGroupConfig();
-      case LabCredentialsType.OTHER:
-        return this.getOtherFormArrayConfig();
-      default:
-        return {
-          controlType: 'formGroup',
-          subConfigs: {},
-        };
-    }
+  isCreateMode(): boolean {
+    return this.dialogInput.mode === 'create';
   }
 
-  private getS3FormGroupConfig(): FlDynamicFormGroupConfig {
-    return {
-      controlType: 'formGroup',
-      subConfigs: {
-        endpoint_url: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Endpoint url',
-          inputType: 'text',
-          required: true,
-        },
-        region: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Region',
-          inputType: 'text',
-          required: true,
-        },
-        access_key_id: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Access key id',
-          inputType: 'text',
-          required: true,
-        },
-        secret_access_key: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Secret access key',
-          inputType: 'text',
-          required: true,
-        },
-        bucket: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Bucket name',
-          inputType: 'text',
-        },
-      } as Record<keyof LabCredentialsDataS3, FlDynamicFormAbstractControl>,
-    };
+  isUpdateMode(): boolean {
+    return this.dialogInput.mode === 'update';
   }
 
-  private getBasicFormGroupConfig(): FlDynamicFormGroupConfig {
-    return {
-      controlType: 'formGroup',
-      subConfigs: {
-        username: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Username',
-          inputType: 'text',
-          required: true,
-        },
-        password: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'Password',
-          inputType: 'text',
-          required: true,
-        },
-        url: {
-          controlType: 'formControl',
-          type: 'input',
-          placeholder: 'URL',
-          inputType: 'text',
-        },
-      } as Record<keyof LabCredentialsDataBasic, FlDynamicFormAbstractControl>,
-    };
-  }
-
-  private getOtherFormArrayConfig(): FlDynamicFormArrayConfig {
-    return {
-      controlType: 'formArray',
-      minSize: 1,
-      formGpConfig: {
-        controlType: 'formGroup',
-        subConfigs: {
-          key: {
-            controlType: 'formControl',
-            type: 'input',
-            placeholder: 'Key',
-            inputType: 'text',
-            required: true,
-          },
-          value: {
-            controlType: 'formControl',
-            type: 'input',
-            placeholder: 'Value',
-            inputType: 'text',
-            required: true,
-          },
-        },
-      },
-    };
-  }
-
-  private convertOtherFromForm(type: LabCredentialsType, dataFormValue: any): LabCredentialsData {
-    // only modify if type is other
-    if (type !== LabCredentialsType.OTHER) return dataFormValue;
-
-    const otherValue: LabCredentialsOtherFormData[] = dataFormValue;
-    const result: Record<string, string> = {};
-    otherValue.forEach((item) => {
-      result[item.key] = item.value;
-    });
-    return result;
-  }
-
-  private convertOtherToForm(type: LabCredentialsType, data: LabCredentialsData): any {
-    // only modify if type is other
-    if (type !== LabCredentialsType.OTHER) return data;
-    const result: LabCredentialsOtherFormData[] = [];
-    Object.keys(data).forEach((key) => {
-      result.push({ key, value: data[key] });
-    });
-    return result;
+  private getDataFormGroupConfig(
+    spec: LabCredentialsDataTypeSpec,
+    defaultValue?: any
+  ): FlDynamicFormGroupConfig {
+    // TODO TO improve once fix from @vfoex is merged
+    const labConfig = LabConfig.fromSpecs(spec.specs, defaultValue);
+    return labConfig.getDynamicFormFieldsConfig();
   }
 }

@@ -329,6 +329,7 @@
     "credentials_type": "Type d'identifiants",
     "credentials_type_BASIC": "Utilisateur / Mot de passe",
     "credentials_type_S3": "S3",
+    "credentials_type_LAB": "LAB",
     "credentials_type_OTHER": "Autre",
     "credentials_data": "Données d'identifiants",
     "manage_credentials": "Cliquer ici pour gérer les identifiants",

@@ -2,31 +2,34 @@ import {
   FlDynamicFieldAbstractDirective,
   FlDynamicFieldAdditionalConfig,
   FlDynamicFieldConfigService,
-  FlDynamicFieldConfigUnknown
+  FlDynamicFieldConfigUnknown,
 } from '@monorepo/front-core-lib';
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import {
-  LabTagDynamicFieldComponent
+  LabTagDynamicFieldComponent,
 } from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
-import {
-  LabCodeEditorDynamicFieldComponent
-} from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 import { tdCodeParamSpecTypeList, TdParamSpecType } from '@monorepo/technical-doc';
 import {
-  LabOpenAiChatDynamicFieldComponent
+  LabOpenAiChatDynamicFieldComponent,
 } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
 import {
-  LabSelectCredentialsDynamicFieldComponent
+  LabSelectCredentialsDynamicFieldComponent,
 } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
 import {
-  LabSelectNoteDynamicFieldComponent
+  LabSelectNoteDynamicFieldComponent,
 } from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
 import {
-  LabRichTextDynamicFieldComponent
+  LabRichTextDynamicFieldComponent,
 } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
 import {
-  LabSelectNoteTemplateDynamicFieldComponent
+  LabSelectNoteTemplateDynamicFieldComponent,
 } from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
+import {
+  LabSelectScenarioDynamicFieldComponent,
+} from '../lab-scenario-core/component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
+import {
+  LabCodeEditorDynamicFieldComponent
+} ,from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
@@ -40,6 +43,7 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
       credentials_param: this.buildSelectCredentialsField,
       note_template_param: this.buildSelectNoteTemplateField,
       note_param: this.buildSelectNoteField,
+      scenario_param: this.buildSelectScenarioField,
       rich_text_param: this.buildRichTextField,
     };
 
@@ -89,6 +93,12 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
     viewContainer: ViewContainerRef
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectNoteDynamicFieldComponent);
+  }
+
+  private buildSelectScenarioField(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectScenarioDynamicFieldComponent);
   }
 
   private buildRichTextField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {

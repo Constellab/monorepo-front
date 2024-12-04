@@ -58,7 +58,7 @@ export class TdParamSpecConfig {
 
   public static convertParamSpecToAbstractConfig(
     spec: TdParamSpecSimple,
-    defaultPlaceholder: string
+    defaultPlaceholder: string // TODO @vfoex pk avoir besoin de ça ? Le human_name est déjà là
   ): FlDynamicFieldConfig {
     if (spec.additional_info?.allowed_values && spec.additional_info?.allowed_values.length > 0) {
       if (spec.additional_info?.allowed_values.length > 10) {
@@ -138,6 +138,13 @@ export class TdParamSpecConfig {
         defaultPlaceholder
       ) as any;
       config.type = 'note_param';
+      return config;
+    } else if (spec.type === 'scenario_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'scenario_param';
       return config;
     } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(

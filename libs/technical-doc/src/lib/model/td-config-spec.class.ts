@@ -27,6 +27,7 @@ export type TdParamSpecType =
   | 'credentials_param'
   | 'note_template_param'
   | 'note_param'
+  | 'scenario_param'
   | 'dynamic'
   | 'dict';
 
@@ -97,15 +98,8 @@ export type TdParamSpecSimple =
   | TdParamSpecString
   | TdParamSpecText
   | TdParamSpecFloat
-  | TdParamSpecList
-  | TdParamSpecBoolean
-  | TdParamSpecTags
-  | TdParamSpecCode
-  | TdParamOpenAiChat
   | TdParamSelectCredentials
-  | TdParamSelectNoteTemplate
-  | TdParamSelectReport
-  | TdParamRichText;
+  | TdParamSpecBasic;
 
 /**
  * Param for short string
@@ -137,31 +131,24 @@ export interface TdParamSpecFloat extends TdParamSpecBase {
   };
 }
 
-export interface TdParamSpecBoolean extends TdParamSpecBase {
-  type: 'bool';
-}
-
-export interface TdParamSpecList extends TdParamSpecBase {
-  type: 'list';
-}
-
-export interface TdParamSpecTags extends TdParamSpecBase {
-  type: 'tags_param';
-}
-
-export interface TdParamOpenAiChat extends TdParamSpecBase {
-  type: 'open_ai_chat_param';
-}
-
-export interface TdParamSpecCode extends TdParamSpecBase {
+// list of params spec that does not have additional info
+interface TdParamSpecBasic extends TdParamSpecBase {
   type:
+    | 'bool'
+    | 'list'
+    | 'tags_param'
+    | 'open_ai_chat_param'
     | 'python_code_param'
     | 'r_code_param'
     | 'julia_code_param'
     | 'bash_code_param'
     | 'perl_code_param'
     | 'yaml_code_param'
-    | 'json_code_param';
+    | 'json_code_param'
+    | 'note_template_param'
+    | 'note_param'
+    | 'scenario_param'
+    | 'rich_text_param';
 }
 
 export interface TdParamSelectCredentials extends TdParamSpecBase {
@@ -170,18 +157,6 @@ export interface TdParamSelectCredentials extends TdParamSpecBase {
   additional_info: {
     credentials_type: string;
   };
-}
-
-export interface TdParamSelectNoteTemplate extends TdParamSpecBase {
-  type: 'note_template_param';
-}
-
-export interface TdParamSelectReport extends TdParamSpecBase {
-  type: 'note_param';
-}
-
-export interface TdParamRichText extends TdParamSpecBase {
-  type: 'rich_text_param';
 }
 
 /**
@@ -218,7 +193,7 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'json_code_param',
 ];
 
-
+//TODO @vfoex , voir si les types suivant sont utiles
 export type TdParamSpecFormInfoList = Record<string, TdParamSpecFormInfo>;
 
 export interface TdParamSpecFormInfo {

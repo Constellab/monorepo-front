@@ -10,6 +10,7 @@ import {
   LabCredentials,
   LabCredentialsData,
   LabCredentialsDatasource,
+  LabCredentialsDataSpecs,
   LabSaveCredentialsDTO,
 } from '../model/entities/lab-credentials.entity';
 import { ClCredentials, ClPageI } from '@monorepo/core-lib';
@@ -73,5 +74,9 @@ export class LabCredentialsService {
       pageSize: pageSize,
       resultIsPaginated: true,
     });
+  }
+
+  public getCredentialsDataSpecs(): Observable<LabCredentialsDataSpecs> {
+    return this.apiService.get(`${this.route}/data/specs`, LabCredentialsDataSpecs);
   }
 }

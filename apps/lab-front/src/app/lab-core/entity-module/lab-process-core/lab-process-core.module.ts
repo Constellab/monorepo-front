@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LabRunningProcessComponent } from './component/lab-running-process/lab-running-process.component';
+import { LabQuickConfigureProcessDialogComponent } from './component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
+import { LabCoreModule } from '../../lab-core.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabProgressBarCoreModule } from '../lab-progress-bar-core/lab-progress-bar-core.module';
 
 @NgModule({
-  declarations: [LabRunningProcessComponent],
-  exports: [LabRunningProcessComponent],
-  imports: [CommonModule, LabProgressBarCoreModule],
+  declarations: [LabRunningProcessComponent, LabQuickConfigureProcessDialogComponent],
+  exports: [LabRunningProcessComponent, LabQuickConfigureProcessDialogComponent],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, LabCoreModule, LabProgressBarCoreModule],
 })
 export class LabProcessCoreModule {}

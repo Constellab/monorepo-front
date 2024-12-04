@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import {
   FlDialogService,
   FlFormDialogInput,
+  FlPortalActionsService,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchState,
+  FlSnackBarService,
   FlThemeService,
 } from '@monorepo/front-core-lib';
 import { LabScenarioSearch, LabScenarioSearchFields } from '../../model/lab-scenario-search.class';
@@ -12,7 +14,11 @@ import { LabScenarioService } from '../../../../entity-service/lab-scenario.serv
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { LabScenarioFormDialogComponent } from '../lab-scenario-form-dialog/lab-scenario-form-dialog.component';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import { LabImportScenarioFromLinkComponent } from '../lab-import-scenario-from-link/lab-import-scenario-from-link.component';
+import { PrConfigValues } from '@monorepo/protocol';
+import {
+  LabQuickConfigureProcessDialogComponent,
+  LabQuickConfigureProcessDialogInput,
+} from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 
 @Component({
   selector: 'lab-scenario-search',
@@ -29,13 +35,13 @@ export class LabScenarioSearchComponent implements OnInit {
 
   datasource: LabScenarioDatasource<LabScenarioSearchFields>;
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private scenarioService: LabScenarioService,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService,
-    private themeService: FlThemeService
-  ) {}
+  private searchState = inject(FlSearchState);
+  private scenarioService = inject(LabScenarioService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+  private themeService = inject(FlThemeService);
+  private actionService = inject(FlPortalActionsService);
+  private snackBarService = inject(FlSnackBarService);
 
   ngOnInit(): void {
     const config: FlSearchConfig = {
@@ -104,6 +110,36 @@ export class LabScenarioSearchComponent implements OnInit {
   }
 
   openImportFromUrlDialog(): void {
-    this.dialogService.openMediumDialog(LabImportScenarioFromLinkComponent);
+    const data: LabQuickConfigureProcessDialogInput = {
+      title: 'biox.import_scenario_from_lab',
+      helpText: 'biox.import_scenario_from_lab_help',
+      specs$: this.scenarioService.getImportScenarioConfigSpecs(),
+    };
+    this.dialogService
+      .openMediumDialog(LabQuickConfigureProcessDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((configValues) => this.onImportScenarioClosed(configValues));
+  }
+
+  private onImportScenarioClosed(configValues: PrConfigValues): void {
+    if (configValues) {
+      this.actionService.addAction(
+        {
+          type: 'import-scenario',
+          action: this.scenarioService.importScenarioFromLab(configValues),
+          text: { text: 'biox.downloading_scenario', translateText: true },
+          successLink: (scenario: LabScenario) => LabRouterService.getScenarioDetailRoute(scenario.id),
+        },
+        false
+      );
+
+      this.snackBarService.openSuccessMessage(
+        {
+          text: 'biox.downloading_scenario_help_text',
+          translateText: true,
+        },
+        5000
+      );
+    }
   }
 }
