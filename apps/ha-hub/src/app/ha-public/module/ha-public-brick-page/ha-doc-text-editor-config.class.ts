@@ -52,14 +52,14 @@ export class HaDocTextEditorConfig extends TeCompleteConfig {
     private docId: string
   ) {
     super();
+    this.figureConfig = new HaDocTextEditorImageConfig(docId, docService);
   }
 
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new HaDocTextEditorImageConfig(this.docId, this.docService);
-    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+    tools.figure = this.getImageConfig(this.figureConfig, envInjector, applicationRef);
 
     // configure and add the file block
     const fileConfig = new HaDocTextEditorFileConfig(this.docId, this.docService);

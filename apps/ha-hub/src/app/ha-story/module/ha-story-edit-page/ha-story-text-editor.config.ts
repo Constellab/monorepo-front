@@ -54,14 +54,14 @@ export class HaStoryTextEditorConfig extends TeCompleteConfig {
     private storyId: string
   ) {
     super();
+    this.figureConfig = new HaStoryTextEditorImageConfig(storyId, storyService);
   }
 
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new HaStoryTextEditorImageConfig(this.storyId, this.storyService);
-    tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
+    tools.figure = this.getImageConfig(this.figureConfig, envInjector, applicationRef);
 
     // configure and add the file block
     const fileConfig = new HaStoryTextEditorFileConfig(this.storyId, this.storyService);

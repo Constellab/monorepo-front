@@ -70,6 +70,8 @@ export interface TeUiConfig {
 export abstract class TeConfig {
   public uiConfig: TeUiConfig;
 
+  public figureConfig: TeFigureBlockConfig;
+
   constructor(uiConfig: Partial<TeUiConfig> = {}) {
     const defaultConfig: TeUiConfig = {
       hideToolbar: false,
