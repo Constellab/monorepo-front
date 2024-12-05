@@ -46,6 +46,38 @@ export class HaMetadataService {
     this.setOGMetaTags(title, description, image, url, hasTranslation, data);
   }
 
+  getMetaTag(name: string): string {
+    return this.metaService.getTag(`name="${name}"`).content;
+  }
+
+  getFacebookShareUrl(): string {
+    const url: string = this.getMetaTag('og:url');
+    const title: string = this.getMetaTag('og:title');
+    const description: string = this.getMetaTag('og:description');
+    const image: string = this.getMetaTag('og:image');
+
+    return `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}&description=${description}&picture=${image}`;
+  }
+
+  getTwitterShareUrl(): string {
+    const title: string = this.getMetaTag('twitter:title');
+    const card: string = this.getMetaTag('twitter:card');
+    const description: string = this.getMetaTag('twitter:description');
+    const image: string = this.getMetaTag('twitter:image');
+    const site: string = this.getMetaTag('twitter:site');
+
+    return `https://twitter.com/intent/tweet?text=${title}&card=${card}&description=${description}&image=${image}&site=${site}`;
+  }
+
+  getLinkedInShareUrl(): string {
+    const url: string = this.getMetaTag('og:url');
+    const title: string = this.getMetaTag('og:title');
+    const description: string = this.getMetaTag('og:description');
+    const image: string = this.getMetaTag('og:image');
+
+    return `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${description}&source=${image}`;
+  }
+
   private setTwitterMetaTags(
     title: string,
     description: string,

@@ -121,6 +121,11 @@ export class HaRouterService {
     return 'https://hub.docker.com/r/constellab/glab';
   }
 
+  //////////////////////////// SHARE PAGE ////////////////////////////////
+  public static getLinkedinShareUrl(url: string, title: string, description: string): string {
+    return `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${description}`;
+  }
+
   // --------------------------------------------------------------------------------------------
 
   //Check if the url is valid for the hub

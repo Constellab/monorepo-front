@@ -1,0 +1,19 @@
+<button mat-icon-button [matMenuTriggerFor]="shareMenu">
+  <mat-icon>share</mat-icon>
+</button>
+
+<mat-menu #shareMenu="matMenu" xPosition="before">
+  @for (shareButtonElement of shareButtonElements; track shareButtonElement.icon) {
+    <a mat-menu-item [href]="shareButtonElement.url" target="_blank" rel="noopener noreferrer">
+      <mat-icon [svgIcon]="shareButtonElement.icon"></mat-icon>
+      {{ shareButtonElement.label }}
+    </a>
+  }
+
+  @if (shareToMedium()) {
+    <button mat-menu-item (click)="onShareToMedium()">
+      <mat-icon [svgIcon]="'medium'"></mat-icon>
+      {{ 'copy_link_and_import_to_medium' | translate }}
+    </button>
+  }
+</mat-menu>

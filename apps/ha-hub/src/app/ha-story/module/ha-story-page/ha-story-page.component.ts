@@ -21,7 +21,7 @@ import {
   HaCommentsPortalComponent,
   HaCommentsPortalData,
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl } from '@angular/forms';
 
@@ -58,6 +58,10 @@ export class HaStoryPageComponent implements OnInit {
   storyFiles: HaFile[];
 
   urlToDownloadFilePrefix: string;
+
+  strStoryContent: any;
+
+  subscription: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,

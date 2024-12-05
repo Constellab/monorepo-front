@@ -15,6 +15,7 @@ import { HaUtilComponentCoreModule } from '../ha-core/entity-module/ha-util-comp
 import { HaCommentsCoreModule } from '../ha-core/entity-module/ha-comments-core/ha-comments-core.module';
 import { HaFileCoreModule } from '../ha-core/entity-module/ha-file-core/ha-file-core.module';
 import { HaPublicBrickPageModule } from '../ha-public/module/ha-public-brick-page/ha-public-brick-page.module';
+import { HaShareCoreModule } from '../ha-core/entity-module/ha-share-core/ha-share.module';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HaPublicBrickPageModule } from '../ha-public/module/ha-public-brick-pag
     HaCommentsCoreModule,
     HaFileCoreModule,
     HaPublicBrickPageModule,
+    HaShareCoreModule,
   ],
 })
 export class HaStoryModule {}
