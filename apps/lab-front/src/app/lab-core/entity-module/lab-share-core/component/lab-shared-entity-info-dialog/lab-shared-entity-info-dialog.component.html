@@ -3,6 +3,18 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
+
+  @if (input.autoSendConfig) {
+    <div class="g-text-centered">
+
+      <button mat-stroked-button type="button" (click)="openAutoSendDialog()">
+        <mat-icon>file_upload</mat-icon>
+        <span>{{ sendToLabButtonText | translate }}</span>
+      </button>
+      <mat-divider></mat-divider>
+    </div>
+  }
+
   @if (shareLink$ | async; as shareLink) {
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em g-text-big">
       <div class="g-flex-auto">

@@ -11,7 +11,9 @@ import {
   FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import {
+  LabProgressBarInfoDialogComponent,
+} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { map } from 'rxjs/operators';
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
@@ -345,6 +347,12 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
     const data: LabSharedEntityInfoDialogInput = {
       entityType: 'SCENARIO',
       entityId: scenario.id,
+      autoSendConfig: {
+        title: 'biox.send_scenario_to_lab',
+        helpText: 'biox.send_entity_to_lab_help',
+        specs$: this.scenarioService.getExportToLabConfigSpecs(),
+      },
+      autoSend: (configValues) => this.scenarioService.exportScenarioToLab(scenario.id, configValues),
     };
 
     this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });

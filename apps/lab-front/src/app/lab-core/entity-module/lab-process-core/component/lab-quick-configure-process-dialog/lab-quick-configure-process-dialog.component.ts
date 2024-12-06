@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  FlDynamicFieldConfigService,
   FlDynamicFormAbstractControl,
   FlDynamicFormHelper,
   FlTranslatableText,
@@ -9,6 +10,7 @@ import { TdParamSpecs } from '@monorepo/technical-doc';
 import { UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
+import { LabConfigureProcessDynamicField } from '../../../lab-config-core/lab-configure-process-dynamic-field.service';
 
 export interface LabQuickConfigureProcessDialogInput {
   title: FlTranslatableText;
@@ -25,6 +27,10 @@ export interface LabQuickConfigureProcessDialogInput {
   selector: 'lab-quick-configure-process-dialog',
   templateUrl: './lab-quick-configure-process-dialog.component.html',
   styleUrl: './lab-quick-configure-process-dialog.component.scss',
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField },
+  ],
 })
 export class LabQuickConfigureProcessDialogComponent implements OnInit {
   input: LabQuickConfigureProcessDialogInput = inject(MAT_DIALOG_DATA);

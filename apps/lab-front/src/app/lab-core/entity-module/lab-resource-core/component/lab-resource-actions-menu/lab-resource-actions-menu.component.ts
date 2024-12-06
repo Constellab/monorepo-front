@@ -11,8 +11,12 @@ import {
   FlTranslatableText,
   FlTranslateService,
 } from '@monorepo/front-core-lib';
-import { LabUpdateResourceTypeComponent } from '../lab-update-resource-type/lab-update-resource-type.component';
-import { LabUpdateResourceNameDialogComponent } from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
+import {
+  LabUpdateResourceTypeComponent,
+} from '../lab-update-resource-type/lab-update-resource-type.component';
+import {
+  LabUpdateResourceNameDialogComponent,
+} from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDownloadService } from '../../../../entity-service/lab-resource-download.service';
 import {
@@ -127,6 +131,12 @@ export class LabResourceActionsMenuComponent implements OnInit {
     const data: LabSharedEntityInfoDialogInput = {
       entityType: 'RESOURCE',
       entityId: this.resource.id,
+      autoSendConfig: {
+        title: 'biox.send_resource_to_lab',
+        helpText: 'biox.send_entity_to_lab_help',
+        specs$: this.resourceService.getExportToLabConfigSpecs(),
+      },
+      autoSend: (configValues) => this.resourceService.exportResourceToLab(this.resource.id, configValues),
     };
 
     this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });

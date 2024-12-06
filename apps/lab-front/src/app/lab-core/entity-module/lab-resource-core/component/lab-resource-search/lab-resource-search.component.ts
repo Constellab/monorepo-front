@@ -255,7 +255,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
     };
 
     this.dialogService
-      .openSmallDialog(LabQuickConfigureProcessDialogComponent, { data: data })
+      .openMediumDialog(LabQuickConfigureProcessDialogComponent, { data: data })
       .afterClosed()
       .subscribe((configValues) => this.onImportFromUrlClosed(configValues));
   }

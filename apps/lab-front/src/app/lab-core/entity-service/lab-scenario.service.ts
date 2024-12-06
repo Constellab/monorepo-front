@@ -203,4 +203,12 @@ export class LabScenarioService {
   public getImportScenarioConfigSpecs(): Observable<TdParamSpecs> {
     return this.apiService.get(`${this.route}/import-from-lab/config-specs`);
   }
+
+  public exportScenarioToLab(id: string, configValues: PrConfigValues): Observable<LabScenario> {
+    return this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LabResource);
+  }
+
+  public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {
+    return this.apiService.get(`${this.route}/export-to-lab/config-specs`);
+  }
 }

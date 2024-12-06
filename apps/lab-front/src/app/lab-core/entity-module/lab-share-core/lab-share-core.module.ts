@@ -23,6 +23,7 @@ import {
   LabSharedEntityInfoDialogComponent,
 } from './component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
 import { LabShareLinkLinksComponent } from './component/lab-share-link-links/lab-share-link-links.component';
+import { LabProcessCoreModule } from '../lab-process-core/lab-process-core.module';
 
 /**
  * Module for the share link and shared entity
@@ -48,6 +49,13 @@ import { LabShareLinkLinksComponent } from './component/lab-share-link-links/lab
     LabSharedEntityInfoDialogComponent,
     LabShareLinkLinksComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, LabCoreModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    LabCoreModule,
+    LabProcessCoreModule,
+  ],
 })
 export class LabShareCoreModule {}

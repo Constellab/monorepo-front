@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   LabSharedEntityDatasource,
   LabShareLink,
@@ -9,14 +9,24 @@ import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib';
 import { Observable, of, share } from 'rxjs';
 import { LabShareService } from '../../../../entity-service/lab-share.service';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
+import {
+  LabQuickConfigureProcessDialogComponent,
+  LabQuickConfigureProcessDialogInput,
+} from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
+import { TdParamSpecs } from '@monorepo/technical-doc';
 
 export interface LabSharedEntityInfoDialogInput {
   entityType: LabShareLinkType;
   entityId: string;
+  /**
+   * Config to enable auto send to lab button and dialog
+   */
+  autoSendConfig?: LabQuickConfigureProcessDialogInput;
+  autoSend?: (specs: TdParamSpecs) => Observable<any>;
 }
 
 @Component({
@@ -25,35 +35,29 @@ export interface LabSharedEntityInfoDialogInput {
   styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
 })
 export class LabSharedEntityInfoDialogComponent implements OnInit {
-  entityType: LabShareLinkType;
-  entityId: string;
+  input: LabSharedEntityInfoDialogInput = inject(MAT_DIALOG_DATA);
 
   shareLink$: Observable<LabShareLink>;
 
   sharedEntities: LabSharedEntityDatasource;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: LabSharedEntityInfoDialogInput,
-    private shareService: LabShareService,
-    private shareLinkService: LabShareLinkService,
-    private dialogService: FlDialogService
-  ) {
-    this.entityType = input.entityType;
-    this.entityId = input.entityId;
-  }
+  private shareService = inject(LabShareService);
+  private shareLinkService = inject(LabShareLinkService);
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
 
   ngOnInit(): void {
     this.shareLink$ = this.shareLink$ = this.shareLinkService
-      .getShareLink(this.entityType, this.entityId)
+      .getShareLink(this.input.entityType, this.input.entityId)
       .pipe(share());
-    this.sharedEntities = this.shareService.getSharedToDatasource(this.entityType, this.entityId);
+    this.sharedEntities = this.shareService.getSharedToDatasource(this.input.entityType, this.input.entityId);
   }
 
   openShareDialog(): void {
     const data: LabShareLinkFormDialogInput = {
       mode: 'create',
-      entityType: this.entityType,
-      entityId: this.entityId,
+      entityType: this.input.entityType,
+      entityId: this.input.entityId,
       createTitle: this.getShareDialogTitle(),
     };
 
@@ -70,7 +74,7 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   }
 
   private getShareDialogTitle(): string {
-    switch (this.entityType) {
+    switch (this.input.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
       case 'SCENARIO':
@@ -81,11 +85,22 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   }
 
   get shareButtonText(): string {
-    switch (this.entityType) {
+    switch (this.input.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';
       case 'SCENARIO':
         return 'biox.share_scenario';
+      default:
+        throw new Error('Unknown entity type');
+    }
+  }
+
+  get sendToLabButtonText(): string {
+    switch (this.input.entityType) {
+      case 'RESOURCE':
+        return 'biox.send_resource_to_lab';
+      case 'SCENARIO':
+        return 'biox.send_scenario_to_lab';
       default:
         throw new Error('Unknown entity type');
     }
@@ -97,5 +112,34 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
 
   onShareLinkDelete(): void {
     this.shareLink$ = of(null);
+  }
+
+  openAutoSendDialog(): void {
+    this.dialogService
+      .openMediumDialog(LabQuickConfigureProcessDialogComponent, { data: this.input.autoSendConfig })
+      .afterClosed()
+      .subscribe((specs) => this.onAutoSendClosed(specs));
+  }
+
+  private getSendActionText(): string {
+    switch (this.input.entityType) {
+      case 'RESOURCE':
+        return 'biox.sending_resource_to_lab';
+      case 'SCENARIO':
+        return 'biox.sending_scenario_to_lab';
+      default:
+        throw new Error('Unknown entity type');
+    }
+  }
+
+  private onAutoSendClosed(specs: TdParamSpecs): void {
+    if (specs) {
+      const action: FlPortalAction = {
+        text: this.getSendActionText(),
+        action: this.input.autoSend(specs),
+        type: 'send-to-lab',
+      };
+      this.actionService.addAction(action, false);
+    }
   }
 }
