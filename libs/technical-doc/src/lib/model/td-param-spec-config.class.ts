@@ -12,47 +12,50 @@ import {
 import {
   tdCodeParamSpecTypeList,
   TdParamSpec,
-  TdParamSpecFormInfoList,
-  TdParamSpecFormSpecs,
+  TdParamSpecs,
   TdParamSpecSimple,
-  TdParamSpecType,
 } from './td-config-spec.class';
 import { signal } from '@angular/core';
 
 export class TdParamSpecConfig {
-  infoList: TdParamSpecFormInfoList;
+  constructor() {}
 
-  constructor(infoList: TdParamSpecFormInfoList) {
-    this.infoList = infoList;
-  }
-
-  public getDynamicFormFieldsConfig(type: TdParamSpecType): FlDynamicFormGroupConfig {
-    const typeParamFormInfo = this.infoList[type];
-    if (!typeParamFormInfo) {
-      return null;
-    }
-    return this.convertToFieldConfigs(typeParamFormInfo.specs);
-  }
-
-  private convertToFieldConfigs(typeParamFormInfoSpecs: TdParamSpecFormSpecs): FlDynamicFormGroupConfig {
+  public static convertToFieldConfigs(specs: TdParamSpecs): FlDynamicFormGroupConfig {
     const configs: FlDynamicFormGroupConfig = {
       controlType: 'formGroup',
       subConfigs: {},
     };
 
-    for (const specName of Object.keys(typeParamFormInfoSpecs)) {
+    for (const specName of Object.keys(specs)) {
+      configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
+        specs[specName] as TdParamSpecSimple,
+        ''
+      );
+    }
+
+    return configs;
+  }
+
+  public static convertToFieldConfigsRecursive(
+    specs: Record<string, TdParamSpec | TdParamSpecs>
+  ): FlDynamicFormGroupConfig {
+    const configs: FlDynamicFormGroupConfig = {
+      controlType: 'formGroup',
+      subConfigs: {},
+    };
+
+    for (const specName of Object.keys(specs)) {
       if (specName === 'additional_info') {
-        configs.subConfigs[specName] = this.convertToFieldConfigs(
-          typeParamFormInfoSpecs[specName] as Record<string, TdParamSpecSimple>
+        configs.subConfigs[specName] = TdParamSpecConfig.convertToFieldConfigs(
+          specs[specName] as TdParamSpecs
         );
       } else {
         configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-          typeParamFormInfoSpecs[specName] as TdParamSpecSimple,
+          specs[specName] as TdParamSpecSimple,
           ''
         );
       }
     }
-
     return configs;
   }
 
@@ -159,7 +162,7 @@ export class TdParamSpecConfig {
         spec,
         defaultPlaceholder
       ) as any;
-      config.type = 'rich_text';
+      config.type = 'rich_text_param';
       config.fullWidth = true;
       return config;
     } else {

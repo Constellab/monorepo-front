@@ -174,7 +174,15 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
    * if not all the field are provided
    */
   public mergeConfigWithDefault(): any {
-    return Object.assign(this.getNullConfig(), this.getDefaultConfig(), this.values);
+    const res = this.getNullConfig();
+    for (const key in res) {
+      if (this.values[key] != null) {
+        res[key] = this.values[key];
+      } else if (this.getDefaultConfig()[key] != null) {
+        res[key] = this.getDefaultConfig()[key];
+      }
+    }
+    return res;
   }
 
   public hasConfigs(visibility?: TdParamSpecVisibility): boolean {

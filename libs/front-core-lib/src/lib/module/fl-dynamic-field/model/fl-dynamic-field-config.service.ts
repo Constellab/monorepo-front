@@ -1,32 +1,20 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {
-  FlDynamicFieldTextareaComponent
-} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
   FlDynamicFieldConfigInput,
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
-  FlDynamicFieldConfigSelectSearch
+  FlDynamicFieldConfigSelectSearch,
 } from './fl-dynamic-field-config.class';
 import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
-import {
-  FlDynamicFieldInputComponent
-} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
-import {
-  FlDynamicFieldSelectComponent
-} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
-import {
-  FlDynamicFieldListComponent
-} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
-import {
-  FlDynamicFieldBooleanComponent
-} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
-import {
-  FlDynamicFieldSelectSearchComponent
-} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import { FlDynamicFieldInputComponent } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import { FlDynamicFieldSelectComponent } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import { FlDynamicFieldListComponent } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import { FlDynamicFieldBooleanComponent } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import { FlDynamicFieldSelectSearchComponent } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
@@ -61,7 +49,6 @@ export class FlDynamicFieldConfigService {
     formCtrl: FormControl
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     let viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
-
     // if the type is supported by the module config, use it
     if (this.isAdditionalType(config.type)) {
       const additionalConfig = this.getAdditionalConfig()[config.type];

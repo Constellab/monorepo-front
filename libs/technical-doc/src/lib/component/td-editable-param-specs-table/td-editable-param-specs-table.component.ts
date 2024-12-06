@@ -68,7 +68,7 @@ export class TdEditableParamSpecsTableComponent {
       } else if (element[column].id) {
         return element[column].id;
       } else if (this.isObject(element[column])) {
-        return this.translateService.translate('object');
+        return 'object';
       } else {
         const value: string = String(element[column]);
         if (value.length > 20) {

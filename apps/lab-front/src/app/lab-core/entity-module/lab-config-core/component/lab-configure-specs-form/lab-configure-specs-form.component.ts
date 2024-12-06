@@ -6,14 +6,14 @@ import {
   OnDestroy,
   OnInit,
   Signal,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import {
   FlDialogService,
   FlDynamicEditableFormGroupConfig,
   FlDynamicFieldConfigService,
   FlDynamicFormGroupConfig,
-  FlDynamicFormHelper
+  FlDynamicFormHelper,
 } from '@monorepo/front-core-lib';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
@@ -23,13 +23,11 @@ import {
   TdAbstractDynamicParamSpecState,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
-  TdParamSpecs
+  TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { LabProcess } from '../../../../model/entities/process/lab-process.entity';
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
-import {
-  LabProcessDashboardState
-} from '../../../../../lab-scenario/lab-scenario-detail-page/state/lab-process-dashboard.state';
+import { LabProcessDashboardState } from '../../../../../lab-scenario/lab-scenario-detail-page/state/lab-process-dashboard.state';
 import { Subscription } from 'rxjs';
 
 /**
@@ -92,7 +90,6 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
   public static buildFormGroup(configData: PrConfig): UntypedFormGroup {
     const labConfig = LabConfig.fromSpecs(configData.specs, configData.values);
     const value = labConfig.mergeConfigWithDefault();
-
     return new FormBuilder().group({
       public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
       protected: FlDynamicFormHelper.generateFormGroup(
