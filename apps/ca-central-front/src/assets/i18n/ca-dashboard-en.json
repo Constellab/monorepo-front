@@ -184,7 +184,7 @@
   "folder_activate_chat": "Activate chat",
   "folder_deactivate_chat": "Deactivate chat",
   "open_in_chat": "Open in chat",
-  "no_chat_activated": "No chat, please activate chat in folder settings to view the chats here",
+  "no_chat_activated": "No chat channels, please activate chat channels in folders' settings",
   "delete_volume_history": "Delete volume history",
   "delete_volume_history_confirmation": "Are you sure you want to delete the volume history ?",
   "volume_history_deleted": "Volume history deleted",

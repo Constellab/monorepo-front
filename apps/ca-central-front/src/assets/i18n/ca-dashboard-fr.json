@@ -184,7 +184,7 @@
   "folder_activate_chat": "Activer le chat",
   "folder_deactivate_chat": "Désactiver le chat",
   "open_in_chat": "Ouvrir dans le chat",
-  "no_chat_activated": "Pas de chat, veuillez activer le chat dans les paramètres du dossier pour voir les chats ici",
+  "no_chat_activated": "Aucun canal de chat, veuillez activer les canaux de chat dans les paramètres des dossiers",
   "delete_volume_history": "Supprimer l'historique de volume",
   "delete_volume_history_confirmation": "Êtes-vous sûr de vouloir supprimer l'historique de volume ?",
   "volume_history_deleted": "Historique de volume supprimé",

@@ -364,7 +364,7 @@
   "lab_manager_config_section_help": "Cette section vous permet de configurer le lab en définissant les briques (avec leur version) qui seront installées dans le lab. Une fois la configuration changée, le lab doit être redémarré pour installer les nouvelles versions des briques.",
   "lab_server_section_help": "Cette section vous permet de gérer le serveur du lab. Utilisez cette section uniquement si vous savez ce que vous faites.",
   "lab_users_section_help": "Cette section vous permet de gérer les utilisateurs du lab. Vous pouvez ajouter, mettre à jour et supprimer des utilisateurs si vous êtes le propriétaire du lab.",
-  "lab_folders_section_help": "Cette section vous permet de gérer les dossiers accessibles dans le lab. Une fois le dossier partagé avec le lab, les scénarios et les notes du lab peuvent y être associés. Vous pouvez ajouter, mettre à jour et supprimer des dossiers si vous êtes le propriétaire du lab.",
+  "lab_folders_section_help": "Gérez les dossiers du lab ici. Les dossiers partagés peuvent être liés aux scénarios et notes du lab. Ajoutez, mettez à jour ou supprimez des dossiers si vous êtes le propriétaire du lab.",
   "lab_installed_brick": "Briques installées",
   "lab_installed_brick_help": "Voici la liste des briques installées dans le lab. Cette liste est automatiquement mise à jour lorsque le lab est démarré. Si vous avez modifié la configuration du lab dans la section Lab manager et que vous n'avez pas redémarré le lab, cette liste sera différente de celle dans la configuration du lab manager. Dans ce cas, redémarrez le lab pour mettre à jour les briques.",
   "lab_delete_backup": "Supprimer les backups",

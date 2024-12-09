@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 /**
  * Dialog to search on scenario and select one
  *
- * The dialog is closed when an scenario is selected
+ * The dialog is closed when a scenario is selected
  */
 @Component({
   selector: 'lab-select-scenario-dialog',

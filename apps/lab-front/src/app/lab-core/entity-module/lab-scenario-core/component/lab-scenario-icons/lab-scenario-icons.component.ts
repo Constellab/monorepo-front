@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 
 /**
- * small component to display icons for an scenario
+ * small component to display icons for a scenario
  * Validated, Archived, Creation type
  */
 @Component({

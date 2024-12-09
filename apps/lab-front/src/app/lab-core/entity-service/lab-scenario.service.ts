@@ -86,12 +86,12 @@ export class LabScenarioService {
     return this.apiService.put(`${this.route}/${id}/sync-with-space`, null, LabScenario);
   }
 
-  // launch an scenario
+  // launch a scenario
   public startScenario(scenarioId: string): Observable<LabScenario> {
     return this.apiService.post(`${this.route}/${scenarioId}/start`, null, LabScenario);
   }
 
-  // stop (kill) an scenario
+  // stop (kill) a scenario
   public stopScenario(scenarioId: string): Observable<LabScenario> {
     return this.apiService.post(`${this.route}/${scenarioId}/stop`, null, LabScenario);
   }

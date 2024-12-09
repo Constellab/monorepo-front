@@ -57,18 +57,21 @@
     <span>{{ 'biox.add_resource' | translate }}</span>
   </button>
 
-  <button mat-menu-item type="button" (click)="addScenarioTemplate()">
-    <mat-icon flIcon="scenario_template"></mat-icon>
-    <span>{{ 'biox.add_scenario_template' | translate }}</span>
-  </button>
+  <mat-divider></mat-divider>
 
   <button mat-menu-item type="button" (click)="addCommunityAgent()">
     <mat-icon flIcon="code"></mat-icon>
     <span>{{ 'biox.add_community_agent' | translate }}</span>
   </button>
+  <mat-divider></mat-divider>
+
+  <button mat-menu-item type="button" (click)="addScenarioTemplate()">
+    <mat-icon flIcon="scenario_template"></mat-icon>
+    <span>{{ 'biox.add_scenario_template' | translate }}</span>
+  </button>
 
   <button mat-menu-item type="button" (click)="addEmptyProtocol()">
-    <mat-icon flIcon="play_circle_filled"></mat-icon>
+    <mat-icon flIcon="scenario"></mat-icon>
     <span>{{ 'pr.add_empty_protocol' | translate }}</span>
   </button>
 </mat-menu>

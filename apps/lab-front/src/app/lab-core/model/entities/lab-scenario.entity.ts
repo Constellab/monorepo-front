@@ -152,7 +152,7 @@ export class LabScenario extends LabBaseEntityWithUser implements LabFolderObjec
 
 export type LabScenarioDatasource<F = void> = FlEntityPaginatedDatasource<LabScenario, F>;
 
-// form object to create an scenario
+// form object to create a scenario
 export interface LabScenarioSimpleForm {
   title: string;
   folder: LabEntity;

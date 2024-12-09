@@ -29,7 +29,7 @@ export const caMainMenuLinks: CaMainMenuLink[] = [
     route: CaRouterService.getMyLabsRoute(),
   },
   {
-    label: 'chat',
+    label: 'chats',
     icon: 'chat',
     route: CaRouterService.getChatRoute(),
   },

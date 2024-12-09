@@ -10,7 +10,7 @@ import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.en
 
 export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
   noteId?: string;
-  scenarioId?: string; // can be provided during create to link the note directly to an scenario
+  scenarioId?: string; // can be provided during create to link the note directly to a scenario
   folder?: LabEntity;
   disableFolder?: boolean;
 }
