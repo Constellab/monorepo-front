@@ -368,5 +368,6 @@
   "style_updated_successfully": "Style mis à jour avec succès",
   "edit_agent_style": "Éditer le style de l'agent",
   "edit_agent_version_style": "Éditer le style de la version de l'agent",
-  "modify_style_for_all_agent_versions": "Modifier le style pour toutes les versions de l'agent"
+  "modify_style_for_all_agent_versions": "Modifier le style pour toutes les versions de l'agent",
+  "copy_link_and_import_to_medium": "Copier le lien et importer sur Medium"
 }

@@ -65,6 +65,10 @@ export class HaRouterService {
     return `${this.getStoriesListRoute()}${id}/${titlePath}`;
   }
 
+  public static getFullStoryRoute(id: string, titlePath: string): string {
+    return `${this.getAppUrl()}${this.getStoryRoute(id, titlePath)}`;
+  }
+
   public static getStoryEditRoute(id: string): string {
     return `${this.getStoriesListRoute()}edit/${id}`;
   }
@@ -115,6 +119,11 @@ export class HaRouterService {
 
   public static getDockerHubGlabLink(): string {
     return 'https://hub.docker.com/r/constellab/glab';
+  }
+
+  //////////////////////////// SHARE PAGE ////////////////////////////////
+  public static getLinkedinShareUrl(url: string, title: string, description: string): string {
+    return `https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${description}`;
   }
 
   // --------------------------------------------------------------------------------------------

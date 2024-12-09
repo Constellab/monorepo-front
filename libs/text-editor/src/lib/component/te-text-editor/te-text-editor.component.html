@@ -7,5 +7,5 @@
     (textChange)="onTextChange($event)"
     [richText]="value"></te-text-editor-browser-side>
 } @else {
-  <te-text-editor-server-side [richText]="value"></te-text-editor-server-side>
+  <te-text-editor-server-side [richText]="value" [config]="config"></te-text-editor-server-side>
 }
