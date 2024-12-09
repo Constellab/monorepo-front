@@ -10,7 +10,7 @@
     </a>
   }
 
-  @if (shareToMedium()) {
+  @if (shareToMedium() && isEditor()) {
     <button mat-menu-item (click)="onShareToMedium()">
       <mat-icon [svgIcon]="'medium'"></mat-icon>
       {{ 'copy_link_and_import_to_medium' | translate }}

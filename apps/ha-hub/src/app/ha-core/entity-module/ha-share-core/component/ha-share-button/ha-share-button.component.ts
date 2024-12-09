@@ -10,6 +10,8 @@ import { HaMetadataService } from '../../../../ha-service/ha-metadata.service';
 export class HaShareButtonComponent implements OnInit {
   shareToMedium = input<boolean>();
 
+  isEditor = input<boolean>();
+
   shareButtonElements: HaShareButtonElement[] = [];
 
   constructor(private metaService: HaMetadataService) {}
