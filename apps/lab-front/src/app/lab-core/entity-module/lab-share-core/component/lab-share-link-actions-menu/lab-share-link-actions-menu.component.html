@@ -3,18 +3,12 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
-  <button mat-menu-item type="button" (click)="copyLinkToClipboard()">
-    <mat-icon>content_copy</mat-icon>
-    <span>{{ 'biox.copy_share_link' | translate }}</span>
-  </button>
-
-  <a
-    mat-menu-item
-    [routerLink]="shareLink.entityId | labDetailRoute: shareLink.labObjectType"
-    *ngIf="showLinkToEntity && shareLink.status === 'SUCCESS'">
-    <mat-icon>visibility</mat-icon>
-    <span>{{ 'biox.view_shared_object' | translate }}</span>
-  </a>
+  @if (showLinkToEntity && shareLink.status === 'SUCCESS') {
+    <a mat-menu-item [routerLink]="shareLink.entityId | labDetailRoute: shareLink.labObjectType">
+      <mat-icon>visibility</mat-icon>
+      <span>{{ 'biox.view_shared_object' | translate }}</span>
+    </a>
+  }
 
   <button mat-menu-item type="button" (click)="openUpdateDialog()">
     <mat-icon>edit</mat-icon>

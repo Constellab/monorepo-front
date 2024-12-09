@@ -139,7 +139,7 @@ export class LabResourceActionsMenuComponent implements OnInit {
       autoSend: (configValues) => this.resourceService.exportResourceToLab(this.resource.id, configValues),
     };
 
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data, autoFocus: false });
   }
 
   openTagDialog(): void {

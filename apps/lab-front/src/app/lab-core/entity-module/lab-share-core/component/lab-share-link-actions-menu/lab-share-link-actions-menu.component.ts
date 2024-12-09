@@ -1,12 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
-import {
-  FlClipboardService,
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
@@ -30,13 +25,8 @@ export class LabShareLinkActionsMenuComponent {
 
   constructor(
     private shareLinkService: LabShareLinkService,
-    private dialogService: FlDialogService,
-    private clipboard: FlClipboardService
+    private dialogService: FlDialogService
   ) {}
-
-  copyLinkToClipboard(): void {
-    this.clipboard.copy(this.shareLink.downloadLink, { text: 'biox.share_link_copied', translateText: true });
-  }
 
   openUpdateDialog(): void {
     const input: LabShareLinkFormDialogInput = {

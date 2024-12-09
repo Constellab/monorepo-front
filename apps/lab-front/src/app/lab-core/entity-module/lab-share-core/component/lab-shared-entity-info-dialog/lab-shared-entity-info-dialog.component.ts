@@ -25,8 +25,8 @@ export interface LabSharedEntityInfoDialogInput {
   /**
    * Config to enable auto send to lab button and dialog
    */
-  autoSendConfig?: LabQuickConfigureProcessDialogInput;
-  autoSend?: (specs: TdParamSpecs) => Observable<any>;
+  autoSendConfig: LabQuickConfigureProcessDialogInput;
+  autoSend: (specs: TdParamSpecs) => Observable<any>;
 }
 
 @Component({
@@ -74,17 +74,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   }
 
   private getShareDialogTitle(): string {
-    switch (this.input.entityType) {
-      case 'RESOURCE':
-        return 'biox.share_resource';
-      case 'SCENARIO':
-        return 'biox.share_scenario';
-      default:
-        throw new Error('Unknown entity type');
-    }
-  }
-
-  get shareButtonText(): string {
     switch (this.input.entityType) {
       case 'RESOURCE':
         return 'biox.share_resource';

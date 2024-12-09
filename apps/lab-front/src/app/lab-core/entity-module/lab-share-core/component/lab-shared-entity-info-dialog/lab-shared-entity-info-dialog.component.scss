@@ -1,19 +1,7 @@
-
 mat-divider {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
   display: block;
-}
-
-.section {
-  margin-top: 3em;
-  margin-bottom: 0.5em;
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-.button {
-  flex-shrink: 0;
 }
 
 .share-button {
@@ -22,4 +10,13 @@ mat-divider {
 
 .link {
   word-break: break-word;
+}
+
+.action-menu {
+  flex-shrink: 0;
+}
+
+.button-container {
+  margin-top: 1em;
+  text-align: center;
 }

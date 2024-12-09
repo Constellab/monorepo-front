@@ -1,65 +1,90 @@
 <fl-dialog-header>
-  {{ 'biox.share' | translate }}
+  <fl-text-icon>
+    <mat-icon>share</mat-icon>
+    {{ 'biox.share' | translate }}
+  </fl-text-icon>
 </fl-dialog-header>
 
 <mat-dialog-content>
+  <div>
+    <fl-text-icon class="labs">
+      <mat-icon>file_upload</mat-icon>
+      <h2>{{ sendToLabButtonText | translate }}</h2>
+    </fl-text-icon>
 
-  @if (input.autoSendConfig) {
-    <div class="g-text-centered">
-
+    <div>
+      {{ 'biox.send_entity_to_lab' | translate }}
+    </div>
+    <div class="button-container">
       <button mat-stroked-button type="button" (click)="openAutoSendDialog()">
-        <mat-icon>file_upload</mat-icon>
         <span>{{ sendToLabButtonText | translate }}</span>
       </button>
-      <mat-divider></mat-divider>
     </div>
-  }
+  </div>
 
-  @if (shareLink$ | async; as shareLink) {
-    <div class="g-layout-row g-layout-start-center g-layout-gap-1em g-text-big">
-      <div class="g-flex-auto">
+  <mat-divider></mat-divider>
+
+  <div>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <fl-text-icon class="g-flex-auto">
+        <mat-icon>link</mat-icon>
+        <h2>{{ 'biox.share_link' | translate }}</h2>
+      </fl-text-icon>
+
+      @if (shareLink$ | async; as shareLink) {
+        <lab-share-link-actions-menu
+          [shareLink]="shareLink"
+          (update)="onShareLinkUpdate($event)"
+          (delete)="onShareLinkDelete()"
+          class="action-menu">
+        </lab-share-link-actions-menu>
+      }
+    </div>
+
+    @if (shareLink$ | async; as shareLink) {
+      <lab-share-link-links [shareLink]="shareLink"></lab-share-link-links>
+      <div class="share-info">
         {{ 'biox.share_link_exist' | translate }}
         <span
           [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-          [ngClass]="{ 'g-warn-text': !shareLink.isValid() }"
-          >{{ shareLink.validUntil | flDate }}</span
-        >
+          [ngClass]="{ 'g-warn-text': !shareLink.isValid() }">
+          {{ shareLink.validUntil | flDate }}
+        </span>
         @if (!shareLink.isValid()) {
           <span class="g-warn-text"> ({{ 'biox.shared_link_expired' | translate }})</span>
         }
       </div>
 
-      <lab-share-link-actions-menu
-        [shareLink]="shareLink"
-        (update)="onShareLinkUpdate($event)"
-        (delete)="onShareLinkDelete()"
-        class="button">
-      </lab-share-link-actions-menu>
-    </div>
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <div>{{ 'biox.shared_by' | translate }}</div>
+        <fl-user-inline [user]="shareLink.createdBy"></fl-user-inline>
+        <div>-</div>
+        <fl-from-now [date]="shareLink.createdAt"></fl-from-now>
+      </div>
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <div>{{ 'biox.shared_by' | translate }}</div>
-      <fl-user-inline [user]="shareLink.createdBy"></fl-user-inline>
-      <div>-</div>
-      <fl-from-now [date]="shareLink.createdAt" class="g-text-light"></fl-from-now>
-    </div>
+      <!--   No share link   -->
+    } @else {
+      <div>{{ 'biox.no_share_link' | translate }}</div>
+      <div class="button-container">
+        <button mat-stroked-button type="button" (click)="openShareDialog()">
+          <span>{{ 'biox.create_share_link' | translate }}</span>
+        </button>
+      </div>
+    }
+  </div>
 
-    <lab-share-link-links class="g-text-small" [shareLink]="shareLink"></lab-share-link-links>
-  } @else {
-    <div>{{ 'biox.no_share_link' | translate }}</div>
-    <div class="g-text-centered share-button">
-      <button mat-stroked-button type="button" (click)="openShareDialog()">
-        <mat-icon>share</mat-icon>
-        <span>{{ shareButtonText | translate }}</span>
-      </button>
-    </div>
-  }
+  <mat-divider></mat-divider>
 
-  <div class="section">{{ 'biox.labs_that_used_share_link' | translate }}</div>
+  <fl-text-icon>
+    <mat-icon flIcon="lab"></mat-icon>
+    <h2>{{ 'biox.labs_that_used_share_link' | translate }}</h2>
+  </fl-text-icon>
   <fl-infinite-scroll
     [datasource]="sharedEntities"
     class="g-infinite-table"
     textNoResult="biox.not_shared_yet">
-    <lab-shared-entity-table [datasource]="sharedEntities"></lab-shared-entity-table>
+    @if (!sharedEntities.isEmpty()) {
+      <lab-shared-entity-table [datasource]="sharedEntities"></lab-shared-entity-table>
+    }
   </fl-infinite-scroll>
 </mat-dialog-content>

@@ -355,7 +355,7 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
       autoSend: (configValues) => this.scenarioService.exportScenarioToLab(scenario.id, configValues),
     };
 
-    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data });
+    this.dialogService.openMediumDialog(LabSharedEntityInfoDialogComponent, { data, autoFocus: false });
   }
 
   deleteIntermediateResources(): void {
