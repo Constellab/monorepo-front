@@ -8,13 +8,13 @@
         (onClickEvent)="openAgentEditStyleDialog()">
       </co-update-type-icon-container>
     }
-    <h2
+    <h1
       flElementEditable
       (flElementValueChange)="onTitleChange($event)"
       [flElementDisabled]="!canEditAgent()"
       class="g-flex-auto">
       {{ agent().title }}
-    </h2>
+    </h1>
   </div>
   <div class="agent-utils-div">
     <p class="small-text user-date-info">
@@ -76,7 +76,7 @@
         }
       </div>
       @if (canEditAgent() || !agentDescriptionEmpty()) {
-        <div>
+        <article>
           <te-text-editor
             class="description-editor"
             [ngClass]="canEditAgent() ? 'editor-border' : ''"
@@ -84,7 +84,7 @@
             (textChange)="onDescriptionChange($event)"
             [formControl]="descriptionFormControl()"
             [placeholder]="'agent_description_place_holder' | translate"></te-text-editor>
-        </div>
+        </article>
       }
     </div>
 

@@ -4,7 +4,7 @@
       <div class="head-infos">
         <div class="base-infos">
           <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
-          <h5>{{ user.alias }}</h5>
+          <h1 class="alias">{{ user.alias }}</h1>
           <p>#{{ user.userCode }}</p>
           @if (isCurrentUser) {
             <button mat-stroked-button (click)="openEditProfileDialog(user)">
@@ -28,12 +28,12 @@
         </div>
       </div>
 
-      <div>
+      <article>
         <p>{{ 'interests' | translate }} :</p>
         <p class="small-text">
           {{ user.interests ?? ('no_interests_yet' | translate) }}
         </p>
-      </div>
+      </article>
 
       @if (commonSpace$ | async; as commonSpace) {
         <div *ngIf="commonSpace.length > 0">
