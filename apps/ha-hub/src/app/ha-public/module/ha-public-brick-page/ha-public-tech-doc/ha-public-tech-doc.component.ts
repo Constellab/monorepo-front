@@ -43,7 +43,7 @@ export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit 
 
   private getActiveDoc(): void {
     this.route.params.subscribe((params) => {
-      this.brickPageState.initTechDoc(params.briockName, params.version, params.type, params.uniqueName);
+      this.brickPageState.initTechDoc(params.brickName, params.version, params.type, params.uniqueName);
       this.url = HaRouterService.getTechnicalDocRoute(
         params.briockName,
         params.version,
