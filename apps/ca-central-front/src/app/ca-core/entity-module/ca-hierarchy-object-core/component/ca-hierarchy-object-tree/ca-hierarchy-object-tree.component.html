@@ -19,8 +19,7 @@
 
       <ca-hierarchy-object-icon
         class="node-icon"
-        [objectType]="node.objectType"
-        [objectName]="node.name"
+        [style]="node.style"
         size="small"></ca-hierarchy-object-icon>
       <a [routerLink]="getRoute()(node)" queryParamsHandling="preserve" class="object-name g-text-link">
         <div
@@ -53,8 +52,7 @@
 
       <ca-hierarchy-object-icon
         class="node-icon"
-        [objectType]="node.objectType"
-        [objectName]="node.name"
+        [style]="node.style"
         size="small"></ca-hierarchy-object-icon>
 
       <a [routerLink]="getRoute()(node)" queryParamsHandling="preserve" class="object-name g-text-link">

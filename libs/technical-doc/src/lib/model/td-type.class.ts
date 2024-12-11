@@ -6,11 +6,14 @@ export type TdTypeObjectStatus = 'OK' | 'UNAVAILABLE';
 
 export type TdTypeStyleIconType = 'MATERIAL_ICON' | 'COMMUNITY_ICON' | 'COMMUNITY_IMAGE';
 
+export type TdTypeStyleBackgroundColor = 'primary' | 'accent' | 'warn' | string;
+export type TdTypeStyleIconColor = 'primaryContrast' | 'accentContrast' | 'warnContrast' | string;
+
 export interface TdTypeStyle {
   icon_technical_name: string;
   icon_type: TdTypeStyleIconType;
-  background_color: string;
-  icon_color: string;
+  background_color?: TdTypeStyleBackgroundColor;
+  icon_color?: TdTypeStyleIconColor;
 }
 
 export const tdTypeStyleDefault: TdTypeStyle = {

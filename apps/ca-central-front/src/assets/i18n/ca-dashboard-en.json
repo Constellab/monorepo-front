@@ -33,6 +33,7 @@
   "delete_note": "Delete lab note",
   "delete_note_confirmation": "Are you sure you want to delete this lab note ?",
   "note_deleted": "Lab note deleted",
+  "resource": "Resource",
   "url": "URL",
   "print_note": "Print",
   "folder_shared_groups": "Share",
@@ -199,5 +200,10 @@
   "lab_backup_size": "Backup size (GB)",
   "folder_add_object": "Add object",
   "history": "History",
-  "tutorials": "Tutorials"
+  "tutorials": "Tutorials",
+  "delete_resource": "Delete resource",
+  "delete_resource_confirmation": "Are you sure you want to delete this resource ? It will still be available in the lab.",
+  "resource_deleted": "Resource deleted",
+  "open_resource_in_lab": "Open resource in lab",
+  "resource_expiration_date": "Link expires on"
 }

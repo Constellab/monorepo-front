@@ -2,9 +2,7 @@
   <ng-container *flSectionBody="document$ as document">
     <div class="g-layout-row g-layout-between header">
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-        <ca-hierarchy-object-icon
-          [objectType]="constellabDocument"
-          [objectName]="document.document.name"></ca-hierarchy-object-icon>
+        <ca-hierarchy-object-icon [style]="document.style"></ca-hierarchy-object-icon>
         <h2 class="title g-text-dense-height">{{ document.document.name }}</h2>
       </div>
 

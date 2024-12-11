@@ -44,14 +44,18 @@
     @if (shareLink$ | async; as shareLink) {
       <lab-share-link-links [shareLink]="shareLink"></lab-share-link-links>
       <div class="share-info">
-        {{ 'biox.share_link_exist' | translate }}
-        <span
-          [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-          [ngClass]="{ 'g-warn-text': !shareLink.isValid() }">
-          {{ shareLink.validUntil | flDate }}
-        </span>
-        @if (!shareLink.isValid()) {
-          <span class="g-warn-text"> ({{ 'biox.shared_link_expired' | translate }})</span>
+        @if (shareLink.validUntil) {
+          {{ 'biox.share_link_exist' | translate }}
+          <span
+            [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+            [ngClass]="{ 'g-warn-text': !shareLink.isValid() }">
+            {{ shareLink.validUntil | flDate }}
+          </span>
+          @if (!shareLink.isValid()) {
+            <span class="g-warn-text"> ({{ 'biox.shared_link_expired' | translate }})</span>
+          }
+        } @else {
+          {{ 'biox.share_link_no_valid_until' | translate }}
         }
       </div>
 
@@ -73,6 +77,25 @@
     }
   </div>
 
+  @if (input.shareResourceWithSpaceConfig) {
+    <!--   Special section for the resources to share with space -->
+    <mat-divider></mat-divider>
+
+    <fl-text-icon>
+      <mat-icon flIcon="space"></mat-icon>
+      <h2>{{ 'biox.share_resource_with_space' | translate }}</h2>
+    </fl-text-icon>
+
+    <div>{{ 'biox.share_resource_with_space_short_help' | translate }}</div>
+
+    <div class="button-container">
+      <button mat-stroked-button type="button" (click)="shareResourceWithSpace()">
+        <span>{{ 'biox.share_resource_with_space' | translate }}</span>
+      </button>
+    </div>
+  }
+
+  <!-- List of lab that used the share link -->
   <mat-divider></mat-divider>
 
   <fl-text-icon>

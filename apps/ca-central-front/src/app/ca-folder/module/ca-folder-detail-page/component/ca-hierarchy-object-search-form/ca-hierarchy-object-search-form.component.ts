@@ -1,7 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib';
-import { caHierarchyObjectTypeLabels } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  caHierarchyObjectTypeInfos,
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
@@ -18,7 +20,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit {
   searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
 
-  objectTypes = caHierarchyObjectTypeLabels;
+  objectTypes = caHierarchyObjectTypeInfos;
 
   users$: Observable<CaUser[]> = inject(CaFolderDetailState).getUsers().connect();
 

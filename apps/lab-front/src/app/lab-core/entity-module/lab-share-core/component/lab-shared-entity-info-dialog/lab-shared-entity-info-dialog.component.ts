@@ -18,6 +18,12 @@ import {
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 import { TdParamSpecs } from '@monorepo/technical-doc';
+import { LabResourceService } from '../../../../entity-service/lab-resource.service';
+import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import {
+  LabShareResourceWithSpaceDialogComponent,
+  LabShareResourceWithSpaceDialogInput,
+} from '../../../lab-resource-core/component/lab-share-resource-with-space-dialog/lab-share-resource-with-space-dialog.component';
 
 export interface LabSharedEntityInfoDialogInput {
   entityType: LabShareLinkType;
@@ -27,6 +33,10 @@ export interface LabSharedEntityInfoDialogInput {
    */
   autoSendConfig: LabQuickConfigureProcessDialogInput;
   autoSend: (specs: TdParamSpecs) => Observable<any>;
+
+  shareResourceWithSpaceConfig?: {
+    resource: LabResource;
+  };
 }
 
 @Component({
@@ -45,6 +55,7 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   private shareLinkService = inject(LabShareLinkService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
+  private resourceService = inject(LabResourceService);
 
   ngOnInit(): void {
     this.shareLink$ = this.shareLink$ = this.shareLinkService
@@ -130,5 +141,13 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
       };
       this.actionService.addAction(action, false);
     }
+  }
+
+  shareResourceWithSpace(): void {
+    const input: LabShareResourceWithSpaceDialogInput = {
+      resource: this.input.shareResourceWithSpaceConfig.resource,
+    };
+
+    this.dialogService.openSmallDialog(LabShareResourceWithSpaceDialogComponent, { data: input });
   }
 }

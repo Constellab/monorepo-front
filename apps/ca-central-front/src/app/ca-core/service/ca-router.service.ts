@@ -90,6 +90,10 @@ export class CaRouterService {
     return `${CaRouterService.getFolderDetailRoute(folderId)}/activity`;
   }
 
+  public static getResourceDetailRoute(resourceId: string): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/resource/${resourceId}`);
+  }
+
   public navigateToDocumentDetail(documentId: string): void {
     this.router.navigate([CaRouterService.getDocumentDetailRoute(documentId)]);
   }

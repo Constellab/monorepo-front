@@ -45,6 +45,7 @@ import { LabResourceChildrenTabsComponent } from './component/lab-resource-child
 import { LabResourceDetailMinimizedViewsComponent } from './component/lab-resource-detail-minimized-views/lab-resource-detail-minimized-views.component';
 import { LabResourceViewSpecCardComponent } from './component/lab-resource-view-spec-card/lab-resource-view-spec-card.component';
 import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
+import { LabShareResourceWithSpaceDialogComponent } from './component/lab-share-resource-with-space-dialog/lab-share-resource-with-space-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-
     LabResourceViewSpecCardComponent,
     LabResourceViewSpecCardComponent,
     LabResourceRichTextViewComponent,
+    LabShareResourceWithSpaceDialogComponent,
   ],
   exports: [
     LabResourceViewPortalComponent,
@@ -101,6 +103,7 @@ import { LabResourceRichTextViewComponent } from './component/lab-resource-rich-
     LabResourceUpdateFolderDialogComponent,
     LabResourceDetailComponent,
     LabResourceRichTextViewComponent,
+    LabShareResourceWithSpaceDialogComponent,
   ],
   imports: [
     CommonModule,

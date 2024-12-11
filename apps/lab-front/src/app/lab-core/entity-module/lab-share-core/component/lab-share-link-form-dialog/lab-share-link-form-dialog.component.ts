@@ -23,9 +23,7 @@ export class LabShareLinkFormDialogComponent
 {
   dialogInput: LabShareLinkFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private shareLinkService: LabShareLinkService) {
-    super();
-  }
+  private shareLinkService = inject(LabShareLinkService);
 
   ngOnInit(): void {
     this.init();
@@ -36,7 +34,7 @@ export class LabShareLinkFormDialogComponent
       id: [null],
       entityId: [this.dialogInput.entityId, Validators.required],
       entityType: [this.dialogInput.entityType, Validators.required],
-      validUntil: [null, Validators.required],
+      validUntil: [null],
     });
   }
 

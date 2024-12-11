@@ -12,6 +12,7 @@ import { CaFolderCoreModule } from '../../../ca-core/entity-module/ca-folder-cor
 import { CaDocumentDetailPageModule } from '../ca-document-detail-page/ca-document-detail-page.module';
 import { CaFolderActivityPageModule } from '../ca-folder-activity-page/ca-folder-activity-page.module';
 import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
+import { CaResourceDetailPageModule } from '../ca-resource-detail-page/ca-resource-detail-page.module';
 
 @NgModule({
   declarations: [CaHierarchyObjectDetailPageComponent],
@@ -28,6 +29,7 @@ import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-h
     CaFolderHierarchyCoreModule,
     CaDocumentDetailPageModule,
     CaFolderActivityPageModule,
+    CaResourceDetailPageModule,
 
     CaHierarchyObjectDetailPageRoutingModule,
   ],

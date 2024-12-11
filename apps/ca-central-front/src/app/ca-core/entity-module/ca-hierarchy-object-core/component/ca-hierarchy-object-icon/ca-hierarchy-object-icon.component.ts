@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
-import { CaHierarchyObjectType } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { FlFileHelper, getFileIconFromExtension } from '@monorepo/front-core-lib';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ca-hierarchy-object-icon',
@@ -9,42 +8,9 @@ import { FlFileHelper, getFileIconFromExtension } from '@monorepo/front-core-lib
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaHierarchyObjectIconComponent {
-  objectType = input.required<CaHierarchyObjectType>();
-
-  objectName = input.required<string>();
+  style = input.required<TdTypeStyle>();
 
   size = input<'medium' | 'small'>('medium');
 
-  icon: Signal<string> = computed(() => {
-    switch (this.objectType()) {
-      // for document, we retrieve the icon from file extension
-      case CaHierarchyObjectType.DOCUMENT:
-        const extension = FlFileHelper.getFileExtension(this.objectName());
-        return getFileIconFromExtension(extension);
-      case CaHierarchyObjectType.FOLDER:
-        return 'folder';
-      case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-        return 'constellab_document';
-      case CaHierarchyObjectType.NOTE:
-        return 'note';
-      case CaHierarchyObjectType.SCENARIO:
-        return 'scenario';
-    }
-  });
-
-  iconClasses: Signal<string[]> = computed(() => {
-    const classes: string[] = [];
-    if (this.size() === 'small') {
-      classes.push('g-icon-small');
-    }
-    const objectType = this.objectType();
-    if (objectType === CaHierarchyObjectType.FOLDER) {
-      classes.push('g-icon-background', 'g-accent-background');
-    } else if (objectType === CaHierarchyObjectType.SCENARIO) {
-      classes.push('g-icon-background', 'g-warn-background');
-    } else if (objectType === CaHierarchyObjectType.NOTE) {
-      classes.push('g-icon-background', 'g-primary-background');
-    }
-    return classes;
-  });
+  iconSize: Signal<number> = computed(() => (this.size() === 'small' ? 18 : 24));
 }

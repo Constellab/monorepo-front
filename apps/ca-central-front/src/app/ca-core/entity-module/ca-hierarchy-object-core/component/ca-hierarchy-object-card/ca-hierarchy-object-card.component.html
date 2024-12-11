@@ -1,10 +1,7 @@
 <fl-card class="card" matRipple>
   <fl-card-header>
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <ca-hierarchy-object-icon
-        [objectType]="hierarchyObject.objectType"
-        [objectName]="hierarchyObject.name"
-        class="icon"></ca-hierarchy-object-icon>
+      <ca-hierarchy-object-icon [style]="hierarchyObject.style" class="icon"></ca-hierarchy-object-icon>
       <h2 class="g-text-dense-height">{{ hierarchyObject.name }}</h2>
     </div>
   </fl-card-header>

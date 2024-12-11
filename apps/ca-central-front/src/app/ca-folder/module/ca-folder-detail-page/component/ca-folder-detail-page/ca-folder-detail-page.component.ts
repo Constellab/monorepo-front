@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, Observable } from 'rxjs';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
@@ -40,6 +40,7 @@ import { CaSecurityService } from '../../../../../ca-core/service/ca-security.se
 import {
   CaFolderActionService,
 } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaResourceService } from '../../../../../ca-core/service-api/ca-resource.service';
 
 /**
  * Page for a folder detail
@@ -64,19 +65,20 @@ export class CaFolderDetailPageComponent implements OnInit {
     'customAction',
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private routerService: CaRouterService,
-    private state: CaFolderDetailState,
-    private rightPanelState: CaFolderRightPanelState,
-    private folderService: CaFolderService,
-    private folderActionService: CaFolderActionService,
-    private actionService: FlPortalActionsService,
-    private dialogService: FlDialogService,
-    private menuDynamicService: FlMenuDynamicService,
-    private securityService: CaSecurityService
-  ) {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private routerService = inject(CaRouterService);
+  private state = inject(CaFolderDetailState);
+  private rightPanelState = inject(CaFolderRightPanelState);
+  private folderService = inject(CaFolderService);
+  private folderActionService = inject(CaFolderActionService);
+  private actionService = inject(FlPortalActionsService);
+  private dialogService = inject(FlDialogService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private securityService = inject(CaSecurityService);
+  private resourceService = inject(CaResourceService);
+
+  constructor() {
     this.state.init(this.getIds$());
   }
 
@@ -134,6 +136,7 @@ export class CaFolderDetailPageComponent implements OnInit {
       CaHierarchyObjectType.FOLDER,
       CaHierarchyObjectType.DOCUMENT,
       CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
+      CaHierarchyObjectType.RESOURCE,
     ].includes(hierarchyObject.objectType);
   }
 
@@ -182,7 +185,8 @@ export class CaFolderDetailPageComponent implements OnInit {
         });
         break;
       case CaHierarchyObjectType.SCENARIO:
-        // no preview for scenario
+      case CaHierarchyObjectType.RESOURCE:
+        // no preview for scenario, nor resource
         this.onHierarchyObjectDblClicked(hierarchyObject);
         break;
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
@@ -215,6 +219,7 @@ export class CaFolderDetailPageComponent implements OnInit {
       this.actionService,
       this.menuDynamicService,
       this.securityService,
+      this.resourceService,
       hierarchyObject
     );
     service
@@ -248,6 +253,10 @@ export class CaFolderDetailPageComponent implements OnInit {
       } else if (event.event.action === 'moveToFolder') {
         this.state.deleteHierarchyObject(event.event.document.id);
       }
+    } else if (event.entity === 'resource') {
+      if (event.event.action === 'deleteResource') {
+        this.state.deleteHierarchyObject(event.event.resource.id);
+      }
     }
   }
 
@@ -271,6 +280,8 @@ export class CaFolderDetailPageComponent implements OnInit {
         return CaRouterService.getDocumentDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.DOCUMENT:
         return this.getDocumentRoute(hierarchyObject);
+      case CaHierarchyObjectType.RESOURCE:
+        return CaRouterService.getResourceDetailRoute(hierarchyObject.id);
     }
   }
 

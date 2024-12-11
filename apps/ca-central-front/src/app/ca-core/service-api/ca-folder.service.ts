@@ -143,7 +143,7 @@ export class CaFolderService {
       CaHierarchyObjectSearch.filterConverter,
       CaHierarchyObjectSearch.sortConverter
     );
-    return this.apiService.post(`${this.route}/${id}/children/paginated`, searchInput, CaFolder, {
+    return this.apiService.post(`${this.route}/${id}/children/paginated`, searchInput, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
       pageSize: size,

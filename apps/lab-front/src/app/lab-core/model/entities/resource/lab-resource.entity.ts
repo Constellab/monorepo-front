@@ -65,6 +65,9 @@ export class LabResource extends LabBaseEntityWithUser implements LabFlaggedEnti
 
   style: TdTypeStyle;
 
+  @Expose({ name: 'shared_with_space' })
+  sharedWithSpace: boolean;
+
   isFsNode(): boolean {
     return this.fsNode != null;
   }

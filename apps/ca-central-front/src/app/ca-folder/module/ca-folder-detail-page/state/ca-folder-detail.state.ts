@@ -8,7 +8,6 @@ import {
   FlArrayObs,
   FlEntityArrayObs,
   FlEntityPaginatedDatasource,
-  FlPortalActionsService,
   FlSearchConfig,
   FlSearchState,
 } from '@monorepo/front-core-lib';
@@ -38,7 +37,6 @@ export class CaFolderDetailState implements OnDestroy {
   constructor(
     private folderService: CaFolderService,
     private folderActionService: CaFolderActionService,
-    private actionService: FlPortalActionsService,
     private hierarchyObjectDetailState: CaHierarchyObjectDetailState,
     private searchState: FlSearchState<CaHierarchyObject>,
     private securityService: CaSecurityService

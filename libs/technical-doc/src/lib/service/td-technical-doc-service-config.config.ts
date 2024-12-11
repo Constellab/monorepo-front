@@ -8,9 +8,9 @@ export interface TdTechnicalDocUrl {
 export abstract class TdTechnicalDocServiceConfig {
   /**
    * Get the unique technical documentation url
-   * Result can be contain an absolute  link or not
+   * Result can be an absolute link or not
    */
-  public abstract getTechnicalDocUrl(parentVersion: string, typingName: TdTypingName): TdTechnicalDocUrl; // boolean = isAbsolute ; string = link
+  public abstract getTechnicalDocUrl(parentVersion: string, typingName: TdTypingName): TdTechnicalDocUrl;
 
   public abstract getCommunityIconBaseApiUrl(): string;
 }

@@ -74,6 +74,8 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
         return CaRouterService.getDocumentDetailRoute(ancestor.id);
       case CaHierarchyObjectType.DOCUMENT:
         return CaRouterService.getDocumentPreviewRoute(ancestor.id);
+      case CaHierarchyObjectType.RESOURCE:
+        return CaRouterService.getResourceDetailRoute(ancestor.id);
     }
   }
 

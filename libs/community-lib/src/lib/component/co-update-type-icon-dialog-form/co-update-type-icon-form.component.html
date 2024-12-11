@@ -15,7 +15,10 @@
   </div>
   <div class="change-div">
     <label>{{ 'coCommunityLib.change_background_color' | translate }} : </label>
-    <fl-color-picker (ngModelChange)="changeBgColor($event)" [ngModel]="value.background_color" size="40px">
+    <fl-color-picker
+      (ngModelChange)="changeBgColor($event)"
+      [ngModel]="value.background_color | tdIconBackgroundColor"
+      size="40px">
     </fl-color-picker>
   </div>
   @if (value.icon_technical_name && value.background_color) {

@@ -3,6 +3,7 @@ import { FlDatasourcePaginated, FlFileHelper } from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { ClRecordTransform } from '@monorepo/core-lib';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 export interface CaDocumentBasicInfo {
   id: string;
@@ -51,6 +52,8 @@ export class CaConstellabDocument {
 
   @TeRichTextTransform()
   content: TeRichText;
+
+  style: TdTypeStyle;
 }
 
 export enum CaFolderDocumentStorageType {

@@ -1,1 +1,7 @@
-<mat-icon [flIcon]="icon()" [ngClass]="iconClasses()"> </mat-icon>
+<td-type-icon
+  class="icon"
+  [iconType]="style().icon_type"
+  [iconTechnicalName]="style().icon_technical_name"
+  [iconSize]="iconSize()"
+  [iconColor]="style().icon_color"
+  [style.background-color]="style().background_color | tdIconBackgroundColor"></td-type-icon>

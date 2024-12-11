@@ -31,11 +31,15 @@
       <span> {{ 'biox.share_link_valid_until' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <div
-        [matTooltip]="row.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-        [ngClass]="{ 'g-warn-text': !row.isValid() }">
-        {{ row.validUntil | flDate }}
-      </div>
+      @if (row.validUntil) {
+        <div
+          [matTooltip]="row.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+          [ngClass]="{ 'g-warn-text': !row.isValid() }">
+          {{ row.validUntil | flDate }}
+        </div>
+      } @else {
+        {{ 'biox.share_link_no_valid_until' | translate }}
+      }
     </mat-cell>
   </ng-container>
 

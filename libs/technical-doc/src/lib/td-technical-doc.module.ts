@@ -56,6 +56,8 @@ import { MatOption } from '@angular/material/autocomplete';
 import { MatSelect } from '@angular/material/select';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { TdConfigureParamSpecsTableDialogComponent } from './component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
+import { TdIconBackgroundColorPipe } from './pipe/td-icon-background-color.pipe';
+import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
 
 @NgModule({
   imports: [
@@ -118,6 +120,8 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
     TdConfigureParamSpecsTableDialogComponent,
+    TdIconBackgroundColorPipe,
+    TdIconColorPipe,
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -142,6 +146,8 @@ import { TdConfigureParamSpecsTableDialogComponent } from './component/td-config
     TdEditableParamSpecsTableComponent,
     TdEditParamSpecDialogComponent,
     TdConfigureParamSpecsTableDialogComponent,
+    TdIconBackgroundColorPipe,
+    TdIconColorPipe,
   ],
 })
 export class TdTechnicalDocModule {

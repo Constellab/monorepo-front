@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Optional, Self, signal, WritableSignal } from '@angular/core';
-import { FormControl, FormGroup, NgControl } from '@angular/forms';
-import { TdTypeStyle, TdTypeStyleIconType } from '@monorepo/technical-doc';
+import { Component, OnInit, Optional, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 import {
   FlColorHelper,
   FlDialogService,

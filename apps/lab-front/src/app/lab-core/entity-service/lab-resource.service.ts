@@ -7,7 +7,7 @@ import {
 } from '@monorepo/front-core-lib';
 import { Observable, of } from 'rxjs';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
-import { ClPageI } from '@monorepo/core-lib';
+import { ClDateHelper, ClPageI } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import {
   LabResourceView,
@@ -24,6 +24,8 @@ import { LabSharedEntity } from '../model/entities/lab-share.entity';
 import { LabTransformerParams } from '../model/global/lab-transformer.class';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { TdParamSpecs } from '@monorepo/technical-doc';
+import { LabFolder } from '../model/entities/lab-folder.class';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root',
@@ -246,5 +248,19 @@ export class LabResourceService {
 
   public getExportToLabConfigSpecs(): Observable<TdParamSpecs> {
     return this.apiService.get(`${this.route}/export-to-lab/config-specs`);
+  }
+
+  public shareWithSpace(
+    resourceId: string,
+    shareInfo: {
+      folder: LabFolder;
+      validUntil?: DateTime;
+    }
+  ): Observable<void> {
+    const requestDTO = {
+      folder_id: shareInfo.folder.id,
+      valid_until: ClDateHelper.serializeDate(shareInfo.validUntil),
+    };
+    return this.apiService.post(`${this.route}/${resourceId}/share-with-space`, requestDTO);
   }
 }

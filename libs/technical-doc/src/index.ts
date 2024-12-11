@@ -32,9 +32,9 @@ export * from './lib/component/td-resource-doc-function-signature/td-resource-do
 export * from './lib/component/td-resource-doc-func-info/td-resource-doc-func-info.component';
 export * from './lib/component/td-vars-methods-doc/td-vars-methods-doc.component';
 export * from './lib/component/td-other-class-doc/td-other-class-doc.component';
-// eslint-disable-next-line max-len
 export * from './lib/component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 export * from './lib/component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
+// eslint-disable-next-line max-len
 export *
   from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 
@@ -43,6 +43,8 @@ export * from './lib/service/td-technical-doc-service-config.config';
 export * from './lib/service/td-abstract-dynamic-param-spec.state';
 
 //pipe
+export * from './lib/pipe/td-clean-type.pipe';
+export * from './lib/pipe/td-icon-background-color.pipe';
+export * from './lib/pipe/td-icon-color.pipe';
 export * from './lib/pipe/td-markdown.pipe';
 export * from './lib/pipe/td-typing-name.pipe';
-export * from './lib/pipe/td-clean-type.pipe';

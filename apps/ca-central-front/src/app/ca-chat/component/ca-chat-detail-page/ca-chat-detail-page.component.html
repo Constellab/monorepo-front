@@ -2,9 +2,7 @@
   <div class="header g-layout-row g-layout-between-center">
     <div class="g-layout-row-wrap g-layout-start-center">
       @if (folder()) {
-        <ca-hierarchy-object-icon
-          [objectType]="folder().objectType"
-          [objectName]="folder().name"></ca-hierarchy-object-icon>
+        <ca-hierarchy-object-icon [style]="folder().style"></ca-hierarchy-object-icon>
         <h1 class="folder-name">{{ folder().name }}</h1>
       }
     </div>

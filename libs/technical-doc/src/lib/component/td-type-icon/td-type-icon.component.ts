@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input, Input, Signal } from '@angular/core';
-import { TdTypeStyleIconType } from '../../model/td-type.class';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { TdTypeStyleIconColor, TdTypeStyleIconType } from '../../model/td-type.class';
 import { TdTechnicalDocServiceConfig } from '../../service/td-technical-doc-service-config.config';
 
 /**
@@ -21,7 +21,7 @@ export class TdTypeIconComponent {
    */
   iconSize = input.required<number>();
 
-  iconColor = input<string>();
+  iconColor = input<TdTypeStyleIconColor>();
 
   iconFull = computed(() => {
     if (this.iconType() === 'MATERIAL_ICON') return this.iconTechnicalName();
@@ -30,5 +30,5 @@ export class TdTypeIconComponent {
 
   sizePx = computed(() => this.iconSize() + 'px');
 
-  constructor(private configService: TdTechnicalDocServiceConfig) {}
+  private configService = inject(TdTechnicalDocServiceConfig);
 }

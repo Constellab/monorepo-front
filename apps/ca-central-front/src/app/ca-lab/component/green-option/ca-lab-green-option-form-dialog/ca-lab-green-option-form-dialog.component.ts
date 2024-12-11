@@ -1,15 +1,6 @@
-import {
-  Component,
-  ComponentRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FlDynamicFieldConfig,
-  FlDynamicFormGroupComponent,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
   FlFormDialogAbstractDirective,
@@ -43,24 +34,19 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
 })
 export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>
-  implements OnInit, OnDestroy
+  implements OnInit
 {
   dialogInput: CaLabGreenOptionFormDialogInput = inject(MAT_DIALOG_DATA);
 
   greenOptionType: any = CaLabGreenOptionType;
 
-  @ViewChild('subFormGroup', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
-
   warningText: string = null;
 
-  private viewComponentRef: ComponentRef<FlDynamicFormGroupComponent>;
+  subFormConfig: FlDynamicFormGroupConfig;
+  subFormGroup: UntypedFormGroup;
 
-  constructor(
-    private labService: CaLabService,
-    private translateService: FlTranslateService
-  ) {
-    super();
-  }
+  private labService = inject(CaLabService);
+  private translateService = inject(FlTranslateService);
 
   ngOnInit(): void {
     this.init();
@@ -99,26 +85,15 @@ export class CaLabGreenOptionFormDialogComponent
   }
 
   private buildSubForm(type: CaLabGreenOptionType, value?: any): void {
-    this.viewContainer.clear();
-    this.viewComponentRef?.destroy();
-
-    const formConfig: FlDynamicFormGroupConfig = {
+    this.subFormConfig = {
       controlType: 'formGroup',
       subConfigs: this.getSubFormGroupConfig(type),
     };
     const defaultValue = value ?? this.getDefaultValue(type);
     // create the formGroup using the config
-    const formGroup: UntypedFormGroup = FlDynamicFormHelper.generateFormGroup(formConfig, defaultValue);
+    this.subFormGroup = FlDynamicFormHelper.generateFormGroup(this.subFormConfig, defaultValue);
 
-    // create the sub form group component if needed
-    if (!ClHelpService.isNullOrEmpty(formConfig)) {
-      this.viewComponentRef = this.viewContainer.createComponent(FlDynamicFormGroupComponent);
-
-      this.viewComponentRef.instance.config = formConfig;
-      this.viewComponentRef.instance.control = formGroup;
-    }
-
-    this.formGp.setControl('value', formGroup);
+    this.formGp.setControl('value', this.subFormGroup);
     this.formGp.updateValueAndValidity();
   }
 
@@ -227,10 +202,5 @@ export class CaLabGreenOptionFormDialogComponent
 
   getUpdateSuccessMessage(): string {
     return 'lab_green_option_updated';
-  }
-
-  ngOnDestroy(): void {
-    this.viewContainer.clear();
-    this.viewComponentRef?.destroy();
   }
 }

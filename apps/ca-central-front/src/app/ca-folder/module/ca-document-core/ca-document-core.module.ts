@@ -6,6 +6,7 @@ import { CaDocumentNameFormDialogComponent } from './component/ca-document-name-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CaNotificationCoreModule } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
+import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 @NgModule({
   declarations: [CaDocumentTableComponent, CaDocumentNameFormDialogComponent],
@@ -18,6 +19,7 @@ import { CaNotificationCoreModule } from '../../../ca-core/entity-module/ca-noti
 
     CaCoreModule,
     CaNotificationCoreModule,
+    CaHierarchyObjectCoreModule,
   ],
 })
 export class CaDocumentCoreModule {}

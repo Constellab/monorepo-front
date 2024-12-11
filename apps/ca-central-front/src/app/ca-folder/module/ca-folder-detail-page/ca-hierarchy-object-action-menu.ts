@@ -13,6 +13,11 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaSecurityService } from '../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaResourceActionEvent,
+  CaResourceActionMenu,
+} from '../ca-resource-detail-page/ca-resource-action-menu';
+import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 
 export type CaHierarchyObjectActionEvent =
   | {
@@ -22,6 +27,10 @@ export type CaHierarchyObjectActionEvent =
   | {
       entity: 'document';
       event: CaDocumentActionEvent;
+    }
+  | {
+      entity: 'resource';
+      event: CaResourceActionEvent;
     };
 
 export class CaHierarchyObjectActionMenu {
@@ -32,6 +41,7 @@ export class CaHierarchyObjectActionMenu {
     private actionService: FlPortalActionsService,
     private menuDynamicService: FlMenuDynamicService,
     private securityService: CaSecurityService,
+    private resourceService: CaResourceService,
     private hierarchyObject: CaHierarchyObject
   ) {}
 
@@ -46,6 +56,10 @@ export class CaHierarchyObjectActionMenu {
     ) {
       return this.openDocumentActionMenu(event).pipe(
         map((event) => (event ? { entity: 'document', event } : null))
+      );
+    } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.RESOURCE) {
+      return this.openResourceActionMenu(event).pipe(
+        map((event) => (event ? { entity: 'resource', event } : null))
       );
     } else {
       return of(null);
@@ -81,5 +95,19 @@ export class CaHierarchyObjectActionMenu {
       }
     );
     return service.openActionMenu(true, event);
+  }
+
+  private openResourceActionMenu(event: MouseEvent): Observable<CaResourceActionEvent | null> {
+    const resourceActionsMenu = new CaResourceActionMenu(
+      this.resourceService,
+      this.menuDynamicService,
+      this.dialogService,
+      {
+        id: this.hierarchyObject.id,
+        name: this.hierarchyObject.name,
+      }
+    );
+
+    return resourceActionsMenu.openActionMenu(event);
   }
 }

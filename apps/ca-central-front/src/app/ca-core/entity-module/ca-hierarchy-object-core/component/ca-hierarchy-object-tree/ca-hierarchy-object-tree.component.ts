@@ -9,6 +9,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
 import { combineLatest, Observable } from 'rxjs';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 
 interface CaFolderFlatNode {
   id: string;
@@ -18,6 +19,7 @@ interface CaFolderFlatNode {
   isSelected: boolean;
   objectType: CaHierarchyObjectType;
   parentId: string;
+  style: TdTypeStyle;
 }
 
 @Component({
@@ -51,6 +53,7 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
       isSelected: false,
       objectType: node.objectType,
       parentId: node.parentId,
+      style: node.style,
     };
   };
 

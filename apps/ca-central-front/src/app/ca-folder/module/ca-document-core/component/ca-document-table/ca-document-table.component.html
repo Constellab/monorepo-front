@@ -5,11 +5,10 @@
       <span> {{ 'name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
-      <fl-file-text-icon
-        [filename]="row.name"
-        [isConstellabDocument]="row.isConstellabDocument()"
-        [caNotificationMark]="row.id"
-        caNotificationObjectType="DOCUMENT"></fl-file-text-icon>
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <ca-hierarchy-object-icon [style]="row.style"></ca-hierarchy-object-icon>
+        <div>{{ row.name }}</div>
+      </div>
     </mat-cell>
   </ng-container>
 

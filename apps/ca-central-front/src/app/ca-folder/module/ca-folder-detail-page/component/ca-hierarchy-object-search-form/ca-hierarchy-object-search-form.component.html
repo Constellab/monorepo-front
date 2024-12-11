@@ -30,8 +30,8 @@
 
       <mat-option *ngFor="let key of objectTypes | flObjectKeys" [value]="key">
         <div class="g-layout-row g-layout-start-center">
-          <ca-hierarchy-object-icon [objectType]="key" objectName=""></ca-hierarchy-object-icon>
-          {{ objectTypes[key] | translate }}
+          <ca-hierarchy-object-icon [style]="objectTypes[key].style" class="icon"></ca-hierarchy-object-icon>
+          {{ objectTypes[key].label | translate }}
         </div>
       </mat-option>
     </mat-select>

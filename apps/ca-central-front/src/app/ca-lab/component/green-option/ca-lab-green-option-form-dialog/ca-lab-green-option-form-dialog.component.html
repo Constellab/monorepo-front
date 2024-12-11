@@ -15,18 +15,19 @@
       required
       class="g-layout-row-wrap g-layout-between-stretch"
       (change)="onGreenOptionTypeChange($event)">
-      <mat-radio-button
-        *ngFor="let key of greenOptionType | flObjectKeys"
-        required
-        [value]="greenOptionType[key]"
-        flRadioButtonBig
-        class="type-button radio-button">
-        <div>{{ 'lab_green_option_' + greenOptionType[key] | translate }}</div>
+      @for (key of greenOptionType | flObjectKeys; track key) {
+        <mat-radio-button
+          required
+          [value]="greenOptionType[key]"
+          flRadioButtonBig
+          class="type-button radio-button">
+          <div>{{ 'lab_green_option_' + greenOptionType[key] | translate }}</div>
 
-        <div class="g-text-small g-text-light radio-description">
-          {{ 'lab_green_option_detail_' + greenOptionType[key] | translate }}
-        </div>
-      </mat-radio-button>
+          <div class="g-text-small g-text-light radio-description">
+            {{ 'lab_green_option_detail_' + greenOptionType[key] | translate }}
+          </div>
+        </mat-radio-button>
+      }
     </mat-radio-group>
 
     @if (warningText) {
@@ -37,10 +38,15 @@
     }
 
     <!--  Dynamic sub form  -->
-    <p class="subtitle" *ngIf="hasSubForm()">
-      <strong>{{ 'lab_green_option_value' | translate }}</strong>
-    </p>
-    <ng-template #subFormGroup></ng-template>
+    @if (hasSubForm()) {
+      <p class="subtitle">
+        <strong>{{ 'lab_green_option_value' | translate }}</strong>
+      </p>
+    }
+
+    @if (subFormConfig) {
+      <fl-dynamic-form-group [config]="subFormConfig" [control]="subFormGroup"></fl-dynamic-form-group>
+    }
 
     <!--  Persistent   -->
     <p class="subtitle">
@@ -69,6 +75,8 @@
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" type="submit" form="green-option-form" class="g-centered-forced">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

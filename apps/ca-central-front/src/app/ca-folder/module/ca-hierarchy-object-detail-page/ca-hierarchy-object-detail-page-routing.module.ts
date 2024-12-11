@@ -7,6 +7,7 @@ import { CaHierarchyObjectDetailPageComponent } from './component/ca-hierarchy-o
 import { CaDocumentDetailPageComponent } from '../ca-document-detail-page/component/ca-document-detail-page/ca-document-detail-page.component';
 import { CaFolderActivityPageComponent } from '../ca-folder-activity-page/component/ca-folder-activity-page/ca-folder-activity-page.component';
 import { CaDocumentPreviewPageComponent } from '../ca-document-detail-page/component/ca-document-preview-page/ca-document-preview-page.component';
+import { CaResourceDetailPageComponent } from '../ca-resource-detail-page/ca-resource-detail-page/ca-resource-detail-page.component';
 
 const routes: Route[] = [
   {
@@ -19,6 +20,7 @@ const routes: Route[] = [
       { path: 'note/:id', component: CaNoteDetailPageComponent },
       { path: 'document/:id', component: CaDocumentDetailPageComponent },
       { path: 'document/:id/preview', component: CaDocumentPreviewPageComponent },
+      { path: 'resource/:id', component: CaResourceDetailPageComponent },
     ],
   },
 ];

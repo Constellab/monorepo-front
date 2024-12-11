@@ -3,7 +3,6 @@ import { CaConstellabDocument } from '../../../../../ca-core/model/entities/fold
 import { Observable } from 'rxjs';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
-import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
   selector: 'ca-constellab-document-preview',
@@ -16,8 +15,6 @@ export class CaConstellabDocumentPreviewComponent implements OnInit {
   document$: Observable<CaConstellabDocument>;
 
   textEditorConfig: CaDocumentTextEditorConfig;
-
-  constellabDocument = CaHierarchyObjectType.CONSTELLAB_DOCUMENT;
 
   constructor(private folderService: CaFolderService) {}
 

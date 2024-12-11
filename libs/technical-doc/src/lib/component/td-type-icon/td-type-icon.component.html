@@ -1,12 +1,12 @@
 @if (iconType() === 'MATERIAL_ICON' || iconType() === 'COMMUNITY_ICON') {
   <mat-icon
     [flIcon]="iconFull()"
-    [style.color]="iconColor()"
+    [style.color]="iconColor() | tdIconColor"
     [style.width]="sizePx()"
     [style.height]="sizePx()"
     [style.font-size]="sizePx()"
     class="icon">
   </mat-icon>
 } @else {
-  <img [ngSrc]="iconFull()" [width]="iconSize()" [height]="iconSize()" />
+  <img [ngSrc]="iconFull()" [width]="iconSize()" [height]="iconSize()" [alt]="iconTechnicalName()" />
 }
