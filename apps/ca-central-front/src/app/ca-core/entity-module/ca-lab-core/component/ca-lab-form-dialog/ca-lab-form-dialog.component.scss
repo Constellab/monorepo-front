@@ -1,14 +1,15 @@
-.free-lab {
-  display: block;
-  text-align: center;
-  margin-bottom: 1em;
+.free-labs {
+  margin-top: 1em;
+}
+
+.free-lab-button {
+  border-color: var(--primary-color);
+  border-width: 2px;
 }
 
 .divider {
-  width: 80%;
-  margin: 1em auto;
+  margin: 2em auto;
 }
-
 
 .type {
   margin-bottom: 1em;
@@ -19,9 +20,22 @@
   box-sizing: border-box;
 }
 
+.div-button-title {
+  display: block;
+  margin: auto;
+}
+
 .radio-description {
   margin-top: 0.5em;
   line-height: 1.2em;
+}
+
+.title {
+  text-align: center;
+}
+
+.form {
+  margin-top: 1em;
 }
 
 .help-text {
@@ -29,28 +43,7 @@
   margin-bottom: 0.5em;
 }
 
-.desktop-platform {
-  margin-bottom: 1em;
-
-  mat-radio-button {
-    margin-right: 1em;
-    margin-left: 1em;
-  }
-}
-
-.cloud-radio {
-  &.mat-radio-group {
-    display: block;
-    margin-bottom: 1em;
-  }
-
-  mat-radio-button {
-    display: block;
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
-  }
-}
-
 .lab-need {
   margin-top: 1em;
+  width: 100%;
 }

@@ -18,7 +18,6 @@ import {
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 import { TdParamSpecs } from '@monorepo/technical-doc';
-import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabShareResourceWithSpaceDialogComponent,
@@ -55,7 +54,6 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
   private shareLinkService = inject(LabShareLinkService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
-  private resourceService = inject(LabResourceService);
 
   ngOnInit(): void {
     this.shareLink$ = this.shareLink$ = this.shareLinkService

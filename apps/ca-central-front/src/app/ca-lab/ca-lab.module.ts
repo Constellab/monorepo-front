@@ -12,9 +12,6 @@ import { CaLabUsersTableComponent } from './component/user/ca-lab-users-table/ca
 import {
   CaLabUserFormDialogComponent,
 } from './component/user/ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
-import {
-  CaLabDesktopUpdateDialogComponent,
-} from './component/lab/ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
 import { CaLabManagerComponent } from './component/manager/ca-lab-manager/ca-lab-manager.component';
 import {
   CaLabDockerContainersListComponent,
@@ -175,7 +172,6 @@ import { CaUserCoreModule } from '../ca-core/entity-module/ca-user-core/ca-user-
     CaLabUsersListComponent,
     CaLabUsersTableComponent,
     CaLabUserFormDialogComponent,
-    CaLabDesktopUpdateDialogComponent,
     CaLabManagerComponent,
     CaLabDockerContainersListComponent,
     CaLabDockerContainerLogsComponent,

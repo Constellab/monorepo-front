@@ -78,6 +78,11 @@ body {
     align-items: flex-start;
   }
 
+  .g-layout-center-stretch {
+    place-content: stretch center;
+    align-items: stretch;
+  }
+
   // BETWEEN
   .g-layout-between {
     place-content: stretch space-between;

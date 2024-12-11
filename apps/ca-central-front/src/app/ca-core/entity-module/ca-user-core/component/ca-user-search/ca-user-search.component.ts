@@ -89,7 +89,7 @@ export class CaUserSearchComponent implements OnInit {
     const data: FlConfirmDialogInput = {
       title: 'synchronise_user_with_community',
       content: 'synchronise_user_with_community_confirmation',
-      successMessage: 'all_user_synchronised',
+      successMessage: 'synchronise_user_with_community_started',
       observable: this.userService.sendAllUserToQueue(),
     };
 

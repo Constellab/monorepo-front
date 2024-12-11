@@ -53,11 +53,8 @@ export class CaLabDesktopForm {
  * He provides free text
  */
 export interface CaRequestLabForm {
-  cloudProvider?: string;
-  cpuCount?: string;
-  storageSize?: string;
+  type: CaLabType;
   labNeed?: string;
-  additionalInfo?: string;
 }
 
 export class CaLabCloudCreateDTO {

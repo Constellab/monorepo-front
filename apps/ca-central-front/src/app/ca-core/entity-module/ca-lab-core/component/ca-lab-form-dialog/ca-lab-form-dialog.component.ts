@@ -1,32 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CaLab, CaLabType } from '../../../../model/entities/lab/ca-lab.class';
 import {
-  CaLab,
-  CaLabDesktopPlatform,
-  CaLabType,
-  CaLabWithSpace,
-} from '../../../../model/entities/lab/ca-lab.class';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlPlatformService,
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+  FlTranslateParam,
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
+import {
+  CaLabDesktopFormDialogComponent,
+  CaLabDesktopFormDialogInput,
+} from '../ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
+import { MatDialogRef } from '@angular/material/dialog';
 
-export type CaLabFormDialogInput = FlFormDialogInput<CaLabForm>;
-
-interface CaLabForm {
-  id: string;
-  name: string;
-  type: CaLabType;
-  desktopPlatform?: CaLabDesktopPlatform;
-
-  cloudProvider?: string;
-  cpuCount?: string;
-  storageSize?: string;
-  labNeed?: string;
-  additionalInfo?: string;
+interface CaFreeLabInfo {
+  freeLabAvailable: boolean;
+  freeLab: CaLabFreeGetDto;
 }
 
 /**
@@ -37,93 +34,120 @@ interface CaLabForm {
   templateUrl: './ca-lab-form-dialog.component.html',
   styleUrls: ['./ca-lab-form-dialog.component.scss'],
 })
-export class CaLabFormDialogComponent
-  extends FlFormDialogAbstractDirective<CaLabForm, any>
-  implements OnInit
-{
-  maxNameLength = CaLab.MAX_NAME_LENGTH;
+export class CaLabFormDialogComponent {
+  private labService = inject(CaLabService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private labService: CaLabService,
-    private platformService: FlPlatformService
-  ) {
-    super();
-  }
+  private translateService = inject(FlTranslateService);
+  private communityHelper = inject(CoCommunityHelperService);
+  private dialogRef = inject(MatDialogRef);
 
-  get title(): string {
-    return this.isCreateMode() ? 'create_lab' : 'update_lab';
-  }
+  fakeModel: string = null;
+  // prevent opening multiple dialogs due to click on radio
+  dialogOpened: boolean = false;
 
-  ngOnInit(): void {
-    this.init();
+  freeLabInfo$: Observable<CaFreeLabInfo> = combineLatest([
+    this.labService.getCurrentUserFreeLab(),
+    this.currentSpaceService.getCurrentSpace$(),
+  ]).pipe(
+    map(([freeLab, space]) => {
+      return {
+        freeLabAvailable: freeLab.status === 'NOT_USED' && space.type === 'PERSONAL',
+        freeLab,
+      };
+    })
+  );
 
-    this.onTypeChange(this.formGp.value.type);
-  }
+  formGp = new FormBuilder().group({
+    type: [null, [Validators.required]],
+    labNeed: [null],
+  });
+
+  isLoading: boolean = false;
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      id: [null],
-      name: [null, [Validators.required]],
-      type: [{ value: 'CLOUD', disabled: this.isUpdateMode() }, [Validators.required]],
-      cloudProvider: [null],
-      cpuCount: [null],
-      storageSize: [null],
-      labNeed: [null],
-      additionalInfo: [null],
-      desktopPlatform: [this.platformService.isSafari() ? 'MAC' : 'WINDOWS', [Validators.required]],
+      type: [null as CaLabType, [Validators.required]],
+      labNeed: [null as string],
     });
   }
 
-  onTypeChange(type: CaLabType): void {
-    if (type === 'CLOUD') {
-      this.formGp.get('name').disable();
-      this.formGp.get('desktopPlatform').disable();
-    } else {
-      this.formGp.get('name').enable();
-      this.formGp.get('desktopPlatform').enable();
+  submit(): void {
+    if (this.isLoading || this.formGp.invalid) return;
+
+    this.isLoading = true;
+    this.labService.requestNewLab(this.formGp.getRawValue()).subscribe({
+      next: () => this.onRequestSent(),
+      error: () => (this.isLoading = false),
+    });
+  }
+
+  private onRequestSent(): void {
+    this.isLoading = false;
+    this.dialogRef.close();
+  }
+
+  openDesktopForm(): void {
+    if (this.dialogOpened) return;
+    const input: CaLabDesktopFormDialogInput = { mode: 'create' };
+
+    this.dialogService
+      .openSmallDialog(CaLabDesktopFormDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((lab) => this.onDesktopFormClosed(lab));
+    this.dialogOpened = true;
+  }
+
+  private onDesktopFormClosed(lab?: CaLab): void {
+    if (lab) {
+      this.dialogRef.close(lab);
     }
-    this.formGp.updateValueAndValidity();
+    this.fakeModel = null;
+    this.dialogOpened = false;
   }
 
-  isCloud(): boolean {
-    return this.formGp.value.type === 'CLOUD';
+  createFreeLab(freeLab: CaFreeLabInfo): void {
+    if (!freeLab.freeLabAvailable || this.dialogOpened) return;
+    const params: FlTranslateParam = {
+      param: {
+        usageLimit: freeLab.freeLab.standardInfo.usageLimitInHours,
+        nbCpus: freeLab.freeLab.standardInfo.nbCpus,
+        ramSize: freeLab.freeLab.standardInfo.ramSize,
+        storageSize: freeLab.freeLab.standardInfo.diskSize,
+        supportMail: CaEnvironmentHelper.getSupportMail(),
+        overviewLink: this.communityHelper.getDataLabOverviewRoute(),
+        configureLink: this.communityHelper.getDataLabManagementRoute(),
+      },
+    };
+
+    const text = `<p>${this.translateService.translate('start_free_data_lab_confirmation_1', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_2', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_3', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_4', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_5', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_6', params)}</p></br>
+<p>${this.translateService.translate('start_free_data_lab_confirmation_7', params)}</p>`;
+    const input: FlConfirmDialogInput = {
+      title: 'start_free_data_lab',
+      content: { text: text, translateText: false },
+      observable: this.labService.createFreeLabCurrentUser(),
+      successMessage: 'free_data_lab_started',
+    };
+
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onCreateFreeLabDialogClosed(result));
+
+    this.dialogOpened = true;
   }
 
-  create(formValue: CaLabForm): Observable<any> {
-    if (formValue.type === 'DESKTOP') {
-      return this.createDesktopLab(formValue);
-    } else {
-      return this.requestCloudLab(formValue);
+  private onCreateFreeLabDialogClosed(result: FlConfirmDialogResult<CaLab>): void {
+    if (result.choice) {
+      this.dialogRef.close(result.result);
     }
-  }
-
-  private createDesktopLab(formValue: CaLabForm): Observable<CaLab> {
-    return this.labService.createDesktopLab({
-      id: formValue.id,
-      name: formValue.name,
-      desktopPlatform: formValue.desktopPlatform,
-    });
-  }
-
-  private requestCloudLab(formValue: CaLabForm): Observable<CaLab> {
-    return this.labService.requestNewLab({
-      cloudProvider: formValue.cloudProvider,
-      cpuCount: formValue.cpuCount,
-      storageSize: formValue.storageSize,
-      labNeed: formValue.labNeed,
-      additionalInfo: formValue.additionalInfo,
-    });
-  }
-
-  update(formValue: CaLabForm): Observable<CaLabWithSpace> {
-    return this.labService.updateAdmin(formValue);
-  }
-
-  getCreateSuccessMessage(): string {
-    return this.formGp.value.type === 'CLOUD' ? 'lab_request_sent' : 'lab_created';
-  }
-
-  getUpdateSuccessMessage(): string {
-    return 'lab_updated';
+    this.fakeModel = null;
+    this.dialogOpened = false;
   }
 }

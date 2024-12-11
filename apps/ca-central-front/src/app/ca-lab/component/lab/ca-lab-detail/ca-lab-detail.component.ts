@@ -13,11 +13,11 @@ import {
   CaLabDesktopDownloadConfigComponent,
   CaLabDesktopDownloadConfigInput,
 } from '../../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
-import {
-  CaLabDesktopUpdateDialogComponent,
-  LabDesktopUpdateDialogInput,
-} from '../ca-lab-desktop-update-dialog/ca-lab-desktop-update-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import {
+  CaLabDesktopFormDialogComponent,
+  CaLabDesktopFormDialogInput,
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
 
 @Component({
   selector: 'ca-lab-detail',
@@ -66,13 +66,16 @@ export class CaLabDetailComponent implements OnInit {
   }
 
   openLabDesktopUpdate(lab: CaLab): void {
-    const input: LabDesktopUpdateDialogInput = {
-      id: lab.id,
-      name: lab.name,
-      desktopPlatform: lab.desktopPlatform,
+    const input: CaLabDesktopFormDialogInput = {
+      mode: 'update',
+      object: {
+        id: lab.id,
+        name: lab.name,
+        desktopPlatform: lab.desktopPlatform,
+      },
     };
     this.dialogService
-      .openSmallDialog(CaLabDesktopUpdateDialogComponent, { data: input })
+      .openSmallDialog(CaLabDesktopFormDialogComponent, { data: input })
       .afterClosed()
       .subscribe((lab) => this.onUpdateClosed(lab));
   }

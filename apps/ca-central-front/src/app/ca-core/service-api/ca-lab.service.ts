@@ -78,8 +78,8 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/name`, { name: name }, CaLab);
   }
 
-  public requestNewLab(request: CaRequestLabForm): Observable<CaLab> {
-    return this.apiService.post(this.route + '/request-lab', request, CaLab);
+  public requestNewLab(request: CaRequestLabForm): Observable<void> {
+    return this.apiService.post(this.route + '/request-lab', request);
   }
 
   public getCurrentLabsDatasource(pageSize: number = 20): CaLabDatasource {

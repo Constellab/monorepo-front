@@ -281,5 +281,9 @@
   "update_license": "Mettre à jour la licence",
   "license_updated": "Licence mise à jour",
   "contact": "Contact",
-  "no_message": "Aucun message, écrivez le premier"
+  "clear": "Effacer",
+  "no_message": "Aucun message, écrivez le premier",
+  "synchronise_user_with_community": "Synchroniser tous les utilisateurs avec Community",
+  "synchronise_user_with_community_confirmation": "Êtes-vous sûr de vouloir synchroniser tous les utilisateurs avec Community ?",
+  "synchronise_user_with_community_started": "Synchronisation démarrée"
 }

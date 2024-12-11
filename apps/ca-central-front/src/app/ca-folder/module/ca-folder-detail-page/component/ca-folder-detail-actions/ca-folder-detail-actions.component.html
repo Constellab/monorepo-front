@@ -34,11 +34,6 @@
       [autoClearHtmlInput]="true"
       class="file-input" />
 
-    <button mat-menu-item (click)="fileInput.click()" type="button">
-      <mat-icon>cloud_upload</mat-icon>
-      {{ 'upload_document' | translate }}
-    </button>
-
     <button mat-menu-item type="button" (click)="createConstellabDocument(folder)">
       <mat-icon flIcon="constellab_document"></mat-icon>
       {{ 'create_constellab_document' | translate }}
@@ -47,6 +42,11 @@
     <button mat-menu-item type="button" (click)="openChildCreation(folder)">
       <mat-icon flIcon="folder"></mat-icon>
       {{ 'create_sub_folder' | translate }}
+    </button>
+
+    <button mat-menu-item (click)="fileInput.click()" type="button">
+      <mat-icon>cloud_upload</mat-icon>
+      {{ 'upload_document' | translate }}
     </button>
   </mat-menu>
 

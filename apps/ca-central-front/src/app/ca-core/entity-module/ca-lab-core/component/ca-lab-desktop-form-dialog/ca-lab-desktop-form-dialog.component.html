@@ -1,8 +1,14 @@
 <fl-dialog-header>
-  {{ 'update_lab' | translate }}
+  {{ title | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
+  @if (isCreateMode()) {
+    <p class="help-text">
+      <span class="g-text-big">⚠️</span> {{ 'create_lab_desktop_warning' | translate }}️
+    </p>
+  }
+
   <form (ngSubmit)="submit()" id="lab-name-form" [formGroup]="formGp">
     <!--  Name  -->
     <mat-form-field class="g-form-input">
@@ -13,12 +19,16 @@
         required
         [flInputMaxLength]="maxNameLength"
         [placeholder]="'name' | translate" />
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{ 'name' | flErrorRequired }}
-      </mat-error>
-      <mat-error *ngIf="formGp.get('name').hasError('pattern')">
-        {{ 'lab_name_invalid' | translate }}
-      </mat-error>
+      @if (formGp.get('name').hasError('required')) {
+        <mat-error>
+          {{ 'name' | flErrorRequired }}
+        </mat-error>
+      }
+      @if (formGp.get('name').hasError('pattern')) {
+        <mat-error>
+          {{ 'lab_name_invalid' | translate }}
+        </mat-error>
+      }
     </mat-form-field>
 
     <!--  Desktop Platform  -->
@@ -36,6 +46,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button color="primary" type="submit" form="lab-name-form" class="g-centered-forced">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>
