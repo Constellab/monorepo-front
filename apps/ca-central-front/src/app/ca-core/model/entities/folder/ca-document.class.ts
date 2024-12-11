@@ -25,6 +25,8 @@ export class CaDocument extends CaBaseEntity {
 
   canTokenPreview: boolean;
 
+  style: TdTypeStyle;
+
   isConstellabDocument(): boolean {
     return this.type === 'CONSTELLAB_DOCUMENT';
   }
@@ -52,8 +54,6 @@ export class CaConstellabDocument {
 
   @TeRichTextTransform()
   content: TeRichText;
-
-  style: TdTypeStyle;
 }
 
 export enum CaFolderDocumentStorageType {

@@ -5,6 +5,8 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { CaFolderObject } from './ca-folder.class';
 import { RvResourceView } from '@monorepo/resource-view';
+import { TdTypeStyle } from '@monorepo/technical-doc';
+import { caHierarchyObjectTypeInfos } from './ca-hierarchy-object.class';
 
 export class CaNote extends CaBaseEntity implements CaFolderObject {
   title: string;
@@ -22,6 +24,10 @@ export class CaNote extends CaBaseEntity implements CaFolderObject {
 
   @Type(() => CaUser)
   lastSyncBy?: CaUser;
+
+  get style(): TdTypeStyle {
+    return caHierarchyObjectTypeInfos.NOTE.style;
+  }
 }
 
 export class CaResourceView {

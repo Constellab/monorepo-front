@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CaScenarioCoreModule } from '../ca-scenario-core/ca-scenario-core.module';
 import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-folder-hierarchy-core.module';
 import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
+import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 @NgModule({
   declarations: [CaNoteDetailPageComponent, CaNoteDetailComponent],
@@ -20,6 +21,7 @@ import { CaNoteCoreModule } from '../ca-note-core/ca-note-core.module';
     CaFolderHierarchyCoreModule,
     CaScenarioCoreModule,
     CaNoteCoreModule,
+    CaHierarchyObjectCoreModule,
   ],
 })
 export class CaNoteDetailPageModule {}

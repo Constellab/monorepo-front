@@ -14,6 +14,7 @@ import { CaFolderHierarchyCoreModule } from '../ca-folder-hierarchy-core/ca-fold
 import { CaScenarioCardDetailComponent } from './component/ca-scenario-card-detail/ca-scenario-card-detail.component';
 import { CaNotificationCoreModule } from '../../../ca-core/entity-module/ca-notification-core/ca-notification-core.module';
 import { CaScenarioTableDialogComponent } from './component/ca-scenario-table-dialog/ca-scenario-table-dialog.component';
+import { CaHierarchyObjectCoreModule } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-core.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CaScenarioTableDialogComponent } from './component/ca-scenario-table-di
     CaLabCoreModule,
     CaFolderHierarchyCoreModule,
     CaNotificationCoreModule,
+    CaHierarchyObjectCoreModule,
   ],
 })
 export class CaScenarioCoreModule {}
