@@ -19,6 +19,8 @@ environment.settings = {
   captchaSiteKey: process?.env['CAPTCHA_SITE_KEY'] || '123465',
   googleAnalyticsId: process?.env['GOOGLE_ANALYTICS_ID'] || 'eazeaze',
   discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
+  algoliaAppId: process?.env['ALGOLIA_APP_ID'] || 'S233I3C24Z',
+  algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -106,13 +108,20 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           { url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: '/stories', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: '/bricks', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: '/agents', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: '/login', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
         ];
 
         const dynamicBricksUrls = await fetchBricksMap();
         const dynamicStoriesUrls = await fetchStoriesMap();
         const dynamicAgentsUrls = await fetchAgentsMap();
-        const dynamicUrls = [...dynamicBricksUrls, ...dynamicStoriesUrls, ...dynamicAgentsUrls];
+        const dynamicProfilesUrls = await fetchProfilesMap();
+        const dynamicUrls = [
+          ...dynamicBricksUrls,
+          ...dynamicStoriesUrls,
+          ...dynamicAgentsUrls,
+          ...dynamicProfilesUrls,
+        ];
         const allUrls = [...urls, ...dynamicUrls];
 
         allUrls.forEach((url) => smStream.write(url));
@@ -229,6 +238,16 @@ async function fetchAgentsMap(): Promise<SitemapItem[]> {
     return response.data;
   } catch (error) {
     console.error('Error fetching agents URLs:', error);
+    return [];
+  }
+}
+
+async function fetchProfilesMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/user/all-map`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching profiles URLs:', error);
     return [];
   }
 }

@@ -21,13 +21,15 @@ import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
+import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ha-ha-home',
   templateUrl: './ha-home.component.html',
   styleUrls: ['./ha-home.component.scss'],
 })
-export class HaHomeComponent implements OnInit {
+export class HaHomeComponent extends HaCommunityPage implements OnInit {
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
 
   stories$: HaStoryDatasourcePaginated<HaStoryFilters>;
@@ -51,17 +53,27 @@ export class HaHomeComponent implements OnInit {
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
   constructor(
-    private metadataService: HaMetadataService,
     private storyService: HaStoryService,
     private agentService: HaAgentService,
     private brickService: HaBrickService,
     private userService: HaUserService,
-    private themeState: HaThemeState
-  ) {}
+    private themeState: HaThemeState,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.home.title');
     this.metadataService.addMetaTag('description', 'ha.home.description');
+
+    super.setMetaTags(
+      'ha.home.title',
+      'ha.home.description',
+      null,
+      HaRouterService.getFullRoute(HaRouterService.getHomeRoute())
+    );
 
     this.stories$ = this.storyService.getAllPaginatedFiltered(4);
     this.stories$.getFirstPage({ title: '', categories: [], topics: [] });

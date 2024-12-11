@@ -32,6 +32,10 @@ export interface HaEnvironmentSettings {
   googleAnalyticsId: string;
 
   discordLink: string;
+
+  algoliaAppId: string;
+
+  algoliaSearchKey: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)

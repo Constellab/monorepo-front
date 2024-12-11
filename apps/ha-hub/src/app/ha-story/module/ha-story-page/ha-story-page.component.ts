@@ -14,7 +14,7 @@ import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authe
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
-import { FlPortalService } from '@monorepo/front-core-lib';
+import { FlPortalService, FlTranslateService } from '@monorepo/front-core-lib';
 import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
@@ -24,13 +24,14 @@ import {
 import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl } from '@angular/forms';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 
 @Component({
   selector: 'ha-story-page',
   templateUrl: './ha-story-page.component.html',
   styleUrls: ['./ha-story-page.component.scss'],
 })
-export class HaStoryPageComponent implements OnInit {
+export class HaStoryPageComponent extends HaCommunityPage implements OnInit {
   story: HaStory;
 
   textEditorConfig: HaStoryTextEditorConfig;
@@ -59,14 +60,11 @@ export class HaStoryPageComponent implements OnInit {
 
   urlToDownloadFilePrefix: string;
 
-  strStoryContent: any;
-
   subscription: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private storyService: HaStoryService,
-    private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: object,
     private transferState: TransferState,
     private authenticatedUserService: HaAuthenticatedUserService,
@@ -74,8 +72,12 @@ export class HaStoryPageComponent implements OnInit {
     private likeService: HaLikeService,
     private router: Router,
     private portalService: FlPortalService,
-    private httpRedirectionService: HaHttpRedirectionService
-  ) {}
+    private httpRedirectionService: HaHttpRedirectionService,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
@@ -208,15 +210,17 @@ export class HaStoryPageComponent implements OnInit {
     this.getStoryCoAuthors();
     this.getStoryFiles();
 
-    this.metadataService.setPageTitle('ha.story.title', true, { title: this.story.title });
-    this.metadataService.addMetaTag('description', 'ha.story.description', true, { title: this.story.title });
-    this.metadataService.setSocialMetaTags(
-      this.story.title,
-      'ha.story.description',
+    super.setMetaTags(
+      {
+        text: 'ha.story.title',
+        translateParam: { param: { title: this.story.title } },
+      },
+      {
+        text: 'ha.story.description',
+        translateParam: { param: { title: this.story.title } },
+      },
       this.getStoryImageLink(this.story.mainPicture),
-      HaRouterService.getFullStoryRoute(this.story.id, ClStringHelper.getCleanUrlPath(this.story.title)),
-      true,
-      { title: this.story.title }
+      HaRouterService.getFullRoute(this.router.url)
     );
   }
 

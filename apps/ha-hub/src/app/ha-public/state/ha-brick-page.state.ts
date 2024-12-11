@@ -26,6 +26,7 @@ import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
 import { HaFile } from '../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { TdTypeEntity } from '@monorepo/technical-doc';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class HaBrickPageState {
@@ -187,10 +188,6 @@ export class HaBrickPageState {
   }
 
   public initDoc(docId: string, url: UrlSegment[]): void {
-    if (!this.brick() || !this.latestBrickVersion()) {
-      return;
-    }
-
     if (this.doc() && this.doc().id === docId) {
       return;
     }
@@ -203,14 +200,14 @@ export class HaBrickPageState {
     }
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOC_KEY)) {
-      this.setDoc(this.transferState.get(this.DOC_KEY, null) as HaDocumentation);
+      this.setDoc(plainToInstance(HaDocumentation, this.transferState.get(this.DOC_KEY, null)));
       this.transferState.remove(this.DOC_KEY);
       return;
     }
 
     this.documentationService.getById(docId).subscribe({
       next: (doc) => {
-        if (url.slice(0, -1).join('/') + '/' != doc.completePath) {
+        if (url.slice(0, -1).join('/') + '/' != doc.completePath && this.brick() && this.pathVersion()) {
           const realDocUrl = HaRouterService.getDocumentationRoute(
             this.brick().name,
             this.pathVersion(),
@@ -360,11 +357,12 @@ export class HaBrickPageState {
     return;
   }
 
-  public initTechDoc(techDocType: string, techDocUniqueName: string): void {
-    if (!this.brick() || !this.latestBrickVersion()) {
-      return;
-    }
-
+  public initTechDoc(
+    brickName: string,
+    version: string,
+    techDocType: string,
+    techDocUniqueName: string
+  ): void {
     this.techDocStatusEvent.set({ status: 'loading' });
 
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.TECH_DOC_KEY)) {
@@ -373,23 +371,21 @@ export class HaBrickPageState {
       return;
     }
 
-    this.brickService
-      .getTechDocByPath(this.brick().name, this.pathVersion(), techDocType, techDocUniqueName)
-      .subscribe({
-        next: (techDoc) => {
-          if (!techDoc) {
-            this.techDocStatusEvent.set({ status: 'error', error: 'tech_doc_not_found' });
-            return;
-          }
-          this.setTechDoc(techDoc);
-          if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOC_KEY)) {
-            this.transferState.set(this.TECH_DOC_KEY, techDoc);
-          }
-        },
-        error: (error) => {
-          this.techDocStatusEvent.set({ status: 'error', error: error });
-        },
-      });
+    this.brickService.getTechDocByPath(brickName, version, techDocType, techDocUniqueName).subscribe({
+      next: (techDoc) => {
+        if (!techDoc) {
+          this.techDocStatusEvent.set({ status: 'error', error: 'tech_doc_not_found' });
+          return;
+        }
+        this.setTechDoc(techDoc);
+        if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.TECH_DOC_KEY)) {
+          this.transferState.set(this.TECH_DOC_KEY, techDoc);
+        }
+      },
+      error: (error) => {
+        this.techDocStatusEvent.set({ status: 'error', error: error });
+      },
+    });
   }
 
   private setTechDoc(techDoc: TdTypeEntity): void {

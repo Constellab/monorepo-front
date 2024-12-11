@@ -17,6 +17,8 @@ export const environment: HaEnvironment = {
     captchaSiteKey: '',
     googleAnalyticsId: '',
     discordLink: '',
+    algoliaAppId: '',
+    algoliaSearchKey: '',
   },
 };
 

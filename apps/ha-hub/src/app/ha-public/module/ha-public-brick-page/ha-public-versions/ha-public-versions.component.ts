@@ -1,24 +1,23 @@
 import { Component, computed, OnInit, Signal } from '@angular/core';
 import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
-import { ActivatedRoute } from '@angular/router';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogService, FlFormDialogInput, FlTranslateService } from '@monorepo/front-core-lib';
 import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
-import { Observable } from 'rxjs';
-import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ha-public-versions-page',
   templateUrl: './ha-public-versions.component.html',
   styleUrls: ['./ha-public-versions.component.scss'],
 })
-export class HaPublicVersionsComponent implements OnInit {
+export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit {
   brickVersions: HaBrickVersionDataSource;
   brick: Signal<HaBrick> = computed(() => {
     const brick = this.brickPageState.brick();
@@ -33,17 +32,23 @@ export class HaPublicVersionsComponent implements OnInit {
   constructor(
     private brickVersionService: HaBrickVersionService,
     private dialogService: FlDialogService,
-    private metadataService: HaMetadataService,
-    private brickPageState: HaBrickPageState
-  ) {}
+    private brickPageState: HaBrickPageState,
+    private router: Router,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {}
 
   private init(brick: HaBrick): void {
-    this.metadataService.setPageTitle('ha.versions.brick.title', true, { brickTitle: brick.name });
-    this.metadataService.addMetaTag('description', 'ha.versions.brick.description', true, {
-      brickTitle: brick.name,
-    });
+    super.setMetaTags(
+      { text: 'ha.versions.brick.title', translateParam: { param: { brickTitle: brick.name } } },
+      { text: 'ha.versions.brick.description', translateParam: { param: { brickTitle: brick.name } } },
+      brick.imageLink,
+      HaRouterService.getFullRoute(this.router.url)
+    );
     this.setDataSource(brick);
   }
 

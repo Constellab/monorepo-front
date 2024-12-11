@@ -27,6 +27,8 @@ function bootstrap(): void {
       captchaSiteKey: '123456',
       googleAnalyticsId: 'G-HDSPQ44FBS',
       discordLink: 'https://discord.com/invite/7nmH5qKM',
+      algoliaAppId: '',
+      algoliaSearchKey: '',
     };
 
     platformBrowserDynamic()

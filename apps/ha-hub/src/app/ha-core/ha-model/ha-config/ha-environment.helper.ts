@@ -11,6 +11,8 @@ export class HaEnvironmentHelper {
       captchaSiteKey: environment.settings.captchaSiteKey || '123465',
       googleAnalyticsId: environment.settings.googleAnalyticsId || 'eazeaze',
       discordLink: environment.settings.discordLink || 'https://discord.com/invite/7nmH5qKM',
+      algoliaAppId: environment.settings.algoliaAppId || '',
+      algoliaSearchKey: environment.settings.algoliaSearchKey || '',
     };
     return environment;
   }

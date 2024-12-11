@@ -1,4 +1,4 @@
-import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
+import { Component, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import {
   HaBrick,
@@ -6,19 +6,19 @@ import {
   HaBrickDatasourcePaginated,
 } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
+import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
   templateUrl: './ha-public-list-bricks-page.component.html',
   styleUrls: ['./ha-public-list-bricks-page.component.scss'],
 })
-export class HaPublicListBricksPageComponent implements OnInit {
+export class HaPublicListBricksPageComponent extends HaCommunityPage implements OnInit {
   bricks: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
@@ -27,39 +27,30 @@ export class HaPublicListBricksPageComponent implements OnInit {
 
   constructor(
     private haBrickService: HaBrickService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState,
-    private metadataService: HaMetadataService,
-    private authenticatedUserService: HaAuthenticatedUserService
-  ) {}
+    private authenticatedUserService: HaAuthenticatedUserService,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {
       this.user = user;
     });
-    this.metadataService.setPageTitle('ha.bricks.title');
-    this.metadataService.addMetaTag('description', 'ha.bricks.description');
-    this.BRICKS_KEY = makeStateKey('bricks');
-    if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.BRICKS_KEY)) {
-      this.bricks = this.transferState.get(
-        this.BRICKS_KEY,
-        null
-      ) as HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
-      this.transferState.remove(this.BRICKS_KEY);
-    }
 
-    if (this.bricks == null) {
-      this.bricks = this.haBrickService.getAllWithFiltersPaginated();
-      if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.BRICKS_KEY)) {
-        this.transferState.set(this.BRICKS_KEY, this.bricks);
-      }
-    }
+    super.setMetaTags(
+      'ha.bricks.title',
+      'ha.bricks.description',
+      null,
+      HaRouterService.getFullRoute(HaRouterService.getBrickListRoute())
+    );
+
+    this.BRICKS_KEY = makeStateKey('bricks');
+
+    this.bricks = this.haBrickService.getAllWithFiltersPaginated();
 
     this.updateBricks();
-  }
-
-  loadMoreResults(): void {
-    this.bricks.getNextPage();
   }
 
   getBrickRoute(brick: HaBrick): string {

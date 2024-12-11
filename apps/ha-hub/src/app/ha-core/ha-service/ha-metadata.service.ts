@@ -12,19 +12,17 @@ export class HaMetadataService {
     private translateService: FlTranslateService
   ) {}
 
-  setPageTitle(title: string, hasTranslation: boolean = true, data?: any): void {
+  setPageTitle(title: string, hasTranslation: boolean = false, data?: any): void {
     if (hasTranslation) {
       this.translateService.get(title, data).subscribe((titleTrad: string) => {
         this.titleService.setTitle(titleTrad);
-        this.metaService.updateTag({ name: 'og:title', content: titleTrad });
       });
     } else {
       this.titleService.setTitle(title);
-      this.metaService.updateTag({ name: 'og:title', content: title });
     }
   }
 
-  addMetaTag(name: string, content: string, hasTranslation: boolean = true, data?: any): void {
+  addMetaTag(name: string, content: string, hasTranslation: boolean = false, data?: any): void {
     if (hasTranslation) {
       this.translateService.get(content, data).subscribe((contentTrad: string) => {
         this.metaService.updateTag({ name: name, content: contentTrad });
@@ -39,7 +37,7 @@ export class HaMetadataService {
     description: string,
     image: string,
     url: string,
-    hasTranslation: boolean = true,
+    hasTranslation: boolean = false,
     data?: any
   ): void {
     this.setTwitterMetaTags(title, description, image, hasTranslation, data);
@@ -82,13 +80,14 @@ export class HaMetadataService {
     title: string,
     description: string,
     image: string,
-    hasTranslation: boolean = true,
+    hasTranslation: boolean = false,
     data?: any
   ): void {
     this.addMetaTag('twitter:card', 'summary_large_image');
     this.addMetaTag('twitter:title', title);
     this.addMetaTag('twitter:description', description, hasTranslation, data);
-    this.addMetaTag('twitter:image', image);
+    if (image) this.addMetaTag('twitter:image', image);
+    else this.metaService.removeTag(`name="twitter:image"`);
     this.addMetaTag('twitter:site', '@Gencovery');
   }
 
@@ -97,12 +96,13 @@ export class HaMetadataService {
     description: string,
     image: string,
     url: string,
-    hasTranslation: boolean = true,
+    hasTranslation: boolean = false,
     data?: any
   ): void {
     this.addMetaTag('og:title', title);
     this.addMetaTag('og:description', description, hasTranslation, data);
-    this.addMetaTag('og:image', image);
+    if (image) this.addMetaTag('og:image', image);
+    else this.metaService.removeTag(`name="og:image"`);
     this.addMetaTag('og:url', url);
   }
 }

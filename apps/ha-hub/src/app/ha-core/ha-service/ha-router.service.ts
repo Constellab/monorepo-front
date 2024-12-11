@@ -12,6 +12,10 @@ export class HaRouterService {
     return HaEnvironmentHelper.getCommunityFrontUrl();
   }
 
+  public static getFullRoute(route: string): string {
+    return `${this.getAppUrl()}${route}`;
+  }
+
   public static getHomeRoute(): string {
     return '/';
   }

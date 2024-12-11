@@ -17,6 +17,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalService,
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
@@ -25,18 +26,33 @@ import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
+import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
+import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ha-agent-overview',
   templateUrl: './ha-agent-overview.component.html',
   styleUrls: ['./ha-agent-overview.component.scss'],
 })
-export class HaAgentOverviewComponent implements OnInit {
+export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit {
   profileRoute = HaRouterService.getProfileRoute();
 
   descriptionEditorDisabled: boolean = true;
 
-  agent: Signal<HaAgent> = this.agentPageState.getAgent();
+  agent: Signal<HaAgent> = computed(() => {
+    const agent_ = this.agentPageState.getAgent()();
+    super.setMetaTags(
+      { text: 'ha.agent.title', translateParam: { param: { title: agent_.title } } },
+      { text: 'ha.agent.description', translateParam: { param: { title: agent_.title } } },
+      this.tdService.getCommunityIconBaseApiUrl() + `/${agent_.latestStyle.icon_technical_name}`,
+      HaRouterService.getFullRoute(
+        HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title))
+      )
+    );
+    return agent_;
+  });
 
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
 
@@ -76,8 +92,13 @@ export class HaAgentOverviewComponent implements OnInit {
     private portalService: FlPortalService,
     private dialogService: FlDialogService,
     private router: Router,
-    private agentPageState: HaAgentPageState
-  ) {}
+    private agentPageState: HaAgentPageState,
+    private tdService: HaTdServiceConfig,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {
