@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { CaBrick, CaBrickVersion } from '../model/entities/ca-brick.class';
+import { LmlBrickVersion } from '@monorepo/lab-manager-lib';
 
 @Injectable({ providedIn: 'root' })
 export class CaBrickService {
@@ -9,19 +9,7 @@ export class CaBrickService {
 
   constructor(private apiService: FlApiService) {}
 
-  public getBrickByBrickVersionId(id: string): Observable<CaBrick> {
-    return this.apiService.get(`${this.route}/brick-version/${id}`, CaBrick);
-  }
-
-  public getAll(): Observable<CaBrick[]> {
-    return this.apiService.get(this.route, CaBrick);
-  }
-
-  public getBrickVersions(brickName: string): Observable<CaBrickVersion[]> {
-    return this.apiService.get(`${this.route}/${brickName}/versions`, CaBrickVersion);
-  }
-
-  public getBrickVersion(brickName: string, brickVersion: string): Observable<CaBrickVersion> {
-    return this.apiService.get(`${this.route}/${brickName}/versions/${brickVersion}`, CaBrickVersion);
+  public getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
+    return this.apiService.get(`${this.route}/${brickName}/versions/${brickVersion}`, LmlBrickVersion);
   }
 }

@@ -1,0 +1,26 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>settings</mat-icon>
+      {{ 'lms.configure_lab_manager' | translate }}
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    <div>{{ 'lms.configure_lab_manager_description' | translate }}</div>
+
+    <fl-input-file-container
+      color="primary"
+      icon="upload_file"
+      [placeholder]="'lms.configuration_file' | translate"
+      class="upload-button">
+      <input
+        flInputFile
+        type="file"
+        [strictMode]="true"
+        [autoClearHtmlInput]="true"
+        accept="application/json"
+        (fileChange)="onFileChange($event)" />
+    </fl-input-file-container>
+  </fl-card-body>
+</fl-card>

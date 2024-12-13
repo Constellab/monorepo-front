@@ -13,3 +13,24 @@ fl-text-icon {
   display: flex;
   align-items: center;
 }
+
+.command {
+  margin-top: 1em;
+}
+
+code {
+  white-space: pre-line;
+  background-color: var(--main-background);
+  border-radius: var(--card-radius);
+  padding: 1em;
+  display: block;
+}
+
+.generate-config {
+  margin-top: 1em;
+}
+
+.download-config-button {
+  margin-top: 0.5em;
+  text-align: center;
+}

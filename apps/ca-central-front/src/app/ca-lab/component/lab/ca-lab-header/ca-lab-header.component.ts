@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaLab, CaLabStatus } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { FlHorizontalNavBarItem, FlStatus } from '@monorepo/front-core-lib';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
@@ -15,24 +15,19 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
   templateUrl: './ca-lab-header.component.html',
   styleUrls: ['./ca-lab-header.component.scss'],
 })
-export class CaLabHeaderComponent implements OnInit {
-  navBarItems$: Observable<FlHorizontalNavBarItem[]>;
+export class CaLabHeaderComponent {
+  private state = inject(CaLabDetailPageState);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   lab$: Observable<CaLab> = this.state.getLab$();
   labStatus$: Observable<FlStatus<CaLabStatus>> = this.state
     .getStatus$()
     .pipe(map((status) => status.labStatus));
 
-  constructor(
-    private state: CaLabDetailPageState,
-    private authenticatedUserService: CaAuthenticatedUserService
-  ) {}
-
-  ngOnInit(): void {
-    this.navBarItems$ = combineLatest([this.state.getLab$(), this.state.isLabOwner$()]).pipe(
-      map(([lab, isOwner]) => this.init(lab, isOwner))
-    );
-  }
+  navBarItems$: Observable<FlHorizontalNavBarItem[]> = combineLatest([
+    this.state.getLab$(),
+    this.state.isLabOwner$(),
+  ]).pipe(map(([lab, isOwner]) => this.init(lab, isOwner)));
 
   private init(lab: CaLab, isOwner: boolean): FlHorizontalNavBarItem[] {
     const items: FlHorizontalNavBarItem[] = [
@@ -44,7 +39,7 @@ export class CaLabHeaderComponent implements OnInit {
       },
     ];
 
-    if (isOwner) {
+    if (isOwner && !lab.isDesktop) {
       items.push({
         label: { text: 'lab_configuration', translateText: true },
         route: CaRouterService.getLabConfigRoute(lab.id),

@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { combineLatest, Observable, startWith } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaLabManagerStatus } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 import { ClDateHelper } from '@monorepo/core-lib';
-import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.state';
 import { map } from 'rxjs/operators';
+import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 
 /**
  * Component to show global information about the lab status
@@ -17,6 +16,10 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./ca-lab-global-status.component.scss'],
 })
 export class CaLabGlobalStatusComponent implements OnInit {
+  private state = inject(CaLabDetailPageState);
+  private managerState = inject(LmlLabManagerState);
+  private translateService = inject(FlTranslateService);
+
   status$: Observable<CaLabStatusDTO> = this.state.getStatus$();
 
   isCloud$: Observable<boolean> = this.state.isCloud$();
@@ -24,12 +27,6 @@ export class CaLabGlobalStatusComponent implements OnInit {
   errors$: Observable<string[]>;
 
   labId: string = this.state.getLabId();
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private managerState: CaLabDetailManagerState,
-    private translateService: FlTranslateService
-  ) {}
 
   ngOnInit(): void {
     const obs = combineLatest([
@@ -46,7 +43,7 @@ export class CaLabGlobalStatusComponent implements OnInit {
     this.state.forceStatusRefresh();
   }
 
-  getErrorStatusMessages(status: CaLabStatusDTO, managerStatus?: CaLabManagerStatus): string[] {
+  getErrorStatusMessages(status: CaLabStatusDTO, managerStatus?: LmlLabManagerStatus): string[] {
     if (status == null) return [];
 
     const errors: string[] = [];

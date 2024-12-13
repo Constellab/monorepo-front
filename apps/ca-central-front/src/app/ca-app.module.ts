@@ -54,6 +54,8 @@ import { CaEnvironmentHelper } from './ca-core/utils/ca-environment.helper';
 import { TranslateLoader } from '@ngx-translate/core';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { CaCoServiceConfig } from './ca-core/model/config/ca-co-service-config.service';
+import { LmlBrickService } from '@monorepo/lab-manager-lib';
+import { CaLabManagerBrickService } from './ca-lab/state/ca-lab-manager-brick.service';
 
 export function translationLoaderFactory(
   http: HttpClient,
@@ -133,6 +135,7 @@ function configureCaptcha(): FlCaptchaModuleConfig {
     },
     CookieService,
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: LmlBrickService, useClass: CaLabManagerBrickService },
   ],
 })
 export class CaAppModule {

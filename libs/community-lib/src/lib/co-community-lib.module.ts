@@ -33,7 +33,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { CoStoryListItemComponent } from './component/co-story-list-item/co-story-list-item.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { CoBrickListItemComponent } from './component/co-brick-list-item/co-brick-list-item.component';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { CoConfig } from './service/co-service-config.config';
 import { CoUpdateTypeIconContainerComponent } from './component/co-update-type-icon-container/co-update-type-icon-container.component';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
@@ -66,7 +65,6 @@ import { MatDivider } from '@angular/material/divider';
     MatIconModule,
     MatChipsModule,
     FlInfiniteScrollModule,
-    TeTextEditorModule,
     FormsModule,
     FlCardModule,
     NgOptimizedImage,

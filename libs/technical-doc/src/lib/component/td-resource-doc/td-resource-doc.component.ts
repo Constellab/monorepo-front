@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TdResourceType, TdResourceView } from '../../model/td-resource-type.class';
-import { RvResourceViewTypeInfo } from '@monorepo/resource-view';
 
 @Component({
   selector: 'td-resource-doc',
@@ -9,8 +8,6 @@ import { RvResourceViewTypeInfo } from '@monorepo/resource-view';
 })
 export class TdResourceDocComponent implements OnInit {
   @Input({ required: true }) resource: TdResourceType;
-
-  views: RvResourceViewTypeInfo[] = [];
 
   orderedViews: TdResourceView[];
 

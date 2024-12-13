@@ -1,16 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { firstValueFrom, Observable, of, Subscription } from 'rxjs';
-import { FlDialogService, FlStatusEvent } from '@monorepo/front-core-lib';
-import { CaLabStatusDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-status-dialog/ca-lab-status-dialog.component';
+import { Component, inject, OnDestroy } from '@angular/core';
+import { firstValueFrom, of, Subscription } from 'rxjs';
+import { FlDialogService } from '@monorepo/front-core-lib';
+import {
+  CaLabStatusDialogComponent,
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-status-dialog/ca-lab-status-dialog.component';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
-import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.state';
 import { catchError, map } from 'rxjs/operators';
 import {
   CaLabConfigDialogComponent,
   CaLabConfigDialogInput,
 } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { CaLabManagerApiService } from '../../../state/ca-lab-manager-api.service';
+import { LmlLabManagerApiService } from '@monorepo/lab-manager-lib';
 
 /**
  * Component only accessible by the admin
@@ -20,37 +23,15 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   templateUrl: './ca-lab-manager.component.html',
   styleUrls: ['./ca-lab-manager.component.scss'],
 })
-export class CaLabManagerComponent implements OnInit, OnDestroy {
-  labId: string = this.state.getLabId();
+export class CaLabManagerComponent implements OnDestroy {
+  private labManagerApiService: CaLabManagerApiService = inject(LmlLabManagerApiService) as any;
 
-  labManagerStatus$: Observable<FlStatusEvent> = this.managerState.getStatusEvent$();
-
-  refreshIsLoading: boolean = false;
+  private dialogService = inject(FlDialogService);
+  private state = inject(CaLabDetailPageState);
+  private serverState = inject(CaLabDetailServerState);
+  private labService = inject(CaLabService);
 
   private subscription: Subscription;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private state: CaLabDetailPageState,
-    private serverState: CaLabDetailServerState,
-    private managerState: CaLabDetailManagerState,
-    private labService: CaLabService
-  ) {}
-
-  ngOnInit(): void {
-    this.managerState.init();
-
-    this.subscription = this.managerState.getStatusEvent$().subscribe((statusEvent) => {
-      if (statusEvent.status === 'success' || statusEvent.status === 'error') {
-        this.refreshIsLoading = false;
-      }
-    });
-  }
-
-  refresh(): void {
-    this.refreshIsLoading = true;
-    this.managerState.refreshStatus();
-  }
 
   openStatusDialog(): void {
     this.dialogService.openMediumDialog(CaLabStatusDialogComponent, { data: this.state.getLabId() });
@@ -58,18 +39,12 @@ export class CaLabManagerComponent implements OnInit, OnDestroy {
 
   async updateLabManager(): Promise<void> {
     const recommendedVersion = await firstValueFrom(
-      this.managerState.getLabManagerRecommendedVersion$().pipe(catchError(() => of(null)))
+      this.labManagerApiService.getLabManagerRecommendedVersion().pipe(catchError(() => of(null)))
     );
 
     const managerVersion = await firstValueFrom(
-      this.managerState.getStatusEvent$().pipe(
-        map((statusEvent) => {
-          if (statusEvent.status !== 'success') {
-            return null;
-          } else {
-            return statusEvent.object.version;
-          }
-        }),
+      this.labManagerApiService.getStatus().pipe(
+        map((status) => status.version),
         catchError(() => of(null))
       )
     );

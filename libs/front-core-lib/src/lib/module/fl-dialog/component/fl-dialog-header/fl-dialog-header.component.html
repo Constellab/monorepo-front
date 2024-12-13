@@ -1,19 +1,23 @@
 <div class="dialog-title" mat-dialog-title>
   <!-- Use to center the title -->
-  <div class="fake-icon" *ngIf="!hideCloseButton"></div>
+  @if (!hideCloseButton) {
+    <div class="fake-icon"></div>
+  }
   <div class="g-centered-forced g-text-dense-height">
     <ng-content></ng-content>
   </div>
   <div class="g-layout-row g-layout-start-center">
     <ng-content select="fl-dialog-header-actions"></ng-content>
-    <button
-      mat-icon-button
-      type="button"
-      [matTooltip]="'close' | translate"
-      [mat-dialog-close]="closeButtonData"
-      tabindex="-1"
-      *ngIf="!hideCloseButton">
-      <mat-icon>close</mat-icon>
-    </button>
+
+    @if (!hideCloseButton) {
+      <button
+        mat-icon-button
+        type="button"
+        [matTooltip]="'flDialog.close' | translate"
+        [mat-dialog-close]="closeButtonData"
+        tabindex="-1">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
   </div>
 </div>

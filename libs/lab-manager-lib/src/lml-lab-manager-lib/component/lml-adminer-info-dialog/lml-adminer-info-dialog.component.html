@@ -1,0 +1,31 @@
+<fl-dialog-header>
+  {{ 'lml.adminer_info' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <p>{{ 'lml.adminer_help' | translate }}</p>
+
+  <fl-async-section [object]="adminerInfo$">
+    <ng-container *flSectionBody="adminerInfo$ as adminerInfo">
+      <fl-key-value class="url">
+        <fl-key>{{ 'lml.adminer_url' | translate }}</fl-key>
+        <a [href]="adminerInfo.url" target="_blank" class="g-text-link">{{ adminerInfo.url }}</a>
+      </fl-key-value>
+
+      <div class="section">
+        <p class="g-text-big">{{ 'lml.adminer_gws_core_prod' | translate }}</p>
+        <lml-adminer-db-info [adminerDbInfo]="adminerInfo.gwsCoreProd"></lml-adminer-db-info>
+      </div>
+
+      <div class="section">
+        <p class="g-text-big">{{ 'lml.adminer_gws_core_dev' | translate }}</p>
+        <lml-adminer-db-info [adminerDbInfo]="adminerInfo.gwsCoreDev"></lml-adminer-db-info>
+      </div>
+
+      <div class="section">
+        <p class="g-text-big">{{ 'lml.adminer_gws_biota_server' | translate }}</p>
+        <lml-adminer-db-info [adminerDbInfo]="adminerInfo.gwsBiota"></lml-adminer-db-info>
+      </div>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

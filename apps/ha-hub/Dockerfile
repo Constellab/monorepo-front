@@ -1,5 +1,5 @@
 # Build step
-FROM node:20-alpine3.20 as buildContainer
+FROM node:20-alpine3.20 AS buildContainer
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 RUN npm run ha-hub:build-prod
 
 # Production step
-FROM node:20-alpine3.20 as production
+FROM node:20-alpine3.20 AS production
 
 WORKDIR /app
 # Copy the entry point

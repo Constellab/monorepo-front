@@ -1,13 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { combineLatest, Observable, startWith } from 'rxjs';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { CaLabDetailManagerState } from '../../../state/ca-lab-detail-manager.state';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaLabManagerStatus } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 
 /**
  * Component to show the current running task of the lab
@@ -27,11 +26,9 @@ export class CaLabCurrentTaskComponent implements OnInit {
 
   configRoute: string;
 
-  constructor(
-    private state: CaLabDetailPageState,
-    private managerState: CaLabDetailManagerState,
-    private translateService: FlTranslateService
-  ) {}
+  private state = inject(CaLabDetailPageState);
+  private managerState = inject(LmlLabManagerState);
+  private translateService = inject(FlTranslateService);
 
   ngOnInit(): void {
     const obs = combineLatest([
@@ -46,7 +43,7 @@ export class CaLabCurrentTaskComponent implements OnInit {
     this.configRoute = CaRouterService.getLabConfigRoute(this.state.getLabId());
   }
 
-  getRunningTaskMessage(status: CaLabStatusDTO, managerStatus?: CaLabManagerStatus): string {
+  getRunningTaskMessage(status: CaLabStatusDTO, managerStatus?: LmlLabManagerStatus): string {
     if (status == null) return null;
 
     // if there is a server task, return it

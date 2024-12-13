@@ -1,0 +1,77 @@
+@if (managerStatus$ | async; as labStatus) {
+  <!-- Current status -->
+  @if (currentStatus$ | async; as currentStatus) {
+    <div class="current-status">
+      <fl-text-icon>
+        <mat-icon [ngClass]="currentStatus.iconClass">{{ currentStatus.icon }}</mat-icon>
+        {{ currentStatus.text | translate }}
+
+        @if (currentStatus.buttonText) {
+          <button
+            mat-stroked-button
+            class="status-action-button"
+            type="button"
+            (click)="currentStatusAction(currentStatus.buttonText)"
+            [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'"
+            [matTooltip]="currentStatus.buttonTooltip | translate">
+            {{ currentStatus.buttonText | translate }}
+          </button>
+        }
+      </fl-text-icon>
+    </div>
+  }
+
+  <!-- Lab task -->
+  @if (labStatus.currentTask) {
+    <div>
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <span class="no-shrink">{{ 'lml.lab_manager_task' | translate }} : </span>
+
+        @if (labStatus.currentTask.status.value === 'RUNNING') {
+          <fl-loader size="small"></fl-loader>
+        } @else {
+          <fl-status-chip [status]="labStatus.currentTask.status" size="small"></fl-status-chip>
+        }
+        <div class="info">{{ labStatus.currentTask.name }} {{ labStatus.currentTask.info }}</div>
+      </div>
+    </div>
+  } @else {
+    {{ 'lml.lab_manager_no_task' | translate }}
+  }
+
+  <fl-key-value>
+    <fl-key>{{ 'lml.lab_manager_version' | translate }}</fl-key>
+    {{ labStatus.version }}
+  </fl-key-value>
+
+  @if (recommendedVersion$ | async; as recommendedVersion) {
+    @if (labStatus.version && labStatus.version !== recommendedVersion) {
+      <div class="version-warning">
+        <fl-text-icon>
+          <mat-icon color="warn">warnings</mat-icon>
+          {{
+            'lml.lab_manager_not_compatible_with_central'
+              | translate
+                : {
+                    labManagerVersion: labStatus.version,
+                    compatibleVersion: recommendedVersion,
+                  }
+          }}
+        </fl-text-icon>
+      </div>
+    }
+  }
+}
+<!-- Lab Adminer runnings -->
+@if (adminerIsRunning$ | async) {
+  <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
+    <fl-text-icon class="g-text-big g-warn-text">
+      <mat-icon>warnings</mat-icon>
+      {{ 'lml.lab_manager_adminer_running' | translate }}
+    </fl-text-icon>
+
+    <button mat-stroked-button type="button" class="g-button-small" (click)="openAdminInfo()">
+      {{ 'lml.adminer_info' | translate }}
+    </button>
+  </div>
+}

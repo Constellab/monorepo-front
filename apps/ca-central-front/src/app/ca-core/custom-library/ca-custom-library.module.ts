@@ -4,6 +4,7 @@ import {
   FlArticleModule,
   FlAuthModule,
   FlCardModule,
+  FlCodeEditorModule,
   FlColorModule,
   FlCoreComponentModule,
   FlCoreDirectiveModule,
@@ -41,7 +42,8 @@ import { RvResourceViewModule } from '@monorepo/resource-view';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TeTextEditorModule } from '@monorepo/text-editor';
-import { MaMailModule } from 'mail';
+import { MaMailModule } from '@monorepo/mail';
+import { LmlLabManagerLibModule } from '@monorepo/lab-manager-lib';
 
 /**
  * Regrouped all the needed import from library
@@ -89,12 +91,14 @@ import { MaMailModule } from 'mail';
     FlDynamicFieldModule,
     FlHorizontalNavBarModule,
     FlDragModule,
+    FlCodeEditorModule,
 
     RvResourceViewModule,
     PrProtocolModule,
     TdTechnicalDocModule,
     TeTextEditorModule,
     MaMailModule,
+    LmlLabManagerLibModule,
   ],
 })
 export class CaCustomLibraryModule {}

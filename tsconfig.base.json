@@ -28,12 +28,13 @@
       "@monorepo/community-lib": ["libs/community-lib/src/index.ts"],
       "@monorepo/core-lib": ["libs/core-lib/src/index.ts"],
       "@monorepo/front-core-lib": ["libs/front-core-lib/src/index.ts"],
+      "@monorepo/lab-manager-lib": ["libs/lab-manager-lib/src/index.ts"],
+      "@monorepo/mail": ["libs/mail/src/index.ts"],
       "@monorepo/protocol": ["libs/protocol/src/index.ts"],
       "@monorepo/resource-view": ["libs/resource-view/src/index.ts"],
       "@monorepo/spreadsheet": ["libs/spreadsheet/src/index.ts"],
       "@monorepo/technical-doc": ["libs/technical-doc/src/index.ts"],
-      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"],
-      "mail": ["libs/mail/src/index.ts"]
+      "@monorepo/text-editor": ["libs/text-editor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

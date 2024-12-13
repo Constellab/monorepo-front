@@ -1,0 +1,20 @@
+<fl-section [object]="labConfig" [isLoading]="getIsLoading" class="section">
+  <ng-container *flSectionBody>
+    <p class="help-text g-text-light">{{ 'lml.lab_manager_config_section_help' | translate }}</p>
+
+    <lml-config-form [(labConfig)]="labConfig" (labConfigChange)="onNewConfig()"></lml-config-form>
+
+    <p *ngIf="configHasChanged" class="help-text g-warn-text">
+      {{ 'lml.lab_config_changed' | translate }}
+    </p>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="saveConfig()"
+      class="g-centered-forced save-button">
+      {{ 'lml.save' | translate }}
+      <fl-button-loader *ngIf="saveIsLoading"></fl-button-loader>
+    </button>
+  </ng-container>
+</fl-section>

@@ -8,7 +8,7 @@
   "include": [
     "src/**/*.d.ts",
     "../../libs/text-editor/src/types.d.ts",
-    "../../libs/resource-view/src/types.d.ts"
+    "../../libs/front-core-lib/src/types.d.ts"
   ],
   "exclude": ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"]
 }

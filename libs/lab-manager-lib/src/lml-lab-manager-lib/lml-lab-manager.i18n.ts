@@ -1,0 +1,271 @@
+/* eslint-disable max-len */
+import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+
+/**
+ * Translation file for the Spreadsheet module
+ */
+const lmlLabManagerI18nFr: FlLangTranslation = {
+  lml: {
+    lab_manager: 'Lab manager',
+    containers_stopped: 'Les conteneurs sont arrêtés',
+    containers_down: 'Les conteneurs sont down',
+    containers_up: 'Les conteneur sont démarrés',
+    containers_partially_up: 'Les conteneur sont partiellement démarrés',
+    containers_partially_up_warning:
+      "Certains services du lab ne sont pas démarrés, veuillez vérifier la section 'Lab manager'",
+    containers_down_warning:
+      "Les services du lab ne sont pas démarrés, veuillez vérifier la section 'Lab manager'",
+    container_created: 'Créé',
+    container_running: "En cours d'exécution",
+    container_exited: 'Quitté',
+    container_none: 'None',
+    container_logs: 'Voir les logs',
+    containers: 'Conteneurs',
+    container_start: 'Démarrer le conteneur',
+    container_stop: 'Arrêter le conteneur',
+    container_delete: 'Supprimer le conteneur',
+    container_download_logs: 'Télécharger les logs',
+    lab_manager_not_configured:
+      "Le lab manager n'est pas configuré, veuillez configurer votre lab dans la section 'Configuration du lab'.",
+    lab_manager_not_initialized:
+      "Le lab manager n'est pas initialisé, veuillez cliquer sur 'Initialiser le lab' pour démarrer votre lab.",
+    lab_manager_not_initialized_since_new_version:
+      "Le lab manager n'a pas été initialisé depuis sa mise à jour, veuillez cliquer sur 'Initialiser le lab' pour redémarrer votre lab.",
+    lab_manager_all_apps_down:
+      "Les services du lab ne sont pas en cours d'exécution, veuillez cliquer sur 'Redémarrer le lab' pour les relancer.",
+    lab_manager_some_apps_down:
+      "Certains services du lab ne sont pas en cours d'exécution, veuillez cliquer sur 'Redémarrer le lab' pour les relancer.",
+    lab_manager_configured: 'Le lab manager est configuré.',
+    lab_manager_initialize: 'Initialiser le lab',
+    lab_manager_restart: 'Redémarrer le lab',
+    lab_manager_compose_up_form: 'Option pour démarrer le lab',
+    lab_manager_compose_restart_form: 'Option pour redémarrer le lab',
+    lab_manager_adminer_running:
+      "Attention, le service adminer est en cours d'exécution, veuillez l'arrêter une fois que les manipulations sur le BD sont terminées",
+    lab_manager_not_running: "Le lab manager n'est pas démarré",
+    lab_prune_system: 'Docker prune après le démarrage',
+    lab_restart_destroy_containers: 'Détruire les conteneurs avant de redémarrer',
+    lab_update_containers: 'Mettre à jour les conteneurs',
+    lab_force_pull_biota:
+      'Supprimer la base de données actuelle and de la recréer (cela va prendre quelques minutes)',
+    pull_biota: 'Télécharger biota',
+    biota_db_url: 'Url de la base de données biota',
+    configure_lab_manager: 'Configurer le lab manager',
+    up_containers: 'Démarrer les conteneurs',
+    restart_containers: 'Redémarrer les conteneurs',
+    pull_containers: 'Pull les conteneurs',
+    delete_containers: 'Supprimer les conteneurs',
+    stop_containers: 'Arrêter les conteneurs',
+    stop_current_task: 'Arrêter la tâche en cours',
+    system_prune: 'System prune',
+    start_adminer: 'Démarrer adminer',
+    stop_adminer: 'Arrêter adminer',
+    lab_manager_status: 'Statut',
+    lab_container_get_size: 'Obtenir la taille',
+    lab_manager_refresh: '  Rafraîchir',
+    adminer_info: 'Informations adminer',
+    adminer_help: 'Adminer est un outil de gestion de base de données en ligne, il permet de naviguer dans les bases de données du lab.',
+    adminer_url: 'Url adminer',
+    adminer_gws_core_prod: 'GWS_CORE prod',
+    adminer_gws_core_dev: 'GWS_CORE dev',
+    adminer_gws_biota_server: 'GWS_BIOTA serveur',
+    adminer_server: 'Server name',
+    adminer_db: 'Database name',
+    adminer_user: 'User name',
+    adminer_password: 'Password',
+    lab_cloud_config_updated:
+      'Configuration sauvegardée. Vous devez redémarrer le lab pour que les changements soient appliqués',
+    brick: 'Brique',
+    brick_version: 'Version de la brique',
+    brick_repo_type: 'Type de repository',
+    brick_version_state: 'État de la version',
+    brick_version_type: 'Type de la version',
+    brick_version_info: 'Informations de la version',
+    brick_technical_info: 'Informations techniques',
+    brick_version_view_detail: 'Voir le détail',
+    lab_manager_section_help:
+      'Le lab manager est un service qui tourne sur le serveur du lab et qui est responsable de la gestion du lab. Il est utilisé pour démarrer, arrêter, redémarrer et configurer le lab. Il est aussi responsable des sauvegardes du lab.',
+    lab_manager_advanced_config: 'Configuration avancée du lab manager',
+    lab_manager_config_section_help:
+      'Cette section vous permet de configurer le lab en définissant les briques (avec leur version) qui seront installées dans le lab. Une fois la configuration changée, le lab doit être redémarré pour installer les nouvelles versions des briques.',
+    lab_config_changed:
+      'Configuration modifiée, veuillez cliquer sur le bouton "Sauvegarder" pour enregistrer les changements.',
+    save: 'Sauvegarder',
+    lab_not_configured_help:
+      "Le lab n'est pas configuré. Veuillez ajouter les bricks souhaitées sur votre lab. La brick 'gws_core' est obligatoire.",
+    lab_update_brick: 'Modifier une brique',
+    lab_remove_brick: 'Supprimer la brique',
+    lab_remove_brick_confirmation:
+      "Êtes-vous sûr de vouloir supprimer la brique du lab ? Ceci n'est pas recommandé, tous les scénarios utilisant cette brique ne seront plus exécutables. Les ressources utilisant des types de cette brique ne seront plus utilisables ni visibles",
+    lab_advanced_config: 'Configuration avancée',
+    lab_advanced_config_warning: 'Attention, ne modifiez ces paramètres que si vous savez ce que vous faites',
+    glab_version_override: 'Forcer la Version du Glab et Codelab',
+    glab_version_override_hint: 'Laissez vide pour utiliser la version par défaut',
+    lab_reset_config: 'Réinitialiser les paramètres',
+    lab_config: 'Configuration du lab',
+    lab_add_brick: 'Ajouter une brique',
+    lab_brick_already_exists: 'La brique {{brickName}} existe déjà dans le lab',
+    lab_manager_task: 'Tâche',
+    lab_manager_no_task: 'Aucune tâche',
+    lab_manager_version: 'Version du lab manager',
+    lab_advanced_configuration_warning:
+      "Attention, n'utilisez les options suivantes que si vous savez ce que vous faites.",
+    lab_initialize_help:
+      'Cela va démarrer le lab. Les briques listées dans la section du Lab manager seront installées.',
+    restart_lab_help:
+      'Cela arrêtera et redémarrera le lab. Les briques listées dans la section du Lab manager seront installées. Les données du lab ne sont pas affectées.',
+    public: 'Publique',
+    search_by_title: 'Rechercher par titre',
+    select_the_brick_version: 'Sélectionner la version de la brique',
+    selected_brick: 'Brique sélectionnée',
+    select_another_brick: 'Sélectionner une autre brique',
+    lab_brick_version_show_previous:
+      "Afficher les versions précédentes. Attention, cela peut engendrer des des erreurs. A n'utiliser que si vous savez ce que vous faites.",
+    ok: 'Ok',
+    lab_manager_not_compatible_with_central:
+      "La version du lab manager actuelle : '{{labManagerVersion}}' n'est peut-être pas compatible. Version recommandée '{{compatibleVersion}}'. Veuillez cliquer sur 'Mettre à jour le lab manager' avant de faire toute manipulation avec le lab manager.",
+    lab_container_status: 'Status',
+    lab_container_running_for: 'Démarré depuis',
+    lab_container_image: 'Image',
+    lab_container_mounts: 'Mounts',
+    lab_container_networks: 'Networks',
+    lab_container_ports: 'Ports',
+    lab_container_id: 'Id',
+    lab_container_command: 'Command',
+    lab_container_size: 'Taille',
+  },
+};
+
+const lmlLabManagerI18nEn: FlLangTranslation = {
+  lml: {
+    lab_manager: 'Lab manager',
+    containers_stopped: 'Containers are stopped',
+    containers_down: 'Containers are down',
+    containers_up: 'Containers are up',
+    containers_partially_up: 'Containers are partially up',
+    containers_partially_up_warning:
+      "Some services of the lab are running, please check 'Lab manager' section",
+    containers_down_warning: "The services of the lab are not running, please check 'Lab manager' section",
+    container_created: 'Created',
+    container_running: 'Running',
+    container_exited: 'Exited',
+    container_none: 'None',
+    container_logs: 'View logs',
+    containers: 'Containers',
+    container_start: 'Start container',
+    container_stop: 'Stop container',
+    container_delete: 'Delete container',
+    container_download_logs: 'Download logs',
+    lab_manager_not_configured:
+      "The lab manager is not configured, please configure your lab in the 'Lab config' section.",
+    lab_manager_not_initialized:
+      "The lab manager is not initialized, please click on 'Initialize lab' to start your lab.",
+    lab_manager_not_initialized_since_new_version:
+      "The lab manager has not been initialized since its update, please click on 'Initialize lab' to restart your lab.",
+    lab_manager_all_apps_down:
+      "The lab services are not running, please click on 'Restart lab' to restart them.",
+    lab_manager_some_apps_down:
+      "Some lab services are not running, please click on 'Restart lab' to restart them.",
+    lab_manager_configured: 'The lab manager is configured.',
+    lab_manager_initialize: 'Initialize lab',
+    lab_manager_restart: 'Restart lab',
+    lab_manager_compose_up_form: 'Option to up the lab',
+    lab_manager_compose_restart_form: 'Option to restart the lab',
+    lab_manager_adminer_running:
+      "Warning, the adminer service is running, please stop it when you've finished you manipulation on DB",
+    lab_manager_not_running: 'Lab manager is not running',
+    lab_prune_system: 'Docker prune after up',
+    lab_restart_destroy_containers: 'Destroy containers before restart',
+    lab_update_containers: 'Update containers',
+    lab_force_pull_biota: 'Clean existing database before update (this will take a few minutes)',
+    pull_biota: 'Download biota',
+    biota_db_url: 'Biota database url',
+    configure_lab_manager: 'Configure lab manager',
+    up_containers: 'Up containers',
+    restart_containers: 'Restart containers',
+    pull_containers: 'Pull containers',
+    delete_containers: 'Delete containers',
+    stop_containers: 'Stop containers',
+    stop_current_task: 'Stop current task',
+    system_prune: 'System prune',
+    start_adminer: 'Start adminer',
+    stop_adminer: 'Stop adminer',
+    lab_manager_status: 'Status',
+    lab_container_get_size: 'Get size',
+    lab_manager_refresh: 'Refresh',
+    adminer_info: 'Adminer info',
+    adminer_help: 'Adminer is an online database management tool, it allows you to navigate through the lab databases.',
+    adminer_url: 'Adminer url',
+    adminer_gws_core_prod: 'GWS_CORE prod',
+    adminer_gws_core_dev: 'GWS_CORE dev',
+    adminer_gws_biota_server: 'GWS_BIOTA server',
+    adminer_server: 'Server name',
+    adminer_db: 'Database name',
+    adminer_user: 'User name',
+    adminer_password: 'Password',
+    lab_cloud_config_updated: 'Config saved. You need to restart the lab to apply changes',
+    brick: 'Brick',
+    brick_version: 'Brick version',
+    brick_repo_type: 'Repo type',
+    brick_version_state: 'Version state',
+    brick_version_type: 'Version type',
+    brick_version_info: 'Version info',
+    brick_technical_info: 'Technical info',
+    brick_version_view_detail: 'View details',
+    lab_manager_section_help:
+      "The lab manager is a service that is running on the lab server and is responsible for managing the lab. It is used to start, stop restart and configure the lab. It is also responsible for the lab's backups.",
+    lab_manager_advanced_config: 'Lab manager advanced config',
+    lab_manager_config_section_help:
+      'This section allows you to configure the lab by defining the brick (with their version) that will be installed in the lab. Once the configuration is changed, the lab needs to be restarted to install new brick versions.',
+    lab_config_changed: 'Configuration modified, please click on the "Save" button to save the changes.',
+    save: 'Save',
+    lab_not_configured_help:
+      "The lab is not configured. Please add the bricks you want on your lab. The 'gws_core' brick is mandatory.",
+    lab_update_brick: 'Update brick',
+    lab_remove_brick: 'Remove brick',
+    lab_remove_brick_confirmation:
+      'Are you sure you want to remove the brick from the lab ? This is not recommended, all the scenarios using this brick will not be runnable. The resources using types from this brick will not be usable nor viewable',
+    lab_advanced_config: 'Advanced config',
+    lab_advanced_config_warning: "Warning, only modify those configs if you know what you're doing",
+    glab_version_override: 'Override Glab and Codelab version',
+    glab_version_override_hint: 'Leave empty to use the default version',
+    lab_reset_config: 'Reset to default',
+    lab_config: 'Lab config',
+    lab_add_brick: 'Add brick',
+    lab_brick_already_exists: 'The brick {{brickName}} already exists in the lab',
+    lab_manager_task: 'Task',
+    lab_manager_no_task: 'No task',
+    lab_manager_version: 'Lab manager version',
+    lab_advanced_configuration_warning:
+      'Warning, use the following options only if you know what you are doing.',
+    lab_initialize_help:
+      'This will start the lab. The brick listed in Lab manager section will be installed.',
+    restart_lab_help:
+      'This will stop and start the lab. The brick listed in Lab manager section will be installed. The lab data are not affected.',
+    public: 'Public',
+    search_by_title: 'Search by title',
+    select_the_brick_version: 'Select the brick version',
+    selected_brick: 'Selected brick',
+    select_another_brick: 'Select another brick',
+    lab_brick_version_show_previous:
+      'Show previous versions. Warning, this can cause errors. Only use if you know what you are doing.',
+    ok: 'Ok',
+    lab_manager_not_compatible_with_central:
+      "Current lab manager version : '{{labManagerVersion}}' might not be compatible. Recommended version '{{compatibleVersion}}'. Please click on 'Update lab manager' before doing any manipulation with the lab manager.",
+    lab_container_status: 'Status',
+    lab_container_running_for: 'Running for',
+    lab_container_image: 'Image',
+    lab_container_mounts: 'Mounts',
+    lab_container_networks: 'Networks',
+    lab_container_ports: 'Ports',
+    lab_container_id: 'Id',
+    lab_container_command: 'Command',
+    lab_container_size: 'Size',
+  },
+};
+
+export const lmlLabManagerI18n: FlTranslateObject = {
+  [ClSupportedLanguage.en]: lmlLabManagerI18nEn,
+  [ClSupportedLanguage.fr]: lmlLabManagerI18nFr,
+};

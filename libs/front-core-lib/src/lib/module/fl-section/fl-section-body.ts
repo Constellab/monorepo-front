@@ -16,10 +16,14 @@ export interface FlAsyncSectionBodyContext<T> extends FlViewContext<T> {
 
   // use to type the *flSectionBodyStatusEvent directive
   flSectionBodyStatusEvent: T;
+
+  // use to type the *flSectionBodyStatusObsEvent directive
+  flSectionBodyStatusObsEvent: T;
 }
 
 @Directive({
-  selector: '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent]',
+  selector:
+    '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent], [flSectionBodyStatusObsEvent]',
 })
 export class FlSectionBodyDirective<T> {
   /**
@@ -37,6 +41,11 @@ export class FlSectionBodyDirective<T> {
    * Use this when you want to provide an FlStatusEvent object
    */
   @Input() flSectionBodyStatusEvent!: FlStatusEvent<T> | '';
+
+  /**
+   * Use this when you want to provide an Observable of FlStatusEvent object
+   */
+  @Input() flSectionBodyStatusObsEvent!: Observable<FlStatusEvent<T>> | '';
 
   /**
    * Use to make typing work in the HTML

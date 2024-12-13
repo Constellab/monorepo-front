@@ -1,5 +1,4 @@
 import { TdTypeStyle, TdTypeTypingEntity } from './td-type.class';
-import { RvResourceViewType } from '@monorepo/resource-view';
 
 export interface TdResourceType extends TdTypeTypingEntity {
   variables: Record<string, any>;
@@ -32,7 +31,7 @@ export interface TdResourceFunctionArg {
 
 export interface TdResourceView {
   method_name: string;
-  view_type: RvResourceViewType;
+  view_type: string;
   human_name: string;
   short_description: string;
   default_view: boolean;

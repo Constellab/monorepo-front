@@ -1,0 +1,133 @@
+<fl-dialog-header>
+  {{ 'lml.lab_add_brick' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (isLoading) {
+    <div class="loader-div">
+      <fl-loader></fl-loader>
+    </div>
+  }
+
+  @if (brickSelectionMode && !isLoading) {
+    <div class="content">
+      <div class="left-side">
+        @if (spaceActivated) {
+          <mat-chip-option
+            [value]="isSelected('public')"
+            (click)="selectSpace('public')"
+            color="accent"
+            class="space-list-option">
+            {{ 'lml.public' | translate }}
+          </mat-chip-option>
+
+          <mat-divider></mat-divider>
+
+          @for (space of spaces$ | async; track space.id) {
+            <mat-chip-option
+              [value]="isSelected(space.id)"
+              (click)="selectSpace(space.id)"
+              color="warn"
+              class="space-list-option">
+              {{ space.name }}
+            </mat-chip-option>
+          }
+        }
+      </div>
+      <div class="right-side">
+        <div class="search-bar-title">
+          <form type="submit" (ngSubmit)="search()">
+            <mat-form-field class="search-bar">
+              <input
+                matInput
+                [formControl]="titleFormControl"
+                [placeholder]=" 'lml.search_by_title' | translate" />
+              <button mat-icon-button matSuffix (click)="search()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </form>
+        </div>
+
+        @if (bricks$) {
+          <fl-infinite-scroll [datasource]="bricks$" class="community-bricks-list">
+            <div class="community-bricks-list-div">
+              @for (brick of bricks$ | flDatasourceConnect | async; track brick.id) {
+                <div>
+                  <co-brick-list-item
+                    [brick]="brick"
+                    [brickImage]="brick.imageLink | lmlCommunityBrickImage"
+                    class="brick-item"
+                    (click)="onBrickSelected(brick)"></co-brick-list-item>
+                </div>
+              }
+            </div>
+          </fl-infinite-scroll>
+        }
+      </div>
+    </div>
+  }
+
+  @if (!brickSelectionMode && !isLoading) {
+    <div>
+      <form (ngSubmit)="submit()" id="lab-brick-form" [formGroup]="formGp">
+        <div class="select-version-title-div">
+          <h4>{{ 'lml.selected_brick' | translate }}</h4>
+        </div>
+        <!--  Brick  -->
+        <div class="brick-div-info">
+          <div class="selected-brick-div">
+            <co-brick-list-item
+              [brick]="formGp.get('brick').value"
+              [brickImage]="formGp.get('brick').value?.imageLink | lmlCommunityBrickImage"
+              class="selected-brick-item"></co-brick-list-item>
+          </div>
+
+          @if (!isUpdate) {
+            <button mat-stroked-button (click)="changeBrick()">
+              {{ 'lml.select_another_brick' | translate }}
+            </button>
+          }
+        </div>
+
+        <div class="select-version-title-div">
+          <h4>{{ 'lml.select_the_brick_version' | translate }}</h4>
+        </div>
+
+        <!--  Brick version -->
+        <mat-form-field class="g-form-input">
+          <mat-label>{{ 'lml.brick_version' | translate }}</mat-label>
+          <mat-select [placeholder]="'lml.brick_version' | translate" formControlName="version">
+            @for (version of versions; track version) {
+              <mat-option [value]="version">{{ version }}</mat-option>
+            }
+          </mat-select>
+          @if (formGp.get('version').hasError('required')) {
+            <mat-error>
+              {{ 'lml.brick_version' | flErrorRequired }}
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!--  Show lower version  -->
+        @if (isUpdate && oldVersions?.length > 0) {
+          <mat-checkbox
+            (change)="toggleLowerVersion($event)"
+            class="g-mat-checkbox-include-bottom g-mat-checkbox-wrap-text">
+            {{ 'lml.lab_brick_version_show_previous' | translate }}
+          </mat-checkbox>
+        }
+      </form>
+    </div>
+  }
+</mat-dialog-content>
+
+@if (formGp.valid) {
+  <div mat-dialog-actions>
+    @if (formGp.valid) {
+      <button mat-flat-button color="primary" type="submit" form="lab-brick-form" class="g-centered-forced">
+        {{ 'lml.ok' | translate }}
+      </button>
+    }
+  </div>
+}

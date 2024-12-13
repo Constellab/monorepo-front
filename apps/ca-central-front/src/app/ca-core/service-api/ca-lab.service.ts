@@ -4,7 +4,6 @@ import {
   CaLab,
   CaLabCodelabDTO,
   CaLabDatasource,
-  CaLabDesktopConfig,
   CaLabFindOneDto,
   CaLabServerInfoDTO,
   CaLabStatusDTO,
@@ -21,17 +20,8 @@ import {
 } from '@monorepo/front-core-lib';
 import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
-  CaLabComposeRestartOptions,
-  CaLabComposeUpOptions,
-  CaLabDockerContainerSize,
-  CaLabDockerPs,
-  CaLabDockerPsFull,
-  CaLabManagerConfig,
   CaLabManagerRecommendedVersion,
   CaLabManagerRestoreBackupConfigDTO,
-  CaLabManagerStatus,
-  CaLabPullBiotaOptions,
-  CaLabTaskStatusInfo,
 } from '../model/entities/lab/ca-lab-manager.class';
 import { CaLabUser, CaLabUserRole } from '../model/entities/lab/ca-lab-user.class';
 import { CaLabSearch, CaLabSearchFields } from '../entity-module/ca-lab-core/model/ca-lab-search.class';
@@ -61,6 +51,19 @@ import {
 } from '../../ca-lab/component/lab/ca-lab-status-history-page/ca-lab-status-history-page.component';
 import { CaLabUpdateVolumeDTO, CaLabVolume } from '../model/entities/lab/ca-lab-volume.class';
 import { CaUser } from '../model/entities/ca-user.class';
+import {
+  LmlAdminerInfo,
+  LmlComposeRestartOptions,
+  LmlComposeUpOptions,
+  LmlDockerContainerSize,
+  LmlDockerPs,
+  LmlDockerPsFull,
+  LmlLabManagerConfig,
+  LmlLabManagerStatus,
+  LmlPullBiotaOptions,
+} from '@monorepo/lab-manager-lib';
+import { map } from 'rxjs/operators';
+import { CaLabDesktopGenerateConfig } from '../model/entities/lab/ca-lab-desktop.class';
 
 @Injectable({
   providedIn: 'root',
@@ -142,8 +145,8 @@ export class CaLabService {
     return this.apiService.get(`${this.route}/${id}/config`, CaLabConfig, { hideSnackBarError });
   }
 
-  public updateConfig(id: string, config: CaLabManagerConfig): Observable<void> {
-    return this.apiService.put(`${this.route}/${id}/config`, config, CaLabManagerConfig);
+  public updateConfig(id: string, config: LmlLabManagerConfig): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/config`, config);
   }
 
   public getLabServerInfo(id: string): Observable<CaLabServerInfoDTO> {
@@ -228,28 +231,24 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/lab-manager/update/${version}`, null, CaLabStatusDTO);
   }
 
-  public getLabManagerStatus(id: string): Observable<CaLabManagerStatus> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/status`, CaLabManagerStatus, {
+  public getLabManagerStatus(id: string): Observable<LmlLabManagerStatus> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/status`, LmlLabManagerStatus, {
       hideSnackBarError: true,
     });
   }
 
-  public getCurrentTask(id: string): Observable<CaLabTaskStatusInfo> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/current-task`);
+  public listContainers(id: string): Observable<LmlDockerPs[]> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers`, LmlDockerPs);
   }
 
-  public listContainers(id: string): Observable<CaLabDockerPs[]> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers`, CaLabDockerPs);
-  }
-
-  public getContainerDetails(id: string, containerName: string): Observable<CaLabDockerPsFull> {
+  public getContainerDetails(id: string, containerName: string): Observable<LmlDockerPsFull> {
     return this.apiService.get(
       `${this.route}/${id}/lab-manager/containers/${containerName}`,
-      CaLabDockerPsFull
+      LmlDockerPsFull
     );
   }
 
-  public getContainerSize(id: string, containerName: string): Observable<CaLabDockerContainerSize> {
+  public getContainerSize(id: string, containerName: string): Observable<LmlDockerContainerSize> {
     return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/size`);
   }
 
@@ -287,11 +286,11 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/configure-lab-manager`, null);
   }
 
-  public upContainers(id: string, options: CaLabComposeUpOptions): Observable<void> {
+  public upContainers(id: string, options: LmlComposeUpOptions): Observable<void> {
     return this.apiService.post(`${this.route}/${id}/lab-manager/up-containers`, options);
   }
 
-  public restartContainers(id: string, options: CaLabComposeRestartOptions): Observable<void> {
+  public restartContainers(id: string, options: LmlComposeRestartOptions): Observable<void> {
     return this.apiService.post(`${this.route}/${id}/lab-manager/restart-containers`, options);
   }
 
@@ -307,7 +306,7 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/pull-containers`, null);
   }
 
-  public pullBiotaDb(id: string, options: CaLabPullBiotaOptions): Observable<void> {
+  public pullBiotaDb(id: string, options: LmlPullBiotaOptions): Observable<void> {
     return this.apiService.post(`${this.route}/${id}/lab-manager/pull-biota-db`, options);
   }
 
@@ -319,8 +318,8 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/${id}/lab-manager/system-prune`, null);
   }
 
-  public getLabManagerConfig(id: string): Observable<CaLabManagerConfig> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/config`, CaLabManagerConfig);
+  public getLabManagerConfig(id: string): Observable<LmlLabManagerConfig> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/config`, LmlLabManagerConfig);
   }
 
   public startAdminer(id: string): Observable<boolean> {
@@ -329,6 +328,10 @@ export class CaLabService {
 
   public stopAdminer(id: string): Observable<boolean> {
     return this.apiService.put(`${this.route}/${id}/lab-manager/adminer/stop`, null);
+  }
+
+  public getAdminerInfo(id: string): Observable<LmlAdminerInfo> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/adminer/info`, null);
   }
 
   public getLabManagerRecommendedVersion(): Observable<CaLabManagerRecommendedVersion> {
@@ -497,10 +500,19 @@ export class CaLabService {
     return this.apiService.post(`${this.route}/desktop`, entity, CaLab);
   }
 
-  public getDesktopConfigDownloadUrl(id: string, config: CaLabDesktopConfig): Observable<Blob> {
-    return this.apiService.post(`${this.route}/${id}/desktop/generate-config`, config, null, {
+  public downloadDesktopLabManagerConfig(
+    id: string,
+    customConfig: CaLabDesktopGenerateConfig
+  ): Observable<Blob> {
+    return this.apiService.post(`${this.route}/${id}/desktop/generate-config`, customConfig, null, {
       responseType: 'blob',
     });
+  }
+
+  public getDesktopRunLabManagerCommand(id: string): Observable<string> {
+    return this.apiService
+      .get(`${this.route}/${id}/desktop/run-lab-manager`)
+      .pipe(map((response: any) => response.command));
   }
 
   public updateLabDesktop(entity: CaLabDesktopForm): Observable<CaLab> {

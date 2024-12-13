@@ -4,12 +4,12 @@ import { CaLab, CaLabWithSpace } from '../../../../ca-core/model/entities/lab/ca
 import { CaServerService } from '../../../../ca-core/service-api/ca-server.service';
 import { Observable, share } from 'rxjs';
 import { FlGlobalValidators, FlSnackBarService } from '@monorepo/front-core-lib';
-import { CaLabManagerConfig } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
 import { TdBrick } from '@monorepo/technical-doc';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaLabCloudCreateDTO } from '../../../../ca-core/model/entities/lab/ca-lab.form';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabSelectServerComponent } from '../ca-lab-select-server/ca-lab-select-server.component';
+import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
 
 @Component({
   selector: 'ca-lab-create-page',
@@ -27,7 +27,7 @@ export class CaLabCreatePageComponent {
 
   serverForm = CaLabSelectServerComponent.createFormGp();
 
-  labConfig: CaLabManagerConfig;
+  labConfig: LmlLabManagerConfig;
 
   maxNameLength = CaLabWithSpace.MAX_NAME_LENGTH;
 
@@ -45,7 +45,7 @@ export class CaLabCreatePageComponent {
     private snackBarService: FlSnackBarService,
     private labService: CaLabService
   ) {
-    const labConfig = new CaLabManagerConfig();
+    const labConfig = new LmlLabManagerConfig();
     labConfig.brickVersions = [{ name: TdBrick.GWS_CORE, version: '0.8.0-beta.1' }];
     labConfig.glabTag = null;
     this.labConfig = labConfig;

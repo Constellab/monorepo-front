@@ -13,6 +13,6 @@ export class CoAgentListItemComponent implements OnInit {
   description: string;
 
   ngOnInit(): void {
-    this.description = this.agent.description?.getFirstParagraphsText() ?? '';
+    // this.description = this.agent.description?.getFirstParagraphsText() ?? '';
   }
 }

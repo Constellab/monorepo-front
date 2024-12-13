@@ -1,0 +1,13 @@
+<fl-dialog-header>
+  {{ 'lml.brick_version' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="brickVersion$">
+    <ng-container *flSectionBody="brickVersion$ as brickVersion">
+      <lml-brick-version-detail
+        [brickVersion]="brickVersion"
+        [brickName]="input.brickName"></lml-brick-version-detail>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

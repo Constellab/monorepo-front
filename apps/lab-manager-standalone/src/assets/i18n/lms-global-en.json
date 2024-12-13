@@ -1,0 +1,27 @@
+{
+  "ok": "Ok",
+  "lms": {
+    "connection_lost": "Connection lost",
+    "global_info": "Global info",
+    "lab_manager_running": "The lab manager is running",
+    "lab_manager_not_running": "The lab manager is not running",
+    "lab_manager_initialized": "The lab manager is not configured",
+    "lab_manager_not_initialized": "The lab manager is not configured, please upload init file",
+    "lab_manager_bricks_configured": "The bricks are configured",
+    "lab_manager_bricks_not_configured": "The bricks are not configured",
+    "lab_is_running": "The data lab is running",
+    "lab_is_not_running": "The data lab is not running",
+    "refresh_status": "Refresh status",
+    "lab_task_is_running": "Lab task is running, please wait for it to finish",
+    "lab_is_starting": "Lab is starting, it may take a few minutes",
+    "go_to_lab": "Go to lab",
+    "configure_lab_manager": "Configure lab manager",
+    "configure_lab_manager_description": "To configure the lab manager, please upload the configuration file. You can download the configuration file from your desktop lab page in your space.",
+    "configuration_file": "Configuration file",
+    "incorrect_configuration_file": "Incorrect configuration file",
+    "lab_manager_configured": "Lab manager configured",
+    "start_lab": "Start",
+    "stop_lab": "Stop"
+  }
+}
+

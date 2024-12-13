@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaLabCodelabInfoComponent } from '../ca-lab-codelab-info/ca-lab-codelab-info.component';
@@ -9,15 +9,15 @@ import {
   CaLabConfigDialogInput,
 } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabDesktopDownloadConfigComponent,
-  CaLabDesktopDownloadConfigInput,
-} from '../../desktop/ca-lab-desktop-download-config/ca-lab-desktop-download-config.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import {
   CaLabDesktopFormDialogComponent,
   CaLabDesktopFormDialogInput,
 } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
+import {
+  CaLabDesktopConfigureDialogComponent,
+  CaLabDesktopConfigureDialogInput,
+} from '../../desktop/ca-lab-desktop-configure-dialog/ca-lab-desktop-configure-dialog.component';
 
 @Component({
   selector: 'ca-lab-detail',
@@ -25,23 +25,23 @@ import {
   styleUrls: ['./ca-lab-detail.component.scss'],
 })
 export class CaLabDetailComponent implements OnInit {
+  private state = inject(CaLabDetailPageState);
+  private dialogService = inject(FlDialogService);
+  private labService = inject(CaLabService);
+  private communityHelper = inject(CoCommunityHelperService);
+
   lab$: Observable<CaLab>;
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
   labIsRunning$: Observable<boolean> = this.state.labIsRunning$();
   isLoading: boolean = false;
 
   desktopDocUrl: string;
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private dialogService: FlDialogService,
-    private labService: CaLabService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
+  desktopRunLabManagerCommand$: Observable<string>;
 
   ngOnInit(): void {
     this.desktopDocUrl = this.communityHelper.getDesktopDocUrl();
     this.lab$ = this.state.getLab$();
+    this.desktopRunLabManagerCommand$ = this.labService.getDesktopRunLabManagerCommand(this.state.getLabId());
   }
 
   openCodelabInfo(lab: CaLab): void {
@@ -56,13 +56,6 @@ export class CaLabDetailComponent implements OnInit {
     };
 
     this.dialogService.openSmallDialog(CaLabConfigDialogComponent, { data: input });
-  }
-
-  getDesktopConfigDownloadUrl(lab: CaLab): void {
-    const input: CaLabDesktopDownloadConfigInput = {
-      labId: lab.id,
-    };
-    this.dialogService.openSmallDialog(CaLabDesktopDownloadConfigComponent, { data: input });
   }
 
   openLabDesktopUpdate(lab: CaLab): void {
@@ -88,5 +81,13 @@ export class CaLabDetailComponent implements OnInit {
     if (lab) {
       this.state.updateLab(lab);
     }
+  }
+
+  openDownloadDesktopConfig(): void {
+    const input: CaLabDesktopConfigureDialogInput = {
+      labId: this.state.getLabId(),
+    };
+
+    this.dialogService.openSmallDialog(CaLabDesktopConfigureDialogComponent, { data: input });
   }
 }

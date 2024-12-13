@@ -48,7 +48,11 @@
     "ha-hub:build-image": "docker build -f apps/ha-hub/Dockerfile -t ha-hub .",
     "ha-hub:run-image-dev": "docker run --rm -p 4000:4000 -e API_URL=http://localhost:3001 -e CAPTCHA_SITE_KEY=123456789 ha-hub",
     "ha-hub:caprover-deploy-pre-prod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com hub-front-pre-prod ghcr.io/constellab/community-front",
-    "ha-hub:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com hub-front ghcr.io/constellab/community-front"
+    "ha-hub:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com hub-front ghcr.io/constellab/community-front",
+    "lab-manager-standalone:serve": "nx serve lab-manager-standalone",
+    "lab-manager-standalone:build-prod": "node --max_old_space_size=4096 ./node_modules/nx/bin/nx build lab-manager-standalone --prod",
+    "lab-manager-standalone:build-image": "docker build -f apps/lab-manager-standalone/Dockerfile -t lab-manager-standalone .",
+    "lab-manager-standalone:run-image-dev": "docker run --rm -p 82:80 -e API_URL=http://localhost:3000 -e COMMUNITY_API_URL=https://api.constellab.community -e COMMUNITY_FRONT_URL=https://constellab.community/ lab-manager-standalone"
   },
   "private": true,
   "dependencies": {
@@ -125,6 +129,7 @@
     "@nx/jest": "19.5.3",
     "@nx/js": "19.5.3",
     "@nx/node": "19.5.3",
+    "@nx/web": "19.5.3",
     "@nx/workspace": "19.5.3",
     "@schematics/angular": "18.1.2",
     "@swc-node/register": "1.9.2",

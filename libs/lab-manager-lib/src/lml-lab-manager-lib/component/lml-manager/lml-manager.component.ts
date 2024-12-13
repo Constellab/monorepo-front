@@ -1,0 +1,46 @@
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FlStatusEvent } from '@monorepo/front-core-lib';
+import { LmlLabManagerState } from '../../lml-lab-manager.state';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+
+/**
+ * Component only accessible by the admin
+ * LmlLabManagerService must be provided
+ */
+@Component({
+  selector: 'lml-manager',
+  templateUrl: './lml-manager.component.html',
+  styleUrls: ['./lml-manager.component.scss'],
+})
+export class LmlManagerComponent implements OnInit, OnDestroy {
+  private managerState = inject(LmlLabManagerState);
+  labManagerStatus$: Observable<FlStatusEvent>;
+
+  refreshIsLoading: boolean = false;
+
+  private subscriptions = new ClSubscriptionHandler();
+
+  ngOnInit(): void {
+    this.managerState.init();
+
+    this.labManagerStatus$ = this.managerState.getStatusEvent$();
+
+    this.subscriptions.add(
+      this.managerState.getStatusEvent$().subscribe((statusEvent) => {
+        if (statusEvent.status === 'success' || statusEvent.status === 'error') {
+          this.refreshIsLoading = false;
+        }
+      })
+    );
+  }
+
+  refresh(): void {
+    this.refreshIsLoading = true;
+    this.managerState.refreshStatus();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
+  }
+}

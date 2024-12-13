@@ -6,7 +6,7 @@
 
 # 👋 Welcome to Lab manager
 
-`lab-front` is a [Constellab](https://constellab.io) container developed by [Gencovery](https://gencovery.com/). It run the front application for the data lab.
+`lab-front` is a [Constellab](https://constellab.io) container developed by [Gencovery](https://gencovery.com/). It runs the front application for the data lab.
 
 ## 🚀 What is Constellab?
 

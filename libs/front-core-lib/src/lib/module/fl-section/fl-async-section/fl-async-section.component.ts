@@ -166,8 +166,13 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
       this.onSuccess(event.object);
     } else if (event.status === 'error') {
       this.onError(event.error);
-    } else {
+    } else if (event.status === 'loading') {
       this.isLoading = true;
+      this.cdr.detectChanges();
+    } else {
+      this.isLoading = false;
+      this.showBody = false;
+      this.errorText = null;
       this.cdr.detectChanges();
     }
   }
@@ -190,6 +195,7 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
       flSectionBody: this.result,
       flSectionBodyDatasource: this.result,
       flSectionBodyStatusEvent: this.result,
+      flSectionBodyStatusObsEvent: this.result,
     };
   }
 

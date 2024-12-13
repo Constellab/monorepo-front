@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class';
 import { CaBrickVersionComplete } from '../../../../model/entities/ca-brick.class';
-import {
-  CaBrickVersionDetailDialogComponent,
-  CaBrickVersionDetailDialogInput,
-} from '../../../ca-brick-core/component/ca-brick-version-detail-dialog/ca-brick-version-detail-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import {
+  LmlBrickVersionDetailDialogComponent,
+  LmlBrickVersionDetailDialogInput,
+} from '@monorepo/lab-manager-lib';
 
 @Component({
   selector: 'ca-lab-config',
@@ -26,11 +26,11 @@ export class CaLabConfigComponent {
   }
 
   openBrickVersionDetail(brickVersion: CaBrickVersionComplete): void {
-    const data: CaBrickVersionDetailDialogInput = {
+    const data: LmlBrickVersionDetailDialogInput = {
       brickName: brickVersion.brick.name,
       brickVersion: brickVersion.version,
     };
 
-    this.dialogService.openSmallDialog(CaBrickVersionDetailDialogComponent, { data });
+    this.dialogService.openSmallDialog(LmlBrickVersionDetailDialogComponent, { data });
   }
 }

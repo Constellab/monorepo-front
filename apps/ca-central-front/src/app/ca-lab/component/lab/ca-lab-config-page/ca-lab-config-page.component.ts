@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 
@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./ca-lab-config-page.component.scss'],
 })
 export class CaLabConfigPageComponent {
+
+  private state = inject(CaLabDetailPageState);
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
 
-  isDesktop$: Observable<boolean> = this.state.isDesktop$();
   isHttpAccessible$: Observable<boolean> = this.state.isHttpAccessible$();
 
-  constructor(private state: CaLabDetailPageState) {}
 }

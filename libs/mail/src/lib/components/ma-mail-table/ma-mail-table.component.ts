@@ -1,7 +1,9 @@
 import { Component, inject, Input } from '@angular/core';
-import { MaMailContentDialogComponent, MaMailDatasource, MaMailEntity, MaMailService } from 'mail';
 import { FlConfirmDialogInput, FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { MaMailErrorDialogComponent } from '../ma-mail-error-dialog/ma-mail-error-dialog.component';
+import { MaMailContentDialogComponent } from '../ma-mail-content-dialog/ma-mail-content-dialog.component';
+import { MaMailService } from '../../ma-mail.service';
+import { MaMailDatasource, MaMailEntity } from '../../models/ma-mail.entity';
 
 @Component({
   selector: 'ma-mail-table',

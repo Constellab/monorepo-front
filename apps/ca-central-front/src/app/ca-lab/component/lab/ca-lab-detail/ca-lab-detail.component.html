@@ -110,9 +110,20 @@
             {{ 'lab_desktop_how_to_link' | translate }}
           </a>
         </fl-text-icon>
-      }
 
-      <ca-lab-current-task [showConfigRouteLink]="true"></ca-lab-current-task>
+        <div class="command">{{ 'lab_desktop_manager_command' | translate }} :</div>
+        <code class="g-text-small">{{ desktopRunLabManagerCommand$ | async }}</code>
+
+        <div class="generate-config">{{ 'lab_desktop_generate_config' | translate }} :</div>
+        <div class="download-config-button">
+          <button mat-stroked-button type="button" (click)="openDownloadDesktopConfig()">
+            <mat-icon>cloud_download</mat-icon>
+            <span>{{ 'download_desktop_config' | translate }}</span>
+          </button>
+        </div>
+      } @else {
+        <ca-lab-current-task [showConfigRouteLink]="true"></ca-lab-current-task>
+      }
     </fl-card-body>
 
     <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
@@ -124,13 +135,6 @@
         @if (lab.isCloud && (isOwner$ | async)) {
           <ca-lab-start-stop></ca-lab-start-stop>
         }
-      }
-
-      @if (lab.isDesktop) {
-        <button mat-stroked-button (click)="getDesktopConfigDownloadUrl(lab)" type="button">
-          <mat-icon>cloud_download</mat-icon>
-          <span>{{ 'download_desktop_config' | translate }}</span>
-        </button>
       }
     </fl-card-footer>
   </fl-card>

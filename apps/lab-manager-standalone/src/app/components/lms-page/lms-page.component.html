@@ -1,0 +1,9 @@
+<div class="container">
+  <lms-global-info></lms-global-info>
+
+  @if (labStatus().labManagerIsConfigured) {
+    <lml-manager class="section"></lml-manager>
+  } @else {
+    <lms-configure-lab-manager class="section"></lms-configure-lab-manager>
+  }
+</div>

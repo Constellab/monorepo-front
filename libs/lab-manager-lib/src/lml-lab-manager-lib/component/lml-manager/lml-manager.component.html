@@ -1,0 +1,47 @@
+<fl-card id="lab-manager">
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>engineering</mat-icon>
+      <h2>{{ 'lml.lab_manager' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" class="g-button-small button" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+        <span>{{ 'lml.lab_manager_refresh' | translate }}</span>
+        @if (refreshIsLoading) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </button>
+      <ng-content></ng-content>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <p class="g-text-light help-text">{{ 'lml.lab_manager_section_help' | translate }}</p>
+
+    <!--  Global status  -->
+    <fl-async-section
+      [object]="labManagerStatus$"
+      [isFlStatusEvent]="true"
+      [showServerErrorText]="true"
+      emptyText="lml.lab_manager_not_running">
+      <ng-container *flSectionBody>
+        <lml-manager-status></lml-manager-status>
+
+        <!--  Lab config  -->
+        <lml-manager-config class="g-section content"></lml-manager-config>
+      </ng-container>
+    </fl-async-section>
+
+    <mat-expansion-panel class="advanced-config">
+      <mat-expansion-panel-header>
+        {{ 'lml.lab_manager_advanced_config' | translate }}
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        <lml-manager-advanced></lml-manager-advanced>
+      </ng-template>
+    </mat-expansion-panel>
+  </fl-card-body>
+</fl-card>

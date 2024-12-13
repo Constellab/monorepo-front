@@ -1,0 +1,126 @@
+{
+  "name": "lab-manager-standalone",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/lab-manager-standalone/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/lab-manager-standalone",
+        "index": "apps/lab-manager-standalone/src/index.html",
+        "browser": "apps/lab-manager-standalone/src/main.ts",
+        "polyfills": ["apps/lab-manager-standalone/src/polyfills.ts"],
+        "tsConfig": "apps/lab-manager-standalone/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/lab-manager-standalone/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/mat-icons",
+            "output": "assets/fl-mat-icons"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/logo",
+            "output": "assets/fl-logo"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/front-core-lib/src/assets/font",
+            "output": "assets/fl-font"
+          }
+        ],
+        "styles": [
+          "apps/lab-manager-standalone/src/lms-styles.scss",
+          {
+            "input": "apps/lab-manager-standalone/src/theme/lms-light-theme.scss",
+            "bundleName": "light-theme",
+            "inject": false
+          },
+          {
+            "input": "apps/lab-manager-standalone/src/theme/lms-dark-theme.scss",
+            "bundleName": "dark-theme",
+            "inject": false
+          }
+        ],
+        "scripts": [],
+        "allowedCommonJsDependencies": ["plotly.js-strict-dist"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "30kb"
+            }
+          ],
+          "outputHashing": "all",
+          "optimization": {
+            "styles": {
+              "inlineCritical": false
+            }
+          },
+          "fileReplacements": [
+            {
+              "replace": "apps/lab-manager-standalone/src/environments/lms-environment.ts",
+              "with": "apps/lab-manager-standalone/src/environments/lms-environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "lab-manager-standalone:build:production"
+        },
+        "development": {
+          "buildTarget": "lab-manager-standalone:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "lab-manager-standalone:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/lab-manager-standalone/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "lab-manager-standalone:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/lab-manager-standalone/browser",
+        "spa": true
+      }
+    }
+  }
+}
