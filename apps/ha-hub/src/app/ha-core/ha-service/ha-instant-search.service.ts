@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/ha-environment';
 import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
 import history from 'instantsearch.js/es/lib/routers/history';
 import { Router } from '@angular/router';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 import { IndexWidget, Widget } from 'instantsearch.js';
 
-const searchClient = algoliasearch(environment.settings.algoliaAppId, environment.settings.algoliaSearchKey);
+const searchClient = algoliasearch('S233I3C24Z', '8fd4e2048efc6363ff0dca169b6522af');
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +16,7 @@ export class HaInstantSearchService {
   constructor(router: Router) {
     this.instantSearchInstance = new InstantSearch({
       searchClient,
-      indexName: 'instant_search',
+      indexName: 'Community Preprod',
       future: { preserveSharedStateOnUnmount: true },
       routing: {
         router: history({
@@ -30,6 +29,7 @@ export class HaInstantSearchService {
             }
             return window.location;
           },
+          cleanUrlOnDispose: false,
         }),
       },
     });

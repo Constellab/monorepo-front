@@ -1,0 +1,47 @@
+:host {
+  mark {
+    background-color: transparent !important;
+    color: var(--primary-color) !important;
+  }
+}
+
+.hits-div {
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  min-height: 50px;
+  overflow-x: hidden;
+}
+
+#powered-by-div {
+  display: flex;
+  gap: 0.5em;
+  font-size: 0.8em;
+  align-items: center;
+  justify-content: end;
+}
+
+.hit {
+  width: auto;
+  padding: 1em;
+  border-left: solid 2px var(--hover-color);
+
+  .hit-content {
+    margin-top: 0.5em;
+    font-size: 0.9em;
+  }
+}
+
+.highlighted-hit {
+  background-color: var(--hover-color);
+  border-left: solid 2px var(--primary-color) !important;
+}
+
+.algolia-logo {
+  width: 80px;
+}
+
+mark {
+  background-color: transparent !important;
+  color: var(--primary-color) !important;
+}

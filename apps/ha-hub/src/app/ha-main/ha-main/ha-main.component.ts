@@ -1,12 +1,22 @@
-import { AfterContentInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Signal } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  HostListener,
+  Inject,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  Signal,
+} from '@angular/core';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlCookieService } from '@monorepo/front-core-lib';
-import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
+import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib';
+import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { isPlatformBrowser } from '@angular/common';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
+import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
 
 @Component({
   selector: 'ha-main',
@@ -21,11 +31,21 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
+  @HostListener('window:keydown.control.k', ['$event'])
+  onCtrlK(event: KeyboardEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
+      position: { top: '5%' },
+      data: { theme: this.currentTheme() },
+    });
+  }
+
   constructor(
     private authUserService: HaAuthenticatedUserService,
     private cookieService: FlCookieService,
     private breakpointObserver: BreakpointObserver,
     private themeState: HaThemeState,
+    private dialogService: FlDialogService,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
 

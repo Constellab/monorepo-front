@@ -3,6 +3,14 @@
     <img alt="" src="assets/fl-logo/community_logo.svg" />
   </a>
 
+  <mat-form-field
+    class="g-form-input g-form-field-compact search-bar"
+    subscriptSizing="dynamic"
+    (click)="openInstantSearchDialog()">
+    <mat-icon matPrefix>search</mat-icon>
+    <input type="text" matInput placeholder="Search stories, agents, users..." />
+  </mat-form-field>
+
   <div class="top-left-buttons">
     @if (userConnected$ | async; as user) {
       <fl-user-profile-picture [user]="userConnected$ | async" [matMenuTriggerFor]="userMenu">
