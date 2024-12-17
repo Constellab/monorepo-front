@@ -5,6 +5,7 @@ import { makeStateKey, StateKey, TransferState } from '@angular/core';
 import { dirname, resolve } from 'path';
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
+import { environment } from '../environments/ha-environment';
 
 export class TranslateServerLoader implements TranslateLoader {
   constructor(
