@@ -44,14 +44,31 @@ export class LabProcessDashboardState {
   // (outside the form component)
   public setCurrentTask(process: LabProcess, config: TdConfig): void {
     this.task = process;
+
     this.updateConfig(config);
   }
 
   public updateConfig(config: TdConfig): void {
+    this.checkCommunityConfig(config);
     this.taskFormGp.set(LabConfigureSpecsFormComponent.buildFormGroup(config));
     this.taskConfig.set(LabConfig.fromSpecs(config.specs, config.values));
     this.task.config = config;
     this.nodeState.updateProcess(this.task);
+  }
+
+  private checkCommunityConfig(config: TdConfig): TdConfig {
+    if (this.task.communityAgentVersionId && config.specs['params'] && !config.specs['code']) {
+      for (const key in config.specs['params'].additional_info['specs']) {
+        if (!config.specs[key]) {
+          config.specs[key] = config.specs['params'].additional_info['specs'][key];
+          config.values[key] = config.values['params'][key];
+        }
+      }
+      delete config.specs['params'];
+      delete config.values['params'];
+    }
+
+    return config;
   }
 
   public saveCurrentTaskConfig(): Observable<FlPortalActionResult | null> {
@@ -66,6 +83,19 @@ export class LabProcessDashboardState {
 
   private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
     const configValue: PrConfigValues = { ...config.public, ...config.protected };
+
+    if (this.task.communityAgentVersionId && !configValue['params']) {
+      for (const key in configValue) {
+        if (key !== 'code') {
+          if (!configValue['params']) {
+            configValue['params'] = {};
+          }
+          configValue['params'][key] = configValue[key];
+          delete configValue[key];
+        }
+      }
+    }
+
     // update the task config values
     return this.workflowEditConfig.updateProcessConfig(
       this.task.parentProtocolId,
@@ -81,7 +111,7 @@ export class LabProcessDashboardState {
     return (
       !this.task ||
       this.task.id !== process.id ||
-      !prConfigValueAreEqual(this.task.config.values, process.config.values)
+      !prConfigValueAreEqual(this.task.config.values, this.checkCommunityConfig(process.config).values)
     );
   }
 }

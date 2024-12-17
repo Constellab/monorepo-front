@@ -2,6 +2,11 @@
   {{ 'td.edit_param_specs' | translate }}
 </fl-dialog-header>
 <mat-dialog-content>
+
+  <div class="agent-params-description-div">
+    {{ 'td.param_spec_description' | translate }}
+  </div>
+
   <td-editable-param-specs-table
     (onEditElementClick)="openEditParamSpecDialog($event)"
     (onDeleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>

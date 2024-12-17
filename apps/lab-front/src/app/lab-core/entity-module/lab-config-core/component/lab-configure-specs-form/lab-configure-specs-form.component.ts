@@ -1,19 +1,10 @@
-import {
-  Component,
-  computed,
-  effect,
-  input,
-  OnDestroy,
-  OnInit,
-  Signal,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, computed, effect, input, OnDestroy, Signal, ViewContainerRef } from '@angular/core';
 import {
   FlDialogService,
   FlDynamicEditableFormGroupConfig,
   FlDynamicFieldConfigService,
   FlDynamicFormGroupConfig,
-  FlDynamicFormHelper,
+  FlDynamicFormHelper
 } from '@monorepo/front-core-lib';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
@@ -23,11 +14,13 @@ import {
   TdAbstractDynamicParamSpecState,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
-  TdParamSpecs,
+  TdParamSpecs
 } from '@monorepo/technical-doc';
 import { LabProcess } from '../../../../model/entities/process/lab-process.entity';
 import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
-import { LabProcessDashboardState } from '../../../../../lab-scenario/lab-scenario-detail-page/state/lab-process-dashboard.state';
+import {
+  LabProcessDashboardState
+} from '../../../../../lab-scenario/lab-scenario-detail-page/state/lab-process-dashboard.state';
 import { Subscription } from 'rxjs';
 
 /**
@@ -43,7 +36,7 @@ import { Subscription } from 'rxjs';
     { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
   ],
 })
-export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
+export class LabConfigureSpecsFormComponent implements OnDestroy {
   configData = input<LabConfig>();
   process = input<LabProcess>();
 
@@ -73,17 +66,22 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dashboardState: LabProcessDashboardState
   ) {
-    effect(() => {
-      for (const config of Object.keys(this.publicConfig().subConfigs)) {
-        if (this.publicConfig().subConfigs[config].controlType == 'editableFormGroup') {
-          this.dynamicParamsOnEditSubscriptions.push(
-            (
-              this.publicConfig().subConfigs[config] as FlDynamicEditableFormGroupConfig
-            ).openEditConfigDialog.subscribe((configSpecName) => this.openEditConfigDialog(configSpecName))
-          );
+    effect(
+      () => {
+        for (const config of Object.keys(this.publicConfig().subConfigs)) {
+          if (this.publicConfig().subConfigs[config].controlType == 'editableFormGroup') {
+            this.dynamicParamsOnEditSubscriptions.push(
+              (
+                this.publicConfig().subConfigs[config] as FlDynamicEditableFormGroupConfig
+              ).openEditConfigDialog.subscribe((configSpecName) => this.openEditConfigDialog(configSpecName))
+            );
+          }
         }
-      }
-    });
+
+        (this.editParamSpecState as LabDynamicParamSpecState).init(this.process());
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   // build the form group to configure specs
@@ -97,10 +95,6 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
         value
       ),
     });
-  }
-
-  ngOnInit(): void {
-    (this.editParamSpecState as LabDynamicParamSpecState).init(this.process());
   }
 
   openEditConfigDialog(configSpecName: string): void {
@@ -118,7 +112,7 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService
-        .openBigDialog(TdConfigureParamSpecsTableDialogComponent, {
+        .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
           data: input,
           viewContainerRef: this.viewContainerRef,
         })

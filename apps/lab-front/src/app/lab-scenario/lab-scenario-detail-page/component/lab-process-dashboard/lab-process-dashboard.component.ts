@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
@@ -6,7 +6,7 @@ import {
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, of, Subject, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
 import {
@@ -70,7 +70,9 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   isCommunityAgent: boolean;
 
-  isCodeShown$: Subject<boolean> = new Subject();
+  isCodeShown: WritableSignal<boolean> = signal<boolean>(false);
+
+  processSubscription: Subscription;
 
   communityAgentVisibilityChangedSubscription: Subscription;
 
@@ -86,10 +88,10 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.nodeState.getProcess$().subscribe((process) => {
+    this.processSubscription = this.nodeState.getProcess$().subscribe((process) => {
       if (process?.communityAgentVersionId != null) {
         this.isCommunityAgent = true;
-        this.isCodeShown$.next(process.config.specs['code']?.visibility == 'public');
+        this.isCodeShown.set(process.config.specs['code']?.visibility == 'public');
       }
     });
 
@@ -229,11 +231,11 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   onVisibilityChanged(visibility: TdParamSpecVisibility): void {
-    this.isCodeShown$.next(visibility == 'public');
+    this.isCodeShown.set(visibility == 'public');
   }
 
   ngOnDestroy(): void {
     this.communityAgentVisibilityChangedSubscription?.unsubscribe();
-    this.isCodeShown$.complete();
+    this.processSubscription?.unsubscribe();
   }
 }

@@ -45,6 +45,9 @@ export class TdParamSpecConfig {
     };
 
     for (const specName of Object.keys(specs)) {
+      if (specs[specName] == null) {
+        continue;
+      }
       if (specName === 'additional_info') {
         configs.subConfigs[specName] = TdParamSpecConfig.convertToFieldConfigs(
           specs[specName] as TdParamSpecs

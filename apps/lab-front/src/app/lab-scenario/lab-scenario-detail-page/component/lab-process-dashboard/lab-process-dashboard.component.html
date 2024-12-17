@@ -29,15 +29,15 @@
               </button>
 
               <mat-menu #menuCommunityAgent="matMenu">
-                @if (isCodeShown$ | async) {
+                @if (isCodeShown()) {
                   <button mat-menu-item type="button" (click)="triggerCodeShown('private')">
                     <mat-icon>visibility_off</mat-icon>
-                    {{ 'biox.hide_community_agent_code' | translate }}
+                    {{ 'biox.hide_config_mode' | translate }}
                   </button>
                 } @else {
                   <button mat-menu-item type="button" (click)="triggerCodeShown('public')">
                     <mat-icon>visibility</mat-icon>
-                    {{ 'biox.show_community_agent_code' | translate }}
+                    {{ 'biox.show_config_mode' | translate }}
                   </button>
                 }
                 <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process, true)">

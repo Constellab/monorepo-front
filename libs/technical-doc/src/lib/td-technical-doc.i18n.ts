@@ -63,12 +63,14 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Etes-vous sûr de vouloir supprimer ce paramètre ?',
     confirm_param_spec_deletion_success: 'Le paramètre a été supprimé avec succès',
     save: 'Enregistrer',
-    no_param_spec: 'Aucun paramètre',
+    no_param_spec: 'Aucun paramètre, vous pouvez en ajouter en cliquant sur le bouton ci-dessous',
     no_additional_info: 'Aucune information supplémentaire',
     context: 'Context',
     credentials_type: 'Type de credential',
     edit: 'Edit',
     delete: 'Delete',
+    param_spec_description:
+      "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'param'.",
   },
 };
 
@@ -133,12 +135,14 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     confirm_param_spec_deletion_content: 'Are you sure you want to delete this parameter ?',
     confirm_param_spec_deletion_success: 'The parameter has been successfully deleted',
     save: 'Save',
-    no_param_spec: 'No parameter',
+    no_param_spec: 'No parameter, you can add one by clicking on the button below',
     no_additional_info: 'No additional information',
     context: 'Context',
     credentials_type: 'Credentials type',
     edit: 'Edit',
     delete: 'Delete',
+    param_spec_description:
+      "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'param'.",
   },
 };
 
