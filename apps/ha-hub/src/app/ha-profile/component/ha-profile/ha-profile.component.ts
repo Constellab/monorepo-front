@@ -13,7 +13,7 @@ import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entitie
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlTranslateService, FlUserConfig } from '@monorepo/front-core-lib';
 import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
@@ -48,6 +48,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
     private brickService: HaBrickService,
     private storyService: HaStoryService,
     private dialogService: FlDialogService,
+    private userConfig: FlUserConfig,
     private route: ActivatedRoute,
     private router: Router,
     translateService: FlTranslateService,
@@ -103,7 +104,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
           text: 'ha.user.description',
           translateParam: { param: { alias: user.alias } },
         },
-        user.photo,
+        this.userConfig.getUserPhotoUrl(user.photo),
         HaRouterService.getFullRoute(this.router.url)
       );
 

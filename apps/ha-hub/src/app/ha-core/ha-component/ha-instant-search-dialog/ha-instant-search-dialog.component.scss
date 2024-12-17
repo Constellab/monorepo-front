@@ -11,6 +11,7 @@
   max-height: 400px;
   min-height: 50px;
   overflow-x: hidden;
+  padding-right: 0.5em;
 }
 
 #powered-by-div {
@@ -23,8 +24,29 @@
 
 .hit {
   width: auto;
-  padding: 1em;
+  padding: 0.75em;
   border-left: solid 2px var(--hover-color);
+  display: flex;
+  flex-direction: row;
+  min-height: 60px;
+
+  .hit-infos {
+    height: fit-content;
+    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+  }
+
+  .hit-image {
+    height: 60px;
+    width: 60px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .hit-content {
     margin-top: 0.5em;

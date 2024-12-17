@@ -87,6 +87,10 @@
 .nav-user {
   border-left: 1px solid var(--hover-color);
   padding-left: 1em;
+
+  * {
+    cursor: pointer;
+  }
 }
 
 .user-profile {

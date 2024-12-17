@@ -16,9 +16,16 @@
   @if (hits.length > 0 && query?.length > 0) {
     @for (hit of hits; track hit.objectId; let idx = $index) {
       <a [routerLink]="hit.path" [ngClass]="idx === highlightedHitIndex ? 'highlighted-hit' : ''" class="hit">
-        <div [innerHTML]="hit._highlightResult.title.value" class="hit-title"></div>
-        @if (hit._highlightResult.content.matchLevel !== 'none') {
-          <div [innerHTML]="hit._snippetResult.content.value" class="hit-content"></div>
+        <div class="hit-infos">
+          <div [innerHTML]="hit._highlightResult.title.value" class="hit-title"></div>
+          @if (hit._highlightResult.content.matchLevel !== 'none') {
+            <div [innerHTML]="hit._snippetResult.content.value" class="hit-content"></div>
+          }
+        </div>
+        @if (hit.image) {
+          <div class="hit-image">
+            <img [src]="hit.image" />
+          </div>
         }
       </a>
     }
