@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostListener,
   Inject,
+  OnDestroy,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -31,7 +32,7 @@ export class HaInstanceSearchDialogData {
   styleUrl: './ha-instant-search-dialog.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class HaInstantSearchDialogComponent implements AfterContentInit {
+export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestroy {
   @HostListener('window:keydown.escape', ['$event'])
   closeDialog(event: KeyboardEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -123,5 +124,9 @@ export class HaInstantSearchDialogComponent implements AfterContentInit {
 
   search(event: Event): void {
     this.refine!((event.target as HTMLInputElement).value);
+  }
+
+  ngOnDestroy(): void {
+    this.instantSearchService.stop();
   }
 }

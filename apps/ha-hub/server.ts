@@ -63,7 +63,7 @@ export function app(): express.Express {
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
       const connectSrc =
-        "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com";
+        "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com *.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com";
       // eslint-disable-next-line max-len
       res.setHeader(
         'Content-Security-Policy',

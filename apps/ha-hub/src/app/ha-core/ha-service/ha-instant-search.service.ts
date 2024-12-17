@@ -42,6 +42,10 @@ export class HaInstantSearchService {
     this.instantSearchInstance.start();
   }
 
+  stop(): void {
+    this.instantSearchInstance.dispose();
+  }
+
   addWidgets(widgets: Array<IndexWidget | Widget>): void {
     this.instantSearchInstance.addWidgets(widgets);
   }
