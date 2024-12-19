@@ -1,13 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  input,
-  OnDestroy,
-  OnInit,
-  Signal,
-  ViewContainerRef
-} from '@angular/core';
+import { Component, computed, effect, input, OnDestroy, Signal, ViewContainerRef } from '@angular/core';
 import {
   FlDialogService,
   FlDynamicEditableFormGroupConfig,
@@ -45,7 +36,7 @@ import { Subscription } from 'rxjs';
     { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
   ],
 })
-export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
+export class LabConfigureSpecsFormComponent implements OnDestroy {
   configData = input<LabConfig>();
   process = input<LabProcess>();
 
@@ -75,24 +66,28 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
     private viewContainerRef: ViewContainerRef,
     private dashboardState: LabProcessDashboardState
   ) {
-    effect(() => {
-      for (const config of Object.keys(this.publicConfig().subConfigs)) {
-        if (this.publicConfig().subConfigs[config].controlType == 'editableFormGroup') {
-          this.dynamicParamsOnEditSubscriptions.push(
-            (
-              this.publicConfig().subConfigs[config] as FlDynamicEditableFormGroupConfig
-            ).openEditConfigDialog.subscribe((configSpecName) => this.openEditConfigDialog(configSpecName))
-          );
+    effect(
+      () => {
+        for (const config of Object.keys(this.publicConfig().subConfigs)) {
+          if (this.publicConfig().subConfigs[config].controlType == 'editableFormGroup') {
+            this.dynamicParamsOnEditSubscriptions.push(
+              (
+                this.publicConfig().subConfigs[config] as FlDynamicEditableFormGroupConfig
+              ).openEditConfigDialog.subscribe((configSpecName) => this.openEditConfigDialog(configSpecName))
+            );
+          }
         }
-      }
-    });
+
+        (this.editParamSpecState as LabDynamicParamSpecState).init(this.process());
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   // build the form group to configure specs
   public static buildFormGroup(configData: PrConfig): UntypedFormGroup {
     const labConfig = LabConfig.fromSpecs(configData.specs, configData.values);
     const value = labConfig.mergeConfigWithDefault();
-
     return new FormBuilder().group({
       public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
       protected: FlDynamicFormHelper.generateFormGroup(
@@ -100,10 +95,6 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
         value
       ),
     });
-  }
-
-  ngOnInit(): void {
-    (this.editParamSpecState as LabDynamicParamSpecState).init(this.process());
   }
 
   openEditConfigDialog(configSpecName: string): void {
@@ -121,7 +112,7 @@ export class LabConfigureSpecsFormComponent implements OnInit, OnDestroy {
       };
 
       this.dialogService
-        .openBigDialog(TdConfigureParamSpecsTableDialogComponent, {
+        .openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
           data: input,
           viewContainerRef: this.viewContainerRef,
         })

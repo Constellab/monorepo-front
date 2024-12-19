@@ -179,6 +179,7 @@ export interface TdParamSpecDynamic extends TdParamSpecBase {
 
   additional_info: {
     specs: TdParamSpecs;
+    edition_mode: boolean;
   };
 }
 
@@ -193,15 +194,9 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'json_code_param',
 ];
 
-//TODO @vfoex , voir si les types suivant sont utiles
-export type TdParamSpecFormInfoList = Record<string, TdParamSpecFormInfo>;
 
-export interface TdParamSpecFormInfo {
-  human_name: string;
-  specs: TdParamSpecFormSpecs;
-}
-
-export type TdParamSpecFormSpecs = Record<string, TdParamSpecSimple | Record<string, TdParamSpecSimple>>;
+export type TdParamSpecFormInfoList =
+  Record<string, Record<string, TdParamSpec | TdParamSpecs>>;
 
 export interface TdParamSpecsValues {
   specs: TdParamSpecs;

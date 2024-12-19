@@ -19,6 +19,7 @@ import {
   FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
+import { ClStringHelper } from '@monorepo/core-lib';
 
 export interface TdEditParamSpecDialogInput {
   configSpecName: string;
@@ -77,12 +78,14 @@ export class TdEditParamSpecDialogComponent implements OnInit {
   ngOnInit(): void {
     this.paramSpecFormInfoList$.subscribe((paramSpecFormInfoList: TdParamSpecFormInfoList) => {
       for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
-        const humanName: string = paramSpecFormInfoList[paramSpecInfo]['human_name'] as any;
+        const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
         this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
         delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
       }
-      this.paramSpecConfig = new TdParamSpecConfig(paramSpecFormInfoList);
-      this.initForm();
+      this.paramSpecConfig = new TdParamSpecConfig();
+      if (paramSpecFormInfoList[this.spec.type]) {
+        this.initForm(this.spec.type, paramSpecFormInfoList);
+      }
     });
   }
 
@@ -112,21 +115,21 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     }
   }
 
-  private initForm(): void {
+  private initForm(type: string, specsInfoList: TdParamSpecFormInfoList): void {
     this.formGroupConfig = {
       controlType: 'formGroup',
       subConfigs: {},
     };
     this.formGroupConfig.subConfigs['type'] = this.getTypeDynamicFieldConfigSelect();
     this.formGroupConfig.subConfigs['name'] = this.getNameDynamicFieldConfigInput();
-    this.initCompleteForm();
+    this.initCompleteForm(type, specsInfoList);
   }
 
-  private initCompleteForm(): void {
+  private initCompleteForm(type: string, specsInfoList: TdParamSpecFormInfoList): void {
     this.formGroupConfig.subConfigs = Object.assign(
       {},
       this.formGroupConfig.subConfigs,
-      this.paramSpecConfig.getDynamicFormFieldsConfig(this.spec?.type ?? 'str').subConfigs
+      TdParamSpecConfig.convertToFieldConfigsRecursive(specsInfoList[type]).subConfigs
     );
     this.formGroup = FlDynamicFormHelper.generateFormGroup(this.formGroupConfig, this.spec);
     this.formGroup.patchValue(this.spec);
@@ -134,7 +137,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     this.formGroup.get('type').valueChanges.subscribe((type: TdParamSpecType) => {
       this.spec.type = type as any;
       this.spec.default_value = null;
-      this.initForm();
+      this.initForm(type, specsInfoList);
     });
   }
 

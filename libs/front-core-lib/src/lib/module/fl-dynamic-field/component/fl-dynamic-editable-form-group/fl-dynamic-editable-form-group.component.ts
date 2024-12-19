@@ -18,6 +18,8 @@ export class FlDynamicEditableFormGroupComponent implements OnInit, FlDynamicAbs
 
   configName = input<string>();
 
+  empty_text = input<string>('flDynamicField.no_value_in_array');
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -25,4 +27,6 @@ export class FlDynamicEditableFormGroupComponent implements OnInit, FlDynamicAbs
   emitOpenEditParamSpecsDialog(): void {
     this.config().openEditConfigDialog.emit(this.configName());
   }
+
+  protected readonly Object = Object;
 }

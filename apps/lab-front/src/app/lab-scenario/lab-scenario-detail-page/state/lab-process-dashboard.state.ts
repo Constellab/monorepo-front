@@ -44,6 +44,7 @@ export class LabProcessDashboardState {
   // (outside the form component)
   public setCurrentTask(process: LabProcess, config: TdConfig): void {
     this.task = process;
+
     this.updateConfig(config);
   }
 
@@ -66,6 +67,7 @@ export class LabProcessDashboardState {
 
   private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
     const configValue: PrConfigValues = { ...config.public, ...config.protected };
+
     // update the task config values
     return this.workflowEditConfig.updateProcessConfig(
       this.task.parentProtocolId,
