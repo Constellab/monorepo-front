@@ -179,6 +179,7 @@ export interface TdParamSpecDynamic extends TdParamSpecBase {
 
   additional_info: {
     specs: TdParamSpecs;
+    edition_mode: boolean;
   };
 }
 

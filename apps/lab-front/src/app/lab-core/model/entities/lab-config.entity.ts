@@ -2,7 +2,7 @@ import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig,
+  FlDynamicFormGroupConfig
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -10,7 +10,7 @@ import {
   TdParamSpec,
   TdParamSpecConfig,
   TdParamSpecs,
-  TdParamSpecVisibility,
+  TdParamSpecVisibility
 } from '@monorepo/technical-doc';
 import { EventEmitter } from '@angular/core';
 
@@ -69,13 +69,21 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
     return configs;
   }
 
-  private convertRecordToEditableFieldConfigs(record: TdParamSpecs): FlDynamicEditableFormGroupConfig {
-    const configs: FlDynamicEditableFormGroupConfig = {
-      placeholder: 'biox.dynamic_params',
-      controlType: 'editableFormGroup',
-      subConfigs: {},
-      openEditConfigDialog: new EventEmitter<string>(),
-    };
+  private convertRecordToEditableFieldConfigs(
+    record: TdParamSpecs,
+    edition_mode: boolean
+  ): FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig {
+    const configs: FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig = edition_mode
+      ? {
+          placeholder: 'biox.dynamic_params',
+          controlType: 'editableFormGroup',
+          subConfigs: {},
+          openEditConfigDialog: new EventEmitter<string>(),
+        }
+      : {
+          controlType: 'formGroup',
+          subConfigs: {},
+        };
     for (const specName in record) {
       configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
     }
@@ -101,7 +109,10 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
         newElementDefaultValue: defaultValues != null ? defaultValues[0] : null,
       };
     } else if (spec.type == 'dynamic') {
-      return this.convertRecordToEditableFieldConfigs(spec.additional_info.specs);
+      return this.convertRecordToEditableFieldConfigs(
+        spec.additional_info.specs,
+        spec.additional_info.edition_mode
+      );
     } else {
       return TdParamSpecConfig.convertParamSpecToAbstractConfig(spec, defaultPlaceholder);
     }
@@ -187,6 +198,13 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
   public hasConfigs(visibility?: TdParamSpecVisibility): boolean {
     if (visibility == null) {
+      if (this.specs && Object.keys(this.specs).length == 1) {
+        return !(
+          this.specs[Object.keys(this.specs)[0]].type == 'dynamic' &&
+          !this.specs[Object.keys(this.specs)[0]].additional_info.edition_mode &&
+          Object.keys(this.specs[Object.keys(this.specs)[0]].additional_info.specs).length == 0
+        );
+      }
       return this.specs != null && Object.keys(this.specs).length > 0;
     } else {
       return Object.values(this.specs).some((spec) => spec.visibility === visibility);
