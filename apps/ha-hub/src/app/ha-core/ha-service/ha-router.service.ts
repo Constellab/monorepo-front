@@ -44,6 +44,10 @@ export class HaRouterService {
     return '/icons';
   }
 
+  public static getFairOpenAccessRoute(): string {
+    return '/fair-open-access';
+  }
+
   ////////////////////////// AGENTS ////////////////////////////////
   public static getAgentsListRoute(): string {
     return '/agents/';

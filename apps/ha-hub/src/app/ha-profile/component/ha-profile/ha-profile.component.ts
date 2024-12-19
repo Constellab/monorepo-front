@@ -39,6 +39,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
+  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
 
   constructor(
     private authenticatedUserService: HaAuthenticatedUserService,
@@ -104,7 +105,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
           text: 'ha.user.description',
           translateParam: { param: { alias: user.alias } },
         },
-        this.userConfig.getUserPhotoUrl(user.photo),
+        user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null,
         HaRouterService.getFullRoute(this.router.url)
       );
 

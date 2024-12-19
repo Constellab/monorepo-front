@@ -360,6 +360,7 @@
   "community-users": "Community users",
   "open_source_community": "Open-source community",
   "join_constellab": "Join Constellab",
+  "constellab": "Constellab",
   "members": "Members",
   "fair_open_access_description": "Get open access to start on Constellab, create open-source projects, earn credits from your work",
   "join_our_discord": "Join our Discord",
@@ -376,5 +377,14 @@
   "edit_agent_version_style": "Edit agent version style",
   "modify_style_for_all_agent_versions": "Modify style for all agent versions",
   "copy_link_and_import_to_medium": "Copy link and import to Medium",
-  "search_bar_placeholder": "Search for a story, an agent, a user..."
+  "search_bar_placeholder": "Search for a story, an agent, a user...",
+  "learn_more_about_foa": "Learn more about Fair Open Access",
+  "wallet": "Wallet",
+  "foa": "Fair Open Access",
+  "foa_description": "Get open access to start, create open-source projects, earn credits from your work",
+  "what_is_foa": "What is Fair Open Access ?",
+  "what_is_foa_description": "Fair Open Access embodies transparency, inclusivity, and collaboration. It ensures that data science resources are accessible to all, fostering innovation and progress in research. By promoting up-to-date, actively maintained, and freely available tools, we empower scientists and researchers to drive breakthroughs and advance knowledge without barriers.",
+  "why_is_foa_important": "Why is Fair Open Access important ?",
+  "why_is_foa_important_description": "The accessibility and use of data science resources remains a major hurdle, with 91% of GitHub codebases being outdated by over four years or inactive for more than two years. Open-source creators generally miss out on the benefits of their creations, leading to decreased engagement and innovation.\n\n\n\nFair Open Access is critical in today’s scientific landscape where data is the backbone of research and development. By adhering to these values, we can overcome the challenges posed by traditional access models, such as outdated and inaccessible resources, and pave the way for a more open, innovative, and equitable scientific community.\n\n\n\nGencovery's Fair Open Access initiative aims to provide easy-to-access, up-to-date, and actively supported data science resources. With Constellab, creators get open access to start, create open-source projects, earn credits from your work\n\n\n\nWe aims to build a robust community of open data science practitioners. \n\n\n\nJoin us to revolutionize the accessibility of data science resources and foster scientific discovery.",
+  "a_virtuous_circle": "A virtuous circle"
 }

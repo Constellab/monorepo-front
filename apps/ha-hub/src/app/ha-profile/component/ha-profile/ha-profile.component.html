@@ -35,6 +35,19 @@
         </p>
       </article>
 
+      <div>
+        <fl-key-value class="wallet-key-val">
+          <fl-key>{{ 'wallet' | translate }}</fl-key>
+          <fl-text-icon iconPosition="end" gap="0.2em">
+            0.00
+            <mat-icon class="g-icon-small">euro_symbol</mat-icon>
+          </fl-text-icon>
+        </fl-key-value>
+        <div class="g-text-small">{{ 'learn_more_about_foa' | translate }} <a [routerLink]="foaPageRoute"
+                                                                              class="here-a">{{ 'here' | translate }}</a>
+        </div>
+      </div>
+
       @if (commonSpace$ | async; as commonSpace) {
         <div *ngIf="commonSpace.length > 0">
           <p>{{ 'common_spaces' | translate }} :</p>

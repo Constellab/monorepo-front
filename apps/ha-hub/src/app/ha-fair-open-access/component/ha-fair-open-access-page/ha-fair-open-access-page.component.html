@@ -1,0 +1,33 @@
+<div class="main-panel">
+  <h1>
+    {{ 'foa' | translate }}
+  </h1>
+
+  <p>
+    {{ 'foa_description' | translate }}
+  </p>
+
+  <h2>
+    {{ 'what_is_foa' | translate }}
+  </h2>
+
+  <p>
+    {{ 'what_is_foa_description' | translate }}
+  </p>
+
+  <h2>
+    {{ 'why_is_foa_important' | translate }}
+  </h2>
+
+  <p>
+    {{ 'why_is_foa_important_description' | translate }}
+  </p>
+
+  <h2>
+    {{ 'a_virtuous_circle' | translate }}
+  </h2>
+
+  <div class="foa-img">
+    <img [src]="'assets/images/FOA-' + (isDarkTheme() ? 'black' : 'white') + '-bg.png'" />
+  </div>
+</div>

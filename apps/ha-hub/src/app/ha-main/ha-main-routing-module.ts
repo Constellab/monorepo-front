@@ -5,6 +5,7 @@ import { Ha404Component } from '../ha-public/module/ha404/ha404.component';
 import { HaLoginPageComponent } from './ha-login-page/ha-login-page.component';
 import { HaHomeComponent } from './ha-home/ha-home.component';
 import { HaIconsPageComponent } from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
+import { HaFairOpenAccessPageComponent } from '../ha-fair-open-access/component/ha-fair-open-access-page/ha-fair-open-access-page.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,16 @@ const routes: Routes = [
       {
         path: '',
         component: HaIconsPageComponent,
+      },
+    ],
+  },
+  {
+    path: 'fair-open-access',
+    component: HaMainComponent,
+    children: [
+      {
+        path: '',
+        component: HaFairOpenAccessPageComponent,
       },
     ],
   },

@@ -101,10 +101,18 @@
 .nav-section-bt {
   cursor: pointer;
   transition: 0.1s;
+  font-size: 0.85em;
 }
 
 .nav-section-bt:hover {
   color: var(--primary-color);
+}
+
+.constellab-bt {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.2em;
 }
 
 @media (min-width: 965px) {
@@ -132,7 +140,6 @@
 }
 
 @media (max-width: 1160px) {
-
   .option {
     margin: auto 1.5rem;
   }

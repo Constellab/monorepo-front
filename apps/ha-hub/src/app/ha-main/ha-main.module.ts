@@ -12,6 +12,7 @@ import { HaIconModule } from '../ha-icon/ha-icon.module';
 import { HaBigScreenMainComponent } from './ha-big-screen-main/ha-big-screen-main.component';
 import { HaSmallScreenMainComponent } from './ha-small-screen-main/ha-small-screen-main.component';
 import { HaGithubStarButtonComponent } from '../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
+import { HaFairOpenAccessModule } from '../ha-fair-open-access/ha-fair-open-access.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HaGithubStarButtonComponent } from '../ha-core/ha-component/ha-github-s
     TranslateModule,
     HaCoreModule,
     HaIconModule,
+    HaFairOpenAccessModule,
     NgOptimizedImage,
     HaGithubStarButtonComponent,
   ],

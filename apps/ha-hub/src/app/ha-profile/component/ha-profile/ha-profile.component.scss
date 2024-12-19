@@ -82,6 +82,16 @@
   font-size: 0;
 }
 
+.here-a {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.wallet-key-val {
+  display: flex;
+  flex-direction: row;
+}
+
 @media (max-width: 965px) {
   .profile {
     flex-direction: column;

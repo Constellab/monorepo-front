@@ -8,6 +8,7 @@ import { FlDialogService, FlSnackBarService, FlTranslateService } from '@monorep
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 
 @Component({
   selector: 'ha-big-screen-main',
@@ -33,6 +34,12 @@ export class HaBigScreenMainComponent implements OnInit {
   agentsRoute = HaRouterService.getAgentsListRoute();
 
   profileRoute = HaRouterService.getProfileRoute();
+
+  constellabRoute = HaConstellabHelper.getConstellabUrl();
+
+  iconsPageRoute = HaRouterService.getIconsRoute();
+
+  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
 
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
