@@ -10,6 +10,7 @@ import axios from 'axios';
 import cookieParser from 'cookie-parser';
 import { REQUEST } from '@monorepo/front-core-lib';
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
+import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
@@ -21,6 +22,7 @@ environment.settings = {
   discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
   algoliaAppId: process?.env['ALGOLIA_APP_ID'] || 'S233I3C24Z',
   algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
+  algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -106,10 +108,12 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 
         const urls = [
           { url: '/', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: '/stories', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: '/bricks', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: '/agents', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          { url: '/login', changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: HaRouterService.getStoriesListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: HaRouterService.getBrickListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: HaRouterService.getAgentsListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: HaRouterService.getLoginRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          { url: HaRouterService.getIconsRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          // { url: HaRouterService.getFairOpenAccessRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
         ];
 
         const dynamicBricksUrls = await fetchBricksMap();

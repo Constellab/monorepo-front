@@ -43,10 +43,14 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
 
   agent: Signal<HaAgent> = computed(() => {
     const agent_ = this.agentPageState.getAgent()();
+    const agentImage: string =
+      agent_.latestStyle.icon_type === 'COMMUNITY_IMAGE'
+        ? this.tdService.getCommunityIconBaseApiUrl() + `/${agent_.latestStyle.icon_technical_name}`
+        : null;
     super.setMetaTags(
       { text: 'ha.agent.title', translateParam: { param: { title: agent_.title } } },
       { text: 'ha.agent.description', translateParam: { param: { title: agent_.title } } },
-      this.tdService.getCommunityIconBaseApiUrl() + `/${agent_.latestStyle.icon_technical_name}`,
+      agentImage,
       HaRouterService.getFullRoute(
         HaRouterService.getAgentRoute(agent_.id, ClStringHelper.getCleanUrlPath(agent_.title))
       )

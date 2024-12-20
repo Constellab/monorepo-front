@@ -17,6 +17,8 @@ import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { environment } from '../../../environments/ha-environment';
+import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-main',
@@ -46,6 +48,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private themeState: HaThemeState,
     private dialogService: FlDialogService,
+    private metadataService: HaMetadataService,
     @Inject(PLATFORM_ID) private platformId: any
   ) {}
 
@@ -58,6 +61,10 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     this.breakpointObserver.observe('(max-width: 965px)').subscribe(() => {
       this.updateIsSmallScreen();
     });
+
+    if (environment.production && environment.settings.algoliaSiteVerificationKey) {
+      this.metadataService.setAlgoliaVerificationMetaTag(environment.settings.algoliaSearchKey);
+    }
   }
 
   private updateIsSmallScreen(): void {

@@ -16,9 +16,10 @@ import { MatIcon } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { CdkScrollable } from '@angular/cdk/overlay';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ClHelpService, ClTheme } from '@monorepo/core-lib';
+import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
 import { configure, poweredBy } from 'instantsearch.js/es/widgets';
 import { NgClass } from '@angular/common';
+import { FlTranslateModule } from '@monorepo/front-core-lib';
 
 export class HaInstanceSearchDialogData {
   theme: ClTheme;
@@ -27,7 +28,17 @@ export class HaInstanceSearchDialogData {
 @Component({
   selector: 'ha-ha-instant-search-dialog',
   standalone: true,
-  imports: [MatInput, MatFormField, MatIcon, MatPrefix, RouterLink, CdkScrollable, MatSuffix, NgClass],
+  imports: [
+    MatInput,
+    MatFormField,
+    MatIcon,
+    MatPrefix,
+    RouterLink,
+    CdkScrollable,
+    MatSuffix,
+    NgClass,
+    FlTranslateModule,
+  ],
   templateUrl: './ha-instant-search-dialog.component.html',
   styleUrl: './ha-instant-search-dialog.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -124,6 +135,10 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
 
   search(event: Event): void {
     this.refine!((event.target as HTMLInputElement).value);
+  }
+
+  isLink(str: string): boolean {
+    return ClStringHelper.isHttpLink(str);
   }
 
   ngOnDestroy(): void {

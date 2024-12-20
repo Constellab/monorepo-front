@@ -22,6 +22,7 @@ export const environment: HaEnvironment = {
     discordLink: '',
     algoliaAppId: '',
     algoliaSearchKey: '',
+    algoliaSiteVerificationKey: '',
   },
 };
 

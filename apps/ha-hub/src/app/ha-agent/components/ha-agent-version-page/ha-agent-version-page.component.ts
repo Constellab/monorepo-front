@@ -24,6 +24,10 @@ export class HaAgentVersionPageComponent extends HaCommunityPage implements OnIn
     if (!agentVersion_) {
       return null;
     }
+    const agentVersionImage: string =
+      agentVersion_.style.icon_type === 'COMMUNITY_IMAGE'
+        ? this.tdService.getCommunityIconBaseApiUrl() + `/${agentVersion_.style.icon_technical_name}`
+        : null;
     super.setMetaTags(
       {
         text: 'ha.agent_version.title',
@@ -37,7 +41,7 @@ export class HaAgentVersionPageComponent extends HaCommunityPage implements OnIn
           param: { title: agentVersion_.agent.title, version: agentVersion_.version },
         },
       },
-      this.tdService.getCommunityIconBaseApiUrl() + `/${agentVersion_.style.icon_technical_name}`,
+      agentVersionImage,
       HaRouterService.getFullRoute(HaRouterService.getAgentVersionRoute(agentVersion_))
     );
     return agentVersion_;

@@ -73,7 +73,7 @@ export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit 
         text: 'ha.techdocumentation.brick.description',
         translateParam: { param: { brickTitle: this.brick().name, docTitle: techDoc.humanName } },
       },
-      this.brick().imageLink,
+      null,
       HaRouterService.getFullRoute(this.router.url)
     );
   }
