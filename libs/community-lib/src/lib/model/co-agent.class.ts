@@ -6,7 +6,9 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
 export class CoAgent {
   id: string;
   title: string;
-  // description?: TeRichText;
+  // TODO to improve when lib imports are better managed
+  // type rich text, but to avoid loading text-editor module, we use any
+  description?: any;
   space?: any;
   latestPublishVersion: number;
   createdBy?: CoUser;
