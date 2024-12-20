@@ -1,0 +1,56 @@
+<mat-form-field class="g-form-input" subscriptSizing="dynamic">
+  <mat-icon matPrefix>search</mat-icon>
+
+  <span matTextSuffix>ESC</span>
+
+  <input
+    type="text"
+    matInput
+    placeholder="Search stories, agents, users..."
+    (input)="search($event)"
+    [value]="query"
+    [autofocus]="true" />
+</mat-form-field>
+
+<div class="hits-div g-scrollable-element" cdkScrollable #hitsDiv>
+  @if (hits.length > 0 && query?.length > 0) {
+    @for (hit of hits; track hit.objectId; let idx = $index) {
+      <a [routerLink]="hit.path" [ngClass]="idx === highlightedHitIndex ? 'highlighted-hit' : ''" class="hit">
+        <div class="hit-icon-div">
+          @switch (hit.type) {
+            @case ('story') {
+              <mat-icon class="g-icon-small">description</mat-icon>
+            }
+            @case ('agent') {
+              <mat-icon svgIcon="agent"></mat-icon>
+            }
+            @case ('brick') {
+              <mat-icon svgIcon="brick"></mat-icon>
+            }
+            @case ('doc') {
+              <mat-icon class="g-icon-small">info</mat-icon>
+            }
+            @case ('user') {
+              <mat-icon class="g-icon-small">person</mat-icon>
+            }
+          }
+        </div>
+        <div class="hit-infos">
+          <div [innerHTML]="hit._highlightResult.title.value" class="hit-title"></div>
+          @if (hit._highlightResult.content.matchLevel !== 'none') {
+            <div [innerHTML]="hit._snippetResult.content.value" class="hit-content"></div>
+          }
+        </div>
+        @if (isLink(hit.image)) {
+          <div class="hit-image">
+            <img [src]="hit.image" />
+          </div>
+        }
+      </a>
+    }
+  } @else {
+    <div class="no-hits">Start typing to see results</div>
+  }
+</div>
+
+<div id="powered-by-div"></div>

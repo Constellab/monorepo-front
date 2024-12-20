@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
 import { Router } from '@angular/router';
 import {
-  HaCreateAgentInput,
   HaAgentCreateDialogComponent,
+  HaCreateAgentInput,
 } from '../ha-agent-create-dialog/ha-agent-create-dialog.component';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -16,13 +16,15 @@ import {
 import { FormControl } from '@angular/forms';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-agent-list',
   templateUrl: './ha-agent-list.component.html',
   styleUrls: ['./ha-agent-list.component.scss'],
 })
-export class HaAgentListComponent implements OnInit {
+export class HaAgentListComponent extends HaCommunityPage implements OnInit {
   agentsPaginated: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   user: HaUser;
   spaceIdFilter: string[] = [];
@@ -32,8 +34,12 @@ export class HaAgentListComponent implements OnInit {
     private agentService: HaAgentService,
     private dialogService: FlDialogService,
     private router: Router,
-    private authenticatedUserService: HaAuthenticatedUserService
-  ) {}
+    private authenticatedUserService: HaAuthenticatedUserService,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
@@ -41,6 +47,12 @@ export class HaAgentListComponent implements OnInit {
     });
     this.agentsPaginated = this.agentService.getAllWithFiltersPaginated();
     this.updateAgents();
+    super.setMetaTags(
+      'ha.agents.title',
+      'ha.agents.description',
+      null,
+      HaRouterService.getFullRoute(HaRouterService.getAgentsListRoute())
+    );
   }
 
   openCreateAgentDialog(): void {

@@ -4,9 +4,11 @@ import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlSnackBarService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlSnackBarService, FlTranslateService } from '@monorepo/front-core-lib';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
+import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 
 @Component({
   selector: 'ha-big-screen-main',
@@ -33,6 +35,12 @@ export class HaBigScreenMainComponent implements OnInit {
 
   profileRoute = HaRouterService.getProfileRoute();
 
+  constellabRoute = HaConstellabHelper.getConstellabUrl();
+
+  iconsPageRoute = HaRouterService.getIconsRoute();
+
+  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
+
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
@@ -48,7 +56,8 @@ export class HaBigScreenMainComponent implements OnInit {
     private themeState: HaThemeState,
     private translateService: FlTranslateService,
     private snackBarService: FlSnackBarService,
-    private authService: HaAuthService
+    private authService: HaAuthService,
+    private dialogService: FlDialogService
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +90,13 @@ export class HaBigScreenMainComponent implements OnInit {
           lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
         },
       },
+    });
+  }
+
+  openInstantSearchDialog(): void {
+    this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
+      position: { top: '5%' },
+      data: { theme: this.theme },
     });
   }
 

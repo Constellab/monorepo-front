@@ -6,14 +6,12 @@ import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-docume
 import {
   FlConfirmDialogInput,
   FlDialogService,
-  FlFormDialogInput,
   FlOverlayRef,
   FlPortalService,
+  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
-import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import {
@@ -26,13 +24,14 @@ import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 
 @Component({
   selector: 'ha-public-doc',
   templateUrl: './ha-public-doc.component.html',
   styleUrls: ['./ha-public-doc.component.scss'],
 })
-export class HaPublicDocComponent implements OnInit {
+export class HaPublicDocComponent extends HaCommunityPage implements OnInit {
   versionPath: Signal<string> = this.brickPageState.getBrickVersionPath();
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
@@ -71,11 +70,14 @@ export class HaPublicDocComponent implements OnInit {
     private dialogService: FlDialogService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private metadataService: HaMetadataService,
     private httpRedirectionService: HaHttpRedirectionService,
     private portalService: FlPortalService,
-    private brickPageState: HaBrickPageState
-  ) {}
+    private brickPageState: HaBrickPageState,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   saveContent = (value: TeRichText): Observable<HaDocumentation> =>
     this.documentationService.updateContent(this.documentation().id, value);
@@ -131,15 +133,6 @@ export class HaPublicDocComponent implements OnInit {
   changeTextEditorState(): void {
     if (this.formCtrl.disabled) this.formCtrl.enable();
     else this.formCtrl.disable();
-  }
-
-  prepareEditDialog(): void {
-    this.createEditDialog(this.documentation());
-  }
-
-  downloadFile(docId: string, file: HaFile): string {
-    // download file from server (not from the client)
-    return this.documentationService.getDocFilePath(docId, file.name);
   }
 
   titleCurrentValue(): string {
@@ -198,34 +191,18 @@ export class HaPublicDocComponent implements OnInit {
       brickTitle: this.brick().name,
       docTitle: doc.title,
     });
-  }
 
-  private createEditDialog(object: HaDocumentation): void {
-    const node: HaNodeDTO = new HaNodeDTO();
-    node.id = object.id;
-    node.path = object.path;
-    node.title = object.title;
-
-    const input: FlFormDialogInput<HaNodeDTO> = {
-      mode: 'update',
-      object: node,
-    };
-
-    this.openSmallDialog(input);
-  }
-
-  private openSmallDialog(input: any): void {
-    this.dialogService
-      .openSmallDialog(HaPublicSidenavCreateFormDialogComponent, {
-        data: input,
-      })
-      .afterClosed()
-      .subscribe((res: HaDocumentation) => {
-        if (res != null) {
-          this.router.navigate(['..', res.path], {
-            relativeTo: this.activatedRoute,
-          });
-        }
-      });
+    super.setMetaTags(
+      {
+        text: 'ha.documentation.brick.title',
+        translateParam: { param: { brickTitle: this.brick().name, docTitle: doc.title } },
+      },
+      {
+        text: 'ha.documentation.brick.description',
+        translateParam: { param: { brickTitle: this.brick().name, docTitle: doc.title } },
+      },
+      this.brick().imageLink,
+      HaRouterService.getFullRoute(this.router.url)
+    );
   }
 }

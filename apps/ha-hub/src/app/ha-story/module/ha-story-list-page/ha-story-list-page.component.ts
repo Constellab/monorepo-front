@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent,
@@ -18,13 +18,15 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import { CoStoryCategory } from '@monorepo/community-lib';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-story-list-page',
   templateUrl: './ha-story-list-page.component.html',
   styleUrls: ['./ha-story-list-page.component.scss'],
 })
-export class HaStoryListPageComponent implements OnInit {
+export class HaStoryListPageComponent extends HaCommunityPage implements OnInit {
   stories: HaStoryDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
 
@@ -58,13 +60,19 @@ export class HaStoryListPageComponent implements OnInit {
     private router: Router,
     private storyService: HaStoryService,
     private topicService: HaTopicService,
-    private metadataService: HaMetadataService
-  ) {}
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
-    this.metadataService.setPageTitle('ha.stories.title');
-    this.metadataService.addMetaTag('description', 'ha.stories.description');
-
+    super.setMetaTags(
+      'ha.stories.title',
+      'ha.stories.description',
+      null,
+      HaRouterService.getFullRoute(this.router.url)
+    );
     this.popularTopics$ = this.topicService.getPopularTopics();
 
     this.getStoriesFiltered();
@@ -136,10 +144,6 @@ export class HaStoryListPageComponent implements OnInit {
 
   private updateStories(): void {
     this.stories.getFirstPage(this.filters);
-  }
-
-  loadMoreResults(): void {
-    this.stories.getNextPage();
   }
 
   selectMyStories(): void {

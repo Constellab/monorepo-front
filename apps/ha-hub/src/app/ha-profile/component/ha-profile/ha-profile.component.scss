@@ -4,6 +4,10 @@
   margin-top: 1.5em;
 }
 
+.alias {
+  font-size: 2em;
+}
+
 .profile-left-side-div {
   display: flex;
   flex-direction: column;
@@ -76,6 +80,16 @@
 
 .svg-icon {
   font-size: 0;
+}
+
+.here-a {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.wallet-key-val {
+  display: flex;
+  flex-direction: row;
 }
 
 @media (max-width: 965px) {

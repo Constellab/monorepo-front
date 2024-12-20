@@ -46,6 +46,16 @@ const routes: Routes = [
       },
     ],
   },
+  // {
+  //   path: 'fair-open-access',
+  //   component: HaMainComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: HaFairOpenAccessPageComponent,
+  //     },
+  //   ],
+  // },
   {
     path: 'login',
     component: HaLoginPageComponent,

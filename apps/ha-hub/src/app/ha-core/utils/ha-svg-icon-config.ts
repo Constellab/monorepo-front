@@ -18,4 +18,7 @@ export const haSvgIcons: FlIcon[] = [
   { name: 'x', filename: 'x-logo.svg' },
   { name: 'facebook', filename: 'facebook-logo.svg' },
   { name: 'discord', filename: 'discord-logo.svg' },
+
+  // algolia
+  { name: 'algolia', filename: 'Algolia-logo-blue.svg' },
 ];

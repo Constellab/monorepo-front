@@ -3,6 +3,14 @@
     <img alt="" src="assets/fl-logo/community_logo.svg" />
   </a>
 
+  <mat-form-field
+    class="g-form-input g-form-field-compact search-bar"
+    subscriptSizing="dynamic"
+    (click)="openInstantSearchDialog()">
+    <mat-icon matPrefix>search</mat-icon>
+    <input type="text" matInput placeholder="Search stories, agents, users..." [readonly]="true" />
+  </mat-form-field>
+
   <div class="top-left-buttons">
     @if (userConnected$ | async; as user) {
       <fl-user-profile-picture [user]="userConnected$ | async" [matMenuTriggerFor]="userMenu">
@@ -44,7 +52,8 @@
 <mat-menu #docMenu="matMenu" xPosition="after">
   <a mat-menu-item [routerLink]="productDocRoute" class="doc-menu-item">{{ 'product_doc' | translate }}</a>
   <a mat-menu-item [routerLink]="techDocRoute" class="doc-menu-item">{{ 'tech_doc' | translate }}</a>
-  <a mat-menu-item [routerLink]="'/icons'" class="doc-menu-item">{{ 'icons' | translate }}</a>
+  <a mat-menu-item [routerLink]="iconsPageRoute" class="doc-menu-item">{{ 'icons' | translate }}</a>
+  <!--  <a mat-menu-item [routerLink]="foaPageRoute" class="doc-menu-item">{{ 'foa' | translate }}</a>-->
 </mat-menu>
 
 <mat-menu #langMenu="matMenu"> </mat-menu>

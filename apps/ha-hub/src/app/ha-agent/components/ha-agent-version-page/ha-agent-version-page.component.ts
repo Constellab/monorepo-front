@@ -1,22 +1,51 @@
-import { ChangeDetectorRef, Component, OnInit, Signal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, OnInit, Signal } from '@angular/core';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
+import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 
 @Component({
   selector: 'ha-agent-version-page',
   templateUrl: './ha-agent-version-page.component.html',
   styleUrls: ['./ha-agent-version-page.component.scss'],
 })
-export class HaAgentVersionPageComponent implements OnInit {
-  agentVersion: Signal<HaAgentVersion> = this.agentPageState.agentVersion;
+export class HaAgentVersionPageComponent extends HaCommunityPage implements OnInit {
+  agentVersion: Signal<HaAgentVersion> = computed(() => {
+    const agentVersion_ = this.agentPageState.agentVersion();
+    if (!agentVersion_) {
+      return null;
+    }
+    const agentVersionImage: string =
+      agentVersion_.style.icon_type === 'COMMUNITY_IMAGE'
+        ? this.tdService.getCommunityIconBaseApiUrl() + `/${agentVersion_.style.icon_technical_name}`
+        : null;
+    super.setMetaTags(
+      {
+        text: 'ha.agent_version.title',
+        translateParam: {
+          param: { title: agentVersion_.agent.title, version: agentVersion_.version },
+        },
+      },
+      {
+        text: 'ha.agent_version.description',
+        translateParam: {
+          param: { title: agentVersion_.agent.title, version: agentVersion_.version },
+        },
+      },
+      agentVersionImage,
+      HaRouterService.getFullRoute(HaRouterService.getAgentVersionRoute(agentVersion_))
+    );
+    return agentVersion_;
+  });
   canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
   isAgentVersionError: Signal<boolean> = this.agentPageState.isAgentVersionError;
   isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
@@ -26,11 +55,15 @@ export class HaAgentVersionPageComponent implements OnInit {
     private agentService: HaAgentService,
     private activatedRoute: ActivatedRoute,
     private dialogService: FlDialogService,
-    private snackBarService: FlSnackBarService,
     private router: Router,
     private agentPageState: HaAgentPageState,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+    private changeDetector: ChangeDetectorRef,
+    private tdService: HaTdServiceConfig,
+    translateService: FlTranslateService,
+    metadataService: HaMetadataService
+  ) {
+    super(translateService, metadataService);
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {

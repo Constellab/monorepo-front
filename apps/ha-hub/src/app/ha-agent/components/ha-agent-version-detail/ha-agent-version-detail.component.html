@@ -37,7 +37,7 @@
         {{ versionInfosDisabled ? ('edit' | translate) : ('save' | translate) }}
       </button>
     </div>
-    <div>
+    <article>
       @defer (when agentVersion() && !isAgentVersionLoading() && versionInfosFormControl) {
         @if (canEdit() || !isVersionInfosEmpty()) {
           <te-text-editor
@@ -51,7 +51,7 @@
           </te-text-editor>
         }
       }
-    </div>
+    </article>
   </div>
 
   <fl-card
