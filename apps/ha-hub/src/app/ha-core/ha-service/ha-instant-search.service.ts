@@ -19,7 +19,7 @@ export class HaInstantSearchService {
     );
     this.instantSearchInstance = new InstantSearch({
       searchClient,
-      indexName: 'Community Preprod',
+      indexName: environment.settings.algoliaIndexName,
       future: { preserveSharedStateOnUnmount: true },
       routing: {
         router: history({

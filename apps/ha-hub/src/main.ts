@@ -29,6 +29,7 @@ function bootstrap(): void {
       discordLink: 'https://discord.com/invite/7nmH5qKM',
       algoliaAppId: 'S233I3C24Z',
       algoliaSearchKey: '8fd4e2048efc6363ff0dca169b6522af',
+      algoliaIndexName: 'Community Preprod',
       algoliaSiteVerificationKey: null,
     };
 

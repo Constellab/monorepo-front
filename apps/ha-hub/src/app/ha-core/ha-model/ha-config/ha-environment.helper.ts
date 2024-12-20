@@ -13,6 +13,7 @@ export class HaEnvironmentHelper {
       discordLink: environment.settings.discordLink || 'https://discord.com/invite/7nmH5qKM',
       algoliaAppId: environment.settings.algoliaAppId || 'S233I3C24Z',
       algoliaSearchKey: environment.settings.algoliaSearchKey || '8fd4e2048efc6363ff0dca169b6522af',
+      algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
     };
     return environment;

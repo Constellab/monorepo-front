@@ -22,6 +22,7 @@ environment.settings = {
   discordLink: process?.env['DISCORD_LINK'] || 'https://discord.com/invite/7nmH5qKM',
   algoliaAppId: process?.env['ALGOLIA_APP_ID'] || 'S233I3C24Z',
   algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
+  algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
 };
 

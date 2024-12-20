@@ -37,6 +37,8 @@ export interface HaEnvironmentSettings {
 
   algoliaSearchKey: string;
 
+  algoliaIndexName: string;
+
   algoliaSiteVerificationKey: string;
 }
 
