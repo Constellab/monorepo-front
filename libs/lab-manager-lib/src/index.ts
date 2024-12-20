@@ -7,9 +7,10 @@ export * from './lml-lab-manager-lib/component/lml-adminer-db-info/lml-adminer-d
 export * from './lml-lab-manager-lib/component/lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 export * from './lml-lab-manager-lib/component/lml-brick-version-detail/lml-brick-version-detail.component';
 export * from './lml-lab-manager-lib/component/lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
-export * from './lml-lab-manager-lib/component/lml-config-form/lml-config-form.component';
+export * from './lml-lab-manager-lib/component/lml-bricks-config-form/lml-bricks-config-form.component';
 export * from './lml-lab-manager-lib/component/lml-configure-brick/lml-configure-brick.component';
 export * from './lml-lab-manager-lib/component/lml-docker-container-details/lml-docker-container-details.component';
+export * from './lml-lab-manager-lib/component/lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 export * from './lml-lab-manager-lib/component/lml-docker-container-logs-dialog/lml-docker-container-logs-dialog.component';
 export * from './lml-lab-manager-lib/component/lml-docker-containers/lml-docker-containers.component';
 export * from './lml-lab-manager-lib/component/lml-docker-containers-list/lml-docker-containers-list.component';
@@ -26,7 +27,7 @@ export * from './lml-lab-manager-lib/pipe/lml-community-brick-image.pipe';
 // classes
 export * from './lml-lab-manager-lib/lml-brick.service';
 export * from './lml-lab-manager-lib/lml-lab-manager.state';
-export * from './lml-lab-manager-lib/lml-lab-manager-api.service';
+export * from './lml-lab-manager-lib/lml-lab-manager.service';
 
 // model
 export * from './lml-lab-manager-lib/model/lml-brick.class';

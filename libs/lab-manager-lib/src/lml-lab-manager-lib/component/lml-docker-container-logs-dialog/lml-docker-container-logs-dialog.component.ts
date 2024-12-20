@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LmlLabManagerApiService } from '../../lml-lab-manager-api.service';
+import { FlTranslatableText } from '@monorepo/front-core-lib';
+import { LmlDockerLogs } from '../../model/lml-lab-manager.class';
 
 export interface LmlDockerContainerLogsInput {
-  containerName: string;
+  title: FlTranslatableText;
+  logs$: Observable<LmlDockerLogs>;
 }
 
 /**
@@ -17,7 +19,4 @@ export interface LmlDockerContainerLogsInput {
 })
 export class LmlDockerContainerLogsDialogComponent {
   input: LmlDockerContainerLogsInput = inject(MAT_DIALOG_DATA);
-  private labService = inject(LmlLabManagerApiService);
-
-  logs$: Observable<string> = this.labService.getLogs(this.input.containerName);
 }

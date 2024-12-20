@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LmlConfigFormComponent } from './lml-config-form.component';
+import { LmlBricksConfigFormComponent } from './lml-bricks-config-form.component';
 
 describe('CaLabConfigFormComponent', () => {
-  let component: LmlConfigFormComponent;
-  let fixture: ComponentFixture<LmlConfigFormComponent>;
+  let component: LmlBricksConfigFormComponent;
+  let fixture: ComponentFixture<LmlBricksConfigFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LmlConfigFormComponent],
+      declarations: [LmlBricksConfigFormComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LmlConfigFormComponent);
+    fixture = TestBed.createComponent(LmlBricksConfigFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

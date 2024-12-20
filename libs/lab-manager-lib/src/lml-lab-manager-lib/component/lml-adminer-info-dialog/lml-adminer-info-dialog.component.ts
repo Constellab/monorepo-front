@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { LmlAdminerInfo } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerApiService } from '../../lml-lab-manager-api.service';
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,6 +9,6 @@ import { Observable } from 'rxjs';
   styleUrl: './lml-adminer-info-dialog.component.scss',
 })
 export class LmlAdminerInfoDialogComponent {
-  private labManagerApiService = inject(LmlLabManagerApiService);
+  private labManagerApiService = inject(LmlLabManagerService);
   adminerInfo$: Observable<LmlAdminerInfo> = this.labManagerApiService.getAdminerInfo();
 }

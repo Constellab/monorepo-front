@@ -3,24 +3,30 @@ import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
-  LmlDockerContainerSize,
-  LmlDockerPs,
+  LmlDockerContainerSize, LmlDockerErrorLogs,
+  LmlDockerInspect, LmlDockerLogs,
+  LmlDockerProgress,
   LmlDockerPsFull,
   LmlLabManagerConfig,
-  LmlLabManagerStatus,
+  LmlLabManagerStatus, LmlNewVersionAvailable,
   LmlPullBiotaOptions,
 } from './model/lml-lab-manager.class';
 
 /**
  * Class to implement to communicate with the lab manager api
  */
-export abstract class LmlLabManagerApiService {
+export abstract class LmlLabManagerService {
+  /**
+   * Observable that stays open to check if the lab manager is running
+   */
+  abstract labManagerIsRunning$(): Observable<boolean>;
+
   /**
    * Get the status of the lab manager
    */
   abstract getStatus(): Observable<LmlLabManagerStatus>;
 
-  abstract listContainers(): Observable<LmlDockerPs[]>;
+  abstract listContainers(): Observable<LmlDockerInspect[]>;
 
   abstract getContainerDetails(containerName: string): Observable<LmlDockerPsFull>;
 
@@ -32,7 +38,7 @@ export abstract class LmlLabManagerApiService {
 
   abstract deleteContainer(containerName: string): Observable<boolean>;
 
-  abstract getLogs(containerName: string): Observable<string>;
+  abstract getLogs(containerName: string): Observable<LmlDockerLogs>;
 
   abstract downloadLogs(containerName: string): Observable<Blob>;
 
@@ -67,4 +73,10 @@ export abstract class LmlLabManagerApiService {
   abstract getLabManagerRecommendedVersion(): Observable<string>;
 
   abstract getAdminerInfo(): Observable<LmlAdminerInfo>;
+
+  abstract getLabStartingError(): Observable<LmlDockerErrorLogs>;
+
+  abstract getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs>;
+
+  abstract updateLabManager(version: LmlNewVersionAvailable): void;
 }

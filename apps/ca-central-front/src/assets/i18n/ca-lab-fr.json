@@ -53,8 +53,6 @@
   "lab_manager_not_running": "Le lab manager n'est pas démarré",
   "lab_config": "Configuration du lab",
   "lab_desktop_config_updated": "Configuration sauvegardée. Vous devez télécharger la configuration et lancer votre lab sur votre ordinateur pour que les changements soient appliqués",
-  "glab_version_override": "Forcer la Version du Glab et Codelab",
-  "glab_version_override_hint": "Laissez vide pour utiliser la version par défaut",
   "brick_version_view_detail": "Voir le détail",
   "brick_versions": "Versions des briques",
   "lab_user_role_OWNER": "Propriétaire",

@@ -15,6 +15,8 @@ export abstract class LmlBrickService {
 
   public abstract getByName(name: string): Observable<LmlCommunityBrick>;
 
+  public abstract getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion>;
+
   public abstract getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion>;
 
   public abstract getImageUrl(filename: string): string;

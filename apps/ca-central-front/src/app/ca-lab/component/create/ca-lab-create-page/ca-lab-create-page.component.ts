@@ -47,7 +47,6 @@ export class CaLabCreatePageComponent {
   ) {
     const labConfig = new LmlLabManagerConfig();
     labConfig.brickVersions = [{ name: TdBrick.GWS_CORE, version: '0.8.0-beta.1' }];
-    labConfig.glabTag = null;
     this.labConfig = labConfig;
   }
 

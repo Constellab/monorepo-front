@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewContainerRef } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
@@ -6,7 +6,11 @@ import {
   LmlDockerContainerLogsDialogComponent,
   LmlDockerContainerLogsInput,
 } from '../lml-docker-container-logs-dialog/lml-docker-container-logs-dialog.component';
-import { LmlDockerPs } from '../../model/lml-lab-manager.class';
+import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
+import {
+  LmlDockerContainerErrorDialogComponent,
+} from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
 /**
  * Component to list the docker container with name, status and information
@@ -17,21 +21,21 @@ import { LmlDockerPs } from '../../model/lml-lab-manager.class';
   styleUrls: ['./lml-docker-containers-list.component.scss'],
 })
 export class LmlDockerContainersListComponent {
-  @Input({ required: true }) containers: LmlDockerPs[];
+  @Input({ required: true }) containers: LmlDockerInspect[];
 
   private dialogService = inject(FlDialogService);
   private managerState = inject(LmlLabManagerState);
-  private viewContainerRef = inject(ViewContainerRef);
+  private managerService = inject(LmlLabManagerService);
 
-  viewContainerLogs(container: LmlDockerPs, mouseEvent: MouseEvent): void {
+  viewContainerLogs(container: LmlDockerInspect, mouseEvent: MouseEvent): void {
     ClHelpService.stopEventPropagation(mouseEvent);
     const input: LmlDockerContainerLogsInput = {
-      containerName: container.names,
+      title: { text: container.names, translateText: false },
+      logs$: this.managerService.getLogs(container.names),
     };
 
     this.dialogService.openMediumDialog(LmlDockerContainerLogsDialogComponent, {
       data: input,
-      viewContainerRef: this.viewContainerRef,
     });
   }
 
@@ -41,6 +45,17 @@ export class LmlDockerContainersListComponent {
 
   downloadLogs(containerName: string): void {
     this.managerState.downloadLogs(containerName);
+  }
+
+  showErrors(containerName: string): void {
+    const input: LmlDockerContainerLogsInput = {
+      title: { text: containerName, translateText: false },
+      logs$: this.managerService.getContainerErrorLogs(containerName),
+    };
+
+    this.dialogService.openMediumDialog(LmlDockerContainerLogsDialogComponent, {
+      data: input,
+    });
   }
 
   startComposeContainer(serviceName: string): void {

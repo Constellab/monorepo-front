@@ -198,10 +198,6 @@ export class CaLabStatusDTO {
   }
 }
 
-export interface CaLabDesktopConfig {
-  glabTag: 'beta' | 'latest' | string;
-}
-
 export class CaLabServerInfoDTO {
   name: string;
 

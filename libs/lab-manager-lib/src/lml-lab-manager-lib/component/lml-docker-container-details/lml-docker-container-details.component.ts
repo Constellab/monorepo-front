@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LmlDockerContainerSize, LmlDockerPsFull } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerApiService } from '../../lml-lab-manager-api.service';
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 
 /**
  * Component to show the details of a container
@@ -12,12 +12,12 @@ import { LmlLabManagerApiService } from '../../lml-lab-manager-api.service';
   styleUrls: ['./lml-docker-container-details.component.scss'],
 })
 export class LmlDockerContainerDetailsComponent implements OnInit {
-  @Input() containerName: string;
+
+  private labService = inject(LmlLabManagerService);
+  @Input({required: true}) containerName: string;
 
   container$: Observable<LmlDockerPsFull>;
   size$: Observable<LmlDockerContainerSize>;
-
-  constructor(private labService: LmlLabManagerApiService) {}
 
   ngOnInit(): void {
     this.container$ = this.labService.getContainerDetails(this.containerName);

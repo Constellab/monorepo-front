@@ -3,11 +3,14 @@ import {
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
-  LmlDockerPs,
+  LmlDockerErrorLogs,
+  LmlDockerInspect,
+  LmlDockerLogs,
   LmlDockerPsFull,
-  LmlLabManagerApiService,
   LmlLabManagerConfig,
+  LmlLabManagerService,
   LmlLabManagerStatus,
+  LmlNewVersionAvailable,
   LmlPullBiotaOptions,
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
@@ -15,12 +18,17 @@ import { inject, Injectable, ViewContainerRef } from '@angular/core';
 import { FlDialogService, FlFileHelper } from '@monorepo/front-core-lib';
 import { LmsConfigureLabManagerDialogComponent } from '../components/lms-configure-lab-manager-dialog/lms-configure-lab-manager-dialog.component';
 import { LmsLabService } from './lms-lab.service';
+import { LmsUpdateLabManagerDialogComponent } from '../components/lms-update-lab-manager-dialog/lms-update-lab-manager-dialog.component';
 
 @Injectable()
-export class LmsLabManagerApiService extends LmlLabManagerApiService {
+export class LmsLabManagerService extends LmlLabManagerService {
   private labService = inject(LmsLabService);
   private dialogService = inject(FlDialogService);
   private viewContainer = inject(ViewContainerRef);
+
+  labManagerIsRunning$(): Observable<boolean> {
+    return this.labService.labManagerIsRunning();
+  }
 
   configureLabManager(): Observable<void> {
     return this.dialogService
@@ -54,7 +62,7 @@ export class LmsLabManagerApiService extends LmlLabManagerApiService {
     return this.labService.getLabManagerConfig();
   }
 
-  getLogs(containerName: string): Observable<string> {
+  getLogs(containerName: string): Observable<LmlDockerLogs> {
     return this.labService.getLogs(containerName);
   }
 
@@ -66,7 +74,7 @@ export class LmsLabManagerApiService extends LmlLabManagerApiService {
     return this.labService.initLab();
   }
 
-  listContainers(): Observable<LmlDockerPs[]> {
+  listContainers(): Observable<LmlDockerInspect[]> {
     return this.labService.listContainers();
   }
 
@@ -124,5 +132,19 @@ export class LmsLabManagerApiService extends LmlLabManagerApiService {
 
   getAdminerInfo(): Observable<LmlAdminerInfo> {
     return this.labService.getAdminerInfo();
+  }
+
+  getLabStartingError(): Observable<LmlDockerErrorLogs> {
+    return this.labService.getLabStartingErrors();
+  }
+
+  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.labService.getContainerErrorLogs(containerName);
+  }
+
+  updateLabManager(version: LmlNewVersionAvailable): void {
+    this.dialogService.openMediumDialog(LmsUpdateLabManagerDialogComponent, {
+      data: version,
+    });
   }
 }

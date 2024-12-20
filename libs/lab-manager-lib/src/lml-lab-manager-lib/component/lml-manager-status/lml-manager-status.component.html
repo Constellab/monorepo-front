@@ -12,7 +12,6 @@
             class="status-action-button"
             type="button"
             (click)="currentStatusAction(currentStatus.buttonText)"
-            [disabled]="labStatus.currentTask && labStatus.currentTask.status.value === 'RUNNING'"
             [matTooltip]="currentStatus.buttonTooltip | translate">
             {{ currentStatus.buttonText | translate }}
           </button>
@@ -21,12 +20,33 @@
     </div>
   }
 
+  @if (labStatus.glabStatus?.hasStartError) {
+    <fl-text-icon>
+      <mat-icon color="warn">error</mat-icon>
+      {{ 'lml.glab_error' | translate }}
+      <button mat-stroked-button class="status-action-button" type="button" (click)="openLabErrorLogs()">
+        {{ 'lml.show_errors' | translate }}
+      </button>
+    </fl-text-icon>
+  }
+
   <!-- Lab task -->
-  @if (labStatus.currentTask) {
+  @if (labStatus.labStatus === 'STARTING') {
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <fl-loader size="small"></fl-loader>
+      <div class="info">
+        {{ 'lml.lab_is_starting' | translate }}
+        @if (labStatus.glabStatus?.startProgress; as labStartingProgress) {
+          <div class="g-text-light g-text-small">
+            {{ labStartingProgress.percent }}% {{ labStartingProgress.message }}
+          </div>
+        }
+      </div>
+    </div>
+    <!--  Don't show success tasks  -->
+  } @else if (labStatus.currentTask && labStatus.currentTask.status.value !== 'SUCCESS') {
     <div>
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-        <span class="no-shrink">{{ 'lml.lab_manager_task' | translate }} : </span>
-
         @if (labStatus.currentTask.status.value === 'RUNNING') {
           <fl-loader size="small"></fl-loader>
         } @else {
@@ -35,31 +55,6 @@
         <div class="info">{{ labStatus.currentTask.name }} {{ labStatus.currentTask.info }}</div>
       </div>
     </div>
-  } @else {
-    {{ 'lml.lab_manager_no_task' | translate }}
-  }
-
-  <fl-key-value>
-    <fl-key>{{ 'lml.lab_manager_version' | translate }}</fl-key>
-    {{ labStatus.version }}
-  </fl-key-value>
-
-  @if (recommendedVersion$ | async; as recommendedVersion) {
-    @if (labStatus.version && labStatus.version !== recommendedVersion) {
-      <div class="version-warning">
-        <fl-text-icon>
-          <mat-icon color="warn">warnings</mat-icon>
-          {{
-            'lml.lab_manager_not_compatible_with_central'
-              | translate
-                : {
-                    labManagerVersion: labStatus.version,
-                    compatibleVersion: recommendedVersion,
-                  }
-          }}
-        </fl-text-icon>
-      </div>
-    }
   }
 }
 <!-- Lab Adminer runnings -->

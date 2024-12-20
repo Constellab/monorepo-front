@@ -22,13 +22,13 @@ export class CaLabConfigComponent {
   ) {}
 
   getBrickLink(brickVersion: CaBrickVersionComplete): string {
-    return this.communityHelper.getBrickUrl(brickVersion.brick.name, brickVersion.version);
+    return this.communityHelper.getBrickUrl(brickVersion.brick.name, brickVersion.brickVersion);
   }
 
   openBrickVersionDetail(brickVersion: CaBrickVersionComplete): void {
     const data: LmlBrickVersionDetailDialogInput = {
       brickName: brickVersion.brick.name,
-      brickVersion: brickVersion.version,
+      brickVersion: brickVersion.brickVersion,
     };
 
     this.dialogService.openSmallDialog(LmlBrickVersionDetailDialogComponent, { data });

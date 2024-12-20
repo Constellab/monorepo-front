@@ -14,8 +14,8 @@
   </fl-card-header>
 
   <fl-card-body>
-    <ng-container *ngIf="status$ | async as status">
-      <ng-container *ngIf="isCloud$ | async">
+    @if (status$ | async; as status) {
+      @if (isCloud$ | async) {
         <fl-text-ok-nok
           [value]="status.hasServerInstanceId"
           [okText]="'lab_server_instance_configured' | translate"
@@ -33,7 +33,7 @@
           [okText]="'lab_dsn_configured' | translate"
           [nokText]="'lab_dsn_not_configured' | translate">
         </fl-text-ok-nok>
-      </ng-container>
+      }
 
       <fl-text-ok-nok
         [value]="status.labManagerIsRunning"
@@ -50,22 +50,28 @@
       <ca-lab-current-task></ca-lab-current-task>
 
       <!--    list of errors    -->
-      <div *ngIf="errors$ | async as errors" class="info-section">
-        <fl-text-icon *ngFor="let error of errors">
-          <mat-icon color="warn">warnings</mat-icon>
+      @if (errors$ | async; as errors) {
+        <div class="info-section">
+          @for (error of errors; track error) {
+            <fl-text-icon>
+              <mat-icon color="warn">warnings</mat-icon>
 
-          <div class="g-text-small">{{ error }}</div>
-        </fl-text-icon>
-      </div>
+              <div class="g-text-small">{{ error }}</div>
+            </fl-text-icon>
+          }
+        </div>
+      }
 
       <!--    Global action to do with server    -->
-      <ca-lab-server-status *ngIf="status.serverTaskStatus.value !== 'RUNNING'"></ca-lab-server-status>
+      @if (status.serverTaskStatus.value !== 'RUNNING') {
+        <ca-lab-server-status></ca-lab-server-status>
+      }
 
       <div class="g-layout-row g-layout-start-center action-buttons">
         <ca-lab-login-button [labId]="labId" [isRunning]="status.labIsRunning"></ca-lab-login-button>
 
-        <ca-lab-start-stop class="start-button"> </ca-lab-start-stop>
+        <ca-lab-start-stop class="start-button"></ca-lab-start-stop>
       </div>
-    </ng-container>
+    }
   </fl-card-body>
 </fl-card>

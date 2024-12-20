@@ -1,20 +1,23 @@
-<fl-section [object]="labConfig" [isLoading]="getIsLoading" class="section">
+<fl-section [object]="brickVersions" [isLoading]="getIsLoading">
   <ng-container *flSectionBody>
-    <p class="help-text g-text-light">{{ 'lml.lab_manager_config_section_help' | translate }}</p>
-
-    <lml-config-form [(labConfig)]="labConfig" (labConfigChange)="onNewConfig()"></lml-config-form>
-
-    <p *ngIf="configHasChanged" class="help-text g-warn-text">
-      {{ 'lml.lab_config_changed' | translate }}
-    </p>
-    <button
-      mat-flat-button
-      color="primary"
-      type="button"
-      (click)="saveConfig()"
-      class="g-centered-forced save-button">
-      {{ 'lml.save' | translate }}
-      <fl-button-loader *ngIf="saveIsLoading"></fl-button-loader>
-    </button>
+    <lml-bricks-config-form [brickVersions]="brickVersions" (configChange)="onNewConfig()">
+      @if (configHasChanged) {
+        <p class="help-text g-warn-text">
+          {{ 'lml.lab_config_changed' | translate }}
+        </p>
+      }
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="saveConfig()"
+        class="g-centered-forced save-button">
+        <mat-icon>save</mat-icon>
+        {{ 'lml.save' | translate }}
+        @if (saveIsLoading) {
+          <fl-button-loader></fl-button-loader>
+        }
+      </button>
+    </lml-bricks-config-form>
   </ng-container>
 </fl-section>

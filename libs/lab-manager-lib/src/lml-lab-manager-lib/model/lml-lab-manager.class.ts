@@ -1,13 +1,20 @@
-import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import {
+  FlArrayObs,
+  FlStatus,
+  FlStatusDict,
+  FlStatusHelper,
+  FlStatusTransform,
+} from '@monorepo/front-core-lib';
 import { Type } from 'class-transformer';
 
-export type LmlLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP';
+export type LmlLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP' | 'ERROR';
 
 const lmlLabContainersStatusDict: FlStatusDict<LmlLabContainersStatus> = {
-  STOP: FlStatusHelper.getErrorStatus('STOP', 'lml.containers_stopped', 'stop'),
-  DOWN: FlStatusHelper.getErrorStatus('DOWN', 'lml.containers_down'),
+  STOP: FlStatusHelper.getInfoStatus('STOP', 'lml.containers_stopped', 'stop'),
+  DOWN: FlStatusHelper.getInfoStatus('DOWN', 'lml.containers_down'),
   UP: FlStatusHelper.getSuccessStatus('UP', 'lml.containers_up'),
   PARTIALLY_UP: FlStatusHelper.getWarningStatus('PARTIALLY_UP', 'lml.containers_partially_up'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'lml.containers_error'),
 };
 
 export class LmlLabContainerStatusInfo {
@@ -17,23 +24,24 @@ export class LmlLabContainerStatusInfo {
   info?: string;
 }
 
-export type lmlLabDockerState = 'created' | 'running' | 'exited' | 'none';
+export type LmlLabDockerStatus = 'stopped' | 'running' | 'error' | 'none';
 
-const lmlLabDockerStateDict: FlStatusDict<lmlLabDockerState> = {
-  created: FlStatusHelper.getWarningStatus('created', 'lml.container_created'),
+const lmlLabDockerStatusDict: FlStatusDict<LmlLabDockerStatus> = {
+  stopped: FlStatusHelper.getInfoStatus('stopped', 'lml.container_stopped', 'stop'),
   running: FlStatusHelper.getSuccessStatus('running', 'lml.container_running'),
-  exited: FlStatusHelper.getErrorStatus('exited', 'lml.container_exited'),
+  error: FlStatusHelper.getErrorStatus('error', 'lml.container_error', 'error'),
   none: FlStatusHelper.getInfoStatus('none', 'lml.container_none'),
 };
 
-export class LmlDockerPs {
+export class LmlDockerInspect {
   names: string;
 
-  @FlStatusTransform(lmlLabDockerStateDict)
-  state: FlStatus<lmlLabDockerState>;
+  @FlStatusTransform(lmlLabDockerStatusDict)
+  status: FlStatus<LmlLabDockerStatus>;
 }
 
-export class LmlDockerPsFull extends LmlDockerPs {
+export class LmlDockerPsFull {
+  names: string;
   command: string;
   id: string;
   image: string;
@@ -78,6 +86,12 @@ export class LmlTaskStatusInfo {
   info?: string;
 }
 
+export class LmlGlabStatus {
+  status: LmlLabDockerStatus;
+  startProgress: LmlDockerProgress;
+  hasStartError: boolean;
+}
+
 export class LmlLabManagerStatus {
   @Type(() => LmlLabContainerStatusInfo)
   containersStatus: LmlLabContainerStatusInfo;
@@ -97,6 +111,14 @@ export class LmlLabManagerStatus {
   // version of the lab manager that has been used to init the lab
   lastInitVersion: string;
   labFrontUrl: string;
+  labStatus: 'STOPPED' | 'RUNNING' | 'STARTING' | 'ERROR';
+
+  @Type(() => LmlGlabStatus)
+  glabStatus: LmlGlabStatus;
+
+  get actionInProgress(): boolean {
+    return this.labStatus === 'STARTING' || (this.currentTask && this.currentTask.status.value === 'RUNNING');
+  }
 }
 
 export class LmlLabManagerBrickVersionDTO {
@@ -104,9 +126,20 @@ export class LmlLabManagerBrickVersionDTO {
   version: string;
 }
 
+export class LmlBrickVersionDTODatasource extends FlArrayObs<LmlLabManagerBrickVersionDTO> {
+  protected equals(a: LmlLabManagerBrickVersionDTO, b: LmlLabManagerBrickVersionDTO): boolean {
+    return a.name === b.name;
+  }
+
+  public toLabManagerConfig(): LmlLabManagerConfig {
+    return {
+      brickVersions: this.array,
+    };
+  }
+}
+
 export class LmlLabManagerConfig {
   brickVersions: LmlLabManagerBrickVersionDTO[];
-  glabTag: 'latest' | 'beta' | string;
 }
 
 export interface LmlAdminerDbInfo {
@@ -122,4 +155,23 @@ export interface LmlAdminerInfo {
   gwsCoreProd: LmlAdminerDbInfo;
   gwsCoreDev: LmlAdminerDbInfo;
   gwsBiota: LmlAdminerDbInfo;
+}
+
+export interface LmlDockerProgress {
+  percent: number;
+  message: string;
+}
+
+export interface LmlDockerLogs {
+  logs: string;
+}
+
+export interface LmlDockerErrorLogs {
+  mainErrors: string[];
+  logs: string;
+}
+
+export interface LmlNewVersionAvailable {
+  recommendedVersion: string;
+  currentVersion: string;
 }

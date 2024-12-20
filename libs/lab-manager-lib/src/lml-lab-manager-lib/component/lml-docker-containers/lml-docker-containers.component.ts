@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LmlDockerPs } from '../../model/lml-lab-manager.class';
+import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { FlStatusEvent } from '@monorepo/front-core-lib';
 
@@ -12,7 +12,7 @@ import { FlStatusEvent } from '@monorepo/front-core-lib';
 export class LmlDockerContainersComponent implements OnInit {
   private managerState = inject(LmlLabManagerState);
 
-  containers$: Observable<FlStatusEvent<LmlDockerPs[]>> = this.managerState.getDockersContainers$();
+  containers$: Observable<FlStatusEvent<LmlDockerInspect[]>> = this.managerState.getDockersContainers$();
 
   ngOnInit(): void {
     this.managerState.loadDockerContainers();

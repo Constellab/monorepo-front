@@ -6,7 +6,14 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" class="g-button-small button" (click)="refresh()">
+      @if (newLabManagerVersion$ | async; as versionAvailable) {
+        <fl-text-icon class="g-text-small g-text-dense-height" (click)="updateLabManager(versionAvailable)">
+          <mat-icon>info</mat-icon>
+          <span class="g-text-link">{{ 'lml.new_lab_manager_version' | translate }}</span>
+        </fl-text-icon>
+      }
+
+      <button mat-stroked-button type="button" class="g-button-small button refresh" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
         <span>{{ 'lml.lab_manager_refresh' | translate }}</span>
         @if (refreshIsLoading) {
@@ -28,15 +35,15 @@
       emptyText="lml.lab_manager_not_running">
       <ng-container *flSectionBody>
         <lml-manager-status></lml-manager-status>
-
-        <!--  Lab config  -->
-        <lml-manager-config class="g-section content"></lml-manager-config>
       </ng-container>
     </fl-async-section>
 
     <mat-expansion-panel class="advanced-config">
       <mat-expansion-panel-header>
-        {{ 'lml.lab_manager_advanced_config' | translate }}
+        <fl-text-icon>
+          <mat-icon>settings</mat-icon>
+          {{ 'lml.lab_manager_advanced_config' | translate }}
+        </fl-text-icon>
       </mat-expansion-panel-header>
 
       <ng-template matExpansionPanelContent>
@@ -45,3 +52,6 @@
     </mat-expansion-panel>
   </fl-card-body>
 </fl-card>
+
+<!--Lab config-->
+<lml-manager-config class="g-section"></lml-manager-config>

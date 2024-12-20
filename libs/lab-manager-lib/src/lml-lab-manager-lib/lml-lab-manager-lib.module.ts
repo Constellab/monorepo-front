@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { LmlDockerUpFormComponent } from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  FlCardModule, FlCorePipeModule,
-  FlDialogModule, FlInfiniteScrollModule,
-  FlKeyValueModule, FlLoaderModule,
+  FlCardModule,
+  FlCorePipeModule,
+  FlDialogModule,
+  FlIconModule,
+  FlInfiniteScrollModule,
+  FlKeyValueModule,
+  FlLoaderModule,
   FlSectionModule,
   FlStatusModule,
   FlTextIconModule,
@@ -29,23 +33,21 @@ import { lmlLabManagerI18n } from './lml-lab-manager.i18n';
 import { LmlManagerStatusComponent } from './component/lml-manager-status/lml-manager-status.component';
 import { LmlManagerComponent } from './component/lml-manager/lml-manager.component';
 import { LmlManagerConfigComponent } from './component/lml-manager-config/lml-manager-config.component';
-import { LmlConfigFormComponent } from './component/lml-config-form/lml-config-form.component';
-import {
-  LmlBrickVersionDetailComponent
-} from './component/lml-brick-version-detail/lml-brick-version-detail.component';
-import {
-  LmlBrickVersionDetailDialogComponent
-} from './component/lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
+import { LmlBricksConfigFormComponent } from './component/lml-bricks-config-form/lml-bricks-config-form.component';
+import { LmlBrickVersionDetailComponent } from './component/lml-brick-version-detail/lml-brick-version-detail.component';
+import { LmlBrickVersionDetailDialogComponent } from './component/lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { LmlConfigureBrickComponent } from './component/lml-configure-brick/lml-configure-brick.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { LmlCommunityBrickImagePipe } from './pipe/lml-community-brick-image.pipe';
 import { LmlAdminerInfoDialogComponent } from './component/lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import { LmlAdminerDbInfoComponent } from './component/lml-adminer-db-info/lml-adminer-db-info.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortHeader } from '@angular/material/sort';
+import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -59,19 +61,16 @@ import { LmlAdminerDbInfoComponent } from './component/lml-adminer-db-info/lml-a
     LmlManagerStatusComponent,
     LmlManagerComponent,
     LmlManagerConfigComponent,
-    LmlConfigFormComponent,
+    LmlBricksConfigFormComponent,
     LmlBrickVersionDetailComponent,
     LmlBrickVersionDetailDialogComponent,
     LmlConfigureBrickComponent,
     LmlCommunityBrickImagePipe,
     LmlAdminerInfoDialogComponent,
-    LmlAdminerDbInfoComponent
+    LmlAdminerDbInfoComponent,
+    LmlDockerContainerErrorDialogComponent,
   ],
-  exports: [
-    LmlManagerComponent,
-    LmlConfigFormComponent,
-    LmlBrickVersionDetailDialogComponent
-  ],
+  exports: [LmlManagerComponent, LmlBricksConfigFormComponent, LmlBrickVersionDetailDialogComponent],
   imports: [
     CommonModule,
 
@@ -88,8 +87,8 @@ import { LmlAdminerDbInfoComponent } from './component/lml-adminer-db-info/lml-a
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
-    MatListModule,
     MatSelectModule,
+    MatTableModule,
 
     FlDialogModule,
     FlTranslateModule,
@@ -102,6 +101,8 @@ import { LmlAdminerDbInfoComponent } from './component/lml-adminer-db-info/lml-a
     FlCorePipeModule,
     FlInfiniteScrollModule,
     CoCommunityLibModule,
+    FlIconModule,
+    MatSortHeader,
   ],
 })
 export class LmlLabManagerLibModule {

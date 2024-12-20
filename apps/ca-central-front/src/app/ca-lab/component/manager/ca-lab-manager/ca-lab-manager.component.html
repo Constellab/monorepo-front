@@ -3,12 +3,6 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-<!--   TODO IMPROVE button position-->
-    <button mat-menu-item type="button" (click)="updateLabManager()">
-      <mat-icon>upgrade</mat-icon>
-      {{ 'lab_update_lab_manager' | translate }}
-    </button>
-
     <button mat-menu-item type="button" (click)="openStatusDialog()">
       <mat-icon>info</mat-icon>
       <span>{{ 'lab_check_status' | translate }}</span>

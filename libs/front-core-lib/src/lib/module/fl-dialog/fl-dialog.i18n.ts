@@ -10,6 +10,8 @@ const flDialogFr: FlLangTranslation = {
     confirm_text: 'Confirmation text',
     invalid_confirm_text: 'Invalid confirmation text',
     close: 'Fermer',
+    yes: 'Oui',
+    no: 'Non',
   },
 };
 
@@ -19,6 +21,8 @@ const flDialogEn: FlLangTranslation = {
     confirm_text: 'Texte de confirmation',
     invalid_confirm_text: 'Texte de confirmation invalide',
     close: 'Close',
+    yes: 'Yes',
+    no: 'No',
   },
 };
 

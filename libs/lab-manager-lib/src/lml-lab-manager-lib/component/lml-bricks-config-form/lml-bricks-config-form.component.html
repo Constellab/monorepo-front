@@ -1,0 +1,96 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="brick"></mat-icon>
+      <h2>{{ 'lml.lab_bricks' | translate }}</h2>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" class="g-button-small" (click)="openBrickVersionForm()">
+        <mat-icon>add</mat-icon>
+        {{ 'lml.lab_add_brick' | translate }}
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body>
+    <p class="help-text g-text-light">{{ 'lml.lab_manager_config_section_help' | translate }}</p>
+
+    @if (!isConfigured()) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em not-configured">
+        <p class="g-warn-text">{{ 'lml.lab_not_configured_help' | translate }}</p>
+        <button mat-stroked-button type="button" class="g-button-small" (click)="addGwsCoreBrick()">
+          {{ 'lml.add_gws_core' | translate }}
+          @if (addGwsCoreIsLoading) {
+            <fl-button-loader></fl-button-loader>
+          }
+        </button>
+      </div>
+    }
+
+    @if (!brickVersions.isEmpty()) {
+      <mat-table [dataSource]="brickVersions">
+        <!-- Name -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>
+            {{ 'lml.name' | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.name }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Version -->
+        <ng-container matColumnDef="version">
+          <mat-header-cell *matHeaderCellDef>
+            {{ 'lml.version' | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.version }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div class="g-layout-row g-layout-end-center actions">
+              <!-- Info button -->
+              <button
+                mat-icon-button
+                type="button"
+                class="g-button-icon-small"
+                (click)="openBrickVersionDetailDialog(row)"
+                [matTooltip]="'lml.brick_version_view_detail' | translate">
+                <mat-icon>info</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                type="button"
+                class="g-button-icon-small"
+                (click)="openBrickVersionForm(row)"
+                [matTooltip]="'lml.lab_update_brick' | translate">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                type="button"
+                class="g-button-icon-small"
+                (click)="openDeleteBrickConfirmDialog(row)"
+                [matTooltip]="'lml.lab_remove_brick' | translate">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns"></mat-row>
+      </mat-table>
+    }
+
+    <ng-content></ng-content>
+  </fl-card-body>
+</fl-card>

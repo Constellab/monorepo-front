@@ -1,11 +1,12 @@
-import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, inject, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerApiService } from '../../lml-lab-manager-api.service';
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
+import { LmlDockerContainerErrorDialogComponent } from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
 type LmlCurrentStatus =
   | 'NOT_CONFIGURED'
@@ -32,28 +33,34 @@ interface LmlCurrentStatusInfo {
   templateUrl: './lml-manager-status.component.html',
   styleUrls: ['./lml-manager-status.component.scss'],
 })
-export class LmlManagerStatusComponent implements OnInit {
+export class LmlManagerStatusComponent {
   private managerState = inject(LmlLabManagerState);
-  private managerService = inject(LmlLabManagerApiService);
+  private managerService = inject(LmlLabManagerService);
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
 
-  managerStatus$: Observable<LmlLabManagerStatus> = this.managerState.getStatus$();
+  managerStatus$ = this.managerState.getStatus$();
 
-  recommendedVersion$: Observable<string> = this.managerService.getLabManagerRecommendedVersion();
-
-  currentStatus$: Observable<LmlCurrentStatusInfo>;
+  currentStatus$: Observable<LmlCurrentStatusInfo> = this.managerStatus$.pipe(
+    map((labStatus) => this.convertToCurrentStatus(labStatus))
+  );
 
   adminerIsRunning$ = this.managerState.adminerIsRunning$();
 
-  ngOnInit(): void {
-    this.currentStatus$ = this.managerStatus$.pipe(
-      map((labStatus) => this.convertToCurrentStatus(labStatus))
-    );
-  }
-
   private convertToCurrentStatus(labStatus: LmlLabManagerStatus): LmlCurrentStatusInfo {
-    if (!labStatus.isConfigured) {
+    // Don't show the main button and status if lab is starting or there is a task running
+    if (labStatus.actionInProgress) return null;
+
+    if (labStatus.containersStatus.status.value === 'ERROR') {
+      return {
+        status: 'SOME_APPS_DOWN',
+        text: 'lml.lab_manager_some_apps_error',
+        icon: 'error',
+        iconClass: 'g-warn-text',
+        buttonText: 'lml.lab_manager_restart',
+        buttonTooltip: 'lml.restart_lab_help',
+      };
+    } else if (!labStatus.isConfigured) {
       return {
         status: 'NOT_CONFIGURED',
         text: 'lml.lab_manager_not_configured',
@@ -118,6 +125,13 @@ export class LmlManagerStatusComponent implements OnInit {
   openAdminInfo(): void {
     this.dialogService.openSmallDialog(LmlAdminerInfoDialogComponent, {
       viewContainerRef: this.viewContainerRef,
+    });
+  }
+
+  openLabErrorLogs(): void {
+    this.dialogService.openMediumDialog(LmlDockerContainerErrorDialogComponent, {
+      data: this.managerService.getLabStartingError(),
+      autoFocus: false,
     });
   }
 }

@@ -1,12 +1,18 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { combineLatest, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
+import { LmlDockerProgress, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
+
+interface CaCurrentTask {
+  text: string;
+  progress?: LmlDockerProgress;
+}
+
 
 /**
  * Component to show the current running task of the lab
@@ -22,52 +28,52 @@ export class CaLabCurrentTaskComponent implements OnInit {
    */
   @Input() showConfigRouteLink: boolean = false;
 
-  currentTask$: Observable<string>;
+  currentTask$: Observable<CaCurrentTask>;
 
   configRoute: string;
 
   private state = inject(CaLabDetailPageState);
-  private managerState = inject(LmlLabManagerState);
   private translateService = inject(FlTranslateService);
 
   ngOnInit(): void {
-    const obs = combineLatest([
-      this.state.getStatus$(),
-      this.managerState.getStatus$().pipe(startWith(null)),
-    ]);
-
-    this.currentTask$ = obs.pipe(
-      map(([status, managerStatus]) => this.getRunningTaskMessage(status, managerStatus))
-    );
+    this.currentTask$ = this.state
+      .getFullStatus$()
+      .pipe(map(([status, managerStatus]) => this.getRunningTaskMessage(status, managerStatus)));
 
     this.configRoute = CaRouterService.getLabConfigRoute(this.state.getLabId());
   }
 
-  getRunningTaskMessage(status: CaLabStatusDTO, managerStatus?: LmlLabManagerStatus): string {
+  getRunningTaskMessage(status: CaLabStatusDTO, managerStatus?: LmlLabManagerStatus): CaCurrentTask {
     if (status == null) return null;
 
     // if there is a server task, return it
     if (status.serverTaskStatus.value === 'RUNNING') {
-      // eslint-disable-next-line max-len
-      return `${this.translateService.translate(this.getStatusRunningMessage(status))} - ${status.serverTaskText} - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`;
+      return {
+        text:
+          `${this.translateService.translate(this.getStatusRunningMessage(status))} - ` +
+          `${status.serverTaskText} - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`,
+      };
     }
 
     if (status.labStatus.value === 'SERVER_STARTING') {
-      return this.translateService.translate('lab_is_starting');
+      return {
+        text: this.translateService.translate('lab_is_starting'),
+      }
     }
 
     if (status.labStatus.value === 'SERVER_STOPPING') {
-      return this.translateService.translate('lab_is_stopping');
+      return {
+        text: this.translateService.translate('lab_is_stopping'),
+      }
     }
 
     // if all the lab containers are running but the lab is not running, it means the lab is starting
     if (managerStatus == null) return null;
-    if (
-      status.labManagerIsRunning &&
-      !status.labIsRunning &&
-      managerStatus.containersStatus?.status.value === 'UP'
-    ) {
-      return this.translateService.translate('lab_is_starting');
+    if (managerStatus.labStatus === 'STARTING') {
+      return {
+        text: this.translateService.translate('lab_is_starting'),
+        progress: managerStatus.glabStatus?.startProgress
+      }
     }
 
     return null;

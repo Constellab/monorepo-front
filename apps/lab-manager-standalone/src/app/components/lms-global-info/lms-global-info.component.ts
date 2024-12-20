@@ -33,6 +33,10 @@ export class LmsGlobalInfoComponent {
     this.state.refreshStatus();
   }
 
+  configureLabManager(): void {
+    this.labManagerState.configureLabManager();
+  }
+
   stopLab(): void {
     this.labManagerState.stopContainers();
   }

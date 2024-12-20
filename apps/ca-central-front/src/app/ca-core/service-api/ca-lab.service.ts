@@ -56,7 +56,9 @@ import {
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
-  LmlDockerPs,
+  LmlDockerErrorLogs,
+  LmlDockerInspect,
+  LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
@@ -237,8 +239,12 @@ export class CaLabService {
     });
   }
 
-  public listContainers(id: string): Observable<LmlDockerPs[]> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers`, LmlDockerPs);
+  public getLabStartingError(id: string): Observable<LmlDockerErrorLogs> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/starting/error`);
+  }
+
+  public listContainers(id: string): Observable<LmlDockerInspect[]> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers`, LmlDockerInspect);
   }
 
   public getContainerDetails(id: string, containerName: string): Observable<LmlDockerPsFull> {
@@ -264,10 +270,12 @@ export class CaLabService {
     return this.apiService.put(`${this.route}/${id}/lab-manager/containers/${containerName}/delete`, null);
   }
 
-  public getLogs(id: string, containerName: string): Observable<string> {
-    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`, null, {
-      responseType: 'text',
-    });
+  public getLogs(id: string, containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs`);
+  }
+
+  public getErrorLogs(id: string, containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.route}/${id}/lab-manager/containers/${containerName}/logs/error`);
   }
 
   public downloadLogs(id: string, containerName: string): Observable<Blob> {

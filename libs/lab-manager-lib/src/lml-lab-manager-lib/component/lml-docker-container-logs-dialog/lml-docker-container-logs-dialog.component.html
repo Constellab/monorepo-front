@@ -1,11 +1,11 @@
 <fl-dialog-header>
-  {{ input.containerName }}
+  {{ input.title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <fl-async-section [object]="logs$" [showServerErrorText]="true">
-    <ng-container *flSectionBody="logs$ as logs">
-      <p class="logs">{{ logs }}</p>
+  <fl-async-section [object]="input.logs$" [showServerErrorText]="true" [emptyText]="'lml.no_log'">
+    <ng-container *flSectionBody="input.logs$ as logs">
+      <p class="logs g-text-small">{{ logs.logs }}</p>
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

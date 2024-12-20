@@ -16,6 +16,6 @@ export class LmlBrickVersionDetailComponent {
 
   private brickService = inject(LmlBrickService);
   communityLink = computed(() =>
-    this.brickService.getBrickUrl(this.brickName(), this.brickVersion().version)
+    this.brickService.getBrickUrl(this.brickName(), this.brickVersion().brickVersion)
   );
 }

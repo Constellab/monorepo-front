@@ -1,0 +1,16 @@
+<fl-dialog-header>
+  {{ 'lms.update_lab_manager' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-key-value class="help-text">
+    <fl-key>{{ 'lms.lab_manager_version' | translate }}</fl-key>
+    {{ input.currentVersion }}
+  </fl-key-value>
+
+  <div class="help-text">
+    {{ 'lms.update_lab_manager_help' | translate: { version: input.recommendedVersion } }}
+  </div>
+
+  <code class="g-text-small">{{ command$ | async }}</code>
+</mat-dialog-content>

@@ -13,7 +13,7 @@
     "lab_is_not_running": "Le data lab n'est pas démarré",
     "refresh_status": "Rafraîchir le statut",
     "lab_task_is_running": "Une tâche est en cours d'exécution, veuillez patienter",
-    "lab_is_starting": "Le lab est en train de démarrer, cela peut prendre quelques minutes",
+    "lab_is_starting": "Le lab est en train de démarrer, cela peut prendre quelques minutes.",
     "go_to_lab": "Ouvrir le lab",
     "configure_lab_manager": "Configurer le Lab manager",
     "configure_lab_manager_description": "Pour configurer le Lab manager, veuillez uploader le fichier de configuration. Vous pouvez télécharger le fichier de configuration depuis la page de votre desktop lab dans votre espace.",
@@ -21,7 +21,10 @@
     "incorrect_configuration_file": "Fichier de configuration incorrect",
     "lab_manager_configured": "Lab manager configuré",
     "start_lab": "Démarrer",
-    "stop_lab": "Arrêter"
+    "stop_lab": "Arrêter",
+    "update_lab_manager": "Mettre à jour le Lab manager",
+    "update_lab_manager_help": "La version {{version}} du lab manager est disponible. Pour mettre à jour le lab manager, veuillez exécuter les commandes suivantes. Attention : cela arrêtera cette application, copiez toutes les commandes avant de les exécuter.",
+    "lab_manager_version": "Version actuelle du Lab manager"
   }
 }
 

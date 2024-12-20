@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { combineLatest, Observable, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
-import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
+import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 
 /**
  * Component to show global information about the lab status
@@ -17,7 +17,6 @@ import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-l
 })
 export class CaLabGlobalStatusComponent implements OnInit {
   private state = inject(CaLabDetailPageState);
-  private managerState = inject(LmlLabManagerState);
   private translateService = inject(FlTranslateService);
 
   status$: Observable<CaLabStatusDTO> = this.state.getStatus$();
@@ -29,14 +28,9 @@ export class CaLabGlobalStatusComponent implements OnInit {
   labId: string = this.state.getLabId();
 
   ngOnInit(): void {
-    const obs = combineLatest([
-      this.state.getStatus$(),
-      this.managerState.getStatus$().pipe(startWith(null)),
-    ]);
-
-    this.errors$ = obs.pipe(
-      map(([status, managerStatus]) => this.getErrorStatusMessages(status, managerStatus))
-    );
+    this.errors$ = this.state
+      .getFullStatus$()
+      .pipe(map(([status, managerStatus]) => this.getErrorStatusMessages(status, managerStatus)));
   }
 
   forceStatusRefresh(): void {
@@ -64,7 +58,8 @@ export class CaLabGlobalStatusComponent implements OnInit {
     if (status.serverTaskStatus.value === 'ERROR') {
       // eslint-disable-next-line max-len
       errors.push(
-        `${this.translateService.translate('lab_server_last_task_error')} - ${status.serverTaskText} - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`
+        `${this.translateService.translate('lab_server_last_task_error')} - ${status.serverTaskText}` +
+          ` - ${ClDateHelper.fromNow(status.serverTaskDatetime)}`
       );
     }
     return errors;

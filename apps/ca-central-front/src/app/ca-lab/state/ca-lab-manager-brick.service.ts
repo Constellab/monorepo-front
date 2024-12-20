@@ -6,7 +6,6 @@ import { CoBrickVersionPath, CoCommunityHelperService, CoSpace } from '@monorepo
 import { FlApiService } from '@monorepo/front-core-lib';
 import { CaCoServiceConfig } from '../../ca-core/model/config/ca-co-service-config.service';
 import { CaSpaceService } from '../../ca-core/service-api/ca-space.service';
-import { CaBrickService } from '../../ca-core/service-api/ca-brick.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +18,6 @@ export class CaLabManagerBrickService extends LmlBrickService {
   private communityServiceConfig = inject(CaCoServiceConfig);
 
   private spaceService = inject(CaSpaceService);
-  private brickService = inject(CaBrickService);
 
   private coCommunityHelper = inject(CoCommunityHelperService);
 
@@ -42,12 +40,15 @@ export class CaLabManagerBrickService extends LmlBrickService {
   }
 
   getByName(name: string): Observable<LmlCommunityBrick> {
-    return this.apiService.get(`${this.route}/brick/name/${name}`, LmlCommunityBrick);
+    return this.apiService.get(`${this.route}/brick/${name}`, LmlCommunityBrick);
   }
 
-  // TODO To improve
   getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
-    return this.brickService.getBrickVersion(brickName, brickVersion);
+    return this.apiService.get(`${this.route}/brick/${brickName}/version/${brickVersion}`, LmlCommunityBrick);
+  }
+
+  getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
+    return this.apiService.get(`${this.route}/brick/${brickName}/latest`, LmlCommunityBrick);
   }
 
   getImageUrl(filename: string): string {

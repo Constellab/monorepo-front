@@ -4,9 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable, Subscription } from 'rxjs';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
-import { CaLabManagerState } from '../../../state/ca-lab-manager.state';
-import { LmlLabManagerApiService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
-import { CaLabManagerApiService } from '../../../state/ca-lab-manager-api.service';
+import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
+import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
 
 @Component({
   selector: 'ca-lab-detail-page',
@@ -15,8 +14,8 @@ import { CaLabManagerApiService } from '../../../state/ca-lab-manager-api.servic
   providers: [
     CaLabDetailPageState,
     CaLabDetailServerState,
-    { provide: LmlLabManagerApiService, useClass: CaLabManagerApiService },
-    { provide: LmlLabManagerState, useClass: CaLabManagerState },
+    { provide: LmlLabManagerService, useClass: CaLabManagerService },
+    LmlLabManagerState,
   ],
 })
 export class CaLabDetailPageComponent implements OnInit, OnDestroy {
@@ -26,11 +25,8 @@ export class CaLabDetailPageComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private state = inject(CaLabDetailPageState);
-  private managerState = inject(LmlLabManagerState);
   private route = inject(ActivatedRoute);
-  private labManagerApiService: CaLabManagerApiService = inject(
-    LmlLabManagerApiService
-  ) as CaLabManagerApiService;
+  private labManagerState = inject(LmlLabManagerState);
 
   private subscription: Subscription;
 
@@ -40,13 +36,9 @@ export class CaLabDetailPageComponent implements OnInit, OnDestroy {
 
   private getLab(id: string): void {
     this.isLoading = true;
-    this.state.init(id);
+    this.state.init(id, this.labManagerState.getStatus$());
     this.lab$ = this.state.getLab$();
     this.isOwner$ = this.state.isLabOwner$();
-
-    this.labManagerApiService.init(this.state.getLabId());
-
-    this.subscription = this.managerState.getRefreshLabStatus$().subscribe(() => this.state.refreshStatus());
   }
 
   ngOnDestroy(): void {

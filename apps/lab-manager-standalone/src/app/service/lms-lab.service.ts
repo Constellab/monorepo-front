@@ -7,7 +7,9 @@ import {
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
   LmlDockerContainerSize,
-  LmlDockerPs,
+  LmlDockerErrorLogs,
+  LmlDockerInspect, LmlDockerLogs,
+  LmlDockerProgress,
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,
@@ -62,10 +64,8 @@ export class LmsLabService {
     return this.apiService.get(`${this.route}/bricks-config`, LmlLabManagerConfig);
   }
 
-  getLogs(containerName: string): Observable<string> {
-    return this.apiService.get(`${this.route}/containers/${containerName}/logs`, null, {
-      responseType: 'text',
-    });
+  getLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.route}/containers/${containerName}/logs`);
   }
 
   getStatus(): Observable<LmlLabManagerStatus> {
@@ -76,8 +76,8 @@ export class LmsLabService {
     return this.apiService.post(`${this.route}/init`, null);
   }
 
-  listContainers(): Observable<LmlDockerPs[]> {
-    return this.apiService.get(`${this.route}/containers`, LmlDockerPs);
+  listContainers(): Observable<LmlDockerInspect[]> {
+    return this.apiService.get(`${this.route}/containers`, LmlDockerInspect);
   }
 
   pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
@@ -136,5 +136,19 @@ export class LmsLabService {
 
   getAdminerInfo(): Observable<LmlAdminerInfo> {
     return this.apiService.get(`${this.route}/adminer/info`);
+  }
+
+  getLabStartingErrors(): Observable<LmlDockerErrorLogs> {
+    return this.apiService.get(`${this.route}/starting/error`);
+  }
+
+  getContainerErrorLogs(containerName: string): Observable<LmlDockerLogs> {
+    return this.apiService.get(`${this.route}/containers/${containerName}/logs/error`);
+  }
+
+  getUpdateLabManagerCommand(): Observable<string> {
+    return this.apiService
+      .get(`${this.route}/desktop/update-lab-manager-command`)
+      .pipe(map((response: { command: string }) => response.command));
   }
 }

@@ -66,7 +66,12 @@ import { MatSortHeader } from '@angular/material/sort';
     FlKeyValueModule,
     MatSortHeader,
   ],
-  exports: [PrWorkflowComponent, PrProcessInfoComponent, PrProcessInfoDialogComponent],
+  exports: [
+    PrWorkflowComponent,
+    PrProcessInfoComponent,
+    PrProcessInfoDialogComponent,
+    PrIofaceInfoPortalComponent,
+  ],
   declarations: [
     PrWorkflowComponent,
     PrWorkflowNodeProcessComponent,

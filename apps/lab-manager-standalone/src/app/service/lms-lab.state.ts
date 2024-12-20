@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable, OnDestroy, signal, Signal } from '@angular/core';
+import { computed, inject, Injectable, OnDestroy, signal, Signal } from '@angular/core';
 import { LmsLabService } from './lms-lab.service';
 import { LmlLabManagerState, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 import { catchError, of, Subscription } from 'rxjs';
@@ -18,39 +18,22 @@ export class LmsLabState implements OnDestroy {
     brickAreConfigured: false,
   });
 
-  private _labIsStarting = computed((): boolean => {
-    return (
-      !this._labIsRunning() &&
-      this._labManagerIsRunning() &&
-      this.labManagerStatus().labManagerStatus?.containersStatus?.status.value === 'UP'
-    );
-  });
+  private _labIsStarting = computed(
+    (): boolean => this._labManagerStatus().labManagerStatus?.labStatus === 'STARTING'
+  );
 
   private labService = inject(LmsLabService);
   private managerState = inject(LmlLabManagerState);
 
   private subscription: Subscription;
 
-  private interval: any;
-
-  private readonly AUTO_REFRESH_INTERVAL = 5000;
-
   constructor() {
     this.refreshStatus();
     this.subscription = this.managerState.getStatus$().subscribe((status) => this.onNewStatus(status));
-
-    effect(() => {
-      // while the lab is starting, we refresh the status every 5 seconds
-      if (this.labIsStarting()) {
-        this.interval = setInterval(() => this.refreshStatus(true), this.AUTO_REFRESH_INTERVAL);
-      } else {
-        clearInterval(this.interval);
-      }
-    });
   }
 
-  public refreshStatus(skipLoading: boolean = false): void {
-    this.managerState.refreshStatus(skipLoading);
+  public refreshStatus(): void {
+    this.managerState.refreshStatus();
   }
 
   private onNewStatus(labManagerStatus: LmlLabManagerStatus): void {

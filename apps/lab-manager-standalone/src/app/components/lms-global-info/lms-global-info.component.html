@@ -6,7 +6,11 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" (click)="refresh()" class="g-button-small">
+      <button mat-stroked-button type="button" (click)="configureLabManager()" class="g-button-small">
+        {{ 'lms.configure_lab_manager' | translate }}
+      </button>
+
+      <button mat-stroked-button type="button" (click)="refresh()" class="g-button-small refresh">
         <mat-icon>refresh</mat-icon>
         {{ 'lms.refresh_status' | translate }}
       </button>
@@ -41,7 +45,14 @@
     @if (labIsStarting()) {
       <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
         <fl-loader size="small"></fl-loader>
-        <div>{{ 'lms.lab_is_starting' | translate }}</div>
+        <div>
+          <div>{{ 'lms.lab_is_starting' | translate }}</div>
+          @if (labStatus().labManagerStatus?.glabStatus?.startProgress; as progress) {
+            <div class="g-text-light g-text-small">
+              {{ progress.percent }}% {{ progress.message }}
+            </div>
+          }
+        </div>
       </div>
     }
 
@@ -57,7 +68,7 @@
       </a>
 
       @if (labIsRunning()) {
-        <button mat-stroked-button type="button" (click)="stopLab()" class="g-button-small" color="warn">
+        <button mat-stroked-button type="button" (click)="stopLab()" color="warn">
           <mat-icon>stop</mat-icon>
           {{ 'lms.stop_lab' | translate }}
         </button>
@@ -66,9 +77,8 @@
           mat-stroked-button
           type="button"
           (click)="startLab()"
-          class="g-button-small"
           color="primary"
-          [disabled]="!labStatus().labManagerIsConfigured || !labStatus().brickAreConfigured">
+          [disabled]="!labStatus().labManagerIsConfigured || !labStatus().brickAreConfigured || labStatus().labManagerStatus?.actionInProgress">
           <mat-icon>play_arrow</mat-icon>
           {{ 'lms.start_lab' | translate }}
         </button>

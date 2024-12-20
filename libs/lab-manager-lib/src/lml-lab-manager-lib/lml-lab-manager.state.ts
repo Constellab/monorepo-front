@@ -7,24 +7,29 @@ import {
   flStatutEventSuccess,
   FlTranslatableText,
 } from '@monorepo/front-core-lib';
-import { BehaviorSubject, distinct, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinct, Observable } from 'rxjs';
 import {
   LmlDockerUpFormComponent,
   LmlDockerUpFormInput,
 } from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';
-import { LmlComposeUpOptions, LmlDockerPs, LmlLabManagerStatus } from './model/lml-lab-manager.class';
-import { LmlLabManagerApiService } from './lml-lab-manager-api.service';
+import {
+  LmlComposeUpOptions,
+  LmlDockerInspect,
+  LmlDockerProgress,
+  LmlLabManagerStatus,
+  LmlNewVersionAvailable,
+} from './model/lml-lab-manager.class';
+import { LmlLabManagerService } from './lml-lab-manager.service';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 
 interface LmlAdditionalData {
-  refreshLabStatus?: boolean;
   refreshDockerContainers?: boolean;
 }
 
 @Injectable()
-export abstract class LmlLabManagerState implements OnDestroy {
+export class LmlLabManagerState implements OnDestroy {
   private status$: BehaviorSubject<FlStatusEvent<LmlLabManagerStatus>> = new BehaviorSubject({
     status: 'waiting',
   });
@@ -33,7 +38,8 @@ export abstract class LmlLabManagerState implements OnDestroy {
 
   private readonly actionType = 'lab-manager';
 
-  private autoRefreshFrequency = 15000;
+  // TODO a voir
+  private autoRefreshFrequency = 5000;
   private autoRefreshTimeout: any;
   // stop auto refresh after 2 not running status
   // this is used to stop auto-refresh if a short not running status is returned (on lab start for example)
@@ -42,9 +48,7 @@ export abstract class LmlLabManagerState implements OnDestroy {
   // set it to the max count to start auto-refresh, so it will not auto-refresh on the first status
   private autoNotRunningStatusCount = this.autoNotRunningStatusMaxCount;
 
-  // subject to tell outside that the lab status need to be refreshed
-  private refreshLabStatus = new Subject<void>();
-  private dockerContainers = new BehaviorSubject<FlStatusEvent<LmlDockerPs[]>>({
+  private dockerContainers = new BehaviorSubject<FlStatusEvent<LmlDockerInspect[]>>({
     status: 'waiting',
   });
 
@@ -52,16 +56,15 @@ export abstract class LmlLabManagerState implements OnDestroy {
 
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
-  private labManagerService = inject(LmlLabManagerApiService);
-
-  abstract labManagerIsRunning$(): Observable<boolean>;
+  private labManagerService = inject(LmlLabManagerService);
 
   public init(): void {
     if (!this.initialized) {
       this.initialized = true;
 
       this.subscriptions.add(
-        this.labManagerIsRunning$()
+        this.labManagerService
+          .labManagerIsRunning$()
           .pipe(distinct())
           .subscribe({
             next: () => this.refreshStatus(),
@@ -77,13 +80,10 @@ export abstract class LmlLabManagerState implements OnDestroy {
   }
 
   private onActionResult(result: FlPortalActionResult): void {
-    if ((result?.additionalInformation as LmlAdditionalData)?.refreshLabStatus) {
-      this.refreshLabStatus.next();
-    }
     if ((result?.additionalInformation as LmlAdditionalData)?.refreshDockerContainers) {
       this.refreshDockerContainers();
     }
-    this.refreshStatus();
+    this.refreshStatus(true);
   }
 
   public refreshStatus(skipLoading: boolean = false): void {
@@ -109,7 +109,7 @@ export abstract class LmlLabManagerState implements OnDestroy {
       object: status,
     });
 
-    if (status.currentTask?.status.value === 'RUNNING') {
+    if (status.actionInProgress) {
       // as the task is running, mark the count as 0, it will keep refreshing
       this.autoNotRunningStatusCount = 0;
     } else {
@@ -119,7 +119,7 @@ export abstract class LmlLabManagerState implements OnDestroy {
 
     // only refresh if the count is not maxed out
     if (this.autoNotRunningStatusCount < this.autoNotRunningStatusMaxCount) {
-      this.autoRefreshTimeout = setTimeout(() => this.refreshStatus(), this.autoRefreshFrequency);
+      this.autoRefreshTimeout = setTimeout(() => this.refreshStatus(true), this.autoRefreshFrequency);
     }
   }
 
@@ -135,7 +135,7 @@ export abstract class LmlLabManagerState implements OnDestroy {
     return this.getStatus$().pipe(map((status) => status.adminerIsRunning));
   }
 
-  public getDockersContainers$(): Observable<FlStatusEvent<LmlDockerPs[]>> {
+  public getDockersContainers$(): Observable<FlStatusEvent<LmlDockerInspect[]>> {
     return this.dockerContainers.asObservable();
   }
 
@@ -151,7 +151,7 @@ export abstract class LmlLabManagerState implements OnDestroy {
     if (this.dockerContainers.value.status === 'loading') return;
     this.dockerContainers.next({ status: 'loading' });
     this.labManagerService.listContainers().subscribe({
-      next: (containers: LmlDockerPs[]) =>
+      next: (containers: LmlDockerInspect[]) =>
         this.dockerContainers.next({
           status: 'success',
           object: containers,
@@ -166,7 +166,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       action: this.labManagerService.initLab(),
       text: actionText,
       type: this.actionType,
-      additionalInformation: { refreshLabStatus: true } as LmlAdditionalData,
     });
   }
 
@@ -186,7 +185,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
           text: { text: 'lml.up_containers', translateText: true },
           type: this.actionType,
           additionalInformation: {
-            refreshLabStatus: true,
             refreshDockerContainers: true,
           } as LmlAdditionalData,
         });
@@ -202,7 +200,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
           text: { text: 'lml.restart_containers', translateText: true },
           type: this.actionType,
           additionalInformation: {
-            refreshLabStatus: true,
             refreshDockerContainers: true,
           } as LmlAdditionalData,
         });
@@ -220,7 +217,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.stop_containers', translateText: true },
       type: this.actionType,
       additionalInformation: {
-        refreshLabStatus: true,
         refreshDockerContainers: true,
       } as LmlAdditionalData,
     });
@@ -232,7 +228,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.delete_containers', translateText: true },
       type: this.actionType,
       additionalInformation: {
-        refreshLabStatus: true,
         refreshDockerContainers: true,
       } as LmlAdditionalData,
     });
@@ -282,7 +277,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       action: this.labManagerService.startAdminer(),
       text: { text: 'lml.start_adminer', translateText: true },
       type: this.actionType,
-      additionalInformation: { refreshDockerContainers: true } as LmlAdditionalData,
     });
   }
 
@@ -291,7 +285,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       action: this.labManagerService.stopAdminer(),
       text: { text: 'lml.stop_adminer', translateText: true },
       type: this.actionType,
-      additionalInformation: { refreshDockerContainers: true } as LmlAdditionalData,
     });
   }
 
@@ -303,7 +296,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.container_start', translateText: true },
       type: this.actionType,
       additionalInformation: {
-        refreshLabStatus: true,
         refreshDockerContainers: true,
       } as LmlAdditionalData,
     });
@@ -315,7 +307,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.container_stop', translateText: true },
       type: this.actionType,
       additionalInformation: {
-        refreshLabStatus: true,
         refreshDockerContainers: true,
       } as LmlAdditionalData,
     });
@@ -327,7 +318,6 @@ export abstract class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.container_delete', translateText: true },
       type: this.actionType,
       additionalInformation: {
-        refreshLabStatus: true,
         refreshDockerContainers: true,
       } as LmlAdditionalData,
     });
@@ -341,13 +331,22 @@ export abstract class LmlLabManagerState implements OnDestroy {
     });
   }
 
-  public getRefreshLabStatus$(): Observable<void> {
-    return this.refreshLabStatus.asObservable();
+  public getNewLabManagerVersion$(): Observable<LmlNewVersionAvailable | null> {
+    return combineLatest([this.getStatus$(), this.labManagerService.getLabManagerRecommendedVersion()]).pipe(
+      map(([labManagerStatus, recommendedVersion]) => {
+        if (!labManagerStatus) return null;
+        if (labManagerStatus.version === recommendedVersion) return null;
+        return {
+          currentVersion: labManagerStatus.version,
+          recommendedVersion,
+        };
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions?.unsubscribe();
-    this.refreshLabStatus.complete();
     this.dockerContainers.complete();
+    this.status$.complete();
   }
 }

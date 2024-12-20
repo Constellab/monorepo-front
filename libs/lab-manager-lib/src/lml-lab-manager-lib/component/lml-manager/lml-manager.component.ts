@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { FlStatusEvent } from '@monorepo/front-core-lib';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { LmlNewVersionAvailable } from '../../model/lml-lab-manager.class';
+import { LmlLabManagerService } from '../../lml-lab-manager.service';
 
 /**
  * Component only accessible by the admin
@@ -15,7 +17,10 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
   private managerState = inject(LmlLabManagerState);
+  private managerService = inject(LmlLabManagerService);
   labManagerStatus$: Observable<FlStatusEvent>;
+
+  newLabManagerVersion$: Observable<LmlNewVersionAvailable>;
 
   refreshIsLoading: boolean = false;
 
@@ -25,6 +30,7 @@ export class LmlManagerComponent implements OnInit, OnDestroy {
     this.managerState.init();
 
     this.labManagerStatus$ = this.managerState.getStatusEvent$();
+    this.newLabManagerVersion$ = this.managerState.getNewLabManagerVersion$();
 
     this.subscriptions.add(
       this.managerState.getStatusEvent$().subscribe((statusEvent) => {
@@ -38,6 +44,10 @@ export class LmlManagerComponent implements OnInit, OnDestroy {
   refresh(): void {
     this.refreshIsLoading = true;
     this.managerState.refreshStatus();
+  }
+
+  updateLabManager(version: LmlNewVersionAvailable): void {
+    this.managerService.updateLabManager(version);
   }
 
   ngOnDestroy(): void {

@@ -1,11 +1,11 @@
 <mat-accordion>
   @for (container of containers; track container.names) {
-    <mat-expansion-panel [disabled]="container.state.value === 'none'">
+    <mat-expansion-panel [disabled]="container.status.value === 'none'">
       <mat-expansion-panel-header>
         <mat-panel-title>
           <div class="g-layout-row g-layout-between g-full">
             <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-              <fl-status-chip [status]="container.state"></fl-status-chip>
+              <fl-status-chip [status]="container.status"></fl-status-chip>
               <span>{{ container.names }}</span>
             </div>
 
@@ -25,6 +25,11 @@
                 <button mat-menu-item type="button" (click)="downloadLogs(container.names)">
                   <mat-icon>cloud_download</mat-icon>
                   <span>{{ 'lml.container_download_logs' | translate }}</span>
+                </button>
+
+                <button mat-menu-item type="button" (click)="showErrors(container.names)">
+                  <mat-icon>error</mat-icon>
+                  <span>{{ 'lml.show_errors' | translate }}</span>
                 </button>
 
                 <button mat-menu-item type="button" (click)="startComposeContainer(container.names)">

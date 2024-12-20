@@ -17,9 +17,11 @@
         [placeholder]="inputData.confirmWithText"
         [formControl]="confirmTextFormControl"
         required />
-      <mat-error *ngIf="confirmTextFormControl.invalid">
-        {{ 'flDialog.invalid_confirm_text' | translate }}
-      </mat-error>
+      @if (confirmTextFormControl.invalid) {
+        <mat-error>
+          {{ 'flDialog.invalid_confirm_text' | translate }}
+        </mat-error>
+      }
     </mat-form-field>
   }
 </div>
@@ -33,8 +35,10 @@
     tabindex="-1"
     color="primary"
     class="yes-button">
-    {{ 'yes' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    {{ 'flDialog.yes' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
   <button
     mat-stroked-button
@@ -43,6 +47,6 @@
     [disabled]="isLoading"
     tabindex="-1"
     color="warn">
-    {{ 'no' | translate }}
+    {{ 'flDialog.no' | translate }}
   </button>
 </div>

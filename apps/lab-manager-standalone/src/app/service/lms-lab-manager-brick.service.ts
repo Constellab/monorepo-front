@@ -36,10 +36,14 @@ export class LmsLabManagerBrickService extends LmlBrickService {
     return this.apiService.get(`${this.route}/${name}`, LmlCommunityBrick);
   }
 
-  // TODO To improve, return type is not correct
+  getBrickLatestVersion(brickName: string): Observable<LmlBrickVersion> {
+    return this.apiService.get(`${this.route}/${brickName}/latest`, LmlBrickVersion);
+  }
+
   getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
     return this.apiService.get(`${this.route}/${brickName}/version/${brickVersion}`, LmlBrickVersion);
   }
+
 
   getImageUrl(filename: string): string {
     return `${this.communityService.getCommunityApiUrl()}/image/${filename}`;

@@ -11,27 +11,38 @@ import {
   LmlBrickVersionDetailDialogInput,
 } from '../lml-brick-version-detail-dialog/lml-brick-version-detail-dialog.component';
 import { LmlConfigureBrickComponent } from '../lml-configure-brick/lml-configure-brick.component';
-import { LmlLabManagerBrickVersionDTO, LmlLabManagerConfig } from '../../model/lml-lab-manager.class';
+import {
+  LmlBrickVersionDTODatasource,
+  LmlLabManagerBrickVersionDTO,
+  LmlLabManagerConfig,
+} from '../../model/lml-lab-manager.class';
+import { LmlBrickService } from '../../lml-brick.service';
+import { LmlBrickVersion } from '../../model/lml-brick.class';
 
 /**
  * Form to update the lab config
  */
 @Component({
-  selector: 'lml-config-form',
-  templateUrl: './lml-config-form.component.html',
-  styleUrls: ['./lml-config-form.component.scss'],
+  selector: 'lml-bricks-config-form',
+  templateUrl: './lml-bricks-config-form.component.html',
+  styleUrls: ['./lml-bricks-config-form.component.scss'],
 })
-export class LmlConfigFormComponent {
-  @Input({ required: true }) labConfig: LmlLabManagerConfig;
+export class LmlBricksConfigFormComponent {
+  @Input({ required: true }) brickVersions: LmlBrickVersionDTODatasource;
 
-  @Output() labConfigChange: EventEmitter<LmlLabManagerConfig> = new EventEmitter<LmlLabManagerConfig>();
+  @Output() configChange: EventEmitter<LmlLabManagerConfig> = new EventEmitter<LmlLabManagerConfig>();
 
   @Input() showAdvanced: boolean = true;
 
   @Input() warningOnRemoveBrick: boolean = true;
 
+  columns = ['name', 'version', 'actions'];
+
+  addGwsCoreIsLoading: boolean = false;
+
   private snackBarService = inject(FlSnackBarService);
   private dialogService = inject(FlDialogService);
+  private brickService = inject(LmlBrickService);
 
   openBrickVersionDetailDialog(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
     const data: LmlBrickVersionDetailDialogInput = {
@@ -51,17 +62,15 @@ export class LmlConfigFormComponent {
       })
       .afterClosed()
       .subscribe((brickVersion) =>
-        this.onBrickDialogClosed(brickVersionDTO == null ? 'add' : 'update', brickVersion)
+        this.onBrickDialogClosed(brickVersionDTO == null ? 'add' : 'update', brickVersion),
       );
   }
 
   private onBrickDialogClosed(mode: 'add' | 'update', brickVersionDTO?: LmlLabManagerBrickVersionDTO): void {
     if (!brickVersionDTO) return;
 
-    const brick = this.labConfig.brickVersions.find(
-      (brickVersion) => brickVersion.name === brickVersionDTO.name
-    );
-    if (mode === 'add' && brick) {
+    const existingVersion = this.brickVersions.findItem(brickVersionDTO);
+    if (mode === 'add' && existingVersion) {
       this.snackBarService.openErrorMessage({
         text: 'lml.lab_brick_already_exists',
         translateText: true,
@@ -71,13 +80,12 @@ export class LmlConfigFormComponent {
     }
 
     // if this is an update
-    if (brick) {
-      brick.version = brickVersionDTO.version;
+    if (existingVersion) {
+      this.brickVersions.updateItem(brickVersionDTO);
     } else {
-      this.labConfig.brickVersions.push(brickVersionDTO);
+      this.brickVersions.addItem(brickVersionDTO);
     }
-    this.resetGlabTagToDefault();
-    this.labConfigChange.emit(this.labConfig);
+    this.configChange.emit(this.brickVersions.toLabManagerConfig());
   }
 
   openDeleteBrickConfirmDialog(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
@@ -98,7 +106,7 @@ export class LmlConfigFormComponent {
 
   private onDeleteBrickConfirmClosed(
     result: FlConfirmDialogResult,
-    brickVersionDTO: LmlLabManagerBrickVersionDTO
+    brickVersionDTO: LmlLabManagerBrickVersionDTO,
   ): void {
     if (result.choice) {
       this.deleteBrickVersion(brickVersionDTO);
@@ -106,21 +114,24 @@ export class LmlConfigFormComponent {
   }
 
   private deleteBrickVersion(brickVersionDTO: LmlLabManagerBrickVersionDTO): void {
-    this.labConfig.brickVersions = this.labConfig.brickVersions.filter(
-      (brick) => brick.name !== brickVersionDTO.name
-    );
-    this.resetGlabTagToDefault();
-    this.labConfigChange.emit(this.labConfig);
-  }
-
-  resetGlabTagToDefault(): void {
-    this.labConfig.glabTag = '';
+    this.brickVersions.removeItem(brickVersionDTO);
+    this.configChange.emit(this.brickVersions.toLabManagerConfig());
   }
 
   isConfigured(): boolean {
-    return (
-      this.labConfig?.brickVersions?.length > 0 &&
-      this.labConfig.brickVersions.find((brick) => brick.name === TdBrick.GWS_CORE) != null
-    );
+    return this.brickVersions.findItem({ name: TdBrick.GWS_CORE, version: null }) != null;
+  }
+
+  addGwsCoreBrick(): void {
+    this.addGwsCoreIsLoading = true;
+    this.brickService.getBrickLatestVersion(TdBrick.GWS_CORE).subscribe({
+      next: brick => this.getGwsCoreBrickSuccess(brick),
+      error: () => this.addGwsCoreIsLoading = false,
+    });
+  }
+
+  private getGwsCoreBrickSuccess(brick: LmlBrickVersion): void {
+    this.onBrickDialogClosed('add', { name: brick.brickName, version: brick.brickVersion });
+    this.addGwsCoreIsLoading = false;
   }
 }

@@ -39,4 +39,10 @@ export class LmlDockerUpFormComponent {
       ? 'lml.lab_manager_compose_up_form'
       : 'lml.lab_manager_compose_restart_form';
   }
+
+  get submitLabel(): string {
+    return this.input.mode === 'start'
+      ? 'lml.up_containers'
+      : 'lml.restart_containers';
+  }
 }

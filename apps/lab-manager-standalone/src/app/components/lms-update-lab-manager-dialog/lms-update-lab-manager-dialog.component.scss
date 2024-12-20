@@ -1,0 +1,12 @@
+.help-text{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+code {
+  white-space: pre-line;
+  background-color: var(--main-background);
+  border-radius: var(--card-radius);
+  padding: 1em;
+  display: block;
+}

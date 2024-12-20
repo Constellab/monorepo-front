@@ -1,43 +1,19 @@
 import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
-import { ClLuxonDateTimeTransform, ClVersion } from '@monorepo/core-lib';
+import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { CoBrick, CoSpace, CoUser } from '@monorepo/community-lib';
 import { DateTime } from 'luxon';
 import { Type } from 'class-transformer';
 
+export class LmlBrickVersion {
+  brickName: string;
 
-export enum LmlRepoType {
-  PIP = 'PIP',
-  GIT = 'GIT',
-}
+  brickVersion: string;
 
-export enum LmlVersionState {
-  STABLE = 'STABLE',
-  LATEST = 'LATEST',
-  NEXT = 'NEXT',
-}
+  repoType: 'PIP' | 'GIT';
 
-export enum LmlVersionType {
-  NORMAL = 'NORMAL',
-  BETA = 'BETA',
-}
-
-export class LmlBrickVersion implements FlEntity{
-  id: string;
-
-  version: string;
-
-  versionState: LmlVersionState;
-
-  versionType: LmlVersionType;
-
-  repoType: LmlRepoType;
+  repositoryUrl: string;
 
   technicalInfo: Record<string, string>;
-
-  isEqualOrHigher(version: ClVersion): boolean {
-    const currentVersion = ClVersion.fromString(this.version);
-    return currentVersion.isEqualOrHigher(version);
-  }
 }
 
 export class LmlCommunityBrick implements CoBrick, FlEntity {

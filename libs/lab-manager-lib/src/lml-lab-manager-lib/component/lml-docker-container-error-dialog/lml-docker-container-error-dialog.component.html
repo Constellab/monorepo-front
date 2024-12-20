@@ -1,0 +1,33 @@
+<fl-dialog-header>
+  {{ 'lml.glab_errors' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section
+    [object]="logs$"
+    [showServerErrorText]="true"
+    [emptyText]="'lml.glab_no_error_log'">
+    <ng-container *flSectionBody="logs$ as logs">
+      @if (logs.mainErrors.length > 0) {
+        @for (error of logs.mainErrors; let i = $index; track i;) {
+          <p>{{ error }}</p>
+        }
+      } @else {
+        <p>{{ 'lml.no_main_error' | translate }}</p>
+      }
+
+      <mat-expansion-panel class="detail">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ 'lml.container_error_details' | translate }}</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        @if (logs.logs) {
+          <p class="logs g-text-small">{{ logs.logs }}</p>
+        } @else {
+          <p>{{ 'lml.glab_no_error_log' | translate }}</p>
+        }
+
+      </mat-expansion-panel>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>
