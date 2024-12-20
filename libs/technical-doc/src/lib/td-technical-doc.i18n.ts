@@ -70,7 +70,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     edit: 'Edit',
     delete: 'Delete',
     param_spec_description:
-      "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'param'.",
+      "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'.",
   },
 };
 
@@ -142,7 +142,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     edit: 'Edit',
     delete: 'Delete',
     param_spec_description:
-      "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'param'.",
+      "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'.",
   },
 };
 
