@@ -63,7 +63,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     });
 
     if (environment.production && environment.settings.algoliaSiteVerificationKey) {
-      this.metadataService.setAlgoliaVerificationMetaTag(environment.settings.algoliaSearchKey);
+      this.metadataService.setAlgoliaVerificationMetaTag(environment.settings.algoliaSiteVerificationKey);
     }
   }
 
