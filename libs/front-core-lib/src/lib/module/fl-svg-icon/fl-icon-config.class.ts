@@ -77,7 +77,7 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'heart-fill', filename: 'heart-fill.svg' },
   { name: 'constellab_document', matIconName: 'description' },
   { name: 'brick', filename: 'brick.svg' },
-  { name: 'agent', filename: 'laptop-code-solid.svg' },
+  { name: 'agent', filename: 'agent.svg' },
   { name: 'community-icon', filename: 'community_logo.svg' },
 ];
 

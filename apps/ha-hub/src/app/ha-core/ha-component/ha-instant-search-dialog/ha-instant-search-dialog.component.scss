@@ -29,7 +29,6 @@
   border-left: solid 2px var(--hover-color);
   display: flex;
   flex-direction: row;
-  min-height: 48px;
 
   .hit-icon-div {
     display: flex;
@@ -44,6 +43,7 @@
     display: flex;
     flex-direction: column;
     flex: auto;
+    max-width: calc(100% - 3em - 48px);
   }
 
   .hit-image {
@@ -62,8 +62,7 @@
   }
 
   .hit-content {
-    margin-top: 0.5em;
-    font-size: 0.9em;
+    font-size: 0.7em;
   }
 }
 
