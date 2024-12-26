@@ -46,8 +46,8 @@ export class LmlManagerComponent implements OnInit, OnDestroy {
     this.managerState.refreshStatus();
   }
 
-  updateLabManager(version: LmlNewVersionAvailable): void {
-    this.managerService.updateLabManager(version);
+  updateLabManager(): void {
+    this.managerState.updateLabManager();
   }
 
   ngOnDestroy(): void {

@@ -3,12 +3,14 @@ import {
   LmlAdminerInfo,
   LmlComposeRestartOptions,
   LmlComposeUpOptions,
-  LmlDockerContainerSize, LmlDockerErrorLogs,
-  LmlDockerInspect, LmlDockerLogs,
-  LmlDockerProgress,
+  LmlDockerContainerSize,
+  LmlDockerErrorLogs,
+  LmlDockerInspect,
+  LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
-  LmlLabManagerStatus, LmlNewVersionAvailable,
+  LmlLabManagerStatus,
+  LmlNewVersionAvailable,
   LmlPullBiotaOptions,
 } from './model/lml-lab-manager.class';
 

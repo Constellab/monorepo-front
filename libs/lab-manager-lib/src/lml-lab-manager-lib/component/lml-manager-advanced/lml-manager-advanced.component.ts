@@ -24,6 +24,10 @@ export class LmlManagerAdvancedComponent {
     this.managerState.configureLabManager();
   }
 
+  updateLabManager(): void {
+    this.managerState.updateLabManager();
+  }
+
   upContainers(): void {
     this.managerState.upContainers();
   }

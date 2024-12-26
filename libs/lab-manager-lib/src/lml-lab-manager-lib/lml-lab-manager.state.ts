@@ -7,7 +7,7 @@ import {
   flStatutEventSuccess,
   FlTranslatableText,
 } from '@monorepo/front-core-lib';
-import { BehaviorSubject, combineLatest, distinct, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinct, first, Observable } from 'rxjs';
 import {
   LmlDockerUpFormComponent,
   LmlDockerUpFormInput,
@@ -16,7 +16,6 @@ import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form
 import {
   LmlComposeUpOptions,
   LmlDockerInspect,
-  LmlDockerProgress,
   LmlLabManagerStatus,
   LmlNewVersionAvailable,
 } from './model/lml-lab-manager.class';
@@ -175,6 +174,16 @@ export class LmlLabManagerState implements OnDestroy {
       text: { text: 'lml.configure_lab_manager', translateText: true },
       type: this.actionType,
     });
+  }
+
+  updateLabManager(): void {
+    this.getNewLabManagerVersion$()
+      .pipe(first())
+      .subscribe((newVersion) => {
+        if (newVersion) {
+          this.labManagerService.updateLabManager(newVersion);
+        }
+      });
   }
 
   upContainers(): void {

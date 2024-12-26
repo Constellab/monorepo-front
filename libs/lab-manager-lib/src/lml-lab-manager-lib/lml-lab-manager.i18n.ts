@@ -132,7 +132,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     lab_is_starting: 'Le lab est en train de démarrer, cela peut prendre quelques minutes.',
     show_errors: 'Voir les erreurs',
     glab_errors: 'Erreurs Glab',
-    new_lab_manager_version: 'Nouvelle version disponible',
+    new_lab_manager_version: 'Nouvelle version disponible (cliquer pour mettre à jour)',
     no_log: 'Aucun log.',
     glab_no_error_log: "Le service glab n'a pas d'erreur, veuillez vérifier les autres services",
     name: 'Nom',
@@ -140,6 +140,7 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     add_gws_core: 'Ajouter gws_core',
     container_error_details: 'Détails de l\'erreur',
     no_main_error: 'Pas d\'erreur principale, veuillez ouvrir le detail pour plus d\'informations',
+    update_lab_manager: 'Mettre à jour le lab manager',
   },
 };
 
@@ -266,7 +267,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     lab_is_starting: 'The lab is starting, this may take a few minutes.',
     show_errors: 'View errors',
     glab_errors: 'Glab errors',
-    new_lab_manager_version: 'New version available',
+    new_lab_manager_version: 'New version available (click to update)',
     no_log: 'No log.',
     glab_no_error_log: 'The glab service has no error, please check others services',
     name: 'Name',
@@ -274,6 +275,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     add_gws_core: 'Add gws_core',
     container_error_details: 'Error details',
     no_main_error: 'No main error, please open the detail for more information',
+    update_lab_manager: 'Update lab manager',
   },
 };
 

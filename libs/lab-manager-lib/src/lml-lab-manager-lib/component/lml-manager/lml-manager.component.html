@@ -6,13 +6,6 @@
     </fl-text-icon>
 
     <fl-card-actions>
-      @if (newLabManagerVersion$ | async; as versionAvailable) {
-        <fl-text-icon class="g-text-small g-text-dense-height" (click)="updateLabManager(versionAvailable)">
-          <mat-icon>info</mat-icon>
-          <span class="g-text-link">{{ 'lml.new_lab_manager_version' | translate }}</span>
-        </fl-text-icon>
-      }
-
       <button mat-stroked-button type="button" class="g-button-small button refresh" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
         <span>{{ 'lml.lab_manager_refresh' | translate }}</span>
@@ -26,6 +19,13 @@
 
   <fl-card-body>
     <p class="g-text-light help-text">{{ 'lml.lab_manager_section_help' | translate }}</p>
+
+    @if (newLabManagerVersion$ | async) {
+      <fl-text-icon (click)="updateLabManager()" class="new-version">
+        <mat-icon>info</mat-icon>
+        <span class="g-text-link">{{ 'lml.new_lab_manager_version' | translate }}</span>
+      </fl-text-icon>
+    }
 
     <!--  Global status  -->
     <fl-async-section
