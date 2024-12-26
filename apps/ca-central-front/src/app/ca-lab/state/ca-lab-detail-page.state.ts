@@ -31,7 +31,7 @@ export class CaLabDetailPageState implements OnDestroy {
   private id: string;
 
   private timeout: any;
-  private statusRefreshFrequency = 10000;
+  private statusRefreshFrequency = 15000;
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -56,11 +56,8 @@ export class CaLabDetailPageState implements OnDestroy {
     );
 
     this.labManagerStatus$ = labManagerStatus$;
-    this.subscriptions.add(
-      this.getFullStatus$().subscribe(([status, labManagerState]) =>
-        this.onNewStatus(status, labManagerState)
-      )
-    );
+    this.subscriptions.add(this.getStatus$().subscribe((status) => this.onNewStatus(status)));
+    this.subscriptions.add(this.labManagerStatus$.subscribe((status) => this.onNewLabManagerStatus(status)));
   }
 
   private getLabSuccess(lab: CaLabFindOneDto): void {
@@ -180,16 +177,33 @@ export class CaLabDetailPageState implements OnDestroy {
   /**
    * Methode called when a new status is received to trigger the next status refresh if needed
    * @param status
-   * @param labManagerState
    * @private
    */
-  private onNewStatus(status: CaLabStatusDTO, labManagerState: LmlLabManagerStatus): void {
+  private onNewStatus(status: CaLabStatusDTO): void {
     // clear the timeout if exist to avoid duplicates
     this.clearTimeout();
 
     // if the lab is busy, refresh the status every 10 seconds
     if (caLabStatusTemp.includes(status.labStatus.value) || status.serverTaskStatus.value === 'RUNNING') {
       this.timeout = setTimeout(() => this.refreshStatus(), this.statusRefreshFrequency);
+    }
+  }
+
+  /**
+   * Methode called when a new lab manager status is received to trigger the next status refresh if
+   * the lab running status is different from the lab manager status
+   * @param labManagerStatus
+   * @private
+   */
+  private onNewLabManagerStatus(labManagerStatus: LmlLabManagerStatus): void {
+    const labManagerLabIsRunning = labManagerStatus?.labStatus === 'RUNNING';
+
+    const currentStatus = this.status$.getValue();
+    if (!currentStatus) return;
+
+    // if the lab running status is different from the lab manager status, refresh the status immediately
+    if (currentStatus.labIsRunning !== labManagerLabIsRunning) {
+      this.refreshStatus();
     }
   }
 }

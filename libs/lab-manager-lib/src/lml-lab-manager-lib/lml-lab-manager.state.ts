@@ -37,7 +37,6 @@ export class LmlLabManagerState implements OnDestroy {
 
   private readonly actionType = 'lab-manager';
 
-  // TODO a voir
   private autoRefreshFrequency = 5000;
   private autoRefreshTimeout: any;
   // stop auto refresh after 2 not running status
@@ -57,7 +56,10 @@ export class LmlLabManagerState implements OnDestroy {
   private actionService = inject(FlPortalActionsService);
   private labManagerService = inject(LmlLabManagerService);
 
-  public init(): void {
+  public init(autoRefreshFrequency: number): void {
+    if(autoRefreshFrequency) {
+      this.autoRefreshFrequency = autoRefreshFrequency;
+    }
     if (!this.initialized) {
       this.initialized = true;
 

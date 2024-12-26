@@ -1,9 +1,8 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlStatusEvent } from '@monorepo/front-core-lib';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { LmlNewVersionAvailable } from '../../model/lml-lab-manager.class';
 
 /**
  * Component only accessible by the admin
@@ -15,6 +14,10 @@ import { LmlNewVersionAvailable } from '../../model/lml-lab-manager.class';
   styleUrls: ['./lml-manager.component.scss'],
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
+
+
+  @Input() autoRefreshStatusFrequency: number;
+
   private managerState = inject(LmlLabManagerState);
   labManagerStatus$: Observable<FlStatusEvent>;
 
@@ -25,7 +28,7 @@ export class LmlManagerComponent implements OnInit, OnDestroy {
   private subscriptions = new ClSubscriptionHandler();
 
   ngOnInit(): void {
-    this.managerState.init();
+    this.managerState.init(this.autoRefreshStatusFrequency);
 
     this.labManagerStatus$ = this.managerState.getStatusEvent$();
     this.newLabManagerVersionAvailable$ = this.managerState.newLabManagerVersionAvailable$();
