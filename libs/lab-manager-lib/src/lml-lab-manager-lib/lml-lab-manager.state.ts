@@ -340,16 +340,22 @@ export class LmlLabManagerState implements OnDestroy {
     });
   }
 
-  public getNewLabManagerVersion$(): Observable<LmlNewVersionAvailable | null> {
+  public getNewLabManagerVersion$(): Observable<LmlNewVersionAvailable> {
     return combineLatest([this.getStatus$(), this.labManagerService.getLabManagerRecommendedVersion()]).pipe(
       map(([labManagerStatus, recommendedVersion]) => {
-        if (!labManagerStatus) return null;
-        if (labManagerStatus.version === recommendedVersion) return null;
         return {
-          currentVersion: labManagerStatus.version,
+          currentVersion: labManagerStatus?.version,
           recommendedVersion,
         };
       })
+    );
+  }
+
+  public newLabManagerVersionAvailable$(): Observable<boolean> {
+    return this.getNewLabManagerVersion$().pipe(
+      map(
+        (version) => version.currentVersion != null && version.currentVersion !== version.recommendedVersion
+      )
     );
   }
 

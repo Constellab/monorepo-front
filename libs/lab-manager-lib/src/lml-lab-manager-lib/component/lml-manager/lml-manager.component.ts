@@ -4,7 +4,6 @@ import { FlStatusEvent } from '@monorepo/front-core-lib';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { LmlNewVersionAvailable } from '../../model/lml-lab-manager.class';
-import { LmlLabManagerService } from '../../lml-lab-manager.service';
 
 /**
  * Component only accessible by the admin
@@ -17,10 +16,9 @@ import { LmlLabManagerService } from '../../lml-lab-manager.service';
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
   private managerState = inject(LmlLabManagerState);
-  private managerService = inject(LmlLabManagerService);
   labManagerStatus$: Observable<FlStatusEvent>;
 
-  newLabManagerVersion$: Observable<LmlNewVersionAvailable>;
+  newLabManagerVersionAvailable$: Observable<boolean>;
 
   refreshIsLoading: boolean = false;
 
@@ -30,7 +28,7 @@ export class LmlManagerComponent implements OnInit, OnDestroy {
     this.managerState.init();
 
     this.labManagerStatus$ = this.managerState.getStatusEvent$();
-    this.newLabManagerVersion$ = this.managerState.getNewLabManagerVersion$();
+    this.newLabManagerVersionAvailable$ = this.managerState.newLabManagerVersionAvailable$();
 
     this.subscriptions.add(
       this.managerState.getStatusEvent$().subscribe((statusEvent) => {

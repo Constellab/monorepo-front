@@ -20,7 +20,7 @@
   <fl-card-body>
     <p class="g-text-light help-text">{{ 'lml.lab_manager_section_help' | translate }}</p>
 
-    @if (newLabManagerVersion$ | async) {
+    @if (newLabManagerVersionAvailable$ | async) {
       <fl-text-icon (click)="updateLabManager()" class="new-version">
         <mat-icon>info</mat-icon>
         <span class="g-text-link">{{ 'lml.new_lab_manager_version' | translate }}</span>
