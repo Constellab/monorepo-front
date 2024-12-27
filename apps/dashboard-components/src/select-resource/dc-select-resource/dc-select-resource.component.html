@@ -1,0 +1,16 @@
+<div class="container">
+  <fl-input-search
+    [selectedItem]="selectedResource"
+    (selectedItemChange)="setAndEmitResource($event)"
+    [datasource]="datasource"
+    [placeholder]="placeholder() | flTranslatableText | async"
+    [minInputSearchLength]="0">
+    <div class="photo" *flInputSearchPrefix="datasource as scenario">
+      @if (scenario) {
+        <fl-user-profile-picture [user]="scenario.createdBy" size="small"></fl-user-profile-picture>
+      }
+    </div>
+
+    <div *flInputSearchOption="datasource as resource">AAA {{ resource.name }}</div>
+  </fl-input-search>
+</div>

@@ -1,0 +1,18 @@
+.container {
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 60px;
+}
+
+.header {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.save-button {
+  flex-shrink: 0;
+}
+
+.text-editor {
+  min-height: 500px;
+}

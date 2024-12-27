@@ -247,6 +247,15 @@ export class FlFileHelper {
     return new Blob(byteArrays, { type: contentType });
   }
 
+  public static convertBlobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
   /**
    * Convert a json to blob and download it to the user's computer
    * @param json object

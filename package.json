@@ -52,7 +52,11 @@
     "lab-manager-standalone:serve": "nx serve lab-manager-standalone",
     "lab-manager-standalone:build-prod": "node --max_old_space_size=4096 ./node_modules/nx/bin/nx build lab-manager-standalone --prod",
     "lab-manager-standalone:build-image": "docker build -f apps/lab-manager-standalone/Dockerfile -t lab-manager-standalone .",
-    "lab-manager-standalone:run-image-dev": "docker run --rm -p 82:80 -e API_URL=http://localhost:3000 -e COMMUNITY_API_URL=https://api.constellab.community -e COMMUNITY_FRONT_URL=https://constellab.community/ lab-manager-standalone"
+    "lab-manager-standalone:run-image-dev": "docker run --rm -p 82:80 -e API_URL=http://localhost:3000 -e COMMUNITY_API_URL=https://api.constellab.community -e COMMUNITY_FRONT_URL=https://constellab.community/ lab-manager-standalone",
+    "dc-text-editor:serve": "nx run dashboard-components:serve-text-editor:development",
+    "dc-text-editor:build-prod": "nx run dashboard-components:build-text-editor:production --base-href='.'",
+    "dc-select-resource:serve": " nx run dashboard-components:serve-select-resource:development",
+    "dc-select-resource:build-prod": "nx run dashboard-components:build-select-resource:production --base-href='.'"
   },
   "private": true,
   "dependencies": {
@@ -112,6 +116,7 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "~7.8.1",
     "sitemap": "^7.1.2",
+    "streamlit-component-lib": "^2.0.0",
     "tslib": "^2.6.3",
     "url": "^0.11.4",
     "zone.js": "0.14.8"

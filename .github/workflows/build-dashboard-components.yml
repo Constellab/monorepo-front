@@ -1,0 +1,46 @@
+name: Main Workflow dashboard components
+
+on:
+  push:
+    tags:
+      - 'dc_text_editor_*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the Angular app
+        run: npm run dc-text-editor:build-prod
+
+      # create a simple json file with the version number
+      - name: Create version.json file
+        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dashboard-components/browser/version.json
+
+      # This action will zip the build artifacts
+      - name: Zip the build artifacts
+        run: cd dist/apps/dashboard-components/browser && zip -r ../../../../dashboard-components.zip ./*
+
+      # This action will push a release to the gws_core repository
+      # It uses the monorepo-front secret PUSH_GWS_CORE_RELEASE which value is a Personal Access Token
+      # with access on the gws_core repository
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dashboard-components.zip
+          repository: Constellab/dashboard-components
+          name: Dashboard components ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}
+

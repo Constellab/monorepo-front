@@ -1,0 +1,8 @@
+@import '../../../../../libs/front-core-lib/src/style/theme/base/base-dark-theme';
+@import '../../../../../libs/text-editor/src/style/te-text-editor-dark';
+
+// Style to highlight code in text editor
+@import 'highlight.js/styles/monokai-sublime.css';
+
+// include text editor theme
+@include _te-text-editor-dark($theme);
