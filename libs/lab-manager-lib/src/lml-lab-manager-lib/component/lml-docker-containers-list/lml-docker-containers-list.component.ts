@@ -8,9 +8,6 @@ import {
 } from '../lml-docker-container-logs-dialog/lml-docker-container-logs-dialog.component';
 import { LmlDockerInspect } from '../../model/lml-lab-manager.class';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import {
-  LmlDockerContainerErrorDialogComponent,
-} from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
 /**
  * Component to list the docker container with name, status and information

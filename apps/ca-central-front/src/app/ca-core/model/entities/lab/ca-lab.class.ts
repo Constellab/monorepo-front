@@ -41,12 +41,7 @@ export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
   ERROR: FlStatusHelper.getErrorStatus('ERROR'),
 };
 
-export const caLabStatusTemp: CaLabStatus[] = [
-  'SERVER_STARTING',
-  'SERVER_STOPPING',
-  'SERVER_RUNNING',
-  'SERVER_CONFIGURED',
-];
+export const caLabStatusTemp: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING'];
 
 export type CaLabServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
 export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
