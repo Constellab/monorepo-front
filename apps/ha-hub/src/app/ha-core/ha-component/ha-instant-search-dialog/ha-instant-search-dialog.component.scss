@@ -46,9 +46,13 @@
     max-width: calc(100% - 3em - 48px);
   }
 
+  .hit-title {
+    line-height: 1.2em;
+  }
+
   .hit-image {
-    height: 48px;
-    width: 48px;
+    height: 50px;
+    width: 50px;
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -64,6 +68,10 @@
   .hit-content {
     font-size: 0.7em;
   }
+}
+
+.hit:hover {
+  background-color: var(--hover-color);
 }
 
 .highlighted-hit {
