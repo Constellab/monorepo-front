@@ -26,11 +26,11 @@ jobs:
 
       # create a simple json file with the version number
       - name: Create version.json file
-        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dashboard-components/browser/version.json
+        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dashboard-components/text-editor/browser/version.json
 
       # This action will zip the build artifacts
       - name: Zip the build artifacts
-        run: cd dist/apps/dashboard-components/browser && zip -r ../../../../dashboard-components.zip ./*
+        run: cd dist/apps/dashboard-components/text-editor//browser && zip -r ../../../../../text-editor.zip ./*
 
       # This action will push a release to the gws_core repository
       # It uses the monorepo-front secret PUSH_GWS_CORE_RELEASE which value is a Personal Access Token
@@ -38,7 +38,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dashboard-components.zip
+          files: text-editor.zip
           repository: Constellab/dashboard-components
           name: Dashboard components ${{ github.ref_name }}
         env:
