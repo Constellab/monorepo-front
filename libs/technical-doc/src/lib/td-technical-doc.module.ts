@@ -15,6 +15,7 @@ import {
   FlFormModule,
   FlIconModule,
   FlKeyValueModule,
+  FlSectionModule,
   FlTextIconModule,
   FlThemeModule,
   FlTranslateModule,
@@ -94,6 +95,7 @@ import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
     MatSelect,
     MatCheckbox,
     FlDynamicFieldModule,
+    FlSectionModule,
   ],
   declarations: [
     TdResourceDocComponent,
@@ -122,6 +124,7 @@ import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
+    TdDynamicEditableFormGroupComponent,
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -148,6 +151,7 @@ import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
     TdConfigureParamSpecsTableDialogComponent,
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
+    TdDynamicEditableFormGroupComponent,
   ],
 })
 export class TdTechnicalDocModule {

@@ -4,14 +4,13 @@ import { FlDialogService, FlPortalActionResult, FlPortalActionsService } from '@
 import { LabFileResourceService } from './lab-file-resource.service';
 import { LabResourceService } from './lab-resource.service';
 import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
-import {
-  LabConfigureSpecsFormDialogComponent,
-  LabConfigureSpecsFormDialogInput,
-} from '../entity-module/lab-config-core/component/lab-configure-specs-form-dialog/lab-configure-specs-form-dialog.component';
-import { LabConfig } from '../model/entities/lab-config.entity';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { PrConfigValues } from '@monorepo/protocol';
+import {
+  LabQuickConfigureProcessDialogComponent,
+  LabQuickConfigureProcessDialogInput,
+} from '../entity-module/lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 
 /**
  * Service to download any downloadable resource
@@ -71,15 +70,14 @@ export class LabResourceDownloadService {
       return this.exportResource(resource.id, exporterType.typingName, {});
     }
 
-    const input: LabConfigureSpecsFormDialogInput = {
-      configData: LabConfig.fromSpecs(exporterType.configSpecs),
+    const input: LabQuickConfigureProcessDialogInput = {
+      specs$: of(exporterType.configSpecs),
       title: 'biox.download_resource_title',
-      submitButtonText: 'biox.download_resource',
     };
 
     // open the configuration dialog
     return this.dialogService
-      .openMediumDialog(LabConfigureSpecsFormDialogComponent, { data: input })
+      .openMediumDialog(LabQuickConfigureProcessDialogComponent, { data: input })
       .afterClosed()
       .pipe(mergeMap((config) => this.exportResource(resource.id, exporterType.typingName, config)));
   }

@@ -1,11 +1,12 @@
 import {
   Component,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   OutputRefSubscription,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
@@ -24,7 +25,7 @@ import { LabProcess } from '../../../../lab-core/model/entities/process/lab-proc
   styleUrls: ['./lab-configure-process.component.scss'],
 })
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
-  @Input() process$: Observable<LabProcess>;
+  @Input({ required: true }) process$: Observable<LabProcess>;
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
@@ -32,12 +33,10 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
 
   private visibilitySubscription: OutputRefSubscription;
 
-  constructor(private dashboardState: LabProcessDashboardState) {}
+  private dashboardState = inject(LabProcessDashboardState);
 
   ngOnInit(): void {
-    this.subscription = this.process$.subscribe((process) => {
-      this.showProcessConfig(process);
-    });
+    this.subscription = this.process$.subscribe((process) => this.showProcessConfig(process));
   }
 
   private showProcessConfig(process: LabProcess): void {

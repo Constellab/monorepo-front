@@ -191,7 +191,7 @@ export class LabResourceActionsMenuComponent implements OnInit {
     }
 
     const impactData: LabNavigableImpactConfig = {
-      title: { text: 'databox.delete_resource', translateText: true },
+      title: 'databox.delete_resource',
       confirmImpactConfirmText: confirmImpactHelpText,
       noImpactConfirmText: { text: confirmation, translateText: false },
       checkImpact: () => this.resourceService.checkImpactForDeleteResource(this.resource.id),

@@ -2,21 +2,16 @@ import {
   Component,
   ComponentRef,
   effect,
+  inject,
   input,
   OnDestroy,
-  Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { FlDynamicFormAbstractControl } from '../../model/fl-dynamic-field-config.class';
 import { AbstractControl } from '@angular/forms';
-import { FlDynamicFieldComponent } from '../fl-dynamic-field/fl-dynamic-field.component';
-import { FlDynamicFormGroupComponent } from '../fl-dynamic-form-group/fl-dynamic-form-group.component';
-import { FlDynamicFormArrayComponent } from '../fl-dynamic-form-array/fl-dynamic-form-array.component';
 import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-form.directive';
-import {
-  FlDynamicEditableFormGroupComponent
-} from '../fl-dynamic-editable-form-group/fl-dynamic-editable-form-group.component';
+import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config.service';
 
 /**
  * Component to generate a FormGroup, FormArray or FormControl form base on config
@@ -36,33 +31,26 @@ export class FlDynamicAbstractFormComponent implements OnDestroy {
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
+  private configService = inject(FlDynamicFieldConfigService);
 
   constructor() {
     effect(() => {
-      this.ngOnDestroy();
-      this.viewComponentRef = this.viewContainer.createComponent(this.getComponentType());
-      this.viewComponentRef.instance.config = this.config;
-      this.viewComponentRef.instance.control = this.control;
-      if (this.viewComponentRef.instance.configName) {
-        this.viewComponentRef.instance.configName = this.configName;
-      }
+      this.destroy();
+      // regenerate the component based on the config type
+      this.viewComponentRef = this.configService.generateGroupComponent(
+        this.config(),
+        this.control(),
+        this.configName(),
+        this.viewContainer
+      );
     });
   }
 
-  private getComponentType(): Type<FlDynamicAbstractFormDirective> {
-    switch (this.config().controlType) {
-      case 'formControl':
-        return FlDynamicFieldComponent;
-      case 'formGroup':
-        return FlDynamicFormGroupComponent;
-      case 'formArray':
-        return FlDynamicFormArrayComponent;
-      case 'editableFormGroup':
-        return FlDynamicEditableFormGroupComponent;
-    }
+  private destroy(): void {
+    this.viewComponentRef?.destroy();
   }
 
   ngOnDestroy(): void {
-    this.viewComponentRef?.destroy();
+    this.destroy();
   }
 }

@@ -30,11 +30,7 @@ export class LabConfigureProtocolComponent implements OnInit {
 
     this.selectedProcess$ = this.selectedProcessId.asObservable().pipe(
       filter((processName) => processName != null),
-      switchMap((processName) =>
-        this.processes$
-          .pipe()
-          .pipe(map((processes) => processes.find((process) => process.instanceName === processName)))
-      )
+      switchMap((processName) => this.scenarioState.getLabProcess$(this.protocolId, processName))
     );
   }
 

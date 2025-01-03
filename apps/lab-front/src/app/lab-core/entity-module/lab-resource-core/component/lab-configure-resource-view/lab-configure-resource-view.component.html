@@ -1,8 +1,8 @@
 <fl-portal class="portal" flResize="both">
   <fl-portal-header class="header" [enableDrag]="true">
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-      <td-type-icon-badge [style]="viewStyle" [iconSize]="30"></td-type-icon-badge>
-      <h2>{{ title }}</h2>
+      <td-type-icon-badge [style]="input.viewStyle" [iconSize]="30"></td-type-icon-badge>
+      <h2>{{ input.title }}</h2>
     </div>
   </fl-portal-header>
 
@@ -12,8 +12,8 @@
         <form (ngSubmit)="submit()" id="config-form" [formGroup]="formGp">
           <!--  View configuration   -->
           <lab-configure-specs-form
-            [configData]="configs"
-            formGroupName="viewConfig"></lab-configure-specs-form>
+            [formGp]="formGp"
+            [configData]="configs"></lab-configure-specs-form>
         </form>
 
         <button

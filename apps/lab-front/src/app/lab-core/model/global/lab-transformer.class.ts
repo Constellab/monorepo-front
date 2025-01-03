@@ -1,10 +1,12 @@
-import { LabConfigureSpecsForm } from '../entities/lab-config.entity';
 import { LabProcessType } from '../entities/lab-type/lab-process-type.entity';
 import { PrConfigValues } from '@monorepo/protocol';
 
 export interface LabTransformForm {
   transformer: LabProcessType;
-  config: LabConfigureSpecsForm;
+  config: {
+    public: PrConfigValues;
+    protected: PrConfigValues;
+  };
 }
 
 export interface LabTransformerWithConfig {

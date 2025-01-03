@@ -45,6 +45,7 @@
 
           <lab-configure-specs-form
             *ngIf="transformer.hasConfig; else noConfig"
+            [formGp]="getConfigFormGroup(index)"
             [configData]="transformer.configData"
             formGroupName="config"></lab-configure-specs-form>
 

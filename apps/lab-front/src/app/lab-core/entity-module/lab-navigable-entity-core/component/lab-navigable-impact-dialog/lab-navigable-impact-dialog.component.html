@@ -1,27 +1,41 @@
 <fl-dialog-header>
-  {{ title | flTranslatableText | async }}
+  {{ data.config.title | flTranslatableText | async }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <div class="help-text g-text-light" [innerHTML]="helpText | flTranslatableText | async"></div>
+  <div
+    class="help-text g-text-light"
+    [innerHTML]="data.config.confirmImpactConfirmText | flTranslatableText | async"></div>
 
   <h2 class="other-impacts">{{ 'biox.impacted_objects' | translate }}</h2>
 
-  <lab-navigable-entity-groups class="entities" [groups]="impactedEntities"></lab-navigable-entity-groups>
+  <lab-navigable-entity-groups
+    class="entities"
+    [groups]="data.impactedEntities"></lab-navigable-entity-groups>
 
-  <p class="g-warn-text" *ngIf="containsValidatedScenarios">
-    {{ 'biox.reset_impact_contains_validated_scenarios' | translate }}
-  </p>
-  <p class="g-warn-text" *ngIf="containsValidatedNotes">
-    {{ 'biox.reset_impact_contains_validated_notes' | translate }}
-  </p>
+  @if (containsValidatedScenarios) {
+    <p class="g-warn-text">
+      {{ 'biox.reset_impact_contains_validated_scenarios' | translate }}
+    </p>
+  }
 
-  <fl-text-icon class="warn-confirmation" *ngIf="!containsValidatedScenarios && !containsValidatedNotes">
-    <mat-icon color="warn" class="g-icon-big">warnings</mat-icon>
-    <div class="g-warn-text">
-      {{ 'biox.force_action_warning' | translate: { actionName: (title | flTranslatableText | async) } }}
-    </div>
-  </fl-text-icon>
+  @if (containsValidatedNotes) {
+    <p class="g-warn-text">
+      {{ 'biox.reset_impact_contains_validated_notes' | translate }}
+    </p>
+  }
+
+  @if (!containsValidatedScenarios && !containsValidatedNotes) {
+    <fl-text-icon class="warn-confirmation">
+      <mat-icon color="warn" class="g-icon-big">warnings</mat-icon>
+      <div class="g-warn-text">
+        {{
+          'biox.force_action_warning'
+            | translate: { actionName: (data.config.title | flTranslatableText | async) }
+        }}
+      </div>
+    </fl-text-icon>
+  }
 </mat-dialog-content>
 
 <div mat-dialog-actions>
@@ -31,7 +45,7 @@
     type="button"
     (click)="callAction()"
     [disabled]="containsValidatedScenarios || containsValidatedNotes">
-    {{ title | flTranslatableText | async }}
+    {{ data.config.title | flTranslatableText | async }}
   </button>
 
   <button mat-stroked-button matDialogClose type="button">

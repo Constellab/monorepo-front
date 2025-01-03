@@ -30,12 +30,12 @@
 
               <mat-menu #menuCommunityAgent="matMenu">
                 @if (isCodeShown()) {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown('private')">
+                  <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'private')">
                     <mat-icon>visibility_off</mat-icon>
                     {{ 'biox.hide_config_mode' | translate }}
                   </button>
                 } @else {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown('public')">
+                  <button mat-menu-item type="button" (click)="triggerCodeShown(process,'public')">
                     <mat-icon>visibility</mat-icon>
                     {{ 'biox.show_config_mode' | translate }}
                   </button>

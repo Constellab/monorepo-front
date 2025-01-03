@@ -1,56 +1,45 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
-import { Subscription } from 'rxjs';
-import { LabTask } from '../../../../lab-core/model/entities/process/lab-task.entity';
-import { TdParamSpecVisibility } from '@monorepo/technical-doc';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib';
+import { LabProcessDashboardDynamicFieldConfig } from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
+import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
+import { LabDynamicParamSpecState } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
 
 @Component({
   selector: 'lab-configure-task',
   templateUrl: './lab-configure-task.component.html',
   styleUrls: ['./lab-configure-task.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    // enable dynamic config
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDashboardDynamicFieldConfig },
+    // configure the dynamic param spec state for dynamic config
+    { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
+  ],
 })
 export class LabConfigureTaskComponent implements OnInit, OnDestroy {
-  @Input() task: LabProcess;
+  @Input({ required: true }) task: LabProcess;
+
+  private dashboardState = inject(LabProcessDashboardState);
+
+  private editDynamicParamSpecState: LabDynamicParamSpecState = inject(
+    TdAbstractDynamicParamSpecState
+  ) as LabDynamicParamSpecState;
 
   formGp = this.dashboardState.getTaskFormGp();
   processConfig = this.dashboardState.getTaskConfig();
 
-  changeCommunityAgentVisibilitySubscription: Subscription;
-
-  constructor(
-    private dashboardState: LabProcessDashboardState,
-    private nodeState: LabWorkflowNodeDetailState
-  ) {}
-
   ngOnInit(): void {
-    this.dashboardState.setCurrentTask(this.task, this.task.config);
-    this.changeCommunityAgentVisibilitySubscription =
-      this.dashboardState.changeCommunityAgentVisibilityEvent.subscribe(
-        (visibility: TdParamSpecVisibility) => {
-          this.changeCodeVisibility(visibility);
-        }
-      );
+    this.dashboardState.setCurrentTask(this.task.parentProtocolId, this.task.instanceName, this.task.config);
+    this.editDynamicParamSpecState.setProcess(this.task);
   }
 
   submit(): void {
     this.dashboardState.saveCurrentTaskConfig();
   }
 
-  private changeCodeVisibility(visibility: TdParamSpecVisibility): void {
-    this.nodeState
-      .updateCommunityAgentCodeParamsVisibility(this.task, visibility)
-      .subscribe((task: LabTask) => {
-        if (task) {
-          this.task = task;
-          this.dashboardState.setCurrentTask(this.task, this.task.config);
-          this.dashboardState.onCommunityAgentVisibilityChanged.emit(visibility);
-        }
-      });
-  }
-
   ngOnDestroy(): void {
-    this.changeCommunityAgentVisibilitySubscription?.unsubscribe();
+    this.dashboardState.clearTask();
   }
 }

@@ -1,14 +1,20 @@
 import {
+  FlDynamicAbstractFormDirective,
   FlDynamicFieldAbstractDirective,
   FlDynamicFieldAdditionalConfig,
   FlDynamicFieldConfigService,
   FlDynamicFieldConfigUnknown,
+  FlDynamicGroupAdditionalConfig,
 } from '@monorepo/front-core-lib';
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import {
   LabTagDynamicFieldComponent,
 } from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
-import { tdCodeParamSpecTypeList, TdParamSpecType } from '@monorepo/technical-doc';
+import {
+  tdCodeParamSpecTypeList,
+  TdDynamicEditableFormGroupComponent,
+  TdParamSpecType,
+} from '@monorepo/technical-doc';
 import {
   LabOpenAiChatDynamicFieldComponent,
 } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
@@ -31,13 +37,12 @@ import {
   LabCodeEditorDynamicFieldComponent,
 } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 
-
 /**
- * Configuration for the {@link FlDynamicFieldComponent} that include tags field and other custom field
+ * Configuration for the DynamicField that include tags field and other custom field
  */
 @Injectable()
-export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService {
-  protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
+export class LabProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
+  protected getAdditionalFieldConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     const config: Record<string, FlDynamicFieldAdditionalConfig> = {
       tags_param: this.buildTagField,
       open_ai_chat_param: this.buildOpenAiChatField,
@@ -104,5 +109,29 @@ export class LabConfigureProcessDynamicField extends FlDynamicFieldConfigService
 
   private buildRichTextField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabRichTextDynamicFieldComponent);
+  }
+}
+
+/**
+ * Configuration for the DynamicField for the process dashboard
+ * It includes supports for dynamic group
+ */
+@Injectable()
+export class LabProcessDashboardDynamicFieldConfig extends LabProcessDynamicFieldConfig {
+
+  /**
+   * Add support for dynamic group
+   * @protected
+   */
+  protected getAdditionalGroupConfig(): Record<string, FlDynamicGroupAdditionalConfig> {
+    return {
+      editableFormGroup: this.buildEditableFormGroup,
+    };
+  }
+
+  private buildEditableFormGroup(
+    viewContainer: ViewContainerRef,
+  ): ComponentRef<FlDynamicAbstractFormDirective> {
+    return viewContainer.createComponent(TdDynamicEditableFormGroupComponent);
   }
 }

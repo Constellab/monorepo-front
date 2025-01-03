@@ -1,6 +1,8 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import { AbstractControl, FormControl } from '@angular/forms';
+import {
+  FlDynamicFieldTextareaComponent,
+} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -8,13 +10,48 @@ import {
   FlDynamicFieldConfigList,
   FlDynamicFieldConfigSelect,
   FlDynamicFieldConfigSelectSearch,
+  FlDynamicFormAbstractControl,
 } from './fl-dynamic-field-config.class';
 import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
-import { FlDynamicFieldInputComponent } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
-import { FlDynamicFieldSelectComponent } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
-import { FlDynamicFieldListComponent } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
-import { FlDynamicFieldBooleanComponent } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
-import { FlDynamicFieldSelectSearchComponent } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import {
+  FlDynamicFieldInputComponent,
+} from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
+import {
+  FlDynamicFieldSelectComponent,
+} from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
+import {
+  FlDynamicFieldListComponent,
+} from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
+import {
+  FlDynamicFieldBooleanComponent,
+} from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
+import {
+  FlDynamicFieldSelectSearchComponent,
+} from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
+import { FlDynamicAbstractFormDirective } from './fl-dynamic-abstract-form.directive';
+import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';
+import {
+  FlDynamicFormGroupComponent,
+} from '../component/fl-dynamic-form-group/fl-dynamic-form-group.component';
+import {
+  FlDynamicFormArrayComponent,
+} from '../component/fl-dynamic-form-array/fl-dynamic-form-array.component';
+
+/**
+ * Function to create a custom component for a field type
+ */
+export type FlDynamicFieldAdditionalConfig = (
+  viewContainer: ViewContainerRef,
+  config: FlDynamicFieldConfigBase
+) => ComponentRef<FlDynamicFieldAbstractDirective>;
+
+/**
+ * Function to create a custom component for a group type
+ */
+export type FlDynamicGroupAdditionalConfig = (
+  viewContainer: ViewContainerRef,
+  config: FlDynamicFormAbstractControl
+) => ComponentRef<FlDynamicAbstractFormDirective>;
 
 /**
  * Configuration for the {@link FlDynamicFieldComponent}
@@ -29,12 +66,12 @@ export class FlDynamicFieldConfigService {
    * Key = type {@link FlDynamicFieldConfig}
    * @protected
    */
-  protected getAdditionalConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
+  protected getAdditionalFieldConfig(): Record<string, FlDynamicFieldAdditionalConfig> {
     return {};
   }
 
   private isAdditionalType(type: string): boolean {
-    return this.getAdditionalConfig()[type] != null;
+    return this.getAdditionalFieldConfig()[type] != null;
   }
 
   /**
@@ -43,7 +80,7 @@ export class FlDynamicFieldConfigService {
    * @param viewContainer
    * @param formCtrl
    */
-  public generateComponent(
+  public generateFieldComponent(
     config: FlDynamicFieldConfig,
     viewContainer: ViewContainerRef,
     formCtrl: FormControl
@@ -51,7 +88,7 @@ export class FlDynamicFieldConfigService {
     let viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
     // if the type is supported by the module config, use it
     if (this.isAdditionalType(config.type)) {
-      const additionalConfig = this.getAdditionalConfig()[config.type];
+      const additionalConfig = this.getAdditionalFieldConfig()[config.type];
       viewComponentRef = additionalConfig(viewContainer, config);
     } else {
       switch (config.type) {
@@ -146,9 +183,45 @@ export class FlDynamicFieldConfigService {
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(FlDynamicFieldTextareaComponent);
   }
-}
 
-export type FlDynamicFieldAdditionalConfig = (
-  viewContainer: ViewContainerRef,
-  config: FlDynamicFieldConfigBase
-) => ComponentRef<FlDynamicFieldAbstractDirective>;
+  ////////////////////////// GROUP //////////////////////////
+
+  protected getAdditionalGroupConfig(): Record<string, FlDynamicGroupAdditionalConfig> {
+    return {};
+  }
+
+  protected isAdditionalGroupType(type: string): boolean {
+    return this.getAdditionalGroupConfig()[type] != null;
+  }
+
+  public generateGroupComponent(
+    config: FlDynamicFormAbstractControl,
+    control: AbstractControl,
+    configName: string,
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicAbstractFormDirective> {
+    let viewComponentRef: ComponentRef<FlDynamicAbstractFormDirective>;
+    // if the type is supported by the module config, use it
+    if (this.isAdditionalGroupType(config.controlType)) {
+      const additionalConfig = this.getAdditionalGroupConfig()[config.controlType];
+      viewComponentRef = additionalConfig(viewContainer, config);
+    } else {
+      if (config.controlType === 'formControl') {
+        viewComponentRef = viewContainer.createComponent(FlDynamicFieldComponent);
+      } else if (config.controlType === 'formGroup') {
+        viewComponentRef = viewContainer.createComponent(FlDynamicFormGroupComponent);
+      } else if (config.controlType === 'formArray') {
+        viewComponentRef = viewContainer.createComponent(FlDynamicFormArrayComponent);
+      } else {
+        throw new Error('Unknown groupe type: ' + config.controlType);
+      }
+    }
+
+    viewComponentRef.setInput('config', config);
+    viewComponentRef.setInput('control', control);
+    if (viewComponentRef.instance.configName) {
+      viewComponentRef.setInput('configName', configName);
+    }
+    return viewComponentRef;
+  }
+}

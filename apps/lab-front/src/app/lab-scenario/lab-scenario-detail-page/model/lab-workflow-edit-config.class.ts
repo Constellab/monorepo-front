@@ -39,7 +39,6 @@ import {
   LabNavigableEntityService,
   LabNavigableImpactConfig,
 } from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
-import { LabConfig } from '../../../lab-core/model/entities/lab-config.entity';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 
 export enum LabWorkflowAction {
@@ -294,7 +293,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     return this.executeUpdateAction(action, null);
   }
 
-  public updateProcessConfig(
+  public saveProcessConfig(
     protocolId: string,
     processInstanceName: string,
     config: PrConfigValues
@@ -438,8 +437,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   public addParamSpecUpdateAction(
     process: LabProcess,
-    obs: Observable<LabConfig>
-  ): Observable<FlPortalActionResult | null> {
+    obs: Observable<LabProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -451,8 +450,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   public deleteParamSpecUpdateAction(
     process: LabProcess,
-    obs: Observable<LabConfig>
-  ): Observable<FlPortalActionResult | null> {
+    obs: Observable<LabProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -464,8 +463,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   public updateParamSpecUpdateAction(
     process: LabProcess,
-    obs: Observable<LabConfig>
-  ): Observable<FlPortalActionResult | null> {
+    obs: Observable<LabProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -652,7 +651,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     );
   }
 
-  /////////////////////////////////////////////// HANDLING WORKFLOW EVENTS ///////////////////////////////////////////////
+  //////////////////////////// HANDLING WORKFLOW EVENTS ////////////////////////////////
 
   private onWorkflowEvent(workflowEvent: PrWorkflowEvent): void {
     let portalAction: FlPortalAction;
@@ -766,7 +765,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
     this.executeUpdateAction(portalAction, process);
   }
 
-  ////////////////////////////////////////////////// LAB WORKFLOW ACTIONS /////////////////////////////////////////////////
+  ///////////////////////////// LAB WORKFLOW ACTIONS ///////////////////////////////////////
 
   /**
    * Method call on the result of a workflow action

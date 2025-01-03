@@ -1,10 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
-import { LabConfig, LabConfigureSpecsForm } from '../../../../model/entities/lab-config.entity';
+import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ClHelpService } from '@monorepo/core-lib';
-import { LabConfigureSpecsFormComponent } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import {
+  LabConfigureSpecsForm,
+  LabConfigureSpecsFormComponent,
+} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import {
   ControlContainer,
   FormArray,
@@ -14,23 +17,19 @@ import {
   UntypedFormArray,
   UntypedFormGroup,
 } from '@angular/forms';
-import { FlDialogService, FlGlobalValidators } from '@monorepo/front-core-lib';
+import { FlDialogService, FlDynamicFieldConfigService, FlGlobalValidators } from '@monorepo/front-core-lib';
 import { LabTransformerWithConfig } from '../../../../model/global/lab-transformer.class';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput,
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
+import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 
 interface LabSelectedTransformer {
   transformer: LabProcessType;
   configData: LabConfig;
   hasConfig: boolean;
-}
-
-export interface LabTransformResourceForm {
-  transformer: LabProcessType;
-  config: LabConfigureSpecsForm;
 }
 
 /**
@@ -41,6 +40,10 @@ export interface LabTransformResourceForm {
   selector: 'lab-transform-resource',
   templateUrl: './lab-transform-resource.component.html',
   styleUrls: ['./lab-transform-resource.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
 })
 export class LabTransformResourceComponent implements OnInit {
   @Input() resourceTypingName: string;
@@ -126,6 +129,10 @@ export class LabTransformResourceComponent implements OnInit {
 
   getFormGroup(index: number): UntypedFormGroup {
     return this.formArray.at(index) as any;
+  }
+
+  getConfigFormGroup(index: number): FormGroup<LabConfigureSpecsForm> {
+    return this.getFormGroup(index).get('config') as any;
   }
 
   selectTransformer(): void {

@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { FlDynamicFieldConfig } from '../../model/fl-dynamic-field-config.class';
 import { UntypedFormControl } from '@angular/forms';
@@ -41,7 +41,7 @@ export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbst
     effect(
       () => {
         this.destroy();
-        this.viewComponentRef = this.fieldConfig.generateComponent(
+        this.viewComponentRef = this.fieldConfig.generateFieldComponent(
           this.config(),
           this.viewContainer,
           this.control()

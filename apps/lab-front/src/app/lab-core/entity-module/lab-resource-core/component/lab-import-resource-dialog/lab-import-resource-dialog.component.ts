@@ -1,8 +1,17 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import { LabConfigureSpecsFormComponent } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import {
+  LabConfigureSpecsForm,
+  LabConfigureSpecsFormComponent,
+} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import { FlDialogService, FlFormHelper, FlOverlayRef, FlSnackBarService } from '@monorepo/front-core-lib';
+import {
+  FlDialogService,
+  FlDynamicFieldConfigService,
+  FlFormHelper,
+  FlOverlayRef,
+  FlSnackBarService,
+} from '@monorepo/front-core-lib';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
@@ -16,7 +25,8 @@ import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
 import { PrConfigValues } from '@monorepo/protocol';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 
 export interface LabImportResourceDialogInput {
   resourceId: string;
@@ -32,9 +42,13 @@ export interface LabImportResourceDialogInput {
   selector: 'lab-import-resource-dialog',
   templateUrl: './lab-import-resource-dialog.component.html',
   styleUrls: ['./lab-import-resource-dialog.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
 })
 export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
-  formGp: UntypedFormGroup;
+  formGp: FormGroup<LabConfigureSpecsForm>;
 
   selectedImporterType: LabProcessType = null;
   sourceSpec: TdIOSpec;
@@ -49,16 +63,14 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
 
   private detailOverlayRef: FlOverlayRef;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabImportResourceDialogInput,
-    private dialogService: FlDialogService,
-    private dialogRef: MatDialogRef<LabImportResourceDialogComponent>,
-    private resourceService: LabResourceService,
-    private typingService: LabTypeService,
-    private routerService: LabRouterService,
-    private snackBarService: FlSnackBarService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
+  private input: LabImportResourceDialogInput = inject(MAT_DIALOG_DATA);
+  private dialogService = inject(FlDialogService);
+  private dialogRef = inject(MatDialogRef);
+  private resourceService = inject(LabResourceService);
+  private typingService = inject(LabTypeService);
+  private routerService = inject(LabRouterService);
+  private snackBarService = inject(FlSnackBarService);
+  private communityHelper = inject(CoCommunityHelperService);
 
   ngOnInit(): void {
     this.communityHelpUrl = this.communityHelper.getImportResourceDocUrl();
@@ -135,7 +147,7 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   submit(): void {
     if (this.callIsLoading) return;
     if (this.formGp.valid) {
-      const value: PrConfigValues = { ...this.formGp.value.public, ...this.formGp.value.protected };
+      const value: PrConfigValues = LabConfigureSpecsFormComponent.buildValues(this.formGp);
       this.callImport(value);
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);

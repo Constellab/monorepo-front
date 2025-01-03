@@ -1,38 +1,32 @@
-import { EventEmitter, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { FlFormHelper, FlPortalActionResult } from '@monorepo/front-core-lib';
-import { LabConfig, LabConfigureSpecsForm } from '../../../lab-core/model/entities/lab-config.entity';
+import { LabConfig } from '../../../lab-core/model/entities/lab-config.entity';
 import { Observable, of } from 'rxjs';
 import { prConfigValueAreEqual, PrConfigValues } from '@monorepo/protocol';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
-import { TdConfig, TdParamSpecVisibility } from '@monorepo/technical-doc';
+import { TdConfig } from '@monorepo/technical-doc';
 import {
-  LabConfigureSpecsFormComponent
+  LabConfigureSpecsForm,
+  LabConfigureSpecsFormComponent,
 } from '../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import { LabWorkflowNodeDetailState } from './lab-workflow-node-detail.state';
 
 /**
  * State for the process dashboard
  */
 @Injectable()
 export class LabProcessDashboardState {
-  private nodeState: LabWorkflowNodeDetailState;
+  private workflowEditConfig = inject(LabWorkflowEditConfig);
 
-  private task: LabProcess;
-  private taskFormGp: WritableSignal<UntypedFormGroup> = signal<UntypedFormGroup>(null);
-  private taskConfig: WritableSignal<LabConfig> = signal<LabConfig>(null);
+  private parentProtocolId: string;
+  private taskInstanceName: string;
+  private config: TdConfig;
 
-  changeCommunityAgentVisibilityEvent: EventEmitter<TdParamSpecVisibility> = new EventEmitter();
-  onCommunityAgentVisibilityChanged: EventEmitter<TdParamSpecVisibility> = new EventEmitter();
+  private taskFormGp: WritableSignal<FormGroup<LabConfigureSpecsForm>> = signal(null);
+  private taskConfig: WritableSignal<LabConfig> = signal(null);
 
-  constructor(private workflowEditConfig: LabWorkflowEditConfig) {}
-
-  public init(nodeState: LabWorkflowNodeDetailState): void {
-    this.nodeState = nodeState;
-  }
-
-  public getTaskFormGp(): Signal<UntypedFormGroup> {
+  public getTaskFormGp(): Signal<FormGroup<LabConfigureSpecsForm>> {
     return this.taskFormGp;
   }
 
@@ -42,36 +36,31 @@ export class LabProcessDashboardState {
 
   // save the current task and its form group to be able to save it from the dashboard
   // (outside the form component)
-  public setCurrentTask(process: LabProcess, config: TdConfig): void {
-    this.task = process;
-
-    this.updateConfig(config);
-  }
-
-  public updateConfig(config: TdConfig): void {
+  public setCurrentTask(parentProtocolId: string, taskInstanceName: string, config: TdConfig): void {
+    this.parentProtocolId = parentProtocolId;
+    this.taskInstanceName = taskInstanceName;
+    this.config = config;
     this.taskFormGp.set(LabConfigureSpecsFormComponent.buildFormGroup(config));
     this.taskConfig.set(LabConfig.fromSpecs(config.specs, config.values));
-    this.task.config = config;
-    this.nodeState.updateProcess(this.task);
   }
 
   public saveCurrentTaskConfig(): Observable<FlPortalActionResult | null> {
-    if (this.task == null || this.taskFormGp() == null) return of(null);
+    if (this.taskInstanceName == null || this.taskFormGp() == null) return of(null);
     if (this.taskFormGp().valid) {
-      return this.saveConfig(this.taskFormGp().getRawValue());
+      const configValue: PrConfigValues = LabConfigureSpecsFormComponent.buildValues(this.taskFormGp());
+      return this.saveConfig(configValue);
     } else {
       FlFormHelper.markAllAsTouched(this.taskFormGp());
       return of(null);
     }
   }
 
-  private saveConfig(config: LabConfigureSpecsForm): Observable<FlPortalActionResult | null> {
-    const configValue: PrConfigValues = { ...config.public, ...config.protected };
-
+  private saveConfig(configValue: PrConfigValues): Observable<FlPortalActionResult | null> {
+    this.config.values = configValue;
     // update the task config values
-    return this.workflowEditConfig.updateProcessConfig(
-      this.task.parentProtocolId,
-      this.task.instanceName,
+    return this.workflowEditConfig.saveProcessConfig(
+      this.parentProtocolId,
+      this.taskInstanceName,
       configValue
     );
   }
@@ -81,9 +70,20 @@ export class LabProcessDashboardState {
    */
   public configHasChanged(process: LabProcess): boolean {
     return (
-      !this.task ||
-      this.task.id !== process.id ||
-      !prConfigValueAreEqual(this.task.config.values, process.config.values)
+      !this.taskInstanceName ||
+      !this.parentProtocolId ||
+      this.taskInstanceName !== process.instanceName ||
+      this.parentProtocolId !== process.parentProtocolId ||
+      !prConfigValueAreEqual(this.config.specs, process.config.specs) ||
+      !prConfigValueAreEqual(this.config.values, process.config.values)
     );
+  }
+
+  public clearTask(): void {
+    this.taskFormGp.set(null);
+    this.taskConfig.set(null);
+    this.config = null;
+    this.parentProtocolId = null;
+    this.taskInstanceName = null;
   }
 }

@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper } from '@monorepo/front-core-lib';
 import { Observable, tap } from 'rxjs';
-import {
-  LabProcessLayout,
-  LabProtocol,
-  LabProtocolLayout,
-} from '../model/entities/process/lab-protocol.entity';
+import { LabProcessLayout, LabProtocol } from '../model/entities/process/lab-protocol.entity';
 import { LabProtocolUpdateDTO } from '../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -29,7 +25,6 @@ import { LabProcess } from '../model/entities/process/lab-process.entity';
 import { ClPage } from '@monorepo/core-lib';
 import { LabCommunitySpace } from '../model/entities/lab-community-space.entity';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
-import { LabConfig } from '../model/entities/lab-config.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -384,9 +379,6 @@ export class LabProtocolService {
   }
 
   ///////////////////////////////////////////////// LAYOUT /////////////////////////////////////////////////
-  public saveLayout(protocolId: string, layout: LabProtocolLayout): Observable<void> {
-    return this.apiService.put(`${this.baseRoute}/${protocolId}/layout`, layout);
-  }
 
   public saveProcessLayout(
     protocolId: string,
@@ -519,11 +511,11 @@ export class LabProtocolService {
     configSpecName: string,
     name: string,
     paramSpec: TdParamSpec
-  ): Observable<LabConfig> {
+  ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.post(
       `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
       paramSpec,
-      LabConfig
+      LabProtocolUpdateDTO
     );
   }
 
@@ -533,11 +525,11 @@ export class LabProtocolService {
     configSpecName: string,
     name: string,
     paramSpec: TdParamSpec
-  ): Observable<LabConfig> {
+  ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.put(
       `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
       paramSpec,
-      LabConfig
+      LabProtocolUpdateDTO
     );
   }
 
@@ -548,12 +540,12 @@ export class LabProtocolService {
     oldName: string,
     name: string,
     paramSpec: TdParamSpec
-  ): Observable<LabConfig> {
+  ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.put(
       `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}` +
         `/dynamic-param-spec/${oldName}/rename-and-update/${name}`,
       paramSpec,
-      LabConfig
+      LabProtocolUpdateDTO
     );
   }
 
@@ -562,10 +554,10 @@ export class LabProtocolService {
     processName: string,
     configSpecName: string,
     name: string
-  ): Observable<LabConfig> {
+  ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.delete(
       `${this.baseRoute}/${protocolId}/process/${processName}/${configSpecName}/dynamic-param-spec/${name}`,
-      LabConfig
+      LabProtocolUpdateDTO
     );
   }
 

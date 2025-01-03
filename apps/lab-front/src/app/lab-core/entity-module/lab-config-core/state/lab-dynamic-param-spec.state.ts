@@ -1,43 +1,66 @@
 import {
   TdAbstractDynamicParamSpecState,
+  TdConfigureParamSpecsTableDialogComponent,
+  TdConfigureParamSpecsTableDialogInput,
   TdParamSpec,
   TdParamSpecFormInfoList,
+  TdParamSpecs,
 } from '@monorepo/technical-doc';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, ViewContainerRef } from '@angular/core';
 import { LabProtocolService } from '../../../entity-service/lab-protocol.service';
 import { LabProcess } from '../../../model/entities/process/lab-process.entity';
 import { LabConfig } from '../../../model/entities/lab-config.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LabWorkflowEditConfig } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-edit-config.class';
-import { FlPortalActionResult } from '@monorepo/front-core-lib';
+import { FlDialogService, FlPortalActionResult } from '@monorepo/front-core-lib';
+import { LabProtocolUpdateDTO } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 
 @Injectable()
 export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
-  protocolId: WritableSignal<string> = signal<string>(null);
-  process: WritableSignal<LabProcess> = signal<LabProcess>(null);
+  process: LabProcess = null;
 
-  constructor(
-    private labProtocolService: LabProtocolService,
-    private editConfig: LabWorkflowEditConfig
-  ) {
-    super();
+  private labProtocolService = inject(LabProtocolService);
+  private editConfig = inject(LabWorkflowEditConfig);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
+
+  setProcess(process: LabProcess): void {
+    this.process = process;
+    for (const spec of Object.keys(process.config.specs)) {
+      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
+        this.setParamSpecs(process.config.specs[spec].additional_info.specs);
+      }
+    }
   }
 
-  init(process: LabProcess): void {
-    this.onProcess(process);
+  openEditConfigDialog(configName: string): void {
+    if (this.process.config.specs[configName]?.type != 'dynamic') return;
+
+    const paramsSpecs: TdParamSpecs = (this.process.config.specs[configName].additional_info.specs =
+      this.process.config.values);
+
+    const input: TdConfigureParamSpecsTableDialogInput = {
+      paramSpecs: paramsSpecs,
+      configSpecName: configName,
+    };
+
+    this.dialogService.openMediumDialog(TdConfigureParamSpecsTableDialogComponent, {
+      data: input,
+      viewContainerRef: this.viewContainerRef,
+    });
   }
 
   addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
     const obs = this.labProtocolService.addDynamicParamSpec(
-      this.protocolId(),
-      this.process().instanceName,
+      this.process.parentProtocolId,
+      this.process.instanceName,
       configSpecName,
       paramName,
       paramSpec
     );
-    return this.editConfig.addParamSpecUpdateAction(this.process(), obs).pipe(
-      map((result: FlPortalActionResult | null) => {
+    return this.editConfig.addParamSpecUpdateAction(this.process, obs).pipe(
+      map((result: FlPortalActionResult<LabProtocolUpdateDTO> | null) => {
         return this.onPortalActionResult(result, configSpecName);
       })
     );
@@ -45,13 +68,13 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
 
   deleteParamSpec(configSpecName: string, paramName: string): Observable<LabConfig> {
     const obs = this.labProtocolService.deleteDynamicParamSpec(
-      this.protocolId(),
-      this.process().instanceName,
+      this.process.parentProtocolId,
+      this.process.instanceName,
       configSpecName,
       paramName
     );
-    return this.editConfig.deleteParamSpecUpdateAction(this.process(), obs).pipe(
-      map((result: FlPortalActionResult | null) => {
+    return this.editConfig.deleteParamSpecUpdateAction(this.process, obs).pipe(
+      map((result: FlPortalActionResult<LabProtocolUpdateDTO> | null) => {
         return this.onPortalActionResult(result, configSpecName);
       })
     );
@@ -59,14 +82,14 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
 
   editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
     const obs = this.labProtocolService.updateDynamicParamSpec(
-      this.protocolId(),
-      this.process().instanceName,
+      this.process.parentProtocolId,
+      this.process.instanceName,
       configSpecName,
       paramName,
       paramSpec
     );
-    return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
-      map((result: FlPortalActionResult | null) => {
+    return this.editConfig.updateParamSpecUpdateAction(this.process, obs).pipe(
+      map((result: FlPortalActionResult<LabProtocolUpdateDTO> | null) => {
         return this.onPortalActionResult(result, configSpecName);
       })
     );
@@ -79,27 +102,33 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
     paramSpec: TdParamSpec
   ): Observable<LabConfig> {
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
-      this.protocolId(),
-      this.process().instanceName,
+      this.process.parentProtocolId,
+      this.process.instanceName,
       configSpecName,
       oldName,
       newName,
       paramSpec
     );
-    return this.editConfig.updateParamSpecUpdateAction(this.process(), obs).pipe(
-      map((result: FlPortalActionResult): LabConfig => {
+    return this.editConfig.updateParamSpecUpdateAction(this.process, obs).pipe(
+      map((result: FlPortalActionResult<LabProtocolUpdateDTO>): LabConfig => {
         return this.onPortalActionResult(result, configSpecName);
       })
     );
   }
 
   getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
-    return this.labProtocolService.getParamSpecsInfos(this.protocolId(), this.process().instanceName);
+    return this.labProtocolService.getParamSpecsInfos(
+      this.process.parentProtocolId,
+      this.process.instanceName
+    );
   }
 
-  private onPortalActionResult(result: FlPortalActionResult, configSpecName: string): LabConfig {
+  private onPortalActionResult(
+    result: FlPortalActionResult<LabProtocolUpdateDTO>,
+    configSpecName: string
+  ): LabConfig {
     if (result && result.status == 'success') {
-      const config = result.result as LabConfig;
+      const config = result.result.process.config as LabConfig;
       this.updateProcessConfig(configSpecName, config);
       return config;
     }
@@ -108,15 +137,5 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
 
   private updateProcessConfig(configSpecName: string, config: LabConfig): void {
     this.setParamSpecs(config.specs[configSpecName].additional_info.specs);
-  }
-
-  private onProcess(process: LabProcess): void {
-    this.protocolId.set(process.parentProtocolId);
-    this.process.set(process);
-    for (const spec of Object.keys(process.config.specs)) {
-      if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {
-        this.setParamSpecs(process.config.specs[spec].additional_info.specs);
-      }
-    }
   }
 }

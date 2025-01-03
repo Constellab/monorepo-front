@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
 import { BehaviorSubject, merge, Observable, Subscription } from 'rxjs';
 import { LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
@@ -20,6 +20,13 @@ import { TeRichText } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabScenarioDetailPageState {
+  private scenarioService = inject(LabScenarioService);
+  private protocolService = inject(LabProtocolService);
+  private workflowFactory = inject(LabWorkflowFactory);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+  private tagService = inject(LabTagService);
+
   private scenario$: BehaviorSubject<LabScenario>;
   private scenarioDescription$: BehaviorSubject<TeRichText>;
   private tags$: LabTagDatasource;
@@ -38,15 +45,6 @@ export class LabScenarioDetailPageState {
   private scenarioSubscription: Subscription;
 
   private scenarioIsStarting: boolean = false;
-
-  constructor(
-    private scenarioService: LabScenarioService,
-    private protocolService: LabProtocolService,
-    private workflowFactory: LabWorkflowFactory,
-    private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService,
-    private tagService: LabTagService
-  ) {}
 
   public init(scenarioId: string): void {
     this.ready$ = new BehaviorSubject(false);
@@ -222,15 +220,16 @@ export class LabScenarioDetailPageState {
   }
 
   public refreshProcess(process: LabProcess): void {
-    const layer = this.workflow.findLayerById(process.parentProtocolId);
-    if (layer) {
-      layer.updateProcessObject(process.toPrProcess());
-    }
-
     // refresh the stored process
+    // do this first so the object of node is updated after and the getLabProcess$ is called after
     const subProtocol$ = this.protocols[process.parentProtocolId];
     if (subProtocol$) {
       subProtocol$.value.data.nodes[process.instanceName] = process;
+    }
+
+    const layer = this.workflow.findLayerById(process.parentProtocolId);
+    if (layer) {
+      layer.updateProcessObject(process.toPrProcess());
     }
   }
 
@@ -251,8 +250,21 @@ export class LabScenarioDetailPageState {
     this.workflow.deleteLayerAndChildren(protocolId);
   }
 
+  /**
+   * Method to get a process from the workflow, it refreshed the process everytime
+   * the object inside node is updated
+   * @param protocolId
+   * @param instanceName
+   */
   public getLabProcess$(protocolId: string, instanceName: string): Observable<LabProcess> {
-    return this.protocols[protocolId].pipe(map((protocol) => protocol.data.nodes[instanceName]));
+    return (
+      this.workflow
+        .findLayerById(protocolId)
+        .findNodeByName(instanceName)
+        // use the get object of the node to refresh the process
+        .getObject$()
+        .pipe(map(() => this.protocols[protocolId].value.data.nodes[instanceName]))
+    );
   }
 
   public getProtocol$(protocolId: string): Observable<LabProtocol> {

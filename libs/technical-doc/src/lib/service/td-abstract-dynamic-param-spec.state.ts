@@ -2,8 +2,10 @@ import { TdConfig, TdParamSpec, TdParamSpecFormInfoList, TdParamSpecs } from '..
 import { Observable } from 'rxjs';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 import { TdEditableParamSpec } from '../component/td-editable-param-specs-table/td-editable-param-specs-table.component';
+import { Injectable, OnDestroy } from '@angular/core';
 
-export abstract class TdAbstractDynamicParamSpecState {
+@Injectable()
+export abstract class TdAbstractDynamicParamSpecState implements OnDestroy {
   public paramSpecsTable: FlArrayObs<TdEditableParamSpec> = new FlEntityArrayObs([], true);
 
   setParamSpecs(paramSpecs: TdParamSpecs): void {
@@ -18,6 +20,8 @@ export abstract class TdAbstractDynamicParamSpecState {
 
     this.paramSpecsTable.addItem(editableParamSpecs);
   }
+
+  abstract openEditConfigDialog(configName: string): void;
 
   abstract addParamSpec(
     configSpecName: string,
@@ -42,7 +46,7 @@ export abstract class TdAbstractDynamicParamSpecState {
 
   abstract getParamSpecsInfos(): Observable<TdParamSpecFormInfoList>;
 
-  onDestroy(): void {
+  ngOnDestroy(): void {
     this.paramSpecsTable?.disconnect();
   }
 }

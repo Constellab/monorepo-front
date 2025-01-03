@@ -1,12 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabNavigableEntityGrouped } from '../../../../model/entities/lab-navigable-entity.entity';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTranslatableText,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 import { LabNote } from '../../../../model/entities/lab-note.entity';
@@ -27,28 +21,16 @@ export interface LabNavigableImpactDialogInput {
   styleUrl: './lab-navigable-impact-dialog.component.scss',
 })
 export class LabNavigableImpactDialogComponent implements OnInit {
-  title: FlTranslatableText;
-  helpText: FlTranslatableText;
-
-  impactedEntities: LabNavigableEntityGrouped[];
+  data: LabNavigableImpactDialogInput = inject(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef);
+  private dialogService = inject(FlDialogService);
 
   containsValidatedScenarios: boolean = false;
   containsValidatedNotes: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private data: LabNavigableImpactDialogInput,
-    private dialogRef: MatDialogRef<LabNavigableImpactDialogComponent>,
-    private dialogService: FlDialogService,
-    private translateService: FlTranslateService
-  ) {
-    this.title = data.config.title;
-    this.helpText = data.config.confirmImpactConfirmText;
-    this.impactedEntities = data.impactedEntities;
-  }
-
   ngOnInit(): void {
     // check if there are some validated scenario
-    const scenariosGroup: LabNavigableEntityGrouped<LabScenario> = this.impactedEntities.find(
+    const scenariosGroup: LabNavigableEntityGrouped<LabScenario> = this.data.impactedEntities.find(
       (group) => group.type === 'SCENARIO'
     );
     if (scenariosGroup) {
@@ -56,7 +38,7 @@ export class LabNavigableImpactDialogComponent implements OnInit {
     }
 
     // check if there are some validated note
-    const notesGroup: LabNavigableEntityGrouped<LabNote> = this.impactedEntities.find(
+    const notesGroup: LabNavigableEntityGrouped<LabNote> = this.data.impactedEntities.find(
       (group) => group.type === 'NOTE'
     );
     if (notesGroup) {
@@ -68,8 +50,8 @@ export class LabNavigableImpactDialogComponent implements OnInit {
     if (this.containsValidatedScenarios || this.containsValidatedNotes) return;
 
     const input: FlConfirmDialogInput = {
-      title: this.translateService.translatableText(this.title),
-      content: this.translateService.translate('biox.force_action_confirm'),
+      title: this.data.config.title,
+      content: 'biox.force_action_confirm',
       observable: this.data.config.callAction(),
     };
 

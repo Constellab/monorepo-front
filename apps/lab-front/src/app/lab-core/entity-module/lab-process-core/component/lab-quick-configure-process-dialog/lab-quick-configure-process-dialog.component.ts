@@ -1,16 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FlDynamicFieldConfigService,
-  FlDynamicFormAbstractControl,
-  FlDynamicFormHelper,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+import { FlDynamicFieldConfigService, FlTranslatableText } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { TdParamSpecs } from '@monorepo/technical-doc';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import { LabConfigureProcessDynamicField } from '../../../lab-config-core/lab-configure-process-dynamic-field.service';
+import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
+import {
+  LabConfigureSpecsForm,
+  LabConfigureSpecsFormComponent,
+} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 
 export interface LabQuickConfigureProcessDialogInput {
   title: FlTranslatableText;
@@ -29,14 +28,14 @@ export interface LabQuickConfigureProcessDialogInput {
   styleUrl: './lab-quick-configure-process-dialog.component.scss',
   providers: [
     // configure the dynamic field to support tags and other custom fields
-    { provide: FlDynamicFieldConfigService, useClass: LabConfigureProcessDynamicField },
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
   ],
 })
 export class LabQuickConfigureProcessDialogComponent implements OnInit {
   input: LabQuickConfigureProcessDialogInput = inject(MAT_DIALOG_DATA);
 
-  formGp: UntypedFormGroup;
-  dataConfig: FlDynamicFormAbstractControl;
+  formGp: FormGroup<LabConfigureSpecsForm>;
+  processConfig: LabConfig;
 
   getIsLoading: boolean = true;
 
@@ -54,17 +53,15 @@ export class LabQuickConfigureProcessDialogComponent implements OnInit {
   }
 
   private getSpecsSuccess(specs: TdParamSpecs): void {
-    // TODO TO improve once fix from @vfoex is merged
-    const labConfig = LabConfig.fromSpecs(specs, null);
-    this.dataConfig = labConfig.getDynamicFormFieldsConfig();
-    this.formGp = FlDynamicFormHelper.generateFormGroup(this.dataConfig);
+    this.processConfig = LabConfig.fromSpecs(specs, null);
+    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.processConfig);
 
     this.getIsLoading = false;
   }
 
   submit(): void {
     if (this.formGp.valid) {
-      this.dialogRef.close(this.formGp.getRawValue());
+      this.dialogRef.close(LabConfigureSpecsFormComponent.buildValues(this.formGp));
     }
   }
 }

@@ -9,7 +9,7 @@
   <fl-section [object]="formGp" [isLoading]="getIsLoading">
     <ng-container *flSectionBody>
       <form (ngSubmit)="submit()" id="upload-scenario-from-link" [formGroup]="formGp">
-        <fl-dynamic-abstract-form [control]="formGp" [config]="dataConfig"></fl-dynamic-abstract-form>
+        <lab-configure-specs-form [configData]="processConfig" [formGp]="formGp"></lab-configure-specs-form>
       </form>
     </ng-container>
   </fl-section>
@@ -22,6 +22,6 @@
     type="submit"
     form="upload-scenario-from-link"
     class="g-centered-forced">
-    {{ 'save' | translate }}
+    {{ 'ok' | translate }}
   </button>
 </div>

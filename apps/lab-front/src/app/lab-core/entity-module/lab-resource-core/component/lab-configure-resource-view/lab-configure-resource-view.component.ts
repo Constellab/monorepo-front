@@ -1,16 +1,25 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   LabResourceViewSpec,
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { LabConfig, LabConfigureSpecsForm } from '../../../../model/entities/lab-config.entity';
-import { FL_PORTAL_DATA, FlFormHelper, FlOverlayRef } from '@monorepo/front-core-lib';
-import { LabConfigureSpecsFormComponent } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import { LabConfig } from '../../../../model/entities/lab-config.entity';
+import {
+  FL_PORTAL_DATA,
+  FlDynamicFieldConfigService,
+  FlFormHelper,
+  FlOverlayRef,
+} from '@monorepo/front-core-lib';
+import {
+  LabConfigureSpecsForm,
+  LabConfigureSpecsFormComponent,
+} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { Observable } from 'rxjs';
 import { PrConfigValues } from '@monorepo/protocol';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 
 export interface LabConfigureResourceViewInput {
   resourceTypingName: string;
@@ -27,10 +36,6 @@ export interface LabConfigureResourceViewOutput {
   viewConfigValues: PrConfigValues;
 }
 
-export interface LabConfigureResourceViewForm {
-  viewConfig: LabConfigureSpecsForm;
-}
-
 /**
  * Portal to configure resource view spec
  */
@@ -39,27 +44,22 @@ export interface LabConfigureResourceViewForm {
   templateUrl: './lab-configure-resource-view.component.html',
   styleUrls: ['./lab-configure-resource-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
 })
 export class LabConfigureResourceViewComponent implements OnInit {
-  formGp: UntypedFormGroup;
+  input: LabConfigureResourceViewInput = inject(FL_PORTAL_DATA);
+
+  private overlayRef = inject(FlOverlayRef);
+  private resourceService = inject(LabResourceService);
+  private cdr = inject(ChangeDetectorRef);
+
+  formGp: FormGroup<LabConfigureSpecsForm>;
   configs: LabConfig;
 
-  title: string;
-  resourceTypingName: string;
-  viewStyle: TdTypeStyle;
-
   isLoading: boolean = true;
-
-  constructor(
-    @Inject(FL_PORTAL_DATA) private input: LabConfigureResourceViewInput,
-    private overlayRef: FlOverlayRef,
-    private resourceService: LabResourceService,
-    private cdr: ChangeDetectorRef
-  ) {
-    this.title = input.title;
-    this.resourceTypingName = input.resourceTypingName;
-    this.viewStyle = input.viewStyle;
-  }
 
   ngOnInit(): void {
     this.getViewSpecs();
@@ -91,9 +91,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
       this.input.preConfiguration?.viewConfigValues ?? {}
     );
 
-    this.formGp = new FormBuilder().group({
-      viewConfig: LabConfigureSpecsFormComponent.buildFormGroup(this.configs),
-    });
+    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.configs);
 
     this.isLoading = false;
     this.cdr.markForCheck();
@@ -101,17 +99,17 @@ export class LabConfigureResourceViewComponent implements OnInit {
 
   submit(): void {
     if (this.formGp.valid) {
-      const output = this.convertFormValueToResult(this.formGp.getRawValue());
+      const output = this.convertFormValueToResult();
       this.overlayRef.dispose(output);
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }
   }
 
-  private convertFormValueToResult(formValue: LabConfigureResourceViewForm): LabConfigureResourceViewOutput {
+  private convertFormValueToResult(): LabConfigureResourceViewOutput {
     return {
       viewMethodName: this.input.viewMethodName,
-      viewConfigValues: { ...formValue.viewConfig.public, ...formValue.viewConfig.protected },
+      viewConfigValues: LabConfigureSpecsFormComponent.buildValues(this.formGp),
     };
   }
 }

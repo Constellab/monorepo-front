@@ -1,4 +1,4 @@
-import { EventEmitter, Signal } from '@angular/core';
+import { Signal } from '@angular/core';
 
 /**
  * Generic config for a FormGroup, FormArray or FormControl
@@ -13,7 +13,7 @@ export type FlDynamicFormAbstractControl =
  * Base object for configs
  */
 interface FlDynamicFormConfigBase {
-  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup';
+  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup' | string;
   placeholder?: string;
   hint?: string;
 }
@@ -34,7 +34,6 @@ export interface FlDynamicFormGroupConfig extends FlFormGroupConfig {
  */
 export interface FlDynamicEditableFormGroupConfig extends FlFormGroupConfig {
   controlType: 'editableFormGroup';
-  openEditConfigDialog: EventEmitter<string>;
 }
 
 /**
@@ -86,7 +85,7 @@ export interface FlDynamicFieldConfigInput extends FlDynamicFieldConfigMaterialI
   // validators (only for numbers)
   min?: number;
   max?: number;
-  // if true the number must be an insteger
+  // if true the number must be an integer
   integer?: boolean;
 }
 
@@ -102,7 +101,6 @@ export interface FlDynamicFieldConfigSelect extends FlDynamicFieldConfigMaterial
 
   selectOptions: Signal<FlDynamicFieldSelectOptions>;
 }
-
 
 export interface FlDynamicFieldConfigSelectSearch extends FlDynamicFieldConfigBase {
   type: 'select-search';

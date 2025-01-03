@@ -1,21 +1,21 @@
-import { Component, HostListener, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import {
   LabTypeDialogComponent,
-  LabTypeDialogInput
+  LabTypeDialogInput,
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
 import {
-  LabProgressBarInfoDialogComponent
+  LabProgressBarInfoDialogComponent,
 } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   LabLogBetweenDatesDialogInput,
-  LabLogsBetweenDatesDialogComponent
+  LabLogsBetweenDatesDialogComponent,
 } from '../../../../lab-core/entity-module/lab-log-core/lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
 import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
 import { DateTime } from 'luxon';
@@ -23,21 +23,21 @@ import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.clas
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib';
 import {
-  LabSystemConfigDialogComponent
+  LabSystemConfigDialogComponent,
 } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
-  LabMonitorBetweenDatesDialogInput
+  LabMonitorBetweenDatesDialogInput,
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
 import {
-  LabShareAgentCommunityDialogComponent
+  LabShareAgentCommunityDialogComponent,
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 import {
   LabProcessEditStyleDialogComponent,
-  LabProcessEditStyleDialogInputData
+  LabProcessEditStyleDialogInputData,
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
 
 /**
@@ -50,6 +50,15 @@ import {
   providers: [LabProcessDashboardState],
 })
 export class LabProcessDashboardComponent implements OnInit, OnDestroy {
+  private nodeState = inject(LabWorkflowNodeDetailState);
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private dialogService = inject(FlDialogService);
+  private processService = inject(LabProcessService);
+  private dashboardState = inject(LabProcessDashboardState);
+  private workflowEditConfig = inject(LabWorkflowEditConfig);
+  private taskGeneratorService = inject(LabTaskGeneratorService);
+  private communityHelper = inject(CoCommunityHelperService);
+
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
 
@@ -74,19 +83,6 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   processSubscription: Subscription;
 
-  communityAgentVisibilityChangedSubscription: Subscription;
-
-  constructor(
-    private nodeState: LabWorkflowNodeDetailState,
-    private scenarioState: LabScenarioDetailPageState,
-    private dialogService: FlDialogService,
-    private processService: LabProcessService,
-    private dashboardState: LabProcessDashboardState,
-    private workflowEditConfig: LabWorkflowEditConfig,
-    private taskGeneratorService: LabTaskGeneratorService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
-
   ngOnInit(): void {
     this.processSubscription = this.nodeState.getProcess$().subscribe((process) => {
       if (process?.communityAgentVersionId != null) {
@@ -94,13 +90,6 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
         this.isCodeShown.set(process.config.specs['code']?.visibility == 'public');
       }
     });
-
-    this.communityAgentVisibilityChangedSubscription =
-      this.dashboardState.onCommunityAgentVisibilityChanged.subscribe((visibility: TdParamSpecVisibility) =>
-        this.onVisibilityChanged(visibility)
-      );
-
-    this.dashboardState.init(this.nodeState);
   }
 
   openTypingDoc(typingName: string): void {
@@ -181,8 +170,8 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.taskGeneratorService.generateAgentFile(process.parentProtocolId, process.id).subscribe();
   }
 
-  triggerCodeShown(newVisibility: TdParamSpecVisibility): void {
-    this.dashboardState.changeCommunityAgentVisibilityEvent.emit(newVisibility);
+  triggerCodeShown(process: LabProcess, newVisibility: TdParamSpecVisibility): void {
+    this.nodeState.updateCommunityAgentCodeParamsVisibility(process, newVisibility);
   }
 
   openShareCommunityAgentDialog(process: LabProcess, onlyUpdate = false): void {
@@ -216,8 +205,7 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe((process: LabProcess) => {
         if (process) {
-          this.nodeState.updateProcess(process);
-          this.process$ = of(process);
+          this.scenarioState.refreshProcess(process);
         }
       });
   }
@@ -230,12 +218,7 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
   }
 
-  onVisibilityChanged(visibility: TdParamSpecVisibility): void {
-    this.isCodeShown.set(visibility == 'public');
-  }
-
   ngOnDestroy(): void {
-    this.communityAgentVisibilityChangedSubscription?.unsubscribe();
     this.processSubscription?.unsubscribe();
   }
 }

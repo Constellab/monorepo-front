@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FlDynamicEditableFormGroupComponent } from './fl-dynamic-editable-form-group.component';
+import { TdDynamicEditableFormGroupComponent } from './td-dynamic-editable-form-group.component';
 
 describe('FlDynamicFormGroupDynamicComponent', () => {
-  let component: FlDynamicEditableFormGroupComponent;
-  let fixture: ComponentFixture<FlDynamicEditableFormGroupComponent>;
+  let component: TdDynamicEditableFormGroupComponent;
+  let fixture: ComponentFixture<TdDynamicEditableFormGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FlDynamicEditableFormGroupComponent],
+      declarations: [TdDynamicEditableFormGroupComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FlDynamicEditableFormGroupComponent);
+    fixture = TestBed.createComponent(TdDynamicEditableFormGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

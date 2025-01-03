@@ -7,7 +7,6 @@ import {
   FlPortalActionResult,
   FlPortalActionsService,
   FlTranslatableText,
-  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable, switchMap } from 'rxjs';
 import { LabNavigableEntityImpact } from '../../model/entities/lab-navigable-entity.entity';
@@ -36,7 +35,6 @@ export interface LabNavigableCallActionResult<T = any> {
 export class LabNavigableEntityService {
   constructor(
     private dialogService: FlDialogService,
-    private translateService: FlTranslateService,
     private actionService: FlPortalActionsService
   ) {}
 

@@ -2,7 +2,7 @@ import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
-  FlDynamicFormGroupConfig
+  FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib';
 import { PrConfigValues } from '@monorepo/protocol';
 import {
@@ -10,17 +10,8 @@ import {
   TdParamSpec,
   TdParamSpecConfig,
   TdParamSpecs,
-  TdParamSpecVisibility
+  TdParamSpecVisibility,
 } from '@monorepo/technical-doc';
-import { EventEmitter } from '@angular/core';
-
-/**
- * form structure for the {@link LabConfigureSpecsFormComponent}
- */
-export interface LabConfigureSpecsForm {
-  public: PrConfigValues;
-  protected: PrConfigValues;
-}
 
 /**
  * Config object for a process
@@ -71,23 +62,25 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
   private convertRecordToEditableFieldConfigs(
     record: TdParamSpecs,
-    edition_mode: boolean
+    editionMode: boolean
   ): FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig {
-    const configs: FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig = edition_mode
-      ? {
-          placeholder: 'biox.dynamic_params',
-          controlType: 'editableFormGroup',
-          subConfigs: {},
-          openEditConfigDialog: new EventEmitter<string>(),
-        }
-      : {
-          controlType: 'formGroup',
-          subConfigs: {},
-        };
+    const subConfigs: Record<string, FlDynamicFormAbstractControl> = {};
     for (const specName in record) {
-      configs.subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
+      subConfigs[specName] = this.convertToAbstractConfig(record[specName], specName);
     }
-    return configs;
+
+    if (editionMode) {
+      return {
+        controlType: 'editableFormGroup',
+        subConfigs: subConfigs,
+        placeholder: 'biox.dynamic_params',
+      };
+    } else {
+      return {
+        controlType: 'formGroup',
+        subConfigs: subConfigs,
+      };
+    }
   }
 
   private convertToAbstractConfig(
