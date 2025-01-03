@@ -41,7 +41,7 @@ export class TeLinkDialogComponent implements OnInit {
         return null;
       }
 
-      if (!ClYoutubeHelper.isYoutubeVideoOrEmbedUrl(value)) {
+      if (!ClYoutubeHelper.isYoutubeUrl(value)) {
         return { notYoutube: 'teTextEditor.not_youtube_link_error' };
       }
       return null;

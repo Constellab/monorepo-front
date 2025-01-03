@@ -42,7 +42,7 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
   }
 
   private setUrl(url?: string): void {
-    if (url && ClYoutubeHelper.isYoutubeVideoOrEmbedUrl(url)) {
+    if (url && ClYoutubeHelper.isYoutubeUrl(url)) {
       if (!ClYoutubeHelper.isYoutubeEmbedVideoUrl(url)) {
         url = ClYoutubeHelper.convertToEmbedUrl(url);
       }

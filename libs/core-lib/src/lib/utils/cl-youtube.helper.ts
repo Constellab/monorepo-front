@@ -4,6 +4,7 @@
 export class ClYoutubeHelper {
   public static readonly youtubeVideoUrl: string = 'https://www.youtube.com/watch?v=';
   public static readonly youtubeEmbedVideoUrl: string = 'https://www.youtube.com/embed/';
+  public static readonly youtubeShareUrl: string = 'https://youtu.be/';
 
   public static convertToEmbedUrl(url: string): string | null {
     const youtubeVideoId = ClYoutubeHelper.getYoutubeVideoId(url);
@@ -33,7 +34,15 @@ export class ClYoutubeHelper {
     return url.startsWith(ClYoutubeHelper.youtubeVideoUrl);
   }
 
-  public static isYoutubeVideoOrEmbedUrl(url: string): boolean {
-    return ClYoutubeHelper.isYoutubeVideoUrl(url) || ClYoutubeHelper.isYoutubeEmbedVideoUrl(url);
+  public static isYoutubeShareUrl(url: string): boolean {
+    return url.startsWith(ClYoutubeHelper.youtubeShareUrl);
+  }
+
+  public static isYoutubeUrl(url: string): boolean {
+    return (
+      ClYoutubeHelper.isYoutubeVideoUrl(url) ||
+      ClYoutubeHelper.isYoutubeEmbedVideoUrl(url) ||
+      ClYoutubeHelper.isYoutubeShareUrl(url)
+    );
   }
 }
