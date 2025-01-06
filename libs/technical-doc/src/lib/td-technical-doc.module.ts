@@ -59,6 +59,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { TdConfigureParamSpecsTableDialogComponent } from './component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 import { TdIconBackgroundColorPipe } from './pipe/td-icon-background-color.pipe';
 import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
+import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
 
 @NgModule({
   imports: [
