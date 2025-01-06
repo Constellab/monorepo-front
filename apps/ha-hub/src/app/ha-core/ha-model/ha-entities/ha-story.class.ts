@@ -98,10 +98,10 @@ export class HaStoryFilters {
   categories: string[];
   topics: string[];
 
-  constructor() {
+  constructor(title_: string) {
     this.categories = [];
     this.topics = [];
-    this.title = '';
+    this.title = title_ ?? '';
   }
 }
 

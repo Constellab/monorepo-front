@@ -6,7 +6,7 @@ import {
   TeBlockHeaderData,
   TeBlockHeaderLevel,
   TeBlockType,
-  TeBlockViewData,
+  TeBlockViewData
 } from './te-block.class';
 import { TeRichTextMigrator } from './te-rich-text-migrator.class';
 
@@ -164,13 +164,10 @@ export class TeRichText {
       (block) => block.type === TeBlockType.HEADER && titleTypes.includes(block.data.level)
     );
 
-    return titleBlocks.map((block) => block.data);
-    // TODO @vfoex, pk y'a ça ?
-    // return titleBlocks.map((block) => {
-    //   block.data.text = block.data.text.trim().replace(/<[^>]*>/g, '');
-    //   block.data.text = block.data.text.replace(/&nbsp;/g, '');
-    //   return block.data;
-    // });
+    return titleBlocks.map((block) => {
+      block.data.text = block.data.text.trim().replace('&nbsp;', '');
+      return block.data;
+    });
   }
 
   ///////////////////////////////////// FIGURE ///////////////////////////////////////////////

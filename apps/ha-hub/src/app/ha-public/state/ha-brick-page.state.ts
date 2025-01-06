@@ -14,7 +14,6 @@ import { FlStatusEvent, FlStatusEventError, FlStatusEventSuccess } from '@monore
 import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
-import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../ha-core/ha-service/ha-brick-version.service';
 import { HaReferenceDTO } from '../../ha-core/ha-model/ha-entities/ha-version.class';
@@ -132,7 +131,6 @@ export class HaBrickPageState {
     private transferState: TransferState,
     private brickService: HaBrickService,
     private brickVersionService: HaBrickVersionService,
-    private authenticatedUserService: HaAuthenticatedUserService,
     private documentationService: HaDocumentationService,
     private httpRedirectionService: HaHttpRedirectionService
   ) {}
@@ -240,11 +238,7 @@ export class HaBrickPageState {
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
-    this.authenticatedUserService.isBrickCreatorOrBrickUser(brick).subscribe({
-      next: (hasEditRight) => {
-        this.userHasEditRight.set(hasEditRight);
-      },
-    });
+    this.brickService.checkUserRights(brick.id).subscribe((res) => this.userHasEditRight.set(res));
   }
 
   private initBrick(name: string, version: string): void {

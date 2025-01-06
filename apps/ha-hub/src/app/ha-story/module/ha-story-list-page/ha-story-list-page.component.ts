@@ -9,7 +9,7 @@ import {
   HaStoryDatasourcePaginated,
   HaStoryFilters,
 } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
 import { Observable } from 'rxjs';
@@ -30,7 +30,7 @@ export class HaStoryListPageComponent extends HaCommunityPage implements OnInit 
   stories: HaStoryDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
 
-  filters: HaStoryFilters = new HaStoryFilters();
+  filters: HaStoryFilters = new HaStoryFilters(this.route.snapshot.queryParams.titleFilter);
 
   categories: any[] = [
     {
@@ -58,6 +58,7 @@ export class HaStoryListPageComponent extends HaCommunityPage implements OnInit 
   constructor(
     private dialogService: FlDialogService,
     private router: Router,
+    private route: ActivatedRoute,
     private storyService: HaStoryService,
     private topicService: HaTopicService,
     translateService: FlTranslateService,
@@ -74,11 +75,19 @@ export class HaStoryListPageComponent extends HaCommunityPage implements OnInit 
       HaRouterService.getFullRoute(this.router.url)
     );
     this.popularTopics$ = this.topicService.getPopularTopics();
-
+    this.titleFormControl.patchValue(this.filters.title);
     this.getStoriesFiltered();
   }
 
   search(): void {
+    if (this.titleFormControl.value == null || this.titleFormControl.value == '') {
+      this.router.navigate([], { relativeTo: this.route });
+    } else {
+      this.router.navigate([], {
+        queryParams: { titleFilter: this.titleFormControl.value },
+        relativeTo: this.route,
+      });
+    }
     this.filters.title = this.titleFormControl.value;
     this.updateStories();
   }

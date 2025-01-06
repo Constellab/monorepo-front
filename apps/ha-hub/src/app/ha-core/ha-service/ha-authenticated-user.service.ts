@@ -65,16 +65,6 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     return this.getUser().pipe(map((user) => user != null && user.category === HaUserCategory.ADMIN));
   }
 
-  public isBrickCreatorOrBrickUser(brick: HaBrick): Observable<boolean> {
-    return this.getUser().pipe(
-      map(
-        (user) =>
-          user != null &&
-          (user.id == brick?.createdBy?.id || brick?.brickUsers?.find((bU) => bU.user.id == user.id) != null)
-      )
-    );
-  }
-
   public isBrickCreator(brick: HaBrick): Observable<boolean> {
     return this.getUser().pipe(map((user) => user != null && user.id == brick?.createdBy?.id));
   }

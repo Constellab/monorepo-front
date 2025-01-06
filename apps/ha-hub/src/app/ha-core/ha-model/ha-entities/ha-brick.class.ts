@@ -1,6 +1,5 @@
 import { HaEntity } from './ha-entity.class';
 import { HaReferenceDTO, HaRepoType } from './ha-version.class';
-import { HaBrickUser } from './ha-brick-user';
 import { ClVersion } from '@monorepo/core-lib';
 import { HaSpace } from './ha-space.class';
 import { Type } from 'class-transformer';
@@ -25,8 +24,6 @@ export class HaBrick extends HaEntity implements CoBrick {
 
   lastVersion: ClVersion;
 
-  brickUsers: HaBrickUser[];
-
   imageLink?: string;
 
   credentialUsername?: string;
@@ -48,8 +45,6 @@ export class HaBrickCreationDTO {
   repoPip: string;
   version: string | ClVersion;
   repoType: HaRepoType;
-  credentialUsername?: string;
-  credentialPassword?: string;
   isBeta: boolean = false;
   visibility: HaBrickVisibility;
   subPatch?: number;

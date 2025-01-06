@@ -192,6 +192,4 @@ export class HaAgentVersionDetailComponent implements OnInit {
   onVersionInfosChange(versionInfos: TeRichText): void {
     this.versionInfosFormControl?.setValue(versionInfos);
   }
-
-  protected readonly Object = Object;
 }

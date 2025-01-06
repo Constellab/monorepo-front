@@ -1,9 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
-  computed,
   Inject,
-  Input,
   makeStateKey,
   OnInit,
   PLATFORM_ID,
@@ -42,7 +40,6 @@ import { filter, Observable, of, startWith, tap } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { FormControl } from '@angular/forms';
@@ -145,6 +142,7 @@ export class HaPublicSidenavComponent implements OnInit {
   technicalDataSource = new HaMateTreeFlatDataSource(this.techTreeControl, this.techTreeFlattener);
 
   currentCompletePath: string;
+  currentDocId: string;
 
   trackByIdentity = (index: number, item: any): any => item;
 
@@ -179,6 +177,7 @@ export class HaPublicSidenavComponent implements OnInit {
 
   private initCurrentCompletePath(pathVersion: string): void {
     this.currentCompletePath = this.router.url.split(pathVersion)[1];
+    this.currentDocId = this.currentCompletePath.split('/').pop();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -210,18 +209,18 @@ export class HaPublicSidenavComponent implements OnInit {
     if (isPlatformBrowser(this.platformId) && this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
       const data = this.transferState.get(this.DOCUMENTATIONS_KEY, null) as HaNode;
       this.transferState.remove(this.DOCUMENTATIONS_KEY);
-      this.onDocumentationsData(data);
+      this.onDocumentationsData(data, pathVersion);
       return;
     }
     this.brickService.getBrickDocs(brick.id, pathVersion).subscribe((data) => {
       if (isPlatformServer(this.platformId) && !this.transferState.hasKey(this.DOCUMENTATIONS_KEY)) {
         this.transferState.set(this.DOCUMENTATIONS_KEY, data);
       }
-      this.onDocumentationsData(data);
+      this.onDocumentationsData(data, pathVersion);
     });
   }
 
-  private onDocumentationsData(data: HaNode): void {
+  private onDocumentationsData(data: HaNode, pathVersion: string): void {
     this.rebuildTreeForData(data.children);
     if (this.dataSource.data.length > 0) {
       this.dataSource$ = of(this.dataSource);
@@ -498,10 +497,15 @@ export class HaPublicSidenavComponent implements OnInit {
 
   rebuildTreeForData(data: HaNode[]): void {
     this.dataSource.data = data;
-    this.expansionModel.selected.forEach((node) => {
-      const n = this.treeControl.dataNodes.find((n) => n.id == node.id);
-      this.treeControl.expand(n);
-    });
+    const currentNode: FlatNode = this.treeControl.dataNodes.find((n) => n.id == this.currentDocId);
+    if (currentNode) {
+      this.treeControl.expandAll();
+      for (const n of this.treeControl.dataNodes) {
+        if (!this.treeControl.getDescendants(n).includes(currentNode)) {
+          this.treeControl.collapse(n);
+        }
+      }
+    }
   }
 
   private updateTechDataSource(): void {
@@ -543,6 +547,11 @@ export class HaPublicSidenavComponent implements OnInit {
         return res;
       }),
       tap((value) => {
+        for (const n of this.techTreeControl.dataNodes) {
+          if (this.currentCompletePath.includes(n.path)) {
+            this.techTreeControl.expand(n);
+          }
+        }
         if (this.searchTechDocControl.value.length > 0 && value.data && value.data[0]) {
           for (const folder of value.data[0].children) {
             if (folder.children.length > 0) {
