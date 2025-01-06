@@ -48,15 +48,17 @@ export class HaMetadataService {
     this.metaService.addTag({ name: 'algolia-site-verification', content: algoliaSiteVerificationKey });
   }
 
-  getMetaTag(name: string): string {
-    return this.metaService.getTag(`name="${name}"`).content;
+  getMetaTag(name: string, isProperty: boolean = false): string {
+    return isProperty
+      ? this.metaService.getTag(`property="${name}"`).content
+      : this.metaService.getTag(`name="${name}"`).content;
   }
 
   getFacebookShareUrl(): string {
-    const url: string = this.getMetaTag('og:url');
-    const title: string = this.getMetaTag('og:title');
-    const description: string = this.getMetaTag('og:description');
-    const image: string = this.getMetaTag('og:image');
+    const url: string = this.getMetaTag('og:url', true);
+    const title: string = this.getMetaTag('og:title', true);
+    const description: string = this.getMetaTag('og:description', true);
+    const image: string = this.getMetaTag('og:image', true);
 
     return `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}&description=${description}&picture=${image}`;
   }
@@ -72,10 +74,10 @@ export class HaMetadataService {
   }
 
   getLinkedInShareUrl(): string {
-    const url: string = this.getMetaTag('og:url');
-    const title: string = this.getMetaTag('og:title');
-    const description: string = this.getMetaTag('og:description');
-    const image: string = this.getMetaTag('og:image');
+    const url: string = this.getMetaTag('og:url', true);
+    const title: string = this.getMetaTag('og:title', true);
+    const description: string = this.getMetaTag('og:description', true);
+    const image: string = this.getMetaTag('og:image', true);
 
     return `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}&summary=${description}&source=${image}`;
   }
@@ -110,6 +112,8 @@ export class HaMetadataService {
         property: 'og:description',
         content: this.translateService.translate(description, data),
       });
+    } else {
+      this.metaService.updateTag({ property: 'og:description', content: description });
     }
     if (image) this.metaService.updateTag({ property: 'og:image', content: image });
     else this.metaService.removeTag(`property="og:image"`);

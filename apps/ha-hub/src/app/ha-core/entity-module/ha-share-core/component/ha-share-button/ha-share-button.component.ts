@@ -21,7 +21,7 @@ export class HaShareButtonComponent implements OnInit {
   }
 
   onShareToMedium(): void {
-    const pageUrl = this.metaService.getMetaTag('og:url');
+    const pageUrl = this.metaService.getMetaTag('og:url', true);
     const mediumImportUrl = `https://medium.com/p/import`;
     // copy link to clipboard
     navigator.clipboard.writeText(pageUrl);
