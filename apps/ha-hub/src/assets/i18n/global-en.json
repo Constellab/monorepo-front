@@ -142,7 +142,7 @@
   "product_doc": "Product documentation",
   "tech_doc": "Technical documentation",
   "ha.home.title": "Home - Community",
-  "ha.home.description": "Home page of Constellab Community, Constellab Community is a collaborative platform for sharing knowledge and best practices in the field of AI and data science. It is a place where you can find and share technical documentations, tutorials, use-cases and other articles.",
+  "ha.home.description": "Constellab Community is a collaborative platform for sharing knowledge and best practices in the field of AI and data science.",
   "ha.stories.title": "Stories - Community",
   "ha.stories.description": "List of stories page",
   "ha.story.title": "{{title}} - Community",

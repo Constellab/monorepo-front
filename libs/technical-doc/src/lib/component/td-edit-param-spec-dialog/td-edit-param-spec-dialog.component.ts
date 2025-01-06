@@ -44,8 +44,6 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   private name: string;
 
-  private paramSpecConfig: TdParamSpecConfig;
-
   private possibleTypes: FlDynamicFieldSelectKeyNameOption[] = [];
 
   private paramSpecFormInfoList$: Observable<TdParamSpecFormInfoList>;
@@ -82,7 +80,6 @@ export class TdEditParamSpecDialogComponent implements OnInit {
         this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
         delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
       }
-      this.paramSpecConfig = new TdParamSpecConfig();
       if (paramSpecFormInfoList[this.spec.type]) {
         this.initForm(this.spec.type, paramSpecFormInfoList);
       }

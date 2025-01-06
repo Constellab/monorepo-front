@@ -25,8 +25,8 @@ export class HaShareButtonComponent implements OnInit {
     const mediumImportUrl = `https://medium.com/p/import`;
     // copy link to clipboard
     navigator.clipboard.writeText(pageUrl);
-    // open medium import page
-    window.open(mediumImportUrl, '_blank');
+    // open medium import page with noopener noreferrer
+    window.open(mediumImportUrl, '_blank', 'noopener noreferrer');
   }
 
   private setShareButtonElements(): void {

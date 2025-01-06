@@ -6,13 +6,15 @@
       <h2 class="home-subtitle">{{ 'home_subtitle' | translate }}</h2>
 
       <div class="video-container">
-        <iframe
-          src="https://www.youtube.com/embed/KvfWV6K_fmc"
-          title="Welcome to Constellab !"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+        <div class="video-container-iframe">
+          <iframe
+            src="https://www.youtube.com/embed/KvfWV6K_fmc"
+            title="Welcome to Constellab !"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen *haHideServerSide></iframe>
+        </div>
       </div>
 
       <a mat-stroked-button class="getting-started-button" [routerLink]="productDocRoute">
@@ -33,19 +35,21 @@
         <ha-github-star-button
           [repo]="gwsCoreRepoLink"
           [icon]="'octicon-mark-github'"></ha-github-star-button>
-        <a target="_blank" [href]="gLabLink" class="docker-pull-link">
+        <a target="_blank" [href]="gLabLink" class="docker-pull-link" rel="noopener noreferrer">
           <div class="docker-pull-image">
             <img ngSrc="https://img.shields.io/docker/pulls/constellab/glab" fill priority />
           </div>
         </a>
-        <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink">
+        <a mat-flat-button class="discord-button" target="_blank" [href]="discordLink"
+           rel="noopener noreferrer">
           <mat-icon svgIcon="discord" class="icon-discord"></mat-icon> {{ 'join_our_discord' | translate }}
         </a>
       </div>
       <p class="community-section-p">
         {{ 'the_fair_open_access_community_description' | translate }}
       </p>
-      <a mat-stroked-button [href]="signupLink" [target]="'_blank'" class="go-to-button">
+      <a mat-stroked-button [href]="signupLink" [target]="'_blank'" class="go-to-button"
+         rel="noopener noreferrer">
         {{ 'join_constellab' | translate }}
         <mat-icon>chevron_right</mat-icon>
       </a>
@@ -62,6 +66,7 @@
         <a
           [href]="'https://constellab.io/fair-open-access'"
           [target]="'_blank'"
+          rel="noopener noreferrer"
           mat-stroked-button
           class="go-to-button">
           {{ 'learn_more' | translate }}
@@ -153,7 +158,7 @@
         </a>
       </div>
 
-      <a class="space-card" [href]="constellabUrl" target="_blank">
+      <a class="space-card" [href]="constellabUrl" target="_blank" rel="noopener noreferrer">
         <img ngSrc="assets/fl-logo/constellab-logo.svg" height="50" width="50" />
         <div class="space-card-content">
           <h5>

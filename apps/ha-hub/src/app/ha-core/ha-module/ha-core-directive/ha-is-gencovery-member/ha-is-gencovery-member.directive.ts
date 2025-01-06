@@ -6,7 +6,7 @@ import { HaSpaceService } from '../../../ha-service/ha-space.service';
 @Directive({
   selector: '[haIsGencoveryMember]',
 })
-export class HaIsGencoveryMember extends FlAbstractIfDirective implements OnInit, OnDestroy {
+export class HaIsGencoveryMemberDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(
     templateRef: TemplateRef<any>,
     viewContainer: ViewContainerRef,

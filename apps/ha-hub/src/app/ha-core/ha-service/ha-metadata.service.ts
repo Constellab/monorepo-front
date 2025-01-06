@@ -103,10 +103,16 @@ export class HaMetadataService {
     hasTranslation: boolean = false,
     data?: any
   ): void {
-    this.addMetaTag('og:title', title);
-    this.addMetaTag('og:description', description, hasTranslation, data);
-    if (image) this.addMetaTag('og:image', image);
-    else this.metaService.removeTag(`name="og:image"`);
-    this.addMetaTag('og:url', url);
+    this.metaService.updateTag({ property: 'og:type', content: 'website' });
+    this.metaService.updateTag({ property: 'og:title', content: title });
+    if (hasTranslation) {
+      this.metaService.updateTag({
+        property: 'og:description',
+        content: this.translateService.translate(description, data),
+      });
+    }
+    if (image) this.metaService.updateTag({ property: 'og:image', content: image });
+    else this.metaService.removeTag(`property="og:image"`);
+    this.metaService.updateTag({ property: 'og:url', content: url });
   }
 }

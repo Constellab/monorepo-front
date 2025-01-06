@@ -2,7 +2,6 @@ import { Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2, Signal } from
 import { isPlatformBrowser } from '@angular/common';
 import { GitHubButtonProps } from 'github-buttons';
 import { HaThemeState } from '../../ha-state/ha-theme.state';
-import { Subject } from 'rxjs';
 import { ClTheme } from '@monorepo/core-lib';
 
 @Component({

@@ -1,4 +1,5 @@
 <fl-text-icon [iconPosition]="'start'">
   <mat-icon [svgIcon]="linkType"></mat-icon>
-  <a [href]="attachedLink" target="_blank" class="g-text-link">{{ linkType | translate }}</a>
+  <a [href]="attachedLink" target="_blank" class="g-text-link"
+     rel="noopener noreferrer">{{ linkType | translate }}</a>
 </fl-text-icon>

@@ -75,6 +75,8 @@ export function app(): express.Express {
 
       res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
 
+      res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+
       res.setHeader(
         'Feature-Policy',
         // eslint-disable-next-line max-len
