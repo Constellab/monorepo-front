@@ -8,7 +8,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { TooltipPosition } from '@angular/material/tooltip';
 import {
   LabDynamicPortConfigDialogComponent,
-  LabDynamicPortConfigDialogInput,
+  LabDynamicPortConfigDialogInput
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 
@@ -76,7 +76,9 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
         for (const port of ports) {
           resources.push(this.portToPortResource(port));
         }
-
+        if (resources.length == 0) {
+          this.isOpened = false;
+        }
         this.ports = resources;
       });
   }
