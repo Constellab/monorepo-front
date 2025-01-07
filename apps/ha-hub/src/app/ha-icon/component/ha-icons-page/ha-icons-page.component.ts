@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import { Subject } from 'rxjs';
 import {
   HaCreateIconDtoInput,
@@ -7,7 +7,6 @@ import {
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
 import { CoIcon } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
@@ -16,15 +15,9 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   styleUrls: ['./ha-icons-page.component.scss'],
 })
 export class HaIconsPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
-  reloadList$ = new Subject<boolean>();
+  private dialogService: FlDialogService = inject(FlDialogService);
 
-  constructor(
-    private dialogService: FlDialogService,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
+  reloadList$ = new Subject<boolean>();
 
   ngOnInit(): void {
     super.setMetaTags(

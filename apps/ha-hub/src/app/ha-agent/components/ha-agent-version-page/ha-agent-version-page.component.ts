@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, computed, OnInit, Signal } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import {
@@ -10,7 +10,6 @@ import {
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 
 @Component({
@@ -19,6 +18,14 @@ import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-ser
   styleUrls: ['./ha-agent-version-page.component.scss'],
 })
 export class HaAgentVersionPageComponent extends HaCommunityPage implements OnInit {
+  private agentService: HaAgentService = inject(HaAgentService);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private router: Router = inject(Router);
+  private agentPageState: HaAgentPageState = inject(HaAgentPageState);
+  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
+
   agentVersion: Signal<HaAgentVersion> = computed(() => {
     const agentVersion_ = this.agentPageState.agentVersion();
     if (!agentVersion_) {
@@ -50,20 +57,6 @@ export class HaAgentVersionPageComponent extends HaCommunityPage implements OnIn
   isAgentVersionError: Signal<boolean> = this.agentPageState.isAgentVersionError;
   isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
   currentVersion: any = null;
-
-  constructor(
-    private agentService: HaAgentService,
-    private activatedRoute: ActivatedRoute,
-    private dialogService: FlDialogService,
-    private router: Router,
-    private agentPageState: HaAgentPageState,
-    private changeDetector: ChangeDetectorRef,
-    private tdService: HaTdServiceConfig,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {

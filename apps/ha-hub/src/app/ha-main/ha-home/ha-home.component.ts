@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
+import { AfterContentInit, Component, inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
-import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 import {
@@ -22,7 +21,6 @@ import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
-import { FlTranslateService } from '@monorepo/front-core-lib';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -30,7 +28,14 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './ha-home.component.html',
   styleUrls: ['./ha-home.component.scss'],
 })
-export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterViewInit {
+export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterContentInit {
+  private storyService: HaStoryService = inject(HaStoryService);
+  private agentService: HaAgentService = inject(HaAgentService);
+  private brickService: HaBrickService = inject(HaBrickService);
+  private userService: HaUserService = inject(HaUserService);
+  private themeState: HaThemeState = inject(HaThemeState);
+  private platformId: object = inject(PLATFORM_ID);
+
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
 
   stories$: HaStoryDatasourcePaginated<HaStoryFilters>;
@@ -51,22 +56,9 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterVie
   signupLink: string = HaConstellabHelper.getConstellabSignupUrl();
   usersCount: number = 0;
 
-  viewIsInit: boolean;
+  contentIsInit: boolean;
 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
-
-  constructor(
-    private storyService: HaStoryService,
-    private agentService: HaAgentService,
-    private brickService: HaBrickService,
-    private userService: HaUserService,
-    private themeState: HaThemeState,
-    @Inject(PLATFORM_ID) private platformId: object,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.metadataService.setPageTitle('ha.home.title');
@@ -91,8 +83,8 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterVie
     this.userService.getCount().subscribe((count) => (this.usersCount = count));
   }
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) this.viewIsInit = true;
+  ngAfterContentInit(): void {
+    if (isPlatformBrowser(this.platformId)) this.contentIsInit = true;
   }
 
   getStoryImageLink(storyId: string, imageLinkOrId?: string): string {

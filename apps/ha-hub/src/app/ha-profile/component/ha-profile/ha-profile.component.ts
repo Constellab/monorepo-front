@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,14 +13,13 @@ import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entitie
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { FlDialogService, FlTranslateService, FlUserConfig } from '@monorepo/front-core-lib';
+import { FlDialogService, FlUserConfig } from '@monorepo/front-core-lib';
 import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { CoUser } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
@@ -34,30 +33,24 @@ export interface HaProfileDatasourceFilters {
   styleUrl: './ha-profile.component.scss',
 })
 export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+  private userService: HaUserService = inject(HaUserService);
+  private spaceService: HaSpaceService = inject(HaSpaceService);
+  private agentService: HaAgentService = inject(HaAgentService);
+  private brickService: HaBrickService = inject(HaBrickService);
+  private storyService: HaStoryService = inject(HaStoryService);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private userConfig: FlUserConfig = inject(FlUserConfig);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+
   user: CoUser;
   isCurrentUser: boolean;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
-
-  constructor(
-    private authenticatedUserService: HaAuthenticatedUserService,
-    private userService: HaUserService,
-    private spaceService: HaSpaceService,
-    private agentService: HaAgentService,
-    private brickService: HaBrickService,
-    private storyService: HaStoryService,
-    private dialogService: FlDialogService,
-    private userConfig: FlUserConfig,
-    private route: ActivatedRoute,
-    private router: Router,
-    private jsonLdState: HaJsonLdState,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.init();

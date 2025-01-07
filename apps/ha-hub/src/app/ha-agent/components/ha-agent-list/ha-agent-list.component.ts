@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import { Router } from '@angular/router';
 import {
   HaAgentCreateDialogComponent,
@@ -17,7 +17,6 @@ import { FormControl } from '@angular/forms';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 
 @Component({
   selector: 'ha-agent-list',
@@ -25,21 +24,15 @@ import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.servi
   styleUrls: ['./ha-agent-list.component.scss'],
 })
 export class HaAgentListComponent extends HaCommunityPage implements OnInit {
+  private agentService: HaAgentService = inject(HaAgentService);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private router: Router = inject(Router);
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+
   agentsPaginated: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   user: HaUser;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
-
-  constructor(
-    private agentService: HaAgentService,
-    private dialogService: FlDialogService,
-    private router: Router,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {

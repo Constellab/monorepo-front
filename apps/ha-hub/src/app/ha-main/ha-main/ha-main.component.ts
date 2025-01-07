@@ -1,9 +1,8 @@
 import {
   AfterContentInit,
   Component,
-  effect,
   HostListener,
-  Inject,
+  inject,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
@@ -13,7 +12,7 @@ import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenti
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
@@ -33,7 +32,15 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   isSmallScreen = false;
 
-  currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
+  private authUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+  private cookieService: FlCookieService = inject(FlCookieService);
+  private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  private themeState: HaThemeState = inject(HaThemeState);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private metadataService: HaMetadataService = inject(HaMetadataService);
+  private platformId: any = inject(PLATFORM_ID);
+
+  currentTheme: Signal<ClTheme> = this.themeState?.getCurrentTheme();
 
   @HostListener('window:keydown.control.k', ['$event'])
   onCtrlK(event: KeyboardEvent): void {
@@ -41,32 +48,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
       position: { top: '5%' },
       data: { theme: this.currentTheme() },
-    });
-  }
-
-  constructor(
-    private authUserService: HaAuthenticatedUserService,
-    private cookieService: FlCookieService,
-    private breakpointObserver: BreakpointObserver,
-    private themeState: HaThemeState,
-    private jsonLdState: HaJsonLdState,
-    private dialogService: FlDialogService,
-    private metadataService: HaMetadataService,
-    @Inject(PLATFORM_ID) private platformId: any,
-    @Inject(DOCUMENT) private document: Document
-  ) {
-    effect(() => {
-      const jsonLdContent = this.jsonLdState.getJsonLdContent()();
-      if (jsonLdContent != null) {
-        const jsonLdScript = this.document.createElement('script');
-        jsonLdScript.type = 'application/ld+json';
-        jsonLdScript.text = jsonLdContent;
-        this.document.head.appendChild(jsonLdScript);
-      } else {
-        if (this.document.head.querySelector('script[type="application/ld+json"]') != null) {
-          this.document.head.querySelector('script[type="application/ld+json"]').remove();
-        }
-      }
     });
   }
 

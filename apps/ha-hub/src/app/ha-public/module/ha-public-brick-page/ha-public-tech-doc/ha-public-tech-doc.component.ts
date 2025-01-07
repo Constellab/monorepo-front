@@ -1,12 +1,10 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdTypeEntity } from '@monorepo/technical-doc';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
-import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ha-public-tech-doc-page',
@@ -14,6 +12,10 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
   styleUrls: ['./ha-public-tech-doc.component.scss'],
 })
 export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit {
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+
   techDoc: Signal<TdTypeEntity> = computed(() => {
     const techDoc = this.brickPageState.techDoc();
     if (techDoc) {
@@ -26,16 +28,6 @@ export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit 
   techDocNotFound: Signal<boolean> = this.brickPageState.isTechDocError;
 
   url: string;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private brickPageState: HaBrickPageState,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.getActiveDoc();

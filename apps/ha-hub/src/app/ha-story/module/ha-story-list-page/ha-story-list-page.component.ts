@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent,
@@ -15,7 +15,6 @@ import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
 import { Observable } from 'rxjs';
 import { HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import { CoStoryCategory } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
@@ -27,6 +26,12 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   styleUrls: ['./ha-story-list-page.component.scss'],
 })
 export class HaStoryListPageComponent extends HaCommunityPage implements OnInit {
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private router: Router = inject(Router);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private storyService: HaStoryService = inject(HaStoryService);
+  private topicService: HaTopicService = inject(HaTopicService);
+
   stories: HaStoryDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
 
@@ -54,18 +59,6 @@ export class HaStoryListPageComponent extends HaCommunityPage implements OnInit 
   myStoriesBool: boolean = false;
 
   titleFormControl: FormControl<string> = new FormControl<string>('');
-
-  constructor(
-    private dialogService: FlDialogService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private storyService: HaStoryService,
-    private topicService: HaTopicService,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     super.setMetaTags(

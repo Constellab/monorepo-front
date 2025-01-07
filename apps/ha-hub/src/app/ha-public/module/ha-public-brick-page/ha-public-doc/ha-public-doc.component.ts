@@ -1,4 +1,4 @@
-import { Component, computed, effect, OnDestroy, OnInit, Signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
@@ -8,11 +8,9 @@ import {
   FlDialogService,
   FlOverlayRef,
   FlPortalService,
-  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import {
   TeBlock,
@@ -35,6 +33,16 @@ import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
   styleUrls: ['./ha-public-doc.component.scss'],
 })
 export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnDestroy {
+  private brickService: HaBrickService = inject(HaBrickService);
+  private documentationService: HaDocumentationService = inject(HaDocumentationService);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  private httpRedirectionService: HaHttpRedirectionService = inject(HaHttpRedirectionService);
+  private portalService: FlPortalService = inject(FlPortalService);
+  private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+
   versionPath: Signal<string> = this.brickPageState.getBrickVersionPath();
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
@@ -67,20 +75,8 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
 
   historyOverlayRef: FlOverlayRef;
 
-  constructor(
-    private brickService: HaBrickService,
-    private documentationService: HaDocumentationService,
-    private dialogService: FlDialogService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private httpRedirectionService: HaHttpRedirectionService,
-    private portalService: FlPortalService,
-    private brickPageState: HaBrickPageState,
-    private jsonLdState: HaJsonLdState,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
+  constructor() {
+    super();
 
     effect(
       () => {

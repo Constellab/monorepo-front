@@ -1,11 +1,10 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { Router } from '@angular/router';
 import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { FlDialogService, FlFormDialogInput, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaReferenceDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaAuthService } from '../../../../ha-core/ha-service/ha-auth.service';
 import { HaLikeService } from '../../../../ha-core/ha-service/ha-like.service';
 import { HaLikeType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
@@ -18,7 +17,13 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
   templateUrl: './ha-public-brick-description.component.html',
   styleUrls: ['./ha-public-brick-description.component.scss'],
 })
-export class HaPublicBrickDescriptionComponent extends HaCommunityPage implements OnInit {
+export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
+  private router: Router = inject(Router);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private authService: HaAuthService = inject(HaAuthService);
+  private likeService: HaLikeService = inject(HaLikeService);
+  private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+
   brick: Signal<HaBrick> = computed(() => {
     const brick = this.brickPageState.brick();
     if (brick) {
@@ -31,20 +36,6 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage implement
   directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
 
   brickIsLiked = false;
-
-  constructor(
-    private router: Router,
-    private dialogService: FlDialogService,
-    private authService: HaAuthService,
-    private likeService: HaLikeService,
-    private brickPageState: HaBrickPageState,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
-
-  ngOnInit(): void {}
 
   createEditBrickDialog(): void {
     const node: HaEditBrickDTO = new HaEditBrickDTO();

@@ -1,4 +1,4 @@
-import { Component, makeStateKey, OnInit, StateKey } from '@angular/core';
+import { Component, inject, makeStateKey, OnInit, StateKey } from '@angular/core';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import {
   HaBrick,
@@ -6,12 +6,10 @@ import {
   HaBrickDatasourcePaginated,
 } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
-import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -19,20 +17,14 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
   styleUrls: ['./ha-public-list-bricks-page.component.scss'],
 })
 export class HaPublicListBricksPageComponent extends HaCommunityPage implements OnInit {
+  private haBrickService: HaBrickService = inject(HaBrickService);
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+
   bricks: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
   BRICKS_KEY: StateKey<object>;
   spaceIdFilter: string[] = [];
   titleFormControl: FormControl<string> = new FormControl('');
   user: HaUser;
-
-  constructor(
-    private haBrickService: HaBrickService,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.authenticatedUserService.getUser().subscribe((user) => {

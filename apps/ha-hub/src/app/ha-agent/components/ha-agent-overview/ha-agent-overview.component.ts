@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.config';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
@@ -17,7 +17,6 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
   FlPortalService,
-  FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
@@ -27,7 +26,6 @@ import {
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { ClStringHelper } from '@monorepo/core-lib';
 
@@ -37,6 +35,16 @@ import { ClStringHelper } from '@monorepo/core-lib';
   styleUrls: ['./ha-agent-overview.component.scss'],
 })
 export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit {
+  private agentService: HaAgentService = inject(HaAgentService);
+  private activeRoute: ActivatedRoute = inject(ActivatedRoute);
+  private authService: HaAuthService = inject(HaAuthService);
+  private likeService: HaLikeService = inject(HaLikeService);
+  private portalService: FlPortalService = inject(FlPortalService);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private router: Router = inject(Router);
+  private agentPageState: HaAgentPageState = inject(HaAgentPageState);
+  private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
+
   profileRoute = HaRouterService.getProfileRoute();
 
   descriptionEditorDisabled: boolean = true;
@@ -87,22 +95,6 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
     return new HaAgentTextEditorConfig(this.agentService, this.agent().id);
   });
-
-  constructor(
-    private agentService: HaAgentService,
-    private activeRoute: ActivatedRoute,
-    private authService: HaAuthService,
-    private likeService: HaLikeService,
-    private portalService: FlPortalService,
-    private dialogService: FlDialogService,
-    private router: Router,
-    private agentPageState: HaAgentPageState,
-    private tdService: HaTdServiceConfig,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {

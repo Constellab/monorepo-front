@@ -1,6 +1,6 @@
 import {
   Component,
-  Inject,
+  inject,
   makeStateKey,
   OnDestroy,
   OnInit,
@@ -12,7 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
-import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 
 import { isPlatformBrowser } from '@angular/common';
 import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
@@ -23,7 +22,7 @@ import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authe
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
-import { FlPortalService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlPortalService } from '@monorepo/front-core-lib';
 import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
@@ -42,6 +41,18 @@ import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
   styleUrls: ['./ha-story-page.component.scss'],
 })
 export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private storyService: HaStoryService = inject(HaStoryService);
+  private platformId: object = inject(PLATFORM_ID);
+  private transferState: TransferState = inject(TransferState);
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+  private authService: HaAuthService = inject(HaAuthService);
+  private likeService: HaLikeService = inject(HaLikeService);
+  private router: Router = inject(Router);
+  private portalService: FlPortalService = inject(FlPortalService);
+  private httpRedirectionService: HaHttpRedirectionService = inject(HaHttpRedirectionService);
+  private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+
   story: HaStory;
 
   textEditorConfig: HaStoryTextEditorConfig;
@@ -71,24 +82,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
   urlToDownloadFilePrefix: string;
 
   subscription: Subscription;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private storyService: HaStoryService,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    private authService: HaAuthService,
-    private likeService: HaLikeService,
-    private router: Router,
-    private portalService: FlPortalService,
-    private httpRedirectionService: HaHttpRedirectionService,
-    private jsonLdState: HaJsonLdState,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');

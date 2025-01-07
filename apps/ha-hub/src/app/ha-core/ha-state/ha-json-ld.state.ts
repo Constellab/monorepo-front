@@ -1,15 +1,12 @@
-import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { HaRouterService } from '../ha-service/ha-router.service';
 import { CoUser } from '@monorepo/community-lib';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable()
 export class HaJsonLdState {
-  private jsonLdContent: WritableSignal<string> = signal<string>(null);
-
-  public getJsonLdContent(): Signal<string> {
-    return this.jsonLdContent;
-  }
+  private document: Document = inject(DOCUMENT);
 
   public setArticleJsonLdContent(
     headline: string,
@@ -17,6 +14,7 @@ export class HaJsonLdState {
     datePublished: DateTime,
     author: CoUser[]
   ): void {
+    this.clearJsonLdContent();
     const jsonLdContent = `{
       "@context": "https://schema.org",
       "@type": "Article",
@@ -41,6 +39,7 @@ export class HaJsonLdState {
   }
 
   public setProfilePageJsonLdContent(user: CoUser, photo: string): void {
+    this.clearJsonLdContent();
     const jsonLdContent = `{
       "@context": "https://schema.org",
       "@type": "ProfilePage",
@@ -50,7 +49,7 @@ export class HaJsonLdState {
         "identifier": "${user.userCode}" ${
           photo
             ? `,
-        "image": "${photo}`
+        "image": "${photo}"`
             : ''
         }
       }
@@ -59,6 +58,7 @@ export class HaJsonLdState {
   }
 
   public setProductJsonLdContent(name: string, price: number = 0): void {
+    this.clearJsonLdContent();
     const jsonLdContent = `{
       "@context": "https://schema.org",
       "@type": "Product",
@@ -73,10 +73,15 @@ export class HaJsonLdState {
   }
 
   public clearJsonLdContent(): void {
-    this.setJsonLdContent(null);
+    if (this.document.head.querySelector('script[type="application/ld+json"]') != null) {
+      this.document.head.querySelector('script[type="application/ld+json"]').remove();
+    }
   }
 
   private setJsonLdContent(content: string): void {
-    this.jsonLdContent.set(content);
+    const jsonLdScript = this.document.createElement('script');
+    jsonLdScript.type = 'application/ld+json';
+    jsonLdScript.text = content;
+    this.document.head.appendChild(jsonLdScript);
   }
 }

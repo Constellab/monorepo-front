@@ -7,7 +7,7 @@
 
       <div class="video-container">
         <div class="video-container-iframe">
-          @defer (when viewIsInit) {
+          @if (contentIsInit) {
             <iframe
               src="https://www.youtube.com/embed/KvfWV6K_fmc"
               title="Welcome to Constellab !"

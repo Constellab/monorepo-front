@@ -1,11 +1,10 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
-import { FlDialogService, FlFormDialogInput, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
@@ -18,6 +17,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./ha-public-versions.component.scss'],
 })
 export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit {
+  private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);
+  private dialogService: FlDialogService = inject(FlDialogService);
+  private brickPageState: HaBrickPageState = inject(HaBrickPageState);
+  private router: Router = inject(Router);
+
   brickVersions: HaBrickVersionDataSource;
   brick: Signal<HaBrick> = computed(() => {
     const brick = this.brickPageState.brick();
@@ -28,17 +32,6 @@ export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit
     return brick;
   });
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
-
-  constructor(
-    private brickVersionService: HaBrickVersionService,
-    private dialogService: FlDialogService,
-    private brickPageState: HaBrickPageState,
-    private router: Router,
-    translateService: FlTranslateService,
-    metadataService: HaMetadataService
-  ) {
-    super(translateService, metadataService);
-  }
 
   ngOnInit(): void {}
 
