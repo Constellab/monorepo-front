@@ -7,9 +7,13 @@
 </fl-dialog-header>
 
 <mat-dialog-content class="content">
-  <fl-dynamic-form-group class="g-form-field-compact" [control]="formGroup" [config]="formGroupConfig">
-  </fl-dynamic-form-group>
-  <button mat-raised-button color="primary" (click)="saveParamSpec()" type="button" class="save-button">
-    {{ 'td.save' | translate }}
-  </button>
+  @if (isLoading) {
+    <fl-loader class="loader"></fl-loader>
+  } @else {
+    <fl-dynamic-form-group class="g-form-field-compact" [control]="formGroup" [config]="formGroupConfig">
+    </fl-dynamic-form-group>
+    <button mat-raised-button color="primary" (click)="saveParamSpec()" type="button" class="save-button">
+      {{ 'td.save' | translate }}
+    </button>
+  }
 </mat-dialog-content>

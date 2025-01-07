@@ -40,6 +40,8 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   isEdit: boolean;
 
+  isLoading: boolean;
+
   private spec: TdParamSpec;
 
   private name: string;
@@ -61,6 +63,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
     if (!data.spec) {
       this.isEdit = false;
+      // Set default values for the new param spec if it's create mode
       this.spec = {
         type: 'str',
         optional: false,
@@ -74,15 +77,25 @@ export class TdEditParamSpecDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.paramSpecFormInfoList$.subscribe((paramSpecFormInfoList: TdParamSpecFormInfoList) => {
-      for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
-        const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
-        this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
-        delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
-      }
-      if (paramSpecFormInfoList[this.spec.type]) {
-        this.initForm(this.spec.type, paramSpecFormInfoList);
-      }
+    this.isLoading = true;
+
+    // Subscribe to the paramSpecFormInfoList$ observable to get the possible types from the python backend
+    // Then init the form with the current type of the spec if it exists, otherwise the default type is 'str'
+    this.paramSpecFormInfoList$.subscribe({
+      next: (paramSpecFormInfoList: TdParamSpecFormInfoList) => {
+        for (const paramSpecInfo of Object.keys(paramSpecFormInfoList)) {
+          const humanName: string = ClStringHelper.snakeCaseToSentence(paramSpecInfo);
+          this.possibleTypes.push({ key: paramSpecInfo as TdParamSpecType, humanName: humanName });
+          delete paramSpecFormInfoList[paramSpecInfo]['human_name'];
+        }
+        if (paramSpecFormInfoList[this.spec.type]) {
+          this.initForm(this.spec.type, paramSpecFormInfoList);
+        }
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      },
     });
   }
 
@@ -91,6 +104,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
       if (this.isEdit) {
         const oldName = this.name != this.formGroup.get('name').value ? this.name : null;
         if (oldName) {
+          // Call rename and edit the param spec if the name field is changed and it's update mode
           this.dynamicParamSpecState
             .renameAndEditParamSpec(
               this.configSpecName,
@@ -100,11 +114,13 @@ export class TdEditParamSpecDialogComponent implements OnInit {
             )
             .subscribe((config: TdConfig) => this.dialogRef.close(config));
         } else {
+          // Edit the param spec if the name field is not changed and it's update mode
           this.dynamicParamSpecState
             .editParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
             .subscribe((config: TdConfig) => this.dialogRef.close(config));
         }
       } else {
+        // Create the param spec if it's create mode
         this.dynamicParamSpecState
           .addParamSpec(this.configSpecName, this.formGroup.get('name').value, this.formGroup.value)
           .subscribe((config: TdConfig) => this.dialogRef.close(config));
@@ -112,6 +128,9 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     }
   }
 
+  // Create the form group config and add the type and
+  // name fields because they are always present and not in the specsInfoList
+  // Then call initCompleteForm to add the other fields based on the type selected
   private initForm(type: string, specsInfoList: TdParamSpecFormInfoList): void {
     this.formGroupConfig = {
       controlType: 'formGroup',
@@ -119,9 +138,11 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     };
     this.formGroupConfig.subConfigs['type'] = this.getTypeDynamicFieldConfigSelect();
     this.formGroupConfig.subConfigs['name'] = this.getNameDynamicFieldConfigInput();
+
     this.initCompleteForm(type, specsInfoList);
   }
 
+  // Add the fields based on the type selected and the info in the specsInfoList to the form group config
   private initCompleteForm(type: string, specsInfoList: TdParamSpecFormInfoList): void {
     this.formGroupConfig.subConfigs = Object.assign(
       {},
@@ -138,6 +159,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     });
   }
 
+  // Return a basic form control config for the name field
   private getNameDynamicFieldConfigInput(): FlDynamicFieldConfigInput {
     return {
       inputType: 'text',
@@ -148,6 +170,7 @@ export class TdEditParamSpecDialogComponent implements OnInit {
     };
   }
 
+  // Return the form control config for the type field with all possible types as options
   private getTypeDynamicFieldConfigSelect(): FlDynamicFieldConfigSelect {
     return {
       type: 'select',

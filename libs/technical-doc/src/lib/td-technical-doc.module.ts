@@ -15,6 +15,7 @@ import {
   FlFormModule,
   FlIconModule,
   FlKeyValueModule,
+  FlLoaderModule,
   FlSectionModule,
   FlTextIconModule,
   FlThemeModule,
@@ -97,6 +98,7 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     MatCheckbox,
     FlDynamicFieldModule,
     FlSectionModule,
+    FlLoaderModule,
   ],
   declarations: [
     TdResourceDocComponent,

@@ -30,7 +30,7 @@ export class TdConfigureParamSpecsTableDialogComponent {
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
       configSpecName: this.data.configSpecName,
       name: param?.name,
-      spec: param != null ? this.data.paramSpecs[param.name] : null,
+      spec: param ? Object.assign({}, param) : null,
     };
 
     this.dialogService
