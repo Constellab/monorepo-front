@@ -22,6 +22,7 @@ import { CoUser } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -44,6 +45,8 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+
+  foaLink: string = HaConstellabHelper.getGencoveryFOAUrl();
 
   user: CoUser;
   isCurrentUser: boolean;

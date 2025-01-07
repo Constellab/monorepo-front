@@ -42,6 +42,8 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterCon
   agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
 
+  gencoveryFOALink: string = HaConstellabHelper.getGencoveryFOAUrl();
+
   storyListRoute: string = HaRouterService.getStoriesListRoute();
   agentsListRoute: string = HaRouterService.getAgentsListRoute();
   brickListRoute: string = HaRouterService.getBrickListRoute();

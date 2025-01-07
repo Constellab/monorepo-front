@@ -10,4 +10,8 @@ export class HaConstellabHelper {
   public static getConstellabSignupUrl(): string {
     return HaConstellabHelper.getConstellabUrl() + '/signup';
   }
+
+  public static getGencoveryFOAUrl(): string {
+    return 'https://gencovery.com/fair-open-access';
+  }
 }
