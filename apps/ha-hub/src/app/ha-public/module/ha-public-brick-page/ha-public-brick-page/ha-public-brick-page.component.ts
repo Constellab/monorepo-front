@@ -1,10 +1,9 @@
-import { Component, Inject, OnInit, Signal } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, Signal } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -22,9 +21,7 @@ export class HaPublicBrickPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private metadataService: HaMetadataService,
-    private brickPageState: HaBrickPageState,
-    @Inject(DOCUMENT) private document: Document,
-    private router: Router
+    private brickPageState: HaBrickPageState
   ) {}
 
   ngOnInit(): void {

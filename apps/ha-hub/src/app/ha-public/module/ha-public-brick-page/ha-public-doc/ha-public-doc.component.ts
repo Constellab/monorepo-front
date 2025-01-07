@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, Signal } from '@angular/core';
+import { Component, computed, effect, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
@@ -15,6 +15,8 @@ import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { FormControl } from '@angular/forms';
 import {
+  TeBlock,
+  TeBlockFigureData,
   TeRichText,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
@@ -25,13 +27,14 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
   selector: 'ha-public-doc',
   templateUrl: './ha-public-doc.component.html',
   styleUrls: ['./ha-public-doc.component.scss'],
 })
-export class HaPublicDocComponent extends HaCommunityPage implements OnInit {
+export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnDestroy {
   versionPath: Signal<string> = this.brickPageState.getBrickVersionPath();
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
@@ -73,10 +76,27 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit {
     private httpRedirectionService: HaHttpRedirectionService,
     private portalService: FlPortalService,
     private brickPageState: HaBrickPageState,
+    private jsonLdState: HaJsonLdState,
     translateService: FlTranslateService,
     metadataService: HaMetadataService
   ) {
     super(translateService, metadataService);
+
+    effect(
+      () => {
+        const doc = this.documentation();
+        if (doc) {
+          const docFigureBlocks: TeBlock<TeBlockFigureData>[] = doc.content.getFiguresBlocks();
+          const docImages: string[] = [];
+          docFigureBlocks.forEach((figureBlock) => {
+            docImages.push(this.documentationService.getImageUrl(doc.id, figureBlock.data.filename));
+          });
+
+          this.jsonLdState.setArticleJsonLdContent(doc.title, docImages, doc.createdAt, [doc.createdBy]);
+        }
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   saveContent = (value: TeRichText): Observable<HaDocumentation> =>
@@ -204,5 +224,9 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit {
       this.brick().imageLink,
       HaRouterService.getFullRoute(this.router.url)
     );
+  }
+
+  ngOnDestroy(): void {
+    this.jsonLdState.clearJsonLdContent();
   }
 }

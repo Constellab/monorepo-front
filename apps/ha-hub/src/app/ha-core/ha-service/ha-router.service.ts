@@ -119,6 +119,10 @@ export class HaRouterService {
     return '/profile/';
   }
 
+  public static getUserProfileRoute(userId: string): string {
+    return `${this.getProfileRoute()}${userId}`;
+  }
+
   //////////////////////////// OTHERS ////////////////////////////////
 
   public static getGwsCoreRepoLink(): string {

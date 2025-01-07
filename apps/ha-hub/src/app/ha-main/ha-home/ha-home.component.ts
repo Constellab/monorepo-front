@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
@@ -23,13 +23,14 @@ import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
 import { FlTranslateService } from '@monorepo/front-core-lib';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ha-ha-home',
   templateUrl: './ha-home.component.html',
   styleUrls: ['./ha-home.component.scss'],
 })
-export class HaHomeComponent extends HaCommunityPage implements OnInit {
+export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterViewInit {
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
 
   stories$: HaStoryDatasourcePaginated<HaStoryFilters>;
@@ -50,6 +51,8 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit {
   signupLink: string = HaConstellabHelper.getConstellabSignupUrl();
   usersCount: number = 0;
 
+  viewIsInit: boolean;
+
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
   constructor(
@@ -58,6 +61,7 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit {
     private brickService: HaBrickService,
     private userService: HaUserService,
     private themeState: HaThemeState,
+    @Inject(PLATFORM_ID) private platformId: object,
     translateService: FlTranslateService,
     metadataService: HaMetadataService
   ) {
@@ -85,6 +89,10 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit {
     this.bricks$.getFirstPage({ spacesFilter: [], titleFilter: '' });
 
     this.userService.getCount().subscribe((count) => (this.usersCount = count));
+  }
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) this.viewIsInit = true;
   }
 
   getStoryImageLink(storyId: string, imageLinkOrId?: string): string {

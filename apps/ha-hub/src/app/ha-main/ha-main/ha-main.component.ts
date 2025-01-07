@@ -1,6 +1,7 @@
 import {
   AfterContentInit,
   Component,
+  effect,
   HostListener,
   Inject,
   OnDestroy,
@@ -12,19 +13,20 @@ import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenti
 import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HaCookieConsentComponent } from '../ha-cookie-consent/ha-cookie-consent.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
 import { environment } from '../../../environments/ha-environment';
 import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
+import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
   selector: 'ha-main',
   templateUrl: './ha-main.component.html',
   styleUrls: ['./ha-main.component.scss'],
-  providers: [HaThemeState],
+  providers: [HaThemeState, HaJsonLdState],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;
@@ -47,10 +49,26 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     private cookieService: FlCookieService,
     private breakpointObserver: BreakpointObserver,
     private themeState: HaThemeState,
+    private jsonLdState: HaJsonLdState,
     private dialogService: FlDialogService,
     private metadataService: HaMetadataService,
-    @Inject(PLATFORM_ID) private platformId: any
-  ) {}
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    effect(() => {
+      const jsonLdContent = this.jsonLdState.getJsonLdContent()();
+      if (jsonLdContent != null) {
+        const jsonLdScript = this.document.createElement('script');
+        jsonLdScript.type = 'application/ld+json';
+        jsonLdScript.text = jsonLdContent;
+        this.document.head.appendChild(jsonLdScript);
+      } else {
+        if (this.document.head.querySelector('script[type="application/ld+json"]') != null) {
+          this.document.head.querySelector('script[type="application/ld+json"]').remove();
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.themeState.init();

@@ -19,9 +19,9 @@ import {
   FlDialogService,
   FlSnackBarService,
   FlStatusEvent,
-  FlStatusEventSuccess
+  FlStatusEventSuccess,
 } from '@monorepo/front-core-lib';
-import { ActivatedRoute } from '@angular/router';
+import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 
 @Injectable()
 export class HaAgentPageState {
@@ -95,9 +95,9 @@ export class HaAgentPageState {
     private authenticatedUserService: HaAuthenticatedUserService,
     private httpRedirectionService: HaHttpRedirectionService,
     private likeService: HaLikeService,
-    private router: ActivatedRoute,
     private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService
+    private dialogService: FlDialogService,
+    private jsonLdState: HaJsonLdState
   ) {}
 
   public init(agentId: string, paramTitle: string): void {
@@ -116,6 +116,7 @@ export class HaAgentPageState {
       status: 'success',
       object: agent,
     });
+    // this.jsonLdState.setProductJsonLdContent(agent.title);
     this.setAgentDescription(agent.description);
   }
 
@@ -258,34 +259,37 @@ export class HaAgentPageState {
     });
   }
 
-  public publishAgentVersion(agentVersionId: string): void{
+  public publishAgentVersion(agentVersionId: string): void {
     if (this.agentVersion()?.versionState === 'PUBLISHED') return;
     if (this.agentVersion().id != agentVersionId) return;
     if (this.agentVersion().code == null || this.agentVersion().code === '') {
       this.snackBarService.openErrorMessage({
         text: 'cannot_publish_agent_version_without_code',
-        translateText: true
-      })
+        translateText: true,
+      });
       return;
     }
-    this.dialogService.openConfirmDialog({
-      title: 'publish_agent_version',
-      content: 'publish_agent_version_confirmation',
-      successMessage: 'agent_version_published',
-      observable: this.agentService.publishAgentVersion(agentVersionId)
-    }).afterClosed().subscribe((result: FlConfirmDialogResult<HaAgentVersion>) => {
-      if(result?.choice && result.result != null){
-        result.result.agent.latestPublishVersion = result.result.version;
-        this.updateAgentVersion(result.result);
-        this.agentStatusEvent.set({
-          status: 'success',
-          object: result.result.agent
-        });
-        this.httpRedirectionService.redirectTo(
-          HaRouterService.getAgentRoute(result.result.agent.id, result.result.agent.title)
-        );
-      }
-    })
+    this.dialogService
+      .openConfirmDialog({
+        title: 'publish_agent_version',
+        content: 'publish_agent_version_confirmation',
+        successMessage: 'agent_version_published',
+        observable: this.agentService.publishAgentVersion(agentVersionId),
+      })
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult<HaAgentVersion>) => {
+        if (result?.choice && result.result != null) {
+          result.result.agent.latestPublishVersion = result.result.version;
+          this.updateAgentVersion(result.result);
+          this.agentStatusEvent.set({
+            status: 'success',
+            object: result.result.agent,
+          });
+          this.httpRedirectionService.redirectTo(
+            HaRouterService.getAgentRoute(result.result.agent.id, result.result.agent.title)
+          );
+        }
+      });
   }
 
   private initAgent(id: string, paramTitle: string): void {

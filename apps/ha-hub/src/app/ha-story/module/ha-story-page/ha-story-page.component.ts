@@ -1,4 +1,13 @@
-import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, StateKey, TransferState } from '@angular/core';
+import {
+  Component,
+  Inject,
+  makeStateKey,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  StateKey,
+  TransferState,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
@@ -25,13 +34,14 @@ import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl } from '@angular/forms';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
   selector: 'ha-story-page',
   templateUrl: './ha-story-page.component.html',
   styleUrls: ['./ha-story-page.component.scss'],
 })
-export class HaStoryPageComponent extends HaCommunityPage implements OnInit {
+export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
   story: HaStory;
 
   textEditorConfig: HaStoryTextEditorConfig;
@@ -73,6 +83,7 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit {
     private router: Router,
     private portalService: FlPortalService,
     private httpRedirectionService: HaHttpRedirectionService,
+    private jsonLdState: HaJsonLdState,
     translateService: FlTranslateService,
     metadataService: HaMetadataService
   ) {
@@ -210,6 +221,15 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit {
     this.getStoryCoAuthors();
     this.getStoryFiles();
 
+    const storyFigureBlocks = this.story.content.getFiguresBlocks();
+    const storyImageLinks = storyFigureBlocks.map((figureBlock) =>
+      this.getStoryImageLink(figureBlock.data.filename)
+    );
+
+    this.jsonLdState.setArticleJsonLdContent(story.title, storyImageLinks, story.createdAt, [
+      story.createdBy,
+    ]);
+
     super.setMetaTags(
       {
         text: 'ha.story.title',
@@ -226,5 +246,9 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit {
 
   private redirect404(): void {
     this.notFound = true;
+  }
+
+  ngOnDestroy(): void {
+    this.jsonLdState.clearJsonLdContent();
   }
 }

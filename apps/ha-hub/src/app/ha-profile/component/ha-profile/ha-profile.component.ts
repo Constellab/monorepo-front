@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +22,7 @@ import { CoUser } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -32,14 +33,13 @@ export interface HaProfileDatasourceFilters {
   templateUrl: './ha-profile.component.html',
   styleUrl: './ha-profile.component.scss',
 })
-export class HaProfileComponent extends HaCommunityPage implements OnInit {
+export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
   user: CoUser;
   isCurrentUser: boolean;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
-  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
 
   constructor(
     private authenticatedUserService: HaAuthenticatedUserService,
@@ -52,6 +52,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
     private userConfig: FlUserConfig,
     private route: ActivatedRoute,
     private router: Router,
+    private jsonLdState: HaJsonLdState,
     translateService: FlTranslateService,
     metadataService: HaMetadataService
   ) {
@@ -96,6 +97,11 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
     this.userService.getUserById(paramId).subscribe((user) => {
       this.user = user;
 
+      this.jsonLdState.setProfilePageJsonLdContent(
+        user,
+        user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null
+      );
+
       super.setMetaTags(
         {
           text: 'ha.user.title',
@@ -132,5 +138,9 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit {
     this.stories$.getFirstPage({
       userId: userId,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.jsonLdState.clearJsonLdContent();
   }
 }

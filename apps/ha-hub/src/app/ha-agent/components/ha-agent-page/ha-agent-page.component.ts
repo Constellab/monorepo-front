@@ -1,6 +1,6 @@
-import { Component, OnInit, Signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -11,6 +11,7 @@ import {
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { first } from 'rxjs';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
+import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
   selector: 'ha-agent-page',
@@ -18,7 +19,7 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
   styleUrls: ['./ha-agent-page.component.scss'],
   providers: [HaAgentPageState],
 })
-export class HaAgentPageComponent implements OnInit {
+export class HaAgentPageComponent implements OnInit, OnDestroy {
   profileRoute = HaRouterService.getProfileRoute();
   agentsListRoute = HaRouterService.getAgentsListRoute();
 
@@ -33,7 +34,7 @@ export class HaAgentPageComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private dialogService: FlDialogService,
     private agentPageState: HaAgentPageState,
-    private router: Router
+    private jsonLdState: HaJsonLdState
   ) {}
 
   ngOnInit(): void {
@@ -60,5 +61,9 @@ export class HaAgentPageComponent implements OnInit {
           this.agentPageState.initCoAuthors();
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    // this.jsonLdState.clearJsonLdContent();
   }
 }
