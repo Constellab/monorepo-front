@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 
 export interface LabConfigureProtocolDialogInput {
   protocolId: string;
@@ -13,7 +13,7 @@ export interface LabConfigureProtocolDialogInput {
   selector: 'lab-configure-protocol-dialog',
   templateUrl: './lab-configure-protocol-dialog.component.html',
   styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
-  providers: [LabProcessDashboardState],
+  providers: [LabProcessDashboardConfigState],
 })
 export class LabConfigureProtocolDialogComponent implements OnInit {
   protocolId: string;

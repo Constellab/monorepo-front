@@ -13,10 +13,10 @@ import {
 } from '../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 
 /**
- * State for the process dashboard
+ * State for the process dashboard configuration.
  */
 @Injectable()
-export class LabProcessDashboardState {
+export class LabProcessDashboardConfigState {
   private workflowEditConfig = inject(LabWorkflowEditConfig);
 
   private parentProtocolId: string;

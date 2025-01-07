@@ -25,7 +25,13 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
 
   private process: LabProcess = null;
 
+  constructor() {
+    super();
+    console.log('LabDynamicParamSpecState constructor');
+  }
+
   setProcess(process: LabProcess): void {
+    console.log('setProcess');
     this.process = process;
     for (const spec of Object.keys(process.config.specs)) {
       if (process.config.specs[spec] && process.config.specs[spec].type == 'dynamic') {

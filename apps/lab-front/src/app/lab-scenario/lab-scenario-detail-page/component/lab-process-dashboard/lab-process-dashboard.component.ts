@@ -17,7 +17,7 @@ import {
   LabLogBetweenDatesDialogInput,
   LabLogsBetweenDatesDialogComponent,
 } from '../../../../lab-core/entity-module/lab-log-core/lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
-import { LabProcessDashboardState } from '../../state/lab-process-dashboard.state';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
@@ -47,14 +47,14 @@ import {
   selector: 'lab-process-dashboard',
   templateUrl: './lab-process-dashboard.component.html',
   styleUrls: ['./lab-process-dashboard.component.scss'],
-  providers: [LabProcessDashboardState],
+  providers: [LabProcessDashboardConfigState],
 })
 export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private nodeState = inject(LabWorkflowNodeDetailState);
   private scenarioState = inject(LabScenarioDetailPageState);
   private dialogService = inject(FlDialogService);
   private processService = inject(LabProcessService);
-  private dashboardState = inject(LabProcessDashboardState);
+  private dashboardState = inject(LabProcessDashboardConfigState);
   private workflowEditConfig = inject(LabWorkflowEditConfig);
   private taskGeneratorService = inject(LabTaskGeneratorService);
   private communityHelper = inject(CoCommunityHelperService);
