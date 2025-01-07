@@ -1,8 +1,8 @@
-<fl-dialog-header [closeButtonData]="config">
+<fl-dialog-header>
   {{ 'td.edit_param_specs' | translate }}
 </fl-dialog-header>
-<mat-dialog-content>
 
+<mat-dialog-content>
   <div class="agent-params-description-div">
     {{ 'td.param_spec_description' | translate }}
   </div>
@@ -12,8 +12,7 @@
     (onDeleteElementClick)="openDeleteParamDialog($event)"></td-editable-param-specs-table>
 </mat-dialog-content>
 <mat-dialog-actions class="action-div">
-  <button mat-flat-button color="primary"
-          (click)="openEditParamSpecDialog()">
+  <button mat-flat-button color="primary" (click)="openEditParamSpecDialog()">
     <mat-icon>create</mat-icon>
     {{ 'td.add_param_spec' | translate }}
   </button>

@@ -34,6 +34,7 @@ export class LabScenarioDetailPageState {
   public workflow: PrWorkflow;
   private mainProtocolId: string;
   private protocols: Record<string, BehaviorSubject<LabProtocol>>;
+  private processes: Record<string, BehaviorSubject<LabProcess>>;
 
   // does not emit scenario until ready is true
   private ready$: BehaviorSubject<boolean>;
@@ -51,6 +52,7 @@ export class LabScenarioDetailPageState {
     this.scenario$ = new BehaviorSubject(null);
     this.scenarioDescription$ = new BehaviorSubject(null);
     this.protocols = {};
+    this.processes = {};
     this.scenarioService.getScenario(scenarioId).subscribe({
       next: (scenario) => this.getScenarioSuccess(scenario),
       error: (error) => {
@@ -84,6 +86,7 @@ export class LabScenarioDetailPageState {
 
     this.workflowFactory.initCreateSubLayerFunc(createSubLayer);
     this.workflow = this.workflowFactory.protocolToWorkflow(protocol);
+    this.refreshProtocolProcesses(protocol);
     this.protocols[this.mainProtocolId].next(protocol);
     this.checkAndStartRefreshProtocol();
     this.ready$.next(true);
@@ -220,11 +223,12 @@ export class LabScenarioDetailPageState {
   }
 
   public refreshProcess(process: LabProcess): void {
-    // refresh the stored process
-    // do this first so the object of node is updated after and the getLabProcess$ is called after
-    const subProtocol$ = this.protocols[process.parentProtocolId];
-    if (subProtocol$) {
-      subProtocol$.value.data.nodes[process.instanceName] = process;
+    // store it in the dict
+    const process$ = this.processes[process.id];
+    if (process$) {
+      process$.next(process);
+    } else {
+      this.processes[process.id] = new BehaviorSubject(process);
     }
 
     const layer = this.workflow.findLayerById(process.parentProtocolId);
@@ -250,21 +254,8 @@ export class LabScenarioDetailPageState {
     this.workflow.deleteLayerAndChildren(protocolId);
   }
 
-  /**
-   * Method to get a process from the workflow, it refreshed the process everytime
-   * the object inside node is updated
-   * @param protocolId
-   * @param instanceName
-   */
-  public getLabProcess$(protocolId: string, instanceName: string): Observable<LabProcess> {
-    return (
-      this.workflow
-        .findLayerById(protocolId)
-        .findNodeByName(instanceName)
-        // use the get object of the node to refresh the process
-        .getObject$()
-        .pipe(map(() => this.protocols[protocolId].value.data.nodes[instanceName]))
-    );
+  public getLabProcess$(processId: string): Observable<LabProcess> {
+    return this.processes[processId].asObservable();
   }
 
   public getProtocol$(protocolId: string): Observable<LabProtocol> {
@@ -279,6 +270,12 @@ export class LabScenarioDetailPageState {
     return this.protocols[protocolId].asObservable().pipe(filter((protocol) => protocol != null));
   }
 
+  private refreshProtocolProcesses(protocol: LabProtocol): void {
+    for (const labProcess of Object.values(protocol.data.nodes)) {
+      this.refreshProcess(labProcess);
+    }
+  }
+
   /////////////////////////////////// FLOW ////////////////////////////////////
 
   public refreshProtocolsSuccess(protocols: LabProtocol[]): void {
@@ -288,19 +285,17 @@ export class LabScenarioDetailPageState {
   }
 
   private refreshProtocolSuccess(protocol: LabProtocol): void {
-    // refresh the layer object
-    const layer = this.workflow.findLayerById(protocol.id);
-    if (layer) {
-      for (const labProcess of Object.values(protocol.data.nodes)) {
-        layer.updateProcessObject(labProcess.toPrProcess());
-      }
-    } else {
-      this.workflow.addLayer(this.workflowFactory.createLayer(protocol, false), protocol.parentProtocolId);
-    }
+    this.refreshProtocolProcesses(protocol);
 
     // refresh the stored protocol
     const subProtocol$ = this.protocols[protocol.id];
     subProtocol$.next(protocol);
+
+    // refresh the layer object
+    const layer = this.workflow.findLayerById(protocol.id);
+    if (!layer) {
+      this.workflow.addLayer(this.workflowFactory.createLayer(protocol, false), protocol.parentProtocolId);
+    }
   }
 
   public getMainProtocol$(): Observable<LabProtocol> {
@@ -350,6 +345,9 @@ export class LabScenarioDetailPageState {
     this.scenario$.complete();
     for (const subProtocol$ of Object.values(this.protocols)) {
       subProtocol$.complete();
+    }
+    for (const subProcess$ of Object.values(this.processes)) {
+      subProcess$.complete();
     }
     this.ready$.complete();
     this.scenarioDescription$.complete();

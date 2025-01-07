@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
+import { filter } from 'rxjs/operators';
 
 /**
  * Component to configure a protocol, can contains nested protocol
@@ -19,18 +19,25 @@ export class LabConfigureProtocolComponent implements OnInit {
 
   private selectedProcessId: BehaviorSubject<string> = new BehaviorSubject(null);
 
-  processes$: Observable<LabProcess[]>;
+  childrenProcesses$: Observable<LabProcess[]>;
 
   constructor(private scenarioState: LabScenarioDetailPageState) {}
 
   ngOnInit(): void {
-    this.processes$ = this.scenarioState
-      .getProtocol$(this.protocolId)
-      .pipe(map((protocol) => Object.values(protocol.data.nodes)));
+    this.childrenProcesses$ = this.scenarioState.getProtocol$(this.protocolId).pipe(
+      switchMap((protocol) => {
+        // for each process of the protocol, load the process
+        const processes$: Observable<LabProcess>[] = [];
+        for (const key in protocol.data.nodes) {
+          processes$.push(this.scenarioState.getLabProcess$(protocol.data.nodes[key].id));
+        }
+        return combineLatest(processes$);
+      })
+    );
 
     this.selectedProcess$ = this.selectedProcessId.asObservable().pipe(
-      filter((processName) => processName != null),
-      switchMap((processName) => this.scenarioState.getLabProcess$(this.protocolId, processName))
+      filter((processId) => processId != null),
+      switchMap((processId) => this.scenarioState.getLabProcess$(processId))
     );
   }
 

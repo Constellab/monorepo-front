@@ -1,7 +1,7 @@
-import { Component, Inject, ViewContainerRef } from '@angular/core';
+import { Component, inject, ViewContainerRef } from '@angular/core';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { TdConfig, TdParamSpecs } from '../../model/td-config-spec.class';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { TdEditableParamSpec } from '../td-editable-param-specs-table/td-editable-param-specs-table.component';
 import {
@@ -20,34 +20,17 @@ export interface TdConfigureParamSpecsTableDialogInput {
   styleUrl: './td-configure-param-specs-table-dialog.component.scss',
 })
 export class TdConfigureParamSpecsTableDialogComponent {
-  paramSpecs: TdParamSpecs;
-  config: TdConfig;
-  configSpecName: string;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: TdConfigureParamSpecsTableDialogInput,
-    private dialogService: FlDialogService,
-    private dialogRef: MatDialogRef<TdConfigureParamSpecsTableDialogComponent>,
-    private viewContainerRef: ViewContainerRef,
-    private dynamicParamSpecState: TdAbstractDynamicParamSpecState
-  ) {
-    this.paramSpecs = data.paramSpecs;
-    this.configSpecName = data.configSpecName;
-
-    this.dialogRef.backdropClick().subscribe(() => this.closeDialog());
-    this.dialogRef.keydownEvents().subscribe((event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        this.closeDialog();
-      }
-    });
-  }
+  private data: TdConfigureParamSpecsTableDialogInput = inject(MAT_DIALOG_DATA);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
+  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
 
   openEditParamSpecDialog(param: TdEditableParamSpec = null): void {
     const input: TdEditParamSpecDialogInput = {
       paramSpecFormInfoList$: this.dynamicParamSpecState.getParamSpecsInfos(),
-      configSpecName: this.configSpecName,
+      configSpecName: this.data.configSpecName,
       name: param?.name,
-      spec: param != null ? this.paramSpecs[param.name] : null,
+      spec: param != null ? this.data.paramSpecs[param.name] : null,
     };
 
     this.dialogService
@@ -56,15 +39,14 @@ export class TdConfigureParamSpecsTableDialogComponent {
         viewContainerRef: this.viewContainerRef,
       })
       .afterClosed()
-      .subscribe((output: TdConfig) => {
-        if (output) {
-          this.config = output;
-          if (output.specs[this.configSpecName]) {
-            this.paramSpecs = output.specs[this.configSpecName].additional_info.specs;
-            this.dynamicParamSpecState.setParamSpecs(this.paramSpecs);
-          }
-        }
-      });
+      .subscribe((output: TdConfig) => this.onEditClosed(output));
+  }
+
+  private onEditClosed(output: TdConfig): void {
+    if (output && output.specs[this.data.configSpecName]) {
+      this.data.paramSpecs = output.specs[this.data.configSpecName].additional_info.specs;
+      this.dynamicParamSpecState.setParamSpecs(this.data.paramSpecs);
+    }
   }
 
   openDeleteParamDialog(param: TdEditableParamSpec): void {
@@ -77,23 +59,12 @@ export class TdConfigureParamSpecsTableDialogComponent {
     this.dialogService
       .openConfirmDialog(input)
       .afterClosed()
-      .subscribe((res: FlConfirmDialogResult<TdConfig>) => {
-        if (res && res.choice) {
-          this.deleteParam(param.name);
-        }
-      });
+      .subscribe((res: FlConfirmDialogResult<TdConfig>) => this.deleteParam(res, param.name));
   }
 
-  deleteParam(paramName: string): void {
-    this.dynamicParamSpecState.deleteParamSpec(this.configSpecName, paramName).subscribe((res) => {
-      if (res) {
-        this.config = res;
-        this.dynamicParamSpecState.setParamSpecs(res.specs[this.configSpecName].additional_info.specs);
-      }
-    });
-  }
-
-  closeDialog(): void {
-    this.dialogRef.close(this.config);
+  private deleteParam(res: FlConfirmDialogResult, paramName: string): void {
+    if (res.choice) {
+      this.dynamicParamSpecState.deleteParamSpec(this.data.configSpecName, paramName).subscribe();
+    }
   }
 }

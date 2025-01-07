@@ -111,6 +111,8 @@ export class LabCredentialsFormDialogComponent implements OnInit {
   submit(): void {
     FlFormHelper.markAllAsTouched(this.formGp);
     if (!this.formGp.valid || this.isLoading) return;
+
+    this.isLoading = true;
     if (this.isCreateMode()) {
       this.create(this.formGp.getRawValue());
     } else {
@@ -173,7 +175,6 @@ export class LabCredentialsFormDialogComponent implements OnInit {
     spec: LabCredentialsDataTypeSpec,
     defaultValue?: any
   ): FlDynamicFormGroupConfig {
-    // TODO TO improve once fix from @vfoex is merged
     const labConfig = LabConfig.fromSpecs(spec.specs, defaultValue);
     return labConfig.getDynamicFormFieldsConfig();
   }

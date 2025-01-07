@@ -6,7 +6,7 @@ import {
   TdParamSpecFormInfoList,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
-import { inject, Injectable, ViewContainerRef } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { LabProtocolService } from '../../../entity-service/lab-protocol.service';
 import { LabProcess } from '../../../model/entities/process/lab-process.entity';
 import { LabConfig } from '../../../model/entities/lab-config.entity';
@@ -17,13 +17,13 @@ import { FlDialogService, FlPortalActionResult } from '@monorepo/front-core-lib'
 import { LabProtocolUpdateDTO } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 
 @Injectable()
-export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState {
-  process: LabProcess = null;
-
+export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState implements OnDestroy {
   private labProtocolService = inject(LabProtocolService);
   private editConfig = inject(LabWorkflowEditConfig);
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
+
+  private process: LabProcess = null;
 
   setProcess(process: LabProcess): void {
     this.process = process;
