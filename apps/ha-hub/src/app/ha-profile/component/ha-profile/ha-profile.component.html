@@ -1,5 +1,5 @@
 @if (user) {
-  <div class="main-panel profile">
+  <div class="profile">
     <div class="profile-left-side-div">
       <div class="head-infos">
         <div class="base-infos">
@@ -28,112 +28,120 @@
         </div>
       </div>
 
-      <article>
-        <p>{{ 'interests' | translate }} :</p>
-        <p class="small-text">
-          {{ user.interests ?? ('no_interests_yet' | translate) }}
-        </p>
-      </article>
+      <div class="other-infos">
+        <article>
+          <p>{{ 'interests' | translate }} :</p>
+          <p class="small-text">
+            {{ user.interests ?? ('no_interests_yet' | translate) }}
+          </p>
+        </article>
 
-      <div>
-        <fl-key-value class="wallet-key-val">
-          <fl-key>{{ 'wallet' | translate }}</fl-key>
-          <fl-text-icon iconPosition="end" gap="0.2em">
-            0.00
-            <mat-icon class="g-icon-small">euro_symbol</mat-icon>
-          </fl-text-icon>
-        </fl-key-value>
-        <div class="g-text-small">{{ 'learn_more_about_foa' | translate }} <a [href]="foaLink" target="_blank"
-                                                                              rel="noopener noreferrer"
-                                                                              class="here-a">{{ 'here' | translate }}</a>
+        <div>
+          <fl-key-value class="wallet-key-val">
+            <fl-key>{{ 'wallet' | translate }}</fl-key>
+            <fl-text-icon iconPosition="end" gap="0.2em">
+              0.00
+              <mat-icon class="g-icon-small">euro_symbol</mat-icon>
+            </fl-text-icon>
+          </fl-key-value>
+          <div class="g-text-small">{{ 'learn_more_about_foa' | translate }}
+            <a [href]="foaLink" target="_blank"
+               rel="noopener noreferrer"
+               class="here-a">{{ 'here' | translate }}</a>
+          </div>
         </div>
+
+        @if (commonSpace$ | async; as commonSpace) {
+          <div *ngIf="commonSpace.length > 0">
+            <p>{{ 'common_spaces' | translate }} :</p>
+            @for (space of commonSpace; track space.id) {
+              <div class="common-space-div">
+                <co-visibility-badge [space]="space"></co-visibility-badge>
+              </div>
+            }
+          </div>
+        }
       </div>
-
-      @if (commonSpace$ | async; as commonSpace) {
-        <div *ngIf="commonSpace.length > 0">
-          <p>{{ 'common_spaces' | translate }} :</p>
-          @for (space of commonSpace; track space.id) {
-            <div class="common-space-div">
-              <co-visibility-badge [space]="space"></co-visibility-badge>
-            </div>
-          }
-        </div>
-      }
-      <div class="profile-left-side-div-separator"></div>
     </div>
     <div class="profile-right-side-div">
-      @if (stories$ && stories$.page) {
-        <h4 class="list-title">
-          <fl-text-icon>
-            <mat-icon>description</mat-icon>
-            {{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span>
-          </fl-text-icon>
-        </h4>
-        <fl-infinite-scroll
-          [datasource]="stories$"
-          infiniteMode="auto"
-          class="list g-scrollable-element"
-          cdkScrollable
-          [textNoMoreResult]="''"
-          [textNoResult]="'no_story_yet' | translate">
-          <a
-            class="list-element"
-            *ngFor="let story of stories$ | flDatasourceConnect | async"
-            [routerLink]="story | haDetailRoute">
-            <co-story-list-item
-              [story]="story"
-              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-          </a>
-        </fl-infinite-scroll>
-      }
-
-      @if (agents$ && agents$.page) {
-        <h4 class="list-title">
-          <fl-text-icon>
-            <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
-            {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
-          </fl-text-icon>
-        </h4>
-        <fl-infinite-scroll
-          [datasource]="agents$"
-          infiniteMode="auto"
-          class="list g-scrollable-element"
-          cdkScrollable
-          [textNoMoreResult]="''"
-          [textNoResult]="'no_agent_yet' | translate">
-          <a
-            class="list-element"
-            *ngFor="let agent of agents$ | flDatasourceConnect | async"
-            [routerLink]="agent | haDetailRoute">
-            <co-agent-list-item [agent]="agent"></co-agent-list-item>
-          </a>
-        </fl-infinite-scroll>
-      }
-
-      @if (bricks$ && bricks$.page) {
-        <h4 class="list-title">
-          <fl-text-icon>
-            <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
-            {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
-          </fl-text-icon>
-        </h4>
-        <fl-infinite-scroll
-          [datasource]="bricks$"
-          infiniteMode="auto"
-          class="list g-scrollable-element"
-          cdkScrollable
-          [textNoMoreResult]="''"
-          [textNoResult]="'no_brick_yet' | translate">
-          <a
-            class="list-element"
-            *ngFor="let brick of bricks$ | flDatasourceConnect | async"
-            [routerLink]="brick | haDetailRoute">
-            <co-brick-list-item
-              [brick]="brick"
-              [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-          </a>
-        </fl-infinite-scroll>
-      }
+      <mat-tab-group animationDuration="0">
+        @if (stories$ && stories$.page) {
+          <mat-tab>
+            <ng-template matTabLabel>
+              <fl-text-icon>
+                <mat-icon>description</mat-icon>
+                {{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span>
+              </fl-text-icon>
+            </ng-template>
+            <fl-infinite-scroll
+              [datasource]="stories$"
+              infiniteMode="auto"
+              class="list g-scrollable-element"
+              cdkScrollable
+              [textNoMoreResult]="''"
+              [textNoResult]="'no_story_yet' | translate">
+              <a
+                class="list-element"
+                *ngFor="let story of stories$ | flDatasourceConnect | async"
+                [routerLink]="story | haDetailRoute">
+                <co-story-list-item
+                  [story]="story"
+                  [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+              </a>
+            </fl-infinite-scroll>
+          </mat-tab>
+          @if (agents$ && agents$.page) {
+            <mat-tab>
+              <ng-template matTabLabel>
+                <fl-text-icon>
+                  <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
+                  {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
+                </fl-text-icon>
+              </ng-template>
+              <fl-infinite-scroll
+                [datasource]="agents$"
+                infiniteMode="auto"
+                class="list g-scrollable-element"
+                cdkScrollable
+                [textNoMoreResult]="''"
+                [textNoResult]="'no_agent_yet' | translate">
+                <a
+                  class="list-element"
+                  *ngFor="let agent of agents$ | flDatasourceConnect | async"
+                  [routerLink]="agent | haDetailRoute">
+                  <co-agent-list-item [agent]="agent"></co-agent-list-item>
+                </a>
+              </fl-infinite-scroll>
+            </mat-tab>
+          }
+          @if (bricks$ && bricks$.page) {
+            <mat-tab>
+              <ng-template matTabLabel>
+                <fl-text-icon>
+                  <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
+                  {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
+                </fl-text-icon>
+              </ng-template>
+              <fl-infinite-scroll
+                [datasource]="bricks$"
+                infiniteMode="auto"
+                class="list g-scrollable-element"
+                cdkScrollable
+                [textNoMoreResult]="''"
+                [textNoResult]="'no_brick_yet' | translate">
+                <a
+                  class="list-element"
+                  *ngFor="let brick of bricks$ | flDatasourceConnect | async"
+                  [routerLink]="brick | haDetailRoute">
+                  <co-brick-list-item
+                    [brick]="brick"
+                    [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+                </a>
+              </fl-infinite-scroll>
+            </mat-tab>
+          }
+        }
+      </mat-tab-group>
     </div>
   </div>
 }
