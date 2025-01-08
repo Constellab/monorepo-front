@@ -137,4 +137,8 @@ export class CaLabStorageResponse {
   get totalBackupNbOfMillionSeconds(): number {
     return this.totalBackupStorageNbOfHours * 60 * 60 * 1000;
   }
+
+  get totalStoragePrice(): number {
+    return this.totalVolumePrice + this.totalBackupStoragePrice + this.totalBackupTransferredDataPrice;
+  }
 }

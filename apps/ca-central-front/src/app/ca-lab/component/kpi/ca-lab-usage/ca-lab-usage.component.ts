@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { DateTime } from 'luxon';
-import { debounceTime, Observable, share, startWith, Subscription } from 'rxjs';
+import { combineLatest, debounceTime, Observable, share, startWith, Subscription } from 'rxjs';
 import {
   CaLabRunningStatus,
   CaLabRunningStatusArrayObs,
@@ -30,6 +30,9 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
 
   @Input({ required: true }) isCloud$: Observable<boolean>;
 
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+
   periods: any = CaLabStatusRunPeriod;
   customPeriod: CaLabStatusRunPeriod = CaLabStatusRunPeriod.CUSTOM;
 
@@ -45,16 +48,13 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
 
   storageKpi$: Observable<CaLabStorageResponse>;
 
+  totalPrice$: Observable<number>;
+
   currentDate = ClDateHelper.getDate();
 
   usersStatus: CaUserDatasourcePaginated;
 
   private subscription: Subscription;
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.subscription = this.formGroup.valueChanges
@@ -74,7 +74,13 @@ export class CaLabUsageComponent implements OnInit, OnDestroy {
       this.runStatuses$ = new CaLabRunningStatusArrayObs(obs.pipe(map((response) => response.statuses)));
 
       // the observable is not subscribed for non cloud lab
-      this.storageKpi$ = this.labService.getLabStorageStats(this.labId, request);
+      this.storageKpi$ = this.labService.getLabStorageStats(this.labId, request).pipe(share());
+
+      this.totalPrice$ = combineLatest([obs, this.storageKpi$]).pipe(
+        map(([runResponse, storageKpi]) =>
+          runResponse.billInfo != null ? runResponse.billInfo.totalPrice + storageKpi.totalStoragePrice : null
+        )
+      );
     }
   }
 
