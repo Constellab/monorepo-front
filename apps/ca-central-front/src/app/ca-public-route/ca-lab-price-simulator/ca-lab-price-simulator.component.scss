@@ -1,0 +1,32 @@
+.page {
+  padding-bottom: 1em;
+}
+
+.container {
+  max-width: min(var(--article-width), 100%);
+  margin: 0 auto;
+  flex: 1;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.help-text {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.step-section {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.button {
+  margin-bottom: 5px;
+}
+
+.next-button {
+  margin-right: 1em;
+}

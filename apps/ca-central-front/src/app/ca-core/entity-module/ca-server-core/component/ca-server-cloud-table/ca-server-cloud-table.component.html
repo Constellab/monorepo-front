@@ -32,7 +32,7 @@
   <!-- Ram -->
   <ng-container matColumnDef="ram">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'ram' | translate }}</span>
+      <span>{{ 'ram' | translate }} ({{ 'flCoreComponent.giga_byte_symbole' | translate }})</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <span>{{ row.ram }}</span>

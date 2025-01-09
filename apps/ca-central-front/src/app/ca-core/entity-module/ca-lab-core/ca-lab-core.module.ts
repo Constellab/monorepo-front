@@ -48,6 +48,13 @@ import {
 import {
   CaLabDesktopFormDialogComponent,
 } from './component/ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
+import {
+  CaLabSelectStorageComponent,
+} from './component/ca-lab-select-storage/ca-lab-select-storage.component';
+import {
+  CaLabCreateSummaryComponent,
+} from './component/ca-lab-create-summary/ca-lab-create-summary.component';
+import { CaLabSelectServerComponent } from './component/ca-lab-select-server/ca-lab-select-server.component';
 
 /**
  * Core module for Lab and Lab
@@ -76,6 +83,9 @@ import {
     CaLabBackupHistoryDetailPortalDirective,
     CaLabBackupHistoryDetailPortalComponent,
     CaLabDesktopFormDialogComponent,
+    CaLabSelectServerComponent,
+    CaLabSelectStorageComponent,
+    CaLabCreateSummaryComponent,
   ],
   exports: [
     CaLabCardComponent,
@@ -95,6 +105,9 @@ import {
     CaLabInlineComponent,
     CaLabBackupHistoryDetailComponent,
     CaLabBackupHistoryDetailPortalComponent,
+    CaLabSelectServerComponent,
+    CaLabSelectStorageComponent,
+    CaLabCreateSummaryComponent,
   ],
   imports: [
     CommonModule,

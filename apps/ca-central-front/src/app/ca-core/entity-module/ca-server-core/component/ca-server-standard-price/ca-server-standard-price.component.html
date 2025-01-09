@@ -1,5 +1,5 @@
-@if (price$ | async; as price) {
-  {{ price }}
+@if (price()) {
+  {{ price() }}
 } @else {
-  <fl-loader size="small"></fl-loader>
+  <fl-loader [size]="20"></fl-loader>
 }

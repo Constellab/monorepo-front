@@ -156,10 +156,6 @@ export class CaServerService {
 
   //////////////////////////////////// STORAGE PRICE ///////////////////////////////////////
 
-  public getStorageCurrentPrice(): Observable<number> {
-    return this.apiService.get(`${this.routeStoragePrice}/current`);
-  }
-
   public getStorageCurrentPriceDetail(): Observable<CaStoragePrice> {
     return this.apiService.get(`${this.routeStoragePrice}/current/detail`, CaStoragePrice);
   }

@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib';
 
 export class CaStoragePrice extends CaBaseEntity {
-  price: number;
+  public static backupApproximateRatio: number = 0.3;
 
   volumeStoragePrice: number;
 
@@ -12,15 +12,23 @@ export class CaStoragePrice extends CaBaseEntity {
 
   backupTransfertPrice: number;
 
-  totalPrice: number;
-
-  totalPriceDescription: string;
-
   @ClLuxonDateTimeTransform()
   startDate: DateTime;
 
   @ClLuxonDateTimeTransform()
   endDate: DateTime;
+
+  /**
+   * Get the total approximate price for the storage.
+   * It includes the storage and 20% of the backup and transfert price.
+   */
+  get totalApproximatePrice(): number {
+    return (
+      this.volumeStoragePrice +
+      this.backupStoragePrice * CaStoragePrice.backupApproximateRatio +
+      this.backupTransfertPrice * CaStoragePrice.backupApproximateRatio
+    );
+  }
 }
 
 export type CaStoragePriceDatasource = FlEntityArrayObs<CaStoragePrice>;

@@ -3,7 +3,7 @@
   <ng-container matColumnDef="volumeStoragePrice">
     <mat-header-cell *matHeaderCellDef>
       <div>
-        <div>{{ 'volume_storage_price' | translate }}</div>
+        <div class="g-text-dense-height">{{ 'volume_storage_price' | translate }}</div>
         <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
       </div>
     </mat-header-cell>
@@ -16,7 +16,7 @@
   <ng-container matColumnDef="backupStoragePrice">
     <mat-header-cell *matHeaderCellDef>
       <div>
-        <div>{{ 'backup_storage_price' | translate }}</div>
+        <div class="g-text-dense-height">{{ 'backup_storage_price' | translate }}</div>
         <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
       </div>
     </mat-header-cell>
@@ -29,25 +29,12 @@
   <ng-container matColumnDef="backupTransfertPrice">
     <mat-header-cell *matHeaderCellDef>
       <div>
-        <div>{{ 'backup_transfert_price' | translate }}</div>
+        <div class="g-text-dense-height">{{ 'backup_transfert_price' | translate }}</div>
         <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
       </div>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       {{ row.backupTransfertPrice }}
-    </mat-cell>
-  </ng-container>
-
-  <!-- Total price -->
-  <ng-container matColumnDef="totalPrice">
-    <mat-header-cell *matHeaderCellDef>
-      <div>
-        <div>{{ 'storage_total_price' | translate }}</div>
-        <div class="g-text-tiny g-text-light">{{ 'storage_price_unit' | translate }}</div>
-      </div>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      {{ row.totalPrice }}
     </mat-cell>
   </ng-container>
 

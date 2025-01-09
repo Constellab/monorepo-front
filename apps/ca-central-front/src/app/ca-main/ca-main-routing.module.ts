@@ -9,6 +9,7 @@ import {
   caConstHomeRoute,
   caConstLabsRoute,
   caConstMyFoldersRoute,
+  caConstPublicRoute,
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../ca-core/utils/ca-base-route';
@@ -28,12 +29,6 @@ const routes: Route[] = [
     children: [
       {
         path: '',
-        redirectTo: caConstHomeRoute,
-        pathMatch: 'full',
-      },
-      // TODO remove once begin of december 2024
-      {
-        path: 'dashboard',
         redirectTo: caConstHomeRoute,
         pathMatch: 'full',
       },
@@ -90,6 +85,11 @@ const routes: Route[] = [
           import('../ca-user-detail-page/ca-user-detail-page.module').then((m) => m.CaUserDetailPageModule),
       },
     ],
+  },
+  //////////////////////// OPEN  /////////////////////////
+  {
+    path: caConstPublicRoute,
+    loadChildren: () => import('../ca-public-route/ca-public-routes').then((m) => m.CA_PUBLIC_ROUTES),
   },
 ];
 

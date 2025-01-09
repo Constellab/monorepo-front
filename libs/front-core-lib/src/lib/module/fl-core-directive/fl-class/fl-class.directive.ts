@@ -143,5 +143,7 @@ export class FlClassDirective implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }

@@ -33,4 +33,8 @@ export class CaEnvironmentHelper {
   public static getSupportMail(): string {
     return 'clientsuccess@gencovery.com';
   }
+
+  public static getContactUsPageUrl(): string {
+    return 'https://www.gencovery.com/contact-us';
+  }
 }

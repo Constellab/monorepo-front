@@ -1,0 +1,32 @@
+td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  vertical-align: top;
+}
+
+.right-cell {
+  padding-left: 2em;
+}
+
+.right-section {
+  margin-left: 6em;
+}
+
+h3 {
+  margin-bottom: 0.5em;
+}
+
+.simulation {
+  margin-top: 1em;
+}
+
+@media (max-width: 959px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .right-section {
+    margin-top: 2em;
+    margin-left: 0;
+  }
+}

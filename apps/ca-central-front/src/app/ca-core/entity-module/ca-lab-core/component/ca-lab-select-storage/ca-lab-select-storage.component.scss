@@ -1,0 +1,33 @@
+.help-section {
+  background-color: var(--hover-color);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+.storage-amount-container {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.storage-amount {
+  width: 6em;
+  text-align: center;
+  //margin-left: 1em;
+  //margin-right: 1em;
+}
+
+//.storage-amount input::-webkit-outer-spin-button,
+//.storage-amount input::-webkit-inner-spin-button {
+//  -webkit-appearance: none;
+//  margin: 0;
+//}
+//
+///* Firefox */
+//.storage-amount input[type=number] {
+//  -moz-appearance: textfield;
+//}
+
+.storage-price {
+  margin-left: 1em;
+}

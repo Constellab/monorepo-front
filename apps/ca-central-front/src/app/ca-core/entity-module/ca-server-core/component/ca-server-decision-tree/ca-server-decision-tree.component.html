@@ -1,7 +1,7 @@
 <fl-section [object]="flatOptions" [isLoading]="isLoading">
   <ng-container *flSectionBody>
     <mat-radio-group
-      class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+      class="g-layout-row g-layout-start-stretch g-layout-gap-1em g-scrollable-element group"
       *ngFor="let optionGroup of displayedOptions">
       <mat-radio-button
         *ngFor="let option of optionGroup"

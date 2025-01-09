@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { CaLab, CaLabWithSpace } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { CaServerService } from '../../../../ca-core/service-api/ca-server.service';
-import { Observable, share } from 'rxjs';
-import { FlGlobalValidators, FlSnackBarService } from '@monorepo/front-core-lib';
-import { TdBrick } from '@monorepo/technical-doc';
+import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaLabCloudCreateDTO } from '../../../../ca-core/model/entities/lab/ca-lab.form';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { CaLabSelectServerComponent } from '../ca-lab-select-server/ca-lab-select-server.component';
+import {
+  CaLabSelectServerComponent,
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-server/ca-lab-select-server.component';
 import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
+import {
+  CaLabSelectStorageComponent
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-storage/ca-lab-select-storage.component';
 
 @Component({
   selector: 'ca-lab-create-page',
@@ -17,13 +19,16 @@ import { LmlLabManagerConfig } from '@monorepo/lab-manager-lib';
   styleUrl: './ca-lab-create-page.component.scss',
 })
 export class CaLabCreatePageComponent {
+  private _formBuilder = inject(FormBuilder);
+  private routerService = inject(CaRouterService);
+  private snackBarService = inject(FlSnackBarService);
+  private labService = inject(CaLabService);
+
   nameForm = this._formBuilder.group({
     name: ['', Validators.required],
   });
 
-  storageForm = this._formBuilder.group({
-    storageSize: [100, [Validators.required, FlGlobalValidators.isInteger, Validators.min(100)]],
-  });
+  storageForm = CaLabSelectStorageComponent.createFormGp();
 
   serverForm = CaLabSelectServerComponent.createFormGp();
 
@@ -31,55 +36,14 @@ export class CaLabCreatePageComponent {
 
   maxNameLength = CaLabWithSpace.MAX_NAME_LENGTH;
 
-  readonly MIN_STORAGE_SIZE = 100;
-  readonly MAX_STORAGE_SIZE = 4000;
-
-  storagePrice$: Observable<number> = this.serverService.getStorageCurrentPrice().pipe(share());
-
   createIsLoading: boolean = false;
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private serverService: CaServerService,
-    private routerService: CaRouterService,
-    private snackBarService: FlSnackBarService,
-    private labService: CaLabService
-  ) {
-    const labConfig = new LmlLabManagerConfig();
-    labConfig.brickVersions = [{ name: TdBrick.GWS_CORE, version: '0.8.0-beta.1' }];
-    this.labConfig = labConfig;
-  }
-
-  reduceStorageSize(): void {
-    let storagePrice = this.storageForm.get('storageSize').value;
-    if (storagePrice <= this.MIN_STORAGE_SIZE) {
-      return;
-    } else if (storagePrice <= 1000) {
-      storagePrice -= 50;
-    } else {
-      storagePrice -= 100;
-    }
-    this.storageForm.get('storageSize').setValue(storagePrice);
-  }
-
-  increaseStorageSize(): void {
-    let storagePrice = this.storageForm.get('storageSize').value;
-    if (storagePrice >= this.MAX_STORAGE_SIZE) {
-      return;
-    } else if (storagePrice >= 1000) {
-      storagePrice += 100;
-    } else {
-      storagePrice += 50;
-    }
-    this.storageForm.get('storageSize').setValue(storagePrice);
-  }
-
-  labConfigIsValid(): boolean {
-    return (
-      this.labConfig?.brickVersions.length > 0 &&
-      this.labConfig.brickVersions.find((brickVersion) => brickVersion.name === TdBrick.GWS_CORE) !== null
-    );
-  }
+  // labConfigIsValid(): boolean {
+  //   return (
+  //     this.labConfig?.brickVersions.length > 0 &&
+  //     this.labConfig.brickVersions.find((brickVersion) => brickVersion.name === TdBrick.GWS_CORE) !== null
+  //   );
+  // }
 
   createLab(): void {
     const createLab: CaLabCloudCreateDTO = {

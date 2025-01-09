@@ -1,0 +1,54 @@
+@if (storagePrice$ | async) {
+  <fl-text-icon class="help-section">
+    <mat-icon>info</mat-icon>
+    <p>
+      {{ 'create_lab_storage_section' | translate }}
+      {{ 'lab_storage_price_help' | translate: { ratio: backupApproximateRatio } }}
+    </p>
+  </fl-text-icon>
+
+  <fl-key-value>
+    <fl-key>
+      {{ 'storage_price' | translate }}
+    </fl-key>
+
+    {{ formGp.value.storagePrice | number: '1.0-2' }} {{ 'storage_price_unit' | translate }}
+  </fl-key-value>
+
+  <div class="g-layout-row g-layout-start-center storage-amount-container">
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="reduceStorageSize()"
+      [disabled]="formGp.get('storageSize').value <= MIN_STORAGE_SIZE">
+      <mat-icon>remove</mat-icon>
+    </button>
+
+    <!--                  <mat-form-field class="storage-amount g-form-field-no-hint">-->
+    <!--                    <input matInput formControlName="storageSize"-->
+    <!--                           type="number"-->
+    <!--                           step="50" [min]="MIN_STORAGE_SIZE" [max]="MAX_STORAGE_SIZE">-->
+    <!--                    <mat-error *ngIf="formGp.get('storageSize').invalid">-->
+    <!--                      {{ 'lab_volume_size_error' | translate }}-->
+    <!--                    </mat-error>-->
+    <!--                  </mat-form-field>-->
+    <span class="storage-amount"
+      >{{ formGp.get('storageSize').value }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}</span
+    >
+
+    <button
+      mat-mini-fab
+      type="button"
+      (click)="increaseStorageSize()"
+      [disabled]="formGp.get('storageSize').value >= MAX_STORAGE_SIZE">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <span class="g-text-light storage-price">
+      {{ formGp.value.storagePrice * formGp.value.storageSize | number: '1.0-2' }}
+      € / {{ 'month' | translate }}
+    </span>
+  </div>
+} @else {
+  <fl-loader></fl-loader>
+}

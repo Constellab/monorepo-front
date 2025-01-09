@@ -1,20 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CaServerService } from '../../../../service-api/ca-server.service';
-import { Observable } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'ca-server-standard-price',
   templateUrl: './ca-server-standard-price.component.html',
   styleUrl: './ca-server-standard-price.component.scss',
 })
-export class CaServerStandardPriceComponent implements OnInit {
-  @Input({ required: true }) serverStandardId: string;
+export class CaServerStandardPriceComponent {
+  serverStandardId = input.required<string>();
 
-  price$: Observable<number>;
+  private serverService = inject(CaServerService);
 
-  constructor(private serverService: CaServerService) {}
-
-  ngOnInit(): void {
-    this.price$ = this.serverService.getServerPrice(this.serverStandardId);
-  }
+  price = toSignal(
+    toObservable(this.serverStandardId).pipe(
+      switchMap((serverStandardId) => this.serverService.getServerPrice(serverStandardId))
+    ),
+    { initialValue: null }
+  );
 }

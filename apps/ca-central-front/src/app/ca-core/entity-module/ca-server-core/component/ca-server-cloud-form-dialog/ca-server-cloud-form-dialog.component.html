@@ -42,7 +42,7 @@
 
     <!--  Ram  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'ram' | translate }}</mat-label>
+      <mat-label>{{ 'ram' | translate }} ({{ 'flCoreComponent.giga_byte_symbole' | translate }})</mat-label>
       <input matInput formControlName="ram" required [placeholder]="'ram' | translate" type="number" />
       <mat-error *ngIf="formGp.get('ram').hasError('required')">
         {{ 'ram' | flErrorRequired }}

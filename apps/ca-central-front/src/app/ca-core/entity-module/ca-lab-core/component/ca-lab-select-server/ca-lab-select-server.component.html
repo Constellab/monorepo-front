@@ -12,7 +12,7 @@
 
       @if (serverStandards$ | async; as serverStandards) {
         <mat-radio-group
-          class="g-layout-row g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
+          class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
           formControlName="standardServer">
           @for (standardServer of serverStandards; track standardServer.id) {
             <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig color="accent">
@@ -47,7 +47,7 @@
 
       @if (serverClouds$ | async; as serverClouds) {
         <mat-radio-group
-          class="g-layout-row g-layout-start-stretch g-layout-gap-1em"
+          class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="serverCloud">
           @for (serverCloud of serverClouds; track serverCloud.id) {
             <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig color="accent">
@@ -64,7 +64,7 @@
                   </fl-key-value>
                   <fl-key-value>
                     <fl-key>{{ 'ram' | translate }}</fl-key>
-                    {{ serverCloud.ram }}
+                    {{ serverCloud.ram }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}
                   </fl-key-value>
 
                   <!--  If there is a GPU  -->
@@ -130,7 +130,7 @@
           }
         </mat-radio-group>
 
-        <!-- Weeekly backup region -->
+        <!-- Weekly backup region -->
         <h3 class="title">{{ 'weekly_backup' | translate }}</h3>
 
         <mat-radio-group

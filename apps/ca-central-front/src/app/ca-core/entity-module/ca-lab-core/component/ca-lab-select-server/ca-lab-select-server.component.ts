@@ -2,15 +2,15 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
-} from '../../../../ca-core/model/entities/ca-cloud-provider.class';
-import { CaCloudProviderService } from '../../../../ca-core/service-api/ca-cloud-provider.service';
+} from '../../../../model/entities/ca-cloud-provider.class';
+import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CaServerCloud } from '../../../../ca-core/model/entities/server/ca-server-cloud.class';
-import { CaServerService } from '../../../../ca-core/service-api/ca-server.service';
+import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
+import { CaServerService } from '../../../../service-api/ca-server.service';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { CaServerStandard } from '../../../../ca-core/model/entities/server/ca-server-standard.class';
-import { CaLabValidator } from '../../../../ca-core/model/entities/lab/ca-lab.validator';
+import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
+import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
 
 export interface CaLabSelectServerForm {
   standardServer: FormControl<CaServerStandard>;

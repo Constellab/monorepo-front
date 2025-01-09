@@ -23,7 +23,6 @@ export class CaStoragePriceTableComponent {
     'volumeStoragePrice',
     'backupStoragePrice',
     'backupTransfertPrice',
-    'totalPrice',
     'dates',
     'lastModified',
     'actions',

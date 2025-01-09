@@ -1,0 +1,142 @@
+<div class="g-layout-row g-layout-start-start container">
+  <div>
+    <h3>{{ 'create_lab_summary' | translate }}</h3>
+    <table>
+      @if (name) {
+        <tr>
+          <td>{{ 'name' | translate }}</td>
+          <td class="right-cell">{{ name }}</td>
+        </tr>
+      }
+
+      @if (server) {
+        @if (server.value.standardServer) {
+          <tr>
+            <td>{{ 'server' | translate }}</td>
+            <td class="right-cell">
+              <div>{{ server.value.standardServer.name }}</div>
+              @if (server.value.serverCloud) {
+                <div class="g-text-small g-text-light">
+                  <!--      Info about the server for this cloud provider            -->
+                  <fl-key-value>
+                    <fl-key>{{ 'cpuCount' | translate }}</fl-key>
+                    {{ server.value.serverCloud.cpuCount }} ({{ server.value.serverCloud.cpuType }})
+                  </fl-key-value>
+                  <fl-key-value>
+                    <fl-key>{{ 'ram' | translate }}</fl-key>
+                    {{ server.value.serverCloud.ram }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}
+                  </fl-key-value>
+                </div>
+              }
+            </td>
+          </tr>
+        }
+
+        @if (server.value.region) {
+          <tr>
+            <td>{{ 'server_location' | translate }}</td>
+            <td class="right-cell">
+              <ca-cloud-provider-region-inline
+                [region]="server.value.region"></ca-cloud-provider-region-inline>
+            </td>
+          </tr>
+        }
+
+        @if (server.value.dailyBackupRegion) {
+          <tr>
+            <td>{{ 'daily_backup' | translate }}</td>
+            <td class="right-cell">
+              <ca-cloud-provider-region-inline
+                [region]="server.value.dailyBackupRegion"></ca-cloud-provider-region-inline>
+            </td>
+          </tr>
+        }
+
+        @if (server.value.weeklyBackupRegion) {
+          <tr>
+            <td>{{ 'weekly_backup' | translate }}</td>
+            <td class="right-cell">
+              <ca-cloud-provider-region-inline
+                [region]="server.value.weeklyBackupRegion"></ca-cloud-provider-region-inline>
+            </td>
+          </tr>
+        }
+      }
+
+      @if (storage) {
+        <tr>
+          <td>{{ 'lab_storage_size' | translate }}</td>
+          <td class="right-cell">
+            {{ storage.value.storageSize }} {{ 'flCoreComponent.giga_byte_symbole' | translate }}
+          </td>
+        </tr>
+      }
+
+      @if (labConfig) {
+        <tr>
+          <td>{{ 'lab_config' | translate }}</td>
+          <td class="right-cell">
+            @for (brick of labConfig.brickVersions; track brick.name) {
+              <fl-key-value>
+                <fl-key>{{ brick.name }}</fl-key>
+                {{ brick.version }}
+              </fl-key-value>
+            }
+          </td>
+        </tr>
+      }
+    </table>
+  </div>
+
+  <!---------------------- PRICE & SIMULATION TABLES ------------------------------------>
+  <div class="right-section">
+    <table>
+      <h3>{{ 'lab_server_price' | translate }}</h3>
+      @if (serverPrice$ | async; as serverPrice) {
+        <tr>
+          <td>{{ 'server' | translate }}</td>
+          <td class="right-cell">{{ serverPrice }} {{ 'server_price_unit' | translate }}</td>
+        </tr>
+      }
+
+      @if (storage.value.storagePrice) {
+        <tr>
+          <td>{{ 'lab_storage' | translate }}</td>
+          <td class="right-cell">
+            <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+              <div>
+                {{ storage.value.storagePrice * storage.value.storageSize | number: '1.0-2' }} € /{{
+                  'month' | translate
+                }}
+              </div>
+              <mat-icon
+                [matTooltip]="'lab_storage_price_help' | translate: { ratio: backupApproximateRatio }"
+                class="g-icon-tiny price-info">
+                info
+              </mat-icon>
+            </div>
+          </td>
+        </tr>
+      }
+    </table>
+
+    @if (serverRunningSimulation$ | async; as simulations) {
+      <h3 class="simulation">{{ 'lab_server_price_simulation' | translate }}</h3>
+
+      <table>
+        @for (simulation of simulations; track simulation.hourPerMonth) {
+          <tr>
+            <td class="g-text-dense-height">
+              <div>{{ simulation.title | translate }}</div>
+              <div class="g-text-small g-text-light">
+                {{ simulation.hourPerMonth }}
+                {{ 'lab_server_hours' | translate }}
+              </div>
+            </td>
+            <td class="right-cell">{{ simulation.pricePerMonth | number: '1.0-2' }} €</td>
+          </tr>
+        }
+      </table>
+    }
+  </div>
+</div>

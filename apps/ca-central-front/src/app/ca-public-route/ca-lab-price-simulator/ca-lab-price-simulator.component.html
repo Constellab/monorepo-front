@@ -1,0 +1,79 @@
+<div class="g-page page">
+  <fl-card class="container">
+    <fl-card-header>
+      <h1>{{ 'data_lab_price_simulator' | translate }}</h1>
+    </fl-card-header>
+
+    <fl-card-body>
+      <div class="help-text">
+        {{ 'data_lab_price_simulator_help' | translate }}
+        <a [href]="contactUsUrl" target="_blank" class="link"> {{ 'contact_us' | translate }}</a
+        >.
+      </div>
+      <mat-stepper orientation="vertical" [linear]="true">
+        <!--    Choose server    -->
+        <mat-step [stepControl]="serverForm">
+          <ng-template matStepLabel>{{ 'server' | translate }}</ng-template>
+          <form [formGroup]="serverForm">
+            <div class="step-section">
+              <ca-lab-select-server [formGp]="serverForm"></ca-lab-select-server>
+            </div>
+
+            <div>
+              <button mat-stroked-button color="primary" matStepperNext class="next-button button">
+                {{ 'next' | translate }}
+              </button>
+              <button mat-stroked-button color="warn" matStepperPrevious class="button">
+                {{ 'back' | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!--    Choose storage    -->
+        <mat-step [stepControl]="storageForm">
+          <ng-template matStepLabel>{{ 'lab_storage' | translate }}</ng-template>
+          <form [formGroup]="storageForm">
+            <div class="step-section">
+              <ca-lab-select-storage [formGp]="storageForm"></ca-lab-select-storage>
+            </div>
+
+            <div>
+              <button mat-stroked-button color="primary" matStepperNext class="next-button button">
+                {{ 'next' | translate }}
+              </button>
+              <button mat-stroked-button color="warn" matStepperPrevious class="button">
+                {{ 'back' | translate }}
+              </button>
+            </div>
+          </form>
+        </mat-step>
+
+        <!--    Summary    -->
+        <mat-step>
+          <ng-template matStepLabel>{{ 'create_lab_summary' | translate }}</ng-template>
+          <div class="step-section">
+            <ca-lab-create-summary [server]="serverForm" [storage]="storageForm"></ca-lab-create-summary>
+          </div>
+
+          <a
+            mat-flat-button
+            [routerLink]="signupRoute"
+            target="_blank"
+            color="primary"
+            class="next-button button">
+            {{ 'flAuth.signup' | translate }}
+          </a>
+
+          <a mat-flat-button [href]="contactUsUrl" target="_blank" color="primary" class="next-button button">
+            {{ 'contact_us' | translate }}
+          </a>
+
+          <button mat-stroked-button color="warn" matStepperPrevious class="button">
+            {{ 'back' | translate }}
+          </button>
+        </mat-step>
+      </mat-stepper>
+    </fl-card-body>
+  </fl-card>
+</div>
