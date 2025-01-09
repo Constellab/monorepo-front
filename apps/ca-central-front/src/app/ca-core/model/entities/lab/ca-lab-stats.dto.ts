@@ -62,8 +62,9 @@ export class CaLabStatusRunResponse {
   // in seconds
   runningDuration: number;
 
+  // is null if lab is not hourly billed
   @Type(() => CaLabRunningStatusBilling)
-  billInfo: CaLabRunningStatusBilling;
+  billInfo?: CaLabRunningStatusBilling;
 
   @Type(() => CaLabRunningStatus)
   statuses: CaLabRunningStatus[];

@@ -59,13 +59,17 @@
     <div class="section">
       <table>
         @if (runResponse$ | async; as runResponse) {
-          <tr>
-            <td>{{ 'lab_usage_server' | translate }}</td>
-            <td class="right-cell">
-              {{ runResponse.billInfo.totalPrice | number: '1.2-2' }} € ({{ runResponse.billInfo.nbOfHours }}
-              h)
-            </td>
-          </tr>
+          @if (runResponse.billInfo) {
+            <tr>
+              <td>{{ 'lab_usage_server' | translate }}</td>
+              <td class="right-cell">
+                {{ runResponse.billInfo.totalPrice | number: '1.2-2' }} € ({{
+                  runResponse.billInfo.nbOfHours
+                }}
+                h)
+              </td>
+            </tr>
+          }
         }
 
         @if (isCloud$ | async) {
