@@ -1,28 +1,32 @@
-<h2 *ngIf="labConfig.label">{{ labConfig.label }}</h2>
+@if (labConfig.label) {
+  <h2>{{ labConfig.label }}</h2>
+}
 
 <p>{{ 'brick_list' | translate }}</p>
 <ul>
-  <li *ngFor="let brickVersion of labConfig.brickVersions" class="g-layout-row g-layout-between-center">
-    <fl-key-value>
-      <fl-key>{{ brickVersion.brick.name }}</fl-key>
-      {{ brickVersion.brickVersion }}
-    </fl-key-value>
+  @for (brickVersion of labConfig.brickVersions; track brickVersion.brick.name) {
+    <li class="g-layout-row g-layout-between-center">
+      <fl-key-value>
+        <fl-key>{{ brickVersion.brick.name }}</fl-key>
+        {{ brickVersion.version }}
+      </fl-key-value>
 
-    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
-      <!-- Link to community -->
-      <a mat-stroked-button [href]="getBrickLink(brickVersion)" class="g-button-small" target="_blank">
-        {{ 'view_in_community' | translate }}
-      </a>
+      <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+        <!-- Link to community -->
+        <a mat-stroked-button [href]="getBrickLink(brickVersion)" class="g-button-small" target="_blank">
+          {{ 'view_in_community' | translate }}
+        </a>
 
-      <!-- Info button -->
-      <button
-        mat-icon-button
-        type="button"
-        class="g-button-icon-small button"
-        (click)="openBrickVersionDetail(brickVersion)"
-        [matTooltip]="'brick_version_view_detail' | translate">
-        <mat-icon>info</mat-icon>
-      </button>
-    </div>
-  </li>
+        <!-- Info button -->
+        <button
+          mat-icon-button
+          type="button"
+          class="g-button-icon-small button"
+          (click)="openBrickVersionDetail(brickVersion)"
+          [matTooltip]="'brick_version_view_detail' | translate">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
+    </li>
+  }
 </ul>

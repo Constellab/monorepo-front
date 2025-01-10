@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class';
 import { CaBrickVersionComplete } from '../../../../model/entities/ca-brick.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
@@ -14,21 +14,19 @@ import {
   styleUrls: ['./ca-lab-config.component.scss'],
 })
 export class CaLabConfigComponent {
-  @Input() labConfig: CaLabConfig;
+  @Input({ required: true }) labConfig: CaLabConfig;
 
-  constructor(
-    private dialogService: FlDialogService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
+  private dialogService = inject(FlDialogService);
+  private communityHelper = inject(CoCommunityHelperService);
 
   getBrickLink(brickVersion: CaBrickVersionComplete): string {
-    return this.communityHelper.getBrickUrl(brickVersion.brick.name, brickVersion.brickVersion);
+    return this.communityHelper.getBrickUrl(brickVersion.brick.name, brickVersion.version);
   }
 
   openBrickVersionDetail(brickVersion: CaBrickVersionComplete): void {
     const data: LmlBrickVersionDetailDialogInput = {
       brickName: brickVersion.brick.name,
-      brickVersion: brickVersion.brickVersion,
+      brickVersion: brickVersion.version,
     };
 
     this.dialogService.openSmallDialog(LmlBrickVersionDetailDialogComponent, { data });

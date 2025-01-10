@@ -1,7 +1,5 @@
 import { CaEntity } from './ca-entity.entity';
 import { Type } from 'class-transformer';
-import { LmlBrickVersion } from '@monorepo/lab-manager-lib';
-
 
 /**
  * A brick is a functionality to configure a Lab.
@@ -15,7 +13,9 @@ export class CaBrick extends CaEntity {
   gitRepo: string;
 }
 
-export class CaBrickVersionComplete extends LmlBrickVersion {
+export class CaBrickVersionComplete {
   @Type(() => CaBrick)
   brick: CaBrick;
+
+  version: string;
 }
