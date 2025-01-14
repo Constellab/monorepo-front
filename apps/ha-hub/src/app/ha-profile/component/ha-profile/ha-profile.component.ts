@@ -23,6 +23,11 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import {
+  HaRunStatAggregate,
+  HaRunStatAggregateObjectType,
+} from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -45,6 +50,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+  private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
 
   foaLink: string = HaConstellabHelper.getGencoveryFOAUrl();
 
@@ -54,6 +60,8 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
+
+  userRunStatAggregate: HaRunStatAggregate;
 
   ngOnInit(): void {
     this.init();
@@ -89,6 +97,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
     this.bricks$ = this.brickService.getUserBricksPaginated();
     this.stories$ = this.storyService.getUserStoriesPaginated();
     this.updateDatasources(paramId);
+    this.getUserRunStatAggregate(paramId);
 
     this.userService.getUserById(paramId).subscribe((user) => {
       this.user = user;
@@ -134,6 +143,14 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
     this.stories$.getFirstPage({
       userId: userId,
     });
+  }
+
+  private getUserRunStatAggregate(userId: string): void {
+    this.runStatAggregateService
+      .getObjectRunStatAggregate(userId, HaRunStatAggregateObjectType.USER)
+      .subscribe((runStatAggregate) => {
+        this.userRunStatAggregate = runStatAggregate;
+      });
   }
 
   ngOnDestroy(): void {

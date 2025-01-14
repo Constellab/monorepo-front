@@ -11,6 +11,7 @@ import { HaLikeType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-t
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -34,6 +35,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
   latestBrickVersion: Signal<HaBrickVersion> = this.brickPageState.latestBrickVersion;
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
   directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
+  brickRunStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.brickRunStatAggregate;
 
   brickIsLiked = false;
 

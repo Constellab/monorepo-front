@@ -1,0 +1,22 @@
+<div class="stats-div" [style.justify-content]="justifyContent()">
+  <div class="stat" [matTooltip]="executionCountTooltip() | translate">
+    <fl-text-icon>
+      <mat-icon>play_circle</mat-icon>
+      {{ runStatAggregate().executionCount }} {{ 'times' | translate }}
+    </fl-text-icon>
+  </div>
+
+  <div class="stat" [matTooltip]="successRateTooltip() | translate">
+    <fl-text-icon>
+      <mat-icon>task_alt</mat-icon>
+      {{ successRate() }} %
+    </fl-text-icon>
+  </div>
+
+  <div class="stat" [matTooltip]="averageElapseTimeTooltip() | translate">
+    <fl-text-icon>
+      <mat-icon>timer</mat-icon>
+      {{ runStatAggregate().averageElapseTime | flDuration }}
+    </fl-text-icon>
+  </div>
+</div>

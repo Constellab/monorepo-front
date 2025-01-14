@@ -29,6 +29,10 @@
       </div>
     </div>
 
+    @if (brickRunStatAggregate()) {
+      <ha-run-stat-aggregate-panel [runStatAggregate]="brickRunStatAggregate()"></ha-run-stat-aggregate-panel>
+    }
+
     <div class="description-div">
       <h5>{{ 'description' | translate }} :</h5>
       <p>{{ brick().description }}</p>

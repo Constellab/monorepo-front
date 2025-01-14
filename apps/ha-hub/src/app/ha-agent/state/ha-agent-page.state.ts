@@ -1,4 +1,4 @@
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HaAgent } from '../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
@@ -22,9 +22,16 @@ import {
   FlStatusEventSuccess,
 } from '@monorepo/front-core-lib';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
+import {
+  HaRunStatAggregate,
+  HaRunStatAggregateObjectType,
+} from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 @Injectable()
 export class HaAgentPageState {
+  private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
+
   private agentStatusEvent: WritableSignal<FlStatusEvent<HaAgent>> = signal<FlStatusEvent<HaAgent>>(null);
   public isAgentError: Signal<boolean> = computed(() => {
     return this.agentStatusEvent() && this.agentStatusEvent().status == 'error';
@@ -90,6 +97,26 @@ export class HaAgentPageState {
   private agentDescription: WritableSignal<TeRichText> = signal(null);
   private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
+  private agentRunStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
+    signal<FlStatusEvent<HaRunStatAggregate>>(null);
+  private runStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
+    signal<FlStatusEvent<HaRunStatAggregate>>(null);
+
+  public agentRunStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+    if (
+      this.agentRunStatAggregateStatusEvent() &&
+      this.agentRunStatAggregateStatusEvent().status == 'success'
+    )
+      return (this.agentRunStatAggregateStatusEvent() as FlStatusEventSuccess<HaRunStatAggregate>).object;
+    return null;
+  });
+
+  public runStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+    if (this.runStatAggregateStatusEvent() && this.runStatAggregateStatusEvent().status == 'success')
+      return (this.runStatAggregateStatusEvent() as FlStatusEventSuccess<HaRunStatAggregate>).object;
+    return null;
+  });
+
   constructor(
     private agentService: HaAgentService,
     private authenticatedUserService: HaAuthenticatedUserService,
@@ -149,6 +176,7 @@ export class HaAgentPageState {
       object: agentVersion,
     });
     this.checkBrickDependencies(agentVersion);
+    this.initAgentVersionRunStatAggregate(agentVersion.id);
   }
 
   public getBrickDependencies(): Signal<HaBrickVersion[]> {
@@ -306,6 +334,7 @@ export class HaAgentPageState {
           this.initCoAuthors();
           this.initAgentVersionsList(agent);
           this.initIsLiked(agent);
+          this.initAgentRunStatAggregate(agent.id);
 
           if (paramTitle !== ClStringHelper.getCleanUrlPath(agent.title)) {
             this.httpRedirectionService.redirectTo(
@@ -357,5 +386,45 @@ export class HaAgentPageState {
     this.agentService.getAgentVersionBrickDependencies(agentVersion.id).subscribe((brickDependencies) => {
       this.brickDependencies.set(brickDependencies);
     });
+  }
+
+  private initAgentRunStatAggregate(agentId: string): void {
+    this.agentRunStatAggregateStatusEvent.set({ status: 'loading' });
+    this.runStatAggregateService
+      .getObjectRunStatAggregate(agentId, HaRunStatAggregateObjectType.AGENT)
+      .subscribe({
+        next: (runStatAggregate) => {
+          this.agentRunStatAggregateStatusEvent.set({
+            status: 'success',
+            object: runStatAggregate,
+          });
+        },
+        error: () => {
+          this.agentRunStatAggregateStatusEvent.set({
+            status: 'error',
+            error: 'run_stat_group_not_found',
+          });
+        },
+      });
+  }
+
+  private initAgentVersionRunStatAggregate(agentVersionId: string): void {
+    this.runStatAggregateStatusEvent.set({ status: 'loading' });
+    this.runStatAggregateService
+      .getObjectRunStatAggregate(agentVersionId, HaRunStatAggregateObjectType.AGENT_VERSION)
+      .subscribe({
+        next: (runStatAggregate) => {
+          this.runStatAggregateStatusEvent.set({
+            status: 'success',
+            object: runStatAggregate,
+          });
+        },
+        error: () => {
+          this.runStatAggregateStatusEvent.set({
+            status: 'error',
+            error: 'run_stat_group_not_found',
+          });
+        },
+      });
   }
 }

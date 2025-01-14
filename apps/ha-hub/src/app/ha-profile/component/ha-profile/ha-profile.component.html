@@ -61,6 +61,11 @@
             }
           </div>
         }
+
+        @if (userRunStatAggregate) {
+          <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate"
+                                       justifyContent="start"></ha-run-stat-aggregate-panel>
+        }
       </div>
     </div>
     <div class="profile-right-side-div">
