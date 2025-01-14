@@ -408,5 +408,6 @@
   "average_elapse_time_tooltip_agent_version": "Temps moyen d'exécution de la version de l'agent",
   "average_elapse_time_tooltip_user": "Temps moyen d'exécution des processes ou des agents de l'utilisateur",
   "average_elapse_time_tooltip": "Temps moyen d'exécution du process",
-  "times": "fois"
+  "times": "fois",
+  "stats": "Statistiques"
 }

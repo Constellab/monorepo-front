@@ -3,7 +3,9 @@
     <div class="profile-left-side-div">
       <div class="head-infos">
         <div class="base-infos">
-          <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
+          <div class="profile-pic">
+            <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
+          </div>
           <h1 class="alias">{{ user.alias }}</h1>
           <p>#{{ user.userCode }}</p>
           @if (isCurrentUser) {
@@ -63,8 +65,11 @@
         }
 
         @if (userRunStatAggregate) {
-          <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate"
-                                       justifyContent="start"></ha-run-stat-aggregate-panel>
+          <div>
+            <p>{{ 'stats' | translate }} :</p>
+            <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate" [showElapseTime]="false"
+                                         justifyContent="start"></ha-run-stat-aggregate-panel>
+          </div>
         }
       </div>
     </div>

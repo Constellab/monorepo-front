@@ -31,6 +31,10 @@
 
   .head-infos {
     .base-infos {
+      margin-bottom: 0.5em;
+      display: flex;
+      flex-direction: column;
+
       h5 {
         margin-top: 1em;
       }
@@ -128,9 +132,17 @@
 
     .head-infos {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       flex: 1;
+
+      .base-infos {
+        .profile-pic {
+          width: fit-content;
+        }
+
+        justify-content: start;
+      }
     }
   }
 
@@ -145,8 +157,16 @@
 
     .head-infos {
       flex-direction: column;
-      justify-content: start;
+      justify-content: center;
       align-items: center;
+      margin: 0 auto;
+
+      .base-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 }

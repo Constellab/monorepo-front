@@ -406,5 +406,6 @@
   "average_elapse_time_tooltip_agent_version": "Average duration of the agent version",
   "average_elapse_time_tooltip_user": "Average duration of processes and agents of the user",
   "average_elapse_time_tooltip": "Average duration of the process",
-  "times": "times"
+  "times": "times",
+  "stats": "Stats"
 }

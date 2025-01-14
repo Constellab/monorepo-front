@@ -18,6 +18,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class HaRunStatAggregatePanelComponent {
   runStatAggregate = input.required<HaRunStatAggregate>();
   justifyContent = input<'start' | 'end'>('end');
+  showElapseTime = input<boolean>(true);
 
   successRate = computed(() => {
     // Times 100 and round to the second decimal
