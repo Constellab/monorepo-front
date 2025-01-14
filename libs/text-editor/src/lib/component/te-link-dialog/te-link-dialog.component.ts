@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 export interface TeLinkDialogInput {
   title: string;
+  isYoutube?: boolean;
 }
 
 @Component({
@@ -17,11 +18,14 @@ export class TeLinkDialogComponent implements OnInit {
 
   title: string;
 
+  isYoutube: boolean;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) data: TeLinkDialogInput,
     private dialogRef: MatDialogRef<TeLinkDialogComponent>
   ) {
     this.title = data.title;
+    this.isYoutube = data.isYoutube;
   }
 
   ngOnInit(): void {
@@ -37,6 +41,11 @@ export class TeLinkDialogComponent implements OnInit {
   public isYoutubeVideo(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       const value: string = control.value;
+
+      if (!this.isYoutube) {
+        return null;
+      }
+
       if (value == null || value.length === 0) {
         return null;
       }

@@ -62,6 +62,7 @@ import { MatDivider } from '@angular/material/divider';
 import { TeTimestampComponent } from './component/te-timestamp/te-timestamp.component';
 import { TeTimestampConfigDialogComponent } from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-text-editor-save.component';
+import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-te
     TeTimestampComponent,
     TeTimestampConfigDialogComponent,
     TeTextEditorSaveComponent,
+    TeIframeComponent,
   ],
   exports: [
     TeTextEditorComponent,

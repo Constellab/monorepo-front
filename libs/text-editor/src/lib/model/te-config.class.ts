@@ -34,6 +34,7 @@ import {
 } from '../block-tune/te-audio-transcription-block-tune.class';
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
+import { TeIframeBlock } from '../block/te-iframe-block.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -255,6 +256,9 @@ export class TeCompleteConfig extends TeConfig {
       code: this.getCodeConfig(envInjector, applicationRef),
       formula: {
         class: teComponentBlockFactory(TeFormulaBlock, envInjector, applicationRef),
+      },
+      iframe: {
+        class: teComponentBlockFactory(TeIframeBlock, envInjector, applicationRef),
       },
       table: this.getTableConfig(),
       hint: {

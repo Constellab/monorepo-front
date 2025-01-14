@@ -27,6 +27,7 @@ export * from './lib/component/te-text-editor-history-modification-group/te-text
 export * from './lib/component/te-files-list/te-files-list.component';
 export * from './lib/component/te-titles-list/te-titles-list.component';
 export * from './lib/component/te-text-editor-save/te-text-editor-save.component';
+export * from './lib/component/te-iframe/te-iframe.component';
 
 // Model
 export * from './lib/model/lib';
@@ -55,6 +56,7 @@ export * from './lib/block/te-paragraph-block.class';
 export * from './lib/block/te-table-block.class';
 export * from './lib/block/te-timestamp-block.class';
 export * from './lib/block/te-video-block.class';
+export * from './lib/block/te-iframe-block.class';
 
 // Inline tool
 export * from './lib/inline-tool/te-clean-style-inline-tool.class';
