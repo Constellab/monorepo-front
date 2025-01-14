@@ -157,5 +157,6 @@
   "user": "Utilisateur",
   "public": "Public",
   "login_dev_env": "Attention, c'est l'environnement de dev du lab",
-  "login_switch_to_prod": "Basculer vers l'environnement de prod"
+  "login_switch_to_prod": "Basculer vers l'environnement de prod",
+  "powered_by": "Propulsé par"
 }

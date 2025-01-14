@@ -143,4 +143,11 @@ export class FlThemeService {
 
     return theme === ClTheme.LIGHT_THEME ? flThemeDetailLight : flThemeDetailDark;
   }
+
+  //////////////////////// OTHERS ////////////////////////
+  public getConstellabLogo(): string {
+    return this.isDarkTheme()
+      ? 'assets/fl-logo/constellab-logo-text-white.svg'
+      : 'assets/fl-logo/constellab-logo-text-black.svg';
+  }
 }

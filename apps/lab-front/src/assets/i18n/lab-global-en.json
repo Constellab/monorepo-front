@@ -157,5 +157,6 @@
   "user": "User",
   "public": "Public",
   "login_dev_env": "Warning, this is the lab dev environment",
-  "login_switch_to_prod": "Switch to prod environment"
+  "login_switch_to_prod": "Switch to prod environment",
+  "powered_by": "Powered by"
 }

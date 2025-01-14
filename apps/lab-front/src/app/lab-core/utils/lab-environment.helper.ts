@@ -93,4 +93,8 @@ export class LabEnvironmentHelper {
   public static getCommunityApiUrl(): string {
     return LabEnvironmentHelper.getEnv().settings.communityApiUrl;
   }
+
+  public static getConstellabPublicUrl(): string {
+    return 'https://gencovery.com/constellab';
+  }
 }
