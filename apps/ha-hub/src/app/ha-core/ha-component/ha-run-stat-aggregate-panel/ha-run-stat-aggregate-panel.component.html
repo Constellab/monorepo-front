@@ -9,7 +9,7 @@
   <div class="stat g-text-small" [matTooltip]="successRateTooltip() | translate">
     <fl-text-icon gap="5px">
       <mat-icon class="g-icon-small">task_alt</mat-icon>
-      {{ successRate() }} %
+      {{ successRate() | number :  '1.0-2' }} %
     </fl-text-icon>
   </div>
 

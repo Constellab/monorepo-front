@@ -22,7 +22,7 @@ export class HaRunStatAggregatePanelComponent {
 
   successRate = computed(() => {
     // Times 100 and round to the second decimal
-    return +(this.runStatAggregate().successRate * 100).toFixed(2);
+    return this.runStatAggregate().successRate * 100;
   });
 
   executionCountTooltip = computed(() => {

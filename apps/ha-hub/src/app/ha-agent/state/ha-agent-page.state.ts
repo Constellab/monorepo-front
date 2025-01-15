@@ -19,9 +19,7 @@ import {
   FlDialogService,
   FlSnackBarService,
   FlStatusEvent,
-  FlStatusEventSuccess,
 } from '@monorepo/front-core-lib';
-import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
@@ -37,8 +35,8 @@ export class HaAgentPageState {
     return this.agentStatusEvent() && this.agentStatusEvent().status == 'error';
   });
   private agent: Signal<HaAgent> = computed(() => {
-    if (this.agentStatusEvent() && this.agentStatusEvent().status == 'success')
-      return (this.agentStatusEvent() as FlStatusEventSuccess<HaAgent>).object;
+    const agentStatusEvent = this.agentStatusEvent();
+    if (agentStatusEvent && agentStatusEvent.status == 'success') return agentStatusEvent.object;
     return null;
   });
   public likes: Signal<number> = computed(() => {
@@ -51,8 +49,9 @@ export class HaAgentPageState {
   private agentVersionStatusEvent: WritableSignal<FlStatusEvent<HaAgentVersion>> =
     signal<FlStatusEvent<HaAgentVersion>>(null);
   public agentVersion: Signal<HaAgentVersion> = computed(() => {
-    if (this.agentVersionStatusEvent() && this.agentVersionStatusEvent().status == 'success')
-      return (this.agentVersionStatusEvent() as FlStatusEventSuccess<HaAgentVersion>).object;
+    const agentVersionStatusEvent = this.agentVersionStatusEvent();
+    if (agentVersionStatusEvent && agentVersionStatusEvent.status == 'success')
+      return agentVersionStatusEvent.object;
     return null;
   });
   public agentVersionIsEditable: Signal<boolean> = computed(() => {
@@ -103,17 +102,16 @@ export class HaAgentPageState {
     signal<FlStatusEvent<HaRunStatAggregate>>(null);
 
   public agentRunStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
-    if (
-      this.agentRunStatAggregateStatusEvent() &&
-      this.agentRunStatAggregateStatusEvent().status == 'success'
-    )
-      return (this.agentRunStatAggregateStatusEvent() as FlStatusEventSuccess<HaRunStatAggregate>).object;
+    const agentRunStatAggregateStatusEvent = this.agentRunStatAggregateStatusEvent();
+    if (agentRunStatAggregateStatusEvent && agentRunStatAggregateStatusEvent.status == 'success')
+      return agentRunStatAggregateStatusEvent.object;
     return null;
   });
 
   public runStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
-    if (this.runStatAggregateStatusEvent() && this.runStatAggregateStatusEvent().status == 'success')
-      return (this.runStatAggregateStatusEvent() as FlStatusEventSuccess<HaRunStatAggregate>).object;
+    const runStatAggregateStatusEvent = this.runStatAggregateStatusEvent();
+    if (runStatAggregateStatusEvent && runStatAggregateStatusEvent.status == 'success')
+      return runStatAggregateStatusEvent.object;
     return null;
   });
 
@@ -123,8 +121,7 @@ export class HaAgentPageState {
     private httpRedirectionService: HaHttpRedirectionService,
     private likeService: HaLikeService,
     private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService,
-    private jsonLdState: HaJsonLdState
+    private dialogService: FlDialogService
   ) {}
 
   public init(agentId: string, paramTitle: string): void {
