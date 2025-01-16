@@ -3,8 +3,10 @@
   flResize="height"
   (flResizeChanged)="onIframeResize($event)"
   [style.height]="data.iframeHeight + 'px'">
-  <div class="iframe-div" #iframeDiv>
-    @if (urlError) {
+  <div class="iframe-div">
+    @if (secureUrl && !urlError) {
+      <iframe [src]="secureUrl" height="100%" width="100%"></iframe>
+    } @else {
       <div class="g-text-centered">
         <p>{{ 'teTextEditor.iframe_url_error' | translate }}</p>
 
