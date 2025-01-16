@@ -31,6 +31,8 @@ export class HaPublicBrickPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
+      this.currentVersion = params.version;
+
       if (params.version != 'latest') {
         // this.metadataService.addMetaTag('robots', 'noindex');
         this.isLatestVersion = false;
@@ -38,7 +40,6 @@ export class HaPublicBrickPageComponent implements OnInit {
       } else {
         this.isLatestVersion = true;
       }
-      this.currentVersion = params.version;
 
       this.brickPageState.init(params.brickName, params.version);
     });
