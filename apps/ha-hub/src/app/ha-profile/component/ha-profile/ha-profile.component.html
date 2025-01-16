@@ -1,4 +1,4 @@
-@if (user) {
+@if (user$ | async; as user) {
   <div class="profile">
     <div class="profile-left-side-div">
       <div class="head-infos">
