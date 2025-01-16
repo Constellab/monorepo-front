@@ -1,0 +1,25 @@
+<div
+  class="iframe-container"
+  flResize="height"
+  (flResizeChanged)="onIframeResize($event)"
+  [style.height]="data.iframeHeight + 'px'">
+  <div class="iframe-div">
+    @if (secureUrl && !urlError) {
+      <iframe [src]="secureUrl" height="100%" width="100%"></iframe>
+    } @else {
+      <div class="g-text-centered">
+        <p>{{ 'teTextEditor.iframe_url_error' | translate }}</p>
+
+        <button type="button" mat-flat-button (click)="openLinkDialog()">
+          {{ 'teTextEditor.edit_iframe_url' | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>
+
+@if (data.url) {
+  <div class="g-text-centered">
+    <a [href]="data.url" target="_blank">{{ 'teTextEditor.open_in_another_window' | translate }}</a>
+  </div>
+}

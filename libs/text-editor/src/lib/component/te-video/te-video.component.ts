@@ -34,6 +34,7 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
   public openLinkDialog(): void {
     const data: TeLinkDialogInput = {
       title: 'teTextEditor.youtube_video',
+      isYoutube: true,
     };
     this.dialogService
       .openSmallDialog(TeLinkDialogComponent, { data })
