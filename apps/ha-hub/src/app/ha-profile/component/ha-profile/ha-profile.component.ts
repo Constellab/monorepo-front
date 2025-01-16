@@ -1,9 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { mergeMap, Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
-import { map } from 'rxjs/operators';
+import { map, share } from 'rxjs/operators';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
@@ -12,7 +11,7 @@ import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ClStringHelper } from '@monorepo/core-lib';
+import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService, FlUserConfig } from '@monorepo/front-core-lib';
 import {
   HaProfileEditDialogComponent,
@@ -23,6 +22,11 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import {
+  HaRunStatAggregate,
+  HaRunStatAggregateObjectType,
+} from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -34,7 +38,6 @@ export interface HaProfileDatasourceFilters {
   styleUrl: './ha-profile.component.scss',
 })
 export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
-  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private userService: HaUserService = inject(HaUserService);
   private spaceService: HaSpaceService = inject(HaSpaceService);
   private agentService: HaAgentService = inject(HaAgentService);
@@ -45,15 +48,20 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
+  private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
 
   foaLink: string = HaConstellabHelper.getGencoveryFOAUrl();
 
-  user: CoUser;
+  subscriptionHandler: ClSubscriptionHandler = new ClSubscriptionHandler();
+  user$: Observable<CoUser>;
+
   isCurrentUser: boolean;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
+
+  userRunStatAggregate$: Observable<HaRunStatAggregate>;
 
   ngOnInit(): void {
     this.init();
@@ -84,44 +92,30 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   }
 
   private init(): void {
-    const paramId = this.route.snapshot.params['id'];
     this.agents$ = this.agentService.getUserAgentsPaginated();
     this.bricks$ = this.brickService.getUserBricksPaginated();
     this.stories$ = this.storyService.getUserStoriesPaginated();
-    this.updateDatasources(paramId);
 
-    this.userService.getUserById(paramId).subscribe((user) => {
-      this.user = user;
+    const id$ = this.route.params.pipe(map((params) => params['id']));
 
-      this.jsonLdState.setProfilePageJsonLdContent(
-        user,
-        user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null
-      );
+    this.userRunStatAggregate$ = id$.pipe(
+      mergeMap((id) =>
+        this.runStatAggregateService.getObjectRunStatAggregate(id, HaRunStatAggregateObjectType.USER)
+      )
+    );
 
-      super.setMetaTags(
-        {
-          text: 'ha.user.title',
-          translateParam: { param: { alias: user.alias } },
-        },
-        {
-          text: 'ha.user.description',
-          translateParam: { param: { alias: user.alias } },
-        },
-        user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null,
-        HaRouterService.getFullRoute(this.router.url)
-      );
+    this.commonSpace$ = id$.pipe(mergeMap((id) => this.spaceService.getUserCommonSpace(id)));
 
-      this.authenticatedUserService.getUser().subscribe((currentUser) => {
-        this.isCurrentUser = currentUser?.id === user?.id;
-        if (currentUser != null) {
-          this.commonSpace$ = this.spaceService.getUserCommonSpace(user.id).pipe(
-            map((spaces) => {
-              return spaces;
-            })
-          );
-        }
-      });
-    });
+    this.user$ = id$.pipe(
+      mergeMap((id) => {
+        return this.userService.getUserById(id);
+      }),
+      share()
+    );
+
+    this.subscriptionHandler.add(id$.subscribe((id) => this.updateDatasources(id)));
+
+    this.subscriptionHandler.add(this.user$.subscribe((user) => this.onUser(user)));
   }
 
   private updateDatasources(userId: string): void {
@@ -136,7 +130,31 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
     });
   }
 
+  private onUser(user: CoUser): void {
+    this.jsonLdState.setProfilePageJsonLdContent(
+      user,
+      user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null
+    );
+
+    super.setMetaTags(
+      {
+        text: 'ha.user.title',
+        translateParam: { param: { alias: user.alias } },
+      },
+      {
+        text: 'ha.user.description',
+        translateParam: { param: { alias: user.alias } },
+      },
+      user.photo ? this.userConfig.getUserPhotoUrl(user.photo) : null,
+      HaRouterService.getFullRoute(this.router.url)
+    );
+  }
+
   ngOnDestroy(): void {
     this.jsonLdState.clearJsonLdContent();
+    this.subscriptionHandler.unsubscribe();
+    this.stories$.disconnect();
+    this.agents$.disconnect();
+    this.bricks$.disconnect();
   }
 }

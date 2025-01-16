@@ -28,6 +28,7 @@ import {
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
   selector: 'ha-agent-overview',
@@ -95,6 +96,8 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
   textEditorConfig: Signal<HaAgentTextEditorConfig> = computed(() => {
     return new HaAgentTextEditorConfig(this.agentService, this.agent().id);
   });
+
+  agentRunStatAggregate: Signal<HaRunStatAggregate> = this.agentPageState.agentRunStatAggregate;
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {

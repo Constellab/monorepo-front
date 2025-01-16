@@ -1,9 +1,11 @@
-@if (user) {
+@if (user$ | async; as user) {
   <div class="profile">
     <div class="profile-left-side-div">
       <div class="head-infos">
         <div class="base-infos">
-          <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
+          <div class="profile-pic">
+            <fl-user-profile-picture [user]="user" [size]="12"></fl-user-profile-picture>
+          </div>
           <h1 class="alias">{{ user.alias }}</h1>
           <p>#{{ user.userCode }}</p>
           @if (isCurrentUser) {
@@ -59,6 +61,14 @@
                 <co-visibility-badge [space]="space"></co-visibility-badge>
               </div>
             }
+          </div>
+        }
+
+        @if (userRunStatAggregate$ | async; as userRunStatAggregate) {
+          <div>
+            <p>{{ 'stats' | translate }} : </p>
+            <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate" [showElapseTime]="false"
+                                         justifyContent="start"></ha-run-stat-aggregate-panel>
           </div>
         }
       </div>

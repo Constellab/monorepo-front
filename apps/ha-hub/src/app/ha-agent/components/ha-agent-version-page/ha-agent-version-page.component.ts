@@ -11,6 +11,7 @@ import {
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
+import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
   selector: 'ha-agent-version-page',
@@ -56,6 +57,8 @@ export class HaAgentVersionPageComponent extends HaCommunityPage implements OnIn
   canEdit: Signal<boolean> = this.agentPageState.canEditAgent;
   isAgentVersionError: Signal<boolean> = this.agentPageState.isAgentVersionError;
   isAgentVersionLoading: Signal<boolean> = this.agentPageState.isAgentVersionLoading;
+  agentVersionRunStatAggregate: Signal<HaRunStatAggregate> = this.agentPageState.runStatAggregate;
+
   currentVersion: any = null;
 
   ngOnInit(): void {

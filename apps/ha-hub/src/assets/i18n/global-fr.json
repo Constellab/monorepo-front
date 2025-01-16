@@ -392,5 +392,22 @@
   "what_is_foa_description": "Le Fair Open Access incarne la transparence, l'inclusion et la collaboration. Il garantit que les ressources en science des données sont accessibles à tous, favorisant l'innovation et le progrès dans la recherche. En promouvant des outils à jour, activement entretenus et librement disponibles, nous permettons aux scientifiques et chercheurs de réaliser des percées et d'avancer dans la connaissance sans obstacles.",
   "why_is_foa_important": "Pourquoi le Fair Open Access est-il important ?",
   "why_is_foa_important_description": "L'accessibilité et l'utilisation des ressources en science des données restent un obstacle majeur, avec 91 % des bases de code GitHub étant obsolètes de plus de quatre ans ou inactives depuis plus de deux ans. Les créateurs de logiciels open-source manquent généralement des avantages de leurs créations, ce qui entraîne une diminution de l'engagement et de l'innovation.\n\n\n\nL'accès ouvert équitable est essentiel dans le paysage scientifique d'aujourd'hui où les données sont l'épine dorsale de la recherche et du développement. En adhérant à ces valeurs, nous pouvons surmonter les défis posés par les modèles d'accès traditionnels, tels que les ressources obsolètes et inaccessibles, et ouvrir la voie à une communauté scientifique plus ouverte, innovante et équitable.\n\n\n\nL'initiative Fair Open Access de Gencovery vise à fournir des ressources en science des données faciles d'accès, à jour et activement prises en charge. Avec Constellab, les créateurs ont un accès ouvert pour commencer, créer des projets open-source, et gagner des crédits pour leur travail\n\n\n\nNous visons à construire une communauté solide de praticiens de la science des données ouverte.\n\n\n\nRejoignez-nous pour révolutionner l'accessibilité des ressources en science des données et favoriser la découverte scientifique.\n\n",
-  "a_virtuous_circle": "Un cercle vertueux"
+  "a_virtuous_circle": "Un cercle vertueux",
+  "execution_count_tooltip_brick": "Nombre de fois qu'un des processes de la briques a été exécuté",
+  "execution_count_tooltip_agent": "Nombre de fois que l'agent a été exécuté",
+  "execution_count_tooltip_agent_version": "Nombre de fois que la version de l'agent a été exécutée",
+  "execution_count_tooltip_user": "Nombre de fois qu'un des processes ou des agents de l'utilisateur a été exécuté",
+  "execution_count_tooltip": "Nombre de fois que le process a été exécuté",
+  "success_rate_tooltip_brick": "Taux de succès des processes de la brique",
+  "success_rate_tooltip_agent": "Taux de succès de l'agent",
+  "success_rate_tooltip_agent_version": "Taux de succès de la version de l'agent",
+  "success_rate_tooltip_user": "Taux de succès des processes ou des agents de l'utilisateur",
+  "success_rate_tooltip": "Taux de succès du process",
+  "average_elapse_time_tooltip_brick": "Temps moyen d'exécution des processes de la brique",
+  "average_elapse_time_tooltip_agent": "Temps moyen d'exécution de l'agent",
+  "average_elapse_time_tooltip_agent_version": "Temps moyen d'exécution de la version de l'agent",
+  "average_elapse_time_tooltip_user": "Temps moyen d'exécution des processes ou des agents de l'utilisateur",
+  "average_elapse_time_tooltip": "Temps moyen d'exécution du process",
+  "times": "fois",
+  "stats": "Statistiques"
 }

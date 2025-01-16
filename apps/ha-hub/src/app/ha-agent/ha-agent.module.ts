@@ -22,6 +22,7 @@ import { HaAgentContentViewComponent } from './components/ha-agent-view/ha-agent
 import { HaAgentResourceViewInputDialogComponent } from './components/ha-agent-view/ha-agent-resource-view-input-dialog/ha-agent-resource-view-input-dialog.component';
 import { HaAgentEditStyleDialogComponent } from './components/ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
 import { MatCheckbox } from '@angular/material/checkbox';
+import { HaRunStatAggregatePanelComponent } from '../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
     HaCommentsCoreModule,
     HaPublicBrickPageModule,
     MatCheckbox,
+    HaRunStatAggregatePanelComponent,
   ],
 })
 export class HaAgentModule {}

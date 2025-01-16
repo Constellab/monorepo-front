@@ -1,4 +1,4 @@
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { HaAgent } from '../../ha-core/ha-model/ha-entities/ha-agent.class';
 import {
   HaAgentVersion,
@@ -19,19 +19,24 @@ import {
   FlDialogService,
   FlSnackBarService,
   FlStatusEvent,
-  FlStatusEventSuccess,
 } from '@monorepo/front-core-lib';
-import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
+import {
+  HaRunStatAggregate,
+  HaRunStatAggregateObjectType,
+} from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
 
 @Injectable()
 export class HaAgentPageState {
+  private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
+
   private agentStatusEvent: WritableSignal<FlStatusEvent<HaAgent>> = signal<FlStatusEvent<HaAgent>>(null);
   public isAgentError: Signal<boolean> = computed(() => {
     return this.agentStatusEvent() && this.agentStatusEvent().status == 'error';
   });
   private agent: Signal<HaAgent> = computed(() => {
-    if (this.agentStatusEvent() && this.agentStatusEvent().status == 'success')
-      return (this.agentStatusEvent() as FlStatusEventSuccess<HaAgent>).object;
+    const agentStatusEvent = this.agentStatusEvent();
+    if (agentStatusEvent && agentStatusEvent.status == 'success') return agentStatusEvent.object;
     return null;
   });
   public likes: Signal<number> = computed(() => {
@@ -44,8 +49,9 @@ export class HaAgentPageState {
   private agentVersionStatusEvent: WritableSignal<FlStatusEvent<HaAgentVersion>> =
     signal<FlStatusEvent<HaAgentVersion>>(null);
   public agentVersion: Signal<HaAgentVersion> = computed(() => {
-    if (this.agentVersionStatusEvent() && this.agentVersionStatusEvent().status == 'success')
-      return (this.agentVersionStatusEvent() as FlStatusEventSuccess<HaAgentVersion>).object;
+    const agentVersionStatusEvent = this.agentVersionStatusEvent();
+    if (agentVersionStatusEvent && agentVersionStatusEvent.status == 'success')
+      return agentVersionStatusEvent.object;
     return null;
   });
   public agentVersionIsEditable: Signal<boolean> = computed(() => {
@@ -90,14 +96,32 @@ export class HaAgentPageState {
   private agentDescription: WritableSignal<TeRichText> = signal(null);
   private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
+  private agentRunStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
+    signal<FlStatusEvent<HaRunStatAggregate>>(null);
+  private runStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
+    signal<FlStatusEvent<HaRunStatAggregate>>(null);
+
+  public agentRunStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+    const agentRunStatAggregateStatusEvent = this.agentRunStatAggregateStatusEvent();
+    if (agentRunStatAggregateStatusEvent && agentRunStatAggregateStatusEvent.status == 'success')
+      return agentRunStatAggregateStatusEvent.object;
+    return null;
+  });
+
+  public runStatAggregate: Signal<HaRunStatAggregate> = computed(() => {
+    const runStatAggregateStatusEvent = this.runStatAggregateStatusEvent();
+    if (runStatAggregateStatusEvent && runStatAggregateStatusEvent.status == 'success')
+      return runStatAggregateStatusEvent.object;
+    return null;
+  });
+
   constructor(
     private agentService: HaAgentService,
     private authenticatedUserService: HaAuthenticatedUserService,
     private httpRedirectionService: HaHttpRedirectionService,
     private likeService: HaLikeService,
     private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService,
-    private jsonLdState: HaJsonLdState
+    private dialogService: FlDialogService
   ) {}
 
   public init(agentId: string, paramTitle: string): void {
@@ -149,6 +173,7 @@ export class HaAgentPageState {
       object: agentVersion,
     });
     this.checkBrickDependencies(agentVersion);
+    this.initAgentVersionRunStatAggregate(agentVersion.id);
   }
 
   public getBrickDependencies(): Signal<HaBrickVersion[]> {
@@ -306,6 +331,7 @@ export class HaAgentPageState {
           this.initCoAuthors();
           this.initAgentVersionsList(agent);
           this.initIsLiked(agent);
+          this.initAgentRunStatAggregate(agent.id);
 
           if (paramTitle !== ClStringHelper.getCleanUrlPath(agent.title)) {
             this.httpRedirectionService.redirectTo(
@@ -357,5 +383,45 @@ export class HaAgentPageState {
     this.agentService.getAgentVersionBrickDependencies(agentVersion.id).subscribe((brickDependencies) => {
       this.brickDependencies.set(brickDependencies);
     });
+  }
+
+  private initAgentRunStatAggregate(agentId: string): void {
+    this.agentRunStatAggregateStatusEvent.set({ status: 'loading' });
+    this.runStatAggregateService
+      .getObjectRunStatAggregate(agentId, HaRunStatAggregateObjectType.AGENT)
+      .subscribe({
+        next: (runStatAggregate) => {
+          this.agentRunStatAggregateStatusEvent.set({
+            status: 'success',
+            object: runStatAggregate,
+          });
+        },
+        error: () => {
+          this.agentRunStatAggregateStatusEvent.set({
+            status: 'error',
+            error: 'run_stat_group_not_found',
+          });
+        },
+      });
+  }
+
+  private initAgentVersionRunStatAggregate(agentVersionId: string): void {
+    this.runStatAggregateStatusEvent.set({ status: 'loading' });
+    this.runStatAggregateService
+      .getObjectRunStatAggregate(agentVersionId, HaRunStatAggregateObjectType.AGENT_VERSION)
+      .subscribe({
+        next: (runStatAggregate) => {
+          this.runStatAggregateStatusEvent.set({
+            status: 'success',
+            object: runStatAggregate,
+          });
+        },
+        error: () => {
+          this.runStatAggregateStatusEvent.set({
+            status: 'error',
+            error: 'run_stat_group_not_found',
+          });
+        },
+      });
   }
 }

@@ -7,6 +7,7 @@ import { HaCoreModule } from '../ha-core/ha-core.module';
 import { HaProfileEditDialogComponent } from './component/ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { HaProfileAttachedLinkComponent } from './component/ha-profile-attached-link/ha-profile-attached-link.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HaRunStatAggregatePanelComponent } from '../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 
 @NgModule({
   declarations: [HaProfileComponent, HaProfileEditDialogComponent, HaProfileAttachedLinkComponent],
@@ -17,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HaProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HaRunStatAggregatePanelComponent,
   ],
   providers: [],
   exports: [],

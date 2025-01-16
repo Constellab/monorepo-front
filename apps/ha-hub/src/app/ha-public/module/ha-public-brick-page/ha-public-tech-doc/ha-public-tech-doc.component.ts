@@ -5,6 +5,7 @@ import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
   selector: 'ha-public-tech-doc-page',
@@ -26,6 +27,7 @@ export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit 
   brick: Signal<HaBrick> = this.brickPageState.brick;
   isTechDocLoading: Signal<boolean> = this.brickPageState.isTechDocLoading;
   techDocNotFound: Signal<boolean> = this.brickPageState.isTechDocError;
+  runStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.runStatAggregate;
 
   url: string;
 

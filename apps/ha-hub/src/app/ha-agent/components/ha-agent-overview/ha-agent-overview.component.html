@@ -54,6 +54,10 @@
     </div>
   </div>
 
+  @if (agentRunStatAggregate()) {
+    <ha-run-stat-aggregate-panel [runStatAggregate]="agentRunStatAggregate()"></ha-run-stat-aggregate-panel>
+  }
+
   @if (isLoading()) {
     <div class="g-flex">
       <fl-loader class="g-centered"></fl-loader>

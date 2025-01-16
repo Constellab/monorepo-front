@@ -1,0 +1,15 @@
+.stats-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin: 0.5em 0 1em 0;
+}
+
+.stat {
+  padding: 0.2em 0.4em;
+  border: 1px solid var(--primary-color);
+  border-radius: 18px;
+}

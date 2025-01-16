@@ -28,6 +28,7 @@ import { HaDocResourceViewInputDialogComponent } from './ha-doc-view/ha-doc-reso
 import { HaDocContentViewComponent } from './ha-doc-view/ha-doc-content-view/ha-doc-content-view.component';
 import { HaUtilComponentCoreModule } from '../../../ha-core/entity-module/ha-util-component-core/ha-util-component-core.module';
 import { HaGithubStarButtonComponent } from '../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { HaGithubStarButtonComponent } from '../../../ha-core/ha-component/ha-gi
     FlImageModule,
     HaGithubStarButtonComponent,
     NgOptimizedImage,
+    HaRunStatAggregatePanelComponent,
   ],
   exports: [Ha404Component],
 })

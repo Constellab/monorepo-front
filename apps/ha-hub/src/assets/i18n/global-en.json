@@ -390,5 +390,22 @@
   "what_is_foa_description": "Fair Open Access embodies transparency, inclusivity, and collaboration. It ensures that data science resources are accessible to all, fostering innovation and progress in research. By promoting up-to-date, actively maintained, and freely available tools, we empower scientists and researchers to drive breakthroughs and advance knowledge without barriers.",
   "why_is_foa_important": "Why is Fair Open Access important ?",
   "why_is_foa_important_description": "The accessibility and use of data science resources remains a major hurdle, with 91% of GitHub codebases being outdated by over four years or inactive for more than two years. Open-source creators generally miss out on the benefits of their creations, leading to decreased engagement and innovation.\n\n\n\nFair Open Access is critical in today’s scientific landscape where data is the backbone of research and development. By adhering to these values, we can overcome the challenges posed by traditional access models, such as outdated and inaccessible resources, and pave the way for a more open, innovative, and equitable scientific community.\n\n\n\nGencovery's Fair Open Access initiative aims to provide easy-to-access, up-to-date, and actively supported data science resources. With Constellab, creators get open access to start, create open-source projects, earn credits from your work\n\n\n\nWe aims to build a robust community of open data science practitioners. \n\n\n\nJoin us to revolutionize the accessibility of data science resources and foster scientific discovery.",
-  "a_virtuous_circle": "A virtuous circle"
+  "a_virtuous_circle": "A virtuous circle",
+  "execution_count_tooltip_brick": "Number of times a processes of the brick have been executed",
+  "execution_count_tooltip_agent": "Number of times the agent has been executed",
+  "execution_count_tooltip_agent_version": "Number of times the agent version has been executed",
+  "execution_count_tooltip_user": "Number of times processes and agents of the user have been executed",
+  "execution_count_tooltip": "Number of times the process has been been executed",
+  "success_rate_tooltip_brick": "Success rate of processes of the brick",
+  "success_rate_tooltip_agent": "Success rate of the agent",
+  "success_rate_tooltip_agent_version": "Success rate of the agent version",
+  "success_rate_tooltip_user": "Success rate of processes and agents of the user",
+  "success_rate_tooltip": "Success rate of the process",
+  "average_elapse_time_tooltip_brick": "Average duration of processes of the brick",
+  "average_elapse_time_tooltip_agent": "Average duration of the agent",
+  "average_elapse_time_tooltip_agent_version": "Average duration of the agent version",
+  "average_elapse_time_tooltip_user": "Average duration of processes and agents of the user",
+  "average_elapse_time_tooltip": "Average duration of the process",
+  "times": "times",
+  "stats": "Stats"
 }

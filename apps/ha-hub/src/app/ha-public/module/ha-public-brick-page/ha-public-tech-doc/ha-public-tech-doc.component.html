@@ -9,6 +9,9 @@
         <div class="doc-title-div">
           <td-technical-doc-header [technicalDoc]="techDoc()"></td-technical-doc-header>
         </div>
+        @if (runStatAggregate()) {
+          <ha-run-stat-aggregate-panel [runStatAggregate]="runStatAggregate()"></ha-run-stat-aggregate-panel>
+        }
         <article>
           <td-technical-doc flAutoScrollToAnchor [technicalDoc]="techDoc()"></td-technical-doc>
         </article>
