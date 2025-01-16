@@ -32,7 +32,7 @@ export class HaPublicBrickPageComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params.version != 'latest') {
-        this.metadataService.addMetaTag('robots', 'noindex');
+        // this.metadataService.addMetaTag('robots', 'noindex');
         this.isLatestVersion = false;
         this.setLatestBrickCanonicalUrl();
       } else {
