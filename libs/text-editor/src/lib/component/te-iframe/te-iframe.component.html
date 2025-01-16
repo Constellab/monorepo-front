@@ -1,6 +1,7 @@
 <div
   class="iframe-container"
   flResize="height"
+  [disabled$]="disabled$"
   (flResizeChanged)="onIframeResize($event)"
   [style.height]="data.iframeHeight + 'px'">
   <div class="iframe-div">

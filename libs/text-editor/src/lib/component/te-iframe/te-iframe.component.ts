@@ -5,6 +5,7 @@ import { TeIframeBlockData } from '../../block/te-iframe-block.class';
 import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'te-iframe',
@@ -20,9 +21,12 @@ export class TeIframeComponent extends TeElementBlockDirective implements OnInit
   urlError: boolean = false;
   secureUrl: SafeResourceUrl;
 
+  disabled$: Observable<boolean>;
+
   ngOnInit(): void {
     this.data.iframeHeight = this.data.iframeHeight ?? 300;
     this.setSecureUrl();
+    this.disabled$ = of(this.disabled);
   }
 
   onIframeResize(event: FlResizeEvent): void {
