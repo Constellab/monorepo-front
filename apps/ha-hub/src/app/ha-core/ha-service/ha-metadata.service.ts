@@ -12,6 +12,8 @@ export class HaMetadataService {
     private translateService: FlTranslateService
   ) {}
 
+  setLinkCanonical(url: string): void {}
+
   setPageTitle(title: string, hasTranslation: boolean = false, data?: any): void {
     if (hasTranslation) {
       this.translateService.get(title, data).subscribe((titleTrad: string) => {
