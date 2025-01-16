@@ -64,9 +64,9 @@
           </div>
         }
 
-        @if (userRunStatAggregate) {
+        @if (userRunStatAggregate$ | async; as userRunStatAggregate) {
           <div>
-            <p>{{ 'stats' | translate }} :</p>
+            <p>{{ 'stats' | translate }} : </p>
             <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate" [showElapseTime]="false"
                                          justifyContent="start"></ha-run-stat-aggregate-panel>
           </div>
