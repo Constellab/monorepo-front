@@ -246,6 +246,15 @@ figure {
   line-height: 1.2em;
 }
 
+.g-text-ellipsis-2-lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // multi-line ellipsis
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 /**************************** Flex *****************************/
 .g-grow-max-height {
   // use to force the max height of the grow element

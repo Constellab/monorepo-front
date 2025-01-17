@@ -2,14 +2,18 @@
   <fl-section-header class="header">
     <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
       <td-type-icon-badge [style]="labView.style" [iconSize]="32"></td-type-icon-badge>
-      <h2 class="header-title" flElementEditable (flElementValueChange)="updateTitle($event)">
+      <h3
+        class="header-title g-text-ellipsis-2-lines"
+        flElementEditable
+        (flElementValueChange)="updateTitle($event)">
         {{ labView.title }}
-      </h2>
+      </h3>
 
-      <lab-view-config-favorite
-        *ngIf="labView.viewConfig"
-        [viewConfig]="labView.viewConfig"
-        (update)="onUpdate($event)"></lab-view-config-favorite>
+      @if (labView.viewConfig) {
+        <lab-view-config-favorite
+          [viewConfig]="labView.viewConfig"
+          (update)="onUpdate($event)"></lab-view-config-favorite>
+      }
     </div>
 
     <fl-section-actions>
