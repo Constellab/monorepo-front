@@ -4,7 +4,6 @@ export class LabStreamlitApp {
   @Expose({ name: 'resource_id' })
   resourceId: string;
 
-  @Expose()
   url: string;
 
   @Expose({ name: 'streamlit_app_config_path' })
@@ -14,8 +13,9 @@ export class LabStreamlitApp {
   sourcePaths: string[];
 }
 
-export class LabStreamlitStatus {
-  @Expose()
+export class LabStreamlitProcessStatus {
+  id: string;
+
   status: 'RUNNING' | 'STOPPED';
 
   @Expose({ name: 'running_apps' })
@@ -24,4 +24,9 @@ export class LabStreamlitStatus {
 
   @Expose({ name: 'nb_of_connections' })
   nbOfConnections: number;
+}
+
+export class LabStreamlitStatus {
+  @Type(() => LabStreamlitProcessStatus)
+  processes: LabStreamlitProcessStatus[];
 }

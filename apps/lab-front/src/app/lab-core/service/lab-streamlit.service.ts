@@ -15,7 +15,11 @@ export class LabStreamlitService {
     return this.apiService.get(`${this.route}/status`, LabStreamlitStatus);
   }
 
-  public stopApp(): Observable<void> {
+  public stopAllApps(): Observable<void> {
     return this.apiService.post(`${this.route}/stop`, null);
+  }
+
+  public stopProcess(id: string): Observable<void> {
+    return this.apiService.post(`${this.route}/stop/${id}`, null);
   }
 }

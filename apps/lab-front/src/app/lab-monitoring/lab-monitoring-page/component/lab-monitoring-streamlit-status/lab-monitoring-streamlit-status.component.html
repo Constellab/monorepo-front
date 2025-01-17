@@ -2,12 +2,12 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big">space_dashboard</mat-icon>
-      <h2>{{ 'monitoring.streamlit_app' | translate }}</h2>
+      <h2>{{ 'monitoring.streamlit_apps' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions>
-      <button mat-stroked-button type="button" (click)="stopApp()" class="g-button-small">
-        {{ 'monitoring.streamlit_stop_app' | translate }}
+      <button mat-stroked-button type="button" (click)="stopAll()" class="g-button-small">
+        {{ 'monitoring.streamlit_stop_all_processus' | translate }}
       </button>
     </fl-card-actions>
   </fl-card-header>
@@ -15,52 +15,73 @@
   <fl-card-body>
     <fl-async-section [object]="status$ | async">
       <ng-container *flSectionBody="status$ as status">
-        <fl-key-value>
-          <fl-key>{{ 'monitoring.streamlit_status' | translate }}</fl-key>
-          {{ 'monitoring.streamlit_status_' + status.status | translate }}
-        </fl-key-value>
+        @for (process of status.processes; track process.id; let i = $index) {
+          <fl-card class="card">
+            <fl-card-header>
+              {{ 'monitoring.streamlit_process' | translate }} {{ i + 1 }}
 
-        <fl-key-value>
-          <fl-key>{{ 'monitoring.streamlit_nb_of_connection' | translate }}</fl-key>
-          {{ status.nbOfConnections }}
-        </fl-key-value>
+              <fl-card-actions>
+                <button mat-stroked-button type="button" (click)="stopProcess(process.id)"
+                        class="g-button-small">
+                  {{ 'monitoring.streamlit_stop_process' | translate }}
+                </button>
+              </fl-card-actions>
+            </fl-card-header>
+            <fl-card-body>
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.streamlit_status' | translate }}</fl-key>
+                {{ 'monitoring.streamlit_status_' + process.status | translate }}
+              </fl-key-value>
 
-        <!--   List of the apps     -->
-        <p class="g-text-big">{{ 'monitoring.streamlit_running_apps' | translate }}</p>
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.streamlit_nb_of_connection' | translate }}</fl-key>
+                {{ process.nbOfConnections }}
+              </fl-key-value>
 
-        <mat-accordion *ngIf="status.runningApps.length > 0; else noApps">
-          <mat-expansion-panel *ngFor="let runningApp of status.runningApps; let i = index">
-            <mat-expansion-panel-header>
-              <mat-panel-title> {{ 'monitoring.streamlit_app' | translate }} {{ i + 1 }} </mat-panel-title>
-            </mat-expansion-panel-header>
+              <!--   List of the apps     -->
+              @if (process.runningApps.length > 0) {
+                <mat-accordion>
+                  @for (runningApp of process.runningApps; track runningApp.resourceId; let i = $index) {
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          {{ 'monitoring.streamlit_apps' | translate }} {{ i + 1 }}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
 
-            <fl-key-value>
-              <fl-key>{{ 'monitoring.streamlit_app_url' | translate }}</fl-key>
-              <a [href]="runningApp.url" target="_blank" class="g-text-link">{{ runningApp.url }}</a>
-            </fl-key-value>
+                      <fl-key-value>
+                        <fl-key>{{ 'monitoring.streamlit_app_url' | translate }}</fl-key>
+                        <a [href]="runningApp.url" target="_blank" class="g-text-link">{{
+                            runningApp.url
+                          }}</a>
+                      </fl-key-value>
 
-            <fl-key-value>
-              <fl-key>{{ 'monitoring.streamlit_app_config_path' | translate }}</fl-key>
-              {{ runningApp.streamlitAppCodePath }}
-            </fl-key-value>
+                      <fl-key-value>
+                        <fl-key>{{ 'monitoring.streamlit_app_config_path' | translate }}</fl-key>
+                        {{ runningApp.streamlitAppCodePath }}
+                      </fl-key-value>
 
-            <fl-key-value>
-              <fl-key>{{ 'monitoring.streamlit_app_source_paths' | translate }}</fl-key>
-              {{ runningApp.sourcePaths | json }}
-            </fl-key-value>
+                      <fl-key-value>
+                        <fl-key>{{ 'monitoring.streamlit_app_source_paths' | translate }}</fl-key>
+                        {{ runningApp.sourcePaths | json }}
+                      </fl-key-value>
 
-            <a
-              mat-stroked-button
-              [routerLink]="runningApp.resourceId | labDetailRoute: 'RESOURCE'"
-              class="g-button-small">
-              {{ 'monitoring.streamlit_view_resource' | translate }}
-            </a>
-          </mat-expansion-panel>
-        </mat-accordion>
-
-        <ng-template #noApps>
+                      <a
+                        mat-stroked-button
+                        [routerLink]="runningApp.resourceId | labDetailRoute: 'RESOURCE'"
+                        class="g-button-small">
+                        {{ 'monitoring.streamlit_view_resource' | translate }}
+                      </a>
+                    </mat-expansion-panel>
+                  }
+                </mat-accordion>
+              }
+            </fl-card-body>
+          </fl-card>
+        }
+        @if (status.processes.length === 0) {
           <fl-error-text [errorMessage]="'monitoring.streamlit_no_running_app' | translate"></fl-error-text>
-        </ng-template>
+        }
       </ng-container>
     </fl-async-section>
   </fl-card-body>
