@@ -18,7 +18,6 @@ export * from './lib/component/co-community-icon-select-dialog/co-community-icon
 export * from './lib/component/co-icon-list/co-icon-list.component';
 
 // Helpers
-export * from './lib/helper/co-agent.helper';
 export * from './lib/helper/co-community-helper.service';
 
 // Models

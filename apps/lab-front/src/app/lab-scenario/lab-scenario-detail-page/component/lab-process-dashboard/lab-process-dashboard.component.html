@@ -18,36 +18,36 @@
           }
         </div>
 
-          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-            @if (isCommunityAgent) {
-              <button
-                mat-icon-button
-                [matTooltip]="'biox.community_agent_tooltip' | translate"
-                [matMenuTriggerFor]="menuCommunityAgent"
-                matTooltipPosition="below">
-                <mat-icon svgIcon="community-icon"></mat-icon>
-              </button>
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          @if (isCommunityAgent) {
+            <button
+              mat-icon-button
+              [matTooltip]="'biox.community_agent_tooltip' | translate"
+              [matMenuTriggerFor]="menuCommunityAgent"
+              matTooltipPosition="below">
+              <mat-icon svgIcon="community-icon"></mat-icon>
+            </button>
 
-              <mat-menu #menuCommunityAgent="matMenu">
-                @if (isCodeShown()) {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'private')">
-                    <mat-icon>visibility_off</mat-icon>
-                    {{ 'biox.hide_config_mode' | translate }}
-                  </button>
-                } @else {
-                  <button mat-menu-item type="button" (click)="triggerCodeShown(process,'public')">
-                    <mat-icon>visibility</mat-icon>
-                    {{ 'biox.show_config_mode' | translate }}
-                  </button>
-                }
-                <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process, true)">
-                  <mat-icon>share</mat-icon>
-                  {{ 'biox.share_a_new_agent_version' | translate }}
+            <mat-menu #menuCommunityAgent="matMenu">
+              @if (isCodeShown()) {
+                <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'private')">
+                  <mat-icon>visibility_off</mat-icon>
+                  {{ 'biox.hide_config_mode' | translate }}
                 </button>
-              </mat-menu>
-            }
+              } @else {
+                <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'public')">
+                  <mat-icon>visibility</mat-icon>
+                  {{ 'biox.show_config_mode' | translate }}
+                </button>
+              }
+              <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process, true)">
+                <mat-icon>share</mat-icon>
+                {{ 'biox.share_a_new_agent_version' | translate }}
+              </button>
+            </mat-menu>
+          }
 
-            <fl-status-chip [status]="process.status"></fl-status-chip>
+          <fl-status-chip [status]="process.status"></fl-status-chip>
 
           @if (isEditable$ | async) {
             <button
@@ -143,6 +143,8 @@
                 <mat-icon>code</mat-icon>
                 {{ 'biox.convert_agent_code_to_task' | translate }}
               </button>
+            }
+            @if (isAgent$) {
               <button mat-menu-item type="button" (click)="openPipPackageList()">
                 <mat-icon>inventory_2</mat-icon>
                 {{ 'monitoring.system_config' | translate }}

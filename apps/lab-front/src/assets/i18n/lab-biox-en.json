@@ -445,7 +445,6 @@
     "show_config_mode": "Show Community agent configuration",
     "hide_config_mode": "Hide Community agent configuration",
     "share_a_new_agent_version": "Share a new agent version",
-    "community_agent_tooltip": "This task is a Community agent",
-    "dynamic_params": "Dynamic params"
+    "community_agent_tooltip": "This task is a Community agent"
   }
 }

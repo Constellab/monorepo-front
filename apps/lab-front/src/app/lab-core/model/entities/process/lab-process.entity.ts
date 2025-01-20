@@ -89,6 +89,9 @@ export class LabProcess extends LabBaseEntityWithUser {
 
   style: TdTypeStyle;
 
+  @Expose({ name: 'is_agent' })
+  isAgent: boolean;
+
   // return true if the process is of type Source
   isInput(): boolean {
     return this.processTypingName === TdTypingName.task.input.typingName;

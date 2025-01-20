@@ -21,7 +21,7 @@ import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboar
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
-import { CoAgentHelper, CoCommunityHelperService } from '@monorepo/community-lib';
+import { CoCommunityHelperService } from '@monorepo/community-lib';
 import {
   LabSystemConfigDialogComponent,
 } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
@@ -69,9 +69,7 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     .getProcess$()
     .pipe(map((process) => process.processTypingName === TdTypingName.task.pyAgent));
 
-  isAgent$ = this.nodeState
-    .getProcess$()
-    .pipe(map((process) => CoAgentHelper.isAgent(process.processTypingName)));
+  isAgent$ = this.nodeState.getProcess$().pipe(map((process) => process.isAgent));
 
   isTask$ = this.nodeState
     .getProcess$()

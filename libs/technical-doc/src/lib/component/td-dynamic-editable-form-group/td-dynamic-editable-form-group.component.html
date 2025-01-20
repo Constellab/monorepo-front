@@ -1,7 +1,7 @@
 @if (control() && config()) {
   <fl-section [disableEmptyText]="true" class="section">
     <fl-section-header>
-      <div>{{ config().placeholder | translate }}</div>
+      <div>{{ config().placeholder }}</div>
       @if (config().hint) {
         <div class="g-text-small g-text-light">{{ config().hint }}</div>
       }

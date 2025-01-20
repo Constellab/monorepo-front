@@ -62,7 +62,9 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
 
   private convertRecordToEditableFieldConfigs(
     record: TdParamSpecs,
-    editionMode: boolean
+    editionMode: boolean,
+    humanName: string,
+    shortDescription: string
   ): FlDynamicEditableFormGroupConfig | FlDynamicFormGroupConfig {
     const subConfigs: Record<string, FlDynamicFormAbstractControl> = {};
     for (const specName in record) {
@@ -73,7 +75,8 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
       return {
         controlType: 'editableFormGroup',
         subConfigs: subConfigs,
-        placeholder: 'biox.dynamic_params',
+        placeholder: humanName,
+        hint: shortDescription,
       };
     } else {
       return {
@@ -104,7 +107,9 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
     } else if (spec.type == 'dynamic') {
       return this.convertRecordToEditableFieldConfigs(
         spec.additional_info.specs,
-        spec.additional_info.edition_mode
+        spec.additional_info.edition_mode,
+        spec.human_name,
+        spec.short_description
       );
     } else {
       return TdParamSpecConfig.convertParamSpecToAbstractConfig(spec, defaultPlaceholder);

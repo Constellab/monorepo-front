@@ -445,7 +445,6 @@
     "show_config_mode": "Voir les configurations de l'agent de Community",
     "hide_config_mode": "Cacher les configurations de l'agent de Community",
     "share_a_new_agent_version": "Partager une nouvelle version de l'agent",
-    "community_agent_tooltip": "Cette tâche est un agent de Community",
-    "dynamic_params": "Paramètres dynamiques"
+    "community_agent_tooltip": "Cette tâche est un agent de Community"
   }
 }
