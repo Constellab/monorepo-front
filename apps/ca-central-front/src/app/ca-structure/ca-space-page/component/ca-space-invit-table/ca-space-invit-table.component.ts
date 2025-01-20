@@ -18,9 +18,10 @@ import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-u
  * Table for the SpaceInvit entity with actions
  */
 @Component({
-  selector: 'ca-space-invit-table',
-  templateUrl: './ca-space-invit-table.component.html',
-  styleUrls: ['./ca-space-invit-table.component.scss'],
+    selector: 'ca-space-invit-table',
+    templateUrl: './ca-space-invit-table.component.html',
+    styleUrls: ['./ca-space-invit-table.component.scss'],
+    standalone: false
 })
 export class CaSpaceInvitTableComponent {
   @Input() datasource: FlDatasourcePaginated<CaSpaceInvit>;

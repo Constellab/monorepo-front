@@ -17,9 +17,10 @@ export interface LabScenarioFormDialogInput extends FlFormDialogInput<LabScenari
  * Dialog form to create or update a scenario
  */
 @Component({
-  selector: 'lab-scenario-form-dialog',
-  templateUrl: './lab-scenario-form-dialog.component.html',
-  styleUrls: ['./lab-scenario-form-dialog.component.scss'],
+    selector: 'lab-scenario-form-dialog',
+    templateUrl: './lab-scenario-form-dialog.component.html',
+    styleUrls: ['./lab-scenario-form-dialog.component.scss'],
+    standalone: false
 })
 export class LabScenarioFormDialogComponent
   extends FlFormDialogAbstractDirective<LabScenarioSimpleForm, LabScenario>

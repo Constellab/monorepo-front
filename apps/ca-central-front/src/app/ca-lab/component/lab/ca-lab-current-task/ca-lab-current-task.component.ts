@@ -18,9 +18,10 @@ interface CaCurrentTask {
  * Component to show the current running task of the lab
  */
 @Component({
-  selector: 'ca-lab-current-task',
-  templateUrl: './ca-lab-current-task.component.html',
-  styleUrl: './ca-lab-current-task.component.scss',
+    selector: 'ca-lab-current-task',
+    templateUrl: './ca-lab-current-task.component.html',
+    styleUrl: './ca-lab-current-task.component.scss',
+    standalone: false
 })
 export class CaLabCurrentTaskComponent implements OnInit {
   /**

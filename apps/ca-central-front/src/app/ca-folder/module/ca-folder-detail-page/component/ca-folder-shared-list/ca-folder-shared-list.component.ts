@@ -23,9 +23,10 @@ export interface CaFolderSharedGroupsListInput {
  * Component to list the user where the folder is shared with. with button to share or unshare
  */
 @Component({
-  selector: 'ca-folder-shared-list',
-  templateUrl: './ca-folder-shared-list.component.html',
-  styleUrls: ['./ca-folder-shared-list.component.scss'],
+    selector: 'ca-folder-shared-list',
+    templateUrl: './ca-folder-shared-list.component.html',
+    styleUrls: ['./ca-folder-shared-list.component.scss'],
+    standalone: false
 })
 export class CaFolderSharedListComponent {
   canEdit: boolean;

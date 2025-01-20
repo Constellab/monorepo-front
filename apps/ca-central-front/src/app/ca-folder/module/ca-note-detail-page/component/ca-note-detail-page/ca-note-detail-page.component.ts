@@ -6,9 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ca-note-detail-page',
-  templateUrl: './ca-note-detail-page.component.html',
-  styleUrls: ['./ca-note-detail-page.component.scss'],
+    selector: 'ca-note-detail-page',
+    templateUrl: './ca-note-detail-page.component.html',
+    styleUrls: ['./ca-note-detail-page.component.scss'],
+    standalone: false
 })
 export class CaNoteDetailPageComponent implements OnInit {
   noteId$: Observable<string>;

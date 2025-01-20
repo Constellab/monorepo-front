@@ -12,9 +12,10 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
  * Button to open the LabViewConfig preview in a portal
  */
 @Component({
-  selector: 'lab-view-config-preview',
-  templateUrl: './lab-view-config-preview.component.html',
-  styleUrls: ['./lab-view-config-preview.component.scss'],
+    selector: 'lab-view-config-preview',
+    templateUrl: './lab-view-config-preview.component.html',
+    styleUrls: ['./lab-view-config-preview.component.scss'],
+    standalone: false
 })
 export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
   @Input() viewConfigId: string;

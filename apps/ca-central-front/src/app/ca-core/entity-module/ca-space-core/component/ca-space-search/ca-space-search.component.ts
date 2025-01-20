@@ -18,10 +18,11 @@ import {
 import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 
 @Component({
-  selector: 'ca-space-search',
-  templateUrl: './ca-space-search.component.html',
-  styleUrls: ['./ca-space-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-space-search',
+    templateUrl: './ca-space-search.component.html',
+    styleUrls: ['./ca-space-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaSpaceSearchComponent implements OnInit {
   datasource: CaSpaceDatasource<CaSpaceSearchFields>;

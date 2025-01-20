@@ -5,9 +5,10 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'fl-datetime-picker',
-  templateUrl: './fl-datetime-picker.component.html',
-  styleUrls: ['./fl-datetime-picker.component.scss'],
+    selector: 'fl-datetime-picker',
+    templateUrl: './fl-datetime-picker.component.html',
+    styleUrls: ['./fl-datetime-picker.component.scss'],
+    standalone: false
 })
 export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> implements OnInit {
   @Input({ required: true }) placeholder: string;

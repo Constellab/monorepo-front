@@ -3,9 +3,10 @@ import { HaFile, HaFileType } from '../../../ha-file-core/model/ha-file';
 import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
 
 @Component({
-  selector: 'ha-text-editor-right-side-panel',
-  templateUrl: './ha-text-editor-right-side-panel.component.html',
-  styleUrl: './ha-text-editor-right-side-panel.component.scss',
+    selector: 'ha-text-editor-right-side-panel',
+    templateUrl: './ha-text-editor-right-side-panel.component.html',
+    styleUrl: './ha-text-editor-right-side-panel.component.scss',
+    standalone: false
 })
 export class HaTextEditorRightSidePanelComponent {
   content = input.required<TeRichText>();

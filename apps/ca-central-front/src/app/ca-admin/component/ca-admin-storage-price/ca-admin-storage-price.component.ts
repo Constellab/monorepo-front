@@ -6,9 +6,10 @@ import { CaStoragePricesDialogComponent } from '../../../ca-core/entity-module/c
 import { CaStoragePrice } from '../../../ca-core/model/entities/server/ca-storage-price.class';
 
 @Component({
-  selector: 'ca-admin-storage-price',
-  templateUrl: './ca-admin-storage-price.component.html',
-  styleUrl: './ca-admin-storage-price.component.scss',
+    selector: 'ca-admin-storage-price',
+    templateUrl: './ca-admin-storage-price.component.html',
+    styleUrl: './ca-admin-storage-price.component.scss',
+    standalone: false
 })
 export class CaAdminStoragePriceComponent {
   currentPrice$: Observable<CaStoragePrice> = this.serverService.getStorageCurrentPriceDetail();

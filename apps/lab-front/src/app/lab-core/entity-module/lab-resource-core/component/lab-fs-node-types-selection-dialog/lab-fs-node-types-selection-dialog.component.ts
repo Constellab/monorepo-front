@@ -51,9 +51,10 @@ export interface UploadFsNodeTypeFolderResult {
  * If folder --> one mode like the one before and one mode to directly upload the folder
  */
 @Component({
-  selector: 'lab-fs-node-types-selection-dialog',
-  templateUrl: './lab-fs-node-types-selection-dialog.component.html',
-  styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
+    selector: 'lab-fs-node-types-selection-dialog',
+    templateUrl: './lab-fs-node-types-selection-dialog.component.html',
+    styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
+    standalone: false
 })
 export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   selectedNodes: LabFsNodeTypesSelectionDialogMode;

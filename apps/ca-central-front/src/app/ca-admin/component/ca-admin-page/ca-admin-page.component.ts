@@ -6,9 +6,10 @@ import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
  * Global page for admin
  */
 @Component({
-  selector: 'ca-admin-page',
-  templateUrl: './ca-admin-page.component.html',
-  styleUrls: ['./ca-admin-page.component.scss'],
+    selector: 'ca-admin-page',
+    templateUrl: './ca-admin-page.component.html',
+    styleUrls: ['./ca-admin-page.component.scss'],
+    standalone: false
 })
 export class CaAdminPageComponent {
   routes: FlHorizontalNavBarItem[] = [

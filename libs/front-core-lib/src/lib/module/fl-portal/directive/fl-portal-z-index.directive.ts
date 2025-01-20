@@ -5,7 +5,8 @@ import { FlHtmlHelper } from '../../../utils/fl-html.helper';
  * Directive for portal to move the portal on top of other portal when clicking on it.
  */
 @Directive({
-  selector: '[flPortalZIndex]',
+    selector: '[flPortalZIndex]',
+    standalone: false
 })
 export class FlPortalZIndexDirective implements OnInit {
   @Input() flPortalZIndexDisabled: boolean = false;

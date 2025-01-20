@@ -4,9 +4,10 @@ import { RvResourceViewStreamlit } from '../../model/rv-resource-view.class';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-  selector: 'rv-view-streamlit',
-  templateUrl: './rv-view-streamlit.component.html',
-  styleUrl: './rv-view-streamlit.component.scss',
+    selector: 'rv-view-streamlit',
+    templateUrl: './rv-view-streamlit.component.html',
+    styleUrl: './rv-view-streamlit.component.scss',
+    standalone: false
 })
 export class RvViewStreamlitComponent
   extends RvResourceViewDirective<RvResourceViewStreamlit>

@@ -6,10 +6,11 @@ import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
  * Validated, Archived, Creation type
  */
 @Component({
-  selector: 'lab-scenario-icons',
-  templateUrl: './lab-scenario-icons.component.html',
-  styleUrl: './lab-scenario-icons.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-scenario-icons',
+    templateUrl: './lab-scenario-icons.component.html',
+    styleUrl: './lab-scenario-icons.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabScenarioIconsComponent {
   @Input({ required: true }) scenario: LabScenario;

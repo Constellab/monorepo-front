@@ -13,9 +13,10 @@ import { Observable } from 'rxjs';
 export type CaLabDesktopFormDialogInput = FlFormDialogInput<CaLabDesktopForm>;
 
 @Component({
-  selector: 'ca-lab-desktop-form-dialog',
-  templateUrl: './ca-lab-desktop-form-dialog.component.html',
-  styleUrl: './ca-lab-desktop-form-dialog.component.scss',
+    selector: 'ca-lab-desktop-form-dialog',
+    templateUrl: './ca-lab-desktop-form-dialog.component.html',
+    styleUrl: './ca-lab-desktop-form-dialog.component.scss',
+    standalone: false
 })
 export class CaLabDesktopFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabDesktopForm, CaLab>

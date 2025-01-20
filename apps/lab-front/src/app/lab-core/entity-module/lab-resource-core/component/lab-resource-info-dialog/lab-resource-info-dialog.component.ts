@@ -7,9 +7,10 @@ export interface LabResourceInfoDialogInput {
 }
 
 @Component({
-  selector: 'lab-resource-info-dialog',
-  templateUrl: './lab-resource-info-dialog.component.html',
-  styleUrls: ['./lab-resource-info-dialog.component.scss'],
+    selector: 'lab-resource-info-dialog',
+    templateUrl: './lab-resource-info-dialog.component.html',
+    styleUrls: ['./lab-resource-info-dialog.component.scss'],
+    standalone: false
 })
 export class LabResourceInfoDialogComponent {
   resource: LabResource;

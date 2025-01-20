@@ -20,9 +20,10 @@ import {
 } from '../../desktop/ca-lab-desktop-configure-dialog/ca-lab-desktop-configure-dialog.component';
 
 @Component({
-  selector: 'ca-lab-detail',
-  templateUrl: './ca-lab-detail.component.html',
-  styleUrls: ['./ca-lab-detail.component.scss'],
+    selector: 'ca-lab-detail',
+    templateUrl: './ca-lab-detail.component.html',
+    styleUrls: ['./ca-lab-detail.component.scss'],
+    standalone: false
 })
 export class CaLabDetailComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

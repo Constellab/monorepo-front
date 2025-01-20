@@ -28,9 +28,10 @@ export interface CaLabGreenOptionFormDialogInput extends FlFormDialogInput<CaLab
 }
 
 @Component({
-  selector: 'ca-lab-green-option-form-dialog',
-  templateUrl: './ca-lab-green-option-form-dialog.component.html',
-  styleUrls: ['./ca-lab-green-option-form-dialog.component.scss'],
+    selector: 'ca-lab-green-option-form-dialog',
+    templateUrl: './ca-lab-green-option-form-dialog.component.html',
+    styleUrls: ['./ca-lab-green-option-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabGreenOptionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabGreenOptionFormDto, CaLabGreenOption>

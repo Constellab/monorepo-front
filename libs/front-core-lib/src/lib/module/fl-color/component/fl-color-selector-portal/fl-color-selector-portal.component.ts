@@ -3,9 +3,10 @@ import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
 import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
 
 @Component({
-  selector: 'fl-color-selector-portal',
-  templateUrl: './fl-color-selector-portal.component.html',
-  styleUrls: ['./fl-color-selector-portal.component.scss'],
+    selector: 'fl-color-selector-portal',
+    templateUrl: './fl-color-selector-portal.component.html',
+    styleUrls: ['./fl-color-selector-portal.component.scss'],
+    standalone: false
 })
 export class FlColorSelectorPortalComponent implements OnInit {
   color?: string;

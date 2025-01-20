@@ -16,9 +16,10 @@ export interface CaDocumentTrashListDialogInput {
  * dialog to show the list of documents in the trash
  */
 @Component({
-  selector: 'ca-document-trash-list-dialog',
-  templateUrl: './ca-document-trash-list-dialog.component.html',
-  styleUrls: ['./ca-document-trash-list-dialog.component.scss'],
+    selector: 'ca-document-trash-list-dialog',
+    templateUrl: './ca-document-trash-list-dialog.component.html',
+    styleUrls: ['./ca-document-trash-list-dialog.component.scss'],
+    standalone: false
 })
 export class CaDocumentTrashListDialogComponent {
   documentDatasource: CaDocumentDatasource;

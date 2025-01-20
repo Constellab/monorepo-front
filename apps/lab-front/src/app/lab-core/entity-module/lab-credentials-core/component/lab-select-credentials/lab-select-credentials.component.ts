@@ -17,10 +17,11 @@ import { LabCredentialsService } from '../../../../entity-service/lab-credential
 import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-field/lab-credentials-search.class';
 
 @Component({
-  selector: 'lab-select-credentials',
-  templateUrl: './lab-select-credentials.component.html',
-  styleUrls: ['./lab-select-credentials.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
+    selector: 'lab-select-credentials',
+    templateUrl: './lab-select-credentials.component.html',
+    styleUrls: ['./lab-select-credentials.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
+    standalone: false
 })
 export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCredentials> implements OnInit {
   @Input() placeholder: FlTranslatableText = { text: 'biox.select_credentials', translateText: true };

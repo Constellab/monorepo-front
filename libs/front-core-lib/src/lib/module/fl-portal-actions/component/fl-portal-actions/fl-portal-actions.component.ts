@@ -8,9 +8,10 @@ import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
  * to show the current actions
  */
 @Component({
-  selector: 'fl-portal-actions',
-  templateUrl: './fl-portal-actions.component.html',
-  styleUrls: ['./fl-portal-actions.component.scss'],
+    selector: 'fl-portal-actions',
+    templateUrl: './fl-portal-actions.component.html',
+    styleUrls: ['./fl-portal-actions.component.scss'],
+    standalone: false
 })
 export class FlPortalActionsComponent implements OnInit {
   actions$: Observable<FlPortalActionDetail[]>;

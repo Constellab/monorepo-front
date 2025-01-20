@@ -9,7 +9,8 @@ import { isPlatformServer } from '@angular/common';
  * mat icon and svg icon
  */
 @Directive({
-  selector: 'mat-icon[flIcon]',
+    selector: 'mat-icon[flIcon]',
+    standalone: false
 })
 export class FlIconDirective {
   @Input({ required: true }) set flIcon(flIcon: string) {

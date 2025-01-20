@@ -6,9 +6,10 @@ import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'lab-update-resource-name-dialog',
-  templateUrl: './lab-update-resource-name-dialog.component.html',
-  styleUrls: ['./lab-update-resource-name-dialog.component.scss'],
+    selector: 'lab-update-resource-name-dialog',
+    templateUrl: './lab-update-resource-name-dialog.component.html',
+    styleUrls: ['./lab-update-resource-name-dialog.component.scss'],
+    standalone: false
 })
 export class LabUpdateResourceNameDialogComponent implements OnInit {
   formCtrl: FormControl<string>;

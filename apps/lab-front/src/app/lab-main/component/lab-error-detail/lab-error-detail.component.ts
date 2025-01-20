@@ -6,9 +6,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * Component showed when the detail button is clicked on a error message
  */
 @Component({
-  selector: 'lab-error-detail',
-  templateUrl: './lab-error-detail.component.html',
-  styleUrls: ['./lab-error-detail.component.scss'],
+    selector: 'lab-error-detail',
+    templateUrl: './lab-error-detail.component.html',
+    styleUrls: ['./lab-error-detail.component.scss'],
+    standalone: false
 })
 export class LabErrorDetailComponent implements OnInit {
   error: LabApiError;

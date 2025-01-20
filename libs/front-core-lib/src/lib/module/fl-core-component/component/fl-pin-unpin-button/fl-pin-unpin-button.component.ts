@@ -5,10 +5,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
  * pin and unpinned
  */
 @Component({
-  selector: 'fl-pin-unpin-button',
-  templateUrl: './fl-pin-unpin-button.component.html',
-  styleUrls: ['./fl-pin-unpin-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-pin-unpin-button',
+    templateUrl: './fl-pin-unpin-button.component.html',
+    styleUrls: ['./fl-pin-unpin-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlPinUnpinButtonComponent implements OnInit {
   @Input() pin: boolean;

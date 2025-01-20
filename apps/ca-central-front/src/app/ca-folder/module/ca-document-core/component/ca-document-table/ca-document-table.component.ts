@@ -15,9 +15,10 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../ca-document-action-menu';
 
 @Component({
-  selector: 'ca-document-table',
-  templateUrl: './ca-document-table.component.html',
-  styleUrls: ['./ca-document-table.component.scss'],
+    selector: 'ca-document-table',
+    templateUrl: './ca-document-table.component.html',
+    styleUrls: ['./ca-document-table.component.scss'],
+    standalone: false
 })
 export class CaDocumentTableComponent {
   @Input() datasource: CaDocumentDatasource;

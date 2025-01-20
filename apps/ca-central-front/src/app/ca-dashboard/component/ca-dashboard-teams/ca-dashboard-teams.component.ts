@@ -13,9 +13,10 @@ import {
  * Small list of groups in the dashboard
  */
 @Component({
-  selector: 'ca-dashboard-teams',
-  templateUrl: './ca-dashboard-teams.component.html',
-  styleUrls: ['./ca-dashboard-teams.component.scss'],
+    selector: 'ca-dashboard-teams',
+    templateUrl: './ca-dashboard-teams.component.html',
+    styleUrls: ['./ca-dashboard-teams.component.scss'],
+    standalone: false
 })
 export class CaDashboardTeamsComponent implements OnInit {
   teamsDatasource: CaGroupDatasource;

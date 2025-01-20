@@ -10,9 +10,10 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * View of resource that show a list of other resources
  */
 @Component({
-  selector: 'lab-resource-view-list',
-  templateUrl: './lab-resource-view-list.component.html',
-  styleUrls: ['./lab-resource-view-list.component.scss'],
+    selector: 'lab-resource-view-list',
+    templateUrl: './lab-resource-view-list.component.html',
+    styleUrls: ['./lab-resource-view-list.component.scss'],
+    standalone: false
 })
 export class LabResourceViewListComponent
   extends RvResourceViewDirective<LabResourceViewResourcesList>

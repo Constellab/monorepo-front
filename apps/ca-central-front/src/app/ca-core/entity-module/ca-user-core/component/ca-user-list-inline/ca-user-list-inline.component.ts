@@ -37,9 +37,10 @@ interface CaUserSelection {
  * It supports datasource or list of user
  */
 @Component({
-  selector: 'ca-user-list-inline',
-  templateUrl: './ca-user-list-inline.component.html',
-  styleUrls: ['./ca-user-list-inline.component.scss'],
+    selector: 'ca-user-list-inline',
+    templateUrl: './ca-user-list-inline.component.html',
+    styleUrls: ['./ca-user-list-inline.component.scss'],
+    standalone: false
 })
 export class CaUserListInlineComponent
   extends FlFormFieldDirective<UserList, CaUser[]>

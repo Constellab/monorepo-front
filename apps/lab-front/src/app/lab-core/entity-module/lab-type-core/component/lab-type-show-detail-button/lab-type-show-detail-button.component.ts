@@ -6,9 +6,10 @@ import { LabTypeDialogComponent, LabTypeDialogInput } from '../lab-type-dialog/l
  * Icon button to load and show process type detail in a portal on clic
  */
 @Component({
-  selector: 'lab-type-show-detail-button',
-  templateUrl: './lab-type-show-detail-button.component.html',
-  styleUrls: ['./lab-type-show-detail-button.component.scss'],
+    selector: 'lab-type-show-detail-button',
+    templateUrl: './lab-type-show-detail-button.component.html',
+    styleUrls: ['./lab-type-show-detail-button.component.scss'],
+    standalone: false
 })
 export class LabTypeShowDetailButtonComponent {
   @Input() typingName: string;

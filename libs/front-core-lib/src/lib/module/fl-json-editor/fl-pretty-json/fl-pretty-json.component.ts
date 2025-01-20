@@ -19,10 +19,11 @@ import { FlPrettyJsonBuilder } from '../model/fl-pretty-json-builder.class';
 import { FlHtmlHelper } from '../../../utils/fl-html.helper';
 
 @Component({
-  selector: 'fl-pretty-json',
-  templateUrl: './fl-pretty-json.component.html',
-  styleUrls: ['./fl-pretty-json.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-pretty-json',
+    templateUrl: './fl-pretty-json.component.html',
+    styleUrls: ['./fl-pretty-json.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlPrettyJsonComponent implements OnInit, OnDestroy {
   /**

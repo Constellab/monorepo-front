@@ -4,10 +4,11 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
 
 @Component({
-  selector: 'lab-resource-detail',
-  templateUrl: './lab-resource-detail.component.html',
-  styleUrls: ['./lab-resource-detail.component.scss'],
-  providers: [LabResourceDetailState, LabViewConfigurerState],
+    selector: 'lab-resource-detail',
+    templateUrl: './lab-resource-detail.component.html',
+    styleUrls: ['./lab-resource-detail.component.scss'],
+    providers: [LabResourceDetailState, LabViewConfigurerState],
+    standalone: false
 })
 export class LabResourceDetailComponent implements OnInit {
   @Input() resourceId: string | Observable<string>;

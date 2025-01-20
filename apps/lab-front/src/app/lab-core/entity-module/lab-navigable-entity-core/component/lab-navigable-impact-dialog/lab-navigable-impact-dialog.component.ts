@@ -16,9 +16,10 @@ export interface LabNavigableImpactDialogInput {
  * It will show the entities that will be impacted and ask for confirmation
  */
 @Component({
-  selector: 'lab-navigable-impact-dialog',
-  templateUrl: './lab-navigable-impact-dialog.component.html',
-  styleUrl: './lab-navigable-impact-dialog.component.scss',
+    selector: 'lab-navigable-impact-dialog',
+    templateUrl: './lab-navigable-impact-dialog.component.html',
+    styleUrl: './lab-navigable-impact-dialog.component.scss',
+    standalone: false
 })
 export class LabNavigableImpactDialogComponent implements OnInit {
   data: LabNavigableImpactDialogInput = inject(MAT_DIALOG_DATA);

@@ -34,9 +34,10 @@ export interface HaProfileDatasourceFilters {
 }
 
 @Component({
-  selector: 'ha-profile',
-  templateUrl: './ha-profile.component.html',
-  styleUrl: './ha-profile.component.scss',
+    selector: 'ha-profile',
+    templateUrl: './ha-profile.component.html',
+    styleUrl: './ha-profile.component.scss',
+    standalone: false
 })
 export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);

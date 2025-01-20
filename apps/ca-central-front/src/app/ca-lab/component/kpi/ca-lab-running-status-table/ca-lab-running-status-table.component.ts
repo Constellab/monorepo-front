@@ -3,9 +3,10 @@ import { CaLabRunningStatus } from '../../../../ca-core/model/entities/lab/ca-la
 import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-lab-running-status-table',
-  templateUrl: './ca-lab-running-status-table.component.html',
-  styleUrls: ['./ca-lab-running-status-table.component.scss'],
+    selector: 'ca-lab-running-status-table',
+    templateUrl: './ca-lab-running-status-table.component.html',
+    styleUrls: ['./ca-lab-running-status-table.component.scss'],
+    standalone: false
 })
 export class CaLabRunningStatusTableComponent {
   @Input({ required: true }) datasource: FlDatasource<CaLabRunningStatus>;

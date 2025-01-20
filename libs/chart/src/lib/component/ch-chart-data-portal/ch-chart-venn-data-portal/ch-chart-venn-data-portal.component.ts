@@ -6,9 +6,10 @@ import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
  * Simple portal to display the venn data on a section
  */
 @Component({
-  selector: 'ch-chart-venn-data-portal',
-  templateUrl: './ch-chart-venn-data-portal.component.html',
-  styleUrls: ['./ch-chart-venn-data-portal.component.scss'],
+    selector: 'ch-chart-venn-data-portal',
+    templateUrl: './ch-chart-venn-data-portal.component.html',
+    styleUrls: ['./ch-chart-venn-data-portal.component.scss'],
+    standalone: false
 })
 export class ChChartVennDataPortalComponent {
   groupNames: string;

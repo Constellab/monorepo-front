@@ -30,7 +30,8 @@ export interface FlResizeEvent {
  * It only supports width resize
  */
 @Directive({
-  selector: '[flResize]',
+    selector: '[flResize]',
+    standalone: false
 })
 export class FlResizeDirective implements OnInit, OnDestroy {
   /**

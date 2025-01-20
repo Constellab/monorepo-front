@@ -9,9 +9,10 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
  * Dialog to create of update a tag
  */
 @Component({
-  selector: 'lab-tag-form-dialog',
-  templateUrl: './lab-tag-form-dialog.component.html',
-  styleUrls: ['./lab-tag-form-dialog.component.scss'],
+    selector: 'lab-tag-form-dialog',
+    templateUrl: './lab-tag-form-dialog.component.html',
+    styleUrls: ['./lab-tag-form-dialog.component.scss'],
+    standalone: false
 })
 export class LabTagFormDialogComponent
   extends FlFormDialogAbstractDirective<FlTag, LabCreateTagResponse>

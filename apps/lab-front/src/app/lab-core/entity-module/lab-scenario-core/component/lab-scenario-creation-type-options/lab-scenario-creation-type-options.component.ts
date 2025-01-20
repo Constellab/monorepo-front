@@ -4,9 +4,10 @@ import { flScenarioCreationTypes } from '../../../../model/entities/lab-scenario
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'lab-scenario-creation-type-options',
-  templateUrl: './lab-scenario-creation-type-options.component.html',
-  styleUrls: ['./lab-scenario-creation-type-options.component.scss'],
+    selector: 'lab-scenario-creation-type-options',
+    templateUrl: './lab-scenario-creation-type-options.component.html',
+    styleUrls: ['./lab-scenario-creation-type-options.component.scss'],
+    standalone: false
 })
 export class LabScenarioCreationTypeOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

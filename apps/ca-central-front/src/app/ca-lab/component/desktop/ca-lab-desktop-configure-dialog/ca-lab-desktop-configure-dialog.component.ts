@@ -12,9 +12,10 @@ export interface CaLabDesktopConfigureDialogInput {
  * Dialog to configure and download the json file for the desktop
  */
 @Component({
-  selector: 'ca-lab-desktop-configure-dialog',
-  templateUrl: './ca-lab-desktop-configure-dialog.component.html',
-  styleUrl: './ca-lab-desktop-configure-dialog.component.scss',
+    selector: 'ca-lab-desktop-configure-dialog',
+    templateUrl: './ca-lab-desktop-configure-dialog.component.html',
+    styleUrl: './ca-lab-desktop-configure-dialog.component.scss',
+    standalone: false
 })
 export class CaLabDesktopConfigureDialogComponent {
   formGp = new FormBuilder().group({

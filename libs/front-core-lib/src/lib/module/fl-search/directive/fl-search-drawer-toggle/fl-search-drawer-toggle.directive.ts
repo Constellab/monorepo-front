@@ -5,7 +5,8 @@ import { FlSearchState } from '../../model/fl-search.state';
  * Simple directive to toggle the drawer from the search component
  */
 @Directive({
-  selector: '[flSearchDrawerToggle]',
+    selector: '[flSearchDrawerToggle]',
+    standalone: false
 })
 export class FlSearchDrawerToggleDirective {
   @HostListener('click')

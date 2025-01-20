@@ -17,9 +17,10 @@ import { CaRouterService } from '../../../../service/ca-router.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ca-lab-table',
-  templateUrl: './ca-lab-table.component.html',
-  styleUrls: ['./ca-lab-table.component.scss'],
+    selector: 'ca-lab-table',
+    templateUrl: './ca-lab-table.component.html',
+    styleUrls: ['./ca-lab-table.component.scss'],
+    standalone: false
 })
 export class CaLabTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<CaLab | CaLabWithSpace>;

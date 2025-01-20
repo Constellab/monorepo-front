@@ -60,9 +60,10 @@ import {
  * Header for the scenario detail page
  */
 @Component({
-  selector: 'lab-scenario-detail-header',
-  templateUrl: './lab-scenario-detail-header.component.html',
-  styleUrls: ['./lab-scenario-detail-header.component.scss'],
+    selector: 'lab-scenario-detail-header',
+    templateUrl: './lab-scenario-detail-header.component.html',
+    styleUrls: ['./lab-scenario-detail-header.component.scss'],
+    standalone: false
 })
 export class LabScenarioDetailHeaderComponent implements OnInit {
   scenario$: Observable<LabScenario>;

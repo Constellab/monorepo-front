@@ -3,9 +3,10 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabSharedEntity, LabSharedEntityDatasource } from '../../../../model/entities/lab-share.entity';
 
 @Component({
-  selector: 'lab-shared-entity-table',
-  templateUrl: './lab-shared-entity-table.component.html',
-  styleUrls: ['./lab-shared-entity-table.component.scss'],
+    selector: 'lab-shared-entity-table',
+    templateUrl: './lab-shared-entity-table.component.html',
+    styleUrls: ['./lab-shared-entity-table.component.scss'],
+    standalone: false
 })
 export class LabSharedEntityTableComponent {
   @Input() datasource: LabSharedEntityDatasource;

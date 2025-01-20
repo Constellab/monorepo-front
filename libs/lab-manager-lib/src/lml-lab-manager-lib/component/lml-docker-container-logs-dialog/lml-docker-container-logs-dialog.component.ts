@@ -13,9 +13,10 @@ export interface LmlDockerContainerLogsInput {
  * Dialog to view logs of a docker container
  */
 @Component({
-  selector: 'lml-docker-container-logs-dialog',
-  templateUrl: './lml-docker-container-logs-dialog.component.html',
-  styleUrls: ['./lml-docker-container-logs-dialog.component.scss'],
+    selector: 'lml-docker-container-logs-dialog',
+    templateUrl: './lml-docker-container-logs-dialog.component.html',
+    styleUrls: ['./lml-docker-container-logs-dialog.component.scss'],
+    standalone: false
 })
 export class LmlDockerContainerLogsDialogComponent {
   input: LmlDockerContainerLogsInput = inject(MAT_DIALOG_DATA);

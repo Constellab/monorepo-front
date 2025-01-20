@@ -6,9 +6,10 @@ import { MatButton, MatIconButton } from '@angular/material/button';
  * It fits the size of material button
  */
 @Component({
-  selector: 'fl-button-loader',
-  templateUrl: './fl-button-loader.component.html',
-  styleUrls: ['./fl-button-loader.component.scss'],
+    selector: 'fl-button-loader',
+    templateUrl: './fl-button-loader.component.html',
+    styleUrls: ['./fl-button-loader.component.scss'],
+    standalone: false
 })
 export class FlButtonLoaderComponent implements OnInit, OnDestroy {
   /**

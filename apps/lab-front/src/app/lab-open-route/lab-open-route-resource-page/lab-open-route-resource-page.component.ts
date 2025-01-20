@@ -17,19 +17,18 @@ import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { LabEnvironmentHelper } from '../../lab-core/utils/lab-environment.helper';
 
 @Component({
-  selector: 'lab-open-route-resource-page',
-  standalone: true,
-  imports: [
-    FlSectionModule,
-    RvResourceViewModule,
-    TdTechnicalDocModule,
-    AsyncPipe,
-    NgOptimizedImage,
-    FlCoreDirectiveModule,
-    FlTranslateModule,
-  ],
-  templateUrl: './lab-open-route-resource-page.component.html',
-  styleUrl: './lab-open-route-resource-page.component.scss',
+    selector: 'lab-open-route-resource-page',
+    imports: [
+        FlSectionModule,
+        RvResourceViewModule,
+        TdTechnicalDocModule,
+        AsyncPipe,
+        NgOptimizedImage,
+        FlCoreDirectiveModule,
+        FlTranslateModule,
+    ],
+    templateUrl: './lab-open-route-resource-page.component.html',
+    styleUrl: './lab-open-route-resource-page.component.scss'
 })
 export class LabOpenRouteResourcePageComponent {
   private activatedRoute = inject(ActivatedRoute);

@@ -27,10 +27,11 @@ import {
 } from '../../../../../ca-structure/ca-space-page/component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 
 @Component({
-  selector: 'ca-space-user-search',
-  templateUrl: './ca-space-user-search.component.html',
-  styleUrls: ['./ca-space-user-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-space-user-search',
+    templateUrl: './ca-space-user-search.component.html',
+    styleUrls: ['./ca-space-user-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaSpaceUserSearchComponent implements OnInit {
   datasource: CaSpaceUserDatasource<CaSpaceUserSearchFields>;

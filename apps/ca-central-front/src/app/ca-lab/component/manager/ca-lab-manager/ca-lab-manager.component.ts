@@ -15,9 +15,10 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
  * Component only accessible by the admin
  */
 @Component({
-  selector: 'ca-lab-manager',
-  templateUrl: './ca-lab-manager.component.html',
-  styleUrls: ['./ca-lab-manager.component.scss'],
+    selector: 'ca-lab-manager',
+    templateUrl: './ca-lab-manager.component.html',
+    styleUrls: ['./ca-lab-manager.component.scss'],
+    standalone: false
 })
 export class CaLabManagerComponent implements OnDestroy {
   private dialogService = inject(FlDialogService);

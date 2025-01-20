@@ -10,9 +10,10 @@ import {
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
 
 @Component({
-  selector: 'lab-scenario-template-detail-header',
-  templateUrl: './lab-scenario-template-detail-header.component.html',
-  styleUrl: './lab-scenario-template-detail-header.component.scss',
+    selector: 'lab-scenario-template-detail-header',
+    templateUrl: './lab-scenario-template-detail-header.component.html',
+    styleUrl: './lab-scenario-template-detail-header.component.scss',
+    standalone: false
 })
 export class LabScenarioTemplateDetailHeaderComponent {
   @Input() template: LabScenarioTemplate;

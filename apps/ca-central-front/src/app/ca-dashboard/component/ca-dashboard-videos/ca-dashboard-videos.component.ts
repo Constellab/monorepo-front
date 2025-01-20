@@ -3,9 +3,10 @@ import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.serv
 import { CaYoutubeVideo } from '../../../ca-core/model/entities/server/ca-server-standard.class';
 
 @Component({
-  selector: 'ca-dashboard-videos',
-  templateUrl: './ca-dashboard-videos.component.html',
-  styleUrl: './ca-dashboard-videos.component.scss',
+    selector: 'ca-dashboard-videos',
+    templateUrl: './ca-dashboard-videos.component.html',
+    styleUrl: './ca-dashboard-videos.component.scss',
+    standalone: false
 })
 export class CaDashboardVideosComponent implements OnInit {
   private settingsService = inject(CaSettingsService);

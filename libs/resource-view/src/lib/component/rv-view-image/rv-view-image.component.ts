@@ -4,9 +4,10 @@ import { RvResourceViewImage } from '../../model/rv-resource-view.class';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'rv-view-image',
-  templateUrl: './rv-view-image.component.html',
-  styleUrls: ['./rv-view-image.component.scss'],
+    selector: 'rv-view-image',
+    templateUrl: './rv-view-image.component.html',
+    styleUrls: ['./rv-view-image.component.scss'],
+    standalone: false
 })
 export class RvViewImageComponent extends RvResourceViewDirective<RvResourceViewImage> implements OnInit {
   safeImage: any;

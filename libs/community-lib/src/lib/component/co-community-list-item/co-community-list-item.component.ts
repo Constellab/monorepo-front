@@ -9,9 +9,10 @@ export enum CoCommunityListItemColor {
 }
 
 @Component({
-  selector: 'co-community-list-item',
-  templateUrl: './co-community-list-item.component.html',
-  styleUrls: ['./co-community-list-item.component.scss'],
+    selector: 'co-community-list-item',
+    templateUrl: './co-community-list-item.component.html',
+    styleUrls: ['./co-community-list-item.component.scss'],
+    standalone: false
 })
 export class CoCommunityListItemComponent {
   @Input({ required: true }) title: string;

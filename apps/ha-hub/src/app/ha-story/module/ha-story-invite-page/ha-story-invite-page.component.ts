@@ -5,9 +5,10 @@ import { HaStoryCoAuthorInvite } from '../../../ha-core/entity-module/ha-co-auth
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-  selector: 'ha-story-invite-page',
-  templateUrl: './ha-story-invite-page.component.html',
-  styleUrls: ['./ha-story-invite-page.component.scss'],
+    selector: 'ha-story-invite-page',
+    templateUrl: './ha-story-invite-page.component.html',
+    styleUrls: ['./ha-story-invite-page.component.scss'],
+    standalone: false
 })
 export class HaStoryInvitePageComponent implements OnInit {
   token: string;

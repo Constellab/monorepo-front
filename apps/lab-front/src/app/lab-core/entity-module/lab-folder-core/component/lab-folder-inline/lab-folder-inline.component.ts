@@ -5,9 +5,10 @@ import { LabFolder } from '../../../../model/entities/lab-folder.class';
  * Show folder information in a compact way
  */
 @Component({
-  selector: 'lab-folder-inline',
-  templateUrl: './lab-folder-inline.component.html',
-  styleUrls: ['./lab-folder-inline.component.scss'],
+    selector: 'lab-folder-inline',
+    templateUrl: './lab-folder-inline.component.html',
+    styleUrls: ['./lab-folder-inline.component.scss'],
+    standalone: false
 })
 export class LabFolderInlineComponent {
   @Input() folder: LabFolder;

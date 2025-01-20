@@ -28,18 +28,19 @@ import {
  * If the process is a protocol, it calls LabConfigureProtocol (it will be recursive).
  */
 @Component({
-  selector: 'lab-configure-process',
-  templateUrl: './lab-configure-process.component.html',
-  styleUrls: ['./lab-configure-process.component.scss'],
-  providers: [
-    // configure the dynamic field to support tags and other custom fields
-    // enable dynamic config
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDashboardDynamicFieldConfig },
-    // configure the dynamic param spec state for dynamic config
-    // create the instance at this level so there is only 1 instance per dashboard (even in protocol config)
-    // and it is not destroyed when the process changes (if yes it closes the edit dynamic config dialog)
-    { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
-  ],
+    selector: 'lab-configure-process',
+    templateUrl: './lab-configure-process.component.html',
+    styleUrls: ['./lab-configure-process.component.scss'],
+    providers: [
+        // configure the dynamic field to support tags and other custom fields
+        // enable dynamic config
+        { provide: FlDynamicFieldConfigService, useClass: LabProcessDashboardDynamicFieldConfig },
+        // configure the dynamic param spec state for dynamic config
+        // create the instance at this level so there is only 1 instance per dashboard (even in protocol config)
+        // and it is not destroyed when the process changes (if yes it closes the edit dynamic config dialog)
+        { provide: TdAbstractDynamicParamSpecState, useClass: LabDynamicParamSpecState },
+    ],
+    standalone: false
 })
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
   @Input({ required: true }) process$: Observable<LabProcess>;

@@ -13,9 +13,10 @@ import { FlSnackBarService } from '@monorepo/front-core-lib';
  * if enable
  */
 @Component({
-  selector: 'bn-bio-network-node-layout',
-  templateUrl: './bn-bio-network-node-layout.component.html',
-  styleUrls: ['./bn-bio-network-node-layout.component.scss'],
+    selector: 'bn-bio-network-node-layout',
+    templateUrl: './bn-bio-network-node-layout.component.html',
+    styleUrls: ['./bn-bio-network-node-layout.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
   node$: Observable<BnBioNetworkNode>;

@@ -27,9 +27,10 @@ import {
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
-  selector: 'ca-scenario-technical-report',
-  templateUrl: './ca-scenario-technical-report.component.html',
-  styleUrls: ['./ca-scenario-technical-report.component.scss'],
+    selector: 'ca-scenario-technical-report',
+    templateUrl: './ca-scenario-technical-report.component.html',
+    styleUrls: ['./ca-scenario-technical-report.component.scss'],
+    standalone: false
 })
 export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   @Input() scenario: CaScenario;

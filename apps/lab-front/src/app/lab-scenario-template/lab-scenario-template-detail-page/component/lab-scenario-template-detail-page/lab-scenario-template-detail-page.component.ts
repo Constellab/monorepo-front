@@ -6,9 +6,10 @@ import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'lab-scenario-template-detail-page',
-  templateUrl: './lab-scenario-template-detail-page.component.html',
-  styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
+    selector: 'lab-scenario-template-detail-page',
+    templateUrl: './lab-scenario-template-detail-page.component.html',
+    styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
+    standalone: false
 })
 export class LabScenarioTemplateDetailPageComponent implements OnInit {
   template$: Observable<LabScenarioTemplate>;

@@ -18,9 +18,10 @@ import { UntypedFormGroup } from '@angular/forms';
  * Page on which the user can join an space. He can create an account or use an existing one.
  */
 @Component({
-  selector: 'ca-signup-to-space-page',
-  templateUrl: './ca-signup-to-space-page.component.html',
-  styleUrls: ['./ca-signup-to-space-page.component.scss'],
+    selector: 'ca-signup-to-space-page',
+    templateUrl: './ca-signup-to-space-page.component.html',
+    styleUrls: ['./ca-signup-to-space-page.component.scss'],
+    standalone: false
 })
 export class CaSignupToSpacePageComponent implements OnInit {
   invitation$: Observable<CaSpaceInvitReadDTO>;

@@ -18,10 +18,11 @@ import {
 } from '../lab-select-note-template-dialog/lab-select-note-template-dialog.component';
 
 @Component({
-  selector: 'lab-select-note-template',
-  templateUrl: './lab-select-note-template.component.html',
-  styleUrls: ['./lab-select-note-template.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
+    selector: 'lab-select-note-template',
+    templateUrl: './lab-select-note-template.component.html',
+    styleUrls: ['./lab-select-note-template.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
+    standalone: false
 })
 export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNoteTemplate> implements OnInit {
   @Input() placeholder: string;

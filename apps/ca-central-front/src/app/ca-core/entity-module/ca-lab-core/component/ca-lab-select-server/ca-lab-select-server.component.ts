@@ -21,9 +21,10 @@ export interface CaLabSelectServerForm {
 }
 
 @Component({
-  selector: 'ca-lab-select-server',
-  templateUrl: './ca-lab-select-server.component.html',
-  styleUrl: './ca-lab-select-server.component.scss',
+    selector: 'ca-lab-select-server',
+    templateUrl: './ca-lab-select-server.component.html',
+    styleUrl: './ca-lab-select-server.component.scss',
+    standalone: false
 })
 export class CaLabSelectServerComponent implements OnInit, OnDestroy {
   @Input({ required: true }) formGp: FormGroup<CaLabSelectServerForm>;

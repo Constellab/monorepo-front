@@ -8,9 +8,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * Component to show the origin of a shared resource.
  */
 @Component({
-  selector: 'lab-shared-entity-origin-dialog',
-  templateUrl: './lab-shared-entity-origin-dialog.component.html',
-  styleUrls: ['./lab-shared-entity-origin-dialog.component.scss'],
+    selector: 'lab-shared-entity-origin-dialog',
+    templateUrl: './lab-shared-entity-origin-dialog.component.html',
+    styleUrls: ['./lab-shared-entity-origin-dialog.component.scss'],
+    standalone: false
 })
 export class LabSharedEntityOriginDialogComponent {
   resourceShare$: Observable<LabSharedEntity> = this.resourceService.getSharedResourceOrigin(this.resourceId);

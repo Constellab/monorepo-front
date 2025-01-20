@@ -10,9 +10,10 @@ import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.c
  * Admin form to create a free lab
  */
 @Component({
-  selector: 'ca-lab-free-admin-form-dialog',
-  templateUrl: './ca-lab-free-admin-form-dialog.component.html',
-  styleUrl: './ca-lab-free-admin-form-dialog.component.scss',
+    selector: 'ca-lab-free-admin-form-dialog',
+    templateUrl: './ca-lab-free-admin-form-dialog.component.html',
+    styleUrl: './ca-lab-free-admin-form-dialog.component.scss',
+    standalone: false
 })
 export class CaLabFreeAdminFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabWithSpace>

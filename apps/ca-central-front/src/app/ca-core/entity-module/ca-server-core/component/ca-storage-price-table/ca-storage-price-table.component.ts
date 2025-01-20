@@ -12,9 +12,10 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-  selector: 'ca-storage-price-table',
-  templateUrl: './ca-storage-price-table.component.html',
-  styleUrl: './ca-storage-price-table.component.scss',
+    selector: 'ca-storage-price-table',
+    templateUrl: './ca-storage-price-table.component.html',
+    styleUrl: './ca-storage-price-table.component.scss',
+    standalone: false
 })
 export class CaStoragePriceTableComponent {
   @Input({ required: true }) datasource: CaStoragePriceDatasource;

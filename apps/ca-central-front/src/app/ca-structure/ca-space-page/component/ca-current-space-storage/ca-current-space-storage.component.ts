@@ -19,9 +19,10 @@ import {
  * with possibility to see storage detail and upgrade storage
  */
 @Component({
-  selector: 'ca-current-space-storage',
-  templateUrl: './ca-current-space-storage.component.html',
-  styleUrl: './ca-current-space-storage.component.scss',
+    selector: 'ca-current-space-storage',
+    templateUrl: './ca-current-space-storage.component.html',
+    styleUrl: './ca-current-space-storage.component.scss',
+    standalone: false
 })
 export class CaCurrentSpaceStorageComponent {
   spaceStorage$: Observable<CaSpaceStorage> = this.spaceService.getCurrentSpaceStorage().pipe(share());

@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   ContentChild,
-  ElementRef,
   inject,
   input,
   Input,
@@ -11,27 +10,13 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { CanColor, mixinColor, ThemePalette } from '@angular/material/core';
+import { ThemePalette } from '@angular/material/core';
 import { FlInputFileDirective } from '../fl-input-file.directive';
 import { NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
 import { FlDropEvent } from '../../fl-drag/fl-drag.class';
 import { ClHelpService } from '@monorepo/core-lib';
-
-/**
- * @internal
- * private class to manage the ThemePalette color
- */
-class FlInputFileContainerComponentMixinBase {
-  constructor(public _elementRef: ElementRef) {}
-}
-
-/**
- * @internal
- * private
- */
-const _FlInputFileContainerComponentMixinBase = mixinColor(FlInputFileContainerComponentMixinBase);
 
 /**
  * Component to style the input file
@@ -50,11 +35,9 @@ const _FlInputFileContainerComponentMixinBase = mixinColor(FlInputFileContainerC
   selector: 'fl-input-file-container',
   templateUrl: './fl-input-file-container.component.html',
   styleUrls: ['./fl-input-file-container.component.scss'],
+  standalone: false,
 })
-export class FlInputFileContainerComponent
-  extends _FlInputFileContainerComponentMixinBase
-  implements OnInit, CanColor, AfterContentInit, OnDestroy
-{
+export class FlInputFileContainerComponent implements OnInit, AfterContentInit, OnDestroy {
   /**
    * The theme color of the input
    */
@@ -112,10 +95,6 @@ export class FlInputFileContainerComponent
   private stateSubscription: Subscription;
 
   private translateService = inject(FlTranslateService);
-
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
-  }
 
   ngOnInit(): void {
     if (this.inputFile == null) {

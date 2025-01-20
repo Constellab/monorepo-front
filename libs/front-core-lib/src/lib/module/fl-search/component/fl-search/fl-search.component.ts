@@ -10,9 +10,10 @@ import { Breakpoints } from '@angular/cdk/layout';
  * The FlSearchState must be provided and configured and the Fl_SEARCH_CONFIG must also be provided.
  */
 @Component({
-  selector: 'fl-search',
-  templateUrl: './fl-search.component.html',
-  styleUrls: ['./fl-search.component.scss'],
+    selector: 'fl-search',
+    templateUrl: './fl-search.component.html',
+    styleUrls: ['./fl-search.component.scss'],
+    standalone: false
 })
 export class FlSearchComponent implements OnInit {
   @ViewChild(MatDrawer, { static: true }) drawer: MatDrawer;

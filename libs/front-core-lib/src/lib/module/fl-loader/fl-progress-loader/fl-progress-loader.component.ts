@@ -7,9 +7,10 @@ import { ClNumberHelper } from '@monorepo/core-lib';
  * Determine loader component that show the progress as percent in a progress spinner
  */
 @Component({
-  selector: 'fl-progress-loader',
-  templateUrl: './fl-progress-loader.component.html',
-  styleUrls: ['./fl-progress-loader.component.scss'],
+    selector: 'fl-progress-loader',
+    templateUrl: './fl-progress-loader.component.html',
+    styleUrls: ['./fl-progress-loader.component.scss'],
+    standalone: false
 })
 export class FlProgressLoaderComponent extends FlAbstractLoaderDirective implements OnInit, OnDestroy {
   @Input() set percent(percent: number | Observable<number>) {

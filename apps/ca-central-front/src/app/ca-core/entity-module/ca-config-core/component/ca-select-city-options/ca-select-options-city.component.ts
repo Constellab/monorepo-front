@@ -5,9 +5,10 @@ import { CaCountryService } from '../../../../service-api/ca-country.service';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'ca-select-city-options',
-  templateUrl: './ca-select-options-city.component.html',
-  styleUrls: ['./ca-select-options-city.component.scss'],
+    selector: 'ca-select-city-options',
+    templateUrl: './ca-select-options-city.component.html',
+    styleUrls: ['./ca-select-options-city.component.scss'],
+    standalone: false
 })
 export class CaSelectOptionsCityComponent
   extends FlEmbeddedOptionsAbstractDirective

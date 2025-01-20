@@ -14,9 +14,10 @@ export interface LabTagCheckPropagationInput {
  * Dialog before adding a tag to check the propagation impact
  */
 @Component({
-  selector: 'lab-tag-check-propagation',
-  templateUrl: './lab-tag-check-propagation.component.html',
-  styleUrls: ['./lab-tag-check-propagation.component.scss'],
+    selector: 'lab-tag-check-propagation',
+    templateUrl: './lab-tag-check-propagation.component.html',
+    styleUrls: ['./lab-tag-check-propagation.component.scss'],
+    standalone: false
 })
 export class LabTagCheckPropagationComponent {
   impactDTO$: Observable<TagPropagationImpactDTO>;

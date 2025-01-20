@@ -4,9 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TeVariableFormInfo, TeVariableFormType } from '../../model/te-variable.class';
 
 @Component({
-  selector: 'te-variable-form-dialog',
-  templateUrl: './te-variable-form-dialog.component.html',
-  styleUrl: './te-variable-form-dialog.component.scss',
+    selector: 'te-variable-form-dialog',
+    templateUrl: './te-variable-form-dialog.component.html',
+    styleUrl: './te-variable-form-dialog.component.scss',
+    standalone: false
 })
 export class TeVariableFormDialogComponent implements OnInit {
   @Input() formGroup: FormGroup = new FormBuilder().group({

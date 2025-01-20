@@ -8,9 +8,10 @@ import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state
  * Detail information about one cofactor node
  */
 @Component({
-  selector: 'bn-bio-network-node-cofactor-detail',
-  templateUrl: './bn-bio-network-node-cofactor-detail.component.html',
-  styleUrls: ['./bn-bio-network-node-cofactor-detail.component.scss'],
+    selector: 'bn-bio-network-node-cofactor-detail',
+    templateUrl: './bn-bio-network-node-cofactor-detail.component.html',
+    styleUrls: ['./bn-bio-network-node-cofactor-detail.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkNodeCofactorDetailComponent implements OnInit {
   node$: Observable<BnBioNetworkNodeCofactor>;

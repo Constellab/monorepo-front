@@ -13,9 +13,10 @@ import {
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
 
 @Component({
-  selector: 'ca-server-prices-dialog',
-  templateUrl: './ca-server-prices-dialog.component.html',
-  styleUrl: './ca-server-prices-dialog.component.scss',
+    selector: 'ca-server-prices-dialog',
+    templateUrl: './ca-server-prices-dialog.component.html',
+    styleUrl: './ca-server-prices-dialog.component.scss',
+    standalone: false
 })
 export class CaServerPricesDialogComponent {
   standardServer: CaServerStandard;

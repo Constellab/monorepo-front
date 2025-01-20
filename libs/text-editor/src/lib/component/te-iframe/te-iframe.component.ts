@@ -8,9 +8,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable, of } from 'rxjs';
 
 @Component({
-  selector: 'te-iframe',
-  templateUrl: './te-iframe.component.html',
-  styleUrl: './te-iframe.component.scss',
+    selector: 'te-iframe',
+    templateUrl: './te-iframe.component.html',
+    styleUrl: './te-iframe.component.scss',
+    standalone: false
 })
 export class TeIframeComponent extends TeElementBlockDirective implements OnInit {
   private dialogService: FlDialogService = inject(FlDialogService);

@@ -10,9 +10,10 @@ import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-
  * Small list of folder in the dashboard
  */
 @Component({
-  selector: 'ca-dashboard-folders',
-  templateUrl: './ca-dashboard-folders.component.html',
-  styleUrls: ['./ca-dashboard-folders.component.scss'],
+    selector: 'ca-dashboard-folders',
+    templateUrl: './ca-dashboard-folders.component.html',
+    styleUrls: ['./ca-dashboard-folders.component.scss'],
+    standalone: false
 })
 export class CaDashboardFoldersComponent implements OnInit {
   foldersDatasource: CaHierarchyObjectDatasource;

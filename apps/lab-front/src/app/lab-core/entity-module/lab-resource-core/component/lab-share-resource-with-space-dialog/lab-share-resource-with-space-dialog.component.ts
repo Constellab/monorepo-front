@@ -11,9 +11,10 @@ export interface LabShareResourceWithSpaceDialogInput {
 }
 
 @Component({
-  selector: 'lab-share-resource-with-space-dialog',
-  templateUrl: './lab-share-resource-with-space-dialog.component.html',
-  styleUrl: './lab-share-resource-with-space-dialog.component.scss',
+    selector: 'lab-share-resource-with-space-dialog',
+    templateUrl: './lab-share-resource-with-space-dialog.component.html',
+    styleUrl: './lab-share-resource-with-space-dialog.component.scss',
+    standalone: false
 })
 export class LabShareResourceWithSpaceDialogComponent {
   private input: LabShareResourceWithSpaceDialogInput = inject(MAT_DIALOG_DATA);

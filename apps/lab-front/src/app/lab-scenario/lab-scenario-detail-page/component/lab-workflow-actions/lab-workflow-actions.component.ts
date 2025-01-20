@@ -23,9 +23,10 @@ import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/ent
  * Actions button for the workflow
  */
 @Component({
-  selector: 'lab-workflow-actions',
-  templateUrl: './lab-workflow-actions.component.html',
-  styleUrls: ['./lab-workflow-actions.component.scss'],
+    selector: 'lab-workflow-actions',
+    templateUrl: './lab-workflow-actions.component.html',
+    styleUrls: ['./lab-workflow-actions.component.scss'],
+    standalone: false
 })
 export class LabWorkflowActionsComponent implements OnInit {
   scenario$: Observable<LabScenario>;

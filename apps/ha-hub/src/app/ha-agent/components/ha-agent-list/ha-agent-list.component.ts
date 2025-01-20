@@ -19,9 +19,10 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 
 @Component({
-  selector: 'ha-agent-list',
-  templateUrl: './ha-agent-list.component.html',
-  styleUrls: ['./ha-agent-list.component.scss'],
+    selector: 'ha-agent-list',
+    templateUrl: './ha-agent-list.component.html',
+    styleUrls: ['./ha-agent-list.component.scss'],
+    standalone: false
 })
 export class HaAgentListComponent extends HaCommunityPage implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);

@@ -9,9 +9,10 @@ import { MatDialogRef } from '@angular/material/dialog';
  * password forgotten email
  */
 @Component({
-  selector: 'fl-password-forgotten',
-  templateUrl: './fl-password-forgotten.component.html',
-  styleUrls: ['./fl-password-forgotten.component.scss'],
+    selector: 'fl-password-forgotten',
+    templateUrl: './fl-password-forgotten.component.html',
+    styleUrls: ['./fl-password-forgotten.component.scss'],
+    standalone: false
 })
 export class FlPasswordForgottenComponent implements OnInit {
   formControl: FormControl<string>;

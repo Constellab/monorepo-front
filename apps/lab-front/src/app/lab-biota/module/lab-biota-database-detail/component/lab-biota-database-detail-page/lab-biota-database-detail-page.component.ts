@@ -8,9 +8,10 @@ import { ActivatedRoute } from '@angular/router';
  * component to show the detail of a biota database
  */
 @Component({
-  selector: 'lab-biota-database-detail-page',
-  templateUrl: './lab-biota-database-detail-page.component.html',
-  styleUrls: ['./lab-biota-database-detail-page.component.scss'],
+    selector: 'lab-biota-database-detail-page',
+    templateUrl: './lab-biota-database-detail-page.component.html',
+    styleUrls: ['./lab-biota-database-detail-page.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabaseDetailPageComponent implements OnInit {
   database: LabBiotaDatabase;

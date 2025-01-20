@@ -19,10 +19,11 @@ import {
  * Select component for LabType
  */
 @Component({
-  selector: 'lab-select-type',
-  templateUrl: './lab-select-type.component.html',
-  styleUrls: ['./lab-select-type.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
+    selector: 'lab-select-type',
+    templateUrl: './lab-select-type.component.html',
+    styleUrls: ['./lab-select-type.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
+    standalone: false
 })
 export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity> implements OnInit {
   @Input() placeholder: string;

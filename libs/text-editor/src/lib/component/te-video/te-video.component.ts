@@ -6,9 +6,10 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
 
 @Component({
-  selector: 'te-video',
-  templateUrl: './te-video.component.html',
-  styleUrls: ['./te-video.component.scss'],
+    selector: 'te-video',
+    templateUrl: './te-video.component.html',
+    styleUrls: ['./te-video.component.scss'],
+    standalone: false
 })
 export class TeVideoComponent extends TeElementBlockDirective implements OnInit {
   @Input() url: string;

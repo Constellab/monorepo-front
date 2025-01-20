@@ -6,7 +6,8 @@ import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
 import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
 
 @Pipe({
-  name: 'haDetailRoute',
+    name: 'haDetailRoute',
+    standalone: false
 })
 export class HaDetailRoutePipe implements PipeTransform {
   transform(value: any): string {

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'fl-new-website-version',
-  templateUrl: './fl-new-website-version.component.html',
-  styleUrls: ['./fl-new-website-version.component.scss'],
+    selector: 'fl-new-website-version',
+    templateUrl: './fl-new-website-version.component.html',
+    styleUrls: ['./fl-new-website-version.component.scss'],
+    standalone: false
 })
 export class FlNewWebsiteVersionComponent implements OnInit {
   constructor(private snackBarRef: MatSnackBarRef<FlNewWebsiteVersionComponent>) {}

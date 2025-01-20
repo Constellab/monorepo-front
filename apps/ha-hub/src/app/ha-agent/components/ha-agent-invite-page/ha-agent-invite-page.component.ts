@@ -6,9 +6,10 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-  selector: 'ha-agent-invite-page',
-  templateUrl: './ha-agent-invite-page.component.html',
-  styleUrls: ['./ha-agent-invite-page.component.scss'],
+    selector: 'ha-agent-invite-page',
+    templateUrl: './ha-agent-invite-page.component.html',
+    styleUrls: ['./ha-agent-invite-page.component.scss'],
+    standalone: false
 })
 export class HaAgentInvitePageComponent implements OnInit {
   token: string;

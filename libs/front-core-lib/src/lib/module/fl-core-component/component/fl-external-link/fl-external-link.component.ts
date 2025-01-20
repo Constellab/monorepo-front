@@ -5,9 +5,10 @@ import { Component, Input, OnInit } from '@angular/core';
  * This add an icon the the link to warn the user it is an external link
  */
 @Component({
-  selector: 'fl-external-link',
-  templateUrl: './fl-external-link.component.html',
-  styleUrls: ['./fl-external-link.component.scss'],
+    selector: 'fl-external-link',
+    templateUrl: './fl-external-link.component.html',
+    styleUrls: ['./fl-external-link.component.scss'],
+    standalone: false
 })
 export class FlExternalLinkComponent implements OnInit {
   @Input() link: string;

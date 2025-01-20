@@ -8,9 +8,10 @@ import { CaGroup } from '../../../../ca-core/model/entities/ca-group.entity';
  * Page to show the detail of a team
  */
 @Component({
-  selector: 'ca-team-page',
-  templateUrl: './ca-team-page.component.html',
-  styleUrls: ['./ca-team-page.component.scss'],
+    selector: 'ca-team-page',
+    templateUrl: './ca-team-page.component.html',
+    styleUrls: ['./ca-team-page.component.scss'],
+    standalone: false
 })
 export class CaTeamPageComponent implements OnInit {
   teams$: Observable<CaGroup>;

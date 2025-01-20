@@ -16,9 +16,10 @@ export interface ChChartLegendSerieWithTagsInput {
  * to change chart color
  */
 @Component({
-  selector: 'ch-chart-legend-series-with-tags',
-  templateUrl: './ch-chart-legend-series-with-tags.component.html',
-  styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
+    selector: 'ch-chart-legend-series-with-tags',
+    templateUrl: './ch-chart-legend-series-with-tags.component.html',
+    styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
+    standalone: false
 })
 export class ChChartLegendSeriesWithTagsComponent
   extends ChChartRightSectionDirective<ChChartLegendSerieWithTagsInput>

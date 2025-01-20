@@ -10,7 +10,8 @@ import { clRxjsElasticSearch } from '@monorepo/core-lib';
  * It triggers an event after the last key pressed with an idle delay
  */
 @Directive({
-  selector: 'input[flElasticSearch]',
+    selector: 'input[flElasticSearch]',
+    standalone: false
 })
 export class FlElasticSearchDirective implements OnInit, OnDestroy {
   /**

@@ -5,9 +5,10 @@ import { CaHierarchyObjectDatasource } from '../../../../ca-core/model/entities/
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-  selector: 'ca-my-folders-page',
-  templateUrl: './ca-my-folders-page.component.html',
-  styleUrls: ['./ca-my-folders-page.component.scss'],
+    selector: 'ca-my-folders-page',
+    templateUrl: './ca-my-folders-page.component.html',
+    styleUrls: ['./ca-my-folders-page.component.scss'],
+    standalone: false
 })
 export class CaMyFoldersPageComponent implements OnInit {
   folderDatasource: CaHierarchyObjectDatasource;

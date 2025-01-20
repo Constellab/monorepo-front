@@ -13,9 +13,10 @@ import {
 } from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
 
 @Component({
-  selector: 'ca-lab-users-table',
-  templateUrl: './ca-lab-users-table.component.html',
-  styleUrls: ['./ca-lab-users-table.component.scss'],
+    selector: 'ca-lab-users-table',
+    templateUrl: './ca-lab-users-table.component.html',
+    styleUrls: ['./ca-lab-users-table.component.scss'],
+    standalone: false
 })
 export class CaLabUsersTableComponent {
   @Input({ required: true }) datasource: CaLabUserDatasource;

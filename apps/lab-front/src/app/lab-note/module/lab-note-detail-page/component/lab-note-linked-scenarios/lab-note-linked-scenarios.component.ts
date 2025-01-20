@@ -21,9 +21,10 @@ import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service
  * the possibility to delete or add a new
  */
 @Component({
-  selector: 'lab-note-linked-scenarios',
-  templateUrl: './lab-note-linked-scenarios.component.html',
-  styleUrls: ['./lab-note-linked-scenarios.component.scss'],
+    selector: 'lab-note-linked-scenarios',
+    templateUrl: './lab-note-linked-scenarios.component.html',
+    styleUrls: ['./lab-note-linked-scenarios.component.scss'],
+    standalone: false
 })
 export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
   scenarios: FlArrayObs<LabScenario>;

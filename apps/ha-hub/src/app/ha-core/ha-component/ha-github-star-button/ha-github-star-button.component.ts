@@ -5,11 +5,10 @@ import { HaThemeState } from '../../ha-state/ha-theme.state';
 import { ClTheme } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ha-github-star-button',
-  standalone: true,
-  imports: [],
-  templateUrl: './ha-github-star-button.component.html',
-  styleUrl: './ha-github-star-button.component.scss',
+    selector: 'ha-github-star-button',
+    imports: [],
+    templateUrl: './ha-github-star-button.component.html',
+    styleUrl: './ha-github-star-button.component.scss'
 })
 export class HaGithubStarButtonComponent implements OnInit {
   @Input({ required: true }) repo: string;

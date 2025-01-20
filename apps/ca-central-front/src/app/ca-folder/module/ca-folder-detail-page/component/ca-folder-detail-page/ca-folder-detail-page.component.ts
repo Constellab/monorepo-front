@@ -46,10 +46,11 @@ import { CaResourceService } from '../../../../../ca-core/service-api/ca-resourc
  * Page for a folder detail
  */
 @Component({
-  selector: 'ca-folder-detail-page',
-  templateUrl: './ca-folder-detail-page.component.html',
-  styleUrls: ['./ca-folder-detail-page.component.scss'],
-  providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState],
+    selector: 'ca-folder-detail-page',
+    templateUrl: './ca-folder-detail-page.component.html',
+    styleUrls: ['./ca-folder-detail-page.component.scss'],
+    providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState],
+    standalone: false
 })
 export class CaFolderDetailPageComponent implements OnInit {
   folderId$: Observable<string>;

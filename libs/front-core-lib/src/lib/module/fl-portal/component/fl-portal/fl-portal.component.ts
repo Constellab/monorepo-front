@@ -5,9 +5,10 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
  * Support <fl-portal-header>, <fl-portal-content> and <fl-portal-footer>
  */
 @Component({
-  selector: 'fl-portal',
-  templateUrl: './fl-portal.component.html',
-  styleUrls: ['./fl-portal.component.scss'],
+    selector: 'fl-portal',
+    templateUrl: './fl-portal.component.html',
+    styleUrls: ['./fl-portal.component.scss'],
+    standalone: false
 })
 export class FlPortalComponent implements OnInit {
   @HostBinding('class.mat-elevation-z5')

@@ -8,9 +8,10 @@ import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-v
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'ha-public-brick-version-detail-dialog',
-  templateUrl: './ha-public-brick-version-detail-dialog.component.html',
-  styleUrls: ['./ha-public-brick-version-detail-dialog.component.scss'],
+    selector: 'ha-public-brick-version-detail-dialog',
+    templateUrl: './ha-public-brick-version-detail-dialog.component.html',
+    styleUrls: ['./ha-public-brick-version-detail-dialog.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
   bv: HaBrickVersion;

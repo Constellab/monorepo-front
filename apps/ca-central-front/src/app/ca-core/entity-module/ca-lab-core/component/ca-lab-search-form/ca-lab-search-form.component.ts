@@ -6,9 +6,10 @@ import { caLabServerTaskStatusDict, caLabStatusDict } from '../../../../model/en
 export type CaLabSearchMode = 'all' | 'current-space';
 
 @Component({
-  selector: 'ca-lab-search-form',
-  templateUrl: './ca-lab-search-form.component.html',
-  styleUrls: ['./ca-lab-search-form.component.scss'],
+    selector: 'ca-lab-search-form',
+    templateUrl: './ca-lab-search-form.component.html',
+    styleUrls: ['./ca-lab-search-form.component.scss'],
+    standalone: false
 })
 export class CaLabSearchFormComponent implements OnInit {
   @Input() mode: CaLabSearchMode;

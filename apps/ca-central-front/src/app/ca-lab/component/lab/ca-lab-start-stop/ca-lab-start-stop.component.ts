@@ -19,9 +19,10 @@ import {
  * Toggle button to start or stop the lab
  */
 @Component({
-  selector: 'ca-lab-start-stop',
-  templateUrl: './ca-lab-start-stop.component.html',
-  styleUrls: ['./ca-lab-start-stop.component.scss'],
+    selector: 'ca-lab-start-stop',
+    templateUrl: './ca-lab-start-stop.component.html',
+    styleUrls: ['./ca-lab-start-stop.component.scss'],
+    standalone: false
 })
 export class CaLabStartStopComponent {
   serverIsRunning$: Observable<boolean> = this.state

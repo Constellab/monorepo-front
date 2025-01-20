@@ -11,9 +11,10 @@ import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
  * Section to display the substrate and products of a reaction
  */
 @Component({
-  selector: 'bn-bio-network-reaction-content',
-  templateUrl: './bn-bio-network-reaction-content.component.html',
-  styleUrls: ['./bn-bio-network-reaction-content.component.scss'],
+    selector: 'bn-bio-network-reaction-content',
+    templateUrl: './bn-bio-network-reaction-content.component.html',
+    styleUrls: ['./bn-bio-network-reaction-content.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkReactionContentComponent implements OnInit {
   @Input() reaction$: Observable<BnBioNetworkNodeReaction>;

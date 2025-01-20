@@ -6,9 +6,10 @@ import {
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-note-template-table',
-  templateUrl: './lab-note-template-table.component.html',
-  styleUrls: ['./lab-note-template-table.component.scss'],
+    selector: 'lab-note-template-table',
+    templateUrl: './lab-note-template-table.component.html',
+    styleUrls: ['./lab-note-template-table.component.scss'],
+    standalone: false
 })
 export class LabNoteTemplateTableComponent {
   // when true, the row become clickable and resourceSelected event is trigger

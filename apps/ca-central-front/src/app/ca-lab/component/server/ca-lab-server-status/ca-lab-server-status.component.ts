@@ -13,9 +13,10 @@ type CaServerStatus =
   | 'LAB_RUNNING';
 
 @Component({
-  selector: 'ca-lab-server-status',
-  templateUrl: './ca-lab-server-status.component.html',
-  styleUrls: ['./ca-lab-server-status.component.scss'],
+    selector: 'ca-lab-server-status',
+    templateUrl: './ca-lab-server-status.component.html',
+    styleUrls: ['./ca-lab-server-status.component.scss'],
+    standalone: false
 })
 export class CaLabServerStatusComponent implements OnInit {
   status$: Observable<CaServerStatus>;

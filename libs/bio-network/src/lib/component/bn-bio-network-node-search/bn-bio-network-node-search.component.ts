@@ -21,10 +21,11 @@ import { FormControl } from '@angular/forms';
  * Component to search on metabolite and reactions and select the object
  */
 @Component({
-  selector: 'bn-bio-network-node-search',
-  templateUrl: './bn-bio-network-node-search.component.html',
-  styleUrls: ['./bn-bio-network-node-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-node-search',
+    templateUrl: './bn-bio-network-node-search.component.html',
+    styleUrls: ['./bn-bio-network-node-search.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;

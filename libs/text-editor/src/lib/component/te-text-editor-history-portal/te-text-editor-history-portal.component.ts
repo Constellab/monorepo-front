@@ -22,9 +22,10 @@ export interface TeTextEditorHistoryPortalData {
 const GROUP_TIME_INTERVAL = Duration.fromObject({ minutes: 10 });
 
 @Component({
-  selector: 'te-text-editor-history-portal',
-  templateUrl: './te-text-editor-history-portal.component.html',
-  styleUrl: './te-text-editor-history-portal.component.scss',
+    selector: 'te-text-editor-history-portal',
+    templateUrl: './te-text-editor-history-portal.component.html',
+    styleUrl: './te-text-editor-history-portal.component.scss',
+    standalone: false
 })
 export class TeTextEditorHistoryPortalComponent implements OnInit {
   isLoading = true;

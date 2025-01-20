@@ -4,7 +4,8 @@ import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Rendere
  * Directive that emit an event when a mouse click occurred outside the host element
  */
 @Directive({
-  selector: '[flOutsideClick]',
+    selector: '[flOutsideClick]',
+    standalone: false
 })
 export class FlOutsideClickDirective implements OnInit, OnDestroy {
   @Output() flOutsideClick: EventEmitter<MouseEvent> = new EventEmitter();

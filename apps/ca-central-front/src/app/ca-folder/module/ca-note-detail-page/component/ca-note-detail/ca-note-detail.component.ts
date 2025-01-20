@@ -22,9 +22,10 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
 import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
 
 @Component({
-  selector: 'ca-note-detail',
-  templateUrl: './ca-note-detail.component.html',
-  styleUrls: ['./ca-note-detail.component.scss'],
+    selector: 'ca-note-detail',
+    templateUrl: './ca-note-detail.component.html',
+    styleUrls: ['./ca-note-detail.component.scss'],
+    standalone: false
 })
 export class CaNoteDetailComponent implements OnInit {
   @Input({ required: true }) note: CaNote;

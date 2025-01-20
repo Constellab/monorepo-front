@@ -17,9 +17,10 @@ import {
 import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-credentials-table',
-  templateUrl: './lab-credentials-table.component.html',
-  styleUrls: ['./lab-credentials-table.component.scss'],
+    selector: 'lab-credentials-table',
+    templateUrl: './lab-credentials-table.component.html',
+    styleUrls: ['./lab-credentials-table.component.scss'],
+    standalone: false
 })
 export class LabCredentialsTableComponent {
   @Input() datasource: FlArrayObs<LabCredentials>;

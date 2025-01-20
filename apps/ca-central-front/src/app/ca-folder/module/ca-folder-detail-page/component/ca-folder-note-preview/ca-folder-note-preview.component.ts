@@ -8,9 +8,10 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
  * Component in the folder page right panel to show the preview of the note
  */
 @Component({
-  selector: 'ca-folder-note-preview',
-  templateUrl: './ca-folder-note-preview.component.html',
-  styleUrls: ['./ca-folder-note-preview.component.scss'],
+    selector: 'ca-folder-note-preview',
+    templateUrl: './ca-folder-note-preview.component.html',
+    styleUrls: ['./ca-folder-note-preview.component.scss'],
+    standalone: false
 })
 export class CaFolderNotePreviewComponent implements OnInit {
   @Input() noteId: string;

@@ -8,9 +8,10 @@ import { LabStreamlitStatus } from '../../../../lab-core/model/global/lab-stream
  * Component to show information about the streamlit status
  */
 @Component({
-  selector: 'lab-monitoring-streamlit-status',
-  templateUrl: './lab-monitoring-streamlit-status.component.html',
-  styleUrl: './lab-monitoring-streamlit-status.component.scss',
+    selector: 'lab-monitoring-streamlit-status',
+    templateUrl: './lab-monitoring-streamlit-status.component.html',
+    styleUrl: './lab-monitoring-streamlit-status.component.scss',
+    standalone: false
 })
 export class LabMonitoringStreamlitStatusComponent {
   private streamlitService = inject(LabStreamlitService);

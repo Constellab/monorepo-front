@@ -10,9 +10,10 @@ import { MatMenuTrigger } from '@angular/material/menu';
  * this is a simple portal to wrap the menu-dynamic
  */
 @Component({
-  selector: 'fl-menu-dynamic-portal',
-  templateUrl: './fl-menu-dynamic-portal.component.html',
-  styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
+    selector: 'fl-menu-dynamic-portal',
+    templateUrl: './fl-menu-dynamic-portal.component.html',
+    styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
+    standalone: false
 })
 export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;

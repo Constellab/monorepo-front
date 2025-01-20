@@ -7,9 +7,10 @@ export enum HaProfileAttachedLinkType {
 }
 
 @Component({
-  selector: 'ha-profile-attached-link',
-  templateUrl: './ha-profile-attached-link.component.html',
-  styleUrl: './ha-profile-attached-link.component.scss',
+    selector: 'ha-profile-attached-link',
+    templateUrl: './ha-profile-attached-link.component.html',
+    styleUrl: './ha-profile-attached-link.component.scss',
+    standalone: false
 })
 export class HaProfileAttachedLinkComponent {
   @Input({ required: true })

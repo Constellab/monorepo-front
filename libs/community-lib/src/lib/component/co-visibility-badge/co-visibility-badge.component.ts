@@ -4,9 +4,10 @@ import { CoConfig } from '../../service/co-service-config.config';
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'co-visibility-badge',
-  templateUrl: './co-visibility-badge.component.html',
-  styleUrls: ['./co-visibility-badge.component.scss'],
+    selector: 'co-visibility-badge',
+    templateUrl: './co-visibility-badge.component.html',
+    styleUrls: ['./co-visibility-badge.component.scss'],
+    standalone: false
 })
 export class CoVisibilityBadgeComponent {
   @Input() space: CoSpace = null;

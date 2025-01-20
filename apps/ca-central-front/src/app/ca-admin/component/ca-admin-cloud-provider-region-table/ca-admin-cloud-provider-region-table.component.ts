@@ -16,9 +16,10 @@ import {
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
 
 @Component({
-  selector: 'ca-admin-bucket-region-table',
-  templateUrl: './ca-admin-cloud-provider-region-table.component.html',
-  styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss'],
+    selector: 'ca-admin-bucket-region-table',
+    templateUrl: './ca-admin-cloud-provider-region-table.component.html',
+    styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss'],
+    standalone: false
 })
 export class CaAdminCloudProviderRegionTableComponent {
   @Input() datasource: CaCloudProviderRegionDatasource;

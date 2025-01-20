@@ -20,9 +20,10 @@ export interface HaProfileEditDialogFormData {
 }
 
 @Component({
-  selector: 'ha-profile-edit-dialog',
-  templateUrl: './ha-profile-edit-dialog.component.html',
-  styleUrl: './ha-profile-edit-dialog.component.scss',
+    selector: 'ha-profile-edit-dialog',
+    templateUrl: './ha-profile-edit-dialog.component.html',
+    styleUrl: './ha-profile-edit-dialog.component.scss',
+    standalone: false
 })
 export class HaProfileEditDialogComponent
   extends FlFormDialogAbstractDirective<HaProfileEditDialogFormData, CoUser>

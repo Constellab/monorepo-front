@@ -13,9 +13,10 @@ export interface CaLabRestoreBackupToLabDialogInput {
 }
 
 @Component({
-  selector: 'ca-lab-restore-backup-to-lab',
-  templateUrl: './ca-lab-restore-backup-to-lab.component.html',
-  styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
+    selector: 'ca-lab-restore-backup-to-lab',
+    templateUrl: './ca-lab-restore-backup-to-lab.component.html',
+    styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
+    standalone: false
 })
 export class CaLabRestoreBackupToLabComponent {
   data: CaLabRestoreBackupToLabDialogInput = inject(MAT_DIALOG_DATA);

@@ -3,9 +3,10 @@ import { FlDatasource } from '@monorepo/front-core-lib';
 import { LabRunningScenarioInfo } from '../../../../model/entities/lab-scenario.entity';
 
 @Component({
-  selector: 'lab-running-scenario-table',
-  templateUrl: './lab-running-scenario-table.component.html',
-  styleUrls: ['./lab-running-scenario-table.component.scss'],
+    selector: 'lab-running-scenario-table',
+    templateUrl: './lab-running-scenario-table.component.html',
+    styleUrls: ['./lab-running-scenario-table.component.scss'],
+    standalone: false
 })
 export class LabRunningScenarioTableComponent implements OnInit {
   @Input() datasource: FlDatasource<LabRunningScenarioInfo>;

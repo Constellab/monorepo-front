@@ -24,9 +24,10 @@ interface LabFormType {
  * Dialog to configure dynamic ports
  */
 @Component({
-  selector: 'lab-dynamic-port-config-dialog',
-  templateUrl: './lab-dynamic-port-config-dialog.component.html',
-  styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
+    selector: 'lab-dynamic-port-config-dialog',
+    templateUrl: './lab-dynamic-port-config-dialog.component.html',
+    styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
+    standalone: false
 })
 export class LabDynamicPortConfigDialogComponent {
   portType: PrWorkflowPortType;

@@ -10,9 +10,10 @@ import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-s
 export type CaSpaceFormDialogInput = FlFormDialogInput<CaCreateSpaceDTO>;
 
 @Component({
-  selector: 'ca-space-form-dialog',
-  templateUrl: './ca-space-form-dialog.component.html',
-  styleUrls: ['./ca-space-form-dialog.component.scss'],
+    selector: 'ca-space-form-dialog',
+    templateUrl: './ca-space-form-dialog.component.html',
+    styleUrls: ['./ca-space-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaSpaceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateSpaceDTO, CaSpaceSettingsDto>

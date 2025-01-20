@@ -4,9 +4,10 @@ import { LabNote } from '../../../../model/entities/lab-note.entity';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-note-table',
-  templateUrl: './lab-note-table.component.html',
-  styleUrls: ['./lab-note-table.component.scss'],
+    selector: 'lab-note-table',
+    templateUrl: './lab-note-table.component.html',
+    styleUrls: ['./lab-note-table.component.scss'],
+    standalone: false
 })
 export class LabNoteTableComponent {
   @Input({ required: true }) datasource: FlDatasource<LabNote>;

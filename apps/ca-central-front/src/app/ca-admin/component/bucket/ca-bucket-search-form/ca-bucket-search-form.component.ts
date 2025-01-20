@@ -7,9 +7,10 @@ import {
 import { FlSearchState } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-bucket-search-form',
-  templateUrl: './ca-bucket-search-form.component.html',
-  styleUrls: ['./ca-bucket-search-form.component.scss'],
+    selector: 'ca-bucket-search-form',
+    templateUrl: './ca-bucket-search-form.component.html',
+    styleUrls: ['./ca-bucket-search-form.component.scss'],
+    standalone: false
 })
 export class CaBucketSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;

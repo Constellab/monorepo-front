@@ -10,9 +10,10 @@ import {
 import { CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
 
 @Component({
-  selector: 'ca-space-storage-form',
-  templateUrl: './ca-space-storage-form.component.html',
-  styleUrl: './ca-space-storage-form.component.scss',
+    selector: 'ca-space-storage-form',
+    templateUrl: './ca-space-storage-form.component.html',
+    styleUrl: './ca-space-storage-form.component.scss',
+    standalone: false
 })
 export class CaSpaceStorageFormComponent {
   @Input({ required: true }) formGp: FormGroup;

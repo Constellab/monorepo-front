@@ -36,9 +36,10 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
-  selector: 'ha-story-page',
-  templateUrl: './ha-story-page.component.html',
-  styleUrls: ['./ha-story-page.component.scss'],
+    selector: 'ha-story-page',
+    templateUrl: './ha-story-page.component.html',
+    styleUrls: ['./ha-story-page.component.scss'],
+    standalone: false
 })
 export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);

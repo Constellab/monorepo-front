@@ -12,9 +12,10 @@ export interface LabFolderSelectPortalResult {
 }
 
 @Component({
-  selector: 'lab-folder-select-portal',
-  templateUrl: './lab-folder-select-portal.component.html',
-  styleUrls: ['./lab-folder-select-portal.component.scss'],
+    selector: 'lab-folder-select-portal',
+    templateUrl: './lab-folder-select-portal.component.html',
+    styleUrls: ['./lab-folder-select-portal.component.scss'],
+    standalone: false
 })
 export class LabFolderSelectPortalComponent {
   folders: LabFolder;

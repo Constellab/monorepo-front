@@ -22,9 +22,10 @@ export type LabResourceViewDetailDialogInput =
     };
 
 @Component({
-  selector: 'lab-resource-view-detail-dialog',
-  templateUrl: './lab-resource-view-detail-dialog.component.html',
-  styleUrls: ['./lab-resource-view-detail-dialog.component.scss'],
+    selector: 'lab-resource-view-detail-dialog',
+    templateUrl: './lab-resource-view-detail-dialog.component.html',
+    styleUrls: ['./lab-resource-view-detail-dialog.component.scss'],
+    standalone: false
 })
 export class LabResourceViewDetailDialogComponent implements OnInit {
   title: string;

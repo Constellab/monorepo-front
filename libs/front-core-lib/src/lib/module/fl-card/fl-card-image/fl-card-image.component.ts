@@ -6,9 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
  * It support ng-content to display something (mainly text) centered under the image
  */
 @Component({
-  selector: 'fl-card-image',
-  templateUrl: './fl-card-image.component.html',
-  styleUrls: ['./fl-card-image.component.scss'],
+    selector: 'fl-card-image',
+    templateUrl: './fl-card-image.component.html',
+    styleUrls: ['./fl-card-image.component.scss'],
+    standalone: false
 })
 export class FlCardImageComponent implements OnInit {
   /**

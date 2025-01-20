@@ -8,10 +8,11 @@ import { flCdkOverlayPanelClass } from '../../../../utils/fl-material.config';
  * Can be put in <fl-portal>
  */
 @Component({
-  selector: 'fl-portal-header',
-  templateUrl: './fl-portal-header.component.html',
-  styleUrls: ['./fl-portal-header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-portal-header',
+    templateUrl: './fl-portal-header.component.html',
+    styleUrls: ['./fl-portal-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlPortalHeaderComponent implements OnInit {
   /**

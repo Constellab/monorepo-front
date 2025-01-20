@@ -13,9 +13,10 @@ export interface CaLabFreeFormDialogInput {
 }
 
 @Component({
-  selector: 'ca-lab-free-form-dialog',
-  templateUrl: './ca-lab-free-form-dialog.component.html',
-  styleUrls: ['./ca-lab-free-form-dialog.component.scss'],
+    selector: 'ca-lab-free-form-dialog',
+    templateUrl: './ca-lab-free-form-dialog.component.html',
+    styleUrls: ['./ca-lab-free-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabFreeFormDialogComponent {
   formGp = new FormBuilder().group({

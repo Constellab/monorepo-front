@@ -14,9 +14,10 @@ export interface LabLogBetweenDatesDialogInput {
  * Dialog to show logs between 2 dates useful to see the process logs
  */
 @Component({
-  selector: 'lab-logs-between-dates-dialog',
-  templateUrl: './lab-logs-between-dates-dialog.component.html',
-  styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
+    selector: 'lab-logs-between-dates-dialog',
+    templateUrl: './lab-logs-between-dates-dialog.component.html',
+    styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
+    standalone: false
 })
 export class LabLogsBetweenDatesDialogComponent implements OnInit {
   title: string;

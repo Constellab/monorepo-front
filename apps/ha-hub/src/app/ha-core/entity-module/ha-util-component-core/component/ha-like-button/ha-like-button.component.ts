@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'ha-like-button',
-  templateUrl: './ha-like-button.component.html',
-  styleUrls: ['./ha-like-button.component.scss'],
+    selector: 'ha-like-button',
+    templateUrl: './ha-like-button.component.html',
+    styleUrls: ['./ha-like-button.component.scss'],
+    standalone: false
 })
 export class HaLikeButtonComponent {
   @Input({ required: true }) likesCount: number;

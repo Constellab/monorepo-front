@@ -17,9 +17,10 @@ import {
 import { CaServerPricesDialogComponent } from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
 
 @Component({
-  selector: 'ca-server-standard-table',
-  templateUrl: './ca-server-standard-table.component.html',
-  styleUrl: './ca-server-standard-table.component.scss',
+    selector: 'ca-server-standard-table',
+    templateUrl: './ca-server-standard-table.component.html',
+    styleUrl: './ca-server-standard-table.component.scss',
+    standalone: false
 })
 export class CaServerStandardTableComponent {
   @Input({ required: true }) datasource: CaServerStandardDatasource;

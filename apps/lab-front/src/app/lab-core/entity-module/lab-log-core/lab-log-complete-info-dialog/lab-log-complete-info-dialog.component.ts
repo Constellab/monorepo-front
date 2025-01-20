@@ -9,9 +9,10 @@ export interface LabLogCompleteInfoDialogInput {
 }
 
 @Component({
-  selector: 'lab-log-complete-info-dialog',
-  templateUrl: './lab-log-complete-info-dialog.component.html',
-  styleUrls: ['./lab-log-complete-info-dialog.component.scss'],
+    selector: 'lab-log-complete-info-dialog',
+    templateUrl: './lab-log-complete-info-dialog.component.html',
+    styleUrls: ['./lab-log-complete-info-dialog.component.scss'],
+    standalone: false
 })
 export class LabLogCompleteInfoDialogComponent implements OnInit {
   logName: string;

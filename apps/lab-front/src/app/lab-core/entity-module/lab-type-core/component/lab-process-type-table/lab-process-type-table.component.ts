@@ -4,9 +4,10 @@ import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entiti
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-process-type-table',
-  templateUrl: './lab-process-type-table.component.html',
-  styleUrls: ['./lab-process-type-table.component.scss'],
+    selector: 'lab-process-type-table',
+    templateUrl: './lab-process-type-table.component.html',
+    styleUrls: ['./lab-process-type-table.component.scss'],
+    standalone: false
 })
 export class LabProcessTypeTableComponent {
   @Input({ required: true }) datasource: LabTypeEntityDatasource;

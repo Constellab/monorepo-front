@@ -1,9 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fl-chip',
-  templateUrl: './fl-chip.component.html',
-  styleUrls: ['./fl-chip.component.scss'],
+    selector: 'fl-chip',
+    templateUrl: './fl-chip.component.html',
+    styleUrls: ['./fl-chip.component.scss'],
+    standalone: false
 })
 export class FlChipComponent implements OnInit {
   @HostBinding('class')

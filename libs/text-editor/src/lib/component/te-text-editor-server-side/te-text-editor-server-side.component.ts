@@ -5,9 +5,10 @@ import { TeConfig } from '../../model/te-config.class';
 import { TeFigureBlock } from '../../block/te-figure-block.class';
 
 @Component({
-  selector: 'te-text-editor-server-side',
-  templateUrl: './te-text-editor-server-side.component.html',
-  styleUrl: './te-text-editor-server-side.component.scss',
+    selector: 'te-text-editor-server-side',
+    templateUrl: './te-text-editor-server-side.component.html',
+    styleUrl: './te-text-editor-server-side.component.scss',
+    standalone: false
 })
 export class TeTextEditorServerSideComponent implements OnInit {
   @Input({ required: true }) richText: TeRichText;

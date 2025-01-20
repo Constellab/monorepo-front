@@ -7,9 +7,10 @@ import { LabRouterService } from '../../../../service/lab-router.service';
  * Component for dynamic field to search and select a credential
  */
 @Component({
-  selector: 'lab-select-credentials-dynamic-field',
-  templateUrl: './lab-select-credentials-dynamic-field.component.html',
-  styleUrls: ['./lab-select-credentials-dynamic-field.component.scss'],
+    selector: 'lab-select-credentials-dynamic-field',
+    templateUrl: './lab-select-credentials-dynamic-field.component.html',
+    styleUrls: ['./lab-select-credentials-dynamic-field.component.scss'],
+    standalone: false
 })
 export class LabSelectCredentialsDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
   @Input() type?: LabCredentialsType;

@@ -19,10 +19,11 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
  * Search on view config, only work for search linked to a note
  */
 @Component({
-  selector: 'lab-view-config-search',
-  templateUrl: './lab-view-config-search.component.html',
-  styleUrls: ['./lab-view-config-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-view-config-search',
+    templateUrl: './lab-view-config-search.component.html',
+    styleUrls: ['./lab-view-config-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabViewConfigSearchComponent implements OnInit {
   @Input() noteId: string;

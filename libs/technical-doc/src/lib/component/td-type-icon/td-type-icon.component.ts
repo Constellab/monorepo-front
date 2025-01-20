@@ -6,10 +6,11 @@ import { TdTechnicalDocServiceConfig } from '../../service/td-technical-doc-serv
  * Component to show the icon of a type
  */
 @Component({
-  selector: 'td-type-icon',
-  templateUrl: './td-type-icon.component.html',
-  styleUrl: './td-type-icon.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'td-type-icon',
+    templateUrl: './td-type-icon.component.html',
+    styleUrl: './td-type-icon.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TdTypeIconComponent {
   iconTechnicalName = input.required<string>();

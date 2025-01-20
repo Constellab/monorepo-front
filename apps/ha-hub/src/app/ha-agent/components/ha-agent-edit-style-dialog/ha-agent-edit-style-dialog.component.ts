@@ -23,9 +23,10 @@ export interface HaAgentEditStyleFormData {
 }
 
 @Component({
-  selector: 'ha-agent-edit-style-dialog',
-  templateUrl: './ha-agent-edit-style-dialog.component.html',
-  styleUrl: './ha-agent-edit-style-dialog.component.scss',
+    selector: 'ha-agent-edit-style-dialog',
+    templateUrl: './ha-agent-edit-style-dialog.component.html',
+    styleUrl: './ha-agent-edit-style-dialog.component.scss',
+    standalone: false
 })
 export class HaAgentEditStyleDialogComponent
   extends FlFormDialogAbstractDirective<HaAgentEditStyleFormData, HaAgent | HaAgentVersion>

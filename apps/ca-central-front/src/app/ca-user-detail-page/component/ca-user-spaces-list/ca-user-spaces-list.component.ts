@@ -7,9 +7,10 @@ import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
  * Accessible by admin to list space of a user
  */
 @Component({
-  selector: 'ca-user-spaces-list',
-  templateUrl: './ca-user-spaces-list.component.html',
-  styleUrls: ['./ca-user-spaces-list.component.scss'],
+    selector: 'ca-user-spaces-list',
+    templateUrl: './ca-user-spaces-list.component.html',
+    styleUrls: ['./ca-user-spaces-list.component.scss'],
+    standalone: false
 })
 export class CaUserSpacesListComponent implements OnInit {
   @Input() userId: string;

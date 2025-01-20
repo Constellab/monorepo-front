@@ -8,9 +8,10 @@ import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
  * Portal to select one serie during chart selection
  */
 @Component({
-  selector: 'sp-sheet-chart-serie-selection',
-  templateUrl: './sp-sheet-chart-serie-selection.component.html',
-  styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
+    selector: 'sp-sheet-chart-serie-selection',
+    templateUrl: './sp-sheet-chart-serie-selection.component.html',
+    styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
+    standalone: false
 })
 export class SpSheetChartSerieSelectionComponent implements OnInit {
   formGp: UntypedFormGroup;

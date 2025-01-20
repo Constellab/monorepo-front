@@ -5,9 +5,10 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
 
 @Component({
-  selector: 'ca-constellab-document-preview',
-  templateUrl: './ca-constellab-document-preview.component.html',
-  styleUrl: './ca-constellab-document-preview.component.scss',
+    selector: 'ca-constellab-document-preview',
+    templateUrl: './ca-constellab-document-preview.component.html',
+    styleUrl: './ca-constellab-document-preview.component.scss',
+    standalone: false
 })
 export class CaConstellabDocumentPreviewComponent implements OnInit {
   @Input() documentId: string;

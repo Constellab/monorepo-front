@@ -4,9 +4,10 @@ import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-bric
 import { HaPublicBrickVersionDetailDialogComponent } from '../ha-public-brick-version-detail-dialog/ha-public-brick-version-detail-dialog.component';
 
 @Component({
-  selector: 'ha-public-brick-versions-table',
-  templateUrl: './ha-public-brick-versions-table.component.html',
-  styleUrls: ['./ha-public-brick-versions-table.component.scss'],
+    selector: 'ha-public-brick-versions-table',
+    templateUrl: './ha-public-brick-versions-table.component.html',
+    styleUrls: ['./ha-public-brick-versions-table.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickVersionsTableComponent {
   @Input({ required: true }) datasource: FlDatasource<HaBrickVersion>;

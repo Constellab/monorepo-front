@@ -9,9 +9,10 @@ import { CoAgent } from '@monorepo/community-lib';
  * Dialog containing the community agent search to select one
  */
 @Component({
-  selector: 'lab-select-community-agent',
-  templateUrl: './lab-select-community-agent.component.html',
-  styleUrls: ['./lab-select-community-agent.component.scss'],
+    selector: 'lab-select-community-agent',
+    templateUrl: './lab-select-community-agent.component.html',
+    styleUrls: ['./lab-select-community-agent.component.scss'],
+    standalone: false
 })
 export class LabSelectCommunityAgentComponent implements OnInit {
   @Input() personalOnly: boolean = false;

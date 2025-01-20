@@ -28,9 +28,10 @@ export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSave
 }
 
 @Component({
-  selector: 'lab-credentials-form-dialog',
-  templateUrl: './lab-credentials-form-dialog.component.html',
-  styleUrls: ['./lab-credentials-form-dialog.component.scss'],
+    selector: 'lab-credentials-form-dialog',
+    templateUrl: './lab-credentials-form-dialog.component.html',
+    styleUrls: ['./lab-credentials-form-dialog.component.scss'],
+    standalone: false
 })
 export class LabCredentialsFormDialogComponent implements OnInit {
   dialogInput: LabCredentialsFormDialogInput = inject(MAT_DIALOG_DATA);

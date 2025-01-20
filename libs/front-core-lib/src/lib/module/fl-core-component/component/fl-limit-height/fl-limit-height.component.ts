@@ -5,9 +5,10 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChi
  * maxHeight, it hides the rest and display a button 'See more'
  */
 @Component({
-  selector: 'fl-limit-height',
-  templateUrl: './fl-limit-height.component.html',
-  styleUrls: ['./fl-limit-height.component.scss'],
+    selector: 'fl-limit-height',
+    templateUrl: './fl-limit-height.component.html',
+    styleUrls: ['./fl-limit-height.component.scss'],
+    standalone: false
 })
 export class FlLimitHeightComponent implements OnInit, AfterViewInit {
   // max size to display before 'See more' button

@@ -7,7 +7,8 @@ import { MatTooltip } from '@angular/material/tooltip';
  * inside an expansion menu to fit menu size
  */
 @Directive({
-  selector: '[flExpansionMenuButton]',
+    selector: '[flExpansionMenuButton]',
+    standalone: false
 })
 export class FlExpansionMenuButtonDirective implements OnInit {
   private readonly buttonClass = 'expansion-menu-button';

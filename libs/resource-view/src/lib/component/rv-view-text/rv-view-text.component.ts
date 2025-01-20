@@ -9,10 +9,11 @@ import { Observable } from 'rxjs';
  * Support pagination to previous or next page
  */
 @Component({
-  selector: 'rv-view-text',
-  templateUrl: './rv-view-text.component.html',
-  styleUrls: ['./rv-view-text.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'rv-view-text',
+    templateUrl: './rv-view-text.component.html',
+    styleUrls: ['./rv-view-text.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> implements OnInit {
   @Input({ required: true }) view: RvResourceViewText;

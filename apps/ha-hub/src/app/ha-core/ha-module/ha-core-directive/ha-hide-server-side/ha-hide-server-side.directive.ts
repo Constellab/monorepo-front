@@ -12,7 +12,8 @@ import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 
 @Directive({
-  selector: '[haHideServerSide]',
+    selector: '[haHideServerSide]',
+    standalone: false
 })
 export class HaHideServerSideDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(

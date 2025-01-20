@@ -11,10 +11,11 @@ import { LabActivityService } from '../../../../entity-service/lab-activity.serv
 import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-activity-search.class';
 
 @Component({
-  selector: 'lab-activity-search',
-  templateUrl: './lab-activity-search.component.html',
-  styleUrls: ['./lab-activity-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-activity-search',
+    templateUrl: './lab-activity-search.component.html',
+    styleUrls: ['./lab-activity-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabActivitySearchComponent implements OnInit {
   datasource: LabActivityDatasource<LabActivitySearchFields>;

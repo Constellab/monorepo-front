@@ -5,9 +5,10 @@ import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
  * Card to display a {@link CaLab}
  */
 @Component({
-  selector: 'ca-lab-card',
-  templateUrl: './ca-lab-card.component.html',
-  styleUrls: ['./ca-lab-card.component.scss'],
+    selector: 'ca-lab-card',
+    templateUrl: './ca-lab-card.component.html',
+    styleUrls: ['./ca-lab-card.component.scss'],
+    standalone: false
 })
 export class CaLabCardComponent {
   @Input() lab: CaLab;

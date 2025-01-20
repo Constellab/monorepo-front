@@ -10,7 +10,8 @@ import { CaEnvironmentHelper } from '../../../utils/ca-environment.helper';
  * In dev, it updates the stored domain and refresh to the route
  */
 @Directive({
-  selector: 'a[caExternalSpaceLink]',
+    selector: 'a[caExternalSpaceLink]',
+    standalone: false
 })
 export class CaExternalSpaceLinkDirective implements OnInit {
   /**

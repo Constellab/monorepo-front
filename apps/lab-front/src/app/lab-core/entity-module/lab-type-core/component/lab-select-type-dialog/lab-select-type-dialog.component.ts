@@ -14,9 +14,10 @@ export interface LabSelectTypeDialogInput {
  * Dialog containing the process type search to select one
  */
 @Component({
-  selector: 'lab-select-type-dialog',
-  templateUrl: './lab-select-type-dialog.component.html',
-  styleUrls: ['./lab-select-type-dialog.component.scss'],
+    selector: 'lab-select-type-dialog',
+    templateUrl: './lab-select-type-dialog.component.html',
+    styleUrls: ['./lab-select-type-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectTypeDialogComponent implements OnInit {
   config: LabTypeSearchConfig;

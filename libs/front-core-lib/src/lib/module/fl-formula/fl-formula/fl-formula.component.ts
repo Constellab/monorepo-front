@@ -11,9 +11,10 @@ import {
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'fl-formula',
-  templateUrl: './fl-formula.component.html',
-  styleUrl: './fl-formula.component.scss',
+    selector: 'fl-formula',
+    templateUrl: './fl-formula.component.html',
+    styleUrl: './fl-formula.component.scss',
+    standalone: false
 })
 export class FlFormulaComponent implements OnInit, OnDestroy {
   @Input() formula: string | Observable<string>;

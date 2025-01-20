@@ -3,9 +3,10 @@ import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 
 @Component({
-  selector: 'ca-note-table',
-  templateUrl: './ca-note-table.component.html',
-  styleUrls: ['./ca-note-table.component.scss'],
+    selector: 'ca-note-table',
+    templateUrl: './ca-note-table.component.html',
+    styleUrls: ['./ca-note-table.component.scss'],
+    standalone: false
 })
 export class CaNoteTableComponent {
   @Input({ required: true }) datasource: FlDatasource<CaNote>;

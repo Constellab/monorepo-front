@@ -23,7 +23,8 @@
             "prefix": "pr",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     }
   ]

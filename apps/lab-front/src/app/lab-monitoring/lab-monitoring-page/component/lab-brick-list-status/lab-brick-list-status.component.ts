@@ -4,10 +4,11 @@ import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.en
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
 
 @Component({
-  selector: 'lab-brick-list-status',
-  templateUrl: './lab-brick-list-status.component.html',
-  styleUrls: ['./lab-brick-list-status.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-brick-list-status',
+    templateUrl: './lab-brick-list-status.component.html',
+    styleUrls: ['./lab-brick-list-status.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabBrickListStatusComponent implements OnInit {
   bricks$: Observable<LabBrickEntity[]>;

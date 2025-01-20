@@ -37,13 +37,14 @@ interface LabSelectedTransformer {
  * Can add multiple transformer and configure them.
  */
 @Component({
-  selector: 'lab-transform-resource',
-  templateUrl: './lab-transform-resource.component.html',
-  styleUrls: ['./lab-transform-resource.component.scss'],
-  providers: [
-    // configure the dynamic field to support tags and other custom fields
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-  ],
+    selector: 'lab-transform-resource',
+    templateUrl: './lab-transform-resource.component.html',
+    styleUrls: ['./lab-transform-resource.component.scss'],
+    providers: [
+        // configure the dynamic field to support tags and other custom fields
+        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+    ],
+    standalone: false
 })
 export class LabTransformResourceComponent implements OnInit {
   @Input() resourceTypingName: string;

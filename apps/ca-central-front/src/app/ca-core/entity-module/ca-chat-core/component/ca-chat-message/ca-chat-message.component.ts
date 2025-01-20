@@ -10,9 +10,10 @@ import { TeRichText } from '@monorepo/text-editor';
  * Component to show a message in a chat
  */
 @Component({
-  selector: 'ca-chat-message',
-  templateUrl: './ca-chat-message.component.html',
-  styleUrl: './ca-chat-message.component.scss',
+    selector: 'ca-chat-message',
+    templateUrl: './ca-chat-message.component.html',
+    styleUrl: './ca-chat-message.component.scss',
+    standalone: false
 })
 export class CaChatMessageComponent implements OnInit, OnDestroy {
   message = input.required<CaChatMessage>();

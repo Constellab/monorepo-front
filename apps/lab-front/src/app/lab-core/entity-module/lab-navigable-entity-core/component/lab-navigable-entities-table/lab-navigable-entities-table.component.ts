@@ -18,9 +18,10 @@ import { LabViewConfigTableComponent } from '../../../lab-view-config-core/compo
  * Show a table of navigable entities based on the type
  */
 @Component({
-  selector: 'lab-navigable-entities-table',
-  templateUrl: './lab-navigable-entities-table.component.html',
-  styleUrl: './lab-navigable-entities-table.component.scss',
+    selector: 'lab-navigable-entities-table',
+    templateUrl: './lab-navigable-entities-table.component.html',
+    styleUrl: './lab-navigable-entities-table.component.scss',
+    standalone: false
 })
 export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
   @Input({ required: true }) type: LabEntityType;

@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
-  selector: '[haSidenavButton]',
+    selector: '[haSidenavButton]',
+    standalone: false
 })
 export class HaSidenavButtonDirective implements OnInit {
   isOpen: boolean = false;

@@ -13,9 +13,10 @@ import { CaSelectCloudProviderRegionOptionsMode } from '../../../../ca-core/enti
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
 @Component({
-  selector: 'ca-bucket-form-dialog',
-  templateUrl: './ca-bucket-form-dialog.component.html',
-  styleUrls: ['./ca-bucket-form-dialog.component.scss'],
+    selector: 'ca-bucket-form-dialog',
+    templateUrl: './ca-bucket-form-dialog.component.html',
+    styleUrls: ['./ca-bucket-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaBucketFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketFull>, CaBucketFull>

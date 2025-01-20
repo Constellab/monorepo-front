@@ -25,9 +25,10 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
  * Actions menu button for view configs, it has a ng-content for custom buttons
  */
 @Component({
-  selector: 'lab-view-config-actions-menu',
-  templateUrl: './lab-view-config-actions-menu.component.html',
-  styleUrls: ['./lab-view-config-actions-menu.component.scss'],
+    selector: 'lab-view-config-actions-menu',
+    templateUrl: './lab-view-config-actions-menu.component.html',
+    styleUrls: ['./lab-view-config-actions-menu.component.scss'],
+    standalone: false
 })
 export class LabViewConfigActionsMenuComponent implements OnInit {
   @Input({ required: true }) viewConfig: LabViewConfig;

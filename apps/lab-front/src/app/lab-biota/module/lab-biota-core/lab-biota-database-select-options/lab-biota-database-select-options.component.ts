@@ -7,9 +7,10 @@ import { MatSelect } from '@angular/material/select';
  * Component to be placed under a select or autocomplete to list biota database options
  */
 @Component({
-  selector: 'lab-biota-database-select-options',
-  templateUrl: './lab-biota-database-select-options.component.html',
-  styleUrls: ['./lab-biota-database-select-options.component.scss'],
+    selector: 'lab-biota-database-select-options',
+    templateUrl: './lab-biota-database-select-options.component.html',
+    styleUrls: ['./lab-biota-database-select-options.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabaseSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

@@ -19,9 +19,10 @@ export interface CaSpaceInvitFormDialogInput {
  * Dialog to create a space invitation
  */
 @Component({
-  selector: 'ca-space-invit-form-dialog',
-  templateUrl: './ca-space-invit-form-dialog.component.html',
-  styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
+    selector: 'ca-space-invit-form-dialog',
+    templateUrl: './ca-space-invit-form-dialog.component.html',
+    styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaSpaceInvitFormDialogComponent {
   formGp = new FormBuilder().group({

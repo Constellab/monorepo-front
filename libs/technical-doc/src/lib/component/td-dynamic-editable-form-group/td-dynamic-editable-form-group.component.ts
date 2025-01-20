@@ -4,9 +4,10 @@ import { FlDynamicAbstractFormDirective, FlDynamicEditableFormGroupConfig } from
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 
 @Component({
-  selector: 'td-dynamic-editable-form-group',
-  templateUrl: './td-dynamic-editable-form-group.component.html',
-  styleUrl: './td-dynamic-editable-form-group.component.scss',
+    selector: 'td-dynamic-editable-form-group',
+    templateUrl: './td-dynamic-editable-form-group.component.html',
+    styleUrl: './td-dynamic-editable-form-group.component.scss',
+    standalone: false
 })
 export class TdDynamicEditableFormGroupComponent implements FlDynamicAbstractFormDirective {
   /**

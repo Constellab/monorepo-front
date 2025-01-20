@@ -8,9 +8,10 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 
 @Component({
-  selector: 'ca-team-form-dialog',
-  templateUrl: './ca-team-form-dialog.component.html',
-  styleUrls: ['./ca-team-form-dialog.component.scss'],
+    selector: 'ca-team-form-dialog',
+    templateUrl: './ca-team-form-dialog.component.html',
+    styleUrls: ['./ca-team-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaTeamFormDialogComponent
   extends FlFormDialogAbstractDirective<CaSaveTeamDTO, CaGroup>

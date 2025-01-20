@@ -56,9 +56,10 @@ interface FlatNode {
 }
 
 @Component({
-  selector: 'ha-public-sidenav',
-  templateUrl: './ha-public-sidenav.component.html',
-  styleUrls: ['./ha-public-sidenav.component.scss'],
+    selector: 'ha-public-sidenav',
+    templateUrl: './ha-public-sidenav.component.html',
+    styleUrls: ['./ha-public-sidenav.component.scss'],
+    standalone: false
 })
 export class HaPublicSidenavComponent implements OnInit {
   searchTechDocControl = new FormControl<string>('');

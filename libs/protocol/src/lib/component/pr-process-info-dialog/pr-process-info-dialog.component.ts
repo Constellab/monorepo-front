@@ -9,9 +9,10 @@ export interface PrProcessInfoDialogInput {
 }
 
 @Component({
-  selector: 'pr-process-info-dialog',
-  templateUrl: './pr-process-info-dialog.component.html',
-  styleUrl: './pr-process-info-dialog.component.scss',
+    selector: 'pr-process-info-dialog',
+    templateUrl: './pr-process-info-dialog.component.html',
+    styleUrl: './pr-process-info-dialog.component.scss',
+    standalone: false
 })
 export class PrProcessInfoDialogComponent {
   input: PrProcessInfoDialogInput = inject(MAT_DIALOG_DATA);

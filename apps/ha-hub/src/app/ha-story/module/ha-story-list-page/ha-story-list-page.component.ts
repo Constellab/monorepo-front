@@ -21,9 +21,10 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-  selector: 'ha-story-list-page',
-  templateUrl: './ha-story-list-page.component.html',
-  styleUrls: ['./ha-story-list-page.component.scss'],
+    selector: 'ha-story-list-page',
+    templateUrl: './ha-story-list-page.component.html',
+    styleUrls: ['./ha-story-list-page.component.scss'],
+    standalone: false
 })
 export class HaStoryListPageComponent extends HaCommunityPage implements OnInit {
   private dialogService: FlDialogService = inject(FlDialogService);

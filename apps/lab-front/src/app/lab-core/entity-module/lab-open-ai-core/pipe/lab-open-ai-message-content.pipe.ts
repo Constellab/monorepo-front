@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TeHighlight } from '@monorepo/technical-doc';
 
 @Pipe({
-  name: 'labOpenAiMessageContent',
+    name: 'labOpenAiMessageContent',
+    standalone: false
 })
 export class LabOpenAiMessageContentPipe implements PipeTransform {
   transform(value: string): string {

@@ -6,9 +6,10 @@ import { CoConfig } from '../../service/co-service-config.config';
 import { UntypedFormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'co-agent-create-dialog-form',
-  templateUrl: './co-agent-create-dialog-form.component.html',
-  styleUrl: './co-agent-create-dialog-form.component.scss',
+    selector: 'co-agent-create-dialog-form',
+    templateUrl: './co-agent-create-dialog-form.component.html',
+    styleUrl: './co-agent-create-dialog-form.component.scss',
+    standalone: false
 })
 export class CoAgentCreateDialogFormComponent {
   @Input() spaces$: Observable<CoSpace[]>;

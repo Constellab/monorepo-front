@@ -10,9 +10,10 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
  * Dialog to show information about the codelab of a lab
  */
 @Component({
-  selector: 'ca-lab-codelab-info',
-  templateUrl: './ca-lab-codelab-info.component.html',
-  styleUrls: ['./ca-lab-codelab-info.component.scss'],
+    selector: 'ca-lab-codelab-info',
+    templateUrl: './ca-lab-codelab-info.component.html',
+    styleUrls: ['./ca-lab-codelab-info.component.scss'],
+    standalone: false
 })
 export class CaLabCodelabInfoComponent implements OnInit {
   codelabInfo$: Observable<CaLabCodelabDTO>;

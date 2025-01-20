@@ -16,9 +16,10 @@ export interface FlCheckCredentialsDialogInput {
  * No captcha nor 2FA is used here.
  */
 @Component({
-  selector: 'fl-check-credentials-dialog',
-  templateUrl: './fl-check-credentials-dialog.component.html',
-  styleUrls: ['./fl-check-credentials-dialog.component.scss'],
+    selector: 'fl-check-credentials-dialog',
+    templateUrl: './fl-check-credentials-dialog.component.html',
+    styleUrls: ['./fl-check-credentials-dialog.component.scss'],
+    standalone: false
 })
 export class FlCheckCredentialsDialogComponent {
   formGp = FlLoginFormComponent.buildForm();

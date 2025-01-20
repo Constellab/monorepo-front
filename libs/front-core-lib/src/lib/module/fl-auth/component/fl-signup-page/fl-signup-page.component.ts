@@ -10,9 +10,10 @@ import { Observable, switchMap } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'fl-signup-page',
-  templateUrl: './fl-signup-page.component.html',
-  styleUrls: ['./fl-signup-page.component.scss'],
+    selector: 'fl-signup-page',
+    templateUrl: './fl-signup-page.component.html',
+    styleUrls: ['./fl-signup-page.component.scss'],
+    standalone: false
 })
 export class FlSignupPageComponent implements OnInit {
   private themeService: FlThemeService = inject(FlThemeService);

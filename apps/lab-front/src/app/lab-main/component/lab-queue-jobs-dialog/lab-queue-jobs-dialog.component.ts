@@ -14,9 +14,10 @@ import { Subscription, tap, zip } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'lab-queue-jobs-dialog',
-  templateUrl: './lab-queue-jobs-dialog.component.html',
-  styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
+    selector: 'lab-queue-jobs-dialog',
+    templateUrl: './lab-queue-jobs-dialog.component.html',
+    styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
+    standalone: false
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   runningScenarios: FlArrayObs<LabRunningScenarioInfo>;

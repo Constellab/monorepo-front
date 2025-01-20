@@ -8,9 +8,10 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
  * Component to place inside a mat-select to add the option of available charts
  */
 @Component({
-  selector: 'ch-chart-type-select-options',
-  templateUrl: './ch-chart-type-select-options.component.html',
-  styleUrls: ['./ch-chart-type-select-options.component.scss'],
+    selector: 'ch-chart-type-select-options',
+    templateUrl: './ch-chart-type-select-options.component.html',
+    styleUrls: ['./ch-chart-type-select-options.component.scss'],
+    standalone: false
 })
 export class ChChartTypeSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

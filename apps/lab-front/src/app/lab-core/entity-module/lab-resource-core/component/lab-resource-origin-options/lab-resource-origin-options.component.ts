@@ -4,9 +4,10 @@ import { MatSelect } from '@angular/material/select';
 import { LabResourceOrigin } from '../../../../model/entities/resource/lab-resource.entity';
 
 @Component({
-  selector: 'lab-resource-origin-options',
-  templateUrl: './lab-resource-origin-options.component.html',
-  styleUrls: ['./lab-resource-origin-options.component.scss'],
+    selector: 'lab-resource-origin-options',
+    templateUrl: './lab-resource-origin-options.component.html',
+    styleUrls: ['./lab-resource-origin-options.component.scss'],
+    standalone: false
 })
 export class LabResourceOriginOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

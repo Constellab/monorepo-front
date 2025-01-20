@@ -14,9 +14,10 @@ export interface CaGroupShareDialogInput {
  * Dialog to share an object to a group
  */
 @Component({
-  selector: 'ca-group-share-dialog',
-  templateUrl: './ca-group-share-dialog.component.html',
-  styleUrls: ['./ca-group-share-dialog.component.scss'],
+    selector: 'ca-group-share-dialog',
+    templateUrl: './ca-group-share-dialog.component.html',
+    styleUrls: ['./ca-group-share-dialog.component.scss'],
+    standalone: false
 })
 export class CaGroupShareDialogComponent implements OnInit {
   formControl: FormControl<CaGroup>;

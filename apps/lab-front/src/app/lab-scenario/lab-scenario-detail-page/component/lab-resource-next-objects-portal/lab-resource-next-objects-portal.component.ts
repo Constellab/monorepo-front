@@ -6,9 +6,10 @@ import { LabNote, LabNoteDatasource } from '../../../../lab-core/model/entities/
 import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
 
 @Component({
-  selector: 'lab-resource-next-objects-portal',
-  templateUrl: './lab-resource-next-objects-portal.component.html',
-  styleUrl: './lab-resource-next-objects-portal.component.scss',
+    selector: 'lab-resource-next-objects-portal',
+    templateUrl: './lab-resource-next-objects-portal.component.html',
+    styleUrl: './lab-resource-next-objects-portal.component.scss',
+    standalone: false
 })
 export class LabResourceNextObjectsPortalComponent {
   scenarios: LabScenarioDatasource;

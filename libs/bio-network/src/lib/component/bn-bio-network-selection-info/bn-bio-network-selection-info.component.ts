@@ -18,10 +18,11 @@ interface SelectionInfo {
  * Component inside {@link BnBioNetworkComponent} to show information about the current selection
  */
 @Component({
-  selector: 'bn-bio-network-selection-info',
-  templateUrl: './bn-bio-network-selection-info.component.html',
-  styleUrls: ['./bn-bio-network-selection-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-selection-info',
+    templateUrl: './bn-bio-network-selection-info.component.html',
+    styleUrls: ['./bn-bio-network-selection-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkSelectionInfoComponent implements OnInit {
   info$: Observable<SelectionInfo>;

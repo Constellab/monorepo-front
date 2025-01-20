@@ -4,9 +4,10 @@ import { LabViewConfig } from '../../../../model/entities/resource/lab-view-conf
 import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
-  selector: 'lab-view-config-table',
-  templateUrl: './lab-view-config-table.component.html',
-  styleUrls: ['./lab-view-config-table.component.scss'],
+    selector: 'lab-view-config-table',
+    templateUrl: './lab-view-config-table.component.html',
+    styleUrls: ['./lab-view-config-table.component.scss'],
+    standalone: false
 })
 export class LabViewConfigTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<LabViewConfig>;

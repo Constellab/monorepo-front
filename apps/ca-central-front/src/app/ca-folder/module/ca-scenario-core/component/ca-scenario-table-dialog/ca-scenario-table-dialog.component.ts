@@ -9,9 +9,10 @@ export interface CaScenariosListDialogInput {
 }
 
 @Component({
-  selector: 'ca-scenarios-table-dialog',
-  templateUrl: './ca-scenario-table-dialog.component.html',
-  styleUrl: './ca-scenario-table-dialog.component.scss',
+    selector: 'ca-scenarios-table-dialog',
+    templateUrl: './ca-scenario-table-dialog.component.html',
+    styleUrl: './ca-scenario-table-dialog.component.scss',
+    standalone: false
 })
 export class CaScenarioTableDialogComponent {
   scenarios: FlArrayObs<CaScenario>;

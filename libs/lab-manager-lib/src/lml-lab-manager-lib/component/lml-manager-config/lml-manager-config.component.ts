@@ -8,9 +8,10 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
  * Component to configure the lab (bricks)
  */
 @Component({
-  selector: 'lml-manager-config',
-  templateUrl: './lml-manager-config.component.html',
-  styleUrls: ['./lml-manager-config.component.scss'],
+    selector: 'lml-manager-config',
+    templateUrl: './lml-manager-config.component.html',
+    styleUrls: ['./lml-manager-config.component.scss'],
+    standalone: false
 })
 export class LmlManagerConfigComponent implements OnInit, OnDestroy {
   brickVersions: LmlBrickVersionDTODatasource;

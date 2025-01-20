@@ -19,9 +19,10 @@ import {
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
 
 @Component({
-  selector: 'lab-resource-detail-header',
-  templateUrl: './lab-resource-detail-header.component.html',
-  styleUrls: ['./lab-resource-detail-header.component.scss'],
+    selector: 'lab-resource-detail-header',
+    templateUrl: './lab-resource-detail-header.component.html',
+    styleUrls: ['./lab-resource-detail-header.component.scss'],
+    standalone: false
 })
 export class LabResourceDetailHeaderComponent {
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';

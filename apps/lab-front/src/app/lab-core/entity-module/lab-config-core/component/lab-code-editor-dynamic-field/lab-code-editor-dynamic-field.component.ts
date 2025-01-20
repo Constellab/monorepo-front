@@ -7,9 +7,10 @@ import { TdParamSpecType } from '@monorepo/technical-doc';
  * code editor.
  */
 @Component({
-  selector: 'lab-code-editor-dynamic-field',
-  templateUrl: './lab-code-editor-dynamic-field.component.html',
-  styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
+    selector: 'lab-code-editor-dynamic-field',
+    templateUrl: './lab-code-editor-dynamic-field.component.html',
+    styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
+    standalone: false
 })
 export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() specType: TdParamSpecType;

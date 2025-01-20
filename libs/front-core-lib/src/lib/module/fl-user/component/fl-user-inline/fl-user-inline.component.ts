@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FlUser } from '../../model/fl-user.class';
 
 @Component({
-  selector: 'fl-user-inline',
-  templateUrl: './fl-user-inline.component.html',
-  styleUrls: ['./fl-user-inline.component.scss'],
+    selector: 'fl-user-inline',
+    templateUrl: './fl-user-inline.component.html',
+    styleUrls: ['./fl-user-inline.component.scss'],
+    standalone: false
 })
 export class FlUserInlineComponent implements OnInit {
   @Input({ required: true }) user: FlUser;

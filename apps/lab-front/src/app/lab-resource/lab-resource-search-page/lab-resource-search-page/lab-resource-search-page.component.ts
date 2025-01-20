@@ -4,8 +4,9 @@ import { Component } from '@angular/core';
  * Page to search and navigate in resources
  */
 @Component({
-  selector: 'lab-resource-search-page',
-  templateUrl: './lab-resource-search-page.component.html',
-  styleUrls: ['./lab-resource-search-page.component.scss'],
+    selector: 'lab-resource-search-page',
+    templateUrl: './lab-resource-search-page.component.html',
+    styleUrls: ['./lab-resource-search-page.component.scss'],
+    standalone: false
 })
 export class LabResourceSearchPageComponent {}

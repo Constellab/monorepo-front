@@ -18,9 +18,10 @@ import { map } from 'rxjs/operators';
  * Show all the information about a space
  */
 @Component({
-  selector: 'ca-current-space-detail',
-  templateUrl: './ca-current-space-detail.component.html',
-  styleUrls: ['./ca-current-space-detail.component.scss'],
+    selector: 'ca-current-space-detail',
+    templateUrl: './ca-current-space-detail.component.html',
+    styleUrls: ['./ca-current-space-detail.component.scss'],
+    standalone: false
 })
 export class CaCurrentSpaceDetailComponent implements OnInit {
   @Input() spaceSettings: CaSpaceSettingsDto;

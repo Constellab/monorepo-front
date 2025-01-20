@@ -18,9 +18,10 @@ export enum HaSmallScreenPossibleRoute {
 }
 
 @Component({
-  selector: 'ha-small-screen-main',
-  templateUrl: './ha-small-screen-main.component.html',
-  styleUrls: ['./ha-small-screen-main.component.scss'],
+    selector: 'ha-small-screen-main',
+    templateUrl: './ha-small-screen-main.component.html',
+    styleUrls: ['./ha-small-screen-main.component.scss'],
+    standalone: false
 })
 export class HaSmallScreenMainComponent implements OnInit {
   @Input({ required: true })

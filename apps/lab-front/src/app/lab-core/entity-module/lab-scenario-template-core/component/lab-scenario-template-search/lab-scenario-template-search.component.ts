@@ -20,10 +20,11 @@ import {
 import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
-  selector: 'lab-scenario-template-search',
-  templateUrl: './lab-scenario-template-search.component.html',
-  styleUrls: ['./lab-scenario-template-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-scenario-template-search',
+    templateUrl: './lab-scenario-template-search.component.html',
+    styleUrls: ['./lab-scenario-template-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabScenarioTemplateSearchComponent implements OnInit {
   @Input() rowSelectable: boolean = false;

@@ -28,9 +28,10 @@ export interface LabResourceViewPortalInput {
  * Portal to show a resource view
  */
 @Component({
-  selector: 'lab-resource-view-portal',
-  templateUrl: './lab-resource-view-portal.component.html',
-  styleUrls: ['./lab-resource-view-portal.component.scss'],
+    selector: 'lab-resource-view-portal',
+    templateUrl: './lab-resource-view-portal.component.html',
+    styleUrls: ['./lab-resource-view-portal.component.scss'],
+    standalone: false
 })
 export class LabResourceViewPortalComponent {
   labView: LabResourceView;

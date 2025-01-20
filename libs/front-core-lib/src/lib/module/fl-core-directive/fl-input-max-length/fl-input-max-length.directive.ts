@@ -8,9 +8,10 @@ import { FlPortalDefaultPosition } from '../../fl-portal/model/fl-portal.class';
  * the limit, it display a quick tooltip to warn the user that the limit has been reached
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'input[flInputMaxLength], textarea[flInputMaxLength]',
-  providers: [FlTooltipService],
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'input[flInputMaxLength], textarea[flInputMaxLength]',
+    providers: [FlTooltipService],
+    standalone: false
 })
 export class FlInputMaxLengthDirective implements OnInit, OnDestroy {
   /**

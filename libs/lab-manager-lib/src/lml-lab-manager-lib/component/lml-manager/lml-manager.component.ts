@@ -9,9 +9,10 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
  * LmlLabManagerService must be provided
  */
 @Component({
-  selector: 'lml-manager',
-  templateUrl: './lml-manager.component.html',
-  styleUrls: ['./lml-manager.component.scss'],
+    selector: 'lml-manager',
+    templateUrl: './lml-manager.component.html',
+    styleUrls: ['./lml-manager.component.scss'],
+    standalone: false
 })
 export class LmlManagerComponent implements OnInit, OnDestroy {
 

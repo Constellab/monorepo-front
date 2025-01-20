@@ -12,9 +12,10 @@ import {
 import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
-  selector: 'ca-server-cloud-table',
-  templateUrl: './ca-server-cloud-table.component.html',
-  styleUrls: ['./ca-server-cloud-table.component.scss'],
+    selector: 'ca-server-cloud-table',
+    templateUrl: './ca-server-cloud-table.component.html',
+    styleUrls: ['./ca-server-cloud-table.component.scss'],
+    standalone: false
 })
 export class CaServerCloudTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<CaServerCloud>;

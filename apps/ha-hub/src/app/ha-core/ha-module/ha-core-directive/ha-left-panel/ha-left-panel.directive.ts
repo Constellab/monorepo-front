@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[haLeftPanel]',
+    selector: '[haLeftPanel]',
+    standalone: false
 })
 export class HaLeftPanelDirective {
   @HostListener('document:click', ['$event'])

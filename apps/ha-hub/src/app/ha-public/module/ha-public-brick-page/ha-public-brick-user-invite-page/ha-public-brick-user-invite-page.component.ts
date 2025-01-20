@@ -4,9 +4,10 @@ import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service'
 import { HaBrickCoAuthorInvite } from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 
 @Component({
-  selector: 'ha-ha-public-brick-user-invite-page',
-  templateUrl: './ha-public-brick-user-invite-page.component.html',
-  styleUrls: ['./ha-public-brick-user-invite-page.component.scss'],
+    selector: 'ha-ha-public-brick-user-invite-page',
+    templateUrl: './ha-public-brick-user-invite-page.component.html',
+    styleUrls: ['./ha-public-brick-user-invite-page.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickUserInvitePageComponent implements OnInit {
   token: string;

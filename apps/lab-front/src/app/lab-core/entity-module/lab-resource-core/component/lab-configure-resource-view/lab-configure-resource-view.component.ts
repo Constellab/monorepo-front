@@ -40,14 +40,15 @@ export interface LabConfigureResourceViewOutput {
  * Portal to configure resource view spec
  */
 @Component({
-  selector: 'lab-configure-resource-view',
-  templateUrl: './lab-configure-resource-view.component.html',
-  styleUrls: ['./lab-configure-resource-view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    // configure the dynamic field to support tags and other custom fields
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-  ],
+    selector: 'lab-configure-resource-view',
+    templateUrl: './lab-configure-resource-view.component.html',
+    styleUrls: ['./lab-configure-resource-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        // configure the dynamic field to support tags and other custom fields
+        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+    ],
+    standalone: false
 })
 export class LabConfigureResourceViewComponent implements OnInit {
   input: LabConfigureResourceViewInput = inject(FL_PORTAL_DATA);

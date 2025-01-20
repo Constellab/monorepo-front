@@ -12,9 +12,10 @@ import {
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
 
 @Component({
-  selector: 'ca-admin-server-standard-list',
-  templateUrl: './ca-admin-server-standard-list.component.html',
-  styleUrl: './ca-admin-server-standard-list.component.scss',
+    selector: 'ca-admin-server-standard-list',
+    templateUrl: './ca-admin-server-standard-list.component.html',
+    styleUrl: './ca-admin-server-standard-list.component.scss',
+    standalone: false
 })
 export class CaAdminServerStandardListComponent {
   serverStandards: CaServerStandardDatasource = this.serverService.findAllServerStandardDatasource();

@@ -6,9 +6,10 @@ import { CoIconService } from '../../service/co-icon.service';
 import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'co-icon-list',
-  templateUrl: './co-icon-list.component.html',
-  styleUrl: './co-icon-list.component.scss',
+    selector: 'co-icon-list',
+    templateUrl: './co-icon-list.component.html',
+    styleUrl: './co-icon-list.component.scss',
+    standalone: false
 })
 export class CoIconListComponent implements OnInit, OnDestroy {
   @Input()

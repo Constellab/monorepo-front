@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Return the flag image path based on country short name (fr, en, es, ...)
  */
 @Pipe({
-  name: 'caCountryFlag',
+    name: 'caCountryFlag',
+    standalone: false
 })
 export class CaCountryFlagPipe implements PipeTransform {
   transform(countryShortName: string): string {

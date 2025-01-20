@@ -6,7 +6,8 @@ import { LabEnvStore } from '../service/lab-env.store';
  * Template directive to show the content only if the environment is dev
  */
 @Directive({
-  selector: '[labEnvDev]',
+    selector: '[labEnvDev]',
+    standalone: false
 })
 export class LabEnvDevDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(

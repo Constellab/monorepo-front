@@ -6,9 +6,10 @@ import { CaLabHelper } from '../../../../../ca-core/utils/ca-lab.helper';
  * Detail card of the scenario used in the scenario page
  */
 @Component({
-  selector: 'ca-scenario-card-detail',
-  templateUrl: './ca-scenario-card-detail.component.html',
-  styleUrls: ['./ca-scenario-card-detail.component.scss'],
+    selector: 'ca-scenario-card-detail',
+    templateUrl: './ca-scenario-card-detail.component.html',
+    styleUrls: ['./ca-scenario-card-detail.component.scss'],
+    standalone: false
 })
 export class CaScenarioCardDetailComponent {
   scenario = input.required<CaScenario>();

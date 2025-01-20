@@ -6,9 +6,10 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ca-note-content-view',
-  templateUrl: './ca-note-content-view.component.html',
-  styleUrls: ['./ca-note-content-view.component.scss'],
+    selector: 'ca-note-content-view',
+    templateUrl: './ca-note-content-view.component.html',
+    styleUrls: ['./ca-note-content-view.component.scss'],
+    standalone: false
 })
 export class CaNoteContentViewComponent extends TeElementBlockDirective {
   view$: Observable<RvResourceView>;

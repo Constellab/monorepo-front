@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
  * Child of the <fl-card-header> {@link FlCardHeaderComponent}
  */
 @Component({
-  selector: 'fl-card-actions',
-  templateUrl: './fl-card-actions.component.html',
-  styleUrls: ['./fl-card-actions.component.scss'],
+    selector: 'fl-card-actions',
+    templateUrl: './fl-card-actions.component.html',
+    styleUrls: ['./fl-card-actions.component.scss'],
+    standalone: false
 })
 export class FlCardActionsComponent implements OnInit {
   constructor() {}

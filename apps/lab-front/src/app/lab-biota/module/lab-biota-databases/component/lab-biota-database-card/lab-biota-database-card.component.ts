@@ -6,9 +6,10 @@ import { LabBiotaDatabase } from '../../../../model/lab-biota-database.class';
  * Card to display a database and load the database entries count
  */
 @Component({
-  selector: 'lab-biota-database-card',
-  templateUrl: './lab-biota-database-card.component.html',
-  styleUrls: ['./lab-biota-database-card.component.scss'],
+    selector: 'lab-biota-database-card',
+    templateUrl: './lab-biota-database-card.component.html',
+    styleUrls: ['./lab-biota-database-card.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabaseCardComponent implements OnInit {
   @Input() database: LabBiotaDatabase;

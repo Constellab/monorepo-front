@@ -13,9 +13,10 @@ export interface CaLabManagerUpdateDialogInput {
  * Simple dialog to choose the version of the lab manager to install.
  */
 @Component({
-  selector: 'ca-lab-manager-update-dialog',
-  templateUrl: './ca-lab-manager-update-dialog.component.html',
-  styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
+    selector: 'ca-lab-manager-update-dialog',
+    templateUrl: './ca-lab-manager-update-dialog.component.html',
+    styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabManagerUpdateDialogComponent implements OnInit {
   input: CaLabManagerUpdateDialogInput;

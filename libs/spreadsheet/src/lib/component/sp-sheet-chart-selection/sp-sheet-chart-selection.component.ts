@@ -40,10 +40,11 @@ import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
  * Modal component to select value from the spreadsheet to draw a chart
  */
 @Component({
-  selector: 'sp-sheet-chart-selection',
-  templateUrl: './sp-sheet-chart-selection.component.html',
-  styleUrls: ['./sp-sheet-chart-selection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-sheet-chart-selection',
+    templateUrl: './sp-sheet-chart-selection.component.html',
+    styleUrls: ['./sp-sheet-chart-selection.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
   formGp = new FormBuilder().group({

@@ -23,9 +23,10 @@ export interface LabValidateObjectDialogInput {
  * This works for scenarios and notes
  */
 @Component({
-  selector: 'lab-validate-object-dialog',
-  templateUrl: './lab-validate-object-dialog.component.html',
-  styleUrls: ['./lab-validate-object-dialog.component.scss'],
+    selector: 'lab-validate-object-dialog',
+    templateUrl: './lab-validate-object-dialog.component.html',
+    styleUrls: ['./lab-validate-object-dialog.component.scss'],
+    standalone: false
 })
 export class LabValidateObjectDialogComponent implements OnInit {
   title: string;

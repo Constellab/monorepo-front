@@ -10,9 +10,10 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-  selector: 'ha-icons-page',
-  templateUrl: './ha-icons-page.component.html',
-  styleUrls: ['./ha-icons-page.component.scss'],
+    selector: 'ha-icons-page',
+    templateUrl: './ha-icons-page.component.html',
+    styleUrls: ['./ha-icons-page.component.scss'],
+    standalone: false
 })
 export class HaIconsPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);

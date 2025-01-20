@@ -9,9 +9,10 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 
 @Component({
-  selector: 'lab-activity-table',
-  templateUrl: './lab-activity-table.component.html',
-  styleUrls: ['./lab-activity-table.component.scss'],
+    selector: 'lab-activity-table',
+    templateUrl: './lab-activity-table.component.html',
+    styleUrls: ['./lab-activity-table.component.scss'],
+    standalone: false
 })
 export class LabActivityTableComponent {
   @Input({ required: true }) datasource: LabActivityDatasource<any>;

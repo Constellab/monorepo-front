@@ -19,9 +19,10 @@ interface CaBucketLocationList {
 export type CaBucketLocationSelectMode = 'all' | 'cloud';
 
 @Component({
-  selector: 'ca-bucket-location-select-options',
-  templateUrl: './ca-bucket-location-select-options.component.html',
-  styleUrls: ['./ca-bucket-location-select-options.component.scss'],
+    selector: 'ca-bucket-location-select-options',
+    templateUrl: './ca-bucket-location-select-options.component.html',
+    styleUrls: ['./ca-bucket-location-select-options.component.scss'],
+    standalone: false
 })
 export class CaBucketLocationSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

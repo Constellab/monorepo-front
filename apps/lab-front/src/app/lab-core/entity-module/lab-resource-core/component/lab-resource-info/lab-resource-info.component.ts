@@ -13,9 +13,10 @@ import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
  * Component to show info about a resource
  */
 @Component({
-  selector: 'lab-resource-info',
-  templateUrl: './lab-resource-info.component.html',
-  styleUrls: ['./lab-resource-info.component.scss'],
+    selector: 'lab-resource-info',
+    templateUrl: './lab-resource-info.component.html',
+    styleUrls: ['./lab-resource-info.component.scss'],
+    standalone: false
 })
 export class LabResourceInfoComponent implements OnInit {
   @Input({ required: true }) resource: LabResource;

@@ -12,12 +12,13 @@ import {
  * Text editor block to show a timestamp
  */
 @Component({
-  selector: 'te-timestamp',
-  templateUrl: './te-timestamp.component.html',
-  styleUrl: './te-timestamp.component.scss',
-  host: {
-    'attr.contenteditable': 'false',
-  },
+    selector: 'te-timestamp',
+    templateUrl: './te-timestamp.component.html',
+    styleUrl: './te-timestamp.component.scss',
+    host: {
+        'attr.contenteditable': 'false',
+    },
+    standalone: false
 })
 export class TeTimestampComponent extends TeElementBlockDirective {
   @Input({ required: true }) timestamp: DateTime;

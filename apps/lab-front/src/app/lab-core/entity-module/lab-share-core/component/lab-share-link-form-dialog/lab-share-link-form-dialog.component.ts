@@ -13,9 +13,10 @@ export interface LabShareLinkFormDialogInput extends FlFormDialogInput<LabShareL
 }
 
 @Component({
-  selector: 'lab-share-link-form-dialog',
-  templateUrl: './lab-share-link-form-dialog.component.html',
-  styleUrls: ['./lab-share-link-form-dialog.component.scss'],
+    selector: 'lab-share-link-form-dialog',
+    templateUrl: './lab-share-link-form-dialog.component.html',
+    styleUrls: ['./lab-share-link-form-dialog.component.scss'],
+    standalone: false
 })
 export class LabShareLinkFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<LabShareLink>, LabShareLink>

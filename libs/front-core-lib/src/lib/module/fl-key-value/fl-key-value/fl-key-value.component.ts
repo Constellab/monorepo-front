@@ -5,10 +5,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
  *  <fl-key-value><fl-key>{{'host' | translate}}</fl-key>{{serverCloud.host}}</fl-key-value>
  */
 @Component({
-  selector: 'fl-key-value',
-  templateUrl: './fl-key-value.component.html',
-  styleUrls: ['./fl-key-value.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-key-value',
+    templateUrl: './fl-key-value.component.html',
+    styleUrls: ['./fl-key-value.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlKeyValueComponent implements OnInit {
   constructor() {}

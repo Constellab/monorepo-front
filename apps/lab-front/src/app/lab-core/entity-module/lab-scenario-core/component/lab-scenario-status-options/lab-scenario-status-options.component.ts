@@ -4,9 +4,10 @@ import { labScenarioStatusDict } from '../../../../model/entities/lab-scenario.e
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'lab-scenario-status-options',
-  templateUrl: './lab-scenario-status-options.component.html',
-  styleUrls: ['./lab-scenario-status-options.component.scss'],
+    selector: 'lab-scenario-status-options',
+    templateUrl: './lab-scenario-status-options.component.html',
+    styleUrls: ['./lab-scenario-status-options.component.scss'],
+    standalone: false
 })
 export class LabScenarioStatusOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

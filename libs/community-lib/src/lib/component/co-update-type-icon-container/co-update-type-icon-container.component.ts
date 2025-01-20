@@ -2,9 +2,10 @@ import { Component, EventEmitter, HostBinding, input, Input, Output } from '@ang
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
-  selector: 'co-update-type-icon-container',
-  templateUrl: './co-update-type-icon-container.component.html',
-  styleUrl: './co-update-type-icon-container.component.scss',
+    selector: 'co-update-type-icon-container',
+    templateUrl: './co-update-type-icon-container.component.html',
+    styleUrl: './co-update-type-icon-container.component.scss',
+    standalone: false
 })
 export class CoUpdateTypeIconContainerComponent {
   style = input.required<TdTypeStyle>();

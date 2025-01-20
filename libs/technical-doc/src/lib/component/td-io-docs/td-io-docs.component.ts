@@ -8,9 +8,10 @@ export interface TdDocIOUpdateEvent {
 }
 
 @Component({
-  selector: 'td-io-docs',
-  templateUrl: './td-io-docs.component.html',
-  styleUrls: ['./td-io-docs.component.scss'],
+    selector: 'td-io-docs',
+    templateUrl: './td-io-docs.component.html',
+    styleUrls: ['./td-io-docs.component.scss'],
+    standalone: false
 })
 export class TdIoDocsComponent {
   @Input() ioSpecs: TdIOSpecs;

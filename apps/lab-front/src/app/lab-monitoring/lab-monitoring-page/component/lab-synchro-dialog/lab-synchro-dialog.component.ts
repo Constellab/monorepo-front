@@ -13,9 +13,10 @@ interface LabSynchroForm {
  * Dialog to choose open to synchronize lab
  */
 @Component({
-  selector: 'lab-synchro-dialog',
-  templateUrl: './lab-synchro-dialog.component.html',
-  styleUrls: ['./lab-synchro-dialog.component.scss'],
+    selector: 'lab-synchro-dialog',
+    templateUrl: './lab-synchro-dialog.component.html',
+    styleUrls: ['./lab-synchro-dialog.component.scss'],
+    standalone: false
 })
 export class LabSynchroDialogComponent {
   formGp = new FormBuilder().group<LabSynchroForm>({

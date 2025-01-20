@@ -9,9 +9,10 @@ import {
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 
 @Component({
-  selector: 'ca-lab-green-options',
-  templateUrl: './ca-lab-green-options.component.html',
-  styleUrls: ['./ca-lab-green-options.component.scss'],
+    selector: 'ca-lab-green-options',
+    templateUrl: './ca-lab-green-options.component.html',
+    styleUrls: ['./ca-lab-green-options.component.scss'],
+    standalone: false
 })
 export class CaLabGreenOptionsComponent implements OnInit {
   labGreenOptions$: FlArrayObs<CaLabGreenOption>;

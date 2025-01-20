@@ -7,9 +7,10 @@ import { FlInfiniteScrollMode } from '../../directive/fl-infinite-scroll/fl-infi
  * It handle the getNextPage automatically and add a button to load more result
  */
 @Component({
-  selector: 'fl-infinite-scroll',
-  templateUrl: './fl-infinite-scroll.component.html',
-  styleUrls: ['./fl-infinite-scroll.component.scss'],
+    selector: 'fl-infinite-scroll',
+    templateUrl: './fl-infinite-scroll.component.html',
+    styleUrls: ['./fl-infinite-scroll.component.scss'],
+    standalone: false
 })
 export class FlInfiniteScrollComponent implements OnInit {
   @Input() datasource: FlDatasourcePaginated<any, any>;

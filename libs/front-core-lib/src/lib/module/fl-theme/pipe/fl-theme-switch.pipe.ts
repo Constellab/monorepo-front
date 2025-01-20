@@ -6,7 +6,8 @@ import { FlThemeService } from '../fl-theme.service';
  * Pipe to switch between two values depending on the theme
  */
 @Pipe({
-  name: 'flThemeSwitch',
+    name: 'flThemeSwitch',
+    standalone: false
 })
 export class FlThemeSwitchPipe<T> implements PipeTransform {
   constructor(private themeService: FlThemeService) {}

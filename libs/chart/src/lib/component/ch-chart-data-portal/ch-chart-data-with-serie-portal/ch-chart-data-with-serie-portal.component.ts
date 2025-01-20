@@ -16,10 +16,11 @@ export interface ChChartDataWithSeriePortalInput {
  * Simple portal to show a data with its serie.
  */
 @Component({
-  selector: 'ch-chart-data-with-serie-portal',
-  templateUrl: './ch-chart-data-with-serie-portal.component.html',
-  styleUrls: ['./ch-chart-data-with-serie-portal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ch-chart-data-with-serie-portal',
+    templateUrl: './ch-chart-data-with-serie-portal.component.html',
+    styleUrls: ['./ch-chart-data-with-serie-portal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ChChartDataWithSeriePortalComponent {
   data: ChChartDataWithSerie<ChChart2dDatum>;

@@ -28,9 +28,10 @@ import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
-  selector: 'ha-public-doc',
-  templateUrl: './ha-public-doc.component.html',
-  styleUrls: ['./ha-public-doc.component.scss'],
+    selector: 'ha-public-doc',
+    templateUrl: './ha-public-doc.component.html',
+    styleUrls: ['./ha-public-doc.component.scss'],
+    standalone: false
 })
 export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private brickService: HaBrickService = inject(HaBrickService);

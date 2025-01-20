@@ -12,10 +12,11 @@ import { FlInputSearchFilter } from '../../../fl-input-search/component/fl-input
  * It uses the FlInputSearchComponent to search for users.
  */
 @Component({
-  selector: 'fl-select-user',
-  templateUrl: './fl-select-user.component.html',
-  styleUrls: ['./fl-select-user.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
+    selector: 'fl-select-user',
+    templateUrl: './fl-select-user.component.html',
+    styleUrls: ['./fl-select-user.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
+    standalone: false
 })
 export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {
   @Input() placeholder: string;

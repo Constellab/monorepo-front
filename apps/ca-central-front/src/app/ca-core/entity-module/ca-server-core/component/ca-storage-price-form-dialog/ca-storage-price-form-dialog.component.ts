@@ -9,9 +9,10 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-  selector: 'ca-storage-price-form-dialog',
-  templateUrl: './ca-storage-price-form-dialog.component.html',
-  styleUrl: './ca-storage-price-form-dialog.component.scss',
+    selector: 'ca-storage-price-form-dialog',
+    templateUrl: './ca-storage-price-form-dialog.component.html',
+    styleUrl: './ca-storage-price-form-dialog.component.scss',
+    standalone: false
 })
 export class CaStoragePriceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice>

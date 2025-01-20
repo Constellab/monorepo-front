@@ -7,9 +7,10 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * as tabs in the top of the page
  */
 @Component({
-  selector: 'lab-resource-children-tabs',
-  templateUrl: './lab-resource-children-tabs.component.html',
-  styleUrls: ['./lab-resource-children-tabs.component.scss'],
+    selector: 'lab-resource-children-tabs',
+    templateUrl: './lab-resource-children-tabs.component.html',
+    styleUrls: ['./lab-resource-children-tabs.component.scss'],
+    standalone: false
 })
 export class LabResourceChildrenTabsComponent implements DoCheck {
   @ViewChild('scrollableElement', { static: true }) scrollableElement: ElementRef<HTMLElement>;

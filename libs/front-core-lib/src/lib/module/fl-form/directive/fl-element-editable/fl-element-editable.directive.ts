@@ -13,7 +13,8 @@ import { ClDateHelper } from '@monorepo/core-lib';
 import { FlKeyboardKey } from '../../../../utils/fl-keyboard.helper';
 
 @Directive({
-  selector: '[flElementEditable]',
+    selector: '[flElementEditable]',
+    standalone: false
 })
 export class FlElementEditableDirective {
   /**

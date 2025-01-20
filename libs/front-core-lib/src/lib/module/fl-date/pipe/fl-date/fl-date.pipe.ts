@@ -11,7 +11,8 @@ export type ClDateFormatKey = keyof typeof ClDateFormat | string;
  * Support preset : https://moment.github.io/luxon/#/formatting?id=presets
  */
 @Pipe({
-  name: 'flDate',
+    name: 'flDate',
+    standalone: false
 })
 export class FlDatePipe implements PipeTransform {
   transform(value: ClDateInput, format: ClDateFormatKey = 'DATE'): string {

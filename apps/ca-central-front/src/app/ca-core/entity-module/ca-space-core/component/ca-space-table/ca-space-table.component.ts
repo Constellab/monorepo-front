@@ -4,9 +4,10 @@ import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 
 @Component({
-  selector: 'ca-space-table',
-  templateUrl: './ca-space-table.component.html',
-  styleUrls: ['./ca-space-table.component.scss'],
+    selector: 'ca-space-table',
+    templateUrl: './ca-space-table.component.html',
+    styleUrls: ['./ca-space-table.component.scss'],
+    standalone: false
 })
 export class CaSpaceTableComponent {
   @Input({ required: true }) datasource: FlDatasource<CaSpace>;

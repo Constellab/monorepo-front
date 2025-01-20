@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TdIOSpec } from '../../model/td-process-type.class';
 
 @Component({
-  selector: 'td-doc-io',
-  templateUrl: './td-doc-io.component.html',
-  styleUrls: ['./td-doc-io.component.scss'],
+    selector: 'td-doc-io',
+    templateUrl: './td-doc-io.component.html',
+    styleUrls: ['./td-doc-io.component.scss'],
+    standalone: false
 })
 export class TdDocIoComponent {
   @Input() ioSpec: TdIOSpec;

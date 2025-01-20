@@ -11,9 +11,10 @@ import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
  * Component to show global information about the lab status
  */
 @Component({
-  selector: 'ca-lab-global-status',
-  templateUrl: './ca-lab-global-status.component.html',
-  styleUrls: ['./ca-lab-global-status.component.scss'],
+    selector: 'ca-lab-global-status',
+    templateUrl: './ca-lab-global-status.component.html',
+    styleUrls: ['./ca-lab-global-status.component.scss'],
+    standalone: false
 })
 export class CaLabGlobalStatusComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

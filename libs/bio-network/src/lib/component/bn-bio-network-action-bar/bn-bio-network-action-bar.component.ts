@@ -13,10 +13,11 @@ import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection
  * Component inside the {@link BnBioNetworkComponent} to show the quick actions
  */
 @Component({
-  selector: 'bn-bio-network-action-bar',
-  templateUrl: './bn-bio-network-action-bar.component.html',
-  styleUrls: ['./bn-bio-network-action-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-action-bar',
+    templateUrl: './bn-bio-network-action-bar.component.html',
+    styleUrls: ['./bn-bio-network-action-bar.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkActionBarComponent implements OnInit {
   isReady: boolean = false;

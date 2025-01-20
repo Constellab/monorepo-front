@@ -6,10 +6,11 @@ import { BnBioNetworkHelper } from '../../utils/bn-bio-network.helper';
  * Show the information about a reaction flux
  */
 @Component({
-  selector: 'bn-bio-network-reaction-flux',
-  templateUrl: './bn-bio-network-reaction-flux.component.html',
-  styleUrls: ['./bn-bio-network-reaction-flux.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-reaction-flux',
+    templateUrl: './bn-bio-network-reaction-flux.component.html',
+    styleUrls: ['./bn-bio-network-reaction-flux.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkReactionFluxComponent implements OnInit {
   @Input() reaction: BnBioNetworkReaction;

@@ -18,10 +18,11 @@ import { Observable } from 'rxjs';
  * Table to show resource with possibility actions on resource and a select mode
  */
 @Component({
-  selector: 'lab-resource-table',
-  templateUrl: './lab-resource-table.component.html',
-  styleUrls: ['./lab-resource-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-resource-table',
+    templateUrl: './lab-resource-table.component.html',
+    styleUrls: ['./lab-resource-table.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabResourceTableComponent implements OnInit {
   @Input({ required: true }) datasource: FlArrayObs<LabResource>;

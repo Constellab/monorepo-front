@@ -5,9 +5,10 @@ import { MatDrawer } from '@angular/material/sidenav';
  * Component to be placed under a mat-sidenav or mat-drawer. It will open the drawer on mouse hover.
  */
 @Component({
-  selector: 'fl-drawer-opener',
-  templateUrl: './fl-drawer-opener.component.html',
-  styleUrls: ['./fl-drawer-opener.component.scss'],
+    selector: 'fl-drawer-opener',
+    templateUrl: './fl-drawer-opener.component.html',
+    styleUrls: ['./fl-drawer-opener.component.scss'],
+    standalone: false
 })
 export class FlDrawerOpenerComponent {
   @Input() drawer: MatDrawer;

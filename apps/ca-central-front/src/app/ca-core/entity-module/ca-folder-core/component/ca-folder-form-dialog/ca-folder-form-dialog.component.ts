@@ -17,9 +17,10 @@ export interface CaFolderFormDialogInput {
  * Dialog to create or update a folder
  */
 @Component({
-  selector: 'ca-folder-form-dialog',
-  templateUrl: './ca-folder-form-dialog.component.html',
-  styleUrls: ['./ca-folder-form-dialog.component.scss'],
+    selector: 'ca-folder-form-dialog',
+    templateUrl: './ca-folder-form-dialog.component.html',
+    styleUrls: ['./ca-folder-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaFolderFormDialogComponent
   extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder>

@@ -16,10 +16,11 @@ import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaSelectServerCloudDialogComponent } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
 
 @Component({
-  selector: 'ca-select-server-cloud',
-  templateUrl: './ca-select-server-cloud.component.html',
-  styleUrl: './ca-select-server-cloud.component.scss',
-  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
+    selector: 'ca-select-server-cloud',
+    templateUrl: './ca-select-server-cloud.component.html',
+    styleUrl: './ca-select-server-cloud.component.scss',
+    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
+    standalone: false
 })
 export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {
   @Output() serverChange: EventEmitter<CaServerCloud> = new EventEmitter();

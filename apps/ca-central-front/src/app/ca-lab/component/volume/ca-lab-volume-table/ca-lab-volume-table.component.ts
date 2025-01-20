@@ -7,9 +7,10 @@ import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@m
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 
 @Component({
-  selector: 'ca-lab-volume-table',
-  templateUrl: './ca-lab-volume-table.component.html',
-  styleUrl: './ca-lab-volume-table.component.scss',
+    selector: 'ca-lab-volume-table',
+    templateUrl: './ca-lab-volume-table.component.html',
+    styleUrl: './ca-lab-volume-table.component.scss',
+    standalone: false
 })
 export class CaLabVolumeTableComponent {
   @Input({ required: true }) labId: string;

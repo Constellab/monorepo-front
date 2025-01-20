@@ -12,10 +12,11 @@ import {
  * Component to show a folder inline with possibility to select another folder
  */
 @Component({
-  selector: 'lab-folder-inline-select',
-  templateUrl: './lab-folder-inline-select.component.html',
-  styleUrls: ['./lab-folder-inline-select.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
+    selector: 'lab-folder-inline-select',
+    templateUrl: './lab-folder-inline-select.component.html',
+    styleUrls: ['./lab-folder-inline-select.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
+    standalone: false
 })
 export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFolder> {
   @Input() updateFolderHelpText?: string;

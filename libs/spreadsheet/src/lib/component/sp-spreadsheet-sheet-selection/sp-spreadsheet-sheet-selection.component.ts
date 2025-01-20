@@ -9,10 +9,11 @@ import { FormControl } from '@angular/forms';
  * Component to show the list of sheets with possibility to select one
  */
 @Component({
-  selector: 'sp-spreadsheet-sheet-selection',
-  templateUrl: './sp-spreadsheet-sheet-selection.component.html',
-  styleUrls: ['./sp-spreadsheet-sheet-selection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-spreadsheet-sheet-selection',
+    templateUrl: './sp-spreadsheet-sheet-selection.component.html',
+    styleUrls: ['./sp-spreadsheet-sheet-selection.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSpreadsheetSheetSelectionComponent implements OnInit {
   sheets$: Observable<SpSheet[]>;

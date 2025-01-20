@@ -12,9 +12,10 @@ import { Observable } from 'rxjs';
  * Component containing the button to sync a lab folder object with space
  */
 @Component({
-  selector: 'lab-sync-object-button',
-  templateUrl: './lab-sync-object-button.component.html',
-  styleUrls: ['./lab-sync-object-button.component.scss'],
+    selector: 'lab-sync-object-button',
+    templateUrl: './lab-sync-object-button.component.html',
+    styleUrls: ['./lab-sync-object-button.component.scss'],
+    standalone: false
 })
 export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
   @Input() object: T;

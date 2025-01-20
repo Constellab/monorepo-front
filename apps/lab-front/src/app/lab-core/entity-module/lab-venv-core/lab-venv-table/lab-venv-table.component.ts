@@ -13,9 +13,10 @@ import {
 import { LabVenvService } from '../../../entity-service/lab-venv.service';
 
 @Component({
-  selector: 'lab-venv-table',
-  templateUrl: './lab-venv-table.component.html',
-  styleUrls: ['./lab-venv-table.component.scss'],
+    selector: 'lab-venv-table',
+    templateUrl: './lab-venv-table.component.html',
+    styleUrls: ['./lab-venv-table.component.scss'],
+    standalone: false
 })
 export class LabVenvTableComponent {
   @Input() datasource: LabVenvArrayObs;

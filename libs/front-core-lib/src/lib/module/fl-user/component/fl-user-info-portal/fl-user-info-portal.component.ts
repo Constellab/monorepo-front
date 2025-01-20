@@ -7,9 +7,10 @@ import { FlUserConfig } from '../../service/fl-user-config.config';
  * Simple portal to show the user information
  */
 @Component({
-  selector: 'fl-user-info-portal',
-  templateUrl: './fl-user-info-portal.component.html',
-  styleUrls: ['./fl-user-info-portal.component.scss'],
+    selector: 'fl-user-info-portal',
+    templateUrl: './fl-user-info-portal.component.html',
+    styleUrls: ['./fl-user-info-portal.component.scss'],
+    standalone: false
 })
 export class FlUserInfoPortalComponent implements OnInit {
   user: FlUser = inject(FL_PORTAL_DATA);

@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
  * link a table
  */
 @Component({
-  selector: 'fl-search-result',
-  templateUrl: './fl-search-result.component.html',
-  styleUrls: ['./fl-search-result.component.scss'],
+    selector: 'fl-search-result',
+    templateUrl: './fl-search-result.component.html',
+    styleUrls: ['./fl-search-result.component.scss'],
+    standalone: false
 })
 export class FlSearchResultComponent implements OnInit {
   constructor() {}

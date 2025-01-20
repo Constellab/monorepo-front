@@ -8,9 +8,10 @@ import { ClDateFormatKey } from '../../pipe/fl-date/fl-date.pipe';
  * Support different mode where there is no start or end date
  */
 @Component({
-  selector: 'fl-date-range',
-  templateUrl: './fl-date-range.component.html',
-  styleUrls: ['./fl-date-range.component.scss'],
+    selector: 'fl-date-range',
+    templateUrl: './fl-date-range.component.html',
+    styleUrls: ['./fl-date-range.component.scss'],
+    standalone: false
 })
 export class FlDateRangeComponent implements OnInit {
   @ClOnChange(function (this: FlDateRangeComponent) {

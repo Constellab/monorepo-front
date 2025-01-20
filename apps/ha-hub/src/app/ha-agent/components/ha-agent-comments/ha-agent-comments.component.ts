@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ha-agent-comments',
-  templateUrl: './ha-agent-comments.component.html',
-  styleUrls: ['./ha-agent-comments.component.scss'],
+    selector: 'ha-agent-comments',
+    templateUrl: './ha-agent-comments.component.html',
+    styleUrls: ['./ha-agent-comments.component.scss'],
+    standalone: false
 })
 export class HaAgentCommentsComponent {}

@@ -7,9 +7,10 @@ import { FormGroup } from '@angular/forms';
  * Component to place under the {@link FlSearchComponent} and this contains the advanced search form
  */
 @Component({
-  selector: 'fl-search-advanced-form',
-  templateUrl: './fl-search-advanced-form.component.html',
-  styleUrls: ['./fl-search-advanced-form.component.scss'],
+    selector: 'fl-search-advanced-form',
+    templateUrl: './fl-search-advanced-form.component.html',
+    styleUrls: ['./fl-search-advanced-form.component.scss'],
+    standalone: false
 })
 export class FlSearchAdvancedFormComponent implements OnInit {
   formGp: FormGroup;

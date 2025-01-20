@@ -14,10 +14,11 @@ import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdBrick } from '@monorepo/technical-doc';
 
 @Component({
-  selector: 'lab-type-search',
-  templateUrl: './lab-type-search.component.html',
-  styleUrls: ['./lab-type-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-type-search',
+    templateUrl: './lab-type-search.component.html',
+    styleUrls: ['./lab-type-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabTypeSearchComponent implements OnInit {
   @Input() fullPageSearch: boolean = false;

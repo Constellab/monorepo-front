@@ -5,9 +5,10 @@ import { LabBiotaData } from '../../../../model/lab-biota-data.class';
  * Simple card for biota data
  */
 @Component({
-  selector: 'lab-biota-data-card',
-  templateUrl: './lab-biota-data-card.component.html',
-  styleUrls: ['./lab-biota-data-card.component.scss'],
+    selector: 'lab-biota-data-card',
+    templateUrl: './lab-biota-data-card.component.html',
+    styleUrls: ['./lab-biota-data-card.component.scss'],
+    standalone: false
 })
 export class LabBiotaDataCardComponent implements OnInit {
   @Input() biotaData: LabBiotaData;

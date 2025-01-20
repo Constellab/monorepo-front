@@ -18,9 +18,10 @@ import { FlMenuDynamic } from '@monorepo/front-core-lib';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'rv-resource-view',
-  templateUrl: './rv-resource-view.component.html',
-  styleUrls: ['./rv-resource-view.component.scss'],
+    selector: 'rv-resource-view',
+    templateUrl: './rv-resource-view.component.html',
+    styleUrls: ['./rv-resource-view.component.scss'],
+    standalone: false
 })
 export class RvResourceViewComponent implements OnInit, OnDestroy {
   @Input({ required: true }) set view(value: RvResourceViewBase) {

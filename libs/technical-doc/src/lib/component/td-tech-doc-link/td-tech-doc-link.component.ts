@@ -6,10 +6,11 @@ import {
 import { TdTypingName } from '../../model/td-typing-name.class';
 
 @Component({
-  selector: 'td-tech-doc-link',
-  templateUrl: './td-tech-doc-link.component.html',
-  styleUrls: ['./td-tech-doc-link.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'td-tech-doc-link',
+    templateUrl: './td-tech-doc-link.component.html',
+    styleUrls: ['./td-tech-doc-link.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TdTechDocLinkComponent {
   @Input({ required: true }) typingName: string;

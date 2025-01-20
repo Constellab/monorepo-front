@@ -8,9 +8,10 @@ import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
  * Form to call a login request using FlAuthService
  */
 @Component({
-  selector: 'fl-login',
-  templateUrl: './fl-login.component.html',
-  styleUrls: ['./fl-login.component.scss'],
+    selector: 'fl-login',
+    templateUrl: './fl-login.component.html',
+    styleUrls: ['./fl-login.component.scss'],
+    standalone: false
 })
 export class FlLoginComponent {
   @Output() loginSuccess: EventEmitter<FlAuthLoginResponse> = new EventEmitter<FlAuthLoginResponse>();

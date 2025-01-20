@@ -12,9 +12,10 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 
 @Component({
-  selector: 'ha-public-list-bricks-page',
-  templateUrl: './ha-public-list-bricks-page.component.html',
-  styleUrls: ['./ha-public-list-bricks-page.component.scss'],
+    selector: 'ha-public-list-bricks-page',
+    templateUrl: './ha-public-list-bricks-page.component.html',
+    styleUrls: ['./ha-public-list-bricks-page.component.scss'],
+    standalone: false
 })
 export class HaPublicListBricksPageComponent extends HaCommunityPage implements OnInit {
   private haBrickService: HaBrickService = inject(HaBrickService);

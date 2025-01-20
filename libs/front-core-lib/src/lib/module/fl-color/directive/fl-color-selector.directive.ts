@@ -10,7 +10,8 @@ import { FlColorSelectorPortalComponent } from '../component/fl-color-selector-p
  * Support double binding with [(flColorSelector)]
  */
 @Directive({
-  selector: '[flColorSelector]',
+    selector: '[flColorSelector]',
+    standalone: false
 })
 export class FlColorSelectorDirective {
   @Input() flColorSelector: string;

@@ -15,9 +15,10 @@ import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-in
  * List the invitations of the space
  */
 @Component({
-  selector: 'ca-current-space-invit-list',
-  templateUrl: './ca-current-space-invit-list.component.html',
-  styleUrls: ['./ca-current-space-invit-list.component.scss'],
+    selector: 'ca-current-space-invit-list',
+    templateUrl: './ca-current-space-invit-list.component.html',
+    styleUrls: ['./ca-current-space-invit-list.component.scss'],
+    standalone: false
 })
 export class CaCurrentSpaceInvitListComponent implements OnInit {
   invitations: CaSpaceInvitDatasource;

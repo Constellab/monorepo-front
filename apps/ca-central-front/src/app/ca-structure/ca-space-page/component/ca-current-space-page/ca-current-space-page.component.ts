@@ -6,9 +6,10 @@ import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-curren
 import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-current-space-page',
-  templateUrl: './ca-current-space-page.component.html',
-  styleUrls: ['./ca-current-space-page.component.scss'],
+    selector: 'ca-current-space-page',
+    templateUrl: './ca-current-space-page.component.html',
+    styleUrls: ['./ca-current-space-page.component.scss'],
+    standalone: false
 })
 export class CaCurrentSpacePageComponent implements OnInit {
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();

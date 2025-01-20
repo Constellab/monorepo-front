@@ -12,9 +12,10 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Action menu button to edit or delete a team
  */
 @Component({
-  selector: 'ca-team-action-menu',
-  templateUrl: './ca-team-action-menu.component.html',
-  styleUrls: ['./ca-team-action-menu.component.scss'],
+    selector: 'ca-team-action-menu',
+    templateUrl: './ca-team-action-menu.component.html',
+    styleUrls: ['./ca-team-action-menu.component.scss'],
+    standalone: false
 })
 export class CaTeamActionMenuComponent implements OnInit {
   @Input() team: CaGroup;

@@ -3,9 +3,10 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
 import { LabBiotaData } from '../../../model/lab-biota-data.class';
 
 @Component({
-  selector: 'lab-biota-database-table',
-  templateUrl: './lab-biota-database-table.component.html',
-  styleUrls: ['./lab-biota-database-table.component.scss'],
+    selector: 'lab-biota-database-table',
+    templateUrl: './lab-biota-database-table.component.html',
+    styleUrls: ['./lab-biota-database-table.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabaseTableComponent {
   @Input() datasource: FlDatasourcePaginated<LabBiotaData>;

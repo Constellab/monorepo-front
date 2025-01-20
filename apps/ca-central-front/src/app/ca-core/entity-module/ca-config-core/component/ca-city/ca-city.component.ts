@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CaCity } from '../../../../model/entities/ca-city.entity';
 
 @Component({
-  selector: 'ca-city',
-  templateUrl: './ca-city.component.html',
-  styleUrls: ['./ca-city.component.scss'],
+    selector: 'ca-city',
+    templateUrl: './ca-city.component.html',
+    styleUrls: ['./ca-city.component.scss'],
+    standalone: false
 })
 export class CaCityComponent implements OnInit {
   @Input() city: CaCity;

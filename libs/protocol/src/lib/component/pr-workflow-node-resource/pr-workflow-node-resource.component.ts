@@ -12,9 +12,10 @@ import {
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'pr-workflow-node-resource',
-  templateUrl: './pr-workflow-node-resource.component.html',
-  styleUrl: './pr-workflow-node-resource.component.scss',
+    selector: 'pr-workflow-node-resource',
+    templateUrl: './pr-workflow-node-resource.component.html',
+    styleUrl: './pr-workflow-node-resource.component.scss',
+    standalone: false
 })
 export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective implements OnInit {
   node: PrWorkflowNodeResource;

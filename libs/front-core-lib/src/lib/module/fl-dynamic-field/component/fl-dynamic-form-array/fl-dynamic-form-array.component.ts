@@ -8,10 +8,11 @@ import { ClHelpService } from '@monorepo/core-lib';
 
 // TODO: check if it's possible to replace getters by computed signals
 @Component({
-  selector: 'fl-dynamic-form-array',
-  templateUrl: './fl-dynamic-form-array.component.html',
-  styleUrls: ['./fl-dynamic-form-array.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-dynamic-form-array',
+    templateUrl: './fl-dynamic-form-array.component.html',
+    styleUrls: ['./fl-dynamic-form-array.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlDynamicFormArrayComponent implements OnInit, FlDynamicAbstractFormDirective {
   control = input<UntypedFormArray>();

@@ -7,9 +7,10 @@ import { MatSelect } from '@angular/material/select';
 export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | 'AZURE';
 
 @Component({
-  selector: 'ca-select-cloud-provider-region-options',
-  templateUrl: './ca-select-cloud-provider-region-options.component.html',
-  styleUrls: ['./ca-select-cloud-provider-region-options.component.scss'],
+    selector: 'ca-select-cloud-provider-region-options',
+    templateUrl: './ca-select-cloud-provider-region-options.component.html',
+    styleUrls: ['./ca-select-cloud-provider-region-options.component.scss'],
+    standalone: false
 })
 export class CaSelectCloudProviderRegionOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

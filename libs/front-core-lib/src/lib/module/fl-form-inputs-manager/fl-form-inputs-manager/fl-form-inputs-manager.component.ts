@@ -16,9 +16,10 @@ import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param'
  * /!\ It doesn't support FormArray
  */
 @Component({
-  selector: 'fl-form-inputs-manager',
-  templateUrl: './fl-form-inputs-manager.component.html',
-  styleUrls: ['./fl-form-inputs-manager.component.scss'],
+    selector: 'fl-form-inputs-manager',
+    templateUrl: './fl-form-inputs-manager.component.html',
+    styleUrls: ['./fl-form-inputs-manager.component.scss'],
+    standalone: false
 })
 export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   /**

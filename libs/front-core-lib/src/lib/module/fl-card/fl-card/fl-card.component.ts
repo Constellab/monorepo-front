@@ -14,9 +14,10 @@ import { Component, OnInit } from '@angular/core';
  * can be added to display a centered image on the left of the card
  */
 @Component({
-  selector: 'fl-card',
-  templateUrl: './fl-card.component.html',
-  styleUrls: ['./fl-card.component.scss'],
+    selector: 'fl-card',
+    templateUrl: './fl-card.component.html',
+    styleUrls: ['./fl-card.component.scss'],
+    standalone: false
 })
 export class FlCardComponent implements OnInit {
   constructor() {}

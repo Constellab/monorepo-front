@@ -20,10 +20,11 @@ import {
 } from '../../../lab-note-template-core/component/lab-select-note-template-dialog/lab-select-note-template-dialog.component';
 
 @Component({
-  selector: 'lab-note-search',
-  templateUrl: './lab-note-search.component.html',
-  styleUrls: ['./lab-note-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-note-search',
+    templateUrl: './lab-note-search.component.html',
+    styleUrls: ['./lab-note-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabNoteSearchComponent implements OnInit {
   @Input() noteSelectable: boolean = false;

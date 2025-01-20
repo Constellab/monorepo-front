@@ -10,7 +10,8 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
  * This is useful to make the drawer over on small screen
  */
 @Directive({
-  selector: '[flDrawerOver]',
+    selector: '[flDrawerOver]',
+    standalone: false
 })
 export class FlDrawerOverDirective implements OnInit, OnDestroy {
   /**

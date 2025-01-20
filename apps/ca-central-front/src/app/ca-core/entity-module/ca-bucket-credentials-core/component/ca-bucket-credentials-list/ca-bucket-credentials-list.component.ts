@@ -14,9 +14,10 @@ import {
  * List bucket credentials with CRUD actions
  */
 @Component({
-  selector: 'ca-bucket-credentials-list',
-  templateUrl: './ca-bucket-credentials-list.component.html',
-  styleUrls: ['./ca-bucket-credentials-list.component.scss'],
+    selector: 'ca-bucket-credentials-list',
+    templateUrl: './ca-bucket-credentials-list.component.html',
+    styleUrls: ['./ca-bucket-credentials-list.component.scss'],
+    standalone: false
 })
 export class CaBucketCredentialsListComponent implements OnInit {
   @Input({ required: true }) mode: 'all' | 'current-space';

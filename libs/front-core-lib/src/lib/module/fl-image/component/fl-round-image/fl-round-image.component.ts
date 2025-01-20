@@ -7,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
  *
  */
 @Component({
-  selector: 'fl-round-image',
-  templateUrl: './fl-round-image.component.html',
-  styleUrls: ['./fl-round-image.component.scss'],
+    selector: 'fl-round-image',
+    templateUrl: './fl-round-image.component.html',
+    styleUrls: ['./fl-round-image.component.scss'],
+    standalone: false
 })
 export class FlRoundImageComponent implements OnInit {
   /**

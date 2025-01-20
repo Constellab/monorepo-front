@@ -18,9 +18,10 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
 
 @Component({
-  selector: 'fl-autocomplete-multiple',
-  templateUrl: './fl-autocomplete-multiple.component.html',
-  styleUrls: ['./fl-autocomplete-multiple.component.scss'],
+    selector: 'fl-autocomplete-multiple',
+    templateUrl: './fl-autocomplete-multiple.component.html',
+    styleUrls: ['./fl-autocomplete-multiple.component.scss'],
+    standalone: false
 })
 export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> implements OnInit {
   @Input() placeholder: string;

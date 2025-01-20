@@ -5,9 +5,10 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'ca-lab-server-complete-info-dialog',
-  templateUrl: './ca-lab-server-complete-info-dialog.component.html',
-  styleUrls: ['./ca-lab-server-complete-info-dialog.component.scss'],
+    selector: 'ca-lab-server-complete-info-dialog',
+    templateUrl: './ca-lab-server-complete-info-dialog.component.html',
+    styleUrls: ['./ca-lab-server-complete-info-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabServerCompleteInfoDialogComponent implements OnInit {
   serverInfo$: Observable<CaServerCompleteInfo> = this.labService.getServerInfo(this.labId);

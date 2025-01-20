@@ -6,8 +6,9 @@ import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
  * tag input
  */
 @Component({
-  selector: 'lab-tag-dynamic-field',
-  templateUrl: './lab-tag-dynamic-field.component.html',
-  styleUrls: ['./lab-tag-dynamic-field.component.scss'],
+    selector: 'lab-tag-dynamic-field',
+    templateUrl: './lab-tag-dynamic-field.component.html',
+    styleUrls: ['./lab-tag-dynamic-field.component.scss'],
+    standalone: false
 })
 export class LabTagDynamicFieldComponent extends FlDynamicFieldAbstractDirective {}

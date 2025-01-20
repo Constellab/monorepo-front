@@ -30,10 +30,11 @@ interface FlTagColor {
  * Component to list the tags with possible value and allow user to highlight some tags and select a color
  */
 @Component({
-  selector: 'fl-tags-select-colors',
-  templateUrl: './fl-tags-select-colors.component.html',
-  styleUrls: ['./fl-tags-select-colors.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-tags-select-colors',
+    templateUrl: './fl-tags-select-colors.component.html',
+    styleUrls: ['./fl-tags-select-colors.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   @Input() tagColorer: FlTagColorer;

@@ -14,9 +14,10 @@ export interface CaLabConfigDialogInput {
  * Show the configuration of a lab
  */
 @Component({
-  selector: 'ca-lab-config-dialog',
-  templateUrl: './ca-lab-config-dialog.component.html',
-  styleUrls: ['./ca-lab-config-dialog.component.scss'],
+    selector: 'ca-lab-config-dialog',
+    templateUrl: './ca-lab-config-dialog.component.html',
+    styleUrls: ['./ca-lab-config-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabConfigDialogComponent {
   labConfig$: Observable<CaLabConfig>;

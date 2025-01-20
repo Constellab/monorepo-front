@@ -5,9 +5,10 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ha-fair-open-access-page',
-  templateUrl: './ha-fair-open-access-page.component.html',
-  styleUrl: './ha-fair-open-access-page.component.scss',
+    selector: 'ha-fair-open-access-page',
+    templateUrl: './ha-fair-open-access-page.component.html',
+    styleUrl: './ha-fair-open-access-page.component.scss',
+    standalone: false
 })
 export class HaFairOpenAccessPageComponent implements OnInit {
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;

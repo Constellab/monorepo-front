@@ -14,9 +14,10 @@ export interface LabProcessEditStyleFormData {
 }
 
 @Component({
-  selector: 'lab-process-edit-style-dialog',
-  templateUrl: './lab-process-edit-style-dialog.component.html',
-  styleUrl: './lab-process-edit-style-dialog.component.scss',
+    selector: 'lab-process-edit-style-dialog',
+    templateUrl: './lab-process-edit-style-dialog.component.html',
+    styleUrl: './lab-process-edit-style-dialog.component.scss',
+    standalone: false
 })
 export class LabProcessEditStyleDialogComponent
   extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>

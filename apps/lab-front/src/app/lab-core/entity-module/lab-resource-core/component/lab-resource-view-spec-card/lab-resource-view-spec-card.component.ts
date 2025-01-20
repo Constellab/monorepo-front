@@ -5,9 +5,10 @@ import { DateTime } from 'luxon';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
-  selector: 'lab-resource-view-spec-card',
-  templateUrl: './lab-resource-view-spec-card.component.html',
-  styleUrls: ['./lab-resource-view-spec-card.component.scss'],
+    selector: 'lab-resource-view-spec-card',
+    templateUrl: './lab-resource-view-spec-card.component.html',
+    styleUrls: ['./lab-resource-view-spec-card.component.scss'],
+    standalone: false
 })
 export class LabResourceViewSpecCardComponent {
   @Input({ required: true }) viewType: LabResourceViewType;

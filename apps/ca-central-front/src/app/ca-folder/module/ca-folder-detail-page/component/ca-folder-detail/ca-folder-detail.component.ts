@@ -11,9 +11,10 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
  * Show detailed information for a folder , used in FolderDetailPage
  */
 @Component({
-  selector: 'ca-folder-detail',
-  templateUrl: './ca-folder-detail.component.html',
-  styleUrls: ['./ca-folder-detail.component.scss'],
+    selector: 'ca-folder-detail',
+    templateUrl: './ca-folder-detail.component.html',
+    styleUrls: ['./ca-folder-detail.component.scss'],
+    standalone: false
 })
 export class CaFolderDetailComponent {
   private state = inject(CaFolderDetailState);

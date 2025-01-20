@@ -20,10 +20,11 @@ import { CaLabSearchMode } from '../ca-lab-search-form/ca-lab-search-form.compon
 import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 
 @Component({
-  selector: 'ca-lab-search',
-  templateUrl: './ca-lab-search.component.html',
-  styleUrls: ['./ca-lab-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-lab-search',
+    templateUrl: './ca-lab-search.component.html',
+    styleUrls: ['./ca-lab-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaLabSearchComponent implements OnInit {
   /**

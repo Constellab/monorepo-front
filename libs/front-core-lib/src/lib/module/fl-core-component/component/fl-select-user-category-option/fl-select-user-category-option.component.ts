@@ -8,9 +8,10 @@ import {
  * List of option for a {@link ClUserCategory}
  */
 @Component({
-  selector: 'fl-select-user-category-option',
-  templateUrl: './fl-select-user-category-option.component.html',
-  styleUrls: ['./fl-select-user-category-option.component.scss'],
+    selector: 'fl-select-user-category-option',
+    templateUrl: './fl-select-user-category-option.component.html',
+    styleUrls: ['./fl-select-user-category-option.component.scss'],
+    standalone: false
 })
 export class FlSelectUserCategoryOptionComponent
   extends FlEmbeddedOptionsAbstractDirective

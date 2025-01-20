@@ -16,10 +16,11 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
 
 @Component({
-  selector: 'ca-team-search',
-  templateUrl: './ca-team-search.component.html',
-  styleUrls: ['./ca-team-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-team-search',
+    templateUrl: './ca-team-search.component.html',
+    styleUrls: ['./ca-team-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaTeamSearchComponent implements OnInit {
   datasource: CaGroupDatasource<CaTeamSearchFields>;

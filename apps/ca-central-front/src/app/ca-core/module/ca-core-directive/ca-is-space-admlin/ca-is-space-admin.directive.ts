@@ -7,7 +7,8 @@ import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
  * Structural directive that work like ngIf, and show element only is user is admin of the current space (or g admin)
  */
 @Directive({
-  selector: '[caIsSpaceAdmin]',
+    selector: '[caIsSpaceAdmin]',
+    standalone: false
 })
 export class CaIsSpaceAdminDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(

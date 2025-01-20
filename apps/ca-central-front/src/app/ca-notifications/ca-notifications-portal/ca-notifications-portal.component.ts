@@ -8,9 +8,10 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
 
 @Component({
-  selector: 'ca-notifications-portal',
-  templateUrl: './ca-notifications-portal.component.html',
-  styleUrls: ['./ca-notifications-portal.component.scss'],
+    selector: 'ca-notifications-portal',
+    templateUrl: './ca-notifications-portal.component.html',
+    styleUrls: ['./ca-notifications-portal.component.scss'],
+    standalone: false
 })
 export class CaNotificationsPortalComponent {
   notifications: CaNotificationDatasourcePaginated = this.notificationState.notifications;

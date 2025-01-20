@@ -12,20 +12,21 @@ import { BnBioNetworkSimulationState } from '../../state/bn-bio-network-simulati
 import { BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 
 @Component({
-  selector: 'bn-bio-network',
-  templateUrl: './bn-bio-network.component.html',
-  styleUrls: ['./bn-bio-network.component.scss'],
-  providers: [
-    BnBioNetworkState,
-    BnBioNetworkDrawerState,
-    BnBioNetworkOptionsState,
-    BnBioNetworkSelectionState,
-    BnBioNetworkMainRenderer,
-    BnBioNetworkGridState,
-    BnBioNetworkZoomRenderer,
-    BnBioNetworkEngineState,
-    BnBioNetworkSimulationState,
-  ],
+    selector: 'bn-bio-network',
+    templateUrl: './bn-bio-network.component.html',
+    styleUrls: ['./bn-bio-network.component.scss'],
+    providers: [
+        BnBioNetworkState,
+        BnBioNetworkDrawerState,
+        BnBioNetworkOptionsState,
+        BnBioNetworkSelectionState,
+        BnBioNetworkMainRenderer,
+        BnBioNetworkGridState,
+        BnBioNetworkZoomRenderer,
+        BnBioNetworkEngineState,
+        BnBioNetworkSimulationState,
+    ],
+    standalone: false
 })
 export class BnBioNetworkComponent implements OnInit {
   @Input() networks: BnBioNetwork;

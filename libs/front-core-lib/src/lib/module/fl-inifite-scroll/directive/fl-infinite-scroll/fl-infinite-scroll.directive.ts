@@ -35,7 +35,8 @@ export type FlInfiniteScrollMode = 'container' | 'body' | 'auto' | FlHtmlFindPar
  *
  */
 @Directive({
-  selector: '[flInfiniteScroll]',
+    selector: '[flInfiniteScroll]',
+    standalone: false
 })
 export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestroy {
   /**

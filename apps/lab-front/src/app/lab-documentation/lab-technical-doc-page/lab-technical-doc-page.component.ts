@@ -5,9 +5,10 @@ import { mergeMap, Observable } from 'rxjs';
 import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
 
 @Component({
-  selector: 'lab-technical-doc-page',
-  templateUrl: './lab-technical-doc-page.component.html',
-  styleUrls: ['./lab-technical-doc-page.component.scss'],
+    selector: 'lab-technical-doc-page',
+    templateUrl: './lab-technical-doc-page.component.html',
+    styleUrls: ['./lab-technical-doc-page.component.scss'],
+    standalone: false
 })
 export class LabTechnicalDocPageComponent implements OnInit {
   type$: Observable<LabTypeEntity>;

@@ -41,9 +41,10 @@ export interface FlInputSearchFilter {
  * Should be wrap by a component that supports form and is specific to the entity.
  */
 @Component({
-  selector: 'fl-input-search',
-  templateUrl: './fl-input-search.component.html',
-  styleUrls: ['./fl-input-search.component.scss'],
+    selector: 'fl-input-search',
+    templateUrl: './fl-input-search.component.html',
+    styleUrls: ['./fl-input-search.component.scss'],
+    standalone: false
 })
 export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   @Input() set selectedItem(selectedItem: T | Observable<T>) {

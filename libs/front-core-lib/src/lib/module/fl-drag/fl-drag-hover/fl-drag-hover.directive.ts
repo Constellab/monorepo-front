@@ -9,7 +9,8 @@ import { FlDragManagerService } from '../fl-drag-manager.service';
  * over the host element and detect drop file event
  */
 @Directive({
-  selector: '[flDragHover]',
+    selector: '[flDragHover]',
+    standalone: false
 })
 export class FlDragHoverDirective {
   /**

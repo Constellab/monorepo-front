@@ -9,11 +9,10 @@ export interface HaNavigationPanelItem {
 }
 
 @Component({
-  selector: 'ha-navigation-panel',
-  standalone: true,
-  imports: [CommonModule, HaCoreModule],
-  templateUrl: './ha-navigation-panel.component.html',
-  styleUrls: ['./ha-navigation-panel.component.scss'],
+    selector: 'ha-navigation-panel',
+    imports: [CommonModule, HaCoreModule],
+    templateUrl: './ha-navigation-panel.component.html',
+    styleUrls: ['./ha-navigation-panel.component.scss']
 })
 export class HaNavigationPanelComponent {
   @Input() navigationPanelItems: HaNavigationPanelItem[];

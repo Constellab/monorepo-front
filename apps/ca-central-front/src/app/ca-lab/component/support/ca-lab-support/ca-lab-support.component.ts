@@ -7,9 +7,10 @@ import {
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 
 @Component({
-  selector: 'ca-lab-support',
-  templateUrl: './ca-lab-support.component.html',
-  styleUrl: './ca-lab-support.component.scss',
+    selector: 'ca-lab-support',
+    templateUrl: './ca-lab-support.component.html',
+    styleUrl: './ca-lab-support.component.scss',
+    standalone: false
 })
 export class CaLabSupportComponent {
   constructor(

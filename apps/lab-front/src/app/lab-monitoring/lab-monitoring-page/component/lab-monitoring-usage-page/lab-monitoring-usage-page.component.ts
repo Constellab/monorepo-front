@@ -21,9 +21,10 @@ export enum LabMonitoringRunPeriod {
  * Sub monitoring page to display the CPU, RAM, Disk and Swap usage.
  */
 @Component({
-  selector: 'lab-monitoring-usage-page',
-  templateUrl: './lab-monitoring-usage-page.component.html',
-  styleUrls: ['./lab-monitoring-usage-page.component.scss'],
+    selector: 'lab-monitoring-usage-page',
+    templateUrl: './lab-monitoring-usage-page.component.html',
+    styleUrls: ['./lab-monitoring-usage-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringUsagePageComponent implements OnInit {
   monitor$: Observable<LabMonitorGraphicsBetweenDates>;

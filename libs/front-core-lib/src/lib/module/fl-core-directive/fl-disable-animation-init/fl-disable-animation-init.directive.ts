@@ -6,7 +6,8 @@ import { AfterViewInit, Directive, HostBinding } from '@angular/core';
  * Useful for mat-expansion in dialog for example
  */
 @Directive({
-  selector: '[flDisableAnimationInit]',
+    selector: '[flDisableAnimationInit]',
+    standalone: false
 })
 export class FlDisableAnimationInitDirective implements AfterViewInit {
   @HostBinding('@.disabled') private disabled = true;

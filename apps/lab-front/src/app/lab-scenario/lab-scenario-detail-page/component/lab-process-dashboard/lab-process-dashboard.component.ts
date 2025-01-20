@@ -44,10 +44,11 @@ import {
  * Complete dashboard to edit, view and run a workflow node
  */
 @Component({
-  selector: 'lab-process-dashboard',
-  templateUrl: './lab-process-dashboard.component.html',
-  styleUrls: ['./lab-process-dashboard.component.scss'],
-  providers: [LabProcessDashboardConfigState],
+    selector: 'lab-process-dashboard',
+    templateUrl: './lab-process-dashboard.component.html',
+    styleUrls: ['./lab-process-dashboard.component.scss'],
+    providers: [LabProcessDashboardConfigState],
+    standalone: false
 })
 export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private nodeState = inject(LabWorkflowNodeDetailState);

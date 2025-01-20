@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ca-current-space-users-page',
-  templateUrl: './ca-current-space-users-page.component.html',
-  styleUrls: ['./ca-current-space-users-page.component.scss'],
+    selector: 'ca-current-space-users-page',
+    templateUrl: './ca-current-space-users-page.component.html',
+    styleUrls: ['./ca-current-space-users-page.component.scss'],
+    standalone: false
 })
 export class CaCurrentSpaceUsersPageComponent implements OnInit {
   constructor() {}

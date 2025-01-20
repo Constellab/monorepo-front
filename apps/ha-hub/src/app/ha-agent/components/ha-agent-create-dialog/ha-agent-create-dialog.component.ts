@@ -15,9 +15,10 @@ import { CoCreateAgentFormData } from '@monorepo/community-lib';
 export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
 
 @Component({
-  selector: 'ha-agent-create-dialog',
-  templateUrl: './ha-agent-create-dialog.component.html',
-  styleUrls: ['./ha-agent-create-dialog.component.scss'],
+    selector: 'ha-agent-create-dialog',
+    templateUrl: './ha-agent-create-dialog.component.html',
+    styleUrls: ['./ha-agent-create-dialog.component.scss'],
+    standalone: false
 })
 export class HaAgentCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaCreateAgentDto, HaAgentVersion>

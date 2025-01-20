@@ -4,9 +4,10 @@ import { FlSearchState } from '@monorepo/front-core-lib';
 import { LabTypeSearchConfig } from '../../model/lab-type-search.class';
 
 @Component({
-  selector: 'lab-type-search-form',
-  templateUrl: './lab-type-search-form.component.html',
-  styleUrls: ['./lab-type-search-form.component.scss'],
+    selector: 'lab-type-search-form',
+    templateUrl: './lab-type-search-form.component.html',
+    styleUrls: ['./lab-type-search-form.component.scss'],
+    standalone: false
 })
 export class LabTypeSearchFormComponent implements OnInit {
   @Input() config: LabTypeSearchConfig;

@@ -3,9 +3,10 @@ import { FlColorHelper } from '@monorepo/front-core-lib';
 import { TdTypeEntity } from '../../model/td-type.class';
 
 @Component({
-  selector: 'td-technical-doc-header',
-  templateUrl: './td-technical-doc-header.component.html',
-  styleUrls: ['./td-technical-doc-header.component.scss'],
+    selector: 'td-technical-doc-header',
+    templateUrl: './td-technical-doc-header.component.html',
+    styleUrls: ['./td-technical-doc-header.component.scss'],
+    standalone: false
 })
 export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {
   @Input()

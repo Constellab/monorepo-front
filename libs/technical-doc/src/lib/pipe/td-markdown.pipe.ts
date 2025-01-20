@@ -15,7 +15,8 @@ marked.use(
 );
 
 @Pipe({
-  name: 'tdMarkdown',
+    name: 'tdMarkdown',
+    standalone: false
 })
 export class TdMarkdownPipe implements PipeTransform {
   constructor(private domSanitizer: DomSanitizer) {}

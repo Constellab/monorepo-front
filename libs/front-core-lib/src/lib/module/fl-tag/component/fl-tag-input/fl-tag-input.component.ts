@@ -19,10 +19,11 @@ import { FlTag, FlTagHelper, FlTagValue } from '../../fl-tag.class';
 type FlTagInput = FlTag[] | Record<string, FlTagValue>;
 
 @Component({
-  selector: 'fl-tag-input',
-  templateUrl: './fl-tag-input.component.html',
-  styleUrls: ['./fl-tag-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-tag-input',
+    templateUrl: './fl-tag-input.component.html',
+    styleUrls: ['./fl-tag-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInput> {
   @Input() searchDebounceTime: number = 300;

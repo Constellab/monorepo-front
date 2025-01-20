@@ -14,9 +14,10 @@ import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-ser
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
-  selector: 'ha-agent-version-page',
-  templateUrl: './ha-agent-version-page.component.html',
-  styleUrls: ['./ha-agent-version-page.component.scss'],
+    selector: 'ha-agent-version-page',
+    templateUrl: './ha-agent-version-page.component.html',
+    styleUrls: ['./ha-agent-version-page.component.scss'],
+    standalone: false
 })
 export class HaAgentVersionPageComponent extends HaCommunityPage implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);

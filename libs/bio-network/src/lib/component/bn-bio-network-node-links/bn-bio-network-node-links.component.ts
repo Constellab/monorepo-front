@@ -12,10 +12,11 @@ interface Link {
  * Such as google scholar search, wikipedia...
  */
 @Component({
-  selector: 'bn-bio-network-node-links',
-  templateUrl: './bn-bio-network-node-links.component.html',
-  styleUrls: ['./bn-bio-network-node-links.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-node-links',
+    templateUrl: './bn-bio-network-node-links.component.html',
+    styleUrls: ['./bn-bio-network-node-links.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkNodeLinksComponent implements OnInit {
   @Input() set node(node: BnBioNetworkNode) {

@@ -14,9 +14,10 @@ import {
 } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-select-storage/ca-lab-select-storage.component';
 
 @Component({
-  selector: 'ca-lab-create-page',
-  templateUrl: './ca-lab-create-page.component.html',
-  styleUrl: './ca-lab-create-page.component.scss',
+    selector: 'ca-lab-create-page',
+    templateUrl: './ca-lab-create-page.component.html',
+    styleUrl: './ca-lab-create-page.component.scss',
+    standalone: false
 })
 export class CaLabCreatePageComponent {
   private _formBuilder = inject(FormBuilder);

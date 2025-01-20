@@ -13,21 +13,20 @@ import { CaEnvironmentHelper } from '../../ca-core/utils/ca-environment.helper';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'ca-lab-price-simulator',
-  standalone: true,
-  imports: [
-    FlCardModule,
-    FlTranslateModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    CaLabCoreModule,
-    MatButtonModule,
-    MatStepperModule,
-    RouterLink,
-  ],
-  templateUrl: './ca-lab-price-simulator.component.html',
-  styleUrl: './ca-lab-price-simulator.component.scss',
+    selector: 'ca-lab-price-simulator',
+    imports: [
+        FlCardModule,
+        FlTranslateModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        CaLabCoreModule,
+        MatButtonModule,
+        MatStepperModule,
+        RouterLink,
+    ],
+    templateUrl: './ca-lab-price-simulator.component.html',
+    styleUrl: './ca-lab-price-simulator.component.scss'
 })
 export class CaLabPriceSimulatorComponent {
   storageForm = CaLabSelectStorageComponent.createFormGp();

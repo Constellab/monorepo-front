@@ -24,9 +24,10 @@ export interface LabTransformResourcePortalInput {
  * Dialog to transform a resource using transformers
  */
 @Component({
-  selector: 'lab-transform-resource-portal',
-  templateUrl: './lab-transform-resource-portal.component.html',
-  styleUrls: ['./lab-transform-resource-portal.component.scss'],
+    selector: 'lab-transform-resource-portal',
+    templateUrl: './lab-transform-resource-portal.component.html',
+    styleUrls: ['./lab-transform-resource-portal.component.scss'],
+    standalone: false
 })
 export class LabTransformResourcePortalComponent {
   resourceTypingName: string;

@@ -18,9 +18,10 @@ import { FlMenuDynamic } from '../../../fl-menu-dynamic/model/fl-menu-dynamic.cl
  * allow update and delete the image.
  */
 @Component({
-  selector: 'fl-update-image-container',
-  templateUrl: './fl-update-image-container.component.html',
-  styleUrl: './fl-update-image-container.component.scss',
+    selector: 'fl-update-image-container',
+    templateUrl: './fl-update-image-container.component.html',
+    styleUrl: './fl-update-image-container.component.scss',
+    standalone: false
 })
 export class FlUpdateImageContainerComponent {
   @Input({ required: true }) uploadConfig: FlUploadImageDialogConfig;

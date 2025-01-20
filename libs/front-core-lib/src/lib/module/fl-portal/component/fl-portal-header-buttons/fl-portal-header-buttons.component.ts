@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fl-portal-header-buttons',
-  templateUrl: './fl-portal-header-buttons.component.html',
-  styleUrls: ['./fl-portal-header-buttons.component.scss'],
+    selector: 'fl-portal-header-buttons',
+    templateUrl: './fl-portal-header-buttons.component.html',
+    styleUrls: ['./fl-portal-header-buttons.component.scss'],
+    standalone: false
 })
 export class FlPortalHeaderButtonsComponent implements OnInit {
   constructor() {}

@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
  * Sub-page of lab to configure the lab server, bricks, backup, etc.
  */
 @Component({
-  selector: 'ca-lab-config-page',
-  templateUrl: './ca-lab-config-page.component.html',
-  styleUrls: ['./ca-lab-config-page.component.scss'],
+    selector: 'ca-lab-config-page',
+    templateUrl: './ca-lab-config-page.component.html',
+    styleUrls: ['./ca-lab-config-page.component.scss'],
+    standalone: false
 })
 export class CaLabConfigPageComponent {
 

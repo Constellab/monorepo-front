@@ -3,9 +3,10 @@ import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabScenarioTemplate } from '../../../../model/entities/process/lab-scenario-template.entity';
 
 @Component({
-  selector: 'lab-scenario-template-table',
-  templateUrl: './lab-scenario-template-table.component.html',
-  styleUrls: ['./lab-scenario-template-table.component.scss'],
+    selector: 'lab-scenario-template-table',
+    templateUrl: './lab-scenario-template-table.component.html',
+    styleUrls: ['./lab-scenario-template-table.component.scss'],
+    standalone: false
 })
 export class LabScenarioTemplateTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<LabScenarioTemplate>;

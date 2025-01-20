@@ -11,9 +11,10 @@ import { FlDynamicAbstractFormDirective } from '../../model/fl-dynamic-abstract-
  * Component to create dynamic form group
  */
 @Component({
-  selector: 'fl-dynamic-form-group',
-  templateUrl: './fl-dynamic-form-group.component.html',
-  styleUrls: ['./fl-dynamic-form-group.component.scss'],
+    selector: 'fl-dynamic-form-group',
+    templateUrl: './fl-dynamic-form-group.component.html',
+    styleUrls: ['./fl-dynamic-form-group.component.scss'],
+    standalone: false
 })
 export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirective {
   /**

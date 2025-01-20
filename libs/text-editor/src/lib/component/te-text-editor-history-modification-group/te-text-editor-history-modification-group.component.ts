@@ -9,9 +9,10 @@ export interface TeTextEditorHistoryClickEventData {
 }
 
 @Component({
-  selector: 'te-text-editor-history-modification-group',
-  templateUrl: './te-text-editor-history-modification-group.component.html',
-  styleUrl: './te-text-editor-history-modification-group.component.scss',
+    selector: 'te-text-editor-history-modification-group',
+    templateUrl: './te-text-editor-history-modification-group.component.html',
+    styleUrl: './te-text-editor-history-modification-group.component.scss',
+    standalone: false
 })
 export class TeTextEditorHistoryModificationGroupComponent implements OnInit {
   @Input({ required: true }) group: TeTextEditorHistoryModificationGroup;

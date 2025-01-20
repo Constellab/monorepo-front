@@ -12,10 +12,11 @@ import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
  * Detail information about one reaction node
  */
 @Component({
-  selector: 'bn-bio-network-node-reaction-detail',
-  templateUrl: './bn-bio-network-node-reaction-detail.component.html',
-  styleUrls: ['./bn-bio-network-node-reaction-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-node-reaction-detail',
+    templateUrl: './bn-bio-network-node-reaction-detail.component.html',
+    styleUrls: ['./bn-bio-network-node-reaction-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkNodeReactionDetailComponent implements OnInit {
   node$: Observable<BnBioNetworkNodeReaction>;

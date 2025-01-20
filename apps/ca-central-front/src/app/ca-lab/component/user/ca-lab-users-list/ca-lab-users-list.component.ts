@@ -11,9 +11,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ca-lab-users-list',
-  templateUrl: './ca-lab-users-list.component.html',
-  styleUrls: ['./ca-lab-users-list.component.scss'],
+    selector: 'ca-lab-users-list',
+    templateUrl: './ca-lab-users-list.component.html',
+    styleUrls: ['./ca-lab-users-list.component.scss'],
+    standalone: false
 })
 export class CaLabUsersListComponent implements OnInit {
   @Input() labId: string;

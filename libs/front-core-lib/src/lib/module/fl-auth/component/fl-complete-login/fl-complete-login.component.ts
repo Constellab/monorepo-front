@@ -12,10 +12,11 @@ export interface FlCompleteLoginQueryParam {
 }
 
 @Component({
-  selector: 'fl-complete-login',
-  templateUrl: './fl-complete-login.component.html',
-  styleUrls: ['./fl-complete-login.component.scss'],
-  providers: [FlQueryParamHandler],
+    selector: 'fl-complete-login',
+    templateUrl: './fl-complete-login.component.html',
+    styleUrls: ['./fl-complete-login.component.scss'],
+    providers: [FlQueryParamHandler],
+    standalone: false
 })
 export class FlCompleteLoginComponent implements OnInit {
   /**

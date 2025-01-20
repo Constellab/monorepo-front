@@ -5,9 +5,10 @@ import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
 import { LabDynamicParamSpecState } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
 
 @Component({
-  selector: 'lab-configure-task',
-  templateUrl: './lab-configure-task.component.html',
-  styleUrls: ['./lab-configure-task.component.scss'],
+    selector: 'lab-configure-task',
+    templateUrl: './lab-configure-task.component.html',
+    styleUrls: ['./lab-configure-task.component.scss'],
+    standalone: false
 })
 export class LabConfigureTaskComponent implements OnInit, OnDestroy {
   @Input({ required: true }) task: LabProcess;

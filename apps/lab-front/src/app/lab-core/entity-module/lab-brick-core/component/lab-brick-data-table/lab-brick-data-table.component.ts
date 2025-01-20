@@ -4,9 +4,10 @@ import { LabBrickData, LabBrickDataArrayObs } from '../../../../model/global/lab
 import { LabBrickDataService } from '../../../../service/lab-brick-data.service';
 
 @Component({
-  selector: 'lab-brick-data-table',
-  templateUrl: './lab-brick-data-table.component.html',
-  styleUrls: ['./lab-brick-data-table.component.scss'],
+    selector: 'lab-brick-data-table',
+    templateUrl: './lab-brick-data-table.component.html',
+    styleUrls: ['./lab-brick-data-table.component.scss'],
+    standalone: false
 })
 export class LabBrickDataTableComponent {
   @Input() datasource: LabBrickDataArrayObs;

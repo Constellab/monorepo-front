@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LmlBrickService } from '../lml-brick.service';
 
 @Pipe({
-  name: 'lmlCommunityBrickImage',
+    name: 'lmlCommunityBrickImage',
+    standalone: false
 })
 export class LmlCommunityBrickImagePipe implements PipeTransform {
   constructor(private brickService: LmlBrickService) {}

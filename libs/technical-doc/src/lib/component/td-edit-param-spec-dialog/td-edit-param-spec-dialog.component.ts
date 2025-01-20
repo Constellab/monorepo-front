@@ -29,9 +29,10 @@ export interface TdEditParamSpecDialogInput {
 }
 
 @Component({
-  selector: 'td-edit-param-spec-dialog',
-  templateUrl: './td-edit-param-spec-dialog.component.html',
-  styleUrl: './td-edit-param-spec-dialog.component.scss',
+    selector: 'td-edit-param-spec-dialog',
+    templateUrl: './td-edit-param-spec-dialog.component.html',
+    styleUrl: './td-edit-param-spec-dialog.component.scss',
+    standalone: false
 })
 export class TdEditParamSpecDialogComponent implements OnInit {
   formGroupConfig: FlDynamicFormGroupConfig;

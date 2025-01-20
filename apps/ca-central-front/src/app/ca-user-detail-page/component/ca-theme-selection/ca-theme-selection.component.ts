@@ -7,9 +7,10 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
  * Component to select theme
  */
 @Component({
-  selector: 'ca-theme-selection',
-  templateUrl: './ca-theme-selection.component.html',
-  styleUrls: ['./ca-theme-selection.component.scss'],
+    selector: 'ca-theme-selection',
+    templateUrl: './ca-theme-selection.component.html',
+    styleUrls: ['./ca-theme-selection.component.scss'],
+    standalone: false
 })
 export class CaThemeSelectionComponent implements OnInit {
   private currentTheme: ClTheme;

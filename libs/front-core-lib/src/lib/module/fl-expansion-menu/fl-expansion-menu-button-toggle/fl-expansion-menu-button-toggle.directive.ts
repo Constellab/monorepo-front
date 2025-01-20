@@ -6,7 +6,8 @@ import { FlExpansionMenuComponent } from '../fl-expansion-menu/fl-expansion-menu
  * to toggle menu on click
  */
 @Directive({
-  selector: '[flExpansionMenuButtonToggle]',
+    selector: '[flExpansionMenuButtonToggle]',
+    standalone: false
 })
 export class FlExpansionMenuButtonToggleDirective {
   @HostListener('click')

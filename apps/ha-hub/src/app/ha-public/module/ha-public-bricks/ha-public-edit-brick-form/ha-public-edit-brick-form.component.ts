@@ -12,9 +12,10 @@ import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service'
 import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 
 @Component({
-  selector: 'ha-public-edit-brick-form',
-  templateUrl: './ha-public-edit-brick-form.component.html',
-  styleUrls: ['./ha-public-edit-brick-form.component.scss'],
+    selector: 'ha-public-edit-brick-form',
+    templateUrl: './ha-public-edit-brick-form.component.html',
+    styleUrls: ['./ha-public-edit-brick-form.component.scss'],
+    standalone: false
 })
 export class HaPublicEditBrickFormComponent implements OnInit {
   brick: HaBrickCreationDTO;

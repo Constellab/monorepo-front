@@ -7,9 +7,10 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
  * Component to change the app language of the current user
  */
 @Component({
-  selector: 'ca-language-selection',
-  templateUrl: './ca-language-selection.component.html',
-  styleUrls: ['./ca-language-selection.component.scss'],
+    selector: 'ca-language-selection',
+    templateUrl: './ca-language-selection.component.html',
+    styleUrls: ['./ca-language-selection.component.scss'],
+    standalone: false
 })
 export class CaLanguageSelectionComponent implements OnInit {
   language: ClSupportedLanguage;

@@ -6,9 +6,10 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
  * Table to list the users of a space
  */
 @Component({
-  selector: 'ca-space-user-table',
-  templateUrl: './ca-space-user-table.component.html',
-  styleUrls: ['./ca-space-user-table.component.scss'],
+    selector: 'ca-space-user-table',
+    templateUrl: './ca-space-user-table.component.html',
+    styleUrls: ['./ca-space-user-table.component.scss'],
+    standalone: false
 })
 export class CaSpaceUserTableComponent {
   @Input({ required: true }) datasource: CaSpaceUserDatasource<any>;

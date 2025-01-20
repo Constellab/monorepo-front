@@ -11,9 +11,10 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCredentialsFull>;
 
 @Component({
-  selector: 'ca-bucket-credentials-form-dialog',
-  templateUrl: './ca-bucket-credentials-form-dialog.component.html',
-  styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
+    selector: 'ca-bucket-credentials-form-dialog',
+    templateUrl: './ca-bucket-credentials-form-dialog.component.html',
+    styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaBucketCredentialsFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentials>

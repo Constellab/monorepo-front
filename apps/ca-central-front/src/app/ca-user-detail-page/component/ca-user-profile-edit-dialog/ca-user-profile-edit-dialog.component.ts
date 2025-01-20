@@ -7,9 +7,10 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'ca-user-profile-edit-dialog',
-  templateUrl: './ca-user-profile-edit-dialog.component.html',
-  styleUrls: ['./ca-user-profile-edit-dialog.component.scss'],
+    selector: 'ca-user-profile-edit-dialog',
+    templateUrl: './ca-user-profile-edit-dialog.component.html',
+    styleUrls: ['./ca-user-profile-edit-dialog.component.scss'],
+    standalone: false
 })
 export class CaUserProfileEditDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaUser>, CaUser>

@@ -16,9 +16,10 @@ export interface UpdateStatusFormDialogInput<S extends string> {
  * Generic form dialog to update the status of an entity
  */
 @Component({
-  selector: 'ca-update-status-form-dialog',
-  templateUrl: './ca-update-status-form-dialog.component.html',
-  styleUrls: ['./ca-update-status-form-dialog.component.scss'],
+    selector: 'ca-update-status-form-dialog',
+    templateUrl: './ca-update-status-form-dialog.component.html',
+    styleUrls: ['./ca-update-status-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaUpdateStatusFormDialogComponent implements OnInit {
   formControl: FormControl;

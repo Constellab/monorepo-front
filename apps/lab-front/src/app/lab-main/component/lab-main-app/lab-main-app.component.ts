@@ -12,9 +12,10 @@ import { TdBrick } from '@monorepo/technical-doc';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 
 @Component({
-  selector: 'lab-main-app',
-  templateUrl: './lab-main-app.component.html',
-  styleUrls: ['./lab-main-app.component.scss'],
+    selector: 'lab-main-app',
+    templateUrl: './lab-main-app.component.html',
+    styleUrls: ['./lab-main-app.component.scss'],
+    standalone: false
 })
 export class LabMainAppComponent implements OnInit {
   accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();

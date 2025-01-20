@@ -13,9 +13,10 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { BlockToolData } from '@editorjs/editorjs/types/tools';
 
 @Component({
-  selector: 'ha-public-brick-right-panel',
-  templateUrl: './ha-public-brick-right-panel.component.html',
-  styleUrls: ['./ha-public-brick-right-panel.component.scss'],
+    selector: 'ha-public-brick-right-panel',
+    templateUrl: './ha-public-brick-right-panel.component.html',
+    styleUrls: ['./ha-public-brick-right-panel.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickRightPanelComponent implements OnInit {
   @Input() brickName: string;

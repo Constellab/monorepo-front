@@ -18,9 +18,10 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
  * Portal to list the space of the user with possibility to switch between them
  */
 @Component({
-  selector: 'ca-my-spaces-portal',
-  templateUrl: './ca-my-spaces-portal.component.html',
-  styleUrls: ['./ca-my-spaces-portal.component.scss'],
+    selector: 'ca-my-spaces-portal',
+    templateUrl: './ca-my-spaces-portal.component.html',
+    styleUrls: ['./ca-my-spaces-portal.component.scss'],
+    standalone: false
 })
 export class CaMySpacesPortalComponent implements OnInit {
   currentSpace$: Observable<CaSpace>;

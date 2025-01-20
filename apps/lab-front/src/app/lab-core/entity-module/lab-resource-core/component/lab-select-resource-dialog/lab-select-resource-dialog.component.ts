@@ -13,9 +13,10 @@ export interface LabSelectResourceDialogInput {
  * The dialog is closed when a resource is selected
  */
 @Component({
-  selector: 'lab-select-resource-dialog',
-  templateUrl: './lab-select-resource-dialog.component.html',
-  styleUrls: ['./lab-select-resource-dialog.component.scss'],
+    selector: 'lab-select-resource-dialog',
+    templateUrl: './lab-select-resource-dialog.component.html',
+    styleUrls: ['./lab-select-resource-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectResourceDialogComponent implements OnInit {
   savedSearch: FlSavedSearch[];

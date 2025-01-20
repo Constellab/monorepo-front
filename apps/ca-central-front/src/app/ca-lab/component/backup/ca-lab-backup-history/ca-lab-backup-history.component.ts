@@ -14,9 +14,10 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ca-lab-backup-history',
-  templateUrl: './ca-lab-backup-history.component.html',
-  styleUrls: ['./ca-lab-backup-history.component.scss'],
+    selector: 'ca-lab-backup-history',
+    templateUrl: './ca-lab-backup-history.component.html',
+    styleUrls: ['./ca-lab-backup-history.component.scss'],
+    standalone: false
 })
 export class CaLabBackupHistoryComponent implements OnInit {
   @Input() labId: string;

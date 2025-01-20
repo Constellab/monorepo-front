@@ -9,9 +9,10 @@ export interface LabVenvDetailDialogInput {
 }
 
 @Component({
-  selector: 'lab-venv-detail-dialog',
-  templateUrl: './lab-venv-detail-dialog.component.html',
-  styleUrls: ['./lab-venv-detail-dialog.component.scss'],
+    selector: 'lab-venv-detail-dialog',
+    templateUrl: './lab-venv-detail-dialog.component.html',
+    styleUrls: ['./lab-venv-detail-dialog.component.scss'],
+    standalone: false
 })
 export class LabVenvDetailDialogComponent implements OnInit {
   venvName: string;

@@ -5,7 +5,8 @@ import { mergeMap, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Directive({
-  selector: '[caNotificationMark]',
+    selector: '[caNotificationMark]',
+    standalone: false
 })
 export class CaNotificationMarkDirective implements OnInit, OnDestroy {
   /**

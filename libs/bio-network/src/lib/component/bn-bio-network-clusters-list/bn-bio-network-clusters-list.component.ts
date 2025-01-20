@@ -9,9 +9,10 @@ import { MatSelectChange } from '@angular/material/select';
  * Show the list of cluster with possibility to select them and color them
  */
 @Component({
-  selector: 'bn-bio-network-clusters-list',
-  templateUrl: './bn-bio-network-clusters-list.component.html',
-  styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
+    selector: 'bn-bio-network-clusters-list',
+    templateUrl: './bn-bio-network-clusters-list.component.html',
+    styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkClustersListComponent implements OnInit {
   clusters$: Observable<BnBioNetworkClusterSelection[]>;

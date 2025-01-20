@@ -9,9 +9,10 @@ export interface LabTagDetailPortalInput {
 }
 
 @Component({
-  selector: 'lab-tag-detail-portal',
-  templateUrl: './lab-tag-detail-portal.component.html',
-  styleUrls: ['./lab-tag-detail-portal.component.scss'],
+    selector: 'lab-tag-detail-portal',
+    templateUrl: './lab-tag-detail-portal.component.html',
+    styleUrls: ['./lab-tag-detail-portal.component.scss'],
+    standalone: false
 })
 export class LabTagDetailPortalComponent {
   tagDetail$: Observable<LabTagDetail>;

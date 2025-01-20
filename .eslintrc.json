@@ -68,7 +68,6 @@
         ],
         "@angular-eslint/no-empty-lifecycle-method": "off",
         "@angular-eslint/no-input-rename": "off",
-        "@angular-eslint/no-host-metadata-property": "off",
         "@typescript-eslint/no-extra-semi": "error",
         "no-extra-semi": "off"
       }

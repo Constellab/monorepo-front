@@ -17,9 +17,10 @@ export interface CaFolderUserConfigDialogInput {
  * For now this only contains the notification options
  */
 @Component({
-  selector: 'ca-folder-user-config-dialog',
-  templateUrl: './ca-folder-user-config-dialog.component.html',
-  styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
+    selector: 'ca-folder-user-config-dialog',
+    templateUrl: './ca-folder-user-config-dialog.component.html',
+    styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
+    standalone: false
 })
 export class CaFolderUserConfigDialogComponent implements OnInit {
   userConfig: CaFolderUserConfig;

@@ -3,9 +3,10 @@ import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { FlClipboardService } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-share-link-links',
-  templateUrl: './lab-share-link-links.component.html',
-  styleUrl: './lab-share-link-links.component.scss',
+    selector: 'lab-share-link-links',
+    templateUrl: './lab-share-link-links.component.html',
+    styleUrl: './lab-share-link-links.component.scss',
+    standalone: false
 })
 export class LabShareLinkLinksComponent {
   shareLink = input.required<LabShareLink>();

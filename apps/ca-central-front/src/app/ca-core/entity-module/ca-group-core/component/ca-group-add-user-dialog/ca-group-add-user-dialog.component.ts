@@ -17,9 +17,10 @@ export interface CaGroupAddUserDialogInput {
  * Dialog to add a user to a group or an space
  */
 @Component({
-  selector: 'ca-group-add-user-dialog',
-  templateUrl: './ca-group-add-user-dialog.component.html',
-  styleUrls: ['./ca-group-add-user-dialog.component.scss'],
+    selector: 'ca-group-add-user-dialog',
+    templateUrl: './ca-group-add-user-dialog.component.html',
+    styleUrls: ['./ca-group-add-user-dialog.component.scss'],
+    standalone: false
 })
 export class CaGroupAddUserDialogComponent implements OnInit {
   formControl: FormControl<CaUser>;

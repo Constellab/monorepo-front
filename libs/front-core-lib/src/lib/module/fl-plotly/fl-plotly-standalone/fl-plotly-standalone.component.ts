@@ -12,11 +12,10 @@ import { FlPlotlyData, FlResizeObservable } from '@monorepo/front-core-lib';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'fl-plotly-standalone',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fl-plotly-standalone.component.html',
-  styleUrl: './fl-plotly-standalone.component.scss',
+    selector: 'fl-plotly-standalone',
+    imports: [CommonModule],
+    templateUrl: './fl-plotly-standalone.component.html',
+    styleUrl: './fl-plotly-standalone.component.scss'
 })
 export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {
   @Input({ required: true }) data: FlPlotlyData;

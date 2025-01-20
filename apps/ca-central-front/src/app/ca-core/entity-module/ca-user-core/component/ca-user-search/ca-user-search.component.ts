@@ -15,10 +15,11 @@ import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
 
 @Component({
-  selector: 'ca-user-search',
-  templateUrl: './ca-user-search.component.html',
-  styleUrls: ['./ca-user-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-user-search',
+    templateUrl: './ca-user-search.component.html',
+    styleUrls: ['./ca-user-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaUserSearchComponent implements OnInit {
   datasource: CaUserDatasourcePaginated<CaUserSearchFields>;

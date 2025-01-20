@@ -13,9 +13,10 @@ import {
 import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
 
 @Component({
-  selector: 'ca-lab-folders-table',
-  templateUrl: './ca-lab-folders-table.component.html',
-  styleUrls: ['./ca-lab-folders-table.component.scss'],
+    selector: 'ca-lab-folders-table',
+    templateUrl: './ca-lab-folders-table.component.html',
+    styleUrls: ['./ca-lab-folders-table.component.scss'],
+    standalone: false
 })
 export class CaLabFoldersTableComponent {
   @Input({ required: true }) datasource: CaLabFolderDatasource;

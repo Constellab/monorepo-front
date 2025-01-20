@@ -3,9 +3,10 @@ import { CaActivity, CaActivityDatasource } from '../../../../model/entities/ca-
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-activity-table',
-  templateUrl: './ca-activity-table.component.html',
-  styleUrls: ['./ca-activity-table.component.scss'],
+    selector: 'ca-activity-table',
+    templateUrl: './ca-activity-table.component.html',
+    styleUrls: ['./ca-activity-table.component.scss'],
+    standalone: false
 })
 export class CaActivityTableComponent {
   @Input({ required: true }) datasource: CaActivityDatasource<any>;

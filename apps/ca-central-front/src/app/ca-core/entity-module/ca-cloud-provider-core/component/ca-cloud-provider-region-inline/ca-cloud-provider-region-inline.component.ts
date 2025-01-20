@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provider.class';
 
 @Component({
-  selector: 'ca-cloud-provider-region-inline',
-  templateUrl: './ca-cloud-provider-region-inline.component.html',
-  styleUrls: ['./ca-cloud-provider-region-inline.component.scss'],
+    selector: 'ca-cloud-provider-region-inline',
+    templateUrl: './ca-cloud-provider-region-inline.component.html',
+    styleUrls: ['./ca-cloud-provider-region-inline.component.scss'],
+    standalone: false
 })
 export class CaCloudProviderRegionInlineComponent {
   @Input({ required: true }) region: CaCloudProviderRegion;

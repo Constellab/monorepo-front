@@ -28,10 +28,11 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
  *
  */
 @Component({
-  selector: 'fl-form-field',
-  templateUrl: './fl-form-field.component.html',
-  styleUrls: ['./fl-form-field.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-form-field',
+    templateUrl: './fl-form-field.component.html',
+    styleUrls: ['./fl-form-field.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
   // mandatory to get the control of the content input

@@ -3,10 +3,11 @@ import { FlTag, FlTagDatasource, FlTagSelectedEvent } from '../../fl-tag.class';
 import { FlTagColorer } from '../../fl-tag-colorer.class';
 
 @Component({
-  selector: 'fl-tag-list',
-  templateUrl: './fl-tag-list.component.html',
-  styleUrls: ['./fl-tag-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-tag-list',
+    templateUrl: './fl-tag-list.component.html',
+    styleUrls: ['./fl-tag-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlTagListComponent {
   @Input({ required: true }) tags: FlTag[] | Record<string, string> | FlTagDatasource;

@@ -27,9 +27,10 @@ class CaLabBackupArrayObs extends FlArrayObs<CaLabBackupPeriod> {
  * Dialog to show the detail for lab volume price and backup store price
  */
 @Component({
-  selector: 'ca-lab-storage-price-dialog',
-  templateUrl: './ca-lab-storage-price-dialog.component.html',
-  styleUrl: './ca-lab-storage-price-dialog.component.scss',
+    selector: 'ca-lab-storage-price-dialog',
+    templateUrl: './ca-lab-storage-price-dialog.component.html',
+    styleUrl: './ca-lab-storage-price-dialog.component.scss',
+    standalone: false
 })
 export class CaLabStoragePriceDialogComponent {
   data: CaLabStoragePriceDialogInput = inject(MAT_DIALOG_DATA);

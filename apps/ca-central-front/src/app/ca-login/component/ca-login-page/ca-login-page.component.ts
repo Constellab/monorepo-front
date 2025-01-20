@@ -4,9 +4,10 @@ import { FlDialogService, FlPasswordForgottenComponent, FlSnackBarService } from
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 
 @Component({
-  selector: 'ca-login-page',
-  templateUrl: './ca-login-page.component.html',
-  styleUrls: ['./ca-login-page.component.scss'],
+    selector: 'ca-login-page',
+    templateUrl: './ca-login-page.component.html',
+    styleUrls: ['./ca-login-page.component.scss'],
+    standalone: false
 })
 export class CaLoginPageComponent implements OnInit {
   appRoute: string = CaRouterService.getAppRoute();

@@ -9,9 +9,10 @@ export interface FlPrettyJsonDialogInput {
 }
 
 @Component({
-  selector: 'fl-pretty-json-dialog',
-  templateUrl: './fl-pretty-json-dialog.component.html',
-  styleUrls: ['./fl-pretty-json-dialog.component.scss'],
+    selector: 'fl-pretty-json-dialog',
+    templateUrl: './fl-pretty-json-dialog.component.html',
+    styleUrls: ['./fl-pretty-json-dialog.component.scss'],
+    standalone: false
 })
 export class FlPrettyJsonDialogComponent {
   title: FlTranslatableText;

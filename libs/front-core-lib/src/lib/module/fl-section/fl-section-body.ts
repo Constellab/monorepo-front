@@ -22,8 +22,8 @@ export interface FlAsyncSectionBodyContext<T> extends FlViewContext<T> {
 }
 
 @Directive({
-  selector:
-    '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent], [flSectionBodyStatusObsEvent]',
+    selector: '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent], [flSectionBodyStatusObsEvent]',
+    standalone: false
 })
 export class FlSectionBodyDirective<T> {
   /**

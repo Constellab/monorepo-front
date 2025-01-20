@@ -6,16 +6,15 @@ import { LmsGlobalInfoComponent } from '../lms-global-info/lms-global-info.compo
 import { LmsConfigureLabManagerComponent } from '../lms-configure-lab-manager/lms-configure-lab-manager.component';
 
 @Component({
-  selector: 'lms-page',
-  standalone: true,
-  imports: [LmlLabManagerLibModule, LmsGlobalInfoComponent, LmsConfigureLabManagerComponent],
-  providers: [
-    { provide: LmlLabManagerService, useClass: LmsLabManagerService },
-    LmlLabManagerState,
-    LmsLabState,
-  ],
-  templateUrl: './lms-page.component.html',
-  styleUrl: './lms-page.component.scss',
+    selector: 'lms-page',
+    imports: [LmlLabManagerLibModule, LmsGlobalInfoComponent, LmsConfigureLabManagerComponent],
+    providers: [
+        { provide: LmlLabManagerService, useClass: LmsLabManagerService },
+        LmlLabManagerState,
+        LmsLabState,
+    ],
+    templateUrl: './lms-page.component.html',
+    styleUrl: './lms-page.component.scss'
 })
 export class LmsPageComponent {
   private state = inject(LmsLabState);

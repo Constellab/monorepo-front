@@ -4,7 +4,8 @@ import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
  * Simple directive to force the focus of the container when it appears on screen
  */
 @Directive({
-  selector: '[flAutofocus]',
+    selector: '[flAutofocus]',
+    standalone: false
 })
 export class FlAutofocusDirective implements AfterViewInit {
   /**

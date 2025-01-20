@@ -8,13 +8,14 @@ import { FlSortDirection } from '../../model/fl-sort.class';
  * Directive to put on a mat-table to connect the sorting of the table with the search state
  */
 @Directive({
-  selector: 'mat-table[flSearchTableSort]',
-  hostDirectives: [
-    {
-      directive: MatSort,
-      inputs: ['matSortDisabled'],
-    },
-  ],
+    selector: 'mat-table[flSearchTableSort]',
+    hostDirectives: [
+        {
+            directive: MatSort,
+            inputs: ['matSortDisabled'],
+        },
+    ],
+    standalone: false
 })
 export class FlSearchTableSortDirective implements OnInit, OnDestroy {
   private subscription: Subscription;

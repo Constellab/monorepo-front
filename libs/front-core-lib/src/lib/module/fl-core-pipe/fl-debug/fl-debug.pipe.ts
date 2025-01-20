@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Simple pipe to log piped value
  */
 @Pipe({
-  name: 'flDebug',
+    name: 'flDebug',
+    standalone: false
 })
 export class FlDebugPipe implements PipeTransform {
   transform(value: any, tag?: string): any {

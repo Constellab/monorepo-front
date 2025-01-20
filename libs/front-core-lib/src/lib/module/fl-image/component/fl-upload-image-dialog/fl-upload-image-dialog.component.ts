@@ -43,9 +43,10 @@ export interface FlUploadImageDialogOutput<T = any> {
 }
 
 @Component({
-  selector: 'fl-upload-image-dialog',
-  templateUrl: './fl-upload-image-dialog.component.html',
-  styleUrls: ['./fl-upload-image-dialog.component.scss'],
+    selector: 'fl-upload-image-dialog',
+    templateUrl: './fl-upload-image-dialog.component.html',
+    styleUrls: ['./fl-upload-image-dialog.component.scss'],
+    standalone: false
 })
 export class FlUploadImageDialogComponent implements OnInit {
   compressIsLoading = true;

@@ -4,7 +4,8 @@ import { Directive, effect, EmbeddedViewRef, input, TemplateRef, ViewContainerRe
  * Directive to recreate a view when the input change. It allows to recreate component when the input changes.
  */
 @Directive({
-  selector: '[flRecreateView]',
+    selector: '[flRecreateView]',
+    standalone: false
 })
 export class FlRecreateViewDirective {
   flRecreateView = input.required<any>();

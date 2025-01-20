@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { HaSpaceService } from '../../../ha-service/ha-space.service';
 
 @Directive({
-  selector: '[haIsGencoveryMember]',
+    selector: '[haIsGencoveryMember]',
+    standalone: false
 })
 export class HaIsGencoveryMemberDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(

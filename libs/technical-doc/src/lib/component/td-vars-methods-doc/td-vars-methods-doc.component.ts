@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TdTechDocFunction } from '../../model/td-resource-type.class';
 
 @Component({
-  selector: 'td-vars-methods-doc',
-  templateUrl: './td-vars-methods-doc.component.html',
-  styleUrls: ['./td-vars-methods-doc.component.scss'],
+    selector: 'td-vars-methods-doc',
+    templateUrl: './td-vars-methods-doc.component.html',
+    styleUrls: ['./td-vars-methods-doc.component.scss'],
+    standalone: false
 })
 export class TdVarsMethodsDocComponent implements OnInit {
   @Input({ required: true }) funcs: TdTechDocFunction[];

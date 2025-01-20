@@ -14,9 +14,10 @@ import {
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 
 @Component({
-  selector: 'ca-lab-green-option-table',
-  templateUrl: './ca-lab-green-option-table.component.html',
-  styleUrls: ['./ca-lab-green-option-table.component.scss'],
+    selector: 'ca-lab-green-option-table',
+    templateUrl: './ca-lab-green-option-table.component.html',
+    styleUrls: ['./ca-lab-green-option-table.component.scss'],
+    standalone: false
 })
 export class CaLabGreenOptionTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<CaLabGreenOption>;

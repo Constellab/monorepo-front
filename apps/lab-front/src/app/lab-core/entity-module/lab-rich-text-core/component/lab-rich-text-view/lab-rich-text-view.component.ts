@@ -13,9 +13,10 @@ import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-se
  * It supports both note and note resource views.
  */
 @Component({
-  selector: 'lab-rich-text-view',
-  templateUrl: './lab-rich-text-view.component.html',
-  styleUrls: ['./lab-rich-text-view.component.scss'],
+    selector: 'lab-rich-text-view',
+    templateUrl: './lab-rich-text-view.component.html',
+    styleUrls: ['./lab-rich-text-view.component.scss'],
+    standalone: false
 })
 export class LabRichTextViewComponent extends TeElementBlockDirective {
   @Input() resourceId: string;

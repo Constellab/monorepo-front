@@ -11,9 +11,10 @@ import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-selec
 import { CoIcon } from '../../model/co-icon.class';
 
 @Component({
-  selector: 'co-update-type-icon-form',
-  templateUrl: './co-update-type-icon-form.component.html',
-  styleUrl: './co-update-type-icon-form.component.scss',
+    selector: 'co-update-type-icon-form',
+    templateUrl: './co-update-type-icon-form.component.html',
+    styleUrl: './co-update-type-icon-form.component.scss',
+    standalone: false
 })
 export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> implements OnInit {
   isDarkTheme = this.themeService.isDarkTheme();

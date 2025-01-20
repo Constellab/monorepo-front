@@ -15,9 +15,10 @@ interface LmlCommunityBrickFilers {
 }
 
 @Component({
-  selector: 'lml-config-brick',
-  templateUrl: './lml-configure-brick.component.html',
-  styleUrls: ['./lml-configure-brick.component.scss'],
+    selector: 'lml-config-brick',
+    templateUrl: './lml-configure-brick.component.html',
+    styleUrls: ['./lml-configure-brick.component.scss'],
+    standalone: false
 })
 export class LmlConfigureBrickComponent implements OnInit {
   formGp = new FormBuilder().group({

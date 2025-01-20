@@ -17,9 +17,10 @@ import { CaRouterService } from '../../../../../ca-core/service/ca-router.servic
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-  selector: 'ca-folder-detail-actions',
-  templateUrl: './ca-folder-detail-actions.component.html',
-  styleUrl: './ca-folder-detail-actions.component.scss',
+    selector: 'ca-folder-detail-actions',
+    templateUrl: './ca-folder-detail-actions.component.html',
+    styleUrl: './ca-folder-detail-actions.component.scss',
+    standalone: false
 })
 export class CaFolderDetailActionsComponent {
   folderId$: Observable<string> = this.state.getFolderId$();

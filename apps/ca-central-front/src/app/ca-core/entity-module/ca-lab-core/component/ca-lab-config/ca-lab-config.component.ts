@@ -9,9 +9,10 @@ import {
 } from '@monorepo/lab-manager-lib';
 
 @Component({
-  selector: 'ca-lab-config',
-  templateUrl: './ca-lab-config.component.html',
-  styleUrls: ['./ca-lab-config.component.scss'],
+    selector: 'ca-lab-config',
+    templateUrl: './ca-lab-config.component.html',
+    styleUrls: ['./ca-lab-config.component.scss'],
+    standalone: false
 })
 export class CaLabConfigComponent {
   @Input({ required: true }) labConfig: CaLabConfig;

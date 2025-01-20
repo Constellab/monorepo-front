@@ -19,9 +19,10 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
  * NgModel component to generate a form field dynamically based on a config
  */
 @Component({
-  selector: 'fl-dynamic-field',
-  templateUrl: './fl-dynamic-field.component.html',
-  styleUrls: ['./fl-dynamic-field.component.scss'],
+    selector: 'fl-dynamic-field',
+    templateUrl: './fl-dynamic-field.component.html',
+    styleUrls: ['./fl-dynamic-field.component.scss'],
+    standalone: false
 })
 export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbstractFormDirective {
   config = input<FlDynamicFieldConfig>();

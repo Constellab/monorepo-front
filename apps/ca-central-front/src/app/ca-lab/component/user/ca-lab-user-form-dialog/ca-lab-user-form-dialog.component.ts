@@ -17,9 +17,10 @@ interface CaLabUserForm {
 }
 
 @Component({
-  selector: 'ca-lab-user-form-dialog',
-  templateUrl: './ca-lab-user-form-dialog.component.html',
-  styleUrls: ['./ca-lab-user-form-dialog.component.scss'],
+    selector: 'ca-lab-user-form-dialog',
+    templateUrl: './ca-lab-user-form-dialog.component.html',
+    styleUrls: ['./ca-lab-user-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabUserFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabUserForm, CaLabUser>

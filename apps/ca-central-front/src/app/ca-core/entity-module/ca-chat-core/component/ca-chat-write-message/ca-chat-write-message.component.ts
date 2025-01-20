@@ -7,9 +7,10 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
  * Component to write a message in a chat
  */
 @Component({
-  selector: 'ca-chat-write-message',
-  templateUrl: './ca-chat-write-message.component.html',
-  styleUrl: './ca-chat-write-message.component.scss',
+    selector: 'ca-chat-write-message',
+    templateUrl: './ca-chat-write-message.component.html',
+    styleUrl: './ca-chat-write-message.component.scss',
+    standalone: false
 })
 export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   @Input({ required: true }) folderId: string;

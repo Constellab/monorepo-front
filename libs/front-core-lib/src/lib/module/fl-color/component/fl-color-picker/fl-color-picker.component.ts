@@ -3,10 +3,11 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
 import { NgControl } from '@angular/forms';
 
 @Component({
-  selector: 'fl-color-picker',
-  templateUrl: './fl-color-picker.component.html',
-  styleUrl: './fl-color-picker.component.scss',
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlColorPickerComponent }],
+    selector: 'fl-color-picker',
+    templateUrl: './fl-color-picker.component.html',
+    styleUrl: './fl-color-picker.component.scss',
+    providers: [{ provide: FlFormFieldDirective, useExisting: FlColorPickerComponent }],
+    standalone: false
 })
 export class FlColorPickerComponent extends FlFormFieldDirective<string> {
   constructor(@Optional() @Self() ngControl: NgControl) {

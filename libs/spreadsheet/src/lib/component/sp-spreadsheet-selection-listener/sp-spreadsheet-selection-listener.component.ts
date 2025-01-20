@@ -10,9 +10,10 @@ import { ThemePalette } from '@angular/material/core';
  * Component to listen to selection on spreadsheet
  */
 @Component({
-  selector: 'sp-spreadsheet-selection-listener',
-  templateUrl: './sp-spreadsheet-selection-listener.component.html',
-  styleUrls: ['./sp-spreadsheet-selection-listener.component.scss'],
+    selector: 'sp-spreadsheet-selection-listener',
+    templateUrl: './sp-spreadsheet-selection-listener.component.html',
+    styleUrls: ['./sp-spreadsheet-selection-listener.component.scss'],
+    standalone: false
 })
 export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestroy {
   /**

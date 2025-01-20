@@ -2,7 +2,8 @@ import { Directive, HostListener, Input } from '@angular/core';
 import { FlOverlayRef } from '../model/fl-overlay-ref.class';
 
 @Directive({
-  selector: '[flPortalClose]',
+    selector: '[flPortalClose]',
+    standalone: false
 })
 export class FlPortalCloseDirective {
   /**

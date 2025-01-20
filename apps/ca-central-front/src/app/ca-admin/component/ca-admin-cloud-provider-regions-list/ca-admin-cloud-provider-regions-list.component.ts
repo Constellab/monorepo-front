@@ -11,9 +11,10 @@ import {
 } from '../../../ca-core/model/entities/ca-cloud-provider.class';
 
 @Component({
-  selector: 'ca-admin-bucket-regions-list',
-  templateUrl: './ca-admin-cloud-provider-regions-list.component.html',
-  styleUrls: ['./ca-admin-cloud-provider-regions-list.component.scss'],
+    selector: 'ca-admin-bucket-regions-list',
+    templateUrl: './ca-admin-cloud-provider-regions-list.component.html',
+    styleUrls: ['./ca-admin-cloud-provider-regions-list.component.scss'],
+    standalone: false
 })
 export class CaAdminCloudProviderRegionsListComponent {
   regions: CaCloudProviderRegionDatasource = this.cloudProviderService.getAllRegionsDatasource();

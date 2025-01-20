@@ -3,9 +3,10 @@ import { LabViewConfig } from '../../../../model/entities/resource/lab-view-conf
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'lab-select-view-config-dialog',
-  templateUrl: './lab-select-view-config-dialog.component.html',
-  styleUrls: ['./lab-select-view-config-dialog.component.scss'],
+    selector: 'lab-select-view-config-dialog',
+    templateUrl: './lab-select-view-config-dialog.component.html',
+    styleUrls: ['./lab-select-view-config-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectViewConfigDialogComponent {
   noteId: string;

@@ -4,9 +4,10 @@ import { LabShareLink, LabShareLinkDatasource } from '../../../../lab-core/model
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-monitoring-share-links',
-  templateUrl: './lab-monitoring-share-links.component.html',
-  styleUrls: ['./lab-monitoring-share-links.component.scss'],
+    selector: 'lab-monitoring-share-links',
+    templateUrl: './lab-monitoring-share-links.component.html',
+    styleUrls: ['./lab-monitoring-share-links.component.scss'],
+    standalone: false
 })
 export class LabMonitoringShareLinksComponent {
   shareLinks: LabShareLinkDatasource = this.shareLinkService.getAllDatasource();

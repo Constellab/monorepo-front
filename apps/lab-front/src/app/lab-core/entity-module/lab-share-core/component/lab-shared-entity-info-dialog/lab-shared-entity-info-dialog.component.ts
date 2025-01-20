@@ -39,9 +39,10 @@ export interface LabSharedEntityInfoDialogInput {
 }
 
 @Component({
-  selector: 'lab-shared-entity-info-dialog',
-  templateUrl: './lab-shared-entity-info-dialog.component.html',
-  styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
+    selector: 'lab-shared-entity-info-dialog',
+    templateUrl: './lab-shared-entity-info-dialog.component.html',
+    styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
+    standalone: false
 })
 export class LabSharedEntityInfoDialogComponent implements OnInit {
   input: LabSharedEntityInfoDialogInput = inject(MAT_DIALOG_DATA);

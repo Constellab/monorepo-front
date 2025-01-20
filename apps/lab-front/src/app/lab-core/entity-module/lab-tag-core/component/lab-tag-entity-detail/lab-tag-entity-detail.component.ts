@@ -23,10 +23,11 @@ import { ClHelpService } from '@monorepo/core-lib';
  * It also supports an add, update and delete tag value button
  */
 @Component({
-  selector: 'lab-tag-entity-detail',
-  templateUrl: './lab-tag-entity-detail.component.html',
-  styleUrls: ['./lab-tag-entity-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-tag-entity-detail',
+    templateUrl: './lab-tag-entity-detail.component.html',
+    styleUrls: ['./lab-tag-entity-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabTagEntityDetailComponent implements OnInit {
   @Input() tagEntity: LabTagKeyModel;

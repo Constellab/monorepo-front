@@ -20,9 +20,10 @@ export interface CaUserMentionPortalResult {
 }
 
 @Component({
-  selector: 'ca-user-mention-portal',
-  templateUrl: './ca-user-mention-portal.component.html',
-  styleUrl: './ca-user-mention-portal.component.scss',
+    selector: 'ca-user-mention-portal',
+    templateUrl: './ca-user-mention-portal.component.html',
+    styleUrl: './ca-user-mention-portal.component.scss',
+    standalone: false
 })
 export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   showEveryoneButton: number = 0;

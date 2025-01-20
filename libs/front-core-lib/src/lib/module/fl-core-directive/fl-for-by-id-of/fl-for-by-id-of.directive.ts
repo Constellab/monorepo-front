@@ -11,7 +11,8 @@ interface WithId {
  * to track by ids
  */
 @Directive({
-  selector: '[flForById]',
+    selector: '[flForById]',
+    standalone: false
 })
 export class FlForByIdOfDirective<T extends WithId, U extends NgIterable<T> = NgIterable<T>> extends NgForOf<
   T,

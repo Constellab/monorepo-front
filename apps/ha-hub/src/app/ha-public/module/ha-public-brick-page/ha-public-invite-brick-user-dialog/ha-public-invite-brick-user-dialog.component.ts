@@ -11,9 +11,10 @@ export interface HaInviteBrickUserFormData {
 }
 
 @Component({
-  selector: 'ha-public-invite-brick-user-dialog',
-  templateUrl: './ha-public-invite-brick-user-dialog.component.html',
-  styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
+    selector: 'ha-public-invite-brick-user-dialog',
+    templateUrl: './ha-public-invite-brick-user-dialog.component.html',
+    styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
+    standalone: false
 })
 export class HaPublicInviteBrickUserDialogComponent
   extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser>

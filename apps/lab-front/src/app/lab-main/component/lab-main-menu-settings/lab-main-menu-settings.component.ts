@@ -13,9 +13,10 @@ import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
  * Component for the settings button on top right of the screen
  */
 @Component({
-  selector: 'lab-main-menu-settings',
-  templateUrl: './lab-main-menu-settings.component.html',
-  styleUrls: ['./lab-main-menu-settings.component.scss'],
+    selector: 'lab-main-menu-settings',
+    templateUrl: './lab-main-menu-settings.component.html',
+    styleUrls: ['./lab-main-menu-settings.component.scss'],
+    standalone: false
 })
 export class LabMainMenuSettingsComponent implements OnInit {
   codeServerUrl: string;

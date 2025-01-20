@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@an
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 @Component({
-  selector: 'ca-hierarchy-object-icon',
-  templateUrl: './ca-hierarchy-object-icon.component.html',
-  styleUrl: './ca-hierarchy-object-icon.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ca-hierarchy-object-icon',
+    templateUrl: './ca-hierarchy-object-icon.component.html',
+    styleUrl: './ca-hierarchy-object-icon.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CaHierarchyObjectIconComponent {
   style = input.required<TdTypeStyle>();

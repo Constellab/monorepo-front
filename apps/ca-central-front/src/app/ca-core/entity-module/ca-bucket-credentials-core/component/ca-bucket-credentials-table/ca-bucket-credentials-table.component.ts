@@ -20,9 +20,10 @@ import { CaObjectStorageService } from '../../../../service-api/ca-object-storag
 import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ca-bucket-credentials-table',
-  templateUrl: './ca-bucket-credentials-table.component.html',
-  styleUrls: ['./ca-bucket-credentials-table.component.scss'],
+    selector: 'ca-bucket-credentials-table',
+    templateUrl: './ca-bucket-credentials-table.component.html',
+    styleUrls: ['./ca-bucket-credentials-table.component.scss'],
+    standalone: false
 })
 export class CaBucketCredentialsTableComponent implements OnInit {
   @Input() datasource: CaBucketCredentialsDatasource;

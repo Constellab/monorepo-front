@@ -16,10 +16,11 @@ import { FormControl } from '@angular/forms';
  * This component is used to lazy load the code editor component.
  */
 @Component({
-  selector: 'fl-code-editor',
-  templateUrl: './fl-code-editor.component.html',
-  styleUrls: ['./fl-code-editor.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-code-editor',
+    templateUrl: './fl-code-editor.component.html',
+    styleUrls: ['./fl-code-editor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlCodeEditorComponent implements OnInit, OnDestroy {
   @Input({ required: true }) language: FlCodeEditorLanguage;

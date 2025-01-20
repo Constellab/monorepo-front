@@ -24,9 +24,10 @@ interface LabWorkflowPortResource {
  * Component inside the node dashboard to display the input or output resources
  */
 @Component({
-  selector: 'lab-process-io-panel',
-  templateUrl: './lab-process-io-panel.component.html',
-  styleUrls: ['./lab-process-io-panel.component.scss'],
+    selector: 'lab-process-io-panel',
+    templateUrl: './lab-process-io-panel.component.html',
+    styleUrls: ['./lab-process-io-panel.component.scss'],
+    standalone: false
 })
 export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   @Input() nodeProcess$: Observable<PrWorkflowNodeProcess>;

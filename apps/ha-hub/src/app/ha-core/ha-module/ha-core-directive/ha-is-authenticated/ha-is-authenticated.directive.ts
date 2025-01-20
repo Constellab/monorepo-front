@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { HaAuthService } from '../../../ha-service/ha-auth.service';
 
 @Directive({
-  selector: '[haIsAuthenticated]',
+    selector: '[haIsAuthenticated]',
+    standalone: false
 })
 export class HaIsAuthenticatedDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   constructor(

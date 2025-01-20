@@ -9,9 +9,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'ha-public-find-doc-dialog',
-  templateUrl: './ha-public-find-doc.component.html',
-  styleUrls: ['./ha-public-find-doc.component.scss'],
+    selector: 'ha-public-find-doc-dialog',
+    templateUrl: './ha-public-find-doc.component.html',
+    styleUrls: ['./ha-public-find-doc.component.scss'],
+    standalone: false
 })
 export class HaPublicFindDocComponent implements OnInit {
   inputControl = new FormControl<string | HaDocumentationSearchDTO>('');

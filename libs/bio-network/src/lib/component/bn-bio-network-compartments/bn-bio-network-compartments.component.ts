@@ -10,10 +10,11 @@ import { BnBioNetworkCompartment } from '../../model/bn-bio-network.class';
  * highlight them on click
  */
 @Component({
-  selector: 'bn-bio-network-compartments',
-  templateUrl: './bn-bio-network-compartments.component.html',
-  styleUrls: ['./bn-bio-network-compartments.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-compartments',
+    templateUrl: './bn-bio-network-compartments.component.html',
+    styleUrls: ['./bn-bio-network-compartments.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkCompartmentsComponent implements OnInit {
   compartments$: Observable<BnBioNetworkCompartment[]>;

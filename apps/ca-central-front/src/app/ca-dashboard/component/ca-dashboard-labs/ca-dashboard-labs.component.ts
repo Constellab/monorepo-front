@@ -14,9 +14,10 @@ import {
  * Small list of labs in the dashboard
  */
 @Component({
-  selector: 'ca-dashboard-labs',
-  templateUrl: './ca-dashboard-labs.component.html',
-  styleUrls: ['./ca-dashboard-labs.component.scss'],
+    selector: 'ca-dashboard-labs',
+    templateUrl: './ca-dashboard-labs.component.html',
+    styleUrls: ['./ca-dashboard-labs.component.scss'],
+    standalone: false
 })
 export class CaDashboardLabsComponent implements OnInit {
   labsDatasource: CaLabDatasource;

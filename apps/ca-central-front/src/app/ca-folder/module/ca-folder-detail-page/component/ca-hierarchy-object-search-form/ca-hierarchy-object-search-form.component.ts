@@ -12,9 +12,10 @@ import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
  * Form inside folder detail page to filter hierarchy objects of a folder
  */
 @Component({
-  selector: 'ca-hierarchy-object-search-form',
-  templateUrl: './ca-hierarchy-object-search-form.component.html',
-  styleUrl: './ca-hierarchy-object-search-form.component.scss',
+    selector: 'ca-hierarchy-object-search-form',
+    templateUrl: './ca-hierarchy-object-search-form.component.html',
+    styleUrl: './ca-hierarchy-object-search-form.component.scss',
+    standalone: false
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit {
   searchState = inject(FlSearchState);

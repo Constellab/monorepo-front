@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-scenario-detail-page',
-  templateUrl: './ca-scenario-detail-page.component.html',
-  styleUrls: ['./ca-scenario-detail-page.component.scss'],
+    selector: 'ca-scenario-detail-page',
+    templateUrl: './ca-scenario-detail-page.component.html',
+    styleUrls: ['./ca-scenario-detail-page.component.scss'],
+    standalone: false
 })
 export class CaScenarioDetailPageComponent implements OnInit {
   scenarioId$: Observable<string>;

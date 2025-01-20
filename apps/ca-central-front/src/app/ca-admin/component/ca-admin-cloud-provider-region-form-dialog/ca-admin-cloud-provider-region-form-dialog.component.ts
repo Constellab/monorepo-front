@@ -13,9 +13,10 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
  * and if we put it in the CloudProviderModule, we will have a circular dependency.
  */
 @Component({
-  selector: 'ca-admin-bucket-region-form-dialog',
-  templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
-  styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
+    selector: 'ca-admin-bucket-region-form-dialog',
+    templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
+    styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaAdminCloudProviderRegionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCloudProviderRegion, CaCloudProviderRegion>

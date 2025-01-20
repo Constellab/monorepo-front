@@ -18,9 +18,10 @@ interface LabProgressWithMessage {
  * Show information about a {@link LabProgressBar}
  */
 @Component({
-  selector: 'lab-progress-bar-info',
-  templateUrl: './lab-progress-bar-info.component.html',
-  styleUrls: ['./lab-progress-bar-info.component.scss'],
+    selector: 'lab-progress-bar-info',
+    templateUrl: './lab-progress-bar-info.component.html',
+    styleUrls: ['./lab-progress-bar-info.component.scss'],
+    standalone: false
 })
 export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
   @Input({ required: true }) progressBar$: Observable<LabProgressBar>;

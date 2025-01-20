@@ -11,9 +11,10 @@ import { CaHierarchyObjectWithChildren } from '../../../ca-core/model/entities/f
  * Page of a folder chat
  */
 @Component({
-  selector: 'ca-chat-detail-page',
-  templateUrl: './ca-chat-detail-page.component.html',
-  styleUrl: './ca-chat-detail-page.component.scss',
+    selector: 'ca-chat-detail-page',
+    templateUrl: './ca-chat-detail-page.component.html',
+    styleUrl: './ca-chat-detail-page.component.scss',
+    standalone: false
 })
 export class CaChatDetailPageComponent {
   private state = inject(CaChatState);

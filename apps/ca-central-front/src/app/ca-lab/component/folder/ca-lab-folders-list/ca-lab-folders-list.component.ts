@@ -20,9 +20,10 @@ import {
 import { CaHierarchyObject } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
-  selector: 'ca-lab-folders-list',
-  templateUrl: './ca-lab-folders-list.component.html',
-  styleUrls: ['./ca-lab-folders-list.component.scss'],
+    selector: 'ca-lab-folders-list',
+    templateUrl: './ca-lab-folders-list.component.html',
+    styleUrls: ['./ca-lab-folders-list.component.scss'],
+    standalone: false
 })
 export class CaLabFoldersListComponent implements OnInit {
   @Input() labId: string;

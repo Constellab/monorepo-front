@@ -15,9 +15,10 @@ export interface CaSpaceUserRoleDialogInput {
  * Dialog to update the role of a user in an space
  */
 @Component({
-  selector: 'ca-space-user-role-dialog',
-  templateUrl: './ca-space-user-role-dialog.component.html',
-  styleUrls: ['./ca-space-user-role-dialog.component.scss'],
+    selector: 'ca-space-user-role-dialog',
+    templateUrl: './ca-space-user-role-dialog.component.html',
+    styleUrls: ['./ca-space-user-role-dialog.component.scss'],
+    standalone: false
 })
 export class CaSpaceUserRoleDialogComponent implements OnInit {
   formControl: FormControl;

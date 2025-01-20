@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'lab-resource-detail-page',
-  templateUrl: './lab-resource-detail-page.component.html',
-  styleUrls: ['./lab-resource-detail-page.component.scss'],
+    selector: 'lab-resource-detail-page',
+    templateUrl: './lab-resource-detail-page.component.html',
+    styleUrls: ['./lab-resource-detail-page.component.scss'],
+    standalone: false
 })
 export class LabResourceDetailPageComponent implements OnInit {
   resourceId$: Observable<string>;

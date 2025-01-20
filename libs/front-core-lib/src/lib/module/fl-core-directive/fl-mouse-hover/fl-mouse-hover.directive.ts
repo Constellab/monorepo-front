@@ -10,7 +10,8 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Styles or classes can be set to be added during the hover (with the delay)
  */
 @Directive({
-  selector: '[flMouseHover]',
+    selector: '[flMouseHover]',
+    standalone: false
 })
 export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
   /**

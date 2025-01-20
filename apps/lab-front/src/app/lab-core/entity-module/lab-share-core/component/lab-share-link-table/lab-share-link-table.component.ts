@@ -7,9 +7,10 @@ import {
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-share-link-table',
-  templateUrl: './lab-share-link-table.component.html',
-  styleUrls: ['./lab-share-link-table.component.scss'],
+    selector: 'lab-share-link-table',
+    templateUrl: './lab-share-link-table.component.html',
+    styleUrls: ['./lab-share-link-table.component.scss'],
+    standalone: false
 })
 export class LabShareLinkTableComponent {
   @Input({ required: true }) datasource: LabShareLinkDatasource;

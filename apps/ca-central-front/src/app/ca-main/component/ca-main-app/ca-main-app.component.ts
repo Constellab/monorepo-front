@@ -14,9 +14,10 @@ import { CaNotificationState } from '../../../ca-core/state/ca-notification.stat
  * Main app component. Menu on the left and page on the right
  */
 @Component({
-  selector: 'ca-main-app',
-  templateUrl: './ca-main-app.component.html',
-  styleUrls: ['./ca-main-app.component.scss'],
+    selector: 'ca-main-app',
+    templateUrl: './ca-main-app.component.html',
+    styleUrls: ['./ca-main-app.component.scss'],
+    standalone: false
 })
 export class CaMainAppComponent implements OnInit {
   @ViewChild(MatSidenav, { static: true, read: ElementRef }) sidenav: ElementRef<HTMLElement>;

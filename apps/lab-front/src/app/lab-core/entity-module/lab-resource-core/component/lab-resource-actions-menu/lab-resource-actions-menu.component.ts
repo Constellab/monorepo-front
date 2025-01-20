@@ -43,9 +43,10 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
  * Action menu button for resources, it has a ng-content for custom buttons
  */
 @Component({
-  selector: 'lab-resource-actions-menu',
-  templateUrl: './lab-resource-actions-menu.component.html',
-  styleUrls: ['./lab-resource-actions-menu.component.scss'],
+    selector: 'lab-resource-actions-menu',
+    templateUrl: './lab-resource-actions-menu.component.html',
+    styleUrls: ['./lab-resource-actions-menu.component.scss'],
+    standalone: false
 })
 export class LabResourceActionsMenuComponent implements OnInit {
   @Input() resource: LabResource;

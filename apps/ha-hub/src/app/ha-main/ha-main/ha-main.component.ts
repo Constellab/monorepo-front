@@ -22,10 +22,11 @@ import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service'
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
-  selector: 'ha-main',
-  templateUrl: './ha-main.component.html',
-  styleUrls: ['./ha-main.component.scss'],
-  providers: [HaThemeState, HaJsonLdState],
+    selector: 'ha-main',
+    templateUrl: './ha-main.component.html',
+    styleUrls: ['./ha-main.component.scss'],
+    providers: [HaThemeState, HaJsonLdState],
+    standalone: false
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;

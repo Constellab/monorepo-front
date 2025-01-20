@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FlDynamicFieldAbstractDirective } from '../../model/fl-dynamic-field-abstract.directive';
 
 @Component({
-  selector: 'fl-dynamic-field-input',
-  templateUrl: './fl-dynamic-field-input.component.html',
-  styleUrls: ['./fl-dynamic-field-input.component.scss'],
+    selector: 'fl-dynamic-field-input',
+    templateUrl: './fl-dynamic-field-input.component.html',
+    styleUrls: ['./fl-dynamic-field-input.component.scss'],
+    standalone: false
 })
 export class FlDynamicFieldInputComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() prefix: string;

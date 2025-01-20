@@ -14,9 +14,10 @@ export interface HaCoAuthorsDialogInput {
 }
 
 @Component({
-  selector: 'ha-co-author-dialog',
-  templateUrl: './ha-co-author-dialog.component.html',
-  styleUrls: ['./ha-co-author-dialog.component.scss'],
+    selector: 'ha-co-author-dialog',
+    templateUrl: './ha-co-author-dialog.component.html',
+    styleUrls: ['./ha-co-author-dialog.component.scss'],
+    standalone: false
 })
 export class HaCoAuthorDialogComponent implements OnInit {
   profileRoute = HaRouterService.getProfileRoute();

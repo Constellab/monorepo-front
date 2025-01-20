@@ -4,9 +4,10 @@ import { Observable, of } from 'rxjs';
 import { CaNotificationState } from '../../../../state/ca-notification.state';
 
 @Component({
-  selector: 'ca-space-inline',
-  templateUrl: './ca-space-inline.component.html',
-  styleUrls: ['./ca-space-inline.component.scss'],
+    selector: 'ca-space-inline',
+    templateUrl: './ca-space-inline.component.html',
+    styleUrls: ['./ca-space-inline.component.scss'],
+    standalone: false
 })
 export class CaSpaceInlineComponent implements OnInit {
   @Input() space: CaSpace;

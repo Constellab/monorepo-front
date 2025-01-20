@@ -21,10 +21,11 @@ import {
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 
 @Component({
-  selector: 'lab-scenario-search',
-  templateUrl: './lab-scenario-search.component.html',
-  styleUrls: ['./lab-scenario-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-scenario-search',
+    templateUrl: './lab-scenario-search.component.html',
+    styleUrls: ['./lab-scenario-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabScenarioSearchComponent implements OnInit {
   @Input() scenarioSelectable: boolean = false;

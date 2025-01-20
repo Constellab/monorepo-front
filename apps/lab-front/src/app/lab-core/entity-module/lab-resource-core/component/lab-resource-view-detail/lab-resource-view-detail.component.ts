@@ -6,9 +6,10 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
 @Component({
-  selector: 'lab-resource-view-detail',
-  templateUrl: './lab-resource-view-detail.component.html',
-  styleUrls: ['./lab-resource-view-detail.component.scss'],
+    selector: 'lab-resource-view-detail',
+    templateUrl: './lab-resource-view-detail.component.html',
+    styleUrls: ['./lab-resource-view-detail.component.scss'],
+    standalone: false
 })
 export class LabResourceViewDetailComponent {
   @Input({ required: true }) labView: LabResourceView;

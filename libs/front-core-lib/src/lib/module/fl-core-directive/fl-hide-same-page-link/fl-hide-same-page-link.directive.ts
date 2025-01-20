@@ -5,13 +5,14 @@ import { RouterLinkActive } from '@angular/router';
  * Directive to hide link if the link is the same as the current page
  */
 @Directive({
-  selector: '[flHideSamePageLink]',
-  hostDirectives: [
-    {
-      directive: RouterLinkActive,
-      inputs: ['routerLinkActiveOptions'],
-    },
-  ],
+    selector: '[flHideSamePageLink]',
+    hostDirectives: [
+        {
+            directive: RouterLinkActive,
+            inputs: ['routerLinkActiveOptions'],
+        },
+    ],
+    standalone: false
 })
 export class FlHideSamePageLinkDirective {
   constructor(private routerLinkActive: RouterLinkActive) {

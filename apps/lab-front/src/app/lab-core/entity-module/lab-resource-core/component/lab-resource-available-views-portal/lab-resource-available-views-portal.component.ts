@@ -10,9 +10,10 @@ import {
 } from '../../../../model/entities/resource/lab-view-config.entity';
 
 @Component({
-  selector: 'lab-resource-available-views-portal',
-  templateUrl: './lab-resource-available-views-portal.component.html',
-  styleUrls: ['./lab-resource-available-views-portal.component.scss'],
+    selector: 'lab-resource-available-views-portal',
+    templateUrl: './lab-resource-available-views-portal.component.html',
+    styleUrls: ['./lab-resource-available-views-portal.component.scss'],
+    standalone: false
 })
 export class LabResourceAvailableViewsPortalComponent {
   viewSpecs$: Observable<LabResourceViewSpec[]>;

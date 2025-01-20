@@ -14,9 +14,10 @@ import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-scenario-template-workflow',
-  templateUrl: './lab-scenario-template-workflow.component.html',
-  styleUrl: './lab-scenario-template-workflow.component.scss',
+    selector: 'lab-scenario-template-workflow',
+    templateUrl: './lab-scenario-template-workflow.component.html',
+    styleUrl: './lab-scenario-template-workflow.component.scss',
+    standalone: false
 })
 export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
   @Input() template: LabScenarioTemplate;

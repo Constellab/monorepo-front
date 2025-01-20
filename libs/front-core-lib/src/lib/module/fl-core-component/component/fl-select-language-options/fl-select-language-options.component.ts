@@ -7,9 +7,10 @@ import { MatSelect } from '@angular/material/select';
  * Embed option to generate the app language mat-options
  */
 @Component({
-  selector: 'fl-select-language-options',
-  templateUrl: './fl-select-language-options.component.html',
-  styleUrls: ['./fl-select-language-options.component.scss'],
+    selector: 'fl-select-language-options',
+    templateUrl: './fl-select-language-options.component.html',
+    styleUrls: ['./fl-select-language-options.component.scss'],
+    standalone: false
 })
 export class FlSelectLanguageOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

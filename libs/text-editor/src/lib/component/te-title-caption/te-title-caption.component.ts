@@ -6,9 +6,10 @@ import { FlDialogService } from '@monorepo/front-core-lib';
  * Component inside text editor to show title and caption with possibility to edit them
  */
 @Component({
-  selector: 'te-title-caption',
-  templateUrl: './te-title-caption.component.html',
-  styleUrls: ['./te-title-caption.component.scss'],
+    selector: 'te-title-caption',
+    templateUrl: './te-title-caption.component.html',
+    styleUrls: ['./te-title-caption.component.scss'],
+    standalone: false
 })
 export class TeTitleCaptionComponent implements OnDestroy {
   @Input() title: string;

@@ -13,9 +13,10 @@ import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
  * Detail information about one metabolite node
  */
 @Component({
-  selector: 'bn-bio-network-node-metabolite-detail',
-  templateUrl: './bn-bio-network-node-metabolite-detail.component.html',
-  styleUrls: ['./bn-bio-network-node-metabolite-detail.component.scss'],
+    selector: 'bn-bio-network-node-metabolite-detail',
+    templateUrl: './bn-bio-network-node-metabolite-detail.component.html',
+    styleUrls: ['./bn-bio-network-node-metabolite-detail.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkNodeMetaboliteDetailComponent implements OnInit {
   node$: Observable<BnBioNetworkNodeMetabolite>;

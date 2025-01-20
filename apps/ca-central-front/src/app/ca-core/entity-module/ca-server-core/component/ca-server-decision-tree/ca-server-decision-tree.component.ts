@@ -17,9 +17,10 @@ export interface CaServerDecisionTreeOptionFlatDTO {
 }
 
 @Component({
-  selector: 'ca-server-decision-tree',
-  templateUrl: './ca-server-decision-tree.component.html',
-  styleUrl: './ca-server-decision-tree.component.scss',
+    selector: 'ca-server-decision-tree',
+    templateUrl: './ca-server-decision-tree.component.html',
+    styleUrl: './ca-server-decision-tree.component.scss',
+    standalone: false
 })
 export class CaServerDecisionTreeComponent implements OnInit {
   /**

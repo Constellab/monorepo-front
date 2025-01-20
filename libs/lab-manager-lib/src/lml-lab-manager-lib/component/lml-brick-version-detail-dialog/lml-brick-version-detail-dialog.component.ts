@@ -13,9 +13,10 @@ export interface LmlBrickVersionDetailDialogInput {
  * Simple dialog to load brick version detail and show it
  */
 @Component({
-  selector: 'lml-brick-version-detail-dialog',
-  templateUrl: './lml-brick-version-detail-dialog.component.html',
-  styleUrls: ['./lml-brick-version-detail-dialog.component.scss'],
+    selector: 'lml-brick-version-detail-dialog',
+    templateUrl: './lml-brick-version-detail-dialog.component.html',
+    styleUrls: ['./lml-brick-version-detail-dialog.component.scss'],
+    standalone: false
 })
 export class LmlBrickVersionDetailDialogComponent {
 

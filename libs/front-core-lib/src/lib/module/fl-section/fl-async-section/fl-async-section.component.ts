@@ -18,10 +18,11 @@ import { FlTranslateService } from '../../fl-translate/service/fl-translate.serv
 import { FlStatusEvent } from '../../../model/fl-status-event.class';
 
 @Component({
-  selector: 'fl-async-section',
-  templateUrl: './fl-async-section.component.html',
-  styleUrls: ['./fl-async-section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-async-section',
+    templateUrl: './fl-async-section.component.html',
+    styleUrls: ['./fl-async-section.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
   /**

@@ -8,9 +8,10 @@ import { LabRichTextObjectType } from '../../../../entity-service/lab-rich-text.
 import { LabNoteTextEditorConfig } from '../../../../../lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class';
 
 @Component({
-  selector: 'lab-resource-rich-text-view',
-  templateUrl: './lab-resource-rich-text-view.component.html',
-  styleUrls: ['./lab-resource-rich-text-view.component.scss'],
+    selector: 'lab-resource-rich-text-view',
+    templateUrl: './lab-resource-rich-text-view.component.html',
+    styleUrls: ['./lab-resource-rich-text-view.component.scss'],
+    standalone: false
 })
 export class LabResourceRichTextViewComponent
   extends RvResourceViewDirective<LabResourceViewRichText>

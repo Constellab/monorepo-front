@@ -7,9 +7,10 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { ClDateHelper } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ca-lab-backup-history-table',
-  templateUrl: './ca-lab-backup-history-table.component.html',
-  styleUrls: ['./ca-lab-backup-history-table.component.scss'],
+    selector: 'ca-lab-backup-history-table',
+    templateUrl: './ca-lab-backup-history-table.component.html',
+    styleUrls: ['./ca-lab-backup-history-table.component.scss'],
+    standalone: false
 })
 export class CaLabBackupHistoryTableComponent {
   @Input({ required: true }) datasource: CaLabBackupHistoryDatasource;

@@ -8,9 +8,10 @@ import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
-  selector: 'ha-public-tech-doc-page',
-  templateUrl: './ha-public-tech-doc.component.html',
-  styleUrls: ['./ha-public-tech-doc.component.scss'],
+    selector: 'ha-public-tech-doc-page',
+    templateUrl: './ha-public-tech-doc.component.html',
+    styleUrls: ['./ha-public-tech-doc.component.scss'],
+    standalone: false
 })
 export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);

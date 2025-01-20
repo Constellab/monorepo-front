@@ -16,9 +16,10 @@ import {
 import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
-  selector: 'ha-icon-list',
-  templateUrl: './ha-icon-list.component.html',
-  styleUrls: ['./ha-icon-list.component.scss'],
+    selector: 'ha-icon-list',
+    templateUrl: './ha-icon-list.component.html',
+    styleUrls: ['./ha-icon-list.component.scss'],
+    standalone: false
 })
 export class HaIconListComponent implements OnInit, OnDestroy {
   @Input()

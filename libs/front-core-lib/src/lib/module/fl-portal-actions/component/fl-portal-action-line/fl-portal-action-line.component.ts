@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
  * and show loader for one observable
  */
 @Component({
-  selector: 'fl-portal-action-line',
-  templateUrl: './fl-portal-action-line.component.html',
-  styleUrls: ['./fl-portal-action-line.component.scss'],
+    selector: 'fl-portal-action-line',
+    templateUrl: './fl-portal-action-line.component.html',
+    styleUrls: ['./fl-portal-action-line.component.scss'],
+    standalone: false
 })
 export class FlPortalActionLineComponent implements OnInit {
   @Input() action: FlPortalActionDetail;

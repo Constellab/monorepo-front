@@ -12,9 +12,10 @@ export interface ChChartLegendMultiSeriesInput {
  * Component to display legend for multi series chart
  */
 @Component({
-  selector: 'ch-chart-legend-multi-series',
-  templateUrl: './ch-chart-legend-multi-series.component.html',
-  styleUrls: ['./ch-chart-legend-multi-series.component.scss'],
+    selector: 'ch-chart-legend-multi-series',
+    templateUrl: './ch-chart-legend-multi-series.component.html',
+    styleUrls: ['./ch-chart-legend-multi-series.component.scss'],
+    standalone: false
 })
 export class ChChartLegendMultiSeriesComponent
   extends ChChartRightSectionDirective<ChChartLegendMultiSeriesInput>

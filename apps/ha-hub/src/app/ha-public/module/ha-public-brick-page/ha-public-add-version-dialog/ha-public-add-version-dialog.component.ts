@@ -10,9 +10,10 @@ import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'ha-public-add-version-dialog',
-  templateUrl: './ha-public-add-version-dialog.component.html',
-  styleUrls: ['./ha-public-add-version-dialog.component.scss'],
+    selector: 'ha-public-add-version-dialog',
+    templateUrl: './ha-public-add-version-dialog.component.html',
+    styleUrls: ['./ha-public-add-version-dialog.component.scss'],
+    standalone: false
 })
 export class HaPublicAddVersionDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>>

@@ -12,9 +12,10 @@ import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dia
 import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 
 @Component({
-  selector: 'lab-info',
-  templateUrl: './lab-info.component.html',
-  styleUrls: ['./lab-info.component.scss'],
+    selector: 'lab-info',
+    templateUrl: './lab-info.component.html',
+    styleUrls: ['./lab-info.component.scss'],
+    standalone: false
 })
 export class LabInfoComponent implements OnInit {
   labInfo: LabSystemInfo;

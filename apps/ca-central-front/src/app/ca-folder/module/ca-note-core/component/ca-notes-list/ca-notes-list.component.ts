@@ -3,10 +3,11 @@ import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.cla
 import { FlArrayObs } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-notes-list',
-  templateUrl: './ca-notes-list.component.html',
-  styleUrls: ['./ca-notes-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ca-notes-list',
+    templateUrl: './ca-notes-list.component.html',
+    styleUrls: ['./ca-notes-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CaNotesListComponent {
   @Input({ required: true }) notes: FlArrayObs<CaNote>;

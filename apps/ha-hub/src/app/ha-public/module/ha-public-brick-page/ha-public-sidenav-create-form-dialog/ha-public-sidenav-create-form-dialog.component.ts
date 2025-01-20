@@ -9,9 +9,10 @@ import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 
 @Component({
-  selector: 'ha-public-sidenav-create-form-dialog',
-  templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
-  styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
+    selector: 'ha-public-sidenav-create-form-dialog',
+    templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
+    styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
+    standalone: false
 })
 export class HaPublicSidenavCreateFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>>

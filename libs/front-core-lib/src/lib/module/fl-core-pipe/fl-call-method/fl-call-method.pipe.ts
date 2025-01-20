@@ -8,7 +8,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Example : user | flCallMethod:user.getFullname
  */
 @Pipe({
-  name: 'flCallMethod',
+    name: 'flCallMethod',
+    standalone: false
 })
 export class FlCallMethodPipe implements PipeTransform {
   transform<T>(object: any, method: () => T): T {

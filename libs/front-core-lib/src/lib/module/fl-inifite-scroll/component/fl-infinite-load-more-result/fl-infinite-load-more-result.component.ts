@@ -6,9 +6,10 @@ import { FlDatasourcePaginated } from '../../../../model/datasource/fl-datasourc
  * or show no more result text in page is last
  */
 @Component({
-  selector: 'fl-infinite-load-more-result',
-  templateUrl: './fl-infinite-load-more-result.component.html',
-  styleUrls: ['./fl-infinite-load-more-result.component.scss'],
+    selector: 'fl-infinite-load-more-result',
+    templateUrl: './fl-infinite-load-more-result.component.html',
+    styleUrls: ['./fl-infinite-load-more-result.component.scss'],
+    standalone: false
 })
 export class FlInfiniteLoadMoreResultComponent implements OnInit {
   @Input() datasource: FlDatasourcePaginated<any>;

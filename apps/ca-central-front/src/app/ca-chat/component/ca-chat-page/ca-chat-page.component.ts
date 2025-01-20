@@ -9,10 +9,11 @@ import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'ca-chat-page',
-  templateUrl: './ca-chat-page.component.html',
-  styleUrl: './ca-chat-page.component.scss',
-  providers: [CaChatState],
+    selector: 'ca-chat-page',
+    templateUrl: './ca-chat-page.component.html',
+    styleUrl: './ca-chat-page.component.scss',
+    providers: [CaChatState],
+    standalone: false
 })
 export class CaChatPageComponent {
   isLoading: Signal<boolean>;

@@ -19,9 +19,10 @@ export interface HaAgentResourceViewInputDialogOutputData {
 }
 
 @Component({
-  selector: 'ha-agent-resource-view-input-dialog',
-  templateUrl: './ha-agent-resource-view-input-dialog.component.html',
-  styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
+    selector: 'ha-agent-resource-view-input-dialog',
+    templateUrl: './ha-agent-resource-view-input-dialog.component.html',
+    styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
+    standalone: false
 })
 export class HaAgentResourceViewInputDialogComponent implements OnInit {
   agentId: string;

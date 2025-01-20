@@ -23,13 +23,14 @@ export interface LabQuickConfigureProcessDialogInput {
  * Then trigger an action (like creating a scenario)
  */
 @Component({
-  selector: 'lab-quick-configure-process-dialog',
-  templateUrl: './lab-quick-configure-process-dialog.component.html',
-  styleUrl: './lab-quick-configure-process-dialog.component.scss',
-  providers: [
-    // configure the dynamic field to support tags and other custom fields
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-  ],
+    selector: 'lab-quick-configure-process-dialog',
+    templateUrl: './lab-quick-configure-process-dialog.component.html',
+    styleUrl: './lab-quick-configure-process-dialog.component.scss',
+    providers: [
+        // configure the dynamic field to support tags and other custom fields
+        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+    ],
+    standalone: false
 })
 export class LabQuickConfigureProcessDialogComponent implements OnInit {
   input: LabQuickConfigureProcessDialogInput = inject(MAT_DIALOG_DATA);

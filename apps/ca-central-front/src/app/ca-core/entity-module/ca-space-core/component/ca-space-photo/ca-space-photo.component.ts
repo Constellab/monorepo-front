@@ -10,9 +10,10 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
  * Component to show the photo of an space or the initial of the space name
  */
 @Component({
-  selector: 'ca-space-photo',
-  templateUrl: './ca-space-photo.component.html',
-  styleUrls: ['./ca-space-photo.component.scss'],
+    selector: 'ca-space-photo',
+    templateUrl: './ca-space-photo.component.html',
+    styleUrls: ['./ca-space-photo.component.scss'],
+    standalone: false
 })
 export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   @Input() space: CaSpace | Observable<CaSpace>;

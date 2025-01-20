@@ -16,9 +16,10 @@ import {
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 @Component({
-  selector: 'pr-workflow',
-  templateUrl: './pr-workflow.component.html',
-  styleUrls: ['./pr-workflow.component.scss'],
+    selector: 'pr-workflow',
+    templateUrl: './pr-workflow.component.html',
+    styleUrls: ['./pr-workflow.component.scss'],
+    standalone: false
 })
 export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input({ required: true }) workflow: PrWorkflow;

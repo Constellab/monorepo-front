@@ -42,10 +42,11 @@ type FlTagMode = 'key' | 'value';
  * Component that supports NgModel to search and add a tag
  */
 @Component({
-  selector: 'fl-add-tag-input',
-  templateUrl: './fl-add-tag-input.component.html',
-  styleUrls: ['./fl-add-tag-input.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-add-tag-input',
+    templateUrl: './fl-add-tag-input.component.html',
+    styleUrls: ['./fl-add-tag-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlAddTagInputComponent implements OnInit, OnDestroy {
   @Input() searchDebounceTime: number = 300;

@@ -5,9 +5,10 @@ import { FlInputFileDirective } from '@monorepo/front-core-lib';
 import { TeBlockFileUploadResponse } from '../../model/lib';
 
 @Component({
-  selector: 'te-file',
-  templateUrl: './te-file.component.html',
-  styleUrl: './te-file.component.scss',
+    selector: 'te-file',
+    templateUrl: './te-file.component.html',
+    styleUrl: './te-file.component.scss',
+    standalone: false
 })
 export class TeFileComponent extends TeElementBlockDirective implements OnInit {
   @Input() data: TeBlockFileUploadResponse;

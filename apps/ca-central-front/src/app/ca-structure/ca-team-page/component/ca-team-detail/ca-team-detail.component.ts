@@ -6,9 +6,10 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
  * Show detail of a team
  */
 @Component({
-  selector: 'ca-team-detail',
-  templateUrl: './ca-team-detail.component.html',
-  styleUrls: ['./ca-team-detail.component.scss'],
+    selector: 'ca-team-detail',
+    templateUrl: './ca-team-detail.component.html',
+    styleUrls: ['./ca-team-detail.component.scss'],
+    standalone: false
 })
 export class CaTeamDetailComponent implements OnInit {
   @Input() team: CaGroup;

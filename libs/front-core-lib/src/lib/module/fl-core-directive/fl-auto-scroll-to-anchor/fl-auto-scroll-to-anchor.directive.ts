@@ -7,7 +7,8 @@ import { Observable, Subscription } from 'rxjs';
  */
 
 @Directive({
-  selector: '[flAutoScrollToAnchor]',
+    selector: '[flAutoScrollToAnchor]',
+    standalone: false
 })
 export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   // Observable that emits true when the component using targeted is loaded

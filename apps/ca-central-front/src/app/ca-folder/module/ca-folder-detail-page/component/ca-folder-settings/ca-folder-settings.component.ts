@@ -8,9 +8,10 @@ import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-  selector: 'ca-folder-settings',
-  templateUrl: './ca-folder-settings.component.html',
-  styleUrls: ['./ca-folder-settings.component.scss'],
+    selector: 'ca-folder-settings',
+    templateUrl: './ca-folder-settings.component.html',
+    styleUrls: ['./ca-folder-settings.component.scss'],
+    standalone: false
 })
 export class CaFolderSettingsComponent {
   // only allow storage setting for root folders

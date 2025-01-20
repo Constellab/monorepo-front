@@ -11,9 +11,10 @@ import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-in
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 
 @Component({
-  selector: 'ha-big-screen-main',
-  templateUrl: './ha-big-screen-main.component.html',
-  styleUrls: ['./ha-big-screen-main.component.scss'],
+    selector: 'ha-big-screen-main',
+    templateUrl: './ha-big-screen-main.component.html',
+    styleUrls: ['./ha-big-screen-main.component.scss'],
+    standalone: false
 })
 export class HaBigScreenMainComponent implements OnInit {
   @Input({ required: true })

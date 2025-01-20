@@ -17,7 +17,8 @@ import { LabViewConfig } from '../../model/entities/resource/lab-view-config.ent
  *  Provide an id and the object type
  */
 @Pipe({
-  name: 'labDetailRoute',
+    name: 'labDetailRoute',
+    standalone: false
 })
 export class LabDetailRoutePipe implements PipeTransform {
   transform(value: LabEntity): string;

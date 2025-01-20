@@ -18,9 +18,10 @@ interface TeTimestampFormatOptions {
  * Dialog to configure timestamp block
  */
 @Component({
-  selector: 'te-timestamp-config-dialog',
-  templateUrl: './te-timestamp-config-dialog.component.html',
-  styleUrl: './te-timestamp-config-dialog.component.scss',
+    selector: 'te-timestamp-config-dialog',
+    templateUrl: './te-timestamp-config-dialog.component.html',
+    styleUrl: './te-timestamp-config-dialog.component.scss',
+    standalone: false
 })
 export class TeTimestampConfigDialogComponent {
   formGp = new FormBuilder().group({

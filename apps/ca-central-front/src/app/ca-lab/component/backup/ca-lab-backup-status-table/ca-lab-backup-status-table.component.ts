@@ -12,9 +12,10 @@ import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 @Component({
-  selector: 'ca-lab-backup-status-table',
-  templateUrl: './ca-lab-backup-status-table.component.html',
-  styleUrl: './ca-lab-backup-status-table.component.scss',
+    selector: 'ca-lab-backup-status-table',
+    templateUrl: './ca-lab-backup-status-table.component.html',
+    styleUrl: './ca-lab-backup-status-table.component.scss',
+    standalone: false
 })
 export class CaLabBackupStatusTableComponent {
   @Input({ required: true }) datasource: CaLabBackupStatusDatasource;

@@ -4,7 +4,8 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
  * Directive to set a backup image on an image tag if the first image is not found
  */
 @Directive({
-  selector: 'img[flBackupImage]',
+    selector: 'img[flBackupImage]',
+    standalone: false
 })
 export class FlBackupImageDirective {
   @Input() flBackupImage: string;

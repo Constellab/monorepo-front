@@ -9,9 +9,10 @@ import { CaUserGroup, CaUserGroupDatasource } from '../../../../model/entities/c
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 
 @Component({
-  selector: 'ca-user-group-table',
-  templateUrl: './ca-user-group-table.component.html',
-  styleUrls: ['./ca-user-group-table.component.scss'],
+    selector: 'ca-user-group-table',
+    templateUrl: './ca-user-group-table.component.html',
+    styleUrls: ['./ca-user-group-table.component.scss'],
+    standalone: false
 })
 export class CaUserGroupTableComponent {
   @Input() datasource: CaUserGroupDatasource;

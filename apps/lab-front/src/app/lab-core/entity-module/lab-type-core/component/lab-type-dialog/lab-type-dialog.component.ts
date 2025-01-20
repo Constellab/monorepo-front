@@ -13,9 +13,10 @@ export interface LabTypeDialogInput {
 }
 
 @Component({
-  selector: 'lab-type-dialog',
-  templateUrl: './lab-type-dialog.component.html',
-  styleUrls: ['./lab-type-dialog.component.scss'],
+    selector: 'lab-type-dialog',
+    templateUrl: './lab-type-dialog.component.html',
+    styleUrls: ['./lab-type-dialog.component.scss'],
+    standalone: false
 })
 export class LabTypeDialogComponent {
   type$: Observable<LabTypeEntity> = this.typeService.getTyping(this.input.typingName).pipe(share());

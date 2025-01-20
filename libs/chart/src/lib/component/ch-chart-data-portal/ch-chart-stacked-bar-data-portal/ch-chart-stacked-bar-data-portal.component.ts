@@ -17,10 +17,11 @@ export interface ChChartStackedBarDataPortalInput {
  * Portal to show all the value with series of a bar.
  */
 @Component({
-  selector: 'ch-chart-stacked-bar-data-portal',
-  templateUrl: './ch-chart-stacked-bar-data-portal.component.html',
-  styleUrls: ['./ch-chart-stacked-bar-data-portal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ch-chart-stacked-bar-data-portal',
+    templateUrl: './ch-chart-stacked-bar-data-portal.component.html',
+    styleUrls: ['./ch-chart-stacked-bar-data-portal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ChChartStackedBarDataPortalComponent {
   x: number;

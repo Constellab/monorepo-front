@@ -3,9 +3,10 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ca-lab-login-button',
-  templateUrl: './ca-lab-login-button.component.html',
-  styleUrls: ['./ca-lab-login-button.component.scss'],
+    selector: 'ca-lab-login-button',
+    templateUrl: './ca-lab-login-button.component.html',
+    styleUrls: ['./ca-lab-login-button.component.scss'],
+    standalone: false
 })
 export class CaLabLoginButtonComponent implements OnInit {
   @Input() labId: string;

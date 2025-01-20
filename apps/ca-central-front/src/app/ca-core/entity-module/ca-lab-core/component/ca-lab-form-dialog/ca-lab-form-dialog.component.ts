@@ -30,9 +30,10 @@ interface CaFreeLabInfo {
  * Form to create or update a lab accessible by user
  */
 @Component({
-  selector: 'ca-lab-form-dialog',
-  templateUrl: './ca-lab-form-dialog.component.html',
-  styleUrls: ['./ca-lab-form-dialog.component.scss'],
+    selector: 'ca-lab-form-dialog',
+    templateUrl: './ca-lab-form-dialog.component.html',
+    styleUrls: ['./ca-lab-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabFormDialogComponent {
   private labService = inject(CaLabService);

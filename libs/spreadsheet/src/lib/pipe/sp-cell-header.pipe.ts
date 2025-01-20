@@ -6,7 +6,8 @@ import { SpSpreadsheetState } from '../state/sp-spreadsheet.state';
  * Pipe to display the value of a celle header (row or column)
  */
 @Pipe({
-  name: 'SpCellHeader',
+    name: 'SpCellHeader',
+    standalone: false
 })
 export class SpCellHeaderPipe implements PipeTransform {
   constructor(private state: SpSpreadsheetState) {}

@@ -18,9 +18,10 @@ import { LabRouterService } from '../../../../service/lab-router.service';
  * It supports NgModel
  */
 @Component({
-  selector: 'lab-tag-filters',
-  templateUrl: './lab-tag-filters.component.html',
-  styleUrls: ['./lab-tag-filters.component.scss'],
+    selector: 'lab-tag-filters',
+    templateUrl: './lab-tag-filters.component.html',
+    styleUrls: ['./lab-tag-filters.component.scss'],
+    standalone: false
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
   @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();

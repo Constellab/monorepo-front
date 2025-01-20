@@ -13,10 +13,11 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'bn-bio-network-drawer',
-  templateUrl: './bn-bio-network-drawer.component.html',
-  styleUrls: ['./bn-bio-network-drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-drawer',
+    templateUrl: './bn-bio-network-drawer.component.html',
+    styleUrls: ['./bn-bio-network-drawer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
   @ViewChild(MatTabGroup, { static: true }) tab: MatTabGroup;

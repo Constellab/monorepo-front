@@ -6,9 +6,10 @@ import { LabBrickEntity } from '../../../../model/entities/lab-brick.entity';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'lab-bricks-select-options',
-  templateUrl: './lab-bricks-select-options.component.html',
-  styleUrls: ['./lab-bricks-select-options.component.scss'],
+    selector: 'lab-bricks-select-options',
+    templateUrl: './lab-bricks-select-options.component.html',
+    styleUrls: ['./lab-bricks-select-options.component.scss'],
+    standalone: false
 })
 export class LabBricksSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

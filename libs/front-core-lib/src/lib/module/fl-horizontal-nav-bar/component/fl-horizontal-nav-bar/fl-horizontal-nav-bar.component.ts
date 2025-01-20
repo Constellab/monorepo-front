@@ -11,9 +11,10 @@ import { NavigationEnd, Router } from '@angular/router';
  * It is responsive and will collapse on small screen
  */
 @Component({
-  selector: 'fl-horizontal-nav-bar',
-  templateUrl: './fl-horizontal-nav-bar.component.html',
-  styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
+    selector: 'fl-horizontal-nav-bar',
+    templateUrl: './fl-horizontal-nav-bar.component.html',
+    styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
+    standalone: false
 })
 export class FlHorizontalNavBarComponent {
   @Input() items: FlHorizontalNavBarItem[];

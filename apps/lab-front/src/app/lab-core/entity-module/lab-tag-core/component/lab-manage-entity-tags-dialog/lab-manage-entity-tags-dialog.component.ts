@@ -25,9 +25,10 @@ export interface LabManageEntityTagsDialogInput {
  * Dialog to manage the tags of an entity
  */
 @Component({
-  selector: 'lab-manage-entity-tags-dialog',
-  templateUrl: './lab-manage-entity-tags-dialog.component.html',
-  styleUrls: ['./lab-manage-entity-tags-dialog.component.scss'],
+    selector: 'lab-manage-entity-tags-dialog',
+    templateUrl: './lab-manage-entity-tags-dialog.component.html',
+    styleUrls: ['./lab-manage-entity-tags-dialog.component.scss'],
+    standalone: false
 })
 export class LabManageEntityTagsDialogComponent {
   currentTags: LabTagDatasource;

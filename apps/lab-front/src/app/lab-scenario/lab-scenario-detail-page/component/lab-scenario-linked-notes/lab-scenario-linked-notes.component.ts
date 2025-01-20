@@ -19,9 +19,10 @@ import {
  * Component inside the scenario detail to list the notes linked with the scenario
  */
 @Component({
-  selector: 'lab-scenario-linked-notes',
-  templateUrl: './lab-scenario-linked-notes.component.html',
-  styleUrls: ['./lab-scenario-linked-notes.component.scss'],
+    selector: 'lab-scenario-linked-notes',
+    templateUrl: './lab-scenario-linked-notes.component.html',
+    styleUrls: ['./lab-scenario-linked-notes.component.scss'],
+    standalone: false
 })
 export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
   @Input() scenarioId: string;

@@ -7,7 +7,8 @@ import { map } from 'rxjs/operators';
  * Call connect method of FlDatasource
  */
 @Pipe({
-  name: 'flDatasourceConnect',
+    name: 'flDatasourceConnect',
+    standalone: false
 })
 export class FlDatasourceConnectPipe implements PipeTransform {
   transform<T>(value: FlDatasource<T>, slice: number = -1): Observable<T[]> {

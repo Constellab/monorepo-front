@@ -29,10 +29,11 @@ import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class
 TeRichTextModifications.setFrontTimeDifference();
 
 @Component({
-  selector: 'te-text-editor-browser-side',
-  templateUrl: './te-text-editor-browser-side.component.html',
-  styleUrl: './te-text-editor-browser-side.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'te-text-editor-browser-side',
+    templateUrl: './te-text-editor-browser-side.component.html',
+    styleUrl: './te-text-editor-browser-side.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   @Input({ required: true }) config: TeConfig;

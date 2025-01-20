@@ -9,9 +9,10 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
-  selector: 'ca-folder-description',
-  templateUrl: './ca-folder-description.component.html',
-  styleUrls: ['./ca-folder-description.component.scss'],
+    selector: 'ca-folder-description',
+    templateUrl: './ca-folder-description.component.html',
+    styleUrls: ['./ca-folder-description.component.scss'],
+    standalone: false
 })
 export class CaFolderDescriptionComponent implements OnInit {
   @Input({ required: true }) folderId: string;

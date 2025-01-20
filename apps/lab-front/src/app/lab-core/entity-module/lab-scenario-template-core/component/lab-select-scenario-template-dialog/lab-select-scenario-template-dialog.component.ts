@@ -7,9 +7,10 @@ export interface LabSelectScenarioTemplateDialogInput {
 }
 
 @Component({
-  selector: 'lab-select-scenario-template-dialog',
-  templateUrl: './lab-select-scenario-template-dialog.component.html',
-  styleUrls: ['./lab-select-scenario-template-dialog.component.scss'],
+    selector: 'lab-select-scenario-template-dialog',
+    templateUrl: './lab-select-scenario-template-dialog.component.html',
+    styleUrls: ['./lab-select-scenario-template-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectScenarioTemplateDialogComponent {
   rowSelectable: boolean;

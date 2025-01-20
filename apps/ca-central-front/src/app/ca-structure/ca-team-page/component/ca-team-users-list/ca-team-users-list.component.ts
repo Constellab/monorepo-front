@@ -12,9 +12,10 @@ import { CaUserGroup, CaUserGroupDatasource } from '../../../../ca-core/model/en
  * with possibility to add or remove users.
  */
 @Component({
-  selector: 'ca-team-users-list',
-  templateUrl: './ca-team-users-list.component.html',
-  styleUrls: ['./ca-team-users-list.component.scss'],
+    selector: 'ca-team-users-list',
+    templateUrl: './ca-team-users-list.component.html',
+    styleUrls: ['./ca-team-users-list.component.scss'],
+    standalone: false
 })
 export class CaTeamUsersListComponent implements OnInit {
   @Input() groupId: string;

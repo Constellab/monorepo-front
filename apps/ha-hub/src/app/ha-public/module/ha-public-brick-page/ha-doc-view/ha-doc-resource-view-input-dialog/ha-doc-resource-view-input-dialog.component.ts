@@ -19,9 +19,10 @@ export interface HaDocResourceViewInputDialogOutputData {
 }
 
 @Component({
-  selector: 'ha-doc-resource-view-input-dialog',
-  templateUrl: './ha-doc-resource-view-input-dialog.component.html',
-  styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
+    selector: 'ha-doc-resource-view-input-dialog',
+    templateUrl: './ha-doc-resource-view-input-dialog.component.html',
+    styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
+    standalone: false
 })
 export class HaDocResourceViewInputDialogComponent implements OnInit {
   docId: string;

@@ -21,10 +21,11 @@ interface SpSpreadsheetRangeForm {
  *  - Columns selection
  */
 @Component({
-  selector: 'sp-sheet-ranges-input',
-  templateUrl: './Sp-sheet-ranges-input.component.html',
-  styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
+    selector: 'sp-sheet-ranges-input',
+    templateUrl: './Sp-sheet-ranges-input.component.html',
+    styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
+    standalone: false
 })
 export class SpSheetRangesInputComponent
   extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>

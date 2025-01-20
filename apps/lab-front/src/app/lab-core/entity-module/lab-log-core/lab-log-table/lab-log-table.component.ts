@@ -8,9 +8,10 @@ import {
 import { LabLogService } from '../../../entity-service/lab-log.service';
 
 @Component({
-  selector: 'lab-log-table',
-  templateUrl: './lab-log-table.component.html',
-  styleUrls: ['./lab-log-table.component.scss'],
+    selector: 'lab-log-table',
+    templateUrl: './lab-log-table.component.html',
+    styleUrls: ['./lab-log-table.component.scss'],
+    standalone: false
 })
 export class LabLogTableComponent {
   @Input({ required: true }) datasource: FlDatasource<LabLogInfo>;

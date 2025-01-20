@@ -6,9 +6,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { CaRequestNewLicensesDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 
 @Component({
-  selector: 'ca-request-new-licenses',
-  templateUrl: './ca-request-new-licenses.component.html',
-  styleUrls: ['./ca-request-new-licenses.component.scss'],
+    selector: 'ca-request-new-licenses',
+    templateUrl: './ca-request-new-licenses.component.html',
+    styleUrls: ['./ca-request-new-licenses.component.scss'],
+    standalone: false
 })
 export class CaRequestNewLicensesComponent {
   isLoading: boolean = false;

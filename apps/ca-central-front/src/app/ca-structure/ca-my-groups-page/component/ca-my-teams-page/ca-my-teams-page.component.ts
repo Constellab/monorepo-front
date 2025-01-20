@@ -6,9 +6,10 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaTeamFormDialogComponent } from '../../../../ca-core/entity-module/ca-group-core/component/ca-team-form-dialog/ca-team-form-dialog.component';
 
 @Component({
-  selector: 'ca-my-teams-page',
-  templateUrl: './ca-my-teams-page.component.html',
-  styleUrls: ['./ca-my-teams-page.component.scss'],
+    selector: 'ca-my-teams-page',
+    templateUrl: './ca-my-teams-page.component.html',
+    styleUrls: ['./ca-my-teams-page.component.scss'],
+    standalone: false
 })
 export class CaMyTeamsPageComponent implements OnInit {
   teamsDatasource: CaGroupDatasource;

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { CaAppRoutingModule } from './ca-app-routing.module';
 import { CaAppComponent } from './ca-app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -124,7 +124,10 @@ function configureCaptcha(): FlCaptchaModuleConfig {
       useClass: CaSpaceInterceptor,
       multi: true,
     },
-    { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
+    provideAppInitializer(() => {
+        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
+        return initializerFn();
+      }),
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
 

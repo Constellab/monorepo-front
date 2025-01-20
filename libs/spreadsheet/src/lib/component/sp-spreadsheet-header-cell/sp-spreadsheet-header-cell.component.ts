@@ -22,10 +22,11 @@ import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.c
 import { FlOverlayRef, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'sp-spreadsheet-header-cell',
-  templateUrl: './sp-spreadsheet-header-cell.component.html',
-  styleUrls: ['./sp-spreadsheet-header-cell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-spreadsheet-header-cell',
+    templateUrl: './sp-spreadsheet-header-cell.component.html',
+    styleUrls: ['./sp-spreadsheet-header-cell.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
   @HostBinding('attr.' + headerIndexAttributeName)

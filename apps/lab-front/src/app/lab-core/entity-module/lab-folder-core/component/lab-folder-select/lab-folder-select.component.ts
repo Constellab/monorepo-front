@@ -16,9 +16,10 @@ interface LabFolderFlatNode {
 }
 
 @Component({
-  selector: 'lab-folder-select',
-  templateUrl: './lab-folder-select.component.html',
-  styleUrls: ['./lab-folder-select.component.scss'],
+    selector: 'lab-folder-select',
+    templateUrl: './lab-folder-select.component.html',
+    styleUrls: ['./lab-folder-select.component.scss'],
+    standalone: false
 })
 export class LabFolderSelectComponent
   extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LabFolder[] | LabFolder>

@@ -49,9 +49,10 @@ class LabDynamicFieldRichTextConfig extends TeCompleteConfig {
  * Component to allow the rich text editor to be used as a dynamic field.
  */
 @Component({
-  selector: 'lab-rich-text-dynamic-field',
-  templateUrl: './lab-rich-text-dynamic-field.component.html',
-  styleUrl: './lab-rich-text-dynamic-field.component.scss',
+    selector: 'lab-rich-text-dynamic-field',
+    templateUrl: './lab-rich-text-dynamic-field.component.html',
+    styleUrl: './lab-rich-text-dynamic-field.component.scss',
+    standalone: false
 })
 export class LabRichTextDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
   config = new LabDynamicFieldRichTextConfig();

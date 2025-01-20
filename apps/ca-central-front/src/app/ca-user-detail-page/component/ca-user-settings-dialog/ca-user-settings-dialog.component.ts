@@ -7,9 +7,10 @@ import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helpe
  * Settings page
  */
 @Component({
-  selector: 'ca-user-settings-dialog',
-  templateUrl: './ca-user-settings-dialog.component.html',
-  styleUrls: ['./ca-user-settings-dialog.component.scss'],
+    selector: 'ca-user-settings-dialog',
+    templateUrl: './ca-user-settings-dialog.component.html',
+    styleUrls: ['./ca-user-settings-dialog.component.scss'],
+    standalone: false
 })
 export class CaUserSettingsDialogComponent {
   logoutIsLoading: boolean = false;

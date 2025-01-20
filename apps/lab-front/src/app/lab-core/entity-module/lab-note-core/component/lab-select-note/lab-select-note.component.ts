@@ -13,10 +13,11 @@ import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.en
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'lab-select-note',
-  templateUrl: './lab-select-note.component.html',
-  styleUrls: ['./lab-select-note.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
+    selector: 'lab-select-note',
+    templateUrl: './lab-select-note.component.html',
+    styleUrls: ['./lab-select-note.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
+    standalone: false
 })
 export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implements OnInit {
   @Input() placeholder: string;

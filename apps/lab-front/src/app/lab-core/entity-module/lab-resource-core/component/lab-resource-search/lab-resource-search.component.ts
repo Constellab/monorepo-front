@@ -39,10 +39,11 @@ export const labResourceSearchName: string = 'biox-resource';
  * Complete component to search on resource. It supports a select mode and manage file upload.
  */
 @Component({
-  selector: 'lab-resource-search',
-  templateUrl: './lab-resource-search.component.html',
-  styleUrls: ['./lab-resource-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-resource-search',
+    templateUrl: './lab-resource-search.component.html',
+    styleUrls: ['./lab-resource-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabResourceSearchComponent implements OnInit, OnDestroy {
   @Input() resourceSelectable: boolean = false;

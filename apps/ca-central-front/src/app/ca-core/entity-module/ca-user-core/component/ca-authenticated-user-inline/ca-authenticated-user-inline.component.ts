@@ -8,9 +8,10 @@ import { Observable } from 'rxjs';
  * Component to display the current user photo, name and job
  */
 @Component({
-  selector: 'ca-authenticated-user-inline',
-  templateUrl: './ca-authenticated-user-inline.component.html',
-  styleUrls: ['./ca-authenticated-user-inline.component.scss'],
+    selector: 'ca-authenticated-user-inline',
+    templateUrl: './ca-authenticated-user-inline.component.html',
+    styleUrls: ['./ca-authenticated-user-inline.component.scss'],
+    standalone: false
 })
 export class CaAuthenticatedUserInlineComponent implements OnInit {
   @Input() showName: boolean = true;

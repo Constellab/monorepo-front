@@ -28,10 +28,11 @@ export interface TeMentionPortalInput {
 }
 
 @Component({
-  selector: 'te-mention-portal',
-  templateUrl: './te-mention-portal.component.html',
-  styleUrl: './te-mention-portal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'te-mention-portal',
+    templateUrl: './te-mention-portal.component.html',
+    styleUrl: './te-mention-portal.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TeMentionPortalComponent implements OnInit, OnDestroy {
   public static PORTAL_MAX_WIDTH = 400;

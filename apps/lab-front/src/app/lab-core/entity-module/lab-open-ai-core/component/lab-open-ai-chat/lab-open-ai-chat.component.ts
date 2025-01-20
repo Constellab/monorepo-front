@@ -10,10 +10,11 @@ import { LabOpenAiChatMessageAction } from '../lab-open-ai-chat-message/lab-open
  * Form component to show an open AI chat with possibility to add or remove messages
  */
 @Component({
-  selector: 'lab-open-ai-chat',
-  templateUrl: './lab-open-ai-chat.component.html',
-  styleUrls: ['./lab-open-ai-chat.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent }],
+    selector: 'lab-open-ai-chat',
+    templateUrl: './lab-open-ai-chat.component.html',
+    styleUrls: ['./lab-open-ai-chat.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent }],
+    standalone: false
 })
 export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> {
   @Input() placeholder: string;

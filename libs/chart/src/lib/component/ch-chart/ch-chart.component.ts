@@ -33,10 +33,11 @@ interface Size {
  * The ChChartState must be provider by the parent
  */
 @Component({
-  selector: 'ch-chart',
-  templateUrl: './ch-chart.component.html',
-  styleUrls: ['./ch-chart.component.scss'],
-  providers: [ChChartState],
+    selector: 'ch-chart',
+    templateUrl: './ch-chart.component.html',
+    styleUrls: ['./ch-chart.component.scss'],
+    providers: [ChChartState],
+    standalone: false
 })
 export class ChChartComponent implements OnInit, OnDestroy {
   @Input() chart: ChChartConfig;

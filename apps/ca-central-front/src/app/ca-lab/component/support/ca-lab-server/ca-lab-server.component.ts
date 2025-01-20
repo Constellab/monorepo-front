@@ -5,9 +5,10 @@ import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.cl
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 
 @Component({
-  selector: 'ca-lab-server',
-  templateUrl: './ca-lab-server.component.html',
-  styleUrls: ['./ca-lab-server.component.scss'],
+    selector: 'ca-lab-server',
+    templateUrl: './ca-lab-server.component.html',
+    styleUrls: ['./ca-lab-server.component.scss'],
+    standalone: false
 })
 export class CaLabServerComponent {
   status$: Observable<CaLabStatusDTO> = this.state.getStatus$();

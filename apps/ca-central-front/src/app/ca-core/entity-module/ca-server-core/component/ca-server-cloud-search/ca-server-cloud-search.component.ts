@@ -17,10 +17,11 @@ import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog
 import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
 
 @Component({
-  selector: 'ca-server-cloud-search',
-  templateUrl: './ca-server-cloud-search.component.html',
-  styleUrls: ['./ca-server-cloud-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-server-cloud-search',
+    templateUrl: './ca-server-cloud-search.component.html',
+    styleUrls: ['./ca-server-cloud-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaServerCloudSearchComponent implements OnInit {
   @Input() mode: 'search' | 'selection' = 'search';

@@ -9,9 +9,10 @@ import { CaObjectStorageService } from '../../../../service-api/ca-object-storag
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'ca-select-bucket-credentials-options',
-  templateUrl: './ca-select-bucket-credentials-options.component.html',
-  styleUrls: ['./ca-select-bucket-credentials-options.component.scss'],
+    selector: 'ca-select-bucket-credentials-options',
+    templateUrl: './ca-select-bucket-credentials-options.component.html',
+    styleUrls: ['./ca-select-bucket-credentials-options.component.scss'],
+    standalone: false
 })
 export class CaSelectBucketCredentialsOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

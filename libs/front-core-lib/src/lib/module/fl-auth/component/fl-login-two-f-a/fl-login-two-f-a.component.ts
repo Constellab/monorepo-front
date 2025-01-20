@@ -6,9 +6,10 @@ import { FlCompleteLoginQueryParam } from '../fl-complete-login/fl-complete-logi
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'fl-login-two-f-a',
-  templateUrl: './fl-login-two-f-a.component.html',
-  styleUrls: ['./fl-login-two-f-a.component.scss'],
+    selector: 'fl-login-two-f-a',
+    templateUrl: './fl-login-two-f-a.component.html',
+    styleUrls: ['./fl-login-two-f-a.component.scss'],
+    standalone: false
 })
 export class FlLoginTwoFAComponent implements OnInit {
   @Output() login2FASuccess: EventEmitter<FlAuthLogin2FaResponse> = new EventEmitter();

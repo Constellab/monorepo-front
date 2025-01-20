@@ -13,9 +13,10 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
  * Component inside LabScenarioDetailPage to show scenario information but not workflow
  */
 @Component({
-  selector: 'lab-scenario-detail',
-  templateUrl: './lab-scenario-detail.component.html',
-  styleUrls: ['./lab-scenario-detail.component.scss'],
+    selector: 'lab-scenario-detail',
+    templateUrl: './lab-scenario-detail.component.html',
+    styleUrls: ['./lab-scenario-detail.component.scss'],
+    standalone: false
 })
 export class LabScenarioDetailComponent implements OnInit, OnDestroy {
   scenario$: Observable<LabScenario>;

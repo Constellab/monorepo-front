@@ -10,9 +10,10 @@ import { FlDialogService, FlMenuDynamicService } from '@monorepo/front-core-lib'
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 @Component({
-  selector: 'ca-resource-detail-page',
-  templateUrl: './ca-resource-detail-page.component.html',
-  styleUrl: './ca-resource-detail-page.component.scss',
+    selector: 'ca-resource-detail-page',
+    templateUrl: './ca-resource-detail-page.component.html',
+    styleUrl: './ca-resource-detail-page.component.scss',
+    standalone: false
 })
 export class CaResourceDetailPageComponent {
   private resourceService = inject(CaResourceService);

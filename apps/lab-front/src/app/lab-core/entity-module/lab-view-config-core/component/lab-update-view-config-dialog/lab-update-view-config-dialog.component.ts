@@ -9,9 +9,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
  * Dialog to update the config view (only title for now)
  */
 @Component({
-  selector: 'lab-update-view-config-dialog',
-  templateUrl: './lab-update-view-config-dialog.component.html',
-  styleUrls: ['./lab-update-view-config-dialog.component.scss'],
+    selector: 'lab-update-view-config-dialog',
+    templateUrl: './lab-update-view-config-dialog.component.html',
+    styleUrls: ['./lab-update-view-config-dialog.component.scss'],
+    standalone: false
 })
 export class LabUpdateViewConfigDialogComponent implements OnInit {
   formCtrl: FormControl<string>;

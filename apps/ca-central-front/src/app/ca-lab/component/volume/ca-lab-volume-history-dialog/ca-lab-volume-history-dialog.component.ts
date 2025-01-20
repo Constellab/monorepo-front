@@ -17,9 +17,10 @@ import {
  * For admin the history can be edited
  */
 @Component({
-  selector: 'ca-lab-volume-history-dialog',
-  templateUrl: './ca-lab-volume-history-dialog.component.html',
-  styleUrl: './ca-lab-volume-history-dialog.component.scss',
+    selector: 'ca-lab-volume-history-dialog',
+    templateUrl: './ca-lab-volume-history-dialog.component.html',
+    styleUrl: './ca-lab-volume-history-dialog.component.scss',
+    standalone: false
 })
 export class CaLabVolumeHistoryDialogComponent implements OnInit {
   labId: string = inject(MAT_DIALOG_DATA);

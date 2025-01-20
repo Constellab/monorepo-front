@@ -20,9 +20,10 @@ interface BreadcrumbLink {
  * It gets the hierarchy from the api
  */
 @Component({
-  selector: 'ca-hierarchy-object-breadcrumb',
-  templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
-  styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
+    selector: 'ca-hierarchy-object-breadcrumb',
+    templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
+    styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
+    standalone: false
 })
 export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
   links$: Observable<BreadcrumbLink[]>;

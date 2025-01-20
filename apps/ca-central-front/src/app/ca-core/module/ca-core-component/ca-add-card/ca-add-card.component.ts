@@ -4,9 +4,10 @@ import { Component, Input, OnInit } from '@angular/core';
  * Simple card use to add an object
  */
 @Component({
-  selector: 'ca-add-card',
-  templateUrl: './ca-add-card.component.html',
-  styleUrls: ['./ca-add-card.component.scss'],
+    selector: 'ca-add-card',
+    templateUrl: './ca-add-card.component.html',
+    styleUrls: ['./ca-add-card.component.scss'],
+    standalone: false
 })
 export class CaAddCardComponent implements OnInit {
   @Input() cardTitle: string;

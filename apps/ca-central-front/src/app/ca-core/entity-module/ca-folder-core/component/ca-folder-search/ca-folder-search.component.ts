@@ -11,10 +11,11 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaFolderSearch, CaFolderSearchFields } from '../../model/ca-folder-search.class';
 
 @Component({
-  selector: 'ca-folder-search',
-  templateUrl: './ca-folder-search.component.html',
-  styleUrls: ['./ca-folder-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-folder-search',
+    templateUrl: './ca-folder-search.component.html',
+    styleUrls: ['./ca-folder-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaFolderSearchComponent implements OnInit {
   datasource: CaFolderDatasource<CaFolderSearchFields>;

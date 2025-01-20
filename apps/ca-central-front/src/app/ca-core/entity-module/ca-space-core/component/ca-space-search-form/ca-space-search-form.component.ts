@@ -4,9 +4,10 @@ import { FlSearchState } from '@monorepo/front-core-lib';
 import { CaSpaceType } from '../../../../model/entities/space/ca-space.class';
 
 @Component({
-  selector: 'ca-space-search-form',
-  templateUrl: './ca-space-search-form.component.html',
-  styleUrls: ['./ca-space-search-form.component.scss'],
+    selector: 'ca-space-search-form',
+    templateUrl: './ca-space-search-form.component.html',
+    styleUrls: ['./ca-space-search-form.component.scss'],
+    standalone: false
 })
 export class CaSpaceSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;

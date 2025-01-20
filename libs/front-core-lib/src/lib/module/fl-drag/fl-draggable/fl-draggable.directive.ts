@@ -11,7 +11,8 @@ import {
 import { FlDragManagerService } from '../fl-drag-manager.service';
 
 @Directive({
-  selector: '[flDraggable]',
+    selector: '[flDraggable]',
+    standalone: false
 })
 export class FlDraggableDirective implements OnInit {
   /**

@@ -7,9 +7,10 @@ import {
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
 
 @Component({
-  selector: 'ca-lab-green-option-value',
-  templateUrl: './ca-lab-green-option-value.component.html',
-  styleUrls: ['./ca-lab-green-option-value.component.scss'],
+    selector: 'ca-lab-green-option-value',
+    templateUrl: './ca-lab-green-option-value.component.html',
+    styleUrls: ['./ca-lab-green-option-value.component.scss'],
+    standalone: false
 })
 export class CaLabGreenOptionValueComponent {
   @Input() greenOption: CaLabGreenOption;

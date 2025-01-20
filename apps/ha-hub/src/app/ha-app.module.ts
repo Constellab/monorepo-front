@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, Injector, NgModule, TransferState } from '@angular/core';
+import { Injector, NgModule, TransferState, inject, provideAppInitializer } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HaAppComponent } from './ha-app.component';
 import {
@@ -116,18 +116,14 @@ export function TranslationLoaderFactory(
       useClass: HaHttpInterceptorSsrService,
       multi: true,
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: loadUserOnInit,
-      deps: [HaAuthenticatedUserService],
-      multi: true,
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: loadThemeOnInit,
-      deps: [FlThemeService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (loadUserOnInit)(inject(HaAuthenticatedUserService));
+        return initializerFn();
+      }),
+    provideAppInitializer(() => {
+        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
+        return initializerFn();
+      }),
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
     {

@@ -11,10 +11,11 @@ import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
 
 @Component({
-  selector: 'ca-select-space',
-  templateUrl: './ca-select-space.component.html',
-  styleUrls: ['./ca-select-space.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
+    selector: 'ca-select-space',
+    templateUrl: './ca-select-space.component.html',
+    styleUrls: ['./ca-select-space.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
+    standalone: false
 })
 export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {
   @Input() placeholder: string;

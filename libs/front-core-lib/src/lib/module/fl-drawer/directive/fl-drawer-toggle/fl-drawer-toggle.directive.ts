@@ -5,7 +5,8 @@ import { MatDrawerContainer } from '@angular/material/sidenav';
  * Simple directive to toggle the current drawer or sidenav
  */
 @Directive({
-  selector: '[flDrawerToggle]',
+    selector: '[flDrawerToggle]',
+    standalone: false
 })
 export class FlDrawerToggleDirective {
   constructor(private matDrawer: MatDrawerContainer) {}

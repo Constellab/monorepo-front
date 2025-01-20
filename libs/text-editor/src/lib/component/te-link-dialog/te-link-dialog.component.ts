@@ -9,9 +9,10 @@ export interface TeLinkDialogInput {
 }
 
 @Component({
-  selector: 'te-link-dialog',
-  templateUrl: './te-link-dialog.component.html',
-  styleUrls: ['./te-link-dialog.component.scss'],
+    selector: 'te-link-dialog',
+    templateUrl: './te-link-dialog.component.html',
+    styleUrls: ['./te-link-dialog.component.scss'],
+    standalone: false
 })
 export class TeLinkDialogComponent implements OnInit {
   linkControl: FormControl<string>;

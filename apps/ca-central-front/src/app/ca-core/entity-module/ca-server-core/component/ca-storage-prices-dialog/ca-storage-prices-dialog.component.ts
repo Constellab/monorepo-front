@@ -8,9 +8,10 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-  selector: 'ca-storage-prices-dialog',
-  templateUrl: './ca-storage-prices-dialog.component.html',
-  styleUrl: './ca-storage-prices-dialog.component.scss',
+    selector: 'ca-storage-prices-dialog',
+    templateUrl: './ca-storage-prices-dialog.component.html',
+    styleUrl: './ca-storage-prices-dialog.component.scss',
+    standalone: false
 })
 export class CaStoragePricesDialogComponent {
   prices: CaStoragePriceDatasource;

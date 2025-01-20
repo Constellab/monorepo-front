@@ -32,9 +32,10 @@ import { CoStoryCategory } from '@monorepo/community-lib';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
 @Component({
-  selector: 'ha-story-edit-page',
-  templateUrl: './ha-story-edit-page.component.html',
-  styleUrls: ['./ha-story-edit-page.component.scss'],
+    selector: 'ha-story-edit-page',
+    templateUrl: './ha-story-edit-page.component.html',
+    styleUrls: ['./ha-story-edit-page.component.scss'],
+    standalone: false
 })
 export class HaStoryEditPageComponent implements OnInit {
   story: HaStory;

@@ -17,10 +17,11 @@ import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabNoteTemplateFormDialogComponent } from '../lab-note-template-form-dialog/lab-note-template-form-dialog.component';
 
 @Component({
-  selector: 'lab-note-template-search',
-  templateUrl: './lab-note-template-search.component.html',
-  styleUrls: ['./lab-note-template-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'lab-note-template-search',
+    templateUrl: './lab-note-template-search.component.html',
+    styleUrls: ['./lab-note-template-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class LabNoteTemplateSearchComponent implements OnInit {
   @Input() noteTemplateSelectable: boolean = false;

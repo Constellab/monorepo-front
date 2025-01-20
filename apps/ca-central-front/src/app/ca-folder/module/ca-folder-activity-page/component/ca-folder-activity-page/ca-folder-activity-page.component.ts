@@ -6,9 +6,10 @@ import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { CaActivitySearchFields } from '../../../../../ca-core/entity-module/ca-activity-core/model/ca-activity-search.class';
 
 @Component({
-  selector: 'ca-folder-activity-page',
-  templateUrl: './ca-folder-activity-page.component.html',
-  styleUrls: ['./ca-folder-activity-page.component.scss'],
+    selector: 'ca-folder-activity-page',
+    templateUrl: './ca-folder-activity-page.component.html',
+    styleUrls: ['./ca-folder-activity-page.component.scss'],
+    standalone: false
 })
 export class CaFolderActivityPageComponent implements OnInit {
   datasource: CaActivityDatasource<CaActivitySearchFields>;

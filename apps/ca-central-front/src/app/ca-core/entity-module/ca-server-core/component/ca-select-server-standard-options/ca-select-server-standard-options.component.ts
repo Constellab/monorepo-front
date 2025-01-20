@@ -5,9 +5,10 @@ import { MatSelect } from '@angular/material/select';
 import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
 
 @Component({
-  selector: 'ca-select-server-standard-options',
-  templateUrl: './ca-select-server-standard-options.component.html',
-  styleUrl: './ca-select-server-standard-options.component.scss',
+    selector: 'ca-select-server-standard-options',
+    templateUrl: './ca-select-server-standard-options.component.html',
+    styleUrl: './ca-select-server-standard-options.component.scss',
+    standalone: false
 })
 export class CaSelectServerStandardOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

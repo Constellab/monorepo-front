@@ -6,9 +6,10 @@ import { MaMailService } from '../../ma-mail.service';
 import { MaMailDatasource, MaMailEntity } from '../../models/ma-mail.entity';
 
 @Component({
-  selector: 'ma-mail-table',
-  templateUrl: './ma-mail-table.component.html',
-  styleUrl: './ma-mail-table.component.scss',
+    selector: 'ma-mail-table',
+    templateUrl: './ma-mail-table.component.html',
+    styleUrl: './ma-mail-table.component.scss',
+    standalone: false
 })
 export class MaMailTableComponent {
   @Input({ required: true }) datasource: MaMailDatasource<any>;

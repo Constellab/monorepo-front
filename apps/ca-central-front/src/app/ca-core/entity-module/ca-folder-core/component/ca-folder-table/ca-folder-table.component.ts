@@ -13,9 +13,10 @@ import { CaSecurityService } from '../../../../service/ca-security.service';
 import { CaFolderActionService } from '../../ca-folder-action.service';
 
 @Component({
-  selector: 'ca-folder-table',
-  templateUrl: './ca-folder-table.component.html',
-  styleUrls: ['./ca-folder-table.component.scss'],
+    selector: 'ca-folder-table',
+    templateUrl: './ca-folder-table.component.html',
+    styleUrls: ['./ca-folder-table.component.scss'],
+    standalone: false
 })
 export class CaFolderTableComponent {
   @Input({ required: true }) datasource: CaFolderDatasource<any>;

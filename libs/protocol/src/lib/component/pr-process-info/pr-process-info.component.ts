@@ -9,9 +9,10 @@ import { PrProcessConfigInfoDialogComponent } from '../pr-process-config-info-di
  * Component to show info about a process
  */
 @Component({
-  selector: 'pr-process-info',
-  templateUrl: './pr-process-info.component.html',
-  styleUrl: './pr-process-info.component.scss',
+    selector: 'pr-process-info',
+    templateUrl: './pr-process-info.component.html',
+    styleUrl: './pr-process-info.component.scss',
+    standalone: false
 })
 export class PrProcessInfoComponent implements OnInit {
   @Input({ required: true }) process: PrProtocol;

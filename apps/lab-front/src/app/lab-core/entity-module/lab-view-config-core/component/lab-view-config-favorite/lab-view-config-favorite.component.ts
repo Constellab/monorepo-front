@@ -4,10 +4,11 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-view-config-favorite',
-  templateUrl: './lab-view-config-favorite.component.html',
-  styleUrls: ['./lab-view-config-favorite.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-view-config-favorite',
+    templateUrl: './lab-view-config-favorite.component.html',
+    styleUrls: ['./lab-view-config-favorite.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabViewConfigFavoriteComponent {
   @Input() viewConfig: LabViewConfig;

@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
  * Page to show preview for document in Iframe (for office documents)
  */
 @Component({
-  selector: 'ca-document-preview-page',
-  templateUrl: './ca-document-preview-page.component.html',
-  styleUrl: './ca-document-preview-page.component.scss',
+    selector: 'ca-document-preview-page',
+    templateUrl: './ca-document-preview-page.component.html',
+    styleUrl: './ca-document-preview-page.component.scss',
+    standalone: false
 })
 export class CaDocumentPreviewPageComponent implements OnInit {
   documentPreview$: Observable<SafeUrl>;

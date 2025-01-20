@@ -4,9 +4,10 @@ import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/b
 import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'bn-bio-network-engine-config',
-  templateUrl: './bn-bio-network-engine-config.component.html',
-  styleUrls: ['./bn-bio-network-engine-config.component.scss'],
+    selector: 'bn-bio-network-engine-config',
+    templateUrl: './bn-bio-network-engine-config.component.html',
+    styleUrls: ['./bn-bio-network-engine-config.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkEngineConfigComponent implements OnInit, OnDestroy {
   formGp = new FormBuilder().group({

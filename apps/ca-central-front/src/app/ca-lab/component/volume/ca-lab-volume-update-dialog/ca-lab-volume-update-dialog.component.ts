@@ -15,9 +15,10 @@ export interface CaLabVolumeUpdateDialogInput extends FlFormDialogInput<CaLabUpd
 }
 
 @Component({
-  selector: 'ca-lab-volume-update-dialog',
-  templateUrl: './ca-lab-volume-update-dialog.component.html',
-  styleUrl: './ca-lab-volume-update-dialog.component.scss',
+    selector: 'ca-lab-volume-update-dialog',
+    templateUrl: './ca-lab-volume-update-dialog.component.html',
+    styleUrl: './ca-lab-volume-update-dialog.component.scss',
+    standalone: false
 })
 export class CaLabVolumeUpdateDialogComponent
   extends FlFormDialogAbstractDirective<CaLabUpdateVolumeDTO, CaLabVolume>

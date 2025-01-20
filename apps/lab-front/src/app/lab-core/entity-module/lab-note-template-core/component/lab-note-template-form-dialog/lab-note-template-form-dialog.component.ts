@@ -6,9 +6,10 @@ import { LabNoteTemplate, LabNoteTemplateForm } from '../../../../model/entities
 import { LabNoteTemplateService } from '../../../../entity-service/lab-note-template.service';
 
 @Component({
-  selector: 'lab-note-template-form-dialog',
-  templateUrl: './lab-note-template-form-dialog.component.html',
-  styleUrl: './lab-note-template-form-dialog.component.scss',
+    selector: 'lab-note-template-form-dialog',
+    templateUrl: './lab-note-template-form-dialog.component.html',
+    styleUrl: './lab-note-template-form-dialog.component.scss',
+    standalone: false
 })
 export class LabNoteTemplateFormDialogComponent
   extends FlFormDialogAbstractDirective<LabNoteTemplateForm, LabNoteTemplate>

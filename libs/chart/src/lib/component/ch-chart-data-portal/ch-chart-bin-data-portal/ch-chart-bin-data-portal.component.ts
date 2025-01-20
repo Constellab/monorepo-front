@@ -13,9 +13,10 @@ export interface ChChartBinDataPortalInput {
  * Portal to display a bin data
  */
 @Component({
-  selector: 'ch-chart-bin-data-portal',
-  templateUrl: './ch-chart-bin-data-portal.component.html',
-  styleUrls: ['./ch-chart-bin-data-portal.component.scss'],
+    selector: 'ch-chart-bin-data-portal',
+    templateUrl: './ch-chart-bin-data-portal.component.html',
+    styleUrls: ['./ch-chart-bin-data-portal.component.scss'],
+    standalone: false
 })
 export class ChChartBinDataPortalComponent {
   y: Numeric;

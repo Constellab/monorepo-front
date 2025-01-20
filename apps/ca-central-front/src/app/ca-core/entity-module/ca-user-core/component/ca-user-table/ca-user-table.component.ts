@@ -19,9 +19,10 @@ import {
  * It supports a template content in column
  */
 @Component({
-  selector: 'ca-user-table',
-  templateUrl: './ca-user-table.component.html',
-  styleUrls: ['./ca-user-table.component.scss'],
+    selector: 'ca-user-table',
+    templateUrl: './ca-user-table.component.html',
+    styleUrls: ['./ca-user-table.component.scss'],
+    standalone: false
 })
 export class CaUserTableComponent {
   @Input({ required: true }) datasource: CaUserDatasourcePaginated<any>;

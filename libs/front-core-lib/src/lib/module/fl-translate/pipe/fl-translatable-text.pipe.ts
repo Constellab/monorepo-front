@@ -7,7 +7,8 @@ import { mergeMap, Observable } from 'rxjs';
  * Pipe to translate or not a {@link FlTranslatableText}
  */
 @Pipe({
-  name: 'flTranslatableText',
+    name: 'flTranslatableText',
+    standalone: false
 })
 export class FlTranslatableTextPipe implements PipeTransform {
   constructor(private translateService: FlTranslateService) {}

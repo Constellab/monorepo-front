@@ -16,9 +16,10 @@ import { FlInputFileDirective } from '../fl-input-file.directive';
  * </fl-input-file-icon-container>
  */
 @Component({
-  selector: 'fl-input-file-icon-container',
-  templateUrl: './fl-input-file-icon-container.component.html',
-  styleUrls: ['./fl-input-file-icon-container.component.scss'],
+    selector: 'fl-input-file-icon-container',
+    templateUrl: './fl-input-file-icon-container.component.html',
+    styleUrls: ['./fl-input-file-icon-container.component.scss'],
+    standalone: false
 })
 export class FlInputFileIconContainerComponent implements OnInit {
   @Input() icon: string;

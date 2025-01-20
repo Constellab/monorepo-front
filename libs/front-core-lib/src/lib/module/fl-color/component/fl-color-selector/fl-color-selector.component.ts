@@ -4,10 +4,11 @@ import { NgControl } from '@angular/forms';
 import { FlColorHelper } from '../../../../utils/fl-color-helper.class';
 
 @Component({
-  selector: 'fl-color-selector',
-  templateUrl: './fl-color-selector.component.html',
-  styleUrls: ['./fl-color-selector.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
+    selector: 'fl-color-selector',
+    templateUrl: './fl-color-selector.component.html',
+    styleUrls: ['./fl-color-selector.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
+    standalone: false
 })
 export class FlColorSelectorComponent extends FlFormFieldDirective<string> implements OnInit {
   @Input() placeholder: string;

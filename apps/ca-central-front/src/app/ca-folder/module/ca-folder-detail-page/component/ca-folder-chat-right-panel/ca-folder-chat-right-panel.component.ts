@@ -5,9 +5,10 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 
 @Component({
-  selector: 'ca-folder-chat-right-panel',
-  templateUrl: './ca-folder-chat-right-panel.component.html',
-  styleUrls: ['./ca-folder-chat-right-panel.component.scss'],
+    selector: 'ca-folder-chat-right-panel',
+    templateUrl: './ca-folder-chat-right-panel.component.html',
+    styleUrls: ['./ca-folder-chat-right-panel.component.scss'],
+    standalone: false
 })
 export class CaFolderChatRightPanelComponent implements OnInit {
   @Input({ required: true }) folderId: string;

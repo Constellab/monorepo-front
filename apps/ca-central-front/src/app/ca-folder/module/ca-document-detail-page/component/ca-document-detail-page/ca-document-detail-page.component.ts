@@ -33,9 +33,10 @@ import {
  * Page to show a constellab document with the possibility to edit it.
  */
 @Component({
-  selector: 'ca-document-detail-page',
-  templateUrl: './ca-document-detail-page.component.html',
-  styleUrls: ['./ca-document-detail-page.component.scss'],
+    selector: 'ca-document-detail-page',
+    templateUrl: './ca-document-detail-page.component.html',
+    styleUrls: ['./ca-document-detail-page.component.scss'],
+    standalone: false
 })
 export class CaDocumentDetailPageComponent implements OnInit {
   document: CaDocument;

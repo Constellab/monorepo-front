@@ -13,9 +13,10 @@ import { rvVulcanoPlotToChart } from '../../model/rv-vulcano-plot.class';
  * Resource view component to show 2d charts (Line plot, Scatter plot, heatmap, venn diagram...)
  */
 @Component({
-  selector: 'rv-view-chart-2d',
-  templateUrl: './rv-view-chart2d.component.html',
-  styleUrls: ['./rv-view-chart2d.component.scss'],
+    selector: 'rv-view-chart-2d',
+    templateUrl: './rv-view-chart2d.component.html',
+    styleUrls: ['./rv-view-chart2d.component.scss'],
+    standalone: false
 })
 export class RvViewChart2dComponent extends RvResourceViewDirective<RvViewChartType> implements OnInit {
   chart: ChChartConfig;

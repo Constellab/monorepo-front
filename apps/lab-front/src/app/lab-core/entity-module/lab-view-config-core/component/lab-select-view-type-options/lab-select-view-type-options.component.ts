@@ -6,9 +6,10 @@ import { LabViewType } from '../../../../model/entities/resource/lab-view-config
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
 @Component({
-  selector: 'lab-select-view-type-options',
-  templateUrl: './lab-select-view-type-options.component.html',
-  styleUrls: ['./lab-select-view-type-options.component.scss'],
+    selector: 'lab-select-view-type-options',
+    templateUrl: './lab-select-view-type-options.component.html',
+    styleUrls: ['./lab-select-view-type-options.component.scss'],
+    standalone: false
 })
 export class LabSelectViewTypeOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

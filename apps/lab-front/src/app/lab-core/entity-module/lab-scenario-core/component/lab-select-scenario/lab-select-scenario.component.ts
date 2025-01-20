@@ -13,10 +13,11 @@ import { Observable } from 'rxjs';
 import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/lab-select-scenario-dialog.component';
 
 @Component({
-  selector: 'lab-select-scenario',
-  templateUrl: './lab-select-scenario.component.html',
-  styleUrls: ['./lab-select-scenario.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
+    selector: 'lab-select-scenario',
+    templateUrl: './lab-select-scenario.component.html',
+    styleUrls: ['./lab-select-scenario.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
+    standalone: false
 })
 export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario> implements OnInit {
   placeholder = input<FlTranslatableText>('biox.scenario_select');

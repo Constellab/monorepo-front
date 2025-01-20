@@ -4,10 +4,11 @@ import { CaActivitySearch, CaActivitySearchFields } from '../../model/ca-activit
 import { CaActivityDatasource } from '../../../../model/entities/ca-activity.class';
 
 @Component({
-  selector: 'ca-activity-search',
-  templateUrl: './ca-activity-search.component.html',
-  styleUrls: ['./ca-activity-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-activity-search',
+    templateUrl: './ca-activity-search.component.html',
+    styleUrls: ['./ca-activity-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaActivitySearchComponent implements OnInit {
   @Input({ required: true }) datasource: CaActivityDatasource<CaActivitySearchFields>;

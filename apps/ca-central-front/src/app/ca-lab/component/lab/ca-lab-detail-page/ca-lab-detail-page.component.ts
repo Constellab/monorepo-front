@@ -8,15 +8,16 @@ import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-
 import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
 
 @Component({
-  selector: 'ca-lab-detail-page',
-  templateUrl: './ca-lab-detail-page.component.html',
-  styleUrls: ['./ca-lab-detail-page.component.scss'],
-  providers: [
-    CaLabDetailPageState,
-    CaLabDetailServerState,
-    { provide: LmlLabManagerService, useClass: CaLabManagerService },
-    LmlLabManagerState,
-  ],
+    selector: 'ca-lab-detail-page',
+    templateUrl: './ca-lab-detail-page.component.html',
+    styleUrls: ['./ca-lab-detail-page.component.scss'],
+    providers: [
+        CaLabDetailPageState,
+        CaLabDetailServerState,
+        { provide: LmlLabManagerService, useClass: CaLabManagerService },
+        LmlLabManagerState,
+    ],
+    standalone: false
 })
 export class CaLabDetailPageComponent implements OnInit, OnDestroy {
   lab$: Observable<CaLab>;

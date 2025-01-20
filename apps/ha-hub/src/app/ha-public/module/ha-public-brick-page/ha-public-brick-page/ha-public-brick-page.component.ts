@@ -8,10 +8,11 @@ import { DOCUMENT } from '@angular/common';
 import { filter } from 'rxjs';
 
 @Component({
-  selector: 'ha-public-list-bricks-page',
-  templateUrl: './ha-public-brick-page.component.html',
-  styleUrls: ['./ha-public-brick-page.component.scss'],
-  providers: [HaBrickPageState],
+    selector: 'ha-public-list-bricks-page',
+    templateUrl: './ha-public-brick-page.component.html',
+    styleUrls: ['./ha-public-brick-page.component.scss'],
+    providers: [HaBrickPageState],
+    standalone: false
 })
 export class HaPublicBrickPageComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);

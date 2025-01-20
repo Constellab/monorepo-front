@@ -11,10 +11,11 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'ca-select-group',
-  templateUrl: './ca-select-group.component.html',
-  styleUrls: ['./ca-select-group.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
+    selector: 'ca-select-group',
+    templateUrl: './ca-select-group.component.html',
+    styleUrls: ['./ca-select-group.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
+    standalone: false
 })
 export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {
   @Output() groupChange: EventEmitter<CaGroup> = new EventEmitter<CaGroup>();

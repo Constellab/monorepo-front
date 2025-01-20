@@ -3,9 +3,10 @@ import { CoIcon } from '../../model/co-icon.class';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'co-community-icon-select-dialog',
-  templateUrl: './co-community-icon-select-dialog.component.html',
-  styleUrl: './co-community-icon-select-dialog.component.scss',
+    selector: 'co-community-icon-select-dialog',
+    templateUrl: './co-community-icon-select-dialog.component.html',
+    styleUrl: './co-community-icon-select-dialog.component.scss',
+    standalone: false
 })
 export class CoCommunityIconSelectDialogComponent implements OnInit {
   matIconName: string;

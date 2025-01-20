@@ -17,9 +17,10 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
  * Statuses of all lab backups
  */
 @Component({
-  selector: 'ca-lab-backups-statuses',
-  templateUrl: './ca-lab-backups-statuses.component.html',
-  styleUrls: ['./ca-lab-backups-statuses.component.scss'],
+    selector: 'ca-lab-backups-statuses',
+    templateUrl: './ca-lab-backups-statuses.component.html',
+    styleUrls: ['./ca-lab-backups-statuses.component.scss'],
+    standalone: false
 })
 export class CaLabBackupsStatusesComponent implements OnInit {
   @Input() labId: string;

@@ -8,9 +8,10 @@ import {
 import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
-  selector: 'ha-icon-info-portal',
-  templateUrl: './ha-icon-info-portal.component.html',
-  styleUrls: ['./ha-icon-info-portal.component.scss'],
+    selector: 'ha-icon-info-portal',
+    templateUrl: './ha-icon-info-portal.component.html',
+    styleUrls: ['./ha-icon-info-portal.component.scss'],
+    standalone: false
 })
 export class HaIconInfoPortalComponent {
   icon: CoIcon;

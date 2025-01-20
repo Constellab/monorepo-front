@@ -8,9 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
  * The dialog is closed when a scenario is selected
  */
 @Component({
-  selector: 'lab-select-scenario-dialog',
-  templateUrl: './lab-select-scenario-dialog.component.html',
-  styleUrls: ['./lab-select-scenario-dialog.component.scss'],
+    selector: 'lab-select-scenario-dialog',
+    templateUrl: './lab-select-scenario-dialog.component.html',
+    styleUrls: ['./lab-select-scenario-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectScenarioDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<LabSelectScenarioDialogComponent>) {}

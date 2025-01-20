@@ -8,9 +8,10 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'lab-scenario-template-detail',
-  templateUrl: './lab-scenario-template-detail.component.html',
-  styleUrls: ['./lab-scenario-template-detail.component.scss'],
+    selector: 'lab-scenario-template-detail',
+    templateUrl: './lab-scenario-template-detail.component.html',
+    styleUrls: ['./lab-scenario-template-detail.component.scss'],
+    standalone: false
 })
 export class LabScenarioTemplateDetailComponent implements OnInit {
   @Input({ required: true }) template: LabScenarioTemplate;

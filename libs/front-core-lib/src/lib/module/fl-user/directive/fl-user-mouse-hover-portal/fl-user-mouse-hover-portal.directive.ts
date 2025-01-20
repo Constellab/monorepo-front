@@ -5,7 +5,8 @@ import { FlUserInfoPortalComponent } from '../../component/fl-user-info-portal/f
 import { FlUser } from '../../model/fl-user.class';
 
 @Directive({
-  selector: '[flUserMouseHoverPortal]',
+    selector: '[flUserMouseHoverPortal]',
+    standalone: false
 })
 export class FlUserMouseHoverPortalDirective extends FlMouseHoverPortalAbstractDirective {
   @Input() flUserMouseHoverPortal: FlUser;

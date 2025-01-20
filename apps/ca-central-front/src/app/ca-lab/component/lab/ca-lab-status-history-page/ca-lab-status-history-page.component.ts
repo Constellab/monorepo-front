@@ -66,10 +66,11 @@ export class CaLabStatusHistorySearch {
 }
 
 @Component({
-  selector: 'ca-lab-status-history-page',
-  templateUrl: './ca-lab-status-history-page.component.html',
-  styleUrls: ['./ca-lab-status-history-page.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-lab-status-history-page',
+    templateUrl: './ca-lab-status-history-page.component.html',
+    styleUrls: ['./ca-lab-status-history-page.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaLabStatusHistoryPageComponent implements OnInit {
   id = this.state.getLabId();

@@ -11,9 +11,10 @@ export interface CaLabSelectVolumeForm {
 }
 
 @Component({
-  selector: 'ca-lab-select-storage',
-  templateUrl: './ca-lab-select-storage.component.html',
-  styleUrl: './ca-lab-select-storage.component.scss',
+    selector: 'ca-lab-select-storage',
+    templateUrl: './ca-lab-select-storage.component.html',
+    styleUrl: './ca-lab-select-storage.component.scss',
+    standalone: false
 })
 export class CaLabSelectStorageComponent implements OnInit {
   @Input({ required: true }) formGp: FormGroup<CaLabSelectVolumeForm>;

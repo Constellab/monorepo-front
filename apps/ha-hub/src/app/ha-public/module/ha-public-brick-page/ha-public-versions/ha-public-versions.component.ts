@@ -12,9 +12,10 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ha-public-versions-page',
-  templateUrl: './ha-public-versions.component.html',
-  styleUrls: ['./ha-public-versions.component.scss'],
+    selector: 'ha-public-versions-page',
+    templateUrl: './ha-public-versions.component.html',
+    styleUrls: ['./ha-public-versions.component.scss'],
+    standalone: false
 })
 export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit {
   private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);

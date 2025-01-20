@@ -5,9 +5,10 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { FlStatusEvent } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lml-docker-containers',
-  templateUrl: './lml-docker-containers.component.html',
-  styleUrls: ['./lml-docker-containers.component.scss'],
+    selector: 'lml-docker-containers',
+    templateUrl: './lml-docker-containers.component.html',
+    styleUrls: ['./lml-docker-containers.component.scss'],
+    standalone: false
 })
 export class LmlDockerContainersComponent implements OnInit {
   private managerState = inject(LmlLabManagerState);

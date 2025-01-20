@@ -22,9 +22,10 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
  * Form to create or update a lab (only accessible by admin)
  */
 @Component({
-  selector: 'ca-lab-admin-form-dialog',
-  templateUrl: './ca-lab-admin-form-dialog.component.html',
-  styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
+    selector: 'ca-lab-admin-form-dialog',
+    templateUrl: './ca-lab-admin-form-dialog.component.html',
+    styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabAdminFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabAdminForm, CaLabWithSpace>

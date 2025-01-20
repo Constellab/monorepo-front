@@ -9,10 +9,11 @@ import { FlDialogService } from '@monorepo/front-core-lib';
  * Component to select the network and the pathways database
  */
 @Component({
-  selector: 'bn-bio-network-config',
-  templateUrl: './bn-bio-network-config.component.html',
-  styleUrls: ['./bn-bio-network-config.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-config',
+    templateUrl: './bn-bio-network-config.component.html',
+    styleUrls: ['./bn-bio-network-config.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkConfigComponent implements OnInit {
   networks: BnBioNetwork[] | null;

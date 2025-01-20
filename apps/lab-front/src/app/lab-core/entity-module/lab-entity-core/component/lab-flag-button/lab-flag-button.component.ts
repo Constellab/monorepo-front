@@ -9,10 +9,11 @@ import { Observable } from 'rxjs';
  * Button to toggle the flag of an element.
  */
 @Component({
-  selector: 'lab-flag-button',
-  templateUrl: './lab-flag-button.component.html',
-  styleUrls: ['./lab-flag-button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-flag-button',
+    templateUrl: './lab-flag-button.component.html',
+    styleUrls: ['./lab-flag-button.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabFlagButtonComponent {
   @Input() entity: LabFlaggedEntity;

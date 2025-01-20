@@ -3,9 +3,10 @@ import { LabBiotaDatabaseSearch } from '../../../model/lab-biota-database.class'
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'lab-biota-database-search-form',
-  templateUrl: './lab-biota-database-search-form.component.html',
-  styleUrls: ['./lab-biota-database-search-form.component.scss'],
+    selector: 'lab-biota-database-search-form',
+    templateUrl: './lab-biota-database-search-form.component.html',
+    styleUrls: ['./lab-biota-database-search-form.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabaseSearchFormComponent {
   formGp = new FormBuilder().group({

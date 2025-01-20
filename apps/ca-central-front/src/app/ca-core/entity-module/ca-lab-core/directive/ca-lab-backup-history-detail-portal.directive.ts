@@ -7,7 +7,8 @@ import { CaLabBackupHistoryDetailPortalComponent } from '../component/ca-lab-bac
  * Specific directive to open the backup history detail portal
  */
 @Directive({
-  selector: '[caLabBackupHistoryDetailPortal]',
+    selector: '[caLabBackupHistoryDetailPortal]',
+    standalone: false
 })
 export class CaLabBackupHistoryDetailPortalDirective extends FlMouseHoverPortalAbstractDirective {
   @Input() caLabBackupHistoryDetailPortal: CnLabBackupHistoryDetail;

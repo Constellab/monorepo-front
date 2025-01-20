@@ -15,9 +15,10 @@ export interface TdConfigureParamSpecsTableDialogInput {
 }
 
 @Component({
-  selector: 'td-configure-param-specs-table-dialog',
-  templateUrl: './td-configure-param-specs-table-dialog.component.html',
-  styleUrl: './td-configure-param-specs-table-dialog.component.scss',
+    selector: 'td-configure-param-specs-table-dialog',
+    templateUrl: './td-configure-param-specs-table-dialog.component.html',
+    styleUrl: './td-configure-param-specs-table-dialog.component.scss',
+    standalone: false
 })
 export class TdConfigureParamSpecsTableDialogComponent {
   private data: TdConfigureParamSpecsTableDialogInput = inject(MAT_DIALOG_DATA);

@@ -5,7 +5,8 @@ import { MatDrawer } from '@angular/material/sidenav';
  * Simple directive to close the current drawer or sidenav on close
  */
 @Directive({
-  selector: '[flDrawerClose]',
+    selector: '[flDrawerClose]',
+    standalone: false
 })
 export class FlDrawerCloseDirective {
   constructor(private matDrawer: MatDrawer) {}

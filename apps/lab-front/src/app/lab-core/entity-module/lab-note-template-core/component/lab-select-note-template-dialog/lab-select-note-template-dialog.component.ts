@@ -7,9 +7,10 @@ export interface LabSelectNoteTemplateDialogInput {
 }
 
 @Component({
-  selector: 'lab-select-note-template-dialog',
-  templateUrl: './lab-select-note-template-dialog.component.html',
-  styleUrls: ['./lab-select-note-template-dialog.component.scss'],
+    selector: 'lab-select-note-template-dialog',
+    templateUrl: './lab-select-note-template-dialog.component.html',
+    styleUrls: ['./lab-select-note-template-dialog.component.scss'],
+    standalone: false
 })
 export class LabSelectNoteTemplateDialogComponent {
   rowSelectable: boolean;

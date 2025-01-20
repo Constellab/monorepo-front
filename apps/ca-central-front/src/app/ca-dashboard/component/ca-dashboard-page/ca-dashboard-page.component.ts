@@ -10,9 +10,10 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
  * Page containing the user dashboard
  */
 @Component({
-  selector: 'ca-dashboard-page',
-  templateUrl: './ca-dashboard-page.component.html',
-  styleUrls: ['./ca-dashboard-page.component.scss'],
+    selector: 'ca-dashboard-page',
+    templateUrl: './ca-dashboard-page.component.html',
+    styleUrls: ['./ca-dashboard-page.component.scss'],
+    standalone: false
 })
 export class CaDashboardPageComponent implements OnInit, OnDestroy {
   communityLink: string;

@@ -5,9 +5,10 @@ import { bnBioNetworkCofactorColor } from '../../model/bn-bio-network-node-cofac
  * Component to show the legend of the bio network
  */
 @Component({
-  selector: 'bn-bio-network-legend',
-  templateUrl: './bn-bio-network-legend.component.html',
-  styleUrls: ['./bn-bio-network-legend.component.scss'],
+    selector: 'bn-bio-network-legend',
+    templateUrl: './bn-bio-network-legend.component.html',
+    styleUrls: ['./bn-bio-network-legend.component.scss'],
+    standalone: false
 })
 export class BnBioNetworkLegendComponent implements OnInit {
   cofactorColor = bnBioNetworkCofactorColor;

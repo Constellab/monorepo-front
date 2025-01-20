@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
  * Show information about a {@link LabProgressBar} in a dialog
  */
 @Component({
-  selector: 'lab-progress-bar-info-dialog',
-  templateUrl: './lab-progress-bar-info-dialog.component.html',
-  styleUrls: ['./lab-progress-bar-info-dialog.component.scss'],
+    selector: 'lab-progress-bar-info-dialog',
+    templateUrl: './lab-progress-bar-info-dialog.component.html',
+    styleUrls: ['./lab-progress-bar-info-dialog.component.scss'],
+    standalone: false
 })
 export class LabProgressBarInfoDialogComponent implements OnInit {
   progressBar$: Observable<LabProgressBar>;

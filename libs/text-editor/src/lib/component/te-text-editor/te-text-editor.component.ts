@@ -18,9 +18,10 @@ import { TeEvent } from '../../model/te-event.class';
 import { TeRichText } from '../../model/lib';
 
 @Component({
-  selector: 'te-text-editor',
-  templateUrl: './te-text-editor.component.html',
-  styleUrl: './te-text-editor.component.scss',
+    selector: 'te-text-editor',
+    templateUrl: './te-text-editor.component.html',
+    styleUrl: './te-text-editor.component.scss',
+    standalone: false
 })
 export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> implements OnInit {
   @Input({ required: true }) config: TeConfig;

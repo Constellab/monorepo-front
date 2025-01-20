@@ -18,9 +18,10 @@ export interface CaUpdateFolderLeaderDialogInput {
  * Dialog to update a folder leader
  */
 @Component({
-  selector: 'ca-update-folder-leader-dialog',
-  templateUrl: './ca-update-folder-leader-dialog.component.html',
-  styleUrls: ['./ca-update-folder-leader-dialog.component.scss'],
+    selector: 'ca-update-folder-leader-dialog',
+    templateUrl: './ca-update-folder-leader-dialog.component.html',
+    styleUrls: ['./ca-update-folder-leader-dialog.component.scss'],
+    standalone: false
 })
 export class CaUpdateFolderLeaderDialogComponent implements OnInit {
   formControl: FormControl;

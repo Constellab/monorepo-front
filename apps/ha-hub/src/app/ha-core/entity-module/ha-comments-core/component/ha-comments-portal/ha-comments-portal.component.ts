@@ -19,9 +19,10 @@ export interface HaCommentsEntity {
 }
 
 @Component({
-  selector: 'ha-comments-portal',
-  templateUrl: './ha-comments-portal.component.html',
-  styleUrls: ['./ha-comments-portal.component.scss'],
+    selector: 'ha-comments-portal',
+    templateUrl: './ha-comments-portal.component.html',
+    styleUrls: ['./ha-comments-portal.component.scss'],
+    standalone: false
 })
 export class HaCommentsPortalComponent implements OnInit {
   textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();

@@ -9,9 +9,10 @@ import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'ha-agent-version-detail',
-  templateUrl: './ha-agent-version-detail.component.html',
-  styleUrls: ['./ha-agent-version-detail.component.scss'],
+    selector: 'ha-agent-version-detail',
+    templateUrl: './ha-agent-version-detail.component.html',
+    styleUrls: ['./ha-agent-version-detail.component.scss'],
+    standalone: false
 })
 export class HaAgentVersionDetailComponent implements OnInit {
   @Input() isOverview?: boolean;

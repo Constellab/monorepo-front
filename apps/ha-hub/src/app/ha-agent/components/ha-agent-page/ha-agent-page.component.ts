@@ -14,10 +14,11 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
-  selector: 'ha-agent-page',
-  templateUrl: './ha-agent-page.component.html',
-  styleUrls: ['./ha-agent-page.component.scss'],
-  providers: [HaAgentPageState],
+    selector: 'ha-agent-page',
+    templateUrl: './ha-agent-page.component.html',
+    styleUrls: ['./ha-agent-page.component.scss'],
+    providers: [HaAgentPageState],
+    standalone: false
 })
 export class HaAgentPageComponent implements OnInit, OnDestroy {
   profileRoute = HaRouterService.getProfileRoute();

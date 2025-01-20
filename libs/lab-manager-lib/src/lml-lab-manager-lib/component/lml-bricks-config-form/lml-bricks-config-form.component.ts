@@ -23,9 +23,10 @@ import { LmlBrickVersion } from '../../model/lml-brick.class';
  * Form to update the lab config
  */
 @Component({
-  selector: 'lml-bricks-config-form',
-  templateUrl: './lml-bricks-config-form.component.html',
-  styleUrls: ['./lml-bricks-config-form.component.scss'],
+    selector: 'lml-bricks-config-form',
+    templateUrl: './lml-bricks-config-form.component.html',
+    styleUrls: ['./lml-bricks-config-form.component.scss'],
+    standalone: false
 })
 export class LmlBricksConfigFormComponent {
   @Input({ required: true }) brickVersions: LmlBrickVersionDTODatasource;

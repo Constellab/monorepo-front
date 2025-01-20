@@ -5,9 +5,10 @@ import { ClUserStatus } from '@monorepo/core-lib';
 import { CaUserLicense } from '../../../../model/entities/ca-user.class';
 
 @Component({
-  selector: 'ca-user-search-form',
-  templateUrl: './ca-user-search-form.component.html',
-  styleUrls: ['./ca-user-search-form.component.scss'],
+    selector: 'ca-user-search-form',
+    templateUrl: './ca-user-search-form.component.html',
+    styleUrls: ['./ca-user-search-form.component.scss'],
+    standalone: false
 })
 export class CaUserSearchFormComponent implements OnInit {
   formGp: UntypedFormGroup;

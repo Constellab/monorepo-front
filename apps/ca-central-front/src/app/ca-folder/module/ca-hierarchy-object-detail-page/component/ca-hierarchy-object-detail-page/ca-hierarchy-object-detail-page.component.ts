@@ -15,10 +15,11 @@ import { map } from 'rxjs/operators';
  * In center in contains a router outlet to render object page
  */
 @Component({
-  selector: 'ca-hierarchy-object-detail-page',
-  templateUrl: './ca-hierarchy-object-detail-page.component.html',
-  styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
-  providers: [CaHierarchyObjectDetailState],
+    selector: 'ca-hierarchy-object-detail-page',
+    templateUrl: './ca-hierarchy-object-detail-page.component.html',
+    styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
+    providers: [CaHierarchyObjectDetailState],
+    standalone: false
 })
 export class CaHierarchyObjectDetailPageComponent implements OnInit {
   treeOpened$: Observable<boolean>;

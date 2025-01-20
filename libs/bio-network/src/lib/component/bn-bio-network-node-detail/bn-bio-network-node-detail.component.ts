@@ -5,10 +5,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'bn-bio-network-node-detail',
-  templateUrl: './bn-bio-network-node-detail.component.html',
-  styleUrls: ['./bn-bio-network-node-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'bn-bio-network-node-detail',
+    templateUrl: './bn-bio-network-node-detail.component.html',
+    styleUrls: ['./bn-bio-network-node-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BnBioNetworkNodeDetailComponent implements OnInit {
   node$: Observable<BnBioNetworkNode>;

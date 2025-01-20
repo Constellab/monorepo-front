@@ -11,7 +11,8 @@ interface FlImageFullscreenDialogInput {
  * Directive to be place on an image to allow the user to open the image in fullscreen
  */
 @Directive({
-  selector: 'img[flImageFullscreen]',
+    selector: 'img[flImageFullscreen]',
+    standalone: false
 })
 export class FlImageFullscreenDirective {
   constructor(
@@ -46,7 +47,7 @@ export class FlImageFullscreenDirective {
  * Component to show the image in fullscreen dialog
  */
 @Component({
-  template: `
+    template: `
     <div class="container g-layout-row g-layout-center-center">
       <button mat-mini-fab matDialogClose class="close-button g-button-shadow" color="primary">
         <mat-icon>close</mat-icon>
@@ -54,8 +55,8 @@ export class FlImageFullscreenDirective {
       <img [src]="src" [alt]="alt" (flOutsideClick)="closeDialog()" />
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       .container {
         height: 100%;
         width: 100%;
@@ -75,7 +76,8 @@ export class FlImageFullscreenDirective {
         max-height: 100%;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 export class FlImageFullscreenTestComponent {
   src: string;

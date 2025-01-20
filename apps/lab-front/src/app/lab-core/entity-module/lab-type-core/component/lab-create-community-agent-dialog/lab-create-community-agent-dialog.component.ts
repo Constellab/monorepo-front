@@ -18,9 +18,10 @@ export interface LabShareAgentCommunityDialogData {
 }
 
 @Component({
-  selector: 'lab-create-community-agent-dialog',
-  templateUrl: './lab-create-community-agent-dialog.component.html',
-  styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
+    selector: 'lab-create-community-agent-dialog',
+    templateUrl: './lab-create-community-agent-dialog.component.html',
+    styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
+    standalone: false
 })
 export class LabCreateCommunityAgentDialogComponent implements OnInit {
   title: string = 'biox.create_community_agent';

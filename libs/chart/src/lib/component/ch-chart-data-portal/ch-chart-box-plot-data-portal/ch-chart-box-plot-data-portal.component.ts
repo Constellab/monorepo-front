@@ -14,9 +14,10 @@ export interface ChChartBoxPlotDataPortalInput {
  * Display the box plot data in a portal
  */
 @Component({
-  selector: 'ch-chart-box-plot-data-portal',
-  templateUrl: './ch-chart-box-plot-data-portal.component.html',
-  styleUrls: ['./ch-chart-box-plot-data-portal.component.scss'],
+    selector: 'ch-chart-box-plot-data-portal',
+    templateUrl: './ch-chart-box-plot-data-portal.component.html',
+    styleUrls: ['./ch-chart-box-plot-data-portal.component.scss'],
+    standalone: false
 })
 export class ChChartBoxPlotDataPortalComponent {
   data: ChChartDataWithSerie<ChChartBoxPlotData>;

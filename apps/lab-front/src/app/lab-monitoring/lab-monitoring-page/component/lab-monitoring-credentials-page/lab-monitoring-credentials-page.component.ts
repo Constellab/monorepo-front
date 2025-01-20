@@ -11,9 +11,10 @@ import {
 } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-form-dialog/lab-credentials-form-dialog.component';
 
 @Component({
-  selector: 'lab-monitoring-credentials-page',
-  templateUrl: './lab-monitoring-credentials-page.component.html',
-  styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
+    selector: 'lab-monitoring-credentials-page',
+    templateUrl: './lab-monitoring-credentials-page.component.html',
+    styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringCredentialsPageComponent {
   allCredentials: LabCredentialsDatasource = this.credentialsService.getAllDatasource();

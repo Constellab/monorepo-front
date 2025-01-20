@@ -19,9 +19,10 @@ export interface HaStoryResourceViewInputDialogOutputData {
 }
 
 @Component({
-  selector: 'ha-story-resource-view-input-dialog',
-  templateUrl: './ha-story-resource-view-input-dialog.component.html',
-  styleUrls: ['./ha-story-resource-view-input-dialog.component.scss'],
+    selector: 'ha-story-resource-view-input-dialog',
+    templateUrl: './ha-story-resource-view-input-dialog.component.html',
+    styleUrls: ['./ha-story-resource-view-input-dialog.component.scss'],
+    standalone: false
 })
 export class HaStoryResourceViewInputDialogComponent implements OnInit {
   storyId: string;

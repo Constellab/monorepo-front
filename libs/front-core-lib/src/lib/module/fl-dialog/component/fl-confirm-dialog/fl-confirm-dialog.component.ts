@@ -7,9 +7,10 @@ import { FormControl, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 
 @Component({
-  selector: 'fl-confirm-dialog',
-  templateUrl: './fl-confirm-dialog.component.html',
-  styleUrls: ['./fl-confirm-dialog.component.scss'],
+    selector: 'fl-confirm-dialog',
+    templateUrl: './fl-confirm-dialog.component.html',
+    styleUrls: ['./fl-confirm-dialog.component.scss'],
+    standalone: false
 })
 export class FlConfirmDialogComponent implements OnInit {
   inputData: FlConfirmDialogInput;

@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MissingTranslationHandler, TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { FlMissingTranslationLogService } from './service/fl-missing-translation-log.service';
@@ -41,12 +41,10 @@ export class FlTranslateModule {
         FlTranslateService,
         FlMissingTranslationLogService,
         // Init the translate service
-        {
-          provide: APP_INITIALIZER,
-          useFactory: initTranslateService,
-          deps: [FlTranslateService],
-          multi: true,
-        },
+        provideAppInitializer(() => {
+        const initializerFn = (initTranslateService)(inject(FlTranslateService));
+        return initializerFn();
+      }),
       ],
     };
   }

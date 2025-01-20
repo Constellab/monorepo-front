@@ -11,9 +11,10 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
  * Header info about the lab in the detail page
  */
 @Component({
-  selector: 'ca-lab-header',
-  templateUrl: './ca-lab-header.component.html',
-  styleUrls: ['./ca-lab-header.component.scss'],
+    selector: 'ca-lab-header',
+    templateUrl: './ca-lab-header.component.html',
+    styleUrls: ['./ca-lab-header.component.scss'],
+    standalone: false
 })
 export class CaLabHeaderComponent {
   private state = inject(CaLabDetailPageState);

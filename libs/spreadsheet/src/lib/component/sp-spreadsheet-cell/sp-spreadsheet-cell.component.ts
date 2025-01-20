@@ -37,10 +37,11 @@ import {
 } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'sp-spreadsheet-cell',
-  templateUrl: './sp-spreadsheet-cell.component.html',
-  styleUrls: ['./sp-spreadsheet-cell.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-spreadsheet-cell',
+    templateUrl: './sp-spreadsheet-cell.component.html',
+    styleUrls: ['./sp-spreadsheet-cell.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
   // use to check change detection

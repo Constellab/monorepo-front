@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
+import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
@@ -93,7 +93,10 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
     LmsPageComponent,
   ],
   providers: [
-    { provide: APP_INITIALIZER, useFactory: loadThemeOnInit, deps: [FlThemeService], multi: true },
+    provideAppInitializer(() => {
+        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
+        return initializerFn();
+      }),
 
     {
       provide: TranslateLoader,

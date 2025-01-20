@@ -3,9 +3,10 @@ import { LabRouterService } from '../../../../lab-core/service/lab-router.servic
 import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'lab-monitoring-page',
-  templateUrl: './lab-monitoring-page.component.html',
-  styleUrls: ['./lab-monitoring-page.component.scss'],
+    selector: 'lab-monitoring-page',
+    templateUrl: './lab-monitoring-page.component.html',
+    styleUrls: ['./lab-monitoring-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringPageComponent {
   routes: FlHorizontalNavBarItem[] = [

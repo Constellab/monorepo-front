@@ -13,7 +13,8 @@ export interface FlInputSearchOptionContext<T> extends FlViewContext<T> {
  * Directive to define the template for the options of the input search
  */
 @Directive({
-  selector: '[flInputSearchOption]',
+    selector: '[flInputSearchOption]',
+    standalone: false
 })
 export class FlInputSearchOptionDirective<T> {
   /**

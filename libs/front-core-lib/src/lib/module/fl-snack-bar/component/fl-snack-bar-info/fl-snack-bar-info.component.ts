@@ -7,9 +7,10 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
  * Simple snack bar to display an error or success message
  */
 @Component({
-  selector: 'fl-snack-bar-info',
-  templateUrl: './fl-snack-bar-info.component.html',
-  styleUrls: ['./fl-snack-bar-info.component.scss'],
+    selector: 'fl-snack-bar-info',
+    templateUrl: './fl-snack-bar-info.component.html',
+    styleUrls: ['./fl-snack-bar-info.component.scss'],
+    standalone: false
 })
 export class FlSnackBarInfoComponent implements OnInit {
   mode: FlSnackBarMode;

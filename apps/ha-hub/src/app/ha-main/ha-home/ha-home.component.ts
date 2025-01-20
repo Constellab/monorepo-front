@@ -19,9 +19,10 @@ import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 
 @Component({
-  selector: 'ha-home',
-  templateUrl: './ha-home.component.html',
-  styleUrl: './ha-home.component.scss',
+    selector: 'ha-ha-home',
+    templateUrl: './ha-home.component.html',
+    styleUrls: ['./ha-home.component.scss'],
+    standalone: false
 })
 export class HaHomeComponent implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);

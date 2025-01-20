@@ -10,10 +10,11 @@ export interface LabConfigureProtocolDialogInput {
  * Dialog to configure a protocol
  */
 @Component({
-  selector: 'lab-configure-protocol-dialog',
-  templateUrl: './lab-configure-protocol-dialog.component.html',
-  styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
-  providers: [LabProcessDashboardConfigState],
+    selector: 'lab-configure-protocol-dialog',
+    templateUrl: './lab-configure-protocol-dialog.component.html',
+    styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
+    providers: [LabProcessDashboardConfigState],
+    standalone: false
 })
 export class LabConfigureProtocolDialogComponent implements OnInit {
   protocolId: string;

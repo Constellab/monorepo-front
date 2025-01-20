@@ -4,9 +4,10 @@ import { CoSpace } from '../../model/co-space.class';
 import { CoUser } from '../../model/co-user.class';
 
 @Component({
-  selector: 'co-community-list-item-main-content',
-  templateUrl: './co-community-list-item-main-content.component.html',
-  styleUrls: ['./co-community-list-item-main-content.component.scss'],
+    selector: 'co-community-list-item-main-content',
+    templateUrl: './co-community-list-item-main-content.component.html',
+    styleUrls: ['./co-community-list-item-main-content.component.scss'],
+    standalone: false
 })
 export class CoCommunityListItemMainContentComponent {
   @Input({ required: true }) title: string;

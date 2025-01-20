@@ -4,9 +4,10 @@ import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-  selector: 'lab-scenario-table',
-  templateUrl: './lab-scenario-table.component.html',
-  styleUrls: ['./lab-scenario-table.component.scss'],
+    selector: 'lab-scenario-table',
+    templateUrl: './lab-scenario-table.component.html',
+    styleUrls: ['./lab-scenario-table.component.scss'],
+    standalone: false
 })
 export class LabScenarioTableComponent {
   @Input() datasource: FlArrayObs<LabScenario>;

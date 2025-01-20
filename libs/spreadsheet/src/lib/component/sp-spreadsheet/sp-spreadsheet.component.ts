@@ -29,25 +29,26 @@ import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-paginat
 import { FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'sp-spreadsheet',
-  templateUrl: './sp-spreadsheet.component.html',
-  styleUrls: ['./sp-spreadsheet.component.scss'],
-  providers: [
-    SpSpreadsheetState,
-    SpSpreadsheetElementState,
-    SpSpreadsheetSelectionState,
-    SpSpreadsheetContextMenu,
-    SpSpreadsheetKeyboardManagerState,
-    SpSpreadsheetMouseManagerState,
-    SpSpreadsheetClipboardState,
-    SpSpreadsheetActionStore,
-    SpSpreadsheetActions,
-    SpSpreadsheetChartState,
-    SpSpreadsheetScrollState,
-    SpSpreadsheetPaginationState,
-    FlPortalService, // providers to access the state in portal
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-spreadsheet',
+    templateUrl: './sp-spreadsheet.component.html',
+    styleUrls: ['./sp-spreadsheet.component.scss'],
+    providers: [
+        SpSpreadsheetState,
+        SpSpreadsheetElementState,
+        SpSpreadsheetSelectionState,
+        SpSpreadsheetContextMenu,
+        SpSpreadsheetKeyboardManagerState,
+        SpSpreadsheetMouseManagerState,
+        SpSpreadsheetClipboardState,
+        SpSpreadsheetActionStore,
+        SpSpreadsheetActions,
+        SpSpreadsheetChartState,
+        SpSpreadsheetScrollState,
+        SpSpreadsheetPaginationState,
+        FlPortalService, // providers to access the state in portal
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSpreadsheetComponent implements OnInit, OnDestroy {
   @Input() spreadsheet: SpSpreadsheet;

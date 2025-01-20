@@ -3,9 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'ca-admin-users-page',
-  templateUrl: './ca-admin-users-page.component.html',
-  styleUrls: ['./ca-admin-users-page.component.scss'],
+    selector: 'ca-admin-users-page',
+    templateUrl: './ca-admin-users-page.component.html',
+    styleUrls: ['./ca-admin-users-page.component.scss'],
+    standalone: false
 })
 export class CaAdminUsersPageComponent {
   constructor(titleService: Title, translateService: FlTranslateService) {

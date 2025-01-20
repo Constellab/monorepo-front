@@ -16,11 +16,12 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
  * Input to handle multiple string values
  */
 @Component({
-  selector: 'fl-multi-inputs',
-  templateUrl: './fl-multi-inputs.component.html',
-  styleUrls: ['./fl-multi-inputs.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
+    selector: 'fl-multi-inputs',
+    templateUrl: './fl-multi-inputs.component.html',
+    styleUrls: ['./fl-multi-inputs.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
+    standalone: false
 })
 export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> implements OnInit {
   @Input() placeholder: string;

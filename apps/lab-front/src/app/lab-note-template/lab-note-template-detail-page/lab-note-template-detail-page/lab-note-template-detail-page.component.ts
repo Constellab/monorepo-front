@@ -10,9 +10,10 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'lab-note-template-detail-page',
-  templateUrl: './lab-note-template-detail-page.component.html',
-  styleUrls: ['./lab-note-template-detail-page.component.scss'],
+    selector: 'lab-note-template-detail-page',
+    templateUrl: './lab-note-template-detail-page.component.html',
+    styleUrls: ['./lab-note-template-detail-page.component.scss'],
+    standalone: false
 })
 export class LabNoteTemplateDetailPageComponent implements OnInit {
   noteTemplate: LabNoteTemplate;

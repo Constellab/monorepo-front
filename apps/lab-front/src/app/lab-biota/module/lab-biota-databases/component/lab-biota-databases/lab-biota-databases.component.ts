@@ -7,9 +7,10 @@ import { LabBiotaDataCardDialogComponent } from '../lab-biota-data-card-dialog/l
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'lab-biota-databases',
-  templateUrl: './lab-biota-databases.component.html',
-  styleUrls: ['./lab-biota-databases.component.scss'],
+    selector: 'lab-biota-databases',
+    templateUrl: './lab-biota-databases.component.html',
+    styleUrls: ['./lab-biota-databases.component.scss'],
+    standalone: false
 })
 export class LabBiotaDatabasesComponent implements OnInit {
   biotaDatasource: LabBiotaDataDatasource;

@@ -16,9 +16,10 @@ export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
 }
 
 @Component({
-  selector: 'lab-note-form-dialog',
-  templateUrl: './lab-note-form-dialog.component.html',
-  styleUrls: ['./lab-note-form-dialog.component.scss'],
+    selector: 'lab-note-form-dialog',
+    templateUrl: './lab-note-form-dialog.component.html',
+    styleUrls: ['./lab-note-form-dialog.component.scss'],
+    standalone: false
 })
 export class LabNoteFormDialogComponent
   extends FlFormDialogAbstractDirective<LabNoteForm, LabNote>

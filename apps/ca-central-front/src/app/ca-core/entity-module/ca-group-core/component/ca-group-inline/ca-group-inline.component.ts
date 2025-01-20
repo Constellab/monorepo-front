@@ -5,9 +5,10 @@ import { CaGroup } from '../../../../model/entities/ca-group.entity';
  * Component to show the type of group along with label
  */
 @Component({
-  selector: 'ca-group-inline',
-  templateUrl: './ca-group-inline.component.html',
-  styleUrls: ['./ca-group-inline.component.scss'],
+    selector: 'ca-group-inline',
+    templateUrl: './ca-group-inline.component.html',
+    styleUrls: ['./ca-group-inline.component.scss'],
+    standalone: false
 })
 export class CaGroupInlineComponent {
   @Input({ required: true }) group: CaGroup;

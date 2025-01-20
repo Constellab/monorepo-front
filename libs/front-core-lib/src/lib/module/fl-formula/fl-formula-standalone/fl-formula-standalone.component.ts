@@ -5,13 +5,12 @@ import katex from 'katex';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'fl-formula-standalone',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fl-formula-standalone.component.html',
-  styleUrl: './fl-formula-standalone.component.scss',
-  // use encapsulation to import KaTeX styles
-  encapsulation: ViewEncapsulation.None,
+    selector: 'fl-formula-standalone',
+    imports: [CommonModule],
+    templateUrl: './fl-formula-standalone.component.html',
+    styleUrl: './fl-formula-standalone.component.scss',
+    // use encapsulation to import KaTeX styles
+    encapsulation: ViewEncapsulation.None
 })
 export class FlFormulaStandaloneComponent implements OnDestroy {
   @Input() set formula(formula: string | Observable<string>) {

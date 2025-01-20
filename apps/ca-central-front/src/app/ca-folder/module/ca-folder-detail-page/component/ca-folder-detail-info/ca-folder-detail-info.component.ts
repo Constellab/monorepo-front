@@ -13,9 +13,10 @@ import {
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-  selector: 'ca-folder-detail-info',
-  templateUrl: './ca-folder-detail-info.component.html',
-  styleUrl: './ca-folder-detail-info.component.scss',
+    selector: 'ca-folder-detail-info',
+    templateUrl: './ca-folder-detail-info.component.html',
+    styleUrl: './ca-folder-detail-info.component.scss',
+    standalone: false
 })
 export class CaFolderDetailInfoComponent {
   private state = inject(CaFolderDetailState);

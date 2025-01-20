@@ -18,9 +18,10 @@ export interface LabConfigureSpecsForm {
  * The FlDynamicFieldConfigService must be provided to support custom fields
  */
 @Component({
-  selector: 'lab-configure-specs-form',
-  templateUrl: './lab-configure-specs-form.component.html',
-  styleUrls: ['./lab-configure-specs-form.component.scss'],
+    selector: 'lab-configure-specs-form',
+    templateUrl: './lab-configure-specs-form.component.html',
+    styleUrls: ['./lab-configure-specs-form.component.scss'],
+    standalone: false
 })
 export class LabConfigureSpecsFormComponent {
   configData = input.required<LabConfig>();

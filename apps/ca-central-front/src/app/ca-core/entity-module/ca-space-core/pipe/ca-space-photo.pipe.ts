@@ -3,7 +3,8 @@ import { CaSpace } from '../../../model/entities/space/ca-space.class';
 import { CaSpaceService } from '../../../service-api/ca-space.service';
 
 @Pipe({
-  name: 'caSpacePhoto',
+    name: 'caSpacePhoto',
+    standalone: false
 })
 export class CaSpacePhotoPipe implements PipeTransform {
   constructor(private spaceService: CaSpaceService) {}

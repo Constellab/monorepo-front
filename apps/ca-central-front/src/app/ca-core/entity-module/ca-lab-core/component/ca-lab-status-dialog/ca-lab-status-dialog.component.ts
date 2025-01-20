@@ -7,9 +7,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * Dialog to check the lab status
  */
 @Component({
-  selector: 'ca-lab-status-dialog',
-  templateUrl: './ca-lab-status-dialog.component.html',
-  styleUrls: ['./ca-lab-status-dialog.component.scss'],
+    selector: 'ca-lab-status-dialog',
+    templateUrl: './ca-lab-status-dialog.component.html',
+    styleUrls: ['./ca-lab-status-dialog.component.scss'],
+    standalone: false
 })
 export class CaLabStatusDialogComponent implements OnInit {
   status$: Observable<any>;

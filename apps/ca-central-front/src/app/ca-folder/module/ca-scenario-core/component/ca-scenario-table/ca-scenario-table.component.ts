@@ -3,9 +3,10 @@ import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 
 @Component({
-  selector: 'ca-scenario-table',
-  templateUrl: './ca-scenario-table.component.html',
-  styleUrls: ['./ca-scenario-table.component.scss'],
+    selector: 'ca-scenario-table',
+    templateUrl: './ca-scenario-table.component.html',
+    styleUrls: ['./ca-scenario-table.component.scss'],
+    standalone: false
 })
 export class CaScenarioTableComponent {
   @Input({ required: true }) datasource: FlDatasource<CaScenario>;

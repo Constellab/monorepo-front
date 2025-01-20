@@ -11,9 +11,10 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * Show historic of views for a resource
  */
 @Component({
-  selector: 'lab-resource-view-historic',
-  templateUrl: './lab-resource-view-historic.component.html',
-  styleUrls: ['./lab-resource-view-historic.component.scss'],
+    selector: 'lab-resource-view-historic',
+    templateUrl: './lab-resource-view-historic.component.html',
+    styleUrls: ['./lab-resource-view-historic.component.scss'],
+    standalone: false
 })
 export class LabResourceViewHistoricComponent implements OnInit {
   @Input() resourceId: string;

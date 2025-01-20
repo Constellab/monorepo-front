@@ -16,9 +16,10 @@ export type CaStorageLimitUpdateDialogInput = FlFormDialogInput<CaStorageLimit>;
  * Dialog for admin to update the storage limit of a space
  */
 @Component({
-  selector: 'ca-current-space-update-storage-dialog',
-  templateUrl: './ca-current-space-update-storage-dialog.component.html',
-  styleUrl: './ca-current-space-update-storage-dialog.component.scss',
+    selector: 'ca-current-space-update-storage-dialog',
+    templateUrl: './ca-current-space-update-storage-dialog.component.html',
+    styleUrl: './ca-current-space-update-storage-dialog.component.scss',
+    standalone: false
 })
 export class CaCurrentSpaceUpdateStorageDialogComponent
   extends FlFormDialogAbstractDirective<CaStorageLimit, CaSpaceStorage>

@@ -11,9 +11,10 @@ import {
  * Action menu for a share link. To update, delete, copy the link or open entity
  */
 @Component({
-  selector: 'lab-share-link-actions-menu',
-  templateUrl: './lab-share-link-actions-menu.component.html',
-  styleUrls: ['./lab-share-link-actions-menu.component.scss'],
+    selector: 'lab-share-link-actions-menu',
+    templateUrl: './lab-share-link-actions-menu.component.html',
+    styleUrls: ['./lab-share-link-actions-menu.component.scss'],
+    standalone: false
 })
 export class LabShareLinkActionsMenuComponent {
   @Input() shareLink: LabShareLink;

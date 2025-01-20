@@ -3,9 +3,10 @@ import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scen
 import { TeBasicConfig } from '@monorepo/text-editor';
 
 @Component({
-  selector: 'ca-scenario-info',
-  templateUrl: './ca-scenario-info.component.html',
-  styleUrls: ['./ca-scenario-info.component.scss'],
+    selector: 'ca-scenario-info',
+    templateUrl: './ca-scenario-info.component.html',
+    styleUrls: ['./ca-scenario-info.component.scss'],
+    standalone: false
 })
 export class CaScenarioInfoComponent {
   @Input() scenario: CaScenario;

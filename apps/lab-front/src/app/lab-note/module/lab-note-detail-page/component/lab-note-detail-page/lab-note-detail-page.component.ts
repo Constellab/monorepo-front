@@ -35,10 +35,11 @@ import {
 } from '@monorepo/text-editor';
 
 @Component({
-  selector: 'lab-note-detail-page',
-  templateUrl: './lab-note-detail-page.component.html',
-  styleUrls: ['./lab-note-detail-page.component.scss'],
-  providers: [LabNoteDetailPageState],
+    selector: 'lab-note-detail-page',
+    templateUrl: './lab-note-detail-page.component.html',
+    styleUrls: ['./lab-note-detail-page.component.scss'],
+    providers: [LabNoteDetailPageState],
+    standalone: false
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   note$: Observable<LabNote>;

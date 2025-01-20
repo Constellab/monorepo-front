@@ -10,16 +10,17 @@ export interface TdEditableParamSpec extends TdParamSpecBase {
 }
 
 @Component({
-  selector: 'td-editable-param-specs-table',
-  templateUrl: './td-editable-param-specs-table.component.html',
-  styleUrl: './td-editable-param-specs-table.component.scss',
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    selector: 'td-editable-param-specs-table',
+    templateUrl: './td-editable-param-specs-table.component.html',
+    styleUrl: './td-editable-param-specs-table.component.scss',
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
+    standalone: false
 })
 export class TdEditableParamSpecsTableComponent {
   @Input() columns: FlTableColumnStatic<TdEditableParamSpec>[] = [

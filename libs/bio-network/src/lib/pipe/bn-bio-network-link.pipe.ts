@@ -5,7 +5,8 @@ import { BnBioNetworkLinkHelper } from '../utils/bn-bio-network-link.helper';
  * Simple pipe to generate link from object name and type
  */
 @Pipe({
-  name: 'bnBioNetworkLink',
+    name: 'bnBioNetworkLink',
+    standalone: false
 })
 export class BnBioNetworkLinkPipe implements PipeTransform {
   transform(value: string, type: 'rhea' | 'chebi' | 'brenda'): string {

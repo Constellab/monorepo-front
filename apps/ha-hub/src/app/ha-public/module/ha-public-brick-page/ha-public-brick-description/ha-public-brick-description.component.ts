@@ -14,9 +14,10 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
-  selector: 'ha-public-brick-description-page',
-  templateUrl: './ha-public-brick-description.component.html',
-  styleUrls: ['./ha-public-brick-description.component.scss'],
+    selector: 'ha-public-brick-description-page',
+    templateUrl: './ha-public-brick-description.component.html',
+    styleUrls: ['./ha-public-brick-description.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
   private router: Router = inject(Router);

@@ -7,9 +7,10 @@ import { LabNoteService } from '../../../../entity-service/lab-note.service';
  * Component to list in a Table the notes that use a resource
  */
 @Component({
-  selector: 'lab-notes-using-resource',
-  templateUrl: './lab-notes-using-resource.component.html',
-  styleUrls: ['./lab-notes-using-resource.component.scss'],
+    selector: 'lab-notes-using-resource',
+    templateUrl: './lab-notes-using-resource.component.html',
+    styleUrls: ['./lab-notes-using-resource.component.scss'],
+    standalone: false
 })
 export class LabNotesUsingResourceComponent implements OnInit {
   @Input() resourceId: string;

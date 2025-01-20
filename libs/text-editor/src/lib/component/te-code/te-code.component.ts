@@ -4,9 +4,10 @@ import { FormControl } from '@angular/forms';
 import { FlCodeEditorComponent, FlCodeEditorLanguage } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'te-code',
-  templateUrl: './te-code.component.html',
-  styleUrl: './te-code.component.scss',
+    selector: 'te-code',
+    templateUrl: './te-code.component.html',
+    styleUrl: './te-code.component.scss',
+    standalone: false
 })
 export class TeCodeComponent extends TeElementBlockDirective {
   @Input({ required: true }) formControl: FormControl<string>;

@@ -17,9 +17,10 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
  * Component to generate a FormGroup, FormArray or FormControl form base on config
  */
 @Component({
-  selector: 'fl-dynamic-abstract-form',
-  templateUrl: './fl-dynamic-abstract-form.component.html',
-  styleUrls: ['./fl-dynamic-abstract-form.component.scss'],
+    selector: 'fl-dynamic-abstract-form',
+    templateUrl: './fl-dynamic-abstract-form.component.html',
+    styleUrls: ['./fl-dynamic-abstract-form.component.scss'],
+    standalone: false
 })
 export class FlDynamicAbstractFormComponent implements OnDestroy {
   config = input<FlDynamicFormAbstractControl>();

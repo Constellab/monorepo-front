@@ -9,9 +9,10 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'te-formula',
-  templateUrl: './te-formula.component.html',
-  styleUrl: './te-formula.component.scss',
+    selector: 'te-formula',
+    templateUrl: './te-formula.component.html',
+    styleUrl: './te-formula.component.scss',
+    standalone: false
 })
 export class TeFormulaComponent extends TeElementBlockDirective {
   @Input() formulaTitle: string;

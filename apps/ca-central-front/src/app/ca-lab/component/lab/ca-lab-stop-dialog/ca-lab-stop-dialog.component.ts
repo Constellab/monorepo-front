@@ -12,9 +12,10 @@ export interface CaStopLabDialogInput {
 }
 
 @Component({
-  selector: 'ca-lab-stop-dialog',
-  templateUrl: './ca-lab-stop-dialog.component.html',
-  styleUrl: './ca-lab-stop-dialog.component.scss',
+    selector: 'ca-lab-stop-dialog',
+    templateUrl: './ca-lab-stop-dialog.component.html',
+    styleUrl: './ca-lab-stop-dialog.component.scss',
+    standalone: false
 })
 export class CaLabStopDialogComponent {
   formCtrl = new FormControl(false);

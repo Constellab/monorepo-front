@@ -39,13 +39,14 @@ export interface LabImportResourceDialogInput {
  * Dialog to config a resource import and call import
  */
 @Component({
-  selector: 'lab-import-resource-dialog',
-  templateUrl: './lab-import-resource-dialog.component.html',
-  styleUrls: ['./lab-import-resource-dialog.component.scss'],
-  providers: [
-    // configure the dynamic field to support tags and other custom fields
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-  ],
+    selector: 'lab-import-resource-dialog',
+    templateUrl: './lab-import-resource-dialog.component.html',
+    styleUrls: ['./lab-import-resource-dialog.component.scss'],
+    providers: [
+        // configure the dynamic field to support tags and other custom fields
+        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+    ],
+    standalone: false
 })
 export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   formGp: FormGroup<LabConfigureSpecsForm>;

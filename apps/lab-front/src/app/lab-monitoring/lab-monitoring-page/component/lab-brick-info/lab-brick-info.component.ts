@@ -9,10 +9,11 @@ import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.ser
  * Show information and messages about a brick
  */
 @Component({
-  selector: 'lab-brick-info',
-  templateUrl: './lab-brick-info.component.html',
-  styleUrls: ['./lab-brick-info.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-brick-info',
+    templateUrl: './lab-brick-info.component.html',
+    styleUrls: ['./lab-brick-info.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabBrickInfoComponent implements OnInit {
   @Input() brick: LabBrickEntity;

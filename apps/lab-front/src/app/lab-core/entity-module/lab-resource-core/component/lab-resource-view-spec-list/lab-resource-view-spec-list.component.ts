@@ -8,11 +8,12 @@ import {
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
 
 @Component({
-  selector: 'lab-resource-view-spec-list',
-  templateUrl: './lab-resource-view-spec-list.component.html',
-  styleUrls: ['./lab-resource-view-spec-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LabViewConfigurerState],
+    selector: 'lab-resource-view-spec-list',
+    templateUrl: './lab-resource-view-spec-list.component.html',
+    styleUrls: ['./lab-resource-view-spec-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LabViewConfigurerState],
+    standalone: false
 })
 export class LabResourceViewSpecListComponent {
   @Input() set resourceTypingName(resourceTypingName: string) {

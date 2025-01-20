@@ -15,9 +15,10 @@ interface PrConfigLine {
  * Dialog to show the detail of a config
  */
 @Component({
-  selector: 'pr-process-config-info-dialog',
-  templateUrl: './pr-process-config-info-dialog.component.html',
-  styleUrls: ['./pr-process-config-info-dialog.component.scss'],
+    selector: 'pr-process-config-info-dialog',
+    templateUrl: './pr-process-config-info-dialog.component.html',
+    styleUrls: ['./pr-process-config-info-dialog.component.scss'],
+    standalone: false
 })
 export class PrProcessConfigInfoDialogComponent {
   columns: string[] = ['name', 'shortDescription', 'defaultValue', 'value'];

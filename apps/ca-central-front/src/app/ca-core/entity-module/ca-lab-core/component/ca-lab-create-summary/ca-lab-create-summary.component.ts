@@ -18,9 +18,10 @@ interface CaLabServerPriceEstimation {
  * Step in the lab creation to summarize the lab creation
  */
 @Component({
-  selector: 'ca-lab-create-summary',
-  templateUrl: './ca-lab-create-summary.component.html',
-  styleUrl: './ca-lab-create-summary.component.scss',
+    selector: 'ca-lab-create-summary',
+    templateUrl: './ca-lab-create-summary.component.html',
+    styleUrl: './ca-lab-create-summary.component.scss',
+    standalone: false
 })
 export class CaLabCreateSummaryComponent implements OnInit {
   @Input() name: string;

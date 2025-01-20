@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ca-ca-current-space-other-page',
-  templateUrl: './ca-current-space-other-page.component.html',
-  styleUrls: ['./ca-current-space-other-page.component.scss'],
+    selector: 'ca-ca-current-space-other-page',
+    templateUrl: './ca-current-space-other-page.component.html',
+    styleUrls: ['./ca-current-space-other-page.component.scss'],
+    standalone: false
 })
 export class CaCurrentSpaceOtherPageComponent {}

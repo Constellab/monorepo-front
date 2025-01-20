@@ -6,9 +6,10 @@ import { FlSearchState } from '../../model/fl-search.state';
  * Works inside the {@link FlSearchComponent} to list the saved search and trigger search on click
  */
 @Component({
-  selector: 'fl-search-saved-list',
-  templateUrl: './fl-search-saved-list.component.html',
-  styleUrls: ['./fl-search-saved-list.component.scss'],
+    selector: 'fl-search-saved-list',
+    templateUrl: './fl-search-saved-list.component.html',
+    styleUrls: ['./fl-search-saved-list.component.scss'],
+    standalone: false
 })
 export class FlSearchSavedListComponent implements OnInit {
   savedSearch: FlSavedSearch[];

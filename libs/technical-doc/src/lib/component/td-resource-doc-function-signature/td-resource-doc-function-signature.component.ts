@@ -8,9 +8,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { TeHighlight } from '../../model/td-highlight.class';
 
 @Component({
-  selector: 'td-resource-doc-function-signature',
-  templateUrl: './td-resource-doc-function-signature.component.html',
-  styleUrls: ['./td-resource-doc-function-signature.component.scss'],
+    selector: 'td-resource-doc-function-signature',
+    templateUrl: './td-resource-doc-function-signature.component.html',
+    styleUrls: ['./td-resource-doc-function-signature.component.scss'],
+    standalone: false
 })
 export class TdResourceDocFunctionSignatureComponent implements OnInit {
   @Input({ required: true }) func: TdTechDocFunction;

@@ -12,9 +12,10 @@ import {
 } from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
 
 @Component({
-  selector: 'lab-tag-list',
-  templateUrl: './lab-tag-list.component.html',
-  styleUrls: ['./lab-tag-list.component.scss'],
+    selector: 'lab-tag-list',
+    templateUrl: './lab-tag-list.component.html',
+    styleUrls: ['./lab-tag-list.component.scss'],
+    standalone: false
 })
 export class LabTagListComponent implements OnInit {
   @Input({ required: true }) tags: LabTagDatasource;

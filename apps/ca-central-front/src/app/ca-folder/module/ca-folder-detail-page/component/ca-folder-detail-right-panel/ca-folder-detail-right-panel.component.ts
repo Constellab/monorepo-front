@@ -24,9 +24,10 @@ import {
  * Right panel of the folder detail page
  */
 @Component({
-  selector: 'ca-folder-detail-right-panel',
-  templateUrl: './ca-folder-detail-right-panel.component.html',
-  styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
+    selector: 'ca-folder-detail-right-panel',
+    templateUrl: './ca-folder-detail-right-panel.component.html',
+    styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
+    standalone: false
 })
 export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
   @ViewChild('container', { static: true, read: ViewContainerRef }) container: ViewContainerRef;

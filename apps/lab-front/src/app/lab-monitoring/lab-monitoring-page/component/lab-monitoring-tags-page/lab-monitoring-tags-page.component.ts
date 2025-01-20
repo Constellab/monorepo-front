@@ -15,9 +15,10 @@ import {
 import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
 
 @Component({
-  selector: 'lab-monitoring-tags-page',
-  templateUrl: './lab-monitoring-tags-page.component.html',
-  styleUrls: ['./lab-monitoring-tags-page.component.scss'],
+    selector: 'lab-monitoring-tags-page',
+    templateUrl: './lab-monitoring-tags-page.component.html',
+    styleUrls: ['./lab-monitoring-tags-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringTagsPageComponent implements OnInit {
   tagKeys: LabTagKeyModelDatasource;

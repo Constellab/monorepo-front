@@ -9,9 +9,10 @@ import { map } from 'rxjs/operators';
  * Component to show the note content in a disabled text editor
  */
 @Component({
-  selector: 'ca-note-content',
-  templateUrl: './ca-note-content.component.html',
-  styleUrls: ['./ca-note-content.component.scss'],
+    selector: 'ca-note-content',
+    templateUrl: './ca-note-content.component.html',
+    styleUrls: ['./ca-note-content.component.scss'],
+    standalone: false
 })
 export class CaNoteContentComponent implements OnInit {
   @Input() noteId: string;

@@ -6,7 +6,8 @@ import { MatRadioButton } from '@angular/material/radio';
  * It applies style and manage click event
  */
 @Directive({
-  selector: '[flRadioButtonBig]',
+    selector: '[flRadioButtonBig]',
+    standalone: false
 })
 export class FlRadioButtonBigDirective {
   @HostBinding('class.g-mat-radio-button-big') big = true;

@@ -5,9 +5,10 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 
 @Component({
-  selector: 'lab-environment-toggle',
-  templateUrl: './lab-environment-toggle.component.html',
-  styleUrls: ['./lab-environment-toggle.component.scss'],
+    selector: 'lab-environment-toggle',
+    templateUrl: './lab-environment-toggle.component.html',
+    styleUrls: ['./lab-environment-toggle.component.scss'],
+    standalone: false
 })
 export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   checked: boolean;

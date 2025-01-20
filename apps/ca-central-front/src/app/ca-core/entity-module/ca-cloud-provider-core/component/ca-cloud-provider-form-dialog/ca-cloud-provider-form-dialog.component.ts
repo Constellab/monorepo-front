@@ -11,9 +11,10 @@ export type CaCloudProviderFormDialogInput = FlFormDialogInput<CaCloudProvider>;
  * Dialog to create or update a cloud provider
  */
 @Component({
-  selector: 'ca-cloud-provider-form-dialog',
-  templateUrl: './ca-cloud-provider-form-dialog.component.html',
-  styleUrls: ['./ca-cloud-provider-form-dialog.component.scss'],
+    selector: 'ca-cloud-provider-form-dialog',
+    templateUrl: './ca-cloud-provider-form-dialog.component.html',
+    styleUrls: ['./ca-cloud-provider-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaCloudProviderFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaCloudProvider>, CaCloudProvider>

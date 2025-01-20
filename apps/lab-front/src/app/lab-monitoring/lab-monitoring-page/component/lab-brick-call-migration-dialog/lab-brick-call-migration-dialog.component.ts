@@ -11,9 +11,10 @@ import { ClVersion } from '@monorepo/core-lib';
  * Dialog to list available migration a call them manually
  */
 @Component({
-  selector: 'lab-brick-call-migration-dialog',
-  templateUrl: './lab-brick-call-migration-dialog.component.html',
-  styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
+    selector: 'lab-brick-call-migration-dialog',
+    templateUrl: './lab-brick-call-migration-dialog.component.html',
+    styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
+    standalone: false
 })
 export class LabBrickCallMigrationDialogComponent implements OnInit {
   brickMigrations$: Observable<LabBrickMigration[]>;

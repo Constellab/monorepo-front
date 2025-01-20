@@ -22,10 +22,11 @@ import {
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
-  selector: 'ca-bucket-search',
-  templateUrl: './ca-bucket-search.component.html',
-  styleUrls: ['./ca-bucket-search.component.scss'],
-  providers: [FlSearchState],
+    selector: 'ca-bucket-search',
+    templateUrl: './ca-bucket-search.component.html',
+    styleUrls: ['./ca-bucket-search.component.scss'],
+    providers: [FlSearchState],
+    standalone: false
 })
 export class CaBucketSearchComponent implements OnInit {
   datasource: CaBucketFullDatasource<CaBucketSearchFields>;

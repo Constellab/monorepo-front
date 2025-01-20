@@ -4,10 +4,11 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabResourceDetailDialogComponent } from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 
 @Component({
-  selector: 'lab-resource-card',
-  templateUrl: './lab-resource-card.component.html',
-  styleUrls: ['./lab-resource-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lab-resource-card',
+    templateUrl: './lab-resource-card.component.html',
+    styleUrls: ['./lab-resource-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LabResourceCardComponent implements OnInit {
   @Input() resource: LabResource;

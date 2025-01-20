@@ -13,9 +13,10 @@ import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder
  * Component to show the storage settings of the folder (bucket) with possibility to configure it.
  */
 @Component({
-  selector: 'ca-folder-storage-settings',
-  templateUrl: './ca-folder-storage-settings.component.html',
-  styleUrls: ['./ca-folder-storage-settings.component.scss'],
+    selector: 'ca-folder-storage-settings',
+    templateUrl: './ca-folder-storage-settings.component.html',
+    styleUrls: ['./ca-folder-storage-settings.component.scss'],
+    standalone: false
 })
 export class CaFolderStorageSettingsComponent implements OnInit {
   folderStorage: Observable<CaFolderStorageDTO>;

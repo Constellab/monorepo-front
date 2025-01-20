@@ -20,9 +20,10 @@ export interface TeTextEditorHistoryModificationVisualizerDialogData {
 }
 
 @Component({
-  selector: 'te-text-editor-history-modification-visualizer-dialog',
-  templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
-  styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss',
+    selector: 'te-text-editor-history-modification-visualizer-dialog',
+    templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
+    styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss',
+    standalone: false
 })
 export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit, OnDestroy {
   textEditorEvent: TeEvent;

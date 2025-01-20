@@ -8,9 +8,10 @@ import { filter } from 'rxjs/operators';
  * Component to configure a protocol, can contains nested protocol
  */
 @Component({
-  selector: 'lab-configure-protocol',
-  templateUrl: './lab-configure-protocol.component.html',
-  styleUrls: ['./lab-configure-protocol.component.scss'],
+    selector: 'lab-configure-protocol',
+    templateUrl: './lab-configure-protocol.component.html',
+    styleUrls: ['./lab-configure-protocol.component.scss'],
+    standalone: false
 })
 export class LabConfigureProtocolComponent implements OnInit {
   @Input() protocolId: string;

@@ -8,9 +8,10 @@ import { TeRichText } from '@monorepo/text-editor';
  * The user can add a new message to the chat
  */
 @Component({
-  selector: 'ca-chat-folder',
-  templateUrl: './ca-chat-folder.component.html',
-  styleUrl: './ca-chat-folder.component.scss',
+    selector: 'ca-chat-folder',
+    templateUrl: './ca-chat-folder.component.html',
+    styleUrl: './ca-chat-folder.component.scss',
+    standalone: false
 })
 export class CaChatFolderComponent implements OnDestroy {
   folderId = input.required<string>();

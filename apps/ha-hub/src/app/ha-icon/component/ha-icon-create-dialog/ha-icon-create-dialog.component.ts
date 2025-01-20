@@ -10,9 +10,10 @@ import { CoIcon, CoIconType } from '@monorepo/community-lib';
 export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 
 @Component({
-  selector: 'ha-icon-create-dialog',
-  templateUrl: './ha-icon-create-dialog.component.html',
-  styleUrls: ['./ha-icon-create-dialog.component.scss'],
+    selector: 'ha-icon-create-dialog',
+    templateUrl: './ha-icon-create-dialog.component.html',
+    styleUrls: ['./ha-icon-create-dialog.component.scss'],
+    standalone: false
 })
 export class HaIconCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaIconCreateFormData, CoIcon>

@@ -12,9 +12,10 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-  selector: 'ha-public-brick-users',
-  templateUrl: './ha-public-brick-users.component.html',
-  styleUrls: ['./ha-public-brick-users.component.scss'],
+    selector: 'ha-public-brick-users',
+    templateUrl: './ha-public-brick-users.component.html',
+    styleUrls: ['./ha-public-brick-users.component.scss'],
+    standalone: false
 })
 export class HaPublicBrickUsersComponent implements OnInit {
   @Input() brick: HaBrick;

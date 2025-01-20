@@ -13,9 +13,10 @@ import {
  * and update it if needed
  */
 @Component({
-  selector: 'ca-lab-free-card-info',
-  templateUrl: './ca-lab-free-card-info.component.html',
-  styleUrls: ['./ca-lab-free-card-info.component.scss'],
+    selector: 'ca-lab-free-card-info',
+    templateUrl: './ca-lab-free-card-info.component.html',
+    styleUrls: ['./ca-lab-free-card-info.component.scss'],
+    standalone: false
 })
 export class CaLabFreeCardInfoComponent implements OnInit {
   @Input() userId: string;

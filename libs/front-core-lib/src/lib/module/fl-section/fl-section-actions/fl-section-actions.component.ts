@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'fl-section-actions',
-  templateUrl: './fl-section-actions.component.html',
-  styleUrls: ['./fl-section-actions.component.scss'],
+    selector: 'fl-section-actions',
+    templateUrl: './fl-section-actions.component.html',
+    styleUrls: ['./fl-section-actions.component.scss'],
+    standalone: false
 })
 export class FlSectionActionsComponent implements OnInit {
   constructor() {}

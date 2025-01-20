@@ -11,9 +11,10 @@ import { ClHelpService } from '@monorepo/core-lib';
  * To use the section-body, use <ng-template genSectionBody>
  */
 @Component({
-  selector: 'fl-section',
-  templateUrl: './fl-section.component.html',
-  styleUrls: ['./fl-section.component.scss'],
+    selector: 'fl-section',
+    templateUrl: './fl-section.component.html',
+    styleUrls: ['./fl-section.component.scss'],
+    standalone: false
 })
 export class FlSectionComponent implements OnInit, AfterContentInit {
   _isLoading: boolean = false;

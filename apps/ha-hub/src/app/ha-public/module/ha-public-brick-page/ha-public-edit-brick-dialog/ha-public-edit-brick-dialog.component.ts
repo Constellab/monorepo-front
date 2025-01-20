@@ -13,9 +13,10 @@ import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service'
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ha-ha-public-edit-brick-dialog',
-  templateUrl: './ha-public-edit-brick-dialog.component.html',
-  styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
+    selector: 'ha-ha-public-edit-brick-dialog',
+    templateUrl: './ha-public-edit-brick-dialog.component.html',
+    styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
+    standalone: false
 })
 export class HaPublicEditBrickDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaEditBrickDTO>>

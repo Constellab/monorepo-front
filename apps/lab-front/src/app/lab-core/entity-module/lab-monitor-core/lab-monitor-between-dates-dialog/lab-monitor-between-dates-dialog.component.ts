@@ -13,9 +13,10 @@ export interface LabMonitorBetweenDatesDialogInput {
  * Dialog to show monitor info between 2 dates. Useful to see the process monitor info
  */
 @Component({
-  selector: 'lab-monitor-between-dates-dialog',
-  templateUrl: './lab-monitor-between-dates-dialog.component.html',
-  styleUrls: ['./lab-monitor-between-dates-dialog.component.scss'],
+    selector: 'lab-monitor-between-dates-dialog',
+    templateUrl: './lab-monitor-between-dates-dialog.component.html',
+    styleUrls: ['./lab-monitor-between-dates-dialog.component.scss'],
+    standalone: false
 })
 export class LabMonitorBetweenDatesDialogComponent implements OnInit {
   title: string;

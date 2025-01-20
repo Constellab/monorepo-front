@@ -16,9 +16,10 @@ import {
 } from '../ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
 
 @Component({
-  selector: 'ca-cloud-provider-table',
-  templateUrl: './ca-cloud-provider-table.component.html',
-  styleUrls: ['./ca-cloud-provider-table.component.scss'],
+    selector: 'ca-cloud-provider-table',
+    templateUrl: './ca-cloud-provider-table.component.html',
+    styleUrls: ['./ca-cloud-provider-table.component.scss'],
+    standalone: false
 })
 export class CaCloudProviderTableComponent {
   @Input({ required: true }) datasource: CaCloudProviderDatasource;

@@ -27,9 +27,10 @@ export interface CaSelectFolderDialogInput {
 }
 
 @Component({
-  selector: 'ca-select-folder-dialog',
-  templateUrl: './ca-select-folder-dialog.component.html',
-  styleUrl: './ca-select-folder-dialog.component.scss',
+    selector: 'ca-select-folder-dialog',
+    templateUrl: './ca-select-folder-dialog.component.html',
+    styleUrl: './ca-select-folder-dialog.component.scss',
+    standalone: false
 })
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   foldersDatasource: CaHierarchyObjectDatasource;

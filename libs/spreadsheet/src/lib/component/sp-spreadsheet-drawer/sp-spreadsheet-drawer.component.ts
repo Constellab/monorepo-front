@@ -7,10 +7,11 @@ import { SpSheet } from '../../model/sp-sheet.class';
 import { flCdkOverlayContainerClass, FlTagColorer } from '@monorepo/front-core-lib';
 
 @Component({
-  selector: 'sp-spreadsheet-drawer',
-  templateUrl: './sp-spreadsheet-drawer.component.html',
-  styleUrls: ['./sp-spreadsheet-drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'sp-spreadsheet-drawer',
+    templateUrl: './sp-spreadsheet-drawer.component.html',
+    styleUrls: ['./sp-spreadsheet-drawer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SpSpreadsheetDrawerComponent implements OnInit {
   pinDrawer: boolean = false;

@@ -12,9 +12,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
  * Dialog to update the type of a file
  */
 @Component({
-  selector: 'lab-update-resource-type',
-  templateUrl: './lab-update-resource-type.component.html',
-  styleUrls: ['./lab-update-resource-type.component.scss'],
+    selector: 'lab-update-resource-type',
+    templateUrl: './lab-update-resource-type.component.html',
+    styleUrls: ['./lab-update-resource-type.component.scss'],
+    standalone: false
 })
 export class LabUpdateResourceTypeComponent implements OnInit {
   formControl: UntypedFormControl;

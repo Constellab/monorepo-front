@@ -13,15 +13,16 @@ import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
  * Page for the biox scenario detail with workflow view/edit
  */
 @Component({
-  selector: 'lab-scenario-detail-page',
-  templateUrl: './lab-scenario-detail-page.component.html',
-  styleUrls: ['./lab-scenario-detail-page.component.scss'],
-  providers: [
-    LabScenarioDetailPageState,
-    LabWorkflowNodeDetailState,
-    LabWorkflowEditConfig,
-    LabWorkflowFactory,
-  ],
+    selector: 'lab-scenario-detail-page',
+    templateUrl: './lab-scenario-detail-page.component.html',
+    styleUrls: ['./lab-scenario-detail-page.component.scss'],
+    providers: [
+        LabScenarioDetailPageState,
+        LabWorkflowNodeDetailState,
+        LabWorkflowEditConfig,
+        LabWorkflowFactory,
+    ],
+    standalone: false
 })
 export class LabScenarioDetailPageComponent implements OnInit, OnDestroy {
   scenario$: Observable<LabScenario>;

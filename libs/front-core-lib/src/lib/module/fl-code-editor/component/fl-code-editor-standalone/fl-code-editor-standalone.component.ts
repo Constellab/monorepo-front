@@ -32,11 +32,10 @@ import { perl } from '@codemirror/legacy-modes/mode/perl';
  * is only loaded when needed.
  */
 @Component({
-  selector: 'fl-code-editor-standalone',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fl-code-editor-standalone.component.html',
-  styleUrls: ['./fl-code-editor-standalone.component.scss'],
+    selector: 'fl-code-editor-standalone',
+    imports: [CommonModule],
+    templateUrl: './fl-code-editor-standalone.component.html',
+    styleUrls: ['./fl-code-editor-standalone.component.scss']
 })
 export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
   @Input({ required: true }) language: FlCodeEditorLanguage;

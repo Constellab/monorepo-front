@@ -12,9 +12,10 @@ import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
  * Component to show standard node process in the workflow
  */
 @Component({
-  selector: 'pr-workflow-node-process',
-  templateUrl: './pr-workflow-node-process.component.html',
-  styleUrls: ['./pr-workflow-node-process.component.scss'],
+    selector: 'pr-workflow-node-process',
+    templateUrl: './pr-workflow-node-process.component.html',
+    styleUrls: ['./pr-workflow-node-process.component.scss'],
+    standalone: false
 })
 export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective implements OnInit, OnDestroy {
   node: PrWorkflowNodeProcess;

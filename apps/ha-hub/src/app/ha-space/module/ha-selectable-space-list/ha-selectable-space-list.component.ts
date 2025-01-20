@@ -6,9 +6,10 @@ import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
 
 @Component({
-  selector: 'ha-selectable-space-list',
-  templateUrl: './ha-selectable-space-list.component.html',
-  styleUrls: ['./ha-selectable-space-list.component.scss'],
+    selector: 'ha-selectable-space-list',
+    templateUrl: './ha-selectable-space-list.component.html',
+    styleUrls: ['./ha-selectable-space-list.component.scss'],
+    standalone: false
 })
 export class HaSelectableSpaceListComponent implements OnInit {
   @Input() user: HaUser;

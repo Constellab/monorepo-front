@@ -10,9 +10,10 @@ export interface ChChartHeatMapDataPortalInput {
 }
 
 @Component({
-  selector: 'ch-chart-heat-map-data-portal',
-  templateUrl: './ch-chart-heat-map-data-portal.component.html',
-  styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
+    selector: 'ch-chart-heat-map-data-portal',
+    templateUrl: './ch-chart-heat-map-data-portal.component.html',
+    styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
+    standalone: false
 })
 export class ChChartHeatMapDataPortalComponent {
   data: ChChart3dDatum;

@@ -9,9 +9,10 @@ import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-  selector: 'ca-select-server-cloud-options',
-  templateUrl: './ca-select-server-cloud-options.component.html',
-  styleUrls: ['./ca-select-server-cloud-options.component.scss'],
+    selector: 'ca-select-server-cloud-options',
+    templateUrl: './ca-select-server-cloud-options.component.html',
+    styleUrls: ['./ca-select-server-cloud-options.component.scss'],
+    standalone: false
 })
 export class CaSelectServerCloudOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

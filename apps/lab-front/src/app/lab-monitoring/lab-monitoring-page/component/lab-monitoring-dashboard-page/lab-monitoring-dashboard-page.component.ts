@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lab-lab-monitoring-dashboard-page',
-  templateUrl: './lab-monitoring-dashboard-page.component.html',
-  styleUrls: ['./lab-monitoring-dashboard-page.component.scss'],
+    selector: 'lab-lab-monitoring-dashboard-page',
+    templateUrl: './lab-monitoring-dashboard-page.component.html',
+    styleUrls: ['./lab-monitoring-dashboard-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringDashboardPageComponent {}

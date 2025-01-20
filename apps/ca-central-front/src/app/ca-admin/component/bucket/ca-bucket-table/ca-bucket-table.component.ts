@@ -14,9 +14,10 @@ import {
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
-  selector: 'ca-bucket-table',
-  templateUrl: './ca-bucket-table.component.html',
-  styleUrls: ['./ca-bucket-table.component.scss'],
+    selector: 'ca-bucket-table',
+    templateUrl: './ca-bucket-table.component.html',
+    styleUrls: ['./ca-bucket-table.component.scss'],
+    standalone: false
 })
 export class CaBucketTableComponent {
   @Input({ required: true }) datasource: FlArrayObs<CaBucketFull>;

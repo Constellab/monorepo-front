@@ -10,9 +10,10 @@ export interface TeFormulaDialogInput extends FlFormDialogInput<string> {
 }
 
 @Component({
-  selector: 'fl-formula-dialog',
-  templateUrl: './fl-formula-dialog.component.html',
-  styleUrls: ['./fl-formula-dialog.component.scss'],
+    selector: 'fl-formula-dialog',
+    templateUrl: './fl-formula-dialog.component.html',
+    styleUrls: ['./fl-formula-dialog.component.scss'],
+    standalone: false
 })
 export class FlFormulaDialogComponent implements OnInit {
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;

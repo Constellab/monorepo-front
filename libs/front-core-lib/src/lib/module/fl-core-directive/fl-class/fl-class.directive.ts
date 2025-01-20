@@ -11,10 +11,10 @@ interface FlBreakpointInfo {
  * Directive similar to ngClass, it adds classes based on the screen size
  */
 @Directive({
-  selector:
-    '[flClass], [flClass.xs], [flClass.sm], [flClass.md], [flClass.lg], [flClass.xl] ' +
-    '[flClass.lt-sm], [flClass.lt-md], [flClass.lt-lg], [flClass.lt-xl], ' +
-    '[flClass.gt-xs], [flClass.gt-sm], [flClass.gt-md], [flClass.gt-lg]',
+    selector: '[flClass], [flClass.xs], [flClass.sm], [flClass.md], [flClass.lg], [flClass.xl] ' +
+        '[flClass.lt-sm], [flClass.lt-md], [flClass.lt-lg], [flClass.lt-xl], ' +
+        '[flClass.gt-xs], [flClass.gt-sm], [flClass.gt-md], [flClass.gt-lg]',
+    standalone: false
 })
 export class FlClassDirective implements OnInit, OnDestroy {
   @HostBinding('class') elementClass: string[];

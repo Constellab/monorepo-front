@@ -6,9 +6,10 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 @Component({
-  selector: 'ca-my-labs-page',
-  templateUrl: './ca-my-labs-page.component.html',
-  styleUrls: ['./ca-my-labs-page.component.scss'],
+    selector: 'ca-my-labs-page',
+    templateUrl: './ca-my-labs-page.component.html',
+    styleUrls: ['./ca-my-labs-page.component.scss'],
+    standalone: false
 })
 export class CaMyLabsPageComponent implements OnInit {
   labsDatasource: CaLabDatasource;

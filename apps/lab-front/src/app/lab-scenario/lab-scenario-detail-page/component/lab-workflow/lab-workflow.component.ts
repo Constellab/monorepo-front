@@ -8,9 +8,10 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'lab-workflow',
-  templateUrl: './lab-workflow.component.html',
-  styleUrls: ['./lab-workflow.component.scss'],
+    selector: 'lab-workflow',
+    templateUrl: './lab-workflow.component.html',
+    styleUrls: ['./lab-workflow.component.scss'],
+    standalone: false
 })
 export class LabWorkflowComponent implements OnInit, AfterViewInit {
   workflowIsLoading: boolean = true;

@@ -26,22 +26,21 @@ export class HaInstanceSearchDialogData {
 }
 
 @Component({
-  selector: 'ha-ha-instant-search-dialog',
-  standalone: true,
-  imports: [
-    MatInput,
-    MatFormField,
-    MatIcon,
-    MatPrefix,
-    RouterLink,
-    CdkScrollable,
-    MatSuffix,
-    NgClass,
-    FlTranslateModule,
-  ],
-  templateUrl: './ha-instant-search-dialog.component.html',
-  styleUrl: './ha-instant-search-dialog.component.scss',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'ha-ha-instant-search-dialog',
+    imports: [
+        MatInput,
+        MatFormField,
+        MatIcon,
+        MatPrefix,
+        RouterLink,
+        CdkScrollable,
+        MatSuffix,
+        NgClass,
+        FlTranslateModule,
+    ],
+    templateUrl: './ha-instant-search-dialog.component.html',
+    styleUrl: './ha-instant-search-dialog.component.scss',
+    encapsulation: ViewEncapsulation.None
 })
 export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestroy {
   @HostListener('window:keydown.escape', ['$event'])

@@ -17,9 +17,10 @@ import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog
  * Component that show a form on first user login to complete his information
  */
 @Component({
-  selector: 'ca-user-detail-page',
-  templateUrl: './ca-user-detail-page.component.html',
-  styleUrls: ['./ca-user-detail-page.component.scss'],
+    selector: 'ca-user-detail-page',
+    templateUrl: './ca-user-detail-page.component.html',
+    styleUrls: ['./ca-user-detail-page.component.scss'],
+    standalone: false
 })
 export class CaUserDetailPageComponent implements OnInit {
   user$: Observable<CaUser>;

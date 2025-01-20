@@ -10,9 +10,10 @@ import { map } from 'rxjs/operators';
  * Check the detail of a venv and delete it
  */
 @Component({
-  selector: 'lab-monitoring-venvs-page',
-  templateUrl: './lab-monitoring-venvs-page.component.html',
-  styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
+    selector: 'lab-monitoring-venvs-page',
+    templateUrl: './lab-monitoring-venvs-page.component.html',
+    styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringVenvsPageComponent implements OnInit {
   venvsStatus$: Observable<LabVEnvsStatus>;

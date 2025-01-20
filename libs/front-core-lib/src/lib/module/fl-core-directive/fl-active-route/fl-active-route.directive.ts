@@ -8,7 +8,8 @@ import { Subscription } from 'rxjs';
  * of a routerLink attribute. It can be applied to an element that is not a link.
  */
 @Directive({
-  selector: '[flActiveRoute]',
+    selector: '[flActiveRoute]',
+    standalone: false
 })
 export class FlActiveRouteDirective implements OnInit, OnDestroy {
   /**

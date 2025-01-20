@@ -11,9 +11,10 @@ export interface CaStatusHistoryListDialogInput {
  * Dialog to get and display the list of status history for an entity
  */
 @Component({
-  selector: 'ca-status-history-list-dialog',
-  templateUrl: './ca-status-history-list-dialog.component.html',
-  styleUrls: ['./ca-status-history-list-dialog.component.scss'],
+    selector: 'ca-status-history-list-dialog',
+    templateUrl: './ca-status-history-list-dialog.component.html',
+    styleUrls: ['./ca-status-history-list-dialog.component.scss'],
+    standalone: false
 })
 export class CaStatusHistoryListDialogComponent implements OnInit {
   statusHistories: FlArrayObs<CaStatusHistory<any>>;

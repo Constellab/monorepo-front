@@ -8,9 +8,10 @@ import { map } from 'rxjs/operators';
  * Subpage of monitoring page to show the logs
  */
 @Component({
-  selector: 'lab-monitoring-logs-page',
-  templateUrl: './lab-monitoring-logs-page.component.html',
-  styleUrls: ['./lab-monitoring-logs-page.component.scss'],
+    selector: 'lab-monitoring-logs-page',
+    templateUrl: './lab-monitoring-logs-page.component.html',
+    styleUrls: ['./lab-monitoring-logs-page.component.scss'],
+    standalone: false
 })
 export class LabMonitoringLogsPageComponent implements OnInit {
   logsStatus$: Observable<LabLogsStatus>;

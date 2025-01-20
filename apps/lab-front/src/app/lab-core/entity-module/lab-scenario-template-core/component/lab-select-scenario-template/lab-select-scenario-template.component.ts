@@ -22,10 +22,11 @@ import { Observable } from 'rxjs';
  * It uses the FlInputSearchComponent to search for users.
  */
 @Component({
-  selector: 'lab-select-scenario-template',
-  templateUrl: './lab-select-scenario-template.component.html',
-  styleUrls: ['./lab-select-scenario-template.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioTemplateComponent }],
+    selector: 'lab-select-scenario-template',
+    templateUrl: './lab-select-scenario-template.component.html',
+    styleUrls: ['./lab-select-scenario-template.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioTemplateComponent }],
+    standalone: false
 })
 export class LabSelectScenarioTemplateComponent
   extends FlFormFieldDirective<LabScenarioTemplate>

@@ -11,9 +11,10 @@ export interface CaUserUpdateLicenseDialogInput {
 }
 
 @Component({
-  selector: 'ca-user-update-license-form-dialog',
-  templateUrl: './ca-user-update-license-form-dialog.component.html',
-  styleUrl: './ca-user-update-license-form-dialog.component.scss',
+    selector: 'ca-user-update-license-form-dialog',
+    templateUrl: './ca-user-update-license-form-dialog.component.html',
+    styleUrl: './ca-user-update-license-form-dialog.component.scss',
+    standalone: false
 })
 export class CaUserUpdateLicenseFormDialogComponent {
   formCtrl = new FormControl('' as CaUserLicense, Validators.required);

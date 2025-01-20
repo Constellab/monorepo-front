@@ -9,9 +9,10 @@ import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
  * Small portal to show information about a cell
  */
 @Component({
-  selector: 'sp-spreadsheet-cell-info',
-  templateUrl: './sp-spreadsheet-cell-info.component.html',
-  styleUrls: ['./sp-spreadsheet-cell-info.component.scss'],
+    selector: 'sp-spreadsheet-cell-info',
+    templateUrl: './sp-spreadsheet-cell-info.component.html',
+    styleUrls: ['./sp-spreadsheet-cell-info.component.scss'],
+    standalone: false
 })
 export class SpSpreadsheetCellInfoComponent {
   cell: SpCell;

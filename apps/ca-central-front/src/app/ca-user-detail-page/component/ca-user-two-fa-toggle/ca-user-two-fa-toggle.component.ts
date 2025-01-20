@@ -7,9 +7,10 @@ import { ThemePalette } from '@angular/material/core';
  * Component to activate or deactivate two factor authentication
  */
 @Component({
-  selector: 'ca-user-two-fa-toggle',
-  templateUrl: './ca-user-two-fa-toggle.component.html',
-  styleUrls: ['./ca-user-two-fa-toggle.component.scss'],
+    selector: 'ca-user-two-fa-toggle',
+    templateUrl: './ca-user-two-fa-toggle.component.html',
+    styleUrls: ['./ca-user-two-fa-toggle.component.scss'],
+    standalone: false
 })
 export class CaUserTwoFaToggleComponent implements OnInit {
   twoFaEnabled: boolean;

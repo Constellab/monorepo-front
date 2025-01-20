@@ -6,9 +6,10 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
  * Contain a ng-template to provide the template for the card
  */
 @Component({
-  selector: 'ca-dashboard-list-layout',
-  templateUrl: './ca-dashboard-list-layout.component.html',
-  styleUrls: ['./ca-dashboard-list-layout.component.scss'],
+    selector: 'ca-dashboard-list-layout',
+    templateUrl: './ca-dashboard-list-layout.component.html',
+    styleUrls: ['./ca-dashboard-list-layout.component.scss'],
+    standalone: false
 })
 export class CaDashboardListLayoutComponent {
   public static maxItems = 4;

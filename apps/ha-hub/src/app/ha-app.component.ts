@@ -3,9 +3,10 @@ import { Component, Inject, makeStateKey, OnInit, PLATFORM_ID, TransferState } f
 import { isPlatformServer } from '@angular/common';
 
 @Component({
-  selector: 'ha-monorepo-root',
-  templateUrl: './ha-app.component.html',
-  styleUrls: ['./ha-app.component.scss'],
+    selector: 'ha-monorepo-root',
+    templateUrl: './ha-app.component.html',
+    styleUrls: ['./ha-app.component.scss'],
+    standalone: false
 })
 export class HaAppComponent implements OnInit {
   title = 'ha-documentation';

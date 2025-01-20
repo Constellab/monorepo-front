@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FlThemeService } from '../../../fl-theme/fl-theme.service';
 
 @Component({
-  selector: 'fl-login-page',
-  templateUrl: './fl-login-page.component.html',
-  styleUrls: ['./fl-login-page.component.scss'],
+    selector: 'fl-login-page',
+    templateUrl: './fl-login-page.component.html',
+    styleUrls: ['./fl-login-page.component.scss'],
+    standalone: false
 })
 export class FlLoginPageComponent implements OnInit {
   /**

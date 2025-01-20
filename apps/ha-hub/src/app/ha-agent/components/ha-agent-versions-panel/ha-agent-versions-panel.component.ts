@@ -11,9 +11,10 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 
 @Component({
-  selector: 'ha-agent-versions-panel',
-  templateUrl: './ha-agent-versions-panel.component.html',
-  styleUrls: ['./ha-agent-versions-panel.component.scss'],
+    selector: 'ha-agent-versions-panel',
+    templateUrl: './ha-agent-versions-panel.component.html',
+    styleUrls: ['./ha-agent-versions-panel.component.scss'],
+    standalone: false
 })
 export class HaAgentVersionsPanelComponent {
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;

@@ -14,9 +14,10 @@ export interface LabNoteInsertTemplateDialogData {
  * Dialog to insert a note template in the note
  */
 @Component({
-  selector: 'lab-note-insert-template-dialog',
-  templateUrl: './lab-note-insert-template-dialog.component.html',
-  styleUrl: './lab-note-insert-template-dialog.component.scss',
+    selector: 'lab-note-insert-template-dialog',
+    templateUrl: './lab-note-insert-template-dialog.component.html',
+    styleUrl: './lab-note-insert-template-dialog.component.scss',
+    standalone: false
 })
 export class LabNoteInsertTemplateDialogComponent {
   formControl: FormControl<LabNoteTemplate> = new FormControl();

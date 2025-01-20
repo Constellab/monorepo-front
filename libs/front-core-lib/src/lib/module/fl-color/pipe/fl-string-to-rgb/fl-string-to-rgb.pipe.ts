@@ -5,7 +5,8 @@ import { FlColorHelper } from '../../../../utils/fl-color-helper.class';
  * Convert a string to RGB color
  */
 @Pipe({
-  name: 'flStringToRgb',
+    name: 'flStringToRgb',
+    standalone: false
 })
 export class FlStringToRgbPipe implements PipeTransform {
   transform(value: any, defaultColor: string = 'transparent'): unknown {

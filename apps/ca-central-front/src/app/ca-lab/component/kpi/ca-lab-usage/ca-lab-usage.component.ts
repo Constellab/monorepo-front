@@ -21,9 +21,10 @@ import {
 import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
 
 @Component({
-  selector: 'ca-lab-usage',
-  templateUrl: './ca-lab-usage.component.html',
-  styleUrls: ['./ca-lab-usage.component.scss'],
+    selector: 'ca-lab-usage',
+    templateUrl: './ca-lab-usage.component.html',
+    styleUrls: ['./ca-lab-usage.component.scss'],
+    standalone: false
 })
 export class CaLabUsageComponent implements OnInit, OnDestroy {
   @Input({ required: true }) labId: string;

@@ -7,9 +7,10 @@ import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
 import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 
 @Component({
-  selector: 'fl-reset-password-page',
-  templateUrl: './fl-reset-password-page.component.html',
-  styleUrls: ['./fl-reset-password-page.component.scss'],
+    selector: 'fl-reset-password-page',
+    templateUrl: './fl-reset-password-page.component.html',
+    styleUrls: ['./fl-reset-password-page.component.scss'],
+    standalone: false
 })
 export class FlResetPasswordPageComponent {
   formGp = new FormBuilder().group({

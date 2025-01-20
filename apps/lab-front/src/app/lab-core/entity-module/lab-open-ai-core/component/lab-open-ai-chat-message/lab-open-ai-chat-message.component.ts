@@ -5,9 +5,10 @@ import { ClHelpService } from '@monorepo/core-lib';
 export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
 
 @Component({
-  selector: 'lab-open-ai-chat-message',
-  templateUrl: './lab-open-ai-chat-message.component.html',
-  styleUrls: ['./lab-open-ai-chat-message.component.scss'],
+    selector: 'lab-open-ai-chat-message',
+    templateUrl: './lab-open-ai-chat-message.component.html',
+    styleUrls: ['./lab-open-ai-chat-message.component.scss'],
+    standalone: false
 })
 export class LabOpenAiChatMessageComponent implements OnInit {
   @Input() message: LabOpenAiChatMessage;

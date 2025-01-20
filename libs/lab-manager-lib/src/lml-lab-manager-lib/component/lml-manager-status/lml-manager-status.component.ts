@@ -29,9 +29,10 @@ interface LmlCurrentStatusInfo {
  * Simple component to display the lab status via the manager
  */
 @Component({
-  selector: 'lml-manager-status',
-  templateUrl: './lml-manager-status.component.html',
-  styleUrls: ['./lml-manager-status.component.scss'],
+    selector: 'lml-manager-status',
+    templateUrl: './lml-manager-status.component.html',
+    styleUrls: ['./lml-manager-status.component.scss'],
+    standalone: false
 })
 export class LmlManagerStatusComponent {
   private managerState = inject(LmlLabManagerState);

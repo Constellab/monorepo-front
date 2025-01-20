@@ -7,9 +7,10 @@ import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/l
  * Component to list in a Table the scenarios that use a resource
  */
 @Component({
-  selector: 'lab-scenarios-using-resource',
-  templateUrl: './lab-scenarios-using-resource.component.html',
-  styleUrls: ['./lab-scenarios-using-resource.component.scss'],
+    selector: 'lab-scenarios-using-resource',
+    templateUrl: './lab-scenarios-using-resource.component.html',
+    styleUrls: ['./lab-scenarios-using-resource.component.scss'],
+    standalone: false
 })
 export class LabScenariosUsingResourceComponent implements OnInit {
   @Input() resourceId: string;

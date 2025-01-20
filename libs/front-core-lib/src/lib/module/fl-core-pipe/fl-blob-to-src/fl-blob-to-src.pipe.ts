@@ -5,7 +5,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
  * Pipe to convert a blob to display and use it in image src
  */
 @Pipe({
-  name: 'flBlobToSrc',
+    name: 'flBlobToSrc',
+    standalone: false
 })
 export class FlBlobToSrcPipe implements PipeTransform, OnDestroy {
   private lastUrl: string;

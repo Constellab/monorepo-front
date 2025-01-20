@@ -9,9 +9,10 @@ import { FlPortalHeaderComponent } from '../../fl-portal/component/fl-portal-hea
  * It must be placed under the element that has the FlResizeDirective
  */
 @Component({
-  selector: 'fl-resize-portal-fullscreen-button',
-  templateUrl: './fl-resize-portal-fullscreen-button.component.html',
-  styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
+    selector: 'fl-resize-portal-fullscreen-button',
+    templateUrl: './fl-resize-portal-fullscreen-button.component.html',
+    styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
+    standalone: false
 })
 export class FlResizePortalFullscreenButtonComponent implements OnInit {
   fullscreen: boolean = false;

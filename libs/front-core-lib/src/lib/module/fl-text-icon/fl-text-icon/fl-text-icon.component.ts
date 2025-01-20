@@ -8,10 +8,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
  * The text can be any tag.
  */
 @Component({
-  selector: 'fl-text-icon',
-  templateUrl: './fl-text-icon.component.html',
-  styleUrls: ['./fl-text-icon.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-text-icon',
+    templateUrl: './fl-text-icon.component.html',
+    styleUrls: ['./fl-text-icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlTextIconComponent {
   /**

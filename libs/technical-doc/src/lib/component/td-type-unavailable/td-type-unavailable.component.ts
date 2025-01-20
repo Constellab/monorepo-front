@@ -3,9 +3,10 @@ import { TdTypingName } from '../../model/td-typing-name.class';
 import { TdTypeObjectType } from '../../model/td-type.class';
 
 @Component({
-  selector: 'td-type-unavailable',
-  templateUrl: './td-type-unavailable.component.html',
-  styleUrls: ['./td-type-unavailable.component.scss'],
+    selector: 'td-type-unavailable',
+    templateUrl: './td-type-unavailable.component.html',
+    styleUrls: ['./td-type-unavailable.component.scss'],
+    standalone: false
 })
 export class TdTypeUnavailableComponent implements OnInit {
   @Input() typingName: string;

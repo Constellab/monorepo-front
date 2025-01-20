@@ -12,9 +12,10 @@ import {
 } from '../../../../model/entities/server/ca-server-price.class';
 
 @Component({
-  selector: 'ca-server-price-table',
-  templateUrl: './ca-server-price-table.component.html',
-  styleUrl: './ca-server-price-table.component.scss',
+    selector: 'ca-server-price-table',
+    templateUrl: './ca-server-price-table.component.html',
+    styleUrl: './ca-server-price-table.component.scss',
+    standalone: false
 })
 export class CaServerPriceTableComponent {
   @Input({ required: true }) datasource: CaServerPriceDatasource;

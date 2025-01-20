@@ -13,9 +13,10 @@ export interface CaHierarchyObjectTableEvent {
 }
 
 @Component({
-  selector: 'ca-hierarchy-object-table',
-  templateUrl: './ca-hierarchy-object-table.component.html',
-  styleUrl: './ca-hierarchy-object-table.component.scss',
+    selector: 'ca-hierarchy-object-table',
+    templateUrl: './ca-hierarchy-object-table.component.html',
+    styleUrl: './ca-hierarchy-object-table.component.scss',
+    standalone: false
 })
 export class CaHierarchyObjectTableComponent {
   @Input({ required: true }) datasource: CaHierarchyObjectDatasource<any>;

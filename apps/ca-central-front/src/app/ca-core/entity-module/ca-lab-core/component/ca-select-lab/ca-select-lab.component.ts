@@ -13,10 +13,11 @@ import { map } from 'rxjs/operators';
 import { CaLabSearchFields } from '../../model/ca-lab-search.class';
 
 @Component({
-  selector: 'ca-select-lab',
-  templateUrl: './ca-select-lab.component.html',
-  styleUrls: ['./ca-select-lab.component.scss'],
-  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
+    selector: 'ca-select-lab',
+    templateUrl: './ca-select-lab.component.html',
+    styleUrls: ['./ca-select-lab.component.scss'],
+    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
+    standalone: false
 })
 export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {
   @Input() mode: 'all' | 'all-cloud';

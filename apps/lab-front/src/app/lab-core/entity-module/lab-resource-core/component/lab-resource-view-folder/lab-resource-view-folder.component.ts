@@ -29,9 +29,10 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * Resource view for folder
  */
 @Component({
-  selector: 'lab-resource-view-folder',
-  templateUrl: './lab-resource-view-folder.component.html',
-  styleUrls: ['./lab-resource-view-folder.component.scss'],
+    selector: 'lab-resource-view-folder',
+    templateUrl: './lab-resource-view-folder.component.html',
+    styleUrls: ['./lab-resource-view-folder.component.scss'],
+    standalone: false
 })
 export class LabResourceViewFolderComponent
   extends RvResourceViewDirective<LabResourceViewFolder>

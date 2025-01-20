@@ -9,9 +9,10 @@ import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
  * Dialog to create or update a server info
  */
 @Component({
-  selector: 'ca-server-cloud-form-dialog',
-  templateUrl: './ca-server-cloud-form-dialog.component.html',
-  styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
+    selector: 'ca-server-cloud-form-dialog',
+    templateUrl: './ca-server-cloud-form-dialog.component.html',
+    styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
+    standalone: false
 })
 export class CaServerCloudFormDialogComponent
   extends FlFormDialogAbstractDirective<CaServerCloud>

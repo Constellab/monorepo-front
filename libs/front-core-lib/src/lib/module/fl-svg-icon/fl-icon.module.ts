@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, inject, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlIconDirective } from './fl-icon/fl-icon.directive';
 import { FlIconRegistryService } from './fl-icon-registry.service';
@@ -27,7 +27,10 @@ export class FlIconModule {
       providers: [
         FlIconRegistryService,
         { provide: FL_ICON_MODULE, useValue: config },
-        { provide: APP_INITIALIZER, useFactory: initIcons, deps: [FlIconRegistryService], multi: true },
+        provideAppInitializer(() => {
+        const initializerFn = (initIcons)(inject(FlIconRegistryService));
+        return initializerFn();
+      }),
       ],
     };
   }

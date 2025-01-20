@@ -6,9 +6,10 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaLabVolumeHistoryDialogComponent } from '../../volume/ca-lab-volume-history-dialog/ca-lab-volume-history-dialog.component';
 
 @Component({
-  selector: 'ca-lab-server-info-card',
-  templateUrl: './ca-lab-server-info-card.component.html',
-  styleUrls: ['./ca-lab-server-info-card.component.scss'],
+    selector: 'ca-lab-server-info-card',
+    templateUrl: './ca-lab-server-info-card.component.html',
+    styleUrls: ['./ca-lab-server-info-card.component.scss'],
+    standalone: false
 })
 export class CaLabServerInfoCardComponent implements OnInit {
   @Input({ required: true }) labId: string;

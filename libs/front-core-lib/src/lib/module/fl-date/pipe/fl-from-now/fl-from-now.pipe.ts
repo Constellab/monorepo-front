@@ -7,7 +7,8 @@ import { ClDateHelper, ClDateInput } from '@monorepo/core-lib';
  * Use the date local setup by the translate service
  */
 @Pipe({
-  name: 'flFromNow',
+    name: 'flFromNow',
+    standalone: false
 })
 export class FlFromNowPipe implements PipeTransform {
   /**

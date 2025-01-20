@@ -23,9 +23,10 @@ interface CaFolderFlatNode {
 }
 
 @Component({
-  selector: 'ca-hierarchy-object-tree',
-  templateUrl: './ca-hierarchy-object-tree.component.html',
-  styleUrl: './ca-hierarchy-object-tree.component.scss',
+    selector: 'ca-hierarchy-object-tree',
+    templateUrl: './ca-hierarchy-object-tree.component.html',
+    styleUrl: './ca-hierarchy-object-tree.component.scss',
+    standalone: false
 })
 export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   @Input({ required: true }) hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;

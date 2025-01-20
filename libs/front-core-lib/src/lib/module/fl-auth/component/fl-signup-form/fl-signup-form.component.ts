@@ -6,9 +6,10 @@ import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
  * Component that contains the form to create a new user
  */
 @Component({
-  selector: 'fl-signup-form',
-  templateUrl: './fl-signup-form.component.html',
-  styleUrls: ['./fl-signup-form.component.scss'],
+    selector: 'fl-signup-form',
+    templateUrl: './fl-signup-form.component.html',
+    styleUrls: ['./fl-signup-form.component.scss'],
+    standalone: false
 })
 export class FlSignupFormComponent {
   @Input() formGp: UntypedFormGroup;

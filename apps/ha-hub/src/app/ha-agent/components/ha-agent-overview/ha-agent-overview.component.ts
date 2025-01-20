@@ -31,9 +31,10 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 
 @Component({
-  selector: 'ha-agent-overview',
-  templateUrl: './ha-agent-overview.component.html',
-  styleUrls: ['./ha-agent-overview.component.scss'],
+    selector: 'ha-agent-overview',
+    templateUrl: './ha-agent-overview.component.html',
+    styleUrls: ['./ha-agent-overview.component.scss'],
+    standalone: false
 })
 export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);

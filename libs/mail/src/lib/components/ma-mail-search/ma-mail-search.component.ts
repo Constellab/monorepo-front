@@ -11,10 +11,11 @@ import { MaMailSearch, MaMailSearchFields } from '../../models/ma-mail-search.cl
 import { MaMailService } from '../../ma-mail.service';
 
 @Component({
-  selector: 'ma-mail-search',
-  templateUrl: './ma-mail-search.component.html',
-  styleUrl: './ma-mail-search.component.scss',
-  providers: [FlSearchState],
+    selector: 'ma-mail-search',
+    templateUrl: './ma-mail-search.component.html',
+    styleUrl: './ma-mail-search.component.scss',
+    providers: [FlSearchState],
+    standalone: false
 })
 export class MaMailSearchComponent implements OnInit {
   datasource: MaMailDatasource<MaMailSearchFields>;

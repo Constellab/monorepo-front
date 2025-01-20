@@ -27,10 +27,11 @@ interface FlEmojiCoord {
 }
 
 @Component({
-  selector: 'fl-emoji-picker-portal',
-  templateUrl: './fl-emoji-picker-portal.component.html',
-  styleUrl: './fl-emoji-picker-portal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'fl-emoji-picker-portal',
+    templateUrl: './fl-emoji-picker-portal.component.html',
+    styleUrl: './fl-emoji-picker-portal.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
   public static PORTAL_MAX_WIDTH = 400;
