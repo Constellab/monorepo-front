@@ -24,8 +24,7 @@
     <button
       mat-button
       type="button"
-      color="warn"
-      class="g-button-small"
+      class="g-button-small warn"
       [disabled]="!scenario.isRunning()"
       (click)="stopScenario()">
       <mat-icon>stop</mat-icon>
@@ -36,7 +35,7 @@
       <button
         mat-icon-button
         type="button"
-        color="warn"
+        class="warn"
         [matTooltip]="'biox.scenario_pid_stopped' | translate"
         (click)="stopScenario()">
         <mat-icon>error</mat-icon>

@@ -6,9 +6,8 @@
   <div class="high-part" *ngIf="!isLoadingImport">
     <p class="input-div" *ngIf="!inputFile">{{ 'import_new_version_text1' | translate }}</p>
     <fl-input-file-container
-      color="primary"
       [placeholder]="'import_new_version_file' | translate"
-      class="bt-input-div">
+      class="bt-input-div primary">
       <input flInputFile type="file" accept="application/json" (fileChange)="onFileSelected($any($event))" />
     </fl-input-file-container>
     <p class="input-error-text" *ngIf="errorFile">{{ errorFileText | translate }}</p>
@@ -57,7 +56,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions *ngIf="inputFile">
-  <button mat-raised-button color="primary" type="submit" form="add-version-form" class="g-centered-forced">
+  <button mat-raised-button type="submit" form="add-version-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

@@ -31,10 +31,9 @@
     </mat-form-field>
 
     <fl-input-file-container
-      color="primary"
       [placeholder]="'import_technical_documentation' | translate"
       *ngIf="formGp.controls['type'].value === 'TEC' && !isLoadingImport"
-      class="g-centered-forced input-file">
+      class="g-centered-forced input-file primary">
       <input
         flInputFile
         type="file"
@@ -55,10 +54,9 @@
 <div mat-dialog-actions>
   <button
     mat-raised-button
-    color="primary"
     type="submit"
     form="edit-form"
-    class="g-centered-forced"
+    class="g-centered-forced primary"
     *ngIf="formGp.controls['type'].value !== 'TEC'">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>

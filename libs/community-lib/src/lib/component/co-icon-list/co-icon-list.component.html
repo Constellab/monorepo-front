@@ -36,8 +36,7 @@
 
 <button
   mat-flat-button
-  color="primary"
-  class="load-more-icons-button"
+  class="load-more-icons-button primary"
   (click)="loadMoreResults()"
   *ngIf="!icons.isLoading && !icons?.page?.last">
   {{ 'coCommunityLib.load_more_icons' | translate }}

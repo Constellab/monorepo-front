@@ -16,7 +16,7 @@
   <div class="buttons-div">
     <button
       mat-icon-button
-      color="primary"
+      class="primary"
       [matTooltip]="('copy' | translate) + ' ' + ('icon_technical_name' | translate)"
       (click)="copyTechnicalName()">
       <mat-icon>copy</mat-icon>
@@ -31,7 +31,7 @@
     <button
       mat-icon-button
       *haIsGencoveryMember
-      color="warn"
+      class="warn"
       [matTooltip]="'delete' | translate"
       (click)="closeRefAndOpenDeleteDialog()">
       <mat-icon>delete</mat-icon>

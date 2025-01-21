@@ -32,7 +32,7 @@
               <fl-signup-form [formGp]="signupFormGp"></fl-signup-form>
 
               <div class="g-text-centered">
-                <button mat-flat-button color="accent" type="submit" form="invit-signup" class="g-button-big">
+                <button mat-flat-button type="submit" form="invit-signup" class="g-button-big accent">
                   {{ 'flAuth.signup' | translate }}
                   <fl-button-loader *ngIf="isLoading"></fl-button-loader>
                 </button>
@@ -55,10 +55,9 @@
 
               <button
                 mat-flat-button
-                color="primary"
                 type="button"
                 (click)="acceptInvitation()"
-                class="join-button">
+                class="join-button primary">
                 {{ 'join_space' | translate: { space: invitation.invitation.space.name } }}
                 <fl-button-loader *ngIf="isLoading"></fl-button-loader>
               </button>

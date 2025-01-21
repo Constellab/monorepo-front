@@ -29,10 +29,9 @@
 
   <button
     mat-flat-button
-    color="accent"
     type="submit"
     [disabled]="isLoading"
-    class="connection-button g-button-big">
+    class="connection-button g-button-big accent">
     {{ 'flAuth.sign_in' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

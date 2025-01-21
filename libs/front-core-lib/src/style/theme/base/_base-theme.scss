@@ -1,199 +1,221 @@
 // Import input-file style
 @use '@angular/material' as mat;
-@import '../components/fl-input-file-theme';
+@use '../components/fl-input-file-theme';
+@use './_theme-colors' as theme;
 
-// function to set the background and foreground palette in material theme
-// from https://github.com/angular/components/issues/6244#issuecomment-1017629612
-@function set-default-values($theme, $background, $foreground) {
-  $color: map_get($theme, color);
+/**
+    Mixin to overrides some component style to support custom theme
+   */
+@mixin _color_overrides() {
+  // set the color of the button and icon when using a theme
+  @include mat.menu-overrides(
+      (
+        item-label-text-color: var(--mat-sys-primary),
+        item-icon-color: var(--mat-sys-primary),
+      )
+  );
 
-  $color: map_merge(
-    $color,
-    (
-      background: $background,
-      foreground: $foreground,
-    )
+  @include mat.icon-button-overrides(
+      (
+        icon-color: var(--mat-sys-primary),
+      )
   );
-  // Define material font
-  $typography: mat.m2-define-typography-config(
-    $font-family: 'Poppins',
-    $body-1: mat.m2-define-typography-level(13px, 18px, 400, 'Poppins'),
-    $body-2: mat.m2-define-typography-level(13px, 22px, 500, 'Poppins'),
-    $subtitle-2: mat.m2-define-typography-level(13px, 18px, 400, 'Poppins'),
-    $button: mat.m2-define-typography-level(13px, 13px, 500, 'Poppins'),
-    $caption: mat.m2-define-typography-level(10px, 10px, 500, 'Poppins'),
-  );
-  @return map_merge(
-    $theme,
-    (
-      color: $color,
-      typography: $typography,
-    )
-  );
+
+  // set the color of the mat-button and mat-stroked because by default
+  &.mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
+    color: var(--mat-sys-primary);
+  }
 }
 
 /**
- * It apply the theme in parameter and define global css variable for theme
-  This mixin must be call only once
+  This mixin defines the theme overrides for the application using class
+  When primary, accent or warn class is used, it will apply the theme color to all the components
  */
-@mixin _base-theme($mat-theme, $background, $foreground) {
-  $mat-theme: set-default-values($mat-theme, $background, $foreground);
+@mixin _theme_overrides($theme-type, $accent-palette, $warn_palette) {
+  .primary {
+    @include _color_overrides();
+  }
 
-  $color: mat.m2-get-color-config($mat-theme);
-  $primary: map-get($color, primary);
-  $accent: map-get($color, accent);
-  $warn: map-get($color, warn);
-  $foreground: map-get($color, foreground);
-  $background: map-get($color, background);
-  $foreground-color: mat.m2-get-color-from-palette($foreground, text);
-  $background-color: mat.m2-get-color-from-palette($background, background);
-  $divider: mat.m2-get-color-from-palette($foreground, dividers);
+  .accent {
+    color-scheme: light-dark;
+    @include mat.theme(
+        (
+          color: (
+            primary: $accent-palette,
+            theme-type: $theme-type,
+          ),
+        )
+    );
+    @include _color_overrides();
+  }
 
-  $color-success: #22b252;
-  $color-warning: orange;
-  $color-error: mat.m2-get-color-from-palette($warn);
+  .warn {
+    color-scheme: light-dark;
+    @include mat.theme(
+        (
+          color: (
+            primary: $warn-palette,
+            theme-type: $theme-type,
+          ),
+        )
+    );
 
-  @include mat.core-theme($mat-theme);
-  // apply the material theme
-  @include mat.all-component-themes($mat-theme);
+    @include _color_overrides();
+  }
+}
 
-  // call input file mixin
-  @include _file-input-color($mat-theme);
+/**
+  Set the theme
+ */
+@mixin define_theme($theme-type) {
+  html {
+    --primary-color: var(--mat-sys-primary);
+    --primary-color-contrast: var(--mat-sys-on-primary);
+    --accent-color: var(--mat-sys-tertiary);
+    --accent-color-contrast: var(--mat-sys-on-tertiary);
+    --warn-color: var(--mat-sys-error);
+    --warn-color-contrast: var(--mat-sys-on-error);
+    --success-color: #22b252;
+    --warning-color: orange;
+    --color-foreground: var(--mat-sys-on-surface);
+    --main-background: var(--mat-sys-surface);
 
-  @include mat.strong-focus-indicators-theme($mat-theme);
-
-  :root {
-    --primary-color: #{mat.m2-get-color-from-palette($primary)};
-    --primary-color-contrast: #{mat.m2-get-color-from-palette($primary, default-contrast)};
-    --accent-color: #{mat.m2-get-color-from-palette($accent)};
-    --warn-color: #{mat.m2-get-color-from-palette($warn)};
-    --warn-color-contrast: #{mat.m2-get-color-from-palette($warn, default-contrast)};
-    --success-color: #{$color-success};
-    --warning-color: #{$color-warning};
-    --color-foreground: #{$foreground-color};
-    --main-background: #{$background-color};
-
-    --card-background: #{mat.m2-get-color-from-palette($background, card)};
     --card-radius: 20px;
     --navbar-height: 4rem;
     --small-navbar-height: 48px;
+
+    color-scheme: light-dark;
+    @include mat.theme(
+        (
+          color: (
+            primary: theme.$primary-palette,
+            tertiary: theme.$accent-palette,
+            theme-type: $theme-type,
+          ),
+          typography: (
+            plain-family: Poppins,
+            brand-family: Poppins,
+          ),
+          density: 0,
+        )
+    );
+
+    // use to override global system variable
+    // if override surface, it overrides the --mat-sys-surface variable
+    @include mat.theme-overrides(
+      (
+        // for table row border
+        outline: rgba(255, 255, 255, 0.12),
+        body-medium-size: 13px,
+        body-large-size: 13px,
+        // disable slightly green background on drawer
+        background: var(--mat-sys-surface)
+      )
+    );
+
+    @include mat.sidenav-overrides(
+      (
+        container-background-color: var(--card-background),
+      )
+    );
+
+    @include mat.expansion-overrides(
+      (
+        container-background-color: var(--card-background),
+      )
+    );
+
+    @include mat.autocomplete-overrides(
+      (
+        background-color: var(--card-background),
+      )
+    );
+
+    @include mat.select-overrides(
+      (
+        panel-background-color: var(--card-background),
+      )
+    );
+
+    @include mat.menu-overrides(
+      (
+        container-color: var(--card-background),
+        container-elevation-shadow: var(--mat-sys-level5)
+      )
+    );
+
+    @include mat.table-overrides(
+      (
+        background-color: var(--card-background),
+      )
+    );
+
+    @include mat.sidenav-overrides(
+      (
+        container-background-color: var(--card-background),
+        // disable default width of sidenav
+        container-width: none
+      )
+    );
+
+    @include _theme_overrides($theme-type, theme.$accent-palette, theme.$warn-palette);
+
+    // set the default color of mat-button and mat-stroked without theme to white/black
+    .mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
+      color: var(--mat-sys-on-surface);
+    }
   }
 
   body {
-    background-color: $background-color;
-    color: $foreground-color;
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
 
     /**
      Text with the colors of the palettes
      */
     .g-primary-text {
-      color: mat.m2-get-color-from-palette($primary);
+      color: var(--mat-sys-primary);
     }
 
     .g-accent-text {
-      color: mat.m2-get-color-from-palette($accent);
+      color: var(--mat-sys-tertiary);
     }
 
     .g-warn-text {
-      color: mat.m2-get-color-from-palette($warn);
+      color: var(--mat-sys-error);
     }
 
     /**
      Background color based on the theme and set the text color
      */
     .g-primary-background {
-      background-color: mat.m2-get-color-from-palette($primary);
-      color: mat.m2-get-color-from-palette($primary, default-contrast);
+      background-color: var(--mat-sys-primary);
+      color: var(--mat-sys-on-primary);
     }
 
     .g-accent-background {
-      background-color: mat.m2-get-color-from-palette($accent);
-      color: mat.m2-get-color-from-palette($accent, default-contrast);
+      background-color: var(--mat-sys-tertiary);
+      color: var(--mat-sys-on-tertiary);
     }
 
     .g-warn-background {
-      background-color: mat.m2-get-color-from-palette($warn);
-      color: mat.m2-get-color-from-palette($warn, default-contrast);
+      background-color: var(--mat-sys-error);
+      color: var(--mat-sys-on-error);
     }
 
     /**
       Contrast text for palette. The best color (white or black) depending on the background
      */
     .g-primary-contrast {
-      color: mat.m2-get-color-from-palette($primary, default-contrast);
+      color: var(--mat-sys-on-primary);
     }
 
     .g-accent-contrast {
-      color: mat.m2-get-color-from-palette($accent, default-contrast);
+      color: var(--mat-sys-on-tertiary);
     }
 
     .g-warn-contrast {
-      color: mat.m2-get-color-from-palette($warn, default-contrast);
-    }
-
-    /**
-      Text with other primary colors
-     */
-    .g-primary-text-extra-light {
-      color: mat.m2-get-color-from-palette($primary, 50);
-    }
-
-    .g-primary-text-light {
-      color: mat.m2-get-color-from-palette($primary, 200);
-    }
-
-    .g-primary-text-dark {
-      color: mat.m2-get-color-from-palette($primary, 600);
-    }
-
-    .g-primary-text-extra-dark {
-      color: mat.m2-get-color-from-palette($primary, 800);
-    }
-
-    /**
-     Background color based on the theme and set the text color
-     */
-
-    .g-primary-background-light {
-      background-color: mat.m2-get-color-from-palette($primary, 200);
-      color: mat.m2-get-color-from-palette($primary, '100-contrast');
-    }
-
-    /**
-      Contrast border for palette. The best color (white or black) depending on the background
-     */
-    .g-primary-border-contrast {
-      border-color: mat.m2-get-color-from-palette($primary, default-contrast);
-    }
-
-    .g-accent-border-contrast {
-      color: mat.m2-get-color-from-palette($accent, default-contrast);
-    }
-
-    .g-warn-border-contrast {
-      color: mat.m2-get-color-from-palette($warn, default-contrast);
-    }
-
-    /**
-    * Border theme color
-    */
-    .g-primary-border {
-      border-color: mat.m2-get-color-from-palette($primary);
-    }
-
-    .g-accent-border {
-      color: mat.m2-get-color-from-palette($accent);
-    }
-
-    .g-warn-border {
-      color: mat.m2-get-color-from-palette($warn);
-    }
-
-    /**
-     * Define colors in the same color as text theme for text, background and border
-     */
-    .g-text-normal-color {
-      color: $foreground-color;
+      color: var(--mat-sys-error-on-tertiary);
     }
 
     //////////////// OTHER /////////////////////
@@ -206,53 +228,34 @@
     }
 
     .g-card-background {
-      background-color: mat.m2-get-color-from-palette($background, card);
+      background-color: var(--card-background);
     }
 
-    .g-default-color-text {
-      color: $foreground-color;
+    /**
+     * Define colors in the same color as text theme for text, background and border
+     */
+    .g-text-normal-color {
+      color: var(--mat-sys-on-surface);
     }
 
-    // grey color working for both theme
     .g-grey-background {
-      background-color: var(--hover-color);
-      color: white;
-    }
-
-    .g-grey-text {
       background-color: var(--hover-color);
     }
 
     .g-success-text {
-      color: $color-success;
+      color: var(--success-color);
     }
 
     .g-warning-text {
-      color: $color-warning;
+      color: var(--warning-color);
     }
 
     .g-error-text {
-      color: $color-error;
+      color: var(--warn-color);
     }
 
-    .g-success-background {
-      background-color: $color-success;
-      color: white;
-    }
-
-    .g-warning-background {
-      background-color: $color-warning;
-      color: white;
-    }
-
-    .g-error-background {
-      background-color: $color-error;
-      color: white;
-    }
-
-    .g-primary-button-icon-border {
-      border: 1px solid mat.m2-get-color-from-palette($primary) !important;
-      box-sizing: content-box !important;
+    .g-text-light {
+      color: var(--light-color);
     }
   }
 }

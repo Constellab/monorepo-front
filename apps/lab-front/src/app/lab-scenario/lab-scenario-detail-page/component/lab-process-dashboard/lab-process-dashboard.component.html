@@ -120,9 +120,9 @@
             }
 
             @if (process.wasRun()) {
-              <button mat-menu-item type="button" (click)="resetProcess()">
-                <mat-icon color="warn">restart_alt</mat-icon>
-                <span class="g-warn-text">{{ 'biox.reset_process' | translate }}</span>
+              <button mat-menu-item type="button" (click)="resetProcess()" class="warn">
+                <mat-icon>restart_alt</mat-icon>
+                <span>{{ 'biox.reset_process' | translate }}</span>
               </button>
             }
           </mat-menu>

@@ -8,7 +8,7 @@
 <mat-dialog-content>
   @if (micDisabled) {
     <div class="g-layout-col g-layout-start-center">
-      <mat-icon class="g-icon-big" color="warn">mic_off</mat-icon>
+      <mat-icon class="g-icon-big warn">mic_off</mat-icon>
       <fl-error-text [errorMessage]="'teTextEditor.mic_disabled_error' | translate"> </fl-error-text>
     </div>
   } @else {
@@ -27,7 +27,7 @@
     <div class="g-layout-col g-layout-start-center">
       @if (isRecording) {
         <fl-text-icon>
-          <mat-icon color="warn" class="g-icon-big record-icon">radio_button_checked</mat-icon>
+          <mat-icon class="g-icon-big record-icon warn">radio_button_checked</mat-icon>
           {{ 'teTextEditor.recording' | translate }}
         </fl-text-icon>
 
@@ -44,8 +44,7 @@
 
           <button
             mat-stroked-button
-            color="warn"
-            class="button"
+            class="button warn"
             (click)="stopRecording()"
             type="button"
             [disabled]="transcriptionLoading">
@@ -77,8 +76,7 @@
   <mat-divider class="divider"></mat-divider>
 
   <fl-input-file-container
-    color="primary"
-    class="select-file-button"
+    class="select-file-button primary"
     icon="upload_file"
     [placeholder]="'teTextEditor.import_audio_file' | translate"
     (click)="stopRecording()">

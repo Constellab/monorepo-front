@@ -61,9 +61,8 @@
 
       <div class="icon-input-file-div">
         <fl-input-file-container
-          color="primary"
           [placeholder]="'import_icon_file' | translate"
-          class="bt-icon-div">
+          class="bt-icon-div primary">
           <input
             flInputFile
             type="file"
@@ -81,7 +80,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="icon-form" class="g-centered-forced">
+  <button mat-flat-button type="submit" form="icon-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

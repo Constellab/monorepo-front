@@ -6,7 +6,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <mat-icon
-        color="warn"
+        class="warn"
         *ngIf="row.status === 'ERROR'"
         [matTooltip]="'biox.share_link_object_not_found' | translate">
         errors

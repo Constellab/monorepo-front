@@ -20,10 +20,6 @@
 
 ////////////////// BIG MENU //////////////////
 
-.menu-active {
-  color: var(--primary-color);
-}
-
 .item-text {
   margin-right: 0.5em;
 }
@@ -40,10 +36,4 @@
 
 .expand-icon {
   margin-left: 0.5em;
-}
-
-.small-menu-active {
-  .menu-icon {
-    color: var(--primary-color);
-  }
 }

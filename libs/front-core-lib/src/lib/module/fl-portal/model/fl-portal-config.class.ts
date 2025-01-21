@@ -53,11 +53,6 @@ export class FlPortalConfig {
     // convert the panel class to string[] to simplify manipulation
     const panelClass: string[] = this.convertToStringArray(config.panelClass);
 
-    // elevation
-    if (config.elevation) {
-      panelClass.push('mat-elevation-z5');
-    }
-
     // manage the size
     switch (config.size) {
       case 'small':

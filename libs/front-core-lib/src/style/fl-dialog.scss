@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 // Style used for the dialog and portal
 
 // set the color of the text in dialog to default color
@@ -7,23 +9,25 @@
 // autocomplete not working in intellij for now : https://youtrack.jetbrains.com/issue/WEB-5970/SCSS-auto-autocomplete-is-broken-again-before-nested-declaration-block
 
 body {
-  .mat-mdc-dialog-container {
-    --mdc-dialog-supporting-text-color: var(--color-foreground);
-  }
-
-  // remove padding of dialog content
-  .mat-mdc-dialog-content.mdc-dialog__content {
-    padding: 10px 0 10px 0;
-  }
-
-  .mat-mdc-dialog-surface {
-    border-radius: var(--card-radius) !important;
-    padding: 24px;
-  }
+  // generic override for dialog
+  @include mat.dialog-overrides(
+      (
+        container-color: var(--card-background),
+        // disable the dialog max-width
+        container-max-width: none,
+        headline-padding: 0,
+        // align action button to the left
+        actions-alignment: flex-start,
+      )
+  );
 
   // disable padding of dialog
   .g-dialog-no-padding .mat-mdc-dialog-surface {
-    padding: 0;
+    @include mat.dialog-overrides(
+        (
+          content-padding: 0,
+        )
+    );
   }
 
   // disable border radius of dialog
@@ -36,18 +40,6 @@ body {
     box-shadow: none;
   }
 
-  // Style the component inside the dialog to be full height of parent
-  .mat-mdc-dialog-surface > *:first-child {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  // override the max height of the dialog content
-  .mat-mdc-dialog-content {
-    max-height: none !important;
-  }
-
   // Specific style to allow elements to overflow the dialog container and dialog content
   .g-dialog-allow-overflow {
     .mat-mdc-dialog-container,
@@ -57,7 +49,11 @@ body {
   }
 
   .g-dialog-main-background .mat-mdc-dialog-container {
-    --mdc-dialog-container-color: var(--main-background);
+    @include mat.dialog-overrides(
+        (
+          container-color: var(--main-background),
+        )
+    );
   }
 
   /********************* SMALL DIALOG ***********************/
@@ -106,11 +102,11 @@ body {
   .g-big-dialog {
     width: 80vw;
     height: 95vh;
+    max-width: none !important;
   }
 
   @media (max-width: 599px) {
     .g-big-dialog {
-      max-width: none !important;
       width: 100%;
       height: 100vh;
     }
@@ -137,16 +133,4 @@ body {
     height: 100vh;
   }
 
-  /*******************************   PORTAL  *************************************/
-
-  .g-portal-background {
-    background-color: var(--card-background);
-  }
-
-  /* CSS for the Portal Arrow (Make it disappear on small screen) */
-  @media (max-width: 599px) {
-    .g-arrow-overlay {
-      display: none !important;
-    }
-  }
 }

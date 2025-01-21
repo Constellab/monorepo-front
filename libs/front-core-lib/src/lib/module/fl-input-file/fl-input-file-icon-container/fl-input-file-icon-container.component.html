@@ -6,11 +6,10 @@
     <button
       mat-icon-button
       type="button"
-      [color]="color"
+      [ngClass]="classes"
       (click)="openFileExplorer()"
-      [disabled]="disabled"
-      [ngClass]="{ 'g-button-icon-small': size === 'small' }">
-      <mat-icon class="g-text-not-selectable" [color]="color" [flIcon]="icon"></mat-icon>
+      [disabled]="disabled">
+      <mat-icon class="g-text-not-selectable" [flIcon]="icon"></mat-icon>
     </button>
   </label>
 </div>

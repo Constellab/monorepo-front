@@ -5,7 +5,7 @@
 <co-agent-create-dialog-form [formGp]="formGp" [spaces$]="spaces$" (submitEvent)="onSubmitEvent($event)">
   <div>
     <div class="agent-version-file-div">{{ 'agent_version_file' | translate }}</div>
-    <fl-input-file-container color="primary" [placeholder]="'import_agent_version_file' | translate">
+    <fl-input-file-container class="primary" [placeholder]="'import_agent_version_file' | translate">
       <input
         flInputFile
         type="file"

@@ -29,8 +29,8 @@
           <span>{{ 'history' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteNote()" *caIsAdmin>
-          <mat-icon color="warn">delete</mat-icon>
+        <button mat-menu-item type="button" (click)="deleteNote()" *caIsAdmin class="warn">
+          <mat-icon>delete</mat-icon>
           <span class="delete-text">{{ 'delete_note' | translate }}</span>
         </button>
       </mat-menu>

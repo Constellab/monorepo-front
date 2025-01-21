@@ -83,10 +83,9 @@
             <button
               mat-flat-button
               type="button"
-              class="publish-story-bt"
+              class="publish-story-bt primary"
               *haIsAuthenticated
               (click)="publish()"
-              color="primary"
               [matTooltip]="'publish_the_story' | translate">
               {{ 'publish_story' | translate }}
               <mat-icon>publish</mat-icon>
@@ -98,11 +97,9 @@
           @if (story.status !== 'DRAFT' && (contentModified || !syncWithBack)) {
             <button
               mat-flat-button
-              type="button"
-              class="save-story-bt"
+              class="save-story-bt primary"
               *haIsAuthenticated
               (click)="save()"
-              color="primary"
               [matTooltip]="'publish_story_with_modifications' | translate"
               [disabled]="!syncWithBack">
               {{ 'publish_story_modifications' | translate }}
@@ -141,9 +138,8 @@
             mat-icon-button
             [matTooltip]="'delete_story' | translate"
             type="button"
-            color="warn"
             (click)="openDeleteStoryConfirmDialog()"
-            class="add-file-button-author">
+            class="add-file-button-author warn">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

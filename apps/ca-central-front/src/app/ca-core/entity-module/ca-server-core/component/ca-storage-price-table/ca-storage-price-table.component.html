@@ -67,9 +67,9 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item type="button" (click)="deletePrice(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_server_price' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deletePrice(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_server_price' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

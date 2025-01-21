@@ -18,9 +18,8 @@
     <div class="g-text-centered" *ngIf="logs && !logs.isLastPage">
       <button
         [disabled]="loadNextPageDisabled"
-        class="g-button-small"
         mat-stroked-button
-        color="primary"
+        class="primary primary"
         type="button"
         (click)="loadNextPage()">
         {{ 'show_more_result' | translate }}

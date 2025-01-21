@@ -16,8 +16,7 @@
       <fl-input-file-icon-container
         [matTooltip]="'databox.upload_file' | translate"
         icon="upload_file"
-        class="upload-button"
-        color="accent">
+        class="upload-button accent">
         <input
           flInputFile
           [multiple]="true"
@@ -30,8 +29,7 @@
       <fl-input-file-icon-container
         [matTooltip]="'databox.upload_folder' | translate"
         icon="drive_folder_upload"
-        class="upload-button"
-        color="accent">
+        class="upload-button accent">
         <input
           flInputFile
           type="file"
@@ -46,7 +44,7 @@
       <button
         mat-icon-button
         type="button"
-        color="accent"
+        class="accent"
         (click)="openImportFromUrlDialog()"
         [matTooltip]="'biox.import_resource_from_link' | translate">
         <mat-icon>cloud_download</mat-icon>

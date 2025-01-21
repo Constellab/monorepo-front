@@ -3,8 +3,7 @@
     <mat-chip-option
       [value]="isSelected('public')"
       (click)="selectSpace('public')"
-      color="accent"
-      class="space-list-option">
+      class="space-list-option accent">
       {{ 'biox.public' | translate }}
     </mat-chip-option>
     @if (spaces?.length > 0) {
@@ -14,8 +13,7 @@
       <mat-chip-option
         [value]="isSelected(space.id)"
         (click)="selectSpace(space.id)"
-        color="warn"
-        class="space-list-option">
+        class="space-list-option warn">
         {{ space.name }}
       </mat-chip-option>
     }

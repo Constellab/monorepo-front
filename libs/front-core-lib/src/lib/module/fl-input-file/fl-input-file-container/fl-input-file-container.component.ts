@@ -26,7 +26,7 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Supports theme color palette
  *
  * @example
- * <fl-input-file-container color="primary" placeholder="Select multiple pdf files">
+ * <fl-input-file-container class="primary" placeholder="Select multiple pdf files">
  *  <input flInputFile multiple type="file" required [strictMode]="true"
  *         formControlName="file" accept="application/pdf">
  * </fl-input-file-container>

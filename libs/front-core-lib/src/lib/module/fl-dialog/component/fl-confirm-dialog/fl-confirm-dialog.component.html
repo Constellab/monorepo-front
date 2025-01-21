@@ -33,8 +33,7 @@
     type="button"
     [disabled]="isLoading"
     tabindex="-1"
-    color="primary"
-    class="yes-button">
+    class="yes-button primary">
     {{ 'flDialog.yes' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
@@ -46,7 +45,7 @@
     (click)="closeDialog(false)"
     [disabled]="isLoading"
     tabindex="-1"
-    color="warn">
+    class="warn">
     {{ 'flDialog.no' | translate }}
   </button>
 </div>

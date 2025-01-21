@@ -60,7 +60,7 @@
       </mat-expansion-panel-header>
 
       <fl-text-icon class="warning-text">
-        <mat-icon color="warn">warnings</mat-icon>
+        <mat-icon class="warn">warnings</mat-icon>
         {{ 'lab_advanced_configuration_warning' | translate }}
       </fl-text-icon>
 
@@ -105,8 +105,7 @@
       <button
         mat-stroked-button
         type="button"
-        class="g-button-small actions-button"
-        color="warn"
+        class="g-button-small actions-button warn"
         (click)="stopCurrentServerTask()">
         {{ 'lab_stop_current_task' | translate }}
       </button>
@@ -114,8 +113,7 @@
       <button
         mat-stroked-button
         type="button"
-        class="g-button-small actions-button"
-        color="warn"
+        class="g-button-small actions-button warn"
         (click)="destroyLabConfigurerContainers()">
         {{ 'lab_configurer_destroy_containers' | translate }}
       </button>
@@ -124,8 +122,7 @@
         <button
           mat-stroked-button
           type="button"
-          class="g-button-small actions-button"
-          color="warn"
+          class="g-button-small actions-button warn"
           (click)="deleteServer()"
           *caIsAdmin>
           {{ 'lab_delete_server' | translate }}

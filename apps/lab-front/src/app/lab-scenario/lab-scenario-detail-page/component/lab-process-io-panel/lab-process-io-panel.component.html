@@ -28,7 +28,6 @@
             <button
               mat-menu-item
               type="button"
-              class="g-button-icon-tiny"
               [disabled]="(isEditable$ | async) === false"
               (click)="openEditPortDialog(port.port)">
               <mat-icon>edit</mat-icon>
@@ -38,17 +37,17 @@
             <button
               mat-menu-item
               type="button"
-              class="g-button-icon-tiny"
+              class="warn"
               (click)="removePort(port.port.name)">
-              <mat-icon color="warn">clear</mat-icon>
-              <span class="g-warn-text">{{ removePortTooltip | translate }}</span>
+              <mat-icon>clear</mat-icon>
+              <span>{{ removePortTooltip | translate }}</span>
             </button>
           </mat-menu>
         </div>
       </div>
     </ng-container>
 
-    <div class="g-text-centered">
+    <div class="g-text-centered add-container">
       <button
         mat-icon-button
         type="button"

@@ -7,11 +7,15 @@
   [disabled]="disabled"
   [minInputSearchLength]="0"
   [advancedButton]="advancedButton">
-  <div class="photo" *flInputSearchPrefix="datasource as scenario">
-    @if (scenario) {
-      <fl-user-profile-picture [user]="scenario.createdBy" size="small"></fl-user-profile-picture>
-    }
-  </div>
+  <ng-container *flInputSearchPrefix="datasource as scenario">
+    <div class="photo">
+      @if (scenario) {
+        <fl-user-profile-picture [user]="scenario.createdBy" size="small"></fl-user-profile-picture>
+      } @else {
+        <mat-icon flIcon="scenario"></mat-icon>
+      }
+    </div>
+  </ng-container>
 
   <lab-scenario-inline *flInputSearchOption="datasource as scenario" [scenario]="scenario">
   </lab-scenario-inline>

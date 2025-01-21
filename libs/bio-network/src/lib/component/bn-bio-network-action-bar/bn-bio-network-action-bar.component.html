@@ -9,19 +9,19 @@
   <p>{{ 'bnBioNetwork.options' | translate }}</p>
 
   <div class="g-layout-row-wrap g-mat-checkbox-include-bottom">
-    <mat-checkbox [(ngModel)]="showMinors" (change)="toggleShowMinors()" color="primary" class="checkbox">
+    <mat-checkbox [(ngModel)]="showMinors" (change)="toggleShowMinors()" class="checkbox primary">
       {{ 'bnBioNetwork.toggle_show_minor' | translate }}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showText" (change)="toggleShowTexts()" color="primary" class="checkbox">
+    <mat-checkbox [(ngModel)]="showText" (change)="toggleShowTexts()" class="checkbox primary">
       {{ 'bnBioNetwork.toggle_show_texts' | translate }}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showGrid" (change)="toggleShowGrid()" color="primary" class="checkbox">
+    <mat-checkbox [(ngModel)]="showGrid" (change)="toggleShowGrid()" class="checkbox primary">
       {{ 'bnBioNetwork.toggle_show_grid' | translate }}
     </mat-checkbox>
 
-    <mat-checkbox [(ngModel)]="showArrows" (change)="toggleShowArrows()" color="primary" class="checkbox">
+    <mat-checkbox [(ngModel)]="showArrows" (change)="toggleShowArrows()" class="checkbox primary">
       {{ 'bnBioNetwork.toggle_show_link_arrow' | translate }}
     </mat-checkbox>
   </div>
@@ -32,8 +32,7 @@
     <mat-checkbox
       [(ngModel)]="showParticles"
       (change)="toggleShowParticles()"
-      color="primary"
-      class="toggle-particles">
+      class="toggle-particles primary">
       {{ 'bnBioNetwork.toggle_show_link_particles' | translate }}
     </mat-checkbox>
 
@@ -89,8 +88,7 @@
       </p>
       <mat-slider
         discrete
-        class="slider g-slider-full-width"
-        color="primary"
+        class="slider g-slider-full-width primary"
         [max]="maxFluxValue"
         [min]="0"
         [step]="1">
@@ -102,7 +100,7 @@
   <bn-bio-network-node-search></bn-bio-network-node-search>
 
   <div class="g-text-centered download-button">
-    <button mat-stroked-button (click)="exportAllNetwork()" type="button" color="primary">
+    <button mat-stroked-button (click)="exportAllNetwork()" type="button" class="primary">
       {{ 'bnBioNetwork.export_position_to_json' | translate }}
       <mat-icon>file_download</mat-icon>
     </button>

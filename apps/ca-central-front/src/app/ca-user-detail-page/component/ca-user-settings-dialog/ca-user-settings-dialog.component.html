@@ -10,7 +10,7 @@
   <ca-language-selection class="g-section"></ca-language-selection>
 
   <div class="g-section">
-    <button mat-flat-button type="button" color="warn" (click)="logout()">
+    <button mat-flat-button type="button" class="warn" (click)="logout()">
       <mat-icon>logout</mat-icon>
       {{ 'flAuth.logout' | translate }}
       <fl-button-loader *ngIf="logoutIsLoading"></fl-button-loader>

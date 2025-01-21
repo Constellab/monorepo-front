@@ -24,11 +24,10 @@
     (click)="closeDialog(true)"
     type="button"
     tabindex="-1"
-    color="primary"
-    class="yes-button">
+    class="yes-button primary">
     {{ 'yes' | translate }}
   </button>
-  <button mat-stroked-button type="button" (click)="closeDialog(false)" tabindex="-1" color="warn">
+  <button mat-stroked-button type="button" (click)="closeDialog(false)" tabindex="-1" class="warn">
     {{ 'no' | translate }}
   </button>
 </div>

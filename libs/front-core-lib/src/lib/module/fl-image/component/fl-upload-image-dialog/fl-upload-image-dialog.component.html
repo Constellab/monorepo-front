@@ -10,9 +10,8 @@
   }
 
   <fl-input-file-container
-    color="primary"
     [placeholder]="'flImage.select_another_image' | translate"
-    class="g-centered-forced">
+    class="g-centered-forced primary">
     <input
       flInputFile
       type="file"
@@ -40,7 +39,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" class="g-centered-forced" (click)="save()">
+  <button mat-flat-button class="g-centered-forced primary" (click)="save()">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="uploadIsLoading"></fl-button-loader>
   </button>

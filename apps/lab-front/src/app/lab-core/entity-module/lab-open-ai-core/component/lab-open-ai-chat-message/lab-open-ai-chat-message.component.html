@@ -29,14 +29,14 @@
           <span>{{ 'open_ai_update_message' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="onAction('delete')">
-          <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{ 'open_ai_delete_message' | translate }}</span>
+        <button mat-menu-item type="button" (click)="onAction('delete')" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'open_ai_delete_message' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="onAction('delete-all')">
-          <mat-icon color="warn">delete_forever</mat-icon>
-          <span class="g-warn-text">{{ 'open_ai_delete_all_messages' | translate }}</span>
+        <button mat-menu-item type="button" (click)="onAction('delete-all')" class="warn">
+          <mat-icon>delete_forever</mat-icon>
+          <span>{{ 'open_ai_delete_all_messages' | translate }}</span>
         </button>
       </mat-menu>
     </div>
@@ -53,7 +53,7 @@
           [rows]="editRowCount"></textarea>
       </mat-form-field>
 
-      <button mat-stroked-button type="button" class="g-button-small" (click)="saveEdit()" color="primary">
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="saveEdit()">
         <mat-icon>check</mat-icon>
         {{ 'open_ai_save_update' | translate }}
       </button>
@@ -61,9 +61,8 @@
       <button
         mat-stroked-button
         type="button"
-        class="g-button-small cancel-button"
-        (click)="cancelEdit()"
-        color="warn">
+        class="g-button-small cancel-button warn"
+        (click)="cancelEdit()">
         <mat-icon>cancel</mat-icon>
         {{ 'open_ai_cancel_update' | translate }}
       </button>

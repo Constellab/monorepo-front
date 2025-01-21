@@ -48,8 +48,8 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item type="button" class="g-warn-text" (click)="openDeleteBrickData(row)">
-          <mat-icon color="warn">clear</mat-icon>
+        <button mat-menu-item type="button" (click)="openDeleteBrickData(row)" class="warn">
+          <mat-icon>clear</mat-icon>
           <span>{{ 'monitoring.delete_brick_data' | translate }}</span>
         </button>
       </mat-menu>

@@ -15,7 +15,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em cloud-provider-section"
           formControlName="standardServer">
           @for (standardServer of serverStandards; track standardServer.id) {
-            <mat-radio-button [value]="standardServer" class="radio-button" flRadioButtonBig color="accent">
+            <mat-radio-button [value]="standardServer" class="radio-button accent" flRadioButtonBig>
               <div>
                 {{ standardServer.name }}
               </div>
@@ -50,7 +50,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="serverCloud">
           @for (serverCloud of serverClouds; track serverCloud.id) {
-            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig color="accent">
+            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig class="accent">
               <ca-cloud-provider-inline
                 [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
@@ -95,7 +95,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="region">
           @for (region of regions; track region.id) {
-            <mat-radio-button [value]="region" class="radio-button" flRadioButtonBig color="accent">
+            <mat-radio-button [value]="region" class="radio-button accent" flRadioButtonBig>
               <ca-cloud-provider-region-multilines [region]="region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }
@@ -124,7 +124,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="dailyBackupRegion">
           @for (s3Region of s3Regions; track s3Region.id) {
-            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig color="accent">
+            <mat-radio-button [value]="s3Region" class="radio-button accent" flRadioButtonBig>
               <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }
@@ -137,7 +137,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="weeklyBackupRegion">
           @for (s3Region of s3Regions; track s3Region.id) {
-            <mat-radio-button [value]="s3Region" class="radio-button" flRadioButtonBig color="accent">
+            <mat-radio-button [value]="s3Region" class="radio-button accent" flRadioButtonBig>
               <ca-cloud-provider-region-multilines [region]="s3Region"></ca-cloud-provider-region-multilines>
             </mat-radio-button>
           }

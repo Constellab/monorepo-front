@@ -1,9 +1,8 @@
 <div class="table-version" *ngIf="brick()">
   <button
     mat-flat-button
-    color="primary"
     *ngIf="userHasEditRight()"
-    class="button-add-version"
+    class="button-add-version primary"
     (click)="openNewVersionDialog(brick().id)">
     {{ 'add_version' | translate }}
   </button>

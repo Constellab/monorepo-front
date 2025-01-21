@@ -61,12 +61,12 @@ export const flThemeClass = {
   primaryText: 'g-primary-text',
   accentText: 'g-accent-text',
   warnText: 'g-warn-text',
-  greyText: 'g-grey-text',
+  greyText: 'g-text-normal-color',
 
   primaryBackground: 'g-primary-background',
   accentBackground: 'g-accent-background',
   warnBackground: 'g-warn-background',
-  greyBackground: 'g-grey-text',
+  greyBackground: 'g-grey-background',
 };
 
 export class FlThemeHelper {

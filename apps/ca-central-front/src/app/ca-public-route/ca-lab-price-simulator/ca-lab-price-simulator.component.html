@@ -20,10 +20,10 @@
             </div>
 
             <div>
-              <button mat-stroked-button color="primary" matStepperNext class="next-button button">
+              <button mat-stroked-button matStepperNext class="next-button button primary">
                 {{ 'next' | translate }}
               </button>
-              <button mat-stroked-button color="warn" matStepperPrevious class="button">
+              <button mat-stroked-button matStepperPrevious class="button warn">
                 {{ 'back' | translate }}
               </button>
             </div>
@@ -39,10 +39,10 @@
             </div>
 
             <div>
-              <button mat-stroked-button color="primary" matStepperNext class="next-button button">
+              <button mat-stroked-button matStepperNext class="next-button button primary">
                 {{ 'next' | translate }}
               </button>
-              <button mat-stroked-button color="warn" matStepperPrevious class="button">
+              <button mat-stroked-button matStepperPrevious class="button warn">
                 {{ 'back' | translate }}
               </button>
             </div>
@@ -60,16 +60,15 @@
             mat-flat-button
             [routerLink]="signupRoute"
             target="_blank"
-            color="primary"
-            class="next-button button">
+            class="next-button button primary">
             {{ 'flAuth.signup' | translate }}
           </a>
 
-          <a mat-flat-button [href]="contactUsUrl" target="_blank" color="primary" class="next-button button">
+          <a mat-flat-button [href]="contactUsUrl" target="_blank" class="next-button button primary">
             {{ 'contact_us' | translate }}
           </a>
 
-          <button mat-stroked-button color="warn" matStepperPrevious class="button">
+          <button mat-stroked-button matStepperPrevious class="button warn">
             {{ 'back' | translate }}
           </button>
         </mat-step>

@@ -8,7 +8,9 @@ import {
   CaSpaceStorageFormDialogComponent,
   CaSpaceStorageFormDialogInput,
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
-import { CaCurrentSpaceStorageDetailComponent } from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import {
+  CaCurrentSpaceStorageDetailComponent,
+} from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 import {
   CaCurrentSpaceUpdateStorageDialogComponent,
   CaStorageLimitUpdateDialogInput,
@@ -19,10 +21,10 @@ import {
  * with possibility to see storage detail and upgrade storage
  */
 @Component({
-    selector: 'ca-current-space-storage',
-    templateUrl: './ca-current-space-storage.component.html',
-    styleUrl: './ca-current-space-storage.component.scss',
-    standalone: false
+  selector: 'ca-current-space-storage',
+  templateUrl: './ca-current-space-storage.component.html',
+  styleUrl: './ca-current-space-storage.component.scss',
+  standalone: false,
 })
 export class CaCurrentSpaceStorageComponent {
   spaceStorage$: Observable<CaSpaceStorage> = this.spaceService.getCurrentSpaceStorage().pipe(share());

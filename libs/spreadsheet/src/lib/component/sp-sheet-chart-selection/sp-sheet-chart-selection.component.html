@@ -150,8 +150,7 @@
             <button
               mat-icon-button
               type="button"
-              color="warn"
-              class="g-button-icon-small"
+              class="g-button-icon-small warn"
               (click)="deleteSerie(i)"
               [matTooltip]="'spSpreadsheet.chart_delete_serie' | translate">
               <mat-icon>clear</mat-icon>
@@ -170,7 +169,7 @@
       </div>
 
       <div class="g-layout-row g-layout-evenly">
-        <button mat-flat-button color="primary" type="submit">
+        <button mat-flat-button class="primary" type="submit">
           {{ submitTextButton | translate }}
         </button>
 
@@ -178,7 +177,7 @@
         <button
           *ngIf="input.mode === 'update'"
           mat-stroked-button
-          color="primary"
+          class="primary"
           type="button"
           (click)="createNewChart()">
           {{ 'spSpreadsheet.create_new_chart' | translate }}

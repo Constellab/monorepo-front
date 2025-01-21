@@ -41,9 +41,8 @@
 
       <!--  Protocol template file  -->
       <fl-input-file-container
-        color="primary"
         [placeholder]="'biox.import_scenario_template' | translate"
-        class="g-centered-forced">
+        class="g-centered-forced primary">
         <input
           flInputFile
           type="file"
@@ -59,7 +58,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="biox-form" class="g-centered-forced">
+  <button mat-flat-button type="submit" form="biox-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

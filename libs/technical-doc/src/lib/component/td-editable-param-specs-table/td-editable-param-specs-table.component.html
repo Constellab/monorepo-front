@@ -38,8 +38,9 @@
             <mat-icon>edit</mat-icon>
             {{ 'td.edit' | translate }}
           </button>
-          <button mat-menu-item aria-label="delete" class="button-warn" (click)="delete($event, element)">
-            <mat-icon color="warn">delete</mat-icon>
+          <button mat-menu-item aria-label="delete" class="button-warn warn"
+                  (click)="delete($event, element)">
+            <mat-icon>delete</mat-icon>
             {{ 'td.delete' | translate }}
           </button>
         </mat-menu>

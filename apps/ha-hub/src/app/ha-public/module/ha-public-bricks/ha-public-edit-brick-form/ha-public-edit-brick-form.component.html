@@ -3,9 +3,8 @@
     <h5 class="input-div">{{ 'import_new_brick_text1' | translate }}</h5>
   }
   <fl-input-file-container
-    color="primary"
     [placeholder]="'import_new_version_file' | translate"
-    class="bt-input-div">
+    class="bt-input-div primary">
     <input
       flInputFile
       type="file"
@@ -120,7 +119,7 @@
     {{ 'repo_error' | translate }}
   </p>
 
-  <button mat-raised-button color="primary" type="submit" class="g-centered-forced">
+  <button mat-raised-button type="submit" class="g-centered-forced primary">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

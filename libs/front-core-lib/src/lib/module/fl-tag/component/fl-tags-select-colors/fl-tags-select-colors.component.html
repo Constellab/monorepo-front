@@ -7,7 +7,7 @@
         type="button"
         mat-icon-button
         class="g-button-icon-small"
-        [color]="groupColor(tagGroup)"
+        [ngClass]="groupColor(tagGroup)"
         (click)="toggleGroupColor(tagGroup)">
         <mat-icon>colorize</mat-icon>
       </button>

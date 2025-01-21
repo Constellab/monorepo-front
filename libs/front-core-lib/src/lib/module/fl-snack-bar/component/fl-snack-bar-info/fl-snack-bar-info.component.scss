@@ -12,11 +12,11 @@
 }
 
 .button-success {
-  --mdc-text-button-label-text-color: var(--primary-color-contrast);
+  color: var(--primary-color-contrast) !important;
 }
 
 .button-warn {
-  --mdc-text-button-label-text-color: var(--warn-color-contrast);
+  color: var(--warn-color-contrast) !important;
 }
 
 ::ng-deep {

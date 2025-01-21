@@ -45,7 +45,7 @@
       @if (isAuthor()) {
         <button
           mat-icon-button
-          color="warn"
+          class="warn"
           (click)="deleteAgent()"
           [matTooltip]="'delete_agent' | translate">
           <mat-icon>delete</mat-icon>
@@ -71,8 +71,7 @@
         @if (canEditAgent()) {
           <button
             mat-stroked-button
-            color="primary"
-            class="g-button-small"
+            class="g-button-small primary"
             (click)="onDescriptionEditorButtonClick()">
             <mat-icon>{{ descriptionEditorDisabled ? 'edit' : 'save' }}</mat-icon>
             {{ descriptionEditorDisabled ? ('edit' | translate) : ('save' | translate) }}

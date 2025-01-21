@@ -72,9 +72,9 @@
           <span>{{ 'update_server_standard' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteServerStandard(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_server_standard' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteServerStandard(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_server_standard' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

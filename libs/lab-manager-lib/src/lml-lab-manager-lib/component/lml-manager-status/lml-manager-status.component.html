@@ -22,7 +22,7 @@
 
   @if (labStatus.glabStatus?.hasStartError) {
     <fl-text-icon>
-      <mat-icon color="warn">error</mat-icon>
+      <mat-icon class="warn">error</mat-icon>
       {{ 'lml.glab_error' | translate }}
       <button mat-stroked-button class="status-action-button" type="button" (click)="openLabErrorLogs()">
         {{ 'lml.show_errors' | translate }}

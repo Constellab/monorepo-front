@@ -55,9 +55,8 @@
           @if (hasRightToEdit) {
             <a
               mat-flat-button
-              color="primary"
               [routerLink]="storiesListRoute + 'edit/' + story.id"
-              class="edit-button">
+              class="edit-button primary">
               <mat-icon>edit</mat-icon>
               {{ 'edit' | translate }}
             </a>

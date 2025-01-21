@@ -71,8 +71,8 @@
       </button>
 
       @if (scenario.status.value === 'IN_QUEUE') {
-        <button mat-menu-item type="button" (click)="removeScenarioFromQueue()" class="g-warn-text">
-          <mat-icon color="warn">stop</mat-icon>
+        <button mat-menu-item type="button" (click)="removeScenarioFromQueue()" class="warn">
+          <mat-icon>stop</mat-icon>
           {{ 'biox.remove_scenario_from_queue' | translate }}
         </button>
       }
@@ -83,9 +83,9 @@
           {{ 'biox.share' | translate }}
         </button>
 
-        <button mat-menu-item type="button" (click)="archiveScenario()">
-          <mat-icon color="warn" [flIcon]="scenario.isArchived ? 'unarchive' : 'archive'"></mat-icon>
-          <span class="g-warn-text">
+        <button mat-menu-item type="button" (click)="archiveScenario()" class="warn">
+          <mat-icon [flIcon]="scenario.isArchived ? 'unarchive' : 'archive'"></mat-icon>
+          <span>
             {{ (scenario.isArchived ? 'biox.unarchive_scenario' : 'biox.archive_scenario') | translate }}
           </span>
         </button>
@@ -93,13 +93,13 @@
 
       @if (scenario.protocolIsEditable()) {
         <!--        <button mat-menu-item type="button" (click)="deleteIntermediateResources()">-->
-        <!--          <mat-icon color="warn" flIcon="resource"></mat-icon>-->
-        <!--          <span class="g-warn-text">{{ 'biox.delete_scenario_intermediate_resources' | translate }}</span>-->
+          <!--          <mat-icon class="warn" flIcon="resource"></mat-icon>-->
+          <!--          <span>{{ 'biox.delete_scenario_intermediate_resources' | translate }}</span>-->
         <!--        </button>-->
 
-        <button mat-menu-item type="button" (click)="deleteScenario()">
-          <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{ 'biox.delete_scenario' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteScenario()" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'biox.delete_scenario' | translate }}</span>
         </button>
       }
     </mat-menu>

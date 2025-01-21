@@ -18,13 +18,13 @@
       <div class="agent-infos">
         @if (agentVersion().versionState == 'DRAFT') {
           <span class="g-text-small g-warn-text">{{ 'warn_agent_version_not_published' | translate }}</span>
-          <button mat-stroked-button color="primary" (click)="publishAgentVersion(agentVersion().id)">
+          <button mat-stroked-button class="primary" (click)="publishAgentVersion(agentVersion().id)">
             {{ 'publish' | translate }}
           </button>
         }
         <button
           mat-icon-button
-          color="warn"
+          class="warn"
           (click)="deleteAgentVersion()"
           [matTooltip]="'delete_agent_version' | translate">
           <mat-icon>delete</mat-icon>

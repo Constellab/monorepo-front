@@ -77,9 +77,9 @@
           <span>{{ 'update_bucket' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteBucket(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_bucket' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteBucket(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_bucket' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

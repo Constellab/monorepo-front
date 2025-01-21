@@ -27,7 +27,7 @@
         <div class="comment-write-card-footer">
           <button
             mat-flat-button
-            color="primary"
+            class="primary"
             [disabled]="!commentIsValid || isLoading"
             (click)="sendComment()">
             <fl-button-loader *ngIf="isLoading"></fl-button-loader>
@@ -41,7 +41,7 @@
   } @else {
     <div class="login-div">
       <p>{{ 'login_to_post_a_comment' | translate }}</p>
-      <a mat-flat-button color="primary" [routerLink]="loginRoute" (click)="closePortal()">{{
+      <a mat-flat-button class="primary" [routerLink]="loginRoute" (click)="closePortal()">{{
         'login' | translate
       }}</a>
     </div>

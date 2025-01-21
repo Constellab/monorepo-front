@@ -6,7 +6,7 @@
     mat-icon-button
     class="highlight-icon g-button-icon-tiny"
     (click)="toggleAllClusterColors()"
-    [color]="clustersAllColored ? 'primary' : null"
+    [ngClass]="clustersAllColored ? 'primary' : null"
     [matTooltip]="'bnBioNetwork.highlight_all_pathway' | translate">
     <mat-icon>colorize</mat-icon>
   </button>

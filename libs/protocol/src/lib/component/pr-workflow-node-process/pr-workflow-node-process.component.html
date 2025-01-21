@@ -4,18 +4,16 @@
       @switch (status.value) {
         @case ('SUCCESS') {
           <mat-icon
-            color="primary"
             flIcon="check_fill"
             [matTooltip]="status.name | translate"
-            class="status"></mat-icon>
-          <!--                          <mat-icon color="primary" [flIcon]="status.icon" [matTooltip]="status.name | translate" fontSet="material-icons"></mat-icon>-->
+            class="status primary"></mat-icon>
+          <!--                          <mat-icon class="primary" [flIcon]="status.icon" [matTooltip]="status.name | translate" fontSet="material-icons"></mat-icon>-->
         }
         @case ('ERROR') {
           <mat-icon
-            color="warn"
             [flIcon]="status.icon"
             [matTooltip]="status.name | translate"
-            class="status"></mat-icon>
+            class="status warn"></mat-icon>
         }
         @case ('RUNNING') {
           <fl-loader [size]="20" [matTooltip]="status.name | translate" class="status"></fl-loader>

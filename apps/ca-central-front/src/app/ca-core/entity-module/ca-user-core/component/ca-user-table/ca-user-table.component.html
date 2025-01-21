@@ -97,9 +97,9 @@
             <span>{{ 'unlock_user' | translate }}</span>
           </button>
         } @else {
-          <button mat-menu-item type="button" (click)="lockUser(row)">
-            <mat-icon color="warn">lock</mat-icon>
-            <span class="g-warn-text">{{ 'lock_user' | translate }}</span>
+          <button mat-menu-item type="button" (click)="lockUser(row)" class="warn">
+            <mat-icon>lock</mat-icon>
+            <span>{{ 'lock_user' | translate }}</span>
           </button>
         }
       </mat-menu>

@@ -5,7 +5,7 @@
 <mat-dialog-content>
   <div class="dialog-content">
     @if (entity) {
-      <fl-input-file-container color="primary" class="select-file-button">
+      <fl-input-file-container class="select-file-button primary">
         <input
           flInputFile
           [multiple]="true"
@@ -24,7 +24,7 @@
               class="button"
               (click)="deleteFile(file)"
               [matTooltip]="'delete_file' | translate">
-              <mat-icon color="warn">delete</mat-icon>
+              <mat-icon class="warn">delete</mat-icon>
             </button>
           </td>
         </tr>

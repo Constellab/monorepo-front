@@ -26,29 +26,26 @@
 <div class="action-buttons">
   <button
     mat-stroked-button
-    color="primary"
     type="button"
     (click)="generateTechnicalDoc()"
-    class="g-button-small">
+    class="g-button-small primary">
     {{ 'monitoring.generate_technical_doc' | translate }}
     <fl-button-loader *ngIf="generateDocIsLoading" size="small"></fl-button-loader>
   </button>
 
   <button
     mat-stroked-button
-    color="primary"
     type="button"
     (click)="openCallMigrationDialog()"
-    class="g-button-small">
+    class="g-button-small primary">
     {{ 'monitoring.call_migration_title' | translate }}
   </button>
 
   <button
     mat-stroked-button
-    color="primary"
     type="button"
     (click)="deleteUnavailableTypings()"
-    class="g-button-small">
+    class="g-button-small primary">
     {{ 'monitoring.delete_unavailable_typings' | translate }}
   </button>
 </div>

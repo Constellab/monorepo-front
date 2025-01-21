@@ -82,9 +82,9 @@
         <div *ngIf="isDesktop()" class="desktop-platform">
           {{ 'lab_desktop_platform' | translate }}
           <mat-radio-group formControlName="desktopPlatform" required>
-            <mat-radio-button value="WINDOWS" color="primary">Windows</mat-radio-button>
-            <mat-radio-button value="MAC" color="primary">Mac OS</mat-radio-button>
-            <mat-radio-button value="LINUX" color="primary">Linux</mat-radio-button>
+            <mat-radio-button value="WINDOWS" class="primary">Windows</mat-radio-button>
+            <mat-radio-button value="MAC" class="primary">Mac OS</mat-radio-button>
+            <mat-radio-button value="LINUX" class="primary">Linux</mat-radio-button>
           </mat-radio-group>
         </div>
 
@@ -316,7 +316,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button color="primary" type="submit" form="server-info-form" class="g-centered-forced">
+  <button mat-flat-button type="submit" form="server-info-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
   </button>

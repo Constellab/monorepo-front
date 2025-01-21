@@ -6,9 +6,8 @@
       <mat-radio-button
         *ngFor="let option of optionGroup"
         [value]="option"
-        class="radio-button"
+        class="radio-button accent"
         flRadioButtonBig
-        color="accent"
         (change)="selectOption($event)">
         <div>
           {{ option.title }}

@@ -26,65 +26,62 @@
 <!--  Action button  -->
 <div class="action-buttons">
   <fl-text-icon class="warning-text">
-    <mat-icon color="warn">warnings</mat-icon>
+    <mat-icon>warnings</mat-icon>
     {{ 'lml.lab_advanced_configuration_warning' | translate }}
   </fl-text-icon>
 
-  <button mat-stroked-button type="button" color="primary" class="g-button-small" (click)="initAll()">
+  <button mat-stroked-button type="button" class="g-button-small primary" (click)="initAll()">
     {{ 'lml.lab_manager_initialize' | translate }}
   </button>
   <button
     mat-stroked-button
     type="button"
-    color="primary"
-    class="g-button-small"
+    class="g-button-small primary"
     (click)="configureLabManager()">
     {{ 'lml.configure_lab_manager' | translate }}
   </button>
   <button
     mat-stroked-button
     type="button"
-    color="primary"
-    class="g-button-small"
+    class="g-button-small primary"
     (click)="updateLabManager()">
     {{ 'lml.update_lab_manager' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" color="primary" class="g-button-small" (click)="upContainers()">
+  <button mat-stroked-button type="button" class="g-button-small primary" (click)="upContainers()">
     {{ 'lml.up_containers' | translate }}
   </button>
   <button
     mat-stroked-button
     type="button"
-    color="primary"
-    class="g-button-small"
+    class="g-button-small primary"
     (click)="restartContainers()">
     {{ 'lml.restart_containers' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="primary" class="g-button-small" (click)="pullContainers()">
+  <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullContainers()">
     {{ 'lml.pull_containers' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="primary" class="g-button-small" (click)="pullBiotaDb()">
+  <button mat-stroked-button type="button" class="g-button-small primary" (click)="pullBiotaDb()">
     {{ 'lml.pull_biota' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="stopContainers()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopContainers()">
     {{ 'lml.stop_containers' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="deleteContainers()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="deleteContainers()">
     {{ 'lml.delete_containers' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="stopCurrentTask()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentTask()">
     {{ 'lml.stop_current_task' | translate }}
   </button>
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="systemPrune()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="systemPrune()">
     {{ 'lml.system_prune' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="startAdminer()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="startAdminer()">
     {{ 'lml.start_adminer' | translate }}
   </button>
 
-  <button mat-stroked-button type="button" color="warn" class="g-button-small" (click)="stopAdminer()">
+  <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopAdminer()">
     {{ 'lml.stop_adminer' | translate }}
   </button>
 </div>

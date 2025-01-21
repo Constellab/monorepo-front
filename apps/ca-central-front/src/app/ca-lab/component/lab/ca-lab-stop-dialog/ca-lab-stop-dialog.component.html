@@ -23,14 +23,13 @@
     type="button"
     [disabled]="isLoading"
     tabindex="-1"
-    color="primary"
-    class="yes-button">
+    class="yes-button primary">
     {{ 'stop_lab_title' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }
   </button>
-  <button mat-stroked-button type="button" matDialogClose [disabled]="isLoading" tabindex="-1" color="warn">
+  <button mat-stroked-button type="button" matDialogClose [disabled]="isLoading" tabindex="-1" class="warn">
     {{ 'cancel' | translate }}
   </button>
 </div>

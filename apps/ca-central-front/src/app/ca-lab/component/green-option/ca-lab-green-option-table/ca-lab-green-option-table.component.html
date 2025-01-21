@@ -59,9 +59,9 @@
           <span>{{ 'lab_update_green_option' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteGreenOption(greenOption)">
-          <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{ 'lab_delete_green_option' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteGreenOption(greenOption)" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'lab_delete_green_option' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

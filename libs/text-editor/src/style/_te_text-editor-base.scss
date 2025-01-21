@@ -1,11 +1,4 @@
-@use '@angular/material' as mat;
-
-@mixin _text-editor-theme-base($mat-theme) {
-  $primary: map-get($mat-theme, primary);
-  $accent: map-get($mat-theme, accent);
-  $warn: map-get($mat-theme, warn);
-  $foreground: map-get($mat-theme, foreground);
-
+@mixin text-editor-theme-base() {
   // override the default behaviour to always have the toolbar on the left
   .codex-editor--narrow {
     .codex-editor__redactor {
@@ -30,10 +23,8 @@
   }
 
   // tooltip
-  .ct__content {
+  .ct:before {
     background-color: var(--hover-color);
-    color: var(--light-color);
-    border-radius: 5px;
   }
 
   // remove the default bottom padding that is used to include the conversion toolbar
@@ -301,7 +292,7 @@
     .cdx-list {
       --spacing-s: 0px;
       --spacing-xs: 0px;
-      --color-bg-checked: #{mat.m2-get-color-from-palette($primary)};
+      --color-bg-checked: var(--primary-color);
     }
 
     // Style for the root list
@@ -386,19 +377,20 @@
       }
     }
 
+    // TODO FIX
     .g-te-hint-info {
-      background-color: mat.m2-get-color-from-palette($primary, 100);
-      color: mat.m2-get-color-from-palette($primary, '100-contrast');
+      background-color: var(--primary-color);
+      color: var(--primary-color-contrast);
     }
 
     .g-te-hint-warning {
-      background-color: mat.m2-get-color-from-palette($warn, 100);
-      color: mat.m2-get-color-from-palette($warn, '100-contrast');
+      background-color: var(--warn-color);
+      color: var(--warn-color-contrast);
     }
 
     .g-te-hint-science {
-      background-color: mat.m2-get-color-from-palette($accent, 100);
-      color: mat.m2-get-color-from-palette($accent, '100-contrast');
+      background-color: var(--accent-color);
+      color: var(--accent-color-contrast);
     }
 
     .g-text-editor-hint a {

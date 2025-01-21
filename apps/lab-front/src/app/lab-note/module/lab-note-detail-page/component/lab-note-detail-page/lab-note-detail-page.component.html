@@ -75,15 +75,15 @@
             </button>
 
             <button mat-menu-item type="button" (click)="archiveNote()">
-              <mat-icon color="warn" [flIcon]="note.isArchived ? 'unarchive' : 'archive'"></mat-icon>
-              <span class="g-warn-text">
+              <mat-icon [flIcon]="note.isArchived ? 'unarchive' : 'archive'"></mat-icon>
+              <span>
                 {{ note.isArchived ? 'biox.unarchive_note' : ('biox.archive_note' | translate) }}
               </span>
             </button>
 
-            <button mat-menu-item type="button" (click)="delete()" *ngIf="note.isEditable()">
-              <mat-icon color="warn">delete</mat-icon>
-              <span class="g-warn-text">{{ 'biox.delete_note' | translate }}</span>
+            <button mat-menu-item type="button" (click)="delete()" *ngIf="note.isEditable()" class="warn">
+              <mat-icon>delete</mat-icon>
+              <span>{{ 'biox.delete_note' | translate }}</span>
             </button>
           </mat-menu>
         </div>

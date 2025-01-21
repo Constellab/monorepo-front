@@ -11,8 +11,7 @@
     <mat-cell *matCellDef="let processType" class="g-column-width-2">
       <mat-icon
         *ngIf="processType.status === 'UNAVAILABLE'"
-        color="warn"
-        class="type-unavailable"
+        class="type-unavailable warn"
         [matTooltip]="'biox.process_type_unavailable_error' | translate">
         error
       </mat-icon>

@@ -6,7 +6,7 @@
     <div class="g-text-light">{{ data.size | flByteText }}</div>
   </div>
 } @else {
-  <fl-input-file-container color="primary" *ngIf="!uploadIsLoading" class="file-input-container">
+  <fl-input-file-container *ngIf="!uploadIsLoading" class="file-input-container primary">
     <input
       flInputFile
       type="file"

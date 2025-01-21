@@ -1,11 +1,9 @@
-@import './te_text-editor-base';
+@use './te_text-editor-base' as base;
 
-@mixin _te-text-editor-dark($mat-theme) {
-  te-text-editor {
-    .codex-editor ::selection {
-      background-color: #3297fd;
-    }
+te-text-editor {
+  .codex-editor ::selection {
+    background-color: #3297fd;
   }
-
-  @include _text-editor-theme-base($mat-theme);
 }
+
+@include base.text-editor-theme-base();

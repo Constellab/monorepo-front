@@ -29,8 +29,7 @@
       </h5>
       <button
         mat-stroked-button
-        color="primary"
-        class="g-button-small"
+        class="g-button-small primary"
         *ngIf="canEdit()"
         (click)="onVersionInfosEditorButtonClick()">
         <mat-icon>{{ versionInfosDisabled ? 'edit' : 'save' }}</mat-icon>
@@ -132,9 +131,8 @@
           <div>
             <button
               mat-stroked-button
-              color="primary"
               (click)="onCopy('environment_file')"
-              class="g-button-small">
+              class="g-button-small primary">
               <mat-icon>content_copy</mat-icon>
               {{ 'copy_environment' | translate }}
             </button>
@@ -156,7 +154,7 @@
           {{ 'code' | translate }}
         </h5>
         <div>
-          <button mat-stroked-button color="primary" (click)="onCopy('code')" class="g-button-small">
+          <button mat-stroked-button (click)="onCopy('code')" class="g-button-small primary">
             <mat-icon>content_copy</mat-icon>
             {{ 'copy_code' | translate }}
           </button>

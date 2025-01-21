@@ -91,9 +91,9 @@
           <span>{{ 'update_server_cloud' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteServerCloud(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_server_cloud' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteServerCloud(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_server_cloud' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

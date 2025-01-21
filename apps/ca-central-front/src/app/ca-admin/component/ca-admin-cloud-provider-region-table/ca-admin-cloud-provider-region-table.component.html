@@ -67,9 +67,9 @@
           <span>{{ 'update_cloud_provider_region' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="deleteRegion(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_cloud_provider_region' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteRegion(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_cloud_provider_region' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

@@ -8,10 +8,9 @@
       }
       <button
         mat-flat-button
-        color="primary"
         type="button"
         (click)="saveConfig()"
-        class="g-centered-forced save-button">
+        class="g-centered-forced save-button primary">
         <mat-icon>save</mat-icon>
         {{ 'lml.save' | translate }}
         @if (saveIsLoading) {

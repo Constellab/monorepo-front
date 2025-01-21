@@ -57,10 +57,9 @@
 <div mat-dialog-actions>
   <button
     mat-flat-button
-    color="primary"
     type="submit"
     form="user-infos-form"
-    class="g-centered-forced"
+    class="g-centered-forced primary"
     [disabled]="!checkModified()">
     {{ 'save' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>

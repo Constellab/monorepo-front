@@ -1,9 +1,9 @@
-@import '../../../../libs/front-core-lib/src/style/theme/base/base-light-theme';
+@use '../../../../libs/front-core-lib/src/style/theme/base/base-light-theme';
 
 // Style to highlight code in text editor
-@import 'highlight.js/styles/atom-one-light.css';
+@use 'highlight.js/styles/atom-one-light.css';
 
-@import '../../../../libs/text-editor/src/style/te-text-editor-light';
+@use '../../../../libs/text-editor/src/style/te-text-editor-light';
 
 @include _te-text-editor-light($theme);
 

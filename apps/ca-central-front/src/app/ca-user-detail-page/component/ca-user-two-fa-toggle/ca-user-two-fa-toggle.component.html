@@ -5,7 +5,7 @@
         <strong>{{ text | translate }}</strong>
       </div>
 
-      <button mat-flat-button type="button" [color]="buttonColor" (click)="toggleTwoFa()">
+      <button mat-flat-button type="button" [ngClass]="buttonColor" (click)="toggleTwoFa()">
         {{ buttonText | translate }}
       </button>
     </div>

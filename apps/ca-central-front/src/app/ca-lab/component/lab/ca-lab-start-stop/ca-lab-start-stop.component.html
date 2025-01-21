@@ -2,10 +2,9 @@
 <button
   *ngIf="serverIsRunning$ | async; else stopped"
   mat-stroked-button
-  color="warn"
   type="button"
   (click)="stopLab()"
-  class="g-button-small">
+  class="g-button-small warn">
   <mat-icon>stop</mat-icon>
   <span>{{ 'stop_lab' | translate }}</span>
 </button>
@@ -16,10 +15,9 @@
     class="container">
     <button
       mat-stroked-button
-      color="primary"
       type="button"
       (click)="startLab()"
-      class="g-button-small"
+      class="g-button-small primary"
       [disabled]="disabledStart$ | async">
       <mat-icon>play_arrow</mat-icon>
       <span>{{ 'start_lab' | translate }}</span>

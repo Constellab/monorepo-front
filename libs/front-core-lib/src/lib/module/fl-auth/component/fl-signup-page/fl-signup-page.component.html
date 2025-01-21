@@ -6,7 +6,7 @@
       <form (ngSubmit)="submit()" [formGroup]="formGp">
         <fl-signup-form [formGp]="formGp"></fl-signup-form>
 
-        <button mat-flat-button color="accent" type="submit" class="centered g-button-big">
+        <button mat-flat-button type="submit" class="centered g-button-big accent">
           {{ 'flAuth.signup' | translate }}
           <fl-button-loader *ngIf="isLoading"></fl-button-loader>
         </button>

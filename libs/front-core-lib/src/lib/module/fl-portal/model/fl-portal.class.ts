@@ -2,12 +2,6 @@ import { ConnectedPosition, OverlayConfig } from '@angular/cdk/overlay';
 import { InjectionToken } from '@angular/core';
 
 /**
- * @ignore
- * offset to add when using arrow
- */
-export const flPortalArrowOffset: number = 15;
-
-/**
  * Responsive size for overlay
  */
 export type FlOverlaySize = 'small' | 'medium' | 'big' | 'full';
@@ -36,11 +30,6 @@ export interface FlOverlayConfig extends OverlayConfig {
    * It starts listening to outside click 500 ms after portal opening
    */
   disposeOnOutsideClick?: boolean;
-
-  /**
-   * Add an elevation to the panel (class mat-elevation-z5)
-   */
-  elevation?: boolean;
 
   /**
    * Set responsive size on portal

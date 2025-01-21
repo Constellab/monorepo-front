@@ -39,7 +39,7 @@
           <div class="circle-container">
             <mat-progress-spinner
               mode="determinate"
-              [color]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
+              [ngClass]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
               [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
             <div class="circle-text">{{ spaceStorage.cloudStorageUsagePercent | number: '1.0-0' }} %</div>
           </div>

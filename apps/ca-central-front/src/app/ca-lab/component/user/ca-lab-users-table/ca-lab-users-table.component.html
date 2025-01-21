@@ -53,9 +53,9 @@
           <span>{{ 'update_lab_user_role' | translate }}</span>
         </button>
 
-        <button mat-menu-item type="button" (click)="openDeleteUserDialog(lab)">
-          <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{ 'delete_lab_user' | translate }}</span>
+        <button mat-menu-item type="button" (click)="openDeleteUserDialog(lab)" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'delete_lab_user' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

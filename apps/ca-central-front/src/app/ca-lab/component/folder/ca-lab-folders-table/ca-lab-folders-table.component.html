@@ -42,9 +42,9 @@
           <mat-icon>sync</mat-icon>
           <span>{{ 'sync_lab_folder' | translate }}</span>
         </button>
-        <button mat-menu-item type="button" (click)="openDeleteFolderDialog(lab)">
-          <mat-icon color="warn">delete</mat-icon>
-          <span class="g-warn-text">{{ 'lab_remove_folder' | translate }}</span>
+        <button mat-menu-item type="button" (click)="openDeleteFolderDialog(lab)" class="warn">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'lab_remove_folder' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

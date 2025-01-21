@@ -16,8 +16,7 @@
           <mat-chip-option
             [value]="isSelected('public')"
             (click)="selectSpace('public')"
-            color="accent"
-            class="space-list-option">
+            class="space-list-option accent">
             {{ 'lml.public' | translate }}
           </mat-chip-option>
 
@@ -27,8 +26,7 @@
             <mat-chip-option
               [value]="isSelected(space.id)"
               (click)="selectSpace(space.id)"
-              color="warn"
-              class="space-list-option">
+              class="space-list-option warn">
               {{ space.name }}
             </mat-chip-option>
           }
@@ -125,7 +123,7 @@
 @if (formGp.valid) {
   <div mat-dialog-actions>
     @if (formGp.valid) {
-      <button mat-flat-button color="primary" type="submit" form="lab-brick-form" class="g-centered-forced">
+      <button mat-flat-button type="submit" form="lab-brick-form" class="g-centered-forced primary">
         {{ 'lml.ok' | translate }}
       </button>
     }

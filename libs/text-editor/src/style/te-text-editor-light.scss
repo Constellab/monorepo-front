@@ -1,5 +1,5 @@
-@import './te_text-editor-base';
+@use './te_text-editor-base' as base;
 
-@mixin _te-text-editor-light($mat-theme) {
-  @include _text-editor-theme-base($mat-theme);
+te-text-editor {
+  @include base.text-editor-theme-base();
 }

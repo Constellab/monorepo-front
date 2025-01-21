@@ -1,36 +1,29 @@
-@use '@angular/material' as mat;
 
-@mixin _file-input-color($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
+.mat-primary .input-file-trigger {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast-color);
+}
 
-  .mat-primary .input-file-trigger {
-    background-color: mat.m2-get-color-from-palette($primary);
-    color: mat.m2-get-color-from-palette($primary, default-contrast);
-  }
+.mat-primary .input-container-drop-hover {
+  border-color: var(--accent-color) !important;
+}
 
-  .mat-primary .input-container-drop-hover {
-    border-color: mat.m2-get-color-from-palette($accent) !important;
-  }
+.mat-accent .input-file-trigger {
+  background-color: var(--accent-color);
+  color: var(--accent-contrast-color);
+}
 
-  .mat-accent .input-file-trigger {
-    background-color: mat.m2-get-color-from-palette($accent);
-    color: mat.m2-get-color-from-palette($accent, default-contrast);
-  }
+.mat-accent .input-container-drop-hover {
+  border-color: var(--primary-color) !important;
+}
 
-  .mat-accent .input-container-drop-hover {
-    border-color: mat.m2-get-color-from-palette($primary) !important;
-  }
+.mat-warn .input-file-trigger {
+  background-color: var(--warn-color);
+  color: var(--warn-contrast-color);
+}
 
-  .mat-warn .input-file-trigger {
-    background-color: mat.m2-get-color-from-palette($warn);
-    color: mat.m2-get-color-from-palette($warn, default-contrast);
-  }
-
-  .mat-warn .input-container-drop-hover {
-    border-color: mat.m2-get-color-from-palette($primary) !important;
-  }
+.mat-warn .input-container-drop-hover {
+  border-color: var(--primary-color) !important;
 }
 
 // specific css on the for the Input File component

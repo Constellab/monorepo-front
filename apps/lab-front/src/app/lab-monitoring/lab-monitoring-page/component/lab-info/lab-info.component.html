@@ -11,7 +11,7 @@
     <ng-template #loadingFinished>
       <div *ngIf="labInfo; else error">
         <fl-text-icon>
-          <mat-icon color="primary" class="g-icon-big">check</mat-icon>
+          <mat-icon class="g-icon-big primary">check</mat-icon>
 
           <p class="g-text-big">{{ 'monitoring.lab_running' | translate }}</p>
 
@@ -59,7 +59,7 @@
 
       <ng-template #error>
         <fl-text-icon>
-          <mat-icon color="warn" class="g-icon-big">error</mat-icon>
+          <mat-icon class="g-icon-big warn">error</mat-icon>
           <p class="g-text-big">{{ 'monitoring.lab_not_running' | translate }}</p>
         </fl-text-icon>
       </ng-template>

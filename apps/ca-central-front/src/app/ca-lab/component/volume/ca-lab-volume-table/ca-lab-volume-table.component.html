@@ -38,9 +38,9 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item type="button" (click)="deleteVolumeHistory(row)">
-          <mat-icon color="warn">clear</mat-icon>
-          <span class="g-warn-text">{{ 'delete_volume_history' | translate }}</span>
+        <button mat-menu-item type="button" (click)="deleteVolumeHistory(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'delete_volume_history' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

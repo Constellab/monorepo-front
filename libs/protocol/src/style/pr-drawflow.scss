@@ -1,80 +1,73 @@
 // Import drawflow style
-@use '@angular/material' as mat;
-@import 'drawflow/dist/drawflow.min.css';
+@use 'drawflow/dist/drawflow.min.css';
 
-@mixin drawflow-theme($theme) {
-  $primary: map-get($theme, primary);
-  $warn: map-get($theme, warn);
-  $accent: map-get($theme, accent);
+.drawflow {
+  // set a border to the main drawflow element so the user knows the limits
+  height: auto !important;
+}
 
-  .drawflow {
-    // set a border to the main drawflow element so the user knows the limits
-    height: auto !important;
+// style drawflow
+.drawflow .drawflow-node {
+  width: initial;
+  // Padding of the nodes
+  padding: 5px 15px !important;
+  cursor: pointer !important;
+  border-width: 0;
+
+  // style for the process node
+  &.node-process {
+    color: var(--color-foreground);
+    background-color: var(--main-background);
+    border-radius: 30px;
   }
 
-  // style drawflow
-  .drawflow .drawflow-node {
-    width: initial;
-    // Padding of the nodes
-    padding: 5px 15px !important;
-    cursor: pointer !important;
-    border-width: 0;
-
-    // style for the process node
-    &.node-process {
-      color: var(--color-foreground);
-      background-color: var(--main-background);
-      border-radius: 30px;
-    }
-
-    &.interface,
-    &.outerface,
-    &.task-source,
-    &.task-output,
-    &.task-viewer {
-      border-radius: 10px;
-    }
-
-    // width and height of input and output port
-    .input,
-    .output {
-      width: 12px;
-      height: 12px;
-    }
-
-    // adapt output position
-    .output {
-      right: -6px;
-    }
-
-    // adapt input position
-    .input {
-      left: -22px;
-      cursor: auto;
-    }
-
-    // override css from drawflow that break svg icons
-    mat-icon svg {
-      position: initial;
-      overflow: initial !important;
-    }
+  &.interface,
+  &.outerface,
+  &.task-source,
+  &.task-output,
+  &.task-viewer {
+    border-radius: 10px;
   }
 
-  .drawflow .connection {
-    .main-path {
-      stroke: var(--hover-color);
-    }
-
-    .main-path.selected,
-    .main-path:hover {
-      stroke: mat.m2-get-color-from-palette($primary);
-    }
+  // width and height of input and output port
+  .input,
+  .output {
+    width: 12px;
+    height: 12px;
   }
 
-  // when the resource is provided, change the color of the connection
-  .drawflow .connection.g-connection-resource-provided {
-    .main-path {
-      stroke: mat.m2-get-color-from-palette($primary);
-    }
+  // adapt output position
+  .output {
+    right: -6px;
+  }
+
+  // adapt input position
+  .input {
+    left: -22px;
+    cursor: auto;
+  }
+
+  // override css from drawflow that break svg icons
+  mat-icon svg {
+    position: initial;
+    overflow: initial !important;
+  }
+}
+
+.drawflow .connection {
+  .main-path {
+    stroke: var(--hover-color);
+  }
+
+  .main-path.selected,
+  .main-path:hover {
+    stroke: var(--primary-color);
+  }
+}
+
+// when the resource is provided, change the color of the connection
+.drawflow .connection.g-connection-resource-provided {
+  .main-path {
+    stroke: var(--primary-color);
   }
 }

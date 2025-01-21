@@ -14,16 +14,16 @@
     </mat-form-field>
 
     <div>
-      <div class="">{{ 'coCommunityLib.visibility' | translate }}</div>
+      <div>{{ 'coCommunityLib.visibility' | translate }}</div>
       <mat-radio-group formControlName="type" [required]="true">
         <div class="spaces-div">
           <button mat-flat-button type="button" class="space-button">
-            <mat-radio-button labelPosition="before" [value]="'PUBLIC'" [color]="'primary'">
+            <mat-radio-button labelPosition="before" value="PUBLIC" class="primary">
               {{ 'coCommunityLib.public' | translate }}
             </mat-radio-button>
           </button>
           <button mat-flat-button type="button" class="space-button">
-            <mat-radio-button labelPosition="before" [value]="'SPACE'" [color]="'primary'">
+            <mat-radio-button labelPosition="before" value="SPACE" class="primary">
               {{ 'coCommunityLib.space' | translate }}
             </mat-radio-button>
           </button>
@@ -35,14 +35,14 @@
       <fl-async-section [object]="spaces$">
         <ng-container *flSectionBody="spaces$ as spaces">
           <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>
-          <mat-radio-group [formControlName]="'space'" [required]="true">
+          <mat-radio-group formControlName="space" [required]="true">
             <div class="spaces-div">
               <button
                 mat-flat-button
                 type="button"
                 *ngFor="let space of spaces$ | async"
                 class="space-button">
-                <mat-radio-button labelPosition="before" [value]="space" [color]="'primary'">
+                <mat-radio-button labelPosition="before" [value]="space" class="primary">
                   <div class="space-info">
                     @if (space.photo) {
                       <img [src]="getSpacePhoto(space.photo)" />
@@ -64,10 +64,9 @@
 <div mat-dialog-actions>
   <button
     mat-flat-button
-    color="primary"
     type="submit"
     form="agent-form"
-    class="g-centered-forced"
+    class="g-centered-forced primary"
     [disabled]="!formGp.valid && !isLoading">
     {{ 'coCommunityLib.create' | translate }}
     <fl-button-loader *ngIf="isLoading"></fl-button-loader>
