@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { HaBaseEntity } from '../ha-model/ha-entities/ha-entity.class';
 import { HaLikeType } from '../ha-model/ha-entities/ha-entity-type.enum';
+import { ClDeserializationRef } from '@monorepo/core-lib';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +16,15 @@ export class HaLikeService {
     return this.apiService.get(this.route + '/' + likeType + '/' + entityId);
   }
 
-  public like(likeType: HaLikeType, entityId: string): Observable<HaBaseEntity> {
-    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/like', {});
+  public like(likeType: HaLikeType, entityId: string, classInstance: ClDeserializationRef): Observable<any> {
+    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/like', {}, classInstance);
   }
 
-  public unlike(likeType: HaLikeType, entityId: string): Observable<HaBaseEntity> {
-    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/unlike', {});
+  public unlike(
+    likeType: HaLikeType,
+    entityId: string,
+    classInstance: ClDeserializationRef
+  ): Observable<any> {
+    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/unlike', {}, classInstance);
   }
 }

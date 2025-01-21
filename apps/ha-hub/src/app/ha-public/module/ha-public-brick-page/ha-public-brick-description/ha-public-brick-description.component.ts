@@ -102,7 +102,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
 
   // TODO : utiliser le state
   private unlikeBrick(): void {
-    this.likeService.unlike(HaLikeType.BRICK_LIKE, this.brick().id).subscribe((brick: HaBrick) => {
+    this.likeService.unlike(HaLikeType.BRICK_LIKE, this.brick().id, HaBrick).subscribe((brick: HaBrick) => {
       if (brick != null) {
         this.brickPageState.setBrick(brick);
         this.brickIsLiked = false;
@@ -116,7 +116,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.like(HaLikeType.BRICK_LIKE, this.brick().id).subscribe((brick: HaBrick) => {
+    this.likeService.like(HaLikeType.BRICK_LIKE, this.brick().id, HaBrick).subscribe((brick: HaBrick) => {
       if (brick != null) {
         this.brickPageState.setBrick(brick);
         this.brickIsLiked = true;

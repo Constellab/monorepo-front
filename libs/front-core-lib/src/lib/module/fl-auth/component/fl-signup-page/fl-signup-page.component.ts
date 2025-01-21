@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FlSignUpUser } from '../../model/fl-sign-up-user.class';
 import { FlThemeService } from '../../../fl-theme/fl-theme.service';
 import { FlUserAccountService } from '../../service/fl-user-account.service';
@@ -7,6 +7,7 @@ import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
 import { FlSignupFormComponent } from '../fl-signup-form/fl-signup-form.component';
 import { FlCaptchaService } from '../../../fl-captcha/fl-captcha.service';
 import { Observable, switchMap } from 'rxjs';
+import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
   selector: 'fl-signup-page',
@@ -14,6 +15,13 @@ import { Observable, switchMap } from 'rxjs';
   styleUrls: ['./fl-signup-page.component.scss'],
 })
 export class FlSignupPageComponent implements OnInit {
+  private themeService: FlThemeService = inject(FlThemeService);
+  private userAccountService: FlUserAccountService = inject(FlUserAccountService);
+  private snackBarService: FlSnackBarService = inject(FlSnackBarService);
+  private router: Router = inject(Router);
+  private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private captchaService: FlCaptchaService = inject(FlCaptchaService);
+
   /**
    * Redirection route after the signup is successful, do nothing if not provided
    */
@@ -29,16 +37,14 @@ export class FlSignupPageComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(
-    private themeService: FlThemeService,
-    private userAccountService: FlUserAccountService,
-    private snackBarService: FlSnackBarService,
-    private router: Router,
-    private captchaService: FlCaptchaService
-  ) {}
-
   ngOnInit(): void {
     this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo : this.lightThemeLogo;
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params['email'] && ClStringHelper.isEmail(params['email'])) {
+        this.formGp.get('email').setValue(params['email']);
+      }
+    });
   }
 
   submit(): void {

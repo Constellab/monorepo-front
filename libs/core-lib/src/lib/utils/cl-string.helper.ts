@@ -294,4 +294,15 @@ export class ClStringHelper {
 
     return str[0].toUpperCase() + str.substring(1);
   }
+
+  /**
+   * Check if the string is an email
+   * @param str
+   * @returns boolean
+   */
+  public static isEmail(str: string): boolean {
+    if (str == null) return false;
+    const regex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+    return regex.test(str);
+  }
 }

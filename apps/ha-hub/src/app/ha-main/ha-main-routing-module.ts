@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HaMainComponent } from './ha-main/ha-main.component';
 import { Ha404Component } from '../ha-public/module/ha404/ha404.component';
 import { HaLoginPageComponent } from './ha-login-page/ha-login-page.component';
-import { HaHomeComponent } from './ha-home/ha-home.component';
 import { HaIconsPageComponent } from '../ha-icon/component/ha-icons-page/ha-icons-page.component';
+import { HaHomeComponent } from './ha-home/ha-home.component';
 
 const routes: Routes = [
   {

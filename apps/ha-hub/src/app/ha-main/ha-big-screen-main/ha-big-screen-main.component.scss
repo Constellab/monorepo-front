@@ -115,6 +115,14 @@
   gap: 0.2em;
 }
 
+.constellab-icon {
+  filter: grayscale(1);
+}
+
+.constellab-bt:hover .constellab-icon {
+  filter: grayscale(0);
+}
+
 @media (max-width: 1280px) {
 
   .utilities {

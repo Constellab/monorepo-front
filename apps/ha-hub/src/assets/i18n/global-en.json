@@ -254,7 +254,7 @@
   "environment_file": "Environment file",
   "import_agent_version_file": "Import agent version file",
   "agent_version_file": "Agent version file",
-  "agents_description": "Explore and share code and snippets to empower collaboration",
+  "agents_description": "Explore and share code and snippets to empower collaboration. Import agents in your pipelines",
   "agent_version_infos_place_holder": "Describe your agent version",
   "delete_story_main_image": "Delete story main image",
   "delete_story_main_image_content": "Are you sure you want to delete the main image of the story ? The first image of the story content will be used as the main image after deletion",
@@ -383,7 +383,7 @@
   "copy_link_and_import_to_medium": "Copy link and import to Medium",
   "search_bar_placeholder": "Search for a story, an agent, a user...",
   "learn_more_about_foa": "Learn more about Fair Open Access",
-  "credits": "Credits",
+  "wallet": "Wallet",
   "foa": "Fair Open Access",
   "foa_description": "Get open access to start, create open-source projects, earn credits from your work",
   "what_is_foa": "What is Fair Open Access ?",
@@ -408,5 +408,7 @@
   "average_elapse_time_tooltip": "Average duration of the process",
   "times": "times",
   "stats": "Stats",
-  "sign_up": "Sign up"
+  "sign_up": "Sign up",
+  "not_logged_home_title": "The platform to connect, collaborate and innovate",
+  "not_logged_home_subtitle": "Discover community tools, streamline your workflow, and share your creations globally"
 }

@@ -125,7 +125,7 @@
   "webinaires": "Webinaires",
   "forum": "Forum",
   "create_brick": "Créer une brique",
-  "bricks_description": "Explorer et partager des librairies Constellab, accéder à une documentation détaillée. Importer des bricks dans vos data labs",
+  "bricks_description": "Explorer et partager des librairies Constellab, accéder à une documentation détaillée. Importer des briques dans vos data labs",
   "stories_description": "Lire et partager des cas d'usages, tutoriels, articles et idées",
   "copyright": "Copyright © 2023 Gencovery Inc. Tous droits réservés.",
   "related_tags": "Tags associés",
@@ -256,7 +256,7 @@
   "environment_file": "Fichier d'environnement",
   "import_agent_version_file": "Importer le fichier json de la version de l'agent'",
   "agent_version_file": "Fichier json de la version de l'agent",
-  "agents_description": "Explorer et partager du code et des extraits de code pour favoriser la collaboration",
+  "agents_description": "Explorer et partager du code et des extraits de code pour favoriser la collaboration. Importer les agents dans vos pipelines",
   "agent_version_infos_place_holder": "Informations sur la version de l'agent",
   "delete_story_main_image": "Supprimer l'image principale de la story",
   "delete_story_main_image_content": "Êtes-vous sûr de vouloir supprimer l'image principale de la story ? La première image présente dans le contenu de la story sera utilisée comme image principale après la suppression.",
@@ -385,7 +385,7 @@
   "copy_link_and_import_to_medium": "Copier le lien et importer sur Medium",
   "search_bar_placeholder": "Rechercher une story, un agent, un utilisateur...",
   "learn_more_about_foa": "En savoir plus sur le Fair Open Access",
-  "credits": "Crédits",
+  "wallet": "Portefeuille",
   "foa": "Fair Open Access",
   "foa_description": "Obtenez un accès ouvert pour commencer, créez des projets open-source, gagnez des crédits grâce à votre travail",
   "what_is_foa": "Qu'est-ce que le Fair Open Access ?",
@@ -410,5 +410,7 @@
   "average_elapse_time_tooltip": "Temps moyen d'exécution du process",
   "times": "fois",
   "stats": "Statistiques",
-  "sign_up": "S'inscrire"
+  "sign_up": "S'inscrire",
+  "not_logged_home_title": "La plateforme pour se connecter, collaborer et innover",
+  "not_logged_home_subtitle": "Découvrez les outils de la communauté, simplifiez votre workflow et partagez vos créations à l’échelle mondiale"
 }

@@ -1,0 +1,212 @@
+<div class="background g-dashboard-background">
+  <div class="main-panel home-section titles-signup">
+    <h1>
+      {{ 'not_logged_home_title' | translate }}
+    </h1>
+    <h2 class="home-subtitle">
+      {{
+        'not_logged_home_subtitle' | translate
+      }}
+    </h2>
+
+    <ha-email-sign-up [light]="true"></ha-email-sign-up>
+  </div>
+  <mat-tab-group
+    headerPosition="below"
+    class="videos-panel-div"
+    [disablePagination]="true"
+    [selectedIndex]="selectedVideoIndex">
+    @for (video_section of video_sections; track video_section; let idx = $index) {
+      <mat-tab label="{{ video_section | translate }}">
+        @if (selectedVideoIndex === idx) {
+          <div class="video-div">
+            <div class="video-container">
+              <video width="100%" height="100%" autoplay muted (click)="onVideoClick($event)">
+                <source
+                  [src]="'https://storage.sbg.cloud.ovh.net/v1/AUTH_a0286631d7b24afba3f3cdebed2992aa/public/community_home_video_' + video_section + '.mp4'"
+                  type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        }
+      </mat-tab>
+    }
+  </mat-tab-group>
+
+  <div class="video-description">
+    @for (video_section of video_sections; track video_section; let idx = $index) {
+      @if (selectedVideoIndex === idx) {
+        <p>{{ video_section + '_description' | translate }}</p>
+      }
+    }
+  </div>
+
+  <div class="video-select-div">
+    @for (video_section of video_sections; track video_section; let idx = $index) {
+      @if (selectedVideoIndex === idx) {
+        <button mat-flat-button color="warn" class="video-select-bt">
+          {{ video_section | translate }}
+        </button>
+      } @else {
+        <button mat-button (click)="selectVideo(idx)" class="video-select-bt video-select-bt-not-selected">
+          {{ video_section | translate }}
+        </button>
+      }
+    }
+  </div>
+</div>
+
+<div class="main-panel">
+  <div class="home-section">
+    <a [routerLink]="storyListRoute" class="home-section-title">
+      {{ 'stories' | translate }}
+    </a>
+    <div class="home-list-div">
+      <a *ngFor="let story of stories$() | flDatasourceConnect | async" [routerLink]="story | haDetailRoute">
+        <co-story-list-item
+          class="home-card"
+          [story]="story"
+          [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+      </a>
+    </div>
+    <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
+      {{ 'go_to_stories' | translate }}
+      <mat-icon>chevron_right</mat-icon>
+    </a>
+  </div>
+
+  <div class="home-section">
+    <a [routerLink]="agentsListRoute" class="home-section-title">
+      {{ 'agents' | translate }}
+    </a>
+    <div class="home-list-div">
+      <a *ngFor="let agent of agents$() | flDatasourceConnect | async" [routerLink]="agent | haDetailRoute">
+        <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
+      </a>
+    </div>
+    <a mat-stroked-button [routerLink]="agentsListRoute" class="go-to-button">
+      {{ 'go_to_agents' | translate }}
+      <mat-icon>chevron_right</mat-icon>
+    </a>
+  </div>
+
+  <div class="home-section">
+    <a [routerLink]="brickListRoute" class="home-section-title">
+      {{ 'bricks' | translate }}
+    </a>
+    <div class="home-list-div">
+      <a *ngFor="let brick of bricks$() | flDatasourceConnect | async" [routerLink]="brick | haDetailRoute">
+        <co-brick-list-item
+          class="home-card"
+          [brick]="brick"
+          [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+      </a>
+    </div>
+    <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
+      {{ 'go_to_bricks' | translate }}
+      <mat-icon>chevron_right</mat-icon>
+    </a>
+  </div>
+
+  <div class="home-section">
+    <span class="home-section-title">{{ 'the_fair_open_access_community' | translate }}</span>
+    <div class="other-links-div community-other-links">
+      <div class="users-count-div">
+        <img ngSrc="assets/fl-logo/community_logo.svg" width="18" height="18" priority />
+        <span> {{ usersCount$ | async }} {{ ('members' | translate).toUpperCase() }} </span>
+      </div>
+      <ha-github-star-button [repo]="gwsCoreRepoLink" [icon]="'octicon-mark-github'"></ha-github-star-button>
+      <a target="_blank" [href]="gLabLink" class="docker-pull-link" rel="noopener noreferrer">
+        <div class="docker-pull-image">
+          <img ngSrc="https://img.shields.io/docker/pulls/constellab/glab" fill priority />
+        </div>
+      </a>
+      <a
+        mat-flat-button
+        class="discord-button"
+        target="_blank"
+        [href]="discordLink"
+        rel="noopener noreferrer">
+        <mat-icon svgIcon="discord" class="icon-discord"></mat-icon>
+        {{ 'join_our_discord' | translate }}
+      </a>
+    </div>
+    <div class="fair-open-access-div">
+      <div>
+        <div class="fair-open-access-img">
+          <img
+            [ngSrc]="'assets/images/FOA-' + (isDarkTheme() ? 'black' : 'white') + '-bg.png'"
+            fill
+            priority />
+        </div>
+      </div>
+      <a
+        [href]="gencoveryFOALink"
+        [target]="'_blank'"
+        rel="noopener noreferrer"
+        mat-stroked-button
+        class="go-to-button">
+        {{ 'learn_more_about_foa' | translate }}
+        <mat-icon>chevron_right</mat-icon>
+      </a>
+    </div>
+  </div>
+
+  <div class="home-section">
+    <span class="home-section-title">{{ 'documentation' | translate }}</span>
+    <div class="section-div">
+      <a class="home-card-div" [routerLink]="productDocRoute">
+        <h5>{{ 'product_doc' | translate }}</h5>
+        <p>
+          {{ 'product_doc_description' | translate }}
+        </p>
+      </a>
+      <a class="home-card-div" [routerLink]="techDocRoute">
+        <h5>{{ 'tech_doc' | translate }}</h5>
+        <p>
+          {{ 'tech_doc_description' | translate }}
+        </p>
+      </a>
+      <a class="home-card-div" [routerLink]="iconsRoute">
+        <h5>{{ 'icons' | translate }}</h5>
+        <p>
+          {{ 'icons_description' | translate }}
+        </p>
+      </a>
+    </div>
+  </div>
+
+  <div class="home-section">
+    <a class="space-card" [href]="constellabUrl" target="_blank" rel="noopener noreferrer">
+      <img ngSrc="assets/fl-logo/constellab-logo.svg" height="50" width="50" />
+      <div class="space-card-content">
+        <h5>
+          Space
+          <mat-icon>arrow_outward</mat-icon>
+        </h5>
+        <p>{{ 'constellab_description' | translate }}</p>
+      </div>
+    </a>
+    <ha-email-sign-up [border]="true" class="lower-sign-up"></ha-email-sign-up>
+  </div>
+
+  <footer class="footer small-text">
+    <div class="footer-links">
+      <div class="footer-text">Cookies</div>
+      <div class="footer-text">
+        <a href="https://gencovery.com/legal/terms-of-use/">Terms of use</a>
+      </div>
+      <div class="footer-text">
+        <a href="https://gencovery.com/legal/privacy-policy/">Private Policy</a>
+      </div>
+      <div class="footer-text">
+        <a href="https://gencovery.com/">Gencovery</a>
+      </div>
+      <div class="footer-text">
+        <a [href]="constellabUrl">Space</a>
+      </div>
+    </div>
+    <div class="copyright-div">{{ 'copyright' | translate }}</div>
+  </footer>
+</div>

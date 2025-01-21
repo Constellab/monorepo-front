@@ -82,11 +82,10 @@
   </div>
 }
 
-@if (
-  ((story && story.content) || (storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix)) && !notFound
+@if (((story && content) || (storyFiles && storyFiles.length > 0 && urlToDownloadFilePrefix)) && !notFound
 ) {
   <ha-text-editor-right-side-panel
-    [content]="story.content"
+    [content]="content"
     [files]="storyFiles"
     [urlToDownloadFilePrefix]="urlToDownloadFilePrefix"></ha-text-editor-right-side-panel>
 }

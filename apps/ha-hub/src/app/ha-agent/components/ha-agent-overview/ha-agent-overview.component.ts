@@ -182,7 +182,7 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.unlike(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
+    this.likeService.unlike(HaLikeType.AGENT_LIKE, this.agent().id, HaAgent).subscribe((agent: HaAgent) => {
       if (agent != null) {
         this.agentPageState.setIsLiked(false);
         this.agentPageState.setAgent(agent);
@@ -196,7 +196,7 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.like(HaLikeType.AGENT_LIKE, this.agent().id).subscribe((agent: HaAgent) => {
+    this.likeService.like(HaLikeType.AGENT_LIKE, this.agent().id, HaAgent).subscribe((agent: HaAgent) => {
       if (agent != null) {
         this.agentPageState.setIsLiked(true);
         this.agentPageState.setAgent(agent);

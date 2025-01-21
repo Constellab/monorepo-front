@@ -1,0 +1,6 @@
+<div class="sign-up-div" [ngClass]="classesString()">
+  <input class="email-input" [formControl]="emailFormControl" placeholder="{{ 'email' | translate }}" />
+  <a mat-raised-button type="button" class="sign-up-button" color="warn" [href]="signupLink">
+    {{ 'join_constellab' | translate }}
+  </a>
+</div>

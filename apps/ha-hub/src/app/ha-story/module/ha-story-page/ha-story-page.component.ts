@@ -55,6 +55,8 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
 
   story: HaStory;
 
+  content: TeRichText;
+
   textEditorConfig: HaStoryTextEditorConfig;
 
   formControl: FormControl<TeRichText> = new FormControl();
@@ -174,7 +176,7 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
   }
 
   private unlikeStory(): void {
-    this.likeService.unlike(HaLikeType.STORY_LIKE, this.story.id).subscribe((story: HaStory) => {
+    this.likeService.unlike(HaLikeType.STORY_LIKE, this.story.id, HaStory).subscribe((story: HaStory) => {
       if (story != null) {
         this.story = story;
         this.storyIsLiked = false;
@@ -188,7 +190,7 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
       this.router.navigate(['/login']);
       return;
     }
-    this.likeService.like(HaLikeType.STORY_LIKE, this.story.id).subscribe((story: HaStory) => {
+    this.likeService.like(HaLikeType.STORY_LIKE, this.story.id, HaStory).subscribe((story: HaStory) => {
       if (story != null) {
         this.story = story;
         this.storyIsLiked = true;
@@ -201,6 +203,7 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
       return;
     }
     this.story = story;
+    this.content = story.content;
 
     // verif if redirection needed
     if (this.paramTitle != ClStringHelper.getCleanUrlPath(this.story.title)) {

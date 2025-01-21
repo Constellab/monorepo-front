@@ -1,78 +1,41 @@
-import { AfterContentInit, Component, inject, OnInit, PLATFORM_ID, Signal } from '@angular/core';
-import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
-import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
-import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
+import { Observable } from 'rxjs';
+import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import {
   HaStoryDatasourcePaginated,
   HaStoryFilters,
 } from '../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ClStringHelper } from '@monorepo/core-lib';
 import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import {
   HaBrickDatasourceFilters,
   HaBrickDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
+import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
+import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
-import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
-import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
-import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
-import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'ha-ha-home',
+  selector: 'ha-home',
   templateUrl: './ha-home.component.html',
-  styleUrls: ['./ha-home.component.scss'],
+  styleUrl: './ha-home.component.scss',
 })
-export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterContentInit {
+export class HaHomeComponent implements OnInit {
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private storyService: HaStoryService = inject(HaStoryService);
   private agentService: HaAgentService = inject(HaAgentService);
   private brickService: HaBrickService = inject(HaBrickService);
-  private userService: HaUserService = inject(HaUserService);
-  private themeState: HaThemeState = inject(HaThemeState);
-  private platformId: object = inject(PLATFORM_ID);
 
-  constellabUrl: string = HaConstellabHelper.getConstellabUrl();
+  user$: Observable<HaUser> = this.authenticatedUserService.getUser();
 
   stories$: HaStoryDatasourcePaginated<HaStoryFilters>;
   agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
 
-  gencoveryFOALink: string = HaConstellabHelper.getGencoveryFOAUrl();
-
-  storyListRoute: string = HaRouterService.getStoriesListRoute();
-  agentsListRoute: string = HaRouterService.getAgentsListRoute();
-  brickListRoute: string = HaRouterService.getBrickListRoute();
-
-  techDocRoute: string = HaRouterService.getTechDocRoute();
-  productDocRoute: string = HaRouterService.getProductDocRoute();
-  iconsRoute: string = HaRouterService.getIconsRoute();
-
-  discordLink: string = HaEnvironmentHelper.getDiscordLink();
-  gwsCoreRepoLink: string = HaRouterService.getGwsCoreRepoLink();
-  gLabLink: string = HaRouterService.getDockerHubGlabLink();
-  signupLink: string = HaConstellabHelper.getConstellabSignupUrl();
-  usersCount: number = 0;
-
-  contentIsInit: boolean;
-
-  isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
-
   ngOnInit(): void {
-    this.metadataService.setPageTitle('ha.home.title');
-    this.metadataService.addMetaTag('description', 'ha.home.description');
-
-    super.setMetaTags(
-      'ha.home.title',
-      'ha.home.description',
-      null,
-      HaRouterService.getFullRoute(HaRouterService.getHomeRoute())
-    );
-
     this.stories$ = this.storyService.getAllPaginatedFiltered(4);
     this.stories$.getFirstPage({ title: '', categories: [], topics: [] });
 
@@ -81,20 +44,5 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit, AfterCon
 
     this.bricks$ = this.brickService.getAllWithFiltersPaginated(4);
     this.bricks$.getFirstPage({ spacesFilter: [], titleFilter: '' });
-
-    this.userService.getCount().subscribe((count) => (this.usersCount = count));
-  }
-
-  ngAfterContentInit(): void {
-    if (isPlatformBrowser(this.platformId)) this.contentIsInit = true;
-  }
-
-  getStoryImageLink(storyId: string, imageLinkOrId?: string): string {
-    if (!imageLinkOrId) {
-      return '';
-    }
-    return ClStringHelper.isHttpLink(imageLinkOrId)
-      ? imageLinkOrId
-      : this.storyService.getImageUrl(storyId, imageLinkOrId);
   }
 }

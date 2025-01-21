@@ -1,0 +1,510 @@
+@use '@angular/material' as mat;
+
+.background {
+  width: 100%;
+  padding-bottom: 1em;
+}
+
+.titles-signup {
+  margin: 0 auto;
+  padding-top: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h1,
+  h2 {
+    color: white;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1.3em;
+  }
+
+  h2 {
+    font-weight: 450;
+    font-size: 1.3rem;
+    line-height: 1.5em;
+    letter-spacing: 0;
+    margin-bottom: 2em;
+  }
+}
+
+.videos-panel-div {
+  width: fit-content;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1.5rem;
+  margin: 2em auto 0 auto;
+
+  p {
+    text-align: center;
+    margin-top: 0.25em;
+  }
+
+  ::ng-deep .mat-mdc-tab-header {
+    display: none;
+  }
+}
+
+.video-div {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  width: 80rem;
+  height: calc(80rem * 0.5625);
+  max-width: calc(100vw - 4rem);
+  max-height: calc((100vw - 4rem) * 0.5625);
+
+  .video-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.video-description {
+  text-align: center;
+  color: white;
+  margin: 0.5em auto 0 auto;
+  min-height: 5em;
+  width: 60rem;
+  max-width: calc(100vw - 4rem);
+}
+
+.video-select-div {
+  margin: 0 auto 2em auto;
+  padding: 0.5em;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  gap: 1em;
+
+  .video-select-bt {
+    flex: 1;
+    border-radius: 12px;
+    width: 12em;
+  }
+
+  .video-select-bt-not-selected {
+    color: white;
+  }
+}
+
+.home-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 5em;
+  min-height: 80vh;
+  width: 100%;
+}
+
+.home-section-title {
+  font-size: 50px;
+}
+
+.bg-first-section-div {
+  position: relative;
+  height: fit-content;
+}
+
+.discord-button {
+  width: fit-content;
+  margin-top: 4px;
+
+  .icon-discord {
+    margin-top: -5px; // To center it vertically
+  }
+}
+
+.home-section .go-to-button {
+  width: fit-content;
+  margin: 1.5em auto 0 auto;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.getting-started-buttons-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10%;
+}
+
+.users-count-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1em;
+  background-color: var(--mdc-filled-button-container-color);
+  border-radius: 18px;
+  gap: 1em;
+  height: 36px;
+  margin-top: 4px;
+  font-family: var(--mdc-filled-button-label-text-font);
+  font-size: var(--mdc-filled-button-label-text-size);
+  letter-spacing: var(--mdc-filled-button-label-text-tracking);
+  text-transform: var(--mdc-filled-button-label-text-transform);
+  font-weight: var(--mdc-filled-button-label-text-weight);
+
+  img {
+    height: 18px;
+  }
+}
+
+.titles-div {
+  width: 58em;
+  max-width: 100%;
+  margin-inline: auto;
+  margin-bottom: 10em;
+}
+
+.titles-div > h4 {
+  width: 80%;
+}
+
+.section-div {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2em;
+}
+
+.home-card-div {
+  display: flex;
+  flex-direction: column;
+  width: calc(398px - 16px);
+  height: calc(168px - 16px);
+  border-radius: 18px;
+  background-color: var(--card-background);
+  padding: 1em 16px;
+
+  h5 {
+    flex: 1;
+  }
+
+  p {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.home-card-div h4 {
+  text-align: center;
+}
+
+.home-div-image {
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  margin-right: 8px;
+}
+
+.home-card-div-content {
+  display: flex;
+  flex-direction: column;
+  //space-between;
+  justify-content: space-between;
+}
+
+.home-list-div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 18px;
+  justify-content: center;
+  text-align: start;
+  margin-top: 2em;
+}
+
+.home-list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-card {
+  cursor: pointer;
+  background-color: var(--card-background);
+}
+
+.space-card {
+  margin: 4em auto 2em auto;
+  padding: 16px;
+  border-radius: 18px;
+  background-color: var(--card-background);
+  display: flex;
+  flex-direction: row;
+}
+
+.space-card-content {
+  margin-left: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.section-div {
+  gap: 16px;
+}
+
+.docker-pull-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 8em;
+
+  .docker-pull-image {
+    position: relative;
+    width: 100%;
+    height: 60%;
+  }
+}
+
+.users-count-text {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin: 0 auto;
+  align-items: center;
+  gap: 0.5em;
+
+  h2 {
+    color: var(--primary-color);
+  }
+}
+
+.footer {
+  margin-top: auto;
+  flex-shrink: 0;
+  height: 55px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-text {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-left: solid 1px var(--light-color);
+}
+
+.footer-text:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.different-doc-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.other-links-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 2em;
+}
+
+.fair-open-access-div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+
+  p {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .go-to-button {
+    min-width: fit-content;
+  }
+}
+
+.community-other-links {
+  margin-top: 1em;
+}
+
+p {
+  font-size: 1.2em !important;
+}
+
+.fair-open-access-div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+
+  .fair-open-access-img {
+    width: 50%;
+    margin: 0 auto;
+    height: 40.67vw;
+    max-height: 354px !important;
+    position: relative;
+  }
+
+  p {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .go-to-button {
+    min-width: fit-content;
+  }
+
+  .other-links-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 2em;
+  }
+}
+
+.community-section-p {
+  padding: 0 5em;
+
+  .num-members {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+}
+
+.home-subtitle {
+  font-size: 1.75em;
+  padding: 0 2em;
+}
+
+.lower-sign-up {
+  margin: auto;
+}
+
+@media (max-width: 700px) {
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 1.6em;
+  }
+
+  .home-section-title {
+    font-size: 30px;
+  }
+
+  .home-subtitle {
+    padding: 0 2em;
+  }
+
+  .community-section-p {
+    padding: 0 2em;
+  }
+
+  //.home-card-div{
+  //  width: 100%;
+  //  height: auto;
+  //}
+
+  .getting-started-button {
+    font-size: 1em;
+
+    .bt-icon {
+      font-size: 24px;
+    }
+  }
+
+  .fair-open-access-div {
+    flex-direction: column;
+    margin-top: 2em;
+
+    p {
+      text-align: center;
+    }
+
+    .go-to-button {
+      min-width: fit-content;
+    }
+
+    .fair-open-access-img {
+      width: 80vw;
+      height: 64vw;
+    }
+  }
+
+  .titles-signup {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
+  .video-description {
+    font-size: 0.8em;
+  }
+
+  .video-select-div {
+    gap: 0.4em;
+
+    .video-select-bt {
+      font-size: 0.7em;
+      width: 7.75rem;
+    }
+  }
+
+  .videos-panel-div {
+    padding: 0.5em;
+  }
+
+  .video-div {
+    max-width: calc(100vw - 2rem);
+    max-height: calc((100vw - 2rem) * 0.5625);
+  }
+}
+
+@media (max-width: 480px) {
+  .titles-signup {
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .video-description {
+    font-size: 0.7em;
+  }
+
+  .video-select-div {
+    gap: 0.2em;
+    flex-wrap: wrap;
+
+    .video-select-bt {
+      font-size: 0.6em;
+      width: 6.5rem;
+      min-width: 90px;
+    }
+  }
+}
