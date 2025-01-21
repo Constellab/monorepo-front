@@ -27,6 +27,7 @@ import {
   HaRunStatAggregateObjectType,
 } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
+import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -38,6 +39,7 @@ export interface HaProfileDatasourceFilters {
   styleUrl: './ha-profile.component.scss',
 })
 export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
+  private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private userService: HaUserService = inject(HaUserService);
   private spaceService: HaSpaceService = inject(HaSpaceService);
   private agentService: HaAgentService = inject(HaAgentService);
@@ -55,7 +57,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   subscriptionHandler: ClSubscriptionHandler = new ClSubscriptionHandler();
   user$: Observable<CoUser>;
 
-  isCurrentUser: boolean;
+  isCurrentUser$: Observable<boolean>;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
@@ -111,6 +113,16 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
         return this.userService.getUserById(id);
       }),
       share()
+    );
+
+    this.isCurrentUser$ = id$.pipe(
+      mergeMap((id) => {
+        return this.authenticatedUserService.getUser().pipe(
+          map((authUser) => {
+            return authUser && authUser.id === id;
+          })
+        );
+      })
     );
 
     this.subscriptionHandler.add(id$.subscribe((id) => this.updateDatasources(id)));

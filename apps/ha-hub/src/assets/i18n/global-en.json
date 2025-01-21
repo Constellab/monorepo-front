@@ -124,7 +124,7 @@
   "webinaires": "Webinaires",
   "forum": "Forum",
   "create_brick": "Create brick",
-  "bricks_description": "Explore and share Constellab libraries, access detailed documentation",
+  "bricks_description": "Explore and share Constellab libraries, access detailed documentation. Import bricks into your data labs",
   "stories_description": "Read and share use cases, tutorials, articles and ideas",
   "copyright": "Copyright © 2023 Gencovery Inc. All rights reserved.",
   "related_tags": "Related tags",
@@ -383,7 +383,7 @@
   "copy_link_and_import_to_medium": "Copy link and import to Medium",
   "search_bar_placeholder": "Search for a story, an agent, a user...",
   "learn_more_about_foa": "Learn more about Fair Open Access",
-  "wallet": "Wallet",
+  "credits": "Credits",
   "foa": "Fair Open Access",
   "foa_description": "Get open access to start, create open-source projects, earn credits from your work",
   "what_is_foa": "What is Fair Open Access ?",
@@ -407,5 +407,6 @@
   "average_elapse_time_tooltip_user": "Average duration of processes and agents of the user",
   "average_elapse_time_tooltip": "Average duration of the process",
   "times": "times",
-  "stats": "Stats"
+  "stats": "Stats",
+  "sign_up": "Sign up"
 }

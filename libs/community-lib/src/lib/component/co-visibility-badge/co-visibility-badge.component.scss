@@ -16,6 +16,10 @@
 
 .space-badge-div {
   border: solid 3px var(--warn-color);
+
+  span {
+    margin-left: 6px;
+  }
 }
 
 .icon {

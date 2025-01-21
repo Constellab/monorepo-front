@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/overlay';
-import { Injectable, TemplateRef } from '@angular/core';
+import { Injectable, TemplateRef, Type } from '@angular/core';
 import { merge, Observable } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 import { filter, first, map } from 'rxjs/operators';
@@ -200,6 +200,16 @@ export class FlDialogService {
    */
   public hasOpenedDialog(): boolean {
     return this.dialog.openDialogs.length > 0;
+  }
+
+  /**
+   * Is a dialog based on this type of component already opened
+   */
+  public isDialogComponentOpened(dialogComponent: Type<any>): boolean {
+    return (
+      this.dialog.openDialogs.find((dialogRef) => dialogRef.componentRef.componentType == dialogComponent) !=
+      null
+    );
   }
 
   /**
