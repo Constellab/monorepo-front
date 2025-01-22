@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabAgent, LabAgentDatasourcePaginated } from '../../../../model/entities/lab-agent.entity';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { FormControl } from '@angular/forms';
@@ -9,12 +9,14 @@ import { CoAgent } from '@monorepo/community-lib';
  * Dialog containing the community agent search to select one
  */
 @Component({
-    selector: 'lab-select-community-agent',
-    templateUrl: './lab-select-community-agent.component.html',
-    styleUrls: ['./lab-select-community-agent.component.scss'],
-    standalone: false
+  selector: 'lab-select-community-agent',
+  templateUrl: './lab-select-community-agent.component.html',
+  styleUrls: ['./lab-select-community-agent.component.scss'],
+  standalone: false,
 })
 export class LabSelectCommunityAgentComponent implements OnInit {
+  private protocolService = inject(LabProtocolService);
+
   @Input() personalOnly: boolean = false;
 
   //Output event on agent click
@@ -24,8 +26,6 @@ export class LabSelectCommunityAgentComponent implements OnInit {
   titleFormControl: FormControl<string> = new FormControl('');
   spaceIdFilter: string[] = [];
   spaces: LabCommunitySpace[];
-
-  constructor(private protocolService: LabProtocolService) {}
 
   ngOnInit(): void {
     this.search();

@@ -1,4 +1,4 @@
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, Injectable, Signal, signal, WritableSignal, inject } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib';
 import { ClTheme } from '@monorepo/core-lib';
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
@@ -6,16 +6,14 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class HaThemeState {
+  private themeService = inject(FlThemeService);
+  private authUserService = inject(HaAuthenticatedUserService);
+
   private currentTheme: WritableSignal<ClTheme> = signal<ClTheme>(null);
   public isDarkTheme: Signal<boolean> = computed(() => {
     return this.currentTheme() === ClTheme.DARK_THEME;
   });
   public onThemeChange$: Subject<ClTheme> = new Subject<ClTheme>();
-
-  constructor(
-    private themeService: FlThemeService,
-    private authUserService: HaAuthenticatedUserService
-  ) {}
 
   public getCurrentTheme(): Signal<ClTheme> {
     return this.currentTheme;

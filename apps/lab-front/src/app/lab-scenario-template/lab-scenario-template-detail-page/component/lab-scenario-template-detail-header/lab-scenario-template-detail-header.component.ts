@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import {
@@ -10,20 +10,18 @@ import {
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
 
 @Component({
-    selector: 'lab-scenario-template-detail-header',
-    templateUrl: './lab-scenario-template-detail-header.component.html',
-    styleUrl: './lab-scenario-template-detail-header.component.scss',
-    standalone: false
+  selector: 'lab-scenario-template-detail-header',
+  templateUrl: './lab-scenario-template-detail-header.component.html',
+  styleUrl: './lab-scenario-template-detail-header.component.scss',
+  standalone: false,
 })
 export class LabScenarioTemplateDetailHeaderComponent {
-  @Input() template: LabScenarioTemplate;
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+  private actionsService = inject(FlPortalActionsService);
 
-  constructor(
-    private scenarioTemplateService: LabScenarioTemplateService,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService,
-    private actionsService: FlPortalActionsService
-  ) {}
+  @Input() template: LabScenarioTemplate;
 
   updateName(name: string): void {
     this.scenarioTemplateService

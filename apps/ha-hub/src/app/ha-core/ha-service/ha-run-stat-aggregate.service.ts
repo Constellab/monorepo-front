@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import {
   HaRunStatAggregate,
@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HaRunStatAggregateService {
-  private readonly route: string = 'run-stat-aggregate';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'run-stat-aggregate';
 
   getObjectRunStatAggregate(
     objectId: string,

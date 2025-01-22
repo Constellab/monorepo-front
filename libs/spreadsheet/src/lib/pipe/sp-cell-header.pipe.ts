@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { mergeMap, Observable, of } from 'rxjs';
 import { SpSpreadsheetState } from '../state/sp-spreadsheet.state';
 
@@ -6,11 +6,11 @@ import { SpSpreadsheetState } from '../state/sp-spreadsheet.state';
  * Pipe to display the value of a celle header (row or column)
  */
 @Pipe({
-    name: 'SpCellHeader',
-    standalone: false
+  name: 'SpCellHeader',
+  standalone: false,
 })
 export class SpCellHeaderPipe implements PipeTransform {
-  constructor(private state: SpSpreadsheetState) {}
+  private state = inject(SpSpreadsheetState);
 
   transform(index: number, type: 'row' | 'column'): Observable<string> {
     if (index == null || index < 0) {

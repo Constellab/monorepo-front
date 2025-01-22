@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceViewData } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { Observable } from 'rxjs';
@@ -13,12 +13,16 @@ import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-se
  * It supports both note and note resource views.
  */
 @Component({
-    selector: 'lab-rich-text-view',
-    templateUrl: './lab-rich-text-view.component.html',
-    styleUrls: ['./lab-rich-text-view.component.scss'],
-    standalone: false
+  selector: 'lab-rich-text-view',
+  templateUrl: './lab-rich-text-view.component.html',
+  styleUrls: ['./lab-rich-text-view.component.scss'],
+  standalone: false,
 })
 export class LabRichTextViewComponent extends TeElementBlockDirective {
+  private resourceService = inject(LabResourceService);
+  private noteResourceService = inject(LabNoteResourceService);
+  private richTextService = inject(LabRichTextService);
+
   @Input() resourceId: string;
 
   @Input() viewConfig: RvViewConfig;
@@ -29,11 +33,7 @@ export class LabRichTextViewComponent extends TeElementBlockDirective {
 
   view$: Observable<LabResourceViewData>;
 
-  constructor(
-    private resourceService: LabResourceService,
-    private noteResourceService: LabNoteResourceService,
-    private richTextService: LabRichTextService
-  ) {
+  constructor() {
     super();
   }
 

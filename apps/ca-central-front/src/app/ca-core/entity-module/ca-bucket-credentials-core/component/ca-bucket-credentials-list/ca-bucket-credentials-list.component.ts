@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   CaBucketCredentials,
   CaBucketCredentialsDatasource,
@@ -14,20 +14,18 @@ import {
  * List bucket credentials with CRUD actions
  */
 @Component({
-    selector: 'ca-bucket-credentials-list',
-    templateUrl: './ca-bucket-credentials-list.component.html',
-    styleUrls: ['./ca-bucket-credentials-list.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-credentials-list',
+  templateUrl: './ca-bucket-credentials-list.component.html',
+  styleUrls: ['./ca-bucket-credentials-list.component.scss'],
+  standalone: false,
 })
 export class CaBucketCredentialsListComponent implements OnInit {
+  private objectStorageService = inject(CaObjectStorageService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) mode: 'all' | 'current-space';
 
   bucketCredentials: CaBucketCredentialsDatasource;
-
-  constructor(
-    private objectStorageService: CaObjectStorageService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     if (this.mode === 'all') {

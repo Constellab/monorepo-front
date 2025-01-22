@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Host, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { Directive, ElementRef, Input, PLATFORM_ID, inject } from '@angular/core';
 import { MatIcon, MatIconRegistry } from '@angular/material/icon';
 import { FL_ICON_MODULE, FlIcon, FlIconConfig, FlMatIcon, FlSvgIcon } from '../fl-icon-config.class';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,10 +9,17 @@ import { isPlatformServer } from '@angular/common';
  * mat icon and svg icon
  */
 @Directive({
-    selector: 'mat-icon[flIcon]',
-    standalone: false
+  selector: 'mat-icon[flIcon]',
+  standalone: false,
 })
 export class FlIconDirective {
+  private matIcon = inject(MatIcon, { host: true });
+  private config = inject<FlIconConfig>(FL_ICON_MODULE);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private matIconRegistry = inject(MatIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  private platformId = inject(PLATFORM_ID);
+
   @Input({ required: true }) set flIcon(flIcon: string) {
     this.setIcon(flIcon);
   }
@@ -22,15 +29,6 @@ export class FlIconDirective {
    * Where the key is the url of the icon and the value is the name of the icon
    */
   private static dynamicRegisteredIcons: Record<string, string> = {};
-
-  constructor(
-    @Host() private matIcon: MatIcon,
-    @Inject(FL_ICON_MODULE) private config: FlIconConfig,
-    private elementRef: ElementRef<HTMLElement>,
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    @Inject(PLATFORM_ID) private platformId: any
-  ) {}
 
   private setIcon(icon: string): void {
     if (icon == null || isPlatformServer(this.platformId)) {

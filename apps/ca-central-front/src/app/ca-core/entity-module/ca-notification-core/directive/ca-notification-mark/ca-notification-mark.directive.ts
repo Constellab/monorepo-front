@@ -1,14 +1,17 @@
-import { ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
 import { CaNotificationState, CaNotificationStateFind } from '../../../../state/ca-notification.state';
 import { mergeMap, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Directive({
-    selector: '[caNotificationMark]',
-    standalone: false
+  selector: '[caNotificationMark]',
+  standalone: false,
 })
 export class CaNotificationMarkDirective implements OnInit, OnDestroy {
+  private notifState = inject(CaNotificationState);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   /**
    * Notification object id
    */
@@ -30,11 +33,6 @@ export class CaNotificationMarkDirective implements OnInit, OnDestroy {
 
   @HostBinding('class.g-notification-mark')
   private markShown: boolean = false;
-
-  constructor(
-    private notifState: CaNotificationState,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     if (this.caNotificationMarkDisabled) return;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { CaUser } from '../model/entities/ca-user.class';
 import { Observable } from 'rxjs';
@@ -14,9 +14,9 @@ import { ClPageI } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class CaSpaceInvitService {
-  private readonly route = 'space-invit';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'space-invit';
 
   public getInvitationByCode(code: string): Observable<CaSpaceInvitReadDTO> {
     return this.apiService.get(`${this.route}/code/${code}`, CaSpaceInvitReadDTO);

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlResizePortalFullscreenButtonComponent } from './fl-resize-fullscreen-button/fl-resize-portal-fullscreen-button.component';
 import { FlResizeDirective } from './fl-resize/fl-resize.directive';
@@ -15,7 +15,9 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatButtonModule, MatIconModule, MatTooltipModule, FlTranslateModule],
 })
 export class FlResizeModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlResizeModule', flResizeI18n);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabFolderObject } from '../../../../model/entities/lab-folder.class';
 import {
   FlConfirmDialogInput,
@@ -12,12 +12,15 @@ import { Observable } from 'rxjs';
  * Component containing the button to sync a lab folder object with space
  */
 @Component({
-    selector: 'lab-sync-object-button',
-    templateUrl: './lab-sync-object-button.component.html',
-    styleUrls: ['./lab-sync-object-button.component.scss'],
-    standalone: false
+  selector: 'lab-sync-object-button',
+  templateUrl: './lab-sync-object-button.component.html',
+  styleUrls: ['./lab-sync-object-button.component.scss'],
+  standalone: false,
 })
 export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private translateService = inject(FlTranslateService);
+
   @Input() object: T;
 
   @Input() syncObjectFunc: (id: string) => Observable<T>;
@@ -27,11 +30,6 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
   @Output() objectUpdate: EventEmitter<T> = new EventEmitter();
 
   isLoading: boolean = false;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private translateService: FlTranslateService
-  ) {}
 
   ngOnInit(): void {}
 

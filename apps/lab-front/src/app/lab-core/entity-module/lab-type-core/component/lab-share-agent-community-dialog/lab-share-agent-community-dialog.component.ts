@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { LabAgent, LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
@@ -17,12 +17,19 @@ export interface LabShareAgentCommunityDialogData {
 }
 
 @Component({
-    selector: 'lab-share-agent-community-dialog',
-    templateUrl: './lab-share-agent-community-dialog.component.html',
-    styleUrls: ['./lab-share-agent-community-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-share-agent-community-dialog',
+  templateUrl: './lab-share-agent-community-dialog.component.html',
+  styleUrls: ['./lab-share-agent-community-dialog.component.scss'],
+  standalone: false,
 })
 export class LabShareAgentCommunityDialogComponent implements OnInit {
+  data = inject<LabShareAgentCommunityDialogData>(MAT_DIALOG_DATA);
+  private protocolService = inject(LabProtocolService);
+  private dialogRef = inject<MatDialogRef<LabShareAgentCommunityDialogComponent>>(MatDialogRef);
+  private authUserService = inject(LabAuthenticatedUserService);
+  private dialogService = inject(FlDialogService);
+  private translateService = inject(FlTranslateService);
+
   title: string = 'biox.share_agent_to_community';
   processId: string;
   agentVersionId: string;
@@ -32,14 +39,9 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   onlyUpdate: boolean = false;
   protected readonly labCreateCommunityAgentDialogMode = LabCreateCommunityAgentDialogMode;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: LabShareAgentCommunityDialogData,
-    private protocolService: LabProtocolService,
-    private dialogRef: MatDialogRef<LabShareAgentCommunityDialogComponent>,
-    private authUserService: LabAuthenticatedUserService,
-    private dialogService: FlDialogService,
-    private translateService: FlTranslateService
-  ) {
+  constructor() {
+    const data = this.data;
+
     this.processId = data.processId;
     this.agentVersionId = data.agentVersionId;
 

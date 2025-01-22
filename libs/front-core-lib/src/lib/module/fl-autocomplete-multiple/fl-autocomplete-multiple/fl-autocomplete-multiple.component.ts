@@ -1,14 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Optional,
-  Output,
-  Self,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FlFormFieldDirective } from '../../../abstract-directive/form/fl-form-field.directive';
 import { NgControl } from '@angular/forms';
@@ -18,10 +8,10 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
 
 @Component({
-    selector: 'fl-autocomplete-multiple',
-    templateUrl: './fl-autocomplete-multiple.component.html',
-    styleUrls: ['./fl-autocomplete-multiple.component.scss'],
-    standalone: false
+  selector: 'fl-autocomplete-multiple',
+  templateUrl: './fl-autocomplete-multiple.component.html',
+  styleUrls: ['./fl-autocomplete-multiple.component.scss'],
+  standalone: false,
 })
 export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> implements OnInit {
   @Input() placeholder: string;
@@ -41,7 +31,9 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
   separatorKeysCodes: number[] = [TAB];
   filteredOptions$: Observable<T[]>;
 
-  constructor(@Optional() @Self() ngControl: NgControl) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

@@ -1,16 +1,19 @@
-import { ChangeDetectorRef, Component, HostListener, Input, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Input, NgZone, inject } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 /**
  * Component to be placed under a mat-sidenav or mat-drawer. It will open the drawer on mouse hover.
  */
 @Component({
-    selector: 'fl-drawer-opener',
-    templateUrl: './fl-drawer-opener.component.html',
-    styleUrls: ['./fl-drawer-opener.component.scss'],
-    standalone: false
+  selector: 'fl-drawer-opener',
+  templateUrl: './fl-drawer-opener.component.html',
+  styleUrls: ['./fl-drawer-opener.component.scss'],
+  standalone: false,
 })
 export class FlDrawerOpenerComponent {
+  private ngZone = inject(NgZone);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   @Input() drawer: MatDrawer;
 
   /**
@@ -20,11 +23,6 @@ export class FlDrawerOpenerComponent {
   @Input() hoverDelay: number = 200;
 
   private timeout: any;
-
-  constructor(
-    private ngZone: NgZone,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
 
   @HostListener('mouseenter', ['$event']) onMouseEnter(mouse: MouseEvent): void {
     // don't open the drawer if a button of the mouse is pressed (this can mean that the user drag an object)

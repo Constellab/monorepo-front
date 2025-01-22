@@ -146,9 +146,9 @@ function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
       multi: true,
     },
     provideAppInitializer(() => {
-        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
-        return initializerFn();
-      }),
+      const initializerFn = loadThemeOnInit(inject(FlThemeService));
+      return initializerFn();
+    }),
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     { provide: RV_MODULE_CONFIG, useClass: LabResourceViewModuleConfig },
     {
@@ -161,7 +161,9 @@ function provideLabEnvStore(localStorage: FlLocalStorageService): LabEnvStore {
   ],
 })
 export class LabAppModule {
-  constructor(injector: Injector) {
+  constructor() {
+    const injector = inject(Injector);
+
     // set the root injector in a variable
     flSetRootInjector(injector);
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BnBioNetworkSelectionEvent } from '../../model/bn-bio-network-selection.class';
 import { map } from 'rxjs/operators';
@@ -18,19 +18,17 @@ interface SelectionInfo {
  * Component inside {@link BnBioNetworkComponent} to show information about the current selection
  */
 @Component({
-    selector: 'bn-bio-network-selection-info',
-    templateUrl: './bn-bio-network-selection-info.component.html',
-    styleUrls: ['./bn-bio-network-selection-info.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-selection-info',
+  templateUrl: './bn-bio-network-selection-info.component.html',
+  styleUrls: ['./bn-bio-network-selection-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkSelectionInfoComponent implements OnInit {
-  info$: Observable<SelectionInfo>;
+  private selectionState = inject(BnBioNetworkSelectionState);
+  private state = inject(BnBioNetworkState);
 
-  constructor(
-    private selectionState: BnBioNetworkSelectionState,
-    private state: BnBioNetworkState
-  ) {}
+  info$: Observable<SelectionInfo>;
 
   ngOnInit(): void {
     this.info$ = this.selectionState

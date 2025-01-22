@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { SpSpreadsheet } from '../model/sp-spreadsheet.class';
 import { SpSheet } from '../model/sp-sheet.class';
 import { Observable } from 'rxjs';
@@ -24,6 +24,8 @@ import { ChChartPortalService, ChChartType } from '@monorepo/chart';
  */
 @Injectable()
 export class SpSpreadsheetState implements OnDestroy {
+  private chartPortalService = inject(ChChartPortalService);
+
   private _spreadsheet: SpSpreadsheet;
 
   private lastSheetId: number = 0;
@@ -34,8 +36,6 @@ export class SpSpreadsheetState implements OnDestroy {
   public readOnly: boolean = false;
 
   private chartConfigs: SpSheetChartConfig[];
-
-  constructor(private chartPortalService: ChChartPortalService) {}
 
   public init(spreadsheet: SpSpreadsheet, readOnly: boolean, chartConfigs: SpSheetChartConfig[]): void {
     this._spreadsheet = spreadsheet;

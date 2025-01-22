@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   CaSpaceInvit,
   CaSpaceInvitDatasource,
@@ -15,19 +15,17 @@ import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-in
  * List the invitations of the space
  */
 @Component({
-    selector: 'ca-current-space-invit-list',
-    templateUrl: './ca-current-space-invit-list.component.html',
-    styleUrls: ['./ca-current-space-invit-list.component.scss'],
-    standalone: false
+  selector: 'ca-current-space-invit-list',
+  templateUrl: './ca-current-space-invit-list.component.html',
+  styleUrls: ['./ca-current-space-invit-list.component.scss'],
+  standalone: false,
 })
 export class CaCurrentSpaceInvitListComponent implements OnInit {
-  invitations: CaSpaceInvitDatasource;
+  private spaceInvitService = inject(CaSpaceInvitService);
+  private dialogService = inject(FlDialogService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
 
-  constructor(
-    private spaceInvitService: CaSpaceInvitService,
-    private dialogService: FlDialogService,
-    private currentSpaceService: CaCurrentSpaceService
-  ) {}
+  invitations: CaSpaceInvitDatasource;
 
   ngOnInit(): void {
     this.invitations = this.spaceInvitService.getInvitationsDatasource('current');

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
@@ -8,12 +8,14 @@ import { filter } from 'rxjs/operators';
  * Component to configure a protocol, can contains nested protocol
  */
 @Component({
-    selector: 'lab-configure-protocol',
-    templateUrl: './lab-configure-protocol.component.html',
-    styleUrls: ['./lab-configure-protocol.component.scss'],
-    standalone: false
+  selector: 'lab-configure-protocol',
+  templateUrl: './lab-configure-protocol.component.html',
+  styleUrls: ['./lab-configure-protocol.component.scss'],
+  standalone: false,
 })
 export class LabConfigureProtocolComponent implements OnInit {
+  private scenarioState = inject(LabScenarioDetailPageState);
+
   @Input() protocolId: string;
 
   selectedProcess$: Observable<LabProcess>;
@@ -21,8 +23,6 @@ export class LabConfigureProtocolComponent implements OnInit {
   private selectedProcessId: BehaviorSubject<string> = new BehaviorSubject(null);
 
   childrenProcesses$: Observable<LabProcess[]>;
-
-  constructor(private scenarioState: LabScenarioDetailPageState) {}
 
   ngOnInit(): void {
     this.childrenProcesses$ = this.scenarioState.getProtocol$(this.protocolId).pipe(

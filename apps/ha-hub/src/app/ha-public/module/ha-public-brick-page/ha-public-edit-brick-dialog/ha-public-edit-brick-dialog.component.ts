@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlFormDialogAbstractDirective,
@@ -13,15 +13,18 @@ import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service'
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'ha-ha-public-edit-brick-dialog',
-    templateUrl: './ha-public-edit-brick-dialog.component.html',
-    styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-ha-public-edit-brick-dialog',
+  templateUrl: './ha-public-edit-brick-dialog.component.html',
+  styleUrls: ['./ha-public-edit-brick-dialog.component.scss'],
+  standalone: false,
 })
 export class HaPublicEditBrickDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaEditBrickDTO>>
   implements OnInit
 {
+  private spaceService = inject(HaSpaceService);
+  private brickService = inject(HaBrickService);
+
   isLoading: boolean = false;
   repoError: boolean;
   spaces: HaSpace[];
@@ -30,10 +33,7 @@ export class HaPublicEditBrickDialogComponent
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
 
-  constructor(
-    private spaceService: HaSpaceService,
-    private brickService: HaBrickService
-  ) {
+  constructor() {
     super();
   }
 

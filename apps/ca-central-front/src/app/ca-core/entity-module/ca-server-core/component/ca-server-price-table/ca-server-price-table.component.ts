@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -12,12 +12,15 @@ import {
 } from '../../../../model/entities/server/ca-server-price.class';
 
 @Component({
-    selector: 'ca-server-price-table',
-    templateUrl: './ca-server-price-table.component.html',
-    styleUrl: './ca-server-price-table.component.scss',
-    standalone: false
+  selector: 'ca-server-price-table',
+  templateUrl: './ca-server-price-table.component.html',
+  styleUrl: './ca-server-price-table.component.scss',
+  standalone: false,
 })
 export class CaServerPriceTableComponent {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaServerPriceDatasource;
 
   @Input({ required: true }) serverStandardId: string;
@@ -31,11 +34,6 @@ export class CaServerPriceTableComponent {
   ];
 
   @Output() priceDeleted: EventEmitter<CaServerPrice> = new EventEmitter<CaServerPrice>();
-
-  constructor(
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {}
 
   deletePrice(price: CaServerPrice): void {
     const input: FlConfirmDialogInput = {

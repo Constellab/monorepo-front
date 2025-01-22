@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabQueueJob } from '../model/entities/lab-queue.entity';
@@ -6,9 +6,9 @@ import { LabScenario } from '../model/entities/lab-scenario.entity';
 
 @Injectable({ providedIn: 'root' })
 export class LabQueueService {
-  private readonly route: string = 'queue';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'queue';
 
   public getQueueJobs(): Observable<LabQueueJob[]> {
     return this.apiService.get(`${this.route}/jobs`, LabQueueJob);

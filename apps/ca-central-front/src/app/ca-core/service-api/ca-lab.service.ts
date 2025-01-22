@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import {
   CaLab,
@@ -71,9 +71,9 @@ import { CaLabDesktopGenerateConfig } from '../model/entities/lab/ca-lab-desktop
   providedIn: 'root',
 })
 export class CaLabService {
-  private readonly route: string = 'labs';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'labs';
 
   public createCloudLab(createLab: CaLabCloudCreateDTO): Observable<CaLab> {
     return this.apiService.post(`${this.route}/cloud`, createLab, CaLab);

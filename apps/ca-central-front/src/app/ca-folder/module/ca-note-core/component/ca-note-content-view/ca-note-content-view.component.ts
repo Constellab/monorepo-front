@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RvResourceView } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
@@ -6,19 +6,21 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'ca-note-content-view',
-    templateUrl: './ca-note-content-view.component.html',
-    styleUrls: ['./ca-note-content-view.component.scss'],
-    standalone: false
+  selector: 'ca-note-content-view',
+  templateUrl: './ca-note-content-view.component.html',
+  styleUrls: ['./ca-note-content-view.component.scss'],
+  standalone: false,
 })
 export class CaNoteContentViewComponent extends TeElementBlockDirective {
+  private noteService = inject(CaNoteService);
+
   view$: Observable<RvResourceView>;
 
   resourceId: string;
   viewTitle: string;
   caption: string;
 
-  constructor(private noteService: CaNoteService) {
+  constructor() {
     super();
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { DateTime } from 'luxon';
 import { Observable } from 'rxjs';
@@ -8,9 +8,9 @@ import { LabProgressBarMessages } from '../model/entities/lab-progress-bar.entit
   providedIn: 'root',
 })
 export class LabProgressBarService {
-  private readonly route: string = 'progress-bar';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'progress-bar';
 
   public getDownloadProgressBarUrl(id: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${id}/download`);

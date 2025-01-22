@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, inject } from '@angular/core';
 import { FlResizeDirective } from '../fl-resize/fl-resize.directive';
 import { FlHtmlHelper } from '../../../utils/fl-html.helper';
 import { flCdkOverlayPanelClass } from '../../../utils/fl-material.config';
@@ -9,12 +9,17 @@ import { FlPortalHeaderComponent } from '../../fl-portal/component/fl-portal-hea
  * It must be placed under the element that has the FlResizeDirective
  */
 @Component({
-    selector: 'fl-resize-portal-fullscreen-button',
-    templateUrl: './fl-resize-portal-fullscreen-button.component.html',
-    styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
-    standalone: false
+  selector: 'fl-resize-portal-fullscreen-button',
+  templateUrl: './fl-resize-portal-fullscreen-button.component.html',
+  styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
+  standalone: false,
 })
 export class FlResizePortalFullscreenButtonComponent implements OnInit {
+  private resizeDirective = inject(FlResizeDirective);
+  private renderer = inject(Renderer2);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private portalHeader = inject(FlPortalHeaderComponent);
+
   fullscreen: boolean = false;
 
   // use to store the width and height before setting full screen
@@ -23,13 +28,6 @@ export class FlResizePortalFullscreenButtonComponent implements OnInit {
 
   // store the original transform of the parent before setting full screen
   private previousParentTransform: string;
-
-  constructor(
-    private resizeDirective: FlResizeDirective,
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>,
-    private portalHeader: FlPortalHeaderComponent
-  ) {}
 
   ngOnInit(): void {}
 

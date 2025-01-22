@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class';
@@ -10,21 +10,19 @@ import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-
  * Small list of folder in the dashboard
  */
 @Component({
-    selector: 'ca-dashboard-folders',
-    templateUrl: './ca-dashboard-folders.component.html',
-    styleUrls: ['./ca-dashboard-folders.component.scss'],
-    standalone: false
+  selector: 'ca-dashboard-folders',
+  templateUrl: './ca-dashboard-folders.component.html',
+  styleUrls: ['./ca-dashboard-folders.component.scss'],
+  standalone: false,
 })
 export class CaDashboardFoldersComponent implements OnInit {
+  private folderService = inject(CaFolderService);
+  private folderActionService = inject(CaFolderActionService);
+  private routerService = inject(CaRouterService);
+
   foldersDatasource: CaHierarchyObjectDatasource;
 
   myFoldersRoute: string = CaRouterService.getMyFoldersRoute();
-
-  constructor(
-    private folderService: CaFolderService,
-    private folderActionService: CaFolderActionService,
-    private routerService: CaRouterService
-  ) {}
 
   ngOnInit(): void {
     this.getMyFolders();

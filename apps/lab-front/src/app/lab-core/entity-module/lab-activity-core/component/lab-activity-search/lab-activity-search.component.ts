@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -11,20 +11,18 @@ import { LabActivityService } from '../../../../entity-service/lab-activity.serv
 import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-activity-search.class';
 
 @Component({
-    selector: 'lab-activity-search',
-    templateUrl: './lab-activity-search.component.html',
-    styleUrls: ['./lab-activity-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-activity-search',
+  templateUrl: './lab-activity-search.component.html',
+  styleUrls: ['./lab-activity-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class LabActivitySearchComponent implements OnInit {
-  datasource: LabActivityDatasource<LabActivitySearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private activityService = inject(LabActivityService);
+  private themeService = inject(FlThemeService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private activityService: LabActivityService,
-    private themeService: FlThemeService
-  ) {}
+  datasource: LabActivityDatasource<LabActivitySearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

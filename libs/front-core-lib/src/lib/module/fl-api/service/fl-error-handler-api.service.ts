@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable, InjectionToken } from '@angular/core';
+import { ErrorHandler, Injectable, InjectionToken, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlApiService } from './fl-api.service';
 import { DateTime } from 'luxon';
@@ -13,17 +13,15 @@ export const FL_ERROR_HANDLER_API = new InjectionToken<string>('FL_ERROR_HANDLER
 
 @Injectable()
 export class FlErrorHandlerApiService implements ErrorHandler {
+  private apiService = inject(FlApiService);
+  private router = inject(Router);
+  private errorApiUrl = inject(FL_ERROR_HANDLER_API);
+
   private lastError?: Error;
   private lastErrorTimestamp?: DateTime;
 
   // milliseconds that needs to pass before re-logging another error (to prevent logging to many error)
   private readonly loggingSleepTime = 1000 * 60;
-
-  constructor(
-    private apiService: FlApiService,
-    private router: Router,
-    @Inject(FL_ERROR_HANDLER_API) private errorApiUrl: string
-  ) {}
 
   handleError(error: Error): void {
     console.error(error);

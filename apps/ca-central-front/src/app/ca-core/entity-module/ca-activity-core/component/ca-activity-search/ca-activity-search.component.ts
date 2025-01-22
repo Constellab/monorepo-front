@@ -1,22 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FlSavedSearch, FlSearchConfig, FlSearchState, FlThemeService } from '@monorepo/front-core-lib';
 import { CaActivitySearch, CaActivitySearchFields } from '../../model/ca-activity-search.class';
 import { CaActivityDatasource } from '../../../../model/entities/ca-activity.class';
 
 @Component({
-    selector: 'ca-activity-search',
-    templateUrl: './ca-activity-search.component.html',
-    styleUrls: ['./ca-activity-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-activity-search',
+  templateUrl: './ca-activity-search.component.html',
+  styleUrls: ['./ca-activity-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaActivitySearchComponent implements OnInit {
-  @Input({ required: true }) datasource: CaActivityDatasource<CaActivitySearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private themeService = inject(FlThemeService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private themeService: FlThemeService
-  ) {}
+  @Input({ required: true }) datasource: CaActivityDatasource<CaActivitySearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

@@ -1,4 +1,4 @@
-import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal, inject } from '@angular/core';
 import { CaHierarchyObjectWithChildren } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,17 +12,15 @@ import { CaRouterService } from '../../ca-core/service/ca-router.service';
  */
 @Injectable()
 export class CaChatState {
+  private folderService = inject(CaFolderService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private routerService = inject(CaRouterService);
+
   private folderSignal: WritableSignal<CaHierarchyObjectWithChildren[]>;
   private isLoadingSignal: WritableSignal<boolean>;
 
   public folderId$: Observable<string>;
-
-  constructor(
-    private folderService: CaFolderService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private routerService: CaRouterService
-  ) {}
 
   public init(): void {
     this.folderSignal = signal([]);

@@ -9,6 +9,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { ChChartState } from '../../state/ch-chart.state';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -33,13 +34,18 @@ interface Size {
  * The ChChartState must be provider by the parent
  */
 @Component({
-    selector: 'ch-chart',
-    templateUrl: './ch-chart.component.html',
-    styleUrls: ['./ch-chart.component.scss'],
-    providers: [ChChartState],
-    standalone: false
+  selector: 'ch-chart',
+  templateUrl: './ch-chart.component.html',
+  styleUrls: ['./ch-chart.component.scss'],
+  providers: [ChChartState],
+  standalone: false,
 })
 export class ChChartComponent implements OnInit, OnDestroy {
+  private themeService = inject(FlThemeService);
+  private state = inject(ChChartState);
+  private menuService = inject(FlMenuDynamicService);
+  private ngZone = inject(NgZone);
+
   @Input() chart: ChChartConfig;
 
   /**
@@ -67,13 +73,6 @@ export class ChChartComponent implements OnInit, OnDestroy {
     ClHelpService.stopEventPropagation(event);
     this.openContextMenu(event);
   }
-
-  constructor(
-    private themeService: FlThemeService,
-    private state: ChChartState,
-    private menuService: FlMenuDynamicService,
-    private ngZone: NgZone
-  ) {}
 
   ngOnInit(): void {
     // run the whole chart outside angular zone to improve performance

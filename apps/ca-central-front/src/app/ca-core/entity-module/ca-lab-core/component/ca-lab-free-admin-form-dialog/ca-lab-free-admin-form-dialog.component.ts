@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
@@ -10,16 +10,18 @@ import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.c
  * Admin form to create a free lab
  */
 @Component({
-    selector: 'ca-lab-free-admin-form-dialog',
-    templateUrl: './ca-lab-free-admin-form-dialog.component.html',
-    styleUrl: './ca-lab-free-admin-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-lab-free-admin-form-dialog',
+  templateUrl: './ca-lab-free-admin-form-dialog.component.html',
+  styleUrl: './ca-lab-free-admin-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaLabFreeAdminFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabFreeCreateDto, CaLabWithSpace>
   implements OnInit
 {
-  constructor(private labService: CaLabService) {
+  private labService = inject(CaLabService);
+
+  constructor() {
     super();
   }
 

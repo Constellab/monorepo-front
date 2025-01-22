@@ -1,12 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { HaBrickService } from '../../../ha-service/ha-brick.service';
 
 @Pipe({
-    name: 'haBrickImage',
-    standalone: false
+  name: 'haBrickImage',
+  standalone: false,
 })
 export class HaBrickImagePipe implements PipeTransform {
-  constructor(private brickService: HaBrickService) {}
+  private brickService = inject(HaBrickService);
 
   transform(imageLink: any): string {
     if (imageLink) {

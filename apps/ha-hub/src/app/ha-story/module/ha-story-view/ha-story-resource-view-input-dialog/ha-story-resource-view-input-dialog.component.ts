@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HaStoryService } from '../../../../ha-core/ha-service/ha-story.service';
 
@@ -19,20 +19,21 @@ export interface HaStoryResourceViewInputDialogOutputData {
 }
 
 @Component({
-    selector: 'ha-story-resource-view-input-dialog',
-    templateUrl: './ha-story-resource-view-input-dialog.component.html',
-    styleUrls: ['./ha-story-resource-view-input-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-story-resource-view-input-dialog',
+  templateUrl: './ha-story-resource-view-input-dialog.component.html',
+  styleUrls: ['./ha-story-resource-view-input-dialog.component.scss'],
+  standalone: false,
 })
 export class HaStoryResourceViewInputDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<HaStoryResourceViewInputDialogComponent>>(MatDialogRef);
+  private storyService = inject(HaStoryService);
+
   storyId: string;
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: HaStoryResourceViewInputDialogInputData,
-    private dialogRef: MatDialogRef<HaStoryResourceViewInputDialogComponent>,
-    private storyService: HaStoryService
-  ) {
+  constructor() {
+    const data = inject<HaStoryResourceViewInputDialogInputData>(MAT_DIALOG_DATA);
+
     this.storyId = data.storyId;
   }
 

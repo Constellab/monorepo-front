@@ -28,13 +28,17 @@ export interface TeMentionPortalInput {
 }
 
 @Component({
-    selector: 'te-mention-portal',
-    templateUrl: './te-mention-portal.component.html',
-    styleUrl: './te-mention-portal.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'te-mention-portal',
+  templateUrl: './te-mention-portal.component.html',
+  styleUrl: './te-mention-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TeMentionPortalComponent implements OnInit, OnDestroy {
+  private overlayRef = inject(FlOverlayRef);
+  private renderer = inject(Renderer2);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   public static PORTAL_MAX_WIDTH = 400;
   public static PORTAL_MAX_HEIGHT = 300;
 
@@ -44,12 +48,6 @@ export class TeMentionPortalComponent implements OnInit, OnDestroy {
 
   hoveredIndex: number = 0;
   private listener: () => void;
-
-  constructor(
-    private overlayRef: FlOverlayRef,
-    private renderer: Renderer2,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.users$ = new FlEntityPaginatedDatasource(

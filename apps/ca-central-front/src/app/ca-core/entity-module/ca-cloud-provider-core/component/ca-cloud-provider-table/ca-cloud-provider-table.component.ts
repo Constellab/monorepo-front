@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -16,12 +16,15 @@ import {
 } from '../ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
 
 @Component({
-    selector: 'ca-cloud-provider-table',
-    templateUrl: './ca-cloud-provider-table.component.html',
-    styleUrls: ['./ca-cloud-provider-table.component.scss'],
-    standalone: false
+  selector: 'ca-cloud-provider-table',
+  templateUrl: './ca-cloud-provider-table.component.html',
+  styleUrls: ['./ca-cloud-provider-table.component.scss'],
+  standalone: false,
 })
 export class CaCloudProviderTableComponent {
+  private cloudProviderService = inject(CaCloudProviderService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaCloudProviderDatasource;
 
   @Input() columns: FlTableColumnStatic<CaCloudProvider>[] = [
@@ -31,11 +34,6 @@ export class CaCloudProviderTableComponent {
     'lastModified',
     'actions',
   ];
-
-  constructor(
-    private cloudProviderService: CaCloudProviderService,
-    private dialogService: FlDialogService
-  ) {}
 
   updateCloudProvider(cloudProvider: CaCloudProvider): void {
     const input: CaCloudProviderFormDialogInput = {

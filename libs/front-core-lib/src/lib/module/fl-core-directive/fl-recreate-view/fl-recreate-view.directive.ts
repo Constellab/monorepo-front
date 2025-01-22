@@ -1,21 +1,29 @@
-import { Directive, effect, EmbeddedViewRef, input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  effect,
+  EmbeddedViewRef,
+  input,
+  TemplateRef,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 
 /**
  * Directive to recreate a view when the input change. It allows to recreate component when the input changes.
  */
 @Directive({
-    selector: '[flRecreateView]',
-    standalone: false
+  selector: '[flRecreateView]',
+  standalone: false,
 })
 export class FlRecreateViewDirective {
+  private templateRef = inject<TemplateRef<any>>(TemplateRef);
+  private viewContainer = inject(ViewContainerRef);
+
   flRecreateView = input.required<any>();
 
   viewRef: EmbeddedViewRef<any>;
 
-  constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef
-  ) {
+  constructor() {
     effect(() => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const _ = this.flRecreateView();

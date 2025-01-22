@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,21 +6,19 @@ import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/
 import { first } from 'rxjs/operators';
 
 @Component({
-    selector: 'lab-scenario-template-detail-page',
-    templateUrl: './lab-scenario-template-detail-page.component.html',
-    styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
-    standalone: false
+  selector: 'lab-scenario-template-detail-page',
+  templateUrl: './lab-scenario-template-detail-page.component.html',
+  styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
+  standalone: false,
 })
 export class LabScenarioTemplateDetailPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+
   template$: Observable<LabScenarioTemplate>;
 
   selectedTabIndex: number = 0;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private scenarioTemplateService: LabScenarioTemplateService
-  ) {}
 
   ngOnInit(): void {
     this.template$ = this.route.params.pipe(

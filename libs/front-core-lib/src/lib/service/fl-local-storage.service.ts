@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlPlatformService } from './fl-plateform.service';
 import { Observable, of } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class FlLocalStorageService {
-  constructor(private platformService: FlPlatformService) {}
+  private platformService = inject(FlPlatformService);
 
   /**
    * Get an item from the local storage as a string

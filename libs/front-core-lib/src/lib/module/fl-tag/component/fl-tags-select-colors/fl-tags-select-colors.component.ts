@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
   TrackByFunction,
+  inject,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -30,13 +31,15 @@ interface FlTagColor {
  * Component to list the tags with possible value and allow user to highlight some tags and select a color
  */
 @Component({
-    selector: 'fl-tags-select-colors',
-    templateUrl: './fl-tags-select-colors.component.html',
-    styleUrls: ['./fl-tags-select-colors.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-tags-select-colors',
+  templateUrl: './fl-tags-select-colors.component.html',
+  styleUrls: ['./fl-tags-select-colors.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
+  private cdr = inject(ChangeDetectorRef);
+
   @Input() tagColorer: FlTagColorer;
 
   @Input() groupLayout: 'column' | 'row wrap' = 'row wrap';
@@ -49,8 +52,6 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   // use track by function because the initTagGroups is called after each change(double binding with FlTagColorer)
   trackByGroupKey: TrackByFunction<FlTagGroupColor> = (_: number, item: FlTagGroupColor) => item.key;
   trackByTag: TrackByFunction<FlTagColor> = (_: number, item: FlTagColor) => item.value;
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.subscription = this.tagColorer.getTags$().subscribe((tags) => this.initTagGroups(tags));

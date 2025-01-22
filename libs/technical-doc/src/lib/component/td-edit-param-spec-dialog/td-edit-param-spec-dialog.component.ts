@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import {
   TdConfig,
   TdParamSpec,
@@ -29,12 +29,16 @@ export interface TdEditParamSpecDialogInput {
 }
 
 @Component({
-    selector: 'td-edit-param-spec-dialog',
-    templateUrl: './td-edit-param-spec-dialog.component.html',
-    styleUrl: './td-edit-param-spec-dialog.component.scss',
-    standalone: false
+  selector: 'td-edit-param-spec-dialog',
+  templateUrl: './td-edit-param-spec-dialog.component.html',
+  styleUrl: './td-edit-param-spec-dialog.component.scss',
+  standalone: false,
 })
 export class TdEditParamSpecDialogComponent implements OnInit {
+  private translateService = inject(FlTranslateService);
+  private dialogRef = inject<MatDialogRef<TdEditParamSpecDialogComponent>>(MatDialogRef);
+  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+
   formGroupConfig: FlDynamicFormGroupConfig;
 
   formGroup: UntypedFormGroup;
@@ -53,12 +57,9 @@ export class TdEditParamSpecDialogComponent implements OnInit {
 
   private configSpecName: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: TdEditParamSpecDialogInput,
-    private translateService: FlTranslateService,
-    private dialogRef: MatDialogRef<TdEditParamSpecDialogComponent>,
-    private dynamicParamSpecState: TdAbstractDynamicParamSpecState
-  ) {
+  constructor() {
+    const data = inject<TdEditParamSpecDialogInput>(MAT_DIALOG_DATA);
+
     this.paramSpecFormInfoList$ = data.paramSpecFormInfoList$;
     this.configSpecName = data.configSpecName;
 

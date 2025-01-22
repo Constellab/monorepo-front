@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef, inject } from '@angular/core';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import {
   FlConfirmDialogInput,
@@ -19,12 +19,15 @@ import {
  * It supports a template content in column
  */
 @Component({
-    selector: 'ca-user-table',
-    templateUrl: './ca-user-table.component.html',
-    styleUrls: ['./ca-user-table.component.scss'],
-    standalone: false
+  selector: 'ca-user-table',
+  templateUrl: './ca-user-table.component.html',
+  styleUrls: ['./ca-user-table.component.scss'],
+  standalone: false,
 })
 export class CaUserTableComponent {
+  private userAccountsService = inject(CaUserAccountsService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaUserDatasourcePaginated<any>;
 
   @Input() columns: FlTableColumnStatic<CaUser>[] = [
@@ -37,11 +40,6 @@ export class CaUserTableComponent {
   ];
 
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
-
-  constructor(
-    private userAccountsService: CaUserAccountsService,
-    private dialogService: FlDialogService
-  ) {}
 
   isLocked(user: CaUser): boolean {
     return user.status === ClUserStatus.LOCKED_BY_ADMIN;

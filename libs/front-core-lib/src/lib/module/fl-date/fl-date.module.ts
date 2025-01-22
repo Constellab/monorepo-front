@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlDatePipe } from './pipe/fl-date/fl-date.pipe';
 import { FlFromNowPipe } from './pipe/fl-from-now/fl-from-now.pipe';
@@ -34,7 +34,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [CommonModule, FlTranslateModule, MatTooltipModule],
 })
 export class FlDateModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlDateModule', flDateI18n);
   }
 }

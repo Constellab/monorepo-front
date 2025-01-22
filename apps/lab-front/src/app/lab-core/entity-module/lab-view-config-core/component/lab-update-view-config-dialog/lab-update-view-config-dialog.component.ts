@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { FormControl, Validators } from '@angular/forms';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
@@ -9,22 +9,20 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
  * Dialog to update the config view (only title for now)
  */
 @Component({
-    selector: 'lab-update-view-config-dialog',
-    templateUrl: './lab-update-view-config-dialog.component.html',
-    styleUrls: ['./lab-update-view-config-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-update-view-config-dialog',
+  templateUrl: './lab-update-view-config-dialog.component.html',
+  styleUrls: ['./lab-update-view-config-dialog.component.scss'],
+  standalone: false,
 })
 export class LabUpdateViewConfigDialogComponent implements OnInit {
+  private viewConfig = inject<LabViewConfig>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<LabUpdateViewConfigDialogComponent>>(MatDialogRef);
+  private viewConfigService = inject(LabViewConfigService);
+  private snackBarService = inject(FlSnackBarService);
+
   formCtrl: FormControl<string>;
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private viewConfig: LabViewConfig,
-    private dialogRef: MatDialogRef<LabUpdateViewConfigDialogComponent>,
-    private viewConfigService: LabViewConfigService,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.formCtrl = new FormControl<string>(this.viewConfig.title, [Validators.required]);

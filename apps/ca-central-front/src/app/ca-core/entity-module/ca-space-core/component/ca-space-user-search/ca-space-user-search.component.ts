@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -27,23 +27,21 @@ import {
 } from '../../../../../ca-structure/ca-space-page/component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 
 @Component({
-    selector: 'ca-space-user-search',
-    templateUrl: './ca-space-user-search.component.html',
-    styleUrls: ['./ca-space-user-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-space-user-search',
+  templateUrl: './ca-space-user-search.component.html',
+  styleUrls: ['./ca-space-user-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaSpaceUserSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
+
   datasource: CaSpaceUserDatasource<CaSpaceUserSearchFields>;
 
   columns: FlTableColumnStatic<CaSpaceUser>[] = ['user', 'role', 'active', 'addedInfo'];
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private currentSpaceService: CaCurrentSpaceService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     // only show the remove button if the user is an admin

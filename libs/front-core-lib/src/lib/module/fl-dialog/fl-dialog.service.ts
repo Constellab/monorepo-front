@@ -1,5 +1,5 @@
 import { ComponentType } from '@angular/cdk/overlay';
-import { Injectable, TemplateRef, Type } from '@angular/core';
+import { Injectable, TemplateRef, Type, inject } from '@angular/core';
 import { merge, Observable } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 import { filter, first, map } from 'rxjs/operators';
@@ -17,11 +17,9 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
  */
 @Injectable()
 export class FlDialogService {
-  constructor(
-    private dialog: MatDialog,
-    private platformService: FlPlatformService,
-    private router: Router
-  ) {}
+  private dialog = inject(MatDialog);
+  private platformService = inject(FlPlatformService);
+  private router = inject(Router);
 
   /**
    * Open a big dialog

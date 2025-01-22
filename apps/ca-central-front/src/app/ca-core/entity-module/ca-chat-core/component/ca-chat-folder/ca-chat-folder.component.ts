@@ -1,4 +1,4 @@
-import { Component, computed, input, OnDestroy, Signal } from '@angular/core';
+import { Component, computed, input, OnDestroy, Signal, inject } from '@angular/core';
 import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { TeRichText } from '@monorepo/text-editor';
@@ -8,19 +8,19 @@ import { TeRichText } from '@monorepo/text-editor';
  * The user can add a new message to the chat
  */
 @Component({
-    selector: 'ca-chat-folder',
-    templateUrl: './ca-chat-folder.component.html',
-    styleUrl: './ca-chat-folder.component.scss',
-    standalone: false
+  selector: 'ca-chat-folder',
+  templateUrl: './ca-chat-folder.component.html',
+  styleUrl: './ca-chat-folder.component.scss',
+  standalone: false,
 })
 export class CaChatFolderComponent implements OnDestroy {
+  private folderService = inject(CaFolderService);
+
   folderId = input.required<string>();
 
   messages: Signal<CaChatMessageDatasourcePaginated> = computed(() =>
     this.folderService.getFolderMessagesDatasource(this.folderId())
   );
-
-  constructor(private folderService: CaFolderService) {}
 
   createNewMessage(content: TeRichText): void {
     this.folderService

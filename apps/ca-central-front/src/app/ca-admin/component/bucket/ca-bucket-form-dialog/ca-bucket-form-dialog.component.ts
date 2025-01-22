@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   CaBucketContentType,
@@ -13,21 +13,23 @@ import { CaSelectCloudProviderRegionOptionsMode } from '../../../../ca-core/enti
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
 @Component({
-    selector: 'ca-bucket-form-dialog',
-    templateUrl: './ca-bucket-form-dialog.component.html',
-    styleUrls: ['./ca-bucket-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-form-dialog',
+  templateUrl: './ca-bucket-form-dialog.component.html',
+  styleUrls: ['./ca-bucket-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaBucketFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketFull>, CaBucketFull>
   implements OnInit
 {
+  private objectStorageService = inject(CaObjectStorageService);
+
   contentTypes = CaBucketContentType;
   bucketTypes = CaBucketType;
 
   regionOption: CaSelectCloudProviderRegionOptionsMode = 'S3';
 
-  constructor(private objectStorageService: CaObjectStorageService) {
+  constructor() {
     super();
   }
 

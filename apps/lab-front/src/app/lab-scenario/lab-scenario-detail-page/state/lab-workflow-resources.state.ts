@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { PrResource, PrWorkflowResourcesState } from '@monorepo/protocol';
 import { LabResourceService } from '../../../lab-core/entity-service/lab-resource.service';
 import { Observable, of } from 'rxjs';
@@ -11,9 +11,11 @@ import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-
  */
 @Injectable()
 export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
+  private resourceService = inject(LabResourceService);
+
   private resources: Record<string, ClCachedObservable<LabResource>> = {};
 
-  constructor(private resourceService: LabResourceService) {
+  constructor() {
     super();
   }
 

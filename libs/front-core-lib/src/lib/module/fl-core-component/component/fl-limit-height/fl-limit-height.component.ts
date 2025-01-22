@@ -1,16 +1,27 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  inject,
+} from '@angular/core';
 
 /**
  * Component to limit the size of the ng-content. If the height is higher than
  * maxHeight, it hides the rest and display a button 'See more'
  */
 @Component({
-    selector: 'fl-limit-height',
-    templateUrl: './fl-limit-height.component.html',
-    styleUrls: ['./fl-limit-height.component.scss'],
-    standalone: false
+  selector: 'fl-limit-height',
+  templateUrl: './fl-limit-height.component.html',
+  styleUrls: ['./fl-limit-height.component.scss'],
+  standalone: false,
 })
 export class FlLimitHeightComponent implements OnInit, AfterViewInit {
+  private renderer = inject(Renderer2);
+
   // max size to display before 'See more' button
   @Input() maxHeight: number = 350;
 
@@ -28,8 +39,6 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
 
   // true after the view init
   private componentIsReady: boolean = false;
-
-  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {}
 

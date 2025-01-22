@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
@@ -13,22 +13,20 @@ import {
  * and update it if needed
  */
 @Component({
-    selector: 'ca-lab-free-card-info',
-    templateUrl: './ca-lab-free-card-info.component.html',
-    styleUrls: ['./ca-lab-free-card-info.component.scss'],
-    standalone: false
+  selector: 'ca-lab-free-card-info',
+  templateUrl: './ca-lab-free-card-info.component.html',
+  styleUrls: ['./ca-lab-free-card-info.component.scss'],
+  standalone: false,
 })
 export class CaLabFreeCardInfoComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+
   @Input() userId: string;
 
   @Input() labId: string;
 
   freeLabDTO$: Observable<CaLabFreeGetDto>;
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     if (this.userId) {

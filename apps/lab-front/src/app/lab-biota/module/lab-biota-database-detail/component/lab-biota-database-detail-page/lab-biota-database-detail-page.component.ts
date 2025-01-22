@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
 import { LabBiotaDatabase, labBiotaDatabaseGroups } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
@@ -8,22 +8,20 @@ import { ActivatedRoute } from '@angular/router';
  * component to show the detail of a biota database
  */
 @Component({
-    selector: 'lab-biota-database-detail-page',
-    templateUrl: './lab-biota-database-detail-page.component.html',
-    styleUrls: ['./lab-biota-database-detail-page.component.scss'],
-    standalone: false
+  selector: 'lab-biota-database-detail-page',
+  templateUrl: './lab-biota-database-detail-page.component.html',
+  styleUrls: ['./lab-biota-database-detail-page.component.scss'],
+  standalone: false,
 })
 export class LabBiotaDatabaseDetailPageComponent implements OnInit {
+  private biotaDatabaseService = inject(LabBiotaDatabaseService);
+  private route = inject(ActivatedRoute);
+
   database: LabBiotaDatabase;
 
   datasource: LabBiotaDataDatasource;
 
   columns: string[] = ['id', 'name'];
-
-  constructor(
-    private biotaDatabaseService: LabBiotaDatabaseService,
-    private route: ActivatedRoute
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.typingName));

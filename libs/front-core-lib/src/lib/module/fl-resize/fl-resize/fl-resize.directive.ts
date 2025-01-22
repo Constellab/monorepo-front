@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlCoord } from '../../../model/shared/fl-coord.class';
@@ -30,10 +31,14 @@ export interface FlResizeEvent {
  * It only supports width resize
  */
 @Directive({
-    selector: '[flResize]',
-    standalone: false
+  selector: '[flResize]',
+  standalone: false,
 })
 export class FlResizeDirective implements OnInit, OnDestroy {
+  private renderer = inject(Renderer2);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private ngZone = inject(NgZone);
+
   /**
    * Mode of the resize, if the width or height can be resized, or both
    */
@@ -65,12 +70,6 @@ export class FlResizeDirective implements OnInit, OnDestroy {
   private resizerDivs: HTMLElement[] = [];
 
   private subscription: Subscription;
-
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>,
-    private ngZone: NgZone
-  ) {}
 
   ngOnInit(): void {
     // set the parent to relative

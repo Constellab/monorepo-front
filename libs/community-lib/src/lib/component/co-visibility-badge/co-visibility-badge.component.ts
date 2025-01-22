@@ -1,18 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CoSpace } from '../../model/co-space.class';
 import { CoConfig } from '../../service/co-service-config.config';
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'co-visibility-badge',
-    templateUrl: './co-visibility-badge.component.html',
-    styleUrls: ['./co-visibility-badge.component.scss'],
-    standalone: false
+  selector: 'co-visibility-badge',
+  templateUrl: './co-visibility-badge.component.html',
+  styleUrls: ['./co-visibility-badge.component.scss'],
+  standalone: false,
 })
 export class CoVisibilityBadgeComponent {
-  @Input() space: CoSpace = null;
+  private coServiceConfig = inject(CoConfig);
 
-  constructor(private coServiceConfig: CoConfig) {}
+  @Input() space: CoSpace = null;
 
   get spacePhoto(): string {
     if (this.space && this.space.photo && !ClStringHelper.isHttpLink(this.space.photo)) {

@@ -6,10 +6,9 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   Renderer2,
-  Self,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -29,15 +28,19 @@ import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
  * Supports multiple
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'input[flInputFile][type=file]',
-    providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }],
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'input[flInputFile][type=file]',
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }],
+  standalone: false,
 })
 export class FlInputFileDirective
   extends FlFormFieldMultipleDirective<File>
   implements OnInit, ControlValueAccessor, OnDestroy
 {
+  private elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+  private snackBarService = inject(FlSnackBarService);
+
   private subscription: Subscription;
 
   /**
@@ -73,12 +76,9 @@ export class FlInputFileDirective
     }
   }
 
-  constructor(
-    private elementRef: ElementRef<HTMLInputElement>,
-    private renderer: Renderer2,
-    private snackBarService: FlSnackBarService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

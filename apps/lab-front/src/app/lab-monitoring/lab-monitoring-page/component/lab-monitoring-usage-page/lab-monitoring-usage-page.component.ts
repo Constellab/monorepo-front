@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabMonitorService } from '../../../../lab-core/entity-service/lab-monitor.service';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
@@ -21,12 +21,14 @@ export enum LabMonitoringRunPeriod {
  * Sub monitoring page to display the CPU, RAM, Disk and Swap usage.
  */
 @Component({
-    selector: 'lab-monitoring-usage-page',
-    templateUrl: './lab-monitoring-usage-page.component.html',
-    styleUrls: ['./lab-monitoring-usage-page.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-usage-page',
+  templateUrl: './lab-monitoring-usage-page.component.html',
+  styleUrls: ['./lab-monitoring-usage-page.component.scss'],
+  standalone: false,
 })
 export class LabMonitoringUsagePageComponent implements OnInit {
+  private monitorService = inject(LabMonitorService);
+
   monitor$: Observable<LabMonitorGraphicsBetweenDates>;
   periods: any = LabMonitoringRunPeriod;
   fromDate: DateTime;
@@ -42,8 +44,6 @@ export class LabMonitoringUsagePageComponent implements OnInit {
   currentDate = ClDateHelper.getDate();
 
   lastMonitor: LabMonitor;
-
-  constructor(private monitorService: LabMonitorService) {}
 
   ngOnInit(): void {
     this.fromDate = ClDateHelper.getDate().startOf('day');

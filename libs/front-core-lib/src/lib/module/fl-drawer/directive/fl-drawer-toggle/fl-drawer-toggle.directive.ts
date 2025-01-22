@@ -1,15 +1,15 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { MatDrawerContainer } from '@angular/material/sidenav';
 
 /**
  * Simple directive to toggle the current drawer or sidenav
  */
 @Directive({
-    selector: '[flDrawerToggle]',
-    standalone: false
+  selector: '[flDrawerToggle]',
+  standalone: false,
 })
 export class FlDrawerToggleDirective {
-  constructor(private matDrawer: MatDrawerContainer) {}
+  private matDrawer = inject(MatDrawerContainer);
 
   @HostListener('click')
   click(): void {

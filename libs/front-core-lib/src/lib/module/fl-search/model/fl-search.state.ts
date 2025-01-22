@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlDatasourceSortCriteria,
@@ -18,6 +18,9 @@ import { merge, Subject } from 'rxjs';
  */
 @Injectable()
 export class FlSearchState<T> implements OnDestroy {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   private config: FlSearchConfig;
   // datasource containing the data
   public datasource: FlDatasourcePaginated<T, any>;
@@ -41,11 +44,6 @@ export class FlSearchState<T> implements OnDestroy {
   private skipSearch = new Subject<{ _skipSearch: true }>();
 
   private isDestroyed = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
 
   public setDrawer(drawer: MatDrawer): void {
     this.drawer = drawer;

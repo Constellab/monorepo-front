@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Optional, Renderer2, Self } from '@angular/core';
+import { Directive, ElementRef, OnInit, Renderer2, inject } from '@angular/core';
 import { FlExpansionMenuComponent } from '../fl-expansion-menu/fl-expansion-menu.component';
 import { MatTooltip } from '@angular/material/tooltip';
 
@@ -7,18 +7,16 @@ import { MatTooltip } from '@angular/material/tooltip';
  * inside an expansion menu to fit menu size
  */
 @Directive({
-    selector: '[flExpansionMenuButton]',
-    standalone: false
+  selector: '[flExpansionMenuButton]',
+  standalone: false,
 })
 export class FlExpansionMenuButtonDirective implements OnInit {
-  private readonly buttonClass = 'expansion-menu-button';
+  private flExpansionMenuComponent = inject(FlExpansionMenuComponent);
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  private tooltip = inject(MatTooltip, { self: true, optional: true });
 
-  constructor(
-    private flExpansionMenuComponent: FlExpansionMenuComponent,
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    @Self() @Optional() private tooltip: MatTooltip
-  ) {}
+  private readonly buttonClass = 'expansion-menu-button';
 
   ngOnInit(): void {
     this.renderer.addClass(this.elementRef.nativeElement, this.buttonClass);

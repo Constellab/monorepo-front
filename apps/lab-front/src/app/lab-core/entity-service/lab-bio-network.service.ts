@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,9 +8,11 @@ import { BnBioNetworkService, BnUpdateMetabolite } from '@monorepo/bio-network';
   providedIn: 'root',
 })
 export class LabBioNetworkService extends BnBioNetworkService {
+  private apiService = inject(FlApiService);
+
   private route: string = 'biota/compound';
 
-  constructor(private apiService: FlApiService) {
+  constructor() {
     super();
   }
 

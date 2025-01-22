@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, inject } from '@angular/core';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaCurrentSpaceService } from '../../../service-api/ca-current-space.service';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -10,10 +10,13 @@ import { CaEnvironmentHelper } from '../../../utils/ca-environment.helper';
  * In dev, it updates the stored domain and refresh to the route
  */
 @Directive({
-    selector: 'a[caExternalSpaceLink]',
-    standalone: false
+  selector: 'a[caExternalSpaceLink]',
+  standalone: false,
 })
 export class CaExternalSpaceLinkDirective implements OnInit {
+  private elementRef = inject<ElementRef<HTMLLinkElement>>(ElementRef);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+
   /**
    * Route to go to in the other space
    */
@@ -32,11 +35,6 @@ export class CaExternalSpaceLinkDirective implements OnInit {
     // refresh the page to reload the current space and move to route
     window.location.href = 'http://localhost:4200' + this.caExternalSpaceLink;
   }
-
-  constructor(
-    private elementRef: ElementRef<HTMLLinkElement>,
-    private currentSpaceService: CaCurrentSpaceService
-  ) {}
 
   ngOnInit(): void {
     if (CaEnvironmentHelper.isProduction()) {

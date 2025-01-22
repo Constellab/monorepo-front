@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'ca-lab-login-button',
-    templateUrl: './ca-lab-login-button.component.html',
-    styleUrls: ['./ca-lab-login-button.component.scss'],
-    standalone: false
+  selector: 'ca-lab-login-button',
+  templateUrl: './ca-lab-login-button.component.html',
+  styleUrls: ['./ca-lab-login-button.component.scss'],
+  standalone: false,
 })
 export class CaLabLoginButtonComponent implements OnInit {
+  private labService = inject(CaLabService);
+
   @Input() labId: string;
 
   @Input() isRunning: boolean = false;
@@ -16,8 +18,6 @@ export class CaLabLoginButtonComponent implements OnInit {
   @Input() size: 'small' | 'normal' = 'normal';
 
   isLoading: boolean = false;
-
-  constructor(private labService: CaLabService) {}
 
   ngOnInit(): void {}
 

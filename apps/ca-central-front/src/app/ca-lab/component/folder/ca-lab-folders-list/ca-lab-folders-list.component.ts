@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   FlDialogService,
   FlPortalActionResult,
@@ -20,12 +20,17 @@ import {
 import { CaHierarchyObject } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
-    selector: 'ca-lab-folders-list',
-    templateUrl: './ca-lab-folders-list.component.html',
-    styleUrls: ['./ca-lab-folders-list.component.scss'],
-    standalone: false
+  selector: 'ca-lab-folders-list',
+  templateUrl: './ca-lab-folders-list.component.html',
+  styleUrls: ['./ca-lab-folders-list.component.scss'],
+  standalone: false,
 })
 export class CaLabFoldersListComponent implements OnInit {
+  private labFolderService = inject(CaLabFolderService);
+  private dialogService = inject(FlDialogService);
+  private state = inject(CaLabDetailPageState);
+  private actionService = inject(FlPortalActionsService);
+
   @Input() labId: string;
 
   columns$: Observable<FlTableColumnStatic<CaLabFolder>[]> = this.state.isLabOwner$().pipe(
@@ -42,13 +47,6 @@ export class CaLabFoldersListComponent implements OnInit {
   datasource: CaLabFolderDatasource;
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
-
-  constructor(
-    private labFolderService: CaLabFolderService,
-    private dialogService: FlDialogService,
-    private state: CaLabDetailPageState,
-    private actionService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     this.datasource = new CaLabFolderDatasource(this.labFolderService.getLabFolders(this.labId));

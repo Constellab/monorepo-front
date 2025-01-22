@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper } from '@monorepo/front-core-lib';
 import { Observable, tap } from 'rxjs';
 import { LabProcessLayout, LabProtocol } from '../model/entities/process/lab-protocol.entity';
@@ -30,9 +30,9 @@ import { CoCreateAgentFormData } from '@monorepo/community-lib';
   providedIn: 'root',
 })
 export class LabProtocolService {
-  private readonly baseRoute: string = 'protocol';
+  private apiService = inject(FlApiWithCacheService);
 
-  constructor(private apiService: FlApiWithCacheService) {}
+  private readonly baseRoute: string = 'protocol';
 
   public getProtocol(protocolId: string): Observable<LabProtocol> {
     return this.apiService.get(`${this.baseRoute}/${protocolId}`, LabProtocol);

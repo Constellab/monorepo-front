@@ -1,11 +1,11 @@
 import {
   Component,
   ComponentRef,
-  Inject,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
 import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
@@ -24,17 +24,17 @@ import {
  * Right panel of the folder detail page
  */
 @Component({
-    selector: 'ca-folder-detail-right-panel',
-    templateUrl: './ca-folder-detail-right-panel.component.html',
-    styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
-    standalone: false
+  selector: 'ca-folder-detail-right-panel',
+  templateUrl: './ca-folder-detail-right-panel.component.html',
+  styleUrls: ['./ca-folder-detail-right-panel.component.scss'],
+  standalone: false,
 })
 export class CaFolderDetailRightPanelComponent implements OnInit, OnDestroy {
+  private data = inject<CaFolderDetailRightPanel>(FL_PORTAL_DATA);
+
   @ViewChild('container', { static: true, read: ViewContainerRef }) container: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<any>;
-
-  constructor(@Inject(FL_PORTAL_DATA) private data: CaFolderDetailRightPanel) {}
 
   ngOnInit(): void {
     this.createComponent(this.data);

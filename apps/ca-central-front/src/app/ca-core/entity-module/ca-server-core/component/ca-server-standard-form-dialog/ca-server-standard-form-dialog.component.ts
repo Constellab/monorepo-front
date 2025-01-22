@@ -12,18 +12,20 @@ import { CaServerService } from '../../../../service-api/ca-server.service';
 export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandardSaveDTO>;
 
 @Component({
-    selector: 'ca-server-standard-form-dialog',
-    templateUrl: './ca-server-standard-form-dialog.component.html',
-    styleUrl: './ca-server-standard-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-server-standard-form-dialog',
+  templateUrl: './ca-server-standard-form-dialog.component.html',
+  styleUrl: './ca-server-standard-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaServerStandardFormDialogComponent
   extends FlFormDialogAbstractDirective<CaServerStandardSaveDTO, CaServerStandard>
   implements OnInit
 {
+  private serverService = inject(CaServerService);
+
   dialogInput: CaServerStandardFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private serverService: CaServerService) {
+  constructor() {
     super();
   }
 

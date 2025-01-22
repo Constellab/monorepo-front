@@ -14,18 +14,20 @@ export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolde
  * Dialog to configure the storage for a folder
  */
 @Component({
-    selector: 'ca-folder-configure-storage',
-    templateUrl: './ca-folder-configure-storage.component.html',
-    styleUrls: ['./ca-folder-configure-storage.component.scss'],
-    standalone: false
+  selector: 'ca-folder-configure-storage',
+  templateUrl: './ca-folder-configure-storage.component.html',
+  styleUrls: ['./ca-folder-configure-storage.component.scss'],
+  standalone: false,
 })
 export class CaFolderConfigureStorageComponent
   extends FlFormDialogAbstractDirective<CaFolderStorageDTO>
   implements OnInit
 {
+  private folderService = inject(CaFolderService);
+
   dialogInput: CaFolderConfigureStorageInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private folderService: CaFolderService) {
+  constructor() {
     super();
   }
 

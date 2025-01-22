@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
 import { RvViewJsonComponent } from './component/rv-view-json/rv-view-json.component';
@@ -112,7 +112,9 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
   ],
 })
 export class RvResourceViewModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('RvResourceViewModule', rvResourceViewI18n);
   }
 }

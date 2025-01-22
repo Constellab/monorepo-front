@@ -6,6 +6,7 @@ import {
   RendererFactory2,
   TemplateRef,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import {
   BlockScrollStrategy,
@@ -45,14 +46,15 @@ import { FlEventWrapper } from '../../../model/fl-event-wrapper.class';
  */
 @Injectable()
 export class FlPortalService {
+  private overlay = inject(Overlay);
+  private injector = inject(Injector);
+  private router = inject(Router);
+
   private renderer: Renderer2;
 
-  constructor(
-    private overlay: Overlay,
-    private injector: Injector,
-    private router: Router,
-    rendererFactory: RendererFactory2
-  ) {
+  constructor() {
+    const rendererFactory = inject(RendererFactory2);
+
     this.renderer = rendererFactory.createRenderer(null, null);
   }
 

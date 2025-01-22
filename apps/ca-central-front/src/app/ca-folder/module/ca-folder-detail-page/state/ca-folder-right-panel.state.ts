@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Injectable, OnDestroy, ViewContainerRef, inject } from '@angular/core';
 import { FlOverlayRef, FlPortalService, FlQueryParamHandler } from '@monorepo/front-core-lib';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,20 +12,14 @@ export type CaFolderDetailRightPanel = {
 
 @Injectable()
 export class CaFolderRightPanelState implements OnDestroy {
-  private queryParamHandler: FlQueryParamHandler<CaFolderDetailRightPanel>;
+  private portalService = inject(FlPortalService);
+  private viewContainerRef = inject(ViewContainerRef);
+
+  private queryParamHandler: FlQueryParamHandler<CaFolderDetailRightPanel> = inject(FlQueryParamHandler);
 
   private currentOverlayRef: FlOverlayRef;
 
   private subscription: Subscription;
-
-  constructor(
-    private portalService: FlPortalService,
-    route: ActivatedRoute,
-    router: Router,
-    private viewContainerRef: ViewContainerRef
-  ) {
-    this.queryParamHandler = new FlQueryParamHandler(router, route);
-  }
 
   public init(): void {
     this.queryParamHandler.getFirstQueryParams().subscribe((params) => this.onRightPanelUpdate(params));

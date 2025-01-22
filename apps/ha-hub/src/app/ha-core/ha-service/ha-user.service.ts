@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaProfileEditDialogFormData } from '../../ha-profile/component/ha-profile-edit-dialog/ha-profile-edit-dialog.component';
@@ -8,9 +8,9 @@ import { CoUser } from '@monorepo/community-lib';
   providedIn: 'root',
 })
 export class HaUserService {
-  private readonly route: string = 'user';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'user';
 
   getCount(): Observable<number> {
     return this.apiService.get(`${this.route}/count`);

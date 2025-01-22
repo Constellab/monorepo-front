@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { CaServerDecisionTreeDTO, CaYoutubeVideo } from '../model/entities/server/ca-server-standard.class';
 
 @Injectable({ providedIn: 'root' })
 export class CaSettingsService {
-  private readonly route = 'settings';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'settings';
 
   public getDecisionTree(): Observable<CaServerDecisionTreeDTO> {
     return this.apiService.get(`${this.route}/server-decision-tree`, CaServerDecisionTreeDTO);

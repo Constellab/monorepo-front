@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 
@@ -11,12 +11,15 @@ interface FlBreakpointInfo {
  * Directive similar to ngClass, it adds classes based on the screen size
  */
 @Directive({
-    selector: '[flClass], [flClass.xs], [flClass.sm], [flClass.md], [flClass.lg], [flClass.xl] ' +
-        '[flClass.lt-sm], [flClass.lt-md], [flClass.lt-lg], [flClass.lt-xl], ' +
-        '[flClass.gt-xs], [flClass.gt-sm], [flClass.gt-md], [flClass.gt-lg]',
-    standalone: false
+  selector:
+    '[flClass], [flClass.xs], [flClass.sm], [flClass.md], [flClass.lg], [flClass.xl] ' +
+    '[flClass.lt-sm], [flClass.lt-md], [flClass.lt-lg], [flClass.lt-xl], ' +
+    '[flClass.gt-xs], [flClass.gt-sm], [flClass.gt-md], [flClass.gt-lg]',
+  standalone: false,
 })
 export class FlClassDirective implements OnInit, OnDestroy {
+  private breakpointObserver = inject(BreakpointObserver);
+
   @HostBinding('class') elementClass: string[];
 
   @Input() flClass: string | string[];
@@ -35,8 +38,6 @@ export class FlClassDirective implements OnInit, OnDestroy {
   @Input('flClass.gt-lg') flClassGtLg: string | string[];
 
   private subscription: Subscription;
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     // subscript for all the breakpoints

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
@@ -10,17 +10,15 @@ import { FlClipboardService } from '@monorepo/front-core-lib';
  */
 @Injectable()
 export class SpSpreadsheetClipboardState {
+  private state = inject(SpSpreadsheetState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private clipboard = inject(FlClipboardService);
+  private actionState = inject(SpSpreadsheetActions);
+
   // \n character
   private readonly rowSeparator: string = String.fromCharCode(10);
   // tab character
   private readonly columnSeparator: string = String.fromCharCode(9);
-
-  constructor(
-    private state: SpSpreadsheetState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private clipboard: FlClipboardService,
-    private actionState: SpSpreadsheetActions
-  ) {}
 
   /**
    * Copy the current selected cells value to the clipboard

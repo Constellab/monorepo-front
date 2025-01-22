@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaFolder } from '../ha-model/ha-entities/ha-folder.class';
@@ -12,8 +12,11 @@ import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class'
   providedIn: 'root',
 })
 export class HaFolderService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'folder';
-  constructor(private apiService: FlApiService) {}
+
+  constructor() {}
 
   /**
    * Call http create

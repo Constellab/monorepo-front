@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -14,13 +14,17 @@ import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdBrick } from '@monorepo/technical-doc';
 
 @Component({
-    selector: 'lab-type-search',
-    templateUrl: './lab-type-search.component.html',
-    styleUrls: ['./lab-type-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-type-search',
+  templateUrl: './lab-type-search.component.html',
+  styleUrls: ['./lab-type-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class LabTypeSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private typeService = inject(LabTypeService);
+  private themeService = inject(FlThemeService);
+
   @Input() fullPageSearch: boolean = false;
 
   @Input() config: LabTypeSearchConfig;
@@ -29,12 +33,6 @@ export class LabTypeSearchComponent implements OnInit {
 
   columns: FlTableColumnStatic<LabTypeEntity>[];
   datasource: LabTypeEntityDatasource;
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private typeService: LabTypeService,
-    private themeService: FlThemeService
-  ) {}
 
   ngOnInit(): void {
     // set hidden filters based on config

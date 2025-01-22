@@ -28,6 +28,13 @@ import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-
 
 @Injectable()
 export class HaAgentPageState {
+  private agentService = inject(HaAgentService);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
+  private httpRedirectionService = inject(HaHttpRedirectionService);
+  private likeService = inject(HaLikeService);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+
   private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
 
   private agentStatusEvent: WritableSignal<FlStatusEvent<HaAgent>> = signal<FlStatusEvent<HaAgent>>(null);
@@ -114,15 +121,6 @@ export class HaAgentPageState {
       return runStatAggregateStatusEvent.object;
     return null;
   });
-
-  constructor(
-    private agentService: HaAgentService,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    private httpRedirectionService: HaHttpRedirectionService,
-    private likeService: HaLikeService,
-    private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService
-  ) {}
 
   public init(agentId: string, paramTitle: string): void {
     this.initUser(agentId, paramTitle);

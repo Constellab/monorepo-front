@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, OnInit, Optional } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { LabBrickService } from '../../../../entity-service/lab-brick.service';
 import { Observable } from 'rxjs';
@@ -6,22 +6,26 @@ import { LabBrickEntity } from '../../../../model/entities/lab-brick.entity';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-    selector: 'lab-bricks-select-options',
-    templateUrl: './lab-bricks-select-options.component.html',
-    styleUrls: ['./lab-bricks-select-options.component.scss'],
-    standalone: false
+  selector: 'lab-bricks-select-options',
+  templateUrl: './lab-bricks-select-options.component.html',
+  styleUrls: ['./lab-bricks-select-options.component.scss'],
+  standalone: false,
 })
 export class LabBricksSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit
 {
+  private select: MatSelect;
+  private brickService = inject(LabBrickService);
+
   bricks$: Observable<LabBrickEntity[]>;
 
-  constructor(
-    @Host() @Optional() private select: MatSelect,
-    private brickService: LabBrickService
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true, optional: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

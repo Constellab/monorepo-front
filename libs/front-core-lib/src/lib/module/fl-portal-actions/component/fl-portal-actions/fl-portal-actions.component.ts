@@ -1,4 +1,4 @@
-import { Component, OnInit, TrackByFunction } from '@angular/core';
+import { Component, OnInit, TrackByFunction, inject } from '@angular/core';
 import { FlPortalActionDetail } from '../../model/fl-portal-actions.class';
 import { Observable } from 'rxjs';
 import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
@@ -8,15 +8,19 @@ import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
  * to show the current actions
  */
 @Component({
-    selector: 'fl-portal-actions',
-    templateUrl: './fl-portal-actions.component.html',
-    styleUrls: ['./fl-portal-actions.component.scss'],
-    standalone: false
+  selector: 'fl-portal-actions',
+  templateUrl: './fl-portal-actions.component.html',
+  styleUrls: ['./fl-portal-actions.component.scss'],
+  standalone: false,
 })
 export class FlPortalActionsComponent implements OnInit {
+  private actionsState = inject(FlPortalActionsState);
+
   actions$: Observable<FlPortalActionDetail[]>;
 
-  constructor(private actionsState: FlPortalActionsState) {
+  constructor() {
+    const actionsState = this.actionsState;
+
     this.actions$ = actionsState.getActions$();
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { Observable } from 'rxjs';
 import {
@@ -8,14 +8,17 @@ import {
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
 
 @Component({
-    selector: 'lab-resource-view-spec-list',
-    templateUrl: './lab-resource-view-spec-list.component.html',
-    styleUrls: ['./lab-resource-view-spec-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [LabViewConfigurerState],
-    standalone: false
+  selector: 'lab-resource-view-spec-list',
+  templateUrl: './lab-resource-view-spec-list.component.html',
+  styleUrls: ['./lab-resource-view-spec-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LabViewConfigurerState],
+  standalone: false,
 })
 export class LabResourceViewSpecListComponent {
+  private resourceService = inject(LabResourceService);
+  private viewConfigurerState = inject(LabViewConfigurerState);
+
   @Input() set resourceTypingName(resourceTypingName: string) {
     this._resourceTypingName = resourceTypingName;
     if (resourceTypingName) {
@@ -28,11 +31,6 @@ export class LabResourceViewSpecListComponent {
   private _resourceTypingName: string;
 
   viewSpecs$: Observable<LabResourceViewSpec[]>;
-
-  constructor(
-    private resourceService: LabResourceService,
-    private viewConfigurerState: LabViewConfigurerState
-  ) {}
 
   // prepare the data and open the view configuration portal
   openConfigPortal(view: LabResourceViewSpec): void {

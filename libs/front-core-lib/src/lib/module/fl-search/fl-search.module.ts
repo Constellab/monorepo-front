@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlSearchComponent } from './component/fl-search/fl-search.component';
 import { FlInfiniteScrollModule } from '../fl-inifite-scroll/fl-infinite-scroll.module';
@@ -68,7 +68,9 @@ import { FlSearchTableSortDirective } from './directive/fl-search-table-sort/fl-
   ],
 })
 export class FlSearchModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlSearchModule', flSearchI18n);
   }
 }

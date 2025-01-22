@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlConfirmDialogInput, FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,12 +14,15 @@ export interface HaCoAuthorsDialogInput {
 }
 
 @Component({
-    selector: 'ha-co-author-dialog',
-    templateUrl: './ha-co-author-dialog.component.html',
-    styleUrls: ['./ha-co-author-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-co-author-dialog',
+  templateUrl: './ha-co-author-dialog.component.html',
+  styleUrls: ['./ha-co-author-dialog.component.scss'],
+  standalone: false,
 })
 export class HaCoAuthorDialogComponent implements OnInit {
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+
   profileRoute = HaRouterService.getProfileRoute();
   coAuthorPendingInvites: HaCoAuthorInvite[];
   id: string;
@@ -31,11 +34,9 @@ export class HaCoAuthorDialogComponent implements OnInit {
   inviteText: string;
   isLoading = false;
 
-  constructor(
-    private snackBarService: FlSnackBarService,
-    @Inject(MAT_DIALOG_DATA) dialogInput: HaCoAuthorsDialogInput,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const dialogInput = inject<HaCoAuthorsDialogInput>(MAT_DIALOG_DATA);
+
     this.id = dialogInput.id;
     this.service = dialogInput.service;
     this.inviteText = dialogInput.inviteText;

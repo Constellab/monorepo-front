@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FlFormFieldDirective, FlPortalService } from '@monorepo/front-core-lib';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { NgControl } from '@angular/forms';
@@ -12,21 +12,22 @@ import {
  * Component to show a folder inline with possibility to select another folder
  */
 @Component({
-    selector: 'lab-folder-inline-select',
-    templateUrl: './lab-folder-inline-select.component.html',
-    styleUrls: ['./lab-folder-inline-select.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
-    standalone: false
+  selector: 'lab-folder-inline-select',
+  templateUrl: './lab-folder-inline-select.component.html',
+  styleUrls: ['./lab-folder-inline-select.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
+  standalone: false,
 })
 export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFolder> {
+  private portalService = inject(FlPortalService);
+
   @Input() updateFolderHelpText?: string;
 
   @Output() selectionChange: EventEmitter<LabFolder | null> = new EventEmitter();
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private portalService: FlPortalService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

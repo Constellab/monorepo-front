@@ -10,18 +10,20 @@ import { CoStoryCategory } from '@monorepo/community-lib';
 export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
 
 @Component({
-    selector: 'ha-story-create-dialog',
-    templateUrl: './ha-story-create-dialog.component.html',
-    styleUrls: ['./ha-story-create-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-story-create-dialog',
+  templateUrl: './ha-story-create-dialog.component.html',
+  styleUrls: ['./ha-story-create-dialog.component.scss'],
+  standalone: false,
 })
 export class HaStoryCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaCreateStoryDto, HaStory>
   implements OnInit
 {
+  private storyService = inject(HaStoryService);
+
   dialogInput: HaCreateStoryDtoInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private storyService: HaStoryService) {
+  constructor() {
     super();
   }
 

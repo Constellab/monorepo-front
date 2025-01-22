@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabUser, LabUserDatasourcePaginated } from '../model/entities/lab-user.entity';
@@ -6,9 +6,9 @@ import { ClPageI } from '@monorepo/core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class LabUserService {
-  private readonly route = 'user';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'user';
 
   public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LabUser>> {
     return this.apiService.get(`${this.route}/name-search/${name}`, LabUser, {

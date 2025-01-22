@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -9,22 +9,23 @@ export interface TeLinkDialogInput {
 }
 
 @Component({
-    selector: 'te-link-dialog',
-    templateUrl: './te-link-dialog.component.html',
-    styleUrls: ['./te-link-dialog.component.scss'],
-    standalone: false
+  selector: 'te-link-dialog',
+  templateUrl: './te-link-dialog.component.html',
+  styleUrls: ['./te-link-dialog.component.scss'],
+  standalone: false,
 })
 export class TeLinkDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<TeLinkDialogComponent>>(MatDialogRef);
+
   linkControl: FormControl<string>;
 
   title: string;
 
   isYoutube: boolean;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: TeLinkDialogInput,
-    private dialogRef: MatDialogRef<TeLinkDialogComponent>
-  ) {
+  constructor() {
+    const data = inject<TeLinkDialogInput>(MAT_DIALOG_DATA);
+
     this.title = data.title;
     this.isYoutube = data.isYoutube;
   }

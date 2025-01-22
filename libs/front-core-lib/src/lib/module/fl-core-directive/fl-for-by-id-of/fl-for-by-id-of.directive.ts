@@ -1,4 +1,12 @@
-import { Directive, Input, IterableDiffers, NgIterable, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  IterableDiffers,
+  NgIterable,
+  TemplateRef,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { NgForOf, NgForOfContext } from '@angular/common';
 import { ClHelpService } from '@monorepo/core-lib';
 
@@ -11,18 +19,18 @@ interface WithId {
  * to track by ids
  */
 @Directive({
-    selector: '[flForById]',
-    standalone: false
+  selector: '[flForById]',
+  standalone: false,
 })
 export class FlForByIdOfDirective<T extends WithId, U extends NgIterable<T> = NgIterable<T>> extends NgForOf<
   T,
   U
 > {
-  constructor(
-    _viewContainer: ViewContainerRef,
-    _template: TemplateRef<NgForOfContext<T, U>>,
-    _differs: IterableDiffers
-  ) {
+  constructor() {
+    const _viewContainer = inject(ViewContainerRef);
+    const _template = inject<TemplateRef<NgForOfContext<T, U>>>(TemplateRef);
+    const _differs = inject(IterableDiffers);
+
     super(_viewContainer, _template, _differs);
     // set the track by id
     this.ngForTrackBy = ClHelpService.trackByIdFunction();

@@ -1,4 +1,4 @@
-import { Injectable, NgZone, Renderer2 } from '@angular/core';
+import { Injectable, NgZone, Renderer2, inject } from '@angular/core';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { debounceTime, filter, startWith } from 'rxjs/operators';
@@ -23,6 +23,13 @@ export interface Interval {
  */
 @Injectable()
 export class SpSpreadsheetScrollState {
+  private renderer = inject(Renderer2);
+  private state = inject(SpSpreadsheetState);
+  private ngZone = inject(NgZone);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private elementState = inject(SpSpreadsheetElementState);
+  private paginationState = inject(SpSpreadsheetPaginationState);
+
   private rowsToDisplay$: BehaviorSubject<SpSheetRow[]> = new BehaviorSubject(null);
 
   // parent of the heightSimulator that scroll
@@ -41,15 +48,6 @@ export class SpSpreadsheetScrollState {
   private windowsResizeListener: FlRendererListenerObs;
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
-
-  constructor(
-    private renderer: Renderer2,
-    private state: SpSpreadsheetState,
-    private ngZone: NgZone,
-    private selectionState: SpSpreadsheetSelectionState,
-    private elementState: SpSpreadsheetElementState,
-    private paginationState: SpSpreadsheetPaginationState
-  ) {}
 
   public init(
     tableContainer: HTMLElement,

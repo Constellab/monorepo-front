@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2, inject } from '@angular/core';
 import { FlMouseHoverAbstractDirective } from '../../../abstract-directive/mouse-hover/fl-mouse-hover-abstract.directive';
 import { ClHelpService } from '@monorepo/core-lib';
 
@@ -10,10 +10,12 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Styles or classes can be set to be added during the hover (with the delay)
  */
 @Directive({
-    selector: '[flMouseHover]',
-    standalone: false
+  selector: '[flMouseHover]',
+  standalone: false,
 })
 export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
+  private renderer = inject(Renderer2);
+
   /**
    * If filled the style is added during hover (with the delay) and remove after.
    *
@@ -28,10 +30,9 @@ export class FlMouseHoverDirective extends FlMouseHoverAbstractDirective {
    */
   @Input() flMouseHoverClass: string | string[];
 
-  constructor(
-    elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {
+  constructor() {
+    const elementRef = inject(ElementRef);
+
     super(elementRef);
   }
 

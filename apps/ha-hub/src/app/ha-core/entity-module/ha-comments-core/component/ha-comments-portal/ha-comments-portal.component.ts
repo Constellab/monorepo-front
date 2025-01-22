@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef } from '@monorepo/front-core-lib';
 import { TeRichText } from '@monorepo/text-editor';
 import { HaAbstractComment, HaCommentEntity, HaCommentType } from '../../model/ha-abstract-comment.class';
@@ -19,12 +19,15 @@ export interface HaCommentsEntity {
 }
 
 @Component({
-    selector: 'ha-comments-portal',
-    templateUrl: './ha-comments-portal.component.html',
-    styleUrls: ['./ha-comments-portal.component.scss'],
-    standalone: false
+  selector: 'ha-comments-portal',
+  templateUrl: './ha-comments-portal.component.html',
+  styleUrls: ['./ha-comments-portal.component.scss'],
+  standalone: false,
 })
 export class HaCommentsPortalComponent implements OnInit {
+  private overlayRef = inject(FlOverlayRef);
+  private commentService = inject(HaCommentService);
+
   textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();
   commentIsValid = false;
   user: CoUser;
@@ -35,11 +38,9 @@ export class HaCommentsPortalComponent implements OnInit {
   commentInputData = new TeRichText();
   loginRoute: string = HaRouterService.getLoginRoute();
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) data: HaCommentsPortalData,
-    private overlayRef: FlOverlayRef,
-    private commentService: HaCommentService
-  ) {
+  constructor() {
+    const data = inject<HaCommentsPortalData>(FL_PORTAL_DATA);
+
     this.user = data.user;
     this.entity = data.entity;
     this.commentType = data.commentType;

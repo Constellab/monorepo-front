@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { FL_PORTAL_DATA, FlKeyboardKey, FlOverlayRef } from '@monorepo/front-core-lib';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, Subscription, tap } from 'rxjs';
@@ -20,12 +20,16 @@ export interface CaUserMentionPortalResult {
 }
 
 @Component({
-    selector: 'ca-user-mention-portal',
-    templateUrl: './ca-user-mention-portal.component.html',
-    styleUrl: './ca-user-mention-portal.component.scss',
-    standalone: false
+  selector: 'ca-user-mention-portal',
+  templateUrl: './ca-user-mention-portal.component.html',
+  styleUrl: './ca-user-mention-portal.component.scss',
+  standalone: false,
 })
 export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
+  private data = inject<CaUserMentionPortalInput>(FL_PORTAL_DATA);
+  private overlayRef = inject(FlOverlayRef);
+  private renderer = inject(Renderer2);
+
   showEveryoneButton: number = 0;
   users: CaUser[];
 
@@ -34,12 +38,6 @@ export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private listener: () => void;
   private searchInput: BehaviorSubject<string> = new BehaviorSubject('');
-
-  constructor(
-    @Inject(FL_PORTAL_DATA) private data: CaUserMentionPortalInput,
-    private overlayRef: FlOverlayRef,
-    private renderer: Renderer2
-  ) {}
 
   ngOnInit(): void {
     this.listener = this.renderer.listen(this.data.nodeBlock, 'keydown', (event: KeyboardEvent) => {

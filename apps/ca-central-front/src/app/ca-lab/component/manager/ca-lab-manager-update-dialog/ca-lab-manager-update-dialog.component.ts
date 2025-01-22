@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
@@ -13,21 +13,22 @@ export interface CaLabManagerUpdateDialogInput {
  * Simple dialog to choose the version of the lab manager to install.
  */
 @Component({
-    selector: 'ca-lab-manager-update-dialog',
-    templateUrl: './ca-lab-manager-update-dialog.component.html',
-    styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-lab-manager-update-dialog',
+  templateUrl: './ca-lab-manager-update-dialog.component.html',
+  styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
+  standalone: false,
 })
 export class CaLabManagerUpdateDialogComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogRef = inject<MatDialogRef<CaLabManagerUpdateDialogComponent>>(MatDialogRef);
+
   input: CaLabManagerUpdateDialogInput;
 
   formCtrl: FormControl;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: CaLabManagerUpdateDialogInput,
-    private labService: CaLabService,
-    private dialogRef: MatDialogRef<CaLabManagerUpdateDialogComponent>
-  ) {
+  constructor() {
+    const input = inject<CaLabManagerUpdateDialogInput>(MAT_DIALOG_DATA);
+
     this.input = input;
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, inject } from '@angular/core';
 import { FlHorizontalNavBarItem } from '../../fl-horizontal-nav-bar.class';
 import { Observable, startWith } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -11,12 +11,15 @@ import { NavigationEnd, Router } from '@angular/router';
  * It is responsive and will collapse on small screen
  */
 @Component({
-    selector: 'fl-horizontal-nav-bar',
-    templateUrl: './fl-horizontal-nav-bar.component.html',
-    styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
-    standalone: false
+  selector: 'fl-horizontal-nav-bar',
+  templateUrl: './fl-horizontal-nav-bar.component.html',
+  styleUrls: ['./fl-horizontal-nav-bar.component.scss'],
+  standalone: false,
 })
 export class FlHorizontalNavBarComponent {
+  private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+
   @Input() items: FlHorizontalNavBarItem[];
 
   @ViewChild(MatMenuTrigger, { static: false }) trigger: MatMenuTrigger;
@@ -32,11 +35,6 @@ export class FlHorizontalNavBarComponent {
     filter((event) => event == null || event instanceof NavigationEnd),
     map(() => this.getActiveItem())
   );
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private router: Router
-  ) {}
 
   openMenu(): void {
     this.trigger.openMenu();

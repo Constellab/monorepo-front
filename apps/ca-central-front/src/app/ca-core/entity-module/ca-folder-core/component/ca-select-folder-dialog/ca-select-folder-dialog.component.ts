@@ -27,12 +27,16 @@ export interface CaSelectFolderDialogInput {
 }
 
 @Component({
-    selector: 'ca-select-folder-dialog',
-    templateUrl: './ca-select-folder-dialog.component.html',
-    styleUrl: './ca-select-folder-dialog.component.scss',
-    standalone: false
+  selector: 'ca-select-folder-dialog',
+  templateUrl: './ca-select-folder-dialog.component.html',
+  styleUrl: './ca-select-folder-dialog.component.scss',
+  standalone: false,
 })
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
+  private dialogRef = inject<MatDialogRef<CaSelectFolderDialogComponent>>(MatDialogRef);
+  private folderService = inject(CaFolderService);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+
   foldersDatasource: CaHierarchyObjectDatasource;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt'];
@@ -42,12 +46,6 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   selectedFolder: CaHierarchyObject;
 
   dialogInput: CaSelectFolderDialogInput = inject(MAT_DIALOG_DATA);
-
-  constructor(
-    private dialogRef: MatDialogRef<CaSelectFolderDialogComponent>,
-    private folderService: CaFolderService,
-    private authenticatedUserService: CaAuthenticatedUserService
-  ) {}
 
   ngOnInit(): void {
     // for any mode, we add a custom template column to add a button to zoom to folder

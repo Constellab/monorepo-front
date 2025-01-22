@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   HaBrickCreationDTO,
   HaBrickVisibility,
@@ -12,12 +12,17 @@ import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service'
 import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
 
 @Component({
-    selector: 'ha-public-edit-brick-form',
-    templateUrl: './ha-public-edit-brick-form.component.html',
-    styleUrls: ['./ha-public-edit-brick-form.component.scss'],
-    standalone: false
+  selector: 'ha-public-edit-brick-form',
+  templateUrl: './ha-public-edit-brick-form.component.html',
+  styleUrls: ['./ha-public-edit-brick-form.component.scss'],
+  standalone: false,
 })
 export class HaPublicEditBrickFormComponent implements OnInit {
+  private brickService = inject(HaBrickService);
+  private router = inject(Router);
+  private snackBarService = inject(FlSnackBarService);
+  private spaceService = inject(HaSpaceService);
+
   brick: HaBrickCreationDTO;
 
   formGp: UntypedFormGroup;
@@ -29,13 +34,6 @@ export class HaPublicEditBrickFormComponent implements OnInit {
   repoError: boolean;
   errorInput: Record<string, boolean> = {};
   spaces: HaSpace[];
-
-  constructor(
-    private brickService: HaBrickService,
-    private router: Router,
-    private snackBarService: FlSnackBarService,
-    private spaceService: HaSpaceService
-  ) {}
 
   ngOnInit(): void {
     this.spaceService.getSpacesOfCurrentUser().subscribe((spaces) => {

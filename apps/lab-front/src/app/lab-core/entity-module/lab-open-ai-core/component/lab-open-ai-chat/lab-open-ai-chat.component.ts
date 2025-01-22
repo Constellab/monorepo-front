@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib';
 import { LabOpenAiChat, LabOpenAiChatMessage } from '../../model/lab-open-ai.class';
 import { FormControl, NgControl } from '@angular/forms';
@@ -10,13 +10,15 @@ import { LabOpenAiChatMessageAction } from '../lab-open-ai-chat-message/lab-open
  * Form component to show an open AI chat with possibility to add or remove messages
  */
 @Component({
-    selector: 'lab-open-ai-chat',
-    templateUrl: './lab-open-ai-chat.component.html',
-    styleUrls: ['./lab-open-ai-chat.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent }],
-    standalone: false
+  selector: 'lab-open-ai-chat',
+  templateUrl: './lab-open-ai-chat.component.html',
+  styleUrls: ['./lab-open-ai-chat.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabOpenAiChatComponent }],
+  standalone: false,
 })
 export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> {
+  private authenticatedUserService = inject(LabAuthenticatedUserService);
+
   @Input() placeholder: string;
   @Input() hint: string;
 
@@ -26,10 +28,9 @@ export class LabOpenAiChatComponent extends FlFormFieldDirective<LabOpenAiChat> 
 
   messageCtrl: FormControl<string> = new FormControl();
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private authenticatedUserService: LabAuthenticatedUserService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

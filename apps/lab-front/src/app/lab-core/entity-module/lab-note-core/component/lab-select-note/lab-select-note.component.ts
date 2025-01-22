@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
@@ -13,13 +13,16 @@ import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.en
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'lab-select-note',
-    templateUrl: './lab-select-note.component.html',
-    styleUrls: ['./lab-select-note.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
-    standalone: false
+  selector: 'lab-select-note',
+  templateUrl: './lab-select-note.component.html',
+  styleUrls: ['./lab-select-note.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
+  standalone: false,
 })
 export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implements OnInit {
+  private noteService = inject(LabNoteService);
+  private dialogService = inject(FlDialogService);
+
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<LabNote> = new EventEmitter();
@@ -30,11 +33,9 @@ export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implem
 
   advancedButton: FlInputSearchAdvancedButton<LabNote>;
 
-  constructor(
-    private noteService: LabNoteService,
-    private dialogService: FlDialogService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

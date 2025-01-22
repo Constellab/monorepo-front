@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaLabService } from '../../../ca-core/service-api/ca-lab.service';
 import { CaLab, CaLabDatasource } from '../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
@@ -14,21 +14,19 @@ import {
  * Small list of labs in the dashboard
  */
 @Component({
-    selector: 'ca-dashboard-labs',
-    templateUrl: './ca-dashboard-labs.component.html',
-    styleUrls: ['./ca-dashboard-labs.component.scss'],
-    standalone: false
+  selector: 'ca-dashboard-labs',
+  templateUrl: './ca-dashboard-labs.component.html',
+  styleUrls: ['./ca-dashboard-labs.component.scss'],
+  standalone: false,
 })
 export class CaDashboardLabsComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(CaRouterService);
+
   labsDatasource: CaLabDatasource;
 
   myLabsRoute: string = CaRouterService.getMyLabsRoute();
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private routerService: CaRouterService
-  ) {}
 
   ngOnInit(): void {
     this.getMyLabs();

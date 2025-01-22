@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   CaNotification,
   CaNotificationDatasourcePaginated,
@@ -8,15 +8,15 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
 
 @Component({
-    selector: 'ca-notifications-portal',
-    templateUrl: './ca-notifications-portal.component.html',
-    styleUrls: ['./ca-notifications-portal.component.scss'],
-    standalone: false
+  selector: 'ca-notifications-portal',
+  templateUrl: './ca-notifications-portal.component.html',
+  styleUrls: ['./ca-notifications-portal.component.scss'],
+  standalone: false,
 })
 export class CaNotificationsPortalComponent {
-  notifications: CaNotificationDatasourcePaginated = this.notificationState.notifications;
+  private notificationState = inject(CaNotificationState);
 
-  constructor(private notificationState: CaNotificationState) {}
+  notifications: CaNotificationDatasourcePaginated = this.notificationState.notifications;
 
   markAsRead(notification: CaNotification): void {
     this.notificationState.markNotifAsRead({ id: notification.id });

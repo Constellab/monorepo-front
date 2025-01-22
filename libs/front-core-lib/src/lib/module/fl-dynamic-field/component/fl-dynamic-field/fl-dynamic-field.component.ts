@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { FlDynamicFieldConfig } from '../../model/fl-dynamic-field-config.class';
 import { UntypedFormControl } from '@angular/forms';
@@ -19,12 +20,15 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
  * NgModel component to generate a form field dynamically based on a config
  */
 @Component({
-    selector: 'fl-dynamic-field',
-    templateUrl: './fl-dynamic-field.component.html',
-    styleUrls: ['./fl-dynamic-field.component.scss'],
-    standalone: false
+  selector: 'fl-dynamic-field',
+  templateUrl: './fl-dynamic-field.component.html',
+  styleUrls: ['./fl-dynamic-field.component.scss'],
+  standalone: false,
 })
 export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbstractFormDirective {
+  private fieldConfig = inject(FlDynamicFieldConfigService);
+  private injector = inject(Injector);
+
   config = input<FlDynamicFieldConfig>();
 
   control = input<UntypedFormControl>();
@@ -32,11 +36,6 @@ export class FlDynamicFieldComponent implements OnInit, OnDestroy, FlDynamicAbst
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
-
-  constructor(
-    private fieldConfig: FlDynamicFieldConfigService,
-    private injector: Injector
-  ) {}
 
   ngOnInit(): void {
     effect(

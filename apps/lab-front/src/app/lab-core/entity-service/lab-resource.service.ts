@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -31,11 +31,11 @@ import { DateTime } from 'luxon';
   providedIn: 'root',
 })
 export class LabResourceService {
+  private apiService = inject(FlApiService);
+
   public static readonly defaultViewName: string = 'default-view';
   private readonly route: string = 'resource';
   private readonly resourceTypeRoute: string = 'resource-type';
-
-  constructor(private apiService: FlApiService) {}
 
   //////////////////////////////////////// RESOURCE ///////////////////////////////////////
 

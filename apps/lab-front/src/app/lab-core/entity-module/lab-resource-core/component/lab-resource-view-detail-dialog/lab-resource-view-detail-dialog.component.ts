@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { Observable } from 'rxjs';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
@@ -22,20 +22,22 @@ export type LabResourceViewDetailDialogInput =
     };
 
 @Component({
-    selector: 'lab-resource-view-detail-dialog',
-    templateUrl: './lab-resource-view-detail-dialog.component.html',
-    styleUrls: ['./lab-resource-view-detail-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-detail-dialog',
+  templateUrl: './lab-resource-view-detail-dialog.component.html',
+  styleUrls: ['./lab-resource-view-detail-dialog.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewDetailDialogComponent implements OnInit {
+  private input = inject<LabResourceViewDetailDialogInput>(MAT_DIALOG_DATA);
+  private resourceService = inject(LabResourceService);
+
   title: string;
 
   labView$: Observable<LabResourceView>;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabResourceViewDetailDialogInput,
-    private resourceService: LabResourceService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.title = input.resourceName;
   }
 

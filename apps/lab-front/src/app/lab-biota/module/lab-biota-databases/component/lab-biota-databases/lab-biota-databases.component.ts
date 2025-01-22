@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabBiotaDatabaseSearch } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { LabBiotaData, LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
@@ -7,24 +7,22 @@ import { LabBiotaDataCardDialogComponent } from '../lab-biota-data-card-dialog/l
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
-    selector: 'lab-biota-databases',
-    templateUrl: './lab-biota-databases.component.html',
-    styleUrls: ['./lab-biota-databases.component.scss'],
-    standalone: false
+  selector: 'lab-biota-databases',
+  templateUrl: './lab-biota-databases.component.html',
+  styleUrls: ['./lab-biota-databases.component.scss'],
+  standalone: false,
 })
 export class LabBiotaDatabasesComponent implements OnInit {
+  private biotaDatabaseService = inject(LabBiotaDatabaseService);
+  private dialogService = inject(FlDialogService);
+  private breakpointObserver = inject(BreakpointObserver);
+
   biotaDatasource: LabBiotaDataDatasource;
   columns: string[] = ['id', 'name', 'actions'];
 
   selectedData: LabBiotaData;
 
   private readonly hideCardScreenSize: string[] = [Breakpoints.XSmall];
-
-  constructor(
-    private biotaDatabaseService: LabBiotaDatabaseService,
-    private dialogService: FlDialogService,
-    private breakpointObserver: BreakpointObserver
-  ) {}
 
   ngOnInit(): void {}
 

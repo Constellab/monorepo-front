@@ -17,15 +17,17 @@ export interface LabScenarioFormDialogInput extends FlFormDialogInput<LabScenari
  * Dialog form to create or update a scenario
  */
 @Component({
-    selector: 'lab-scenario-form-dialog',
-    templateUrl: './lab-scenario-form-dialog.component.html',
-    styleUrls: ['./lab-scenario-form-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-scenario-form-dialog',
+  templateUrl: './lab-scenario-form-dialog.component.html',
+  styleUrls: ['./lab-scenario-form-dialog.component.scss'],
+  standalone: false,
 })
 export class LabScenarioFormDialogComponent
   extends FlFormDialogAbstractDirective<LabScenarioSimpleForm, LabScenario>
   implements OnInit
 {
+  private scenarioService = inject(LabScenarioService);
+
   dialogInput: LabScenarioFormDialogInput = inject(MAT_DIALOG_DATA);
 
   sameTitleCount$: Observable<number>;
@@ -33,7 +35,7 @@ export class LabScenarioFormDialogComponent
   // only provided in update mode
   private originalName: string;
 
-  constructor(private scenarioService: LabScenarioService) {
+  constructor() {
     super();
   }
 

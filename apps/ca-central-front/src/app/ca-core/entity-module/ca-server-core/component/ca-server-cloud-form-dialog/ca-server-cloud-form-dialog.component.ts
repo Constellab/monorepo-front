@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
@@ -9,16 +9,18 @@ import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
  * Dialog to create or update a server info
  */
 @Component({
-    selector: 'ca-server-cloud-form-dialog',
-    templateUrl: './ca-server-cloud-form-dialog.component.html',
-    styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-server-cloud-form-dialog',
+  templateUrl: './ca-server-cloud-form-dialog.component.html',
+  styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaServerCloudFormDialogComponent
   extends FlFormDialogAbstractDirective<CaServerCloud>
   implements OnInit
 {
-  constructor(private serverService: CaServerService) {
+  private serverService = inject(CaServerService);
+
+  constructor() {
     super();
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {
@@ -19,12 +19,13 @@ import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class CaAuthService extends FlAuthService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'auth';
 
-  constructor(
-    private apiService: FlApiService,
-    cookieService: FlCookieService
-  ) {
+  constructor() {
+    const cookieService = inject(FlCookieService);
+
     super(cookieService);
   }
 

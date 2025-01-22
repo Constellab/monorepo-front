@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaLab, CaLabDatasource } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabFormDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
@@ -6,19 +6,17 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 @Component({
-    selector: 'ca-my-labs-page',
-    templateUrl: './ca-my-labs-page.component.html',
-    styleUrls: ['./ca-my-labs-page.component.scss'],
-    standalone: false
+  selector: 'ca-my-labs-page',
+  templateUrl: './ca-my-labs-page.component.html',
+  styleUrls: ['./ca-my-labs-page.component.scss'],
+  standalone: false,
 })
 export class CaMyLabsPageComponent implements OnInit {
-  labsDatasource: CaLabDatasource;
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(CaRouterService);
 
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private routerService: CaRouterService
-  ) {}
+  labsDatasource: CaLabDatasource;
 
   ngOnInit(): void {
     this.getMyLabs();

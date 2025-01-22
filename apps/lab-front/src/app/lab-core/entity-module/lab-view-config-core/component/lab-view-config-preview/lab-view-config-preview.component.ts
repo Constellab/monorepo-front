@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
@@ -12,22 +12,20 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
  * Button to open the LabViewConfig preview in a portal
  */
 @Component({
-    selector: 'lab-view-config-preview',
-    templateUrl: './lab-view-config-preview.component.html',
-    styleUrls: ['./lab-view-config-preview.component.scss'],
-    standalone: false
+  selector: 'lab-view-config-preview',
+  templateUrl: './lab-view-config-preview.component.html',
+  styleUrls: ['./lab-view-config-preview.component.scss'],
+  standalone: false,
 })
 export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
+  private viewConfigService = inject(LabViewConfigService);
+  private portalService = inject(FlPortalService);
+
   @Input() viewConfigId: string;
 
   isLoading: boolean = false;
 
   private overlay?: FlOverlayRef;
-
-  constructor(
-    private viewConfigService: LabViewConfigService,
-    private portalService: FlPortalService
-  ) {}
 
   ngOnInit(): void {}
 

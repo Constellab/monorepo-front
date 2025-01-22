@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
   HaAgent,
@@ -23,9 +23,9 @@ import { HaAgentEditStyleFormData } from '../../ha-agent/components/ha-agent-edi
   providedIn: 'root',
 })
 export class HaAgentService implements HaCoAuthorService {
-  private readonly route: string = 'agent';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'agent';
 
   ////////////////////////////////// Agent //////////////////////////////////
 

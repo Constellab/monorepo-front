@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, flRootInjector } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -21,9 +21,9 @@ export enum LabRichTextObjectType {
 
 @Injectable({ providedIn: 'root' })
 export class LabRichTextService {
-  private route: string = 'rich-text';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'rich-text';
 
   uploadImage(
     objectType: LabRichTextObjectType,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -22,21 +22,19 @@ import {
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
-    selector: 'ca-bucket-search',
-    templateUrl: './ca-bucket-search.component.html',
-    styleUrls: ['./ca-bucket-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-bucket-search',
+  templateUrl: './ca-bucket-search.component.html',
+  styleUrls: ['./ca-bucket-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaBucketSearchComponent implements OnInit {
-  datasource: CaBucketFullDatasource<CaBucketSearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private bucketSearch = inject(CaObjectStorageService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private bucketSearch: CaObjectStorageService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
+  datasource: CaBucketFullDatasource<CaBucketSearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

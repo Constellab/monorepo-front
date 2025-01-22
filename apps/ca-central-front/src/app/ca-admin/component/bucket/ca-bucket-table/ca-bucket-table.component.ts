@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CaBucketFull } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import {
   FlArrayObs,
@@ -14,12 +14,15 @@ import {
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
 
 @Component({
-    selector: 'ca-bucket-table',
-    templateUrl: './ca-bucket-table.component.html',
-    styleUrls: ['./ca-bucket-table.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-table',
+  templateUrl: './ca-bucket-table.component.html',
+  styleUrls: ['./ca-bucket-table.component.scss'],
+  standalone: false,
 })
 export class CaBucketTableComponent {
+  private dialogService = inject(FlDialogService);
+  private objectStorageService = inject(CaObjectStorageService);
+
   @Input({ required: true }) datasource: FlArrayObs<CaBucketFull>;
 
   @Input() columns: FlTableColumnStatic<CaBucketFull>[] = [
@@ -30,11 +33,6 @@ export class CaBucketTableComponent {
     'lastModified',
     'actions',
   ];
-
-  constructor(
-    private dialogService: FlDialogService,
-    private objectStorageService: CaObjectStorageService
-  ) {}
 
   updateBucket(bucket: CaBucketFull): void {
     const input: CaBucketFormDialogInput = {

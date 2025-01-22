@@ -3,10 +3,10 @@ import {
   Component,
   ElementRef,
   HostListener,
-  Inject,
   OnDestroy,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { HaInstantSearchService } from '../../ha-service/ha-instant-search.service';
 import { BaseHit } from 'instantsearch.js';
@@ -26,23 +26,27 @@ export class HaInstanceSearchDialogData {
 }
 
 @Component({
-    selector: 'ha-ha-instant-search-dialog',
-    imports: [
-        MatInput,
-        MatFormField,
-        MatIcon,
-        MatPrefix,
-        RouterLink,
-        CdkScrollable,
-        MatSuffix,
-        NgClass,
-        FlTranslateModule,
-    ],
-    templateUrl: './ha-instant-search-dialog.component.html',
-    styleUrl: './ha-instant-search-dialog.component.scss',
-    encapsulation: ViewEncapsulation.None
+  selector: 'ha-ha-instant-search-dialog',
+  imports: [
+    MatInput,
+    MatFormField,
+    MatIcon,
+    MatPrefix,
+    RouterLink,
+    CdkScrollable,
+    MatSuffix,
+    NgClass,
+    FlTranslateModule,
+  ],
+  templateUrl: './ha-instant-search-dialog.component.html',
+  styleUrl: './ha-instant-search-dialog.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestroy {
+  private instantSearchService = inject(HaInstantSearchService);
+  private dialogRef = inject<MatDialogRef<HaInstantSearchDialogComponent>>(MatDialogRef);
+  private router = inject(Router);
+
   @HostListener('window:keydown.escape', ['$event'])
   closeDialog(event: KeyboardEvent): void {
     ClHelpService.stopEventPropagation(event);
@@ -100,12 +104,9 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
   refine: (query: string) => void;
   query: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) dialogInput: HaInstanceSearchDialogData,
-    private instantSearchService: HaInstantSearchService,
-    private dialogRef: MatDialogRef<HaInstantSearchDialogComponent>,
-    private router: Router
-  ) {
+  constructor() {
+    const dialogInput = inject<HaInstanceSearchDialogData>(MAT_DIALOG_DATA);
+
     // Init Algolia InstantSearch
     this.instantSearchService.addWidgets([
       configure({

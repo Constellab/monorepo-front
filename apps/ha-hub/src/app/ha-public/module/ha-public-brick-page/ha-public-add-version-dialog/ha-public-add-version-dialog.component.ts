@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import {
@@ -10,15 +10,17 @@ import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'ha-public-add-version-dialog',
-    templateUrl: './ha-public-add-version-dialog.component.html',
-    styleUrls: ['./ha-public-add-version-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-public-add-version-dialog',
+  templateUrl: './ha-public-add-version-dialog.component.html',
+  styleUrls: ['./ha-public-add-version-dialog.component.scss'],
+  standalone: false,
 })
 export class HaPublicAddVersionDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>>
   implements OnInit
 {
+  private brickService = inject(HaBrickService);
+
   brickId: string;
   isUpdate: boolean = false;
   inputFile: HaAddVersionInput;
@@ -26,7 +28,7 @@ export class HaPublicAddVersionDialogComponent
   errorFileText: string;
   isLoadingImport: boolean = false;
 
-  constructor(private brickService: HaBrickService) {
+  constructor() {
     super();
   }
 

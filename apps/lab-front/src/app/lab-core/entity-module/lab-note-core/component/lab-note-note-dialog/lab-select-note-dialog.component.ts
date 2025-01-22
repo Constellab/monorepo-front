@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabNote } from '../../../../model/entities/lab-note.entity';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -6,13 +6,13 @@ import { MatDialogRef } from '@angular/material/dialog';
  * Dialog that used the note search to select a note
  */
 @Component({
-    selector: 'lab-select-note-dialog',
-    templateUrl: './lab-select-note-dialog.component.html',
-    styleUrls: ['./lab-select-note-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-select-note-dialog',
+  templateUrl: './lab-select-note-dialog.component.html',
+  styleUrls: ['./lab-select-note-dialog.component.scss'],
+  standalone: false,
 })
 export class LabSelectNoteDialogComponent implements OnInit {
-  constructor(private dialogRef: MatDialogRef<LabSelectNoteDialogComponent>) {}
+  private dialogRef = inject<MatDialogRef<LabSelectNoteDialogComponent>>(MatDialogRef);
 
   ngOnInit(): void {}
 

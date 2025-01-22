@@ -8,6 +8,7 @@ import {
   OnInit,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { FlCodeEditorLanguage } from '../../fl-code-editor.class';
 import { FormControl } from '@angular/forms';
@@ -16,13 +17,15 @@ import { FormControl } from '@angular/forms';
  * This component is used to lazy load the code editor component.
  */
 @Component({
-    selector: 'fl-code-editor',
-    templateUrl: './fl-code-editor.component.html',
-    styleUrls: ['./fl-code-editor.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-code-editor',
+  templateUrl: './fl-code-editor.component.html',
+  styleUrls: ['./fl-code-editor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlCodeEditorComponent implements OnInit, OnDestroy {
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   @Input({ required: true }) language: FlCodeEditorLanguage;
 
   @Input({ required: true }) formCtrl: FormControl;
@@ -32,8 +35,6 @@ export class FlCodeEditorComponent implements OnInit, OnDestroy {
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   private componentRef: ComponentRef<any>;
-
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   async ngOnInit(): Promise<void> {
     const { FlCodeEditorStandaloneComponent } = await import(

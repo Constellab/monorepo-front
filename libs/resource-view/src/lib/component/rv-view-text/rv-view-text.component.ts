@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 import { RvResourceViewText } from '../../model/rv-resource-view.class';
 import { Observable } from 'rxjs';
@@ -9,13 +9,15 @@ import { Observable } from 'rxjs';
  * Support pagination to previous or next page
  */
 @Component({
-    selector: 'rv-view-text',
-    templateUrl: './rv-view-text.component.html',
-    styleUrls: ['./rv-view-text.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'rv-view-text',
+  templateUrl: './rv-view-text.component.html',
+  styleUrls: ['./rv-view-text.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewText> implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   @Input({ required: true }) view: RvResourceViewText;
 
   text: string = '';
@@ -27,7 +29,7 @@ export class RvViewTextComponent extends RvResourceViewDirective<RvResourceViewT
 
   paginationIsDisabled: boolean;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor() {
     super();
   }
 

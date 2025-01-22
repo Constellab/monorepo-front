@@ -25,20 +25,22 @@ export interface HaFileFormData {
 }
 
 @Component({
-    selector: 'ha-file-dialog',
-    templateUrl: './ha-file-dialog.component.html',
-    styleUrls: ['./ha-file-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-file-dialog',
+  templateUrl: './ha-file-dialog.component.html',
+  styleUrls: ['./ha-file-dialog.component.scss'],
+  standalone: false,
 })
 export class HaFileDialogComponent
   extends FlFormDialogAbstractDirective<HaFileFormData, HaBaseEntityWithFiles>
   implements OnInit
 {
+  private actionService = inject(FlPortalActionsService);
+
   dialogInput: HaFileDialogInput = inject(MAT_DIALOG_DATA);
 
   entity: HaBaseEntityWithFiles;
 
-  constructor(private actionService: FlPortalActionsService) {
+  constructor() {
     super();
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabVenvService } from '../../../../lab-core/entity-service/lab-venv.service';
 import { Observable, share } from 'rxjs';
 import { LabVenvArrayObs, LabVEnvsStatus } from '../../../../lab-core/model/entities/lab-venv.entity';
@@ -10,20 +10,18 @@ import { map } from 'rxjs/operators';
  * Check the detail of a venv and delete it
  */
 @Component({
-    selector: 'lab-monitoring-venvs-page',
-    templateUrl: './lab-monitoring-venvs-page.component.html',
-    styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-venvs-page',
+  templateUrl: './lab-monitoring-venvs-page.component.html',
+  styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
+  standalone: false,
 })
 export class LabMonitoringVenvsPageComponent implements OnInit {
+  private venvService = inject(LabVenvService);
+  private dialogService = inject(FlDialogService);
+
   venvsStatus$: Observable<LabVEnvsStatus>;
 
   venvsList: LabVenvArrayObs;
-
-  constructor(
-    private venvService: LabVenvService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.venvsStatus$ = this.venvService.getVenvsStatus().pipe(share());

@@ -1,16 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabDevEnvironmentService } from '../../../lab-core/service/lab-dev-environment.service';
 import { Subscription } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 
 @Component({
-    selector: 'lab-environment-toggle',
-    templateUrl: './lab-environment-toggle.component.html',
-    styleUrls: ['./lab-environment-toggle.component.scss'],
-    standalone: false
+  selector: 'lab-environment-toggle',
+  templateUrl: './lab-environment-toggle.component.html',
+  styleUrls: ['./lab-environment-toggle.component.scss'],
+  standalone: false,
 })
 export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
+  private labEnvStore = inject(LabEnvStore);
+  private labEnvService = inject(LabDevEnvironmentService);
+
   checked: boolean;
 
   devApiRunning: boolean = false;
@@ -18,11 +21,6 @@ export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   ready: boolean = false;
 
   private subscription: Subscription;
-
-  constructor(
-    private labEnvStore: LabEnvStore,
-    private labEnvService: LabDevEnvironmentService
-  ) {}
 
   ngOnInit(): void {
     this.checked = this.labEnvStore.isDev();

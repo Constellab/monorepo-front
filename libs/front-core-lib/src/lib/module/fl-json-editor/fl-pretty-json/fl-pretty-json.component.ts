@@ -8,6 +8,7 @@ import {
   OnInit,
   TrackByFunction,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { ClCoerceBooleanDecorator, ClHelpService, ClOnChange } from '@monorepo/core-lib';
@@ -19,13 +20,15 @@ import { FlPrettyJsonBuilder } from '../model/fl-pretty-json-builder.class';
 import { FlHtmlHelper } from '../../../utils/fl-html.helper';
 
 @Component({
-    selector: 'fl-pretty-json',
-    templateUrl: './fl-pretty-json.component.html',
-    styleUrls: ['./fl-pretty-json.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-pretty-json',
+  templateUrl: './fl-pretty-json.component.html',
+  styleUrls: ['./fl-pretty-json.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlPrettyJsonComponent implements OnInit, OnDestroy {
+  private cdr = inject(ChangeDetectorRef);
+
   /**
    * Json object to show, support observable
    */
@@ -91,8 +94,6 @@ export class FlPrettyJsonComponent implements OnInit, OnDestroy {
   };
 
   hasChild = (_: number, node: FlObjectFlatNode): boolean => node.expandable;
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.init(this.object);

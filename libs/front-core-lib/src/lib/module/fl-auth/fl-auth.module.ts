@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlLoginComponent } from './component/fl-login/fl-login.component';
 import { FlAuthService } from './service/fl-auth.service';
@@ -90,7 +90,9 @@ import { FlLoginFooterComponent } from './component/fl-login-footer/fl-login-foo
   ],
 })
 export class FlAuthModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlAuthModule', flAuthI18n);
   }
 

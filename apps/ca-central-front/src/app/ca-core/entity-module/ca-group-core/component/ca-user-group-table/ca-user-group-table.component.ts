@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -9,20 +9,18 @@ import { CaUserGroup, CaUserGroupDatasource } from '../../../../model/entities/c
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 
 @Component({
-    selector: 'ca-user-group-table',
-    templateUrl: './ca-user-group-table.component.html',
-    styleUrls: ['./ca-user-group-table.component.scss'],
-    standalone: false
+  selector: 'ca-user-group-table',
+  templateUrl: './ca-user-group-table.component.html',
+  styleUrls: ['./ca-user-group-table.component.scss'],
+  standalone: false,
 })
 export class CaUserGroupTableComponent {
+  private groupService = inject(CaGroupService);
+  private dialogService = inject(FlDialogService);
+
   @Input() datasource: CaUserGroupDatasource;
 
   @Input() columns: FlTableColumnStatic<CaUserGroup>[] = ['user', 'creation', 'actions'];
-
-  constructor(
-    private groupService: CaGroupService,
-    private dialogService: FlDialogService
-  ) {}
 
   openRemoveUserDialog(userGroup: CaUserGroup): void {
     const data: FlConfirmDialogInput = {

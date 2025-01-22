@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
 import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
@@ -13,18 +13,16 @@ import { FlDeviceHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front
  */
 @Injectable()
 export class SpSpreadsheetKeyboardManagerState implements OnDestroy {
-  private keyboardListener: () => void;
+  private state = inject(SpSpreadsheetState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private renderer = inject(Renderer2);
+  private ngZone = inject(NgZone);
+  private clipboardState = inject(SpSpreadsheetClipboardState);
+  private actionState = inject(SpSpreadsheetActions);
+  private actionStore = inject(SpSpreadsheetActionStore);
+  private scrollState = inject(SpSpreadsheetScrollState);
 
-  constructor(
-    private state: SpSpreadsheetState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private renderer: Renderer2,
-    private ngZone: NgZone,
-    private clipboardState: SpSpreadsheetClipboardState,
-    private actionState: SpSpreadsheetActions,
-    private actionStore: SpSpreadsheetActionStore,
-    private scrollState: SpSpreadsheetScrollState
-  ) {}
+  private keyboardListener: () => void;
 
   public init(): void {
     if (this.keyboardListener != null) {

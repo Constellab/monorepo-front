@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import {
@@ -12,22 +12,20 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Action menu button to edit or delete a team
  */
 @Component({
-    selector: 'ca-team-action-menu',
-    templateUrl: './ca-team-action-menu.component.html',
-    styleUrls: ['./ca-team-action-menu.component.scss'],
-    standalone: false
+  selector: 'ca-team-action-menu',
+  templateUrl: './ca-team-action-menu.component.html',
+  styleUrls: ['./ca-team-action-menu.component.scss'],
+  standalone: false,
 })
 export class CaTeamActionMenuComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private groupService = inject(CaGroupService);
+
   @Input() team: CaGroup;
 
   @Input() stopClickEvent: boolean = false;
 
   @Output() teamDeleted: EventEmitter<CaGroup> = new EventEmitter();
-
-  constructor(
-    private dialogService: FlDialogService,
-    private groupService: CaGroupService
-  ) {}
 
   ngOnInit(): void {}
 

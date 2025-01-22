@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -13,12 +13,15 @@ import {
 import { LabVenvService } from '../../../entity-service/lab-venv.service';
 
 @Component({
-    selector: 'lab-venv-table',
-    templateUrl: './lab-venv-table.component.html',
-    styleUrls: ['./lab-venv-table.component.scss'],
-    standalone: false
+  selector: 'lab-venv-table',
+  templateUrl: './lab-venv-table.component.html',
+  styleUrls: ['./lab-venv-table.component.scss'],
+  standalone: false,
 })
 export class LabVenvTableComponent {
+  private dialogService = inject(FlDialogService);
+  private venvService = inject(LabVenvService);
+
   @Input() datasource: LabVenvArrayObs;
 
   @Input() columns: FlTableColumnStatic<LabVenvBasicInfo>[] = [
@@ -28,11 +31,6 @@ export class LabVenvTableComponent {
     'createdAt',
     'actions',
   ];
-
-  constructor(
-    private dialogService: FlDialogService,
-    private venvService: LabVenvService
-  ) {}
 
   openVenvDetailDialog(venv: LabVenvBasicInfo): void {
     const input: LabVenvDetailDialogInput = {

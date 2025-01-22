@@ -10,21 +10,23 @@ import { CoIcon, CoIconType } from '@monorepo/community-lib';
 export type HaCreateIconDtoInput = FlFormDialogInput<HaIconCreateFormData>;
 
 @Component({
-    selector: 'ha-icon-create-dialog',
-    templateUrl: './ha-icon-create-dialog.component.html',
-    styleUrls: ['./ha-icon-create-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-icon-create-dialog',
+  templateUrl: './ha-icon-create-dialog.component.html',
+  styleUrls: ['./ha-icon-create-dialog.component.scss'],
+  standalone: false,
 })
 export class HaIconCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaIconCreateFormData, CoIcon>
   implements OnInit
 {
+  private iconService = inject(HaIconService);
+
   dialogInput: HaCreateIconDtoInput = inject(MAT_DIALOG_DATA);
 
   input_file_trigered = false;
   icon: HaIconCreateFormData;
 
-  constructor(private iconService: HaIconService) {
+  constructor() {
     super();
     if (this.dialogInput.mode === 'update') {
       this.icon = this.dialogInput.object;

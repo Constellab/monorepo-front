@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlConfirmDialogInput,
@@ -31,12 +31,10 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class LabNoteService implements TeTextEditorHistoryService {
-  private route: string = 'note';
+  private apiService = inject(FlApiService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private apiService: FlApiService,
-    private dialogService: FlDialogService
-  ) {}
+  private route: string = 'note';
 
   public create(note: LabNoteForm): Observable<LabNote> {
     return this.apiService.post(this.route, this.noteFormToBody(note), LabNote);

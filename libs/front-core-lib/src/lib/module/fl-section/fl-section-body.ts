@@ -1,4 +1,4 @@
-import { Directive, Input, TemplateRef } from '@angular/core';
+import { Directive, Input, TemplateRef, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlDatasource } from '../../model/datasource/fl-datasource.class';
 import { FlStatusEvent } from '../../model/fl-status-event.class';
@@ -22,10 +22,13 @@ export interface FlAsyncSectionBodyContext<T> extends FlViewContext<T> {
 }
 
 @Directive({
-    selector: '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent], [flSectionBodyStatusObsEvent]',
-    standalone: false
+  selector:
+    '[flSectionBody], [flSectionBodyDatasource], [flSectionBodyStatusEvent], [flSectionBodyStatusObsEvent]',
+  standalone: false,
 })
 export class FlSectionBodyDirective<T> {
+  _template = inject<TemplateRef<any>>(TemplateRef);
+
   /**
    * Use this when you want to provide a simple observable object
    *  | string is for empty *flSectionBody
@@ -56,6 +59,4 @@ export class FlSectionBodyDirective<T> {
   ): ctx is FlAsyncSectionBodyContext<TContext> {
     return true;
   }
-
-  constructor(public _template: TemplateRef<any>) {}
 }

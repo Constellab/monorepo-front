@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
   HaCreateStoryDto,
@@ -32,9 +32,9 @@ import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profil
 export class HaStoryService
   implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
 {
-  private readonly route: string = 'story';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'story';
 
   /**
    * Call http post to create a story

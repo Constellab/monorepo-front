@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   CaDocument,
   CaDocumentDatasource,
@@ -16,22 +16,25 @@ export interface CaDocumentTrashListDialogInput {
  * dialog to show the list of documents in the trash
  */
 @Component({
-    selector: 'ca-document-trash-list-dialog',
-    templateUrl: './ca-document-trash-list-dialog.component.html',
-    styleUrls: ['./ca-document-trash-list-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-document-trash-list-dialog',
+  templateUrl: './ca-document-trash-list-dialog.component.html',
+  styleUrls: ['./ca-document-trash-list-dialog.component.scss'],
+  standalone: false,
 })
 export class CaDocumentTrashListDialogComponent {
+  private folderService = inject(CaFolderService);
+  private input = inject<CaDocumentTrashListDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<CaDocumentTrashListDialogComponent>>(MatDialogRef);
+  private dialogService = inject(FlDialogService);
+
   documentDatasource: CaDocumentDatasource;
 
   restoredDocuments: CaDocument[] = [];
 
-  constructor(
-    private folderService: CaFolderService,
-    @Inject(MAT_DIALOG_DATA) private input: CaDocumentTrashListDialogInput,
-    private dialogRef: MatDialogRef<CaDocumentTrashListDialogComponent>,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const folderService = this.folderService;
+    const input = this.input;
+
     this.documentDatasource = folderService.getTrashedDocuments(input.folderId);
 
     this.dialogRef.backdropClick().subscribe(() => this.dialogRef.close(this.restoredDocuments));

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   CaCloudProvider,
   CaCloudProviderDatasource,
@@ -11,18 +11,16 @@ import {
 } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
 
 @Component({
-    selector: 'ca-admin-cloud-providers-list',
-    templateUrl: './ca-admin-cloud-providers-list.component.html',
-    styleUrls: ['./ca-admin-cloud-providers-list.component.scss'],
-    standalone: false
+  selector: 'ca-admin-cloud-providers-list',
+  templateUrl: './ca-admin-cloud-providers-list.component.html',
+  styleUrls: ['./ca-admin-cloud-providers-list.component.scss'],
+  standalone: false,
 })
 export class CaAdminCloudProvidersListComponent {
-  cloudProviders: CaCloudProviderDatasource = this.cloudProviderService.findAllDatasource();
+  private cloudProviderService = inject(CaCloudProviderService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private cloudProviderService: CaCloudProviderService,
-    private dialogService: FlDialogService
-  ) {}
+  cloudProviders: CaCloudProviderDatasource = this.cloudProviderService.findAllDatasource();
 
   openCreateDialog(): void {
     const input: CaCloudProviderFormDialogInput = { mode: 'create' };

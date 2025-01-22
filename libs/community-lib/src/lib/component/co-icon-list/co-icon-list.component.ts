@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output, inject } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../../model/co-icon.class';
 import { FormControl } from '@angular/forms';
@@ -6,12 +6,14 @@ import { CoIconService } from '../../service/co-icon.service';
 import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'co-icon-list',
-    templateUrl: './co-icon-list.component.html',
-    styleUrl: './co-icon-list.component.scss',
-    standalone: false
+  selector: 'co-icon-list',
+  templateUrl: './co-icon-list.component.html',
+  styleUrl: './co-icon-list.component.scss',
+  standalone: false,
 })
 export class CoIconListComponent implements OnInit, OnDestroy {
+  private iconService = inject(CoIconService);
+
   @Input()
   reloadList$?: Observable<boolean>;
 
@@ -25,8 +27,6 @@ export class CoIconListComponent implements OnInit, OnDestroy {
   reloadListSubscription: Subscription;
 
   searchFormControl: FormControl<string> = new FormControl('');
-
-  constructor(private iconService: CoIconService) {}
 
   ngOnInit(): void {
     this.loadIcons();

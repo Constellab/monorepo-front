@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -20,13 +20,18 @@ import { CaLabSearchMode } from '../ca-lab-search-form/ca-lab-search-form.compon
 import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
 
 @Component({
-    selector: 'ca-lab-search',
-    templateUrl: './ca-lab-search.component.html',
-    styleUrls: ['./ca-lab-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-lab-search',
+  templateUrl: './ca-lab-search.component.html',
+  styleUrls: ['./ca-lab-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaLabSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private labService = inject(CaLabService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
+
   /**
    * Mode for the search
    * All --> search in all lab, only for admin
@@ -37,13 +42,6 @@ export class CaLabSearchComponent implements OnInit {
   datasource: CaLabDatasource<CaLabSearchFields>;
 
   columns: FlTableColumnStatic<CaLab>[];
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private labService: CaLabService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

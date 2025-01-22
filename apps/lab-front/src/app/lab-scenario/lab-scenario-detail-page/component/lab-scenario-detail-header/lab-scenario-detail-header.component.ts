@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import {
@@ -66,23 +66,21 @@ import {
   standalone: false,
 })
 export class LabScenarioDetailHeaderComponent implements OnInit {
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private dialogService = inject(FlDialogService);
+  private scenarioService = inject(LabScenarioService);
+  private routerService = inject(LabRouterService);
+  private queueService = inject(LabQueueService);
+  private translateService = inject(FlTranslateService);
+  private processService = inject(LabProcessService);
+  private protocolService = inject(LabProtocolService);
+  private snackBarService = inject(FlSnackBarService);
+  private labNavigableService = inject(LabNavigableEntityService);
+  private actionsService = inject(FlPortalActionsService);
+
   scenario$: Observable<LabScenario>;
 
   syncObjectFunc: (id: string) => Observable<LabScenario>;
-
-  constructor(
-    private scenarioState: LabScenarioDetailPageState,
-    private dialogService: FlDialogService,
-    private scenarioService: LabScenarioService,
-    private routerService: LabRouterService,
-    private queueService: LabQueueService,
-    private translateService: FlTranslateService,
-    private processService: LabProcessService,
-    private protocolService: LabProtocolService,
-    private snackBarService: FlSnackBarService,
-    private labNavigableService: LabNavigableEntityService,
-    private actionsService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();

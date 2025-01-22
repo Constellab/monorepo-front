@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
@@ -22,12 +22,19 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
 import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
 
 @Component({
-    selector: 'ca-note-detail',
-    templateUrl: './ca-note-detail.component.html',
-    styleUrls: ['./ca-note-detail.component.scss'],
-    standalone: false
+  selector: 'ca-note-detail',
+  templateUrl: './ca-note-detail.component.html',
+  styleUrls: ['./ca-note-detail.component.scss'],
+  standalone: false,
 })
 export class CaNoteDetailComponent implements OnInit {
+  private scenarioService = inject(CaScenarioService);
+  private dialogService = inject(FlDialogService);
+  private noteService = inject(CaNoteService);
+  private noteHistoryService = inject(CaNoteHistoryService);
+  private state = inject(CaHierarchyObjectDetailState);
+  private portalService = inject(FlPortalService);
+
   @Input({ required: true }) note: CaNote;
 
   scenarios: FlArrayObs<CaScenario>;
@@ -35,15 +42,6 @@ export class CaNoteDetailComponent implements OnInit {
   private historyOverlayRef: FlOverlayRef;
 
   textEditorConfig: CaNoteTextEditorConfig;
-
-  constructor(
-    private scenarioService: CaScenarioService,
-    private dialogService: FlDialogService,
-    private noteService: CaNoteService,
-    private noteHistoryService: CaNoteHistoryService,
-    private state: CaHierarchyObjectDetailState,
-    private portalService: FlPortalService
-  ) {}
 
   ngOnInit(): void {
     this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { CaResource } from '../model/entities/folder/ca-resource.class';
@@ -7,9 +7,9 @@ import { CaResource } from '../model/entities/folder/ca-resource.class';
   providedIn: 'root',
 })
 export class CaResourceService {
-  private readonly route: string = 'resources';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'resources';
 
   public findById(id: string): Observable<CaResource> {
     return this.apiService.get(`${this.route}/${id}`, CaResource);

@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import {
   HaAgentVersion,
   HaAgentVersionFileInput,
@@ -11,24 +11,22 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 
 @Component({
-    selector: 'ha-agent-versions-panel',
-    templateUrl: './ha-agent-versions-panel.component.html',
-    styleUrls: ['./ha-agent-versions-panel.component.scss'],
-    standalone: false
+  selector: 'ha-agent-versions-panel',
+  templateUrl: './ha-agent-versions-panel.component.html',
+  styleUrls: ['./ha-agent-versions-panel.component.scss'],
+  standalone: false,
 })
 export class HaAgentVersionsPanelComponent {
+  private agentService = inject(HaAgentService);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+  private router = inject(Router);
+  private agentPageState = inject(HaAgentPageState);
+
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
   agent: Signal<HaAgent> = this.agentPageState.getAgent();
   agentVersions: Signal<HaAgentVersion[]> = this.agentPageState.getAgentVersionsList();
   inputFile: any;
-
-  constructor(
-    private agentService: HaAgentService,
-    private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService,
-    private router: Router,
-    private agentPageState: HaAgentPageState
-  ) {}
 
   onFileSelected(event: any): void {
     this.inputFile = null;

@@ -1,23 +1,23 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'lab-view-config-favorite',
-    templateUrl: './lab-view-config-favorite.component.html',
-    styleUrls: ['./lab-view-config-favorite.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lab-view-config-favorite',
+  templateUrl: './lab-view-config-favorite.component.html',
+  styleUrls: ['./lab-view-config-favorite.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LabViewConfigFavoriteComponent {
+  private viewConfigService = inject(LabViewConfigService);
+
   @Input() viewConfig: LabViewConfig;
 
   @Output() update: EventEmitter<LabViewConfig> = new EventEmitter();
 
   private isLoading: boolean = false;
-
-  constructor(private viewConfigService: LabViewConfigService) {}
 
   toggle(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   LabCredentials,
   LabCredentialsDatasource,
@@ -11,12 +11,15 @@ import {
 } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-form-dialog/lab-credentials-form-dialog.component';
 
 @Component({
-    selector: 'lab-monitoring-credentials-page',
-    templateUrl: './lab-monitoring-credentials-page.component.html',
-    styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-credentials-page',
+  templateUrl: './lab-monitoring-credentials-page.component.html',
+  styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
+  standalone: false,
 })
 export class LabMonitoringCredentialsPageComponent {
+  private credentialsService = inject(LabCredentialsService);
+  private dialogService = inject(FlDialogService);
+
   allCredentials: LabCredentialsDatasource = this.credentialsService.getAllDatasource();
 
   displayedColumns: FlTableColumnStatic<LabCredentials>[] = [
@@ -26,11 +29,6 @@ export class LabMonitoringCredentialsPageComponent {
     'created',
     'actions',
   ];
-
-  constructor(
-    private credentialsService: LabCredentialsService,
-    private dialogService: FlDialogService
-  ) {}
 
   createCredentials(): void {
     const data: LabCredentialsFormDialogInput = {

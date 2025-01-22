@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import {
@@ -15,7 +15,10 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class LmsApiErrorService extends FlApiErrorService {
-  constructor(snackBarService: FlSnackBarService, translateService: FlTranslateService) {
+  constructor() {
+    const snackBarService = inject(FlSnackBarService);
+    const translateService = inject(FlTranslateService);
+
     super(snackBarService, translateService);
   }
 

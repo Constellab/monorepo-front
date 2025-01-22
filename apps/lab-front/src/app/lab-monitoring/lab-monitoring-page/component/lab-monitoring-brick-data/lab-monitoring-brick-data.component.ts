@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { LabBrickDataService } from '../../../../lab-core/service/lab-brick-data.service';
 import { LabBrickDataArrayObs } from '../../../../lab-core/model/global/lab-brick-data.class';
 
 @Component({
-    selector: 'lab-monitoring-brick-data',
-    templateUrl: './lab-monitoring-brick-data.component.html',
-    styleUrls: ['./lab-monitoring-brick-data.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-brick-data',
+  templateUrl: './lab-monitoring-brick-data.component.html',
+  styleUrls: ['./lab-monitoring-brick-data.component.scss'],
+  standalone: false,
 })
 export class LabMonitoringBrickDataComponent implements OnInit {
-  brickDataList: LabBrickDataArrayObs;
+  private brickDataService = inject(LabBrickDataService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private brickDataService: LabBrickDataService,
-    private dialogService: FlDialogService
-  ) {}
+  brickDataList: LabBrickDataArrayObs;
 
   ngOnInit(): void {
     this.brickDataList = new LabBrickDataArrayObs(this.brickDataService.getBrickData());

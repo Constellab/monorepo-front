@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { FlSnackBarService, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib';
@@ -17,23 +17,25 @@ export interface CaGroupAddUserDialogInput {
  * Dialog to add a user to a group or an space
  */
 @Component({
-    selector: 'ca-group-add-user-dialog',
-    templateUrl: './ca-group-add-user-dialog.component.html',
-    styleUrls: ['./ca-group-add-user-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-group-add-user-dialog',
+  templateUrl: './ca-group-add-user-dialog.component.html',
+  styleUrls: ['./ca-group-add-user-dialog.component.scss'],
+  standalone: false,
 })
 export class CaGroupAddUserDialogComponent implements OnInit {
+  private input = inject<CaGroupAddUserDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<CaGroupAddUserDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   formControl: FormControl<CaUser>;
 
   isLoading: boolean = false;
 
   selectUserMode: FlUserConfigSearchNameMode;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaGroupAddUserDialogInput,
-    private dialogRef: MatDialogRef<CaGroupAddUserDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.selectUserMode = input.selectUserMode;
   }
 

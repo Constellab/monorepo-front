@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlFormHelper, FlOverlayRef } from '@monorepo/front-core-lib';
 import {
   labConvertTransformFormToParams,
@@ -24,12 +24,17 @@ export interface LabTransformResourcePortalInput {
  * Dialog to transform a resource using transformers
  */
 @Component({
-    selector: 'lab-transform-resource-portal',
-    templateUrl: './lab-transform-resource-portal.component.html',
-    styleUrls: ['./lab-transform-resource-portal.component.scss'],
-    standalone: false
+  selector: 'lab-transform-resource-portal',
+  templateUrl: './lab-transform-resource-portal.component.html',
+  styleUrls: ['./lab-transform-resource-portal.component.scss'],
+  standalone: false,
 })
 export class LabTransformResourcePortalComponent {
+  private input = inject<LabTransformResourcePortalInput>(FL_PORTAL_DATA);
+  private resourceService = inject(LabResourceService);
+  private overlayRef = inject(FlOverlayRef);
+  private routerService = inject(LabRouterService);
+
   resourceTypingName: string;
 
   resourceName: string;
@@ -39,12 +44,9 @@ export class LabTransformResourcePortalComponent {
   });
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) private input: LabTransformResourcePortalInput,
-    private resourceService: LabResourceService,
-    private overlayRef: FlOverlayRef,
-    private routerService: LabRouterService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.resourceTypingName = input.resourceTypingName;
     this.resourceName = input.resourceName;
   }

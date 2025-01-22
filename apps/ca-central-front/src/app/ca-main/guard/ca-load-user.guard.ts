@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
@@ -15,10 +15,8 @@ import { CaRouterService } from '../../ca-core/service/ca-router.service';
   providedIn: 'root',
 })
 export class CaLoadUserGuard {
-  constructor(
-    private authenticatedUserService: CaAuthenticatedUserService,
-    private router: Router
-  ) {}
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private router = inject(Router);
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authenticatedUserService.loadCurrentInfo().pipe(

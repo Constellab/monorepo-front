@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { LabLogsBetweenDates } from '../model/entities/lab-log.entity';
 import { Observable } from 'rxjs';
@@ -11,9 +11,9 @@ import { ClDateHelper } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class LabProcessService {
-  private readonly route = 'process';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'process';
 
   public getProcessLogs(
     processType: LabProcessClass,

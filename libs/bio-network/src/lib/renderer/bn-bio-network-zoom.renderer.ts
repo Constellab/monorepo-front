@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BnBioNetworkMainRenderer } from './bn-bio-network-main.renderer';
 import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
 import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
@@ -8,6 +8,9 @@ import { ForceGraphInstance } from 'force-graph';
 
 @Injectable()
 export class BnBioNetworkZoomRenderer {
+  private mainRenderer = inject(BnBioNetworkMainRenderer);
+  private selectionState = inject(BnBioNetworkSelectionState);
+
   public static readonly minZoomScale: number = 0.01;
   public static readonly maxZoomScale: number = 10;
   public static readonly defaultZoomScale: number = 0.25;
@@ -16,11 +19,6 @@ export class BnBioNetworkZoomRenderer {
   private readonly zoomToPositionScale: number = 1;
 
   private readonly zoomDuration: number = 750;
-
-  constructor(
-    private mainRenderer: BnBioNetworkMainRenderer,
-    private selectionState: BnBioNetworkSelectionState
-  ) {}
 
   public init(): void {
     combineLatest([this.mainRenderer.getGraphRenderer$(), this.selectionState.getSelectionMode$()]).subscribe(

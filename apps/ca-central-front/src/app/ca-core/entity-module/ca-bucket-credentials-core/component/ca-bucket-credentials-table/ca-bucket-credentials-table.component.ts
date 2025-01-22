@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   FlCheckCredentialsDialogComponent,
   FlCheckCredentialsDialogInput,
@@ -20,12 +20,15 @@ import { CaObjectStorageService } from '../../../../service-api/ca-object-storag
 import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'ca-bucket-credentials-table',
-    templateUrl: './ca-bucket-credentials-table.component.html',
-    styleUrls: ['./ca-bucket-credentials-table.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-credentials-table',
+  templateUrl: './ca-bucket-credentials-table.component.html',
+  styleUrls: ['./ca-bucket-credentials-table.component.scss'],
+  standalone: false,
 })
 export class CaBucketCredentialsTableComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private objectStorageService = inject(CaObjectStorageService);
+
   @Input() datasource: CaBucketCredentialsDatasource;
 
   @Input() columns: FlTableColumnStatic<CaBucketCredentials>[] = [
@@ -37,11 +40,6 @@ export class CaBucketCredentialsTableComponent implements OnInit {
     'lastModified',
     'actions',
   ];
-
-  constructor(
-    private dialogService: FlDialogService,
-    private objectStorageService: CaObjectStorageService
-  ) {}
 
   ngOnInit(): void {}
 

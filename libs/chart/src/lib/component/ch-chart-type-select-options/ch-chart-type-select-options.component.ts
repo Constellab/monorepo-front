@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, inject } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 
 import { ChChartType, chChartTypeIcons } from '../../model/ch-chart.class';
@@ -8,21 +8,27 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
  * Component to place inside a mat-select to add the option of available charts
  */
 @Component({
-    selector: 'ch-chart-type-select-options',
-    templateUrl: './ch-chart-type-select-options.component.html',
-    styleUrls: ['./ch-chart-type-select-options.component.scss'],
-    standalone: false
+  selector: 'ch-chart-type-select-options',
+  templateUrl: './ch-chart-type-select-options.component.html',
+  styleUrls: ['./ch-chart-type-select-options.component.scss'],
+  standalone: false,
 })
 export class ChChartTypeSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit
 {
+  private select: MatSelect;
+
   @Input() availableChartTypes: ChChartType[];
 
   chartTypeIcons: Record<ChChartType, string> = chChartTypeIcons;
 
-  constructor(@Host() private select: MatSelect) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

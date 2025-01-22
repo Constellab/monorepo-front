@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlColorHelper, FlDialogService } from '@monorepo/front-core-lib';
 import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
 import { TeConfig } from '../../model/te-config.class';
@@ -22,23 +22,21 @@ export interface TeTextEditorHistoryPortalData {
 const GROUP_TIME_INTERVAL = Duration.fromObject({ minutes: 10 });
 
 @Component({
-    selector: 'te-text-editor-history-portal',
-    templateUrl: './te-text-editor-history-portal.component.html',
-    styleUrl: './te-text-editor-history-portal.component.scss',
-    standalone: false
+  selector: 'te-text-editor-history-portal',
+  templateUrl: './te-text-editor-history-portal.component.html',
+  styleUrl: './te-text-editor-history-portal.component.scss',
+  standalone: false,
 })
 export class TeTextEditorHistoryPortalComponent implements OnInit {
+  private data = inject<TeTextEditorHistoryPortalData>(FL_PORTAL_DATA);
+  private dialogService = inject(FlDialogService);
+
   isLoading = true;
 
   modificationsGroups: TeTextEditorHistoryModificationGroup[] = [];
   private users: TeTextEditorHistoryUser[] = [];
 
   private colors = FlColorHelper.getColorList(0.2);
-
-  constructor(
-    @Inject(FL_PORTAL_DATA) private data: TeTextEditorHistoryPortalData,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.data.service.getHistory(this.data.entityId).subscribe((modifications) => {

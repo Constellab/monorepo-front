@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import {
   TdTechnicalDocServiceConfig,
   TdTechnicalDocUrl,
@@ -6,18 +6,18 @@ import {
 import { TdTypingName } from '../../model/td-typing-name.class';
 
 @Component({
-    selector: 'td-tech-doc-link',
-    templateUrl: './td-tech-doc-link.component.html',
-    styleUrls: ['./td-tech-doc-link.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'td-tech-doc-link',
+  templateUrl: './td-tech-doc-link.component.html',
+  styleUrls: ['./td-tech-doc-link.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TdTechDocLinkComponent {
+  private tdServiceConfig = inject(TdTechnicalDocServiceConfig);
+
   @Input({ required: true }) typingName: string;
 
   @Input({ required: true }) version: string;
-
-  constructor(private tdServiceConfig: TdTechnicalDocServiceConfig) {}
 
   get docUrl(): TdTechnicalDocUrl {
     const typingName: TdTypingName = new TdTypingName(this.typingName);

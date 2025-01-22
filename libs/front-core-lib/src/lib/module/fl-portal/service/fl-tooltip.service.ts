@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, OnDestroy } from '@angular/core';
+import { ElementRef, Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { FlPortalService } from './fl-portal.service';
@@ -14,16 +14,14 @@ import { FlTranslateParam } from '../../fl-translate/model/fl-translate-param';
  */
 @Injectable()
 export class FlTooltipService implements OnDestroy {
+  private portalService = inject(FlPortalService);
+  private translateService = inject(FlTranslateService);
+
   // store the current overlay
   private overlays: Map<string, FlOverlayRef> = new Map();
 
   // store the current subject to dispose overlay
   private disposeTooltip: Map<string, Subject<string>> = new Map();
-
-  constructor(
-    private portalService: FlPortalService,
-    private translateService: FlTranslateService
-  ) {}
 
   /**
    * Open a message in tooltip in a portal.

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaSpaceStorage } from '../../../../ca-core/model/entities/space/ca-space.dto';
 import { ThemePalette } from '@angular/material/core';
 import { Observable, of, share } from 'rxjs';
@@ -27,12 +27,10 @@ import {
   standalone: false,
 })
 export class CaCurrentSpaceStorageComponent {
-  spaceStorage$: Observable<CaSpaceStorage> = this.spaceService.getCurrentSpaceStorage().pipe(share());
+  private spaceService = inject(CaSpaceService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private spaceService: CaSpaceService,
-    private dialogService: FlDialogService
-  ) {}
+  spaceStorage$: Observable<CaSpaceStorage> = this.spaceService.getCurrentSpaceStorage().pipe(share());
 
   spinnerColor(usagePercent: number): ThemePalette {
     return usagePercent > 80 ? 'warn' : 'primary';

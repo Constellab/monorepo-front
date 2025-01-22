@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
@@ -13,29 +13,27 @@ import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
  * Page for the biox scenario detail with workflow view/edit
  */
 @Component({
-    selector: 'lab-scenario-detail-page',
-    templateUrl: './lab-scenario-detail-page.component.html',
-    styleUrls: ['./lab-scenario-detail-page.component.scss'],
-    providers: [
-        LabScenarioDetailPageState,
-        LabWorkflowNodeDetailState,
-        LabWorkflowEditConfig,
-        LabWorkflowFactory,
-    ],
-    standalone: false
+  selector: 'lab-scenario-detail-page',
+  templateUrl: './lab-scenario-detail-page.component.html',
+  styleUrls: ['./lab-scenario-detail-page.component.scss'],
+  providers: [
+    LabScenarioDetailPageState,
+    LabWorkflowNodeDetailState,
+    LabWorkflowEditConfig,
+    LabWorkflowFactory,
+  ],
+  standalone: false,
 })
 export class LabScenarioDetailPageComponent implements OnInit, OnDestroy {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private actionState = inject(PrWorkflowActionState);
+  private nodeDetailState = inject(LabWorkflowNodeDetailState);
+
   scenario$: Observable<LabScenario>;
 
   selectedTabIndex: number = 0;
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private scenarioState: LabScenarioDetailPageState,
-    private actionState: PrWorkflowActionState,
-    private nodeDetailState: LabWorkflowNodeDetailState
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));

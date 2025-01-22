@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { labBiotaDatabaseGroups } from '../../../model/lab-biota-database.class';
 import { MatSelect } from '@angular/material/select';
@@ -7,19 +7,25 @@ import { MatSelect } from '@angular/material/select';
  * Component to be placed under a select or autocomplete to list biota database options
  */
 @Component({
-    selector: 'lab-biota-database-select-options',
-    templateUrl: './lab-biota-database-select-options.component.html',
-    styleUrls: ['./lab-biota-database-select-options.component.scss'],
-    standalone: false
+  selector: 'lab-biota-database-select-options',
+  templateUrl: './lab-biota-database-select-options.component.html',
+  styleUrls: ['./lab-biota-database-select-options.component.scss'],
+  standalone: false,
 })
 export class LabBiotaDatabaseSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit
 {
+  private select: MatSelect;
+
   databaseGroups = labBiotaDatabaseGroups;
 
-  constructor(@Host() private select: MatSelect) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {}

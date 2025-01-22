@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, HostListener, Inject, Renderer2 } from '@angular/core';
+import { Component, Directive, ElementRef, HostListener, Renderer2, inject } from '@angular/core';
 import { FlDialogService } from '../../../fl-dialog/fl-dialog.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -15,11 +15,11 @@ interface FlImageFullscreenDialogInput {
   standalone: false,
 })
 export class FlImageFullscreenDirective {
-  constructor(
-    private dialogService: FlDialogService,
-    private elementRef: ElementRef<HTMLImageElement>,
-    private renderer: Renderer2
-  ) {
+  private dialogService = inject(FlDialogService);
+  private elementRef = inject<ElementRef<HTMLImageElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+
+  constructor() {
     this.renderer.setStyle(this.elementRef.nativeElement, 'cursor', 'pointer');
   }
 
@@ -80,13 +80,14 @@ export class FlImageFullscreenDirective {
   standalone: false,
 })
 export class FlImageFullscreenTestComponent {
+  private dialogRef = inject<MatDialogRef<FlImageFullscreenTestComponent>>(MatDialogRef);
+
   src: string;
   alt: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: FlImageFullscreenDialogInput,
-    private dialogRef: MatDialogRef<FlImageFullscreenTestComponent>
-  ) {
+  constructor() {
+    const input = inject<FlImageFullscreenDialogInput>(MAT_DIALOG_DATA);
+
     this.src = input.src;
     this.alt = input.alt;
   }

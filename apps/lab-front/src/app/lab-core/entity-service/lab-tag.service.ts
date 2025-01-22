@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlTag, FlTagSearchFilter, FlTagService, FlTagValue } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -18,9 +18,11 @@ import { ClPageI } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class LabTagService extends FlTagService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'tag';
 
-  constructor(private apiService: FlApiService) {
+  constructor() {
     super();
   }
 

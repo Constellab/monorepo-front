@@ -1,4 +1,13 @@
-import { Component, DoCheck, ElementRef, signal, Signal, ViewChild, WritableSignal } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  signal,
+  Signal,
+  ViewChild,
+  WritableSignal,
+  inject,
+} from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
@@ -7,12 +16,14 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * as tabs in the top of the page
  */
 @Component({
-    selector: 'lab-resource-children-tabs',
-    templateUrl: './lab-resource-children-tabs.component.html',
-    styleUrls: ['./lab-resource-children-tabs.component.scss'],
-    standalone: false
+  selector: 'lab-resource-children-tabs',
+  templateUrl: './lab-resource-children-tabs.component.html',
+  styleUrls: ['./lab-resource-children-tabs.component.scss'],
+  standalone: false,
 })
 export class LabResourceChildrenTabsComponent implements DoCheck {
+  private state = inject(LabResourceDetailState);
+
   @ViewChild('scrollableElement', { static: true }) scrollableElement: ElementRef<HTMLElement>;
 
   resource: Signal<LabResource> = this.state.mainResource;
@@ -23,8 +34,6 @@ export class LabResourceChildrenTabsComponent implements DoCheck {
 
   showLeftScrollButton: WritableSignal<boolean> = signal(false);
   showRightScrollButton: WritableSignal<boolean> = signal(false);
-
-  constructor(private state: LabResourceDetailState) {}
 
   ngDoCheck(): void {
     this.updateShowScrollButtons();

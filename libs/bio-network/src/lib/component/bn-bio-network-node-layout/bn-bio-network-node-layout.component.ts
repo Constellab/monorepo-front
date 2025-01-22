@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, Optional } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { BnBioNetworkService, BnUpdateMetabolite } from '../../service/bn-bio-network.service';
 import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
 import { BnBioNetworkMetaboliteLevel } from '../../model/bn-bio-network.class';
@@ -13,12 +13,17 @@ import { FlSnackBarService } from '@monorepo/front-core-lib';
  * if enable
  */
 @Component({
-    selector: 'bn-bio-network-node-layout',
-    templateUrl: './bn-bio-network-node-layout.component.html',
-    styleUrls: ['./bn-bio-network-node-layout.component.scss'],
-    standalone: false
+  selector: 'bn-bio-network-node-layout',
+  templateUrl: './bn-bio-network-node-layout.component.html',
+  styleUrls: ['./bn-bio-network-node-layout.component.scss'],
+  standalone: false,
 })
 export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
+  private bioNetworkService = inject(BnBioNetworkService, { optional: true });
+  private drawerState = inject(BnBioNetworkDrawerState);
+  private snackBarService = inject(FlSnackBarService);
+  private cdr = inject(ChangeDetectorRef);
+
   node$: Observable<BnBioNetworkNode>;
   metabolites$: Observable<BnBioNetworkNodeMetabolite>;
 
@@ -31,13 +36,6 @@ export class BnBioNetworkNodeLayoutComponent implements OnInit, OnDestroy {
   saveIsLoading: boolean = false;
 
   private subscription: Subscription;
-
-  constructor(
-    @Optional() private bioNetworkService: BnBioNetworkService,
-    private drawerState: BnBioNetworkDrawerState,
-    private snackBarService: FlSnackBarService,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.node$ = this.drawerState.getState$().pipe(map((state) => state.selectedNode));

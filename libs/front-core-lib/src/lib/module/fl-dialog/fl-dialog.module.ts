@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FlDialogHeaderComponent } from './component/fl-dialog-header/fl-dialog-header.component';
@@ -50,7 +50,9 @@ export class FlDialogModule {
     };
   }
 
-  constructor(translateServie: FlTranslateService) {
+  constructor() {
+    const translateServie = inject(FlTranslateService);
+
     translateServie.addModuleTranslation('flDialog', flDialogI18n);
   }
 }

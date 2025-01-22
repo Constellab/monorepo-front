@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
 import { Observable } from 'rxjs';
@@ -7,12 +7,10 @@ import { CaCommunityBrick } from '../model/entities/ca-community-brick.class';
 
 @Injectable({ providedIn: 'root' })
 export class CaCommunityBrickService {
-  private readonly route = 'community';
+  private apiService = inject(FlApiService);
+  private communityServiceConfig = inject(CaCoServiceConfig);
 
-  constructor(
-    private apiService: FlApiService,
-    private communityServiceConfig: CaCoServiceConfig
-  ) {}
+  private readonly route = 'community';
 
   public getByName(name: string, userId: string): Observable<CaCommunityBrick> {
     return this.apiService.post(`${this.route}/brick/name/${name}`, { userId: userId }, CaCommunityBrick);

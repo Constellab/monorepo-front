@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FL_PORTAL_DATA,
   FlClipboardService,
@@ -8,20 +8,21 @@ import {
 import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
-    selector: 'ha-icon-info-portal',
-    templateUrl: './ha-icon-info-portal.component.html',
-    styleUrls: ['./ha-icon-info-portal.component.scss'],
-    standalone: false
+  selector: 'ha-icon-info-portal',
+  templateUrl: './ha-icon-info-portal.component.html',
+  styleUrls: ['./ha-icon-info-portal.component.scss'],
+  standalone: false,
 })
 export class HaIconInfoPortalComponent {
+  private readonly overlayRef = inject(FlOverlayRef);
+  private readonly snackBarService = inject(FlSnackBarService);
+  private readonly clipboardService = inject(FlClipboardService);
+
   icon: CoIcon;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) icon: CoIcon,
-    private readonly overlayRef: FlOverlayRef,
-    private readonly snackBarService: FlSnackBarService,
-    private readonly clipboardService: FlClipboardService
-  ) {
+  constructor() {
+    const icon = inject<CoIcon>(FL_PORTAL_DATA);
+
     this.icon = icon;
   }
 

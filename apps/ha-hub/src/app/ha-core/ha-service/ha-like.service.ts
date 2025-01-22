@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaLikeType } from '../ha-model/ha-entities/ha-entity-type.enum';
@@ -8,9 +8,9 @@ import { ClDeserializationRef } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class HaLikeService {
-  private readonly route: string = 'like';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'like';
 
   public checkIfLiked(likeType: HaLikeType, entityId: string): Observable<boolean> {
     return this.apiService.get(this.route + '/' + likeType + '/' + entityId);

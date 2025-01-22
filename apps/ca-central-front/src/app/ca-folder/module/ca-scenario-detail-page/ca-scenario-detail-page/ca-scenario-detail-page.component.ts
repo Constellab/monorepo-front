@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaScenario } from '../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../ca-core/service-api/ca-scenario.service';
@@ -9,24 +9,22 @@ import { map } from 'rxjs/operators';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'ca-scenario-detail-page',
-    templateUrl: './ca-scenario-detail-page.component.html',
-    styleUrls: ['./ca-scenario-detail-page.component.scss'],
-    standalone: false
+  selector: 'ca-scenario-detail-page',
+  templateUrl: './ca-scenario-detail-page.component.html',
+  styleUrls: ['./ca-scenario-detail-page.component.scss'],
+  standalone: false,
 })
 export class CaScenarioDetailPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private scenarioService = inject(CaScenarioService);
+  private noteService = inject(CaNoteService);
+
   scenarioId$: Observable<string>;
   scenario: CaScenario;
 
   isLoading: boolean = true;
 
   notes: FlArrayObs<CaNote>;
-
-  constructor(
-    private route: ActivatedRoute,
-    private scenarioService: CaScenarioService,
-    private noteService: CaNoteService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -32,9 +32,9 @@ import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.cl
   providedIn: 'root',
 })
 export class CaSpaceService {
-  private readonly route: string = 'spaces';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'spaces';
 
   createEntrepriseSpace(object: CaCreateSpaceDTO): Observable<CaSpaceSettingsDto> {
     return this.apiService.post(this.route + '/entreprise', object, CaSpaceSettingsDto);

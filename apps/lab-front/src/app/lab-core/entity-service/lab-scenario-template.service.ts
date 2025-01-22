@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -24,9 +24,9 @@ import { PrProtocolGraph } from '@monorepo/protocol';
   providedIn: 'root',
 })
 export class LabScenarioTemplateService {
-  private route: string = 'scenario-template';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'scenario-template';
 
   public getScenarioTemplate(id: string): Observable<LabScenarioTemplate> {
     return this.apiService.get(`${this.route}/${id}`, LabScenarioTemplate);

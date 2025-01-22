@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
 import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import { CaLabDetailPageState } from './ca-lab-detail-page.state';
@@ -20,12 +20,10 @@ import {
  */
 @Injectable()
 export class CaLabDetailServerState {
-  constructor(
-    private state: CaLabDetailPageState,
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private portalService: FlPortalActionsService
-  ) {}
+  private state = inject(CaLabDetailPageState);
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private portalService = inject(FlPortalActionsService);
 
   openServerInfoDialog(): void {
     this.dialogService.openMediumDialog(CaLabServerCompleteInfoDialogComponent, {

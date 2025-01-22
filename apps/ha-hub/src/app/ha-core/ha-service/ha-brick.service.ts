@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -25,9 +25,9 @@ import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profil
   providedIn: 'root',
 })
 export class HaBrickService implements HaCoAuthorService {
-  private readonly route: string = 'brick';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'brick';
 
   /**
    * Call http create

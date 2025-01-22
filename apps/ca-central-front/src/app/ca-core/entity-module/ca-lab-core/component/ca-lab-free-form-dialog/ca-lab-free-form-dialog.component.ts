@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,12 +13,17 @@ export interface CaLabFreeFormDialogInput {
 }
 
 @Component({
-    selector: 'ca-lab-free-form-dialog',
-    templateUrl: './ca-lab-free-form-dialog.component.html',
-    styleUrls: ['./ca-lab-free-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-lab-free-form-dialog',
+  templateUrl: './ca-lab-free-form-dialog.component.html',
+  styleUrls: ['./ca-lab-free-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaLabFreeFormDialogComponent {
+  private input = inject<CaLabFreeFormDialogInput>(MAT_DIALOG_DATA);
+  private labService = inject(CaLabService);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogRef = inject<MatDialogRef<CaLabFreeFormDialogComponent>>(MatDialogRef);
+
   formGp = new FormBuilder().group({
     usageLimitInHours: [0 as number, Validators.required],
     expirationDate: [null as DateTime],
@@ -26,12 +31,7 @@ export class CaLabFreeFormDialogComponent {
 
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaLabFreeFormDialogInput,
-    private labService: CaLabService,
-    private snackBarService: FlSnackBarService,
-    private dialogRef: MatDialogRef<CaLabFreeFormDialogComponent>
-  ) {
+  constructor() {
     this.formGp.patchValue({
       expirationDate: this.input.expirationDate,
       usageLimitInHours: this.input.usageLimitInHours,

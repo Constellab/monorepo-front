@@ -17,21 +17,21 @@ export interface CaFolderFormDialogInput {
  * Dialog to create or update a folder
  */
 @Component({
-    selector: 'ca-folder-form-dialog',
-    templateUrl: './ca-folder-form-dialog.component.html',
-    styleUrls: ['./ca-folder-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-folder-form-dialog',
+  templateUrl: './ca-folder-form-dialog.component.html',
+  styleUrls: ['./ca-folder-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaFolderFormDialogComponent
   extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder>
   implements OnInit
 {
+  private folderService = inject(CaFolderService);
+  private spaceService = inject(CaSpaceService);
+
   dialogInput: CaFolderFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(
-    private folderService: CaFolderService,
-    private spaceService: CaSpaceService
-  ) {
+  constructor() {
     super();
   }
 

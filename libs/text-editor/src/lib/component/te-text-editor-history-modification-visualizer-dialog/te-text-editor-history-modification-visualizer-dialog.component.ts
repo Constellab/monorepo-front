@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { TeConfig } from '../../model/te-config.class';
@@ -20,12 +20,15 @@ export interface TeTextEditorHistoryModificationVisualizerDialogData {
 }
 
 @Component({
-    selector: 'te-text-editor-history-modification-visualizer-dialog',
-    templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
-    styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss',
-    standalone: false
+  selector: 'te-text-editor-history-modification-visualizer-dialog',
+  templateUrl: './te-text-editor-history-modification-visualizer-dialog.component.html',
+  styleUrl: './te-text-editor-history-modification-visualizer-dialog.component.scss',
+  standalone: false,
 })
 export class TeTextEditorHistoryModificationVisualizerDialogComponent implements OnInit, OnDestroy {
+  private el = inject(ElementRef);
+  private dialogService = inject(FlDialogService);
+
   textEditorEvent: TeEvent;
   group: TeTextEditorHistoryModificationGroup;
 
@@ -37,11 +40,9 @@ export class TeTextEditorHistoryModificationVisualizerDialogComponent implements
   isLoading = true;
   isEditable = true;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) dialogInput: TeTextEditorHistoryModificationVisualizerDialogData,
-    private el: ElementRef,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const dialogInput = inject<TeTextEditorHistoryModificationVisualizerDialogData>(MAT_DIALOG_DATA);
+
     this.textEditorConfig = dialogInput.textEditorConfig;
     this.service = dialogInput.service;
     this.entityId = dialogInput.entityId;

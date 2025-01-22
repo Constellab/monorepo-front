@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabLogsBetweenDates } from '../../../model/entities/lab-log.entity';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,10 +14,10 @@ export interface LabLogBetweenDatesDialogInput {
  * Dialog to show logs between 2 dates useful to see the process logs
  */
 @Component({
-    selector: 'lab-logs-between-dates-dialog',
-    templateUrl: './lab-logs-between-dates-dialog.component.html',
-    styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-logs-between-dates-dialog',
+  templateUrl: './lab-logs-between-dates-dialog.component.html',
+  styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
+  standalone: false,
 })
 export class LabLogsBetweenDatesDialogComponent implements OnInit {
   title: string;
@@ -27,7 +27,9 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
   isLoading: boolean = false;
   logs: LabLogsBetweenDates;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: LabLogBetweenDatesDialogInput) {
+  constructor() {
+    const input = inject<LabLogBetweenDatesDialogInput>(MAT_DIALOG_DATA);
+
     this.title = input.title;
     this.loadFunction = input.loadFunction;
     this.downloadUrl = input.downloadUrl;

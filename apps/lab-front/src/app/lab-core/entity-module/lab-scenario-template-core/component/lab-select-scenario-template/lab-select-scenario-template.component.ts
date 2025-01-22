@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
@@ -22,16 +22,19 @@ import { Observable } from 'rxjs';
  * It uses the FlInputSearchComponent to search for users.
  */
 @Component({
-    selector: 'lab-select-scenario-template',
-    templateUrl: './lab-select-scenario-template.component.html',
-    styleUrls: ['./lab-select-scenario-template.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioTemplateComponent }],
-    standalone: false
+  selector: 'lab-select-scenario-template',
+  templateUrl: './lab-select-scenario-template.component.html',
+  styleUrls: ['./lab-select-scenario-template.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioTemplateComponent }],
+  standalone: false,
 })
 export class LabSelectScenarioTemplateComponent
   extends FlFormFieldDirective<LabScenarioTemplate>
   implements OnInit
 {
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+  private dialogService = inject(FlDialogService);
+
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<LabScenarioTemplate> = new EventEmitter();
@@ -42,11 +45,9 @@ export class LabSelectScenarioTemplateComponent
 
   advancedButton: FlInputSearchAdvancedButton<LabScenarioTemplate>;
 
-  constructor(
-    private scenarioTemplateService: LabScenarioTemplateService,
-    private dialogService: FlDialogService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

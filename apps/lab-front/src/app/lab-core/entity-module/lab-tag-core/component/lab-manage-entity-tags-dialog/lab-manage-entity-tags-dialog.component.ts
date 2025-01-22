@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FlAddTagEvent,
   FlConfirmDialogResult,
@@ -25,12 +25,18 @@ export interface LabManageEntityTagsDialogInput {
  * Dialog to manage the tags of an entity
  */
 @Component({
-    selector: 'lab-manage-entity-tags-dialog',
-    templateUrl: './lab-manage-entity-tags-dialog.component.html',
-    styleUrls: ['./lab-manage-entity-tags-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-manage-entity-tags-dialog',
+  templateUrl: './lab-manage-entity-tags-dialog.component.html',
+  styleUrls: ['./lab-manage-entity-tags-dialog.component.scss'],
+  standalone: false,
 })
 export class LabManageEntityTagsDialogComponent {
+  private input = inject<LabManageEntityTagsDialogInput>(MAT_DIALOG_DATA);
+  private tagService = inject(LabTagService);
+  private dialogService = inject(FlDialogService);
+  private portalActionService = inject(FlPortalActionsService);
+  private snackBarService = inject(FlSnackBarService);
+
   currentTags: LabTagDatasource;
   newTags: LabTagDatasource = new LabTagDatasource();
 
@@ -38,13 +44,9 @@ export class LabManageEntityTagsDialogComponent {
 
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabManageEntityTagsDialogInput,
-    private tagService: LabTagService,
-    private dialogService: FlDialogService,
-    private portalActionService: FlPortalActionsService,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.currentTags = input.tags;
   }
 

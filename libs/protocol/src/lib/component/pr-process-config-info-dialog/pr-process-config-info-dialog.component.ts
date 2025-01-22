@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PrConfig } from '../../model/pr-config.class';
 import { ArrayDataSource } from '@angular/cdk/collections';
@@ -15,16 +15,18 @@ interface PrConfigLine {
  * Dialog to show the detail of a config
  */
 @Component({
-    selector: 'pr-process-config-info-dialog',
-    templateUrl: './pr-process-config-info-dialog.component.html',
-    styleUrls: ['./pr-process-config-info-dialog.component.scss'],
-    standalone: false
+  selector: 'pr-process-config-info-dialog',
+  templateUrl: './pr-process-config-info-dialog.component.html',
+  styleUrls: ['./pr-process-config-info-dialog.component.scss'],
+  standalone: false,
 })
 export class PrProcessConfigInfoDialogComponent {
   columns: string[] = ['name', 'shortDescription', 'defaultValue', 'value'];
   configs: ArrayDataSource<PrConfigLine>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) config: PrConfig) {
+  constructor() {
+    const config = inject<PrConfig>(MAT_DIALOG_DATA);
+
     const configs: PrConfigLine[] = [];
 
     for (const [key, value] of Object.entries(config.values)) {

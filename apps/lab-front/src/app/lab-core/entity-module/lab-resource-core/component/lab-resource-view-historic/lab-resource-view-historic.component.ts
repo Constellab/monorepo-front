@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
@@ -11,22 +11,20 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * Show historic of views for a resource
  */
 @Component({
-    selector: 'lab-resource-view-historic',
-    templateUrl: './lab-resource-view-historic.component.html',
-    styleUrls: ['./lab-resource-view-historic.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-historic',
+  templateUrl: './lab-resource-view-historic.component.html',
+  styleUrls: ['./lab-resource-view-historic.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewHistoricComponent implements OnInit {
+  private viewConfigService = inject(LabViewConfigService);
+  private state = inject(LabResourceDetailState);
+
   @Input() resourceId: string;
 
   datasource: LabViewConfigDatasource;
 
   columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'lastModifiedAt', 'isFavorite'];
-
-  constructor(
-    private viewConfigService: LabViewConfigService,
-    private state: LabResourceDetailState
-  ) {}
 
   ngOnInit(): void {
     this.getByResourceDatasource();

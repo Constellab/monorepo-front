@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetworkOptionsState } from '../../state/bn-bio-network-options.state';
@@ -9,19 +9,17 @@ import { MatSelectChange } from '@angular/material/select';
  * Show the list of cluster with possibility to select them and color them
  */
 @Component({
-    selector: 'bn-bio-network-clusters-list',
-    templateUrl: './bn-bio-network-clusters-list.component.html',
-    styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
-    standalone: false
+  selector: 'bn-bio-network-clusters-list',
+  templateUrl: './bn-bio-network-clusters-list.component.html',
+  styleUrls: ['./bn-bio-network-clusters-list.component.scss'],
+  standalone: false,
 })
 export class BnBioNetworkClustersListComponent implements OnInit {
+  private state = inject(BnBioNetworkState);
+  private optionState = inject(BnBioNetworkOptionsState);
+
   clusters$: Observable<BnBioNetworkClusterSelection[]>;
   clustersAllSelected: boolean = false;
-
-  constructor(
-    private state: BnBioNetworkState,
-    private optionState: BnBioNetworkOptionsState
-  ) {}
 
   ngOnInit(): void {
     // if there is multiple network we set the list to add a mat-select

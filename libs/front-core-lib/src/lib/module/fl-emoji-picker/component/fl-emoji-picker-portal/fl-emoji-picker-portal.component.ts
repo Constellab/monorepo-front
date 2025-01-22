@@ -27,13 +27,18 @@ interface FlEmojiCoord {
 }
 
 @Component({
-    selector: 'fl-emoji-picker-portal',
-    templateUrl: './fl-emoji-picker-portal.component.html',
-    styleUrl: './fl-emoji-picker-portal.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-emoji-picker-portal',
+  templateUrl: './fl-emoji-picker-portal.component.html',
+  styleUrl: './fl-emoji-picker-portal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
+  private overlayRef = inject(FlOverlayRef);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+  private renderer = inject(Renderer2);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   public static PORTAL_MAX_WIDTH = 400;
   public static PORTAL_MAX_HEIGHT = 420;
   public static SELECTED_CLASS = 'selected';
@@ -46,13 +51,6 @@ export class FlEmojiPickerPortalComponent implements OnInit, OnDestroy {
 
   private readonly nbOfEmojiPerLine = 10;
   private listener: () => void;
-
-  constructor(
-    private overlayRef: FlOverlayRef,
-    private changeDetectorRef: ChangeDetectorRef,
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>
-  ) {}
 
   async ngOnInit(): Promise<void> {
     this.input.filter.subscribe({

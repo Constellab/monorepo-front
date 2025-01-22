@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, inject } from '@angular/core';
 import { ActivatedRoute, Router, RoutesRecognized, Scroll } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
@@ -7,10 +7,14 @@ import { Observable, Subscription } from 'rxjs';
  */
 
 @Directive({
-    selector: '[flAutoScrollToAnchor]',
-    standalone: false
+  selector: '[flAutoScrollToAnchor]',
+  standalone: false,
 })
 export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   // Observable that emits true when the component using targeted is loaded
   @Input() flAutoScrollIsLoaded$: Observable<boolean> = null;
 
@@ -20,12 +24,6 @@ export class FlAutoScrollToAnchorDirective implements AfterViewInit, OnDestroy {
   subscriptions: Subscription[] = [];
   fragment: Observable<string>;
   lastScrolledAnchor: string;
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
 
   ngAfterViewInit(): void {
     this.fragment = this.route.fragment;

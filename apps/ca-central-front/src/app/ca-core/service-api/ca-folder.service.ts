@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   CaFolder,
   CaFolderStorageDTO,
@@ -60,9 +60,9 @@ import {
   providedIn: 'root',
 })
 export class CaFolderService {
-  private readonly route: string = 'folders';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'folders';
 
   public createFolder(folder: CnSaveFolderDTO): Observable<CaFolderWithHierarchy> {
     return this.apiService.post(this.route, folder, CaFolderWithHierarchy, { serialization: CaFolder });

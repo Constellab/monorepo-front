@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
   CaBucketContentType,
@@ -7,18 +7,18 @@ import {
 import { FlSearchState } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'ca-bucket-search-form',
-    templateUrl: './ca-bucket-search-form.component.html',
-    styleUrls: ['./ca-bucket-search-form.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-search-form',
+  templateUrl: './ca-bucket-search-form.component.html',
+  styleUrls: ['./ca-bucket-search-form.component.scss'],
+  standalone: false,
 })
 export class CaBucketSearchFormComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+
   formGp: UntypedFormGroup;
 
   contentTypes = CaBucketContentType;
   bucketTypes = CaBucketType;
-
-  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

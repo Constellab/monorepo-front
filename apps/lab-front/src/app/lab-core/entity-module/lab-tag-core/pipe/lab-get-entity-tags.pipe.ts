@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { FlEntity } from '@monorepo/front-core-lib';
 import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import { LabTagService } from '../../../entity-service/lab-tag.service';
@@ -9,11 +9,11 @@ import { LabEntityTagType, LabTagDatasource } from '../../../model/entities/lab-
 import { LabScenarioTemplate } from '../../../model/entities/process/lab-scenario-template.entity';
 
 @Pipe({
-    name: 'labGetEntityTags',
-    standalone: false
+  name: 'labGetEntityTags',
+  standalone: false,
 })
 export class LabGetEntityTagsPipe implements PipeTransform {
-  constructor(private tagService: LabTagService) {}
+  private tagService = inject(LabTagService);
 
   transform(entity: FlEntity): LabTagDatasource {
     if (entity == null) return new LabTagDatasource([]);

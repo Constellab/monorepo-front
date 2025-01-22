@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormulaDialogComponent,
@@ -9,12 +9,14 @@ import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-    selector: 'te-formula',
-    templateUrl: './te-formula.component.html',
-    styleUrl: './te-formula.component.scss',
-    standalone: false
+  selector: 'te-formula',
+  templateUrl: './te-formula.component.html',
+  styleUrl: './te-formula.component.scss',
+  standalone: false,
 })
 export class TeFormulaComponent extends TeElementBlockDirective {
+  private dialogService = inject(FlDialogService);
+
   @Input() formulaTitle: string;
 
   @Input() caption: string;
@@ -23,7 +25,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
 
   public formula$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  constructor(private dialogService: FlDialogService) {
+  constructor() {
     super();
   }
 

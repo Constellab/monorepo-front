@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlUserConfig, FlUserConfigSearchNameMode } from '../../service/fl-user-config.config';
 import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 import { Observable } from 'rxjs';
@@ -12,13 +12,15 @@ import { FlInputSearchFilter } from '../../../fl-input-search/component/fl-input
  * It uses the FlInputSearchComponent to search for users.
  */
 @Component({
-    selector: 'fl-select-user',
-    templateUrl: './fl-select-user.component.html',
-    styleUrls: ['./fl-select-user.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
-    standalone: false
+  selector: 'fl-select-user',
+  templateUrl: './fl-select-user.component.html',
+  styleUrls: ['./fl-select-user.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlSelectUserComponent }],
+  standalone: false,
 })
 export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implements OnInit {
+  private userConfig = inject(FlUserConfig);
+
   @Input() placeholder: string;
 
   @Input() mode: FlUserConfigSearchNameMode = 'space';
@@ -29,10 +31,9 @@ export class FlSelectUserComponent extends FlFormFieldDirective<FlUser> implemen
 
   usersDatasource: FlDatasourcePaginated<FlUser, FlInputSearchFilter>;
 
-  constructor(
-    private userConfig: FlUserConfig,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

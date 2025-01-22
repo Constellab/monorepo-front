@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
@@ -9,15 +9,18 @@ import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 
 @Component({
-    selector: 'ha-public-sidenav-create-form-dialog',
-    templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
-    styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-public-sidenav-create-form-dialog',
+  templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
+  styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
+  standalone: false,
 })
 export class HaPublicSidenavCreateFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>>
   implements OnInit
 {
+  private folderService = inject(HaFolderService);
+  private documentationService = inject(HaDocumentationService);
+
   isLoadingImport: boolean = false;
   isUpdate: boolean = false;
   type: string;
@@ -28,10 +31,7 @@ export class HaPublicSidenavCreateFormDialogComponent
     return file.brick_name != null && file.brick_version != null && file.json_version != null;
   }
 
-  constructor(
-    private folderService: HaFolderService,
-    private documentationService: HaDocumentationService
-  ) {
+  constructor() {
     super();
   }
 

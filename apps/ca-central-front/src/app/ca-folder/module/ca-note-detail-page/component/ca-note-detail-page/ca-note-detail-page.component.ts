@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
@@ -6,19 +6,17 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'ca-note-detail-page',
-    templateUrl: './ca-note-detail-page.component.html',
-    styleUrls: ['./ca-note-detail-page.component.scss'],
-    standalone: false
+  selector: 'ca-note-detail-page',
+  templateUrl: './ca-note-detail-page.component.html',
+  styleUrls: ['./ca-note-detail-page.component.scss'],
+  standalone: false,
 })
 export class CaNoteDetailPageComponent implements OnInit {
+  private noteService = inject(CaNoteService);
+  private route = inject(ActivatedRoute);
+
   noteId$: Observable<string>;
   note$: Observable<CaNote>;
-
-  constructor(
-    private noteService: CaNoteService,
-    private route: ActivatedRoute
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));

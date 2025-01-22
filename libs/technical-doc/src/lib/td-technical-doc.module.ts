@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { TdResourceDocComponent } from './component/td-resource-doc/td-resource-doc.component';
 import { TdTechnicalDocComponent } from './component/td-technical-doc/td-technical-doc.component';
@@ -158,7 +158,9 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
   ],
 })
 export class TdTechnicalDocModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('TdTechnicalDocModule', tdTechnicalDocI18n);
   }
 

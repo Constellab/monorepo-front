@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SecurityContext } from '@angular/core';
+import { Component, Input, OnInit, SecurityContext, inject } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
@@ -6,12 +6,15 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
 
 @Component({
-    selector: 'te-video',
-    templateUrl: './te-video.component.html',
-    styleUrls: ['./te-video.component.scss'],
-    standalone: false
+  selector: 'te-video',
+  templateUrl: './te-video.component.html',
+  styleUrls: ['./te-video.component.scss'],
+  standalone: false,
 })
 export class TeVideoComponent extends TeElementBlockDirective implements OnInit {
+  private sanitize = inject(DomSanitizer);
+  private dialogService = inject(FlDialogService);
+
   @Input() url: string;
 
   @Input() videoTitle: string;
@@ -21,10 +24,7 @@ export class TeVideoComponent extends TeElementBlockDirective implements OnInit 
   sanitizedUrl: SafeUrl;
   urlError: boolean = false;
 
-  constructor(
-    private sanitize: DomSanitizer,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
     super();
   }
 

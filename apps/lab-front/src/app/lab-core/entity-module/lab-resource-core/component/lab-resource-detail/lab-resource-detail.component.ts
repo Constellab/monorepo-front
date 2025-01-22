@@ -1,16 +1,18 @@
-import { Component, Input, OnInit, Signal } from '@angular/core';
+import { Component, Input, OnInit, Signal, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
 
 @Component({
-    selector: 'lab-resource-detail',
-    templateUrl: './lab-resource-detail.component.html',
-    styleUrls: ['./lab-resource-detail.component.scss'],
-    providers: [LabResourceDetailState, LabViewConfigurerState],
-    standalone: false
+  selector: 'lab-resource-detail',
+  templateUrl: './lab-resource-detail.component.html',
+  styleUrls: ['./lab-resource-detail.component.scss'],
+  providers: [LabResourceDetailState, LabViewConfigurerState],
+  standalone: false,
 })
 export class LabResourceDetailComponent implements OnInit {
+  private state = inject(LabResourceDetailState);
+
   @Input() resourceId: string | Observable<string>;
 
   /**
@@ -23,8 +25,6 @@ export class LabResourceDetailComponent implements OnInit {
 
   hasChildren: Signal<boolean> = this.state.hasChildren;
   selectedView = this.state.selectedView;
-
-  constructor(private state: LabResourceDetailState) {}
 
   ngOnInit(): void {
     if (this.resourceId instanceof Observable) {

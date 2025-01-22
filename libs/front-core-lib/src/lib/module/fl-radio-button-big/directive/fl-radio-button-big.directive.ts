@@ -1,4 +1,4 @@
-import { Directive, HostBinding, HostListener } from '@angular/core';
+import { Directive, HostBinding, HostListener, inject } from '@angular/core';
 import { MatRadioButton } from '@angular/material/radio';
 
 /**
@@ -6,13 +6,13 @@ import { MatRadioButton } from '@angular/material/radio';
  * It applies style and manage click event
  */
 @Directive({
-    selector: '[flRadioButtonBig]',
-    standalone: false
+  selector: '[flRadioButtonBig]',
+  standalone: false,
 })
 export class FlRadioButtonBigDirective {
-  @HostBinding('class.g-mat-radio-button-big') big = true;
+  private matRadioButton = inject(MatRadioButton);
 
-  constructor(private matRadioButton: MatRadioButton) {}
+  @HostBinding('class.g-mat-radio-button-big') big = true;
 
   // onclick event
   @HostListener('click', ['$event']) onClick(event: MouseEvent): void {

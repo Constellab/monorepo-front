@@ -4,12 +4,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
-  Self,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
@@ -37,15 +36,18 @@ interface CaUserSelection {
  * It supports datasource or list of user
  */
 @Component({
-    selector: 'ca-user-list-inline',
-    templateUrl: './ca-user-list-inline.component.html',
-    styleUrls: ['./ca-user-list-inline.component.scss'],
-    standalone: false
+  selector: 'ca-user-list-inline',
+  templateUrl: './ca-user-list-inline.component.html',
+  styleUrls: ['./ca-user-list-inline.component.scss'],
+  standalone: false,
 })
 export class CaUserListInlineComponent
   extends FlFormFieldDirective<UserList, CaUser[]>
   implements OnInit, OnDestroy
 {
+  private portalService = inject(FlPortalService);
+  private viewContainerRef = inject(ViewContainerRef);
+
   @Input() users$: Observable<CaUser[]>;
 
   @Input() userDatasource: CaUserDatasourcePaginated;
@@ -64,11 +66,9 @@ export class CaUserListInlineComponent
 
   private subscription: Subscription;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private portalService: FlPortalService,
-    private viewContainerRef: ViewContainerRef
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

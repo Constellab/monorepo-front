@@ -1,4 +1,4 @@
-import { ErrorHandler, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ErrorHandler, ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlApiService } from './service/fl-api.service';
 import { FlApiWithCacheService } from './service/fl-api-with-cache.service';
@@ -51,7 +51,9 @@ export class FlApiModule {
     };
   }
 
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlApiModule', flApiI18n);
   }
 }

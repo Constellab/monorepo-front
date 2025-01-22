@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { FlPlatformService } from './fl-plateform.service';
 import { ClDateHelper } from '@monorepo/core-lib';
@@ -15,14 +15,12 @@ import { Observable, of } from 'rxjs';
  */
 @Injectable({ providedIn: 'root' })
 export class FlCookieService {
-  private readonly ACCEPTANCE_COOKIE_KEY = 'ACCEPT_COOKIE';
+  private cookieService = inject(CookieService);
+  private platformService = inject(FlPlatformService);
+  private dialog = inject(MatDialog);
+  private snackBar = inject(MatSnackBar);
 
-  constructor(
-    private cookieService: CookieService,
-    private platformService: FlPlatformService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
-  ) {}
+  private readonly ACCEPTANCE_COOKIE_KEY = 'ACCEPT_COOKIE';
 
   /**
    * Check the cookies acceptances

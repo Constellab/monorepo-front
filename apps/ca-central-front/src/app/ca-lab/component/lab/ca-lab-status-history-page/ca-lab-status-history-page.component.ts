@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
@@ -66,13 +66,18 @@ export class CaLabStatusHistorySearch {
 }
 
 @Component({
-    selector: 'ca-lab-status-history-page',
-    templateUrl: './ca-lab-status-history-page.component.html',
-    styleUrls: ['./ca-lab-status-history-page.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-lab-status-history-page',
+  templateUrl: './ca-lab-status-history-page.component.html',
+  styleUrls: ['./ca-lab-status-history-page.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaLabStatusHistoryPageComponent implements OnInit {
+  private state = inject(CaLabDetailPageState);
+  private labService = inject(CaLabService);
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private themeService = inject(FlThemeService);
+
   id = this.state.getLabId();
   datasource: CaLabStatusHistoryDatasource<CaLabStatusHistorySearchFields>;
 
@@ -88,13 +93,6 @@ export class CaLabStatusHistoryPageComponent implements OnInit {
     'NO_SERVER',
     'ERROR',
   ];
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private labService: CaLabService,
-    private searchState: FlSearchState<any>,
-    private themeService: FlThemeService
-  ) {}
 
   ngOnInit(): void {
     this.initDataSource();

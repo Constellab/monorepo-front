@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
-    selector: 'fl-datetime-picker',
-    templateUrl: './fl-datetime-picker.component.html',
-    styleUrls: ['./fl-datetime-picker.component.scss'],
-    standalone: false
+  selector: 'fl-datetime-picker',
+  templateUrl: './fl-datetime-picker.component.html',
+  styleUrls: ['./fl-datetime-picker.component.scss'],
+  standalone: false,
 })
 export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> implements OnInit {
   @Input({ required: true }) placeholder: string;
@@ -31,7 +31,9 @@ export class FlDatetimePickerComponent extends FlFormFieldDirective<DateTime> im
   minDateHours: number = 0;
   minDateMinutes: number = 0;
 
-  constructor(@Optional() @Self() ngControl: NgControl) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

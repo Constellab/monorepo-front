@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { firstValueFrom, mergeMap, Observable, of } from 'rxjs';
@@ -13,19 +13,17 @@ import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder
  * Component to show the storage settings of the folder (bucket) with possibility to configure it.
  */
 @Component({
-    selector: 'ca-folder-storage-settings',
-    templateUrl: './ca-folder-storage-settings.component.html',
-    styleUrls: ['./ca-folder-storage-settings.component.scss'],
-    standalone: false
+  selector: 'ca-folder-storage-settings',
+  templateUrl: './ca-folder-storage-settings.component.html',
+  styleUrls: ['./ca-folder-storage-settings.component.scss'],
+  standalone: false,
 })
 export class CaFolderStorageSettingsComponent implements OnInit {
-  folderStorage: Observable<CaFolderStorageDTO>;
+  private folderService = inject(CaFolderService);
+  private state = inject(CaFolderDetailState);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private folderService: CaFolderService,
-    private state: CaFolderDetailState,
-    private dialogService: FlDialogService
-  ) {}
+  folderStorage: Observable<CaFolderStorageDTO>;
 
   ngOnInit(): void {
     this.folderStorage = this.state

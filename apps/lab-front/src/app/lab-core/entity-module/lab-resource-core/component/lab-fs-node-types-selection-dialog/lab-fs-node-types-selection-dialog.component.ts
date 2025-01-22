@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import { FormArray, FormBuilder, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -51,12 +51,16 @@ export interface UploadFsNodeTypeFolderResult {
  * If folder --> one mode like the one before and one mode to directly upload the folder
  */
 @Component({
-    selector: 'lab-fs-node-types-selection-dialog',
-    templateUrl: './lab-fs-node-types-selection-dialog.component.html',
-    styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-fs-node-types-selection-dialog',
+  templateUrl: './lab-fs-node-types-selection-dialog.component.html',
+  styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
+  standalone: false,
 })
 export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
+  private input = inject<LabFsNodeTypesSelectionDialogInput>(MAT_DIALOG_DATA);
+  private fileResourceService = inject(LabFileResourceService);
+  private dialogRef = inject<MatDialogRef<LabFsNodeTypesSelectionDialogComponent>>(MatDialogRef);
+
   selectedNodes: LabFsNodeTypesSelectionDialogMode;
 
   formArray: UntypedFormArray;
@@ -69,11 +73,9 @@ export class LabFsNodeTypesSelectionDialogComponent implements OnInit {
   private fileTypes$: ClCachedObservable<LabTypeEntity[]>;
   private folderTypes$: ClCachedObservable<LabTypeEntity[]>;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabFsNodeTypesSelectionDialogInput,
-    private fileResourceService: LabFileResourceService,
-    private dialogRef: MatDialogRef<LabFsNodeTypesSelectionDialogComponent>
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.selectedNodes = input.dialogMode;
   }
 

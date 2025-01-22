@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LabEnvironmentHelper } from '../../utils/lab-environment.helper';
 import { FlDatasourcePaginated, FlInputSearchFilter, FlUserConfig } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
@@ -10,10 +10,10 @@ import { LabAuthenticatedUserService } from '../../service/lab-authenticated-use
   providedIn: 'root',
 })
 export class LabUserConfig extends FlUserConfig {
-  constructor(
-    private userService: LabUserService,
-    private authenticatedUserService: LabAuthenticatedUserService
-  ) {
+  private userService = inject(LabUserService);
+  private authenticatedUserService = inject(LabAuthenticatedUserService);
+
+  constructor() {
     super();
   }
 

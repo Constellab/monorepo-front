@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LabRouterService } from '../../lab-core/service/lab-router.service';
@@ -11,10 +11,8 @@ import { LabAuthService } from '../../lab-core/service/lab-auth.service';
   providedIn: 'root',
 })
 export class LabLoginGuard {
-  constructor(
-    private authenticationService: LabAuthService,
-    private router: Router
-  ) {}
+  private authenticationService = inject(LabAuthService);
+  private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot

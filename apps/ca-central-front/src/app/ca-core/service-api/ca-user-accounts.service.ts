@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaNewUser, CaUser, CaUserUpdateLicenseDTO } from '../model/entities/ca-user.class';
 import { Observable } from 'rxjs';
 import { FlApiService, FlUserAccountService } from '@monorepo/front-core-lib';
@@ -10,9 +10,11 @@ import { FlApiService, FlUserAccountService } from '@monorepo/front-core-lib';
   providedIn: 'root',
 })
 export class CaUserAccountsService extends FlUserAccountService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'accounts';
 
-  constructor(private apiService: FlApiService) {
+  constructor() {
     super();
   }
 

@@ -7,6 +7,7 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
 import { Observable, Subscription } from 'rxjs';
@@ -22,13 +23,19 @@ import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.c
 import { FlOverlayRef, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'sp-spreadsheet-header-cell',
-    templateUrl: './sp-spreadsheet-header-cell.component.html',
-    styleUrls: ['./sp-spreadsheet-header-cell.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'sp-spreadsheet-header-cell',
+  templateUrl: './sp-spreadsheet-header-cell.component.html',
+  styleUrls: ['./sp-spreadsheet-header-cell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private renderer = inject(Renderer2);
+  private elementRef = inject(ElementRef);
+  private portalService = inject(FlPortalService);
+
   @HostBinding('attr.' + headerIndexAttributeName)
   @Input()
   index: number;
@@ -45,14 +52,6 @@ export class SpSpreadsheetHeaderCellComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   private overlayRef: FlOverlayRef;
-
-  constructor(
-    private state: SpSpreadsheetState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-    private portalService: FlPortalService
-  ) {}
 
   ngOnInit(): void {
     this.subscribeToSelection();

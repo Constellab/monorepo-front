@@ -1,6 +1,5 @@
 import {
   computed,
-  Inject,
   Injectable,
   makeStateKey,
   PLATFORM_ID,
@@ -9,6 +8,7 @@ import {
   StateKey,
   TransferState,
   WritableSignal,
+  inject,
 } from '@angular/core';
 import { FlStatusEvent } from '@monorepo/front-core-lib';
 import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
@@ -34,6 +34,14 @@ import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-
 
 @Injectable()
 export class HaBrickPageState {
+  private platformId = inject(PLATFORM_ID);
+  private transferState = inject(TransferState);
+  private brickService = inject(HaBrickService);
+  private brickVersionService = inject(HaBrickVersionService);
+  private documentationService = inject(HaDocumentationService);
+  private httpRedirectionService = inject(HaHttpRedirectionService);
+  private runStatAggregateService = inject(HaRunStatAggregateService);
+
   private BRICK_KEY: StateKey<object> = makeStateKey<HaBrick>('brick');
   private LATEST_BRICK_VERSION_KEY: StateKey<object> = makeStateKey<HaBrick>('latest-brick-version');
   private DOC_KEY: StateKey<object> = makeStateKey<HaDocumentation>('doc');
@@ -160,16 +168,6 @@ export class HaBrickPageState {
     }
     return null;
   });
-
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState,
-    private brickService: HaBrickService,
-    private brickVersionService: HaBrickVersionService,
-    private documentationService: HaDocumentationService,
-    private httpRedirectionService: HaHttpRedirectionService,
-    private runStatAggregateService: HaRunStatAggregateService
-  ) {}
 
   public init(brickName: string, version: string): void {
     this.pathVersion.set(version);

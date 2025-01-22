@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabTypeDialogComponent,
@@ -13,21 +13,19 @@ import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
  * Component to show info about a resource
  */
 @Component({
-    selector: 'lab-resource-info',
-    templateUrl: './lab-resource-info.component.html',
-    styleUrls: ['./lab-resource-info.component.scss'],
-    standalone: false
+  selector: 'lab-resource-info',
+  templateUrl: './lab-resource-info.component.html',
+  styleUrls: ['./lab-resource-info.component.scss'],
+  standalone: false,
 })
 export class LabResourceInfoComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private tagService = inject(LabTagService);
+  private clipboardService = inject(FlClipboardService);
+
   @Input({ required: true }) resource: LabResource;
 
   tags: LabTagDatasource;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private tagService: LabTagService,
-    private clipboardService: FlClipboardService
-  ) {}
 
   ngOnInit(): void {
     this.tags = this.tagService.getEntityTagsDatasource('RESOURCE', this.resource.id);

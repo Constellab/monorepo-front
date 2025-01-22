@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
@@ -13,12 +13,15 @@ import { ClSubscriptionHandler } from '@monorepo/core-lib';
  * Component inside LabScenarioDetailPage to show scenario information but not workflow
  */
 @Component({
-    selector: 'lab-scenario-detail',
-    templateUrl: './lab-scenario-detail.component.html',
-    styleUrls: ['./lab-scenario-detail.component.scss'],
-    standalone: false
+  selector: 'lab-scenario-detail',
+  templateUrl: './lab-scenario-detail.component.html',
+  styleUrls: ['./lab-scenario-detail.component.scss'],
+  standalone: false,
 })
 export class LabScenarioDetailComponent implements OnInit, OnDestroy {
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private scenarioService = inject(LabScenarioService);
+
   scenario$: Observable<LabScenario>;
   tags$: LabTagDatasource;
 
@@ -29,11 +32,6 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
   saveDescriptionFunc: (content: TeRichText) => Observable<LabScenario>;
 
   private subscription = new ClSubscriptionHandler();
-
-  constructor(
-    private scenarioState: LabScenarioDetailPageState,
-    private scenarioService: LabScenarioService
-  ) {}
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();

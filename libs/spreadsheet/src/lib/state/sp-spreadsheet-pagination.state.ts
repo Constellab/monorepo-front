@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { SpSpreadsheetPage, SpSpreadsheetPageLoader } from '../model/sp-spreadsheet-page.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { Subscription } from 'rxjs';
@@ -6,6 +6,10 @@ import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-co
 
 @Injectable()
 export class SpSpreadsheetPaginationState implements OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private actionService = inject(FlPortalActionsService);
+  private ngZone = inject(NgZone);
+
   private static id: number = 0;
 
   private pagination: SpSpreadsheetPageLoader;
@@ -17,11 +21,7 @@ export class SpSpreadsheetPaginationState implements OnDestroy {
   private previousPageSubscription: Subscription;
   private readonly id: number;
 
-  constructor(
-    private state: SpSpreadsheetState,
-    private actionService: FlPortalActionsService,
-    private ngZone: NgZone
-  ) {
+  constructor() {
     this.id = SpSpreadsheetPaginationState.id++;
   }
 

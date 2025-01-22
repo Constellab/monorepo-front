@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { CaNotification, CaNotificationCountBySpace } from '../model/entities/ca-notification.class';
@@ -8,9 +8,9 @@ import { ClPage } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class CaNotificationsService {
-  private readonly route = 'notification';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'notification';
 
   public getCurrentNotifications(page: number, size: number): Observable<ClPage<CaNotification>> {
     return this.apiService.get(`${this.route}`, CaNotification, {

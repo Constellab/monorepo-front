@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
@@ -24,16 +24,14 @@ export type LabTableChartType =
   providedIn: 'root',
 })
 export class LabResourceTableService {
+  private apiService = inject(FlApiService);
+  private resourceService = inject(LabResourceService);
+
   private readonly route: string = 'resource-table';
 
   private static readonly tableViewFromRowParam = 'from_row';
   private static readonly tableViewNbOfRowsPerPageParam = 'number_of_rows_per_page';
   private static readonly tableDefaultPageSize: number = 100;
-
-  constructor(
-    private apiService: FlApiService,
-    private resourceService: LabResourceService
-  ) {}
 
   /**
    * Method used by the Table view to call a Chart view on it

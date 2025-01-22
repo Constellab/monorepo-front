@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import {
   FlArrayObs,
   FlArrayObsStatus,
@@ -18,13 +26,16 @@ import { Observable } from 'rxjs';
  * Table to show resource with possibility actions on resource and a select mode
  */
 @Component({
-    selector: 'lab-resource-table',
-    templateUrl: './lab-resource-table.component.html',
-    styleUrls: ['./lab-resource-table.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lab-resource-table',
+  templateUrl: './lab-resource-table.component.html',
+  styleUrls: ['./lab-resource-table.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LabResourceTableComponent implements OnInit {
+  private resourceService = inject(LabResourceService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: FlArrayObs<LabResource>;
 
   @Input() columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'lastModification', 'viewResource'];
@@ -50,11 +61,6 @@ export class LabResourceTableComponent implements OnInit {
   // store the children resources of the current expanded resource
   expandedChildrenResources$: FlEntityArrayObs<LabResource>;
   expandedChildrenStatus$: Observable<FlArrayObsStatus>;
-
-  constructor(
-    private resourceService: LabResourceService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     // remove the tag column from the sub table

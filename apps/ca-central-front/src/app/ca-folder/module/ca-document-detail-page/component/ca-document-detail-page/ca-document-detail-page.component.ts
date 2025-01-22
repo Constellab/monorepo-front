@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
@@ -33,12 +33,22 @@ import {
  * Page to show a constellab document with the possibility to edit it.
  */
 @Component({
-    selector: 'ca-document-detail-page',
-    templateUrl: './ca-document-detail-page.component.html',
-    styleUrls: ['./ca-document-detail-page.component.scss'],
-    standalone: false
+  selector: 'ca-document-detail-page',
+  templateUrl: './ca-document-detail-page.component.html',
+  styleUrls: ['./ca-document-detail-page.component.scss'],
+  standalone: false,
 })
 export class CaDocumentDetailPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private folderService = inject(CaFolderService);
+  private state = inject(CaHierarchyObjectDetailState);
+  private dialogService = inject(FlDialogService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private actionService = inject(FlPortalActionsService);
+  private snackBarService = inject(FlSnackBarService);
+  private portalService = inject(FlPortalService);
+  private constellabDocumentService = inject(CaConstellabDocumentHistoryService);
+
   document: CaDocument;
 
   getIsLoading: boolean = true;
@@ -46,18 +56,6 @@ export class CaDocumentDetailPageComponent implements OnInit {
   textEditorConfig: CaDocumentTextEditorConfig;
   contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
-
-  constructor(
-    private route: ActivatedRoute,
-    private folderService: CaFolderService,
-    private state: CaHierarchyObjectDetailState,
-    private dialogService: FlDialogService,
-    private menuDynamicService: FlMenuDynamicService,
-    private actionService: FlPortalActionsService,
-    private snackBarService: FlSnackBarService,
-    private portalService: FlPortalService,
-    private constellabDocumentService: CaConstellabDocumentHistoryService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));

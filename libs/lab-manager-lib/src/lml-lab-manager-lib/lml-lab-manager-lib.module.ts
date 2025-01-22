@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LmlDockerUpFormComponent } from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -106,7 +106,9 @@ import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-c
   ],
 })
 export class LmlLabManagerLibModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('LmlLabManagerLibModule', lmlLabManagerI18n);
   }
 }

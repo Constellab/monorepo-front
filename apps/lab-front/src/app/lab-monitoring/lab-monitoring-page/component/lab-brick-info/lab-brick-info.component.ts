@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
 import { FlDialogService } from '@monorepo/front-core-lib';
@@ -9,23 +9,21 @@ import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.ser
  * Show information and messages about a brick
  */
 @Component({
-    selector: 'lab-brick-info',
-    templateUrl: './lab-brick-info.component.html',
-    styleUrls: ['./lab-brick-info.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lab-brick-info',
+  templateUrl: './lab-brick-info.component.html',
+  styleUrls: ['./lab-brick-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LabBrickInfoComponent implements OnInit {
+  private labBrickService = inject(LabBrickService);
+  private cdr = inject(ChangeDetectorRef);
+  private dialogService = inject(FlDialogService);
+  private typeService = inject(LabTypeService);
+
   @Input() brick: LabBrickEntity;
 
   generateDocIsLoading: boolean = false;
-
-  constructor(
-    private labBrickService: LabBrickService,
-    private cdr: ChangeDetectorRef,
-    private dialogService: FlDialogService,
-    private typeService: LabTypeService
-  ) {}
 
   ngOnInit(): void {}
 

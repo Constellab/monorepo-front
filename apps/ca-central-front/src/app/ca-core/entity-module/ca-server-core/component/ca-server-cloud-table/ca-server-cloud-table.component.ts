@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import {
@@ -12,12 +12,15 @@ import {
 import { CaServerService } from '../../../../service-api/ca-server.service';
 
 @Component({
-    selector: 'ca-server-cloud-table',
-    templateUrl: './ca-server-cloud-table.component.html',
-    styleUrls: ['./ca-server-cloud-table.component.scss'],
-    standalone: false
+  selector: 'ca-server-cloud-table',
+  templateUrl: './ca-server-cloud-table.component.html',
+  styleUrls: ['./ca-server-cloud-table.component.scss'],
+  standalone: false,
 })
 export class CaServerCloudTableComponent {
+  private dialogService = inject(FlDialogService);
+  private serverService = inject(CaServerService);
+
   @Input({ required: true }) datasource: FlArrayObs<CaServerCloud>;
 
   @Input() columns: FlTableColumnStatic<CaServerCloud>[] = [
@@ -34,11 +37,6 @@ export class CaServerCloudTableComponent {
   @Input() rowSelectable: boolean = false;
 
   @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
-
-  constructor(
-    private dialogService: FlDialogService,
-    private serverService: CaServerService
-  ) {}
 
   openEditServerCloud(serverCloud: CaServerCloud): void {
     const dialogInput: FlFormDialogInput = {

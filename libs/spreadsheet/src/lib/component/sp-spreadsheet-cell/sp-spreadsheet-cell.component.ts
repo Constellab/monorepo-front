@@ -10,6 +10,7 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
+  inject,
 } from '@angular/core';
 import {
   columnIdAttributeName,
@@ -37,13 +38,21 @@ import {
 } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'sp-spreadsheet-cell',
-    templateUrl: './sp-spreadsheet-cell.component.html',
-    styleUrls: ['./sp-spreadsheet-cell.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'sp-spreadsheet-cell',
+  templateUrl: './sp-spreadsheet-cell.component.html',
+  styleUrls: ['./sp-spreadsheet-cell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
+  private renderer = inject(Renderer2);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private state = inject(SpSpreadsheetState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private actionState = inject(SpSpreadsheetActions);
+  private cdr = inject(ChangeDetectorRef);
+  private portalService = inject(FlPortalService);
+
   // use to check change detection
   // todo to remove
   private static id: number = 0;
@@ -76,15 +85,7 @@ export class SpSpreadsheetCellComponent implements OnInit, OnDestroy, DoCheck {
 
   private overlayRef: FlOverlayRef;
 
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>,
-    private state: SpSpreadsheetState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private actionState: SpSpreadsheetActions,
-    private cdr: ChangeDetectorRef,
-    private portalService: FlPortalService
-  ) {
+  constructor() {
     this.id = SpSpreadsheetCellComponent.id++;
   }
 

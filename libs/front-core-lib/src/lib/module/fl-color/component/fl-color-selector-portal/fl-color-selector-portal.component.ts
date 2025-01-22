@@ -1,20 +1,21 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
 import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
 
 @Component({
-    selector: 'fl-color-selector-portal',
-    templateUrl: './fl-color-selector-portal.component.html',
-    styleUrls: ['./fl-color-selector-portal.component.scss'],
-    standalone: false
+  selector: 'fl-color-selector-portal',
+  templateUrl: './fl-color-selector-portal.component.html',
+  styleUrls: ['./fl-color-selector-portal.component.scss'],
+  standalone: false,
 })
 export class FlColorSelectorPortalComponent implements OnInit {
+  private overlayRef = inject(FlOverlayRef);
+
   color?: string;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) color: string | null,
-    private overlayRef: FlOverlayRef
-  ) {
+  constructor() {
+    const color = inject(FL_PORTAL_DATA);
+
     this.color = color;
   }
 

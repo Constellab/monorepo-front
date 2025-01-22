@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaUser } from '../model/entities/ca-user.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -23,21 +23,21 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
   providedIn: 'root',
 })
 export class CaAuthenticatedUserService implements FlCleanableService {
+  private apiService = inject(FlApiService);
+  private translateService = inject(FlTranslateService);
+  private themeService = inject(FlThemeService);
+  private spaceService = inject(CaSpaceService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  location = inject(Location);
+  private document = inject<Document>(DOCUMENT);
+
   private readonly currentUserRoute: string = 'users/current';
 
   private userAuthenticated: CaUser;
   // subject to subscribe to user changes
   private userSubject: BehaviorSubject<CaUser> = new BehaviorSubject<CaUser>(null);
 
-  constructor(
-    private apiService: FlApiService,
-    private translateService: FlTranslateService,
-    private themeService: FlThemeService,
-    private spaceService: CaSpaceService,
-    private currentSpaceService: CaCurrentSpaceService,
-    public location: Location,
-    @Inject(DOCUMENT) private document: Document
-  ) {
+  constructor() {
     FlCleanerService.getInstance().registerService(this);
   }
 

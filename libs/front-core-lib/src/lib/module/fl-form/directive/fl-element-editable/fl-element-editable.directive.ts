@@ -7,16 +7,20 @@ import {
   Input,
   Output,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { DateTime } from 'luxon';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { FlKeyboardKey } from '../../../../utils/fl-keyboard.helper';
 
 @Directive({
-    selector: '[flElementEditable]',
-    standalone: false
+  selector: '[flElementEditable]',
+  standalone: false,
 })
 export class FlElementEditableDirective {
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   /**
    * Make element editable
    */
@@ -97,10 +101,10 @@ export class FlElementEditableDirective {
     }
   }
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {
+  constructor() {
+    const elementRef = this.elementRef;
+    const renderer = this.renderer;
+
     // add a default class to the element
     renderer.addClass(elementRef.nativeElement, 'g-fl-element-editable');
   }

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, filter, first, firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import {
@@ -21,21 +21,19 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
  */
 @Injectable()
 export class CaHierarchyObjectDetailState implements OnDestroy {
+  private folderService = inject(CaFolderService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private routerService = inject(CaRouterService);
+
   private ancestorFolders$: FlEntityArrayObs<CaHierarchyObject>;
   private folderTree: FlDatasourceTree<CaHierarchyObjectWithChildren>;
 
   // by default the tree is opened
   private treeDrawerOpened$: BehaviorSubject<boolean>;
-  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }>;
+  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }> = inject(FlQueryParamHandler);
 
   private subscription: Subscription;
-
-  constructor(
-    private folderService: CaFolderService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private routerService: CaRouterService
-  ) {}
 
   public init(): void {
     // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
@@ -178,7 +176,6 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   private initTreeDrawerOpened(): void {
-    this.queryParamHandler = new FlQueryParamHandler(this.router, this.route);
     // init tree open
     this.queryParamHandler.getFirstQueryParams().subscribe(
       // if the query param is not present, the tree is opened

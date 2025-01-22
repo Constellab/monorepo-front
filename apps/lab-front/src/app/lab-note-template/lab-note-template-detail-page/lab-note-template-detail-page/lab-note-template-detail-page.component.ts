@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { ActivatedRoute } from '@angular/router';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
@@ -10,12 +10,17 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'lab-note-template-detail-page',
-    templateUrl: './lab-note-template-detail-page.component.html',
-    styleUrls: ['./lab-note-template-detail-page.component.scss'],
-    standalone: false
+  selector: 'lab-note-template-detail-page',
+  templateUrl: './lab-note-template-detail-page.component.html',
+  styleUrls: ['./lab-note-template-detail-page.component.scss'],
+  standalone: false,
 })
 export class LabNoteTemplateDetailPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+  private noteTemplateService = inject(LabNoteTemplateService);
+
   noteTemplate: LabNoteTemplate;
 
   textEditorConfig: TeConfig;
@@ -26,13 +31,6 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
 
   saveContentFunc: (value: TeRichText) => Observable<TeRichTextDTO>;
   private noteTemplateId: string;
-
-  constructor(
-    private route: ActivatedRoute,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService,
-    private noteTemplateService: LabNoteTemplateService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));

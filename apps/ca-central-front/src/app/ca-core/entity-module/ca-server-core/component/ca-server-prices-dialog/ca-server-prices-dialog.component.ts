@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
@@ -13,21 +13,22 @@ import {
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
 
 @Component({
-    selector: 'ca-server-prices-dialog',
-    templateUrl: './ca-server-prices-dialog.component.html',
-    styleUrl: './ca-server-prices-dialog.component.scss',
-    standalone: false
+  selector: 'ca-server-prices-dialog',
+  templateUrl: './ca-server-prices-dialog.component.html',
+  styleUrl: './ca-server-prices-dialog.component.scss',
+  standalone: false,
 })
 export class CaServerPricesDialogComponent {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   standardServer: CaServerStandard;
 
   prices: CaServerPriceDatasource;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) standardServer: CaServerStandard,
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const standardServer = inject<CaServerStandard>(MAT_DIALOG_DATA);
+
     this.standardServer = standardServer;
     this.refreshPrices();
   }

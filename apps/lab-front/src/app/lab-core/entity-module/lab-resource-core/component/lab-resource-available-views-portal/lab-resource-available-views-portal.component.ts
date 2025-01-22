@@ -1,4 +1,4 @@
-import { Component, computed, effect } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { LabResourceViewSpec } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { Observable, of } from 'rxjs';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
@@ -10,20 +10,20 @@ import {
 } from '../../../../model/entities/resource/lab-view-config.entity';
 
 @Component({
-    selector: 'lab-resource-available-views-portal',
-    templateUrl: './lab-resource-available-views-portal.component.html',
-    styleUrls: ['./lab-resource-available-views-portal.component.scss'],
-    standalone: false
+  selector: 'lab-resource-available-views-portal',
+  templateUrl: './lab-resource-available-views-portal.component.html',
+  styleUrls: ['./lab-resource-available-views-portal.component.scss'],
+  standalone: false,
 })
 export class LabResourceAvailableViewsPortalComponent {
+  private state = inject(LabResourceDetailState);
+  private resourceService = inject(LabResourceService);
+  private overlay = inject(FlOverlayRef);
+
   viewSpecs$: Observable<LabResourceViewSpec[]>;
   favoritesViews$: LabViewConfigDatasource = this.state.getSelectedResourceFavoriteViews();
 
-  constructor(
-    private state: LabResourceDetailState,
-    private resourceService: LabResourceService,
-    private overlay: FlOverlayRef
-  ) {
+  constructor() {
     // use a computed to update the view specs only when typing changes
     const typingSignal = computed(() => this.state.selectedResource()?.resourceTypingName ?? null);
     effect(() => {

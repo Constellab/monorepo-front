@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { SpSpreadsheetSheetSelectionComponent } from './component/sp-spreadsheet-sheet-selection/sp-spreadsheet-sheet-selection.component';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -112,7 +112,9 @@ import { ChChartModule } from '@monorepo/chart';
   ],
 })
 export class SpSpreadsheetModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('SpSpreadsheetModule', spSpreadsheetI18n);
   }
 }

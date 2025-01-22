@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiErrorService,
   flAuthExpiredCookie,
@@ -20,14 +20,15 @@ import { PlatformLocation } from '@angular/common';
 
 @Injectable()
 export class LabApiErrorService extends FlApiErrorService {
-  constructor(
-    snackBarService: FlSnackBarService,
-    translateService: FlTranslateService,
-    private dialogService: FlDialogService,
-    private router: Router,
-    private cookieService: FlCookieService,
-    private platformLocation: PlatformLocation
-  ) {
+  private dialogService = inject(FlDialogService);
+  private router = inject(Router);
+  private cookieService = inject(FlCookieService);
+  private platformLocation = inject(PlatformLocation);
+
+  constructor() {
+    const snackBarService = inject(FlSnackBarService);
+    const translateService = inject(FlTranslateService);
+
     super(snackBarService, translateService);
   }
 

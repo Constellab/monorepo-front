@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
 import {
@@ -18,9 +18,9 @@ import { CaUserSearch, CaUserSearchFields } from '../entity-module/ca-user-core/
   providedIn: 'root',
 })
 export class CaUsersService {
-  private readonly route: string = 'users';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'users';
 
   public getUserPhoto(photo: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/photo-v2/${photo}`);

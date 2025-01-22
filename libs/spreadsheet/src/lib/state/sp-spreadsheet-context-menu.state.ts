@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
 import { SpSpreadsheetChartState } from './sp-spreadsheet-chart.state';
 import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
@@ -10,13 +10,11 @@ import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib';
  */
 @Injectable()
 export class SpSpreadsheetContextMenu {
-  constructor(
-    private state: SpSpreadsheetState,
-    private action: SpSpreadsheetActions,
-    private chartState: SpSpreadsheetChartState,
-    private clipboardState: SpSpreadsheetClipboardState,
-    private menuDynamicService: FlMenuDynamicService
-  ) {}
+  private state = inject(SpSpreadsheetState);
+  private action = inject(SpSpreadsheetActions);
+  private chartState = inject(SpSpreadsheetChartState);
+  private clipboardState = inject(SpSpreadsheetClipboardState);
+  private menuDynamicService = inject(FlMenuDynamicService);
 
   public openCellContextMenu(mouseEvent: MouseEvent): void {
     this.menuDynamicService.openDynamicMenuFromMouseEvent(this.getCellConfig(), mouseEvent);

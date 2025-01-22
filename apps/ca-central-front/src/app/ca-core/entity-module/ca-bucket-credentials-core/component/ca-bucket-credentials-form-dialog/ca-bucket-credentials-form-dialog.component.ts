@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import {
   CaBucketCredentials,
@@ -11,16 +11,18 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 export type CaBucketCredentialsFormDialogInput = FlFormDialogInput<CaBucketCredentialsFull>;
 
 @Component({
-    selector: 'ca-bucket-credentials-form-dialog',
-    templateUrl: './ca-bucket-credentials-form-dialog.component.html',
-    styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-credentials-form-dialog',
+  templateUrl: './ca-bucket-credentials-form-dialog.component.html',
+  styleUrls: ['./ca-bucket-credentials-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaBucketCredentialsFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketCredentialsFull>, CaBucketCredentials>
   implements OnInit
 {
-  constructor(private objectStorageService: CaObjectStorageService) {
+  private objectStorageService = inject(CaObjectStorageService);
+
+  constructor() {
     super();
   }
 

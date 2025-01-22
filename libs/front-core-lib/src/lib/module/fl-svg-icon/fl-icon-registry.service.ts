@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FL_ICON_MODULE, FlIconConfig, FlSvgIcon } from './fl-icon-config.class';
@@ -8,11 +8,9 @@ import { FL_ICON_MODULE, FlIconConfig, FlSvgIcon } from './fl-icon-config.class'
  */
 @Injectable()
 export class FlIconRegistryService {
-  constructor(
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer,
-    @Inject(FL_ICON_MODULE) private config: FlIconConfig
-  ) {}
+  private matIconRegistry = inject(MatIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  private config = inject<FlIconConfig>(FL_ICON_MODULE);
 
   public initIcons(): void {
     // set the default icon to outlined

@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, signal } from '@angular/core';
+import { Component, Injector, OnInit, signal, inject } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
@@ -54,7 +54,9 @@ export class DcSelectResourceComponent implements OnInit {
     { initFirstPage: true }
   );
 
-  constructor(injector: Injector) {
+  constructor() {
+    const injector = inject(Injector);
+
     flSetRootInjector(injector);
     console.log('DC Select Resource');
   }

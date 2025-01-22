@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaCreateAgentDto } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -15,22 +15,22 @@ import { CoCreateAgentFormData } from '@monorepo/community-lib';
 export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
 
 @Component({
-    selector: 'ha-agent-create-dialog',
-    templateUrl: './ha-agent-create-dialog.component.html',
-    styleUrls: ['./ha-agent-create-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-agent-create-dialog',
+  templateUrl: './ha-agent-create-dialog.component.html',
+  styleUrls: ['./ha-agent-create-dialog.component.scss'],
+  standalone: false,
 })
 export class HaAgentCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaCreateAgentDto, HaAgentVersion>
   implements OnInit
 {
+  private agentService = inject(HaAgentService);
+  private spaceService = inject(HaSpaceService);
+
   spaces$: Observable<HaSpace[]>;
   inputFile: any;
 
-  constructor(
-    private agentService: HaAgentService,
-    private spaceService: HaSpaceService
-  ) {
+  constructor() {
     super();
   }
 

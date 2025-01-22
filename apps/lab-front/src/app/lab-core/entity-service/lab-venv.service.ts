@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { LabVEnvCompleteInfo, LabVEnvsStatus } from '../model/entities/lab-venv.entity';
 import { Observable } from 'rxjs';
@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LabVenvService {
-  private readonly route = 'venv';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'venv';
 
   public getVenvsStatus(): Observable<LabVEnvsStatus> {
     return this.apiService.get(this.route, LabVEnvsStatus);

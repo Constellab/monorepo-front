@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
   CaGroupAddUserDialogComponent,
@@ -12,20 +12,18 @@ import { CaUserGroup, CaUserGroupDatasource } from '../../../../ca-core/model/en
  * with possibility to add or remove users.
  */
 @Component({
-    selector: 'ca-team-users-list',
-    templateUrl: './ca-team-users-list.component.html',
-    styleUrls: ['./ca-team-users-list.component.scss'],
-    standalone: false
+  selector: 'ca-team-users-list',
+  templateUrl: './ca-team-users-list.component.html',
+  styleUrls: ['./ca-team-users-list.component.scss'],
+  standalone: false,
 })
 export class CaTeamUsersListComponent implements OnInit {
+  private groupService = inject(CaGroupService);
+  private dialogService = inject(FlDialogService);
+
   @Input() groupId: string;
 
   datasource: CaUserGroupDatasource;
-
-  constructor(
-    private groupService: CaGroupService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.datasource = new CaUserGroupDatasource(

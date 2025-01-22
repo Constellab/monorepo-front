@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,12 +32,20 @@ import { CoStoryCategory } from '@monorepo/community-lib';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
 @Component({
-    selector: 'ha-story-edit-page',
-    templateUrl: './ha-story-edit-page.component.html',
-    styleUrls: ['./ha-story-edit-page.component.scss'],
-    standalone: false
+  selector: 'ha-story-edit-page',
+  templateUrl: './ha-story-edit-page.component.html',
+  styleUrls: ['./ha-story-edit-page.component.scss'],
+  standalone: false,
 })
 export class HaStoryEditPageComponent implements OnInit {
+  private storyService = inject(HaStoryService);
+  private activatedRoute = inject(ActivatedRoute);
+  private dialogService = inject(FlDialogService);
+  private topicService = inject(HaTopicService);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
+  private portalService = inject(FlPortalService);
+  private router = inject(Router);
+
   story: HaStory;
   formGp: FormGroup;
   textEditorConfig: HaStoryTextEditorConfig;
@@ -73,16 +81,6 @@ export class HaStoryEditPageComponent implements OnInit {
         return story;
       })
     );
-
-  constructor(
-    private storyService: HaStoryService,
-    private activatedRoute: ActivatedRoute,
-    private dialogService: FlDialogService,
-    private topicService: HaTopicService,
-    private authenticatedUserService: HaAuthenticatedUserService,
-    private portalService: FlPortalService,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -165,7 +163,7 @@ export class HaStoryEditPageComponent implements OnInit {
     });
   }
 
-  onEditorChange(): void{
+  onEditorChange(): void {
     this.syncWithBack = false;
   }
 

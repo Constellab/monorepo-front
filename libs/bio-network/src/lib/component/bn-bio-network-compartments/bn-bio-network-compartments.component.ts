@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -10,22 +10,20 @@ import { BnBioNetworkCompartment } from '../../model/bn-bio-network.class';
  * highlight them on click
  */
 @Component({
-    selector: 'bn-bio-network-compartments',
-    templateUrl: './bn-bio-network-compartments.component.html',
-    styleUrls: ['./bn-bio-network-compartments.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-compartments',
+  templateUrl: './bn-bio-network-compartments.component.html',
+  styleUrls: ['./bn-bio-network-compartments.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkCompartmentsComponent implements OnInit {
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+  private cdr = inject(ChangeDetectorRef);
+
   compartments$: Observable<BnBioNetworkCompartment[]>;
 
   private selectedCompartments: Set<string> = new Set();
-
-  constructor(
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.compartments$ = this.state.getCompartments$();

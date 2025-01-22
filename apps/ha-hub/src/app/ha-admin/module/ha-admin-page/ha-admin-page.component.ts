@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-version.service';
 
 @Component({
-    selector: 'ha-ha-admin-page',
-    templateUrl: './ha-admin-page.component.html',
-    styleUrls: ['./ha-admin-page.component.scss'],
-    standalone: false
+  selector: 'ha-ha-admin-page',
+  templateUrl: './ha-admin-page.component.html',
+  styleUrls: ['./ha-admin-page.component.scss'],
+  standalone: false,
 })
 export class HaAdminPageComponent {
-  isLoading: boolean = false;
+  private brickVersionService = inject(HaBrickVersionService);
 
-  constructor(private brickVersionService: HaBrickVersionService) {}
+  isLoading: boolean = false;
 
   sendAllToQueue(): void {
     this.isLoading = true;

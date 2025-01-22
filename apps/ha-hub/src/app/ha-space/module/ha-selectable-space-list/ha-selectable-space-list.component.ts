@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import { Observable } from 'rxjs';
@@ -6,12 +6,15 @@ import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaCoServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-co-service.config';
 
 @Component({
-    selector: 'ha-selectable-space-list',
-    templateUrl: './ha-selectable-space-list.component.html',
-    styleUrls: ['./ha-selectable-space-list.component.scss'],
-    standalone: false
+  selector: 'ha-selectable-space-list',
+  templateUrl: './ha-selectable-space-list.component.html',
+  styleUrls: ['./ha-selectable-space-list.component.scss'],
+  standalone: false,
 })
 export class HaSelectableSpaceListComponent implements OnInit {
+  private spaceService = inject(HaSpaceService);
+  private coServiceConfig = inject(HaCoServiceConfig);
+
   @Input() user: HaUser;
 
   @Output() spaceSelectedEvent = new EventEmitter<string>();
@@ -19,11 +22,6 @@ export class HaSelectableSpaceListComponent implements OnInit {
   spaceList$: Observable<HaSpace[]>;
 
   selectedSpaces: string[] = [];
-
-  constructor(
-    private spaceService: HaSpaceService,
-    private coServiceConfig: HaCoServiceConfig
-  ) {}
 
   ngOnInit(): void {
     this.spaceList$ = this.spaceService.getSpacesOfCurrentUser();

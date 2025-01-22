@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
 import { RvViewConfig } from '@monorepo/resource-view';
@@ -28,12 +28,16 @@ export interface LabResourceViewPortalInput {
  * Portal to show a resource view
  */
 @Component({
-    selector: 'lab-resource-view-portal',
-    templateUrl: './lab-resource-view-portal.component.html',
-    styleUrls: ['./lab-resource-view-portal.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-portal',
+  templateUrl: './lab-resource-view-portal.component.html',
+  styleUrls: ['./lab-resource-view-portal.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewPortalComponent {
+  private input = inject<LabResourceViewPortalInput>(FL_PORTAL_DATA);
+  private overlayRef = inject(FlOverlayRef);
+  private viewConfigService = inject(LabViewConfigService);
+
   labView: LabResourceView;
   rvConfig: RvViewConfig;
   contextMenuItems?: FlMenuDynamic[];
@@ -43,11 +47,9 @@ export class LabResourceViewPortalComponent {
 
   editTitle: boolean = false;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) private input: LabResourceViewPortalInput,
-    private overlayRef: FlOverlayRef,
-    private viewConfigService: LabViewConfigService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.labView = input.labView;
     this.contextMenuItems = input.contextMenuItems;
 

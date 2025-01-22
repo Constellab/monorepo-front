@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlDynamicFieldComponent } from './component/fl-dynamic-field/fl-dynamic-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -99,7 +99,9 @@ import { FlUserModule } from '../fl-user/fl-user.module';
   ],
 })
 export class FlDynamicFieldModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlDynamicFieldModule', flDynamicFieldI18n);
   }
 }

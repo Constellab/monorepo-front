@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -9,16 +9,18 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-    selector: 'ca-storage-price-form-dialog',
-    templateUrl: './ca-storage-price-form-dialog.component.html',
-    styleUrl: './ca-storage-price-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-storage-price-form-dialog',
+  templateUrl: './ca-storage-price-form-dialog.component.html',
+  styleUrl: './ca-storage-price-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaStoragePriceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice>
   implements OnInit
 {
-  constructor(private serverService: CaServerService) {
+  private serverService = inject(CaServerService);
+
+  constructor() {
     super();
   }
 

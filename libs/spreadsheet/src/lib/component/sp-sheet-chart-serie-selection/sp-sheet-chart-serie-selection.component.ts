@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SpSheetChart2dSerieSelectionForm } from '../../model/chart/sp-sheet-chart-selection-form.class';
 import { FormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SpSpreadsheetChartSerieSelectionInput } from '../../model/chart/sp-sheet-chart-config.class';
@@ -8,20 +8,21 @@ import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
  * Portal to select one serie during chart selection
  */
 @Component({
-    selector: 'sp-sheet-chart-serie-selection',
-    templateUrl: './sp-sheet-chart-serie-selection.component.html',
-    styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
-    standalone: false
+  selector: 'sp-sheet-chart-serie-selection',
+  templateUrl: './sp-sheet-chart-serie-selection.component.html',
+  styleUrls: ['./sp-sheet-chart-serie-selection.component.scss'],
+  standalone: false,
 })
 export class SpSheetChartSerieSelectionComponent implements OnInit {
+  private overlayRef = inject(FlOverlayRef);
+
   formGp: UntypedFormGroup;
 
   input: SpSpreadsheetChartSerieSelectionInput;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSerieSelectionInput,
-    private overlayRef: FlOverlayRef
-  ) {
+  constructor() {
+    const input = inject<SpSpreadsheetChartSerieSelectionInput>(FL_PORTAL_DATA);
+
     this.input = input;
   }
 

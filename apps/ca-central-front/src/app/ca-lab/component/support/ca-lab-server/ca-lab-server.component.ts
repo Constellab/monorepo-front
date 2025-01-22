@@ -1,24 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 
 @Component({
-    selector: 'ca-lab-server',
-    templateUrl: './ca-lab-server.component.html',
-    styleUrls: ['./ca-lab-server.component.scss'],
-    standalone: false
+  selector: 'ca-lab-server',
+  templateUrl: './ca-lab-server.component.html',
+  styleUrls: ['./ca-lab-server.component.scss'],
+  standalone: false,
 })
 export class CaLabServerComponent {
+  private state = inject(CaLabDetailPageState);
+  private serverState = inject(CaLabDetailServerState);
+
   status$: Observable<CaLabStatusDTO> = this.state.getStatus$();
 
   isCloud$: Observable<boolean> = this.state.isCloud$();
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private serverState: CaLabDetailServerState
-  ) {}
 
   openServerInfoDialog(): void {
     this.serverState.openServerInfoDialog();

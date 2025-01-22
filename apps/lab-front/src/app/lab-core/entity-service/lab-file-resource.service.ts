@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlFileHelper } from '@monorepo/front-core-lib';
 import { Observable, tap } from 'rxjs';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
@@ -10,11 +10,11 @@ import { LabResourceView } from '../model/entities/resource/lab-resource-view.en
   providedIn: 'root',
 })
 export class LabFileResourceService {
+  private apiService = inject(FlApiService);
+
   public static readonly uploadFileActon = 'uploadFile';
 
   private readonly route: string = 'fs-node';
-
-  constructor(private apiService: FlApiService) {}
 
   /**
    * Upload a file to the serveur. This watch the http events to follow progress.

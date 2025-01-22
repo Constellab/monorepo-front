@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -29,13 +29,11 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CaFolderActionService {
-  private uploadDocumentActionName = 'upload-document-action';
+  private folderService = inject(CaFolderService);
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
 
-  constructor(
-    private folderService: CaFolderService,
-    private dialogService: FlDialogService,
-    private actionService: FlPortalActionsService
-  ) {}
+  private uploadDocumentActionName = 'upload-document-action';
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {

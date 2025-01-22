@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import { BnBioNetworkSelectionInfoComponent } from './component/bn-bio-network-selection-info/bn-bio-network-selection-info.component';
 import { BnBioNetworkLinkPipe } from './pipe/bn-bio-network-link.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -119,7 +119,9 @@ import {
   ],
 })
 export class BnBioNetworkModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('BnBioNetworkModule', bnBioNetworkI18n);
   }
 

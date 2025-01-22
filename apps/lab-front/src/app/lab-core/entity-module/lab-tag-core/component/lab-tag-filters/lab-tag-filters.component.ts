@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Optional, Output, Self, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { LabTagKeyModel } from '../../../../model/entities/lab-tag.entity';
 import {
   FlAddTagEvent,
@@ -18,12 +18,14 @@ import { LabRouterService } from '../../../../service/lab-router.service';
  * It supports NgModel
  */
 @Component({
-    selector: 'lab-tag-filters',
-    templateUrl: './lab-tag-filters.component.html',
-    styleUrls: ['./lab-tag-filters.component.scss'],
-    standalone: false
+  selector: 'lab-tag-filters',
+  templateUrl: './lab-tag-filters.component.html',
+  styleUrls: ['./lab-tag-filters.component.scss'],
+  standalone: false,
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
+  private tagService = inject(LabTagService);
+
   @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();
 
   @ViewChild(FlAddTagInputComponent) addTagInputComponent: FlAddTagInputComponent;
@@ -34,10 +36,9 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
 
   tagMonitoringRoute = LabRouterService.getMonitoringTagsRoute();
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private tagService: LabTagService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

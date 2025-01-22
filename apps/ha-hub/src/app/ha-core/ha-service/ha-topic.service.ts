@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { HaTopicDto } from '../ha-model/ha-entities/ha-topic.class';
 import { Observable } from 'rxjs';
@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class HaTopicService {
-  private readonly route: string = 'topic';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'topic';
 
   public getAll(): Observable<HaTopicDto[]> {
     return this.apiService.get(this.route);

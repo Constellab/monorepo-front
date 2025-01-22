@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlDialogService, FlPortalService } from '@monorepo/front-core-lib';
 import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import {
@@ -12,12 +12,15 @@ import {
 } from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
 
 @Component({
-    selector: 'lab-tag-list',
-    templateUrl: './lab-tag-list.component.html',
-    styleUrls: ['./lab-tag-list.component.scss'],
-    standalone: false
+  selector: 'lab-tag-list',
+  templateUrl: './lab-tag-list.component.html',
+  styleUrls: ['./lab-tag-list.component.scss'],
+  standalone: false,
 })
 export class LabTagListComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private portalService = inject(FlPortalService);
+
   @Input({ required: true }) tags: LabTagDatasource;
 
   @Input() tagSelectable: boolean = false;
@@ -31,11 +34,6 @@ export class LabTagListComponent implements OnInit {
   @Input() entityId: string;
 
   @Output() tagDeleted: EventEmitter<LabTag> = new EventEmitter();
-
-  constructor(
-    private dialogService: FlDialogService,
-    private portalService: FlPortalService
-  ) {}
 
   ngOnInit(): void {
     if (this.tags == null) {

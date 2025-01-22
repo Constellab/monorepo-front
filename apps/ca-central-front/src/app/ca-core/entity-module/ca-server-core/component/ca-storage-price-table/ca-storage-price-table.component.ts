@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -12,12 +12,15 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-    selector: 'ca-storage-price-table',
-    templateUrl: './ca-storage-price-table.component.html',
-    styleUrl: './ca-storage-price-table.component.scss',
-    standalone: false
+  selector: 'ca-storage-price-table',
+  templateUrl: './ca-storage-price-table.component.html',
+  styleUrl: './ca-storage-price-table.component.scss',
+  standalone: false,
 })
 export class CaStoragePriceTableComponent {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaStoragePriceDatasource;
 
   @Input() columns: FlTableColumnStatic<CaStoragePrice>[] = [
@@ -30,11 +33,6 @@ export class CaStoragePriceTableComponent {
   ];
 
   @Output() priceDeleted: EventEmitter<CaStoragePrice> = new EventEmitter<CaStoragePrice>();
-
-  constructor(
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {}
 
   deletePrice(price: CaStoragePrice): void {
     const input: FlConfirmDialogInput = {

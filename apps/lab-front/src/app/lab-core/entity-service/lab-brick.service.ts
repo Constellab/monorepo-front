@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabBrickEntity, LabBrickMigration } from '../model/entities/lab-brick.entity';
 import { FlApiService } from '@monorepo/front-core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class LabBrickService {
-  private readonly route: string = 'brick';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'brick';
 
   public getAllBricks(): Observable<LabBrickEntity[]> {
     return this.apiService.get(this.route, LabBrickEntity);

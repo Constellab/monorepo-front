@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
+import { Pipe, PipeTransform, SecurityContext, inject } from '@angular/core';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
@@ -15,11 +15,11 @@ marked.use(
 );
 
 @Pipe({
-    name: 'tdMarkdown',
-    standalone: false
+  name: 'tdMarkdown',
+  standalone: false,
 })
 export class TdMarkdownPipe implements PipeTransform {
-  constructor(private domSanitizer: DomSanitizer) {}
+  private domSanitizer = inject(DomSanitizer);
 
   transform(value: string): SafeHtml {
     if (!value) return null;

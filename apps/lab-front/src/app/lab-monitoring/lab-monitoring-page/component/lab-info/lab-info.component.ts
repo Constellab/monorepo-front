@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
 import { LabSystemInfo } from '../../../../lab-core/model/global/lab-system.class';
 import {
@@ -12,21 +12,19 @@ import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dia
 import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 
 @Component({
-    selector: 'lab-info',
-    templateUrl: './lab-info.component.html',
-    styleUrls: ['./lab-info.component.scss'],
-    standalone: false
+  selector: 'lab-info',
+  templateUrl: './lab-info.component.html',
+  styleUrls: ['./lab-info.component.scss'],
+  standalone: false,
 })
 export class LabInfoComponent implements OnInit {
+  private systemService = inject(LabSystemService);
+  private typeService = inject(LabTypeService);
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
+
   labInfo: LabSystemInfo;
   isLoading: boolean = true;
-
-  constructor(
-    private systemService: LabSystemService,
-    private typeService: LabTypeService,
-    private dialogService: FlDialogService,
-    private actionService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     this.systemService.getSystemInfo().subscribe({

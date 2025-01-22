@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
@@ -14,21 +14,22 @@ export interface LabProcessEditStyleFormData {
 }
 
 @Component({
-    selector: 'lab-process-edit-style-dialog',
-    templateUrl: './lab-process-edit-style-dialog.component.html',
-    styleUrl: './lab-process-edit-style-dialog.component.scss',
-    standalone: false
+  selector: 'lab-process-edit-style-dialog',
+  templateUrl: './lab-process-edit-style-dialog.component.html',
+  styleUrl: './lab-process-edit-style-dialog.component.scss',
+  standalone: false,
 })
 export class LabProcessEditStyleDialogComponent
   extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>
   implements OnInit
 {
+  private protocolService = inject(LabProtocolService);
+
   process: LabProcess;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: LabProcessEditStyleDialogInputData,
-    private protocolService: LabProtocolService
-  ) {
+  constructor() {
+    const data = inject<LabProcessEditStyleDialogInputData>(MAT_DIALOG_DATA);
+
     super();
     this.process = data.object;
   }

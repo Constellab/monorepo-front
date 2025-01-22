@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { MatSelect } from '@angular/material/select';
 import { Observable } from 'rxjs';
@@ -6,22 +6,26 @@ import { LabViewType } from '../../../../model/entities/resource/lab-view-config
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 
 @Component({
-    selector: 'lab-select-view-type-options',
-    templateUrl: './lab-select-view-type-options.component.html',
-    styleUrls: ['./lab-select-view-type-options.component.scss'],
-    standalone: false
+  selector: 'lab-select-view-type-options',
+  templateUrl: './lab-select-view-type-options.component.html',
+  styleUrls: ['./lab-select-view-type-options.component.scss'],
+  standalone: false,
 })
 export class LabSelectViewTypeOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit
 {
+  private select: MatSelect;
+  private viewConfigService = inject(LabViewConfigService);
+
   viewTypes$: Observable<LabViewType[]>;
 
-  constructor(
-    @Host() private select: MatSelect,
-    private viewConfigService: LabViewConfigService
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

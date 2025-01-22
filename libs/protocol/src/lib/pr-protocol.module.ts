@@ -1,4 +1,4 @@
-import { Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { Injector, ModuleWithProviders, NgModule, Type, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrWorkflowManagerState } from './state/pr-workflow-manager-state';
 import { PrWorkflowComponent } from './component/pr-workflow/pr-workflow.component';
@@ -89,7 +89,10 @@ import { MatSortHeader } from '@angular/material/sort';
 export class PrProtocolModule {
   private static registered: boolean = false;
 
-  constructor(injector: Injector, translateService: FlTranslateService) {
+  constructor() {
+    const injector = inject(Injector);
+    const translateService = inject(FlTranslateService);
+
     if (PrProtocolModule.registered) return;
 
     customElements.define(

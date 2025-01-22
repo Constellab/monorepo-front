@@ -12,12 +12,14 @@ import { FlTableColumnStatic } from '@monorepo/front-core-lib';
  * It is for admin as it shows more information than the user version
  */
 @Component({
-    selector: 'ca-lab-backups-statuses-admin',
-    templateUrl: './ca-lab-backups-statuses-admin.component.html',
-    styleUrl: './ca-lab-backups-statuses-admin.component.scss',
-    standalone: false
+  selector: 'ca-lab-backups-statuses-admin',
+  templateUrl: './ca-lab-backups-statuses-admin.component.html',
+  styleUrl: './ca-lab-backups-statuses-admin.component.scss',
+  standalone: false,
 })
 export class CaLabBackupsStatusesAdminComponent {
+  private labService = inject(CaLabService);
+
   labId: string = inject(MAT_DIALOG_DATA);
 
   backupsStatuses: CaLabBackupStatusDatasource = new CaLabBackupStatusDatasource(
@@ -32,6 +34,4 @@ export class CaLabBackupsStatusesAdminComponent {
     'bucketInfo',
     'actions',
   ];
-
-  constructor(private labService: CaLabService) {}
 }

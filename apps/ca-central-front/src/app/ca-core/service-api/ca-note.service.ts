@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
@@ -8,9 +8,9 @@ import { TeRichTextBlockModificationWithUser, TeRichTextDTO } from '@monorepo/te
   providedIn: 'root',
 })
 export class CaNoteService {
-  private readonly route: string = 'notes';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'notes';
 
   getNotesByScenario(scenarioId: string): Observable<CaNote[]> {
     return this.apiService.get(`${this.route}/scenario/${scenarioId}`, CaNote);

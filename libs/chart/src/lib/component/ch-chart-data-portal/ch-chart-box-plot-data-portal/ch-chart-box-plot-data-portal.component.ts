@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { ChChartBoxPlotData } from '../../../model/data/ch-chart-box-plot-data.class';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -14,10 +14,10 @@ export interface ChChartBoxPlotDataPortalInput {
  * Display the box plot data in a portal
  */
 @Component({
-    selector: 'ch-chart-box-plot-data-portal',
-    templateUrl: './ch-chart-box-plot-data-portal.component.html',
-    styleUrls: ['./ch-chart-box-plot-data-portal.component.scss'],
-    standalone: false
+  selector: 'ch-chart-box-plot-data-portal',
+  templateUrl: './ch-chart-box-plot-data-portal.component.html',
+  styleUrls: ['./ch-chart-box-plot-data-portal.component.scss'],
+  standalone: false,
 })
 export class ChChartBoxPlotDataPortalComponent {
   data: ChChartDataWithSerie<ChChartBoxPlotData>;
@@ -29,7 +29,9 @@ export class ChChartBoxPlotDataPortalComponent {
   tagColorer?: FlTagColorer;
   @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger: MatMenuTrigger;
 
-  constructor(@Inject(FL_PORTAL_DATA) input: ChChartBoxPlotDataPortalInput) {
+  constructor() {
+    const input = inject<ChChartBoxPlotDataPortalInput>(FL_PORTAL_DATA);
+
     this.data = input.data;
     this.boxPlotData = input.data.data;
     this.color = input.color;

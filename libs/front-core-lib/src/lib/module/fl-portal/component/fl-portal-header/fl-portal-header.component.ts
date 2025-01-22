@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { flCdkOverlayPanelClass } from '../../../../utils/fl-material.config';
 
 /**
@@ -8,21 +8,21 @@ import { flCdkOverlayPanelClass } from '../../../../utils/fl-material.config';
  * Can be put in <fl-portal>
  */
 @Component({
-    selector: 'fl-portal-header',
-    templateUrl: './fl-portal-header.component.html',
-    styleUrls: ['./fl-portal-header.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-portal-header',
+  templateUrl: './fl-portal-header.component.html',
+  styleUrls: ['./fl-portal-header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlPortalHeaderComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   /**
    * When true the portal is movable by drag on header
    */
   @Input() enableDrag: boolean = false;
 
   dragRootElement = '.' + flCdkOverlayPanelClass;
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 

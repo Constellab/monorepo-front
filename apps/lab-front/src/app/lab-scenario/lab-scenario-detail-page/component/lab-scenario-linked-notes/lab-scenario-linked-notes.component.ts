@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabNote } from '../../../../lab-core/model/entities/lab-note.entity';
 import {
   FlConfirmDialogResult,
@@ -19,12 +19,16 @@ import {
  * Component inside the scenario detail to list the notes linked with the scenario
  */
 @Component({
-    selector: 'lab-scenario-linked-notes',
-    templateUrl: './lab-scenario-linked-notes.component.html',
-    styleUrls: ['./lab-scenario-linked-notes.component.scss'],
-    standalone: false
+  selector: 'lab-scenario-linked-notes',
+  templateUrl: './lab-scenario-linked-notes.component.html',
+  styleUrls: ['./lab-scenario-linked-notes.component.scss'],
+  standalone: false,
 })
 export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
+  private noteService = inject(LabNoteService);
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
+
   @Input() scenarioId: string;
 
   notes: FlEntityArrayObs<LabNote>;
@@ -34,12 +38,6 @@ export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
   private readonly actionName: string = 'scenario-link-note';
 
   private subscription: Subscription;
-
-  constructor(
-    private noteService: LabNoteService,
-    private dialogService: FlDialogService,
-    private actionService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     this.subscription = this.actionService

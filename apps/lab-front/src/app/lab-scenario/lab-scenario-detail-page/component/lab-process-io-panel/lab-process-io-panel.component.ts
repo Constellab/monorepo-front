@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState } from '@monorepo/protocol';
 import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -24,12 +24,17 @@ interface LabWorkflowPortResource {
  * Component inside the node dashboard to display the input or output resources
  */
 @Component({
-    selector: 'lab-process-io-panel',
-    templateUrl: './lab-process-io-panel.component.html',
-    styleUrls: ['./lab-process-io-panel.component.scss'],
-    standalone: false
+  selector: 'lab-process-io-panel',
+  templateUrl: './lab-process-io-panel.component.html',
+  styleUrls: ['./lab-process-io-panel.component.scss'],
+  standalone: false,
 })
 export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
+  private nodeState = inject(LabWorkflowNodeDetailState);
+  private resourceState = inject(PrWorkflowResourcesState);
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private dialogService = inject(FlDialogService);
+
   @Input() nodeProcess$: Observable<PrWorkflowNodeProcess>;
 
   @Input() mode: 'input' | 'output';
@@ -46,13 +51,6 @@ export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
 
   // store the current selected port, null if none
   private selectedPort$: BehaviorSubject<string | null> = new BehaviorSubject(null);
-
-  constructor(
-    private nodeState: LabWorkflowNodeDetailState,
-    private resourceState: PrWorkflowResourcesState,
-    private scenarioState: LabScenarioDetailPageState,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.getPortResources();

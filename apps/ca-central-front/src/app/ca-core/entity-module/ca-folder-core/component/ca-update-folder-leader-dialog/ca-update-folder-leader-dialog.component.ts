@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
@@ -18,25 +18,23 @@ export interface CaUpdateFolderLeaderDialogInput {
  * Dialog to update a folder leader
  */
 @Component({
-    selector: 'ca-update-folder-leader-dialog',
-    templateUrl: './ca-update-folder-leader-dialog.component.html',
-    styleUrls: ['./ca-update-folder-leader-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-update-folder-leader-dialog',
+  templateUrl: './ca-update-folder-leader-dialog.component.html',
+  styleUrls: ['./ca-update-folder-leader-dialog.component.scss'],
+  standalone: false,
 })
 export class CaUpdateFolderLeaderDialogComponent implements OnInit {
+  private input = inject<CaUpdateFolderLeaderDialogInput>(MAT_DIALOG_DATA);
+  private folderService = inject(CaFolderService);
+  private dialogRef = inject<MatDialogRef<CaUpdateFolderLeaderDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   formControl: FormControl;
   users$: Observable<CaUser[]>;
 
   isLoading: boolean = false;
 
   compareWith = ClHelpService.compareFnIds;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaUpdateFolderLeaderDialogInput,
-    private folderService: CaFolderService,
-    private dialogRef: MatDialogRef<CaUpdateFolderLeaderDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.users$ = this.input.users$;

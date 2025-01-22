@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
@@ -11,23 +11,21 @@ import {
  * Action menu for a share link. To update, delete, copy the link or open entity
  */
 @Component({
-    selector: 'lab-share-link-actions-menu',
-    templateUrl: './lab-share-link-actions-menu.component.html',
-    styleUrls: ['./lab-share-link-actions-menu.component.scss'],
-    standalone: false
+  selector: 'lab-share-link-actions-menu',
+  templateUrl: './lab-share-link-actions-menu.component.html',
+  styleUrls: ['./lab-share-link-actions-menu.component.scss'],
+  standalone: false,
 })
 export class LabShareLinkActionsMenuComponent {
+  private shareLinkService = inject(LabShareLinkService);
+  private dialogService = inject(FlDialogService);
+
   @Input() shareLink: LabShareLink;
 
   @Input() showLinkToEntity: boolean = false;
 
   @Output() update: EventEmitter<LabShareLink> = new EventEmitter();
   @Output() delete: EventEmitter<LabShareLink> = new EventEmitter();
-
-  constructor(
-    private shareLinkService: LabShareLinkService,
-    private dialogService: FlDialogService
-  ) {}
 
   openUpdateDialog(): void {
     const input: LabShareLinkFormDialogInput = {

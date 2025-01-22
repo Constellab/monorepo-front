@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
@@ -11,24 +11,26 @@ export interface CaUserUpdateLicenseDialogInput {
 }
 
 @Component({
-    selector: 'ca-user-update-license-form-dialog',
-    templateUrl: './ca-user-update-license-form-dialog.component.html',
-    styleUrl: './ca-user-update-license-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-user-update-license-form-dialog',
+  templateUrl: './ca-user-update-license-form-dialog.component.html',
+  styleUrl: './ca-user-update-license-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaUserUpdateLicenseFormDialogComponent {
+  private input = inject<CaUserUpdateLicenseDialogInput>(MAT_DIALOG_DATA);
+  private userAccountService = inject(CaUserAccountsService);
+  private dialogRef = inject<MatDialogRef<CaUserUpdateLicenseFormDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   formCtrl = new FormControl('' as CaUserLicense, Validators.required);
 
   licenses = Object.values(CaUserLicense);
 
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaUserUpdateLicenseDialogInput,
-    private userAccountService: CaUserAccountsService,
-    private dialogRef: MatDialogRef<CaUserUpdateLicenseFormDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.formCtrl.setValue(input.license);
   }
 

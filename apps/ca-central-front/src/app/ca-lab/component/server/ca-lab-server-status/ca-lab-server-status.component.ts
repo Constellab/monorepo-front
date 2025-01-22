@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
@@ -13,20 +13,18 @@ type CaServerStatus =
   | 'LAB_RUNNING';
 
 @Component({
-    selector: 'ca-lab-server-status',
-    templateUrl: './ca-lab-server-status.component.html',
-    styleUrls: ['./ca-lab-server-status.component.scss'],
-    standalone: false
+  selector: 'ca-lab-server-status',
+  templateUrl: './ca-lab-server-status.component.html',
+  styleUrls: ['./ca-lab-server-status.component.scss'],
+  standalone: false,
 })
 export class CaLabServerStatusComponent implements OnInit {
+  private state = inject(CaLabDetailPageState);
+  private serverState = inject(CaLabDetailServerState);
+
   status$: Observable<CaServerStatus>;
 
   labId: string = this.state.getLabId();
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private serverState: CaLabDetailServerState
-  ) {}
 
   ngOnInit(): void {
     this.status$ = this.state.getStatus$().pipe(map((status) => this.convertStatusMessage(status)));

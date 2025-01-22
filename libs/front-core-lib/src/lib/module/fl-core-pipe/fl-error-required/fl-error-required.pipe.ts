@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
 
 /**
@@ -7,11 +7,11 @@ import { FlTranslateService } from '../../fl-translate/service/fl-translate.serv
  * The output string is :  The field [value] is mandatory
  */
 @Pipe({
-    name: 'flErrorRequired',
-    standalone: false
+  name: 'flErrorRequired',
+  standalone: false,
 })
 export class FlErrorRequiredPipe implements PipeTransform {
-  constructor(private translateService: FlTranslateService) {}
+  private translateService = inject(FlTranslateService);
 
   /**
    *

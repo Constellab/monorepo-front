@@ -5,12 +5,11 @@ import {
   ContentChild,
   DoCheck,
   ElementRef,
-  Host,
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -28,13 +27,19 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
  *
  */
 @Component({
-    selector: 'fl-form-field',
-    templateUrl: './fl-form-field.component.html',
-    styleUrls: ['./fl-form-field.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-form-field',
+  templateUrl: './fl-form-field.component.html',
+  styleUrls: ['./fl-form-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
+  private ngForm = inject(NgForm, { host: true, optional: true });
+  private formGroupDirective = inject(FormGroupDirective, { host: true, optional: true });
+  private renderer = inject(Renderer2);
+  private elementRef = inject(ElementRef);
+  private cdr = inject(ChangeDetectorRef);
+
   // mandatory to get the control of the content input
   @ContentChild(NgControl, { static: true }) control: NgControl;
 
@@ -54,14 +59,6 @@ export class FlFormFieldComponent implements OnInit, DoCheck, OnDestroy {
   submitted: boolean = false;
 
   subscription: Subscription;
-
-  constructor(
-    @Host() @Optional() private ngForm: NgForm,
-    @Host() @Optional() private formGroupDirective: FormGroupDirective,
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     if (!this.control) {

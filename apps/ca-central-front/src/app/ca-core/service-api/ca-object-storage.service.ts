@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -22,12 +22,12 @@ import {
   providedIn: 'root',
 })
 export class CaObjectStorageService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'object-storages';
 
   private readonly credentialsRoute: string = this.route + '/credentials';
   private readonly bucketRoute: string = this.route + '/buckets';
-
-  constructor(private apiService: FlApiService) {}
 
   ////////////////// BUCKETS //////////////////
   public createBucket(bucket: Partial<CaBucketFull>): Observable<CaBucketFull> {

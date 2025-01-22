@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetwork } from '../../model/bn-bio-network.class';
 import { BnBioNetworkLegendComponent } from '../bn-bio-network-legend/bn-bio-network-legend.component';
@@ -9,23 +9,23 @@ import { FlDialogService } from '@monorepo/front-core-lib';
  * Component to select the network and the pathways database
  */
 @Component({
-    selector: 'bn-bio-network-config',
-    templateUrl: './bn-bio-network-config.component.html',
-    styleUrls: ['./bn-bio-network-config.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-config',
+  templateUrl: './bn-bio-network-config.component.html',
+  styleUrls: ['./bn-bio-network-config.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkConfigComponent implements OnInit {
+  private state = inject(BnBioNetworkState);
+  private dialogService = inject(FlDialogService);
+
   networks: BnBioNetwork[] | null;
   networkName: string;
 
   // database: FlPathwayDatabase;
   // pathwayDatabases: FlPathwayDatabase[] = flPathwayDatabases;
 
-  constructor(
-    private state: BnBioNetworkState,
-    private dialogService: FlDialogService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
     // if there is multiple network we set the list to add a mat-select

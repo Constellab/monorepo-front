@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { BnBioNetworkNodeCofactor } from '../../model/bn-bio-network-node-cofactor.class';
@@ -8,15 +8,15 @@ import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state
  * Detail information about one cofactor node
  */
 @Component({
-    selector: 'bn-bio-network-node-cofactor-detail',
-    templateUrl: './bn-bio-network-node-cofactor-detail.component.html',
-    styleUrls: ['./bn-bio-network-node-cofactor-detail.component.scss'],
-    standalone: false
+  selector: 'bn-bio-network-node-cofactor-detail',
+  templateUrl: './bn-bio-network-node-cofactor-detail.component.html',
+  styleUrls: ['./bn-bio-network-node-cofactor-detail.component.scss'],
+  standalone: false,
 })
 export class BnBioNetworkNodeCofactorDetailComponent implements OnInit {
-  node$: Observable<BnBioNetworkNodeCofactor>;
+  private drawerState = inject(BnBioNetworkDrawerState);
 
-  constructor(private drawerState: BnBioNetworkDrawerState) {}
+  node$: Observable<BnBioNetworkNodeCofactor>;
 
   ngOnInit(): void {
     this.node$ = this.drawerState.getState$().pipe(

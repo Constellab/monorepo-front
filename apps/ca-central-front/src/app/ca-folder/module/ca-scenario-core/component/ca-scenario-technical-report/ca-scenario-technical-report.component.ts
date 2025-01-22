@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import { CaTechnicalReport } from '../../../../../ca-core/model/entities/folder/ca-technical-report.class';
@@ -27,12 +27,20 @@ import {
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
 @Component({
-    selector: 'ca-scenario-technical-report',
-    templateUrl: './ca-scenario-technical-report.component.html',
-    styleUrls: ['./ca-scenario-technical-report.component.scss'],
-    standalone: false
+  selector: 'ca-scenario-technical-report',
+  templateUrl: './ca-scenario-technical-report.component.html',
+  styleUrls: ['./ca-scenario-technical-report.component.scss'],
+  standalone: false,
 })
 export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
+  private scenarioService = inject(CaScenarioService);
+  private dialogService = inject(FlDialogService);
+  private actionState = inject(PrWorkflowActionState);
+  private ngZone = inject(NgZone);
+  private workflowResourcesState = inject(PrWorkflowResourcesState);
+  private snackBarService = inject(FlSnackBarService);
+  private communityHelper = inject(CoCommunityHelperService);
+
   @Input() scenario: CaScenario;
 
   technicalReport: CaTechnicalReport;
@@ -46,16 +54,6 @@ export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   private factory: PrWorkflowFactory;
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
-
-  constructor(
-    private scenarioService: CaScenarioService,
-    private dialogService: FlDialogService,
-    private actionState: PrWorkflowActionState,
-    private ngZone: NgZone,
-    private workflowResourcesState: PrWorkflowResourcesState,
-    private snackBarService: FlSnackBarService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
 
   ngOnInit(): void {
     this.scenarioService

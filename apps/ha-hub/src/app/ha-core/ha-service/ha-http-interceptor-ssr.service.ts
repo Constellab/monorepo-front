@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
@@ -7,12 +7,13 @@ import { REQUEST } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
+  private platformId = inject(PLATFORM_ID);
+
   private request: Request;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
-    @Optional() @Inject(REQUEST) request: Request
-  ) {
+  constructor() {
+    const request = inject<Request>(REQUEST, { optional: true });
+
     if (isPlatformServer(this.platformId)) {
       this.request = request;
     }

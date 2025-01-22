@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HaAgentService } from '../../../../ha-core/ha-service/ha-agent.service';
 
@@ -19,20 +19,21 @@ export interface HaAgentResourceViewInputDialogOutputData {
 }
 
 @Component({
-    selector: 'ha-agent-resource-view-input-dialog',
-    templateUrl: './ha-agent-resource-view-input-dialog.component.html',
-    styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-agent-resource-view-input-dialog',
+  templateUrl: './ha-agent-resource-view-input-dialog.component.html',
+  styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
+  standalone: false,
 })
 export class HaAgentResourceViewInputDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<HaAgentResourceViewInputDialogComponent>>(MatDialogRef);
+  private agentService = inject(HaAgentService);
+
   agentId: string;
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: HaAgentResourceViewInputDialogInputData,
-    private dialogRef: MatDialogRef<HaAgentResourceViewInputDialogComponent>,
-    private agentService: HaAgentService
-  ) {
+  constructor() {
+    const data = inject<HaAgentResourceViewInputDialogInputData>(MAT_DIALOG_DATA);
+
     this.agentId = data.agentId;
   }
 

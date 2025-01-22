@@ -18,23 +18,23 @@ export interface LabScenarioTemplateFormDialogInput extends FlFormDialogInput<La
 }
 
 @Component({
-    selector: 'lab-scenario-template-form-dialog',
-    templateUrl: './lab-scenario-template-form-dialog.component.html',
-    styleUrls: ['./lab-scenario-template-form-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-scenario-template-form-dialog',
+  templateUrl: './lab-scenario-template-form-dialog.component.html',
+  styleUrls: ['./lab-scenario-template-form-dialog.component.scss'],
+  standalone: false,
 })
 export class LabScenarioTemplateFormDialogComponent
   extends FlFormDialogAbstractDirective<LabCreateScenarioTemplateDTO, LabScenarioTemplate>
   implements OnInit
 {
+  private protocolService = inject(LabProtocolService);
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+
   dialogInput: LabScenarioTemplateFormDialogInput = inject(MAT_DIALOG_DATA);
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig({ includeToolbarButton: true });
 
-  constructor(
-    private protocolService: LabProtocolService,
-    private scenarioTemplateService: LabScenarioTemplateService
-  ) {
+  constructor() {
     super();
   }
 

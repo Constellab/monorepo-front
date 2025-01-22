@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaLabCodelabDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlClipboardService } from '@monorepo/front-core-lib';
@@ -10,24 +10,22 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
  * Dialog to show information about the codelab of a lab
  */
 @Component({
-    selector: 'ca-lab-codelab-info',
-    templateUrl: './ca-lab-codelab-info.component.html',
-    styleUrls: ['./ca-lab-codelab-info.component.scss'],
-    standalone: false
+  selector: 'ca-lab-codelab-info',
+  templateUrl: './ca-lab-codelab-info.component.html',
+  styleUrls: ['./ca-lab-codelab-info.component.scss'],
+  standalone: false,
 })
 export class CaLabCodelabInfoComponent implements OnInit {
+  private labId = inject(MAT_DIALOG_DATA);
+  private labService = inject(CaLabService);
+  private clipboardService = inject(FlClipboardService);
+  private communityHelper = inject(CoCommunityHelperService);
+
   codelabInfo$: Observable<CaLabCodelabDTO>;
 
   communityHelpUrl: string;
 
   showCodeLabToken = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private labId: string,
-    private labService: CaLabService,
-    private clipboardService: FlClipboardService,
-    private communityHelper: CoCommunityHelperService
-  ) {}
 
   ngOnInit(): void {
     this.communityHelpUrl = this.communityHelper.getDevEnvironmentUrl();

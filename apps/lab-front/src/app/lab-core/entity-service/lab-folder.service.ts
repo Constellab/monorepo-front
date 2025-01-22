@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabFolder, LabFolderWithChildren } from '../model/entities/lab-folder.class';
@@ -7,9 +7,9 @@ import { LabFolder, LabFolderWithChildren } from '../model/entities/lab-folder.c
   providedIn: 'root',
 })
 export class LabFolderService {
-  private readonly route: string = 'space-folder';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'space-folder';
 
   public synchronizeFolders(): Observable<void> {
     return this.apiService.post(`${this.route}/synchronize`, LabFolder);

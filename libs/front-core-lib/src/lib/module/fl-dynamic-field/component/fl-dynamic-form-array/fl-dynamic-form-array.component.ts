@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, inject } from '@angular/core';
 import { UntypedFormArray } from '@angular/forms';
 import { FlDynamicFormArrayConfig } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFormHelper } from '../../model/fl-dynamic-form-helper.class';
@@ -8,18 +8,18 @@ import { ClHelpService } from '@monorepo/core-lib';
 
 // TODO: check if it's possible to replace getters by computed signals
 @Component({
-    selector: 'fl-dynamic-form-array',
-    templateUrl: './fl-dynamic-form-array.component.html',
-    styleUrls: ['./fl-dynamic-form-array.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-dynamic-form-array',
+  templateUrl: './fl-dynamic-form-array.component.html',
+  styleUrls: ['./fl-dynamic-form-array.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlDynamicFormArrayComponent implements OnInit, FlDynamicAbstractFormDirective {
+  private translateService = inject(FlTranslateService);
+
   control = input<UntypedFormArray>();
 
   config = input<FlDynamicFormArrayConfig>();
-
-  constructor(private translateService: FlTranslateService) {}
 
   ngOnInit(): void {}
 

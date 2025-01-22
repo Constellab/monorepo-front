@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -16,21 +16,19 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
 
 @Component({
-    selector: 'ca-team-search',
-    templateUrl: './ca-team-search.component.html',
-    styleUrls: ['./ca-team-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-team-search',
+  templateUrl: './ca-team-search.component.html',
+  styleUrls: ['./ca-team-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaTeamSearchComponent implements OnInit {
-  datasource: CaGroupDatasource<CaTeamSearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private groupService = inject(CaGroupService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private groupService: CaGroupService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
+  datasource: CaGroupDatasource<CaTeamSearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

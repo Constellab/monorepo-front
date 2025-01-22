@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlCompressBlobOption, FlImageHelper } from '../../../../service/fl-image.helper';
 import { Observable } from 'rxjs';
@@ -43,24 +43,22 @@ export interface FlUploadImageDialogOutput<T = any> {
 }
 
 @Component({
-    selector: 'fl-upload-image-dialog',
-    templateUrl: './fl-upload-image-dialog.component.html',
-    styleUrls: ['./fl-upload-image-dialog.component.scss'],
-    standalone: false
+  selector: 'fl-upload-image-dialog',
+  templateUrl: './fl-upload-image-dialog.component.html',
+  styleUrls: ['./fl-upload-image-dialog.component.scss'],
+  standalone: false,
 })
 export class FlUploadImageDialogComponent implements OnInit {
+  dialogInput = inject<FlUploadImageDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<FlUploadImageDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   compressIsLoading = true;
 
   uploadIsLoading = false;
 
   compressImageSrc: string;
   compressImage: File;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogInput: FlUploadImageDialogInput,
-    private dialogRef: MatDialogRef<FlUploadImageDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.onNewFile(this.dialogInput.file).then();

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FlArrayObs,
   FlConfirmDialogInput,
@@ -23,21 +23,23 @@ export interface CaFolderSharedGroupsListInput {
  * Component to list the user where the folder is shared with. with button to share or unshare
  */
 @Component({
-    selector: 'ca-folder-shared-list',
-    templateUrl: './ca-folder-shared-list.component.html',
-    styleUrls: ['./ca-folder-shared-list.component.scss'],
-    standalone: false
+  selector: 'ca-folder-shared-list',
+  templateUrl: './ca-folder-shared-list.component.html',
+  styleUrls: ['./ca-folder-shared-list.component.scss'],
+  standalone: false,
 })
 export class CaFolderSharedListComponent {
+  private input = inject<CaFolderSharedGroupsListInput>(MAT_DIALOG_DATA);
+  private folderService = inject(CaFolderService);
+  private dialogService = inject(FlDialogService);
+
   canEdit: boolean;
 
   users$: FlArrayObs<CaUser>;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaFolderSharedGroupsListInput,
-    private folderService: CaFolderService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.canEdit = input.canEdit;
     this.users$ = input.users$;
   }

@@ -2,13 +2,11 @@ import {
   Component,
   EventEmitter,
   HostBinding,
-  Inject,
   Input,
   OnInit,
-  Optional,
   Output,
   PLATFORM_ID,
-  Self,
+  inject,
 } from '@angular/core';
 import { TeConfig } from '../../model/te-config.class';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib';
@@ -18,12 +16,14 @@ import { TeEvent } from '../../model/te-event.class';
 import { TeRichText } from '../../model/lib';
 
 @Component({
-    selector: 'te-text-editor',
-    templateUrl: './te-text-editor.component.html',
-    styleUrl: './te-text-editor.component.scss',
-    standalone: false
+  selector: 'te-text-editor',
+  templateUrl: './te-text-editor.component.html',
+  styleUrl: './te-text-editor.component.scss',
+  standalone: false,
 })
 export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> implements OnInit {
+  private platformId = inject(PLATFORM_ID);
+
   @Input({ required: true }) config: TeConfig;
 
   @Input() event: TeEvent;
@@ -39,10 +39,9 @@ export class TeTextEditorComponent extends FlFormFieldDirective<TeRichText> impl
 
   browserSide: boolean = false;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
     if (isPlatformBrowser(this.platformId)) {
       this.browserSide = true;

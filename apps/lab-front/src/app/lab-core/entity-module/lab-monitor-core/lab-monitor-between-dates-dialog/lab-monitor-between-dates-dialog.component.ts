@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabMonitorGraphicsBetweenDates } from '../../../model/entities/lab-monitor.entity';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,17 +13,19 @@ export interface LabMonitorBetweenDatesDialogInput {
  * Dialog to show monitor info between 2 dates. Useful to see the process monitor info
  */
 @Component({
-    selector: 'lab-monitor-between-dates-dialog',
-    templateUrl: './lab-monitor-between-dates-dialog.component.html',
-    styleUrls: ['./lab-monitor-between-dates-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-monitor-between-dates-dialog',
+  templateUrl: './lab-monitor-between-dates-dialog.component.html',
+  styleUrls: ['./lab-monitor-between-dates-dialog.component.scss'],
+  standalone: false,
 })
 export class LabMonitorBetweenDatesDialogComponent implements OnInit {
   title: string;
 
   monitor$: Observable<LabMonitorGraphicsBetweenDates>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) input: LabMonitorBetweenDatesDialogInput) {
+  constructor() {
+    const input = inject<LabMonitorBetweenDatesDialogInput>(MAT_DIALOG_DATA);
+
     this.title = input.title;
     this.monitor$ = input.monitor$;
   }

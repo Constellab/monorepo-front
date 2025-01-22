@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ChChartSvg } from '../model/drawer/ch-chart-svg.class';
 import { ChChartContainer, ChChartContainer2Axis } from '../model/drawer/ch-chart-container.class';
 import { ChChartConfig } from '../model/ch-chart-config.class';
@@ -7,13 +7,13 @@ import { FlThemeService } from '@monorepo/front-core-lib';
 
 @Injectable()
 export class ChChartState {
+  private themeService = inject(FlThemeService);
+
   public chartSVG: ChChartSvg;
   public chart: ChChartConfig;
 
   public chartContainer: ChChartContainer<any>;
   public zoomBrush?: ChChartBrush;
-
-  constructor(private themeService: FlThemeService) {}
 
   public initData(chart: ChChartConfig): void {
     this.chart = chart;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-confirm-dialog.class';
 import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
@@ -7,12 +7,15 @@ import { FormControl, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 
 @Component({
-    selector: 'fl-confirm-dialog',
-    templateUrl: './fl-confirm-dialog.component.html',
-    styleUrls: ['./fl-confirm-dialog.component.scss'],
-    standalone: false
+  selector: 'fl-confirm-dialog',
+  templateUrl: './fl-confirm-dialog.component.html',
+  styleUrls: ['./fl-confirm-dialog.component.scss'],
+  standalone: false,
 })
 export class FlConfirmDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<FlConfirmDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   inputData: FlConfirmDialogInput;
 
   confirmTextFormControl: FormControl;
@@ -20,11 +23,9 @@ export class FlConfirmDialogComponent implements OnInit {
   // true if the observable is loading
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) inputData: FlConfirmDialogInput,
-    private dialogRef: MatDialogRef<FlConfirmDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const inputData = inject<FlConfirmDialogInput>(MAT_DIALOG_DATA);
+
     this.inputData = inputData;
 
     if (inputData.confirmWithText) {

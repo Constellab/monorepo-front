@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib';
 import { ClUserStatus } from '@monorepo/core-lib';
 import { CaUserLicense } from '../../../../model/entities/ca-user.class';
 
 @Component({
-    selector: 'ca-user-search-form',
-    templateUrl: './ca-user-search-form.component.html',
-    styleUrls: ['./ca-user-search-form.component.scss'],
-    standalone: false
+  selector: 'ca-user-search-form',
+  templateUrl: './ca-user-search-form.component.html',
+  styleUrls: ['./ca-user-search-form.component.scss'],
+  standalone: false,
 })
 export class CaUserSearchFormComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+
   formGp: UntypedFormGroup;
 
   statuses = Object.values(ClUserStatus);
 
   licenses = Object.values(CaUserLicense);
-
-  constructor(private searchState: FlSearchState<any>) {}
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
@@ -39,7 +39,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
 })
 export class FlJsonEditorModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlJsonEditorModule', flJsonEditorI18n);
   }
 }

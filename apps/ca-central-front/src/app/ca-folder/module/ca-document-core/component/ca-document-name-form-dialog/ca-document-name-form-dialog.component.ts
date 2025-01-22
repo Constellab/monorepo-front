@@ -19,18 +19,20 @@ export interface CaDocumentNameFormDialogInput extends FlFormDialogInput<CaDocum
  * In update mode it rename a constellab document or a folder document
  */
 @Component({
-    selector: 'ca-document-name-form-dialog',
-    templateUrl: './ca-document-name-form-dialog.component.html',
-    styleUrls: ['./ca-document-name-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-document-name-form-dialog',
+  templateUrl: './ca-document-name-form-dialog.component.html',
+  styleUrls: ['./ca-document-name-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaDocumentNameFormDialogComponent
   extends FlFormDialogAbstractDirective<CaDocumentNameForm, any>
   implements OnInit
 {
+  private folderService = inject(CaFolderService);
+
   dialogInput: CaDocumentNameFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private folderService: CaFolderService) {
+  constructor() {
     super();
   }
 

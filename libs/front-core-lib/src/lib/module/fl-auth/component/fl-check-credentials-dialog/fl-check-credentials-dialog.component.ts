@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
@@ -16,20 +16,18 @@ export interface FlCheckCredentialsDialogInput {
  * No captcha nor 2FA is used here.
  */
 @Component({
-    selector: 'fl-check-credentials-dialog',
-    templateUrl: './fl-check-credentials-dialog.component.html',
-    styleUrls: ['./fl-check-credentials-dialog.component.scss'],
-    standalone: false
+  selector: 'fl-check-credentials-dialog',
+  templateUrl: './fl-check-credentials-dialog.component.html',
+  styleUrls: ['./fl-check-credentials-dialog.component.scss'],
+  standalone: false,
 })
 export class FlCheckCredentialsDialogComponent {
+  private dialogInput = inject<FlCheckCredentialsDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<FlCheckCredentialsDialogComponent>>(MatDialogRef);
+
   formGp = FlLoginFormComponent.buildForm();
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private dialogInput: FlCheckCredentialsDialogInput,
-    private dialogRef: MatDialogRef<FlCheckCredentialsDialogComponent>
-  ) {}
 
   onSubmit(): void {
     if (this.formGp.valid) {

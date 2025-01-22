@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -23,13 +23,14 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class CaApiErrorService extends FlApiErrorService {
-  constructor(
-    snackBarService: FlSnackBarService,
-    translateService: FlTranslateService,
-    private router: Router,
-    private cookieService: FlCookieService,
-    private platformLocation: PlatformLocation
-  ) {
+  private router = inject(Router);
+  private cookieService = inject(FlCookieService);
+  private platformLocation = inject(PlatformLocation);
+
+  constructor() {
+    const snackBarService = inject(FlSnackBarService);
+    const translateService = inject(FlTranslateService);
+
     super(snackBarService, translateService);
   }
 

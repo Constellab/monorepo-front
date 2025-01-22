@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FlDatasource, FlDialogService, FlFileHelper } from '@monorepo/front-core-lib';
 import { LabLogInfo } from '../../../model/entities/lab-log.entity';
 import {
@@ -8,20 +8,18 @@ import {
 import { LabLogService } from '../../../entity-service/lab-log.service';
 
 @Component({
-    selector: 'lab-log-table',
-    templateUrl: './lab-log-table.component.html',
-    styleUrls: ['./lab-log-table.component.scss'],
-    standalone: false
+  selector: 'lab-log-table',
+  templateUrl: './lab-log-table.component.html',
+  styleUrls: ['./lab-log-table.component.scss'],
+  standalone: false,
 })
 export class LabLogTableComponent {
+  private dialogService = inject(FlDialogService);
+  private logService = inject(LabLogService);
+
   @Input({ required: true }) datasource: FlDatasource<LabLogInfo>;
 
   @Input() columns: string[] = ['name', 'fileSize', 'actions'];
-
-  constructor(
-    private dialogService: FlDialogService,
-    private logService: LabLogService
-  ) {}
 
   public openCompleteLog(log: LabLogInfo): void {
     const input: LabLogCompleteInfoDialogInput = {

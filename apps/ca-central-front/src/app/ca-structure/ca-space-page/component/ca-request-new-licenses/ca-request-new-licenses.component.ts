@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -6,24 +6,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { CaRequestNewLicensesDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 
 @Component({
-    selector: 'ca-request-new-licenses',
-    templateUrl: './ca-request-new-licenses.component.html',
-    styleUrls: ['./ca-request-new-licenses.component.scss'],
-    standalone: false
+  selector: 'ca-request-new-licenses',
+  templateUrl: './ca-request-new-licenses.component.html',
+  styleUrls: ['./ca-request-new-licenses.component.scss'],
+  standalone: false,
 })
 export class CaRequestNewLicensesComponent {
+  private dialogRef = inject<MatDialogRef<CaRequestNewLicensesComponent>>(MatDialogRef);
+  private spaceService = inject(CaSpaceService);
+  private snackBarService = inject(FlSnackBarService);
+
   isLoading: boolean = false;
 
   formGroup = new FormBuilder().group({
     nbLicenses: [0, Validators.required],
     text: '',
   });
-
-  constructor(
-    private dialogRef: MatDialogRef<CaRequestNewLicensesComponent>,
-    private spaceService: CaSpaceService,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   submit(): void {
     if (!this.isLoading && this.formGroup.valid) {

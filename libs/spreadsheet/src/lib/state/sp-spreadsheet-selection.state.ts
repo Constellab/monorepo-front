@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   SpSheetSingleSelection,
   SpSheetSingleSelectionFull,
@@ -14,10 +14,10 @@ import { SpCellCoord } from '../model/sp-cell-coord.class';
  */
 @Injectable()
 export class SpSpreadsheetSelectionState implements OnDestroy {
+  private state = inject(SpSpreadsheetState);
+
   private currentSelection$: BehaviorSubject<SpSheetSingleSelectionFull> =
     new BehaviorSubject<SpSheetSingleSelectionFull>(null);
-
-  constructor(private state: SpSpreadsheetState) {}
 
   public init(): void {
     this.clearSelectionOnNewSheet();

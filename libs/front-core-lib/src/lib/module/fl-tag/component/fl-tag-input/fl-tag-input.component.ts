@@ -5,10 +5,9 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  Optional,
   Output,
-  Self,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { NgControl, UntypedFormControl } from '@angular/forms';
 import { ENTER, TAB } from '@angular/cdk/keycodes';
@@ -19,13 +18,15 @@ import { FlTag, FlTagHelper, FlTagValue } from '../../fl-tag.class';
 type FlTagInput = FlTag[] | Record<string, FlTagValue>;
 
 @Component({
-    selector: 'fl-tag-input',
-    templateUrl: './fl-tag-input.component.html',
-    styleUrls: ['./fl-tag-input.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-tag-input',
+  templateUrl: './fl-tag-input.component.html',
+  styleUrls: ['./fl-tag-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInput> {
+  private cdr = inject(ChangeDetectorRef);
+
   @Input() searchDebounceTime: number = 300;
 
   @Input() label: string = 'flTag.tags';
@@ -50,10 +51,9 @@ export class FlTagInputComponent extends FlFormFieldDirective<FlTag[], FlTagInpu
   // this is a temp storage
   newTag: string;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

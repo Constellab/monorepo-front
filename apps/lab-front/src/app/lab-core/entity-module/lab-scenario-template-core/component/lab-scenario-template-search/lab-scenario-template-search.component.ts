@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlPortalAction,
   FlPortalActionsService,
@@ -20,13 +20,18 @@ import {
 import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
-    selector: 'lab-scenario-template-search',
-    templateUrl: './lab-scenario-template-search.component.html',
-    styleUrls: ['./lab-scenario-template-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-scenario-template-search',
+  templateUrl: './lab-scenario-template-search.component.html',
+  styleUrls: ['./lab-scenario-template-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class LabScenarioTemplateSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+  private themeService = inject(FlThemeService);
+  private actionsService = inject(FlPortalActionsService);
+
   @Input() rowSelectable: boolean = false;
 
   @Output() templateSelected: EventEmitter<LabScenarioTemplate> = new EventEmitter();
@@ -34,13 +39,6 @@ export class LabScenarioTemplateSearchComponent implements OnInit {
   datasource: LabScenarioTemplateDatasource<LabScenarioTemplateSearchFields>;
 
   columns: FlTableColumnStatic<LabScenarioTemplate>[] = ['name', 'tags', 'created'];
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private scenarioTemplateService: LabScenarioTemplateService,
-    private themeService: FlThemeService,
-    private actionsService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

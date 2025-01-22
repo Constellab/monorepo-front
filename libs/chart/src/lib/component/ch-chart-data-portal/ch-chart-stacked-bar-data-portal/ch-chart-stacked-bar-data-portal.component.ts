@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
@@ -17,11 +17,11 @@ export interface ChChartStackedBarDataPortalInput {
  * Portal to show all the value with series of a bar.
  */
 @Component({
-    selector: 'ch-chart-stacked-bar-data-portal',
-    templateUrl: './ch-chart-stacked-bar-data-portal.component.html',
-    styleUrls: ['./ch-chart-stacked-bar-data-portal.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'ch-chart-stacked-bar-data-portal',
+  templateUrl: './ch-chart-stacked-bar-data-portal.component.html',
+  styleUrls: ['./ch-chart-stacked-bar-data-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ChChartStackedBarDataPortalComponent {
   x: number;
@@ -34,7 +34,9 @@ export class ChChartStackedBarDataPortalComponent {
 
   selectedValue: ChChart2dDatum;
 
-  constructor(@Inject(FL_PORTAL_DATA) input: ChChartStackedBarDataPortalInput) {
+  constructor() {
+    const input = inject<ChChartStackedBarDataPortalInput>(FL_PORTAL_DATA);
+
     this.data = [...input.data].reverse();
     this.seriesColorScale = input.seriesColorScale;
 

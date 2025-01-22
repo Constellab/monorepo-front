@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TdIOSpec } from '@monorepo/technical-doc';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PrWorkflowPortType } from '@monorepo/protocol';
@@ -24,19 +24,20 @@ interface LabFormType {
  * Dialog to configure dynamic ports
  */
 @Component({
-    selector: 'lab-dynamic-port-config-dialog',
-    templateUrl: './lab-dynamic-port-config-dialog.component.html',
-    styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-dynamic-port-config-dialog',
+  templateUrl: './lab-dynamic-port-config-dialog.component.html',
+  styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
+  standalone: false,
 })
 export class LabDynamicPortConfigDialogComponent {
+  private dialogRef = inject<MatDialogRef<LabDynamicPortConfigDialogComponent>>(MatDialogRef);
+
   portType: PrWorkflowPortType;
   formGp: FormGroup<LabFormType>;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: LabDynamicPortConfigDialogInput,
-    private dialogRef: MatDialogRef<LabDynamicPortConfigDialogComponent>
-  ) {
+  constructor() {
+    const data = inject<LabDynamicPortConfigDialogInput>(MAT_DIALOG_DATA);
+
     this.portType = data.portType;
     this.formGp = new FormBuilder().group({
       resourceType: new FormControl(LabTypeEntity.fromResourceType(data.spec.resource_types[0])),

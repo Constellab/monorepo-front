@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 import { NgControl } from '@angular/forms';
 import { FlColorHelper } from '../../../../utils/fl-color-helper.class';
 
 @Component({
-    selector: 'fl-color-selector',
-    templateUrl: './fl-color-selector.component.html',
-    styleUrls: ['./fl-color-selector.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
-    standalone: false
+  selector: 'fl-color-selector',
+  templateUrl: './fl-color-selector.component.html',
+  styleUrls: ['./fl-color-selector.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
+  standalone: false,
 })
 export class FlColorSelectorComponent extends FlFormFieldDirective<string> implements OnInit {
   @Input() placeholder: string;
@@ -27,7 +27,9 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string> imple
 
   @Output() colorChange: EventEmitter<string> = new EventEmitter();
 
-  constructor(@Optional() @Self() ngControl: NgControl) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

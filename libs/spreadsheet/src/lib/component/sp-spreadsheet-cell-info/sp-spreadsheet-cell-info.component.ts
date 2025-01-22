@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SpCell } from '../../model/sp-cell.class';
 import { SpCellWithCoord } from '../../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
@@ -9,21 +9,23 @@ import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
  * Small portal to show information about a cell
  */
 @Component({
-    selector: 'sp-spreadsheet-cell-info',
-    templateUrl: './sp-spreadsheet-cell-info.component.html',
-    styleUrls: ['./sp-spreadsheet-cell-info.component.scss'],
-    standalone: false
+  selector: 'sp-spreadsheet-cell-info',
+  templateUrl: './sp-spreadsheet-cell-info.component.html',
+  styleUrls: ['./sp-spreadsheet-cell-info.component.scss'],
+  standalone: false,
 })
 export class SpSpreadsheetCellInfoComponent {
+  private state = inject(SpSpreadsheetState);
+
   cell: SpCell;
 
   columnInfo: SpSheetHeaderInfo;
   rowInfo: SpSheetHeaderInfo;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) cell: SpCellWithCoord,
-    private state: SpSpreadsheetState
-  ) {
+  constructor() {
+    const cell = inject<SpCellWithCoord>(FL_PORTAL_DATA);
+    const state = this.state;
+
     this.cell = cell.cell;
     const coord = cell.coord;
     const sheet = state.currentSheet;

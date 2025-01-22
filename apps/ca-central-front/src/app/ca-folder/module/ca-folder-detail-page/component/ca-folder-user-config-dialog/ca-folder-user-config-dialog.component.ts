@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import {
@@ -17,12 +17,17 @@ export interface CaFolderUserConfigDialogInput {
  * For now this only contains the notification options
  */
 @Component({
-    selector: 'ca-folder-user-config-dialog',
-    templateUrl: './ca-folder-user-config-dialog.component.html',
-    styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-folder-user-config-dialog',
+  templateUrl: './ca-folder-user-config-dialog.component.html',
+  styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
+  standalone: false,
 })
 export class CaFolderUserConfigDialogComponent implements OnInit {
+  private input = inject<CaFolderUserConfigDialogInput>(MAT_DIALOG_DATA);
+  private folderService = inject(CaFolderService);
+  private dialogRef = inject<MatDialogRef<CaFolderUserConfigDialogComponent>>(MatDialogRef);
+  private snackBar = inject(FlSnackBarService);
+
   userConfig: CaFolderUserConfig;
 
   formGp = new FormBuilder().group({
@@ -37,13 +42,6 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
   isLoading: boolean = false;
 
   notificationOptions: any = CaFolderNotifOptions;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaFolderUserConfigDialogInput,
-    private folderService: CaFolderService,
-    private dialogRef: MatDialogRef<CaFolderUserConfigDialogComponent>,
-    private snackBar: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.getIsLoading = true;

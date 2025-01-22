@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional, Self } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import {
@@ -11,19 +11,20 @@ import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-selec
 import { CoIcon } from '../../model/co-icon.class';
 
 @Component({
-    selector: 'co-update-type-icon-form',
-    templateUrl: './co-update-type-icon-form.component.html',
-    styleUrl: './co-update-type-icon-form.component.scss',
-    standalone: false
+  selector: 'co-update-type-icon-form',
+  templateUrl: './co-update-type-icon-form.component.html',
+  styleUrl: './co-update-type-icon-form.component.scss',
+  standalone: false,
 })
 export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private themeService = inject(FlThemeService);
+
   isDarkTheme = this.themeService.isDarkTheme();
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private dialogService: FlDialogService,
-    private themeService: FlThemeService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

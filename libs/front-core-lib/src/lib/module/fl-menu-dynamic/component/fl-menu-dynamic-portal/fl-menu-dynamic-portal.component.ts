@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
 import { FL_PORTAL_DATA } from '../../../fl-portal/model/fl-portal.class';
 import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
 import { FlOverlayRef } from '../../../fl-portal/model/fl-overlay-ref.class';
@@ -10,23 +10,24 @@ import { MatMenuTrigger } from '@angular/material/menu';
  * this is a simple portal to wrap the menu-dynamic
  */
 @Component({
-    selector: 'fl-menu-dynamic-portal',
-    templateUrl: './fl-menu-dynamic-portal.component.html',
-    styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
-    standalone: false
+  selector: 'fl-menu-dynamic-portal',
+  templateUrl: './fl-menu-dynamic-portal.component.html',
+  styleUrls: ['./fl-menu-dynamic-portal.component.scss'],
+  standalone: false,
 })
 export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDestroy {
+  private overlayRef = inject(FlOverlayRef);
+  private renderer = inject(Renderer2);
+
   @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;
 
   menu: FlMenuDynamic[];
 
   private listener: () => void;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) menu: FlMenuDynamic[],
-    private overlayRef: FlOverlayRef,
-    private renderer: Renderer2
-  ) {
+  constructor() {
+    const menu = inject(FL_PORTAL_DATA);
+
     this.menu = menu;
   }
 

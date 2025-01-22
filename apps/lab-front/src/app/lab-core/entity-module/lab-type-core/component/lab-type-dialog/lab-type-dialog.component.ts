@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
@@ -13,22 +13,24 @@ export interface LabTypeDialogInput {
 }
 
 @Component({
-    selector: 'lab-type-dialog',
-    templateUrl: './lab-type-dialog.component.html',
-    styleUrls: ['./lab-type-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-type-dialog',
+  templateUrl: './lab-type-dialog.component.html',
+  styleUrls: ['./lab-type-dialog.component.scss'],
+  standalone: false,
 })
 export class LabTypeDialogComponent {
+  private input = inject<LabTypeDialogInput>(MAT_DIALOG_DATA);
+  private typeService = inject(LabTypeService);
+  private communityHelper = inject(CoCommunityHelperService);
+
   type$: Observable<LabTypeEntity> = this.typeService.getTyping(this.input.typingName).pipe(share());
   technicalDocUrl$: Observable<string> = this.type$.pipe(map((type) => this.getCommunityUrl(type)));
 
   detailRoute: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabTypeDialogInput,
-    private typeService: LabTypeService,
-    private communityHelper: CoCommunityHelperService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.detailRoute = LabRouterService.getTechnicalDocRoute(input.typingName);
   }
 

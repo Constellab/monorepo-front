@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { ElementRef, Injectable, inject } from '@angular/core';
 import { FlPortalService } from '../fl-portal/service/fl-portal.service';
 import { FlOverlayConfig, FlPortalConnectedPosition } from '../fl-portal/model/fl-portal.class';
 import { FlMenuDynamic } from './model/fl-menu-dynamic.class';
@@ -10,6 +10,8 @@ import { FlMenuDynamicPortalComponent } from './component/fl-menu-dynamic-portal
   providedIn: 'root',
 })
 export class FlMenuDynamicService {
+  private portalService = inject(FlPortalService);
+
   private readonly overlayConfig: FlOverlayConfig = {
     disposeOnNavigation: true,
   };
@@ -21,8 +23,6 @@ export class FlMenuDynamicService {
     'left',
     'bottom',
   ];
-
-  constructor(private portalService: FlPortalService) {}
 
   /**
    * Open the menu portal relative to the element

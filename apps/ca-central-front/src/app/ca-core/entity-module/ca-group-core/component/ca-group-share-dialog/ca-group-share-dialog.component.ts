@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
 import { Observable } from 'rxjs';
 import { FormControl, Validators } from '@angular/forms';
@@ -14,21 +14,19 @@ export interface CaGroupShareDialogInput {
  * Dialog to share an object to a group
  */
 @Component({
-    selector: 'ca-group-share-dialog',
-    templateUrl: './ca-group-share-dialog.component.html',
-    styleUrls: ['./ca-group-share-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-group-share-dialog',
+  templateUrl: './ca-group-share-dialog.component.html',
+  styleUrls: ['./ca-group-share-dialog.component.scss'],
+  standalone: false,
 })
 export class CaGroupShareDialogComponent implements OnInit {
+  private input = inject<CaGroupShareDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<CaGroupShareDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   formControl: FormControl<CaGroup>;
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaGroupShareDialogInput,
-    private dialogRef: MatDialogRef<CaGroupShareDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.formControl = new FormControl<CaGroup>(null, Validators.required);

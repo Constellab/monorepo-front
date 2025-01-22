@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl, Validators } from '@angular/forms';
 import { FlGlobalValidators, FlSnackBarService, FlStatus, FlStatusDict } from '@monorepo/front-core-lib';
@@ -16,22 +16,24 @@ export interface UpdateStatusFormDialogInput<S extends string> {
  * Generic form dialog to update the status of an entity
  */
 @Component({
-    selector: 'ca-update-status-form-dialog',
-    templateUrl: './ca-update-status-form-dialog.component.html',
-    styleUrls: ['./ca-update-status-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-update-status-form-dialog',
+  templateUrl: './ca-update-status-form-dialog.component.html',
+  styleUrls: ['./ca-update-status-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaUpdateStatusFormDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<CaUpdateStatusFormDialogComponent>>(MatDialogRef);
+  private dialogInput = inject<UpdateStatusFormDialogInput<any>>(MAT_DIALOG_DATA);
+  private snackBarService = inject(FlSnackBarService);
+
   formControl: FormControl;
   statusDict: FlStatusDict;
 
   isLoading: boolean;
 
-  constructor(
-    private dialogRef: MatDialogRef<CaUpdateStatusFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) private dialogInput: UpdateStatusFormDialogInput<any>,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const dialogInput = this.dialogInput;
+
     this.statusDict = dialogInput.statusDict;
   }
 

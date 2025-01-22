@@ -1,4 +1,4 @@
-import { Component, input, OnInit, Optional, output, Self } from '@angular/core';
+import { Component, input, OnInit, output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
@@ -13,13 +13,16 @@ import { Observable } from 'rxjs';
 import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/lab-select-scenario-dialog.component';
 
 @Component({
-    selector: 'lab-select-scenario',
-    templateUrl: './lab-select-scenario.component.html',
-    styleUrls: ['./lab-select-scenario.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
-    standalone: false
+  selector: 'lab-select-scenario',
+  templateUrl: './lab-select-scenario.component.html',
+  styleUrls: ['./lab-select-scenario.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
+  standalone: false,
 })
 export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario> implements OnInit {
+  private scenarioService = inject(LabScenarioService);
+  private dialogService = inject(FlDialogService);
+
   placeholder = input<FlTranslatableText>('biox.scenario_select');
 
   scenarioChange = output<LabScenario>();
@@ -30,11 +33,9 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
 
   advancedButton: FlInputSearchAdvancedButton<LabScenario>;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private scenarioService: LabScenarioService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

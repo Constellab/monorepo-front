@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
@@ -11,13 +11,16 @@ import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
 
 @Component({
-    selector: 'ca-select-space',
-    templateUrl: './ca-select-space.component.html',
-    styleUrls: ['./ca-select-space.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
-    standalone: false
+  selector: 'ca-select-space',
+  templateUrl: './ca-select-space.component.html',
+  styleUrls: ['./ca-select-space.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
+  standalone: false,
 })
 export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {
+  private spaceService = inject(CaSpaceService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<CaSpace> = new EventEmitter();
@@ -26,11 +29,9 @@ export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implem
 
   spaceDatasource: CaSpaceDatasource<FlInputSearchFilter>;
 
-  constructor(
-    private spaceService: CaSpaceService,
-    private currentSpaceService: CaCurrentSpaceService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

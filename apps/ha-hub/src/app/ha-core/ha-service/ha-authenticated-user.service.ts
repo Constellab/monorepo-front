@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import {
   FlApiService,
   flAuthExpiredCookie,
@@ -20,18 +20,19 @@ import { Request } from 'express';
   providedIn: 'root',
 })
 export class HaAuthenticatedUserService implements FlCleanableService {
+  private apiService = inject(FlApiService);
+  private authService = inject(HaAuthService);
+  private translateService = inject(FlTranslateService);
+  private platformId = inject(PLATFORM_ID);
+
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
   private request: Request;
 
-  constructor(
-    private apiService: FlApiService,
-    private authService: HaAuthService,
-    private translateService: FlTranslateService,
-    @Inject(PLATFORM_ID) private platformId: any,
-    @Optional() @Inject(REQUEST) request: Request
-  ) {
+  constructor() {
+    const request = inject<Request>(REQUEST, { optional: true });
+
     FlCleanerService.getInstance().registerService(this);
     if (isPlatformServer(this.platformId)) {
       this.request = request;

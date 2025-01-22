@@ -5,9 +5,8 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Optional,
   Output,
-  Self,
+  inject,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
@@ -16,14 +15,16 @@ import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-for
  * Input to handle multiple string values
  */
 @Component({
-    selector: 'fl-multi-inputs',
-    templateUrl: './fl-multi-inputs.component.html',
-    styleUrls: ['./fl-multi-inputs.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
-    standalone: false
+  selector: 'fl-multi-inputs',
+  templateUrl: './fl-multi-inputs.component.html',
+  styleUrls: ['./fl-multi-inputs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
+  standalone: false,
 })
 export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   @Input() placeholder: string;
 
   @Input() hint: string;
@@ -36,10 +37,9 @@ export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[
 
   private readonly separator: string = '\n';
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

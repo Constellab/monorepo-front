@@ -1,26 +1,30 @@
-import { AfterViewInit, Component, Host, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { MatSelect } from '@angular/material/select';
 import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
 
 @Component({
-    selector: 'ca-select-server-standard-options',
-    templateUrl: './ca-select-server-standard-options.component.html',
-    styleUrl: './ca-select-server-standard-options.component.scss',
-    standalone: false
+  selector: 'ca-select-server-standard-options',
+  templateUrl: './ca-select-server-standard-options.component.html',
+  styleUrl: './ca-select-server-standard-options.component.scss',
+  standalone: false,
 })
 export class CaSelectServerStandardOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private serverService = inject(CaServerService);
+  private select: MatSelect;
+
   datasource: CaServerStandardDatasource;
 
-  constructor(
-    private serverService: CaServerService,
-    @Host() private select: MatSelect
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

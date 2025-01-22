@@ -17,18 +17,20 @@ interface CaLabUserForm {
 }
 
 @Component({
-    selector: 'ca-lab-user-form-dialog',
-    templateUrl: './ca-lab-user-form-dialog.component.html',
-    styleUrls: ['./ca-lab-user-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-lab-user-form-dialog',
+  templateUrl: './ca-lab-user-form-dialog.component.html',
+  styleUrls: ['./ca-lab-user-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaLabUserFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabUserForm, CaLabUser>
   implements OnInit
 {
+  private labService = inject(CaLabService);
+
   dialogInput: LabUserFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private labService: CaLabService) {
+  constructor() {
     super();
   }
 

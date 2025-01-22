@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlUserProfilePictureComponent } from './component/fl-user-profile-picture/fl-user-profile-picture.component';
 import { FlUserConfig } from './service/fl-user-config.config';
@@ -57,7 +57,9 @@ import { FlPortalModule } from '../fl-portal/fl-portal.module';
   ],
 })
 export class FlUserModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlUserModule', flUserI18n);
   }
 

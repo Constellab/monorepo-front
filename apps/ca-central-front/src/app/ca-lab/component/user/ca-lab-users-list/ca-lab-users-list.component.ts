@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
@@ -11,12 +11,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-    selector: 'ca-lab-users-list',
-    templateUrl: './ca-lab-users-list.component.html',
-    styleUrls: ['./ca-lab-users-list.component.scss'],
-    standalone: false
+  selector: 'ca-lab-users-list',
+  templateUrl: './ca-lab-users-list.component.html',
+  styleUrls: ['./ca-lab-users-list.component.scss'],
+  standalone: false,
 })
 export class CaLabUsersListComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private state = inject(CaLabDetailPageState);
+
   @Input() labId: string;
 
   columns$: Observable<FlTableColumnStatic<CaLabUser>[]> = this.state.isLabOwner$().pipe(
@@ -33,12 +37,6 @@ export class CaLabUsersListComponent implements OnInit {
   datasource: CaLabUserDatasource;
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private state: CaLabDetailPageState
-  ) {}
 
   ngOnInit(): void {
     this.datasource = new CaLabUserDatasource(this.labService.getLabUsers(this.labId));

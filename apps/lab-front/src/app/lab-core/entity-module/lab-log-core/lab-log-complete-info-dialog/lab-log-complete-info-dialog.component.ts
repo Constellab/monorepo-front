@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabLogCompleteInfo } from '../../../model/entities/lab-log.entity';
 import { LabLogService } from '../../../entity-service/lab-log.service';
@@ -9,20 +9,18 @@ export interface LabLogCompleteInfoDialogInput {
 }
 
 @Component({
-    selector: 'lab-log-complete-info-dialog',
-    templateUrl: './lab-log-complete-info-dialog.component.html',
-    styleUrls: ['./lab-log-complete-info-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-log-complete-info-dialog',
+  templateUrl: './lab-log-complete-info-dialog.component.html',
+  styleUrls: ['./lab-log-complete-info-dialog.component.scss'],
+  standalone: false,
 })
 export class LabLogCompleteInfoDialogComponent implements OnInit {
+  private input = inject<LabLogCompleteInfoDialogInput>(MAT_DIALOG_DATA);
+  private logService = inject(LabLogService);
+
   logName: string;
 
   labLogCompleteInfo$: Observable<LabLogCompleteInfo>;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: LabLogCompleteInfoDialogInput,
-    private logService: LabLogService
-  ) {}
 
   ngOnInit(): void {
     this.logName = this.input.logName;

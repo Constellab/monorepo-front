@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 import { RvResourceViewStreamlit } from '../../model/rv-resource-view.class';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
-    selector: 'rv-view-streamlit',
-    templateUrl: './rv-view-streamlit.component.html',
-    styleUrl: './rv-view-streamlit.component.scss',
-    standalone: false
+  selector: 'rv-view-streamlit',
+  templateUrl: './rv-view-streamlit.component.html',
+  styleUrl: './rv-view-streamlit.component.scss',
+  standalone: false,
 })
 export class RvViewStreamlitComponent
   extends RvResourceViewDirective<RvResourceViewStreamlit>
   implements OnInit
 {
+  private sanitize = inject(DomSanitizer);
+
   iframeUrl: SafeUrl;
 
-  constructor(private sanitize: DomSanitizer) {
+  constructor() {
     super();
   }
 

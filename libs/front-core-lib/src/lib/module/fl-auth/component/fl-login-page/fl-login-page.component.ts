@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlThemeService } from '../../../fl-theme/fl-theme.service';
 
 @Component({
-    selector: 'fl-login-page',
-    templateUrl: './fl-login-page.component.html',
-    styleUrls: ['./fl-login-page.component.scss'],
-    standalone: false
+  selector: 'fl-login-page',
+  templateUrl: './fl-login-page.component.html',
+  styleUrls: ['./fl-login-page.component.scss'],
+  standalone: false,
 })
 export class FlLoginPageComponent implements OnInit {
+  private themeService = inject(FlThemeService);
+
   /**
    * Redirection route after the login is successful, do nothing if not provided
    */
@@ -20,8 +22,6 @@ export class FlLoginPageComponent implements OnInit {
   @Output() loginSuccess: EventEmitter<void> = new EventEmitter<void>();
 
   logo: string;
-
-  constructor(private themeService: FlThemeService) {}
 
   ngOnInit(): void {
     this.logo = this.themeService.isDarkTheme() ? this.darkThemeLogo : this.lightThemeLogo;

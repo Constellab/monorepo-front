@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
 import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
@@ -10,12 +10,15 @@ import { ThemePalette } from '@angular/material/core';
  * Component to listen to selection on spreadsheet
  */
 @Component({
-    selector: 'sp-spreadsheet-selection-listener',
-    templateUrl: './sp-spreadsheet-selection-listener.component.html',
-    styleUrls: ['./sp-spreadsheet-selection-listener.component.scss'],
-    standalone: false
+  selector: 'sp-spreadsheet-selection-listener',
+  templateUrl: './sp-spreadsheet-selection-listener.component.html',
+  styleUrls: ['./sp-spreadsheet-selection-listener.component.scss'],
+  standalone: false,
 })
 export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestroy {
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private groupManager = inject(SpSpreadsheetSelectionListenerManagerService);
+
   /**
    * Assign a group to this listener
    * When two components are in the same group they can't be activated at the same time. An activation
@@ -32,10 +35,7 @@ export class SpSpreadsheetSelectionListenerComponent implements OnInit, OnDestro
 
   private readonly id: symbol;
 
-  constructor(
-    private selectionState: SpSpreadsheetSelectionState,
-    private groupManager: SpSpreadsheetSelectionListenerManagerService
-  ) {
+  constructor() {
     this.id = Symbol();
   }
 

@@ -1,5 +1,5 @@
-import { Component, Input, output } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic, FlTranslateService, FlYesNoPipe } from '@monorepo/front-core-lib';
+import { Component, inject, Input, output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic, FlTranslateService } from '@monorepo/front-core-lib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { TdParamSpecBase } from '../../model/td-config-spec.class';
@@ -10,19 +10,22 @@ export interface TdEditableParamSpec extends TdParamSpecBase {
 }
 
 @Component({
-    selector: 'td-editable-param-specs-table',
-    templateUrl: './td-editable-param-specs-table.component.html',
-    styleUrl: './td-editable-param-specs-table.component.scss',
-    animations: [
-        trigger('detailExpand', [
-            state('collapsed,void', style({ height: '0px', minHeight: '0' })),
-            state('expanded', style({ height: '*' })),
-            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-    ],
-    standalone: false
+  selector: 'td-editable-param-specs-table',
+  templateUrl: './td-editable-param-specs-table.component.html',
+  styleUrl: './td-editable-param-specs-table.component.scss',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+  standalone: false,
 })
 export class TdEditableParamSpecsTableComponent {
+  private dynamicParamSpecState = inject(TdAbstractDynamicParamSpecState);
+  private translateService = inject(FlTranslateService);
+
   @Input() columns: FlTableColumnStatic<TdEditableParamSpec>[] = [
     'name',
     'type',
@@ -40,11 +43,6 @@ export class TdEditableParamSpecsTableComponent {
   onEditElementClick = output<TdEditableParamSpec>();
 
   onDeleteElementClick = output<TdEditableParamSpec>();
-
-  constructor(
-    private dynamicParamSpecState: TdAbstractDynamicParamSpecState,
-    private translateService: FlTranslateService
-  ) {}
 
   edit(event: Event, element: TdEditableParamSpec): void {
     ClHelpService.stopEventPropagation(event);
@@ -80,7 +78,11 @@ export class TdEditableParamSpecsTableComponent {
     } else if (column === 'type') {
       return ClStringHelper.snakeCaseToSentence(element[column]);
     } else if (this.isBoolean(element[column])) {
-      return new FlYesNoPipe(this.translateService).transform(element[column]);
+      if (element[column] === true) {
+        return this.translateService.translate('yes');
+      } else {
+        return this.translateService.translate('no');
+      }
     }
     return element[column];
   }

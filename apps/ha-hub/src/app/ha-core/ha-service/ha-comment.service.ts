@@ -1,7 +1,7 @@
 import { FlApiService, FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TeRichText } from '@monorepo/text-editor';
 import {
   HaAbstractComment,
@@ -13,9 +13,9 @@ import {
   providedIn: 'root',
 })
 export class HaCommentService {
-  private readonly route: string = 'comment';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'comment';
 
   public sendComment(
     commentType: HaCommentType,

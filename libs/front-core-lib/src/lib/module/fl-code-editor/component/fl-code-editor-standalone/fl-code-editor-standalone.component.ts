@@ -2,12 +2,12 @@
 import {
   Component,
   ElementRef,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { EditorState, Extension } from '@codemirror/state';
@@ -32,12 +32,15 @@ import { perl } from '@codemirror/legacy-modes/mode/perl';
  * is only loaded when needed.
  */
 @Component({
-    selector: 'fl-code-editor-standalone',
-    imports: [],
-    templateUrl: './fl-code-editor-standalone.component.html',
-    styleUrls: ['./fl-code-editor-standalone.component.scss']
+  selector: 'fl-code-editor-standalone',
+  imports: [],
+  templateUrl: './fl-code-editor-standalone.component.html',
+  styleUrls: ['./fl-code-editor-standalone.component.scss'],
 })
 export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
+  private themeService = inject(FlThemeService);
+  private platformId = inject(PLATFORM_ID);
+
   @Input({ required: true }) language: FlCodeEditorLanguage;
 
   @Input({ required: true }) formCtrl: FormControl;
@@ -48,11 +51,6 @@ export class FlCodeEditorStandaloneComponent implements OnInit, OnDestroy {
 
   private editorState: EditorState;
   private editorView: any;
-
-  constructor(
-    private themeService: FlThemeService,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

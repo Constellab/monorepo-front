@@ -1,18 +1,19 @@
-import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaSpaceService } from '../../../ha-service/ha-space.service';
 
 @Directive({
-    selector: '[haIsGencoveryMember]',
-    standalone: false
+  selector: '[haIsGencoveryMember]',
+  standalone: false,
 })
 export class HaIsGencoveryMemberDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
-  constructor(
-    templateRef: TemplateRef<any>,
-    viewContainer: ViewContainerRef,
-    private spaceService: HaSpaceService
-  ) {
+  private spaceService = inject(HaSpaceService);
+
+  constructor() {
+    const templateRef = inject<TemplateRef<any>>(TemplateRef);
+    const viewContainer = inject(ViewContainerRef);
+
     super(templateRef, viewContainer);
   }
 

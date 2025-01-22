@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { LabTypeDialogComponent, LabTypeDialogInput } from '../lab-type-dialog/lab-type-dialog.component';
 
@@ -6,15 +6,15 @@ import { LabTypeDialogComponent, LabTypeDialogInput } from '../lab-type-dialog/l
  * Icon button to load and show process type detail in a portal on clic
  */
 @Component({
-    selector: 'lab-type-show-detail-button',
-    templateUrl: './lab-type-show-detail-button.component.html',
-    styleUrls: ['./lab-type-show-detail-button.component.scss'],
-    standalone: false
+  selector: 'lab-type-show-detail-button',
+  templateUrl: './lab-type-show-detail-button.component.html',
+  styleUrls: ['./lab-type-show-detail-button.component.scss'],
+  standalone: false,
 })
 export class LabTypeShowDetailButtonComponent {
-  @Input() typingName: string;
+  private dialogService = inject(FlDialogService);
 
-  constructor(private dialogService: FlDialogService) {}
+  @Input() typingName: string;
 
   showDetail(): void {
     const data: LabTypeDialogInput = {

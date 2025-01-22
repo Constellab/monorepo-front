@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LabTagDatasource, TagPropagationImpactDTO } from '../../../../model/entities/lab-tag.entity';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib';
@@ -14,12 +14,14 @@ export interface LabTagCheckPropagationInput {
  * Dialog before adding a tag to check the propagation impact
  */
 @Component({
-    selector: 'lab-tag-check-propagation',
-    templateUrl: './lab-tag-check-propagation.component.html',
-    styleUrls: ['./lab-tag-check-propagation.component.scss'],
-    standalone: false
+  selector: 'lab-tag-check-propagation',
+  templateUrl: './lab-tag-check-propagation.component.html',
+  styleUrls: ['./lab-tag-check-propagation.component.scss'],
+  standalone: false,
 })
 export class LabTagCheckPropagationComponent {
+  private dialogRef = inject<MatDialogRef<LabTagCheckPropagationComponent>>(MatDialogRef);
+
   impactDTO$: Observable<TagPropagationImpactDTO>;
 
   tags: LabTagDatasource;
@@ -28,10 +30,9 @@ export class LabTagCheckPropagationComponent {
   tagListText: string;
   helpText: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: LabTagCheckPropagationInput,
-    private dialogRef: MatDialogRef<LabTagCheckPropagationComponent>
-  ) {
+  constructor() {
+    const input = inject<LabTagCheckPropagationInput>(MAT_DIALOG_DATA);
+
     this.impactDTO$ = input.impactDTO$.pipe(share());
     this.tags = new LabTagDatasource(this.impactDTO$.pipe(map((impactDTO) => impactDTO.tags)));
 

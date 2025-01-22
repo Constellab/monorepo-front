@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import {
   FlArrayObs,
@@ -21,12 +21,17 @@ import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service
  * the possibility to delete or add a new
  */
 @Component({
-    selector: 'lab-note-linked-scenarios',
-    templateUrl: './lab-note-linked-scenarios.component.html',
-    styleUrls: ['./lab-note-linked-scenarios.component.scss'],
-    standalone: false
+  selector: 'lab-note-linked-scenarios',
+  templateUrl: './lab-note-linked-scenarios.component.html',
+  styleUrls: ['./lab-note-linked-scenarios.component.scss'],
+  standalone: false,
 })
 export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
+  private state = inject(LabNoteDetailPageState);
+  private noteService = inject(LabNoteService);
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
+
   scenarios: FlArrayObs<LabScenario>;
 
   canEdit: boolean = false;
@@ -36,13 +41,6 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
   private readonly actionName: string = 'note-link-scenario';
 
   private subscription: Subscription;
-
-  constructor(
-    private state: LabNoteDetailPageState,
-    private noteService: LabNoteService,
-    private dialogService: FlDialogService,
-    private actionService: FlPortalActionsService
-  ) {}
 
   ngOnInit(): void {
     // refresh the can edit bool

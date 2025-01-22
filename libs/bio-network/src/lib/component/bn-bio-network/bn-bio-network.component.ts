@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { BnBioNetwork } from '../../model/bn-bio-network.class';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -12,35 +12,33 @@ import { BnBioNetworkSimulationState } from '../../state/bn-bio-network-simulati
 import { BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 
 @Component({
-    selector: 'bn-bio-network',
-    templateUrl: './bn-bio-network.component.html',
-    styleUrls: ['./bn-bio-network.component.scss'],
-    providers: [
-        BnBioNetworkState,
-        BnBioNetworkDrawerState,
-        BnBioNetworkOptionsState,
-        BnBioNetworkSelectionState,
-        BnBioNetworkMainRenderer,
-        BnBioNetworkGridState,
-        BnBioNetworkZoomRenderer,
-        BnBioNetworkEngineState,
-        BnBioNetworkSimulationState,
-    ],
-    standalone: false
+  selector: 'bn-bio-network',
+  templateUrl: './bn-bio-network.component.html',
+  styleUrls: ['./bn-bio-network.component.scss'],
+  providers: [
+    BnBioNetworkState,
+    BnBioNetworkDrawerState,
+    BnBioNetworkOptionsState,
+    BnBioNetworkSelectionState,
+    BnBioNetworkMainRenderer,
+    BnBioNetworkGridState,
+    BnBioNetworkZoomRenderer,
+    BnBioNetworkEngineState,
+    BnBioNetworkSimulationState,
+  ],
+  standalone: false,
 })
 export class BnBioNetworkComponent implements OnInit {
+  private state = inject(BnBioNetworkState);
+  private drawerState = inject(BnBioNetworkDrawerState);
+  private rendererState = inject(BnBioNetworkMainRenderer);
+  private zoomRenderer = inject(BnBioNetworkZoomRenderer);
+
   @Input() networks: BnBioNetwork;
 
   @ViewChild('networkContainer', { static: true }) networkContainer: ElementRef;
 
   @ViewChild(MatDrawer, { static: true }) drawer: MatDrawer;
-
-  constructor(
-    private state: BnBioNetworkState,
-    private drawerState: BnBioNetworkDrawerState,
-    private rendererState: BnBioNetworkMainRenderer,
-    private zoomRenderer: BnBioNetworkZoomRenderer
-  ) {}
 
   ngOnInit(): void {
     this.state.init(this.networks);

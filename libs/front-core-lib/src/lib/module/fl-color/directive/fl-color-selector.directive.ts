@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, Output, inject } from '@angular/core';
 import { FlPortalService } from '../../fl-portal/service/fl-portal.service';
 import { FlPortalConnectedPosition } from '../../fl-portal/model/fl-portal.class';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -10,10 +10,12 @@ import { FlColorSelectorPortalComponent } from '../component/fl-color-selector-p
  * Support double binding with [(flColorSelector)]
  */
 @Directive({
-    selector: '[flColorSelector]',
-    standalone: false
+  selector: '[flColorSelector]',
+  standalone: false,
 })
 export class FlColorSelectorDirective {
+  private portalService = inject(FlPortalService);
+
   @Input() flColorSelector: string;
 
   @Output() flColorSelectorChange: EventEmitter<string> = new EventEmitter<string>();
@@ -23,8 +25,6 @@ export class FlColorSelectorDirective {
   @HostListener('click', ['$event']) onMouseEnter(event: MouseEvent): void {
     this.openPortal(event);
   }
-
-  constructor(private portalService: FlPortalService) {}
 
   private openPortal(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

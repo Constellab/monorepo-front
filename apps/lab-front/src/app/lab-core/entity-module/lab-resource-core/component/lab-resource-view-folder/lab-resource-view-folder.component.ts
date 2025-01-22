@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   LabResourceViewFolder,
   LabResourceViewFolderContent,
@@ -29,28 +29,28 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * Resource view for folder
  */
 @Component({
-    selector: 'lab-resource-view-folder',
-    templateUrl: './lab-resource-view-folder.component.html',
-    styleUrls: ['./lab-resource-view-folder.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-folder',
+  templateUrl: './lab-resource-view-folder.component.html',
+  styleUrls: ['./lab-resource-view-folder.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewFolderComponent
   extends RvResourceViewDirective<LabResourceViewFolder>
   implements OnInit
 {
+  private fileService = inject(LabFileResourceService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private resourceState = inject(LabResourceDetailState, { optional: true });
+  private clipboardService = inject(FlClipboardService);
+  private actionService = inject(FlPortalActionsService);
+
   treeControl: FlFlatTreeControl<LabResourceViewFolderContentFlat>;
 
   dataSource: MatTreeFlatDataSource<LabResourceViewFolderContent, LabResourceViewFolderContentFlat>;
 
-  constructor(
-    private fileService: LabFileResourceService,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService,
-    private menuDynamicService: FlMenuDynamicService,
-    @Optional() private resourceState: LabResourceDetailState,
-    private clipboardService: FlClipboardService,
-    private actionService: FlPortalActionsService
-  ) {
+  constructor() {
     super();
   }
 

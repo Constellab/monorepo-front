@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { Observable, of } from 'rxjs';
 import { PrWorkflow, PrWorkflowMode } from '@monorepo/protocol';
@@ -8,12 +8,16 @@ import { FlDialogService } from '@monorepo/front-core-lib';
 import { first } from 'rxjs/operators';
 
 @Component({
-    selector: 'lab-workflow',
-    templateUrl: './lab-workflow.component.html',
-    styleUrls: ['./lab-workflow.component.scss'],
-    standalone: false
+  selector: 'lab-workflow',
+  templateUrl: './lab-workflow.component.html',
+  styleUrls: ['./lab-workflow.component.scss'],
+  standalone: false,
 })
 export class LabWorkflowComponent implements OnInit, AfterViewInit {
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private dialogService = inject(FlDialogService);
+  private editConfig = inject(LabWorkflowEditConfig);
+
   workflowIsLoading: boolean = true;
   error: boolean = false;
 
@@ -21,12 +25,6 @@ export class LabWorkflowComponent implements OnInit, AfterViewInit {
   mode$: Observable<PrWorkflowMode> = of('edit');
 
   viewConfig: LabWorkflowNodeMenuConfig;
-
-  constructor(
-    private scenarioState: LabScenarioDetailPageState,
-    private dialogService: FlDialogService,
-    private editConfig: LabWorkflowEditConfig
-  ) {}
 
   ngOnInit(): void {
     this.viewConfig = new LabWorkflowNodeMenuConfig(this.dialogService, this.editConfig);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   FlConfirmDialogInput,
@@ -18,12 +18,17 @@ import { map } from 'rxjs/operators';
  * Show all the information about a space
  */
 @Component({
-    selector: 'ca-current-space-detail',
-    templateUrl: './ca-current-space-detail.component.html',
-    styleUrls: ['./ca-current-space-detail.component.scss'],
-    standalone: false
+  selector: 'ca-current-space-detail',
+  templateUrl: './ca-current-space-detail.component.html',
+  styleUrls: ['./ca-current-space-detail.component.scss'],
+  standalone: false,
 })
 export class CaCurrentSpaceDetailComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private spaceService = inject(CaSpaceService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private routerService = inject(CaRouterService);
+
   @Input() spaceSettings: CaSpaceSettingsDto;
 
   space$: Observable<CaSpace>;
@@ -32,13 +37,6 @@ export class CaCurrentSpaceDetailComponent implements OnInit {
   deleteImageConfig: Observable<FlConfirmDialogInput>;
 
   isSpaceAdmin: boolean;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private spaceService: CaSpaceService,
-    private currentSpaceService: CaCurrentSpaceService,
-    private routerService: CaRouterService
-  ) {}
 
   ngOnInit(): void {
     this.space$ = this.currentSpaceService.getCurrentSpace$();

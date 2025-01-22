@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib';
 import { LabStreamlitStatus } from '../model/global/lab-streamlit.class';
 import { Observable } from 'rxjs';
@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LabStreamlitService {
-  private readonly route: string = 'streamlit';
+  private apiService = inject(FlApiWithCacheService);
 
-  constructor(private apiService: FlApiWithCacheService) {}
+  private readonly route: string = 'streamlit';
 
   public getStatus(): Observable<LabStreamlitStatus> {
     return this.apiService.get(`${this.route}/status`, LabStreamlitStatus);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlDatasourceGetPageData, FlSearchConverter } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
@@ -7,9 +7,9 @@ import { MaMailEntity } from './models/ma-mail.entity';
 
 @Injectable({ providedIn: 'root' })
 export class MaMailService {
-  private readonly route: string = 'mails';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'mails';
 
   public search(
     page: number,

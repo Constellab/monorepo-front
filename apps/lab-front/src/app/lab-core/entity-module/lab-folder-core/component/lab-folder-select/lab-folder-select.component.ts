@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FlFlatTreeControl, FlFormFieldDirective } from '@monorepo/front-core-lib';
 import { LabFolder, LabFolderWithChildren } from '../../../../model/entities/lab-folder.class';
 import { NgControl } from '@angular/forms';
@@ -16,15 +16,18 @@ interface LabFolderFlatNode {
 }
 
 @Component({
-    selector: 'lab-folder-select',
-    templateUrl: './lab-folder-select.component.html',
-    styleUrls: ['./lab-folder-select.component.scss'],
-    standalone: false
+  selector: 'lab-folder-select',
+  templateUrl: './lab-folder-select.component.html',
+  styleUrls: ['./lab-folder-select.component.scss'],
+  standalone: false,
 })
 export class LabFolderSelectComponent
   extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LabFolder[] | LabFolder>
   implements OnInit
 {
+  private folderService = inject(LabFolderService);
+  private systemService = inject(LabSystemService);
+
   /**
    * If true, the user can select multiple folders
    * If false, the user can select only one folder
@@ -55,11 +58,9 @@ export class LabFolderSelectComponent
 
   hasChild = (_: number, node: LabFolderFlatNode): boolean => node.expandable;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private folderService: LabFolderService,
-    private systemService: LabSystemService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

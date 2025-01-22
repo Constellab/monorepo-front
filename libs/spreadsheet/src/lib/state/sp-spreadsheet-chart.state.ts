@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { SpSheetChartSelectionComponent } from '../component/sp-sheet-chart-selection/sp-sheet-chart-selection.component';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import {
@@ -25,6 +25,12 @@ interface SelectionWithOverlay {
 
 @Injectable()
 export class SpSpreadsheetChartState implements OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private portalService = inject(FlPortalService);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private snackBarService = inject(FlSnackBarService);
+  private actionService = inject(FlPortalActionsService);
+
   private overlayRef: FlOverlayRef;
 
   // store all the current overlay ref and the corresponding selection
@@ -34,13 +40,7 @@ export class SpSpreadsheetChartState implements OnDestroy {
 
   private subscription: Subscription;
 
-  constructor(
-    private state: SpSpreadsheetState,
-    private portalService: FlPortalService,
-    private selectionState: SpSpreadsheetSelectionState,
-    private snackBarService: FlSnackBarService,
-    private actionService: FlPortalActionsService
-  ) {
+  constructor() {
     // listen to chart creation actions
     this.subscription = this.actionService
       .getResult$(this.chartActionName)

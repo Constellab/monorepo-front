@@ -7,14 +7,19 @@ import {
   OnInit,
   Output,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { FlDragManagerService } from '../fl-drag-manager.service';
 
 @Directive({
-    selector: '[flDraggable]',
-    standalone: false
+  selector: '[flDraggable]',
+  standalone: false,
 })
 export class FlDraggableDirective implements OnInit {
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
+  private dragManager = inject(FlDragManagerService);
+
   /**
    * Type of the data to drag. Useful to distinguish different drag object
    * to activate drop or not based on type
@@ -43,12 +48,6 @@ export class FlDraggableDirective implements OnInit {
       event.dataTransfer.setDragImage(this.flDraggableGhostElement, 0, 0);
     }
   }
-
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-    private dragManager: FlDragManagerService
-  ) {}
 
   ngOnInit(): void {
     this.renderer.setAttribute(this.elementRef.nativeElement, 'draggable', 'true');

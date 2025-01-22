@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Directive, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlSearchState } from '../../model/fl-search.state';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
@@ -8,22 +8,20 @@ import { FlSortDirection } from '../../model/fl-sort.class';
  * Directive to put on a mat-table to connect the sorting of the table with the search state
  */
 @Directive({
-    selector: 'mat-table[flSearchTableSort]',
-    hostDirectives: [
-        {
-            directive: MatSort,
-            inputs: ['matSortDisabled'],
-        },
-    ],
-    standalone: false
+  selector: 'mat-table[flSearchTableSort]',
+  hostDirectives: [
+    {
+      directive: MatSort,
+      inputs: ['matSortDisabled'],
+    },
+  ],
+  standalone: false,
 })
 export class FlSearchTableSortDirective implements OnInit, OnDestroy {
-  private subscription: Subscription;
+  private searchState = inject<FlSearchState<any>>(FlSearchState, { optional: true });
+  private sort = inject(MatSort);
 
-  constructor(
-    @Optional() private searchState: FlSearchState<any>,
-    private sort: MatSort
-  ) {}
+  private subscription: Subscription;
 
   ngOnInit(): void {
     if (this.sort.disabled) return;

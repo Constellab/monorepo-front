@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
@@ -40,13 +40,18 @@ import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
  * Modal component to select value from the spreadsheet to draw a chart
  */
 @Component({
-    selector: 'sp-sheet-chart-selection',
-    templateUrl: './sp-sheet-chart-selection.component.html',
-    styleUrls: ['./sp-sheet-chart-selection.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'sp-sheet-chart-selection',
+  templateUrl: './sp-sheet-chart-selection.component.html',
+  styleUrls: ['./sp-sheet-chart-selection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private portalService = inject(FlPortalService);
+  private overlayRef = inject(FlOverlayRef);
+  private cdr = inject(ChangeDetectorRef);
+
   formGp = new FormBuilder().group({
     id: [null as symbol],
     chartType: [null as ChChartType, [Validators.required]],
@@ -79,13 +84,9 @@ export class SpSheetChartSelectionComponent implements OnInit, OnDestroy {
 
   private subscriptions: ClSubscriptionHandler = new ClSubscriptionHandler();
 
-  constructor(
-    private state: SpSpreadsheetState,
-    @Inject(FL_PORTAL_DATA) input: SpSpreadsheetChartSelectionInput,
-    private portalService: FlPortalService,
-    private overlayRef: FlOverlayRef,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor() {
+    const input = inject<SpSpreadsheetChartSelectionInput>(FL_PORTAL_DATA);
+
     this.input = input;
   }
 

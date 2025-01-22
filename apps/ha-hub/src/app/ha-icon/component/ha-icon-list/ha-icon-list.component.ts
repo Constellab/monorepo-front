@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
 import {
@@ -16,24 +16,22 @@ import {
 import { CoIcon } from '@monorepo/community-lib';
 
 @Component({
-    selector: 'ha-icon-list',
-    templateUrl: './ha-icon-list.component.html',
-    styleUrls: ['./ha-icon-list.component.scss'],
-    standalone: false
+  selector: 'ha-icon-list',
+  templateUrl: './ha-icon-list.component.html',
+  styleUrls: ['./ha-icon-list.component.scss'],
+  standalone: false,
 })
 export class HaIconListComponent implements OnInit, OnDestroy {
+  private readonly iconService = inject(HaIconService);
+  private readonly portalService = inject(FlPortalService);
+  private readonly dialogService = inject(FlDialogService);
+
   @Input()
   reloadList$: Observable<boolean> = new Observable<boolean>();
 
   reloadListSubscription: Subscription;
 
   reloadIcons: Subject<boolean> = new Subject<boolean>();
-
-  constructor(
-    private readonly iconService: HaIconService,
-    private readonly portalService: FlPortalService,
-    private readonly dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.reloadListSubscription = this.reloadList$.subscribe((value: boolean) => {

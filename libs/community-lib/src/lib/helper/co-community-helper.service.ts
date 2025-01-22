@@ -1,6 +1,6 @@
 import { TdBrick, TdTypingName } from '@monorepo/technical-doc';
 import { CoConfig } from '../service/co-service-config.config';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 export type CoBrickVersionPath = 'latest' | string;
 
@@ -11,7 +11,8 @@ export type CoBrickVersionPath = 'latest' | string;
   providedIn: 'root',
 })
 export class CoCommunityHelperService {
-  constructor(private config: CoConfig) {}
+  private config = inject(CoConfig);
+
   ///////////////////////// FRONT //////////////////////////
 
   public getCommunityUrl(): string {

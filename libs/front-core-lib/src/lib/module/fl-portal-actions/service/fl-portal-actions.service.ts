@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlPortalService } from '../../fl-portal/service/fl-portal.service';
 import { FlPortalAction, FlPortalActionResult } from '../model/fl-portal-actions.class';
 import { FlPortalConfig } from '../../fl-portal/model/fl-portal-config.class';
@@ -12,6 +12,9 @@ import { FlOverlayRef } from '../../fl-portal/model/fl-overlay-ref.class';
  */
 @Injectable()
 export class FlPortalActionsService {
+  private portalService = inject(FlPortalService);
+  private actionsState = inject(FlPortalActionsState);
+
   //provided if a portal is currently opened
   private currentOverlay: FlOverlayRef = null;
 
@@ -19,10 +22,9 @@ export class FlPortalActionsService {
   private autoCloseDelay: number = 3000;
   private autoCloseTimer: any = null;
 
-  constructor(
-    private portalService: FlPortalService,
-    private actionsState: FlPortalActionsState
-  ) {
+  constructor() {
+    const actionsState = this.actionsState;
+
     actionsState.getResult$().subscribe(() => this.onResult());
   }
 

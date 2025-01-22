@@ -125,9 +125,9 @@ function configureCaptcha(): FlCaptchaModuleConfig {
       multi: true,
     },
     provideAppInitializer(() => {
-        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
-        return initializerFn();
-      }),
+      const initializerFn = loadThemeOnInit(inject(FlThemeService));
+      return initializerFn();
+    }),
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
 
@@ -142,7 +142,9 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   ],
 })
 export class CaAppModule {
-  constructor(injector: Injector) {
+  constructor() {
+    const injector = inject(Injector);
+
     // set the root injector in a variable
     flSetRootInjector(injector);
   }

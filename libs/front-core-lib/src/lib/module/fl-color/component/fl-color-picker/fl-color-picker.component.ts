@@ -1,16 +1,18 @@
-import { Component, input, Optional, Self } from '@angular/core';
+import { Component, input, inject } from '@angular/core';
 import { FlFormFieldDirective } from '../../../../abstract-directive/form/fl-form-field.directive';
 import { NgControl } from '@angular/forms';
 
 @Component({
-    selector: 'fl-color-picker',
-    templateUrl: './fl-color-picker.component.html',
-    styleUrl: './fl-color-picker.component.scss',
-    providers: [{ provide: FlFormFieldDirective, useExisting: FlColorPickerComponent }],
-    standalone: false
+  selector: 'fl-color-picker',
+  templateUrl: './fl-color-picker.component.html',
+  styleUrl: './fl-color-picker.component.scss',
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlColorPickerComponent }],
+  standalone: false,
 })
 export class FlColorPickerComponent extends FlFormFieldDirective<string> {
-  constructor(@Optional() @Self() ngControl: NgControl) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

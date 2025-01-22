@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
@@ -21,12 +21,15 @@ export interface CaLabSelectServerForm {
 }
 
 @Component({
-    selector: 'ca-lab-select-server',
-    templateUrl: './ca-lab-select-server.component.html',
-    styleUrl: './ca-lab-select-server.component.scss',
-    standalone: false
+  selector: 'ca-lab-select-server',
+  templateUrl: './ca-lab-select-server.component.html',
+  styleUrl: './ca-lab-select-server.component.scss',
+  standalone: false,
 })
 export class CaLabSelectServerComponent implements OnInit, OnDestroy {
+  private cloudProviderService = inject(CaCloudProviderService);
+  private serverService = inject(CaServerService);
+
   @Input({ required: true }) formGp: FormGroup<CaLabSelectServerForm>;
 
   serverStandards$: Observable<CaServerStandard[]>;
@@ -44,11 +47,6 @@ export class CaLabSelectServerComponent implements OnInit, OnDestroy {
   };
 
   private subscriptions = new ClSubscriptionHandler();
-
-  constructor(
-    private cloudProviderService: CaCloudProviderService,
-    private serverService: CaServerService
-  ) {}
 
   ngOnInit(): void {
     for (const [name, groupOrder] of Object.entries(this.formGroupOrders)) {

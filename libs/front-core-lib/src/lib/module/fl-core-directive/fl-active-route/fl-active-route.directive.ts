@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -8,10 +8,14 @@ import { Subscription } from 'rxjs';
  * of a routerLink attribute. It can be applied to an element that is not a link.
  */
 @Directive({
-    selector: '[flActiveRoute]',
-    standalone: false
+  selector: '[flActiveRoute]',
+  standalone: false,
 })
 export class FlActiveRouteDirective implements OnInit, OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+  private router = inject(Router);
+
   /**
    * The route to check
    */
@@ -31,12 +35,6 @@ export class FlActiveRouteDirective implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   private isActive: boolean = false;
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private renderer: Renderer2,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     // init with the current url

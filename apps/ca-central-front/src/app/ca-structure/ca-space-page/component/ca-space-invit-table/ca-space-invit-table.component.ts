@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 import {
   FlConfirmDialogInput,
@@ -18,12 +18,15 @@ import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-u
  * Table for the SpaceInvit entity with actions
  */
 @Component({
-    selector: 'ca-space-invit-table',
-    templateUrl: './ca-space-invit-table.component.html',
-    styleUrls: ['./ca-space-invit-table.component.scss'],
-    standalone: false
+  selector: 'ca-space-invit-table',
+  templateUrl: './ca-space-invit-table.component.html',
+  styleUrls: ['./ca-space-invit-table.component.scss'],
+  standalone: false,
 })
 export class CaSpaceInvitTableComponent {
+  private spaceInvitService = inject(CaSpaceInvitService);
+  private dialogService = inject(FlDialogService);
+
   @Input() datasource: FlDatasourcePaginated<CaSpaceInvit>;
 
   @Input() columns: FlTableColumnStatic<CaSpaceInvit>[] = [
@@ -33,11 +36,6 @@ export class CaSpaceInvitTableComponent {
     'sentThe',
     'actions',
   ];
-
-  constructor(
-    private spaceInvitService: CaSpaceInvitService,
-    private dialogService: FlDialogService
-  ) {}
 
   openUpdateRoleDialog(invitation: CaSpaceInvit): void {
     const data: CaSpaceUserRoleDialogInput = {

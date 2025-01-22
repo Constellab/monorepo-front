@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   LabProgressBar,
   LabProgressBarMessages,
@@ -18,12 +18,14 @@ interface LabProgressWithMessage {
  * Show information about a {@link LabProgressBar}
  */
 @Component({
-    selector: 'lab-progress-bar-info',
-    templateUrl: './lab-progress-bar-info.component.html',
-    styleUrls: ['./lab-progress-bar-info.component.scss'],
-    standalone: false
+  selector: 'lab-progress-bar-info',
+  templateUrl: './lab-progress-bar-info.component.html',
+  styleUrls: ['./lab-progress-bar-info.component.scss'],
+  standalone: false,
 })
 export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
+  private progressBarService = inject(LabProgressBarService);
+
   @Input({ required: true }) progressBar$: Observable<LabProgressBar>;
 
   @Input({ required: true }) scrollableElement: HTMLElement;
@@ -50,8 +52,6 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
 
   private readonly nbOfMessages = 20;
   private progressBarId: string;
-
-  constructor(private progressBarService: LabProgressBarService) {}
 
   ngOnInit(): void {
     this.messageDatasource = new LabProgressMessageDatasource();

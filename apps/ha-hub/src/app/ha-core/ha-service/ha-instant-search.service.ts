@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import InstantSearch from 'instantsearch.js/es/lib/InstantSearch';
 import history from 'instantsearch.js/es/lib/routers/history';
 import { Router } from '@angular/router';
@@ -12,7 +12,9 @@ import { environment } from '../../../environments/ha-environment';
 export class HaInstantSearchService {
   public instantSearchInstance: InstantSearch;
 
-  constructor(router: Router) {
+  constructor() {
+    const router = inject(Router);
+
     const searchClient = algoliasearch(
       environment.settings.algoliaAppId,
       environment.settings.algoliaSearchKey

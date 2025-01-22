@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
 import { RvTechnicalInfoDialogComponent } from '../rv-technical-info-dialog/rv-technical-info-dialog.component';
@@ -7,16 +7,16 @@ import { RvTechnicalInfoDialogComponent } from '../rv-technical-info-dialog/rv-t
  * Button to open the technical information dialog
  */
 @Component({
-    selector: 'rv-technical-info-button',
-    templateUrl: './rv-technical-info-button.component.html',
-    styleUrls: ['./rv-technical-info-button.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'rv-technical-info-button',
+  templateUrl: './rv-technical-info-button.component.html',
+  styleUrls: ['./rv-technical-info-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class RvTechnicalInfoButtonComponent implements OnInit {
-  @Input() technicalInfo: RvTechnicalInfo[];
+  private dialogService = inject(FlDialogService);
 
-  constructor(private dialogService: FlDialogService) {}
+  @Input() technicalInfo: RvTechnicalInfo[];
 
   ngOnInit(): void {}
 

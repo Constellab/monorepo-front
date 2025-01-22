@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute } from '@angular/router';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
@@ -14,13 +14,19 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 
 @Component({
-    selector: 'ha-agent-page',
-    templateUrl: './ha-agent-page.component.html',
-    styleUrls: ['./ha-agent-page.component.scss'],
-    providers: [HaAgentPageState],
-    standalone: false
+  selector: 'ha-agent-page',
+  templateUrl: './ha-agent-page.component.html',
+  styleUrls: ['./ha-agent-page.component.scss'],
+  providers: [HaAgentPageState],
+  standalone: false,
 })
 export class HaAgentPageComponent implements OnInit, OnDestroy {
+  private agentService = inject(HaAgentService);
+  private activeRoute = inject(ActivatedRoute);
+  private dialogService = inject(FlDialogService);
+  private agentPageState = inject(HaAgentPageState);
+  private jsonLdState = inject(HaJsonLdState);
+
   profileRoute = HaRouterService.getProfileRoute();
   agentsListRoute = HaRouterService.getAgentsListRoute();
 
@@ -29,14 +35,6 @@ export class HaAgentPageComponent implements OnInit, OnDestroy {
   isLoading: Signal<boolean> = this.agentPageState.getIsLoading();
   isAuthor: Signal<boolean> = this.agentPageState.isAuthor;
   agentCoAuthors: Signal<HaUser[]> = this.agentPageState.getAgentCoAuthors();
-
-  constructor(
-    private agentService: HaAgentService,
-    private activeRoute: ActivatedRoute,
-    private dialogService: FlDialogService,
-    private agentPageState: HaAgentPageState,
-    private jsonLdState: HaJsonLdState
-  ) {}
 
   ngOnInit(): void {
     this.activeRoute.params.pipe(first()).subscribe((params) => {

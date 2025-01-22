@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeSearchConfig } from '../../model/lab-type-search.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -20,14 +20,15 @@ export interface LabSelectTypeDialogInput {
   standalone: false,
 })
 export class LabSelectTypeDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<LabSelectTypeDialogComponent>>(MatDialogRef);
+
   config: LabTypeSearchConfig;
   title: string;
   helpText: FlTranslatableText;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: LabSelectTypeDialogInput,
-    private dialogRef: MatDialogRef<LabSelectTypeDialogComponent>
-  ) {
+  constructor() {
+    const data = inject<LabSelectTypeDialogInput>(MAT_DIALOG_DATA);
+
     this.config = data.searchConfig;
     this.title = data.title ?? 'biox.select_process';
     this.helpText = data.helpText;

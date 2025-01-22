@@ -1,4 +1,13 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import {
   FlUploadImageDialogComponent,
   FlUploadImageDialogConfig,
@@ -18,12 +27,15 @@ import { FlMenuDynamic } from '../../../fl-menu-dynamic/model/fl-menu-dynamic.cl
  * allow update and delete the image.
  */
 @Component({
-    selector: 'fl-update-image-container',
-    templateUrl: './fl-update-image-container.component.html',
-    styleUrl: './fl-update-image-container.component.scss',
-    standalone: false
+  selector: 'fl-update-image-container',
+  templateUrl: './fl-update-image-container.component.html',
+  styleUrl: './fl-update-image-container.component.scss',
+  standalone: false,
 })
 export class FlUpdateImageContainerComponent {
+  private dialogService = inject(FlDialogService);
+  private menuDynamic = inject(FlMenuDynamicService);
+
   @Input({ required: true }) uploadConfig: FlUploadImageDialogConfig;
 
   /**
@@ -41,11 +53,6 @@ export class FlUpdateImageContainerComponent {
   @Output() imageDeleted: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild('input', { static: true, read: ElementRef }) inputImage: ElementRef<HTMLInputElement>;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private menuDynamic: FlMenuDynamicService
-  ) {}
 
   onClick(event: MouseEvent): void {
     if (this.disabled) return;

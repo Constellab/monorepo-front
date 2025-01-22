@@ -1,6 +1,6 @@
 import { FlApiServiceConfig } from '@monorepo/front-core-lib';
 import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { LabEnvStore } from './lab-env.store';
 
@@ -34,7 +34,9 @@ interface LabPaginatedResponse {
   providedIn: 'root',
 })
 export class LabApiServiceConfig extends FlApiServiceConfig {
-  constructor(private labEnvStore: LabEnvStore) {
+  private labEnvStore = inject(LabEnvStore);
+
+  constructor() {
     super();
   }
 

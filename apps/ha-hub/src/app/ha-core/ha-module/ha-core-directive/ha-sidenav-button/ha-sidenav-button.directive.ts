@@ -1,19 +1,17 @@
-import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
-    selector: '[haSidenavButton]',
-    standalone: false
+  selector: '[haSidenavButton]',
+  standalone: false,
 })
 export class HaSidenavButtonDirective implements OnInit {
+  private elementRef = inject(ElementRef);
+  private router = inject(Router);
+
   isOpen: boolean = false;
   isActivated: boolean = false;
   windowSize: number;
-
-  constructor(
-    private elementRef: ElementRef,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.elementRef.nativeElement.innerHTML = 'menu';

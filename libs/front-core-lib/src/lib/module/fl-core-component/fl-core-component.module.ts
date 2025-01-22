@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -70,7 +70,9 @@ import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
   ],
 })
 export class FlCoreComponentModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlCoreComponentModule', flCoreComponentI18n);
   }
 }

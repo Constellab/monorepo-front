@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlArrayObs,
   FlCheckCredentialsDialogComponent,
@@ -17,20 +17,18 @@ import {
 import { ClCredentials } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'lab-credentials-table',
-    templateUrl: './lab-credentials-table.component.html',
-    styleUrls: ['./lab-credentials-table.component.scss'],
-    standalone: false
+  selector: 'lab-credentials-table',
+  templateUrl: './lab-credentials-table.component.html',
+  styleUrls: ['./lab-credentials-table.component.scss'],
+  standalone: false,
 })
 export class LabCredentialsTableComponent {
+  private credentialsService = inject(LabCredentialsService);
+  private dialogService = inject(FlDialogService);
+
   @Input() datasource: FlArrayObs<LabCredentials>;
 
   @Input() columns: FlTableColumnStatic<LabCredentials>[];
-
-  constructor(
-    private credentialsService: LabCredentialsService,
-    private dialogService: FlDialogService
-  ) {}
 
   updateCredentials(credentials: LabCredentials): void {
     // open user check credentials dialog

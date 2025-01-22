@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
-    selector: 'ca-chat-page',
-    templateUrl: './ca-chat-page.component.html',
-    styleUrl: './ca-chat-page.component.scss',
-    providers: [CaChatState],
-    standalone: false
+  selector: 'ca-chat-page',
+  templateUrl: './ca-chat-page.component.html',
+  styleUrl: './ca-chat-page.component.scss',
+  providers: [CaChatState],
+  standalone: false,
 })
 export class CaChatPageComponent {
   isLoading: Signal<boolean>;
@@ -25,7 +25,9 @@ export class CaChatPageComponent {
     return CaRouterService.getChatFolderRoute(node.id);
   };
 
-  constructor(state: CaChatState) {
+  constructor() {
+    const state = inject(CaChatState);
+
     state.init();
     this.folders$ = toObservable(state.folders);
     this.isLoading = state.isLoading;

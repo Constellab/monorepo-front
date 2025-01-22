@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabBrickData } from '../model/global/lab-brick-data.class';
@@ -7,9 +7,9 @@ import { LabBrickData } from '../model/global/lab-brick-data.class';
   providedIn: 'root',
 })
 export class LabBrickDataService {
-  private readonly route: string = 'brick-data';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'brick-data';
 
   public getBrickData(): Observable<LabBrickData[]> {
     return this.apiService.get(this.route, LabBrickData);

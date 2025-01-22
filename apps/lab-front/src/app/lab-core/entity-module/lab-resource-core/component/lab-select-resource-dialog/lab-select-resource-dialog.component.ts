@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { FlSavedSearch } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -13,18 +13,19 @@ export interface LabSelectResourceDialogInput {
  * The dialog is closed when a resource is selected
  */
 @Component({
-    selector: 'lab-select-resource-dialog',
-    templateUrl: './lab-select-resource-dialog.component.html',
-    styleUrls: ['./lab-select-resource-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-select-resource-dialog',
+  templateUrl: './lab-select-resource-dialog.component.html',
+  styleUrls: ['./lab-select-resource-dialog.component.scss'],
+  standalone: false,
 })
 export class LabSelectResourceDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<LabSelectResourceDialogComponent>>(MatDialogRef);
+
   savedSearch: FlSavedSearch[];
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: LabSelectResourceDialogInput,
-    private dialogRef: MatDialogRef<LabSelectResourceDialogComponent>
-  ) {
+  constructor() {
+    const data = inject<LabSelectResourceDialogInput>(MAT_DIALOG_DATA);
+
     this.savedSearch = data?.savedSearches;
   }
 

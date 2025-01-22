@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   CaBucketLocationDatasource,
   CaBucketLocationDTO,
@@ -19,25 +19,29 @@ interface CaBucketLocationList {
 export type CaBucketLocationSelectMode = 'all' | 'cloud';
 
 @Component({
-    selector: 'ca-bucket-location-select-options',
-    templateUrl: './ca-bucket-location-select-options.component.html',
-    styleUrls: ['./ca-bucket-location-select-options.component.scss'],
-    standalone: false
+  selector: 'ca-bucket-location-select-options',
+  templateUrl: './ca-bucket-location-select-options.component.html',
+  styleUrls: ['./ca-bucket-location-select-options.component.scss'],
+  standalone: false,
 })
 export class CaBucketLocationSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private folderService = inject(CaFolderService);
+  private select: MatSelect;
+
   @Input() mode: CaBucketLocationSelectMode = 'all';
 
   datasource: CaBucketLocationDatasource;
   locations$: Observable<CaBucketLocationList>;
 
-  constructor(
-    private folderService: CaFolderService,
-    @Host() private select: MatSelect
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

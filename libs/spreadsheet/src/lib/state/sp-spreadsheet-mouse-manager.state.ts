@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, Injectable, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
 import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
@@ -13,6 +13,15 @@ import { FlCoord, FlMouseButton } from '@monorepo/front-core-lib';
  */
 @Injectable()
 export class SpSpreadsheetMouseManagerState implements OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private elementState = inject(SpSpreadsheetElementState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private contextMenuState = inject(SpSpreadsheetContextMenu);
+  private scrollState = inject(SpSpreadsheetScrollState);
+  private renderer = inject(Renderer2);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private ngZone = inject(NgZone);
+
   private mouseDownListener: () => void;
   private mouseMoveListener: () => void;
   private mouseUpListener: () => void;
@@ -25,17 +34,6 @@ export class SpSpreadsheetMouseManagerState implements OnDestroy {
   private expandSelectionScrollIntervalDuration: number = 100;
 
   private lastMousePosition: FlCoord;
-
-  constructor(
-    private state: SpSpreadsheetState,
-    private elementState: SpSpreadsheetElementState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private contextMenuState: SpSpreadsheetContextMenu,
-    private scrollState: SpSpreadsheetScrollState,
-    private renderer: Renderer2,
-    private elementRef: ElementRef<HTMLElement>,
-    private ngZone: NgZone
-  ) {}
 
   public init(): void {
     if (this.mouseDownListener != null) {

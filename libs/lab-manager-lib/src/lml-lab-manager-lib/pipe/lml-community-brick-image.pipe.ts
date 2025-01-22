@@ -1,12 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform, inject } from '@angular/core';
 import { LmlBrickService } from '../lml-brick.service';
 
 @Pipe({
-    name: 'lmlCommunityBrickImage',
-    standalone: false
+  name: 'lmlCommunityBrickImage',
+  standalone: false,
 })
 export class LmlCommunityBrickImagePipe implements PipeTransform {
-  constructor(private brickService: LmlBrickService) {}
+  private brickService = inject(LmlBrickService);
 
   transform(imageLink: any): string {
     if (imageLink) {

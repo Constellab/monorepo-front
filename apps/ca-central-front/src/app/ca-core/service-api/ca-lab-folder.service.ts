@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { CaLabFolder } from '../model/entities/lab/ca-lab-folder.class';
@@ -7,9 +7,9 @@ import { CaLabFolder } from '../model/entities/lab/ca-lab-folder.class';
   providedIn: 'root',
 })
 export class CaLabFolderService {
-  private readonly route: string = 'lab-folder';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'lab-folder';
 
   public addFolderToLab(labId: string, folderId: string): Observable<CaLabFolder> {
     return this.apiService.post(`${this.route}/${labId}/folder/${folderId}`, null, CaLabFolder);

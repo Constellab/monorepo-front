@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlFormulaComponent } from './fl-formula/fl-formula.component';
 import { FlFormulaDialogComponent } from './fl-formula-dialog/fl-formula-dialog.component';
@@ -36,7 +36,9 @@ import { MatIconModule } from '@angular/material/icon';
   ],
 })
 export class FlFormulaModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlFormulaModule', flFormulaI18n);
   }
 }

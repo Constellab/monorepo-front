@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import {
   PrProtocolGraph,
@@ -14,12 +14,17 @@ import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'lab-scenario-template-workflow',
-    templateUrl: './lab-scenario-template-workflow.component.html',
-    styleUrl: './lab-scenario-template-workflow.component.scss',
-    standalone: false
+  selector: 'lab-scenario-template-workflow',
+  templateUrl: './lab-scenario-template-workflow.component.html',
+  styleUrl: './lab-scenario-template-workflow.component.scss',
+  standalone: false,
 })
 export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
+  private actionState = inject(PrWorkflowActionState);
+  private ngZone = inject(NgZone);
+  private workflowResourcesState = inject(PrWorkflowResourcesState);
+  private scenarioTemplateService = inject(LabScenarioTemplateService);
+
   @Input() template: LabScenarioTemplate;
 
   viewConfig = new PrWorkflowNodeMenuConfigEmpty();
@@ -27,13 +32,6 @@ export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
   workflowIsLoading: boolean = false;
   workflow: PrWorkflow;
   workflowMode$: Observable<PrWorkflowMode> = of('readOnly');
-
-  constructor(
-    private actionState: PrWorkflowActionState,
-    private ngZone: NgZone,
-    private workflowResourcesState: PrWorkflowResourcesState,
-    private scenarioTemplateService: LabScenarioTemplateService
-  ) {}
 
   ngOnInit(): void {
     this.actionState.init();

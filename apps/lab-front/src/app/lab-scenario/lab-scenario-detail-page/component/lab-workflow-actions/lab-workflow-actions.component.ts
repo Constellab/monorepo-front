@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import {
@@ -23,19 +23,17 @@ import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/ent
  * Actions button for the workflow
  */
 @Component({
-    selector: 'lab-workflow-actions',
-    templateUrl: './lab-workflow-actions.component.html',
-    styleUrls: ['./lab-workflow-actions.component.scss'],
-    standalone: false
+  selector: 'lab-workflow-actions',
+  templateUrl: './lab-workflow-actions.component.html',
+  styleUrls: ['./lab-workflow-actions.component.scss'],
+  standalone: false,
 })
 export class LabWorkflowActionsComponent implements OnInit {
-  scenario$: Observable<LabScenario>;
+  private workflowEditState = inject(LabWorkflowEditConfig);
+  private dialogService = inject(FlDialogService);
+  private scenarioState = inject(LabScenarioDetailPageState);
 
-  constructor(
-    private workflowEditState: LabWorkflowEditConfig,
-    private dialogService: FlDialogService,
-    private scenarioState: LabScenarioDetailPageState
-  ) {}
+  scenario$: Observable<LabScenario>;
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();

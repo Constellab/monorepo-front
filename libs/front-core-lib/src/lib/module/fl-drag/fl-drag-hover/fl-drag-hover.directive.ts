@@ -1,4 +1,13 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  Renderer2,
+  inject,
+} from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlFileHelper } from '../../../service/fl-file.helper';
 import { FlDropEvent } from '../fl-drag.class';
@@ -9,10 +18,14 @@ import { FlDragManagerService } from '../fl-drag-manager.service';
  * over the host element and detect drop file event
  */
 @Directive({
-    selector: '[flDragHover]',
-    standalone: false
+  selector: '[flDragHover]',
+  standalone: false,
 })
 export class FlDragHoverDirective {
+  private renderer = inject(Renderer2);
+  private elementRef = inject(ElementRef);
+  private dragManager = inject(FlDragManagerService);
+
   /**
    * The class or classes to add to the host element when a file is hovering it
    */
@@ -121,11 +134,7 @@ export class FlDragHoverDirective {
     }
   }
 
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-    private dragManager: FlDragManagerService
-  ) {
+  constructor() {
     // init dragIsHovering value
     this.emitDragover();
   }

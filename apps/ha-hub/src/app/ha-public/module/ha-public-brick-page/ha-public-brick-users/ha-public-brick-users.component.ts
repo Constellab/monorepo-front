@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { FlDialogService } from '@monorepo/front-core-lib';
@@ -12,12 +12,16 @@ import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-au
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-    selector: 'ha-public-brick-users',
-    templateUrl: './ha-public-brick-users.component.html',
-    styleUrls: ['./ha-public-brick-users.component.scss'],
-    standalone: false
+  selector: 'ha-public-brick-users',
+  templateUrl: './ha-public-brick-users.component.html',
+  styleUrls: ['./ha-public-brick-users.component.scss'],
+  standalone: false,
 })
 export class HaPublicBrickUsersComponent implements OnInit {
+  private brickService = inject(HaBrickService);
+  private dialogService = inject(FlDialogService);
+  private authUserService = inject(HaAuthenticatedUserService);
+
   @Input() brick: HaBrick;
 
   isCreator$: Observable<boolean>;
@@ -25,12 +29,6 @@ export class HaPublicBrickUsersComponent implements OnInit {
   profileRoute = HaRouterService.getProfileRoute();
 
   brickUsers: HaUser[];
-
-  constructor(
-    private brickService: HaBrickService,
-    private dialogService: FlDialogService,
-    private authUserService: HaAuthenticatedUserService
-  ) {}
 
   ngOnInit(): void {
     this.brickService.getCoAuthors(this.brick.id).subscribe((brickUsers) => {

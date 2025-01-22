@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   labConstBaseRoute,
   labConstBioxFullRoute,
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class LabRouterService {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   ////// Static function to get routes  //////
   public static getAppRoute(): string {

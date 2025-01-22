@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CaLab, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
 import {
   CaLabAdminFormDialogComponent,
@@ -17,22 +17,20 @@ import { CaRouterService } from '../../../../service/ca-router.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'ca-lab-table',
-    templateUrl: './ca-lab-table.component.html',
-    styleUrls: ['./ca-lab-table.component.scss'],
-    standalone: false
+  selector: 'ca-lab-table',
+  templateUrl: './ca-lab-table.component.html',
+  styleUrls: ['./ca-lab-table.component.scss'],
+  standalone: false,
 })
 export class CaLabTableComponent {
+  private dialogService = inject(FlDialogService);
+  private labService = inject(CaLabService);
+
   @Input({ required: true }) datasource: FlArrayObs<CaLab | CaLabWithSpace>;
 
   @Input({ required: true }) columns: FlTableColumnStatic<CaLab>[];
 
   @Input() disableLink: boolean = false;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private labService: CaLabService
-  ) {}
 
   getLabRoute(lab: CaLabWithSpace): string {
     return CaRouterService.getLabDetailRoute(lab.id);

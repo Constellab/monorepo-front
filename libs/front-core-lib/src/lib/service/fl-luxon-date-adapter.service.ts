@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { DateTime, Info, Settings } from 'luxon';
 /**
@@ -47,7 +47,9 @@ const DEFAULT_DATE_NAMES = range(31, (i) => String(i + 1));
 
 @Injectable({ providedIn: 'root' })
 export class FlLuxonDateAdapter extends DateAdapter<DateTime> {
-  constructor(@Optional() @Inject(MAT_DATE_LOCALE) matDateLocale: string) {
+  constructor() {
+    const matDateLocale = inject(MAT_DATE_LOCALE, { optional: true });
+
     super();
     this.setLocale(matDateLocale);
   }

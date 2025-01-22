@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlTag, FlTagHelper } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabCreateTagResponse } from '../../../../model/entities/lab-tag.entity';
@@ -9,18 +9,20 @@ import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
  * Dialog to create of update a tag
  */
 @Component({
-    selector: 'lab-tag-form-dialog',
-    templateUrl: './lab-tag-form-dialog.component.html',
-    styleUrls: ['./lab-tag-form-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-tag-form-dialog',
+  templateUrl: './lab-tag-form-dialog.component.html',
+  styleUrls: ['./lab-tag-form-dialog.component.scss'],
+  standalone: false,
 })
 export class LabTagFormDialogComponent
   extends FlFormDialogAbstractDirective<FlTag, LabCreateTagResponse>
   implements OnInit
 {
+  private tagService = inject(LabTagService);
+
   maxLength = FlTagHelper.MAX_LENGTH;
 
-  constructor(private tagService: LabTagService) {
+  constructor() {
     super();
   }
 

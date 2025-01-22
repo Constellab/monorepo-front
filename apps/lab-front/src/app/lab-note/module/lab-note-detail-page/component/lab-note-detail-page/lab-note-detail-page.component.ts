@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
@@ -35,13 +35,22 @@ import {
 } from '@monorepo/text-editor';
 
 @Component({
-    selector: 'lab-note-detail-page',
-    templateUrl: './lab-note-detail-page.component.html',
-    styleUrls: ['./lab-note-detail-page.component.scss'],
-    providers: [LabNoteDetailPageState],
-    standalone: false
+  selector: 'lab-note-detail-page',
+  templateUrl: './lab-note-detail-page.component.html',
+  styleUrls: ['./lab-note-detail-page.component.scss'],
+  providers: [LabNoteDetailPageState],
+  standalone: false,
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
+  private noteService = inject(LabNoteService);
+  private state = inject(LabNoteDetailPageState);
+  private route = inject(ActivatedRoute);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+  private noteTemplateService = inject(LabNoteTemplateService);
+  private tagService = inject(LabTagService);
+  private portalService = inject(FlPortalService);
+
   note$: Observable<LabNote>;
   formControl: FormControl<TeRichText> = new FormControl({ value: null });
 
@@ -56,17 +65,6 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   saveContentFunc: (content: TeRichText) => Observable<TeRichTextDTO>;
 
   private subscription: Subscription;
-
-  constructor(
-    private noteService: LabNoteService,
-    private state: LabNoteDetailPageState,
-    private route: ActivatedRoute,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService,
-    private noteTemplateService: LabNoteTemplateService,
-    private tagService: LabTagService,
-    private portalService: FlPortalService
-  ) {}
 
   ngOnInit(): void {
     this.syncObjectFunc = (id: string) => this.noteService.syncWithSpace(id);

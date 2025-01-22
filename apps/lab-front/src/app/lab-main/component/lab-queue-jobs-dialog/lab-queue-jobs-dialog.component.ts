@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabRunningScenarioInfo, LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
 import {
   FlArrayObs,
@@ -14,12 +14,17 @@ import { Subscription, tap, zip } from 'rxjs';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'lab-queue-jobs-dialog',
-    templateUrl: './lab-queue-jobs-dialog.component.html',
-    styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-queue-jobs-dialog',
+  templateUrl: './lab-queue-jobs-dialog.component.html',
+  styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
+  standalone: false,
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
+  private dialogRef = inject<MatDialogRef<LabQueueJobsDialogComponent>>(MatDialogRef);
+  private queueService = inject(LabQueueService);
+  private dialogService = inject(FlDialogService);
+  private scenarioService = inject(LabScenarioService);
+
   runningScenarios: FlArrayObs<LabRunningScenarioInfo>;
   scenarioColumns: string[] = ['title', 'runningTasks'];
 
@@ -30,13 +35,6 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   private refreshRate: number = 15000;
   private timer: any;
   private subscription: Subscription;
-
-  constructor(
-    private dialogRef: MatDialogRef<LabQueueJobsDialogComponent>,
-    private queueService: LabQueueService,
-    private dialogService: FlDialogService,
-    private scenarioService: LabScenarioService
-  ) {}
 
   ngOnInit(): void {
     this.loadInfo();

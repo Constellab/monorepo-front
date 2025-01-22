@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { CaAuthService } from '../service/ca-auth.service';
 import { Observable } from 'rxjs';
@@ -11,10 +11,8 @@ import { CaRouterService } from '../../ca-core/service/ca-router.service';
   providedIn: 'root',
 })
 export class CaLoginGuard {
-  constructor(
-    private loginService: CaAuthService,
-    private router: Router
-  ) {}
+  private loginService = inject(CaAuthService);
+  private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot

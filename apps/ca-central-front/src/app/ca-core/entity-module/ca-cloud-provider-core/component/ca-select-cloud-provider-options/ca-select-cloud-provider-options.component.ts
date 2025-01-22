@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import {
@@ -9,23 +9,27 @@ import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-    selector: 'ca-select-cloud-provider-options',
-    templateUrl: './ca-select-cloud-provider-options.component.html',
-    styleUrls: ['./ca-select-cloud-provider-options.component.scss'],
-    standalone: false
+  selector: 'ca-select-cloud-provider-options',
+  templateUrl: './ca-select-cloud-provider-options.component.html',
+  styleUrls: ['./ca-select-cloud-provider-options.component.scss'],
+  standalone: false,
 })
 export class CaSelectCloudProviderOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private select: MatSelect;
+  private cloudProviderService = inject(CaCloudProviderService);
+
   datasource: CaCloudProviderDatasource;
   cloudProviders$: Observable<CaCloudProvider[]>;
 
-  constructor(
-    @Host() private select: MatSelect,
-    private cloudProviderService: CaCloudProviderService
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

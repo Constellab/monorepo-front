@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaDocumentation } from '../ha-model/ha-entities/ha-documentation.class';
@@ -23,9 +23,9 @@ import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-f
 export class HaDocumentationService
   implements HaFileServiceInterface<HaDocumentation>, TeTextEditorHistoryService
 {
-  private readonly route: string = 'documentation';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'documentation';
 
   /**
    * Call http get one by id

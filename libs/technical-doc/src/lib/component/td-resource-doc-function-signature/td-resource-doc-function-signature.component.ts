@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import {
   TdTechDocFunction,
   TdResourceFunctionArg,
@@ -8,19 +8,19 @@ import { isPlatformBrowser } from '@angular/common';
 import { TeHighlight } from '../../model/td-highlight.class';
 
 @Component({
-    selector: 'td-resource-doc-function-signature',
-    templateUrl: './td-resource-doc-function-signature.component.html',
-    styleUrls: ['./td-resource-doc-function-signature.component.scss'],
-    standalone: false
+  selector: 'td-resource-doc-function-signature',
+  templateUrl: './td-resource-doc-function-signature.component.html',
+  styleUrls: ['./td-resource-doc-function-signature.component.scss'],
+  standalone: false,
 })
 export class TdResourceDocFunctionSignatureComponent implements OnInit {
+  private platformId = inject(PLATFORM_ID);
+
   @Input({ required: true }) func: TdTechDocFunction;
 
   @ViewChild('signature', { static: true }) signature: ElementRef;
 
   methodType: TdTechDocFunctionType;
-
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
   ngOnInit(): void {
     this.signature.nativeElement.innerHTML = this.getFunctionSignature(this.func);

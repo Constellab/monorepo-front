@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Host, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -9,23 +9,27 @@ import { CaObjectStorageService } from '../../../../service-api/ca-object-storag
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-    selector: 'ca-select-bucket-credentials-options',
-    templateUrl: './ca-select-bucket-credentials-options.component.html',
-    styleUrls: ['./ca-select-bucket-credentials-options.component.scss'],
-    standalone: false
+  selector: 'ca-select-bucket-credentials-options',
+  templateUrl: './ca-select-bucket-credentials-options.component.html',
+  styleUrls: ['./ca-select-bucket-credentials-options.component.scss'],
+  standalone: false,
 })
 export class CaSelectBucketCredentialsOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private objectStorageService = inject(CaObjectStorageService);
+  private select: MatSelect;
+
   datasource: CaBucketCredentialsDatasource;
   credentials$: Observable<CaBucketCredentials[]>;
 
-  constructor(
-    private objectStorageService: CaObjectStorageService,
-    @Host() private select: MatSelect
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

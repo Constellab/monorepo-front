@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlInputSearchFilter, FlUserConfig, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib';
 import { CaUsersService } from '../../service-api/ca-users.service';
 import { CaRouterService } from '../../service/ca-router.service';
@@ -11,11 +11,11 @@ import { CaSpaceService } from '../../service-api/ca-space.service';
   providedIn: 'root',
 })
 export class CaUserConfig extends FlUserConfig {
-  constructor(
-    private userService: CaUsersService,
-    private authenticatedUserService: CaAuthenticatedUserService,
-    private spaceService: CaSpaceService
-  ) {
+  private userService = inject(CaUsersService);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private spaceService = inject(CaSpaceService);
+
+  constructor() {
     super();
   }
 

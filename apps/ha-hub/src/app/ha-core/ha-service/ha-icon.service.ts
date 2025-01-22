@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { CoIcon } from '@monorepo/community-lib';
@@ -8,9 +8,9 @@ import { HaIconCreateDto } from '../ha-model/ha-entities/ha-icon.class';
   providedIn: 'root',
 })
 export class HaIconService {
-  private readonly route: string = 'icon';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'icon';
 
   public getById(id: string): Observable<CoIcon> {
     return this.apiService.getById(this.route, id, CoIcon);

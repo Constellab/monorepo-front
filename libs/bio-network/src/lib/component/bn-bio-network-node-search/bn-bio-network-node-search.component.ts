@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { filter, Observable } from 'rxjs';
@@ -21,13 +22,18 @@ import { FormControl } from '@angular/forms';
  * Component to search on metabolite and reactions and select the object
  */
 @Component({
-    selector: 'bn-bio-network-node-search',
-    templateUrl: './bn-bio-network-node-search.component.html',
-    styleUrls: ['./bn-bio-network-node-search.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-node-search',
+  templateUrl: './bn-bio-network-node-search.component.html',
+  styleUrls: ['./bn-bio-network-node-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+  private drawerState = inject(BnBioNetworkDrawerState);
+  private cdr = inject(ChangeDetectorRef);
+
   @ViewChild(MatAutocompleteTrigger) autocomplete: MatAutocompleteTrigger;
 
   objects: BnBioNetworkObject[];
@@ -36,13 +42,6 @@ export class BnBioNetworkNodeSearchComponent implements OnInit, OnDestroy {
   searchControl: FormControl<string | BnBioNetworkObject> = new FormControl();
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
-
-  constructor(
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState,
-    private drawerState: BnBioNetworkDrawerState,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.getChartData();

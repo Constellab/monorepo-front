@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -16,9 +16,9 @@ import { LabResourceView } from '../model/entities/resource/lab-resource-view.en
 
 @Injectable({ providedIn: 'root' })
 export class LabViewConfigService {
-  private route: string = 'view-config';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'view-config';
 
   public getById(id: string): Observable<LabViewConfig> {
     return this.apiService.get(`${this.route}/${id}`, LabViewConfig);

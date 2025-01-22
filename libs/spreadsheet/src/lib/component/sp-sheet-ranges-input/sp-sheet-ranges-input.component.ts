@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { FormBuilder, NgControl, UntypedFormGroup } from '@angular/forms';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { Observable, of, Subscription } from 'rxjs';
@@ -21,16 +21,18 @@ interface SpSpreadsheetRangeForm {
  *  - Columns selection
  */
 @Component({
-    selector: 'sp-sheet-ranges-input',
-    templateUrl: './Sp-sheet-ranges-input.component.html',
-    styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
-    standalone: false
+  selector: 'sp-sheet-ranges-input',
+  templateUrl: './Sp-sheet-ranges-input.component.html',
+  styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
+  standalone: false,
 })
 export class SpSheetRangesInputComponent
   extends FlFormFieldDirective<SpSpreadsheetRangeForm, SpSheetSelectionRange>
   implements OnInit, OnDestroy
 {
+  private state = inject(SpSpreadsheetState);
+
   @Input() placeholder: string;
 
   @Input() initialSelection: SpSheetSingleSelection;
@@ -47,10 +49,9 @@ export class SpSheetRangesInputComponent
 
   private subscription: Subscription;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private state: SpSpreadsheetState
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

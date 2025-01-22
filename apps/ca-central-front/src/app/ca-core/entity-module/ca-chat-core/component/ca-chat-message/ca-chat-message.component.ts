@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { CaChatMessage } from '../../../../model/entities/ca-chat-message';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
@@ -10,12 +10,16 @@ import { TeRichText } from '@monorepo/text-editor';
  * Component to show a message in a chat
  */
 @Component({
-    selector: 'ca-chat-message',
-    templateUrl: './ca-chat-message.component.html',
-    styleUrl: './ca-chat-message.component.scss',
-    standalone: false
+  selector: 'ca-chat-message',
+  templateUrl: './ca-chat-message.component.html',
+  styleUrl: './ca-chat-message.component.scss',
+  standalone: false,
 })
 export class CaChatMessageComponent implements OnInit, OnDestroy {
+  private folderService = inject(CaFolderService);
+  private authUserService = inject(CaAuthenticatedUserService);
+  private dialogService = inject(FlDialogService);
+
   message = input.required<CaChatMessage>();
   folderId = input.required<string>();
 
@@ -31,12 +35,6 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
 
   textEditorConfig: CaChatMessageTextEditorConfig;
-
-  constructor(
-    private folderService: CaFolderService,
-    private authUserService: CaAuthenticatedUserService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId(), this.folderService);

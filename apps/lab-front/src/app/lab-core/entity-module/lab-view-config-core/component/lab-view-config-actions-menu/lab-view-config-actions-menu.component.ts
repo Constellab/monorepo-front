@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import {
   FlDialogService,
@@ -25,12 +25,18 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
  * Actions menu button for view configs, it has a ng-content for custom buttons
  */
 @Component({
-    selector: 'lab-view-config-actions-menu',
-    templateUrl: './lab-view-config-actions-menu.component.html',
-    styleUrls: ['./lab-view-config-actions-menu.component.scss'],
-    standalone: false
+  selector: 'lab-view-config-actions-menu',
+  templateUrl: './lab-view-config-actions-menu.component.html',
+  styleUrls: ['./lab-view-config-actions-menu.component.scss'],
+  standalone: false,
 })
 export class LabViewConfigActionsMenuComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+  private noteService = inject(LabNoteService);
+  private snackBarService = inject(FlSnackBarService);
+  private resourceService = inject(LabResourceService);
+  private tagService = inject(LabTagService);
+
   @Input({ required: true }) viewConfig: LabViewConfig;
 
   @Input() mode: 'text' | 'icon' = 'text';
@@ -43,14 +49,6 @@ export class LabViewConfigActionsMenuComponent implements OnInit {
   addToNoteIsLoading: boolean = false;
 
   excludedViewInNote = excludedViewInNote;
-
-  constructor(
-    private dialogService: FlDialogService,
-    private noteService: LabNoteService,
-    private snackBarService: FlSnackBarService,
-    private resourceService: LabResourceService,
-    private tagService: LabTagService
-  ) {}
 
   ngOnInit(): void {
     this.tags = this.tagService.getEntityTagsDatasource('VIEW', this.viewConfig.id);

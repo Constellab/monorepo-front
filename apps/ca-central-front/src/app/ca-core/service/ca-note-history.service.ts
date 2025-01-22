@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   TeRichTextBlockModificationWithUser,
   TeRichTextDTO,
@@ -11,7 +11,7 @@ import { CaNoteService } from '../service-api/ca-note.service';
   providedIn: 'root',
 })
 export class CaNoteHistoryService implements TeTextEditorHistoryService {
-  constructor(private noteService: CaNoteService) {}
+  private noteService = inject(CaNoteService);
 
   getHistory(documentId: string): Observable<TeRichTextBlockModificationWithUser[]> {
     return this.noteService.getNoteHistory(documentId);

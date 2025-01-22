@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { FlEmojiPickerPortalComponent } from './component/fl-emoji-picker-portal/fl-emoji-picker-portal.component';
 import { FlPortalModule } from '../fl-portal/fl-portal.module';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,9 @@ import { FlTranslateModule } from '../fl-translate/fl-translate.module';
   declarations: [FlEmojiPickerPortalComponent],
 })
 export class FlEmojiPickerModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlEmojiPickerModule', flEmojiI18n);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
@@ -6,22 +6,20 @@ import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-    selector: 'lab-update-resource-name-dialog',
-    templateUrl: './lab-update-resource-name-dialog.component.html',
-    styleUrls: ['./lab-update-resource-name-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-update-resource-name-dialog',
+  templateUrl: './lab-update-resource-name-dialog.component.html',
+  styleUrls: ['./lab-update-resource-name-dialog.component.scss'],
+  standalone: false,
 })
 export class LabUpdateResourceNameDialogComponent implements OnInit {
+  private resource = inject<LabResource>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<LabUpdateResourceNameDialogComponent>>(MatDialogRef);
+  private resourceService = inject(LabResourceService);
+  private snackBarService = inject(FlSnackBarService);
+
   formCtrl: FormControl<string>;
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private resource: LabResource,
-    private dialogRef: MatDialogRef<LabUpdateResourceNameDialogComponent>,
-    private resourceService: LabResourceService,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.formCtrl = new FormControl<string>(this.resource.name, [Validators.required]);

@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
@@ -13,13 +14,16 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'bn-bio-network-drawer',
-    templateUrl: './bn-bio-network-drawer.component.html',
-    styleUrls: ['./bn-bio-network-drawer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-drawer',
+  templateUrl: './bn-bio-network-drawer.component.html',
+  styleUrls: ['./bn-bio-network-drawer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
+  private drawerState = inject(BnBioNetworkDrawerState);
+  private cdr = inject(ChangeDetectorRef);
+
   @ViewChild(MatTabGroup, { static: true }) tab: MatTabGroup;
 
   tabIndex: number;
@@ -30,11 +34,6 @@ export class BnBioNetworkDrawerComponent implements OnInit, OnDestroy {
   cdkContainerClass: string = flCdkOverlayContainerClass;
 
   private subscription: Subscription;
-
-  constructor(
-    private drawerState: BnBioNetworkDrawerState,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.subscription = this.drawerState.getState$().subscribe((state) => this.changeTab(state.action));

@@ -1,4 +1,4 @@
-import { Component, computed, effect, Input, OnInit, Signal } from '@angular/core';
+import { Component, computed, effect, Input, OnInit, Signal, inject } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { FlClipboardService, FlCodeEditorLanguage, FlDebouncer } from '@monorepo/front-core-lib';
@@ -9,12 +9,16 @@ import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'ha-agent-version-detail',
-    templateUrl: './ha-agent-version-detail.component.html',
-    styleUrls: ['./ha-agent-version-detail.component.scss'],
-    standalone: false
+  selector: 'ha-agent-version-detail',
+  templateUrl: './ha-agent-version-detail.component.html',
+  styleUrls: ['./ha-agent-version-detail.component.scss'],
+  standalone: false,
 })
 export class HaAgentVersionDetailComponent implements OnInit {
+  private agentService = inject(HaAgentService);
+  private agentPageState = inject(HaAgentPageState);
+  private clipboardService = inject(FlClipboardService);
+
   @Input() isOverview?: boolean;
   versionInfosDisabled = true;
 
@@ -52,11 +56,7 @@ export class HaAgentVersionDetailComponent implements OnInit {
     return (this.agentVersion()?.environment as string)?.includes('PIP') ? null : 'yaml';
   });
 
-  constructor(
-    private agentService: HaAgentService,
-    private agentPageState: HaAgentPageState,
-    private clipboardService: FlClipboardService
-  ) {
+  constructor() {
     effect(() => {
       if (this.agentVersion()) {
         if (this.agentVersion().version == this.lastAgentVersion) return;

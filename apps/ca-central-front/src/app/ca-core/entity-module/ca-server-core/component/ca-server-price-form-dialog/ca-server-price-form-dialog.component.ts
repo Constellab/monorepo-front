@@ -14,18 +14,20 @@ export interface CaServerPriceFormDialogInput extends FlFormDialogInput<CaCreate
 }
 
 @Component({
-    selector: 'ca-server-price-form-dialog',
-    templateUrl: './ca-server-price-form-dialog.component.html',
-    styleUrl: './ca-server-price-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-server-price-form-dialog',
+  templateUrl: './ca-server-price-form-dialog.component.html',
+  styleUrl: './ca-server-price-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaServerPriceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateServerPriceDTO, CaServerPrice>
   implements OnInit
 {
+  private serverService = inject(CaServerService);
+
   dialogInput: CaServerPriceFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private serverService: CaServerService) {
+  constructor() {
     super();
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlCleanableService,
@@ -16,16 +16,16 @@ import { LabUser } from '../model/entities/lab-user.entity';
   providedIn: 'root',
 })
 export class LabAuthenticatedUserService implements FlCleanableService {
+  private apiService = inject(FlApiService);
+  private translateService = inject(FlTranslateService);
+  private themeService = inject(FlThemeService);
+
   private readonly usersRoute: string = 'user';
 
   // subject to subscribe to user changes
   private userSubject$: BehaviorSubject<LabUser> = new BehaviorSubject<LabUser>(null);
 
-  constructor(
-    private apiService: FlApiService,
-    private translateService: FlTranslateService,
-    private themeService: FlThemeService
-  ) {
+  constructor() {
     FlCleanerService.getInstance().registerService(this);
   }
 

@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FlArrayObs, FlTableColumnStatic, FlTag } from '@monorepo/front-core-lib';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
 
 @Component({
-    selector: 'lab-view-config-table',
-    templateUrl: './lab-view-config-table.component.html',
-    styleUrls: ['./lab-view-config-table.component.scss'],
-    standalone: false
+  selector: 'lab-view-config-table',
+  templateUrl: './lab-view-config-table.component.html',
+  styleUrls: ['./lab-view-config-table.component.scss'],
+  standalone: false,
 })
 export class LabViewConfigTableComponent {
+  private routerService = inject(LabRouterService);
+
   @Input({ required: true }) datasource: FlArrayObs<LabViewConfig>;
 
   @Input() columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'resource', 'lastModifiedAt', 'preview'];
@@ -24,8 +26,6 @@ export class LabViewConfigTableComponent {
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
   @Output() viewConfigSelected: EventEmitter<LabViewConfig> = new EventEmitter();
-
-  constructor(private routerService: LabRouterService) {}
 
   rowClicked(viewConfig: LabViewConfig): void {
     if (this.selectableRow) {

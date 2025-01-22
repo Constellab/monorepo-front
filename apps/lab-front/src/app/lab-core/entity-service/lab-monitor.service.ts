@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { DateTime } from 'luxon';
@@ -9,9 +9,9 @@ import { ClDateHelper } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class LabMonitorService {
-  private readonly route = 'monitor';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'monitor';
 
   public getLastMonitor(): Observable<LabMonitor> {
     return this.apiService.get(`${this.route}/current`, LabMonitor);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { Observable } from 'rxjs';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
@@ -6,12 +6,14 @@ import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-curren
 import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'ca-current-space-page',
-    templateUrl: './ca-current-space-page.component.html',
-    styleUrls: ['./ca-current-space-page.component.scss'],
-    standalone: false
+  selector: 'ca-current-space-page',
+  templateUrl: './ca-current-space-page.component.html',
+  styleUrls: ['./ca-current-space-page.component.scss'],
+  standalone: false,
 })
 export class CaCurrentSpacePageComponent implements OnInit {
+  private currentSpaceService = inject(CaCurrentSpaceService);
+
   space$: Observable<CaSpace> = this.currentSpaceService.getCurrentSpace$();
 
   routes: FlHorizontalNavBarItem[] = [
@@ -27,8 +29,6 @@ export class CaCurrentSpacePageComponent implements OnInit {
       route: CaRouterService.getCurrentSpaceUsersRoute(),
     },
   ];
-
-  constructor(private currentSpaceService: CaCurrentSpaceService) {}
 
   ngOnInit(): void {
     // add route for admin

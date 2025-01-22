@@ -1,12 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { FlTranslateService } from '../../fl-translate/service/fl-translate.service';
 
 @Pipe({
-    name: 'flYesNo',
-    standalone: false
+  name: 'flYesNo',
+  standalone: false,
 })
 export class FlYesNoPipe implements PipeTransform {
-  constructor(private translateService: FlTranslateService) {}
+  private translateService = inject(FlTranslateService);
 
   /**
    * Transform pipe method

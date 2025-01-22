@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
 import { AbstractControl, FormGroupDirective, NgForm, UntypedFormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { FlFormFilledInput, FlFormInputsManagerConfig } from '../fl-form-inputs-manager.class';
@@ -16,12 +16,15 @@ import { FlTranslatableText } from '../../fl-translate/model/fl-translate-param'
  * /!\ It doesn't support FormArray
  */
 @Component({
-    selector: 'fl-form-inputs-manager',
-    templateUrl: './fl-form-inputs-manager.component.html',
-    styleUrls: ['./fl-form-inputs-manager.component.scss'],
-    standalone: false
+  selector: 'fl-form-inputs-manager',
+  templateUrl: './fl-form-inputs-manager.component.html',
+  styleUrls: ['./fl-form-inputs-manager.component.scss'],
+  standalone: false,
 })
 export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
+  private ngForm = inject(NgForm, { optional: true });
+  private formGroupDirective = inject(FormGroupDirective, { optional: true });
+
   /**
    * Config for the name and group displayed in the chips
    */
@@ -50,11 +53,6 @@ export class FlFormInputsManagerComponent implements OnInit, OnDestroy {
   filledInputs: FlFormFilledInput[] = [];
 
   private subscription: Subscription;
-
-  constructor(
-    @Optional() private ngForm: NgForm,
-    @Optional() private formGroupDirective: FormGroupDirective
-  ) {}
 
   ngOnInit(): void {
     // check input

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -10,12 +10,14 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
  * Component to show the photo of an space or the initial of the space name
  */
 @Component({
-    selector: 'ca-space-photo',
-    templateUrl: './ca-space-photo.component.html',
-    styleUrls: ['./ca-space-photo.component.scss'],
-    standalone: false
+  selector: 'ca-space-photo',
+  templateUrl: './ca-space-photo.component.html',
+  styleUrls: ['./ca-space-photo.component.scss'],
+  standalone: false,
 })
 export class CaSpacePhotoComponent implements OnInit, OnDestroy {
+  private spaceService = inject(CaSpaceService);
+
   @Input() space: CaSpace | Observable<CaSpace>;
 
   @Input() size: CaSpacePhotoSize | string = 'medium';
@@ -29,8 +31,6 @@ export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   initial: string;
 
   private subscription: Subscription;
-
-  constructor(private spaceService: CaSpaceService) {}
 
   ngOnInit(): void {
     if (this.space instanceof Observable) {

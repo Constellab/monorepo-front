@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
 import { Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
@@ -7,18 +7,16 @@ import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helpe
  * Settings page
  */
 @Component({
-    selector: 'ca-user-settings-dialog',
-    templateUrl: './ca-user-settings-dialog.component.html',
-    styleUrls: ['./ca-user-settings-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-user-settings-dialog',
+  templateUrl: './ca-user-settings-dialog.component.html',
+  styleUrls: ['./ca-user-settings-dialog.component.scss'],
+  standalone: false,
 })
 export class CaUserSettingsDialogComponent {
-  logoutIsLoading: boolean = false;
+  private authService = inject(CaAuthService);
+  private router = inject(Router);
 
-  constructor(
-    private authService: CaAuthService,
-    private router: Router
-  ) {}
+  logoutIsLoading: boolean = false;
 
   logout(): void {
     this.logoutIsLoading = true;

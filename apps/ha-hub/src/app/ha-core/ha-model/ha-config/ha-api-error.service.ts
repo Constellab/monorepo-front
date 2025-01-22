@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -19,14 +19,14 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class HaApiErrorService extends FlApiErrorService {
-  constructor(
-    snackBarService: FlSnackBarService,
-    translateService: FlTranslateService,
-    private router: Router,
-    private cookieService: FlCookieService,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  private router = inject(Router);
+  private cookieService = inject(FlCookieService);
+  private platformId = inject<Object>(PLATFORM_ID);
+
+  constructor() {
+    const snackBarService = inject(FlSnackBarService);
+    const translateService = inject(FlTranslateService);
+
     super(snackBarService, translateService);
   }
 

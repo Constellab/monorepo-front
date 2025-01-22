@@ -1,4 +1,4 @@
-import { Component, Input, Signal, ViewContainerRef } from '@angular/core';
+import { Component, Input, Signal, ViewContainerRef, inject } from '@angular/core';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
@@ -19,26 +19,24 @@ import {
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
 
 @Component({
-    selector: 'lab-resource-detail-header',
-    templateUrl: './lab-resource-detail-header.component.html',
-    styleUrls: ['./lab-resource-detail-header.component.scss'],
-    standalone: false
+  selector: 'lab-resource-detail-header',
+  templateUrl: './lab-resource-detail-header.component.html',
+  styleUrls: ['./lab-resource-detail-header.component.scss'],
+  standalone: false,
 })
 export class LabResourceDetailHeaderComponent {
+  private state = inject(LabResourceDetailState);
+  private routerService = inject(LabRouterService);
+  private portalService = inject(FlPortalService);
+  private dialogService = inject(FlDialogService);
+  private containerRef = inject(ViewContainerRef);
+  private resourceService = inject(LabResourceService);
+
   @Input() displayMode: 'fullPage' | 'fullDialog' | 'dense' = 'fullPage';
 
   resource: Signal<LabResource> = this.state.selectedResource;
 
   private overlay: FlOverlayRef;
-
-  constructor(
-    private state: LabResourceDetailState,
-    private routerService: LabRouterService,
-    private portalService: FlPortalService,
-    private dialogService: FlDialogService,
-    private containerRef: ViewContainerRef,
-    private resourceService: LabResourceService
-  ) {}
 
   openViewSpecListPortal(event: MouseEvent): void {
     const config = this.portalService.configureRelativePortalFromMouseEvent(

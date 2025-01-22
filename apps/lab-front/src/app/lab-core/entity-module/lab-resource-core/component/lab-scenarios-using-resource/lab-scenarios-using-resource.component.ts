@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
@@ -7,19 +7,19 @@ import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/l
  * Component to list in a Table the scenarios that use a resource
  */
 @Component({
-    selector: 'lab-scenarios-using-resource',
-    templateUrl: './lab-scenarios-using-resource.component.html',
-    styleUrls: ['./lab-scenarios-using-resource.component.scss'],
-    standalone: false
+  selector: 'lab-scenarios-using-resource',
+  templateUrl: './lab-scenarios-using-resource.component.html',
+  styleUrls: ['./lab-scenarios-using-resource.component.scss'],
+  standalone: false,
 })
 export class LabScenariosUsingResourceComponent implements OnInit {
+  private scenarioService = inject(LabScenarioService);
+
   @Input() resourceId: string;
 
   datasource: LabScenarioDatasource;
 
   columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status'];
-
-  constructor(private scenarioService: LabScenarioService) {}
 
   ngOnInit(): void {
     this.getDatasource();

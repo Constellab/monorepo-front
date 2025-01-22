@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
@@ -18,13 +18,16 @@ import {
 } from '../lab-select-note-template-dialog/lab-select-note-template-dialog.component';
 
 @Component({
-    selector: 'lab-select-note-template',
-    templateUrl: './lab-select-note-template.component.html',
-    styleUrls: ['./lab-select-note-template.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
-    standalone: false
+  selector: 'lab-select-note-template',
+  templateUrl: './lab-select-note-template.component.html',
+  styleUrls: ['./lab-select-note-template.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
+  standalone: false,
 })
 export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNoteTemplate> implements OnInit {
+  private noteTemplateService = inject(LabNoteTemplateService);
+  private dialogService = inject(FlDialogService);
+
   @Input() placeholder: string;
 
   @Output() valueChange: EventEmitter<LabNoteTemplate> = new EventEmitter();
@@ -35,11 +38,9 @@ export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNote
 
   advancedButton: FlInputSearchAdvancedButton<LabNoteTemplate>;
 
-  constructor(
-    private noteTemplateService: LabNoteTemplateService,
-    private dialogService: FlDialogService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

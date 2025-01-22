@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -6,16 +6,18 @@ import { LabNoteTemplate, LabNoteTemplateForm } from '../../../../model/entities
 import { LabNoteTemplateService } from '../../../../entity-service/lab-note-template.service';
 
 @Component({
-    selector: 'lab-note-template-form-dialog',
-    templateUrl: './lab-note-template-form-dialog.component.html',
-    styleUrl: './lab-note-template-form-dialog.component.scss',
-    standalone: false
+  selector: 'lab-note-template-form-dialog',
+  templateUrl: './lab-note-template-form-dialog.component.html',
+  styleUrl: './lab-note-template-form-dialog.component.scss',
+  standalone: false,
 })
 export class LabNoteTemplateFormDialogComponent
   extends FlFormDialogAbstractDirective<LabNoteTemplateForm, LabNoteTemplate>
   implements OnInit
 {
-  constructor(private noteTemplateService: LabNoteTemplateService) {
+  private noteTemplateService = inject(LabNoteTemplateService);
+
+  constructor() {
     super();
   }
 

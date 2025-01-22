@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HaDocumentationService } from '../../../../../ha-core/ha-service/ha-documentation.service';
 
@@ -19,20 +19,21 @@ export interface HaDocResourceViewInputDialogOutputData {
 }
 
 @Component({
-    selector: 'ha-doc-resource-view-input-dialog',
-    templateUrl: './ha-doc-resource-view-input-dialog.component.html',
-    styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
-    standalone: false
+  selector: 'ha-doc-resource-view-input-dialog',
+  templateUrl: './ha-doc-resource-view-input-dialog.component.html',
+  styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
+  standalone: false,
 })
 export class HaDocResourceViewInputDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<HaDocResourceViewInputDialogComponent>>(MatDialogRef);
+  private docService = inject(HaDocumentationService);
+
   docId: string;
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) data: HaDocResourceViewInputDialogInputData,
-    private dialogRef: MatDialogRef<HaDocResourceViewInputDialogComponent>,
-    private docService: HaDocumentationService
-  ) {
+  constructor() {
+    const data = inject<HaDocResourceViewInputDialogInputData>(MAT_DIALOG_DATA);
+
     this.docId = data.docId;
   }
 

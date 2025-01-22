@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -18,12 +18,16 @@ export interface LabShareAgentCommunityDialogData {
 }
 
 @Component({
-    selector: 'lab-create-community-agent-dialog',
-    templateUrl: './lab-create-community-agent-dialog.component.html',
-    styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-create-community-agent-dialog',
+  templateUrl: './lab-create-community-agent-dialog.component.html',
+  styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
+  standalone: false,
 })
 export class LabCreateCommunityAgentDialogComponent implements OnInit {
+  data = inject<LabShareAgentCommunityDialogData>(MAT_DIALOG_DATA);
+  private protocolService = inject(LabProtocolService);
+  private dialogRef = inject<MatDialogRef<LabCreateCommunityAgentDialogComponent>>(MatDialogRef);
+
   title: string = 'biox.create_community_agent';
   processId: string;
   spaces$: Observable<CoSpace[]>;
@@ -35,11 +39,9 @@ export class LabCreateCommunityAgentDialogComponent implements OnInit {
   mode: LabCreateCommunityAgentDialogMode;
   agentVersionId: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: LabShareAgentCommunityDialogData,
-    private protocolService: LabProtocolService,
-    private dialogRef: MatDialogRef<LabCreateCommunityAgentDialogComponent>
-  ) {
+  constructor() {
+    const data = this.data;
+
     this.processId = data.processId;
     this.mode = data.mode;
     this.agentVersionId = data.agentVersionId;

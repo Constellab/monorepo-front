@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaCurrentSpaceService } from '../service-api/ca-current-space.service';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
@@ -10,12 +10,10 @@ import { CoCommunityHelperService } from '@monorepo/community-lib';
  */
 @Injectable()
 export class CaSpaceInterceptor implements HttpInterceptor {
-  private readonly spaceHeader = 'local-space';
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private coCommunityHelper = inject(CoCommunityHelperService);
 
-  constructor(
-    private currentSpaceService: CaCurrentSpaceService,
-    private coCommunityHelper: CoCommunityHelperService
-  ) {}
+  private readonly spaceHeader = 'local-space';
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // If request is for community API, do not add space header

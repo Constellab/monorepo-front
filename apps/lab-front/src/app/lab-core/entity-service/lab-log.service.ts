@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabLogCompleteInfo, LabLogsStatus } from '../model/entities/lab-log.entity';
@@ -7,9 +7,9 @@ import { LabLogCompleteInfo, LabLogsStatus } from '../model/entities/lab-log.ent
   providedIn: 'root',
 })
 export class LabLogService {
-  private readonly route = 'log';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route = 'log';
 
   public getLogsStatus(): Observable<LabLogsStatus> {
     return this.apiService.get(this.route + '/status', LabLogsStatus);

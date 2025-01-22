@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { CaGroup, CaSaveTeamDTO } from '../../../../model/entities/ca-group.entity';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -8,16 +8,18 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
 
 @Component({
-    selector: 'ca-team-form-dialog',
-    templateUrl: './ca-team-form-dialog.component.html',
-    styleUrls: ['./ca-team-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-team-form-dialog',
+  templateUrl: './ca-team-form-dialog.component.html',
+  styleUrls: ['./ca-team-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaTeamFormDialogComponent
   extends FlFormDialogAbstractDirective<CaSaveTeamDTO, CaGroup>
   implements OnInit
 {
-  constructor(private groupService: CaGroupService) {
+  private groupService = inject(CaGroupService);
+
+  constructor() {
     super();
   }
 

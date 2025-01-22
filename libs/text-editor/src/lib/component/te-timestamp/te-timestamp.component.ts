@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { DateTime } from 'luxon';
 import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
@@ -12,20 +12,22 @@ import {
  * Text editor block to show a timestamp
  */
 @Component({
-    selector: 'te-timestamp',
-    templateUrl: './te-timestamp.component.html',
-    styleUrl: './te-timestamp.component.scss',
-    host: {
-        'attr.contenteditable': 'false',
-    },
-    standalone: false
+  selector: 'te-timestamp',
+  templateUrl: './te-timestamp.component.html',
+  styleUrl: './te-timestamp.component.scss',
+  host: {
+    'attr.contenteditable': 'false',
+  },
+  standalone: false,
 })
 export class TeTimestampComponent extends TeElementBlockDirective {
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) timestamp: DateTime;
 
   @Input() format?: TeTimestampFormat;
 
-  constructor(private dialogService: FlDialogService) {
+  constructor() {
     super();
   }
 

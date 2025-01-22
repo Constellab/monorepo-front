@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -33,10 +33,8 @@ export interface LabNavigableCallActionResult<T = any> {
   providedIn: 'root',
 })
 export class LabNavigableEntityService {
-  constructor(
-    private dialogService: FlDialogService,
-    private actionService: FlPortalActionsService
-  ) {}
+  private dialogService = inject(FlDialogService);
+  private actionService = inject(FlPortalActionsService);
 
   /**
    * Method to check the impact of an action and call the action if the user confirms

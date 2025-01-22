@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
@@ -9,12 +9,15 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
-    selector: 'ca-folder-description',
-    templateUrl: './ca-folder-description.component.html',
-    styleUrls: ['./ca-folder-description.component.scss'],
-    standalone: false
+  selector: 'ca-folder-description',
+  templateUrl: './ca-folder-description.component.html',
+  styleUrls: ['./ca-folder-description.component.scss'],
+  standalone: false,
 })
 export class CaFolderDescriptionComponent implements OnInit {
+  private folderService = inject(CaFolderService);
+  private state = inject(CaHierarchyObjectDetailState);
+
   @Input({ required: true }) folderId: string;
 
   folder$: Observable<CaHierarchyObject>;
@@ -29,11 +32,6 @@ export class CaFolderDescriptionComponent implements OnInit {
     this.folderService.updateDescription(this.folderId, value);
 
   getIsLoading: boolean = false;
-
-  constructor(
-    private folderService: CaFolderService,
-    private state: CaHierarchyObjectDetailState
-  ) {}
 
   ngOnInit(): void {
     this.textEditorConfig = new CaFolderDescriptionTextEditorConfig(this.folderId, this.folderService);

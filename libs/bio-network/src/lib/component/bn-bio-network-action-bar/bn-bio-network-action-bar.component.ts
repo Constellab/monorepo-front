@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { filter } from 'rxjs/operators';
 import { BnBioNetworkGraph } from '../../model/bn-bio-network-graph.class';
@@ -13,13 +13,18 @@ import { BnBioNetworkSelectionState } from '../../state/bn-bio-network-selection
  * Component inside the {@link BnBioNetworkComponent} to show the quick actions
  */
 @Component({
-    selector: 'bn-bio-network-action-bar',
-    templateUrl: './bn-bio-network-action-bar.component.html',
-    styleUrls: ['./bn-bio-network-action-bar.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-action-bar',
+  templateUrl: './bn-bio-network-action-bar.component.html',
+  styleUrls: ['./bn-bio-network-action-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkActionBarComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+  private optionState = inject(BnBioNetworkOptionsState);
+
   isReady: boolean = false;
 
   fluxThreshold: number = 0;
@@ -36,13 +41,6 @@ export class BnBioNetworkActionBarComponent implements OnInit {
   particleSize: number;
   particleDensityThreshold: number;
   particleSpeedThreshold: number;
-
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState,
-    private optionState: BnBioNetworkOptionsState
-  ) {}
 
   ngOnInit(): void {
     const options = this.optionState.getCurrentOptions();

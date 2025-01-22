@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color-selector.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +25,9 @@ import { MatTooltip } from '@angular/material/tooltip';
   imports: [CommonModule, FormsModule, MatIconModule, FlPortalModule, FlTranslateModule, MatTooltip],
 })
 export class FlColorModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlColorModule', flColorI18n);
   }
 }

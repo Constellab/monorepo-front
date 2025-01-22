@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
@@ -14,12 +14,17 @@ import { CaNotificationState } from '../../../ca-core/state/ca-notification.stat
  * Main app component. Menu on the left and page on the right
  */
 @Component({
-    selector: 'ca-main-app',
-    templateUrl: './ca-main-app.component.html',
-    styleUrls: ['./ca-main-app.component.scss'],
-    standalone: false
+  selector: 'ca-main-app',
+  templateUrl: './ca-main-app.component.html',
+  styleUrls: ['./ca-main-app.component.scss'],
+  standalone: false,
 })
 export class CaMainAppComponent implements OnInit {
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private portalService = inject(FlPortalService);
+  private notificationState = inject(CaNotificationState);
+
   @ViewChild(MatSidenav, { static: true, read: ElementRef }) sidenav: ElementRef<HTMLElement>;
 
   menuExpanded: boolean = true;
@@ -32,13 +37,6 @@ export class CaMainAppComponent implements OnInit {
   numberOfNotifications$: Observable<string | number>;
 
   otherSpaceNotificationsNumber$: Observable<string>;
-
-  constructor(
-    private authenticatedUserService: CaAuthenticatedUserService,
-    private currentSpaceService: CaCurrentSpaceService,
-    private portalService: FlPortalService,
-    private notificationState: CaNotificationState
-  ) {}
 
   ngOnInit(): void {
     this.initAccessibleLinks();

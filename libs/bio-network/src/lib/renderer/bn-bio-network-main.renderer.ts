@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { ForceGraphInstance, GraphData } from 'force-graph';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
@@ -23,6 +23,14 @@ export interface BnBioNetworkGraphRenderer {
 
 @Injectable()
 export class BnBioNetworkMainRenderer implements OnDestroy {
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+  private optionState = inject(BnBioNetworkOptionsState);
+  private simulationState = inject(BnBioNetworkSimulationState);
+  private gridState = inject(BnBioNetworkGridState);
+  private themeService = inject(FlThemeService);
+  private engineState = inject(BnBioNetworkEngineState);
+
   private container: HTMLElement;
 
   private _graph$: BehaviorSubject<BnBioNetworkGraphRenderer> = new BehaviorSubject(null);
@@ -35,16 +43,6 @@ export class BnBioNetworkMainRenderer implements OnDestroy {
 
   // all node outside the screen + this margin will not be rendered
   private hideScreenMargin: number = 20;
-
-  constructor(
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState,
-    private optionState: BnBioNetworkOptionsState,
-    private simulationState: BnBioNetworkSimulationState,
-    private gridState: BnBioNetworkGridState,
-    private themeService: FlThemeService,
-    private engineState: BnBioNetworkEngineState
-  ) {}
 
   public init(container: HTMLElement): void {
     this.container = container;

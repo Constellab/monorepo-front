@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
@@ -16,13 +16,15 @@ export interface ChChartDataWithSeriePortalInput {
  * Simple portal to show a data with its serie.
  */
 @Component({
-    selector: 'ch-chart-data-with-serie-portal',
-    templateUrl: './ch-chart-data-with-serie-portal.component.html',
-    styleUrls: ['./ch-chart-data-with-serie-portal.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'ch-chart-data-with-serie-portal',
+  templateUrl: './ch-chart-data-with-serie-portal.component.html',
+  styleUrls: ['./ch-chart-data-with-serie-portal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ChChartDataWithSeriePortalComponent {
+  private overlayRef = inject(FlOverlayRef);
+
   data: ChChartDataWithSerie<ChChart2dDatum>;
   color: string;
   tagColorer?: FlTagColorer;
@@ -33,10 +35,9 @@ export class ChChartDataWithSeriePortalComponent {
   xLabelFormatter: ChChartLabelFormatter;
   yLabelFormatter: ChChartLabelFormatter;
 
-  constructor(
-    @Inject(FL_PORTAL_DATA) input: ChChartDataWithSeriePortalInput,
-    private overlayRef: FlOverlayRef
-  ) {
+  constructor() {
+    const input = inject<ChChartDataWithSeriePortalInput>(FL_PORTAL_DATA);
+
     this.data = input.data;
     this.color = input.color;
     this.tagColorer = input.tagColorer;

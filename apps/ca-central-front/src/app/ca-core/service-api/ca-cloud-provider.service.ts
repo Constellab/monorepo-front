@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import {
@@ -13,10 +13,10 @@ import { ClPageI } from '@monorepo/core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class CaCloudProviderService {
+  private apiService = inject(FlApiService);
+
   private readonly route = 'cloud-providers';
   private readonly regionsRoute: string = this.route + '/regions';
-
-  constructor(private apiService: FlApiService) {}
 
   ////////////////// CLOUD PROVIDER //////////////////
 

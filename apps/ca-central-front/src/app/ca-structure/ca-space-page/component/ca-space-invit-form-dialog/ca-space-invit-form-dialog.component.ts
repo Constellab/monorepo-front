@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import {
@@ -19,12 +19,17 @@ export interface CaSpaceInvitFormDialogInput {
  * Dialog to create a space invitation
  */
 @Component({
-    selector: 'ca-space-invit-form-dialog',
-    templateUrl: './ca-space-invit-form-dialog.component.html',
-    styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-space-invit-form-dialog',
+  templateUrl: './ca-space-invit-form-dialog.component.html',
+  styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaSpaceInvitFormDialogComponent {
+  private input = inject<CaSpaceInvitFormDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<CaSpaceInvitFormDialogComponent>>(MatDialogRef);
+  private spaceInvitService = inject(CaSpaceInvitService);
+  private snackBarService = inject(FlSnackBarService);
+
   formGp = new FormBuilder().group({
     userMail: [null as string, [Validators.required, Validators.email]],
     role: [CaSpaceRole.USER as CaSpaceRole, Validators.required],
@@ -35,12 +40,9 @@ export class CaSpaceInvitFormDialogComponent {
 
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private input: CaSpaceInvitFormDialogInput,
-    private dialogRef: MatDialogRef<CaSpaceInvitFormDialogComponent>,
-    private spaceInvitService: CaSpaceInvitService,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
+    const input = this.input;
+
     this.spaceType = input.spaceType;
   }
 

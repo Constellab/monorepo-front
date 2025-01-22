@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlAuthLogin2FaResponse,
@@ -15,12 +15,13 @@ import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class HaAuthService extends FlAuthService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'auth';
 
-  constructor(
-    private apiService: FlApiService,
-    cookieService: FlCookieService
-  ) {
+  constructor() {
+    const cookieService = inject(FlCookieService);
+
     super(cookieService);
   }
 

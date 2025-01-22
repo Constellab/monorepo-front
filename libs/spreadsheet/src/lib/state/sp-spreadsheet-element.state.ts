@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SpCellCoord } from '../model/sp-cell-coord.class';
 import {
   columnIdAttributeName,
@@ -32,9 +32,9 @@ interface HeaderCellEvent {
  */
 @Injectable()
 export class SpSpreadsheetElementState {
-  private tableContainer: HTMLElement;
+  private state = inject(SpSpreadsheetState);
 
-  constructor(private state: SpSpreadsheetState) {}
+  private tableContainer: HTMLElement;
 
   public init(tableContainer: HTMLElement): void {
     this.tableContainer = tableContainer;

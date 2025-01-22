@@ -1,16 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FlUserConfig } from '../../service/fl-user-config.config';
 import { FlUser } from '../../model/fl-user.class';
 
 export type FlUserProfilePictureSize = 'small' | 'medium' | 'big' | number;
 
 @Component({
-    selector: 'fl-user-profile-picture',
-    templateUrl: './fl-user-profile-picture.component.html',
-    styleUrls: ['./fl-user-profile-picture.component.scss'],
-    standalone: false
+  selector: 'fl-user-profile-picture',
+  templateUrl: './fl-user-profile-picture.component.html',
+  styleUrls: ['./fl-user-profile-picture.component.scss'],
+  standalone: false,
 })
 export class FlUserProfilePictureComponent implements OnInit {
+  private userConfig = inject(FlUserConfig);
+
   @Input({ required: true }) set user(user: FlUser) {
     this.setUser(user);
   }
@@ -27,8 +29,6 @@ export class FlUserProfilePictureComponent implements OnInit {
   initials: string;
 
   imgSrc?: string;
-
-  constructor(private userConfig: FlUserConfig) {}
 
   ngOnInit(): void {
     switch (this.size) {

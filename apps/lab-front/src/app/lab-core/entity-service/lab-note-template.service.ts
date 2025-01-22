@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -21,9 +21,9 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class LabNoteTemplateService {
-  private route: string = 'note-template';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'note-template';
 
   public createEmpty(data: LabNoteTemplateForm): Observable<LabNoteTemplate> {
     return this.apiService.post(this.route, data, LabNoteTemplate);

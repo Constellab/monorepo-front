@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaSpaceService } from './ca-space.service';
 import { CaSpace } from '../model/entities/space/ca-space.class';
 import {
@@ -23,6 +23,10 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
   providedIn: 'root',
 })
 export class CaCurrentSpaceService implements FlCleanableService {
+  private spaceService = inject(CaSpaceService);
+  private cookieService = inject(FlCookieService);
+  private titleService = inject(Title);
+
   private currentSpaceDomainDev: string;
 
   private currentSpace$: BehaviorSubject<CaSpace> = new BehaviorSubject(null);
@@ -31,11 +35,7 @@ export class CaCurrentSpaceService implements FlCleanableService {
   // key use to store the current space in the local storage only for dev env
   private devSpaceStorageKey: string = 'local-space';
 
-  constructor(
-    private spaceService: CaSpaceService,
-    private cookieService: FlCookieService,
-    private titleService: Title
-  ) {
+  constructor() {
     FlCleanerService.getInstance().registerService(this);
   }
 

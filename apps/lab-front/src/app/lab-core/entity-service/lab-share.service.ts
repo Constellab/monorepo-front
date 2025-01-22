@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import {
   LabSharedEntity,
@@ -15,9 +15,9 @@ import { LabResourceService } from './lab-resource.service';
   providedIn: 'root',
 })
 export class LabShareService {
-  private route: string = 'share';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'share';
 
   public getSharedTo(
     entityType: LabShareLinkType,

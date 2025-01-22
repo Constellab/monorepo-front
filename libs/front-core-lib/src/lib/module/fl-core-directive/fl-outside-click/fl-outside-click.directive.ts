@@ -1,21 +1,28 @@
-import { Directive, ElementRef, EventEmitter, OnDestroy, OnInit, Output, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  inject,
+} from '@angular/core';
 
 /**
  * Directive that emit an event when a mouse click occurred outside the host element
  */
 @Directive({
-    selector: '[flOutsideClick]',
-    standalone: false
+  selector: '[flOutsideClick]',
+  standalone: false,
 })
 export class FlOutsideClickDirective implements OnInit, OnDestroy {
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   @Output() flOutsideClick: EventEmitter<MouseEvent> = new EventEmitter();
 
   private listener: () => void;
-
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
 
   ngOnInit(): void {
     this.listener = this.renderer.listen('body', 'click', (event: MouseEvent) => this.checkElement(event));

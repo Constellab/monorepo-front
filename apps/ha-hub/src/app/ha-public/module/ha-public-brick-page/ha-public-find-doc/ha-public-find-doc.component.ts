@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HaDocumentationSearchDTO } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { mergeMap, Observable, of, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,12 +9,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'ha-public-find-doc-dialog',
-    templateUrl: './ha-public-find-doc.component.html',
-    styleUrls: ['./ha-public-find-doc.component.scss'],
-    standalone: false
+  selector: 'ha-public-find-doc-dialog',
+  templateUrl: './ha-public-find-doc.component.html',
+  styleUrls: ['./ha-public-find-doc.component.scss'],
+  standalone: false,
 })
 export class HaPublicFindDocComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<HaPublicFindDocComponent>>(MatDialogRef);
+  private brickService = inject(HaBrickService);
+
   inputControl = new FormControl<string | HaDocumentationSearchDTO>('');
   documentations: HaDocumentationSearchDTO[];
   technicalDocumentations: HaDocumentationSearchDTO[];
@@ -25,11 +28,9 @@ export class HaPublicFindDocComponent implements OnInit {
   brickName: string;
   major: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: any,
-    private dialogRef: MatDialogRef<HaPublicFindDocComponent>,
-    private brickService: HaBrickService
-  ) {
+  constructor() {
+    const input = inject(MAT_DIALOG_DATA);
+
     this.brickName = input.brickName;
     this.major = input.major;
   }

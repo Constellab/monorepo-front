@@ -15,17 +15,15 @@ import {
 } from '@monorepo/protocol';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import { Observable } from 'rxjs';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, inject } from '@angular/core';
 
 @Injectable()
 export class LabWorkflowFactory {
-  private createSubLayer: (protocolId: string) => Observable<PrWorkflowLayer>;
+  private ngZone = inject(NgZone);
+  private resourceState = inject(PrWorkflowResourcesState);
+  private actionState = inject(PrWorkflowActionState);
 
-  constructor(
-    private ngZone: NgZone,
-    private resourceState: PrWorkflowResourcesState,
-    private actionState: PrWorkflowActionState
-  ) {}
+  private createSubLayer: (protocolId: string) => Observable<PrWorkflowLayer>;
 
   public initCreateSubLayerFunc(layerLoader: (protocolId: string) => Observable<PrWorkflowLayer>): void {
     this.createSubLayer = layerLoader;

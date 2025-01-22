@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -16,12 +16,15 @@ import {
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
 
 @Component({
-    selector: 'ca-admin-bucket-region-table',
-    templateUrl: './ca-admin-cloud-provider-region-table.component.html',
-    styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss'],
-    standalone: false
+  selector: 'ca-admin-bucket-region-table',
+  templateUrl: './ca-admin-cloud-provider-region-table.component.html',
+  styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss'],
+  standalone: false,
 })
 export class CaAdminCloudProviderRegionTableComponent {
+  private cloudProviderService = inject(CaCloudProviderService);
+  private dialogService = inject(FlDialogService);
+
   @Input() datasource: CaCloudProviderRegionDatasource;
 
   @Input() columns: FlTableColumnStatic<CaCloudProviderRegion>[] = [
@@ -32,11 +35,6 @@ export class CaAdminCloudProviderRegionTableComponent {
     'lastModified',
     'actions',
   ];
-
-  constructor(
-    private cloudProviderService: CaCloudProviderService,
-    private dialogService: FlDialogService
-  ) {}
 
   updateRegion(region: CaCloudProviderRegion): void {
     const input: CaCloudProviderRegionFormDialogInput = {

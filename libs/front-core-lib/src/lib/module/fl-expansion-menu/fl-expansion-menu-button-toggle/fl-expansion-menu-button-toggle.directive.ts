@@ -1,4 +1,4 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, inject } from '@angular/core';
 import { FlExpansionMenuComponent } from '../fl-expansion-menu/fl-expansion-menu.component';
 
 /**
@@ -6,14 +6,14 @@ import { FlExpansionMenuComponent } from '../fl-expansion-menu/fl-expansion-menu
  * to toggle menu on click
  */
 @Directive({
-    selector: '[flExpansionMenuButtonToggle]',
-    standalone: false
+  selector: '[flExpansionMenuButtonToggle]',
+  standalone: false,
 })
 export class FlExpansionMenuButtonToggleDirective {
+  private expansionMenuComponent = inject(FlExpansionMenuComponent);
+
   @HostListener('click')
   click(): void {
     this.expansionMenuComponent.toggleMenu();
   }
-
-  constructor(private expansionMenuComponent: FlExpansionMenuComponent) {}
 }

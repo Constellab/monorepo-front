@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
@@ -11,11 +11,9 @@ import { LabEnvStore } from './lab-env.store';
  */
 @Injectable({ providedIn: 'root' })
 export class LabDevEnvironmentService {
-  constructor(
-    private httpClient: HttpClient,
-    private labEnvStore: LabEnvStore,
-    private authenticatedUserService: LabAuthenticatedUserService
-  ) {}
+  private httpClient = inject(HttpClient);
+  private labEnvStore = inject(LabEnvStore);
+  private authenticatedUserService = inject(LabAuthenticatedUserService);
 
   // return true if the dev API is running
   public devApiIsRunning(): Observable<boolean> {

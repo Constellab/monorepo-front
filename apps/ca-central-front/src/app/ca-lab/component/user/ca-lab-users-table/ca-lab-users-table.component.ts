@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -13,22 +13,20 @@ import {
 } from '../ca-lab-user-form-dialog/ca-lab-user-form-dialog.component';
 
 @Component({
-    selector: 'ca-lab-users-table',
-    templateUrl: './ca-lab-users-table.component.html',
-    styleUrls: ['./ca-lab-users-table.component.scss'],
-    standalone: false
+  selector: 'ca-lab-users-table',
+  templateUrl: './ca-lab-users-table.component.html',
+  styleUrls: ['./ca-lab-users-table.component.scss'],
+  standalone: false,
 })
 export class CaLabUsersTableComponent {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaLabUserDatasource;
 
   @Input({ required: true }) labId: string;
 
   @Input() columns: FlTableColumnStatic<CaLabUser>[] = ['user', 'role', 'createdBy', 'createdAt'];
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService
-  ) {}
 
   openUpdateUserRoleDialog(labUSer: CaLabUser): void {
     const input: LabUserFormDialogInput = {

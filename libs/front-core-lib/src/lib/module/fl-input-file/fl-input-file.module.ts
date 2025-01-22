@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlInputFileContainerComponent } from './fl-input-file-container/fl-input-file-container.component';
 import { FlInputFileDirective } from './fl-input-file.directive';
@@ -36,7 +36,9 @@ import { FlSnackBarModule } from '../fl-snack-bar/fl-snack-bar.module';
   ],
 })
 export class FlInputFileModule {
-  constructor(translateServie: FlTranslateService) {
+  constructor() {
+    const translateServie = inject(FlTranslateService);
+
     translateServie.addModuleTranslation('FlInputFileModule', flFileInputI18n);
   }
 }

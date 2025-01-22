@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib';
 
@@ -6,11 +6,9 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
   providedIn: 'root',
 })
 export class HaMetadataService {
-  constructor(
-    private metaService: Meta,
-    private titleService: Title,
-    private translateService: FlTranslateService
-  ) {}
+  private metaService = inject(Meta);
+  private titleService = inject(Title);
+  private translateService = inject(FlTranslateService);
 
   setLinkCanonical(url: string): void {}
 

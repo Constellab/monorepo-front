@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ChChart3dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
@@ -10,10 +10,10 @@ export interface ChChartHeatMapDataPortalInput {
 }
 
 @Component({
-    selector: 'ch-chart-heat-map-data-portal',
-    templateUrl: './ch-chart-heat-map-data-portal.component.html',
-    styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
-    standalone: false
+  selector: 'ch-chart-heat-map-data-portal',
+  templateUrl: './ch-chart-heat-map-data-portal.component.html',
+  styleUrls: ['./ch-chart-heat-map-data-portal.component.scss'],
+  standalone: false,
 })
 export class ChChartHeatMapDataPortalComponent {
   data: ChChart3dDatum;
@@ -26,7 +26,9 @@ export class ChChartHeatMapDataPortalComponent {
   yLabelFormatter: ChChartLabelFormatter;
   zLabelFormatter: ChChartLabelFormatter = ChChartLabelFormatter.getDefaultTickLabel();
 
-  constructor(@Inject(FL_PORTAL_DATA) input: ChChartHeatMapDataPortalInput) {
+  constructor() {
+    const input = inject<ChChartHeatMapDataPortalInput>(FL_PORTAL_DATA);
+
     this.data = input.data;
     this.x = input.data.getX();
     this.y = input.data.getY();

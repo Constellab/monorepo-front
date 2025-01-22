@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   CaLabFolder,
   CaLabFolderDatasource,
@@ -13,23 +13,21 @@ import {
 import { CaLabFolderService } from '../../../../ca-core/service-api/ca-lab-folder.service';
 
 @Component({
-    selector: 'ca-lab-folders-table',
-    templateUrl: './ca-lab-folders-table.component.html',
-    styleUrls: ['./ca-lab-folders-table.component.scss'],
-    standalone: false
+  selector: 'ca-lab-folders-table',
+  templateUrl: './ca-lab-folders-table.component.html',
+  styleUrls: ['./ca-lab-folders-table.component.scss'],
+  standalone: false,
 })
 export class CaLabFoldersTableComponent {
+  private labFolderService = inject(CaLabFolderService);
+  private dialogService = inject(FlDialogService);
+  private snackbarService = inject(FlSnackBarService);
+
   @Input({ required: true }) datasource: CaLabFolderDatasource;
 
   @Input({ required: true }) labId: string;
 
   @Input() columns: FlTableColumnStatic<CaLabFolder>[] = ['folder', 'createdBy', 'createdAt'];
-
-  constructor(
-    private labFolderService: CaLabFolderService,
-    private dialogService: FlDialogService,
-    private snackbarService: FlSnackBarService
-  ) {}
 
   syncLabFolder(labFolder: CaLabFolder): void {
     this.labFolderService

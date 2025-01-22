@@ -13,18 +13,20 @@ import { UntypedFormGroup } from '@angular/forms';
 export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStorageLocationDTO>;
 
 @Component({
-    selector: 'ca-space-storage-form-dialog',
-    templateUrl: './ca-space-storage-form-dialog.component.html',
-    styleUrl: './ca-space-storage-form-dialog.component.scss',
-    standalone: false
+  selector: 'ca-space-storage-form-dialog',
+  templateUrl: './ca-space-storage-form-dialog.component.html',
+  styleUrl: './ca-space-storage-form-dialog.component.scss',
+  standalone: false,
 })
 export class CaSpaceStorageFormDialogComponent
   extends FlFormDialogAbstractDirective<CaSpaceUpdateStorageLocationDTO, CaSpaceStorage>
   implements OnInit
 {
+  private spaceService = inject(CaSpaceService);
+
   dialogInput: CaSpaceStorageFormDialogInput = inject(MAT_DIALOG_DATA);
 
-  constructor(private spaceService: CaSpaceService) {
+  constructor() {
     super();
   }
 

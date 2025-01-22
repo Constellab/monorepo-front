@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { labConstLoginRoute } from '../../../lab-core/utils/lab-base-route';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib';
 import { LabAuthService } from '../../../lab-core/service/lab-auth.service';
@@ -13,24 +13,22 @@ import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
  * Component for the settings button on top right of the screen
  */
 @Component({
-    selector: 'lab-main-menu-settings',
-    templateUrl: './lab-main-menu-settings.component.html',
-    styleUrls: ['./lab-main-menu-settings.component.scss'],
-    standalone: false
+  selector: 'lab-main-menu-settings',
+  templateUrl: './lab-main-menu-settings.component.html',
+  styleUrls: ['./lab-main-menu-settings.component.scss'],
+  standalone: false,
 })
 export class LabMainMenuSettingsComponent implements OnInit {
+  private authenticationService = inject(LabAuthService);
+  private router = inject(Router);
+  private dialogService = inject(FlDialogService);
+  private systemService = inject(LabSystemService);
+
   codeServerUrl: string;
 
   monitoringRoute = LabRouterService.getMonitoringRoute();
 
   labConfigRoute: string;
-
-  constructor(
-    private authenticationService: LabAuthService,
-    private router: Router,
-    private dialogService: FlDialogService,
-    private systemService: LabSystemService
-  ) {}
 
   ngOnInit(): void {
     this.codeServerUrl = LabEnvironmentHelper.getCodelabFullUrl();

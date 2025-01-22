@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlArrayObs,
   FlConfirmDialogInput,
@@ -14,20 +14,18 @@ import {
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
 
 @Component({
-    selector: 'ca-lab-green-option-table',
-    templateUrl: './ca-lab-green-option-table.component.html',
-    styleUrls: ['./ca-lab-green-option-table.component.scss'],
-    standalone: false
+  selector: 'ca-lab-green-option-table',
+  templateUrl: './ca-lab-green-option-table.component.html',
+  styleUrls: ['./ca-lab-green-option-table.component.scss'],
+  standalone: false,
 })
 export class CaLabGreenOptionTableComponent {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: FlArrayObs<CaLabGreenOption>;
 
   @Input({ required: true }) columns: FlTableColumnStatic<CaLabGreenOption>[];
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService
-  ) {}
 
   updateGreenOption(greenOption: CaLabGreenOption): void {
     const data: CaLabGreenOptionFormDialogInput = {

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import { UntypedFormControl, Validators } from '@angular/forms';
@@ -12,25 +12,23 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
  * Dialog to update the type of a file
  */
 @Component({
-    selector: 'lab-update-resource-type',
-    templateUrl: './lab-update-resource-type.component.html',
-    styleUrls: ['./lab-update-resource-type.component.scss'],
-    standalone: false
+  selector: 'lab-update-resource-type',
+  templateUrl: './lab-update-resource-type.component.html',
+  styleUrls: ['./lab-update-resource-type.component.scss'],
+  standalone: false,
 })
 export class LabUpdateResourceTypeComponent implements OnInit {
+  private resource = inject<LabResource>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<LabUpdateResourceTypeComponent>>(MatDialogRef);
+  private labFileService = inject(LabFileResourceService);
+  private resourceService = inject(LabResourceService);
+  private snackBarService = inject(FlSnackBarService);
+
   formControl: UntypedFormControl;
 
   fsNodeTypes: Observable<LabTypeEntity[]>;
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private resource: LabResource,
-    private dialogRef: MatDialogRef<LabUpdateResourceTypeComponent>,
-    private labFileService: LabFileResourceService,
-    private resourceService: LabResourceService,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.formControl = new UntypedFormControl(this.resource.resourceTypingName, [Validators.required]);

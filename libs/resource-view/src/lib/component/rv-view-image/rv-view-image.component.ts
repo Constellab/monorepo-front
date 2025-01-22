@@ -1,18 +1,20 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, OnInit, SecurityContext, inject } from '@angular/core';
 import { RvResourceViewDirective } from '../../model/rv-resource-view.directive';
 import { RvResourceViewImage } from '../../model/rv-resource-view.class';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-    selector: 'rv-view-image',
-    templateUrl: './rv-view-image.component.html',
-    styleUrls: ['./rv-view-image.component.scss'],
-    standalone: false
+  selector: 'rv-view-image',
+  templateUrl: './rv-view-image.component.html',
+  styleUrls: ['./rv-view-image.component.scss'],
+  standalone: false,
 })
 export class RvViewImageComponent extends RvResourceViewDirective<RvResourceViewImage> implements OnInit {
+  private sanitizer = inject(DomSanitizer);
+
   safeImage: any;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor() {
     super();
   }
 

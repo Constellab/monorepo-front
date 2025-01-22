@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
@@ -13,13 +13,15 @@ import { map } from 'rxjs/operators';
 import { CaLabSearchFields } from '../../model/ca-lab-search.class';
 
 @Component({
-    selector: 'ca-select-lab',
-    templateUrl: './ca-select-lab.component.html',
-    styleUrls: ['./ca-select-lab.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
-    standalone: false
+  selector: 'ca-select-lab',
+  templateUrl: './ca-select-lab.component.html',
+  styleUrls: ['./ca-select-lab.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
+  standalone: false,
 })
 export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {
+  private labService = inject(CaLabService);
+
   @Input() mode: 'all' | 'all-cloud';
 
   @Input() placeholder: string;
@@ -30,10 +32,9 @@ export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements
 
   labDatasource: CaLabDatasource<FlInputSearchFilter>;
 
-  constructor(
-    private labService: CaLabService,
-    @Optional() @Self() ngControl: NgControl
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

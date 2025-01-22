@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
@@ -23,23 +23,24 @@ export interface HaAgentEditStyleFormData {
 }
 
 @Component({
-    selector: 'ha-agent-edit-style-dialog',
-    templateUrl: './ha-agent-edit-style-dialog.component.html',
-    styleUrl: './ha-agent-edit-style-dialog.component.scss',
-    standalone: false
+  selector: 'ha-agent-edit-style-dialog',
+  templateUrl: './ha-agent-edit-style-dialog.component.html',
+  styleUrl: './ha-agent-edit-style-dialog.component.scss',
+  standalone: false,
 })
 export class HaAgentEditStyleDialogComponent
   extends FlFormDialogAbstractDirective<HaAgentEditStyleFormData, HaAgent | HaAgentVersion>
   implements OnInit
 {
+  private agentService = inject(HaAgentService);
+
   style: TdTypeStyle;
   isVersion: boolean;
   entityId: string;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) dialogInput: HaAgentEditStyleDialogInputData,
-    private agentService: HaAgentService
-  ) {
+  constructor() {
+    const dialogInput = inject<HaAgentEditStyleDialogInputData>(MAT_DIALOG_DATA);
+
     super();
     this.style = dialogInput.object.style;
     this.isVersion = dialogInput.object.isVersion;

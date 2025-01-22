@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, filter, first, Observable, of, switchMap } from 'rxjs';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
@@ -26,6 +26,12 @@ import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-fold
 
 @Injectable()
 export class CaFolderDetailState implements OnDestroy {
+  private folderService = inject(CaFolderService);
+  private folderActionService = inject(CaFolderActionService);
+  private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
+  private searchState = inject<FlSearchState<CaHierarchyObject>>(FlSearchState);
+  private securityService = inject(CaSecurityService);
+
   private id$: Observable<string>;
 
   private folder$: BehaviorSubject<CaFolder>;
@@ -33,14 +39,6 @@ export class CaFolderDetailState implements OnDestroy {
   private childrenDatasource: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
-
-  constructor(
-    private folderService: CaFolderService,
-    private folderActionService: CaFolderActionService,
-    private hierarchyObjectDetailState: CaHierarchyObjectDetailState,
-    private searchState: FlSearchState<CaHierarchyObject>,
-    private securityService: CaSecurityService
-  ) {}
 
   public init(id$: Observable<string>): void {
     this.id$ = id$;

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -17,25 +17,23 @@ import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog
 import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
 
 @Component({
-    selector: 'ca-server-cloud-search',
-    templateUrl: './ca-server-cloud-search.component.html',
-    styleUrls: ['./ca-server-cloud-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-server-cloud-search',
+  templateUrl: './ca-server-cloud-search.component.html',
+  styleUrls: ['./ca-server-cloud-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaServerCloudSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private serverService = inject(CaServerService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
+
   @Input() mode: 'search' | 'selection' = 'search';
 
   @Output() serverCloudSelected: EventEmitter<CaServerCloud> = new EventEmitter();
 
   datasource: CaServerCloudDatasource<CaServerCloudSearchFields>;
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private serverService: CaServerService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

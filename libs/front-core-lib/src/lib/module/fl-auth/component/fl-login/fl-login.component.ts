@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
 import { FlCaptchaService } from '../../../fl-captcha/fl-captcha.service';
 import { Observable, switchMap } from 'rxjs';
@@ -8,21 +8,19 @@ import { FlLoginFormComponent } from '../fl-login-form/fl-login-form.component';
  * Form to call a login request using FlAuthService
  */
 @Component({
-    selector: 'fl-login',
-    templateUrl: './fl-login.component.html',
-    styleUrls: ['./fl-login.component.scss'],
-    standalone: false
+  selector: 'fl-login',
+  templateUrl: './fl-login.component.html',
+  styleUrls: ['./fl-login.component.scss'],
+  standalone: false,
 })
 export class FlLoginComponent {
+  private authService = inject(FlAuthService);
+  private captchaService = inject(FlCaptchaService);
+
   @Output() loginSuccess: EventEmitter<FlAuthLoginResponse> = new EventEmitter<FlAuthLoginResponse>();
 
   formGp = FlLoginFormComponent.buildForm();
   isLoading = false;
-
-  constructor(
-    private authService: FlAuthService,
-    private captchaService: FlCaptchaService
-  ) {}
 
   login(): void {
     if (this.formGp.valid) {

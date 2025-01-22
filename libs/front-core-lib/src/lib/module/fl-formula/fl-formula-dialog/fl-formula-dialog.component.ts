@@ -10,20 +10,20 @@ export interface TeFormulaDialogInput extends FlFormDialogInput<string> {
 }
 
 @Component({
-    selector: 'fl-formula-dialog',
-    templateUrl: './fl-formula-dialog.component.html',
-    styleUrls: ['./fl-formula-dialog.component.scss'],
-    standalone: false
+  selector: 'fl-formula-dialog',
+  templateUrl: './fl-formula-dialog.component.html',
+  styleUrls: ['./fl-formula-dialog.component.scss'],
+  standalone: false,
 })
 export class FlFormulaDialogComponent implements OnInit {
+  private dialogRef = inject<MatDialogRef<FlFormulaDialogComponent>>(MatDialogRef);
+
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
   formulaControl: FormControl<string>;
 
   formula$: Observable<string>;
   input: TeFormulaDialogInput = inject(MAT_DIALOG_DATA);
-
-  constructor(private dialogRef: MatDialogRef<FlFormulaDialogComponent>) {}
 
   async ngOnInit(): Promise<void> {
     this.formulaControl = new FormControl(this.input.object, [Validators.required]);

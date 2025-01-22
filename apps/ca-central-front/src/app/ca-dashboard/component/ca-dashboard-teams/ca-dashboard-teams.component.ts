@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaGroup, CaGroupDatasource } from '../../../ca-core/model/entities/ca-group.entity';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { CaGroupService } from '../../../ca-core/service-api/ca-group.service';
@@ -13,21 +13,19 @@ import {
  * Small list of groups in the dashboard
  */
 @Component({
-    selector: 'ca-dashboard-teams',
-    templateUrl: './ca-dashboard-teams.component.html',
-    styleUrls: ['./ca-dashboard-teams.component.scss'],
-    standalone: false
+  selector: 'ca-dashboard-teams',
+  templateUrl: './ca-dashboard-teams.component.html',
+  styleUrls: ['./ca-dashboard-teams.component.scss'],
+  standalone: false,
 })
 export class CaDashboardTeamsComponent implements OnInit {
+  private groupService = inject(CaGroupService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(CaRouterService);
+
   teamsDatasource: CaGroupDatasource;
 
   myTeamsRoute: string = CaRouterService.getMyTeamsRoute();
-
-  constructor(
-    private groupService: CaGroupService,
-    private dialogService: FlDialogService,
-    private routerService: CaRouterService
-  ) {}
 
   ngOnInit(): void {
     this.teamsDatasource = this.groupService.getMyTeamsDatasource(CaDashboardListLayoutComponent.maxItems);

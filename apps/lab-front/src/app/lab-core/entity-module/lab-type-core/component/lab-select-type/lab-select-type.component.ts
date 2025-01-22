@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormFieldDirective,
@@ -19,13 +19,16 @@ import {
  * Select component for LabType
  */
 @Component({
-    selector: 'lab-select-type',
-    templateUrl: './lab-select-type.component.html',
-    styleUrls: ['./lab-select-type.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
-    standalone: false
+  selector: 'lab-select-type',
+  templateUrl: './lab-select-type.component.html',
+  styleUrls: ['./lab-select-type.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
+  standalone: false,
 })
 export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity> implements OnInit {
+  private typeService = inject(LabTypeService);
+  private dialogService = inject(FlDialogService);
+
   @Input() placeholder: string;
 
   @Input() mode: 'process' | 'resource' = 'process';
@@ -38,11 +41,9 @@ export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity> 
 
   advancedButton: FlInputSearchAdvancedButton<LabTypeEntity>;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private typeService: LabTypeService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

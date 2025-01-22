@@ -1,17 +1,17 @@
-import { OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { OnDestroy, Pipe, PipeTransform, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 /**
  * Pipe to convert a blob to display and use it in image src
  */
 @Pipe({
-    name: 'flBlobToSrc',
-    standalone: false
+  name: 'flBlobToSrc',
+  standalone: false,
 })
 export class FlBlobToSrcPipe implements PipeTransform, OnDestroy {
-  private lastUrl: string;
+  private sanitizer = inject(DomSanitizer);
 
-  constructor(private sanitizer: DomSanitizer) {}
+  private lastUrl: string;
 
   transform(blob: Blob): SafeResourceUrl {
     this.revokeLastURL();

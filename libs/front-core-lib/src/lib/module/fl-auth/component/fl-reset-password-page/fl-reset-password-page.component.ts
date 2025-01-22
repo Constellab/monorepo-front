@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -7,25 +7,23 @@ import { FlSnackBarService } from '../../../fl-snack-bar/fl-snack-bar.service';
 import { FlGlobalValidators } from '../../../../utils/fl-global.validators';
 
 @Component({
-    selector: 'fl-reset-password-page',
-    templateUrl: './fl-reset-password-page.component.html',
-    styleUrls: ['./fl-reset-password-page.component.scss'],
-    standalone: false
+  selector: 'fl-reset-password-page',
+  templateUrl: './fl-reset-password-page.component.html',
+  styleUrls: ['./fl-reset-password-page.component.scss'],
+  standalone: false,
 })
 export class FlResetPasswordPageComponent {
+  private route = inject(ActivatedRoute);
+  private userAccountService = inject(FlUserAccountService);
+  private snackBarService = inject(FlSnackBarService);
+  private router = inject(Router);
+
   formGp = new FormBuilder().group({
     password: [null, [Validators.required, FlGlobalValidators.passwordValidator()]],
     repeatPassword: [null, [Validators.required, FlGlobalValidators.repeatPasswordValidator('password')]],
   });
 
   isLoading: boolean = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private userAccountService: FlUserAccountService,
-    private snackBarService: FlSnackBarService,
-    private router: Router
-  ) {}
 
   submit(): void {
     if (this.formGp.valid && !this.isLoading) {

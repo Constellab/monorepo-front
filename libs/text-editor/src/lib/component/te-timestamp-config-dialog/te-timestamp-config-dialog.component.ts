@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DateTime } from 'luxon';
 import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
 import { FormBuilder } from '@angular/forms';
@@ -18,12 +18,14 @@ interface TeTimestampFormatOptions {
  * Dialog to configure timestamp block
  */
 @Component({
-    selector: 'te-timestamp-config-dialog',
-    templateUrl: './te-timestamp-config-dialog.component.html',
-    styleUrl: './te-timestamp-config-dialog.component.scss',
-    standalone: false
+  selector: 'te-timestamp-config-dialog',
+  templateUrl: './te-timestamp-config-dialog.component.html',
+  styleUrl: './te-timestamp-config-dialog.component.scss',
+  standalone: false,
 })
 export class TeTimestampConfigDialogComponent {
+  private dialogRef = inject<MatDialogRef<TeTimestampConfigDialogComponent>>(MatDialogRef);
+
   formGp = new FormBuilder().group({
     timestamp: null as DateTime,
     format: null as TeTimestampFormat,
@@ -52,10 +54,9 @@ export class TeTimestampConfigDialogComponent {
     },
   ];
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) input: TeTimestampConfigDialogInput,
-    private dialogRef: MatDialogRef<TeTimestampConfigDialogComponent>
-  ) {
+  constructor() {
+    const input = inject<TeTimestampConfigDialogInput>(MAT_DIALOG_DATA);
+
     this.formGp.patchValue(input);
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   CaServerStandard,
   CaServerStandardDatasource,
@@ -17,12 +17,15 @@ import {
 import { CaServerPricesDialogComponent } from '../ca-server-prices-dialog/ca-server-prices-dialog.component';
 
 @Component({
-    selector: 'ca-server-standard-table',
-    templateUrl: './ca-server-standard-table.component.html',
-    styleUrl: './ca-server-standard-table.component.scss',
-    standalone: false
+  selector: 'ca-server-standard-table',
+  templateUrl: './ca-server-standard-table.component.html',
+  styleUrl: './ca-server-standard-table.component.scss',
+  standalone: false,
 })
 export class CaServerStandardTableComponent {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) datasource: CaServerStandardDatasource;
 
   @Input() columns: FlTableColumnStatic<CaServerStandard>[] = [
@@ -33,11 +36,6 @@ export class CaServerStandardTableComponent {
     'lastModified',
     'actions',
   ];
-
-  constructor(
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {}
 
   openServerPricesDialog(serverStandard: CaServerStandard): void {
     this.dialogService.openMediumDialog(CaServerPricesDialogComponent, {

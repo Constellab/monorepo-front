@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -11,20 +11,18 @@ import { MaMailSearch, MaMailSearchFields } from '../../models/ma-mail-search.cl
 import { MaMailService } from '../../ma-mail.service';
 
 @Component({
-    selector: 'ma-mail-search',
-    templateUrl: './ma-mail-search.component.html',
-    styleUrl: './ma-mail-search.component.scss',
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ma-mail-search',
+  templateUrl: './ma-mail-search.component.html',
+  styleUrl: './ma-mail-search.component.scss',
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class MaMailSearchComponent implements OnInit {
-  datasource: MaMailDatasource<MaMailSearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private mailService = inject(MaMailService);
+  private themeService = inject(FlThemeService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private mailService: MaMailService,
-    private themeService: FlThemeService
-  ) {}
+  datasource: MaMailDatasource<MaMailSearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

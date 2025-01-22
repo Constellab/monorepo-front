@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlDialogService,
@@ -18,21 +18,19 @@ import {
 import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 
 @Component({
-    selector: 'ca-space-search',
-    templateUrl: './ca-space-search.component.html',
-    styleUrls: ['./ca-space-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-space-search',
+  templateUrl: './ca-space-search.component.html',
+  styleUrls: ['./ca-space-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaSpaceSearchComponent implements OnInit {
-  datasource: CaSpaceDatasource<CaSpaceSearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private spaceService = inject(CaSpaceService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private spaceService: CaSpaceService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
+  datasource: CaSpaceDatasource<CaSpaceSearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

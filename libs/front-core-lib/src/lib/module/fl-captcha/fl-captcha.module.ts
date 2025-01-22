@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from './fl-captcha.class';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha-2';
 import { FlTranslateService } from '../fl-translate/service/fl-translate.service';
@@ -18,7 +18,9 @@ function configureReCaptcha(config: FlCaptchaModuleConfig): string {
   ],
 })
 export class FlCaptchaModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlCaptchaModule', flCaptchaI18n);
   }
 }

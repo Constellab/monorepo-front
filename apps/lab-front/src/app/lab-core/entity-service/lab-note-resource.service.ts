@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
@@ -11,9 +11,9 @@ import { PrConfigValues } from '@monorepo/protocol';
   providedIn: 'root',
 })
 export class LabNoteResourceService {
-  private readonly route: string = 'note-resource';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'note-resource';
 
   public getFilePath(noteResourceId: string, filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${noteResourceId}/resource/${filename}/file`);

@@ -1,27 +1,25 @@
-import { Component, Inject, Input, OnInit, PLATFORM_ID, Renderer2, Signal } from '@angular/core';
+import { Component, Input, OnInit, PLATFORM_ID, Renderer2, Signal, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { GitHubButtonProps } from 'github-buttons';
 import { HaThemeState } from '../../ha-state/ha-theme.state';
 import { ClTheme } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'ha-github-star-button',
-    imports: [],
-    templateUrl: './ha-github-star-button.component.html',
-    styleUrl: './ha-github-star-button.component.scss'
+  selector: 'ha-github-star-button',
+  imports: [],
+  templateUrl: './ha-github-star-button.component.html',
+  styleUrl: './ha-github-star-button.component.scss',
 })
 export class HaGithubStarButtonComponent implements OnInit {
+  private renderer = inject(Renderer2);
+  private platformId = inject(PLATFORM_ID);
+  private themeState = inject(HaThemeState);
+
   @Input({ required: true }) repo: string;
   @Input() title: string = 'Stars';
   @Input() icon: 'octicon-star' | 'octicon-mark-github' = 'octicon-star';
 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
-
-  constructor(
-    private renderer: Renderer2,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private themeState: HaThemeState
-  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId) && this.isValidGithubRepo(this.repo)) {

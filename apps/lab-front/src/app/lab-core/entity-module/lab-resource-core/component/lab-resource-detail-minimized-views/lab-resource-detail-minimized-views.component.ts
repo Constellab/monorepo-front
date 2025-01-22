@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, Signal, inject } from '@angular/core';
 import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { FlMouseButton } from '@monorepo/front-core-lib';
 
@@ -6,15 +6,15 @@ import { FlMouseButton } from '@monorepo/front-core-lib';
  * Component inside the resource detail to list the minimized views
  */
 @Component({
-    selector: 'lab-resource-detail-minimized-views',
-    templateUrl: './lab-resource-detail-minimized-views.component.html',
-    styleUrls: ['./lab-resource-detail-minimized-views.component.scss'],
-    standalone: false
+  selector: 'lab-resource-detail-minimized-views',
+  templateUrl: './lab-resource-detail-minimized-views.component.html',
+  styleUrls: ['./lab-resource-detail-minimized-views.component.scss'],
+  standalone: false,
 })
 export class LabResourceDetailMinimizedViewsComponent {
-  minimizedViews: Signal<LabMinimizedView[]> = this.state.minimizedViews;
+  private state = inject(LabResourceDetailState);
 
-  constructor(private state: LabResourceDetailState) {}
+  minimizedViews: Signal<LabMinimizedView[]> = this.state.minimizedViews;
 
   openView(view: LabMinimizedView): void {
     this.state.openMinimizedView(view);

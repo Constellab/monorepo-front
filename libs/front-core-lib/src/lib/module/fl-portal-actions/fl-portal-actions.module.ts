@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlPortalActionsComponent } from './component/fl-portal-actions/fl-portal-actions.component';
 import { FlPortalActionLineComponent } from './component/fl-portal-action-line/fl-portal-action-line.component';
@@ -34,7 +34,9 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 })
 export class FlPortalActionsModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlPortalActionsModule', flPortalActionI18n);
   }
 

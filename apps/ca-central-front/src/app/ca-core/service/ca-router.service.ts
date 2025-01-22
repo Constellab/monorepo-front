@@ -9,7 +9,7 @@ import {
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../utils/ca-base-route';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
@@ -19,7 +19,7 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
  */
 @Injectable({ providedIn: 'root' })
 export class CaRouterService {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   public navigate(route: string): void {
     this.router.navigate([route]);

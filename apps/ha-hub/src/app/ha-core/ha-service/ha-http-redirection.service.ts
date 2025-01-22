@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HaMetadataService } from './ha-metadata.service';
 import { Router } from '@angular/router';
 import { HaMetadataNamesConfig } from '../ha-model/ha-config/ha-metadata-names.config';
@@ -7,10 +7,8 @@ import { HaMetadataNamesConfig } from '../ha-model/ha-config/ha-metadata-names.c
   providedIn: 'root',
 })
 export class HaHttpRedirectionService {
-  constructor(
-    private metadataService: HaMetadataService,
-    private router: Router
-  ) {}
+  private metadataService = inject(HaMetadataService);
+  private router = inject(Router);
 
   redirectTo(url: string): void {
     this.metadataService.addMetaTag(HaMetadataNamesConfig.REDIRECT_URL, url, false);

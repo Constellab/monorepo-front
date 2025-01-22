@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { FlDialogService, FlEntityArrayObs, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { CaStoragePriceFormDialogComponent } from '../ca-storage-price-form-dialog/ca-storage-price-form-dialog.component';
@@ -8,18 +8,18 @@ import {
 } from '../../../../model/entities/server/ca-storage-price.class';
 
 @Component({
-    selector: 'ca-storage-prices-dialog',
-    templateUrl: './ca-storage-prices-dialog.component.html',
-    styleUrl: './ca-storage-prices-dialog.component.scss',
-    standalone: false
+  selector: 'ca-storage-prices-dialog',
+  templateUrl: './ca-storage-prices-dialog.component.html',
+  styleUrl: './ca-storage-prices-dialog.component.scss',
+  standalone: false,
 })
 export class CaStoragePricesDialogComponent {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   prices: CaStoragePriceDatasource;
 
-  constructor(
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
     this.refreshPrices();
   }
 

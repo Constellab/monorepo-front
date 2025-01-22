@@ -1,4 +1,4 @@
-import { Inject, Injector, NgModule, PLATFORM_ID } from '@angular/core';
+import { Injector, NgModule, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
 import { TeFormulaComponent } from './component/te-formula/te-formula.component';
@@ -147,11 +147,11 @@ import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 export class TeTextEditorModule {
   static init: boolean = false;
 
-  constructor(
-    translateService: FlTranslateService,
-    injector: Injector,
-    @Inject(PLATFORM_ID) platformId: any
-  ) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+    const injector = inject(Injector);
+    const platformId = inject(PLATFORM_ID);
+
     translateService.addModuleTranslation('TeTextEditorModule', teTextEditorI18n);
 
     if (!TeTextEditorModule.init) {

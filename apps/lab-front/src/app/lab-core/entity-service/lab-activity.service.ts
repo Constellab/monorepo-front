@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlDatasourceGetPageData, FlSearchConverter } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
@@ -12,9 +12,9 @@ import { LabActivity } from '../model/entities/lab-activity.entity';
   providedIn: 'root',
 })
 export class LabActivityService {
-  private route = 'activity';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route = 'activity';
 
   public search(
     page: number,

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabImportResourceDialogComponent,
@@ -43,12 +43,20 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
  * Action menu button for resources, it has a ng-content for custom buttons
  */
 @Component({
-    selector: 'lab-resource-actions-menu',
-    templateUrl: './lab-resource-actions-menu.component.html',
-    styleUrls: ['./lab-resource-actions-menu.component.scss'],
-    standalone: false
+  selector: 'lab-resource-actions-menu',
+  templateUrl: './lab-resource-actions-menu.component.html',
+  styleUrls: ['./lab-resource-actions-menu.component.scss'],
+  standalone: false,
 })
 export class LabResourceActionsMenuComponent implements OnInit {
+  private resourceService = inject(LabResourceService);
+  private dialogService = inject(FlDialogService);
+  private resourceDownloadService = inject(LabResourceDownloadService);
+  private translateService = inject(FlTranslateService);
+  private snackBarService = inject(FlSnackBarService);
+  private labImpactedService = inject(LabNavigableEntityService);
+  private tagService = inject(LabTagService);
+
   @Input() resource: LabResource;
 
   @Input() readOnly: boolean = false;
@@ -57,16 +65,6 @@ export class LabResourceActionsMenuComponent implements OnInit {
   @Output() delete: EventEmitter<LabResource> = new EventEmitter<LabResource>();
 
   resourceDocRoute: string;
-
-  constructor(
-    private resourceService: LabResourceService,
-    private dialogService: FlDialogService,
-    private resourceDownloadService: LabResourceDownloadService,
-    private translateService: FlTranslateService,
-    private snackBarService: FlSnackBarService,
-    private labImpactedService: LabNavigableEntityService,
-    private tagService: LabTagService
-  ) {}
 
   ngOnInit(): void {
     this.resourceDocRoute = LabRouterService.getTechnicalDocRoute(

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Numeric } from 'd3';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { ChChartDataBin, ChChartHistogramMode } from '../../../model/data/ch-chart-data-bin.class';
@@ -13,10 +13,10 @@ export interface ChChartBinDataPortalInput {
  * Portal to display a bin data
  */
 @Component({
-    selector: 'ch-chart-bin-data-portal',
-    templateUrl: './ch-chart-bin-data-portal.component.html',
-    styleUrls: ['./ch-chart-bin-data-portal.component.scss'],
-    standalone: false
+  selector: 'ch-chart-bin-data-portal',
+  templateUrl: './ch-chart-bin-data-portal.component.html',
+  styleUrls: ['./ch-chart-bin-data-portal.component.scss'],
+  standalone: false,
 })
 export class ChChartBinDataPortalComponent {
   y: Numeric;
@@ -27,7 +27,9 @@ export class ChChartBinDataPortalComponent {
   color: string;
   histogramMode: ChChartHistogramMode;
 
-  constructor(@Inject(FL_PORTAL_DATA) input: ChChartBinDataPortalInput) {
+  constructor() {
+    const input = inject<ChChartBinDataPortalInput>(FL_PORTAL_DATA);
+
     const bin = input.data.data;
     this.y = bin.getY();
     this.intervalText = bin.getIntervalLongText();

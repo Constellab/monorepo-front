@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -16,13 +16,16 @@ import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaSelectServerCloudDialogComponent } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
 
 @Component({
-    selector: 'ca-select-server-cloud',
-    templateUrl: './ca-select-server-cloud.component.html',
-    styleUrl: './ca-select-server-cloud.component.scss',
-    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
-    standalone: false
+  selector: 'ca-select-server-cloud',
+  templateUrl: './ca-select-server-cloud.component.html',
+  styleUrl: './ca-select-server-cloud.component.scss',
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
+  standalone: false,
 })
 export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+
   @Output() serverChange: EventEmitter<CaServerCloud> = new EventEmitter();
 
   selectedServer: CaServerCloud | Observable<CaServerCloud>;
@@ -31,11 +34,9 @@ export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerC
 
   advancedButton: FlInputSearchAdvancedButton<CaServerCloud>;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private serverService: CaServerService,
-    private dialogService: FlDialogService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

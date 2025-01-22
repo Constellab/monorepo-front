@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import {
   BnBioNetworkDrawerAction,
@@ -12,10 +12,10 @@ import { flRxjsEnterNgZone } from '@monorepo/front-core-lib';
  */
 @Injectable()
 export class BnBioNetworkDrawerState implements OnDestroy {
+  private ngZone = inject(NgZone);
+
   private drawer: MatDrawer;
   private state$: BehaviorSubject<BnBioNetworkDrawerStateValue>;
-
-  constructor(private ngZone: NgZone) {}
 
   public init(drawer: MatDrawer): void {
     this.drawer = drawer;

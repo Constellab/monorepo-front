@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
 import { Observable } from 'rxjs';
 import { LabBrickMigration } from '../../../../lab-core/model/entities/lab-brick.entity';
@@ -11,24 +11,22 @@ import { ClVersion } from '@monorepo/core-lib';
  * Dialog to list available migration a call them manually
  */
 @Component({
-    selector: 'lab-brick-call-migration-dialog',
-    templateUrl: './lab-brick-call-migration-dialog.component.html',
-    styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-brick-call-migration-dialog',
+  templateUrl: './lab-brick-call-migration-dialog.component.html',
+  styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
+  standalone: false,
 })
 export class LabBrickCallMigrationDialogComponent implements OnInit {
+  private brickName = inject(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<LabBrickCallMigrationDialogComponent>>(MatDialogRef);
+  private brickService = inject(LabBrickService);
+  private snackBarService = inject(FlSnackBarService);
+
   brickMigrations$: Observable<LabBrickMigration[]>;
 
   formControl: FormControl<ClVersion>;
 
   isLoading: boolean = false;
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private brickName: string,
-    private dialogRef: MatDialogRef<LabBrickCallMigrationDialogComponent>,
-    private brickService: LabBrickService,
-    private snackBarService: FlSnackBarService
-  ) {}
 
   ngOnInit(): void {
     this.brickMigrations$ = this.brickService.getBrickMigrations(this.brickName);

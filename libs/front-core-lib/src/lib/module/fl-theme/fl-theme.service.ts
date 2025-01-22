@@ -1,12 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  InjectionToken,
-  Optional,
-  PLATFORM_ID,
-  Renderer2,
-  RendererFactory2,
-} from '@angular/core';
+import { Injectable, InjectionToken, PLATFORM_ID, Renderer2, RendererFactory2, inject } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
 import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
@@ -24,20 +16,20 @@ export const REQUEST = new InjectionToken<Request>('REQUEST');
   providedIn: 'root',
 })
 export class FlThemeService {
+  private cookieService = inject(FlCookieService);
+  private document = inject<Document>(DOCUMENT);
+  private platformId = inject<Object>(PLATFORM_ID);
+
   private readonly themeKey: string = 'theme';
 
   private renderer: Renderer2;
 
   private request: Request;
 
-  constructor(
-    private cookieService: FlCookieService,
-    @Inject(DOCUMENT) private document: Document,
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    @Inject(PLATFORM_ID) private platformId: Object,
-    @Optional() @Inject(REQUEST) request: Request,
-    rendererFactory: RendererFactory2
-  ) {
+  constructor() {
+    const request = inject<Request>(REQUEST, { optional: true });
+    const rendererFactory = inject(RendererFactory2);
+
     this.renderer = rendererFactory.createRenderer(null, null);
     this.request = request;
   }

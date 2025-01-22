@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { TAB } from '@angular/cdk/keycodes';
@@ -42,13 +43,15 @@ type FlTagMode = 'key' | 'value';
  * Component that supports NgModel to search and add a tag
  */
 @Component({
-    selector: 'fl-add-tag-input',
-    templateUrl: './fl-add-tag-input.component.html',
-    styleUrls: ['./fl-add-tag-input.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-add-tag-input',
+  templateUrl: './fl-add-tag-input.component.html',
+  styleUrls: ['./fl-add-tag-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlAddTagInputComponent implements OnInit, OnDestroy {
+  private tagService = inject(FlTagService);
+
   @Input() searchDebounceTime: number = 300;
 
   @Input() label: string = 'flTag.tags';
@@ -75,8 +78,6 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   mode$: BehaviorSubject<FlTagMode> = new BehaviorSubject('key');
 
   private subscription: Subscription;
-
-  constructor(private tagService: FlTagService) {}
 
   ngOnInit(): void {
     this.filteredOptions = new FlEntityPaginatedDatasource<any, FlTagSearchFilter>(

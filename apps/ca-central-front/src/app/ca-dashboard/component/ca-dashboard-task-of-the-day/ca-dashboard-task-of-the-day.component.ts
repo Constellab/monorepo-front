@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 
@@ -12,19 +12,17 @@ export interface CaTask {
 }
 
 @Component({
-    selector: 'ca-dashboard-task-of-the-day',
-    templateUrl: './ca-dashboard-task-of-the-day.component.html',
-    styleUrls: ['./ca-dashboard-task-of-the-day.component.scss'],
-    standalone: false
+  selector: 'ca-dashboard-task-of-the-day',
+  templateUrl: './ca-dashboard-task-of-the-day.component.html',
+  styleUrls: ['./ca-dashboard-task-of-the-day.component.scss'],
+  standalone: false,
 })
 export class CaDashboardTaskOfTheDayComponent implements OnInit {
+  private http = inject(HttpClient);
+  private communityHelper = inject(CoCommunityHelperService);
+
   task: CaTask;
   taskHubUrl: string;
-
-  constructor(
-    private http: HttpClient,
-    private communityHelper: CoCommunityHelperService
-  ) {}
 
   ngOnInit(): void {
     this.http.get(this.communityHelper.getTaskOfTheDayApiUrl()).subscribe((res: CaTask) => {

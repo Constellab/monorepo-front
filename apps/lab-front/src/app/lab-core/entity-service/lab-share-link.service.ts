@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { LabShareLink, LabShareLinkDatasource, LabShareLinkType } from '../model/entities/lab-share.entity';
 import { Observable } from 'rxjs';
@@ -8,9 +8,9 @@ import { ClPageI } from '@monorepo/core-lib';
   providedIn: 'root',
 })
 export class LabShareLinkService {
-  private route: string = 'share-link';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private route: string = 'share-link';
 
   public create(shareLink: Partial<LabShareLink>): Observable<LabShareLink> {
     return this.apiService.post(this.route, shareLink, LabShareLink, { serialization: LabShareLink });

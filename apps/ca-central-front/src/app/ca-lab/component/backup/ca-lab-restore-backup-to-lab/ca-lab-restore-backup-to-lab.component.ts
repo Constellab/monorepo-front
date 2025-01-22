@@ -13,12 +13,17 @@ export interface CaLabRestoreBackupToLabDialogInput {
 }
 
 @Component({
-    selector: 'ca-lab-restore-backup-to-lab',
-    templateUrl: './ca-lab-restore-backup-to-lab.component.html',
-    styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
-    standalone: false
+  selector: 'ca-lab-restore-backup-to-lab',
+  templateUrl: './ca-lab-restore-backup-to-lab.component.html',
+  styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
+  standalone: false,
 })
 export class CaLabRestoreBackupToLabComponent {
+  private labService = inject(CaLabService);
+  private dialogRef = inject<MatDialogRef<CaLabRestoreBackupToLabComponent>>(MatDialogRef);
+  private dialogService = inject(FlDialogService);
+  private formBuilder = inject(FormBuilder);
+
   data: CaLabRestoreBackupToLabDialogInput = inject(MAT_DIALOG_DATA);
 
   formGp = this.formBuilder.group({
@@ -29,13 +34,6 @@ export class CaLabRestoreBackupToLabComponent {
   });
 
   isLoading: boolean = false;
-
-  constructor(
-    private labService: CaLabService,
-    private dialogRef: MatDialogRef<CaLabRestoreBackupToLabComponent>,
-    private dialogService: FlDialogService,
-    private formBuilder: FormBuilder
-  ) {}
 
   submit(): void {
     if (!this.isLoading && this.formGp.valid) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { HaBrickUser } from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
 import { Observable } from 'rxjs';
@@ -11,16 +11,18 @@ export interface HaInviteBrickUserFormData {
 }
 
 @Component({
-    selector: 'ha-public-invite-brick-user-dialog',
-    templateUrl: './ha-public-invite-brick-user-dialog.component.html',
-    styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
-    standalone: false
+  selector: 'ha-public-invite-brick-user-dialog',
+  templateUrl: './ha-public-invite-brick-user-dialog.component.html',
+  styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
+  standalone: false,
 })
 export class HaPublicInviteBrickUserDialogComponent
   extends FlFormDialogAbstractDirective<HaInviteBrickUserFormData, HaBrickUser>
   implements OnInit
 {
-  constructor(private brickService: HaBrickService) {
+  private brickService = inject(HaBrickService);
+
+  constructor() {
     super();
   }
 

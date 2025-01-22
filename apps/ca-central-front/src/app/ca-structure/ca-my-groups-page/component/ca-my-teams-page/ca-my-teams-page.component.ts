@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaGroup, CaGroupDatasource } from '../../../../ca-core/model/entities/ca-group.entity';
 import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
 import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
@@ -6,19 +6,17 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaTeamFormDialogComponent } from '../../../../ca-core/entity-module/ca-group-core/component/ca-team-form-dialog/ca-team-form-dialog.component';
 
 @Component({
-    selector: 'ca-my-teams-page',
-    templateUrl: './ca-my-teams-page.component.html',
-    styleUrls: ['./ca-my-teams-page.component.scss'],
-    standalone: false
+  selector: 'ca-my-teams-page',
+  templateUrl: './ca-my-teams-page.component.html',
+  styleUrls: ['./ca-my-teams-page.component.scss'],
+  standalone: false,
 })
 export class CaMyTeamsPageComponent implements OnInit {
-  teamsDatasource: CaGroupDatasource;
+  private groupService = inject(CaGroupService);
+  private routerService = inject(CaRouterService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private groupService: CaGroupService,
-    private routerService: CaRouterService,
-    private dialogService: FlDialogService
-  ) {}
+  teamsDatasource: CaGroupDatasource;
 
   ngOnInit(): void {
     this.teamsDatasource = this.groupService.getMyTeamsDatasource();

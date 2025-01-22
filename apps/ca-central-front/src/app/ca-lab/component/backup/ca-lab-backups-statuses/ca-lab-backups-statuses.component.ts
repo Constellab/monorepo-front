@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabBackupStatusDatasource,
@@ -17,23 +17,21 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
  * Statuses of all lab backups
  */
 @Component({
-    selector: 'ca-lab-backups-statuses',
-    templateUrl: './ca-lab-backups-statuses.component.html',
-    styleUrls: ['./ca-lab-backups-statuses.component.scss'],
-    standalone: false
+  selector: 'ca-lab-backups-statuses',
+  templateUrl: './ca-lab-backups-statuses.component.html',
+  styleUrls: ['./ca-lab-backups-statuses.component.scss'],
+  standalone: false,
 })
 export class CaLabBackupsStatusesComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private authenticateService = inject(CaAuthenticatedUserService);
+
   @Input() labId: string;
 
   backupsStatuses: CaLabBackupStatusDatasource;
 
   columns: FlTableColumnStatic<CaLabBackupStatusDTO>[] = ['frequency', 'region', 'status', 'lastBackup'];
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private authenticateService: CaAuthenticatedUserService
-  ) {}
 
   ngOnInit(): void {
     this.loadBackupStatuses();

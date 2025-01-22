@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { CaNotificationsService } from '../service-api/ca-notifications.service';
 import {
   CaNotification,
@@ -29,6 +29,9 @@ export interface CaNotificationStateFind {
 
 @Injectable({ providedIn: 'root' })
 export class CaNotificationState implements OnDestroy {
+  private notificationService = inject(CaNotificationsService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+
   public notifications: CaNotificationDatasourcePaginated;
 
   public notificationsBySpace$: ClCachedObservable<CaNotificationCountBySpace[]>;
@@ -40,10 +43,9 @@ export class CaNotificationState implements OnDestroy {
 
   private readonly pageSize: number = 40;
 
-  constructor(
-    private notificationService: CaNotificationsService,
-    private currentSpaceService: CaCurrentSpaceService
-  ) {
+  constructor() {
+    const notificationService = this.notificationService;
+
     this.notifications = new FlEntityPaginatedDatasource(
       (page, size) => notificationService.getCurrentNotifications(page, size),
       this.pageSize,

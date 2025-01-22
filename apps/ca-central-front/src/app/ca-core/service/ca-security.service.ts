@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user.service';
 
 /**
@@ -8,7 +8,7 @@ import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user
   providedIn: 'root',
 })
 export class CaSecurityService {
-  constructor(private authenticatedUserService: CaAuthenticatedUserService) {}
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   public canEditFolder(folderLeaderId: string): boolean {
     if (folderLeaderId == null) return false;

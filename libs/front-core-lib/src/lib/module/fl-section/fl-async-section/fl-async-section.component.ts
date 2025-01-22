@@ -7,6 +7,7 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
+  inject,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FlAsyncSectionBodyContext, FlSectionBodyDirective } from '../fl-section-body';
@@ -18,13 +19,16 @@ import { FlTranslateService } from '../../fl-translate/service/fl-translate.serv
 import { FlStatusEvent } from '../../../model/fl-status-event.class';
 
 @Component({
-    selector: 'fl-async-section',
-    templateUrl: './fl-async-section.component.html',
-    styleUrls: ['./fl-async-section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-async-section',
+  templateUrl: './fl-async-section.component.html',
+  styleUrls: ['./fl-async-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
+  private cdr = inject(ChangeDetectorRef);
+  private translateService = inject(FlTranslateService);
+
   /**
    * Provide an observable or a simple object (directly resolved)
    * @param object
@@ -105,11 +109,6 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private subscription: Subscription;
-
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private translateService: FlTranslateService
-  ) {}
 
   ngOnInit(): void {}
 

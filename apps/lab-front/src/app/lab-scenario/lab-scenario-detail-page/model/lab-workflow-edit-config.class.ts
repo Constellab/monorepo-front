@@ -17,7 +17,7 @@ import {
 } from '@monorepo/protocol';
 import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -77,21 +77,21 @@ export interface LabWorkflowEventBasicAdditionalInfo {
 
 @Injectable()
 export class LabWorkflowEditConfig implements OnDestroy {
+  private protocolService = inject(LabProtocolService);
+  private actionsService = inject(FlPortalActionsService);
+  private snackBarService = inject(FlSnackBarService);
+  private workflowFactory = inject(LabWorkflowFactory);
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private dialogService = inject(FlDialogService);
+  private labNavigableService = inject(LabNavigableEntityService);
+  private translateService = inject(FlTranslateService);
+
   private workflow: PrWorkflow;
 
   private actionSubscription: Subscription;
   private workflowSubscription: Subscription;
 
-  constructor(
-    private protocolService: LabProtocolService,
-    private actionsService: FlPortalActionsService,
-    private snackBarService: FlSnackBarService,
-    private workflowFactory: LabWorkflowFactory,
-    private scenarioState: LabScenarioDetailPageState,
-    private dialogService: FlDialogService,
-    private labNavigableService: LabNavigableEntityService,
-    private translateService: FlTranslateService
-  ) {
+  constructor() {
     // listen to the new Process actions
     this.actionSubscription = this.getAllActions$().subscribe((result) =>
       this.onLabWorkflowActionResult(result)

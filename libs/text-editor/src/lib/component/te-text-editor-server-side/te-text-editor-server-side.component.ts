@@ -1,23 +1,23 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit, Renderer2, inject } from '@angular/core';
 import edjsHTML from 'editorjs-html';
 import { TeRichText } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
 import { TeFigureBlock } from '../../block/te-figure-block.class';
 
 @Component({
-    selector: 'te-text-editor-server-side',
-    templateUrl: './te-text-editor-server-side.component.html',
-    styleUrl: './te-text-editor-server-side.component.scss',
-    standalone: false
+  selector: 'te-text-editor-server-side',
+  templateUrl: './te-text-editor-server-side.component.html',
+  styleUrl: './te-text-editor-server-side.component.scss',
+  standalone: false,
 })
 export class TeTextEditorServerSideComponent implements OnInit {
+  private renderer = inject(Renderer2);
+
   @Input({ required: true }) richText: TeRichText;
 
   @Input({ required: true }) config: TeConfig;
 
   htmlValue: string;
-
-  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
     if (this.richText != null) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -19,13 +19,17 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
  * Search on view config, only work for search linked to a note
  */
 @Component({
-    selector: 'lab-view-config-search',
-    templateUrl: './lab-view-config-search.component.html',
-    styleUrls: ['./lab-view-config-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-view-config-search',
+  templateUrl: './lab-view-config-search.component.html',
+  styleUrls: ['./lab-view-config-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class LabViewConfigSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private viewConfigService = inject(LabViewConfigService);
+  private themeService = inject(FlThemeService);
+
   @Input() noteId: string;
 
   @Input() fullPageSearch: boolean = true;
@@ -35,12 +39,6 @@ export class LabViewConfigSearchComponent implements OnInit {
   datasource: LabViewConfigDatasource;
 
   columns: FlTableColumnStatic<LabViewConfig>[];
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private viewConfigService: LabViewConfigService,
-    private themeService: FlThemeService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

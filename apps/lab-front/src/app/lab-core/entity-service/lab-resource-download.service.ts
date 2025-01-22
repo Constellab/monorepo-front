@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
 import { FlDialogService, FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib';
 import { LabFileResourceService } from './lab-file-resource.service';
@@ -17,14 +17,12 @@ import {
  */
 @Injectable({ providedIn: 'root' })
 export class LabResourceDownloadService {
-  private readonly downloadAction = 'download-resource';
+  private resourceService = inject(LabResourceService);
+  private dialogService = inject(FlDialogService);
+  private fileService = inject(LabFileResourceService);
+  private actionService = inject(FlPortalActionsService);
 
-  constructor(
-    private resourceService: LabResourceService,
-    private dialogService: FlDialogService,
-    private fileService: LabFileResourceService,
-    private actionService: FlPortalActionsService
-  ) {}
+  private readonly downloadAction = 'download-resource';
 
   /**
    * Download any downloadable resource

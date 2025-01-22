@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -14,11 +14,9 @@ import { FlApiErrorService } from './fl-api-error.service';
  */
 @Injectable()
 export class FlApiService {
-  constructor(
-    protected http: HttpClient,
-    private configService: FlApiServiceConfig,
-    private flErrorService: FlApiErrorService
-  ) {}
+  protected http = inject(HttpClient);
+  private configService = inject(FlApiServiceConfig);
+  private flErrorService = inject(FlApiErrorService);
 
   /**
    * HTTP GET. Get a single element with the id.

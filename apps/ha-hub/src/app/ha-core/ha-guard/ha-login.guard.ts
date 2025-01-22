@@ -1,7 +1,7 @@
 /**
  * Login page guard to redirect to app pages if a token exists
  */
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { HaAuthService } from '../ha-service/ha-auth.service';
 import { Observable } from 'rxjs';
@@ -13,11 +13,9 @@ import { PlatformLocation } from '@angular/common';
   providedIn: 'root',
 })
 export class HaLoginGuard {
-  constructor(
-    private loginService: HaAuthService,
-    private router: Router,
-    private platformLocation: PlatformLocation
-  ) {}
+  private loginService = inject(HaAuthService);
+  private router = inject(Router);
+  private platformLocation = inject(PlatformLocation);
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // save the current url for rerouting after login

@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabResourceViewResourcesList } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
@@ -10,22 +10,24 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
  * View of resource that show a list of other resources
  */
 @Component({
-    selector: 'lab-resource-view-list',
-    templateUrl: './lab-resource-view-list.component.html',
-    styleUrls: ['./lab-resource-view-list.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-list',
+  templateUrl: './lab-resource-view-list.component.html',
+  styleUrls: ['./lab-resource-view-list.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewListComponent
   extends RvResourceViewDirective<LabResourceViewResourcesList>
   implements OnInit
 {
+  private resourceState = inject(LabResourceDetailState, { optional: true });
+
   datasource: FlArrayObs<LabResource>;
 
   columns: FlTableColumnStatic<LabResource>[] = ['name', 'type', 'tags', 'flagged'];
 
   selectableRow: boolean;
 
-  constructor(@Optional() private resourceState: LabResourceDetailState) {
+  constructor() {
     super();
   }
 

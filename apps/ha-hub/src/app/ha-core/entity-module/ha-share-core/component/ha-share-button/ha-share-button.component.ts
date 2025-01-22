@@ -1,21 +1,21 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, inject } from '@angular/core';
 import { HaShareButtonElement } from '../../model/ha-share.class';
 import { HaMetadataService } from '../../../../ha-service/ha-metadata.service';
 
 @Component({
-    selector: 'ha-share-button',
-    templateUrl: './ha-share-button.component.html',
-    styleUrl: './ha-share-button.component.scss',
-    standalone: false
+  selector: 'ha-share-button',
+  templateUrl: './ha-share-button.component.html',
+  styleUrl: './ha-share-button.component.scss',
+  standalone: false,
 })
 export class HaShareButtonComponent implements OnInit {
+  private metaService = inject(HaMetadataService);
+
   shareToMedium = input<boolean>();
 
   isEditor = input<boolean>();
 
   shareButtonElements: HaShareButtonElement[] = [];
-
-  constructor(private metaService: HaMetadataService) {}
 
   ngOnInit(): void {
     this.setShareButtonElements();

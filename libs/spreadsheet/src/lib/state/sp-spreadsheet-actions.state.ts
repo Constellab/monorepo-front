@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SpSheetAction } from '../model/action/sp-sheet.action';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import {
@@ -24,11 +24,9 @@ import { SpCellCoord } from '../model/sp-cell-coord.class';
  */
 @Injectable()
 export class SpSpreadsheetActions {
-  constructor(
-    private state: SpSpreadsheetState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private actionStore: SpSpreadsheetActionStore
-  ) {}
+  private state = inject(SpSpreadsheetState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private actionStore = inject(SpSpreadsheetActionStore);
 
   public updateCellValue(newValue: any, coord: SpCellCoord): void {
     const sheet: SpSheet = this.state.currentSheet;

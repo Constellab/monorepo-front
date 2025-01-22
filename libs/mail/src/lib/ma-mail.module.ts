@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import {
   FlCardModule,
   FlCorePipeModule,
@@ -60,7 +60,9 @@ import { MatMenuModule } from '@angular/material/menu';
   ],
 })
 export class MaMailModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('MaMailModule', maMailI18n);
   }
 }

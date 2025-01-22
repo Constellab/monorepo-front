@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   FlTranslatableText,
@@ -17,6 +17,12 @@ import { FlPlatformService } from '../../../service/fl-plateform.service';
 
 @Injectable()
 export class FlTranslateService {
+  private translateService = inject(TranslateService);
+  private platformService = inject(FlPlatformService);
+  private cookieService = inject(CookieService);
+  private config = inject<FlTranslateModuleConfig>(FL_TRANSLATE_MODULE_CONFIG);
+  private adapter = inject<DateAdapter<any>>(DateAdapter);
+
   private static instance: FlTranslateService = null;
 
   // key to store the user language in the cookie
@@ -25,13 +31,7 @@ export class FlTranslateService {
   // store the module that have been translated
   private modulesTranslation: string[] = [];
 
-  constructor(
-    private translateService: TranslateService,
-    private platformService: FlPlatformService,
-    private cookieService: CookieService,
-    @Inject(FL_TRANSLATE_MODULE_CONFIG) private config: FlTranslateModuleConfig,
-    private adapter: DateAdapter<any>
-  ) {
+  constructor() {
     // save this instance to static attribute
     FlTranslateService.instance = this;
   }

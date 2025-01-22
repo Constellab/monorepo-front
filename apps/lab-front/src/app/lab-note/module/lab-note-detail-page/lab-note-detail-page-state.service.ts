@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import { LabNoteService } from '../../../lab-core/entity-service/lab-note.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LabNote } from '../../../lab-core/model/entities/lab-note.entity';
@@ -7,10 +7,10 @@ import { TeRichText } from '@monorepo/text-editor';
 
 @Injectable()
 export class LabNoteDetailPageState implements OnDestroy {
+  private noteService = inject(LabNoteService);
+
   private note$: BehaviorSubject<LabNote> = new BehaviorSubject(null);
   private noteContent$: BehaviorSubject<TeRichText> = new BehaviorSubject(null);
-
-  constructor(private noteService: LabNoteService) {}
 
   public init(noteId: string): void {
     this.noteService.getNote(noteId).subscribe({

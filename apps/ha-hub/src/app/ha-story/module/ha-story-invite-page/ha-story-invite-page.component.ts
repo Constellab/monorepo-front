@@ -1,27 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStoryCoAuthorInvite } from '../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
-    selector: 'ha-story-invite-page',
-    templateUrl: './ha-story-invite-page.component.html',
-    styleUrls: ['./ha-story-invite-page.component.scss'],
-    standalone: false
+  selector: 'ha-story-invite-page',
+  templateUrl: './ha-story-invite-page.component.html',
+  styleUrls: ['./ha-story-invite-page.component.scss'],
+  standalone: false,
 })
 export class HaStoryInvitePageComponent implements OnInit {
+  private activeRoute = inject(ActivatedRoute);
+  private storyService = inject(HaStoryService);
+  private router = inject(Router);
+
   token: string;
 
   invite: HaStoryCoAuthorInvite;
 
   isLoading = false;
-
-  constructor(
-    private activeRoute: ActivatedRoute,
-    private storyService: HaStoryService,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {

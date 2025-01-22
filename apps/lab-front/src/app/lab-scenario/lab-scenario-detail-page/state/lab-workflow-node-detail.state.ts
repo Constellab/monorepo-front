@@ -1,4 +1,4 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable, ViewContainerRef, inject } from '@angular/core';
 import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import {
@@ -34,20 +34,18 @@ import { LabRouterService } from '../../../lab-core/service/lab-router.service';
  */
 @Injectable()
 export class LabWorkflowNodeDetailState {
+  private workflowEditConfig = inject(LabWorkflowEditConfig);
+  private actionState = inject(PrWorkflowActionState);
+  private dialogService = inject(FlDialogService);
+  private viewContainerRef = inject(ViewContainerRef);
+  private scenarioState = inject(LabScenarioDetailPageState);
+  private protocolService = inject(LabProtocolService);
+  private portalService = inject(FlPortalService);
+  private routerService = inject(LabRouterService);
+
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
-
-  constructor(
-    private workflowEditConfig: LabWorkflowEditConfig,
-    private actionState: PrWorkflowActionState,
-    private dialogService: FlDialogService,
-    private viewContainerRef: ViewContainerRef,
-    private scenarioState: LabScenarioDetailPageState,
-    private protocolService: LabProtocolService,
-    private portalService: FlPortalService,
-    private routerService: LabRouterService
-  ) {}
 
   public init(): void {
     this.node$ = new BehaviorSubject(null);

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, inject } from '@angular/core';
 import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';
 import { Observable } from 'rxjs';
 import { FlPortalService, FlTranslatableText } from '@monorepo/front-core-lib';
@@ -12,12 +12,14 @@ import {
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'pr-workflow-node-resource',
-    templateUrl: './pr-workflow-node-resource.component.html',
-    styleUrl: './pr-workflow-node-resource.component.scss',
-    standalone: false
+  selector: 'pr-workflow-node-resource',
+  templateUrl: './pr-workflow-node-resource.component.html',
+  styleUrl: './pr-workflow-node-resource.component.scss',
+  standalone: false,
 })
 export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective implements OnInit {
+  protected actionState = inject(PrWorkflowActionState);
+
   node: PrWorkflowNodeResource;
 
   title$: Observable<FlTranslatableText>;
@@ -25,13 +27,12 @@ export class PrWorkflowNodeResourceComponent extends PrWorkflowNodeDirective imp
 
   externalButton$: Observable<PrWorkNodeIoExternalButton | null>;
 
-  constructor(
-    workflowManager: PrWorkflowManagerState,
-    elementRef: ElementRef,
-    renderer: Renderer2,
-    portalService: FlPortalService,
-    protected actionState: PrWorkflowActionState
-  ) {
+  constructor() {
+    const workflowManager = inject(PrWorkflowManagerState);
+    const elementRef = inject(ElementRef);
+    const renderer = inject(Renderer2);
+    const portalService = inject(FlPortalService);
+
     super(workflowManager, elementRef, renderer, portalService);
   }
 

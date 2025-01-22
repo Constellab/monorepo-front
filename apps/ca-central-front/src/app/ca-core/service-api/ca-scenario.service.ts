@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaScenario } from '../model/entities/folder/ca-scenario.class';
 import { FlApiService } from '@monorepo/front-core-lib';
@@ -9,9 +9,9 @@ import { CaLabConfig } from '../model/entities/lab/ca-lab-config.class';
   providedIn: 'root',
 })
 export class CaScenarioService {
-  private readonly route: string = 'scenarios';
+  private apiService = inject(FlApiService);
 
-  constructor(private apiService: FlApiService) {}
+  private readonly route: string = 'scenarios';
 
   public findById(id: string): Observable<CaScenario> {
     return this.apiService.get(`${this.route}/${id}`, CaScenario);

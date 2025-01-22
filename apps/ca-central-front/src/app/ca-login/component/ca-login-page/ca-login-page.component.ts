@@ -1,24 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FlDialogService, FlPasswordForgottenComponent, FlSnackBarService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 
 @Component({
-    selector: 'ca-login-page',
-    templateUrl: './ca-login-page.component.html',
-    styleUrls: ['./ca-login-page.component.scss'],
-    standalone: false
+  selector: 'ca-login-page',
+  templateUrl: './ca-login-page.component.html',
+  styleUrls: ['./ca-login-page.component.scss'],
+  standalone: false,
 })
 export class CaLoginPageComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+
   appRoute: string = CaRouterService.getAppRoute();
 
   signupRoute: string = CaRouterService.getSignupRoute();
-
-  constructor(
-    private route: ActivatedRoute,
-    private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => this.checkRouteQueryParams(params));

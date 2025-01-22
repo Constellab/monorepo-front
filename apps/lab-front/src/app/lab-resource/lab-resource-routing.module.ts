@@ -1,4 +1,4 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable, NgModule, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlTree } from '@angular/router';
 import { LabResourceSearchPageComponent } from './lab-resource-search-page/lab-resource-search-page/lab-resource-search-page.component';
 import { LabResourceDetailPageComponent } from './lab-resource-detail-page/lab-resource-detail-page/lab-resource-detail-page.component';
@@ -11,10 +11,8 @@ import { LabRouterService } from '../lab-core/service/lab-router.service';
   providedIn: 'root',
 })
 export class LabViewRouteRedirectGuard {
-  constructor(
-    private viewConfigService: LabViewConfigService,
-    private router: Router
-  ) {}
+  private viewConfigService = inject(LabViewConfigService);
+  private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot

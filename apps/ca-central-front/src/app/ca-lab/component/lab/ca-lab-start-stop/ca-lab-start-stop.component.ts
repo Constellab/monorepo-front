@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
@@ -19,12 +19,17 @@ import {
  * Toggle button to start or stop the lab
  */
 @Component({
-    selector: 'ca-lab-start-stop',
-    templateUrl: './ca-lab-start-stop.component.html',
-    styleUrls: ['./ca-lab-start-stop.component.scss'],
-    standalone: false
+  selector: 'ca-lab-start-stop',
+  templateUrl: './ca-lab-start-stop.component.html',
+  styleUrls: ['./ca-lab-start-stop.component.scss'],
+  standalone: false,
 })
 export class CaLabStartStopComponent {
+  private state = inject(CaLabDetailPageState);
+  private labService = inject(CaLabService);
+  private snackBarService = inject(FlSnackBarService);
+  private dialogService = inject(FlDialogService);
+
   serverIsRunning$: Observable<boolean> = this.state
     .getStatus$()
     .pipe(map((status) => status.serverIsRunning()));
@@ -32,13 +37,6 @@ export class CaLabStartStopComponent {
   disabledStart$: Observable<boolean> = this.state
     .getStatus$()
     .pipe(map((status) => status.serverIsBusy() || status.labStatus.value === 'NO_SERVER'));
-
-  constructor(
-    private state: CaLabDetailPageState,
-    private labService: CaLabService,
-    private snackBarService: FlSnackBarService,
-    private dialogService: FlDialogService
-  ) {}
 
   startLab(): void {
     const input: FlConfirmDialogInput = {

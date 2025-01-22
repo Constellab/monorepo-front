@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { Observable } from 'rxjs';
 import { LabSharedEntity } from '../../../../model/entities/lab-share.entity';
@@ -8,16 +8,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
  * Component to show the origin of a shared resource.
  */
 @Component({
-    selector: 'lab-shared-entity-origin-dialog',
-    templateUrl: './lab-shared-entity-origin-dialog.component.html',
-    styleUrls: ['./lab-shared-entity-origin-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-shared-entity-origin-dialog',
+  templateUrl: './lab-shared-entity-origin-dialog.component.html',
+  styleUrls: ['./lab-shared-entity-origin-dialog.component.scss'],
+  standalone: false,
 })
 export class LabSharedEntityOriginDialogComponent {
-  resourceShare$: Observable<LabSharedEntity> = this.resourceService.getSharedResourceOrigin(this.resourceId);
+  private resourceId = inject(MAT_DIALOG_DATA);
+  private resourceService = inject(LabResourceService);
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private resourceId: string,
-    private resourceService: LabResourceService
-  ) {}
+  resourceShare$: Observable<LabSharedEntity> = this.resourceService.getSharedResourceOrigin(this.resourceId);
 }

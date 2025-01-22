@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '../../service/fl-auth.service';
@@ -12,13 +12,17 @@ export interface FlCompleteLoginQueryParam {
 }
 
 @Component({
-    selector: 'fl-complete-login',
-    templateUrl: './fl-complete-login.component.html',
-    styleUrls: ['./fl-complete-login.component.scss'],
-    providers: [FlQueryParamHandler],
-    standalone: false
+  selector: 'fl-complete-login',
+  templateUrl: './fl-complete-login.component.html',
+  styleUrls: ['./fl-complete-login.component.scss'],
+  providers: [FlQueryParamHandler],
+  standalone: false,
 })
 export class FlCompleteLoginComponent implements OnInit {
+  private router = inject(Router);
+  private queryParamHandler = inject<FlQueryParamHandler<FlCompleteLoginQueryParam>>(FlQueryParamHandler);
+  private authService = inject(FlAuthService);
+
   /**
    * Redirection route after the login is successful, do nothing if not provided
    */
@@ -27,12 +31,6 @@ export class FlCompleteLoginComponent implements OnInit {
   @Output() loginSuccess: EventEmitter<void> = new EventEmitter<void>();
 
   currentView$: Observable<'login' | '2fa'>;
-
-  constructor(
-    private router: Router,
-    private queryParamHandler: FlQueryParamHandler<FlCompleteLoginQueryParam>,
-    private authService: FlAuthService
-  ) {}
 
   ngOnInit(): void {
     this.currentView$ = this.queryParamHandler

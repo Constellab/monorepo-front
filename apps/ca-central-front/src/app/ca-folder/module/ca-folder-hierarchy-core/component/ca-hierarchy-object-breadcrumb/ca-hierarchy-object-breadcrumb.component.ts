@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
@@ -20,20 +20,18 @@ interface BreadcrumbLink {
  * It gets the hierarchy from the api
  */
 @Component({
-    selector: 'ca-hierarchy-object-breadcrumb',
-    templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
-    styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
-    standalone: false
+  selector: 'ca-hierarchy-object-breadcrumb',
+  templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
+  styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
+  standalone: false,
 })
 export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
+  private state = inject(CaHierarchyObjectDetailState);
+  private translateService = inject(FlTranslateService);
+
   links$: Observable<BreadcrumbLink[]>;
 
   hasChildren$: Observable<boolean> = this.state.hasSubFolders$();
-
-  constructor(
-    private state: CaHierarchyObjectDetailState,
-    private translateService: FlTranslateService
-  ) {}
 
   ngOnInit(): void {
     // read children route params

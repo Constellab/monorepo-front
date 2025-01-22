@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { LabFlaggedEntity } from '../../../../model/global/lab-flagged-entity.class';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
@@ -9,20 +9,20 @@ import { Observable } from 'rxjs';
  * Button to toggle the flag of an element.
  */
 @Component({
-    selector: 'lab-flag-button',
-    templateUrl: './lab-flag-button.component.html',
-    styleUrls: ['./lab-flag-button.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lab-flag-button',
+  templateUrl: './lab-flag-button.component.html',
+  styleUrls: ['./lab-flag-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LabFlagButtonComponent {
+  private resourceService = inject(LabResourceService);
+
   @Input() entity: LabFlaggedEntity;
 
   @Output() update: EventEmitter<LabFlaggedEntity> = new EventEmitter();
 
   private isLoading: boolean = false;
-
-  constructor(private resourceService: LabResourceService) {}
 
   toggleHighlight(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

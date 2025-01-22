@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
 import {
   FlSnackBarAdditionalConfig,
@@ -15,10 +15,8 @@ import { isPlatformServer } from '@angular/common';
  */
 @Injectable()
 export class FlSnackBarService {
-  constructor(
-    private matSnackBar: MatSnackBar,
-    @Inject(PLATFORM_ID) private platformId: any
-  ) {}
+  private matSnackBar = inject(MatSnackBar);
+  private platformId = inject(PLATFORM_ID);
 
   /**
    * Show a success snack bar message (primary color)

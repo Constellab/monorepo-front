@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlAdvancedSearchInput,
   FlApiWithCacheService,
@@ -23,9 +23,9 @@ import { LabResourceType } from '../model/entities/lab-type/lab-resource-type.en
   providedIn: 'root',
 })
 export class LabTypeService {
-  private readonly route: string = 'typing';
+  private apiService = inject(FlApiWithCacheService);
 
-  constructor(private apiService: FlApiWithCacheService) {}
+  private readonly route: string = 'typing';
 
   public getTyping(typingName: string): Observable<LabTypeEntity> {
     const typingNameObject = new TdTypingName(typingName);

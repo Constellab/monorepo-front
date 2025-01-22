@@ -49,7 +49,11 @@ export class DcTextEditorComponent implements OnInit {
     return of(value.toJson());
   };
 
-  constructor(injector: Injector, translateService: FlTranslateService) {
+
+  constructor() {
+    const injector = inject(Injector);
+    const translateService = inject(FlTranslateService);
+
     flSetRootInjector(injector);
     translateService.addModuleTranslation('dc', dcI18n);
   }

@@ -1,4 +1,4 @@
-import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
@@ -10,10 +10,13 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
  * This is useful to make the drawer over on small screen
  */
 @Directive({
-    selector: '[flDrawerOver]',
-    standalone: false
+  selector: '[flDrawerOver]',
+  standalone: false,
 })
 export class FlDrawerOverDirective implements OnInit, OnDestroy {
+  private breakpointObserver = inject(BreakpointObserver);
+  private matDrawer = inject(MatDrawer);
+
   /**
    * When the media alias is active, the drawer mode switched to over
    * String from Breakpoint
@@ -29,11 +32,6 @@ export class FlDrawerOverDirective implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   private initialMode: MatDrawerMode;
-
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private matDrawer: MatDrawer
-  ) {}
 
   ngOnInit(): void {
     this.initialMode = this.matDrawer.mode;

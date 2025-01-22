@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CaServerCloud, CaServerCloudDatasource } from '../model/entities/server/ca-server-cloud.class';
 import { Observable } from 'rxjs';
 import {
@@ -22,12 +22,12 @@ import { CaCreateStoragePriceDTO, CaStoragePrice } from '../model/entities/serve
   providedIn: 'root',
 })
 export class CaServerService {
+  private apiService = inject(FlApiService);
+
   private readonly route: string = 'servers';
   private readonly routeStandard: string = this.route + '/standard';
   private readonly routeCloud: string = this.route + '/cloud';
   private readonly routeStoragePrice: string = this.route + '/storage/price';
-
-  constructor(private apiService: FlApiService) {}
 
   /////////////////////////////////////// SERVER STANDARD  ///////////////////////////////////////
 

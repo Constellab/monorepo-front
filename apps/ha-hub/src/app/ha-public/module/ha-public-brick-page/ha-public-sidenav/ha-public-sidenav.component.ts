@@ -1,13 +1,13 @@
 import {
   ChangeDetectorRef,
   Component,
-  Inject,
   makeStateKey,
   OnInit,
   PLATFORM_ID,
   Signal,
   StateKey,
   TransferState,
+  inject,
 } from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
@@ -56,12 +56,25 @@ interface FlatNode {
 }
 
 @Component({
-    selector: 'ha-public-sidenav',
-    templateUrl: './ha-public-sidenav.component.html',
-    styleUrls: ['./ha-public-sidenav.component.scss'],
-    standalone: false
+  selector: 'ha-public-sidenav',
+  templateUrl: './ha-public-sidenav.component.html',
+  styleUrls: ['./ha-public-sidenav.component.scss'],
+  standalone: false,
 })
 export class HaPublicSidenavComponent implements OnInit {
+  private brickService = inject(HaBrickService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private contextMenuService = inject(FlMenuDynamicService);
+  private documentationService = inject(HaDocumentationService);
+  private folderService = inject(HaFolderService);
+  private dialogService = inject(FlDialogService);
+  private changeDetectorRefs = inject(ChangeDetectorRef);
+  private platformId = inject(PLATFORM_ID);
+  private transferState = inject(TransferState);
+  private portalActionsService = inject(FlPortalActionsService);
+  private brickPageState = inject(HaBrickPageState);
+
   searchTechDocControl = new FormControl<string>('');
 
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
@@ -146,21 +159,6 @@ export class HaPublicSidenavComponent implements OnInit {
   currentDocId: string;
 
   trackByIdentity = (index: number, item: any): any => item;
-
-  constructor(
-    private brickService: HaBrickService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private contextMenuService: FlMenuDynamicService,
-    private documentationService: HaDocumentationService,
-    private folderService: HaFolderService,
-    private dialogService: FlDialogService,
-    private changeDetectorRefs: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: object,
-    private transferState: TransferState,
-    private portalActionsService: FlPortalActionsService,
-    private brickPageState: HaBrickPageState
-  ) {}
 
   hasChild = (_: number, node: FlatNode): boolean => node.expandable;
 

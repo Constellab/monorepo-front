@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   CaLabBackupHistory,
@@ -14,12 +14,16 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'ca-lab-backup-history',
-    templateUrl: './ca-lab-backup-history.component.html',
-    styleUrls: ['./ca-lab-backup-history.component.scss'],
-    standalone: false
+  selector: 'ca-lab-backup-history',
+  templateUrl: './ca-lab-backup-history.component.html',
+  styleUrls: ['./ca-lab-backup-history.component.scss'],
+  standalone: false,
 })
 export class CaLabBackupHistoryComponent implements OnInit {
+  private labService = inject(CaLabService);
+  private dialogService = inject(FlDialogService);
+  private state = inject(CaLabDetailPageState);
+
   @Input() labId: string;
 
   isOwner$: Observable<boolean> = this.state.isLabOwner$();
@@ -27,12 +31,6 @@ export class CaLabBackupHistoryComponent implements OnInit {
   datasource: CaLabBackupHistoryDatasource;
 
   syncIsLoading: boolean = false;
-
-  constructor(
-    private labService: CaLabService,
-    private dialogService: FlDialogService,
-    private state: CaLabDetailPageState
-  ) {}
 
   ngOnInit(): void {
     this.initDatasource();

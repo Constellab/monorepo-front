@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
 import {
   FlCardModule,
   FlColorModule,
@@ -101,7 +101,9 @@ import { MatDivider } from '@angular/material/divider';
   ],
 })
 export class CoCommunityLibModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('CoCommunityLibModule', coCommunityLibI18n);
   }
 

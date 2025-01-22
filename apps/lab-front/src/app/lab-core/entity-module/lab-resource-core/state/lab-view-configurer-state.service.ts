@@ -8,7 +8,7 @@ import {
 } from '../component/lab-configure-resource-view/lab-configure-resource-view.component';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
 /**
@@ -16,9 +16,9 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
  */
 @Injectable()
 export class LabViewConfigurerState {
-  private viewConfigOverlay: FlOverlayRef;
+  private portalService = inject(FlPortalService);
 
-  constructor(private portalService: FlPortalService) {}
+  private viewConfigOverlay: FlOverlayRef;
 
   // prepare the data and open the view configuration portal
   public openConfigPortal(

@@ -1,26 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickCoAuthorInvite } from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 
 @Component({
-    selector: 'ha-ha-public-brick-user-invite-page',
-    templateUrl: './ha-public-brick-user-invite-page.component.html',
-    styleUrls: ['./ha-public-brick-user-invite-page.component.scss'],
-    standalone: false
+  selector: 'ha-ha-public-brick-user-invite-page',
+  templateUrl: './ha-public-brick-user-invite-page.component.html',
+  styleUrls: ['./ha-public-brick-user-invite-page.component.scss'],
+  standalone: false,
 })
 export class HaPublicBrickUserInvitePageComponent implements OnInit {
+  private activeRoute = inject(ActivatedRoute);
+  private brickService = inject(HaBrickService);
+  private router = inject(Router);
+
   token: string;
 
   invite: HaBrickCoAuthorInvite;
 
   isLoading = false;
-
-  constructor(
-    private activeRoute: ActivatedRoute,
-    private brickService: HaBrickService,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.activeRoute.params.subscribe((params) => {

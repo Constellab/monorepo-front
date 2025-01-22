@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
@@ -97,7 +97,9 @@ import { chChartI18n } from './i18n/ch-chart.i18n';
   providers: [ChChartPortalService],
 })
 export class ChChartModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('ChChartModule', chChartI18n);
   }
 }

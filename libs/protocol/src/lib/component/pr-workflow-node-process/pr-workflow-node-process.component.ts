@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
 import { FlPortalService, FlStatus, FlTranslatableText } from '@monorepo/front-core-lib';
@@ -12,10 +12,10 @@ import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
  * Component to show standard node process in the workflow
  */
 @Component({
-    selector: 'pr-workflow-node-process',
-    templateUrl: './pr-workflow-node-process.component.html',
-    styleUrls: ['./pr-workflow-node-process.component.scss'],
-    standalone: false
+  selector: 'pr-workflow-node-process',
+  templateUrl: './pr-workflow-node-process.component.html',
+  styleUrls: ['./pr-workflow-node-process.component.scss'],
+  standalone: false,
 })
 export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective implements OnInit, OnDestroy {
   node: PrWorkflowNodeProcess;
@@ -29,12 +29,12 @@ export class PrWorkflowNodeProcessComponent extends PrWorkflowNodeDirective impl
 
   status$: Observable<FlStatus>;
 
-  constructor(
-    workflowManager: PrWorkflowManagerState,
-    elementRef: ElementRef,
-    renderer: Renderer2,
-    portalService: FlPortalService
-  ) {
+  constructor() {
+    const workflowManager = inject(PrWorkflowManagerState);
+    const elementRef = inject(ElementRef);
+    const renderer = inject(Renderer2);
+    const portalService = inject(FlPortalService);
+
     super(workflowManager, elementRef, renderer, portalService);
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
@@ -9,12 +9,10 @@ import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../m
   providedIn: 'root',
 })
 export class CoIconService {
-  private readonly route: string = 'icon';
+  private serviceConfig = inject(CoConfig);
+  private apiService = inject(FlApiService);
 
-  constructor(
-    private serviceConfig: CoConfig,
-    private apiService: FlApiService
-  ) {}
+  private readonly route: string = 'icon';
 
   public getAllPaginated(): CoIconDatasourcePaginated<CoIconDatasourceFilters> {
     return new FlEntityPaginatedDatasource(

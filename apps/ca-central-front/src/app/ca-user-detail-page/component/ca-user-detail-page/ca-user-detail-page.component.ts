@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,12 +17,17 @@ import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog
  * Component that show a form on first user login to complete his information
  */
 @Component({
-    selector: 'ca-user-detail-page',
-    templateUrl: './ca-user-detail-page.component.html',
-    styleUrls: ['./ca-user-detail-page.component.scss'],
-    standalone: false
+  selector: 'ca-user-detail-page',
+  templateUrl: './ca-user-detail-page.component.html',
+  styleUrls: ['./ca-user-detail-page.component.scss'],
+  standalone: false,
 })
 export class CaUserDetailPageComponent implements OnInit {
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private route = inject(ActivatedRoute);
+  private spaceService = inject(CaSpaceService);
+  private dialogService = inject(FlDialogService);
+
   user$: Observable<CaUser>;
 
   id: string;
@@ -30,13 +35,6 @@ export class CaUserDetailPageComponent implements OnInit {
 
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-
-  constructor(
-    private authenticatedUserService: CaAuthenticatedUserService,
-    private route: ActivatedRoute,
-    private spaceService: CaSpaceService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 import { HaStoryService } from '../ha-service/ha-story.service';
@@ -12,13 +12,11 @@ import { PlatformLocation } from '@angular/common';
   providedIn: 'root',
 })
 export class HaStoryGuard {
-  constructor(
-    private storyService: HaStoryService,
-    private authUserService: HaAuthenticatedUserService,
-    private platformLocation: PlatformLocation,
-    private loginService: HaAuthService,
-    private router: Router
-  ) {}
+  private storyService = inject(HaStoryService);
+  private authUserService = inject(HaAuthenticatedUserService);
+  private platformLocation = inject(PlatformLocation);
+  private loginService = inject(HaAuthService);
+  private router = inject(Router);
 
   canActivate(
     route: ActivatedRouteSnapshot

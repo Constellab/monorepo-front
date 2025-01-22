@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlStatusChipComponent } from './component/fl-status-chip/fl-status-chip.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,7 +28,9 @@ import { FlLoaderModule } from '../fl-loader/fl-loader.module';
   ],
 })
 export class FlStatusModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlStatusModule', flStatusI18n);
   }
 }

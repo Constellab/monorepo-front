@@ -117,13 +117,13 @@ export function TranslationLoaderFactory(
       multi: true,
     },
     provideAppInitializer(() => {
-        const initializerFn = (loadUserOnInit)(inject(HaAuthenticatedUserService));
-        return initializerFn();
-      }),
+      const initializerFn = loadUserOnInit(inject(HaAuthenticatedUserService));
+      return initializerFn();
+    }),
     provideAppInitializer(() => {
-        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
-        return initializerFn();
-      }),
+      const initializerFn = loadThemeOnInit(inject(FlThemeService));
+      return initializerFn();
+    }),
     { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
     { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
     {
@@ -135,7 +135,9 @@ export function TranslationLoaderFactory(
   ],
 })
 export class HaAppModule {
-  constructor(injector: Injector) {
+  constructor() {
+    const injector = inject(Injector);
+
     // set the root injector in a variable
     flSetRootInjector(injector);
   }

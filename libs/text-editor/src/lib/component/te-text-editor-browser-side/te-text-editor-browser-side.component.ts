@@ -13,6 +13,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { TeConfig } from '../../model/te-config.class';
 import { Subject, Subscription } from 'rxjs';
@@ -29,13 +30,17 @@ import { TeTextEditorUndoRedo } from '../../model/te-text-editor-undo-redo.class
 TeRichTextModifications.setFrontTimeDifference();
 
 @Component({
-    selector: 'te-text-editor-browser-side',
-    templateUrl: './te-text-editor-browser-side.component.html',
-    styleUrl: './te-text-editor-browser-side.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'te-text-editor-browser-side',
+  templateUrl: './te-text-editor-browser-side.component.html',
+  styleUrl: './te-text-editor-browser-side.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
+  private envInjector = inject(EnvironmentInjector);
+  private applicationRef = inject(ApplicationRef);
+  private translateService = inject(FlTranslateService);
+
   @Input({ required: true }) config: TeConfig;
 
   @Input() event: TeEvent;
@@ -73,11 +78,7 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
 
   private skipNextChange = false;
 
-  constructor(
-    private envInjector: EnvironmentInjector,
-    private applicationRef: ApplicationRef,
-    private translateService: FlTranslateService
-  ) {
+  constructor() {
     // create richTextAggregate from richText and render the value
     effect(() => {
       const richText = this.richText();

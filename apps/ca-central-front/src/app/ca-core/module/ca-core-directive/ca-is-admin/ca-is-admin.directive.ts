@@ -1,4 +1,4 @@
-import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { CaAuthenticatedUserService } from '../../../service-api/ca-authenticated-user.service';
 
@@ -6,15 +6,16 @@ import { CaAuthenticatedUserService } from '../../../service-api/ca-authenticate
  * Structurale directive that work like ngIf, and show element only is user is admin
  */
 @Directive({
-    selector: '[caIsAdmin]',
-    standalone: false
+  selector: '[caIsAdmin]',
+  standalone: false,
 })
 export class CaIsAdminDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
-  constructor(
-    templateRef: TemplateRef<any>,
-    viewContainer: ViewContainerRef,
-    private authenticatedUserService: CaAuthenticatedUserService
-  ) {
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+
+  constructor() {
+    const templateRef = inject<TemplateRef<any>>(TemplateRef);
+    const viewContainer = inject(ViewContainerRef);
+
     super(templateRef, viewContainer);
   }
 

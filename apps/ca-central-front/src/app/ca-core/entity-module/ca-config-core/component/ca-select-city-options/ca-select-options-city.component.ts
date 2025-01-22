@@ -1,28 +1,32 @@
-import { AfterViewInit, Component, Host, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { CaCountry } from '../../../../model/entities/ca-country.entity';
 import { CaCountryService } from '../../../../service-api/ca-country.service';
 import { MatSelect } from '@angular/material/select';
 
 @Component({
-    selector: 'ca-select-city-options',
-    templateUrl: './ca-select-options-city.component.html',
-    styleUrls: ['./ca-select-options-city.component.scss'],
-    standalone: false
+  selector: 'ca-select-city-options',
+  templateUrl: './ca-select-options-city.component.html',
+  styleUrls: ['./ca-select-options-city.component.scss'],
+  standalone: false,
 })
 export class CaSelectOptionsCityComponent
   extends FlEmbeddedOptionsAbstractDirective
   implements OnInit, AfterViewInit
 {
+  private countryService = inject(CaCountryService);
+  private select: MatSelect;
+
   countries: CaCountry[];
 
   isLoading: boolean = false;
 
-  constructor(
-    private countryService: CaCountryService,
-    @Host() private select: MatSelect
-  ) {
+  constructor() {
+    const select = inject(MatSelect, { host: true });
+
     super(select);
+
+    this.select = select;
   }
 
   ngOnInit(): void {

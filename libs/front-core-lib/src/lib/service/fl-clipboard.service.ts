@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FlSnackBarService } from '../module/fl-snack-bar/fl-snack-bar.service';
 import { FlTranslatableText } from '../module/fl-translate/model/fl-translate-param';
@@ -8,10 +8,8 @@ import { FlTranslatableText } from '../module/fl-translate/model/fl-translate-pa
  */
 @Injectable({ providedIn: 'root' })
 export class FlClipboardService {
-  constructor(
-    private clipboard: Clipboard,
-    private snackBarService: FlSnackBarService
-  ) {}
+  private clipboard = inject(Clipboard);
+  private snackBarService = inject(FlSnackBarService);
 
   /**
    * Copies the provided text into the user's clipboard.

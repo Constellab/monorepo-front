@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { firstValueFrom, Observable, of, switchMap } from 'rxjs';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';
@@ -11,21 +11,19 @@ import { BnBioNetworkMetabolite } from '../../model/bn-bio-network.class';
  * Section to display the substrate and products of a reaction
  */
 @Component({
-    selector: 'bn-bio-network-reaction-content',
-    templateUrl: './bn-bio-network-reaction-content.component.html',
-    styleUrls: ['./bn-bio-network-reaction-content.component.scss'],
-    standalone: false
+  selector: 'bn-bio-network-reaction-content',
+  templateUrl: './bn-bio-network-reaction-content.component.html',
+  styleUrls: ['./bn-bio-network-reaction-content.component.scss'],
+  standalone: false,
 })
 export class BnBioNetworkReactionContentComponent implements OnInit {
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+
   @Input() reaction$: Observable<BnBioNetworkNodeReaction>;
 
   reactionSubstrate$: Observable<BnBioNetworkMetabolite[]>;
   reactionProducts$: Observable<BnBioNetworkMetabolite[]>;
-
-  constructor(
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState
-  ) {}
 
   ngOnInit(): void {
     this.reactionSubstrate$ = this.reaction$.pipe(

@@ -1,9 +1,10 @@
 import {
   computed,
+  inject,
   Injectable,
   OnDestroy,
-  Signal,
   signal,
+  Signal,
   ViewContainerRef,
   WritableSignal,
 } from '@angular/core';
@@ -37,7 +38,6 @@ import {
   LabViewConfigDatasource,
 } from '../../../model/entities/resource/lab-view-config.entity';
 import { ComponentType } from '@angular/cdk/overlay';
-import { ActivatedRoute, Router } from '@angular/router';
 import { LabViewConfigurerState } from './lab-view-configurer-state.service';
 
 export interface LabMinimizedView {
@@ -47,6 +47,17 @@ export interface LabMinimizedView {
 
 @Injectable()
 export class LabResourceDetailState implements OnDestroy {
+  private resourceService = inject(LabResourceService);
+  private actionService = inject(FlPortalActionsService);
+  private portalService = inject(FlPortalService);
+  private viewConfigService = inject(LabViewConfigService);
+  private viewContainerRef = inject(ViewContainerRef);
+  private viewConfigState = inject(LabViewConfigurerState);
+  private queryParamHandler: FlQueryParamHandler<{
+    resourceId: string;
+    viewId: string;
+  }> = inject(FlQueryParamHandler);
+
   private static id = 0;
   private id = LabResourceDetailState.id++;
 
@@ -64,8 +75,6 @@ export class LabResourceDetailState implements OnDestroy {
   private updateQueryParams: boolean;
 
   private viewPortalSubscription: Subscription;
-
-  private queryParamHandler: FlQueryParamHandler<{ resourceId: string; viewId: string }>;
 
   public mainResource: Signal<LabResource> = computed(() => {
     const mainId = this.mainResourceId();
@@ -96,19 +105,6 @@ export class LabResourceDetailState implements OnDestroy {
 
   public get minimizedViews(): Signal<LabMinimizedView[]> {
     return this._minimizedViews.asReadonly();
-  }
-
-  constructor(
-    private resourceService: LabResourceService,
-    private actionService: FlPortalActionsService,
-    private portalService: FlPortalService,
-    private viewConfigService: LabViewConfigService,
-    private viewContainerRef: ViewContainerRef,
-    private viewConfigState: LabViewConfigurerState,
-    route: ActivatedRoute,
-    router: Router
-  ) {
-    this.queryParamHandler = new FlQueryParamHandler(router, route);
   }
 
   public init(resourceId: string, updateQueryParams: boolean): void {

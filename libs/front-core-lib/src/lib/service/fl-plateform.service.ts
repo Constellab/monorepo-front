@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 /**
@@ -10,10 +10,8 @@ import { isPlatformBrowser, isPlatformServer } from '@angular/common';
   providedIn: 'root',
 })
 export class FlPlatformService {
-  constructor(
-    private platform: Platform,
-    @Inject(PLATFORM_ID) private platformId: any
-  ) {}
+  private platform = inject(Platform);
+  private platformId = inject(PLATFORM_ID);
 
   /**
    * Return true if the current browser is a mobile device

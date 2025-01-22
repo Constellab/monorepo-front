@@ -1,14 +1,17 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2, inject } from '@angular/core';
 import { FlHtmlHelper } from '../../../utils/fl-html.helper';
 
 /**
  * Directive for portal to move the portal on top of other portal when clicking on it.
  */
 @Directive({
-    selector: '[flPortalZIndex]',
-    standalone: false
+  selector: '[flPortalZIndex]',
+  standalone: false,
 })
 export class FlPortalZIndexDirective implements OnInit {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+
   @Input() flPortalZIndexDisabled: boolean = false;
 
   private readonly className = 'g-overlay-z-index';
@@ -18,11 +21,6 @@ export class FlPortalZIndexDirective implements OnInit {
   click(): void {
     this.updateZIndex();
   }
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private renderer: Renderer2
-  ) {}
 
   ngOnInit(): void {
     this.overlayElement = this.getOverlayElement();

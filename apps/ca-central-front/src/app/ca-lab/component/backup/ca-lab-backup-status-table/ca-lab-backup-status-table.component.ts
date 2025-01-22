@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import {
   CaLabBackupStatusDatasource,
   CaLabBackupStatusDTO,
@@ -12,12 +12,15 @@ import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 
 @Component({
-    selector: 'ca-lab-backup-status-table',
-    templateUrl: './ca-lab-backup-status-table.component.html',
-    styleUrl: './ca-lab-backup-status-table.component.scss',
-    standalone: false
+  selector: 'ca-lab-backup-status-table',
+  templateUrl: './ca-lab-backup-status-table.component.html',
+  styleUrl: './ca-lab-backup-status-table.component.scss',
+  standalone: false,
 })
 export class CaLabBackupStatusTableComponent {
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(CaRouterService);
+
   @Input({ required: true }) datasource: CaLabBackupStatusDatasource;
 
   @Input({ required: true }) labId: string;
@@ -28,11 +31,6 @@ export class CaLabBackupStatusTableComponent {
     'status',
     'lastBackup',
   ];
-
-  constructor(
-    private dialogService: FlDialogService,
-    private routerService: CaRouterService
-  ) {}
 
   restoreBackupToLab(backupStatus: CaLabBackupStatusDTO): void {
     const data: CaLabRestoreBackupToLabDialogInput = {

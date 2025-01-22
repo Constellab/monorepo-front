@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlSavedSearch } from '../../model/fl-saved-search.class';
 import { FlSearchState } from '../../model/fl-search.state';
 
@@ -6,15 +6,15 @@ import { FlSearchState } from '../../model/fl-search.state';
  * Works inside the {@link FlSearchComponent} to list the saved search and trigger search on click
  */
 @Component({
-    selector: 'fl-search-saved-list',
-    templateUrl: './fl-search-saved-list.component.html',
-    styleUrls: ['./fl-search-saved-list.component.scss'],
-    standalone: false
+  selector: 'fl-search-saved-list',
+  templateUrl: './fl-search-saved-list.component.html',
+  styleUrls: ['./fl-search-saved-list.component.scss'],
+  standalone: false,
 })
 export class FlSearchSavedListComponent implements OnInit {
-  savedSearch: FlSavedSearch[];
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
 
-  constructor(private searchState: FlSearchState<any>) {}
+  savedSearch: FlSavedSearch[];
 
   ngOnInit(): void {
     this.savedSearch = this.searchState.getConfig().savedSearch;

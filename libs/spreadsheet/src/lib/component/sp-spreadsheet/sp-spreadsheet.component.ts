@@ -7,6 +7,7 @@ import {
   OnInit,
   TrackByFunction,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
 import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
@@ -29,28 +30,36 @@ import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-paginat
 import { FlPortalService } from '@monorepo/front-core-lib';
 
 @Component({
-    selector: 'sp-spreadsheet',
-    templateUrl: './sp-spreadsheet.component.html',
-    styleUrls: ['./sp-spreadsheet.component.scss'],
-    providers: [
-        SpSpreadsheetState,
-        SpSpreadsheetElementState,
-        SpSpreadsheetSelectionState,
-        SpSpreadsheetContextMenu,
-        SpSpreadsheetKeyboardManagerState,
-        SpSpreadsheetMouseManagerState,
-        SpSpreadsheetClipboardState,
-        SpSpreadsheetActionStore,
-        SpSpreadsheetActions,
-        SpSpreadsheetChartState,
-        SpSpreadsheetScrollState,
-        SpSpreadsheetPaginationState,
-        FlPortalService, // providers to access the state in portal
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'sp-spreadsheet',
+  templateUrl: './sp-spreadsheet.component.html',
+  styleUrls: ['./sp-spreadsheet.component.scss'],
+  providers: [
+    SpSpreadsheetState,
+    SpSpreadsheetElementState,
+    SpSpreadsheetSelectionState,
+    SpSpreadsheetContextMenu,
+    SpSpreadsheetKeyboardManagerState,
+    SpSpreadsheetMouseManagerState,
+    SpSpreadsheetClipboardState,
+    SpSpreadsheetActionStore,
+    SpSpreadsheetActions,
+    SpSpreadsheetChartState,
+    SpSpreadsheetScrollState,
+    SpSpreadsheetPaginationState,
+    FlPortalService, // providers to access the state in portal
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class SpSpreadsheetComponent implements OnInit, OnDestroy {
+  private state = inject(SpSpreadsheetState);
+  private elementState = inject(SpSpreadsheetElementState);
+  private selectionState = inject(SpSpreadsheetSelectionState);
+  private keyboardState = inject(SpSpreadsheetKeyboardManagerState);
+  private mouseState = inject(SpSpreadsheetMouseManagerState);
+  private scrollState = inject(SpSpreadsheetScrollState);
+  private paginationState = inject(SpSpreadsheetPaginationState);
+
   @Input() spreadsheet: SpSpreadsheet;
 
   @Input() readOnly: boolean = false;
@@ -66,16 +75,6 @@ export class SpSpreadsheetComponent implements OnInit, OnDestroy {
 
   columns$: Observable<SpSheetHeader[]>;
   rows$: Observable<SpSheetRow[]>;
-
-  constructor(
-    private state: SpSpreadsheetState,
-    private elementState: SpSpreadsheetElementState,
-    private selectionState: SpSpreadsheetSelectionState,
-    private keyboardState: SpSpreadsheetKeyboardManagerState,
-    private mouseState: SpSpreadsheetMouseManagerState,
-    private scrollState: SpSpreadsheetScrollState,
-    private paginationState: SpSpreadsheetPaginationState
-  ) {}
 
   ngOnInit(): void {
     this.state.init(this.spreadsheet, this.readOnly, this.chartConfigs);

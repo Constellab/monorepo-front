@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { PrProtocol } from '../../model/pr-protocol.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { TdTypingName } from '@monorepo/technical-doc';
@@ -9,20 +9,20 @@ import { PrProcessConfigInfoDialogComponent } from '../pr-process-config-info-di
  * Component to show info about a process
  */
 @Component({
-    selector: 'pr-process-info',
-    templateUrl: './pr-process-info.component.html',
-    styleUrl: './pr-process-info.component.scss',
-    standalone: false
+  selector: 'pr-process-info',
+  templateUrl: './pr-process-info.component.html',
+  styleUrl: './pr-process-info.component.scss',
+  standalone: false,
 })
 export class PrProcessInfoComponent implements OnInit {
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true }) process: PrProtocol;
 
   @Input() communityHelper: CoCommunityHelperService;
 
   docUrl: string;
   typingName: TdTypingName;
-
-  constructor(private dialogService: FlDialogService) {}
 
   ngOnInit(): void {
     this.typingName = new TdTypingName(this.process.process_typing_name);

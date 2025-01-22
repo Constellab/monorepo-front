@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   FlApiService,
   FlDatasourceGetPageData,
@@ -14,10 +14,10 @@ import { CaTeamSearch, CaTeamSearchFields } from '../entity-module/ca-group-core
   providedIn: 'root',
 })
 export class CaGroupService {
+  private apiService = inject(FlApiService);
+
   private readonly route = 'groups';
   private readonly teamRoute = this.route + '/teams';
-
-  constructor(private apiService: FlApiService) {}
 
   public getAllCurrentGroups(page: number, size: number): Observable<ClPageI<CaGroup>> {
     return this.apiService.get(`${this.route}/current`, CaGroup, {

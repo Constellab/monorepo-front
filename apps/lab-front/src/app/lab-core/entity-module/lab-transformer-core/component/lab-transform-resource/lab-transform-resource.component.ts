@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
@@ -37,16 +37,21 @@ interface LabSelectedTransformer {
  * Can add multiple transformer and configure them.
  */
 @Component({
-    selector: 'lab-transform-resource',
-    templateUrl: './lab-transform-resource.component.html',
-    styleUrls: ['./lab-transform-resource.component.scss'],
-    providers: [
-        // configure the dynamic field to support tags and other custom fields
-        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-    ],
-    standalone: false
+  selector: 'lab-transform-resource',
+  templateUrl: './lab-transform-resource.component.html',
+  styleUrls: ['./lab-transform-resource.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
+  standalone: false,
 })
 export class LabTransformResourceComponent implements OnInit {
+  private typeService = inject(LabTypeService);
+  private controlContainer = inject(ControlContainer);
+  private cdr = inject(ChangeDetectorRef);
+  private dialogService = inject(FlDialogService);
+
   @Input() resourceTypingName: string;
 
   selectedTransformers: LabSelectedTransformer[] = [];
@@ -54,13 +59,6 @@ export class LabTransformResourceComponent implements OnInit {
   formArray: UntypedFormArray;
 
   loadingProcessType: boolean = false;
-
-  constructor(
-    private typeService: LabTypeService,
-    private controlContainer: ControlContainer,
-    private cdr: ChangeDetectorRef,
-    private dialogService: FlDialogService
-  ) {}
 
   // Call this method to build the form array before using the component
   public static buildFormArray(

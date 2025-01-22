@@ -1,10 +1,12 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject } from '@angular/core';
 
 @Directive({
-    selector: '[haLeftPanel]',
-    standalone: false
+  selector: '[haLeftPanel]',
+  standalone: false,
 })
 export class HaLeftPanelDirective {
+  private elementRef = inject(ElementRef);
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const nativeElement: any = this.elementRef.nativeElement;
@@ -12,8 +14,6 @@ export class HaLeftPanelDirective {
       this.closeLeftPanel();
     }
   }
-
-  constructor(private elementRef: ElementRef) {}
 
   private closeLeftPanel(): void {
     if (this.elementRef.nativeElement.classList.contains('left-panel-open')) {

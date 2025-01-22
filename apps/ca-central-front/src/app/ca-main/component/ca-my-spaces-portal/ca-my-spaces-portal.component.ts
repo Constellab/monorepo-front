@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
 import { combineLatestWith, Observable } from 'rxjs';
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
@@ -18,12 +18,17 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
  * Portal to list the space of the user with possibility to switch between them
  */
 @Component({
-    selector: 'ca-my-spaces-portal',
-    templateUrl: './ca-my-spaces-portal.component.html',
-    styleUrls: ['./ca-my-spaces-portal.component.scss'],
-    standalone: false
+  selector: 'ca-my-spaces-portal',
+  templateUrl: './ca-my-spaces-portal.component.html',
+  styleUrls: ['./ca-my-spaces-portal.component.scss'],
+  standalone: false,
 })
 export class CaMySpacesPortalComponent implements OnInit {
+  private spaceService = inject(CaSpaceService);
+  private currentSpaceService = inject(CaCurrentSpaceService);
+  private dialogService = inject(FlDialogService);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
+
   currentSpace$: Observable<CaSpace>;
   currentSpaceRoute: string = CaRouterService.getCurrentSpaceRoute();
 
@@ -32,13 +37,6 @@ export class CaMySpacesPortalComponent implements OnInit {
   appRoute = CaRouterService.getAppRoute();
 
   showCreateSpaceButton = this.authenticatedUserService.hasEntrepriseLicense();
-
-  constructor(
-    private spaceService: CaSpaceService,
-    private currentSpaceService: CaCurrentSpaceService,
-    private dialogService: FlDialogService,
-    private authenticatedUserService: CaAuthenticatedUserService
-  ) {}
 
   ngOnInit(): void {
     this.currentSpace$ = this.currentSpaceService.getCurrentSpace$();

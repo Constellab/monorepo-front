@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, inject } from '@angular/core';
 import {
   BnBioNetwork,
   BnBioNetworkClusterSelection,
@@ -19,6 +19,10 @@ import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
  */
 @Injectable()
 export class BnBioNetworkState implements OnDestroy {
+  private translateService = inject(FlTranslateService);
+  private themeService = inject(FlThemeService);
+  private engineState = inject(BnBioNetworkEngineState);
+
   public networks: BnBioNetwork[];
   private selectedNetwork$: BehaviorSubject<BnBioNetwork | null>;
   private chartData$: BehaviorSubject<BnBioNetworkGraph | null>;
@@ -29,12 +33,6 @@ export class BnBioNetworkState implements OnDestroy {
 
   // used to cache the list of pathway
   private pathwayListCache: Record<FlPathwayDatabase | string, BnBioNetworkClusterSelection[]>;
-
-  constructor(
-    private translateService: FlTranslateService,
-    private themeService: FlThemeService,
-    private engineState: BnBioNetworkEngineState
-  ) {}
 
   public init(networks: BnBioNetwork | BnBioNetwork[]): void {
     this.initNetworks(networks);

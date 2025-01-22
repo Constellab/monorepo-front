@@ -22,15 +22,18 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
  * Form to create or update a lab (only accessible by admin)
  */
 @Component({
-    selector: 'ca-lab-admin-form-dialog',
-    templateUrl: './ca-lab-admin-form-dialog.component.html',
-    styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-lab-admin-form-dialog',
+  templateUrl: './ca-lab-admin-form-dialog.component.html',
+  styleUrls: ['./ca-lab-admin-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaLabAdminFormDialogComponent
   extends FlFormDialogAbstractDirective<CaLabAdminForm, CaLabWithSpace>
   implements OnInit
 {
+  private platformService = inject(FlPlatformService);
+  private labService = inject(CaLabService);
+
   dialogInput: CaLabAdminFormDialogInput = inject(MAT_DIALOG_DATA);
 
   maxNameLength = CaLabWithSpace.MAX_NAME_LENGTH;
@@ -39,10 +42,7 @@ export class CaLabAdminFormDialogComponent
 
   updateIsInitiated = false;
 
-  constructor(
-    private platformService: FlPlatformService,
-    private labService: CaLabService
-  ) {
+  constructor() {
     super();
   }
 

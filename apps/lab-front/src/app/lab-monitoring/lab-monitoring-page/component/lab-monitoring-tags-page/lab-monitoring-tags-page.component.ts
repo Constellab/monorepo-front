@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlDialogService,
   FlEntityPaginatedDatasource,
@@ -15,23 +15,21 @@ import {
 import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
 
 @Component({
-    selector: 'lab-monitoring-tags-page',
-    templateUrl: './lab-monitoring-tags-page.component.html',
-    styleUrls: ['./lab-monitoring-tags-page.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-tags-page',
+  templateUrl: './lab-monitoring-tags-page.component.html',
+  styleUrls: ['./lab-monitoring-tags-page.component.scss'],
+  standalone: false,
 })
 export class LabMonitoringTagsPageComponent implements OnInit {
-  tagKeys: LabTagKeyModelDatasource;
+  private tagService = inject(LabTagService);
+  private dialogService = inject(FlDialogService);
 
-  constructor(
-    private tagService: LabTagService,
-    private dialogService: FlDialogService
-  ) {}
+  tagKeys: LabTagKeyModelDatasource;
 
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
       (page, size) => this.tagService.searchKeys(null, page, size),
-      20,
+      20
     );
   }
 

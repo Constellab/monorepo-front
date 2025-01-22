@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlDialogService,
@@ -15,13 +15,18 @@ import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
 
 @Component({
-    selector: 'ca-user-search',
-    templateUrl: './ca-user-search.component.html',
-    styleUrls: ['./ca-user-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-user-search',
+  templateUrl: './ca-user-search.component.html',
+  styleUrls: ['./ca-user-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaUserSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private userService = inject(CaUsersService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
+
   datasource: CaUserDatasourcePaginated<CaUserSearchFields>;
 
   columns: FlTableColumnStatic<CaUser>[] = [
@@ -34,13 +39,6 @@ export class CaUserSearchComponent implements OnInit {
   ];
 
   exportIsLoading: boolean = false;
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private userService: CaUsersService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

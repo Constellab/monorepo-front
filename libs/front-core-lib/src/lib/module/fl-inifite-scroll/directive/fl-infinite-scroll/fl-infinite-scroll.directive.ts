@@ -3,12 +3,12 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
   Renderer2,
+  inject,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { FlHtmlFindParentOptions, FlHtmlHelper } from '../../../../utils/fl-html.helper';
@@ -35,10 +35,15 @@ export type FlInfiniteScrollMode = 'container' | 'body' | 'auto' | FlHtmlFindPar
  *
  */
 @Directive({
-    selector: '[flInfiniteScroll]',
-    standalone: false
+  selector: '[flInfiniteScroll]',
+  standalone: false,
 })
 export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+  private document = inject<Document>(DOCUMENT);
+  private scrollDispatcher = inject(ScrollDispatcher);
+
   /**
    * Distance from bottom (in pixel) when the flTrigger is called
    *
@@ -97,13 +102,6 @@ export class FlInfiniteScrollDirective implements OnInit, AfterViewInit, OnDestr
   private listener: () => void;
 
   private scrollableElement: HTMLElement;
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document,
-    private scrollDispatcher: ScrollDispatcher
-  ) {}
 
   ngOnInit(): void {
     const element = this.getElement();

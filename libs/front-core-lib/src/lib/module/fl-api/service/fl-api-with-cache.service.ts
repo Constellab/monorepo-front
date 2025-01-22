@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FlApiService } from './fl-api.service';
 import { FlCleanableService, FlCleanerService } from '../../../utils/fl-cleanable-service';
 import { FlHttpOption } from '../model/fl-http-option.class';
 import { ClCachedObservable, ClDeserializationRef } from '@monorepo/core-lib';
-import { FlApiServiceConfig } from './fl-api-service.config';
-import { FlApiErrorService } from './fl-api-error.service';
 
 /**
  * Global service that extends {@link FlApiService}
@@ -18,8 +15,8 @@ import { FlApiErrorService } from './fl-api-error.service';
 export class FlApiWithCacheService extends FlApiService implements FlCleanableService {
   private routeObservables: Map<string, ClCachedObservable<any>> = new Map();
 
-  constructor(http: HttpClient, configService: FlApiServiceConfig, errorService: FlApiErrorService) {
-    super(http, configService, errorService);
+  constructor() {
+    super();
     FlCleanerService.getInstance().registerService(this);
   }
 

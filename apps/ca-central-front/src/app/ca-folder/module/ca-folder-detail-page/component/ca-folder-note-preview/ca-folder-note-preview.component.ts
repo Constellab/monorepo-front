@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
@@ -8,19 +8,19 @@ import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text
  * Component in the folder page right panel to show the preview of the note
  */
 @Component({
-    selector: 'ca-folder-note-preview',
-    templateUrl: './ca-folder-note-preview.component.html',
-    styleUrls: ['./ca-folder-note-preview.component.scss'],
-    standalone: false
+  selector: 'ca-folder-note-preview',
+  templateUrl: './ca-folder-note-preview.component.html',
+  styleUrls: ['./ca-folder-note-preview.component.scss'],
+  standalone: false,
 })
 export class CaFolderNotePreviewComponent implements OnInit {
+  private noteService = inject(CaNoteService);
+
   @Input() noteId: string;
 
   note$: Observable<CaNote>;
 
   textEditorConfig: CaNoteTextEditorConfig;
-
-  constructor(private noteService: CaNoteService) {}
 
   ngOnInit(): void {
     this.note$ = this.noteService.getById(this.noteId);

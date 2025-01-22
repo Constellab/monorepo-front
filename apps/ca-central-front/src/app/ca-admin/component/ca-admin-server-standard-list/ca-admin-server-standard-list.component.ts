@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FlDialogService, FlFileHelper, FlSnackBarService } from '@monorepo/front-core-lib';
 import {
   CaServerStandard,
@@ -12,20 +12,18 @@ import {
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
 
 @Component({
-    selector: 'ca-admin-server-standard-list',
-    templateUrl: './ca-admin-server-standard-list.component.html',
-    styleUrl: './ca-admin-server-standard-list.component.scss',
-    standalone: false
+  selector: 'ca-admin-server-standard-list',
+  templateUrl: './ca-admin-server-standard-list.component.html',
+  styleUrl: './ca-admin-server-standard-list.component.scss',
+  standalone: false,
 })
 export class CaAdminServerStandardListComponent {
-  serverStandards: CaServerStandardDatasource = this.serverService.findAllServerStandardDatasource();
+  private serverService = inject(CaServerService);
+  private dialogService = inject(FlDialogService);
+  private settingsService = inject(CaSettingsService);
+  private snackBarService = inject(FlSnackBarService);
 
-  constructor(
-    private serverService: CaServerService,
-    private dialogService: FlDialogService,
-    private settingsService: CaSettingsService,
-    private snackBarService: FlSnackBarService
-  ) {}
+  serverStandards: CaServerStandardDatasource = this.serverService.findAllServerStandardDatasource();
 
   openCreateDialog(): void {
     const input: CaServerStandardFormDialogInput = { mode: 'create' };

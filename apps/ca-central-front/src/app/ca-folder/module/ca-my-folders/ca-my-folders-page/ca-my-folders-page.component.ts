@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDatasource } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-    selector: 'ca-my-folders-page',
-    templateUrl: './ca-my-folders-page.component.html',
-    styleUrls: ['./ca-my-folders-page.component.scss'],
-    standalone: false
+  selector: 'ca-my-folders-page',
+  templateUrl: './ca-my-folders-page.component.html',
+  styleUrls: ['./ca-my-folders-page.component.scss'],
+  standalone: false,
 })
 export class CaMyFoldersPageComponent implements OnInit {
-  folderDatasource: CaHierarchyObjectDatasource;
+  private folderService = inject(CaFolderService);
+  private folderActionService = inject(CaFolderActionService);
 
-  constructor(
-    private folderService: CaFolderService,
-    private folderActionService: CaFolderActionService
-  ) {}
+  folderDatasource: CaHierarchyObjectDatasource;
 
   ngOnInit(): void {
     this.folderDatasource = this.folderService.getMyFoldersDatasource();

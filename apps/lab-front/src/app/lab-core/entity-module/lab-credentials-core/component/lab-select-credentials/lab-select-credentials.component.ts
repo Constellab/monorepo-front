@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
@@ -17,13 +17,15 @@ import { LabCredentialsService } from '../../../../entity-service/lab-credential
 import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-field/lab-credentials-search.class';
 
 @Component({
-    selector: 'lab-select-credentials',
-    templateUrl: './lab-select-credentials.component.html',
-    styleUrls: ['./lab-select-credentials.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
-    standalone: false
+  selector: 'lab-select-credentials',
+  templateUrl: './lab-select-credentials.component.html',
+  styleUrls: ['./lab-select-credentials.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
+  standalone: false,
 })
 export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCredentials> implements OnInit {
+  private credentialsService = inject(LabCredentialsService);
+
   @Input() placeholder: FlTranslatableText = { text: 'biox.select_credentials', translateText: true };
 
   @Input() type: LabCredentialsType;
@@ -34,10 +36,9 @@ export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCrede
 
   datasource: LabCredentialsDatasource<FlInputSearchFilter>;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private credentialsService: LabCredentialsService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

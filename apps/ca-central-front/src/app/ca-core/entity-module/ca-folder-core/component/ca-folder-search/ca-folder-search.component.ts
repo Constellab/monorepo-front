@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlSavedSearch,
@@ -11,20 +11,18 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaFolderSearch, CaFolderSearchFields } from '../../model/ca-folder-search.class';
 
 @Component({
-    selector: 'ca-folder-search',
-    templateUrl: './ca-folder-search.component.html',
-    styleUrls: ['./ca-folder-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'ca-folder-search',
+  templateUrl: './ca-folder-search.component.html',
+  styleUrls: ['./ca-folder-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class CaFolderSearchComponent implements OnInit {
-  datasource: CaFolderDatasource<CaFolderSearchFields>;
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private folderService = inject(CaFolderService);
+  private themeService = inject(FlThemeService);
 
-  constructor(
-    private searchState: FlSearchState<any>,
-    private folderService: CaFolderService,
-    private themeService: FlThemeService
-  ) {}
+  datasource: CaFolderDatasource<CaFolderSearchFields>;
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

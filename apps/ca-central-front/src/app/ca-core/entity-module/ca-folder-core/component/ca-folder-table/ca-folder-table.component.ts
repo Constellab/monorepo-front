@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef, inject } from '@angular/core';
 import {
   FlDialogService,
   FlMenuDynamicService,
@@ -13,26 +13,24 @@ import { CaSecurityService } from '../../../../service/ca-security.service';
 import { CaFolderActionService } from '../../ca-folder-action.service';
 
 @Component({
-    selector: 'ca-folder-table',
-    templateUrl: './ca-folder-table.component.html',
-    styleUrls: ['./ca-folder-table.component.scss'],
-    standalone: false
+  selector: 'ca-folder-table',
+  templateUrl: './ca-folder-table.component.html',
+  styleUrls: ['./ca-folder-table.component.scss'],
+  standalone: false,
 })
 export class CaFolderTableComponent {
+  private routerService = inject(CaRouterService);
+  private dialogService = inject(FlDialogService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private folderActionService = inject(CaFolderActionService);
+  private securityService = inject(CaSecurityService);
+
   @Input({ required: true }) datasource: CaFolderDatasource<any>;
 
   @Input() columns: FlTableColumnStatic<CaFolder>[] = ['name', 'leader', 'creation', 'actions'];
 
   // to support custom column
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
-
-  constructor(
-    private routerService: CaRouterService,
-    private dialogService: FlDialogService,
-    private menuDynamicService: FlMenuDynamicService,
-    private folderActionService: CaFolderActionService,
-    private securityService: CaSecurityService
-  ) {}
 
   openFolderActionMenu(folder: CaFolder, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

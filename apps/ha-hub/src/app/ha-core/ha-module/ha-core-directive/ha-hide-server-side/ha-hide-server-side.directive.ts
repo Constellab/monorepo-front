@@ -1,26 +1,27 @@
 import {
   Directive,
-  Inject,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   TemplateRef,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 
 @Directive({
-    selector: '[haHideServerSide]',
-    standalone: false
+  selector: '[haHideServerSide]',
+  standalone: false,
 })
 export class HaHideServerSideDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
-  constructor(
-    templateRef: TemplateRef<any>,
-    viewContainer: ViewContainerRef,
-    @Inject(PLATFORM_ID) private platformId: object
-  ) {
+  private platformId = inject(PLATFORM_ID);
+
+  constructor() {
+    const templateRef = inject<TemplateRef<any>>(TemplateRef);
+    const viewContainer = inject(ViewContainerRef);
+
     super(templateRef, viewContainer);
   }
 

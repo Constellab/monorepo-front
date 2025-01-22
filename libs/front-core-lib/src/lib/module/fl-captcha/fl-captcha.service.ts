@@ -1,4 +1,4 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Injectable, Injector, inject } from '@angular/core';
 import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { Observable, of, throwError } from 'rxjs';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from './fl-captcha.class';
@@ -8,11 +8,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 
 @Injectable({ providedIn: 'root' })
 export class FlCaptchaService {
-  constructor(
-    private injector: Injector,
-    @Inject(FL_CAPTCHA_MODULE_CONFIG) private config: FlCaptchaModuleConfig,
-    private snackBarService: FlSnackBarService
-  ) {}
+  private injector = inject(Injector);
+  private config = inject<FlCaptchaModuleConfig>(FL_CAPTCHA_MODULE_CONFIG);
+  private snackBarService = inject(FlSnackBarService);
 
   public executeCaptcha(action: string): Observable<string> {
     // disable captcha on local

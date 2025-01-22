@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,9 +9,9 @@ import { LabViewModel } from '../model/global/lab-view-model.entity';
   providedIn: 'root',
 })
 export class LabModelService {
-  private readonly route: string = 'model';
+  private apiService = inject(FlApiWithCacheService);
 
-  constructor(private apiService: FlApiWithCacheService) {}
+  private readonly route: string = 'model';
 
   public countDatabaseEntries(typingName: string): Observable<number> {
     return this.apiService.get(`${this.route}/${typingName}/count`).pipe(

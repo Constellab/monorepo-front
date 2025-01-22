@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { CaCloudProvider } from '../../../../model/entities/ca-cloud-provider.class';
 import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
@@ -11,16 +11,18 @@ export type CaCloudProviderFormDialogInput = FlFormDialogInput<CaCloudProvider>;
  * Dialog to create or update a cloud provider
  */
 @Component({
-    selector: 'ca-cloud-provider-form-dialog',
-    templateUrl: './ca-cloud-provider-form-dialog.component.html',
-    styleUrls: ['./ca-cloud-provider-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-cloud-provider-form-dialog',
+  templateUrl: './ca-cloud-provider-form-dialog.component.html',
+  styleUrls: ['./ca-cloud-provider-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaCloudProviderFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaCloudProvider>, CaCloudProvider>
   implements OnInit
 {
-  constructor(private cloudProviderService: CaCloudProviderService) {
+  private cloudProviderService = inject(CaCloudProviderService);
+
+  constructor() {
     super();
   }
 

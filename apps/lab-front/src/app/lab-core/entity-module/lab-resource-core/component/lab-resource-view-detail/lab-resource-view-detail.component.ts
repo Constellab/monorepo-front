@@ -1,4 +1,4 @@
-import { Component, Input, Optional } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { RvViewConfig } from '@monorepo/resource-view';
@@ -6,18 +6,16 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 
 @Component({
-    selector: 'lab-resource-view-detail',
-    templateUrl: './lab-resource-view-detail.component.html',
-    styleUrls: ['./lab-resource-view-detail.component.scss'],
-    standalone: false
+  selector: 'lab-resource-view-detail',
+  templateUrl: './lab-resource-view-detail.component.html',
+  styleUrls: ['./lab-resource-view-detail.component.scss'],
+  standalone: false,
 })
 export class LabResourceViewDetailComponent {
-  @Input({ required: true }) labView: LabResourceView;
+  private viewConfigService = inject(LabViewConfigService);
+  private resourceState = inject(LabResourceDetailState, { optional: true });
 
-  constructor(
-    private viewConfigService: LabViewConfigService,
-    @Optional() private resourceState: LabResourceDetailState
-  ) {}
+  @Input({ required: true }) labView: LabResourceView;
 
   get viewConfig(): RvViewConfig {
     return {

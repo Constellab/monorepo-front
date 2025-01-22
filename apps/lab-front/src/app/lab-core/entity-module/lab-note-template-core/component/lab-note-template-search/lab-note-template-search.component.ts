@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlFormDialogInput,
@@ -17,13 +17,19 @@ import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabNoteTemplateFormDialogComponent } from '../lab-note-template-form-dialog/lab-note-template-form-dialog.component';
 
 @Component({
-    selector: 'lab-note-template-search',
-    templateUrl: './lab-note-template-search.component.html',
-    styleUrls: ['./lab-note-template-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-note-template-search',
+  templateUrl: './lab-note-template-search.component.html',
+  styleUrls: ['./lab-note-template-search.component.scss'],
+  providers: [FlSearchState],
+  standalone: false,
 })
 export class LabNoteTemplateSearchComponent implements OnInit {
+  private searchState = inject<FlSearchState<any>>(FlSearchState);
+  private noteTemplateService = inject(LabNoteTemplateService);
+  private themeService = inject(FlThemeService);
+  private dialogService = inject(FlDialogService);
+  private routerService = inject(LabRouterService);
+
   @Input() noteTemplateSelectable: boolean = false;
 
   @Input() fullPageSearch: boolean = true;
@@ -31,14 +37,6 @@ export class LabNoteTemplateSearchComponent implements OnInit {
   @Output() noteTemplateSelected: EventEmitter<LabNoteTemplate> = new EventEmitter();
 
   datasource: LabNoteTemplateDatasource<LabNoteTemplateSearchFields>;
-
-  constructor(
-    private searchState: FlSearchState<any>,
-    private noteTemplateService: LabNoteTemplateService,
-    private themeService: FlThemeService,
-    private dialogService: FlDialogService,
-    private routerService: LabRouterService
-  ) {}
 
   ngOnInit(): void {
     const config: FlSearchConfig = {

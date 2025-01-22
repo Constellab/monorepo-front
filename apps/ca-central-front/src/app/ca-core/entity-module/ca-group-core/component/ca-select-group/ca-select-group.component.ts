@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import {
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
@@ -11,23 +11,24 @@ import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'ca-select-group',
-    templateUrl: './ca-select-group.component.html',
-    styleUrls: ['./ca-select-group.component.scss'],
-    providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
-    standalone: false
+  selector: 'ca-select-group',
+  templateUrl: './ca-select-group.component.html',
+  styleUrls: ['./ca-select-group.component.scss'],
+  providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
+  standalone: false,
 })
 export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {
+  private groupService = inject(CaGroupService);
+
   @Output() groupChange: EventEmitter<CaGroup> = new EventEmitter<CaGroup>();
 
   selectGroup: CaGroup | Observable<CaGroup>;
 
   datasource: CaGroupDatasource<FlInputSearchFilter>;
 
-  constructor(
-    @Optional() @Self() ngControl: NgControl,
-    private groupService: CaGroupService
-  ) {
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
     super(ngControl);
   }
 

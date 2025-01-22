@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import {
   CaFolder,
@@ -17,24 +17,22 @@ import { CaRouterService } from '../../../../../ca-core/service/ca-router.servic
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 @Component({
-    selector: 'ca-folder-detail-actions',
-    templateUrl: './ca-folder-detail-actions.component.html',
-    styleUrl: './ca-folder-detail-actions.component.scss',
-    standalone: false
+  selector: 'ca-folder-detail-actions',
+  templateUrl: './ca-folder-detail-actions.component.html',
+  styleUrl: './ca-folder-detail-actions.component.scss',
+  standalone: false,
 })
 export class CaFolderDetailActionsComponent {
+  private dialogService = inject(FlDialogService);
+  private state = inject(CaFolderDetailState);
+  private rightPanelState = inject(CaFolderRightPanelState);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private folderActionService = inject(CaFolderActionService);
+  private securityService = inject(CaSecurityService);
+  private routerService = inject(CaRouterService);
+
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
-
-  constructor(
-    private dialogService: FlDialogService,
-    private state: CaFolderDetailState,
-    private rightPanelState: CaFolderRightPanelState,
-    private menuDynamicService: FlMenuDynamicService,
-    private folderActionService: CaFolderActionService,
-    private securityService: CaSecurityService,
-    private routerService: CaRouterService
-  ) {}
 
   async openFolderActionMenu(folder: CaFolder, event: MouseEvent): Promise<void> {
     const isRootFolder = await firstValueFrom(this.state.isRootFolder$());

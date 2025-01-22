@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
   FlDialogService,
   FlMenuDynamicService,
@@ -15,12 +15,18 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../ca-document-action-menu';
 
 @Component({
-    selector: 'ca-document-table',
-    templateUrl: './ca-document-table.component.html',
-    styleUrls: ['./ca-document-table.component.scss'],
-    standalone: false
+  selector: 'ca-document-table',
+  templateUrl: './ca-document-table.component.html',
+  styleUrls: ['./ca-document-table.component.scss'],
+  standalone: false,
 })
 export class CaDocumentTableComponent {
+  private folderService = inject(CaFolderService);
+  private routerService = inject(CaRouterService);
+  private dialogService = inject(FlDialogService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private actionService = inject(FlPortalActionsService);
+
   @Input() datasource: CaDocumentDatasource;
 
   @Input() isTrash: boolean = false;
@@ -28,14 +34,6 @@ export class CaDocumentTableComponent {
   @Input() columns: FlTableColumnStatic<CaDocument>[] = ['name', 'size', 'creationInfo', 'actions'];
 
   @Output() documentAction: EventEmitter<CaDocumentActionEvent> = new EventEmitter();
-
-  constructor(
-    private folderService: CaFolderService,
-    private routerService: CaRouterService,
-    private dialogService: FlDialogService,
-    private menuDynamicService: FlMenuDynamicService,
-    private actionService: FlPortalActionsService
-  ) {}
 
   openDocumentPreview(document: CaDocument): void {
     if (document.canTokenPreview) {

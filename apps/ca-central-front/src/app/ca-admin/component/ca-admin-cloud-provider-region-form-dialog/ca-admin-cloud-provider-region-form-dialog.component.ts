@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -13,16 +13,18 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
  * and if we put it in the CloudProviderModule, we will have a circular dependency.
  */
 @Component({
-    selector: 'ca-admin-bucket-region-form-dialog',
-    templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
-    styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-admin-bucket-region-form-dialog',
+  templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
+  styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
+  standalone: false,
 })
 export class CaAdminCloudProviderRegionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCloudProviderRegion, CaCloudProviderRegion>
   implements OnInit
 {
-  constructor(private cloudProviderService: CaCloudProviderService) {
+  private cloudProviderService = inject(CaCloudProviderService);
+
+  constructor() {
     super();
   }
 

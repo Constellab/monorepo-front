@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlRoundImageComponent } from './component/fl-round-image/fl-round-image.component';
 import {
@@ -51,7 +51,9 @@ import { FlMenuDynamicModule } from '../fl-menu-dynamic/fl-menu-dynamic.module';
   ],
 })
 export class FlImageModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlImageModule', flImageI18n);
   }
 }

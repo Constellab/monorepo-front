@@ -1,4 +1,4 @@
-import { Component, ElementRef, Host, Input, OnDestroy, OnInit, Optional, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 
 /**
@@ -6,12 +6,17 @@ import { MatButton, MatIconButton } from '@angular/material/button';
  * It fits the size of material button
  */
 @Component({
-    selector: 'fl-button-loader',
-    templateUrl: './fl-button-loader.component.html',
-    styleUrls: ['./fl-button-loader.component.scss'],
-    standalone: false
+  selector: 'fl-button-loader',
+  templateUrl: './fl-button-loader.component.html',
+  styleUrls: ['./fl-button-loader.component.scss'],
+  standalone: false,
 })
 export class FlButtonLoaderComponent implements OnInit, OnDestroy {
+  private button = inject(MatButton, { host: true, optional: true });
+  private iconButton = inject(MatIconButton, { host: true, optional: true });
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private renderer2 = inject(Renderer2);
+
   /**
    * Position of the loader in the button
    * If override, the button text is hidden during loading,
@@ -26,13 +31,6 @@ export class FlButtonLoaderComponent implements OnInit, OnDestroy {
   @Input() disabledButtonOnLoad: boolean = true;
 
   private readonly hideTextClass: string = 'g-button-hide-text';
-
-  constructor(
-    @Host() @Optional() private button: MatButton,
-    @Host() @Optional() private iconButton: MatIconButton,
-    private elementRef: ElementRef<HTMLElement>,
-    private renderer2: Renderer2
-  ) {}
 
   ngOnInit(): void {
     if (this.position == null) {

@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Type } from '@angular/core';
+import { ModuleWithProviders, NgModule, Type, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlTagInputComponent } from './component/fl-tag-input/fl-tag-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -76,7 +76,9 @@ import { FlInfiniteScrollModule } from '../fl-inifite-scroll/fl-infinite-scroll.
   ],
 })
 export class FlTagModule {
-  constructor(translateService: FlTranslateService) {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
     translateService.addModuleTranslation('FlTagModule', flTagI18n);
   }
 

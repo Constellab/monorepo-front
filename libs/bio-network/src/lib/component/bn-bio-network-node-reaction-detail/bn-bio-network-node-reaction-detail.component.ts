@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -12,23 +12,21 @@ import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
  * Detail information about one reaction node
  */
 @Component({
-    selector: 'bn-bio-network-node-reaction-detail',
-    templateUrl: './bn-bio-network-node-reaction-detail.component.html',
-    styleUrls: ['./bn-bio-network-node-reaction-detail.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-node-reaction-detail',
+  templateUrl: './bn-bio-network-node-reaction-detail.component.html',
+  styleUrls: ['./bn-bio-network-node-reaction-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkNodeReactionDetailComponent implements OnInit {
+  private drawerState = inject(BnBioNetworkDrawerState);
+  private state = inject(BnBioNetworkState);
+  private selectionState = inject(BnBioNetworkSelectionState);
+
   node$: Observable<BnBioNetworkNodeReaction>;
 
   // list of the same metabolite node
   duplicateReactions$: Observable<BnBioNetworkNodeReaction[]>;
-
-  constructor(
-    private drawerState: BnBioNetworkDrawerState,
-    private state: BnBioNetworkState,
-    private selectionState: BnBioNetworkSelectionState
-  ) {}
 
   ngOnInit(): void {
     this.node$ = this.drawerState.getState$().pipe(

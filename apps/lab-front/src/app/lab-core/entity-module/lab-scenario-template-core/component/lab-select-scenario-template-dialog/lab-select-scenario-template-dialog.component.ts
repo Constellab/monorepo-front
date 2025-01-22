@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabScenarioTemplate } from '../../../../model/entities/process/lab-scenario-template.entity';
 
@@ -7,18 +7,19 @@ export interface LabSelectScenarioTemplateDialogInput {
 }
 
 @Component({
-    selector: 'lab-select-scenario-template-dialog',
-    templateUrl: './lab-select-scenario-template-dialog.component.html',
-    styleUrls: ['./lab-select-scenario-template-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-select-scenario-template-dialog',
+  templateUrl: './lab-select-scenario-template-dialog.component.html',
+  styleUrls: ['./lab-select-scenario-template-dialog.component.scss'],
+  standalone: false,
 })
 export class LabSelectScenarioTemplateDialogComponent {
+  private dialogRef = inject<MatDialogRef<LabSelectScenarioTemplateDialogComponent>>(MatDialogRef);
+
   rowSelectable: boolean;
 
-  constructor(
-    private dialogRef: MatDialogRef<LabSelectScenarioTemplateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) input: LabSelectScenarioTemplateDialogInput
-  ) {
+  constructor() {
+    const input = inject<LabSelectScenarioTemplateDialogInput>(MAT_DIALOG_DATA);
+
     this.rowSelectable = input.rowSelectable;
   }
 

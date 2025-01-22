@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -20,22 +20,23 @@ export interface HaProfileEditDialogFormData {
 }
 
 @Component({
-    selector: 'ha-profile-edit-dialog',
-    templateUrl: './ha-profile-edit-dialog.component.html',
-    styleUrl: './ha-profile-edit-dialog.component.scss',
-    standalone: false
+  selector: 'ha-profile-edit-dialog',
+  templateUrl: './ha-profile-edit-dialog.component.html',
+  styleUrl: './ha-profile-edit-dialog.component.scss',
+  standalone: false,
 })
 export class HaProfileEditDialogComponent
   extends FlFormDialogAbstractDirective<HaProfileEditDialogFormData, CoUser>
   implements OnInit
 {
+  private userService = inject(HaUserService);
+
   isLoading = false;
   user: CoUser;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) dialogInput: HaProfileEditDialogData,
-    private userService: HaUserService
-  ) {
+  constructor() {
+    const dialogInput = inject<HaProfileEditDialogData>(MAT_DIALOG_DATA);
+
     super();
     this.user = dialogInput.user;
   }

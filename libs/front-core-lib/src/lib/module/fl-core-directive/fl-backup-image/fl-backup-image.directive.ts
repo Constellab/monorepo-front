@@ -1,13 +1,15 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, inject } from '@angular/core';
 
 /**
  * Directive to set a backup image on an image tag if the first image is not found
  */
 @Directive({
-    selector: 'img[flBackupImage]',
-    standalone: false
+  selector: 'img[flBackupImage]',
+  standalone: false,
 })
 export class FlBackupImageDirective {
+  private elementRef = inject<ElementRef<HTMLImageElement>>(ElementRef);
+
   @Input() flBackupImage: string;
 
   @HostListener('error')
@@ -16,6 +18,4 @@ export class FlBackupImageDirective {
       this.elementRef.nativeElement.src = this.flBackupImage;
     }
   }
-
-  constructor(private elementRef: ElementRef<HTMLImageElement>) {}
 }

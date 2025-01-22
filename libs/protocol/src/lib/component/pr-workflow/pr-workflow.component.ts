@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
 import { PrWorkflow, PrWorkflowMode } from '../../model/workflow/pr-workflow.class';
 import { Observable, Subscription } from 'rxjs';
@@ -16,12 +25,16 @@ import {
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 
 @Component({
-    selector: 'pr-workflow',
-    templateUrl: './pr-workflow.component.html',
-    styleUrls: ['./pr-workflow.component.scss'],
-    standalone: false
+  selector: 'pr-workflow',
+  templateUrl: './pr-workflow.component.html',
+  styleUrls: ['./pr-workflow.component.scss'],
+  standalone: false,
 })
 export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
+  private workflowManagerState = inject(PrWorkflowManagerState);
+  private portalService = inject(FlPortalService);
+  private actionState = inject(PrWorkflowActionState);
+
   @Input({ required: true }) workflow: PrWorkflow;
 
   @Input({ required: true }) viewConfig: PrWorkflowNodeMenuConfig;
@@ -34,12 +47,6 @@ export class PrWorkflowComponent implements OnInit, AfterViewInit, OnDestroy {
   error: boolean = false;
 
   private subscription: Subscription;
-
-  constructor(
-    private workflowManagerState: PrWorkflowManagerState,
-    private portalService: FlPortalService,
-    private actionState: PrWorkflowActionState
-  ) {}
 
   ngOnInit(): void {
     if (this.viewConfig == null) {

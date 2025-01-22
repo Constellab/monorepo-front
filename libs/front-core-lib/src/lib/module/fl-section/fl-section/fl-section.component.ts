@@ -1,4 +1,12 @@
-import { AfterContentInit, Component, ContentChild, Input, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  Input,
+  OnInit,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { FlSectionBodyDirective } from '../fl-section-body';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -11,12 +19,14 @@ import { ClHelpService } from '@monorepo/core-lib';
  * To use the section-body, use <ng-template genSectionBody>
  */
 @Component({
-    selector: 'fl-section',
-    templateUrl: './fl-section.component.html',
-    styleUrls: ['./fl-section.component.scss'],
-    standalone: false
+  selector: 'fl-section',
+  templateUrl: './fl-section.component.html',
+  styleUrls: ['./fl-section.component.scss'],
+  standalone: false,
 })
 export class FlSectionComponent implements OnInit, AfterContentInit {
+  private viewContainerRef = inject(ViewContainerRef);
+
   _isLoading: boolean = false;
   @Input() set isLoading(isLoading: boolean) {
     this._isLoading = isLoading;
@@ -39,8 +49,6 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
 
   /** Portal holding the user's content. */
   portal: TemplatePortal;
-
-  constructor(private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit(): void {}
 

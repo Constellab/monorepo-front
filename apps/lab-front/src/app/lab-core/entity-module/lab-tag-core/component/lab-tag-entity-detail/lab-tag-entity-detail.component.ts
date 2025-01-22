@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import {
   LabCreateTagResponse,
   LabTagKeyModel,
@@ -23,23 +31,21 @@ import { ClHelpService } from '@monorepo/core-lib';
  * It also supports an add, update and delete tag value button
  */
 @Component({
-    selector: 'lab-tag-entity-detail',
-    templateUrl: './lab-tag-entity-detail.component.html',
-    styleUrls: ['./lab-tag-entity-detail.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'lab-tag-entity-detail',
+  templateUrl: './lab-tag-entity-detail.component.html',
+  styleUrls: ['./lab-tag-entity-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LabTagEntityDetailComponent implements OnInit {
+  private tagService = inject(LabTagService);
+  private dialogService = inject(FlDialogService);
+
   @Input() tagEntity: LabTagKeyModel;
 
   @Output() lastTagValueDeleted: EventEmitter<void> = new EventEmitter();
 
   tagValues: LabTagValueModelDatasource;
-
-  constructor(
-    private tagService: LabTagService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.tagValues = new FlEntityPaginatedDatasource(

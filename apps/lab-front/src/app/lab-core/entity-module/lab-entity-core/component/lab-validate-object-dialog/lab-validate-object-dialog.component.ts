@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { Observable } from 'rxjs';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
@@ -23,12 +23,16 @@ export interface LabValidateObjectDialogInput {
  * This works for scenarios and notes
  */
 @Component({
-    selector: 'lab-validate-object-dialog',
-    templateUrl: './lab-validate-object-dialog.component.html',
-    styleUrls: ['./lab-validate-object-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-validate-object-dialog',
+  templateUrl: './lab-validate-object-dialog.component.html',
+  styleUrls: ['./lab-validate-object-dialog.component.scss'],
+  standalone: false,
 })
 export class LabValidateObjectDialogComponent implements OnInit {
+  private dialogInput = inject<LabValidateObjectDialogInput>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<LabValidateObjectDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
   title: string;
   helpText: string;
 
@@ -36,11 +40,7 @@ export class LabValidateObjectDialogComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) private dialogInput: LabValidateObjectDialogInput,
-    private dialogRef: MatDialogRef<LabValidateObjectDialogComponent>,
-    private snackBarService: FlSnackBarService
-  ) {
+  constructor() {
     this.title = this.dialogInput.title;
     this.helpText = this.dialogInput.helpText;
   }

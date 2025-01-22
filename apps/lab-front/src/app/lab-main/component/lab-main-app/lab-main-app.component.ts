@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
 import { LabEnvironmentHelper } from '../../../lab-core/utils/lab-environment.helper';
 import { LabAuthenticatedUserService } from '../../../lab-core/service/lab-authenticated-user.service';
@@ -12,12 +12,18 @@ import { TdBrick } from '@monorepo/technical-doc';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 
 @Component({
-    selector: 'lab-main-app',
-    templateUrl: './lab-main-app.component.html',
-    styleUrls: ['./lab-main-app.component.scss'],
-    standalone: false
+  selector: 'lab-main-app',
+  templateUrl: './lab-main-app.component.html',
+  styleUrls: ['./lab-main-app.component.scss'],
+  standalone: false,
 })
 export class LabMainAppComponent implements OnInit {
+  private labEnvManager = inject(LabEnvStore);
+  private authenticatedUserService = inject(LabAuthenticatedUserService);
+  private systemService = inject(LabSystemService);
+  private titleService = inject(Title);
+  private brickService = inject(LabBrickService);
+
   accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();
 
   spaceAppUrl: string = LabEnvironmentHelper.getSpaceFrontAppUrl();
@@ -32,14 +38,6 @@ export class LabMainAppComponent implements OnInit {
   spaceName?: string = null;
 
   toolbarColorClass: string;
-
-  constructor(
-    private labEnvManager: LabEnvStore,
-    private authenticatedUserService: LabAuthenticatedUserService,
-    private systemService: LabSystemService,
-    private titleService: Title,
-    private brickService: LabBrickService
-  ) {}
 
   ngOnInit(): void {
     this.authenticatedUserService.loadAuthenticatedUser();

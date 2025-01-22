@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -8,13 +8,13 @@ import { MatDialogRef } from '@angular/material/dialog';
  * The dialog is closed when a scenario is selected
  */
 @Component({
-    selector: 'lab-select-scenario-dialog',
-    templateUrl: './lab-select-scenario-dialog.component.html',
-    styleUrls: ['./lab-select-scenario-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-select-scenario-dialog',
+  templateUrl: './lab-select-scenario-dialog.component.html',
+  styleUrls: ['./lab-select-scenario-dialog.component.scss'],
+  standalone: false,
 })
 export class LabSelectScenarioDialogComponent implements OnInit {
-  constructor(private dialogRef: MatDialogRef<LabSelectScenarioDialogComponent>) {}
+  private dialogRef = inject<MatDialogRef<LabSelectScenarioDialogComponent>>(MatDialogRef);
 
   ngOnInit(): void {}
 

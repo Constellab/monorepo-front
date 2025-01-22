@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { Observable } from 'rxjs';
 import {
@@ -15,13 +15,15 @@ import { map } from 'rxjs/operators';
  * In center in contains a router outlet to render object page
  */
 @Component({
-    selector: 'ca-hierarchy-object-detail-page',
-    templateUrl: './ca-hierarchy-object-detail-page.component.html',
-    styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
-    providers: [CaHierarchyObjectDetailState],
-    standalone: false
+  selector: 'ca-hierarchy-object-detail-page',
+  templateUrl: './ca-hierarchy-object-detail-page.component.html',
+  styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
+  providers: [CaHierarchyObjectDetailState],
+  standalone: false,
 })
 export class CaHierarchyObjectDetailPageComponent implements OnInit {
+  private state = inject(CaHierarchyObjectDetailState);
+
   treeOpened$: Observable<boolean>;
 
   hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;
@@ -31,8 +33,6 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
   getRoute: (node: CaHierarchyObject) => string = (node: CaHierarchyObject) => {
     return CaRouterService.getFolderDetailRoute(node.id);
   };
-
-  constructor(private state: CaHierarchyObjectDetailState) {}
 
   ngOnInit(): void {
     this.state.init();

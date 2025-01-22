@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Signal } from '@angular/core';
+import { Component, Input, OnInit, Signal, inject } from '@angular/core';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
@@ -11,12 +11,19 @@ import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-in
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 
 @Component({
-    selector: 'ha-big-screen-main',
-    templateUrl: './ha-big-screen-main.component.html',
-    styleUrls: ['./ha-big-screen-main.component.scss'],
-    standalone: false
+  selector: 'ha-big-screen-main',
+  templateUrl: './ha-big-screen-main.component.html',
+  styleUrls: ['./ha-big-screen-main.component.scss'],
+  standalone: false,
 })
 export class HaBigScreenMainComponent implements OnInit {
+  private authUserService = inject(HaAuthenticatedUserService);
+  private themeState = inject(HaThemeState);
+  private translateService = inject(FlTranslateService);
+  private snackBarService = inject(FlSnackBarService);
+  private authService = inject(HaAuthService);
+  private dialogService = inject(FlDialogService);
+
   @Input({ required: true })
   currentLanguage: ClSupportedLanguage;
 
@@ -51,15 +58,6 @@ export class HaBigScreenMainComponent implements OnInit {
   communityLogo: string;
 
   protected readonly theme = ClTheme;
-
-  constructor(
-    private authUserService: HaAuthenticatedUserService,
-    private themeState: HaThemeState,
-    private translateService: FlTranslateService,
-    private snackBarService: FlSnackBarService,
-    private authService: HaAuthService,
-    private dialogService: FlDialogService
-  ) {}
 
   ngOnInit(): void {
     this.setCommunityLogo();

@@ -94,9 +94,9 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
   ],
   providers: [
     provideAppInitializer(() => {
-        const initializerFn = (loadThemeOnInit)(inject(FlThemeService));
-        return initializerFn();
-      }),
+      const initializerFn = loadThemeOnInit(inject(FlThemeService));
+      return initializerFn();
+    }),
 
     {
       provide: TranslateLoader,
@@ -117,7 +117,9 @@ function loadThemeOnInit(themeService: FlThemeService): () => void {
   ],
 })
 export class LmsAppModule {
-  constructor(injector: Injector) {
+  constructor() {
+    const injector = inject(Injector);
+
     // set the root injector in a variable
     flSetRootInjector(injector);
   }
