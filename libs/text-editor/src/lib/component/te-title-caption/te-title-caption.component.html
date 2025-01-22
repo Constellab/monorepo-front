@@ -1,17 +1,22 @@
 <span class="container g-text-light g-text-small">
-  <span *ngIf="title || caption">
-    <strong>{{ title }}</strong>
-    <ng-container *ngIf="title && caption">.</ng-container>
-    {{ caption }}
-  </span>
-  <button
-    mat-icon-button
-    type="button"
-    *ngIf="editable"
-    class="g-button-icon-tiny"
-    (click)="openEditDialog()">
-    <mat-icon>edit</mat-icon>
-  </button>
+  @if (title || caption) {
+    <span>
+      <strong>{{ title }}</strong>
+      @if (title && caption) {
+        .
+      }
+      {{ caption }}
+    </span>
+  }
+  @if (editable) {
+    <button
+      mat-icon-button
+      type="button"
+      class="g-button-icon-tiny"
+      (click)="openEditDialog()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  }
 </span>
 
 <ng-template #templatePortalContent>
@@ -26,24 +31,24 @@
             [placeholder]="'teTextEditor.title' | translate"
             name="title"
             flInputMaxLength="50" />
-        </mat-form-field>
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>{{ 'teTextEditor.caption' | translate }}</mat-label>
-          <textarea
-            matInput
-            [(ngModel)]="caption"
-            [placeholder]="'teTextEditor.caption' | translate"
-            name="caption"
-            rows="4">
-          </textarea>
-        </mat-form-field>
-        <div class="g-text-centered">
-          <button mat-stroked-button type="submit" class="g-button-small">
-            {{ 'teTextEditor.ok' | translate }}
-          </button>
+          <mat-form-field>
+            <mat-label>{{ 'teTextEditor.caption' | translate }}</mat-label>
+            <textarea
+              matInput
+              [(ngModel)]="caption"
+              [placeholder]="'teTextEditor.caption' | translate"
+              name="caption"
+              rows="4">
+            </textarea>
+          </mat-form-field>
+          <div class="g-text-centered">
+            <button mat-stroked-button type="submit" class="g-button-small">
+              {{ 'teTextEditor.ok' | translate }}
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
-  </mat-dialog-content>
-</ng-template>
+      </form>
+    </mat-dialog-content>
+  </ng-template>

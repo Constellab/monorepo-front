@@ -6,7 +6,7 @@
     </fl-key-value>
 
     <!-- Column  -->
-    <ng-container *ngIf="columnInfo">
+    @if (columnInfo) {
       <mat-divider class="divider"></mat-divider>
       <div class="g-text-small header">
         <fl-key-value>
@@ -15,12 +15,12 @@
         </fl-key-value>
         <sp-spreadsheet-header-tags
           [tags]="columnInfo.tags"
-          [tagColorer]="columnInfo.tagColorer"></sp-spreadsheet-header-tags>
+        [tagColorer]="columnInfo.tagColorer"></sp-spreadsheet-header-tags>
       </div>
-    </ng-container>
+    }
 
     <!-- Row  -->
-    <ng-container *ngIf="rowInfo">
+    @if (rowInfo) {
       <mat-divider class="divider"></mat-divider>
       <div class="g-text-small header">
         <fl-key-value>
@@ -29,8 +29,8 @@
         </fl-key-value>
         <sp-spreadsheet-header-tags
           [tags]="rowInfo.tags"
-          [tagColorer]="rowInfo.tagColorer"></sp-spreadsheet-header-tags>
+        [tagColorer]="rowInfo.tagColorer"></sp-spreadsheet-header-tags>
       </div>
-    </ng-container>
+    }
   </fl-portal-content>
 </fl-portal>

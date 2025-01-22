@@ -3,7 +3,9 @@
 
   <button mat-flat-button type="submit" class="connection-button g-button-big accent">
     {{ 'flAuth.sign_in' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 
   <ng-content></ng-content>

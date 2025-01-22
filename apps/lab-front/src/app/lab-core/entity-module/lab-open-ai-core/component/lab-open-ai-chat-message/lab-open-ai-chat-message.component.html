@@ -1,46 +1,73 @@
 <div>
-  <div [ngClass]="role" class="content g-layout-row g-layout-start-start" *ngIf="mode === 'read'; else edit">
-    <div class="icon">
-      <mat-icon>{{ icon }}</mat-icon>
+  @if (mode === 'read') {
+    <div [ngClass]="role" class="content g-layout-row g-layout-start-start">
+      <div class="icon">
+        <mat-icon>{{ icon }}</mat-icon>
+      </div>
+      <div class="text-content">
+        @if (role === 'system') {
+          <fl-text-icon
+            (click)="toggleContent()"
+            class="g-text-link"
+            iconPosition="end">
+            <strong>{{ 'open_ai_context' | translate }}</strong>
+            <mat-icon>{{ showContent ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </fl-text-icon>
+        }
+        @if (role === 'assistant') {
+          <div [innerHTML]="message.content | tdMarkdown"></div>
+        } @else {
+          @if (showContent) {
+            <div>{{ message.content }}</div>
+          }
+        }
+      </div>
+      @if (role !== 'system') {
+        <div class="edit-button">
+          <button mat-icon-button [matMenuTriggerFor]="menu" type="button" class="g-button-icon-small">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item type="button" (click)="setEditMode()">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'open_ai_update_message' | translate }}</span>
+            </button>
+            <button mat-menu-item type="button" (click)="onAction('delete')" class="warn">
+              <mat-icon>delete</mat-icon>
+              <span>{{ 'open_ai_delete_message' | translate }}</span>
+            </button>
+            <button mat-menu-item type="button" (click)="onAction('delete-all')" class="warn">
+              <mat-icon>delete_forever</mat-icon>
+              <span>{{ 'open_ai_delete_all_messages' | translate }}</span>
+            </button>
+          </mat-menu>
+        </div>
+      }
     </div>
-
-    <div class="text-content">
-      <fl-text-icon
-        *ngIf="role === 'system'"
-        (click)="toggleContent()"
-        class="g-text-link"
-        iconPosition="end">
-        <strong>{{ 'open_ai_context' | translate }}</strong>
-        <mat-icon>{{ showContent ? 'expand_less' : 'expand_more' }}</mat-icon>
-      </fl-text-icon>
-      <div *ngIf="role === 'assistant'; else normal" [innerHTML]="message.content | tdMarkdown"></div>
-      <ng-template #normal>
-        <div *ngIf="showContent">{{ message.content }}</div>
-      </ng-template>
-    </div>
-
-    <div class="edit-button" *ngIf="role !== 'system'">
-      <button mat-icon-button [matMenuTriggerFor]="menu" type="button" class="g-button-icon-small">
-        <mat-icon>more_vert</mat-icon>
+  } @else {
+    <div class="edit-container">
+      <mat-form-field class="g-full">
+        <textarea
+          matInput
+          [(ngModel)]="editContent"
+          (keydown.control.enter)="saveEdit()"
+          (keydown.escape)="escapePressed($event)"
+        [rows]="editRowCount"></textarea>
+      </mat-form-field>
+      <button mat-stroked-button type="button" class="g-button-small primary" (click)="saveEdit()">
+        <mat-icon>check</mat-icon>
+        {{ 'open_ai_save_update' | translate }}
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item type="button" (click)="setEditMode()">
-          <mat-icon>edit</mat-icon>
-          <span>{{ 'open_ai_update_message' | translate }}</span>
-        </button>
-
-        <button mat-menu-item type="button" (click)="onAction('delete')" class="warn">
-          <mat-icon>delete</mat-icon>
-          <span>{{ 'open_ai_delete_message' | translate }}</span>
-        </button>
-
-        <button mat-menu-item type="button" (click)="onAction('delete-all')" class="warn">
-          <mat-icon>delete_forever</mat-icon>
-          <span>{{ 'open_ai_delete_all_messages' | translate }}</span>
-        </button>
-      </mat-menu>
+      <button
+        mat-stroked-button
+        type="button"
+        class="g-button-small cancel-button warn"
+        (click)="cancelEdit()">
+        <mat-icon>cancel</mat-icon>
+        {{ 'open_ai_cancel_update' | translate }}
+      </button>
     </div>
-  </div>
+  }
 
   <ng-template #edit>
     <div class="edit-container">
@@ -50,7 +77,7 @@
           [(ngModel)]="editContent"
           (keydown.control.enter)="saveEdit()"
           (keydown.escape)="escapePressed($event)"
-          [rows]="editRowCount"></textarea>
+        [rows]="editRowCount"></textarea>
       </mat-form-field>
 
       <button mat-stroked-button type="button" class="g-button-small primary" (click)="saveEdit()">

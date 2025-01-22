@@ -12,17 +12,23 @@
         required
         [placeholder]="'folder_leader' | translate"
         [compareWith]="compareWith">
-        <mat-option *ngFor="let user of users$ | async" [value]="user">
-          <fl-user-inline [user]="user"></fl-user-inline>
-        </mat-option>
+        @for (user of users$ | async; track user) {
+          <mat-option [value]="user">
+            <fl-user-inline [user]="user"></fl-user-inline>
+          </mat-option>
+        }
 
-        <mat-select-trigger *ngIf="formControl.value">
-          <fl-user-inline [user]="formControl.value"></fl-user-inline>
-        </mat-select-trigger>
+        @if (formControl.value) {
+          <mat-select-trigger>
+            <fl-user-inline [user]="formControl.value"></fl-user-inline>
+          </mat-select-trigger>
+        }
       </mat-select>
-      <mat-error *ngIf="formControl.hasError('required')">
-        {{ 'code' | flErrorRequired }}
-      </mat-error>
+      @if (formControl.hasError('required')) {
+        <mat-error>
+          {{ 'code' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>
@@ -30,6 +36,8 @@
 <div mat-dialog-actions>
   <button mat-raised-button type="submit" form="update-leader-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

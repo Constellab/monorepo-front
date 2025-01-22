@@ -21,7 +21,7 @@
           [placeholder]="'write_a_comment' | translate"
           class="text-editor"
           (textChange)="checkCommentValidity()"
-          (keydown.control.enter)="sendComment()"></te-text-editor>
+        (keydown.control.enter)="sendComment()"></te-text-editor>
       </fl-card-body>
       <fl-card-footer>
         <div class="comment-write-card-footer">
@@ -30,7 +30,9 @@
             class="primary"
             [disabled]="!commentIsValid || isLoading"
             (click)="sendComment()">
-            <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+            @if (isLoading) {
+              <fl-button-loader></fl-button-loader>
+            }
             @if (!isLoading) {
               {{ 'comment' | translate }}
             }
@@ -48,8 +50,8 @@
   }
 
   <div class="comments-list-div">
-    <ng-container *ngFor="let comment of datasource | flDatasourceConnect | async">
+    @for (comment of datasource | flDatasourceConnect | async; track comment) {
       <ha-comment [comment]="comment"> </ha-comment>
-    </ng-container>
+    }
   </div>
 </div>

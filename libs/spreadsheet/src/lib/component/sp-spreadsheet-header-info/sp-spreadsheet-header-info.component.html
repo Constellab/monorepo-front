@@ -1,26 +1,32 @@
 <fl-portal>
   <fl-portal-content>
-    <fl-key-value *ngIf="hasTitle()">
-      <fl-key>{{ 'spSpreadsheet.header_name' | translate }}</fl-key>
-      <span class="name">{{ headerInfo.name }}</span>
-    </fl-key-value>
+    @if (hasTitle()) {
+      <fl-key-value>
+        <fl-key>{{ 'spSpreadsheet.header_name' | translate }}</fl-key>
+        <span class="name">{{ headerInfo.name }}</span>
+      </fl-key-value>
+    }
 
-    <fl-key-value *ngIf="headerInfo.type">
-      <fl-key>{{ 'spSpreadsheet.header_type' | translate }}</fl-key>
-      <span>{{ 'spSpreadsheet.header_type_' + headerInfo.type | translate }}</span>
-    </fl-key-value>
+    @if (headerInfo.type) {
+      <fl-key-value>
+        <fl-key>{{ 'spSpreadsheet.header_type' | translate }}</fl-key>
+        <span>{{ 'spSpreadsheet.header_type_' + headerInfo.type | translate }}</span>
+      </fl-key-value>
+    }
 
-    <fl-key-value *ngIf="headerInfo.sort">
-      <fl-key>{{ 'spSpreadsheet.sort' | translate }}</fl-key>
-      <span>{{
-        (headerInfo.sort === 'Ascending' ? 'spSpreadsheet.sort_ascending' : 'spSpreadsheet.sort_descending')
+    @if (headerInfo.sort) {
+      <fl-key-value>
+        <fl-key>{{ 'spSpreadsheet.sort' | translate }}</fl-key>
+        <span>{{
+          (headerInfo.sort === 'Ascending' ? 'spSpreadsheet.sort_ascending' : 'spSpreadsheet.sort_descending')
           | translate
-      }}</span>
-    </fl-key-value>
+        }}</span>
+      </fl-key-value>
+    }
 
     <sp-spreadsheet-header-tags
       [tags]="headerInfo.tags"
       [tagColorer]="headerInfo.tagColorer"
-      class="tags"></sp-spreadsheet-header-tags>
+    class="tags"></sp-spreadsheet-header-tags>
   </fl-portal-content>
 </fl-portal>

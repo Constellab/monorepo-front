@@ -7,12 +7,16 @@
   </div>
   @if (this.isTyping) {
     <div class="chip-list">
-      <fl-chip class="deprecated-chip g-warn-background" *ngIf="technicalDoc?.deprecatedSince">
-        {{ 'td.deprecated' | translate }}
-      </fl-chip>
-      <fl-chip class="g-primary-background" *ngIf="technicalDoc?.objectSubType">
-        {{ technicalDoc?.objectSubType }}
-      </fl-chip>
+      @if (technicalDoc?.deprecatedSince) {
+        <fl-chip class="deprecated-chip g-warn-background">
+          {{ 'td.deprecated' | translate }}
+        </fl-chip>
+      }
+      @if (technicalDoc?.objectSubType) {
+        <fl-chip class="g-primary-background">
+          {{ technicalDoc?.objectSubType }}
+        </fl-chip>
+      }
     </div>
   }
 </div>

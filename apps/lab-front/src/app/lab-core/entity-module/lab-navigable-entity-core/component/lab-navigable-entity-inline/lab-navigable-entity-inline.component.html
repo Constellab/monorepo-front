@@ -1,5 +1,7 @@
 <div>{{ entity.name }}</div>
-<fl-text-icon class="g-text-tiny g-text-light" *ngIf="entity.parentName && entity.parentType" gap="0">
-  <mat-icon [flIcon]="entity.parentTypeIcon" class="g-icon-tiny"></mat-icon>
-  {{ entity.parentName }}
-</fl-text-icon>
+@if (entity.parentName && entity.parentType) {
+  <fl-text-icon class="g-text-tiny g-text-light" gap="0">
+    <mat-icon [flIcon]="entity.parentTypeIcon" class="g-icon-tiny"></mat-icon>
+    {{ entity.parentName }}
+  </fl-text-icon>
+}

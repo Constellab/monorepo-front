@@ -5,22 +5,23 @@
   [flMouseEnterDelay]="500"
   (flMouseEnter)="openInfoPortal()"
   (flMouseLeave)="closePortal()">
-  <div class="view-content g-not-selectable" *ngIf="!edit; else editMode">
-    <ng-container *ngIf="!cellValueIsObject; else isObject">{{ cellValue }}</ng-container>
-    <ng-template #isObject>
-      <fl-text-icon iconPosition="end">
-        <div>{{ 'spSpreadsheet.cell_value_object' | translate }}</div>
-        <mat-icon
-          class="g-icon-tiny open-icon"
-          (click)="openCellValueIsNewSheet()"
-          [matTooltip]="'spSpreadsheet.open_cell_object_in_sheet' | translate"
-          >open_in_full
-        </mat-icon>
-      </fl-text-icon>
-    </ng-template>
-  </div>
-
-  <ng-template #editMode>
+  @if (!edit) {
+    <div class="view-content g-not-selectable">
+      @if (!cellValueIsObject) {
+        {{ cellValue }}
+      } @else {
+        <fl-text-icon iconPosition="end">
+          <div>{{ 'spSpreadsheet.cell_value_object' | translate }}</div>
+          <mat-icon
+            class="g-icon-tiny open-icon"
+            (click)="openCellValueIsNewSheet()"
+            [matTooltip]="'spSpreadsheet.open_cell_object_in_sheet' | translate"
+            >open_in_full
+          </mat-icon>
+        </fl-text-icon>
+      }
+    </div>
+  } @else {
     <input
       class="input"
       #input
@@ -28,5 +29,6 @@
       size="1"
       (blur)="saveValueAndDisableEdit()"
       (keyup)="onInputKeyup($event)" />
-  </ng-template>
-</div>
+    }
+
+  </div>

@@ -1,21 +1,21 @@
-<div *ngIf="currentTask$ | async as currentTask" class="g-layout-row g-layout-start-center info-section">
-  <fl-loader size="small" class="task-loader"></fl-loader>
-
-  <div>
+@if (currentTask$ | async; as currentTask) {
+  <div class="g-layout-row g-layout-start-center info-section">
+    <fl-loader size="small" class="task-loader"></fl-loader>
     <div>
-      @if (showConfigRouteLink) {
-        <a [routerLink]="configRoute" class="g-text-link" [matTooltip]="'lab_open_config_tab' | translate">{{
-          currentTask.text
-        }}</a>
-      } @else {
-        {{ currentTask.text }}
+      <div>
+        @if (showConfigRouteLink) {
+          <a [routerLink]="configRoute" class="g-text-link" [matTooltip]="'lab_open_config_tab' | translate">{{
+            currentTask.text
+          }}</a>
+        } @else {
+          {{ currentTask.text }}
+        }
+      </div>
+      @if (currentTask.progress) {
+        <div class="g-text-light g-text-small">
+          {{ currentTask.progress.percent }}% {{ currentTask.progress.message }}
+        </div>
       }
     </div>
-
-    @if (currentTask.progress) {
-      <div class="g-text-light g-text-small">
-        {{ currentTask.progress.percent }}% {{ currentTask.progress.message }}
-      </div>
-    }
   </div>
-</div>
+}

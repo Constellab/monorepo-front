@@ -1,45 +1,53 @@
 <div class="container">
-  <div class="deprecated-message-div" *ngIf="entity.deprecatedSince">
-    <div class="g-text-editor-hint g-text-editor-hint-warning">
-      <div>
-        <strong>{{ 'td.deprecated_since' | translate }} : {{ entity.deprecatedSince }}</strong>
+  @if (entity.deprecatedSince) {
+    <div class="deprecated-message-div">
+      <div class="g-text-editor-hint g-text-editor-hint-warning">
+        <div>
+          <strong>{{ 'td.deprecated_since' | translate }} : {{ entity.deprecatedSince }}</strong>
+        </div>
+        <div>{{ entity.deprecatedMessage }}</div>
       </div>
-      <div>{{ entity.deprecatedMessage }}</div>
     </div>
-  </div>
+  }
 
   <!-- Type unavailable -->
-  <div *ngIf="entity.status === 'UNAVAILABLE'" class="doc-info">
-    <fl-key-value>
-      <fl-key>{{ 'td.status' | translate }}</fl-key>
-      {{ entity.status }}
-    </fl-key-value>
-
-    <td-type-unavailable [typingName]="entity.typingName"></td-type-unavailable>
-  </div>
+  @if (entity.status === 'UNAVAILABLE') {
+    <div class="doc-info">
+      <fl-key-value>
+        <fl-key>{{ 'td.status' | translate }}</fl-key>
+        {{ entity.status }}
+      </fl-key-value>
+      <td-type-unavailable [typingName]="entity.typingName"></td-type-unavailable>
+    </div>
+  }
 
   <!-- Typing Name-->
-  <fl-key-value *ngIf="entity.typingName" class="doc-info">
-    <fl-key>{{ 'td.typing_name' | translate }}</fl-key>
-    {{ entity.typingName }}
-  </fl-key-value>
+  @if (entity.typingName) {
+    <fl-key-value class="doc-info">
+      <fl-key>{{ 'td.typing_name' | translate }}</fl-key>
+      {{ entity.typingName }}
+    </fl-key-value>
+  }
 
   <!-- Brick name and version -->
-  <fl-key-value *ngIf="entity.typingName" class="doc-info">
-    <fl-key>{{ 'td.brick' | translate }}</fl-key>
-    {{ (entity.typingName | tdTypingName).brickName }}
-    @if (entity.brickVersion) {
-      v{{ entity.brickVersion }}
-    }
-  </fl-key-value>
+  @if (entity.typingName) {
+    <fl-key-value class="doc-info">
+      <fl-key>{{ 'td.brick' | translate }}</fl-key>
+      {{ (entity.typingName | tdTypingName).brickName }}
+      @if (entity.brickVersion) {
+        v{{ entity.brickVersion }}
+      }
+    </fl-key-value>
+  }
 
   <!-- Parent info -->
-  <div
-    *ngIf="entity.objectType === 'RESOURCE' && entity.parentTypingName"
-    class="doc-info g-layout-row g-layout-start-center g-layout-gap-05em">
-    <span>{{ 'td.parent' | translate }} :</span>
-    <td-io-resource [resource]="parentResourceRef"></td-io-resource>
-  </div>
+  @if (entity.objectType === 'RESOURCE' && entity.parentTypingName) {
+    <div
+      class="doc-info g-layout-row g-layout-start-center g-layout-gap-05em">
+      <span>{{ 'td.parent' | translate }} :</span>
+      <td-io-resource [resource]="parentResourceRef"></td-io-resource>
+    </div>
+  }
 
   <p class="doc-info">{{ entity.shortDescription }}</p>
 

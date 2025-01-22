@@ -4,11 +4,13 @@
     <mat-form-field class="g-full">
       <mat-label>{{ 'biox.view_type' | translate }}</mat-label>
       <mat-select formControlName="viewType" [placeholder]="'biox.view_type' | translate">
-        <mat-select-trigger *ngIf="formGp.value.viewType">
-          <td-type-inline
-            [style]="formGp.value.viewType.style"
+        @if (formGp.value.viewType) {
+          <mat-select-trigger>
+            <td-type-inline
+              [style]="formGp.value.viewType.style"
             [text]="formGp.value.viewType.humanName"></td-type-inline>
-        </mat-select-trigger>
+          </mat-select-trigger>
+        }
         <lab-select-view-type-options></lab-select-view-type-options>
       </mat-select>
     </mat-form-field>
@@ -21,18 +23,19 @@
   </div>
 
   <!--  Folders -->
-  <mat-expansion-panel [expanded]="true" class="g-full" *ngIf="showFolderFilter">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        <fl-text-icon>
-          <mat-icon flIcon="folder"></mat-icon>
-          {{ 'biox.folders' | translate }}
-        </fl-text-icon>
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-
-    <lab-folder-select formControlName="folder" class="folders g-scrollable-element"></lab-folder-select>
-  </mat-expansion-panel>
+  @if (showFolderFilter) {
+    <mat-expansion-panel [expanded]="true" class="g-full">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <fl-text-icon>
+            <mat-icon flIcon="folder"></mat-icon>
+            {{ 'biox.folders' | translate }}
+          </fl-text-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <lab-folder-select formControlName="folder" class="folders g-scrollable-element"></lab-folder-select>
+    </mat-expansion-panel>
+  }
 
   <!--   Tags    -->
   <lab-tag-filters formControlName="tags"></lab-tag-filters>

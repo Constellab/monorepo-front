@@ -5,12 +5,13 @@
       <span> {{ 'biox.share_link_entity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <mat-icon
-        class="warn"
-        *ngIf="row.status === 'ERROR'"
-        [matTooltip]="'biox.share_link_object_not_found' | translate">
-        errors
-      </mat-icon>
+      @if (row.status === 'ERROR') {
+        <mat-icon
+          class="warn"
+          [matTooltip]="'biox.share_link_object_not_found' | translate">
+          errors
+        </mat-icon>
+      }
       <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
     </mat-cell>
   </ng-container>
@@ -74,7 +75,7 @@
         [shareLink]="row"
         [showLinkToEntity]="true"
         (update)="onLinkUpdated($event)"
-        (delete)="onLinkDeleted($event)"></lab-share-link-actions-menu>
+      (delete)="onLinkDeleted($event)"></lab-share-link-actions-menu>
     </mat-cell>
   </ng-container>
 

@@ -1,12 +1,12 @@
 import { Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Observable, Subscription } from 'rxjs';
 import katex from 'katex';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
     selector: 'fl-formula-standalone',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './fl-formula-standalone.component.html',
     styleUrl: './fl-formula-standalone.component.scss',
     // use encapsulation to import KaTeX styles

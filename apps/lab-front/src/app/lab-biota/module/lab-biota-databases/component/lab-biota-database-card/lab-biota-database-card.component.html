@@ -2,11 +2,10 @@
   <fl-card-header>{{ database.name | translate }}</fl-card-header>
 
   <fl-card-body>
-    <ng-container *ngIf="databasesEntries; else noEntry">
+    @if (databasesEntries) {
       {{ databasesEntries }} {{ 'biota.entries' | translate }}
-    </ng-container>
-    <ng-template #noEntry>
+    } @else {
       {{ 'biota.no_entry' | translate }}
-    </ng-template>
+    }
   </fl-card-body>
 </fl-card>

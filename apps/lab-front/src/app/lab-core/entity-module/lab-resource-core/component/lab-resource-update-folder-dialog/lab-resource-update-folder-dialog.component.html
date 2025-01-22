@@ -6,10 +6,10 @@
   <form (ngSubmit)="submit()" id="folder-form">
     <p class="help-text g-text-light">
       {{
-        (isUpdateResourceFolderMode
-          ? 'biox.associate_resource_to_folder'
-          : 'biox.associate_resource_scenario_to_folder'
-        ) | translate
+      (isUpdateResourceFolderMode
+      ? 'biox.associate_resource_to_folder'
+      : 'biox.associate_resource_scenario_to_folder'
+      ) | translate
       }}
     </p>
 
@@ -21,6 +21,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="folder-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

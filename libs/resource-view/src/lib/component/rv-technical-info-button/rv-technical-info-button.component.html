@@ -1,8 +1,10 @@
-<button
-  mat-icon-button
-  type="button"
-  (click)="openDialog()"
-  [matTooltip]="'biox.technical_info' | translate"
-  *ngIf="hasTechnicalInfo()">
-  <mat-icon>info</mat-icon>
-</button>
+@if (hasTechnicalInfo()) {
+  <button
+    mat-icon-button
+    type="button"
+    (click)="openDialog()"
+    [matTooltip]="'biox.technical_info' | translate"
+    >
+    <mat-icon>info</mat-icon>
+  </button>
+}

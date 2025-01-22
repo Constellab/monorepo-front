@@ -1,9 +1,11 @@
 @if (scenario.isValidated) {
   <!--  Validated info  -->
-  <ca-validated-object-info
-    class="separator"
-    [object]="scenario"
-    *ngIf="scenario.isValidated"></ca-validated-object-info>
+  @if (scenario.isValidated) {
+    <ca-validated-object-info
+      class="separator"
+      [object]="scenario"
+    ></ca-validated-object-info>
+  }
 }
 
 <!-- Sync ino -->
@@ -16,6 +18,6 @@
       [ngModel]="scenario.description"
       [disabled]="true"
       [config]="textEditorConfig"
-      class="g-scrollable-element text-editor"></te-text-editor>
+    class="g-scrollable-element text-editor"></te-text-editor>
   }
 </div>

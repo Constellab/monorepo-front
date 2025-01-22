@@ -1,3 +1,7 @@
-<p *ngIf="placeholder">{{ placeholder }}</p>
+@if (placeholder) {
+  <p>{{ placeholder }}</p>
+}
 <fl-code-editor [language]="language" [formCtrl]="formCtrl"></fl-code-editor>
-<p *ngIf="hint" class="g-text-light g-text-small">{{ hint }}</p>
+@if (hint) {
+  <p class="g-text-light g-text-small">{{ hint }}</p>
+}

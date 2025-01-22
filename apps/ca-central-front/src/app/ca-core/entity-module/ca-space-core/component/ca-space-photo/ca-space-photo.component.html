@@ -5,8 +5,9 @@
   [style.line-height]="sizeNumber + 'em'"
   [style.font-size]="fontSize + 'em'"
   [ngClass]="{ 'g-primary-background': !photo }">
-  <img [src]="photo" class="user-icon-image" *ngIf="photo; else showInitial" [alt]="label" />
-  <ng-template #showInitial>
+  @if (photo) {
+    <img [src]="photo" class="user-icon-image" [alt]="label" />
+  } @else {
     <span>{{ initial }}</span>
-  </ng-template>
+  }
 </div>

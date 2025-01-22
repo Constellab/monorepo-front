@@ -6,18 +6,20 @@
   <div class="dialog-part">
     {{ 'coauthors' | translate }}:
     @if (coAuthors?.length > 0) {
-      <div *ngFor="let coAuthor of coAuthors" class="co-author-div">
-        <a [routerLink]="profileRoute + coAuthor.id">
-          <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
-        </a>
-        <button
-          mat-icon-button
-          [matTooltip]="'remove_coauthor' | translate"
-          (click)="openRemoveConfirmDialog(coAuthor)"
-          class="warn">
-          <mat-icon>remove_circle_outline</mat-icon>
-        </button>
-      </div>
+      @for (coAuthor of coAuthors; track coAuthor) {
+        <div class="co-author-div">
+          <a [routerLink]="profileRoute + coAuthor.id">
+            <fl-user-inline [user]="coAuthor" [portalOnHover]="false"></fl-user-inline>
+          </a>
+          <button
+            mat-icon-button
+            [matTooltip]="'remove_coauthor' | translate"
+            (click)="openRemoveConfirmDialog(coAuthor)"
+            class="warn">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+        </div>
+      }
     } @else {
       <div class="empty-zone-text">{{ 'no-coauthors' | translate }}</div>
     }
@@ -25,16 +27,18 @@
   <div>
     {{ 'pending_coauthor_invitations' | translate }}:
     @if (coAuthorPendingInvites?.length > 0) {
-      <div *ngFor="let pendingInvite of coAuthorPendingInvites" class="co-author-div">
-        <p>{{ pendingInvite.email }}</p>
-        <button
-          mat-icon-button
-          [matTooltip]="'cancel_invitation' | translate"
-          (click)="deleteCoAuthorInvite(pendingInvite.id)"
-          class="warn">
-          <mat-icon>remove_circle_outline</mat-icon>
-        </button>
-      </div>
+      @for (pendingInvite of coAuthorPendingInvites; track pendingInvite) {
+        <div class="co-author-div">
+          <p>{{ pendingInvite.email }}</p>
+          <button
+            mat-icon-button
+            [matTooltip]="'cancel_invitation' | translate"
+            (click)="deleteCoAuthorInvite(pendingInvite.id)"
+            class="warn">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+        </div>
+      }
     } @else {
       <div class="empty-zone-text">{{ 'no_pending_invitation' | translate }}</div>
     }
@@ -49,16 +53,20 @@
       <mat-form-field class="email-form-field">
         <mat-label>Email</mat-label>
         <input matInput type="email" [formControl]="formGp.controls.coAuthorMail" />
-        <mat-error
-          *ngIf="
-            formGp.controls.coAuthorMail.hasError('email') &&
-            !formGp.controls.coAuthorMail.hasError('required')
-          ">
-          {{ 'invalidEmail' | translate }}
-        </mat-error>
-        <mat-error *ngIf="formGp.controls.coAuthorMail.hasError('required')">
-          {{ 'error_required' | translate: { field: 'email' } }}
-        </mat-error>
+        @if (
+          formGp.controls.coAuthorMail.hasError('email') &&
+          !formGp.controls.coAuthorMail.hasError('required')
+          ) {
+          <mat-error
+            >
+            {{ 'invalidEmail' | translate }}
+          </mat-error>
+        }
+        @if (formGp.controls.coAuthorMail.hasError('required')) {
+          <mat-error>
+            {{ 'error_required' | translate: { field: 'email' } }}
+          </mat-error>
+        }
       </mat-form-field>
 
       <button
@@ -68,7 +76,9 @@
         (click)="checkAndSendInvite()"
         [disabled]="isLoading">
         <mat-icon>send</mat-icon>
-        <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+        @if (isLoading) {
+          <fl-button-loader></fl-button-loader>
+        }
       </button>
     </div>
   </div>

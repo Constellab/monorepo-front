@@ -7,9 +7,11 @@
     <!--  Group  -->
     <fl-form-field class="g-form-input">
       <ca-select-group [formControl]="formControl" [required]="true"></ca-select-group>
-      <mat-error *ngIf="formControl.hasError('required')">
-        {{ 'group' | flErrorRequired }}
-      </mat-error>
+      @if (formControl.hasError('required')) {
+        <mat-error>
+          {{ 'group' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
   </form>
 </mat-dialog-content>
@@ -17,6 +19,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="group-share-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

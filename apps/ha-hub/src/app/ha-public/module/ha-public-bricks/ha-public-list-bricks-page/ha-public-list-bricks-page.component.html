@@ -26,35 +26,41 @@
         <mat-icon>public</mat-icon>
       </fl-text-icon>
     </mat-chip-option>
-    <ha-selectable-space-list *ngIf="user" [user]="user" (spaceSelectedEvent)="onSpace($event)">
-    </ha-selectable-space-list>
+    @if (user) {
+      <ha-selectable-space-list [user]="user" (spaceSelectedEvent)="onSpace($event)">
+      </ha-selectable-space-list>
+    }
   </div>
 </div>
 
 <div class="main-container">
   <div class="main-panel">
-    <fl-infinite-scroll *ngIf="bricks" [datasource]="bricks" infiniteMode="auto" class="list-section">
-      <div class="section-title">
-        <h1 class="title">{{ 'bricks' | translate }}</h1>
-      </div>
-      <div class="search-bar-title">
-        <form type="submit" (ngSubmit)="search($event)">
-          <mat-form-field class="section-search-bar">
-            <input
-              matInput
-              [formControl]="titleFormControl"
-              placeholder="{{ 'search_by_title' | translate }}" />
-            <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="bricks-list">
-        <a *ngFor="let b of bricks | flDatasourceConnect | async" [routerLink]="getBrickRoute(b)">
-          <co-brick-list-item [brick]="b" [brickImage]="b.imageLink | haBrickImage"></co-brick-list-item>
-        </a>
-      </div>
-    </fl-infinite-scroll>
+    @if (bricks) {
+      <fl-infinite-scroll [datasource]="bricks" infiniteMode="auto" class="list-section">
+        <div class="section-title">
+          <h1 class="title">{{ 'bricks' | translate }}</h1>
+        </div>
+        <div class="search-bar-title">
+          <form type="submit" (ngSubmit)="search($event)">
+            <mat-form-field class="section-search-bar">
+              <input
+                matInput
+                [formControl]="titleFormControl"
+                placeholder="{{ 'search_by_title' | translate }}" />
+                <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+          <div class="bricks-list">
+            @for (b of bricks | flDatasourceConnect | async; track b) {
+              <a [routerLink]="getBrickRoute(b)">
+                <co-brick-list-item [brick]="b" [brickImage]="b.imageLink | haBrickImage"></co-brick-list-item>
+              </a>
+            }
+          </div>
+        </fl-infinite-scroll>
+      }
+    </div>
   </div>
-</div>

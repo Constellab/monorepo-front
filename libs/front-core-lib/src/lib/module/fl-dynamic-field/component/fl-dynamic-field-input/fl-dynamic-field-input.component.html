@@ -2,38 +2,53 @@
   <mat-label>{{ placeholder }}</mat-label>
 
   <!--    Can't directly bind input type : https://github.com/angular/angular/issues/13243-->
-  <ng-container [ngSwitch]="inputType">
-    <input
-      *ngSwitchCase="'text'"
-      matInput
-      type="text"
-      [formControl]="formCtrl"
-      [placeholder]="placeholder"
-      [required]="required" />
+  @switch (inputType) {
+    @case ('text') {
+      <input
+        matInput
+        type="text"
+        [formControl]="formCtrl"
+        [placeholder]="placeholder"
+        [required]="required" />
+    }
+    @case ('number') {
+      <input
+        matInput
+        type="number"
+        [formControl]="formCtrl"
+        [placeholder]="placeholder"
+        [required]="required" />
+    }
+  }
 
-    <input
-      *ngSwitchCase="'number'"
-      matInput
-      type="number"
-      [formControl]="formCtrl"
-      [placeholder]="placeholder"
-      [required]="required" />
-  </ng-container>
+  @if (prefix) {
+    <span matPrefix>{{ prefix }}</span>
+  }
+  @if (suffix) {
+    <span matSuffix>{{ suffix }}</span>
+  }
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
 
-  <span *ngIf="prefix" matPrefix>{{ prefix }}</span>
-  <span *ngIf="suffix" matSuffix>{{ suffix }}</span>
-  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
-
-  <mat-error *ngIf="formCtrl.hasError('required')">
-    {{ placeholder | flErrorRequired: false }}
-  </mat-error>
-  <mat-error *ngIf="formCtrl.hasError('min')">
-    {{ 'flDynamicField.min_error_validator' | translate: { min: formCtrl.getError('min').min } }}
-  </mat-error>
-  <mat-error *ngIf="formCtrl.hasError('max')">
-    {{ 'flDynamicField.max_error_validator' | translate: { max: formCtrl.getError('max').max } }}
-  </mat-error>
-  <mat-error *ngIf="formCtrl.hasError('notInteger')">
-    {{ 'flDynamicField.integer_error_validator' | translate }}
-  </mat-error>
+  @if (formCtrl.hasError('required')) {
+    <mat-error>
+      {{ placeholder | flErrorRequired: false }}
+    </mat-error>
+  }
+  @if (formCtrl.hasError('min')) {
+    <mat-error>
+      {{ 'flDynamicField.min_error_validator' | translate: { min: formCtrl.getError('min').min } }}
+    </mat-error>
+  }
+  @if (formCtrl.hasError('max')) {
+    <mat-error>
+      {{ 'flDynamicField.max_error_validator' | translate: { max: formCtrl.getError('max').max } }}
+    </mat-error>
+  }
+  @if (formCtrl.hasError('notInteger')) {
+    <mat-error>
+      {{ 'flDynamicField.integer_error_validator' | translate }}
+    </mat-error>
+  }
 </mat-form-field>

@@ -7,9 +7,11 @@
     [datasource]="datasource"
     [textNoResult]="textNoResult"
     [textNoMoreResult]="textNoMoreResult"
-    class="load-more-button"></fl-infinite-load-more-result>
+  class="load-more-button"></fl-infinite-load-more-result>
 
   <div class="g-text-centered">
-    <fl-loader size="medium" *ngIf="datasource.firstPageIsLoading"></fl-loader>
+    @if (datasource.firstPageIsLoading) {
+      <fl-loader size="medium"></fl-loader>
+    }
   </div>
 </div>

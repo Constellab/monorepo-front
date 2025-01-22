@@ -2,6 +2,7 @@
   <strong>{{ runningProcess.title }}</strong> | {{ runningProcess.progression }}%
 </div>
 
-<lab-progress-message
-  *ngIf="runningProcess.lastMessage"
+@if (runningProcess.lastMessage) {
+  <lab-progress-message
   [progressMessage]="runningProcess.lastMessage"></lab-progress-message>
+}

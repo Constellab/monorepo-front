@@ -2,11 +2,15 @@
   <lab-select-scenario
     [formControl]="formCtrl"
     [placeholder]="{ text: placeholder, translateText: false }"
-    [required]="required"></lab-select-scenario>
+  [required]="required"></lab-select-scenario>
 
-  <mat-error class="g-warn-text g-text-small" *ngIf="formCtrl.hasError('required')">
-    {{ 'biox.scenario_select' | flErrorRequired }}
-  </mat-error>
+  @if (formCtrl.hasError('required')) {
+    <mat-error class="g-warn-text g-text-small">
+      {{ 'biox.scenario_select' | flErrorRequired }}
+    </mat-error>
+  }
 
-  <mat-hint class="g-text-small" *ngIf="hint">{{ hint }}</mat-hint>
+  @if (hint) {
+    <mat-hint class="g-text-small">{{ hint }}</mat-hint>
+  }
 </fl-form-field>

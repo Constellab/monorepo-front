@@ -6,14 +6,14 @@
           <mat-icon
             flIcon="check_fill"
             [matTooltip]="status.name | translate"
-            class="status primary"></mat-icon>
+          class="status primary"></mat-icon>
           <!--                          <mat-icon class="primary" [flIcon]="status.icon" [matTooltip]="status.name | translate" fontSet="material-icons"></mat-icon>-->
         }
         @case ('ERROR') {
           <mat-icon
             [flIcon]="status.icon"
             [matTooltip]="status.name | translate"
-            class="status warn"></mat-icon>
+          class="status warn"></mat-icon>
         }
         @case ('RUNNING') {
           <fl-loader [size]="20" [matTooltip]="status.name | translate" class="status"></fl-loader>
@@ -26,15 +26,16 @@
     </span>
 
     <!--   Only for protocol, possibility to zoom in   -->
-    <button
-      *ngIf="isProtocol"
-      (click)="zoomInProtocol($event)"
-      class="g-button-icon-small bottom-button"
-      mat-icon-button
-      type="button"
-      [disabled]="layerIsLoading$ | async"
-      [matTooltip]="'pr.open_protocol_detail' | translate">
-      <mat-icon>loupe</mat-icon>
-    </button>
+    @if (isProtocol) {
+      <button
+        (click)="zoomInProtocol($event)"
+        class="g-button-icon-small bottom-button"
+        mat-icon-button
+        type="button"
+        [disabled]="layerIsLoading$ | async"
+        [matTooltip]="'pr.open_protocol_detail' | translate">
+        <mat-icon>loupe</mat-icon>
+      </button>
+    }
   </pr-workflow-node-content-bottom>
 </pr-workflow-node-content>

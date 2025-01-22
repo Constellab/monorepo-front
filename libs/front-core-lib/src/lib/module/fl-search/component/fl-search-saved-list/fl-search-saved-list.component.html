@@ -1,12 +1,13 @@
 <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
   <mat-icon>filter_alt</mat-icon>
-  <button
-    mat-stroked-button
-    type="button"
-    [style.color]="search.color"
-    class="g-button-small"
-    *ngFor="let search of savedSearch"
-    (click)="callSavedSearch(search)">
-    {{ search.label }}
-  </button>
+  @for (search of savedSearch; track search) {
+    <button
+      mat-stroked-button
+      type="button"
+      [style.color]="search.color"
+      class="g-button-small"
+      (click)="callSavedSearch(search)">
+      {{ search.label }}
+    </button>
+  }
 </div>

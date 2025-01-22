@@ -7,6 +7,8 @@
     (click)="syncClick()">
     <mat-icon>sync</mat-icon>
     {{ 'biox.sync_with_space' | translate }}
-    <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader size="small"></fl-button-loader>
+    }
   </button>
 </div>

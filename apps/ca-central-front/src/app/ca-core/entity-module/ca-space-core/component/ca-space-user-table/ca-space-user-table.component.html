@@ -45,11 +45,14 @@
       <span>{{ 'last_login' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <fl-from-now *ngIf="row.user.lastLoginSuccess" [date]="row.user.lastLoginSuccess"></fl-from-now>
-      <fl-text-ok-nok
-        *ngIf="row.user.statusMailNotValidated()"
-        [value]="false"
+      @if (row.user.lastLoginSuccess) {
+        <fl-from-now [date]="row.user.lastLoginSuccess"></fl-from-now>
+      }
+      @if (row.user.statusMailNotValidated()) {
+        <fl-text-ok-nok
+          [value]="false"
         [nokText]="'mail_not_validated' | translate"></fl-text-ok-nok>
+      }
     </mat-cell>
   </ng-container>
 
@@ -67,22 +70,22 @@
           <span>{{ 'space_update_role' | translate }}</span>
         </button>
 
-        <button
-          mat-menu-item
-          type="button"
-          *ngIf="row.active; else inactive"
-          class="warn"
-          (click)="onDeactivateUser(row)">
-          <mat-icon>clear</mat-icon>
-          <span>{{ 'space_deactivate_license' | translate }}</span>
-        </button>
-
-        <ng-template #inactive>
+        @if (row.active) {
+          <button
+            mat-menu-item
+            type="button"
+            class="warn"
+            (click)="onDeactivateUser(row)">
+            <mat-icon>clear</mat-icon>
+            <span>{{ 'space_deactivate_license' | translate }}</span>
+          </button>
+        } @else {
           <button mat-menu-item type="button" (click)="onActivateUser(row)">
             <mat-icon>check</mat-icon>
             <span>{{ 'space_activate_license' | translate }}</span>
           </button>
-        </ng-template>
+        }
+
 
         <button mat-menu-item type="button" class="warn" (click)="onRemoveUser(row)">
           <mat-icon>clear</mat-icon>

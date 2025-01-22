@@ -1,3 +1,5 @@
-<mat-option *ngFor="let brick of bricks$ | async" [value]="brick.name">
-  {{ brick.name }}
-</mat-option>
+@for (brick of bricks$ | async; track brick) {
+  <mat-option [value]="brick.name">
+    {{ brick.name }}
+  </mat-option>
+}

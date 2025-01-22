@@ -6,10 +6,10 @@
           <div class="g-layout-row g-layout-evenly-center">
             <img src="assets/fl-logo/constellab-logo.svg" alt="Gencovery logo" class="logo" />
 
-            <ng-container *ngIf="invitation.invitation.space.photo">
+            @if (invitation.invitation.space.photo) {
               <div class="feat">x</div>
               <img [src]="invitation.invitation.space | caSpacePhoto" alt="Space logo" class="logo" />
-            </ng-container>
+            }
           </div>
 
           <p
@@ -22,29 +22,28 @@
                       space: invitation.invitation.space.name,
                     }
             ">
-            <!-- Sign up option   -->
-          </p>
+          <!-- Sign up option   -->
+        </p>
 
-          <div *ngIf="!invitation.existingUser; else userExist">
+        @if (!invitation.existingUser) {
+          <div>
             <p class="help-text">{{ 'join_space_sign_up' | translate }}</p>
-
             <form [formGroup]="signupFormGp" (ngSubmit)="signupSubmit()" id="invit-signup">
               <fl-signup-form [formGp]="signupFormGp"></fl-signup-form>
-
               <div class="g-text-centered">
                 <button mat-flat-button type="submit" form="invit-signup" class="g-button-big accent">
                   {{ 'flAuth.signup' | translate }}
-                  <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+                  @if (isLoading) {
+                    <fl-button-loader></fl-button-loader>
+                  }
                 </button>
               </div>
             </form>
           </div>
-
-          <!--  Accept invitation when invitation was send to an email link to an account   -->
-          <ng-template #userExist>
-            <div>
-              <p
-                class="help-text"
+        } @else {
+          <div>
+            <p
+              class="help-text"
                 [innerHTML]="
                   'join_space_sign_in'
                     | translate
@@ -52,19 +51,22 @@
                           email: invitation.existingUser.email,
                         }
                 "></p>
+          <button
+            mat-flat-button
+            type="button"
+            (click)="acceptInvitation()"
+            class="join-button primary">
+            {{ 'join_space' | translate: { space: invitation.invitation.space.name } }}
+            @if (isLoading) {
+              <fl-button-loader></fl-button-loader>
+            }
+          </button>
+        </div>
+      }
 
-              <button
-                mat-flat-button
-                type="button"
-                (click)="acceptInvitation()"
-                class="join-button primary">
-                {{ 'join_space' | translate: { space: invitation.invitation.space.name } }}
-                <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-              </button>
-            </div>
-          </ng-template>
-        </fl-card-body>
-      </fl-card>
-    </ng-container>
-  </fl-async-section>
+      <!--  Accept invitation when invitation was send to an email link to an account   -->
+    </fl-card-body>
+  </fl-card>
+</ng-container>
+</fl-async-section>
 </div>

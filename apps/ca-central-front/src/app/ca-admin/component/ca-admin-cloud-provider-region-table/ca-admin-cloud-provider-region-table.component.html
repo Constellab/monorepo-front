@@ -28,8 +28,10 @@
       {{ 'cloud_provider' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <ca-cloud-provider-inline *ngIf="row.cloudProvider" [cloudProvider]="row.cloudProvider">
-      </ca-cloud-provider-inline>
+      @if (row.cloudProvider) {
+        <ca-cloud-provider-inline [cloudProvider]="row.cloudProvider">
+        </ca-cloud-provider-inline>
+      }
     </mat-cell>
   </ng-container>
 

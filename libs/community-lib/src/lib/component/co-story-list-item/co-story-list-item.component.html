@@ -12,9 +12,11 @@
       <span class="g-warn-text">{{ 'coCommunityLib.no_published' | translate }}</span>
     }
     <mat-chip-listbox>
-      <mat-chip-option *ngFor="let topic of topics">
-        {{ topic.name }}
-      </mat-chip-option>
+      @for (topic of topics; track topic) {
+        <mat-chip-option>
+          {{ topic.name }}
+        </mat-chip-option>
+      }
     </mat-chip-listbox>
   </div>
 

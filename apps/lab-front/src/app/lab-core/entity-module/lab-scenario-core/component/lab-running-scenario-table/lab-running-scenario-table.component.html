@@ -10,10 +10,12 @@
       [style.border-left-color]="scenario.folder?.id | flStringToRgb">
       <div>
         <div>{{ scenario.title }}</div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="scenario.folder" gap="0">
-          <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
-          {{ scenario.folder.title }}
-        </fl-text-icon>
+        @if (scenario.folder) {
+          <fl-text-icon class="g-text-tiny g-text-light" gap="0">
+            <mat-icon flIcon="folder" class="g-icon-tiny"></mat-icon>
+            {{ scenario.folder.title }}
+          </fl-text-icon>
+        }
       </div>
     </mat-cell>
   </ng-container>
@@ -24,10 +26,11 @@
       <span>{{ 'biox.running_tasks' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
-      <lab-running-process
-        *ngFor="let process of scenario.runningTasks"
-        [runningProcess]="process"
+      @for (process of scenario.runningTasks; track process) {
+        <lab-running-process
+          [runningProcess]="process"
         class="running-process"></lab-running-process>
+      }
     </mat-cell>
   </ng-container>
 

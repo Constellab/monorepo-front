@@ -1,5 +1,7 @@
 <div class="g-max-article-width text-editor">
   <te-text-editor [formControl]="formCtrl" [placeholder]="placeholder" [config]="config"></te-text-editor>
 
-  <div class="g-text-light g-text-small" *ngIf="hint">{{ hint }}</div>
+  @if (hint) {
+    <div class="g-text-light g-text-small">{{ hint }}</div>
+  }
 </div>

@@ -6,14 +6,16 @@
         class="g-icon-background"
         flIcon="lab"
         [ngClass]="iconBackground"
-        [matTooltip]="statusTooltip | translate"></mat-icon>
+      [matTooltip]="statusTooltip | translate"></mat-icon>
       <h2 class="g-text-dense-height">{{ lab.name }}</h2>
     </fl-text-icon>
   </fl-card-header>
 
   <fl-card-body class="card-body">
     <div class="body-info">
-      <ca-city *ngIf="lab.region" [city]="lab.region.city"></ca-city>
+      @if (lab.region) {
+        <ca-city [city]="lab.region.city"></ca-city>
+      }
 
       <div class="g-text-light g-text-small since-the">
         {{ lab.currentStatus.status.name | translate }} {{ 'since_the' | translate }}
@@ -22,12 +24,13 @@
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
-      <ca-lab-login-button
-        *ngIf="lab.isHttpAccessible"
-        [labId]="lab.id"
-        [isRunning]="lab.isRunning()"
-        size="small"
+      @if (lab.isHttpAccessible) {
+        <ca-lab-login-button
+          [labId]="lab.id"
+          [isRunning]="lab.isRunning()"
+          size="small"
         class="action-buttons"></ca-lab-login-button>
+      }
 
       <a
         mat-stroked-button

@@ -1,7 +1,9 @@
-<div *ngIf="object" class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
-  <ng-container *ngIf="showText">
-    <mat-icon>sync</mat-icon>
-    <div>{{ 'last_sync' | translate }} :</div>
-  </ng-container>
-  <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>
-</div>
+@if (object) {
+  <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+    @if (showText) {
+      <mat-icon>sync</mat-icon>
+      <div>{{ 'last_sync' | translate }} :</div>
+    }
+    <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>
+  </div>
+}

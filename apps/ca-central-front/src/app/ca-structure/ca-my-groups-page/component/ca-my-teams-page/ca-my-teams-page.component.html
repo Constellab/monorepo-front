@@ -16,9 +16,11 @@
 
     <ng-container *flSectionBodyDatasource="teamsDatasource as teams">
       <div class="g-grid-5-cols">
-        <a *ngFor="let team of teams" [routerLink]="team | caDetailRoute">
-          <ca-team-card [team]="team"></ca-team-card>
-        </a>
+        @for (team of teams; track team) {
+          <a [routerLink]="team | caDetailRoute">
+            <ca-team-card [team]="team"></ca-team-card>
+          </a>
+        }
       </div>
 
       <fl-infinite-load-more-result [datasource]="teamsDatasource"></fl-infinite-load-more-result>

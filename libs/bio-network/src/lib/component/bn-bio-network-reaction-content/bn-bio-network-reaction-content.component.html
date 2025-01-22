@@ -5,22 +5,24 @@
   </fl-text-icon>
 
   <ul>
-    <li *ngFor="let substrate of reactionSubstrate$ | async">
-      <span class="g-text-link" (click)="selectNode(substrate, 'substrat')">
-        {{ substrate.name }}
-      </span>
-
-      <a
-        class="chebi-id g-text-small g-text-light g-text-link"
-        *ngIf="substrate.chebi_id"
-        target="_blank"
-        [href]="substrate.chebi_id | bnBioNetworkLink: 'chebi'">
-        <fl-text-icon gap="0" iconPosition="end">
-          <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
-          ({{ substrate.chebi_id }})
-        </fl-text-icon>
-      </a>
-    </li>
+    @for (substrate of reactionSubstrate$ | async; track substrate) {
+      <li>
+        <span class="g-text-link" (click)="selectNode(substrate, 'substrat')">
+          {{ substrate.name }}
+        </span>
+        @if (substrate.chebi_id) {
+          <a
+            class="chebi-id g-text-small g-text-light g-text-link"
+            target="_blank"
+            [href]="substrate.chebi_id | bnBioNetworkLink: 'chebi'">
+            <fl-text-icon gap="0" iconPosition="end">
+              <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
+              ({{ substrate.chebi_id }})
+            </fl-text-icon>
+          </a>
+        }
+      </li>
+    }
   </ul>
 </div>
 
@@ -31,21 +33,23 @@
   </fl-text-icon>
 
   <ul>
-    <li *ngFor="let product of reactionProducts$ | async">
-      <span class="g-text-link" (click)="selectNode(product, 'product')">
-        {{ product.name }}
-      </span>
-
-      <a
-        class="chebi-id g-text-small g-text-light g-text-link"
-        *ngIf="product.chebi_id"
-        target="_blank"
-        [href]="product.chebi_id | bnBioNetworkLink: 'chebi'">
-        <fl-text-icon gap="0" iconPosition="end">
-          <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
-          ({{ product.chebi_id }})
-        </fl-text-icon>
-      </a>
-    </li>
+    @for (product of reactionProducts$ | async; track product) {
+      <li>
+        <span class="g-text-link" (click)="selectNode(product, 'product')">
+          {{ product.name }}
+        </span>
+        @if (product.chebi_id) {
+          <a
+            class="chebi-id g-text-small g-text-light g-text-link"
+            target="_blank"
+            [href]="product.chebi_id | bnBioNetworkLink: 'chebi'">
+            <fl-text-icon gap="0" iconPosition="end">
+              <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
+              ({{ product.chebi_id }})
+            </fl-text-icon>
+          </a>
+        }
+      </li>
+    }
   </ul>
 </div>

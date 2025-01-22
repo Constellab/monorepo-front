@@ -1,17 +1,20 @@
-<fl-chip
-  *ngIf="status$ | async as status"
-  [ngClass]="status.backgroundColorClass"
-  [matTooltip]="status.name | translate"
-  [matTooltipDisabled]="tooltipDisabledBool"
-  [matTooltipPosition]="tooltipPosition"
-  [size]="size"
-  class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  @if (showIcon) {
-    @if (status.icon !== 'loader') {
-      <mat-icon [flIcon]="status.icon" [ngClass]="iconClass"></mat-icon>
-    } @else {
-      <fl-loader [size]="loaderSize"></fl-loader>
+@if (status$ | async; as status) {
+  <fl-chip
+    [ngClass]="status.backgroundColorClass"
+    [matTooltip]="status.name | translate"
+    [matTooltipDisabled]="tooltipDisabledBool"
+    [matTooltipPosition]="tooltipPosition"
+    [size]="size"
+    class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    @if (showIcon) {
+      @if (status.icon !== 'loader') {
+        <mat-icon [flIcon]="status.icon" [ngClass]="iconClass"></mat-icon>
+      } @else {
+        <fl-loader [size]="loaderSize"></fl-loader>
+      }
     }
-  }
-  <span *ngIf="showText" class="g-text-uppercase">{{ status.name | translate }}</span>
-</fl-chip>
+    @if (showText) {
+      <span class="g-text-uppercase">{{ status.name | translate }}</span>
+    }
+  </fl-chip>
+}

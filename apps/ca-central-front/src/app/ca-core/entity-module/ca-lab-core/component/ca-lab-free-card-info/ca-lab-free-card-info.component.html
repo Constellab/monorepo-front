@@ -8,7 +8,7 @@
         </fl-text-icon>
 
         <fl-card-actions *caIsAdmin>
-          <ng-container *ngIf="freeLabDTO.freeLab">
+          @if (freeLabDTO.freeLab) {
             <button
               mat-icon-button
               type="button"
@@ -24,7 +24,7 @@
               [matTooltip]="'free_data_lab_delete' | translate">
               <mat-icon>delete</mat-icon>
             </button>
-          </ng-container>
+          }
         </fl-card-actions>
       </fl-card-header>
 

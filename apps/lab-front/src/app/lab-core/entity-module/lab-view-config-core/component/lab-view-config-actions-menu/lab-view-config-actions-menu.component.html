@@ -1,14 +1,14 @@
-<button
-  mat-stroked-button
-  type="button"
-  class="g-button-small"
-  [matMenuTriggerFor]="menu"
-  (click)="stopPropagation($event)"
-  *ngIf="mode === 'text'; else icon">
-  {{ 'biox.view_settings' | translate }}
-</button>
-
-<ng-template #icon>
+@if (mode === 'text') {
+  <button
+    mat-stroked-button
+    type="button"
+    class="g-button-small"
+    [matMenuTriggerFor]="menu"
+    (click)="stopPropagation($event)"
+    >
+    {{ 'biox.view_settings' | translate }}
+  </button>
+} @else {
   <button
     mat-icon-button
     [matMenuTriggerFor]="menu"
@@ -16,7 +16,8 @@
     [matTooltip]="'biox.view_settings' | translate">
     <mat-icon>more_vert</mat-icon>
   </button>
-</ng-template>
+}
+
 
 <mat-menu #menu="matMenu" xPosition="before">
   <ng-content></ng-content>

@@ -9,32 +9,28 @@
     {{ text }}
   </div>
 
-  <ng-container *ngIf="statusEvent$ | async as statusEvent">
-    <ng-container [ngSwitch]="statusEvent.status">
-      <ng-container *ngSwitchCase="'waiting'">
+  @if (statusEvent$ | async; as statusEvent) {
+    @switch (statusEvent.status) {
+      @case ('waiting') {
         <mat-icon class="icon">hourglass_empty</mat-icon>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'loading'">
+      }
+      @case ('loading') {
         <!--   loader the same size as the icons   -->
         <fl-loader [size]="24" class="icon"></fl-loader>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'progress'">
+      }
+      @case ('progress') {
         <!--   loader the same size as the icons   -->
         <fl-progress-loader
           [percent]="$any(statusEvent).progressValue"
           size="small"
-          class="icon"></fl-progress-loader>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'success'">
+        class="icon"></fl-progress-loader>
+      }
+      @case ('success') {
         <mat-icon class="g-success-text icon">check_circle</mat-icon>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'error'">
+      }
+      @case ('error') {
         <mat-icon class="g-error-text icon">error</mat-icon>
-      </ng-container>
-    </ng-container>
-  </ng-container>
+      }
+    }
+  }
 </div>

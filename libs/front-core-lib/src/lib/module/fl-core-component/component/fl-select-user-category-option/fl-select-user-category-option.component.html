@@ -1,4 +1,6 @@
 @if (mode === 'all') {
-  <mat-option *ngIf="mode === 'all'" value="ADMIN">{{ 'ADMIN' | translate }}</mat-option>
+  @if (mode === 'all') {
+    <mat-option value="ADMIN">{{ 'ADMIN' | translate }}</mat-option>
+  }
 }
 <mat-option value="USER">{{ 'USER' | translate }}</mat-option>

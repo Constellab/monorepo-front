@@ -7,9 +7,11 @@
     <mat-form-field appearance="outline" class="g-full">
       <mat-label>{{ 'email' | translate }}</mat-label>
       <input matInput type="email" formControlName="email" />
-      <mat-error *ngIf="formGp.get('email').hasError('required')">
-        {{ 'email' | flErrorRequired }}
-      </mat-error>
+      @if (formGp.get('email').hasError('required')) {
+        <mat-error>
+          {{ 'email' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>
@@ -17,6 +19,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="story-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

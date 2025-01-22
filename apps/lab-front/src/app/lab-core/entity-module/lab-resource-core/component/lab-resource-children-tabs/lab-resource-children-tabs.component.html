@@ -13,32 +13,37 @@
       {{ resource().name }}
     </div>
 
-    <div
-      *ngFor="let child of children()"
-      class="card g-text-small"
-      matRipple
-      (click)="selectResource(child)"
-      [matTooltip]="child.name"
-      [matTooltipShowDelay]="500"
-      [ngClass]="{ 'selected-card': child.id === selectedResource()?.id }">
-      {{ child.name }}
-    </div>
+    @for (child of children(); track child) {
+      <div
+        class="card g-text-small"
+        matRipple
+        (click)="selectResource(child)"
+        [matTooltip]="child.name"
+        [matTooltipShowDelay]="500"
+        [ngClass]="{ 'selected-card': child.id === selectedResource()?.id }">
+        {{ child.name }}
+      </div>
+    }
   </div>
 
-  <button
-    mat-icon-button
-    class="scroll-button scroll-button-left primary"
-    (click)="scrollToLeft()"
-    type="button"
-    *ngIf="showLeftScrollButton()">
-    <mat-icon>chevron_left</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="scroll-button scroll-button-right primary"
-    (click)="scrollToRight()"
-    type="button"
-    *ngIf="showRightScrollButton()">
-    <mat-icon>chevron_right</mat-icon>
-  </button>
+  @if (showLeftScrollButton()) {
+    <button
+      mat-icon-button
+      class="scroll-button scroll-button-left primary"
+      (click)="scrollToLeft()"
+      type="button"
+      >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  }
+  @if (showRightScrollButton()) {
+    <button
+      mat-icon-button
+      class="scroll-button scroll-button-right primary"
+      (click)="scrollToRight()"
+      type="button"
+      >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  }
 </div>

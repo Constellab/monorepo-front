@@ -1,7 +1,8 @@
-<div
-  *ngIf="object?.validatedAt && object.validatedBy"
-  class="g-layout-row g-layout-start-center g-layout-gap-05em">
-  <mat-icon flIcon="validated"></mat-icon>
-  <div>{{ 'validation_info' | translate }} :</div>
-  <fl-user-with-date [user]="object.validatedBy" [date]="object.validatedAt"></fl-user-with-date>
-</div>
+@if (object?.validatedAt && object.validatedBy) {
+  <div
+    class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    <mat-icon flIcon="validated"></mat-icon>
+    <div>{{ 'validation_info' | translate }} :</div>
+    <fl-user-with-date [user]="object.validatedBy" [date]="object.validatedAt"></fl-user-with-date>
+  </div>
+}

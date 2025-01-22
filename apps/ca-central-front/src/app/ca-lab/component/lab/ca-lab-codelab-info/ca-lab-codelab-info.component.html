@@ -24,7 +24,9 @@
           <span class="g-text-link" (click)="copyToTokenToClipboard(codelabInfo)">{{
             'codelab_token_click_to_copy' | translate
           }}</span>
-          <span *ngIf="showCodeLabToken"> : {{ codelabInfo.token }}</span>
+          @if (showCodeLabToken) {
+            <span> : {{ codelabInfo.token }}</span>
+          }
         </div>
         <button
           mat-icon-button
@@ -39,14 +41,14 @@
         <fl-key>{{ 'codelab_more_info' | translate }}</fl-key>
         <span class="g-text-link"
           ><a [href]="communityHelpUrl" target="_blank">{{ communityHelpUrl }}</a></span
-        >
-      </fl-key-value>
-    </ng-container>
-  </fl-async-section>
-</mat-dialog-content>
+          >
+        </fl-key-value>
+      </ng-container>
+    </fl-async-section>
+  </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button mat-flat-button [matDialogClose]="null" type="button" class="g-centered-forced primary">
-    {{ 'ok' | translate }}
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-flat-button [matDialogClose]="null" type="button" class="g-centered-forced primary">
+      {{ 'ok' | translate }}
+    </button>
+  </div>

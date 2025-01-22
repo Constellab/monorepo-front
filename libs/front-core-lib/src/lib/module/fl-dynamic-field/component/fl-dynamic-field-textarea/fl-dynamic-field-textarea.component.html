@@ -9,9 +9,13 @@
     [required]="required"
     rows="4">
   </textarea>
-  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
 
-  <mat-error *ngIf="formCtrl.hasError('required')">
-    {{ placeholder | flErrorRequired: false }}
-  </mat-error>
+  @if (formCtrl.hasError('required')) {
+    <mat-error>
+      {{ placeholder | flErrorRequired: false }}
+    </mat-error>
+  }
 </mat-form-field>

@@ -6,18 +6,18 @@
   @if (!brickNotFound()) {
     <fl-section [object]="brick()" class="full-w" [emptyText]="'error_brick_not_found'">
       <ng-container *flSectionBody>
-        <div class="left-panel" *ngIf="brick()">
-          <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-
-          <a [routerLink]="brickListRoute" class="back-link">
-            <fl-text-icon [iconPosition]="'start'">
-              <mat-icon>arrow_back</mat-icon>
-              {{ 'back_to_bricks_list' | translate }}
-            </fl-text-icon>
-          </a>
-
-          <ha-public-sidenav></ha-public-sidenav>
-        </div>
+        @if (brick()) {
+          <div class="left-panel">
+            <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
+            <a [routerLink]="brickListRoute" class="back-link">
+              <fl-text-icon [iconPosition]="'start'">
+                <mat-icon>arrow_back</mat-icon>
+                {{ 'back_to_bricks_list' | translate }}
+              </fl-text-icon>
+            </a>
+            <ha-public-sidenav></ha-public-sidenav>
+          </div>
+        }
         <div class="main-panel">
           <div class="brick-content-div">
             <router-outlet></router-outlet>

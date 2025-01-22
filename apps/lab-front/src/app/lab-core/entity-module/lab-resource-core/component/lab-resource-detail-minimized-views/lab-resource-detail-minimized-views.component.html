@@ -1,16 +1,17 @@
 <div class="container g-layout-row g-layout-start-center g-layout-gap-05em">
-  <div
-    *ngFor="let minimizedView of minimizedViews()"
-    class="card g-layout-row g-layout-start-center"
-    matRipple
-    (click)="openView(minimizedView)"
-    (auxclick)="onAuxClick(minimizedView, $event)"
-    [matTooltip]="minimizedView.view.title"
-    [matTooltipShowDelay]="500">
-    <td-type-icon-badge
-      [style]="minimizedView.view.style"
-      [iconSize]="13"
+  @for (minimizedView of minimizedViews(); track minimizedView) {
+    <div
+      class="card g-layout-row g-layout-start-center"
+      matRipple
+      (click)="openView(minimizedView)"
+      (auxclick)="onAuxClick(minimizedView, $event)"
+      [matTooltip]="minimizedView.view.title"
+      [matTooltipShowDelay]="500">
+      <td-type-icon-badge
+        [style]="minimizedView.view.style"
+        [iconSize]="13"
       class="view-image"></td-type-icon-badge>
-    <div class="g-text-small title">{{ minimizedView.view.title }}</div>
-  </div>
+      <div class="g-text-small title">{{ minimizedView.view.title }}</div>
+    </div>
+  }
 </div>

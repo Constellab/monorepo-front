@@ -3,14 +3,22 @@
 <div class="methods-div">
   <h4>{{ 'td.views' | translate }}</h4>
   @if (orderedViews && orderedViews.length > 0) {
-    <div *ngFor="let v of orderedViews" class="method-card">
-      <div class="view-title">
-        <td-type-icon-badge *ngIf="v.style" [style]="v.style" [iconSize]="30"></td-type-icon-badge>
-        <span>{{ v.human_name?.length > 0 ? v.human_name?.toUpperCase() : v.method_name }}</span>
-        <mat-chip *ngIf="v.default_view" class="primary">{{ 'td.default_view' | translate }}</mat-chip>
+    @for (v of orderedViews; track v) {
+      <div class="method-card">
+        <div class="view-title">
+          @if (v.style) {
+            <td-type-icon-badge [style]="v.style" [iconSize]="30"></td-type-icon-badge>
+          }
+          <span>{{ v.human_name?.length > 0 ? v.human_name?.toUpperCase() : v.method_name }}</span>
+          @if (v.default_view) {
+            <mat-chip class="primary">{{ 'td.default_view' | translate }}</mat-chip>
+          }
+        </div>
+        @if (v?.short_description) {
+          <span class="view-description">{{ v.short_description }}</span>
+        }
       </div>
-      <span class="view-description" *ngIf="v?.short_description">{{ v.short_description }}</span>
-    </div>
+    }
   }
 </div>
 

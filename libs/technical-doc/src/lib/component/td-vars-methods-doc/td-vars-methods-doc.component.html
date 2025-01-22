@@ -5,28 +5,30 @@
       @for (variable of variables | keyvalue; track variable.key) {
         <code class="variable">
           <span class="var-name">{{ variable.key }}</span
-          >: <span class="var-type">{{ variable.value }}</span>
-        </code>
+            >: <span class="var-type">{{ variable.value }}</span>
+          </code>
+        }
+      </div>
+    </div>
+  }
+
+  @if (funcs && funcs.length > 0) {
+    <div class="methods-div">
+      <h4>{{ 'td.functions' | translate }}</h4>
+      <div class="method-card">
+        @for (func of funcs; track func) {
+          <a class="func-code-line code" [routerLink]="'.'" [fragment]="func.name">
+            <code>
+              <td-resource-doc-function-signature [func]="func"></td-resource-doc-function-signature>
+            </code>
+          </a>
+        }
+      </div>
+
+      @for (func of funcs; track func) {
+        <div id="{{ func.name }}" class="func">
+          <td-resource-doc-func-info [func]="func"></td-resource-doc-func-info>
+        </div>
       }
     </div>
-  </div>
-}
-
-@if (funcs && funcs.length > 0) {
-  <div class="methods-div">
-    <h4>{{ 'td.functions' | translate }}</h4>
-    <div class="method-card">
-      <ng-container *ngFor="let func of funcs">
-        <a class="func-code-line code" [routerLink]="'.'" [fragment]="func.name">
-          <code>
-            <td-resource-doc-function-signature [func]="func"></td-resource-doc-function-signature>
-          </code>
-        </a>
-      </ng-container>
-    </div>
-
-    <div *ngFor="let func of funcs" id="{{ func.name }}" class="func">
-      <td-resource-doc-func-info [func]="func"></td-resource-doc-func-info>
-    </div>
-  </div>
-}
+  }

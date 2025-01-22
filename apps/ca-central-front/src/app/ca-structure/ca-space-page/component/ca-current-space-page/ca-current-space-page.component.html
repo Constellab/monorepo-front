@@ -1,7 +1,9 @@
 <div class="g-page-fixed">
   <fl-horizontal-nav-bar class="g-page-title" [items]="routes">
     <fl-horizontal-nav-bar-title>
-      <h1 *ngIf="space$ | async as space" class="title">{{ space.name | translate }}</h1>
+      @if (space$ | async; as space) {
+        <h1 class="title">{{ space.name | translate }}</h1>
+      }
     </fl-horizontal-nav-bar-title>
   </fl-horizontal-nav-bar>
 

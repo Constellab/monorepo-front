@@ -1,20 +1,27 @@
 <div>
-  <p *ngIf="placeholder" class="g-text-light placeholder">
-    {{ placeholder }}
-    <ng-container *ngIf="required"> *</ng-container>
-  </p>
+  @if (placeholder) {
+    <p class="g-text-light placeholder">
+      {{ placeholder }}
+      @if (required) {
+        *
+      }
+    </p>
+  }
 
   <div class="g-layout-row-wrap">
-    <div
-      *ngFor="let color of availableColor"
-      class="color-square g-text-not-selectable"
-      (click)="selectColor(color)"
-      [style.background-color]="color"
-      [style.border-color]="boxBorderColor"
-      [ngClass]="{ disable: disabled }">
-      <mat-icon *ngIf="isSelected(color)" [style.color]="checkSelectedColor" class="g-icon-small">
-        check
-      </mat-icon>
-    </div>
+    @for (color of availableColor; track color) {
+      <div
+        class="color-square g-text-not-selectable"
+        (click)="selectColor(color)"
+        [style.background-color]="color"
+        [style.border-color]="boxBorderColor"
+        [ngClass]="{ disable: disabled }">
+        @if (isSelected(color)) {
+          <mat-icon [style.color]="checkSelectedColor" class="g-icon-small">
+            check
+          </mat-icon>
+        }
+      </div>
+    }
   </div>
 </div>

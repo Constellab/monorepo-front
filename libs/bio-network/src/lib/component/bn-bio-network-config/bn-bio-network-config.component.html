@@ -1,18 +1,22 @@
 <div>
   <div class="g-mat-checkbox-include-bottom g-layout-col">
     <!--  Select the network  -->
-    <mat-form-field *ngIf="networks" class="network-select">
-      <mat-label>{{ 'bnBioNetwork.select_network' | translate }}</mat-label>
-      <mat-select
-        placeholder="{{ 'bnBioNetwork.select_network' | translate }}"
-        [(ngModel)]="networkName"
-        (selectionChange)="onNetworkChange($event)"
-        class="g-mat-select-capitalize">
-        <mat-option *ngFor="let network of networks" [value]="network.name">
-          <div class="g-text-capitalize-first">{{ network.name }}</div>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    @if (networks) {
+      <mat-form-field class="network-select">
+        <mat-label>{{ 'bnBioNetwork.select_network' | translate }}</mat-label>
+        <mat-select
+          placeholder="{{ 'bnBioNetwork.select_network' | translate }}"
+          [(ngModel)]="networkName"
+          (selectionChange)="onNetworkChange($event)"
+          class="g-mat-select-capitalize">
+          @for (network of networks; track network) {
+            <mat-option [value]="network.name">
+              <div class="g-text-capitalize-first">{{ network.name }}</div>
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
 
     <!--  Select the database  -->
     <!--    <mat-form-field>-->
@@ -22,20 +26,20 @@
     <!--                  class="g-mat-select-capitalize">-->
     <!--        <mat-option *ngFor="let db of pathwayDatabases" [value]="db">-->
     <!--          <div class="g-text-capitalize-first">{{db}}</div>-->
-    <!--        </mat-option>-->
-    <!--      </mat-select>-->
-    <!--    </mat-form-field>-->
+  <!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
 
-    <bn-bio-network-clusters-list></bn-bio-network-clusters-list>
-  </div>
+<bn-bio-network-clusters-list></bn-bio-network-clusters-list>
+</div>
 
-  <bn-bio-network-engine-config class="block"></bn-bio-network-engine-config>
+<bn-bio-network-engine-config class="block"></bn-bio-network-engine-config>
 
-  <bn-bio-network-engine-progress class="block"></bn-bio-network-engine-progress>
+<bn-bio-network-engine-progress class="block"></bn-bio-network-engine-progress>
 
-  <div class="g-text-centered legend">
-    <button mat-stroked-button type="button" class="g-button-small" (click)="openLegendDialog()">
-      {{ 'bnBioNetwork.legend' | translate }}
-    </button>
-  </div>
+<div class="g-text-centered legend">
+  <button mat-stroked-button type="button" class="g-button-small" (click)="openLegendDialog()">
+    {{ 'bnBioNetwork.legend' | translate }}
+  </button>
+</div>
 </div>

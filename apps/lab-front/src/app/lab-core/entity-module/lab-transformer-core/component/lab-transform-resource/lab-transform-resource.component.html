@@ -6,7 +6,7 @@
 
   <div class="right-section">
     <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)" class="g-drag-anim-order">
-      <ng-container *ngFor="let transformer of selectedTransformers; let index = index; let last = last">
+      @for (transformer of selectedTransformers; track transformer; let index = $index; let last = $last) {
         <mat-expansion-panel
           hideToggle
           cdkDrag
@@ -17,14 +17,13 @@
             <!--    Force text color to override disable color    -->
             <div class="g-full g-text-normal-color g-layout-row g-layout-start-center">
               <div class="transform-name g-flex-auto">{{ transformer.transformer.name }}</div>
-
-              <div class="g-text-light" *ngIf="!transformer.hasConfig">
-                {{ 'biox.transformer_no_config' | translate }}
-              </div>
-
+              @if (!transformer.hasConfig) {
+                <div class="g-text-light">
+                  {{ 'biox.transformer_no_config' | translate }}
+                </div>
+              }
               <lab-type-show-detail-button [typingName]="transformer.transformer.typingName">
               </lab-type-show-detail-button>
-
               <button
                 mat-icon-button
                 type="button"
@@ -42,24 +41,25 @@
               </button>
             </div>
           </mat-expansion-panel-header>
-
-          <lab-configure-specs-form
-            *ngIf="transformer.hasConfig; else noConfig"
-            [formGp]="getConfigFormGroup(index)"
-            [configData]="transformer.configData"
+          @if (transformer.hasConfig) {
+            <lab-configure-specs-form
+              [formGp]="getConfigFormGroup(index)"
+              [configData]="transformer.configData"
             formGroupName="config"></lab-configure-specs-form>
-
-          <ng-template #noConfig>
+          } @else {
             <fl-error-text [errorMessage]="'biox.transformer_no_config' | translate"></fl-error-text>
-          </ng-template>
+          }
         </mat-expansion-panel>
-
-        <mat-icon class="g-centered-forced" *ngIf="!last">arrow_drop_down</mat-icon>
-      </ng-container>
+        @if (!last) {
+          <mat-icon class="g-centered-forced">arrow_drop_down</mat-icon>
+        }
+      }
     </mat-accordion>
 
-    <div class="g-text-centered" *ngIf="loadingProcessType">
-      <fl-loader size="small"></fl-loader>
-    </div>
+    @if (loadingProcessType) {
+      <div class="g-text-centered">
+        <fl-loader size="small"></fl-loader>
+      </div>
+    }
   </div>
 </div>

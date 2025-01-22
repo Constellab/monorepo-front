@@ -5,15 +5,17 @@
       <h2>{{ 'lab_folders' | translate }}</h2>
     </fl-text-icon>
 
-    <fl-card-actions *ngIf="isOwner$ | async">
-      <button
-        mat-icon-button
-        type="button"
-        (click)="openAddFolderDialog()"
-        [matTooltip]="'lab_add_folder' | translate">
-        <mat-icon>add</mat-icon>
-      </button>
-    </fl-card-actions>
+    @if (isOwner$ | async) {
+      <fl-card-actions>
+        <button
+          mat-icon-button
+          type="button"
+          (click)="openAddFolderDialog()"
+          [matTooltip]="'lab_add_folder' | translate">
+          <mat-icon>add</mat-icon>
+        </button>
+      </fl-card-actions>
+    }
   </fl-card-header>
 
   <fl-card-body>

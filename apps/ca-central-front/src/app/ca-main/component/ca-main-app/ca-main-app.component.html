@@ -25,61 +25,63 @@
                 alt="Space logo"
                 class="logo"
                 flBackupImage="assets/fl-logo/constellab-logo.svg" />
+              </div>
+              @if (menuExpanded) {
+                <span class="g-text-light space-name">{{ spaceName$ | async }}</span>
+              }
             </div>
-            <span *ngIf="menuExpanded" class="g-text-light space-name">{{ spaceName$ | async }}</span>
           </div>
-        </div>
 
-        <div class="divider"></div>
+          <div class="divider"></div>
 
-        <!-- List of main menu links   -->
-        <div class="g-flex-auto align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
-          @for (link of accessibleLinks; track link.route) {
-            <a
-              mat-button
-              [routerLink]="link.route"
-              flExpansionMenuButton
-              class="nav-button"
-              routerLinkActive="primary"
-              [matTooltip]="link.label | translate"
-              matTooltipPosition="after">
-              <mat-icon [flIcon]="link.icon"></mat-icon>
-              <span>{{ link.label | translate }}</span>
-            </a>
-          }
-        </div>
+          <!-- List of main menu links   -->
+          <div class="g-flex-auto align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
+            @for (link of accessibleLinks; track link.route) {
+              <a
+                mat-button
+                [routerLink]="link.route"
+                flExpansionMenuButton
+                class="nav-button"
+                routerLinkActive="primary"
+                [matTooltip]="link.label | translate"
+                matTooltipPosition="after">
+                <mat-icon [flIcon]="link.icon"></mat-icon>
+                <span>{{ link.label | translate }}</span>
+              </a>
+            }
+          </div>
 
-        <div class="divider"></div>
+          <div class="divider"></div>
 
-        <!--  Additional buttons  -->
-        <div class="align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
-          <!--    Grow/Reduce menu button      -->
-          <button mat-button class="reduce-button" flExpansionMenuButton flExpansionMenuButtonToggle>
-            <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
-            <span>{{ 'reduce_menu' | translate }}</span>
-          </button>
-
-          <div [matBadge]="numberOfNotifications$ | async" matBadgeColor="warn">
-            <button
-              mat-button
-              type="button"
-              (click)="openNotificationDiv()"
-              flExpansionMenuButton
-              class="notif-button">
-              <mat-icon>notifications</mat-icon>
-              <span>
-                {{ 'notifications' | translate }}
-              </span>
+          <!--  Additional buttons  -->
+          <div class="align-container" [ngClass]="{ 'align-container-center': menuExpanded }">
+            <!--    Grow/Reduce menu button      -->
+            <button mat-button class="reduce-button" flExpansionMenuButton flExpansionMenuButtonToggle>
+              <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+              <span>{{ 'reduce_menu' | translate }}</span>
             </button>
+
+            <div [matBadge]="numberOfNotifications$ | async" matBadgeColor="warn">
+              <button
+                mat-button
+                type="button"
+                (click)="openNotificationDiv()"
+                flExpansionMenuButton
+                class="notif-button">
+                <mat-icon>notifications</mat-icon>
+                <span>
+                  {{ 'notifications' | translate }}
+                </span>
+              </button>
+            </div>
+
+            <ca-authenticated-user-inline [showName]="menuExpanded"></ca-authenticated-user-inline>
           </div>
-
-          <ca-authenticated-user-inline [showName]="menuExpanded"></ca-authenticated-user-inline>
         </div>
-      </div>
-    </fl-expansion-menu>
-  </mat-sidenav>
+      </fl-expansion-menu>
+    </mat-sidenav>
 
-  <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

@@ -13,16 +13,20 @@
             formControlName="chartType"
             required
             [placeholder]="'spSpreadsheet.chart_type' | translate">
-            <mat-select-trigger *ngIf="formGp.value.chartType">
-              {{ 'chChart.' + formGp.value.chartType | translate }}
-            </mat-select-trigger>
+            @if (formGp.value.chartType) {
+              <mat-select-trigger>
+                {{ 'chChart.' + formGp.value.chartType | translate }}
+              </mat-select-trigger>
+            }
             <ch-chart-type-select-options
-              [availableChartTypes]="availableChartTypes"></ch-chart-type-select-options>
+            [availableChartTypes]="availableChartTypes"></ch-chart-type-select-options>
           </mat-select>
 
-          <mat-error *ngIf="formGp.get('chartType').hasError('required')">
-            {{ 'spSpreadsheet.create_chart' | flErrorRequired }}
-          </mat-error>
+          @if (formGp.get('chartType').hasError('required')) {
+            <mat-error>
+              {{ 'spSpreadsheet.create_chart' | flErrorRequired }}
+            </mat-error>
+          }
         </mat-form-field>
 
         <!-- Chart data range-->
@@ -30,159 +34,188 @@
           formControlName="dataRange"
           selectionListenerGroup="sheet-chart"
           rangeMode="single"
-          [placeholder]="'spSpreadsheet.chart_data_range' | translate"></sp-sheet-ranges-input>
+        [placeholder]="'spSpreadsheet.chart_data_range' | translate"></sp-sheet-ranges-input>
 
         <!---------------- Additional fields --------------------->
 
         <ng-container formGroupName="additionalFields">
           <!-- NB of bins -->
-          <mat-form-field class="g-full" *ngIf="showAdditionalField('nbOfBins')">
-            <mat-label>{{ 'spSpreadsheet.chart_nb_of_bins' | translate }}</mat-label>
-            <input
-              matInput
-              formControlName="nbOfBins"
-              [min]="1"
-              [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate"
-              type="number" />
-            <mat-error *ngIf="formGp.get('additionalFields').get('nbOfBins').invalid">
-              {{ 'spSpreadsheet.chart_nb_of_bins_error' | translate }}
-            </mat-error>
-          </mat-form-field>
-
-          <!--    Histogram Mode      -->
-          <mat-form-field class="g-form-input" *ngIf="showAdditionalField('histogramMode')">
-            <mat-label>{{ 'chChart.chart_histogram_mode' | translate }}</mat-label>
-            <mat-select
-              formControlName="histogramMode"
-              required
-              [placeholder]="'chChart.chart_histogram_mode' | translate">
-              <mat-option *ngFor="let mode of histogramModes | flObjectKeys" [value]="mode">
-                {{ 'chChart.chart_histogram_mode_' + mode | translate }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <!--    Normalize      -->
-          <mat-checkbox formControlName="normalize" *ngIf="showAdditionalField('normalize')" class="checkbox">
-            {{ 'spSpreadsheet.chart_normalize' | translate }}
-          </mat-checkbox>
-
-          <!--    Vulcano plot      -->
-          <div class="g-layout-row g-layout-between">
-            <!-- X Threshold -->
-            <mat-form-field *ngIf="showAdditionalField('xThreshold')" class="g-form-input-bottom half-input">
-              <mat-label>{{ 'spSpreadsheet.chart_x_threshold' | translate }}</mat-label>
+          @if (showAdditionalField('nbOfBins')) {
+            <mat-form-field class="g-full">
+              <mat-label>{{ 'spSpreadsheet.chart_nb_of_bins' | translate }}</mat-label>
               <input
                 matInput
-                formControlName="xThreshold"
-                required
-                [placeholder]="'spSpreadsheet.chart_x_threshold' | translate"
+                formControlName="nbOfBins"
+                [min]="1"
+                [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate"
                 type="number" />
-              <mat-error *ngIf="additionalFieldFormGp.get('xThreshold').hasError('required')">
-                {{ 'spSpreadsheet.chart_x_threshold' | flErrorRequired }}
-              </mat-error>
-            </mat-form-field>
+                @if (formGp.get('additionalFields').get('nbOfBins').invalid) {
+                  <mat-error>
+                    {{ 'spSpreadsheet.chart_nb_of_bins_error' | translate }}
+                  </mat-error>
+                }
+              </mat-form-field>
+            }
 
-            <!-- Y Threshold -->
-            <mat-form-field *ngIf="showAdditionalField('yThreshold')" class="g-form-input-bottom half-input">
-              <mat-label>{{ 'spSpreadsheet.chart_y_threshold' | translate }}</mat-label>
-              <input
-                matInput
-                formControlName="yThreshold"
-                required
-                [placeholder]="'spSpreadsheet.chart_y_threshold' | translate"
-                type="number" />
-              <mat-error *ngIf="additionalFieldFormGp.get('yThreshold').hasError('required')">
-                {{ 'spSpreadsheet.chart_y_threshold' | flErrorRequired }}
-              </mat-error>
-            </mat-form-field>
-          </div>
+            <!--    Histogram Mode      -->
+            @if (showAdditionalField('histogramMode')) {
+              <mat-form-field class="g-form-input">
+                <mat-label>{{ 'chChart.chart_histogram_mode' | translate }}</mat-label>
+                <mat-select
+                  formControlName="histogramMode"
+                  required
+                  [placeholder]="'chChart.chart_histogram_mode' | translate">
+                  @for (mode of histogramModes | flObjectKeys; track mode) {
+                    <mat-option [value]="mode">
+                      {{ 'chChart.chart_histogram_mode_' + mode | translate }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            }
 
-          <!-- X and Y labels -->
-          <div class="g-layout-row g-layout-between">
-            <mat-form-field class="half-input" *ngIf="showAdditionalField('xAxisLabel')">
-              <mat-label>{{ 'spSpreadsheet.chart_x_axis_label' | translate }}</mat-label>
-              <input
-                matInput
-                formControlName="xAxisLabel"
-                [placeholder]="'spSpreadsheet.chart_x_axis_label' | translate" />
-            </mat-form-field>
+            <!--    Normalize      -->
+            @if (showAdditionalField('normalize')) {
+              <mat-checkbox formControlName="normalize" class="checkbox">
+                {{ 'spSpreadsheet.chart_normalize' | translate }}
+              </mat-checkbox>
+            }
 
-            <mat-form-field class="half-input" *ngIf="showAdditionalField('yAxisLabel')">
-              <mat-label>{{ 'spSpreadsheet.chart_y_axis_label' | translate }}</mat-label>
-              <input
-                matInput
-                formControlName="yAxisLabel"
-                [placeholder]="'spSpreadsheet.chart_y_axis_label' | translate" />
-            </mat-form-field>
-          </div>
-        </ng-container>
-      </div>
+            <!--    Vulcano plot      -->
+            <div class="g-layout-row g-layout-between">
+              <!-- X Threshold -->
+              @if (showAdditionalField('xThreshold')) {
+                <mat-form-field class="g-form-input-bottom half-input">
+                  <mat-label>{{ 'spSpreadsheet.chart_x_threshold' | translate }}</mat-label>
+                  <input
+                    matInput
+                    formControlName="xThreshold"
+                    required
+                    [placeholder]="'spSpreadsheet.chart_x_threshold' | translate"
+                    type="number" />
+                    @if (additionalFieldFormGp.get('xThreshold').hasError('required')) {
+                      <mat-error>
+                        {{ 'spSpreadsheet.chart_x_threshold' | flErrorRequired }}
+                      </mat-error>
+                    }
+                  </mat-form-field>
+                }
 
-      <!--    List of series    -->
-      <div class="series g-scrollable-element" *ngIf="chartType">
-        <mat-divider class="divider"></mat-divider>
+                <!-- Y Threshold -->
+                @if (showAdditionalField('yThreshold')) {
+                  <mat-form-field class="g-form-input-bottom half-input">
+                    <mat-label>{{ 'spSpreadsheet.chart_y_threshold' | translate }}</mat-label>
+                    <input
+                      matInput
+                      formControlName="yThreshold"
+                      required
+                      [placeholder]="'spSpreadsheet.chart_y_threshold' | translate"
+                      type="number" />
+                      @if (additionalFieldFormGp.get('yThreshold').hasError('required')) {
+                        <mat-error>
+                          {{ 'spSpreadsheet.chart_y_threshold' | flErrorRequired }}
+                        </mat-error>
+                      }
+                    </mat-form-field>
+                  }
+                </div>
 
-        <div class="g-layout-row g-layout-between-center">
-          <h2>{{ 'spSpreadsheet.chart_series' | translate }}</h2>
+                <!-- X and Y labels -->
+                <div class="g-layout-row g-layout-between">
+                  @if (showAdditionalField('xAxisLabel')) {
+                    <mat-form-field class="half-input">
+                      <mat-label>{{ 'spSpreadsheet.chart_x_axis_label' | translate }}</mat-label>
+                      <input
+                        matInput
+                        formControlName="xAxisLabel"
+                        [placeholder]="'spSpreadsheet.chart_x_axis_label' | translate" />
+                      </mat-form-field>
+                    }
 
-          <button
-            mat-icon-button
-            type="button"
-            (click)="addSerie()"
-            [matTooltip]="'spSpreadsheet.chart_add_serie' | translate"
-            [disabled]="series.length >= ngMaxOfSeries">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
+                    @if (showAdditionalField('yAxisLabel')) {
+                      <mat-form-field class="half-input">
+                        <mat-label>{{ 'spSpreadsheet.chart_y_axis_label' | translate }}</mat-label>
+                        <input
+                          matInput
+                          formControlName="yAxisLabel"
+                          [placeholder]="'spSpreadsheet.chart_y_axis_label' | translate" />
+                        </mat-form-field>
+                      }
+                    </div>
+                  </ng-container>
+                </div>
 
-        <div *ngFor="let serie of series; let i = index" class="g-layout-row g-layout-between-center">
-          <div>{{ serie.name }}</div>
-          <div>
-            <button
-              mat-icon-button
-              type="button"
-              class="g-button-icon-small"
-              (click)="updateSerie(serie, i)"
-              [matTooltip]="'spSpreadsheet.chart_update_serie' | translate">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              type="button"
-              class="g-button-icon-small warn"
-              (click)="deleteSerie(i)"
-              [matTooltip]="'spSpreadsheet.chart_delete_serie' | translate">
-              <mat-icon>clear</mat-icon>
-            </button>
-          </div>
-        </div>
+                <!--    List of series    -->
+                @if (chartType) {
+                  <div class="series g-scrollable-element">
+                    <mat-divider class="divider"></mat-divider>
+                    <div class="g-layout-row g-layout-between-center">
+                      <h2>{{ 'spSpreadsheet.chart_series' | translate }}</h2>
+                      <button
+                        mat-icon-button
+                        type="button"
+                        (click)="addSerie()"
+                        [matTooltip]="'spSpreadsheet.chart_add_serie' | translate"
+                        [disabled]="series.length >= ngMaxOfSeries">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                    </div>
+                    @for (serie of series; track serie; let i = $index) {
+                      <div class="g-layout-row g-layout-between-center">
+                        <div>{{ serie.name }}</div>
+                        <div>
+                          <button
+                            mat-icon-button
+                            type="button"
+                            class="g-button-icon-small"
+                            (click)="updateSerie(serie, i)"
+                            [matTooltip]="'spSpreadsheet.chart_update_serie' | translate">
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                          <button
+                            mat-icon-button
+                            type="button"
+                            class="g-button-icon-small warn"
+                            (click)="deleteSerie(i)"
+                            [matTooltip]="'spSpreadsheet.chart_delete_serie' | translate">
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                    }
+                    @if (submitted) {
+                      <div class="series-error">
+                        @if (formGp.get('series').hasError('required')) {
+                          <div class="g-text-small g-warn-text">
+                            {{ 'spSpreadsheet.chart_serie_required_error' | translate }}
+                          </div>
+                        }
+                        @if (maxNbOfSeriesReached) {
+                          <div class="g-text-small g-warn-text">
+                            {{ 'spSpreadsheet.chart_too_many_series_error' | translate: { maxSeries: maxNbOfSeries } }}
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
 
-        <div *ngIf="submitted" class="series-error">
-          <div *ngIf="formGp.get('series').hasError('required')" class="g-text-small g-warn-text">
-            {{ 'spSpreadsheet.chart_serie_required_error' | translate }}
-          </div>
-          <div *ngIf="maxNbOfSeriesReached" class="g-text-small g-warn-text">
-            {{ 'spSpreadsheet.chart_too_many_series_error' | translate: { maxSeries: maxNbOfSeries } }}
-          </div>
-        </div>
-      </div>
+                <div class="g-layout-row g-layout-evenly">
+                  <button mat-flat-button class="primary" type="submit">
+                    {{ submitTextButton | translate }}
+                  </button>
 
-      <div class="g-layout-row g-layout-evenly">
-        <button mat-flat-button class="primary" type="submit">
-          {{ submitTextButton | translate }}
-        </button>
-
-        <!--   On update mode this button is used to create a new chart   -->
-        <button
-          *ngIf="input.mode === 'update'"
-          mat-stroked-button
-          class="primary"
-          type="button"
-          (click)="createNewChart()">
-          {{ 'spSpreadsheet.create_new_chart' | translate }}
-        </button>
-      </div>
-    </form>
-  </fl-portal-content>
-</fl-portal>
+                  <!--   On update mode this button is used to create a new chart   -->
+                  @if (input.mode === 'update') {
+                    <button
+                      mat-stroked-button
+                      class="primary"
+                      type="button"
+                      (click)="createNewChart()">
+                      {{ 'spSpreadsheet.create_new_chart' | translate }}
+                    </button>
+                  }
+                </div>
+              </form>
+            </fl-portal-content>
+          </fl-portal>

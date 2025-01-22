@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HaCoreModule } from '../../ha-core.module';
 
 export interface HaNavigationPanelItem {
@@ -10,7 +10,7 @@ export interface HaNavigationPanelItem {
 
 @Component({
     selector: 'ha-navigation-panel',
-    imports: [CommonModule, HaCoreModule],
+    imports: [HaCoreModule],
     templateUrl: './ha-navigation-panel.component.html',
     styleUrls: ['./ha-navigation-panel.component.scss']
 })

@@ -8,7 +8,9 @@
       <div class="text g-text-dense-height">{{ row.title }}</div>
 
       <!--    Invisible link  -->
-      <a *ngIf="!rowSelectable" [routerLink]="row | labDetailRoute" class="g-row-link"></a>
+      @if (!rowSelectable) {
+        <a [routerLink]="row | labDetailRoute" class="g-row-link"></a>
+      }
     </mat-cell>
   </ng-container>
 
@@ -36,5 +38,5 @@
   <mat-row
     *matRowDef="let row; columns: columns"
     class="g-table-row-selectable g-row-link-container"
-    (click)="rowClicked(row)"></mat-row>
+  (click)="rowClicked(row)"></mat-row>
 </mat-table>

@@ -16,9 +16,11 @@
 
     <ng-container *flSectionBodyDatasource="labsDatasource as labs">
       <div class="g-grid-5-cols">
-        <a *ngFor="let lab of labs" [routerLink]="lab | caDetailRoute">
-          <ca-lab-card [lab]="lab"></ca-lab-card>
-        </a>
+        @for (lab of labs; track lab) {
+          <a [routerLink]="lab | caDetailRoute">
+            <ca-lab-card [lab]="lab"></ca-lab-card>
+          </a>
+        }
       </div>
 
       <fl-infinite-load-more-result [datasource]="labsDatasource"></fl-infinite-load-more-result>

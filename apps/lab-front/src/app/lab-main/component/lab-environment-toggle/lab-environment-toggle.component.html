@@ -7,6 +7,8 @@
   {{ 'dev_env_toggle' | translate }}
 </mat-slide-toggle>
 
-<div *ngIf="showHelpMessage" class="g-text-tiny g-text-light help-text">
-  {{ 'dev_env_not_available' | translate }}
-</div>
+@if (showHelpMessage) {
+  <div class="g-text-tiny g-text-light help-text">
+    {{ 'dev_env_not_available' | translate }}
+  </div>
+}

@@ -5,11 +5,12 @@
 <mat-dialog-content>
   <fl-async-section [arrayObs]="statusHistories" emptyText="no_history">
     <ng-container *flSectionBodyDatasource="statusHistories as histories">
-      <div *ngFor="let statusHistory of histories">
-        <ca-status-history-card [statusHistory]="statusHistory"> </ca-status-history-card>
-
-        <mat-divider class="divider"></mat-divider>
-      </div>
+      @for (statusHistory of histories; track statusHistory) {
+        <div>
+          <ca-status-history-card [statusHistory]="statusHistory"> </ca-status-history-card>
+          <mat-divider class="divider"></mat-divider>
+        </div>
+      }
     </ng-container>
   </fl-async-section>
 </mat-dialog-content>

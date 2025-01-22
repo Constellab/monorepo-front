@@ -2,19 +2,21 @@
   <fl-async-section class="g-flex-auto" [object]="note$">
     <ng-container *flSectionBody="note$ as note">
       <div class="g-layout-row g-layout-start-center">
-        <mat-icon
-          [matTooltip]="'biox.note_validated' | translate"
-          class="g-icon-big status-icon"
-          *ngIf="note.isValidated"
-          flIcon="validated">
-        </mat-icon>
+        @if (note.isValidated) {
+          <mat-icon
+            [matTooltip]="'biox.note_validated' | translate"
+            class="g-icon-big status-icon"
+            flIcon="validated">
+          </mat-icon>
+        }
 
-        <mat-icon
-          [matTooltip]="'biox.note_archived' | translate"
-          class="g-icon-big status-icon"
-          *ngIf="note.isArchived"
-          flIcon="archive">
-        </mat-icon>
+        @if (note.isArchived) {
+          <mat-icon
+            [matTooltip]="'biox.note_archived' | translate"
+            class="g-icon-big status-icon"
+            flIcon="archive">
+          </mat-icon>
+        }
 
         <div class="g-flex-auto g-flex">
           <fl-text-icon>
@@ -42,12 +44,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
-            <ng-container *ngIf="note.isEditable()">
+            @if (note.isEditable()) {
               <button mat-menu-item type="button" (click)="updateNote()">
                 <mat-icon>edit</mat-icon>
                 <span>{{ 'biox.update_note' | translate }}</span>
               </button>
-
               <button
                 mat-menu-item
                 type="button"
@@ -56,7 +57,7 @@
                 <mat-icon flIcon="validated"></mat-icon>
                 <span>{{ 'biox.validate_note' | translate }}</span>
               </button>
-            </ng-container>
+            }
 
             <button mat-menu-item type="button" (click)="openHistoryPanel(note.id)">
               <mat-icon>history</mat-icon>
@@ -71,7 +72,9 @@
             <button mat-menu-item type="button" (click)="createNoteTemplate()">
               <mat-icon flIcon="note"></mat-icon>
               <span>{{ 'biox.create_note_template' | translate }}</span>
-              <fl-button-loader *ngIf="createTemplateLoading"></fl-button-loader>
+              @if (createTemplateLoading) {
+                <fl-button-loader></fl-button-loader>
+              }
             </button>
 
             <button mat-menu-item type="button" (click)="archiveNote()">
@@ -81,10 +84,12 @@
               </span>
             </button>
 
-            <button mat-menu-item type="button" (click)="delete()" *ngIf="note.isEditable()" class="warn">
-              <mat-icon>delete</mat-icon>
-              <span>{{ 'biox.delete_note' | translate }}</span>
-            </button>
+            @if (note.isEditable()) {
+              <button mat-menu-item type="button" (click)="delete()" class="warn">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'biox.delete_note' | translate }}</span>
+              </button>
+            }
           </mat-menu>
         </div>
       </div>
@@ -96,7 +101,7 @@
           <te-text-editor-save
             [formCtrl]="formControl"
             [saveFunc]="saveContentFunc"
-            [debounceTime]="2500"></te-text-editor-save>
+          [debounceTime]="2500"></te-text-editor-save>
 
           <!-- Tags -->
           <lab-tag-list
@@ -104,7 +109,7 @@
             entityType="NOTE"
             [entityId]="note.id"
             [showNoTagMessage]="true"
-            class="separator"></lab-tag-list>
+          class="separator"></lab-tag-list>
 
           <!--  Folder  -->
           <lab-folder-inline-select
@@ -112,19 +117,23 @@
             (selectionChange)="updateFolder($event)"
             [disabled]="!note.isEditable()"
             class="separator"
-            [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
+          [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
 
           <!--  Validated info  -->
-          <lab-object-validation-info
-            class="separator"
-            [object]="note"
-            *ngIf="note.isValidated"></lab-object-validation-info>
+          @if (note.isValidated) {
+            <lab-object-validation-info
+              class="separator"
+              [object]="note"
+            ></lab-object-validation-info>
+          }
 
           <!--  Sync info  -->
-          <lab-object-sync-info
-            class="separator"
-            [object]="note"
-            *ngIf="note.isSynced"></lab-object-sync-info>
+          @if (note.isSynced) {
+            <lab-object-sync-info
+              class="separator"
+              [object]="note"
+            ></lab-object-sync-info>
+          }
 
           <!--  Created by & Last modified bt  -->
           <p class="g-text-small g-text-light separator">
@@ -133,7 +142,7 @@
           <p class="g-text-small g-text-light">
             <fl-last-modification-info
               [user]="note.lastModifiedBy"
-              [date]="note.lastModifiedAt"></fl-last-modification-info>
+            [date]="note.lastModifiedAt"></fl-last-modification-info>
           </p>
 
           <lab-note-linked-scenarios class="scenarios"></lab-note-linked-scenarios>
@@ -144,7 +153,7 @@
           <te-text-editor
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
-            [formControl]="formControl"></te-text-editor>
+          [formControl]="formControl"></te-text-editor>
         </div>
       </div>
     </ng-container>

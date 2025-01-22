@@ -16,13 +16,14 @@
           class="g-flex-auto table"
           [datasource]="biotaDatasource"
           [columns]="columns"
-          (showDetail)="openDetail($event)"></lab-biota-database-table>
+        (showDetail)="openDetail($event)"></lab-biota-database-table>
 
         <div flHide.xs class="max-height g-scrollable-element">
-          <lab-biota-data-card
-            class="g-full"
-            *ngIf="selectedData"
+          @if (selectedData) {
+            <lab-biota-data-card
+              class="g-full"
             [biotaData]="selectedData"></lab-biota-data-card>
+          }
         </div>
       </div>
     </ng-container>

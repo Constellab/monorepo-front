@@ -14,36 +14,38 @@
         formControlName="domain"
         [placeholder]="'space_domain' | translate"
         autocomplete="off" />
-    </mat-form-field>
+      </mat-form-field>
 
-    <!--  TYPE  -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'type' | translate }}</mat-label>
-      <mat-select formControlName="type" [placeholder]="'type' | translate">
-        <mat-option *ngFor="let spaceType of spaceTypes" [value]="spaceType">
-          {{ spaceType }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <!--  TYPE  -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'type' | translate }}</mat-label>
+        <mat-select formControlName="type" [placeholder]="'type' | translate">
+          @for (spaceType of spaceTypes; track spaceType) {
+            <mat-option [value]="spaceType">
+              {{ spaceType }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-    <!--Created by-->
-    <fl-form-field class="g-search-field">
-      <fl-select-user
-        formControlName="createdBy"
-        [placeholder]="'created_by' | translate"
+      <!--Created by-->
+      <fl-form-field class="g-search-field">
+        <fl-select-user
+          formControlName="createdBy"
+          [placeholder]="'created_by' | translate"
         mode="all"></fl-select-user>
-    </fl-form-field>
+      </fl-form-field>
 
-    <!--  Id -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'id' | translate }}</mat-label>
-      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
-    </mat-form-field>
+      <!--  Id -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+      </mat-form-field>
 
-    <!--  Creation date  -->
-    <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small date">{{ 'creation_date' | translate }}</p>
-      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+      <!--  Creation date  -->
+      <div class="g-form-field-no-hint g-full">
+        <p class="g-text-small date">{{ 'creation_date' | translate }}</p>
+        <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+      </div>
     </div>
   </div>
-</div>

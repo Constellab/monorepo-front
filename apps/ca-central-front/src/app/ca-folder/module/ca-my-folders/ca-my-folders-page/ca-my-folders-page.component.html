@@ -16,9 +16,11 @@
 
     <ng-container *flSectionBodyDatasource="folderDatasource as folders">
       <div class="g-grid-5-cols">
-        <a *ngFor="let folder of folders" [routerLink]="folder | caDetailRoute">
-          <ca-hierarchy-object-card [hierarchyObject]="folder"></ca-hierarchy-object-card>
-        </a>
+        @for (folder of folders; track folder) {
+          <a [routerLink]="folder | caDetailRoute">
+            <ca-hierarchy-object-card [hierarchyObject]="folder"></ca-hierarchy-object-card>
+          </a>
+        }
       </div>
 
       <fl-infinite-load-more-result [datasource]="folderDatasource"></fl-infinite-load-more-result>

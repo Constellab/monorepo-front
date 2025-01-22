@@ -5,7 +5,9 @@
   [flDisabled]="!portalOnHover">
   <fl-user-profile-picture [user]="user" [size]="profilePictureSize"></fl-user-profile-picture>
 
-  <div class="user-name g-text-dense-height" *ngIf="showName" [ngClass]="getTextSizeClass()">
-    {{ user?.alias ? user.alias : user?.firstname + ' ' + user?.lastname }}
-  </div>
+  @if (showName) {
+    <div class="user-name g-text-dense-height" [ngClass]="getTextSizeClass()">
+      {{ user?.alias ? user.alias : user?.firstname + ' ' + user?.lastname }}
+    </div>
+  }
 </div>

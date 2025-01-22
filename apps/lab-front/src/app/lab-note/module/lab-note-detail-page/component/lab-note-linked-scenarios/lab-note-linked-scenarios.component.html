@@ -5,15 +5,17 @@
       <h3>{{ 'biox.note_linked_scenario' | translate }}</h3>
     </fl-text-icon>
 
-    <fl-section-actions *ngIf="canEdit">
-      <button
-        mat-icon-button
-        type="button"
-        [matTooltip]="'biox.note_link_scenario' | translate"
-        (click)="linkScenario()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </fl-section-actions>
+    @if (canEdit) {
+      <fl-section-actions>
+        <button
+          mat-icon-button
+          type="button"
+          [matTooltip]="'biox.note_link_scenario' | translate"
+          (click)="linkScenario()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </fl-section-actions>
+    }
   </fl-section-header>
 
   <ng-container *flSectionBody>
@@ -21,6 +23,6 @@
       [datasource]="scenarios"
       [columns]="columns"
       class="g-mat-table-main-background"
-      (scenarioUnlink)="unlinkScenario($event)"></lab-scenario-table>
+    (scenarioUnlink)="unlinkScenario($event)"></lab-scenario-table>
   </ng-container>
 </fl-async-section>

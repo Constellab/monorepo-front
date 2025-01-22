@@ -8,20 +8,26 @@
   {{ brick.repoType }}
 </fl-key-value>
 
-<fl-key-value *ngIf="brick.repoCommit">
-  <fl-key>{{ 'monitoring.repo_commit' | translate }}</fl-key>
-  {{ brick.repoCommit }}
-</fl-key-value>
+@if (brick.repoCommit) {
+  <fl-key-value>
+    <fl-key>{{ 'monitoring.repo_commit' | translate }}</fl-key>
+    {{ brick.repoCommit }}
+  </fl-key-value>
+}
 
-<fl-key-value *ngIf="brick.brickPath">
-  <fl-key>{{ 'monitoring.brick_path' | translate }}</fl-key>
-  {{ brick.brickPath }}
-</fl-key-value>
+@if (brick.brickPath) {
+  <fl-key-value>
+    <fl-key>{{ 'monitoring.brick_path' | translate }}</fl-key>
+    {{ brick.brickPath }}
+  </fl-key-value>
+}
 
-<fl-key-value *ngIf="brick.parentName">
-  <fl-key>{{ 'monitoring.parent_brick' | translate }}</fl-key>
-  {{ brick.parentName }}
-</fl-key-value>
+@if (brick.parentName) {
+  <fl-key-value>
+    <fl-key>{{ 'monitoring.parent_brick' | translate }}</fl-key>
+    {{ brick.parentName }}
+  </fl-key-value>
+}
 
 <div class="action-buttons">
   <button
@@ -30,7 +36,9 @@
     (click)="generateTechnicalDoc()"
     class="g-button-small primary">
     {{ 'monitoring.generate_technical_doc' | translate }}
-    <fl-button-loader *ngIf="generateDocIsLoading" size="small"></fl-button-loader>
+    @if (generateDocIsLoading) {
+      <fl-button-loader size="small"></fl-button-loader>
+    }
   </button>
 
   <button

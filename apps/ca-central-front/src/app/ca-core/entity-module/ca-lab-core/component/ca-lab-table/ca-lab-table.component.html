@@ -55,8 +55,10 @@
       {{ 'server_cloud' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let lab">
-      <ca-server-cloud-inline *ngIf="lab.serverCloud" [serverCloud]="lab.serverCloud">
-      </ca-server-cloud-inline>
+      @if (lab.serverCloud) {
+        <ca-server-cloud-inline [serverCloud]="lab.serverCloud">
+        </ca-server-cloud-inline>
+      }
     </mat-cell>
   </ng-container>
 
@@ -97,13 +99,12 @@
 
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <ng-container *ngIf="!disableLink; else noLink">
+  @if (!disableLink) {
     <mat-row
       *matRowDef="let row; columns: columns"
       class="g-table-row-selectable"
-      [routerLink]="row | caDetailRoute"></mat-row>
-  </ng-container>
-  <ng-template #noLink>
+    [routerLink]="row | caDetailRoute"></mat-row>
+  } @else {
     <mat-row *matRowDef="let row; columns: columns"></mat-row>
-  </ng-template>
+  }
 </mat-table>

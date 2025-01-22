@@ -1,14 +1,14 @@
 <!--  Start and stop button  -->
-<button
-  *ngIf="serverIsRunning$ | async; else stopped"
-  mat-stroked-button
-  type="button"
-  (click)="stopLab()"
-  class="g-button-small warn">
-  <mat-icon>stop</mat-icon>
-  <span>{{ 'stop_lab' | translate }}</span>
-</button>
-<ng-template #stopped>
+@if (serverIsRunning$ | async) {
+  <button
+    mat-stroked-button
+    type="button"
+    (click)="stopLab()"
+    class="g-button-small warn">
+    <mat-icon>stop</mat-icon>
+    <span>{{ 'stop_lab' | translate }}</span>
+  </button>
+} @else {
   <span
     [matTooltip]="'start_lab_disabled' | translate"
     [matTooltipDisabled]="disabledStart$ | async"
@@ -23,4 +23,4 @@
       <span>{{ 'start_lab' | translate }}</span>
     </button>
   </span>
-</ng-template>
+}

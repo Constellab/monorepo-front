@@ -11,28 +11,42 @@
 
     <sp-spreadsheet-selection-listener
       [group]="selectionListenerGroup"
-      (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
+    (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
   </div>
 
   <!--  In range mode -->
-  <mat-form-field *ngIf="mode === 'range'; else columns" class="g-full input">
-    <mat-label>{{ placeholder }}</mat-label>
-    <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required" />
-
-    <mat-error *ngIf="formGp.get('rangeSelection').hasError('required')">
-      {{ placeholder | flErrorRequired }}
-    </mat-error>
-    <mat-error *ngIf="formGp.get('rangeSelection').hasError('invalidFormat')">
-      {{ 'spSpreadsheet.series_data_wrong_format' | translate }}
-      {{ formGp.get('rangeSelection').getError('invalidFormat') }}
-    </mat-error>
-    <mat-error *ngIf="formGp.get('rangeSelection').hasError('selectionOutOfBound')">
-      {{
-        'spSpreadsheet.selection_out_of_bound'
+  @if (mode === 'range') {
+    <mat-form-field class="g-full input">
+      <mat-label>{{ placeholder }}</mat-label>
+      <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required" />
+      @if (formGp.get('rangeSelection').hasError('required')) {
+        <mat-error>
+          {{ placeholder | flErrorRequired }}
+        </mat-error>
+      }
+      @if (formGp.get('rangeSelection').hasError('invalidFormat')) {
+        <mat-error>
+          {{ 'spSpreadsheet.series_data_wrong_format' | translate }}
+          {{ formGp.get('rangeSelection').getError('invalidFormat') }}
+        </mat-error>
+      }
+      @if (formGp.get('rangeSelection').hasError('selectionOutOfBound')) {
+        <mat-error>
+          {{
+          'spSpreadsheet.selection_out_of_bound'
           | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
-      }}
-    </mat-error>
-  </mat-form-field>
+          }}
+        </mat-error>
+      }
+    </mat-form-field>
+  } @else {
+    <fl-autocomplete-multiple
+      formControlName="columnsSelection"
+      [placeholder]="placeholder"
+      [searchFunc]="columnSearchFunc"
+      [allowNewString]="true">
+    </fl-autocomplete-multiple>
+  }
 
   <!--  In columns mode -->
   <ng-template #columns>

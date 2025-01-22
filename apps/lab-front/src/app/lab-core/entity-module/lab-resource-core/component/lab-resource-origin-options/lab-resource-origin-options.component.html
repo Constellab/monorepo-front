@@ -1,3 +1,5 @@
-<mat-option [value]="option" *ngFor="let option of originOptions">
-  {{ 'biox.resource_origin_' + option | translate }}
-</mat-option>
+@for (option of originOptions; track option) {
+  <mat-option [value]="option">
+    {{ 'biox.resource_origin_' + option | translate }}
+  </mat-option>
+}

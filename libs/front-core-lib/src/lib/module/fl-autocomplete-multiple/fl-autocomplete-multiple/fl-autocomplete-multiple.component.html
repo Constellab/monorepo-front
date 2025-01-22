@@ -1,12 +1,16 @@
 <mat-form-field class="g-full">
   <mat-label>{{ placeholder }}</mat-label>
   <mat-chip-grid #chipGrid>
-    <mat-chip-row *ngFor="let item of value; let i = index" (removed)="removeItem(i)">
-      {{ item }}
-      <button *ngIf="item" matChipRemove>
-        <mat-icon>cancel</mat-icon>
-      </button>
-    </mat-chip-row>
+    @for (item of value; track item; let i = $index) {
+      <mat-chip-row (removed)="removeItem(i)">
+        {{ item }}
+        @if (item) {
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        }
+      </mat-chip-row>
+    }
     <input
       matInput
       (flElasticSearch)="search($event)"
@@ -16,13 +20,15 @@
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addUnknownValue($event)"
       [disabled]="disabled" />
-  </mat-chip-grid>
-  <mat-autocomplete
-    #auto="matAutocomplete"
-    (optionSelected)="optionSelected($event)"
-    [autoActiveFirstOption]="true">
-    <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
-      {{ option }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+    </mat-chip-grid>
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="optionSelected($event)"
+      [autoActiveFirstOption]="true">
+      @for (option of filteredOptions$ | async; track option) {
+        <mat-option [value]="option">
+          {{ option }}
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>

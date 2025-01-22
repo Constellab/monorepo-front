@@ -1,42 +1,45 @@
-<figure #figure *ngIf="imageReady; else selectImage">
-  <div
-    flResize="bothKeepRatio"
-    class="image-container"
-    (flResizeChanged)="onImageResize($event)"
-    [disabled$]="disabled$"
-    [style.width]="imageWidth + 'px'"
-    [style.height]="imageHeight + 'px'">
-    <img
-      [ngSrc]="sanitizedUrl"
-      [width]="imageWidth"
-      [height]="imageHeight"
-      draggable="false"
-      flImageFullscreen
-      [alt]="data.title"
-      class="image" />
-  </div>
+@if (imageReady) {
+  <figure #figure>
+    <div
+      flResize="bothKeepRatio"
+      class="image-container"
+      (flResizeChanged)="onImageResize($event)"
+      [disabled$]="disabled$"
+      [style.width]="imageWidth + 'px'"
+      [style.height]="imageHeight + 'px'">
+      <img
+        [ngSrc]="sanitizedUrl"
+        [width]="imageWidth"
+        [height]="imageHeight"
+        draggable="false"
+        flImageFullscreen
+        [alt]="data.title"
+        class="image" />
+      </div>
+      <figcaption class="g-text-centered">
+        <te-title-caption
+          [(title)]="data.title"
+          [(caption)]="data.caption"
+        [editable]="!disabled"></te-title-caption>
+      </figcaption>
+    </figure>
+  } @else {
+    @if (!uploadIsLoading) {
+      <fl-input-file-container class="file-input-container primary">
+        <input
+          flInputFile
+          type="file"
+          [strictMode]="true"
+          [disabled]="disabled"
+          accept="image/*"
+          [autoClearHtmlInput]="true"
+          (fileChange)="onFileSelected($any($event))" />
+        </fl-input-file-container>
+      }
+      @if (uploadIsLoading) {
+        <div class="g-text-centered">
+          <fl-loader size="medium"></fl-loader>
+        </div>
+      }
+    }
 
-  <figcaption class="g-text-centered">
-    <te-title-caption
-      [(title)]="data.title"
-      [(caption)]="data.caption"
-      [editable]="!disabled"></te-title-caption>
-  </figcaption>
-</figure>
-
-<ng-template #selectImage>
-  <fl-input-file-container *ngIf="!uploadIsLoading" class="file-input-container primary">
-    <input
-      flInputFile
-      type="file"
-      [strictMode]="true"
-      [disabled]="disabled"
-      accept="image/*"
-      [autoClearHtmlInput]="true"
-      (fileChange)="onFileSelected($any($event))" />
-  </fl-input-file-container>
-
-  <div class="g-text-centered" *ngIf="uploadIsLoading">
-    <fl-loader size="medium"></fl-loader>
-  </div>
-</ng-template>

@@ -15,31 +15,35 @@
       [max]="maxDate"
       (dateChange)="onDatePickerChange($event)"
       [ngModel]="selectedDate" />
-    <mat-datepicker-toggle matSuffix [for]="createdAtFrom"></mat-datepicker-toggle>
-    <mat-datepicker #createdAtFrom></mat-datepicker>
-  </mat-form-field>
+      <mat-datepicker-toggle matSuffix [for]="createdAtFrom"></mat-datepicker-toggle>
+      <mat-datepicker #createdAtFrom></mat-datepicker>
+    </mat-form-field>
 
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>{{ 'flDate.hour' | translate }}</mat-label>
-    <mat-select [ngModel]="selectedHours" (valueChange)="onHoursChange($event)">
-      <mat-option [value]="null">
-        {{ 'flDate.hour' | translate }}
-      </mat-option>
-      <mat-option *ngFor="let h of hours" [value]="h">
-        {{ h }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>{{ 'flDate.hour' | translate }}</mat-label>
+      <mat-select [ngModel]="selectedHours" (valueChange)="onHoursChange($event)">
+        <mat-option [value]="null">
+          {{ 'flDate.hour' | translate }}
+        </mat-option>
+        @for (h of hours; track h) {
+          <mat-option [value]="h">
+            {{ h }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field subscriptSizing="dynamic">
-    <mat-label>{{ 'flDate.minute' | translate }}</mat-label>
-    <mat-select [ngModel]="selectedMinutes" (valueChange)="onMinutesChange($event)">
-      <mat-option [value]="null">
-        {{ 'flDate.minute' | translate }}
-      </mat-option>
-      <mat-option *ngFor="let m of minutes" [value]="m">
-        {{ m }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-label>{{ 'flDate.minute' | translate }}</mat-label>
+      <mat-select [ngModel]="selectedMinutes" (valueChange)="onMinutesChange($event)">
+        <mat-option [value]="null">
+          {{ 'flDate.minute' | translate }}
+        </mat-option>
+        @for (m of minutes; track m) {
+          <mat-option [value]="m">
+            {{ m }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>

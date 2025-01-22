@@ -10,33 +10,34 @@
   </fl-card-header>
 
   <fl-card-body>
-    <mat-tab-group
-      mat-align-tabs="start"
-      animationDuration="0ms"
-      dynamicHeight
-      *ngIf="workflow; else noGraph">
-      <mat-tab label="{{ 'protocol' | translate }}">
-        <ng-template matTabContent>
-          <div class="tech-report-workflow">
-            <pr-workflow
-              [workflow]="workflow"
-              [mode$]="workflowMode$"
+    @if (workflow) {
+      <mat-tab-group
+        mat-align-tabs="start"
+        animationDuration="0ms"
+        dynamicHeight
+        >
+        <mat-tab label="{{ 'protocol' | translate }}">
+          <ng-template matTabContent>
+            <div class="tech-report-workflow">
+              <pr-workflow
+                [workflow]="workflow"
+                [mode$]="workflowMode$"
               [viewConfig]="workflowConfig"></pr-workflow>
-          </div>
-        </ng-template>
-      </mat-tab>
-      <mat-tab label="{{ 'list' | translate }}">
-        <ng-template matTabContent>
-          <ca-scenario-technical-report-graph
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="{{ 'list' | translate }}">
+          <ng-template matTabContent>
+            <ca-scenario-technical-report-graph
             [graph]="technicalReport.data.graph"></ca-scenario-technical-report-graph>
-        </ng-template>
-      </mat-tab>
-    </mat-tab-group>
-
-    <ng-template #noGraph>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    } @else {
       <div class="g-text-light g-text-centered">
         <p>{{ 'no_technical_report' | translate }}</p>
       </div>
-    </ng-template>
+    }
+
   </fl-card-body>
 </fl-card>

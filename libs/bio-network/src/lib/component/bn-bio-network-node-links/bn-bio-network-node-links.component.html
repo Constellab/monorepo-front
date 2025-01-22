@@ -1,8 +1,10 @@
 <p>{{ 'bnBioNetwork.links' | translate }}</p>
 
 <mat-nav-list dense>
-  <a mat-list-item *ngFor="let link of links" [href]="link.link" target="_blank">
-    {{ link.name }}
-    <mat-icon class="g-icon-small">open_in_new</mat-icon>
-  </a>
+  @for (link of links; track link) {
+    <a mat-list-item [href]="link.link" target="_blank">
+      {{ link.name }}
+      <mat-icon class="g-icon-small">open_in_new</mat-icon>
+    </a>
+  }
 </mat-nav-list>

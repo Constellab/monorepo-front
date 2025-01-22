@@ -4,14 +4,18 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="validation-form">
-    <p *ngIf="helpText" class="g-text-light help-text">{{ helpText | translate }}</p>
+    @if (helpText) {
+      <p class="g-text-light help-text">{{ helpText | translate }}</p>
+    }
 
     <!--    Folder      -->
     <fl-form-field>
       <lab-folder-select [formControl]="formControl" [multiple]="false"></lab-folder-select>
-      <mat-error *ngIf="formControl.hasError('required')">
-        {{ 'biox.folder' | flErrorRequired }}
-      </mat-error>
+      @if (formControl.hasError('required')) {
+        <mat-error>
+          {{ 'biox.folder' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
   </form>
 </mat-dialog-content>
@@ -19,6 +23,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="validation-form" class="g-centered-forced primary">
     {{ title | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

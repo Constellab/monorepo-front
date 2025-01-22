@@ -10,10 +10,12 @@
         [formControl]="formControl"
         [mode]="selectUserMode"
         [placeholder]="'user' | translate"
-        [required]="true"></fl-select-user>
-      <mat-error *ngIf="formControl.hasError('required')">
-        {{ 'user' | flErrorRequired }}
-      </mat-error>
+      [required]="true"></fl-select-user>
+      @if (formControl.hasError('required')) {
+        <mat-error>
+          {{ 'user' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
   </form>
 </mat-dialog-content>
@@ -25,6 +27,8 @@
     form="add-user-to-space-form"
     class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

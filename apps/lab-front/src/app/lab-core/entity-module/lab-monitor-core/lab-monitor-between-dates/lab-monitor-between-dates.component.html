@@ -35,11 +35,13 @@
         </div>
       </div>
     </div>
-    <div *ngIf="gpuIsEnabled">
-      <h2>{{ 'monitoring.gpu_temperature' | translate }}</h2>
-      <div class="chart">
-        <fl-plotly [data]="monitor.gpuFigure"></fl-plotly>
+    @if (gpuIsEnabled) {
+      <div>
+        <h2>{{ 'monitoring.gpu_temperature' | translate }}</h2>
+        <div class="chart">
+          <fl-plotly [data]="monitor.gpuFigure"></fl-plotly>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>

@@ -1,18 +1,22 @@
-<div *ngIf="ioSpecs?.is_dynamic" class="g-layout-row g-layout-between-center">
-  <div class="g-text-light g-text-small" [matTooltip]="'td.dynamic_port_help' | translate">
-    {{ 'td.dynamic_ports' | translate }}
+@if (ioSpecs?.is_dynamic) {
+  <div class="g-layout-row g-layout-between-center">
+    <div class="g-text-light g-text-small" [matTooltip]="'td.dynamic_port_help' | translate">
+      {{ 'td.dynamic_ports' | translate }}
+    </div>
+    <button mat-stroked-button type="button" class="g-button-small g-button-light" (click)="addSpec()">
+      <mat-icon>add</mat-icon>
+      {{ 'td.add_port' | translate }}
+    </button>
   </div>
-  <button mat-stroked-button type="button" class="g-button-small g-button-light" (click)="addSpec()">
-    <mat-icon>add</mat-icon>
-    {{ 'td.add_port' | translate }}
-  </button>
-</div>
+}
 
-<div class="ios-div" *ngFor="let io of ioSpecs?.specs | flObjectKeys">
-  <td-doc-io
-    [ioSpec]="ioSpecs.specs[io]"
-    [showEditButton]="!readOnly && ioSpecs.is_dynamic"
-    class="io-div"
-    (updateSpec)="updateSpec(io, ioSpecs.specs[io])"
+@for (io of ioSpecs?.specs | flObjectKeys; track io) {
+  <div class="ios-div">
+    <td-doc-io
+      [ioSpec]="ioSpecs.specs[io]"
+      [showEditButton]="!readOnly && ioSpecs.is_dynamic"
+      class="io-div"
+      (updateSpec)="updateSpec(io, ioSpecs.specs[io])"
     (deleteSpec)="deleteSpec(io, ioSpecs.specs[io])"></td-doc-io>
-</div>
+  </div>
+}

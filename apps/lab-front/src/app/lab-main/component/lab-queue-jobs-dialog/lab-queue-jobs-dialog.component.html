@@ -12,7 +12,7 @@
       <lab-running-scenario-table
         [datasource]="runningScenarios"
         [columns]="scenarioColumns"
-        class="content"></lab-running-scenario-table>
+      class="content"></lab-running-scenario-table>
     </ng-container>
   </fl-async-section>
 
@@ -23,25 +23,26 @@
 
     <ng-container *flSectionBody>
       <mat-list class="content">
-        <mat-list-item *ngFor="let job of jobs; let index = index">
-          <h3 matListItemTitle>
-            <a [routerLink]="job.scenario | labDetailRoute" class="g-text-link">{{ job.scenario.title }}</a>
-          </h3>
-          <p matListItemLine>
-            <span>{{ job.user.alias }}</span>
-          </p>
-
-          <span matListItemMeta>
-            <button
-              mat-icon-button
-              type="button"
-              class="warn"
-              (click)="removeScenarioFromQueue(job, index)"
-              [matTooltip]="'biox.remove_scenario_from_queue' | translate">
-              <mat-icon>stop</mat-icon>
-            </button>
-          </span>
-        </mat-list-item>
+        @for (job of jobs; track job; let index = $index) {
+          <mat-list-item>
+            <h3 matListItemTitle>
+              <a [routerLink]="job.scenario | labDetailRoute" class="g-text-link">{{ job.scenario.title }}</a>
+            </h3>
+            <p matListItemLine>
+              <span>{{ job.user.alias }}</span>
+            </p>
+            <span matListItemMeta>
+              <button
+                mat-icon-button
+                type="button"
+                class="warn"
+                (click)="removeScenarioFromQueue(job, index)"
+                [matTooltip]="'biox.remove_scenario_from_queue' | translate">
+                <mat-icon>stop</mat-icon>
+              </button>
+            </span>
+          </mat-list-item>
+        }
       </mat-list>
     </ng-container>
   </fl-section>

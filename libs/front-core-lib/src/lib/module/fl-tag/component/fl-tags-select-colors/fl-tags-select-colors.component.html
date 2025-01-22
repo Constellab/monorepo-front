@@ -1,43 +1,45 @@
-<div class="g-layout-col container" *ngIf="tagGroups?.length > 0; else noTag">
-  <div *ngFor="let tagGroup of tagGroups; trackBy: trackByGroupKey" class="group">
-    <div class="g-full g-layout-row g-layout-between-center g-layout-gap-05em">
-      <div>{{ tagGroup.key }}</div>
-
-      <button
-        type="button"
-        mat-icon-button
-        class="g-button-icon-small"
-        [ngClass]="groupColor(tagGroup)"
-        (click)="toggleGroupColor(tagGroup)">
-        <mat-icon>colorize</mat-icon>
-      </button>
-    </div>
-    <div class="g-text-small value-list g-styled-scrollbar">
-      <fl-chip
-        *ngFor="let tagValue of tagGroup.tags; trackBy: trackByTag"
-        size="small"
-        class="tag g-layout-row g-layout-between-center g-layout-gap-05em"
-        (click)="toggleTagColor(tagValue)"
-        [matTooltip]="tagValue.value | flTagValueToString"
-        matTooltipPosition="below"
-        [matTooltipShowDelay]="1000">
-        <div class="tag-value">{{ tagValue.value }}</div>
-
-        <div
-          *ngIf="tagValue.activeColor; else fakeCircle"
-          [style.background-color]="tagValue.color"
-          class="color"
-          (click)="openColorSelector(tagValue, $event)"
-          [(flColorSelector)]="tagValue.color"
-          (flColorSelectorChange)="emitColors()"></div>
-        <ng-template #fakeCircle>
-          <div class="color"></div>
-        </ng-template>
-      </fl-chip>
-    </div>
+@if (tagGroups?.length > 0) {
+  <div class="g-layout-col container">
+    @for (tagGroup of tagGroups; track trackByGroupKey($index, tagGroup)) {
+      <div class="group">
+        <div class="g-full g-layout-row g-layout-between-center g-layout-gap-05em">
+          <div>{{ tagGroup.key }}</div>
+          <button
+            type="button"
+            mat-icon-button
+            class="g-button-icon-small"
+            [ngClass]="groupColor(tagGroup)"
+            (click)="toggleGroupColor(tagGroup)">
+            <mat-icon>colorize</mat-icon>
+          </button>
+        </div>
+        <div class="g-text-small value-list g-styled-scrollbar">
+          @for (tagValue of tagGroup.tags; track trackByTag($index, tagValue)) {
+            <fl-chip
+              size="small"
+              class="tag g-layout-row g-layout-between-center g-layout-gap-05em"
+              (click)="toggleTagColor(tagValue)"
+              [matTooltip]="tagValue.value | flTagValueToString"
+              matTooltipPosition="below"
+              [matTooltipShowDelay]="1000">
+              <div class="tag-value">{{ tagValue.value }}</div>
+              @if (tagValue.activeColor) {
+                <div
+                  [style.background-color]="tagValue.color"
+                  class="color"
+                  (click)="openColorSelector(tagValue, $event)"
+                  [(flColorSelector)]="tagValue.color"
+                (flColorSelectorChange)="emitColors()"></div>
+              } @else {
+                <div class="color"></div>
+              }
+            </fl-chip>
+          }
+        </div>
+      </div>
+    }
   </div>
-</div>
-
-<ng-template #noTag>
+} @else {
   <fl-error-text [errorMessage]="'flTag.no_tags' | translate"></fl-error-text>
-</ng-template>
+}
+

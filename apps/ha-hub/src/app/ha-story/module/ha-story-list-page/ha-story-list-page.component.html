@@ -23,57 +23,61 @@
   <p class="left-side-div-title">{{ 'categories' | translate }} :</p>
 
   <div class="left-side-div-categories">
-    <div
-      *ngFor="let cat of categories"
-      class="category small-text"
-      (click)="changeSelectState(cat)"
-      [ngClass]="cat.active ? 'category-selected' : ''">
-      {{ cat.cat.toLowerCase() | translate }}
-    </div>
+    @for (cat of categories; track cat) {
+      <div
+        class="category small-text"
+        (click)="changeSelectState(cat)"
+        [ngClass]="cat.active ? 'category-selected' : ''">
+        {{ cat.cat.toLowerCase() | translate }}
+      </div>
+    }
   </div>
 
   <p class="left-side-div-title" flHide.lt-sm>{{ 'popular_topics' | translate }} :</p>
 
   @if (popularTopics$) {
     <mat-chip-listbox selectable multiple>
-      <mat-chip-option
-        *ngFor="let topic of popularTopics$ | async"
-        [value]="isSelected(topic)"
-        (click)="selectTopic(topic)"
-        class="g-cursor-hover">
-        {{ topic.name }}
-      </mat-chip-option>
+      @for (topic of popularTopics$ | async; track topic) {
+        <mat-chip-option
+          [value]="isSelected(topic)"
+          (click)="selectTopic(topic)"
+          class="g-cursor-hover">
+          {{ topic.name }}
+        </mat-chip-option>
+      }
     </mat-chip-listbox>
   }
 </div>
 
 <div class="main-panel">
-  <fl-infinite-scroll *ngIf="stories" [datasource]="stories" infiniteMode="auto" class="list-section">
-    <div class="section-title">
-      <h1 class="title">{{ 'stories' | translate }}</h1>
-    </div>
-
-    <div class="search-bar-title">
-      <form (submit)="search()">
-        <mat-form-field class="section-search-bar">
-          <input
-            matInput
-            [formControl]="titleFormControl"
-            placeholder="{{ 'search_by_title' | translate }}" />
-          <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate">
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </form>
-    </div>
-    <div class="stories-list">
-      <a
-        *ngFor="let story of stories | flDatasourceConnect | async"
-        [routerLink]="story.publishedAt == null ? 'edit/' + story.id : (story | haDetailRoute)">
-        <co-story-list-item
-          [story]="story"
-          [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-      </a>
-    </div>
-  </fl-infinite-scroll>
-</div>
+  @if (stories) {
+    <fl-infinite-scroll [datasource]="stories" infiniteMode="auto" class="list-section">
+      <div class="section-title">
+        <h1 class="title">{{ 'stories' | translate }}</h1>
+      </div>
+      <div class="search-bar-title">
+        <form (submit)="search()">
+          <mat-form-field class="section-search-bar">
+            <input
+              matInput
+              [formControl]="titleFormControl"
+              placeholder="{{ 'search_by_title' | translate }}" />
+              <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </form>
+        </div>
+        <div class="stories-list">
+          @for (story of stories | flDatasourceConnect | async; track story) {
+            <a
+              [routerLink]="story.publishedAt == null ? 'edit/' + story.id : (story | haDetailRoute)">
+              <co-story-list-item
+                [story]="story"
+              [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+            </a>
+          }
+        </div>
+      </fl-infinite-scroll>
+    }
+  </div>

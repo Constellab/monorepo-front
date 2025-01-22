@@ -7,7 +7,11 @@
     [ngClass]="buttonClass"
     (mousedown)="stopEventPropagation($event)">
     {{ 'go_to_lab' | translate }}
-    <mat-icon *ngIf="!isLoading">arrow_forward_ios</mat-icon>
-    <fl-button-loader *ngIf="isLoading" [size]="size"></fl-button-loader>
+    @if (!isLoading) {
+      <mat-icon>arrow_forward_ios</mat-icon>
+    }
+    @if (isLoading) {
+      <fl-button-loader [size]="size"></fl-button-loader>
+    }
   </button>
 </div>

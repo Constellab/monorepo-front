@@ -14,9 +14,10 @@
         [okText]="'folder_main_storage_configured' | translate"
         [nokText]="'folder_main_storage_not_configured' | translate">
       </fl-text-ok-nok>
-      <ca-bucket-location-inline
-        *ngIf="bucket.mainStorage"
+      @if (bucket.mainStorage) {
+        <ca-bucket-location-inline
         [bucketLocation]="bucket.mainStorage"></ca-bucket-location-inline>
+      }
 
       <!--  Backup bucket    -->
       <fl-text-ok-nok
@@ -25,15 +26,18 @@
         [nokText]="'folder_backup_storage_not_configured' | translate"
         class="backup">
       </fl-text-ok-nok>
-      <ca-bucket-location-inline
-        *ngIf="bucket.backupStorage"
+      @if (bucket.backupStorage) {
+        <ca-bucket-location-inline
         [bucketLocation]="bucket.backupStorage"></ca-bucket-location-inline>
+      }
 
-      <div class="g-text-centered configure-button" *ngIf="!bucket.mainStorage || !bucket.backupStorage">
-        <button mat-stroked-button type="button" (click)="configureStorage()">
-          {{ 'configure_folder_storage' | translate }}
-        </button>
-      </div>
+      @if (!bucket.mainStorage || !bucket.backupStorage) {
+        <div class="g-text-centered configure-button">
+          <button mat-stroked-button type="button" (click)="configureStorage()">
+            {{ 'configure_folder_storage' | translate }}
+          </button>
+        </div>
+      }
     </div>
   </ng-container>
 </fl-async-section>

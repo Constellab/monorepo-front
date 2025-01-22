@@ -1,21 +1,23 @@
-<div class="g-full-height g-layout-col" *ngIf="!error; else showError">
-  <!--  Workflow header  -->
-  <div class="header g-layout-row g-layout-start-center g-layout-gap-1em" *ngIf="!flowIsLoading">
-    <ng-content></ng-content>
-
-    <div class="divider"></div>
-
-    <pr-workflow-layers-breadcrumb></pr-workflow-layers-breadcrumb>
-  </div>
-
-  <!--  Workflow zone  -->
-  <div #workflow>
-    <div class="g-text-centered" *ngIf="flowIsLoading">
-      <fl-loader></fl-loader>
+@if (!error) {
+  <div class="g-full-height g-layout-col">
+    <!--  Workflow header  -->
+    @if (!flowIsLoading) {
+      <div class="header g-layout-row g-layout-start-center g-layout-gap-1em">
+        <ng-content></ng-content>
+        <div class="divider"></div>
+        <pr-workflow-layers-breadcrumb></pr-workflow-layers-breadcrumb>
+      </div>
+    }
+    <!--  Workflow zone  -->
+    <div #workflow>
+      @if (flowIsLoading) {
+        <div class="g-text-centered">
+          <fl-loader></fl-loader>
+        </div>
+      }
     </div>
   </div>
-</div>
-
-<ng-template #showError>
+} @else {
   <fl-error-text [errorMessage]="'error' | translate"></fl-error-text>
-</ng-template>
+}
+

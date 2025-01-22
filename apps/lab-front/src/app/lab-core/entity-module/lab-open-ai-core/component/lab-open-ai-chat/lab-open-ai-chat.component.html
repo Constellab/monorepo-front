@@ -1,8 +1,9 @@
 <div class="chat-content">
-  <lab-open-ai-chat-message
-    *ngFor="let message of value.messages; let index = index"
-    [message]="message"
+  @for (message of value.messages; track message; let index = $index) {
+    <lab-open-ai-chat-message
+      [message]="message"
     (action)="onAction($event, message, index)"></lab-open-ai-chat-message>
+  }
 </div>
 
 <mat-form-field class="g-full" subscriptSizing="dynamic" #textarea>
@@ -22,7 +23,9 @@
     <mat-icon>send</mat-icon>
   </button>
 
-  <mat-hint *ngIf="hint">
-    {{ hint }}
-  </mat-hint>
+  @if (hint) {
+    <mat-hint>
+      {{ hint }}
+    </mat-hint>
+  }
 </mat-form-field>

@@ -8,51 +8,53 @@
         formControlName="firstname"
         [placeholder]="'firstname' | translate"
         autocomplete="off" />
-    </mat-form-field>
+      </mat-form-field>
 
-    <!--  Lastname  -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'lastname' | translate }}</mat-label>
-      <input matInput formControlName="lastname" [placeholder]="'lastname' | translate" autocomplete="off" />
-    </mat-form-field>
+      <!--  Lastname  -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'lastname' | translate }}</mat-label>
+        <input matInput formControlName="lastname" [placeholder]="'lastname' | translate" autocomplete="off" />
+      </mat-form-field>
 
-    <!--  Email  -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'email' | translate }}</mat-label>
-      <input matInput formControlName="email" [placeholder]="'email' | translate" autocomplete="off" />
-    </mat-form-field>
+      <!--  Email  -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'email' | translate }}</mat-label>
+        <input matInput formControlName="email" [placeholder]="'email' | translate" autocomplete="off" />
+      </mat-form-field>
 
-    <!--  Role  -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'role' | translate }}</mat-label>
-      <mat-select formControlName="role" [placeholder]="'role' | translate">
-        <mat-option *ngFor="let role of userRoles | flObjectKeys" [value]="role">
-          {{ role }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <!--  Role  -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'role' | translate }}</mat-label>
+        <mat-select formControlName="role" [placeholder]="'role' | translate">
+          @for (role of userRoles | flObjectKeys; track role) {
+            <mat-option [value]="role">
+              {{ role }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-    <!--  Active  -->
-    <mat-form-field class="g-search-field">
-      <mat-label>{{ 'active_license' | translate }}</mat-label>
-      <mat-select formControlName="active" [placeholder]="'active_license' | translate">
-        <mat-option [value]="true">{{ true | flYesNo }}</mat-option>
-        <mat-option [value]="false">{{ false | flYesNo }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <!--  Active  -->
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'active_license' | translate }}</mat-label>
+        <mat-select formControlName="active" [placeholder]="'active_license' | translate">
+          <mat-option [value]="true">{{ true | flYesNo }}</mat-option>
+          <mat-option [value]="false">{{ false | flYesNo }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <!--Created by-->
-    <fl-form-field class="g-search-field">
-      <fl-select-user
-        formControlName="addedBy"
-        [placeholder]="'space_user_added_by' | translate"
+      <!--Created by-->
+      <fl-form-field class="g-search-field">
+        <fl-select-user
+          formControlName="addedBy"
+          [placeholder]="'space_user_added_by' | translate"
         mode="space"></fl-select-user>
-    </fl-form-field>
+      </fl-form-field>
 
-    <!--  Creation date  -->
-    <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small">{{ 'creation_date' | translate }}</p>
-      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+      <!--  Creation date  -->
+      <div class="g-form-field-no-hint g-full">
+        <p class="g-text-small">{{ 'creation_date' | translate }}</p>
+        <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+      </div>
     </div>
   </div>
-</div>

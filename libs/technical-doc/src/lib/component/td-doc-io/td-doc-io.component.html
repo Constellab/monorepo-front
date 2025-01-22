@@ -2,40 +2,47 @@
   <div class="g-layout-row">
     <div class="name-container">
       <div class="io-human-name g-text-dense-height">{{ ioSpec.human_name }}</div>
-      <div *ngIf="ioSpec.short_description" class="g-text-light g-text-dense-height">
-        {{ ioSpec.short_description }}
-      </div>
+      @if (ioSpec.short_description) {
+        <div class="g-text-light g-text-dense-height">
+          {{ ioSpec.short_description }}
+        </div>
+      }
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-start">
-      <fl-chip
-        class="g-primary-background chip"
-        *ngIf="ioSpec.is_optional"
-        [matTooltip]="'td.optional_tooltip' | translate"
-        size="small">
-        {{ 'td.optional' | translate }}
-      </fl-chip>
-      <fl-chip
-        class="g-primary-background chip"
-        *ngIf="ioSpec.is_constant"
-        [matTooltip]="'td.constant_tooltip' | translate"
-        size="small">
-        {{ 'td.constant' | translate }}
-      </fl-chip>
+      @if (ioSpec.is_optional) {
+        <fl-chip
+          class="g-primary-background chip"
+          [matTooltip]="'td.optional_tooltip' | translate"
+          size="small">
+          {{ 'td.optional' | translate }}
+        </fl-chip>
+      }
+      @if (ioSpec.is_constant) {
+        <fl-chip
+          class="g-primary-background chip"
+          [matTooltip]="'td.constant_tooltip' | translate"
+          size="small">
+          {{ 'td.constant' | translate }}
+        </fl-chip>
+      }
     </div>
 
-    <div *ngIf="showEditButton">
-      <button mat-icon-button [matMenuTriggerFor]="menu" class="g-button-icon-small">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </div>
+    @if (showEditButton) {
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="g-button-icon-small">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+    }
   </div>
 
   <div class="g-layout-row-wrap resource-types">
-    <td-io-resource
-      *ngFor="let resourceType of ioSpec.resource_types"
-      [resource]="resourceType"
+    @for (resourceType of ioSpec.resource_types; track resourceType) {
+      <td-io-resource
+        [resource]="resourceType"
       class="resource-type"></td-io-resource>
+    }
   </div>
 </div>
 

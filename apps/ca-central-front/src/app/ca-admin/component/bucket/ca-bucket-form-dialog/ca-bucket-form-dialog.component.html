@@ -12,13 +12,17 @@
         required
         [placeholder]="'bucket_type' | translate"
         (valueChange)="onBucketTypeChange($event)">
-        <mat-option *ngFor="let bucketType of bucketTypes | flObjectKeys" [value]="bucketType">
-          {{ bucketType }}
-        </mat-option>
+        @for (bucketType of bucketTypes | flObjectKeys; track bucketType) {
+          <mat-option [value]="bucketType">
+            {{ bucketType }}
+          </mat-option>
+        }
       </mat-select>
-      <mat-error *ngIf="formGp.get('bucketType').hasError('required')">
-        {{ 'bucket_type' | flErrorRequired }}
-      </mat-error>
+      @if (formGp.get('bucketType').hasError('required')) {
+        <mat-error>
+          {{ 'bucket_type' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
 
     <!--  Name  -->
@@ -30,73 +34,87 @@
         required
         flInputMaxLength="100"
         [placeholder]="'name' | translate" />
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{ 'name' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
-
-    <!--  Content type  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{ 'bucket_content_type' | translate }}</mat-label>
-      <mat-select formControlName="contentType" required [placeholder]="'bucket_content_type' | translate">
-        <mat-option *ngFor="let contentType of contentTypes | flObjectKeys" [value]="contentType">
-          {{ contentType }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="formGp.get('contentType').hasError('required')">
-        {{ 'bucket_content_type' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
-
-    <!--  Region  -->
-    @if (showRegion()) {
-      <mat-form-field class="g-form-input">
-        <mat-label>{{ 'cloud_provider_region' | translate }}</mat-label>
-        <mat-select formControlName="region" required [placeholder]="'cloud_provider_region' | translate">
-          @if (formGp.get('region').value) {
-            <mat-select-trigger>
-              <ca-cloud-provider-region-inline
-                [region]="formGp.get('region').value"
-                size="small"></ca-cloud-provider-region-inline>
-            </mat-select-trigger>
-          }
-          <ca-select-cloud-provider-region-options
-            [mode]="regionOption"></ca-select-cloud-provider-region-options>
-        </mat-select>
-        <mat-error *ngIf="formGp.get('region').hasError('required')">
-          {{ 'cloud_provider_region' | flErrorRequired }}
-        </mat-error>
+        @if (formGp.get('name').hasError('required')) {
+          <mat-error>
+            {{ 'name' | flErrorRequired }}
+          </mat-error>
+        }
       </mat-form-field>
-    } @else {
-      <!--  Lab  -->
-      <fl-form-field class="g-form-input">
-        <ca-select-lab
-          formControlName="lab"
-          mode="all-cloud"
-          [required]="true"
+
+      <!--  Content type  -->
+      <mat-form-field class="g-form-input">
+        <mat-label>{{ 'bucket_content_type' | translate }}</mat-label>
+        <mat-select formControlName="contentType" required [placeholder]="'bucket_content_type' | translate">
+          @for (contentType of contentTypes | flObjectKeys; track contentType) {
+            <mat-option [value]="contentType">
+              {{ contentType }}
+            </mat-option>
+          }
+        </mat-select>
+        @if (formGp.get('contentType').hasError('required')) {
+          <mat-error>
+            {{ 'bucket_content_type' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <!--  Region  -->
+      @if (showRegion()) {
+        <mat-form-field class="g-form-input">
+          <mat-label>{{ 'cloud_provider_region' | translate }}</mat-label>
+          <mat-select formControlName="region" required [placeholder]="'cloud_provider_region' | translate">
+            @if (formGp.get('region').value) {
+              <mat-select-trigger>
+                <ca-cloud-provider-region-inline
+                  [region]="formGp.get('region').value"
+                size="small"></ca-cloud-provider-region-inline>
+              </mat-select-trigger>
+            }
+            <ca-select-cloud-provider-region-options
+            [mode]="regionOption"></ca-select-cloud-provider-region-options>
+          </mat-select>
+          @if (formGp.get('region').hasError('required')) {
+            <mat-error>
+              {{ 'cloud_provider_region' | flErrorRequired }}
+            </mat-error>
+          }
+        </mat-form-field>
+      } @else {
+        <!--  Lab  -->
+        <fl-form-field class="g-form-input">
+          <ca-select-lab
+            formControlName="lab"
+            mode="all-cloud"
+            [required]="true"
           [placeholder]="'lab' | translate"></ca-select-lab>
-        <mat-error *ngIf="formGp.get('lab').hasError('required')">
-          {{ 'lab' | flErrorRequired }}
-        </mat-error>
-      </fl-form-field>
-    }
+          @if (formGp.get('lab').hasError('required')) {
+            <mat-error>
+              {{ 'lab' | flErrorRequired }}
+            </mat-error>
+          }
+        </fl-form-field>
+      }
 
-    <!--  Credentials  -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{ 'bucket_credentials' | translate }}</mat-label>
-      <mat-select formControlName="credentials" required [placeholder]="'bucket_credentials' | translate">
-        <ca-select-bucket-credentials-options></ca-select-bucket-credentials-options>
-      </mat-select>
-      <mat-error *ngIf="formGp.get('credentials').hasError('required')">
-        {{ 'bucket_credentials' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+      <!--  Credentials  -->
+      <mat-form-field class="g-form-input">
+        <mat-label>{{ 'bucket_credentials' | translate }}</mat-label>
+        <mat-select formControlName="credentials" required [placeholder]="'bucket_credentials' | translate">
+          <ca-select-bucket-credentials-options></ca-select-bucket-credentials-options>
+        </mat-select>
+        @if (formGp.get('credentials').hasError('required')) {
+          <mat-error>
+            {{ 'bucket_credentials' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button mat-flat-button type="submit" form="cloud-provider-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-flat-button type="submit" form="cloud-provider-form" class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>

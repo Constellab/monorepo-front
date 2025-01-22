@@ -15,18 +15,24 @@
           }
         </div>
         <div class="links-div">
-          <ha-profile-attached-link
-            [linkType]="'x'"
-            [attachedLink]="user.xLink"
-            *ngIf="user.xLink"></ha-profile-attached-link>
-          <ha-profile-attached-link
-            [linkType]="'linkedin'"
-            [attachedLink]="user.linkedinLink"
-            *ngIf="user.linkedinLink"></ha-profile-attached-link>
-          <ha-profile-attached-link
-            [linkType]="'github'"
-            [attachedLink]="user.githubLink"
-            *ngIf="user.githubLink"></ha-profile-attached-link>
+          @if (user.xLink) {
+            <ha-profile-attached-link
+              [linkType]="'x'"
+              [attachedLink]="user.xLink"
+            ></ha-profile-attached-link>
+          }
+          @if (user.linkedinLink) {
+            <ha-profile-attached-link
+              [linkType]="'linkedin'"
+              [attachedLink]="user.linkedinLink"
+            ></ha-profile-attached-link>
+          }
+          @if (user.githubLink) {
+            <ha-profile-attached-link
+              [linkType]="'github'"
+              [attachedLink]="user.githubLink"
+            ></ha-profile-attached-link>
+          }
         </div>
       </div>
 
@@ -57,21 +63,23 @@
 
 
         @if (commonSpace$ | async; as commonSpace) {
-          <div *ngIf="commonSpace.length > 0">
-            <p>{{ 'common_spaces' | translate }} :</p>
-            @for (space of commonSpace; track space.id) {
-              <div class="common-space-div">
-                <co-visibility-badge [space]="space"></co-visibility-badge>
-              </div>
-            }
-          </div>
+          @if (commonSpace.length > 0) {
+            <div>
+              <p>{{ 'common_spaces' | translate }} :</p>
+              @for (space of commonSpace; track space.id) {
+                <div class="common-space-div">
+                  <co-visibility-badge [space]="space"></co-visibility-badge>
+                </div>
+              }
+            </div>
+          }
         }
 
         @if (userRunStatAggregate$ | async; as userRunStatAggregate) {
           <div>
             <p>{{ 'stats' | translate }} : </p>
             <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate" [showElapseTime]="false"
-                                         justifyContent="start"></ha-run-stat-aggregate-panel>
+            justifyContent="start"></ha-run-stat-aggregate-panel>
           </div>
         }
       </div>
@@ -93,14 +101,15 @@
               cdkScrollable
               [textNoMoreResult]="''"
               [textNoResult]="'no_story_yet' | translate">
-              <a
-                class="list-element"
-                *ngFor="let story of stories$ | flDatasourceConnect | async"
-                [routerLink]="story | haDetailRoute">
-                <co-story-list-item
-                  [story]="story"
+              @for (story of stories$ | flDatasourceConnect | async; track story) {
+                <a
+                  class="list-element"
+                  [routerLink]="story | haDetailRoute">
+                  <co-story-list-item
+                    [story]="story"
                   [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-              </a>
+                </a>
+              }
             </fl-infinite-scroll>
           </mat-tab>
           @if (agents$ && agents$.page) {
@@ -118,12 +127,13 @@
                 cdkScrollable
                 [textNoMoreResult]="''"
                 [textNoResult]="'no_agent_yet' | translate">
-                <a
-                  class="list-element"
-                  *ngFor="let agent of agents$ | flDatasourceConnect | async"
-                  [routerLink]="agent | haDetailRoute">
-                  <co-agent-list-item [agent]="agent"></co-agent-list-item>
-                </a>
+                @for (agent of agents$ | flDatasourceConnect | async; track agent) {
+                  <a
+                    class="list-element"
+                    [routerLink]="agent | haDetailRoute">
+                    <co-agent-list-item [agent]="agent"></co-agent-list-item>
+                  </a>
+                }
               </fl-infinite-scroll>
             </mat-tab>
           }
@@ -142,14 +152,15 @@
                 cdkScrollable
                 [textNoMoreResult]="''"
                 [textNoResult]="'no_brick_yet' | translate">
-                <a
-                  class="list-element"
-                  *ngFor="let brick of bricks$ | flDatasourceConnect | async"
-                  [routerLink]="brick | haDetailRoute">
-                  <co-brick-list-item
-                    [brick]="brick"
+                @for (brick of bricks$ | flDatasourceConnect | async; track brick) {
+                  <a
+                    class="list-element"
+                    [routerLink]="brick | haDetailRoute">
+                    <co-brick-list-item
+                      [brick]="brick"
                     [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-                </a>
+                  </a>
+                }
               </fl-infinite-scroll>
             </mat-tab>
           }

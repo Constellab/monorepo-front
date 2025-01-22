@@ -1,13 +1,15 @@
 <div class="g-scrollable-element">
-  <div *ngFor="let serie of data.series" class="g-text-tiny">
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-      <div
-        class="color"
-        [style.background-color]="serie.key | chChartScale: data.seriesColorScale"
+  @for (serie of data.series; track serie) {
+    <div class="g-text-tiny">
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+        <div
+          class="color"
+          [style.background-color]="serie.key | chChartScale: data.seriesColorScale"
         [ngClass]="{ 'disable-color': disableLegends }"></div>
-      <div class="text">
-        {{ serie.name }}
+        <div class="text">
+          {{ serie.name }}
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>

@@ -14,11 +14,11 @@
 
     <!--   Number of results   -->
     <p class="result-count g-text-light">
-      <ng-container *ngIf="datasource.page?.totalElements > 0">
-        <ng-container *ngIf="!datasource.page.totalIsApproximate">
+      @if (datasource.page?.totalElements > 0) {
+        @if (!datasource.page.totalIsApproximate) {
           {{ 'flSearch.count_result' | translate: { count: datasource.page?.totalElements } }}
-        </ng-container>
-      </ng-container>
+        }
+      }
     </p>
 
     <fl-infinite-table-container [datasource]="datasource" class="g-flex-grow table-container">

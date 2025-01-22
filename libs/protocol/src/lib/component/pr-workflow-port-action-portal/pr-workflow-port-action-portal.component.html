@@ -11,11 +11,12 @@
       }
     </div>
 
-    <fl-menu-dynamic-button
-      *ngFor="let menuDynamic of data.menuDynamics"
-      [menuDynamic]="menuDynamic"
-      (buttonClick)="closePortal()">
-    </fl-menu-dynamic-button>
+    @for (menuDynamic of data.menuDynamics; track menuDynamic) {
+      <fl-menu-dynamic-button
+        [menuDynamic]="menuDynamic"
+        (buttonClick)="closePortal()">
+      </fl-menu-dynamic-button>
+    }
 
     <!--    Fix the menu bug    -->
     <mat-menu> </mat-menu>

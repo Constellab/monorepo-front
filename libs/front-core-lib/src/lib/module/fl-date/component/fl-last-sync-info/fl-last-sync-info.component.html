@@ -1,2 +1,4 @@
-<span *ngIf="lastSyncBy">{{ 'flDate.last_sync_by' | translate }} {{ lastSyncBy }} </span>
+@if (lastSyncBy) {
+  <span>{{ 'flDate.last_sync_by' | translate }} {{ lastSyncBy }} </span>
+}
 <fl-from-now [date]="lastSyncAt"></fl-from-now>

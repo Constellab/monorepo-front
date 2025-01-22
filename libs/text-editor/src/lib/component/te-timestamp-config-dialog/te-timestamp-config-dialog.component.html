@@ -11,9 +11,11 @@
     <fl-form-field>
       <fl-datetime-picker formControlName="timestamp" [placeholder]="'teTextEditor.timestamp' | translate">
       </fl-datetime-picker>
-      <mat-error *ngIf="formGp.get('timestamp').hasError('required')">
-        {{ 'teTextEditor.timestamp' | flErrorRequired }}
-      </mat-error>
+      @if (formGp.get('timestamp').hasError('required')) {
+        <mat-error>
+          {{ 'teTextEditor.timestamp' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
 
     <!--  Format  -->
@@ -23,9 +25,11 @@
         formControlName="format"
         required
         [placeholder]="'teTextEditor.timestamp_format' | translate">
-        <mat-option *ngFor="let format of formatOptions" [value]="format.value">
-          {{ format.label | translate }}
-        </mat-option>
+        @for (format of formatOptions; track format) {
+          <mat-option [value]="format.value">
+            {{ format.label | translate }}
+          </mat-option>
+        }
       </mat-select>
 
       @if (timestamp) {

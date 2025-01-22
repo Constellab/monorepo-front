@@ -6,18 +6,22 @@
       formControlName="defaultFolderStorageLocation"
       required
       [placeholder]="'space_folder_default_storage_location' | translate">
-      <mat-select-trigger *ngIf="formGp.get('defaultFolderStorageLocation').value">
-        <ca-bucket-location-inline
+      @if (formGp.get('defaultFolderStorageLocation').value) {
+        <mat-select-trigger>
+          <ca-bucket-location-inline
           [bucketLocation]="formGp.get('defaultFolderStorageLocation').value"></ca-bucket-location-inline>
-      </mat-select-trigger>
+        </mat-select-trigger>
+      }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>
     </mat-select>
     <mat-hint>
       {{ 'space_folder_default_storage_location_help' | translate }}
     </mat-hint>
-    <mat-error *ngIf="formGp.get('defaultFolderStorageLocation').hasError('required')">
-      {{ 'space_folder_default_storage_location' | flErrorRequired }}
-    </mat-error>
+    @if (formGp.get('defaultFolderStorageLocation').hasError('required')) {
+      <mat-error>
+        {{ 'space_folder_default_storage_location' | flErrorRequired }}
+      </mat-error>
+    }
   </mat-form-field>
 
   <!--  Default backup storage location  -->
@@ -26,23 +30,29 @@
     <mat-select
       formControlName="defaultFolderBackupStorageLocation"
       [placeholder]="'space_default_folder_backup_storage_location' | translate">
-      <mat-select-trigger *ngIf="formGp.get('defaultFolderBackupStorageLocation').value">
-        <ca-bucket-location-inline
+      @if (formGp.get('defaultFolderBackupStorageLocation').value) {
+        <mat-select-trigger>
+          <ca-bucket-location-inline
           [bucketLocation]="
             formGp.get('defaultFolderBackupStorageLocation').value
           "></ca-bucket-location-inline>
-      </mat-select-trigger>
+        </mat-select-trigger>
+      }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>
     </mat-select>
     <mat-hint>
       {{ 'space_default_folder_backup_storage_location_help' | translate }}
     </mat-hint>
-    <mat-error *ngIf="formGp.get('defaultFolderBackupStorageLocation').hasError('required')">
-      {{ 'space_default_folder_backup_storage_location' | flErrorRequired }}
-    </mat-error>
+    @if (formGp.get('defaultFolderBackupStorageLocation').hasError('required')) {
+      <mat-error>
+        {{ 'space_default_folder_backup_storage_location' | flErrorRequired }}
+      </mat-error>
+    }
   </mat-form-field>
 
-  <mat-error *ngIf="formGp.hasError('sameBackupStorage')">
-    {{ 'folder_storage_location_same_error' | translate }}
-  </mat-error>
+  @if (formGp.hasError('sameBackupStorage')) {
+    <mat-error>
+      {{ 'folder_storage_location_same_error' | translate }}
+    </mat-error>
+  }
 </div>

@@ -8,32 +8,29 @@
 
   <fl-card-body>
     <div>
-      <ng-container *ngIf="lastMonitor">
+      @if (lastMonitor) {
         <fl-key-value>
           <fl-key>{{ 'monitoring.lab_disk_space' | translate }}</fl-key>
           {{ lastMonitor.diskUsageUsed | flByteText }} / {{ lastMonitor.diskTotal | flByteText }} ({{
-            lastMonitor.diskUsageFree | flByteText
+          lastMonitor.diskUsageFree | flByteText
           }}
           {{ 'monitoring.disk_space_available' | translate }})
         </fl-key-value>
-
         <fl-key-value>
           <fl-key>{{ 'monitoring.number_of_processes' | translate }}</fl-key>
           {{ lastMonitor.cpuCount }}
         </fl-key-value>
-
         <fl-key-value>
           <fl-key>{{ 'monitoring.total_memory' | translate }}</fl-key>
           {{ lastMonitor.ramUsageTotal | flByteText }}
         </fl-key-value>
-
-        <ng-container *ngIf="lastMonitor.gpuEnabled">
+        @if (lastMonitor.gpuEnabled) {
           <fl-key-value>
             <fl-key>{{ 'monitoring.gpu_ram_total' | translate }}</fl-key>
             {{ lastMonitor.gpuMemoryTotal | flByteText }}
           </fl-key-value>
-        </ng-container>
-      </ng-container>
+        }
+      }
     </div>
 
     <form
@@ -43,27 +40,29 @@
       <mat-form-field subscriptSizing="dynamic" class="period">
         <mat-label>{{ 'lab_usage_period' | translate }}</mat-label>
         <mat-select [placeholder]="'lab_usage_period' | translate" formControlName="period">
-          <mat-option *ngFor="let key of periods | flObjectKeys" [value]="periods[key]">
-            {{ 'lab_usage_period_' + key | translate }}
-          </mat-option>
+          @for (key of periods | flObjectKeys; track key) {
+            <mat-option [value]="periods[key]">
+              {{ 'lab_usage_period_' + key | translate }}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
-      <ng-container *ngIf="formGroup.value.period === customPeriod">
+      @if (formGroup.value.period === customPeriod) {
         <fl-datetime-picker
           [placeholder]="'lab_usage_period_from' | translate"
           (dateTimeChange)="startDateChange($event)"
           formControlName="customStartDate"
-          [maxDate]="currentDate"></fl-datetime-picker>
+        [maxDate]="currentDate"></fl-datetime-picker>
         @if (formGroup.value.customStartDate) {
           <fl-datetime-picker
             [placeholder]="'lab_usage_period_to' | translate"
             [minDate]="formGroup.value.customStartDate"
             [maxDate]="currentDate"
             (dateTimeChange)="endDateChange($event)"
-            formControlName="customEndDate"></fl-datetime-picker>
+          formControlName="customEndDate"></fl-datetime-picker>
         }
-      </ng-container>
+      }
     </form>
 
     <fl-async-section [object]="monitor$" class="g-full-height">

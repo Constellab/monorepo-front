@@ -30,9 +30,11 @@
         placeholder="{{ 'flFormula.formula' | translate }}"
         rows="4">
       </textarea>
-      <mat-error *ngIf="formulaControl.hasError('required')">
-        {{ 'flFormula.formula' | flErrorRequired }}
-      </mat-error>
+      @if (formulaControl.hasError('required')) {
+        <mat-error>
+          {{ 'flFormula.formula' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 

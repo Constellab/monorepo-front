@@ -7,17 +7,17 @@
   [disabled]="disabled"
   (focused)="onFocused($event)">
   <div class="photo" *flInputSearchPrefix="usersDatasource as currentUser">
-    <fl-user-profile-picture
-      *ngIf="currentUser; else noUser"
-      [user]="currentUser"
+    @if (currentUser) {
+      <fl-user-profile-picture
+        [user]="currentUser"
       size="small"></fl-user-profile-picture>
-    <ng-template #noUser>
+    } @else {
       <mat-icon>account_circle</mat-icon>
-    </ng-template>
+    }
   </div>
 
   <fl-user-inline
     *flInputSearchOption="usersDatasource as user"
     [user]="user"
-    [portalOnHover]="false"></fl-user-inline>
+  [portalOnHover]="false"></fl-user-inline>
 </fl-input-search>

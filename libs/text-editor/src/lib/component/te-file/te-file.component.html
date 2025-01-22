@@ -6,16 +6,20 @@
     <div class="g-text-light">{{ data.size | flByteText }}</div>
   </div>
 } @else {
-  <fl-input-file-container *ngIf="!uploadIsLoading" class="file-input-container primary">
-    <input
-      flInputFile
-      type="file"
-      [autoClearHtmlInput]="true"
-      [disabled]="disabled"
-      (fileChange)="onFileSelected($any($event))" />
-  </fl-input-file-container>
+  @if (!uploadIsLoading) {
+    <fl-input-file-container class="file-input-container primary">
+      <input
+        flInputFile
+        type="file"
+        [autoClearHtmlInput]="true"
+        [disabled]="disabled"
+        (fileChange)="onFileSelected($any($event))" />
+      </fl-input-file-container>
+    }
 
-  <div class="g-text-centered" *ngIf="uploadIsLoading">
-    <fl-loader size="medium"></fl-loader>
-  </div>
-}
+    @if (uploadIsLoading) {
+      <div class="g-text-centered">
+        <fl-loader size="medium"></fl-loader>
+      </div>
+    }
+  }

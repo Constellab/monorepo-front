@@ -2,13 +2,17 @@
   <mat-label>{{ label | translate }}</mat-label>
 
   <mat-chip-grid #chipGrid>
-    <mat-chip-row *ngFor="let tag of value" (removed)="remove(tag)">
-      {{ tag.key }} : {{ tag.value }}
-      <button matChipRemove>
-        <mat-icon>cancel</mat-icon>
-      </button>
-    </mat-chip-row>
-    <mat-chip-row *ngIf="newTag" (removed)="removeTempTag()"> {{ newTag }} : </mat-chip-row>
+    @for (tag of value; track tag) {
+      <mat-chip-row (removed)="remove(tag)">
+        {{ tag.key }} : {{ tag.value }}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    }
+    @if (newTag) {
+      <mat-chip-row (removed)="removeTempTag()"> {{ newTag }} : </mat-chip-row>
+    }
     <input
       [placeholder]="label | translate"
       #input
@@ -19,7 +23,7 @@
       tabindex="0"
       [flInputMaxLength]="maxLength"
       (keydown.enter)="onEnterDown($event)" />
-  </mat-chip-grid>
+    </mat-chip-grid>
 
-  <mat-hint>{{ 'flTag.basic_input_helper_text' | translate }}</mat-hint>
-</mat-form-field>
+    <mat-hint>{{ 'flTag.basic_input_helper_text' | translate }}</mat-hint>
+  </mat-form-field>

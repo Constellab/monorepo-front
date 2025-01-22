@@ -1,13 +1,14 @@
 <div class="g-layout-row">
   <div class="g-flex-auto">
     @if (tags | flDatasourceConnect | async; as tagList) {
-      <fl-tag
-        *ngFor="let tag of tagList"
-        [flTag]="tag"
-        class="tag"
-        [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
-        (deleteTag)="deleteTag(tag)"
+      @for (tag of tagList; track tag) {
+        <fl-tag
+          [flTag]="tag"
+          class="tag"
+          [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
+          (deleteTag)="deleteTag(tag)"
         (click)="showTagDetail(tag, $event)"></fl-tag>
+      }
     }
 
     @if (showNoTagMessage && tags.isEmpty()) {

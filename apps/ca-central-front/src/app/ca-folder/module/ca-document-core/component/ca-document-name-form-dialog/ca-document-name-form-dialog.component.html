@@ -13,16 +13,20 @@
         required
         [flInputMaxLength]="255"
         [placeholder]="'name' | translate" />
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{ 'name' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
+        @if (formGp.get('name').hasError('required')) {
+          <mat-error>
+            {{ 'name' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button class="g-centered primary" mat-raised-button type="submit" form="doc-name-form">
-    {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button class="g-centered primary" mat-raised-button type="submit" form="doc-name-form">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>

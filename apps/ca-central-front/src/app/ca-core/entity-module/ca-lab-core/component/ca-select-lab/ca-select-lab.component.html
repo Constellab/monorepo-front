@@ -6,9 +6,11 @@
   [required]="required"
   [disabled]="disabled">
   <div class="photo" *flInputSearchPrefix="labDatasource as currentLab">
-    <mat-icon *ngIf="currentLab" [matTooltip]="currentLab.typeTooltip | translate">
-      {{ currentLab.typeIcon }}
-    </mat-icon>
+    @if (currentLab) {
+      <mat-icon [matTooltip]="currentLab.typeTooltip | translate">
+        {{ currentLab.typeIcon }}
+      </mat-icon>
+    }
   </div>
 
   <ca-lab-inline *flInputSearchOption="labDatasource as lab" [lab]="lab"></ca-lab-inline>

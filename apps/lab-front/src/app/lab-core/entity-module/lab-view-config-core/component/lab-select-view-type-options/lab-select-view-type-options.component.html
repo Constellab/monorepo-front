@@ -1,3 +1,5 @@
-<mat-option *ngFor="let viewType of viewTypes$ | async" [value]="viewType">
-  <td-type-inline [style]="viewType.style" [text]="viewType.humanName"></td-type-inline>
-</mat-option>
+@for (viewType of viewTypes$ | async; track viewType) {
+  <mat-option [value]="viewType">
+    <td-type-inline [style]="viewType.style" [text]="viewType.humanName"></td-type-inline>
+  </mat-option>
+}

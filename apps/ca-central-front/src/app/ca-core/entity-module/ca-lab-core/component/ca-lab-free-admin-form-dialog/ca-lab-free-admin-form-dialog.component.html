@@ -9,10 +9,12 @@
       <fl-select-user
         formControlName="user"
         [placeholder]="'user' | translate"
-        [required]="true"></fl-select-user>
-      <mat-error *ngIf="formGp.get('user').hasError('required')">
-        {{ 'user' | flErrorRequired }}
-      </mat-error>
+      [required]="true"></fl-select-user>
+      @if (formGp.get('user').hasError('required')) {
+        <mat-error>
+          {{ 'user' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
 
     <!--  Space  -->
@@ -20,10 +22,12 @@
       <ca-select-space
         formControlName="space"
         [placeholder]="'space' | translate"
-        [required]="true"></ca-select-space>
-      <mat-error *ngIf="formGp.get('space').hasError('required')">
-        {{ 'space' | flErrorRequired }}
-      </mat-error>
+      [required]="true"></ca-select-space>
+      @if (formGp.get('space').hasError('required')) {
+        <mat-error>
+          {{ 'space' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
   </form>
 </mat-dialog-content>
@@ -31,6 +35,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="lab-free-admin-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

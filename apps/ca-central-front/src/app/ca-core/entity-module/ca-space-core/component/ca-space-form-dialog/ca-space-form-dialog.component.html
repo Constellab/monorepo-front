@@ -13,18 +13,22 @@
         required
         flInputMaxLength="100"
         [placeholder]="'name' | translate" />
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{ 'name' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
+        @if (formGp.get('name').hasError('required')) {
+          <mat-error>
+            {{ 'name' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-    <ca-space-storage-form [formGp]="$any(formGp.get('defaultStorageLocations'))"></ca-space-storage-form>
-  </form>
-</mat-dialog-content>
+      <ca-space-storage-form [formGp]="$any(formGp.get('defaultStorageLocations'))"></ca-space-storage-form>
+    </form>
+  </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button mat-flat-button type="submit" form="space-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-flat-button type="submit" form="space-form" class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>

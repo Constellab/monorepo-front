@@ -20,39 +20,38 @@
   <fl-card-body>
     <p class="g-text-light">{{ 'lab_server_section_help' | translate }}</p>
 
-    <ng-container *ngIf="status$ | async as status">
-      <div *ngIf="status.serverTaskStatus.value !== 'NONE'">
-        <div class="g-layout-row g-layout-start-center">
-          <fl-loader
-            size="small"
-            *ngIf="status.serverTaskStatus.value === 'RUNNING'; else notRunning"
-            class="task-loader"></fl-loader>
-
-          <ng-template #notRunning>
-            <fl-status-chip [status]="status.serverTaskStatus" size="small" class="status"></fl-status-chip>
-          </ng-template>
-
-          <div class="no-shrink">
-            {{
+    @if (status$ | async; as status) {
+      @if (status.serverTaskStatus.value !== 'NONE') {
+        <div>
+          <div class="g-layout-row g-layout-start-center">
+            @if (status.serverTaskStatus.value === 'RUNNING') {
+              <fl-loader
+                size="small"
+              class="task-loader"></fl-loader>
+            } @else {
+              <fl-status-chip [status]="status.serverTaskStatus" size="small" class="status"></fl-status-chip>
+            }
+            <div class="no-shrink">
+              {{
               (status.serverTaskStatus.value === 'RUNNING'
-                ? 'lab_server_current_task'
-                : 'lab_server_last_task'
+              ? 'lab_server_current_task'
+              : 'lab_server_last_task'
               ) | translate
-            }}
+              }}
+            </div>
+            <div class="task-time-separator">-</div>
+            <!--   Task text   -->
+            <div>{{ status.serverTaskText }}</div>
+            <div class="task-time-separator">-</div>
+            @if (status.serverTaskDatetime) {
+              <fl-from-now
+                [date]="status.serverTaskDatetime"
+              class="no-shrink"></fl-from-now>
+            }
           </div>
-
-          <div class="task-time-separator">-</div>
-
-          <!--   Task text   -->
-          <div>{{ status.serverTaskText }}</div>
-          <div class="task-time-separator">-</div>
-          <fl-from-now
-            *ngIf="status.serverTaskDatetime"
-            [date]="status.serverTaskDatetime"
-            class="no-shrink"></fl-from-now>
         </div>
-      </div>
-    </ng-container>
+      }
+    }
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -64,11 +63,10 @@
         {{ 'lab_advanced_configuration_warning' | translate }}
       </fl-text-icon>
 
-      <ng-container *ngIf="isCloud$ | async">
+      @if (isCloud$ | async) {
         <button mat-stroked-button type="button" class="g-button-small actions-button" (click)="initServer()">
           {{ 'lab_init_server' | translate }}
         </button>
-
         <button
           mat-stroked-button
           type="button"
@@ -76,7 +74,7 @@
           (click)="createServer()">
           {{ 'lab_create_server' | translate }}
         </button>
-      </ng-container>
+      }
 
       <button
         mat-stroked-button
@@ -118,7 +116,7 @@
         {{ 'lab_configurer_destroy_containers' | translate }}
       </button>
 
-      <ng-container *ngIf="isCloud$ | async">
+      @if (isCloud$ | async) {
         <button
           mat-stroked-button
           type="button"
@@ -127,7 +125,7 @@
           *caIsAdmin>
           {{ 'lab_delete_server' | translate }}
         </button>
-      </ng-container>
+      }
     </mat-expansion-panel>
   </fl-card-body>
 </fl-card>

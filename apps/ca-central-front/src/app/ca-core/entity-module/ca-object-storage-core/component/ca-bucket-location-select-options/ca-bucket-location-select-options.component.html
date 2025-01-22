@@ -4,16 +4,20 @@
   @if (locations$ | async; as locations) {
     @if (locations.lab.length > 0 && mode === 'all') {
       <mat-optgroup [label]="'lab_location' | translate">
-        <mat-option *ngFor="let location of locations.lab" [value]="location">
-          <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
-        </mat-option>
+        @for (location of locations.lab; track location) {
+          <mat-option [value]="location">
+            <ca-bucket-location-inline [bucketLocation]="location"></ca-bucket-location-inline>
+          </mat-option>
+        }
       </mat-optgroup>
     }
 
     <mat-optgroup [label]="'cloud_location' | translate">
-      <mat-option *ngFor="let location of locations.cloud" [value]="location">
-        <ca-cloud-provider-region-inline [region]="location.cloudRegion"></ca-cloud-provider-region-inline>
-      </mat-option>
+      @for (location of locations.cloud; track location) {
+        <mat-option [value]="location">
+          <ca-cloud-provider-region-inline [region]="location.cloudRegion"></ca-cloud-provider-region-inline>
+        </mat-option>
+      }
     </mat-optgroup>
   }
 </fl-infinite-scroll>

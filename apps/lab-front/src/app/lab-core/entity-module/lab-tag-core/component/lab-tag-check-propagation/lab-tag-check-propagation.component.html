@@ -13,21 +13,23 @@
       </div>
       <lab-navigable-entity-groups
         [groups]="impactDTO.impactedEntities"
-        class="impacted-entities"></lab-navigable-entity-groups>
+      class="impacted-entities"></lab-navigable-entity-groups>
     </ng-container>
   </fl-async-section>
 </div>
 
-<div mat-dialog-actions *ngIf="impactDTO$ | async" class="dialog-actions">
-  <button
-    mat-stroked-button
-    (click)="closeDialog(true)"
-    type="button"
-    tabindex="-1"
-    class="yes-button primary">
-    {{ 'yes' | translate }}
-  </button>
-  <button mat-stroked-button type="button" (click)="closeDialog(false)" tabindex="-1" class="warn">
-    {{ 'no' | translate }}
-  </button>
-</div>
+@if (impactDTO$ | async) {
+  <div mat-dialog-actions class="dialog-actions">
+    <button
+      mat-stroked-button
+      (click)="closeDialog(true)"
+      type="button"
+      tabindex="-1"
+      class="yes-button primary">
+      {{ 'yes' | translate }}
+    </button>
+    <button mat-stroked-button type="button" (click)="closeDialog(false)" tabindex="-1" class="warn">
+      {{ 'no' | translate }}
+    </button>
+  </div>
+}

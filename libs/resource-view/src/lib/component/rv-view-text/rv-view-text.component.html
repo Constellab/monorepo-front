@@ -2,19 +2,27 @@
   class="container g-scrollable-element"
   (flInfiniteScroll)="loadNextPage()"
   [flInfiniteDisabled]="reachedLastPage || isLoading || paginationIsDisabled">
-  <div class="g-text-centered button" *ngIf="!reachedFirstPage">
-    <button mat-stroked-button type="button" (click)="loadPreviousPage()" class="g-button-small">
-      {{ 'biox.resource_previous_text_load' | translate }}
-      <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>
-    </button>
-  </div>
+  @if (!reachedFirstPage) {
+    <div class="g-text-centered button">
+      <button mat-stroked-button type="button" (click)="loadPreviousPage()" class="g-button-small">
+        {{ 'biox.resource_previous_text_load' | translate }}
+        @if (isLoading) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </button>
+    </div>
+  }
 
   <div class="text-container">{{ text }}</div>
 
-  <div class="g-text-centered button" *ngIf="!reachedLastPage">
-    <button mat-stroked-button type="button" (click)="loadNextPage()" class="g-button-small">
-      {{ 'biox.resource_next_text_load' | translate }}
-      <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>
-    </button>
-  </div>
+  @if (!reachedLastPage) {
+    <div class="g-text-centered button">
+      <button mat-stroked-button type="button" (click)="loadNextPage()" class="g-button-small">
+        {{ 'biox.resource_next_text_load' | translate }}
+        @if (isLoading) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </button>
+    </div>
+  }
 </div>

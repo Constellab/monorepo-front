@@ -1,6 +1,6 @@
 @if (control() && config()) {
   <div [formGroup]="control()" class="g-layout-row-wrap g-full container">
-    <ng-container *ngFor="let controlName of config().subConfigs | flObjectKeys">
+    @for (controlName of config().subConfigs | flObjectKeys; track controlName) {
       <div [ngClass]="getControlClass(config().subConfigs[controlName])">
         <fl-dynamic-abstract-form
           [config]="config().subConfigs[controlName]"
@@ -8,6 +8,6 @@
           [configName]="controlName">
         </fl-dynamic-abstract-form>
       </div>
-    </ng-container>
+    }
   </div>
 }

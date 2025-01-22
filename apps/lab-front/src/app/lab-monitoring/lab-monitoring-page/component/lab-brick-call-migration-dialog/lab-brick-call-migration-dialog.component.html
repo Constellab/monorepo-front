@@ -10,14 +10,18 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'monitoring.select_migration_version' | translate }}</mat-label>
       <mat-select [formControl]="formControl">
-        <mat-option *ngFor="let migration of brickMigrations$ | async" [value]="migration.version">
-          {{ migration.version }} |
-          <span class="g-text-light g-text-small">{{ migration.shortDescription }}</span>
-        </mat-option>
+        @for (migration of brickMigrations$ | async; track migration) {
+          <mat-option [value]="migration.version">
+            {{ migration.version }} |
+            <span class="g-text-light g-text-small">{{ migration.shortDescription }}</span>
+          </mat-option>
+        }
       </mat-select>
-      <mat-error *ngIf="formControl.hasError('required')">
-        {{ 'monitoring.select_migration_version' | flErrorRequired }}
-      </mat-error>
+      @if (formControl.hasError('required')) {
+        <mat-error>
+          {{ 'monitoring.select_migration_version' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>
@@ -25,6 +29,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="migration-form" class="g-centered-forced primary">
     {{ 'monitoring.call_migration' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

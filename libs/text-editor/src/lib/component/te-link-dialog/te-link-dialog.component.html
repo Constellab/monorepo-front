@@ -8,12 +8,16 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'teTextEditor.url' | translate }}</mat-label>
       <input matInput [formControl]="linkControl" required [placeholder]="'teTextEditor.url' | translate" />
-      <mat-error *ngIf="linkControl.hasError('required')">
-        {{ 'teTextEditor.url' | flErrorRequired }}
-      </mat-error>
-      <mat-error *ngIf="linkControl.hasError('notYoutube')">
-        {{ linkControl.getError('notYoutube') | translate }}
-      </mat-error>
+      @if (linkControl.hasError('required')) {
+        <mat-error>
+          {{ 'teTextEditor.url' | flErrorRequired }}
+        </mat-error>
+      }
+      @if (linkControl.hasError('notYoutube')) {
+        <mat-error>
+          {{ linkControl.getError('notYoutube') | translate }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>

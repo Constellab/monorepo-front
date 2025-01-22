@@ -19,16 +19,18 @@
           <mat-icon>chevron_right</mat-icon>
         </a>
 
-        <a
-          mat-stroked-button
-          type="button"
-          class="g-button-small detail-link"
-          [href]="technicalDocUrl$ | async"
-          target="_blank"
-          *ngIf="technicalDocUrl$ | async">
-          {{ 'biox.open_in_community' | translate }}
-          <mat-icon>open_in_new</mat-icon>
-        </a>
+        @if (technicalDocUrl$ | async) {
+          <a
+            mat-stroked-button
+            type="button"
+            class="g-button-small detail-link"
+            [href]="technicalDocUrl$ | async"
+            target="_blank"
+            >
+            {{ 'biox.open_in_community' | translate }}
+            <mat-icon>open_in_new</mat-icon>
+          </a>
+        }
       </div>
 
       <lab-type-detail [type]="type" class="g-flex-auto"></lab-type-detail>

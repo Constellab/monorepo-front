@@ -2,9 +2,11 @@
   <div class="dashboard-left">
     <div class="g-page-title g-layout-row g-layout-start-center g-layout-gap-1em">
       <div class="g-layout-row g-layout-start-end">
-        <h1 *ngIf="currentSpace$ | async as currentSpace">
-          {{ 'welcome_message' | translate: { name: currentSpace.name } }}
-        </h1>
+        @if (currentSpace$ | async; as currentSpace) {
+          <h1>
+            {{ 'welcome_message' | translate: { name: currentSpace.name } }}
+          </h1>
+        }
       </div>
       <div class="g-flex-auto">
         <ca-user-list-inline [userDatasource]="spaceUsers" [disabled]="true"></ca-user-list-inline>
@@ -58,6 +60,6 @@
     <!-- Task of the day -->
     <!--    <div class="r-section">-->
     <!--      <ca-dashboard-task-of-the-day></ca-dashboard-task-of-the-day>-->
-    <!--    </div>-->
-  </div>
+  <!--    </div>-->
+</div>
 </div>

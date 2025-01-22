@@ -1,13 +1,13 @@
-<div *ngIf="progress$ | async as progress">
-  <ng-container *ngIf="progress.status !== 'ended'; else ended">
-    <p>{{ 'bnBioNetwork.calculating_positions' | translate }}</p>
-    <mat-progress-bar mode="determinate" class="progress-bar" [value]="progress.progress"></mat-progress-bar>
-  </ng-container>
-
-  <ng-template #ended>
-    <fl-key-value>
-      <fl-key>{{ 'bnBioNetwork.last_calculation_duration' | translate }}</fl-key>
-      {{ progress.duration | flDuration }}
-    </fl-key-value>
-  </ng-template>
-</div>
+@if (progress$ | async; as progress) {
+  <div>
+    @if (progress.status !== 'ended') {
+      <p>{{ 'bnBioNetwork.calculating_positions' | translate }}</p>
+      <mat-progress-bar mode="determinate" class="progress-bar" [value]="progress.progress"></mat-progress-bar>
+    } @else {
+      <fl-key-value>
+        <fl-key>{{ 'bnBioNetwork.last_calculation_duration' | translate }}</fl-key>
+        {{ progress.duration | flDuration }}
+      </fl-key-value>
+    }
+  </div>
+}

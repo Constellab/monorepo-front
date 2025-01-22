@@ -1,11 +1,13 @@
 <fl-dialog-header>
   {{ title }}
 
-  <fl-dialog-header-actions *ngIf="downloadUrl">
-    <a [href]="downloadUrl" download mat-icon-button [matTooltip]="'biox.download_logs' | translate">
-      <mat-icon>cloud_download</mat-icon>
-    </a>
-  </fl-dialog-header-actions>
+  @if (downloadUrl) {
+    <fl-dialog-header-actions>
+      <a [href]="downloadUrl" download mat-icon-button [matTooltip]="'biox.download_logs' | translate">
+        <mat-icon>cloud_download</mat-icon>
+      </a>
+    </fl-dialog-header-actions>
+  }
 </fl-dialog-header>
 
 <mat-dialog-content>
@@ -13,22 +15,30 @@
     class="g-scrollable-element container"
     (flInfiniteScroll)="loadNextPage()"
     [flInfiniteDisabled]="loadNextPageDisabled">
-    <lab-logs-between-dates *ngIf="logs" [logs]="logs"></lab-logs-between-dates>
+    @if (logs) {
+      <lab-logs-between-dates [logs]="logs"></lab-logs-between-dates>
+    }
 
-    <div class="g-text-centered" *ngIf="logs && !logs.isLastPage">
-      <button
-        [disabled]="loadNextPageDisabled"
-        mat-stroked-button
-        class="primary primary"
-        type="button"
-        (click)="loadNextPage()">
-        {{ 'show_more_result' | translate }}
-        <fl-button-loader *ngIf="isLoading" size="small"></fl-button-loader>
-      </button>
-    </div>
+    @if (logs && !logs.isLastPage) {
+      <div class="g-text-centered">
+        <button
+          [disabled]="loadNextPageDisabled"
+          mat-stroked-button
+          class="primary primary"
+          type="button"
+          (click)="loadNextPage()">
+          {{ 'show_more_result' | translate }}
+          @if (isLoading) {
+            <fl-button-loader size="small"></fl-button-loader>
+          }
+        </button>
+      </div>
+    }
 
-    <div class="g-text-centered" *ngIf="isLoading">
-      <fl-loader></fl-loader>
-    </div>
+    @if (isLoading) {
+      <div class="g-text-centered">
+        <fl-loader></fl-loader>
+      </div>
+    }
   </div>
 </mat-dialog-content>

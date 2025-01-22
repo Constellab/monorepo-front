@@ -1,82 +1,82 @@
 <div [ngClass]="layoutClass" class="g-full-height">
   <div class="port-list-container g-layout-col g-styled-scrollbar">
-    <ng-container *ngFor="let port$ of ports">
-      <div
-        *ngIf="port$ | async as port"
-        class="port-container g-layout-col"
-        (click)="onPortClick(port.port.name)"
+    @for (port$ of ports; track port$) {
+      @if (port$ | async; as port) {
+        <div
+          class="port-container g-layout-col"
+          (click)="onPortClick(port.port.name)"
         [ngClass]="{
           'selected-port': (portIsSelected(port.port.name) | async),
           'port-input': mode === 'input',
           'port-output': mode === 'output',
         }">
-        <div class="port-color" [style.background-color]="port.port.getDefaultColor$() | async"></div>
-        <div class="text">
-          {{ port.text }}
+          <div class="port-color" [style.background-color]="port.port.getDefaultColor$() | async"></div>
+          <div class="text">
+            {{ port.text }}
+          </div>
+          <div class="port-menu">
+            @if (isDynamicPorts$ | async) {
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                class="g-button-icon-tiny"
+                (click)="portMenuClick($event)"
+                [disabled]="(isEditable$ | async) === false">
+                <mat-icon>more_horiz</mat-icon>
+              </button>
+            }
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button
+                mat-menu-item
+                type="button"
+                [disabled]="(isEditable$ | async) === false"
+                (click)="openEditPortDialog(port.port)">
+                <mat-icon>edit</mat-icon>
+                {{ 'td.update_port' | translate }}
+              </button>
+              <button
+                mat-menu-item
+                type="button"
+                class="warn"
+                (click)="removePort(port.port.name)">
+                <mat-icon>clear</mat-icon>
+                <span>{{ removePortTooltip | translate }}</span>
+              </button>
+            </mat-menu>
+          </div>
         </div>
-        <div class="port-menu">
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            class="g-button-icon-tiny"
-            (click)="portMenuClick($event)"
-            *ngIf="isDynamicPorts$ | async"
-            [disabled]="(isEditable$ | async) === false">
-            <mat-icon>more_horiz</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" xPosition="before">
-            <button
-              mat-menu-item
-              type="button"
-              [disabled]="(isEditable$ | async) === false"
-              (click)="openEditPortDialog(port.port)">
-              <mat-icon>edit</mat-icon>
-              {{ 'td.update_port' | translate }}
-            </button>
-
-            <button
-              mat-menu-item
-              type="button"
-              class="warn"
-              (click)="removePort(port.port.name)">
-              <mat-icon>clear</mat-icon>
-              <span>{{ removePortTooltip | translate }}</span>
-            </button>
-          </mat-menu>
-        </div>
-      </div>
-    </ng-container>
+      }
+    }
 
     <div class="g-text-centered add-container">
-      <button
-        mat-icon-button
-        type="button"
-        class="g-button-icon-tiny"
-        *ngIf="isDynamicPorts$ | async"
-        [matTooltip]="addPortTooltip | translate"
-        [matTooltipPosition]="tooltipPosition"
-        [disabled]="(isEditable$ | async) === false"
-        (click)="addPort()">
-        <mat-icon>add</mat-icon>
-      </button>
+      @if (isDynamicPorts$ | async) {
+        <button
+          mat-icon-button
+          type="button"
+          class="g-button-icon-tiny"
+          [matTooltip]="addPortTooltip | translate"
+          [matTooltipPosition]="tooltipPosition"
+          [disabled]="(isEditable$ | async) === false"
+          (click)="addPort()">
+          <mat-icon>add</mat-icon>
+        </button>
+      }
     </div>
   </div>
 
-  <ng-container *ngIf="isOpened">
-    <ng-container *ngIf="selectedResourceId$ | async; else noResource">
+  @if (isOpened) {
+    @if (selectedResourceId$ | async) {
       <lab-resource-detail
         [resourceId]="selectedResourceId$"
         displayMode="dense"
-        class="view-container"></lab-resource-detail>
-    </ng-container>
-
-    <ng-template #noResource>
+      class="view-container"></lab-resource-detail>
+    } @else {
       <fl-error-text
         class="error-text"
         [errorMessage]="
           (mode === 'input' ? 'biox.no_input_resource' : 'biox.no_output_resource') | translate
         ">
       </fl-error-text>
-    </ng-template>
-  </ng-container>
+    }
+  }
 </div>

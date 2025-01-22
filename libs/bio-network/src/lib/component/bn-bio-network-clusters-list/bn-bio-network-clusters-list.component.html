@@ -16,22 +16,23 @@
   </mat-checkbox>
 </div>
 
-<div *ngFor="let cluster of clusters$ | async" class="g-layout-row g-layout-start-center">
-  <button
-    mat-icon-button
-    class="highlight-icon g-button-icon-tiny"
-    (click)="toggleClusterColor(cluster)"
-    [disabled]="!cluster.selected"
-    [matTooltip]="'bnBioNetwork.highlight_pathway' | translate">
-    <mat-icon [style.color]="cluster.highlighted ? cluster.color : ''"> colorize </mat-icon>
-  </button>
-
-  <mat-checkbox
-    (click)="$event.stopPropagation()"
-    (change)="selectionChanged(cluster)"
-    [(ngModel)]="cluster.selected">
-    <div class="g-text-small g-text-capitalize-first">
-      {{ cluster.name }}
-    </div>
-  </mat-checkbox>
-</div>
+@for (cluster of clusters$ | async; track cluster) {
+  <div class="g-layout-row g-layout-start-center">
+    <button
+      mat-icon-button
+      class="highlight-icon g-button-icon-tiny"
+      (click)="toggleClusterColor(cluster)"
+      [disabled]="!cluster.selected"
+      [matTooltip]="'bnBioNetwork.highlight_pathway' | translate">
+      <mat-icon [style.color]="cluster.highlighted ? cluster.color : ''"> colorize </mat-icon>
+    </button>
+    <mat-checkbox
+      (click)="$event.stopPropagation()"
+      (change)="selectionChanged(cluster)"
+      [(ngModel)]="cluster.selected">
+      <div class="g-text-small g-text-capitalize-first">
+        {{ cluster.name }}
+      </div>
+    </mat-checkbox>
+  </div>
+}

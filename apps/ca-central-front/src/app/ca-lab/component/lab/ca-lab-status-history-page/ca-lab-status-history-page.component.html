@@ -14,9 +14,11 @@
             <mat-form-field class="g-search-field">
               <mat-label>{{ 'status' | translate }}</mat-label>
               <mat-select formControlName="status" [placeholder]="'status' | translate">
-                <mat-option *ngFor="let status of statusTypes" [value]="status">
-                  {{ status }}
-                </mat-option>
+                @for (status of statusTypes; track status) {
+                  <mat-option [value]="status">
+                    {{ status }}
+                  </mat-option>
+                }
               </mat-select>
             </mat-form-field>
 

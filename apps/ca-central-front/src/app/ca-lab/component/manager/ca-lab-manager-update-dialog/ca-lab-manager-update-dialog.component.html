@@ -20,9 +20,11 @@
     <mat-form-field class="g-form-input">
       <mat-label>{{ 'lab_manager_version' | translate }}</mat-label>
       <input matInput [formControl]="formCtrl" required [placeholder]="'lab_manager_version' | translate" />
-      <mat-error *ngIf="formCtrl.hasError('required')">
-        {{ 'lab_manager_version' | flErrorRequired }}
-      </mat-error>
+      @if (formCtrl.hasError('required')) {
+        <mat-error>
+          {{ 'lab_manager_version' | flErrorRequired }}
+        </mat-error>
+      }
     </mat-form-field>
   </form>
 </mat-dialog-content>

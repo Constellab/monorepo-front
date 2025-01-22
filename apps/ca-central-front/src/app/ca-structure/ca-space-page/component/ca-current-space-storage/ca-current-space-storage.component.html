@@ -40,7 +40,7 @@
             <mat-progress-spinner
               mode="determinate"
               [ngClass]="spinnerColor(spaceStorage.cloudStorageUsagePercent)"
-              [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
+            [value]="spaceStorage.cloudStorageUsagePercent"></mat-progress-spinner>
             <div class="circle-text">{{ spaceStorage.cloudStorageUsagePercent | number: '1.0-0' }} %</div>
           </div>
 
@@ -51,17 +51,21 @@
         </div>
 
         <!--    Default storage location    -->
-        <fl-key-value *ngIf="spaceStorage.defaultFolderStorageLocation">
-          <fl-key>{{ 'space_folder_default_storage_location' | translate }}</fl-key>
-          <ca-bucket-location-inline
+        @if (spaceStorage.defaultFolderStorageLocation) {
+          <fl-key-value>
+            <fl-key>{{ 'space_folder_default_storage_location' | translate }}</fl-key>
+            <ca-bucket-location-inline
             [bucketLocation]="spaceStorage.defaultFolderStorageLocation"></ca-bucket-location-inline>
-        </fl-key-value>
+          </fl-key-value>
+        }
 
-        <fl-key-value *ngIf="spaceStorage.defaultBackupFolderStorageLocation" class="backup-storage">
-          <fl-key>{{ 'space_default_folder_backup_storage_location' | translate }}</fl-key>
-          <ca-bucket-location-inline
+        @if (spaceStorage.defaultBackupFolderStorageLocation) {
+          <fl-key-value class="backup-storage">
+            <fl-key>{{ 'space_default_folder_backup_storage_location' | translate }}</fl-key>
+            <ca-bucket-location-inline
             [bucketLocation]="spaceStorage.defaultBackupFolderStorageLocation"></ca-bucket-location-inline>
-        </fl-key-value>
+          </fl-key-value>
+        }
       </ng-container>
     </fl-async-section>
   </fl-card-body>

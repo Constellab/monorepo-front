@@ -1,5 +1,7 @@
 <mat-form-field class="g-full" subscriptSizing="dynamic">
-  <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
+  @if (placeholder) {
+    <mat-label>{{ placeholder }}</mat-label>
+  }
 
   <textarea
     matInput
@@ -8,12 +10,20 @@
     [required]="required"
     [ngModelOptions]="{ standalone: true }"
     [rows]="rows"
-    (ngModelChange)="onValueChange()"></textarea>
+  (ngModelChange)="onValueChange()"></textarea>
 
-  <mat-hint *ngIf="!error">
-    <span *ngIf="hint">{{ hint }} <br /></span>
-    <span>{{ 'flDynamicField.multi_input_help' | translate }}</span>
-  </mat-hint>
-  <span *ngIf="prefix" matPrefix>{{ prefix }}</span>
-  <span *ngIf="suffix" matSuffix>{{ suffix }}</span>
+  @if (!error) {
+    <mat-hint>
+      @if (hint) {
+        <span>{{ hint }} <br /></span>
+      }
+      <span>{{ 'flDynamicField.multi_input_help' | translate }}</span>
+    </mat-hint>
+  }
+  @if (prefix) {
+    <span matPrefix>{{ prefix }}</span>
+  }
+  @if (suffix) {
+    <span matSuffix>{{ suffix }}</span>
+  }
 </mat-form-field>

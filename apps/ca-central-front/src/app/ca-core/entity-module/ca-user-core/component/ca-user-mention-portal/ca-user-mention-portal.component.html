@@ -1,17 +1,19 @@
 <div class="container">
-  <div
-    *ngIf="showEveryoneButton"
-    class="item"
-    (click)="selectEveryone()"
-    [ngClass]="{ selected: userIsSelected(0) }">
-    Everyone
-  </div>
+  @if (showEveryoneButton) {
+    <div
+      class="item"
+      (click)="selectEveryone()"
+      [ngClass]="{ selected: userIsSelected(0) }">
+      Everyone
+    </div>
+  }
 
-  <fl-user-inline
-    *ngFor="let user of users; let i = index"
-    class="item"
-    [ngClass]="{ selected: userIsSelected(i + showEveryoneButton) }"
-    [user]="user"
-    (click)="selectUser(user)">
-  </fl-user-inline>
+  @for (user of users; track user; let i = $index) {
+    <fl-user-inline
+      class="item"
+      [ngClass]="{ selected: userIsSelected(i + showEveryoneButton) }"
+      [user]="user"
+      (click)="selectUser(user)">
+    </fl-user-inline>
+  }
 </div>

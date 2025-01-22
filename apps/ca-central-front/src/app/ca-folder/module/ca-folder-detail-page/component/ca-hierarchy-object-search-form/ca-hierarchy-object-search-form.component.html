@@ -28,12 +28,14 @@
         </mat-option>
       }
 
-      <mat-option *ngFor="let key of objectTypes | flObjectKeys" [value]="key">
-        <div class="g-layout-row g-layout-start-center">
-          <ca-hierarchy-object-icon [style]="objectTypes[key].style" class="icon"></ca-hierarchy-object-icon>
-          {{ objectTypes[key].label | translate }}
-        </div>
-      </mat-option>
+      @for (key of objectTypes | flObjectKeys; track key) {
+        <mat-option [value]="key">
+          <div class="g-layout-row g-layout-start-center">
+            <ca-hierarchy-object-icon [style]="objectTypes[key].style" class="icon"></ca-hierarchy-object-icon>
+            {{ objectTypes[key].label | translate }}
+          </div>
+        </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 

@@ -1,13 +1,16 @@
 <div contenteditable="false" class="container">
   <div class="chart-container g-layout-row g-layout-center-center">
-    <rv-resource-view
-      *ngIf="view"
-      [resourceId]="resourceId"
-      [view]="view"
-      [config]="viewConfig"
+    @if (view) {
+      <rv-resource-view
+        [resourceId]="resourceId"
+        [view]="view"
+        [config]="viewConfig"
       class="resource-view"></rv-resource-view>
+    }
 
-    <fl-loader *ngIf="isLoading" size="medium"></fl-loader>
+    @if (isLoading) {
+      <fl-loader size="medium"></fl-loader>
+    }
   </div>
 
   <div class="g-text-centered">
@@ -16,11 +19,12 @@
       [caption]="caption"
       (titleChange)="onTitleChange($event)"
       (captionChange)="onCaptionChange($event)"
-      [editable]="editable"></te-title-caption>
+    [editable]="editable"></te-title-caption>
 
-    <rv-technical-info-button
-      *ngIf="view"
-      [technicalInfo]="view.technical_info"
+    @if (view) {
+      <rv-technical-info-button
+        [technicalInfo]="view.technical_info"
       class="g-button-icon-tiny g-text-light"></rv-technical-info-button>
+    }
   </div>
 </div>

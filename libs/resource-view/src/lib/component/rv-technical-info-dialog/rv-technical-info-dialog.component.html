@@ -3,11 +3,15 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <div *ngFor="let info of technicalInfo">
-    <fl-key-value class="technical-info">
-      <fl-key>{{ info.key }}</fl-key>
-      {{ info.value }}
-    </fl-key-value>
-    <div *ngIf="info.short_description" class="g-text-small g-text-light">{{ info.short_description }}</div>
-  </div>
+  @for (info of technicalInfo; track info) {
+    <div>
+      <fl-key-value class="technical-info">
+        <fl-key>{{ info.key }}</fl-key>
+        {{ info.value }}
+      </fl-key-value>
+      @if (info.short_description) {
+        <div class="g-text-small g-text-light">{{ info.short_description }}</div>
+      }
+    </div>
+  }
 </mat-dialog-content>

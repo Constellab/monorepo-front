@@ -3,29 +3,32 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
-  <ng-container *ngIf="!readOnly">
-    <button mat-menu-item type="button" *ngIf="resource.isFsNode()" (click)="openImportResource()">
-      <mat-icon fontSet="material-icons" class="primary">system_update_alt</mat-icon>
-      <span class="g-primary-text">{{ 'biox.import_resource' | translate }}</span>
+  @if (!readOnly) {
+    @if (resource.isFsNode()) {
+      <button mat-menu-item type="button" (click)="openImportResource()">
+        <mat-icon fontSet="material-icons" class="primary">system_update_alt</mat-icon>
+        <span class="g-primary-text">{{ 'biox.import_resource' | translate }}</span>
+      </button>
+    }
+  }
+
+  @if (resource.isDownloadable) {
+    <button mat-menu-item type="button" (click)="downloadResource()">
+      <mat-icon>cloud_download</mat-icon>
+      <span>{{ 'biox.download_resource' | translate }}</span>
     </button>
-  </ng-container>
+  }
 
-  <button mat-menu-item type="button" *ngIf="resource.isDownloadable" (click)="downloadResource()">
-    <mat-icon>cloud_download</mat-icon>
-    <span>{{ 'biox.download_resource' | translate }}</span>
-  </button>
-
-  <ng-container *ngIf="resource.isUpdatable()">
+  @if (resource.isUpdatable()) {
     <button mat-menu-item type="button" (click)="openUpdateName()">
       <mat-icon>edit</mat-icon>
       <span>{{ 'biox.update_resource_name' | translate }}</span>
     </button>
-
     <button mat-menu-item type="button" (click)="openUpdateFolder()">
       <mat-icon flIcon="folder">edit</mat-icon>
       <span>{{ 'biox.update_folder' | translate }}</span>
     </button>
-  </ng-container>
+  }
 
   <button mat-menu-item type="button" (click)="openTagDialog()" class="g-button-small button">
     <mat-icon>local_offer</mat-icon>
@@ -37,14 +40,16 @@
     {{ 'biox.share' | translate }}
   </button>
 
-  <button
-    mat-menu-item
-    type="button"
-    (click)="updateResourceType()"
-    *ngIf="resource.canUpdateType() && !readOnly">
-    <mat-icon>edit</mat-icon>
-    <span>{{ 'biox.update_resource_type' | translate }}</span>
-  </button>
+  @if (resource.canUpdateType() && !readOnly) {
+    <button
+      mat-menu-item
+      type="button"
+      (click)="updateResourceType()"
+      >
+      <mat-icon>edit</mat-icon>
+      <span>{{ 'biox.update_resource_type' | translate }}</span>
+    </button>
+  }
 
   <a mat-menu-item type="button" [routerLink]="resourceDocRoute">
     <mat-icon>help</mat-icon>
@@ -53,9 +58,11 @@
 
   <ng-content></ng-content>
 
-  <button mat-menu-item type="button" (click)="deleteResource()" *ngIf="resource.isDeletable() && !readOnly"
-          class="warn">
-    <mat-icon>delete</mat-icon>
-    <span>{{ 'databox.delete_resource' | translate }}</span>
-  </button>
+  @if (resource.isDeletable() && !readOnly) {
+    <button mat-menu-item type="button" (click)="deleteResource()"
+      class="warn">
+      <mat-icon>delete</mat-icon>
+      <span>{{ 'databox.delete_resource' | translate }}</span>
+    </button>
+  }
 </mat-menu>

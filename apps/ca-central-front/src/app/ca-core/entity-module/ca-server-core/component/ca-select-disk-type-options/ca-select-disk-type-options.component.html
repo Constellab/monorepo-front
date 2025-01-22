@@ -1,3 +1,5 @@
-<mat-option *ngFor="let disk of diskTypes | flObjectKeys" [value]="disk">
-  {{ disk }}
-</mat-option>
+@for (disk of diskTypes | flObjectKeys; track disk) {
+  <mat-option [value]="disk">
+    {{ disk }}
+  </mat-option>
+}

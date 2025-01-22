@@ -24,27 +24,26 @@
     <ng-container *flSectionBody>
       <div class="drawer-content g-mat-checkbox-include-bottom">
         <!--   Information about the current sheet     -->
-        <div *ngIf="currentSheet$ | async as sheet">
-          <fl-key-value>
-            <fl-key>{{ 'spSpreadsheet.loaded_rows_count' | translate }}</fl-key>
-            {{ sheet.getLoadedRowsCount() }}
-          </fl-key-value>
-
-          <fl-key-value>
-            <fl-key>{{ 'spSpreadsheet.loaded_columns_count' | translate }}</fl-key>
-            {{ sheet.getLoadedColumnsCount() }}
-          </fl-key-value>
-
-          <fl-key-value>
-            <fl-key>{{ 'spSpreadsheet.total_rows_count' | translate }}</fl-key>
-            {{ sheet.totalRowsCount }}
-          </fl-key-value>
-
-          <fl-key-value>
-            <fl-key>{{ 'spSpreadsheet.total_columns_count' | translate }}</fl-key>
-            {{ sheet.totalColumnsCount }}
-          </fl-key-value>
-        </div>
+        @if (currentSheet$ | async; as sheet) {
+          <div>
+            <fl-key-value>
+              <fl-key>{{ 'spSpreadsheet.loaded_rows_count' | translate }}</fl-key>
+              {{ sheet.getLoadedRowsCount() }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'spSpreadsheet.loaded_columns_count' | translate }}</fl-key>
+              {{ sheet.getLoadedColumnsCount() }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'spSpreadsheet.total_rows_count' | translate }}</fl-key>
+              {{ sheet.totalRowsCount }}
+            </fl-key-value>
+            <fl-key-value>
+              <fl-key>{{ 'spSpreadsheet.total_columns_count' | translate }}</fl-key>
+              {{ sheet.totalColumnsCount }}
+            </fl-key-value>
+          </div>
+        }
 
         <fl-async-section
           [object]="columnTagsColorer$"

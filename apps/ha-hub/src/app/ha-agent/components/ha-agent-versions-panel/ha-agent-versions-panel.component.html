@@ -17,25 +17,25 @@
         [autoClearHtmlInput]="true"
         accept="application/json"
         (fileChange)="onFileSelected($any($event))" />
-    }
-  </h5>
-  <div class="agent-versions-list g-scrollable-element">
-    <a class="agent-versions-list-item" [routerLink]="'./'">Overview</a>
-    @for (agentVersion of agentVersions(); track agentVersion.id) {
-      <a class="agent-versions-list-item" [routerLink]="'version/' + agentVersion.version">
-        V{{ agentVersion.version }}
-        <span class="g-text-small">
-          <fl-from-now
-            *ngIf="agentVersion.versionState == 'PUBLISHED'; else notPublished"
-            [date]="agentVersion.createdAt"></fl-from-now>
-        </span>
-      </a>
-    }
-  </div>
+      }
+    </h5>
+    <div class="agent-versions-list g-scrollable-element">
+      <a class="agent-versions-list-item" [routerLink]="'./'">Overview</a>
+      @for (agentVersion of agentVersions(); track agentVersion.id) {
+        <a class="agent-versions-list-item" [routerLink]="'version/' + agentVersion.version">
+          V{{ agentVersion.version }}
+          <span class="g-text-small">
+            @if (agentVersion.versionState == 'PUBLISHED') {
+              <fl-from-now
+              [date]="agentVersion.createdAt"></fl-from-now>
+            } @else {
+              <span class="g-warn-text">
+                {{ 'not_published' | translate }}
+              </span>
+            }
+          </span>
+        </a>
+      }
+    </div>
 
-  <ng-template #notPublished>
-    <span class="g-warn-text">
-      {{ 'not_published' | translate }}
-    </span>
-  </ng-template>
-</div>
+  </div>

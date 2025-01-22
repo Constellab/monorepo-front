@@ -7,21 +7,25 @@
     <fl-async-section [object]="bricks$">
       <ng-container *flSectionBody="bricks$ as bricks">
         <mat-accordion>
-          <mat-expansion-panel *ngFor="let brick of bricks">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <fl-status-chip mode="iconText" [status]="brick.status" class="status"></fl-status-chip>
-                {{ brick.name }}
-                <span *ngIf="brick.version" class="g-text-small g-text-light version">{{
-                  brick.version
-                }}</span>
-              </mat-panel-title>
-              <mat-panel-description>{{
-                'monitoring.messages_count' | translate: { count: brick.countMessages() }
-              }}</mat-panel-description>
-            </mat-expansion-panel-header>
-            <lab-brick-info [brick]="brick"></lab-brick-info>
-          </mat-expansion-panel>
+          @for (brick of bricks; track brick) {
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <fl-status-chip mode="iconText" [status]="brick.status" class="status"></fl-status-chip>
+                  {{ brick.name }}
+                  @if (brick.version) {
+                    <span class="g-text-small g-text-light version">{{
+                      brick.version
+                    }}</span>
+                  }
+                </mat-panel-title>
+                <mat-panel-description>{{
+                  'monitoring.messages_count' | translate: { count: brick.countMessages() }
+                }}</mat-panel-description>
+              </mat-expansion-panel-header>
+              <lab-brick-info [brick]="brick"></lab-brick-info>
+            </mat-expansion-panel>
+          }
         </mat-accordion>
       </ng-container>
     </fl-async-section>

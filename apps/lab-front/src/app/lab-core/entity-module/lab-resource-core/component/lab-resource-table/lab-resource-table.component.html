@@ -16,51 +16,56 @@
       *matCellDef="let resource"
       class="g-cell-with-left-border g-column-width-2 name-cell"
       [style.border-left-color]="resource.scenario?.id | flStringToRgb">
-      <a
-        *ngIf="!selectableRow"
-        [routerLink]="resource | labDetailRoute"
-        [target]="rowLinkTarget"
+      @if (!selectableRow) {
+        <a
+          [routerLink]="resource | labDetailRoute"
+          [target]="rowLinkTarget"
         class="g-row-link"></a>
+      }
 
-      <button
-        *ngIf="resource.hasChildren; else leftPadding"
-        mat-icon-button
-        type="button"
-        (click)="toggleResourceChildren(resource, $event)"
-        [matTooltip]="'databox.resource_see_children' | translate"
-        [matTooltipDisabled]="expandedResource === resource"
-        class="expand-button g-button-icon-small"
-        flHide.xs>
-        <mat-icon>{{ expandedResource === resource ? 'expand_less' : 'expand_more' }}</mat-icon>
-      </button>
+      @if (resource.hasChildren) {
+        <button
+          mat-icon-button
+          type="button"
+          (click)="toggleResourceChildren(resource, $event)"
+          [matTooltip]="'databox.resource_see_children' | translate"
+          [matTooltipDisabled]="expandedResource === resource"
+          class="expand-button g-button-icon-small"
+          flHide.xs>
+          <mat-icon>{{ expandedResource === resource ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </button>
+      } @else {
+        <div class="cell-left-padding"></div>
+      }
 
       <!--   If there is no button, use to set a left padding before the name    -->
-      <ng-template #leftPadding>
-        <div class="cell-left-padding"></div>
-      </ng-template>
 
-      <mat-icon
-        *ngIf="resource.isArchived"
-        [matTooltip]="'biox.resource_archived' | translate"
-        class="archived-icon over-link"
-        flIcon="archive">
-      </mat-icon>
+      @if (resource.isArchived) {
+        <mat-icon
+          [matTooltip]="'biox.resource_archived' | translate"
+          class="archived-icon over-link"
+          flIcon="archive">
+        </mat-icon>
+      }
 
-      <mat-icon
-        *ngIf="resource.typeStatus === 'UNAVAILABLE'"
-        class="type-unavailable over-link warn"
-        [matTooltip]="'biox.resource_type_unavailable_error' | translate"
-        flHide.xs>
-        error
-      </mat-icon>
+      @if (resource.typeStatus === 'UNAVAILABLE') {
+        <mat-icon
+          class="type-unavailable over-link warn"
+          [matTooltip]="'biox.resource_type_unavailable_error' | translate"
+          flHide.xs>
+          error
+        </mat-icon>
+      }
       <div>
         <div class="text g-text-dense-height">
           {{ resource.name }}
         </div>
-        <fl-text-icon class="g-text-tiny g-text-light" *ngIf="resource.scenario" gap="3px" flHide.xs>
-          <mat-icon flIcon="scenario" class="g-icon-tiny"></mat-icon>
-          <div class="text g-text-dense-height">{{ resource.scenario.title }}</div>
-        </fl-text-icon>
+        @if (resource.scenario) {
+          <fl-text-icon class="g-text-tiny g-text-light" gap="3px" flHide.xs>
+            <mat-icon flIcon="scenario" class="g-icon-tiny"></mat-icon>
+            <div class="text g-text-dense-height">{{ resource.scenario.title }}</div>
+          </fl-text-icon>
+        }
       </div>
     </mat-cell>
   </ng-container>
@@ -74,7 +79,7 @@
       <fl-user-with-date
         [user]="resource.createdBy"
         [date]="resource.createdAt"
-        class="over-link"></fl-user-with-date>
+      class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -87,7 +92,7 @@
       <fl-user-with-date
         [user]="resource.lastModifiedBy"
         [date]="resource.lastModifiedAt"
-        class="over-link"></fl-user-with-date>
+      class="over-link"></fl-user-with-date>
     </mat-cell>
   </ng-container>
 
@@ -102,7 +107,7 @@
           <td-type-inline
             [text]="resource.resourceType?.human_name"
             [style]="resource.style"
-            [subText]="resource.fsNode?.size | flByteText"></td-type-inline>
+          [subText]="resource.fsNode?.size | flByteText"></td-type-inline>
         </div>
       }
     </mat-cell>
@@ -115,76 +120,77 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-column-width-2">
       @defer (on viewport) {
-        <lab-tag-list [tags]="resource | labGetEntityTags" [tagSelectable]="tagSelectable"></lab-tag-list>
+      <lab-tag-list [tags]="resource | labGetEntityTags" [tagSelectable]="tagSelectable"></lab-tag-list>
       } @placeholder {
-        <div></div>
-      }
-    </mat-cell>
-  </ng-container>
+      <div></div>
+    }
+  </mat-cell>
+</ng-container>
 
-  <!-- Flagged -->
-  <ng-container matColumnDef="flagged">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
-      <lab-flag-button [entity]="resource" class="over-link"></lab-flag-button>
-    </mat-cell>
-  </ng-container>
+<!-- Flagged -->
+<ng-container matColumnDef="flagged">
+  <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+  <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
+    <lab-flag-button [entity]="resource" class="over-link"></lab-flag-button>
+  </mat-cell>
+</ng-container>
 
-  <!-- Action -->
-  <ng-container matColumnDef="action">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
-      <lab-resource-actions-menu
-        [resource]="resource"
-        (update)="onUpdate($event)"
-        (delete)="onDelete(resource)"
-        class="over-link"
-        (click)="stopEventPropagation($event)">
-      </lab-resource-actions-menu>
-    </mat-cell>
-  </ng-container>
+<!-- Action -->
+<ng-container matColumnDef="action">
+  <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+  <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
+    <lab-resource-actions-menu
+      [resource]="resource"
+      (update)="onUpdate($event)"
+      (delete)="onDelete(resource)"
+      class="over-link"
+      (click)="stopEventPropagation($event)">
+    </lab-resource-actions-menu>
+  </mat-cell>
+</ng-container>
 
-  <!-- View Resource -->
-  <ng-container matColumnDef="viewResource">
-    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
-    <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
-      <button
-        mat-icon-button
-        (click)="openResourceDetail(resource, $event)"
-        type="button"
-        [matTooltip]="'biox.open_resource' | translate"
-        class="over-link">
-        <mat-icon>visibility</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
+<!-- View Resource -->
+<ng-container matColumnDef="viewResource">
+  <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+  <mat-cell *matCellDef="let resource" class="g-table-icon-button-cell">
+    <button
+      mat-icon-button
+      (click)="openResourceDetail(resource, $event)"
+      type="button"
+      [matTooltip]="'biox.open_resource' | translate"
+      class="over-link">
+      <mat-icon>visibility</mat-icon>
+    </button>
+  </mat-cell>
+</ng-container>
 
-  <!-- Open in new tab -->
-  <ng-container matColumnDef="openInNewTab">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-    <mat-cell *matCellDef="let resource">
-      <a
-        mat-stroked-button
-        [routerLink]="resource | labDetailRoute"
-        target="_blank"
-        class="g-button-small over-link"
-        (click)="openInNewTab($event)">
-        {{ 'biox.open_in_new_tab' | translate }}
-        <mat-icon>open_in_new</mat-icon>
-      </a>
-    </mat-cell>
-  </ng-container>
+<!-- Open in new tab -->
+<ng-container matColumnDef="openInNewTab">
+  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+  <mat-cell *matCellDef="let resource">
+    <a
+      mat-stroked-button
+      [routerLink]="resource | labDetailRoute"
+      target="_blank"
+      class="g-button-small over-link"
+      (click)="openInNewTab($event)">
+      {{ 'biox.open_in_new_tab' | translate }}
+      <mat-icon>open_in_new</mat-icon>
+    </a>
+  </mat-cell>
+</ng-container>
 
-  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-  <!-- Used to show the chlidren resource in a nested table -->
-  <ng-container matColumnDef="expandedDetail">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-    <mat-cell
-      *matCellDef="let resource"
-      [attr.colspan]="columns.length"
-      class="expanded-cell"
-      [style.border-left-color]="resource.scenario?.id | flStringToRgb">
-      <div class="expanded-cell-content" *ngIf="resource === expandedResource">
+<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+<!-- Used to show the chlidren resource in a nested table -->
+<ng-container matColumnDef="expandedDetail">
+  <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+  <mat-cell
+    *matCellDef="let resource"
+    [attr.colspan]="columns.length"
+    class="expanded-cell"
+    [style.border-left-color]="resource.scenario?.id | flStringToRgb">
+    @if (resource === expandedResource) {
+      <div class="expanded-cell-content">
         <lab-resource-table
           [datasource]="expandedChildrenResources$"
           [selectableRow]="selectableRow"
@@ -193,21 +199,23 @@
           [sortDisabled]="true"
           class="sub-table"
           (resourceSelected)="emitResourceSelected($event)"
-          (tagSelected)="emitTagSelected($event)"></lab-resource-table>
-
+        (tagSelected)="emitTagSelected($event)"></lab-resource-table>
         <div class="g-text-centered sub-loader-container">
-          <fl-loader size="small" *ngIf="(expandedChildrenStatus$ | async)?.status === 'waiting'"></fl-loader>
+          @if ((expandedChildrenStatus$ | async)?.status === 'waiting') {
+            <fl-loader size="small"></fl-loader>
+          }
         </div>
       </div>
-    </mat-cell>
-  </ng-container>
+    }
+  </mat-cell>
+</ng-container>
 
-  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+<mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
 
-  <!-- Mode selectable -->
-  <mat-row
-    *matRowDef="let row; columns: columns"
-    class="g-table-row-selectable g-row-link-container"
-    (click)="rowClicked(row)"></mat-row>
-  <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="g-table-expandable-row"></mat-row>
+<!-- Mode selectable -->
+<mat-row
+  *matRowDef="let row; columns: columns"
+  class="g-table-row-selectable g-row-link-container"
+(click)="rowClicked(row)"></mat-row>
+<mat-row *matRowDef="let row; columns: ['expandedDetail']" class="g-table-expandable-row"></mat-row>
 </mat-table>

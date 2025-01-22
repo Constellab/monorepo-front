@@ -1,24 +1,25 @@
 @if (inputIsProvided) {
-  <div *ngIf="inputIsProvided" class="g-flex-grow g-layout-col">
-    <div>
-      <ng-content select="fl-section-header"></ng-content>
-    </div>
-
-    <div class="g-flex-grow content">
-      @if (isLoading) {
-        <div class="g-layout-row g-layout-center-center">
-          <fl-loader size="medium"></fl-loader>
-        </div>
-      } @else {
-        <!--  Render the body  -->
-        @if (showBody) {
-          <ng-container>
-            <ng-container *ngTemplateOutlet="lazyContent; context: viewContext"></ng-container>
-          </ng-container>
+  @if (inputIsProvided) {
+    <div class="g-flex-grow g-layout-col">
+      <div>
+        <ng-content select="fl-section-header"></ng-content>
+      </div>
+      <div class="g-flex-grow content">
+        @if (isLoading) {
+          <div class="g-layout-row g-layout-center-center">
+            <fl-loader size="medium"></fl-loader>
+          </div>
         } @else {
-          <fl-error-text [errorMessage]="infoText"></fl-error-text>
+          <!--  Render the body  -->
+          @if (showBody) {
+            <ng-container>
+              <ng-container *ngTemplateOutlet="lazyContent; context: viewContext"></ng-container>
+            </ng-container>
+          } @else {
+            <fl-error-text [errorMessage]="infoText"></fl-error-text>
+          }
         }
-      }
+      </div>
     </div>
-  </div>
+  }
 }

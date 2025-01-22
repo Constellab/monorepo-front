@@ -15,11 +15,12 @@
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="folderNotif">
-            <mat-radio-button
-              *ngFor="let key of notificationOptions | flObjectKeys"
-              [value]="notificationOptions[key]">
-              {{ 'folder_notif_' + notificationOptions[key] | translate }}
-            </mat-radio-button>
+            @for (key of notificationOptions | flObjectKeys; track key) {
+              <mat-radio-button
+                [value]="notificationOptions[key]">
+                {{ 'folder_notif_' + notificationOptions[key] | translate }}
+              </mat-radio-button>
+            }
           </mat-radio-group>
         </div>
 
@@ -32,11 +33,12 @@
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="messageNotif">
-            <mat-radio-button
-              *ngFor="let key of notificationOptions | flObjectKeys"
-              [value]="notificationOptions[key]">
-              {{ 'folder_notif_' + notificationOptions[key] | translate }}
-            </mat-radio-button>
+            @for (key of notificationOptions | flObjectKeys; track key) {
+              <mat-radio-button
+                [value]="notificationOptions[key]">
+                {{ 'folder_notif_' + notificationOptions[key] | translate }}
+              </mat-radio-button>
+            }
           </mat-radio-group>
         </div>
 
@@ -49,11 +51,12 @@
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="scenarioNotif">
-            <mat-radio-button
-              *ngFor="let key of notificationOptions | flObjectKeys"
-              [value]="notificationOptions[key]">
-              {{ 'folder_notif_' + notificationOptions[key] | translate }}
-            </mat-radio-button>
+            @for (key of notificationOptions | flObjectKeys; track key) {
+              <mat-radio-button
+                [value]="notificationOptions[key]">
+                {{ 'folder_notif_' + notificationOptions[key] | translate }}
+              </mat-radio-button>
+            }
           </mat-radio-group>
         </div>
 
@@ -66,11 +69,12 @@
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="noteNotif">
-            <mat-radio-button
-              *ngFor="let key of notificationOptions | flObjectKeys"
-              [value]="notificationOptions[key]">
-              {{ 'folder_notif_' + notificationOptions[key] | translate }}
-            </mat-radio-button>
+            @for (key of notificationOptions | flObjectKeys; track key) {
+              <mat-radio-button
+                [value]="notificationOptions[key]">
+                {{ 'folder_notif_' + notificationOptions[key] | translate }}
+              </mat-radio-button>
+            }
           </mat-radio-group>
         </div>
 
@@ -83,11 +87,12 @@
         </div>
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="documentNotif">
-            <mat-radio-button
-              *ngFor="let key of notificationOptions | flObjectKeys"
-              [value]="notificationOptions[key]">
-              {{ 'folder_notif_' + notificationOptions[key] | translate }}
-            </mat-radio-button>
+            @for (key of notificationOptions | flObjectKeys; track key) {
+              <mat-radio-button
+                [value]="notificationOptions[key]">
+                {{ 'folder_notif_' + notificationOptions[key] | translate }}
+              </mat-radio-button>
+            }
           </mat-radio-group>
         </div>
       </form>
@@ -98,6 +103,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="folder-user-config" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

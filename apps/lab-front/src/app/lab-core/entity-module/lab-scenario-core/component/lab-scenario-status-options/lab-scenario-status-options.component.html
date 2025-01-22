@@ -1,3 +1,5 @@
-<mat-option *ngFor="let status of statusList" [value]="status.value">
-  {{ status.name | translate }}
-</mat-option>
+@for (status of statusList; track status) {
+  <mat-option [value]="status.value">
+    {{ status.name | translate }}
+  </mat-option>
+}

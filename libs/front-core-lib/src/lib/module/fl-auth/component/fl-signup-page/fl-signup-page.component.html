@@ -8,7 +8,9 @@
 
         <button mat-flat-button type="submit" class="centered g-button-big accent">
           {{ 'flAuth.signup' | translate }}
-          <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+          @if (isLoading) {
+            <fl-button-loader></fl-button-loader>
+          }
         </button>
       </form>
 

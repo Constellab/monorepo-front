@@ -1,36 +1,42 @@
-<ng-container [ngSwitch]="freeLab.status">
-  <fl-text-icon *ngSwitchCase="'IN_PROGRESS'">
-    <mat-icon>cached</mat-icon>
-    <div>
-      {{
+
+@switch (freeLab.status) {
+  @case ('IN_PROGRESS') {
+    <fl-text-icon>
+      <mat-icon>cached</mat-icon>
+      <div>
+        {{
         'free_data_lab_in_progress'
-          | translate
-            : {
-                remainingHours: (freeLab.remainingMilliseconds | flDuration: 2 : 'minutes'),
-              }
+        | translate
+        : {
+        remainingHours: (freeLab.remainingMilliseconds | flDuration: 2 : 'minutes'),
+      }
       }}
     </div>
   </fl-text-icon>
-
-  <fl-text-icon *ngSwitchCase="'EXPIRED'">
+}
+@case ('EXPIRED') {
+  <fl-text-icon>
     <mat-icon>clear</mat-icon>
     {{
-      'free_data_lab_expired' | translate: { date: (freeLab.deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') }
+    'free_data_lab_expired' | translate: { date: (freeLab.deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') }
     }}
   </fl-text-icon>
-
-  <fl-text-icon *ngSwitchCase="'EXPIRED_AND_DELETED'">
+}
+@case ('EXPIRED_AND_DELETED') {
+  <fl-text-icon>
     <mat-icon>clear</mat-icon>
     {{ 'free_data_lab_expired_and_deleted' | translate }}
   </fl-text-icon>
-
-  <fl-text-icon *ngSwitchCase="'NOT_USED'">
+}
+@case ('NOT_USED') {
+  <fl-text-icon>
     <mat-icon>clear</mat-icon>
     {{ 'free_data_lab_not_used' | translate }}
   </fl-text-icon>
-</ng-container>
+}
+}
 
-<ng-container *ngIf="freeLab.freeLab">
+@if (freeLab.freeLab) {
   <fl-text-icon>
     <mat-icon>calendar_today</mat-icon>
     <fl-key-value>
@@ -38,7 +44,6 @@
       {{ freeLab.freeLab.createdAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
     </fl-key-value>
   </fl-text-icon>
-
   <fl-text-icon>
     <mat-icon>data_usage</mat-icon>
     <fl-key-value>
@@ -47,20 +52,21 @@
       / {{ freeLab.freeLab.usageLimitInHours }} {{ 'lab_usage_hours' | translate }}
     </fl-key-value>
   </fl-text-icon>
-
   <fl-text-icon>
     <mat-icon>person</mat-icon>
     <fl-user-inline [user]="freeLab.freeLab.createdBy"></fl-user-inline>
   </fl-text-icon>
-</ng-container>
+}
 
-<div class="g-text-centered" *ngIf="freeLab.freeLab?.labId">
-  <a
-    [routerLink]="freeLab.freeLab.labId | caDetailRoute: 'lab'"
-    mat-button
-    type="button"
-    flHideSamePageLink
-    class="lab-link">
-    {{ 'free_data_lab_open_lab' | translate }}
-  </a>
-</div>
+@if (freeLab.freeLab?.labId) {
+  <div class="g-text-centered">
+    <a
+      [routerLink]="freeLab.freeLab.labId | caDetailRoute: 'lab'"
+      mat-button
+      type="button"
+      flHideSamePageLink
+      class="lab-link">
+      {{ 'free_data_lab_open_lab' | translate }}
+    </a>
+  </div>
+}

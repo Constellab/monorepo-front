@@ -15,13 +15,17 @@
             [formControl]="formControl"
             placeholder="{{ 'biox.resource_type' | translate }}"
             required>
-            <mat-option *ngFor="let fileType of fileTypes" [value]="fileType.typingName">
-              {{ fileType.name }}
-            </mat-option>
+            @for (fileType of fileTypes; track fileType) {
+              <mat-option [value]="fileType.typingName">
+                {{ fileType.name }}
+              </mat-option>
+            }
           </mat-select>
-          <mat-error *ngIf="formControl.hasError('required')">
-            {{ 'biox.resource_type' | flErrorRequired }}
-          </mat-error>
+          @if (formControl.hasError('required')) {
+            <mat-error>
+              {{ 'biox.resource_type' | flErrorRequired }}
+            </mat-error>
+          }
         </mat-form-field>
       </form>
     </ng-container>
@@ -31,6 +35,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="resource-type-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

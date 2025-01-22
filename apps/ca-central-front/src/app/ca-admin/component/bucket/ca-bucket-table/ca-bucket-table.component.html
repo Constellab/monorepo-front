@@ -26,10 +26,13 @@
   <ng-container matColumnDef="object">
     <mat-header-cell *matHeaderCellDef> </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <ca-cloud-provider-region-inline
-        *ngIf="row.region"
+      @if (row.region) {
+        <ca-cloud-provider-region-inline
         [region]="row.region"></ca-cloud-provider-region-inline>
-      <ca-lab-inline *ngIf="row.lab" [lab]="row.lab"></ca-lab-inline>
+      }
+      @if (row.lab) {
+        <ca-lab-inline [lab]="row.lab"></ca-lab-inline>
+      }
     </mat-cell>
   </ng-container>
 

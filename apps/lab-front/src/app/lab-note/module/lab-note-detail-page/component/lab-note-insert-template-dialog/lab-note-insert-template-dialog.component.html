@@ -14,10 +14,12 @@
       <lab-select-note-template
         [formControl]="formControl"
         [placeholder]="'biox.select_note_template' | translate"
-        [required]="true"></lab-select-note-template>
-      <mat-error class="g-warn-text g-text-small" *ngIf="formControl.hasError('required')">
-        {{ 'biox.select_note_template' | flErrorRequired }}
-      </mat-error>
+      [required]="true"></lab-select-note-template>
+      @if (formControl.hasError('required')) {
+        <mat-error class="g-warn-text g-text-small">
+          {{ 'biox.select_note_template' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
   </form>
 </mat-dialog-content>

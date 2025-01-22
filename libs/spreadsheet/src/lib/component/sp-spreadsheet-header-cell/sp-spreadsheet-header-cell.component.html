@@ -10,7 +10,9 @@
     <div class="g-text-tiny g-text-light header-name">{{ header.name }}</div>
     <div class="g-layout-row">
       <div class="g-layout-row g-layout-center colors-container">
-        <div *ngFor="let color of colors$ | async" [style.background-color]="color" class="color"></div>
+        @for (color of colors$ | async; track color) {
+          <div [style.background-color]="color" class="color"></div>
+        }
       </div>
 
       @if (header.sort) {

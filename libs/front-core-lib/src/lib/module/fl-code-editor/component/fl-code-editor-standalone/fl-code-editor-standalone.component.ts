@@ -9,7 +9,7 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { EditorState, Extension } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
@@ -33,7 +33,7 @@ import { perl } from '@codemirror/legacy-modes/mode/perl';
  */
 @Component({
     selector: 'fl-code-editor-standalone',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './fl-code-editor-standalone.component.html',
     styleUrls: ['./fl-code-editor-standalone.component.scss']
 })

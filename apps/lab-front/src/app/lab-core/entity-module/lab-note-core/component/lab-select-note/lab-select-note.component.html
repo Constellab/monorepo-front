@@ -9,7 +9,9 @@
   [initSearchOnFocus]="true"
   [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as note">
-    <fl-user-profile-picture *ngIf="note" [user]="note.createdBy" size="small"></fl-user-profile-picture>
+    @if (note) {
+      <fl-user-profile-picture [user]="note.createdBy" size="small"></fl-user-profile-picture>
+    }
   </div>
 
   <lab-note-inline *flInputSearchOption="datasource as note" [note]="note"> </lab-note-inline>

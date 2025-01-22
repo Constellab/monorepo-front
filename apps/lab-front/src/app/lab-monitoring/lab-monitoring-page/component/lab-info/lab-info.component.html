@@ -4,65 +4,67 @@
   </fl-card-header>
 
   <fl-card-body>
-    <div *ngIf="isLoading; else loadingFinished" class="g-text-centered">
-      <fl-loader size="medium"></fl-loader>
-    </div>
-
-    <ng-template #loadingFinished>
-      <div *ngIf="labInfo; else error">
-        <fl-text-icon>
-          <mat-icon class="g-icon-big primary">check</mat-icon>
-
-          <p class="g-text-big">{{ 'monitoring.lab_running' | translate }}</p>
-
-          <fl-key-value>
-            <fl-key>{{ 'monitoring.lab_name' | translate }}</fl-key>
-            {{ labInfo.labName }}
-          </fl-key-value>
-
-          <fl-key-value *ngIf="labInfo.frontVersion">
-            <fl-key>{{ 'monitoring.front_version' | translate }}</fl-key>
-            {{ labInfo.frontVersion }}
-          </fl-key-value>
-        </fl-text-icon>
-
-        <div class="action">
-          <button mat-stroked-button type="button" class="g-button-small action-button" (click)="syncLab()">
-            <mat-icon>refresh</mat-icon>
-            {{ 'monitoring.synchronize_lab' | translate }}
-          </button>
-
-          <button mat-stroked-button type="button" class="g-button-small action-button" (click)="cleanLab()">
-            <mat-icon>delete</mat-icon>
-            {{ 'monitoring.clean_lab' | translate }}
-          </button>
-
-          <button
-            mat-stroked-button
-            type="button"
-            class="g-button-small action-button"
-            (click)="deleteUnavailableTypings()">
-            <mat-icon>delete</mat-icon>
-            {{ 'monitoring.delete_unavailable_typings' | translate }}
-          </button>
-
-          <button
-            mat-stroked-button
-            type="button"
-            class="g-button-small action-button"
-            (click)="openPipPackageList()">
-            <mat-icon>inventory_2</mat-icon>
-            {{ 'monitoring.system_config' | translate }}
-          </button>
-        </div>
+    @if (isLoading) {
+      <div class="g-text-centered">
+        <fl-loader size="medium"></fl-loader>
       </div>
-
+    } @else {
+      @if (labInfo) {
+        <div>
+          <fl-text-icon>
+            <mat-icon class="g-icon-big primary">check</mat-icon>
+            <p class="g-text-big">{{ 'monitoring.lab_running' | translate }}</p>
+            <fl-key-value>
+              <fl-key>{{ 'monitoring.lab_name' | translate }}</fl-key>
+              {{ labInfo.labName }}
+            </fl-key-value>
+            @if (labInfo.frontVersion) {
+              <fl-key-value>
+                <fl-key>{{ 'monitoring.front_version' | translate }}</fl-key>
+                {{ labInfo.frontVersion }}
+              </fl-key-value>
+            }
+          </fl-text-icon>
+          <div class="action">
+            <button mat-stroked-button type="button" class="g-button-small action-button" (click)="syncLab()">
+              <mat-icon>refresh</mat-icon>
+              {{ 'monitoring.synchronize_lab' | translate }}
+            </button>
+            <button mat-stroked-button type="button" class="g-button-small action-button" (click)="cleanLab()">
+              <mat-icon>delete</mat-icon>
+              {{ 'monitoring.clean_lab' | translate }}
+            </button>
+            <button
+              mat-stroked-button
+              type="button"
+              class="g-button-small action-button"
+              (click)="deleteUnavailableTypings()">
+              <mat-icon>delete</mat-icon>
+              {{ 'monitoring.delete_unavailable_typings' | translate }}
+            </button>
+            <button
+              mat-stroked-button
+              type="button"
+              class="g-button-small action-button"
+              (click)="openPipPackageList()">
+              <mat-icon>inventory_2</mat-icon>
+              {{ 'monitoring.system_config' | translate }}
+            </button>
+          </div>
+        </div>
+      } @else {
+        <fl-text-icon>
+          <mat-icon class="g-icon-big warn">error</mat-icon>
+          <p class="g-text-big">{{ 'monitoring.lab_not_running' | translate }}</p>
+        </fl-text-icon>
+      }
       <ng-template #error>
         <fl-text-icon>
           <mat-icon class="g-icon-big warn">error</mat-icon>
           <p class="g-text-big">{{ 'monitoring.lab_not_running' | translate }}</p>
         </fl-text-icon>
       </ng-template>
-    </ng-template>
+    }
+
   </fl-card-body>
 </fl-card>

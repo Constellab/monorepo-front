@@ -1,15 +1,18 @@
-<ng-container *ngIf="isLoading; else notLoading">
+@if (isLoading) {
   <mat-option disabled>
     {{ 'loading' | translate }}
   </mat-option>
-</ng-container>
+} @else {
+  @if (countries?.length > 0) {
+    @for (country of countries; track country) {
+      <mat-optgroup [label]="country.name">
+        @for (city of country.cities; track city) {
+          <mat-option [value]="city">
+            {{ city.name }}
+          </mat-option>
+        }
+      </mat-optgroup>
+    }
+  }
+}
 
-<ng-template #notLoading>
-  <ng-container *ngIf="countries?.length > 0">
-    <mat-optgroup *ngFor="let country of countries" [label]="country.name">
-      <mat-option *ngFor="let city of country.cities" [value]="city">
-        {{ city.name }}
-      </mat-option>
-    </mat-optgroup>
-  </ng-container>
-</ng-template>

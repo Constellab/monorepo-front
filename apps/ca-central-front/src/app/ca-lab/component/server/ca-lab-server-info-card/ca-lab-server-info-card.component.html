@@ -27,12 +27,12 @@
         </fl-key-value>
 
         <!--  If there is a GPU  -->
-        <ng-container *ngIf="serverInfo.gpuType">
+        @if (serverInfo.gpuType) {
           <fl-key-value>
             <fl-key>{{ 'gpuCount' }}</fl-key>
             {{ serverInfo.gpuCount }} ({{ serverInfo.gpuType }})
           </fl-key-value>
-        </ng-container>
+        }
 
         <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
           <fl-key-value>

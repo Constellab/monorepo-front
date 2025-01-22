@@ -7,11 +7,19 @@
     }
   </mat-select>
 
-  <span *ngIf="prefix" matPrefix>{{ prefix }}</span>
-  <span *ngIf="suffix" matSuffix>{{ suffix }}</span>
-  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
+  @if (prefix) {
+    <span matPrefix>{{ prefix }}</span>
+  }
+  @if (suffix) {
+    <span matSuffix>{{ suffix }}</span>
+  }
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
 
-  <mat-error *ngIf="formCtrl.hasError('required')">
-    {{ placeholder | flErrorRequired: false }}
-  </mat-error>
+  @if (formCtrl.hasError('required')) {
+    <mat-error>
+      {{ placeholder | flErrorRequired: false }}
+    </mat-error>
+  }
 </mat-form-field>

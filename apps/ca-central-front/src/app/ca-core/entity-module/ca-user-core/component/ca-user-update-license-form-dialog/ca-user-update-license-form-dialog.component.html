@@ -21,6 +21,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="license-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

@@ -1,16 +1,20 @@
-<div class="g-full-height container g-layout-col" *ngIf="!error; else showError">
-  <!--  Workflow zone  -->
-  <div class="scenario-workflow g-flex-auto">
-    <pr-workflow *ngIf="workflow" [workflow]="workflow" [mode$]="mode$" [viewConfig]="viewConfig">
-      <lab-workflow-actions></lab-workflow-actions>
-    </pr-workflow>
-
-    <div class="g-text-centered" *ngIf="workflowIsLoading">
-      <fl-loader></fl-loader>
+@if (!error) {
+  <div class="g-full-height container g-layout-col">
+    <!--  Workflow zone  -->
+    <div class="scenario-workflow g-flex-auto">
+      @if (workflow) {
+        <pr-workflow [workflow]="workflow" [mode$]="mode$" [viewConfig]="viewConfig">
+          <lab-workflow-actions></lab-workflow-actions>
+        </pr-workflow>
+      }
+      @if (workflowIsLoading) {
+        <div class="g-text-centered">
+          <fl-loader></fl-loader>
+        </div>
+      }
     </div>
   </div>
-</div>
-
-<ng-template #showError>
+} @else {
   <fl-error-text [errorMessage]="'biox.workflow_loading_error' | translate"></fl-error-text>
-</ng-template>
+}
+

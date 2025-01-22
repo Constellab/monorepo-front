@@ -5,5 +5,7 @@
   [matTooltip]="'biox.view_preview' | translate">
   <mat-icon>visibility</mat-icon>
 
-  <fl-button-loader *ngIf="isLoading" position="override"></fl-button-loader>
+  @if (isLoading) {
+    <fl-button-loader position="override"></fl-button-loader>
+  }
 </button>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 // Plotly.newPlot()
 // we use the strict version of plotly even if it's not typed because the normal version
@@ -13,7 +13,7 @@ import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: 'fl-plotly-standalone',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './fl-plotly-standalone.component.html',
     styleUrl: './fl-plotly-standalone.component.scss'
 })

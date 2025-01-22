@@ -3,7 +3,9 @@
   <fl-section [disableEmptyText]="true" class="section">
     <fl-section-header>
       <div>{{ config().placeholder }}</div>
-      <div class="g-text-small g-text-light" *ngIf="config().hint">{{ config().hint }}</div>
+      @if (config().hint) {
+        <div class="g-text-small g-text-light">{{ config().hint }}</div>
+      }
       <fl-section-actions>
         <div [matTooltip]="addTooltip">
           <button
@@ -20,25 +22,26 @@
     </fl-section-header>
 
     <ng-container *flSectionBody>
-      <div *ngIf="hasValue(); else noValue">
-        <div *ngFor="let formGp of control().controls; let i = index; let last = last" class="group">
-          <div class="g-layout-row">
-            <fl-dynamic-abstract-form [control]="formGp" [config]="config().formGpConfig" class="g-flex-auto">
-            </fl-dynamic-abstract-form>
-            <div>
-              <div [matTooltip]="removeTooltip">
-                <button mat-icon-button type="button" (click)="removeGroup(i)" [disabled]="disableRemove">
-                  <mat-icon>clear</mat-icon>
-                </button>
+      @if (hasValue()) {
+        <div>
+          @for (formGp of control().controls; track formGp; let i = $index; let last = $last) {
+            <div class="group">
+              <div class="g-layout-row">
+                <fl-dynamic-abstract-form [control]="formGp" [config]="config().formGpConfig" class="g-flex-auto">
+                </fl-dynamic-abstract-form>
+                <div>
+                  <div [matTooltip]="removeTooltip">
+                    <button mat-icon-button type="button" (click)="removeGroup(i)" [disabled]="disableRemove">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </div>
+                </div>
               </div>
+              <!--        <mat-divider *ngIf="!last"></mat-divider>-->
             </div>
-          </div>
-
-          <!--        <mat-divider *ngIf="!last"></mat-divider>-->
+          }
         </div>
-      </div>
-
-      <ng-template #noValue>
+      } @else {
         <div class="g-text-centered">
           <p class="g-text-light">{{ 'flDynamicField.no_value_in_array' | translate }}</p>
           <button mat-stroked-button type="button" (click)="addGroup()" class="g-button-small">
@@ -46,7 +49,8 @@
             {{ 'flDynamicField.add_value_in_array' | translate }}
           </button>
         </div>
-      </ng-template>
+      }
+
     </ng-container>
   </fl-section>
 }

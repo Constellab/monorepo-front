@@ -53,14 +53,15 @@
   <ng-container matColumnDef="link">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <a
-        *ngIf="showLink(row)"
-        [routerLink]="row.objectId | labDetailRoute: getLabObjectType(row)"
-        mat-stroked-button
-        class="g-button-small">
-        <mat-icon>visibility</mat-icon>
-        {{ 'detail' | translate }}
-      </a>
+      @if (showLink(row)) {
+        <a
+          [routerLink]="row.objectId | labDetailRoute: getLabObjectType(row)"
+          mat-stroked-button
+          class="g-button-small">
+          <mat-icon>visibility</mat-icon>
+          {{ 'detail' | translate }}
+        </a>
+      }
     </mat-cell>
   </ng-container>
 

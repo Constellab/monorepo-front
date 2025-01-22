@@ -13,7 +13,9 @@
   <fl-portal-footer>
     <button mat-flat-button type="submit" form="transform-form" class="g-centered-forced primary">
       {{ 'biox.call_transform' | translate }}
-      <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
     </button>
   </fl-portal-footer>
 </fl-portal>

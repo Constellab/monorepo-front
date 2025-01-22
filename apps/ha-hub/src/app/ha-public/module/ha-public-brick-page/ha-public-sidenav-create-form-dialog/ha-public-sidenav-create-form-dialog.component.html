@@ -5,60 +5,75 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="edit-form" [formGroup]="formGp" class="form g-layout-col">
     <!--  type  -->
-    <mat-radio-group formControlName="type" name="type" class="radio-button-zone" *ngIf="!isUpdate">
-      <mat-radio-button [value]="'DOC'" [checked]="true">{{ 'documentation' | translate }}</mat-radio-button>
-      <mat-radio-button [value]="'FOL'" class="radio-button-right">{{
-        'folder' | translate
-      }}</mat-radio-button>
-      <mat-radio-button [value]="'TEC'" class="radio-button-right">{{
-        'technical_documentation' | translate
-      }}</mat-radio-button>
-    </mat-radio-group>
+    @if (!isUpdate) {
+      <mat-radio-group formControlName="type" name="type" class="radio-button-zone">
+        <mat-radio-button [value]="'DOC'" [checked]="true">{{ 'documentation' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="'FOL'" class="radio-button-right">{{
+          'folder' | translate
+        }}</mat-radio-button>
+        <mat-radio-button [value]="'TEC'" class="radio-button-right">{{
+          'technical_documentation' | translate
+        }}</mat-radio-button>
+      </mat-radio-group>
+    }
 
     <!--  title  -->
-    <mat-form-field class="g-form-input not-first-input" *ngIf="formGp.controls['type'].value !== 'TEC'">
-      <mat-label>{{ 'title' | translate }}</mat-label>
-      <input
-        matInput
-        formControlName="title"
-        required
-        flInputMaxLength="50"
-        placeholder="{{ 'title' | translate }}"
-        cdkFocusInitial />
-      <mat-error *ngIf="formGp.get('title').hasError('required')">
-        {{ 'title' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
+    @if (formGp.controls['type'].value !== 'TEC') {
+      <mat-form-field class="g-form-input not-first-input">
+        <mat-label>{{ 'title' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="title"
+          required
+          flInputMaxLength="50"
+          placeholder="{{ 'title' | translate }}"
+          cdkFocusInitial />
+          @if (formGp.get('title').hasError('required')) {
+            <mat-error>
+              {{ 'title' | flErrorRequired }}
+            </mat-error>
+          }
+        </mat-form-field>
+      }
 
-    <fl-input-file-container
-      [placeholder]="'import_technical_documentation' | translate"
-      *ngIf="formGp.controls['type'].value === 'TEC' && !isLoadingImport"
-      class="g-centered-forced input-file primary">
-      <input
-        flInputFile
-        type="file"
-        [strictMode]="true"
-        accept="application/json"
-        (fileChange)="onFileSelected($any($event))" />
-    </fl-input-file-container>
-    <p class="input-error-text" *ngIf="errorFile && formGp.controls['type'].value === 'TEC'">
-      {{ errorFileText | translate }}
-    </p>
+      @if (formGp.controls['type'].value === 'TEC' && !isLoadingImport) {
+        <fl-input-file-container
+          [placeholder]="'import_technical_documentation' | translate"
+          class="g-centered-forced input-file primary">
+          <input
+            flInputFile
+            type="file"
+            [strictMode]="true"
+            accept="application/json"
+            (fileChange)="onFileSelected($any($event))" />
+          </fl-input-file-container>
+        }
+        @if (errorFile && formGp.controls['type'].value === 'TEC') {
+          <p class="input-error-text">
+            {{ errorFileText | translate }}
+          </p>
+        }
 
-    <div class="import-loader" *ngIf="formGp.controls['type'].value === 'TEC' && isLoadingImport">
-      <fl-loader></fl-loader>
+        @if (formGp.controls['type'].value === 'TEC' && isLoadingImport) {
+          <div class="import-loader">
+            <fl-loader></fl-loader>
+          </div>
+        }
+      </form>
+    </mat-dialog-content>
+
+    <div mat-dialog-actions>
+      @if (formGp.controls['type'].value !== 'TEC') {
+        <button
+          mat-raised-button
+          type="submit"
+          form="edit-form"
+          class="g-centered-forced primary"
+          >
+          {{ 'save' | translate }}
+          @if (isLoading) {
+            <fl-button-loader></fl-button-loader>
+          }
+        </button>
+      }
     </div>
-  </form>
-</mat-dialog-content>
-
-<div mat-dialog-actions>
-  <button
-    mat-raised-button
-    type="submit"
-    form="edit-form"
-    class="g-centered-forced primary"
-    *ngIf="formGp.controls['type'].value !== 'TEC'">
-    {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>

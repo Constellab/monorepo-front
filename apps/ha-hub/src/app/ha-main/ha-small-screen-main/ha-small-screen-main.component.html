@@ -69,10 +69,12 @@
     <mat-icon>admin_panel_settings</mat-icon>
     {{ 'admin_dashboard' | translate }}
   </button>
-  <a [routerLink]="loginRoute" mat-menu-item *ngIf="(userConnected$ | async) == null">
-    <mat-icon>login</mat-icon>
-    {{ 'login' | translate }}
-  </a>
+  @if ((userConnected$ | async) == null) {
+    <a [routerLink]="loginRoute" mat-menu-item>
+      <mat-icon>login</mat-icon>
+      {{ 'login' | translate }}
+    </a>
+  }
   <button mat-menu-item (click)="changeLanguage()">
     <mat-icon>language</mat-icon>
     @if (currentLanguage === 'fr') {
@@ -81,16 +83,22 @@
       {{ 'french' | translate }}
     }
   </button>
-  <button mat-menu-item (click)="selectTheme(theme.LIGHT_THEME)" *ngIf="isDarkTheme()" class="g-text-light">
-    <mat-icon>light_mode</mat-icon>
-    {{ 'light_theme' | translate }}
-  </button>
-  <button mat-menu-item (click)="selectTheme(theme.DARK_THEME)" *ngIf="!isDarkTheme()" class="g-text-light">
-    <mat-icon>dark_mode</mat-icon>
-    {{ 'dark_theme' | translate }}
-  </button>
-  <button mat-menu-item (click)="logout()" *ngIf="(userConnected$ | async) != null">
-    <mat-icon>logout</mat-icon>
-    {{ 'logout' | translate }}
-  </button>
+  @if (isDarkTheme()) {
+    <button mat-menu-item (click)="selectTheme(theme.LIGHT_THEME)" class="g-text-light">
+      <mat-icon>light_mode</mat-icon>
+      {{ 'light_theme' | translate }}
+    </button>
+  }
+  @if (!isDarkTheme()) {
+    <button mat-menu-item (click)="selectTheme(theme.DARK_THEME)" class="g-text-light">
+      <mat-icon>dark_mode</mat-icon>
+      {{ 'dark_theme' | translate }}
+    </button>
+  }
+  @if ((userConnected$ | async) != null) {
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      {{ 'logout' | translate }}
+    </button>
+  }
 </mat-menu>

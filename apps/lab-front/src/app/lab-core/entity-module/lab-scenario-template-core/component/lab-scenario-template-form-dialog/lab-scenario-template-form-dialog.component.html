@@ -4,9 +4,11 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="scenario-template-form" [formGroup]="formGp">
-    <p class="g-text-light help-text" *ngIf="isCreateMode()">
-      {{ 'biox.scenario_template_explication' | translate }}
-    </p>
+    @if (isCreateMode()) {
+      <p class="g-text-light help-text">
+        {{ 'biox.scenario_template_explication' | translate }}
+      </p>
+    }
 
     <!--  name  -->
     <mat-form-field class="g-form-input">
@@ -17,27 +19,31 @@
         required
         flInputMaxLength="255"
         [placeholder]="'name' | translate" />
-      <mat-error *ngIf="formGp.get('name').hasError('required')">
-        {{ 'name' | flErrorRequired }}
-      </mat-error>
-    </mat-form-field>
+        @if (formGp.get('name').hasError('required')) {
+          <mat-error>
+            {{ 'name' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
 
-    <!--  Description-->
-    <te-text-editor
-      [config]="textEditorConfig"
-      formControlName="description"
-      class="text-editor"
+      <!--  Description-->
+      <te-text-editor
+        [config]="textEditorConfig"
+        formControlName="description"
+        class="text-editor"
       [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
-  </form>
-</mat-dialog-content>
+    </form>
+  </mat-dialog-content>
 
-<div mat-dialog-actions>
-  <button
-    mat-flat-button
-    type="submit"
-    form="scenario-template-form"
-    class="g-centered-forced primary">
-    {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      type="submit"
+      form="scenario-template-form"
+      class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>

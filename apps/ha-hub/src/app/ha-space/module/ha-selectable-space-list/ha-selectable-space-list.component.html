@@ -1,16 +1,17 @@
 <div class="space-list-div">
-  <mat-chip-option
-    *ngFor="let space of spaceList$ | async"
-    [value]="isSelected(space.id)"
-    (click)="selectSpace(space.id)"
-    class="space-list-option warn">
-    <div class="visibility-badge-div">
-      @if (space.photo) {
-        <img [src]="getSpacePhoto(space.photo)" class="space-badge-photo" />
-      } @else {
-        <mat-icon>lock</mat-icon>
-      }
-      {{ space.name }}
-    </div>
-  </mat-chip-option>
+  @for (space of spaceList$ | async; track space) {
+    <mat-chip-option
+      [value]="isSelected(space.id)"
+      (click)="selectSpace(space.id)"
+      class="space-list-option warn">
+      <div class="visibility-badge-div">
+        @if (space.photo) {
+          <img [src]="getSpacePhoto(space.photo)" class="space-badge-photo" />
+        } @else {
+          <mat-icon>lock</mat-icon>
+        }
+        {{ space.name }}
+      </div>
+    </mat-chip-option>
+  }
 </div>

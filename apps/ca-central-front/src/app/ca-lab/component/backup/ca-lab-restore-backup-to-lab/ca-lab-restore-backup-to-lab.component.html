@@ -12,10 +12,12 @@
         formControlName="destinationLab"
         mode="all-cloud"
         [required]="true"
-        [placeholder]="'destination_lab' | translate"></ca-select-lab>
-      <mat-error *ngIf="formGp.get('destinationLab').hasError('required')">
-        {{ 'destination_lab' | flErrorRequired }}
-      </mat-error>
+      [placeholder]="'destination_lab' | translate"></ca-select-lab>
+      @if (formGp.get('destinationLab').hasError('required')) {
+        <mat-error>
+          {{ 'destination_lab' | flErrorRequired }}
+        </mat-error>
+      }
     </fl-form-field>
 
     <div>
@@ -35,6 +37,8 @@
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="restore-backup-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
-    <fl-button-loader *ngIf="isLoading"></fl-button-loader>
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
   </button>
 </div>

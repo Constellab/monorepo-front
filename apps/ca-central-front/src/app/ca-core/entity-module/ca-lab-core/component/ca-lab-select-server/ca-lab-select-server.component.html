@@ -52,7 +52,7 @@
           @for (serverCloud of serverClouds; track serverCloud.id) {
             <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig class="accent">
               <ca-cloud-provider-inline
-                [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
+              [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
               <div class="g-text-small g-text-light radio-description">
                 <div>{{ serverCloud.cloudProvider.description }}</div>
@@ -68,12 +68,12 @@
                   </fl-key-value>
 
                   <!--  If there is a GPU  -->
-                  <ng-container *ngIf="serverCloud.gpuType">
+                  @if (serverCloud.gpuType) {
                     <fl-key-value>
                       <fl-key>{{ 'gpuCount' }}</fl-key>
                       {{ serverCloud.gpuCount }} ({{ serverCloud.gpuType }})
                     </fl-key-value>
-                  </ng-container>
+                  }
                 </div>
               </div>
             </mat-radio-button>
@@ -143,9 +143,11 @@
           }
         </mat-radio-group>
 
-        <mat-error *ngIf="formGp.hasError('sameBackupRegion')" class="g-warn-text">
-          {{ 'lab_backups_same_region_error' | translate }}
-        </mat-error>
+        @if (formGp.hasError('sameBackupRegion')) {
+          <mat-error class="g-warn-text">
+            {{ 'lab_backups_same_region_error' | translate }}
+          </mat-error>
+        }
       } @else {
         <fl-loader></fl-loader>
       }

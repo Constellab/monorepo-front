@@ -8,10 +8,11 @@
   [minInputSearchLength]="0"
   [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as scenarioTemplate">
-    <fl-user-profile-picture
-      *ngIf="scenarioTemplate"
-      [user]="scenarioTemplate.createdBy"
+    @if (scenarioTemplate) {
+      <fl-user-profile-picture
+        [user]="scenarioTemplate.createdBy"
       size="small"></fl-user-profile-picture>
+    }
   </div>
 
   <lab-scenario-template-inline

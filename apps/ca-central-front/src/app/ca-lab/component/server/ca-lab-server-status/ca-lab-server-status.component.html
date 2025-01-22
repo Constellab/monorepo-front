@@ -1,33 +1,28 @@
-<div [ngSwitch]="status$ | async">
-  <ng-container *ngSwitchCase="'SERVER_NOT_CREATED'">
-    {{ 'lab_status_server_not_created' | translate }}
-
-    <button mat-stroked-button class="status-action-button" type="button" (click)="initServer()">
-      {{ 'lab_init_server' | translate }}
-    </button>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'DNS_NOT_CONFIGURED'">
-    {{ 'lab_status_dns_not_configured' | translate }}
-
-    <button mat-stroked-button class="status-action-button" type="button" (click)="initServer()">
-      {{ 'lab_init_server' | translate }}
-    </button>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'LAB_MANAGER_NOT_AVAILABLE'">
-    {{ 'lab_status_server_lab_manager_not_available' | translate }}
-
-    <button mat-stroked-button class="status-action-button" type="button" (click)="configureServer()">
-      {{ 'lab_configure_server' | translate }}
-    </button>
-  </ng-container>
-
-  <ng-container *ngSwitchCase="'LAB_NOT_AVAILABLE'">
-    {{ 'lab_status_server_lab_not_available' | translate }}
-
-    <button mat-stroked-button class="status-action-button" type="button" (click)="moveToLabManager()">
-      {{ 'lab_manager' | translate }}
-    </button>
-  </ng-container>
+<div>
+  @switch (status$ | async) {
+    @case ('SERVER_NOT_CREATED') {
+      {{ 'lab_status_server_not_created' | translate }}
+      <button mat-stroked-button class="status-action-button" type="button" (click)="initServer()">
+        {{ 'lab_init_server' | translate }}
+      </button>
+    }
+    @case ('DNS_NOT_CONFIGURED') {
+      {{ 'lab_status_dns_not_configured' | translate }}
+      <button mat-stroked-button class="status-action-button" type="button" (click)="initServer()">
+        {{ 'lab_init_server' | translate }}
+      </button>
+    }
+    @case ('LAB_MANAGER_NOT_AVAILABLE') {
+      {{ 'lab_status_server_lab_manager_not_available' | translate }}
+      <button mat-stroked-button class="status-action-button" type="button" (click)="configureServer()">
+        {{ 'lab_configure_server' | translate }}
+      </button>
+    }
+    @case ('LAB_NOT_AVAILABLE') {
+      {{ 'lab_status_server_lab_not_available' | translate }}
+      <button mat-stroked-button class="status-action-button" type="button" (click)="moveToLabManager()">
+        {{ 'lab_manager' | translate }}
+      </button>
+    }
+  }
 </div>

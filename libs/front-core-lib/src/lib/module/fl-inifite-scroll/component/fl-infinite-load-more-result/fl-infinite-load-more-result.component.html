@@ -1,19 +1,23 @@
-<ng-container *ngIf="datasource.page">
-  <div *ngIf="!datasource.page.last; else lastPage" class="g-layout-row g-layout-center">
-    <button
-      [disabled]="datasource.isLoading"
-      class="g-button-small primary"
-      mat-stroked-button
-      type="button"
-      (click)="loadMoreResults()">
-      {{ 'show_more_result' | translate }}
-      <fl-button-loader *ngIf="datasource.nextPageIsLoading" size="small"></fl-button-loader>
-    </button>
-  </div>
-
-  <ng-template #lastPage>
-    <div *ngIf="emptyText" class="g-text-light g-text-centered g-text-small end-result">
-      <p>{{ emptyText | translate }}</p>
+@if (datasource.page) {
+  @if (!datasource.page.last) {
+    <div class="g-layout-row g-layout-center">
+      <button
+        [disabled]="datasource.isLoading"
+        class="g-button-small primary"
+        mat-stroked-button
+        type="button"
+        (click)="loadMoreResults()">
+        {{ 'show_more_result' | translate }}
+        @if (datasource.nextPageIsLoading) {
+          <fl-button-loader size="small"></fl-button-loader>
+        }
+      </button>
     </div>
-  </ng-template>
-</ng-container>
+  } @else {
+    @if (emptyText) {
+      <div class="g-text-light g-text-centered g-text-small end-result">
+        <p>{{ emptyText | translate }}</p>
+      </div>
+    }
+  }
+}
