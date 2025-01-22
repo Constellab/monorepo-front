@@ -1,5 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { Observable } from 'rxjs';
 import {
   CaHierarchyObject,
@@ -8,6 +10,7 @@ import {
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { map } from 'rxjs/operators';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib';
 
 /**
  * Detail page for the folder objects (folder, scenario, note).
@@ -18,7 +21,7 @@ import { map } from 'rxjs/operators';
   selector: 'ca-hierarchy-object-detail-page',
   templateUrl: './ca-hierarchy-object-detail-page.component.html',
   styleUrls: ['./ca-hierarchy-object-detail-page.component.scss'],
-  providers: [CaHierarchyObjectDetailState],
+  providers: [CaHierarchyObjectDetailState, FlQueryParamHandler],
   standalone: false,
 })
 export class CaHierarchyObjectDetailPageComponent implements OnInit {

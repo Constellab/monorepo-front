@@ -1,13 +1,14 @@
-import { Component, Input, OnInit, Signal, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, Signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib';
 
 @Component({
   selector: 'lab-resource-detail',
   templateUrl: './lab-resource-detail.component.html',
   styleUrls: ['./lab-resource-detail.component.scss'],
-  providers: [LabResourceDetailState, LabViewConfigurerState],
+  providers: [LabResourceDetailState, LabViewConfigurerState, FlQueryParamHandler],
   standalone: false,
 })
 export class LabResourceDetailComponent implements OnInit {

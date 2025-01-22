@@ -18,6 +18,7 @@ import {
   FlDropEvent,
   FlMenuDynamicService,
   FlPortalActionsService,
+  FlQueryParamHandler,
   FlSearchState,
   FlTableColumnStatic,
 } from '@monorepo/front-core-lib';
@@ -46,11 +47,11 @@ import { CaResourceService } from '../../../../../ca-core/service-api/ca-resourc
  * Page for a folder detail
  */
 @Component({
-    selector: 'ca-folder-detail-page',
-    templateUrl: './ca-folder-detail-page.component.html',
-    styleUrls: ['./ca-folder-detail-page.component.scss'],
-    providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState],
-    standalone: false
+  selector: 'ca-folder-detail-page',
+  templateUrl: './ca-folder-detail-page.component.html',
+  styleUrls: ['./ca-folder-detail-page.component.scss'],
+  providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState, FlQueryParamHandler],
+  standalone: false,
 })
 export class CaFolderDetailPageComponent implements OnInit {
   folderId$: Observable<string>;

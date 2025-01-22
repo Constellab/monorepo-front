@@ -1,7 +1,6 @@
-import { Injectable, OnDestroy, ViewContainerRef, inject } from '@angular/core';
+import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlOverlayRef, FlPortalService, FlQueryParamHandler } from '@monorepo/front-core-lib';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CaFolderDetailRightPanelComponent } from '../component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
 import { ClHelpService } from '@monorepo/core-lib';
 
