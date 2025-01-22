@@ -13,13 +13,36 @@ import {
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaUserSearchFormComponent } from '../ca-user-search-form/ca-user-search-form.component';
+import { CaUserTableComponent } from '../ca-user-table/ca-user-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-user-search',
   templateUrl: './ca-user-search.component.html',
   styleUrls: ['./ca-user-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlLoaderModule,
+    CaIsAdminDirective,
+    CaUserSearchFormComponent,
+    CaUserTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaUserSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

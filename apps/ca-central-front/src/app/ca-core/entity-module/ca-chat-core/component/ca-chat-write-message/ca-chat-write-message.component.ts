@@ -2,6 +2,12 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } fro
 import { TeRichText } from '@monorepo/text-editor';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to write a message in a chat
@@ -10,7 +16,15 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
   selector: 'ca-chat-write-message',
   templateUrl: './ca-chat-write-message.component.html',
   styleUrl: './ca-chat-write-message.component.scss',
-  standalone: false,
+  imports: [
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    TranslatePipe,
+  ],
 })
 export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);

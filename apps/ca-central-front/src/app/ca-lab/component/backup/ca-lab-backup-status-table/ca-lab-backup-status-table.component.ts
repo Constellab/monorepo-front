@@ -10,12 +10,53 @@ import {
 } from '../ca-lab-restore-backup-to-lab/ca-lab-restore-backup-to-lab.component';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
   selector: 'ca-lab-backup-status-table',
   templateUrl: './ca-lab-backup-status-table.component.html',
   styleUrl: './ca-lab-backup-status-table.component.scss',
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    CaCloudProviderRegionInlineComponent,
+    FlStatusModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    FlCorePipeModule,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaLabBackupStatusTableComponent {
   private dialogService = inject(FlDialogService);

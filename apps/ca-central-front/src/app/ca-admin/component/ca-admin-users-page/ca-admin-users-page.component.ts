@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib';
+import { CaUserSearchComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-search/ca-user-search.component';
 
 @Component({
   selector: 'ca-admin-users-page',
   templateUrl: './ca-admin-users-page.component.html',
   styleUrls: ['./ca-admin-users-page.component.scss'],
-  standalone: false,
+  imports: [CaUserSearchComponent],
 })
 export class CaAdminUsersPageComponent {
   constructor() {

@@ -7,12 +7,23 @@ import {
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatOption } from '@angular/material/core';
+import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-server-cloud-inline.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-select-server-cloud-options',
   templateUrl: './ca-select-server-cloud-options.component.html',
   styleUrls: ['./ca-select-server-cloud-options.component.scss'],
-  standalone: false,
+  imports: [
+    FlInfiniteScrollModule,
+    FlCoreDirectiveModule,
+    MatOption,
+    CaServerCloudInlineComponent,
+    AsyncPipe,
+  ],
 })
 export class CaSelectServerCloudOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

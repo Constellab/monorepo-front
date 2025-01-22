@@ -2,6 +2,10 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { ThemePalette } from '@angular/material/core';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatButton } from '@angular/material/button';
+import { NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to activate or deactivate two factor authentication
@@ -10,7 +14,7 @@ import { ThemePalette } from '@angular/material/core';
   selector: 'ca-user-two-fa-toggle',
   templateUrl: './ca-user-two-fa-toggle.component.html',
   styleUrls: ['./ca-user-two-fa-toggle.component.scss'],
-  standalone: false,
+  imports: [FlSectionModule, MatButton, NgClass, TranslatePipe],
 })
 export class CaUserTwoFaToggleComponent implements OnInit {
   private authenticatedUserService = inject(CaAuthenticatedUserService);

@@ -1,11 +1,24 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaFolder, CnSaveFolderDTO } from '../../../../model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { Observable } from 'rxjs';
 import { FlFormDialogAbstractDirective, FlFormMode } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaFolderFormDialogInput {
   mode: FlFormMode;
@@ -20,7 +33,30 @@ export interface CaFolderFormDialogInput {
   selector: 'ca-folder-form-dialog',
   templateUrl: './ca-folder-form-dialog.component.html',
   styleUrls: ['./ca-folder-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatError,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatSelect,
+    MatSelectTrigger,
+    CaBucketLocationInlineComponent,
+    CaBucketLocationSelectOptionsComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaFolderFormDialogComponent
   extends FlFormDialogAbstractDirective<CnSaveFolderDTO, CaFolder>

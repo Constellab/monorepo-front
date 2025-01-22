@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { map } from 'rxjs/operators';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 type CaServerStatus =
   | 'SERVER_NOT_CREATED'
@@ -16,7 +19,7 @@ type CaServerStatus =
   selector: 'ca-lab-server-status',
   templateUrl: './ca-lab-server-status.component.html',
   styleUrls: ['./ca-lab-server-status.component.scss'],
-  standalone: false,
+  imports: [MatButton, AsyncPipe, TranslatePipe],
 })
 export class CaLabServerStatusComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

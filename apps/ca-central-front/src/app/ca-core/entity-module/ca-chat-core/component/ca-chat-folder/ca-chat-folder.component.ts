@@ -2,6 +2,12 @@ import { Component, computed, input, OnDestroy, Signal, inject } from '@angular/
 import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { TeRichText } from '@monorepo/text-editor';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaChatMessageComponent } from '../ca-chat-message/ca-chat-message.component';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
 
 /**
  * Component to load message of a chat of a folder and show them.
@@ -11,7 +17,14 @@ import { TeRichText } from '@monorepo/text-editor';
   selector: 'ca-chat-folder',
   templateUrl: './ca-chat-folder.component.html',
   styleUrl: './ca-chat-folder.component.scss',
-  standalone: false,
+  imports: [
+    FlInfiniteScrollModule,
+    CaChatMessageComponent,
+    FlCoreDirectiveModule,
+    CaChatWriteMessageComponent,
+    AsyncPipe,
+    FlCorePipeModule,
+  ],
 })
 export class CaChatFolderComponent implements OnDestroy {
   private folderService = inject(CaFolderService);

@@ -6,9 +6,28 @@ import {
   CaBucketType,
 } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../ca-core/service-api/ca-object-storage.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { CaSelectCloudProviderRegionOptionsMode } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
+import {
+  CaSelectCloudProviderRegionOptionsMode,
+  CaSelectCloudProviderRegionOptionsComponent,
+} from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
+import { CaSelectBucketCredentialsOptionsComponent } from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-select-bucket-credentials-options/ca-select-bucket-credentials-options.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
 
@@ -16,7 +35,30 @@ export type CaBucketFormDialogInput = FlFormDialogInput<CaBucketFull>;
   selector: 'ca-bucket-form-dialog',
   templateUrl: './ca-bucket-form-dialog.component.html',
   styleUrls: ['./ca-bucket-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatError,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatSelectTrigger,
+    CaCloudProviderRegionInlineComponent,
+    CaSelectCloudProviderRegionOptionsComponent,
+    FlFormModule,
+    CaSelectLabComponent,
+    CaSelectBucketCredentialsOptionsComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaBucketFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<CaBucketFull>, CaBucketFull>

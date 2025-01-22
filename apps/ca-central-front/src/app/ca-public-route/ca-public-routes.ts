@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { CaLabPriceSimulatorComponent } from './ca-lab-price-simulator/ca-lab-price-simulator.component';
 
 export const CA_PUBLIC_ROUTES: Routes = [
   {
@@ -7,7 +6,10 @@ export const CA_PUBLIC_ROUTES: Routes = [
     children: [
       {
         path: 'lab-price-simulator',
-        component: CaLabPriceSimulatorComponent,
+        loadComponent: () =>
+          import('./ca-lab-price-simulator/ca-lab-price-simulator.component').then(
+            (m) => m.CaLabPriceSimulatorComponent
+          ),
       },
     ],
   },

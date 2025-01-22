@@ -7,12 +7,23 @@ import {
 } from '../../../../model/entities/ca-cloud-provider.class';
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatOption } from '@angular/material/core';
+import { CaCloudProviderInlineComponent } from '../ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-select-cloud-provider-options',
   templateUrl: './ca-select-cloud-provider-options.component.html',
   styleUrls: ['./ca-select-cloud-provider-options.component.scss'],
-  standalone: false,
+  imports: [
+    FlInfiniteScrollModule,
+    FlCoreDirectiveModule,
+    MatOption,
+    CaCloudProviderInlineComponent,
+    AsyncPipe,
+  ],
 })
 export class CaSelectCloudProviderOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

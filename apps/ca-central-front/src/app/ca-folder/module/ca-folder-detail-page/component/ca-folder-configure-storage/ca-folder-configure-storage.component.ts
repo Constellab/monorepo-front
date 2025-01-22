@@ -2,9 +2,19 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, ValidatorFn, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { CaBucketLocationSelectOptionsComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolderStorageDTO> {
   folderId: string;
@@ -17,7 +27,24 @@ export interface CaFolderConfigureStorageInput extends FlFormDialogInput<CaFolde
   selector: 'ca-folder-configure-storage',
   templateUrl: './ca-folder-configure-storage.component.html',
   styleUrls: ['./ca-folder-configure-storage.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatSelectTrigger,
+    CaBucketLocationInlineComponent,
+    CaBucketLocationSelectOptionsComponent,
+    MatError,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaFolderConfigureStorageComponent
   extends FlFormDialogAbstractDirective<CaFolderStorageDTO>

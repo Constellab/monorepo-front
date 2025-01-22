@@ -7,12 +7,29 @@ import {
   CaLabGreenOptionFormDialogComponent,
   CaLabGreenOptionFormDialogInput,
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaLabGreenOptionTableComponent } from '../ca-lab-green-option-table/ca-lab-green-option-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-green-options',
   templateUrl: './ca-lab-green-options.component.html',
   styleUrls: ['./ca-lab-green-options.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlSectionModule,
+    CaLabGreenOptionTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaLabGreenOptionsComponent implements OnInit {
   private labService = inject(CaLabService);

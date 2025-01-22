@@ -3,12 +3,14 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { CaCountry } from '../../../../model/entities/ca-country.entity';
 import { CaCountryService } from '../../../../service-api/ca-country.service';
 import { MatSelect } from '@angular/material/select';
+import { MatOption, MatOptgroup } from '@angular/material/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-select-city-options',
   templateUrl: './ca-select-options-city.component.html',
   styleUrls: ['./ca-select-options-city.component.scss'],
-  standalone: false,
+  imports: [MatOption, MatOptgroup, TranslatePipe],
 })
 export class CaSelectOptionsCityComponent
   extends FlEmbeddedOptionsAbstractDirective

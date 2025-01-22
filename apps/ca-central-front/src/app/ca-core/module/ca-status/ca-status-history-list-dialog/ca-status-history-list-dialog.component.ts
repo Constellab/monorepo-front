@@ -1,7 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CaStatusHistory } from '../../../model/entities/ca-status-history.class';
 import { FlArrayObs } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaStatusHistoryCardComponent } from '../ca-status-history-card/ca-status-history-card.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaStatusHistoryListDialogInput {
   statusHistoriesObs: FlArrayObs<CaStatusHistory<any>>;
@@ -14,7 +26,18 @@ export interface CaStatusHistoryListDialogInput {
   selector: 'ca-status-history-list-dialog',
   templateUrl: './ca-status-history-list-dialog.component.html',
   styleUrls: ['./ca-status-history-list-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    CaStatusHistoryCardComponent,
+    MatDivider,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    TranslatePipe,
+  ],
 })
 export class CaStatusHistoryListDialogComponent implements OnInit {
   private dialogInput = inject<CaStatusHistoryListDialogInput>(MAT_DIALOG_DATA);

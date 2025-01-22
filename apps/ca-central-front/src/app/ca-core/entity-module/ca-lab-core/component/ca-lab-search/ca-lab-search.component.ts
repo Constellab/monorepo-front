@@ -16,15 +16,41 @@ import {
   CaLabAdminFormDialogComponent,
   CaLabAdminFormDialogInput,
 } from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
-import { CaLabSearchMode } from '../ca-lab-search-form/ca-lab-search-form.component';
+import {
+  CaLabSearchMode,
+  CaLabSearchFormComponent,
+} from '../ca-lab-search-form/ca-lab-search-form.component';
 import { CaLabFreeAdminFormDialogComponent } from '../ca-lab-free-admin-form-dialog/ca-lab-free-admin-form-dialog.component';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaLabTableComponent } from '../ca-lab-table/ca-lab-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-search',
   templateUrl: './ca-lab-search.component.html',
   styleUrls: ['./ca-lab-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    CaIsAdminDirective,
+    MatIconButton,
+    MatTooltip,
+    MatButton,
+    CaLabSearchFormComponent,
+    CaLabTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaLabSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

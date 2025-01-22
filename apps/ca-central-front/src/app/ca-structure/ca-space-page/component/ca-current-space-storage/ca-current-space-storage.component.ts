@@ -8,13 +8,23 @@ import {
   CaSpaceStorageFormDialogComponent,
   CaSpaceStorageFormDialogInput,
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
-import {
-  CaCurrentSpaceStorageDetailComponent,
-} from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import { CaCurrentSpaceStorageDetailComponent } from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 import {
   CaCurrentSpaceUpdateStorageDialogComponent,
   CaStorageLimitUpdateDialogInput,
 } from '../ca-current-space-update-storage-dialog/ca-current-space-update-storage-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CaIsAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { MatButton } from '@angular/material/button';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { NgClass, AsyncPipe, DecimalPipe } from '@angular/common';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { CaBucketLocationInlineComponent } from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show information about the current space storage
@@ -24,7 +34,22 @@ import {
   selector: 'ca-current-space-storage',
   templateUrl: './ca-current-space-storage.component.html',
   styleUrl: './ca-current-space-storage.component.scss',
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    CaIsAdminDirective,
+    MatButton,
+    FlSectionModule,
+    MatProgressSpinner,
+    NgClass,
+    FlKeyValueModule,
+    CaBucketLocationInlineComponent,
+    AsyncPipe,
+    DecimalPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaCurrentSpaceStorageComponent {
   private spaceService = inject(CaSpaceService);

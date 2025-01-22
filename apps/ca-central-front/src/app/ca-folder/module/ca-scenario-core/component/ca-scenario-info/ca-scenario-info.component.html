@@ -1,10 +1,7 @@
 @if (scenario.isValidated) {
   <!--  Validated info  -->
   @if (scenario.isValidated) {
-    <ca-validated-object-info
-      class="separator"
-      [object]="scenario"
-    ></ca-validated-object-info>
+    <ca-validated-object-info class="separator" [object]="scenario"></ca-validated-object-info>
   }
 }
 
@@ -18,6 +15,6 @@
       [ngModel]="scenario.description"
       [disabled]="true"
       [config]="textEditorConfig"
-    class="g-scrollable-element text-editor"></te-text-editor>
+      class="g-scrollable-element text-editor"></te-text-editor>
   }
 </div>

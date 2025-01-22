@@ -10,7 +10,7 @@
         [formControl]="formControl"
         [mode]="selectUserMode"
         [placeholder]="'user' | translate"
-      [required]="true"></fl-select-user>
+        [required]="true"></fl-select-user>
       @if (formControl.hasError('required')) {
         <mat-error>
           {{ 'user' | flErrorRequired }}
@@ -21,11 +21,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button
-    mat-flat-button
-    type="submit"
-    form="add-user-to-space-form"
-    class="g-centered-forced primary">
+  <button mat-flat-button type="submit" form="add-user-to-space-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>

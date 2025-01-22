@@ -1,6 +1,5 @@
-import { Route, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CaMainAppComponent } from './component/ca-main-app/ca-main-app.component';
+import { Route } from '@angular/router';
+
 import {
   caConstAdminRoute,
   caConstBaseRoute,
@@ -15,8 +14,17 @@ import {
 } from '../ca-core/utils/ca-base-route';
 import { CaLoadUserGuard } from './guard/ca-load-user.guard';
 import { CaAdminGuard } from '../ca-core/guard/ca-admin-guard.service';
+import { caStructureRoutes } from '../ca-structure/ca-structure-routes';
+import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
+import { caDashboardRoutes } from '../ca-dashboard/ca-dashboard-routes';
+import { caLabRoutes } from '../ca-lab/ca-lab-routes';
+import { caMyFolderRoutes } from '../ca-folder/module/ca-my-folders/ca-my-folder-routes';
+import { caAdminRoutes } from '../ca-admin/ca-admin-routes';
+import { caChatRoutes } from '../ca-chat/ca-chat-routes';
+import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
+import { CA_PUBLIC_ROUTES } from '../ca-public-route/ca-public-routes';
 
-const routes: Route[] = [
+export const caMainRoutes: Route[] = [
   {
     path: '',
     redirectTo: caConstBaseRoute,
@@ -24,7 +32,8 @@ const routes: Route[] = [
   },
   {
     path: caConstBaseRoute,
-    component: CaMainAppComponent,
+    loadComponent: () =>
+      import('./component/ca-main-app/ca-main-app.component').then((m) => m.CaMainAppComponent),
     canActivate: [CaLoadUserGuard],
     children: [
       {
@@ -35,66 +44,54 @@ const routes: Route[] = [
       //////////////////////// DASHBOARD /////////////////////////
       {
         path: caConstHomeRoute,
-        loadChildren: () =>
-          import('../ca-dashboard/ca-dashboard-page.module').then((m) => m.CaDashboardPageModule),
+        children: caDashboardRoutes,
       },
 
       //////////////////////// LAB /////////////////////////
       {
         path: caConstLabsRoute,
-        loadChildren: () => import('../ca-lab/ca-lab.module').then((m) => m.CaLabModule),
+        children: caLabRoutes,
       },
 
       //////////////////////// MY FOLDER /////////////////////////
       {
         path: caConstMyFoldersRoute,
-        loadChildren: () =>
-          import('../ca-folder/module/ca-my-folders/ca-my-folder.module').then((m) => m.CaMyFolderModule),
+        children: caMyFolderRoutes,
       },
 
       //////////////////////// FOLDER DETAIL /////////////////////////
       {
         path: caConstFolderRoute,
-        loadChildren: () =>
-          import(
-            '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.module'
-          ).then((m) => m.CaHierarchyObjectDetailPageModule),
+        children: caHierarchyObjectRoutes,
       },
 
       //////////////////////// Admin /////////////////////////
       {
         path: caConstAdminRoute,
-        loadChildren: () => import('../ca-admin/ca-admin.module').then((m) => m.CaAdminModule),
+        children: caAdminRoutes,
         canActivate: [CaAdminGuard],
       },
       //////////////////////// STRUCTURE /////////////////////////
       {
         path: caConstStructureRoute,
-        loadChildren: () => import('../ca-structure/ca-structure.module').then((m) => m.CaStructureModule),
+        children: caStructureRoutes,
       },
       //////////////////////// CHAT /////////////////////////
       {
         path: caConstChatRoute,
-        loadChildren: () => import('../ca-chat/ca-chat.module').then((m) => m.CaChatModule),
+        children: caChatRoutes,
       },
 
       //////////////////////// USER PAGE /////////////////////////
       {
         path: caConstUserPageRoute,
-        loadChildren: () =>
-          import('../ca-user-detail-page/ca-user-detail-page.module').then((m) => m.CaUserDetailPageModule),
+        children: caUserRoutes,
       },
     ],
   },
   //////////////////////// OPEN  /////////////////////////
   {
     path: caConstPublicRoute,
-    loadChildren: () => import('../ca-public-route/ca-public-routes').then((m) => m.CA_PUBLIC_ROUTES),
+    children: CA_PUBLIC_ROUTES,
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class CaMainRoutingModule {}

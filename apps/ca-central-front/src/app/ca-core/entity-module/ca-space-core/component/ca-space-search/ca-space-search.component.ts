@@ -16,13 +16,35 @@ import {
   CaSpaceFormDialogInput,
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
 import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaSpaceSearchFormComponent } from '../ca-space-search-form/ca-space-search-form.component';
+import { CaSpaceTableComponent } from '../ca-space-table/ca-space-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-space-search',
   templateUrl: './ca-space-search.component.html',
   styleUrls: ['./ca-space-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatIconButton,
+    MatTooltip,
+    MatButton,
+    CaSpaceSearchFormComponent,
+    CaSpaceTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaSpaceSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

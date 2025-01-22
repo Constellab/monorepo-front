@@ -1,12 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import {
   CaFolderNotifOptions,
   CaFolderUserConfig,
 } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaFolderUserConfigDialogInput {
   folderId: string;
@@ -20,7 +31,23 @@ export interface CaFolderUserConfigDialogInput {
   selector: 'ca-folder-user-config-dialog',
   templateUrl: './ca-folder-user-config-dialog.component.html',
   styleUrls: ['./ca-folder-user-config-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    ReactiveFormsModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatRadioGroup,
+    MatRadioButton,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaFolderUserConfigDialogComponent implements OnInit {
   private input = inject<CaFolderUserConfigDialogInput>(MAT_DIALOG_DATA);

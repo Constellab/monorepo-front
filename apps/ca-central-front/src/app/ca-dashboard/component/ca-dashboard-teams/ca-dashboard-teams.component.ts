@@ -8,6 +8,7 @@ import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,
 } from '../../../ca-core/entity-module/ca-group-core/component/ca-team-form-dialog/ca-team-form-dialog.component';
+import { CaTeamCardComponent } from '../../../ca-core/entity-module/ca-group-core/component/ca-team-card/ca-team-card.component';
 
 /**
  * Small list of groups in the dashboard
@@ -16,7 +17,7 @@ import {
   selector: 'ca-dashboard-teams',
   templateUrl: './ca-dashboard-teams.component.html',
   styleUrls: ['./ca-dashboard-teams.component.scss'],
-  standalone: false,
+  imports: [CaDashboardListLayoutComponent, CaTeamCardComponent],
 })
 export class CaDashboardTeamsComponent implements OnInit {
   private groupService = inject(CaGroupService);

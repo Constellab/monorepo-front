@@ -5,12 +5,14 @@ import {
   CaLabGreenOptionStopAfterTimeValue,
   CaLabGreenOptionType,
 } from '../../../../ca-core/model/entities/lab/ca-lab-green-option.class';
+import { DecimalPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ca-lab-green-option-value',
-    templateUrl: './ca-lab-green-option-value.component.html',
-    styleUrls: ['./ca-lab-green-option-value.component.scss'],
-    standalone: false
+  selector: 'ca-lab-green-option-value',
+  templateUrl: './ca-lab-green-option-value.component.html',
+  styleUrls: ['./ca-lab-green-option-value.component.scss'],
+  imports: [DecimalPipe, TranslatePipe],
 })
 export class CaLabGreenOptionValueComponent {
   @Input() greenOption: CaLabGreenOption;

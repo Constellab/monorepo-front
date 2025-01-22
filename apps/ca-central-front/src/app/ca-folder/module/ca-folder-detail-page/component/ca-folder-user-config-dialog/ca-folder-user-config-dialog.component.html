@@ -16,8 +16,7 @@
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="folderNotif">
             @for (key of notificationOptions | flObjectKeys; track key) {
-              <mat-radio-button
-                [value]="notificationOptions[key]">
+              <mat-radio-button [value]="notificationOptions[key]">
                 {{ 'folder_notif_' + notificationOptions[key] | translate }}
               </mat-radio-button>
             }
@@ -34,8 +33,7 @@
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="messageNotif">
             @for (key of notificationOptions | flObjectKeys; track key) {
-              <mat-radio-button
-                [value]="notificationOptions[key]">
+              <mat-radio-button [value]="notificationOptions[key]">
                 {{ 'folder_notif_' + notificationOptions[key] | translate }}
               </mat-radio-button>
             }
@@ -52,8 +50,7 @@
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="scenarioNotif">
             @for (key of notificationOptions | flObjectKeys; track key) {
-              <mat-radio-button
-                [value]="notificationOptions[key]">
+              <mat-radio-button [value]="notificationOptions[key]">
                 {{ 'folder_notif_' + notificationOptions[key] | translate }}
               </mat-radio-button>
             }
@@ -70,8 +67,7 @@
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="noteNotif">
             @for (key of notificationOptions | flObjectKeys; track key) {
-              <mat-radio-button
-                [value]="notificationOptions[key]">
+              <mat-radio-button [value]="notificationOptions[key]">
                 {{ 'folder_notif_' + notificationOptions[key] | translate }}
               </mat-radio-button>
             }
@@ -88,8 +84,7 @@
         <div class="g-layout-row g-layout-center">
           <mat-radio-group formControlName="documentNotif">
             @for (key of notificationOptions | flObjectKeys; track key) {
-              <mat-radio-button
-                [value]="notificationOptions[key]">
+              <mat-radio-button [value]="notificationOptions[key]">
                 {{ 'folder_notif_' + notificationOptions[key] | translate }}
               </mat-radio-button>
             }

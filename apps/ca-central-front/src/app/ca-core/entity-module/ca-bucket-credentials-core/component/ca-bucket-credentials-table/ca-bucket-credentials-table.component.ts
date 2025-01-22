@@ -18,12 +18,51 @@ import {
 } from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
 import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
 import { ClCredentials } from '@monorepo/core-lib';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { CaSpaceInlineComponent } from '../../../ca-space-core/component/ca-space-inline/ca-space-inline.component';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-bucket-credentials-table',
   templateUrl: './ca-bucket-credentials-table.component.html',
   styleUrls: ['./ca-bucket-credentials-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    CaCloudProviderInlineComponent,
+    CaSpaceInlineComponent,
+    FlUserModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+  ],
 })
 export class CaBucketCredentialsTableComponent implements OnInit {
   private dialogService = inject(FlDialogService);

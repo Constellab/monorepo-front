@@ -2,8 +2,17 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { FlSnackBarService, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib';
-import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatError } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaGroupAddUserDialogInput {
   // method to add the user to the group
@@ -20,7 +29,21 @@ export interface CaGroupAddUserDialogInput {
   selector: 'ca-group-add-user-dialog',
   templateUrl: './ca-group-add-user-dialog.component.html',
   styleUrls: ['./ca-group-add-user-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    FormsModule,
+    FlFormModule,
+    FlUserModule,
+    MatError,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaGroupAddUserDialogComponent implements OnInit {
   private input = inject<CaGroupAddUserDialogInput>(MAT_DIALOG_DATA);

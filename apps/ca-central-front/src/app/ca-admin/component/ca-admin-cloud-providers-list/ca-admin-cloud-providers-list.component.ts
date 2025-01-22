@@ -9,12 +9,29 @@ import {
   CaCloudProviderFormDialogComponent,
   CaCloudProviderFormDialogInput,
 } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-form-dialog/ca-cloud-provider-form-dialog.component';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaCloudProviderTableComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-table/ca-cloud-provider-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-admin-cloud-providers-list',
   templateUrl: './ca-admin-cloud-providers-list.component.html',
   styleUrls: ['./ca-admin-cloud-providers-list.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlInfiniteScrollModule,
+    CaCloudProviderTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaAdminCloudProvidersListComponent {
   private cloudProviderService = inject(CaCloudProviderService);

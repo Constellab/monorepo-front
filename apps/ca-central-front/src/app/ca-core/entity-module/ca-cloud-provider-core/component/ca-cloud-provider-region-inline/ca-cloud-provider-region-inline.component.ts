@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CaCloudProviderRegion } from '../../../../model/entities/ca-cloud-provider.class';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: 'ca-cloud-provider-region-inline',
-    templateUrl: './ca-cloud-provider-region-inline.component.html',
-    styleUrls: ['./ca-cloud-provider-region-inline.component.scss'],
-    standalone: false
+  selector: 'ca-cloud-provider-region-inline',
+  templateUrl: './ca-cloud-provider-region-inline.component.html',
+  styleUrls: ['./ca-cloud-provider-region-inline.component.scss'],
+  imports: [NgOptimizedImage],
 })
 export class CaCloudProviderRegionInlineComponent {
   @Input({ required: true }) region: CaCloudProviderRegion;

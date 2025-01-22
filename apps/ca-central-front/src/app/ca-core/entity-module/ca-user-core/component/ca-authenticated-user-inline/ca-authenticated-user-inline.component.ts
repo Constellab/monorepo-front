@@ -3,6 +3,9 @@ import { CaUser } from '../../../../model/entities/ca-user.class';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { Observable } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Component to display the current user photo, name and job
@@ -11,7 +14,7 @@ import { Observable } from 'rxjs';
   selector: 'ca-authenticated-user-inline',
   templateUrl: './ca-authenticated-user-inline.component.html',
   styleUrls: ['./ca-authenticated-user-inline.component.scss'],
-  standalone: false,
+  imports: [RouterLink, FlUserModule, AsyncPipe],
 })
 export class CaAuthenticatedUserInlineComponent implements OnInit {
   private authenticatedUserService = inject(CaAuthenticatedUserService);

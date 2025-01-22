@@ -1,8 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { FlFileHelper } from '@monorepo/front-core-lib';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatHint } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaLabDesktopConfigureDialogInput {
   labId: string;
@@ -12,10 +19,23 @@ export interface CaLabDesktopConfigureDialogInput {
  * Dialog to configure and download the json file for the desktop
  */
 @Component({
-    selector: 'ca-lab-desktop-configure-dialog',
-    templateUrl: './ca-lab-desktop-configure-dialog.component.html',
-    styleUrl: './ca-lab-desktop-configure-dialog.component.scss',
-    standalone: false
+  selector: 'ca-lab-desktop-configure-dialog',
+  templateUrl: './ca-lab-desktop-configure-dialog.component.html',
+  styleUrl: './ca-lab-desktop-configure-dialog.component.scss',
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatHint,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class CaLabDesktopConfigureDialogComponent {
   formGp = new FormBuilder().group({

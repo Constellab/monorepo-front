@@ -6,15 +6,18 @@ import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service'
 import { CaChatState } from '../ca-chat.state';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CaHierarchyObjectWithChildren } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectIconComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaUserListInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaChatFolderComponent } from '../../../ca-core/entity-module/ca-chat-core/component/ca-chat-folder/ca-chat-folder.component';
 
 /**
  * Page of a folder chat
  */
 @Component({
-    selector: 'ca-chat-detail-page',
-    templateUrl: './ca-chat-detail-page.component.html',
-    styleUrl: './ca-chat-detail-page.component.scss',
-    standalone: false
+  selector: 'ca-chat-detail-page',
+  templateUrl: './ca-chat-detail-page.component.html',
+  styleUrl: './ca-chat-detail-page.component.scss',
+  imports: [CaHierarchyObjectIconComponent, CaUserListInlineComponent, CaChatFolderComponent],
 })
 export class CaChatDetailPageComponent {
   private state = inject(CaChatState);

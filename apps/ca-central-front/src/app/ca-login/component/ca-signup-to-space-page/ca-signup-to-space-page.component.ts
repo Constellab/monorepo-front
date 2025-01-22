@@ -12,7 +12,14 @@ import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-sp
 import { Observable, switchMap, tap } from 'rxjs';
 import { CaUserAccountsService } from '../../../ca-core/service-api/ca-user-accounts.service';
 import { CaAuthService } from '../../service/ca-auth.service';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlAuthModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { CaSpacePhotoPipe } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-space-photo.pipe';
 
 /**
  * Page on which the user can join an space. He can create an account or use an existing one.
@@ -21,7 +28,16 @@ import { UntypedFormGroup } from '@angular/forms';
   selector: 'ca-signup-to-space-page',
   templateUrl: './ca-signup-to-space-page.component.html',
   styleUrls: ['./ca-signup-to-space-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlCardModule,
+    ReactiveFormsModule,
+    FlAuthModule,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+    CaSpacePhotoPipe,
+  ],
 })
 export class CaSignupToSpacePageComponent implements OnInit {
   private route = inject(ActivatedRoute);

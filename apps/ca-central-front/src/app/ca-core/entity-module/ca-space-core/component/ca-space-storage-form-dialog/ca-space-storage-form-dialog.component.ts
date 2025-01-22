@@ -4,11 +4,16 @@ import {
   CaSpaceStorage,
   CaSpaceUpdateStorageLocationDTO,
 } from '../../../../model/entities/space/ca-space.dto';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { Observable } from 'rxjs';
 import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-storage-form.component';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStorageLocationDTO>;
 
@@ -16,7 +21,17 @@ export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStora
   selector: 'ca-space-storage-form-dialog',
   templateUrl: './ca-space-storage-form-dialog.component.html',
   styleUrl: './ca-space-storage-form-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    CaSpaceStorageFormComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class CaSpaceStorageFormDialogComponent
   extends FlFormDialogAbstractDirective<CaSpaceUpdateStorageLocationDTO, CaSpaceStorage>

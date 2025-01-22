@@ -8,7 +8,7 @@ import {
   FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
@@ -19,7 +19,19 @@ import {
 } from '../ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface CaFreeLabInfo {
   freeLabAvailable: boolean;
@@ -30,10 +42,29 @@ interface CaFreeLabInfo {
  * Form to create or update a lab accessible by user
  */
 @Component({
-    selector: 'ca-lab-form-dialog',
-    templateUrl: './ca-lab-form-dialog.component.html',
-    styleUrls: ['./ca-lab-form-dialog.component.scss'],
-    standalone: false
+  selector: 'ca-lab-form-dialog',
+  templateUrl: './ca-lab-form-dialog.component.html',
+  styleUrls: ['./ca-lab-form-dialog.component.scss'],
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    MatRadioGroup,
+    ReactiveFormsModule,
+    FormsModule,
+    MatRadioButton,
+    FlRadioButtonBigModule,
+    MatIcon,
+    MatDivider,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaLabFormDialogComponent {
   private labService = inject(CaLabService);

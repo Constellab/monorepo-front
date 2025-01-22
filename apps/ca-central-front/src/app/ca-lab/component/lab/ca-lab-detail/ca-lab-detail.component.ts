@@ -18,12 +18,46 @@ import {
   CaLabDesktopConfigureDialogComponent,
   CaLabDesktopConfigureDialogInput,
 } from '../../desktop/ca-lab-desktop-configure-dialog/ca-lab-desktop-configure-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaCityComponent } from '../../../../ca-core/entity-module/ca-config-core/component/ca-city/ca-city.component';
+import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
+import { CaLabLoginButtonComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
+import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ca-lab-detail',
-    templateUrl: './ca-lab-detail.component.html',
-    styleUrls: ['./ca-lab-detail.component.scss'],
-    standalone: false
+  selector: 'ca-lab-detail',
+  templateUrl: './ca-lab-detail.component.html',
+  styleUrls: ['./ca-lab-detail.component.scss'],
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlFormModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    FlKeyValueModule,
+    MatTooltip,
+    CaCityComponent,
+    MatButton,
+    CaLabCurrentTaskComponent,
+    CaLabLoginButtonComponent,
+    CaLabStartStopComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaLabDetailComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

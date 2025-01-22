@@ -1,18 +1,47 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   CaCreateStoragePriceDTO,
   CaStoragePrice,
 } from '../../../../model/entities/server/ca-storage-price.class';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatFormField, MatLabel, MatHint, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-storage-price-form-dialog',
   templateUrl: './ca-storage-price-form-dialog.component.html',
   styleUrl: './ca-storage-price-form-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatHint,
+    MatError,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaStoragePriceFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCreateStoragePriceDTO, CaStoragePrice>

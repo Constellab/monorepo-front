@@ -6,8 +6,9 @@
   <div class="g-text-big title">{{ 'start_free_data_lab' | translate }}</div>
 
   <!-- Use radio just for the style, they act like button -->
-  <mat-radio-group class="g-layout-row g-layout-center-stretch g-layout-gap-1em free-labs"
-                   [(ngModel)]="fakeModel">
+  <mat-radio-group
+    class="g-layout-row g-layout-center-stretch g-layout-gap-1em free-labs"
+    [(ngModel)]="fakeModel">
     @if (freeLabInfo$ | async; as freeLabInfo) {
       @if (freeLabInfo.freeLabAvailable) {
         <mat-radio-button

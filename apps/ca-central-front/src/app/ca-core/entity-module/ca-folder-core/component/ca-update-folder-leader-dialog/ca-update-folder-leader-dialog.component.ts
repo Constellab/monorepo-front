@@ -2,11 +2,22 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CaFolder } from '../../../../model/entities/folder/ca-folder.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { ClHelpService } from '@monorepo/core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaUpdateFolderLeaderDialogInput {
   folderId: string;
@@ -21,7 +32,26 @@ export interface CaUpdateFolderLeaderDialogInput {
   selector: 'ca-update-folder-leader-dialog',
   templateUrl: './ca-update-folder-leader-dialog.component.html',
   styleUrls: ['./ca-update-folder-leader-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    FlUserModule,
+    MatSelectTrigger,
+    MatError,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaUpdateFolderLeaderDialogComponent implements OnInit {
   private input = inject<CaUpdateFolderLeaderDialogInput>(MAT_DIALOG_DATA);

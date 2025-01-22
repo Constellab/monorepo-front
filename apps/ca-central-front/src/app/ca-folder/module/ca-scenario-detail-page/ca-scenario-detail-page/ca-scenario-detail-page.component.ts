@@ -7,12 +7,27 @@ import { CaNote } from '../../../../ca-core/model/entities/folder/ca-note.class'
 import { CaNoteService } from '../../../../ca-core/service-api/ca-note.service';
 import { map } from 'rxjs/operators';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaScenarioCardDetailComponent } from '../../ca-scenario-core/component/ca-scenario-card-detail/ca-scenario-card-detail.component';
+import { CaLabCardComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-card/ca-lab-card.component';
+import { CaScenarioTechnicalReportComponent } from '../../ca-scenario-core/component/ca-scenario-technical-report/ca-scenario-technical-report.component';
+import { CaNotesListComponent } from '../../ca-note-core/component/ca-notes-list/ca-notes-list.component';
 
 @Component({
   selector: 'ca-scenario-detail-page',
   templateUrl: './ca-scenario-detail-page.component.html',
   styleUrls: ['./ca-scenario-detail-page.component.scss'],
-  standalone: false,
+  imports: [
+    CaHierarchyObjectBreadcrumbComponent,
+    FlSectionModule,
+    FlCoreDirectiveModule,
+    CaScenarioCardDetailComponent,
+    CaLabCardComponent,
+    CaScenarioTechnicalReportComponent,
+    CaNotesListComponent,
+  ],
 })
 export class CaScenarioDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

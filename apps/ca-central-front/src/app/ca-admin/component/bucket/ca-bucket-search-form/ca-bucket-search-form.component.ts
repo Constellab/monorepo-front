@@ -1,16 +1,49 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   CaBucketContentType,
   CaBucketType,
 } from '../../../../ca-core/model/entities/ca-object-storage.class';
 import { FlSearchState } from '@monorepo/front-core-lib';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { CaSelectSpaceComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-select-space/ca-select-space.component';
+import { CaCloudProviderRegionInlineComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { CaSelectCloudProviderRegionOptionsComponent } from '../../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-region-options/ca-select-cloud-provider-region-options.component';
+import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
+import { CaSelectBucketCredentialsOptionsComponent } from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-select-bucket-credentials-options/ca-select-bucket-credentials-options.component';
+import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlSearchModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-bucket-search-form',
   templateUrl: './ca-bucket-search-form.component.html',
   styleUrls: ['./ca-bucket-search-form.component.scss'],
-  standalone: false,
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatSelect,
+    MatOption,
+    FlFormModule,
+    CaSelectSpaceComponent,
+    MatSelectTrigger,
+    CaCloudProviderRegionInlineComponent,
+    CaSelectCloudProviderRegionOptionsComponent,
+    CaSelectLabComponent,
+    MatError,
+    CaSelectBucketCredentialsOptionsComponent,
+    FlUserModule,
+    FlSearchModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaBucketSearchFormComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

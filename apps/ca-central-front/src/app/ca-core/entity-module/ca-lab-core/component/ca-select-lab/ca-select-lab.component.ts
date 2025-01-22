@@ -11,13 +11,18 @@ import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
 import { map } from 'rxjs/operators';
 import { CaLabSearchFields } from '../../model/ca-lab-search.class';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-select-lab',
   templateUrl: './ca-select-lab.component.html',
   styleUrls: ['./ca-select-lab.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectLabComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, MatIcon, MatTooltip, CaLabInlineComponent, TranslatePipe],
 })
 export class CaSelectLabComponent extends FlFormFieldDirective<CaLab> implements OnInit {
   private labService = inject(CaLabService);

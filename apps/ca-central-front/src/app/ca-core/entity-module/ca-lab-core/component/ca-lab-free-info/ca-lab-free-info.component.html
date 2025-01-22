@@ -1,39 +1,39 @@
-
 @switch (freeLab.status) {
   @case ('IN_PROGRESS') {
     <fl-text-icon>
       <mat-icon>cached</mat-icon>
       <div>
         {{
-        'free_data_lab_in_progress'
-        | translate
-        : {
-        remainingHours: (freeLab.remainingMilliseconds | flDuration: 2 : 'minutes'),
-      }
+          'free_data_lab_in_progress'
+            | translate
+              : {
+                  remainingHours: (freeLab.remainingMilliseconds | flDuration: 2 : 'minutes'),
+                }
+        }}
+      </div>
+    </fl-text-icon>
+  }
+  @case ('EXPIRED') {
+    <fl-text-icon>
+      <mat-icon>clear</mat-icon>
+      {{
+        'free_data_lab_expired'
+          | translate: { date: (freeLab.deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') }
       }}
-    </div>
-  </fl-text-icon>
-}
-@case ('EXPIRED') {
-  <fl-text-icon>
-    <mat-icon>clear</mat-icon>
-    {{
-    'free_data_lab_expired' | translate: { date: (freeLab.deletionDate | flDate: 'DATE_TIME_WITH_SECONDS') }
-    }}
-  </fl-text-icon>
-}
-@case ('EXPIRED_AND_DELETED') {
-  <fl-text-icon>
-    <mat-icon>clear</mat-icon>
-    {{ 'free_data_lab_expired_and_deleted' | translate }}
-  </fl-text-icon>
-}
-@case ('NOT_USED') {
-  <fl-text-icon>
-    <mat-icon>clear</mat-icon>
-    {{ 'free_data_lab_not_used' | translate }}
-  </fl-text-icon>
-}
+    </fl-text-icon>
+  }
+  @case ('EXPIRED_AND_DELETED') {
+    <fl-text-icon>
+      <mat-icon>clear</mat-icon>
+      {{ 'free_data_lab_expired_and_deleted' | translate }}
+    </fl-text-icon>
+  }
+  @case ('NOT_USED') {
+    <fl-text-icon>
+      <mat-icon>clear</mat-icon>
+      {{ 'free_data_lab_not_used' | translate }}
+    </fl-text-icon>
+  }
 }
 
 @if (freeLab.freeLab) {

@@ -20,13 +20,32 @@ import {
   CaBucketFormDialogComponent,
   CaBucketFormDialogInput,
 } from '../ca-bucket-form-dialog/ca-bucket-form-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaBucketSearchFormComponent } from '../ca-bucket-search-form/ca-bucket-search-form.component';
+import { CaBucketTableComponent } from '../ca-bucket-table/ca-bucket-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-bucket-search',
   templateUrl: './ca-bucket-search.component.html',
   styleUrls: ['./ca-bucket-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    CaBucketSearchFormComponent,
+    CaBucketTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaBucketSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

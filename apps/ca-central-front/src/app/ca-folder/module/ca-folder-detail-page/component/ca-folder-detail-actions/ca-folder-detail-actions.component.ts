@@ -15,12 +15,33 @@ import {
 import { CaConstellabDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-folder-detail-actions',
   templateUrl: './ca-folder-detail-actions.component.html',
   styleUrl: './ca-folder-detail-actions.component.scss',
-  standalone: false,
+  imports: [
+    MatIconButton,
+    MatTooltip,
+    CaNotificationMarkDirective,
+    MatIcon,
+    MatMenuTrigger,
+    MatMenu,
+    FlInputFileModule,
+    MatMenuItem,
+    FlIconModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaFolderDetailActionsComponent {
   private dialogService = inject(FlDialogService);

@@ -4,6 +4,8 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
 
 /**
  * Page to show preview for document in Iframe (for office documents)
@@ -12,7 +14,7 @@ import { map } from 'rxjs/operators';
   selector: 'ca-document-preview-page',
   templateUrl: './ca-document-preview-page.component.html',
   styleUrl: './ca-document-preview-page.component.scss',
-  standalone: false,
+  imports: [CaHierarchyObjectBreadcrumbComponent, FlSectionModule],
 })
 export class CaDocumentPreviewPageComponent implements OnInit {
   private folderService = inject(CaFolderService);

@@ -2,10 +2,7 @@ import { Pipe, PipeTransform, inject } from '@angular/core';
 import { CaSpace } from '../../../model/entities/space/ca-space.class';
 import { CaSpaceService } from '../../../service-api/ca-space.service';
 
-@Pipe({
-  name: 'caSpacePhoto',
-  standalone: false,
-})
+@Pipe({ name: 'caSpacePhoto' })
 export class CaSpacePhotoPipe implements PipeTransform {
   private spaceService = inject(CaSpaceService);
 

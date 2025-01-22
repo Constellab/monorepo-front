@@ -5,6 +5,34 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { ClHelpService } from '@monorepo/core-lib';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { RouterLink } from '@angular/router';
+import { CaHierarchyObjectInlineComponent } from '../ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';
@@ -13,10 +41,39 @@ export interface CaHierarchyObjectTableEvent {
 }
 
 @Component({
-    selector: 'ca-hierarchy-object-table',
-    templateUrl: './ca-hierarchy-object-table.component.html',
-    styleUrl: './ca-hierarchy-object-table.component.scss',
-    standalone: false
+  selector: 'ca-hierarchy-object-table',
+  templateUrl: './ca-hierarchy-object-table.component.html',
+  styleUrl: './ca-hierarchy-object-table.component.scss',
+  imports: [
+    MatTable,
+    MatSort,
+    FlSearchModule,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    MatCellDef,
+    MatCell,
+    RouterLink,
+    CaHierarchyObjectInlineComponent,
+    FlDateModule,
+    FlUserModule,
+    MatIcon,
+    FlIconModule,
+    MatTooltip,
+    MatIconButton,
+    CaNotificationMarkDirective,
+    NgTemplateOutlet,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    NgClass,
+    FlCoreDirectiveModule,
+    CaDetailRoutePipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaHierarchyObjectTableComponent {
   @Input({ required: true }) datasource: CaHierarchyObjectDatasource<any>;

@@ -5,10 +5,21 @@ import {
   CaSpaceInvit,
   CaSpaceInvitCreateDTO,
 } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaSpaceInvitFormDialogInput {
   spaceId: string;
@@ -22,7 +33,24 @@ export interface CaSpaceInvitFormDialogInput {
   selector: 'ca-space-invit-form-dialog',
   templateUrl: './ca-space-invit-form-dialog.component.html',
   styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatSelect,
+    MatOption,
+    MatDialogActions,
+    MatButton,
+    MatIcon,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaSpaceInvitFormDialogComponent {
   private input = inject<CaSpaceInvitFormDialogInput>(MAT_DIALOG_DATA);

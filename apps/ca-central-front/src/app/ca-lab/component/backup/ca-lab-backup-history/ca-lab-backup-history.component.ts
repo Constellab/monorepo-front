@@ -12,12 +12,31 @@ import {
 } from '@monorepo/front-core-lib';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaLabBackupHistoryTableComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-backup-history-table/ca-lab-backup-history-table.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-backup-history',
   templateUrl: './ca-lab-backup-history.component.html',
   styleUrls: ['./ca-lab-backup-history.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatButton,
+    FlLoaderModule,
+    FlInfiniteScrollModule,
+    CaLabBackupHistoryTableComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaLabBackupHistoryComponent implements OnInit {
   private labService = inject(CaLabService);

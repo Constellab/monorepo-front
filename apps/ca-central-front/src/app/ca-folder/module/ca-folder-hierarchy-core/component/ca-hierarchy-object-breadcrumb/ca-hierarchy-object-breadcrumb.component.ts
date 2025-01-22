@@ -8,6 +8,12 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface BreadcrumbLink {
   id: string;
@@ -23,7 +29,7 @@ interface BreadcrumbLink {
   selector: 'ca-hierarchy-object-breadcrumb',
   templateUrl: './ca-hierarchy-object-breadcrumb.component.html',
   styleUrls: ['./ca-hierarchy-object-breadcrumb.component.scss'],
-  standalone: false,
+  imports: [MatIconButton, MatTooltip, MatIcon, RouterLink, AsyncPipe, TranslatePipe],
 })
 export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
   private state = inject(CaHierarchyObjectDetailState);

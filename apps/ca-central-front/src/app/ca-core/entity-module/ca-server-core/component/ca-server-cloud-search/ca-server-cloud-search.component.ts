@@ -15,13 +15,32 @@ import {
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaServerCloudSearchFormComponent } from '../ca-server-cloud-search-form/ca-server-cloud-search-form.component';
+import { CaServerCloudTableComponent } from '../ca-server-cloud-table/ca-server-cloud-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-server-cloud-search',
   templateUrl: './ca-server-cloud-search.component.html',
   styleUrls: ['./ca-server-cloud-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    CaServerCloudSearchFormComponent,
+    CaServerCloudTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaServerCloudSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

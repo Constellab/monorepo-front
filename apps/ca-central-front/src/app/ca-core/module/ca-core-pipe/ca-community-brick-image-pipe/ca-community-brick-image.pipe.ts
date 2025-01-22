@@ -1,10 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { CaCommunityBrickService } from '../../../service-api/ca-community-brick.service';
 
-@Pipe({
-  name: 'caCommunityBrickImage',
-  standalone: false,
-})
+@Pipe({ name: 'caCommunityBrickImage' })
 export class CaCommunityBrickImagePipe implements PipeTransform {
   private communityBrickService = inject(CaCommunityBrickService);
 

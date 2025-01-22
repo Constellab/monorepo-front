@@ -25,13 +25,13 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private routerService = inject(CaRouterService);
+  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }> = inject(FlQueryParamHandler);
 
   private ancestorFolders$: FlEntityArrayObs<CaHierarchyObject>;
   private folderTree: FlDatasourceTree<CaHierarchyObjectWithChildren>;
 
   // by default the tree is opened
   private treeDrawerOpened$: BehaviorSubject<boolean>;
-  private queryParamHandler: FlQueryParamHandler<{ showTree?: string }> = inject(FlQueryParamHandler);
 
   private subscription: Subscription;
 

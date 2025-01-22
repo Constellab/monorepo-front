@@ -7,19 +7,11 @@
 
     <fl-card-actions>
       @if (isOwner$ | async) {
-        <button
-          mat-stroked-button
-          type="button"
-          class="g-button-small primary"
-          (click)="backupProd()">
+        <button mat-stroked-button type="button" class="g-button-small primary" (click)="backupProd()">
           {{ 'backup_lab_production' | translate }}
         </button>
 
-        <button
-          mat-stroked-button
-          type="button"
-          class="g-button-small warn"
-          (click)="stopCurrentBackup()">
+        <button mat-stroked-button type="button" class="g-button-small warn" (click)="stopCurrentBackup()">
           {{ 'stop_lab_current_backups' | translate }}
         </button>
       }

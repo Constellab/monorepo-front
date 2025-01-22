@@ -4,12 +4,15 @@ import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.cla
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaNoteDetailComponent } from '../ca-note-detail/ca-note-detail.component';
 
 @Component({
   selector: 'ca-note-detail-page',
   templateUrl: './ca-note-detail-page.component.html',
   styleUrls: ['./ca-note-detail-page.component.scss'],
-  standalone: false,
+  imports: [CaHierarchyObjectBreadcrumbComponent, FlSectionModule, CaNoteDetailComponent],
 })
 export class CaNoteDetailPageComponent implements OnInit {
   private noteService = inject(CaNoteService);

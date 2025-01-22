@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { DateTime } from 'luxon';
 import { combineLatest, debounceTime, Observable, share, startWith, Subscription } from 'rxjs';
@@ -19,12 +19,51 @@ import {
   CaLabStoragePriceDialogInput,
 } from '../ca-lab-storage-price-dialog/ca-lab-storage-price-dialog.component';
 import { CaUserDatasourcePaginated } from '../../../../ca-core/model/entities/ca-user.class';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaLabRunningStatusTableComponent } from '../ca-lab-running-status-table/ca-lab-running-status-table.component';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
-    selector: 'ca-lab-usage',
-    templateUrl: './ca-lab-usage.component.html',
-    styleUrls: ['./ca-lab-usage.component.scss'],
-    standalone: false
+  selector: 'ca-lab-usage',
+  templateUrl: './ca-lab-usage.component.html',
+  styleUrls: ['./ca-lab-usage.component.scss'],
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatInput,
+    MatDatepickerInput,
+    MatDatepickerToggle,
+    MatSuffix,
+    MatDatepicker,
+    CaUserListInlineComponent,
+    MatIconButton,
+    MatTooltip,
+    CaLabRunningStatusTableComponent,
+    AsyncPipe,
+    DecimalPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaLabUsageComponent implements OnInit, OnDestroy {
   @Input({ required: true }) labId: string;

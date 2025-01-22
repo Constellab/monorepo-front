@@ -9,12 +9,29 @@ import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
 } from '../../../ca-core/model/entities/ca-cloud-provider.class';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaAdminCloudProviderRegionTableComponent } from '../ca-admin-cloud-provider-region-table/ca-admin-cloud-provider-region-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-admin-bucket-regions-list',
   templateUrl: './ca-admin-cloud-provider-regions-list.component.html',
   styleUrls: ['./ca-admin-cloud-provider-regions-list.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlInfiniteScrollModule,
+    CaAdminCloudProviderRegionTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaAdminCloudProviderRegionsListComponent {
   private cloudProviderService = inject(CaCloudProviderService);

@@ -9,6 +9,14 @@ import {
   CaBucketCredentialsFormDialogComponent,
   CaBucketCredentialsFormDialogInput,
 } from '../ca-bucket-credentials-form-dialog/ca-bucket-credentials-form-dialog.component';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaBucketCredentialsTableComponent } from '../ca-bucket-credentials-table/ca-bucket-credentials-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * List bucket credentials with CRUD actions
@@ -17,7 +25,16 @@ import {
   selector: 'ca-bucket-credentials-list',
   templateUrl: './ca-bucket-credentials-list.component.html',
   styleUrls: ['./ca-bucket-credentials-list.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlInfiniteScrollModule,
+    CaBucketCredentialsTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaBucketCredentialsListComponent implements OnInit {
   private objectStorageService = inject(CaObjectStorageService);

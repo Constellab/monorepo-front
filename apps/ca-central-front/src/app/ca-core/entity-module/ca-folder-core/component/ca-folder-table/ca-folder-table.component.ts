@@ -11,12 +11,56 @@ import { CaFolderActionEvent, CaFolderActionsMenu } from '../../model/ca-folder-
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaSecurityService } from '../../../../service/ca-security.service';
 import { CaFolderActionService } from '../../ca-folder-action.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { RouterLink } from '@angular/router';
+import { CaFolderInlineComponent } from '../ca-folder-inline/ca-folder-inline.component';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgTemplateOutlet } from '@angular/common';
+import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-folder-table',
   templateUrl: './ca-folder-table.component.html',
   styleUrls: ['./ca-folder-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatSort,
+    FlSearchModule,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    MatCellDef,
+    MatCell,
+    RouterLink,
+    CaFolderInlineComponent,
+    FlUserModule,
+    MatIconButton,
+    MatIcon,
+    NgTemplateOutlet,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    CaDetailRoutePipe,
+    TranslatePipe,
+  ],
 })
 export class CaFolderTableComponent {
   private routerService = inject(CaRouterService);

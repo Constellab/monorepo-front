@@ -13,72 +13,72 @@
         required
         flInputMaxLength="50"
         [placeholder]="'name' | translate" />
-        @if (formGp.get('name').hasError('required')) {
-          <mat-error>
-            {{ 'name' | flErrorRequired }}
-          </mat-error>
-        }
-      </mat-form-field>
+      @if (formGp.get('name').hasError('required')) {
+        <mat-error>
+          {{ 'name' | flErrorRequired }}
+        </mat-error>
+      }
+    </mat-form-field>
 
-      <!--  Description  -->
-      <mat-form-field class="g-form-input">
-        <mat-label>{{ 'description' | translate }}</mat-label>
-        <textarea
-          matInput
-          formControlName="description"
-          rows="2"
-          flInputMaxLength="255"
+    <!--  Description  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'description' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        rows="2"
+        flInputMaxLength="255"
         [placeholder]="'description' | translate"></textarea>
-        @if (formGp.get('description').hasError('required')) {
-          <mat-error>
-            {{ 'description' | flErrorRequired }}
-          </mat-error>
-        }
-      </mat-form-field>
+      @if (formGp.get('description').hasError('required')) {
+        <mat-error>
+          {{ 'description' | flErrorRequired }}
+        </mat-error>
+      }
+    </mat-form-field>
 
-      <!--  Technical description  -->
-      <mat-form-field class="g-form-input">
-        <mat-label>{{ 'server_standard_technical_description' | translate }}</mat-label>
-        <textarea
-          matInput
-          formControlName="technicalDescription"
-          rows="2"
-          flInputMaxLength="255"
+    <!--  Technical description  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'server_standard_technical_description' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="technicalDescription"
+        rows="2"
+        flInputMaxLength="255"
         [placeholder]="'server_standard_technical_description' | translate"></textarea>
-        @if (formGp.get('technicalDescription').hasError('required')) {
+      @if (formGp.get('technicalDescription').hasError('required')) {
+        <mat-error>
+          {{ 'server_standard_technical_description' | flErrorRequired }}
+        </mat-error>
+      }
+    </mat-form-field>
+
+    <!--  Price  -->
+    @if (isCreateMode()) {
+      <mat-form-field class="g-form-input">
+        <mat-label>{{ 'server_price' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="price"
+          required
+          type="number"
+          [placeholder]="'server_price' | translate" />
+
+        <mat-hint>{{ 'server_price_unit' | translate }}</mat-hint>
+        @if (formGp.get('price').invalid) {
           <mat-error>
-            {{ 'server_standard_technical_description' | flErrorRequired }}
+            {{ 'server_price_error' | translate }}
           </mat-error>
         }
       </mat-form-field>
+    }
+  </form>
+</mat-dialog-content>
 
-      <!--  Price  -->
-      @if (isCreateMode()) {
-        <mat-form-field class="g-form-input">
-          <mat-label>{{ 'server_price' | translate }}</mat-label>
-          <input
-            matInput
-            formControlName="price"
-            required
-            type="number"
-            [placeholder]="'server_price' | translate" />
-
-            <mat-hint>{{ 'server_price_unit' | translate }}</mat-hint>
-            @if (formGp.get('price').invalid) {
-              <mat-error>
-                {{ 'server_price_error' | translate }}
-              </mat-error>
-            }
-          </mat-form-field>
-        }
-      </form>
-    </mat-dialog-content>
-
-    <div mat-dialog-actions>
-      <button mat-flat-button type="submit" form="server-standard-form" class="g-centered-forced primary">
-        {{ 'save' | translate }}
-        @if (isLoading) {
-          <fl-button-loader></fl-button-loader>
-        }
-      </button>
-    </div>
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="server-standard-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

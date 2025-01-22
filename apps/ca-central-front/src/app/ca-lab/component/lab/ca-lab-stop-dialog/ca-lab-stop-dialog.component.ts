@@ -1,21 +1,46 @@
 import { Component, inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaStopLabDialogInput {
   labId: string;
 }
 
 @Component({
-    selector: 'ca-lab-stop-dialog',
-    templateUrl: './ca-lab-stop-dialog.component.html',
-    styleUrl: './ca-lab-stop-dialog.component.scss',
-    standalone: false
+  selector: 'ca-lab-stop-dialog',
+  templateUrl: './ca-lab-stop-dialog.component.html',
+  styleUrl: './ca-lab-stop-dialog.component.scss',
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    MatCheckbox,
+    ReactiveFormsModule,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    MatDialogClose,
+    TranslatePipe,
+  ],
 })
 export class CaLabStopDialogComponent {
   formCtrl = new FormControl(false);

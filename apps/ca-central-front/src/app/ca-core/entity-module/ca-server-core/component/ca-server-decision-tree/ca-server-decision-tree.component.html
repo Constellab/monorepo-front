@@ -2,8 +2,7 @@
   <ng-container *flSectionBody>
     @for (optionGroup of displayedOptions; track optionGroup) {
       <mat-radio-group
-        class="g-layout-row g-layout-start-stretch g-layout-gap-1em g-scrollable-element group"
-        >
+        class="g-layout-row g-layout-start-stretch g-layout-gap-1em g-scrollable-element group">
         @for (option of optionGroup; track option) {
           <mat-radio-button
             [value]="option"

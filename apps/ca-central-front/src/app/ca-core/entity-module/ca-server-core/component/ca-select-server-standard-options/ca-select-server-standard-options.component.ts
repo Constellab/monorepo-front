@@ -3,12 +3,17 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { MatSelect } from '@angular/material/select';
 import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatOption } from '@angular/material/core';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
 
 @Component({
   selector: 'ca-select-server-standard-options',
   templateUrl: './ca-select-server-standard-options.component.html',
   styleUrl: './ca-select-server-standard-options.component.scss',
-  standalone: false,
+  imports: [FlInfiniteScrollModule, FlCoreDirectiveModule, MatOption, AsyncPipe, FlCorePipeModule],
 })
 export class CaSelectServerStandardOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

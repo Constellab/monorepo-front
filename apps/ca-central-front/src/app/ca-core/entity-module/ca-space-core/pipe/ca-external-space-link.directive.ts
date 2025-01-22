@@ -9,10 +9,7 @@ import { CaEnvironmentHelper } from '../../../utils/ca-environment.helper';
  * In prod, it generates the url for the other domain
  * In dev, it updates the stored domain and refresh to the route
  */
-@Directive({
-  selector: 'a[caExternalSpaceLink]',
-  standalone: false,
-})
+@Directive({ selector: 'a[caExternalSpaceLink]' })
 export class CaExternalSpaceLinkDirective implements OnInit {
   private elementRef = inject<ElementRef<HTMLLinkElement>>(ElementRef);
   private currentSpaceService = inject(CaCurrentSpaceService);

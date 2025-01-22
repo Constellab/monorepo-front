@@ -7,6 +7,12 @@ import { combineLatest, Observable, of, share, switchMap } from 'rxjs';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { map } from 'rxjs/operators';
 import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
+import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface CaLabServerPriceEstimation {
   hourPerMonth: number;
@@ -18,10 +24,18 @@ interface CaLabServerPriceEstimation {
  * Step in the lab creation to summarize the lab creation
  */
 @Component({
-    selector: 'ca-lab-create-summary',
-    templateUrl: './ca-lab-create-summary.component.html',
-    styleUrl: './ca-lab-create-summary.component.scss',
-    standalone: false
+  selector: 'ca-lab-create-summary',
+  templateUrl: './ca-lab-create-summary.component.html',
+  styleUrl: './ca-lab-create-summary.component.scss',
+  imports: [
+    FlKeyValueModule,
+    CaCloudProviderRegionInlineComponent,
+    MatIcon,
+    MatTooltip,
+    AsyncPipe,
+    DecimalPipe,
+    TranslatePipe,
+  ],
 })
 export class CaLabCreateSummaryComponent implements OnInit {
   @Input() name: string;

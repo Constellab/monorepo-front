@@ -1,28 +1,13 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { caLoginRoutes } from './ca-login/ca-login-routes';
+import { caMainRoutes } from './ca-main/ca-main-routes';
 
-const routes: Routes = [
+export const caAppRoutes: Routes = [
   {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full',
   },
+  ...caLoginRoutes,
+  ...caMainRoutes,
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(
-      routes,
-      // load all lazy module on start
-      // load all lazy module on start
-      {
-        preloadingStrategy: PreloadAllModules,
-        scrollPositionRestoration: 'enabled',
-        paramsInheritanceStrategy: 'always',
-        anchorScrolling: 'enabled',
-      }
-    ),
-  ],
-  exports: [RouterModule],
-})
-export class CaAppRoutingModule {}

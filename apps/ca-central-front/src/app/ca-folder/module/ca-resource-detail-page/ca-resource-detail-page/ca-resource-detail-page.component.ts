@@ -8,12 +8,29 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CaResourceActionEvent, CaResourceActionMenu } from '../ca-resource-action-menu';
 import { FlDialogService, FlMenuDynamicService } from '@monorepo/front-core-lib';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
-    selector: 'ca-resource-detail-page',
-    templateUrl: './ca-resource-detail-page.component.html',
-    styleUrl: './ca-resource-detail-page.component.scss',
-    standalone: false
+  selector: 'ca-resource-detail-page',
+  templateUrl: './ca-resource-detail-page.component.html',
+  styleUrl: './ca-resource-detail-page.component.scss',
+  imports: [
+    CaHierarchyObjectBreadcrumbComponent,
+    FlSectionModule,
+    CaHierarchyObjectIconComponent,
+    FlFormModule,
+    MatIconButton,
+    MatIcon,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaResourceDetailPageComponent {
   private resourceService = inject(CaResourceService);

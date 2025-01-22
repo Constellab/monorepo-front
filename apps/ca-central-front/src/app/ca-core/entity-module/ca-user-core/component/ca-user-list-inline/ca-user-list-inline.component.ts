@@ -18,7 +18,13 @@ import {
   FlPortalConnectedPosition,
   FlPortalService,
 } from '@monorepo/front-core-lib';
-import { NgControl } from '@angular/forms';
+import { NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
 
 interface UserList {
   previewUsers: CaUserSelection[];
@@ -39,7 +45,16 @@ interface CaUserSelection {
   selector: 'ca-user-list-inline',
   templateUrl: './ca-user-list-inline.component.html',
   styleUrls: ['./ca-user-list-inline.component.scss'],
-  standalone: false,
+  imports: [
+    NgClass,
+    MatTooltip,
+    FlUserModule,
+    FlPortalModule,
+    MatCheckbox,
+    ReactiveFormsModule,
+    FormsModule,
+    FlInfiniteScrollModule,
+  ],
 })
 export class CaUserListInlineComponent
   extends FlFormFieldDirective<UserList, CaUser[]>

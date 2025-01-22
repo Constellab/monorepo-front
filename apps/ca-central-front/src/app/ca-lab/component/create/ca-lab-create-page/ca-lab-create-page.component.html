@@ -116,11 +116,7 @@
               [labConfig]="labConfig"></ca-lab-create-summary>
           </div>
 
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="createLab()"
-            class="next-button button primary">
+          <button mat-stroked-button type="button" (click)="createLab()" class="next-button button primary">
             {{ 'create_lab' | translate }}
             @if (createIsLoading) {
               <fl-button-loader></fl-button-loader>

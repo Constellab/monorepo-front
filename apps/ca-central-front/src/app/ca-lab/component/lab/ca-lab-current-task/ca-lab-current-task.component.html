@@ -4,9 +4,12 @@
     <div>
       <div>
         @if (showConfigRouteLink) {
-          <a [routerLink]="configRoute" class="g-text-link" [matTooltip]="'lab_open_config_tab' | translate">{{
-            currentTask.text
-          }}</a>
+          <a
+            [routerLink]="configRoute"
+            class="g-text-link"
+            [matTooltip]="'lab_open_config_tab' | translate"
+            >{{ currentTask.text }}</a
+          >
         } @else {
           {{ currentTask.text }}
         }

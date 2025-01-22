@@ -6,15 +6,21 @@ import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
+import { FlHorizontalNavBarModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Header info about the lab in the detail page
  */
 @Component({
-    selector: 'ca-lab-header',
-    templateUrl: './ca-lab-header.component.html',
-    styleUrls: ['./ca-lab-header.component.scss'],
-    standalone: false
+  selector: 'ca-lab-header',
+  templateUrl: './ca-lab-header.component.html',
+  styleUrls: ['./ca-lab-header.component.scss'],
+  imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, FlIconModule, FlStatusModule, AsyncPipe],
 })
 export class CaLabHeaderComponent {
   private state = inject(CaLabDetailPageState);

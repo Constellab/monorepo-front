@@ -5,10 +5,7 @@ import { CaAuthenticatedUserService } from '../../../service-api/ca-authenticate
 /**
  * Structurale directive that work like ngIf, and show element only is user is admin
  */
-@Directive({
-  selector: '[caIsAdmin]',
-  standalone: false,
-})
+@Directive({ selector: '[caIsAdmin]' })
 export class CaIsAdminDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   private authenticatedUserService = inject(CaAuthenticatedUserService);
 

@@ -19,10 +19,7 @@ type CaObjectType = 'folder' | 'scenario' | 'note' | 'lab' | 'group' | 'document
  *  Provide an object and the route is automatically detected form object type
  *  Provide an id and the object type
  */
-@Pipe({
-    name: 'caDetailRoute',
-    standalone: false
-})
+@Pipe({ name: 'caDetailRoute' })
 export class CaDetailRoutePipe implements PipeTransform {
   transform(value: string, objectType?: CaObjectType): string;
   transform(value: CaEntity): string;

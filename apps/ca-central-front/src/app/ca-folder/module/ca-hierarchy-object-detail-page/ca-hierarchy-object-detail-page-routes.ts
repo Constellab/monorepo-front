@@ -1,0 +1,62 @@
+import { Route } from '@angular/router';
+
+export const caHierarchyObjectRoutes: Route[] = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component').then(
+        (m) => m.CaHierarchyObjectDetailPageComponent
+      ),
+    children: [
+      {
+        path: ':id',
+        loadComponent: () =>
+          import(
+            '../ca-folder-detail-page/component/ca-folder-detail-page/ca-folder-detail-page.component'
+          ).then((m) => m.CaFolderDetailPageComponent),
+      },
+      {
+        path: ':id/activity',
+        loadComponent: () =>
+          import(
+            '../ca-folder-activity-page/component/ca-folder-activity-page/ca-folder-activity-page.component'
+          ).then((m) => m.CaFolderActivityPageComponent),
+      },
+      {
+        path: 'scenario/:id',
+        loadComponent: () =>
+          import('../ca-scenario-detail-page/ca-scenario-detail-page/ca-scenario-detail-page.component').then(
+            (m) => m.CaScenarioDetailPageComponent
+          ),
+      },
+      {
+        path: 'note/:id',
+        loadComponent: () =>
+          import('../ca-note-detail-page/component/ca-note-detail-page/ca-note-detail-page.component').then(
+            (m) => m.CaNoteDetailPageComponent
+          ),
+      },
+      {
+        path: 'document/:id',
+        loadComponent: () =>
+          import(
+            '../ca-document-detail-page/component/ca-document-detail-page/ca-document-detail-page.component'
+          ).then((m) => m.CaDocumentDetailPageComponent),
+      },
+      {
+        path: 'document/:id/preview',
+        loadComponent: () =>
+          import(
+            '../ca-document-detail-page/component/ca-document-preview-page/ca-document-preview-page.component'
+          ).then((m) => m.CaDocumentPreviewPageComponent),
+      },
+      {
+        path: 'resource/:id',
+        loadComponent: () =>
+          import('../ca-resource-detail-page/ca-resource-detail-page/ca-resource-detail-page.component').then(
+            (m) => m.CaResourceDetailPageComponent
+          ),
+      },
+    ],
+  },
+];

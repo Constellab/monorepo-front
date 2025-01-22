@@ -3,7 +3,7 @@
     @switch (greenOption.type) {
       @case (afterTime) {
         {{ afterTimeValue.hours | number: '2.0-0' }}:{{ afterTimeValue.minutes | number: '2.0-0' }} ({{
-        afterTimeValue.timezone
+          afterTimeValue.timezone
         }})
       }
       @case (afterInactivity) {

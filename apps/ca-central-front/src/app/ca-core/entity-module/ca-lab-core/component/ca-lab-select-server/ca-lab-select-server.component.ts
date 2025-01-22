@@ -4,13 +4,27 @@ import {
   CaCloudProviderRegionDatasource,
 } from '../../../../model/entities/ca-cloud-provider.class';
 import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
 import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
+import { CaServerDecisionTreeComponent } from '../../../ca-server-core/component/ca-server-decision-tree/ca-server-decision-tree.component';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
+import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { CaServerStandardPriceComponent } from '../../../ca-server-core/component/ca-server-standard-price/ca-server-standard-price.component';
+import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { CaCloudProviderRegionMultilinesComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-multilines/ca-cloud-provider-region-multilines.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatError } from '@angular/material/form-field';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaLabSelectServerForm {
   standardServer: FormControl<CaServerStandard>;
@@ -24,7 +38,24 @@ export interface CaLabSelectServerForm {
   selector: 'ca-lab-select-server',
   templateUrl: './ca-lab-select-server.component.html',
   styleUrl: './ca-lab-select-server.component.scss',
-  standalone: false,
+  imports: [
+    ReactiveFormsModule,
+    CaServerDecisionTreeComponent,
+    MatRadioGroup,
+    MatRadioButton,
+    FlRadioButtonBigModule,
+    FlKeyValueModule,
+    CaServerStandardPriceComponent,
+    CaCloudProviderInlineComponent,
+    FlLoaderModule,
+    CaCloudProviderRegionMultilinesComponent,
+    FlTextIconModule,
+    MatIcon,
+    MatError,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaLabSelectServerComponent implements OnInit, OnDestroy {
   private cloudProviderService = inject(CaCloudProviderService);

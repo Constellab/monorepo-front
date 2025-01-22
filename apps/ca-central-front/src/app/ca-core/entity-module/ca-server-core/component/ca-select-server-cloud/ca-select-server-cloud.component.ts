@@ -14,13 +14,17 @@ import {
 } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaSelectServerCloudDialogComponent } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { NgOptimizedImage } from '@angular/common';
+import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-server-cloud-inline.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-select-server-cloud',
   templateUrl: './ca-select-server-cloud.component.html',
   styleUrl: './ca-select-server-cloud.component.scss',
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectServerCloudComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, NgOptimizedImage, CaServerCloudInlineComponent, TranslatePipe],
 })
 export class CaSelectServerCloudComponent extends FlFormFieldDirective<CaServerCloud> implements OnInit {
   private serverService = inject(CaServerService);

@@ -12,6 +12,17 @@ import {
 import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
 import { CaUserSettingsDialogComponent } from '../ca-user-settings-dialog/ca-user-settings-dialog.component';
 import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlImageModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { CaIsAdminDirective } from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces-list.component';
+import { CaLabFreeCardInfoComponent } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component that show a form on first user login to complete his information
@@ -20,7 +31,19 @@ import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog
   selector: 'ca-user-detail-page',
   templateUrl: './ca-user-detail-page.component.html',
   styleUrls: ['./ca-user-detail-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlCardModule,
+    MatButton,
+    MatIcon,
+    FlImageModule,
+    FlUserModule,
+    FlTextIconModule,
+    CaIsAdminDirective,
+    CaUserSpacesListComponent,
+    CaLabFreeCardInfoComponent,
+    TranslatePipe,
+  ],
 })
 export class CaUserDetailPageComponent implements OnInit {
   private authenticatedUserService = inject(CaAuthenticatedUserService);

@@ -1,23 +1,25 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable, Subscription } from 'rxjs';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
 import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaLabHeaderComponent } from '../ca-lab-header/ca-lab-header.component';
 
 @Component({
-    selector: 'ca-lab-detail-page',
-    templateUrl: './ca-lab-detail-page.component.html',
-    styleUrls: ['./ca-lab-detail-page.component.scss'],
-    providers: [
-        CaLabDetailPageState,
-        CaLabDetailServerState,
-        { provide: LmlLabManagerService, useClass: CaLabManagerService },
-        LmlLabManagerState,
-    ],
-    standalone: false
+  selector: 'ca-lab-detail-page',
+  templateUrl: './ca-lab-detail-page.component.html',
+  styleUrls: ['./ca-lab-detail-page.component.scss'],
+  providers: [
+    CaLabDetailPageState,
+    CaLabDetailServerState,
+    { provide: LmlLabManagerService, useClass: CaLabManagerService },
+    LmlLabManagerState,
+  ],
+  imports: [FlSectionModule, CaLabHeaderComponent, RouterOutlet],
 })
 export class CaLabDetailPageComponent implements OnInit, OnDestroy {
   lab$: Observable<CaLab>;

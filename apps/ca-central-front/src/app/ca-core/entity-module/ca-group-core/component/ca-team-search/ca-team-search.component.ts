@@ -14,13 +14,34 @@ import {
 import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.entity';
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaTeamSearchFormComponent } from '../ca-team-search-form/ca-team-search-form.component';
+import { CaTeamTableComponent } from '../ca-team-table/ca-team-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-team-search',
   templateUrl: './ca-team-search.component.html',
   styleUrls: ['./ca-team-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatIconButton,
+    MatTooltip,
+    CaTeamSearchFormComponent,
+    CaTeamTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaTeamSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

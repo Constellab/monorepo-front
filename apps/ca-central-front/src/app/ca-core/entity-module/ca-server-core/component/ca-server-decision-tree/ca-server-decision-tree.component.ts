@@ -3,8 +3,10 @@ import {
   CaServerDecisionTreeDTO,
   CaServerDecisionTreeOptionDTO,
 } from '../../../../model/entities/server/ca-server-standard.class';
-import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioChange, MatRadioGroup, MatRadioButton } from '@angular/material/radio';
 import { CaSettingsService } from '../../../../service-api/ca-settings.service';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
 
 export interface CaServerDecisionTreeOptionFlatDTO {
   id: number;
@@ -20,7 +22,7 @@ export interface CaServerDecisionTreeOptionFlatDTO {
   selector: 'ca-server-decision-tree',
   templateUrl: './ca-server-decision-tree.component.html',
   styleUrl: './ca-server-decision-tree.component.scss',
-  standalone: false,
+  imports: [FlSectionModule, MatRadioGroup, MatRadioButton, FlRadioButtonBigModule],
 })
 export class CaServerDecisionTreeComponent implements OnInit {
   private settingsService = inject(CaSettingsService);

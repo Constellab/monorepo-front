@@ -4,12 +4,16 @@ import { Observable } from 'rxjs';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
 import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
+import { FlHorizontalNavBarModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
+import { RouterOutlet } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-current-space-page',
   templateUrl: './ca-current-space-page.component.html',
   styleUrls: ['./ca-current-space-page.component.scss'],
-  standalone: false,
+  imports: [FlHorizontalNavBarModule, RouterOutlet, AsyncPipe, TranslatePipe],
 })
 export class CaCurrentSpacePageComponent implements OnInit {
   private currentSpaceService = inject(CaCurrentSpaceService);

@@ -12,12 +12,51 @@ import {
   CaLabGreenOptionFormDialogComponent,
   CaLabGreenOptionFormDialogInput,
 } from '../ca-lab-green-option-form-dialog/ca-lab-green-option-form-dialog.component';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { CaLabGreenOptionValueComponent } from '../ca-lab-green-option-value/ca-lab-green-option-value.component';
+import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-lab-green-option-table',
   templateUrl: './ca-lab-green-option-table.component.html',
   styleUrls: ['./ca-lab-green-option-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    FlTextIconModule,
+    CaLabGreenOptionValueComponent,
+    FlUserModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+  ],
 })
 export class CaLabGreenOptionTableComponent {
   private labService = inject(CaLabService);

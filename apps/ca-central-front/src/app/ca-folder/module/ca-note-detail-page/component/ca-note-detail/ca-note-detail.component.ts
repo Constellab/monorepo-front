@@ -20,12 +20,40 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
 import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { CaIsAdminDirective } from '../../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
+import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-note-detail',
   templateUrl: './ca-note-detail.component.html',
   styleUrls: ['./ca-note-detail.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    CaHierarchyObjectIconComponent,
+    MatButton,
+    MatIcon,
+    FlIconModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    CaIsAdminDirective,
+    CaValidatedObjectInfoComponent,
+    CaSyncObjectInfoComponent,
+    FlUserModule,
+    CaNoteContentComponent,
+    TranslatePipe,
+  ],
 })
 export class CaNoteDetailComponent implements OnInit {
   private scenarioService = inject(CaScenarioService);

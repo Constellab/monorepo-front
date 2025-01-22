@@ -3,6 +3,7 @@ import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { Observable, Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
 
@@ -13,7 +14,7 @@ export type CaSpacePhotoSize = 'small' | 'medium' | 'big';
   selector: 'ca-space-photo',
   templateUrl: './ca-space-photo.component.html',
   styleUrls: ['./ca-space-photo.component.scss'],
-  standalone: false,
+  imports: [NgClass],
 })
 export class CaSpacePhotoComponent implements OnInit, OnDestroy {
   private spaceService = inject(CaSpaceService);

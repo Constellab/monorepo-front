@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib';
 import { ClTheme } from '@monorepo/core-lib';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to select theme
@@ -10,7 +12,7 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
   selector: 'ca-theme-selection',
   templateUrl: './ca-theme-selection.component.html',
   styleUrls: ['./ca-theme-selection.component.scss'],
-  standalone: false,
+  imports: [MatButton, TranslatePipe],
 })
 export class CaThemeSelectionComponent implements OnInit {
   private themeService = inject(FlThemeService);

@@ -2,6 +2,16 @@ import { Component, inject } from '@angular/core';
 import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
 import { Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
+import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent } from '@angular/material/dialog';
+import { CaUserTwoFaToggleComponent } from '../ca-user-two-fa-toggle/ca-user-two-fa-toggle.component';
+import { CaThemeSelectionComponent } from '../ca-theme-selection/ca-theme-selection.component';
+import { CaLanguageSelectionComponent } from '../ca-language-selection/ca-language-selection.component';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Settings page
@@ -10,7 +20,18 @@ import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helpe
   selector: 'ca-user-settings-dialog',
   templateUrl: './ca-user-settings-dialog.component.html',
   styleUrls: ['./ca-user-settings-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    CaUserTwoFaToggleComponent,
+    CaThemeSelectionComponent,
+    CaLanguageSelectionComponent,
+    MatButton,
+    MatIcon,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class CaUserSettingsDialogComponent {
   private authService = inject(CaAuthService);

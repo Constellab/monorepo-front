@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { CaServerStandard } from '../../../../model/entities/server/ca-server-standard.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
@@ -11,12 +11,28 @@ import {
   CaServerPriceFormDialogComponent,
   CaServerPriceFormDialogInput,
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CaServerPriceTableComponent } from '../ca-server-price-table/ca-server-price-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-server-prices-dialog',
   templateUrl: './ca-server-prices-dialog.component.html',
   styleUrl: './ca-server-prices-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    CdkScrollable,
+    MatDialogContent,
+    CaServerPriceTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaServerPricesDialogComponent {
   private serverService = inject(CaServerService);

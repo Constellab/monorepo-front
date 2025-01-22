@@ -25,13 +25,34 @@ import {
   CaSpaceUserRoleDialogComponent,
   CaSpaceUserRoleDialogInput,
 } from '../../../../../ca-structure/ca-space-page/component/ca-space-user-role-dialog/ca-space-user-role-dialog.component';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaSpaceUserSearchFormComponent } from '../ca-space-user-search-form/ca-space-user-search-form.component';
+import { CaSpaceUserTableComponent } from '../ca-space-user-table/ca-space-user-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-space-user-search',
   templateUrl: './ca-space-user-search.component.html',
   styleUrls: ['./ca-space-user-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlSearchModule,
+    FlTextIconModule,
+    MatIcon,
+    CaIsAdminDirective,
+    MatIconButton,
+    MatTooltip,
+    CaSpaceUserSearchFormComponent,
+    CaSpaceUserTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaSpaceUserSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

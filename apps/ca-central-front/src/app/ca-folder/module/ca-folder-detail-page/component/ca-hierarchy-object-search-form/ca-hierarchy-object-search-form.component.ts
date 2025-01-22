@@ -1,21 +1,42 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib';
-import {
-  caHierarchyObjectTypeInfos,
-} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { caHierarchyObjectTypeInfos } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
+import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect, MatSelectTrigger } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaUserListInlineComponent } from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder
  */
 @Component({
-    selector: 'ca-hierarchy-object-search-form',
-    templateUrl: './ca-hierarchy-object-search-form.component.html',
-    styleUrl: './ca-hierarchy-object-search-form.component.scss',
-    standalone: false
+  selector: 'ca-hierarchy-object-search-form',
+  templateUrl: './ca-hierarchy-object-search-form.component.html',
+  styleUrl: './ca-hierarchy-object-search-form.component.scss',
+  imports: [
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatIcon,
+    MatPrefix,
+    MatSelect,
+    MatSelectTrigger,
+    MatOption,
+    CaHierarchyObjectIconComponent,
+    CaUserListInlineComponent,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit {
   searchState = inject(FlSearchState);

@@ -6,12 +6,29 @@ import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder
 import { FlConfirmDialogResult, FlSnackBarService } from '@monorepo/front-core-lib';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CaFolderDetailInfoComponent } from '../ca-folder-detail-info/ca-folder-detail-info.component';
+import { MatButton } from '@angular/material/button';
+import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/ca-folder-storage-settings.component';
+import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ca-folder-settings',
-    templateUrl: './ca-folder-settings.component.html',
-    styleUrls: ['./ca-folder-settings.component.scss'],
-    standalone: false
+  selector: 'ca-folder-settings',
+  templateUrl: './ca-folder-settings.component.html',
+  styleUrls: ['./ca-folder-settings.component.scss'],
+  imports: [
+    FlTextIconModule,
+    MatIcon,
+    CaFolderDetailInfoComponent,
+    MatButton,
+    CaFolderStorageSettingsComponent,
+    CaFolderStorageUsageSectionComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaFolderSettingsComponent {
   // only allow storage setting for root folders

@@ -14,12 +14,51 @@ import {
   CaCloudProviderRegionFormDialogInput,
 } from '../ca-admin-cloud-provider-region-form-dialog/ca-admin-cloud-provider-region-form-dialog.component';
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { CaCloudProviderInlineComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
+import { CaCityComponent } from '../../../ca-core/entity-module/ca-config-core/component/ca-city/ca-city.component';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-admin-bucket-region-table',
   templateUrl: './ca-admin-cloud-provider-region-table.component.html',
   styleUrls: ['./ca-admin-cloud-provider-region-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    CaCloudProviderInlineComponent,
+    CaCityComponent,
+    FlUserModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+  ],
 })
 export class CaAdminCloudProviderRegionTableComponent {
   private cloudProviderService = inject(CaCloudProviderService);

@@ -12,11 +12,10 @@
     } @else {
       <fl-user-profile-picture [user]="group.user" size="small"></fl-user-profile-picture>
     }
-
   </div>
 
   <ca-group-inline
     *flInputSearchOption="datasource as group"
     [group]="group"
-  [disableUserPortal]="true"></ca-group-inline>
+    [disableUserPortal]="true"></ca-group-inline>
 </fl-input-search>

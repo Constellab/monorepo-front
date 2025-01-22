@@ -4,12 +4,13 @@ import { RvResourceView } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { map } from 'rxjs/operators';
+import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
 
 @Component({
   selector: 'ca-note-content-view',
   templateUrl: './ca-note-content-view.component.html',
   styleUrls: ['./ca-note-content-view.component.scss'],
-  standalone: false,
+  imports: [RvResourceViewModule],
 })
 export class CaNoteContentViewComponent extends TeElementBlockDirective {
   private noteService = inject(CaNoteService);

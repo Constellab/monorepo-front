@@ -7,6 +7,11 @@ import {
 } from '../ca-team-form-dialog/ca-team-form-dialog.component';
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Action menu button to edit or delete a team
@@ -15,7 +20,7 @@ import { ClHelpService } from '@monorepo/core-lib';
   selector: 'ca-team-action-menu',
   templateUrl: './ca-team-action-menu.component.html',
   styleUrls: ['./ca-team-action-menu.component.scss'],
-  standalone: false,
+  imports: [MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, MatTooltip, TranslatePipe],
 })
 export class CaTeamActionMenuComponent implements OnInit {
   private dialogService = inject(FlDialogService);

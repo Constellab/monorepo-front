@@ -9,7 +9,7 @@
       <fl-select-user
         formControlName="user"
         [placeholder]="'user' | translate"
-      mode="allForAdmin"></fl-select-user>
+        mode="allForAdmin"></fl-select-user>
       @if (formGp.get('user').hasError('required')) {
         <mat-error>
           {{ 'user' | flErrorRequired }}

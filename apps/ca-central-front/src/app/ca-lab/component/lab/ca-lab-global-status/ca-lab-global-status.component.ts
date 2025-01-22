@@ -6,15 +6,36 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
+import { CaLabServerStatusComponent } from '../../server/ca-lab-server-status/ca-lab-server-status.component';
+import { CaLabLoginButtonComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
+import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show global information about the lab status
  */
 @Component({
-    selector: 'ca-lab-global-status',
-    templateUrl: './ca-lab-global-status.component.html',
-    styleUrls: ['./ca-lab-global-status.component.scss'],
-    standalone: false
+  selector: 'ca-lab-global-status',
+  templateUrl: './ca-lab-global-status.component.html',
+  styleUrls: ['./ca-lab-global-status.component.scss'],
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatButton,
+    CaLabCurrentTaskComponent,
+    CaLabServerStatusComponent,
+    CaLabLoginButtonComponent,
+    CaLabStartStopComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaLabGlobalStatusComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

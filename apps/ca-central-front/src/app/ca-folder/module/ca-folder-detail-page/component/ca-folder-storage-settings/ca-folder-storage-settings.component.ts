@@ -8,6 +8,12 @@ import {
   CaFolderConfigureStorageInput,
 } from '../ca-folder-configure-storage/ca-folder-configure-storage.component';
 import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show the storage settings of the folder (bucket) with possibility to configure it.
@@ -16,7 +22,14 @@ import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder
   selector: 'ca-folder-storage-settings',
   templateUrl: './ca-folder-storage-settings.component.html',
   styleUrls: ['./ca-folder-storage-settings.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlTextIconModule,
+    MatIcon,
+    CaBucketLocationInlineComponent,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class CaFolderStorageSettingsComponent implements OnInit {
   private folderService = inject(CaFolderService);

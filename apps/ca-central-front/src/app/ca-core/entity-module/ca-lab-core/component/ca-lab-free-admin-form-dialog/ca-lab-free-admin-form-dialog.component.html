@@ -9,7 +9,7 @@
       <fl-select-user
         formControlName="user"
         [placeholder]="'user' | translate"
-      [required]="true"></fl-select-user>
+        [required]="true"></fl-select-user>
       @if (formGp.get('user').hasError('required')) {
         <mat-error>
           {{ 'user' | flErrorRequired }}
@@ -22,7 +22,7 @@
       <ca-select-space
         formControlName="space"
         [placeholder]="'space' | translate"
-      [required]="true"></ca-select-space>
+        [required]="true"></ca-select-space>
       @if (formGp.get('space').hasError('required')) {
         <mat-error>
           {{ 'space' | flErrorRequired }}

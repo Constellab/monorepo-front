@@ -1,7 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlCoreComponentModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to change the app language of the current user
@@ -10,7 +14,15 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
   selector: 'ca-language-selection',
   templateUrl: './ca-language-selection.component.html',
   styleUrls: ['./ca-language-selection.component.scss'],
-  standalone: false,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    ReactiveFormsModule,
+    FormsModule,
+    FlCoreComponentModule,
+    TranslatePipe,
+  ],
 })
 export class CaLanguageSelectionComponent implements OnInit {
   private authenticatedUserService = inject(CaAuthenticatedUserService);

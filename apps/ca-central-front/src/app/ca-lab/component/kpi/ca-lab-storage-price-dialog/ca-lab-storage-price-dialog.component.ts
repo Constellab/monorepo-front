@@ -3,8 +3,19 @@ import {
   CaLabBackupPeriod,
   CaLabVolumePeriod,
 } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CaLabVolumePriceTableComponent } from '../ca-lab-volume-price-table/ca-lab-volume-price-table.component';
+import { CaLabBackupStoragePriceTableComponent } from '../ca-lab-backup-storage-price-table/ca-lab-backup-storage-price-table.component';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaLabStoragePriceDialogInput {
   volumes: CaLabVolumePeriod[];
@@ -27,10 +38,20 @@ class CaLabBackupArrayObs extends FlArrayObs<CaLabBackupPeriod> {
  * Dialog to show the detail for lab volume price and backup store price
  */
 @Component({
-    selector: 'ca-lab-storage-price-dialog',
-    templateUrl: './ca-lab-storage-price-dialog.component.html',
-    styleUrl: './ca-lab-storage-price-dialog.component.scss',
-    standalone: false
+  selector: 'ca-lab-storage-price-dialog',
+  templateUrl: './ca-lab-storage-price-dialog.component.html',
+  styleUrl: './ca-lab-storage-price-dialog.component.scss',
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    CaLabVolumePriceTableComponent,
+    CaLabBackupStoragePriceTableComponent,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    TranslatePipe,
+  ],
 })
 export class CaLabStoragePriceDialogComponent {
   data: CaLabStoragePriceDialogInput = inject(MAT_DIALOG_DATA);

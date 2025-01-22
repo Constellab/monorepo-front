@@ -2,9 +2,22 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CaLabCodelabDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlClipboardService } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog to show information about the codelab of a lab
@@ -13,7 +26,20 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
   selector: 'ca-lab-codelab-info',
   templateUrl: './ca-lab-codelab-info.component.html',
   styleUrls: ['./ca-lab-codelab-info.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    FlKeyValueModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    TranslatePipe,
+  ],
 })
 export class CaLabCodelabInfoComponent implements OnInit {
   private labId = inject(MAT_DIALOG_DATA);

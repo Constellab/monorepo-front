@@ -1,12 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
 import { CaYoutubeVideo } from '../../../ca-core/model/entities/server/ca-server-standard.class';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { NgOptimizedImage, NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ca-dashboard-videos',
-    templateUrl: './ca-dashboard-videos.component.html',
-    styleUrl: './ca-dashboard-videos.component.scss',
-    standalone: false
+  selector: 'ca-dashboard-videos',
+  templateUrl: './ca-dashboard-videos.component.html',
+  styleUrl: './ca-dashboard-videos.component.scss',
+  imports: [FlCardModule, FlTextIconModule, MatIcon, MatIconButton, NgOptimizedImage, NgClass, TranslatePipe],
 })
 export class CaDashboardVideosComponent implements OnInit {
   private settingsService = inject(CaSettingsService);

@@ -9,13 +9,18 @@ import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.component';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { CaSpaceInlineComponent } from '../ca-space-inline/ca-space-inline.component';
 
 @Component({
   selector: 'ca-select-space',
   templateUrl: './ca-select-space.component.html',
   styleUrls: ['./ca-select-space.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectSpaceComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, CaSpacePhotoComponent, MatIcon, FlIconModule, CaSpaceInlineComponent],
 })
 export class CaSelectSpaceComponent extends FlFormFieldDirective<CaSpace> implements OnInit {
   private spaceService = inject(CaSpaceService);

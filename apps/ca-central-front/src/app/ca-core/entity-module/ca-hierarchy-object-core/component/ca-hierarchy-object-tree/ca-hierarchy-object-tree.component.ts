@@ -5,11 +5,25 @@ import {
   CaHierarchyObjectWithChildren,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { FlFlatTreeControl } from '@monorepo/front-core-lib';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import {
+  MatTreeFlatDataSource,
+  MatTreeFlattener,
+  MatTree,
+  MatTreeNodeDef,
+  MatTreeNode,
+  MatTreeNodePadding,
+  MatTreeNodeToggle,
+} from '@angular/material/tree';
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
 import { combineLatest, Observable } from 'rxjs';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { NgClass } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { RouterLink } from '@angular/router';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 
 interface CaFolderFlatNode {
   id: string;
@@ -23,10 +37,22 @@ interface CaFolderFlatNode {
 }
 
 @Component({
-    selector: 'ca-hierarchy-object-tree',
-    templateUrl: './ca-hierarchy-object-tree.component.html',
-    styleUrl: './ca-hierarchy-object-tree.component.scss',
-    standalone: false
+  selector: 'ca-hierarchy-object-tree',
+  templateUrl: './ca-hierarchy-object-tree.component.html',
+  styleUrl: './ca-hierarchy-object-tree.component.scss',
+  imports: [
+    MatTree,
+    MatTreeNodeDef,
+    MatTreeNode,
+    MatTreeNodePadding,
+    NgClass,
+    MatIconButton,
+    MatTreeNodeToggle,
+    MatIcon,
+    CaHierarchyObjectIconComponent,
+    RouterLink,
+    CaNotificationMarkDirective,
+  ],
 })
 export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   @Input({ required: true }) hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;

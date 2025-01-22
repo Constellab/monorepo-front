@@ -3,6 +3,8 @@ import { CaUser } from '../../../../model/entities/ca-user.class';
 import { FL_PORTAL_DATA, FlKeyboardKey, FlOverlayRef } from '@monorepo/front-core-lib';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, Subscription, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NgClass } from '@angular/common';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
 
 export interface CaUserMentionPortalInput {
   users$: Observable<CaUser[]>;
@@ -23,7 +25,7 @@ export interface CaUserMentionPortalResult {
   selector: 'ca-user-mention-portal',
   templateUrl: './ca-user-mention-portal.component.html',
   styleUrl: './ca-user-mention-portal.component.scss',
-  standalone: false,
+  imports: [NgClass, FlUserModule],
 })
 export class CaUserMentionPortalComponent implements OnInit, OnDestroy {
   private data = inject<CaUserMentionPortalInput>(FL_PORTAL_DATA);

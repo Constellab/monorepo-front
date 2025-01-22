@@ -6,12 +6,39 @@ import {
 } from '../../ca-core/model/entities/ca-notification.class';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
+import { FlPortalModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlInfiniteScrollModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
+import { FlUserModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlTextIconModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlDateModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-notifications-portal',
   templateUrl: './ca-notifications-portal.component.html',
   styleUrls: ['./ca-notifications-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    FlInfiniteScrollModule,
+    MatDivider,
+    RouterLink,
+    FlUserModule,
+    MatTooltip,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlDateModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaNotificationsPortalComponent {
   private notificationState = inject(CaNotificationState);

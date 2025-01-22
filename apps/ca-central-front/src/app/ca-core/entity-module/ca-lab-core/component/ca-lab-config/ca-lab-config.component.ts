@@ -7,12 +7,17 @@ import {
   LmlBrickVersionDetailDialogComponent,
   LmlBrickVersionDetailDialogInput,
 } from '@monorepo/lab-manager-lib';
+import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatAnchor, MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ca-lab-config',
-    templateUrl: './ca-lab-config.component.html',
-    styleUrls: ['./ca-lab-config.component.scss'],
-    standalone: false
+  selector: 'ca-lab-config',
+  templateUrl: './ca-lab-config.component.html',
+  styleUrls: ['./ca-lab-config.component.scss'],
+  imports: [FlKeyValueModule, MatAnchor, MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class CaLabConfigComponent {
   @Input({ required: true }) labConfig: CaLabConfig;

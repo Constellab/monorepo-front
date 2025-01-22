@@ -13,12 +13,47 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../ca-document-action-menu';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-document-table',
   templateUrl: './ca-document-table.component.html',
   styleUrls: ['./ca-document-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    CaHierarchyObjectIconComponent,
+    FlUserModule,
+    MatIconButton,
+    MatIcon,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaDocumentTableComponent {
   private folderService = inject(CaFolderService);

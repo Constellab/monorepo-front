@@ -17,8 +17,17 @@ import {
   CaLabStatus,
   CaLabStatusHistoryDatasource,
 } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Type } from 'class-transformer';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlSearchModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { CaStatusHistoryTableComponent } from '../../../../ca-core/module/ca-status/ca-status-history-table/ca-status-history-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export class CaLabStatusHistorySearchFields {
   @Type(() => FlSearchDateInterval)
@@ -70,7 +79,19 @@ export class CaLabStatusHistorySearch {
   templateUrl: './ca-lab-status-history-page.component.html',
   styleUrls: ['./ca-lab-status-history-page.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlSearchModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    CaStatusHistoryTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaLabStatusHistoryPageComponent implements OnInit {
   private state = inject(CaLabDetailPageState);

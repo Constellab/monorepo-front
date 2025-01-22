@@ -4,10 +4,19 @@ import {
   CaServerStandard,
   CaServerStandardSaveDTO,
 } from '../../../../model/entities/server/ca-server-standard.class';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaServerService } from '../../../../service-api/ca-server.service';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandardSaveDTO>;
 
@@ -15,7 +24,23 @@ export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandard
   selector: 'ca-server-standard-form-dialog',
   templateUrl: './ca-server-standard-form-dialog.component.html',
   styleUrl: './ca-server-standard-form-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatError,
+    MatHint,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaServerStandardFormDialogComponent
   extends FlFormDialogAbstractDirective<CaServerStandardSaveDTO, CaServerStandard>

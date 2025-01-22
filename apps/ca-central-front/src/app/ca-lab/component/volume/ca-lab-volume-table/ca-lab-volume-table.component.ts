@@ -5,12 +5,47 @@ import {
 } from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
-    selector: 'ca-lab-volume-table',
-    templateUrl: './ca-lab-volume-table.component.html',
-    styleUrl: './ca-lab-volume-table.component.scss',
-    standalone: false
+  selector: 'ca-lab-volume-table',
+  templateUrl: './ca-lab-volume-table.component.html',
+  styleUrl: './ca-lab-volume-table.component.scss',
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaLabVolumeTableComponent {
   @Input({ required: true }) labId: string;

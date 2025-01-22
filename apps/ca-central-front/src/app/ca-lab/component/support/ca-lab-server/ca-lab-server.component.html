@@ -25,18 +25,16 @@
         <div>
           <div class="g-layout-row g-layout-start-center">
             @if (status.serverTaskStatus.value === 'RUNNING') {
-              <fl-loader
-                size="small"
-              class="task-loader"></fl-loader>
+              <fl-loader size="small" class="task-loader"></fl-loader>
             } @else {
               <fl-status-chip [status]="status.serverTaskStatus" size="small" class="status"></fl-status-chip>
             }
             <div class="no-shrink">
               {{
-              (status.serverTaskStatus.value === 'RUNNING'
-              ? 'lab_server_current_task'
-              : 'lab_server_last_task'
-              ) | translate
+                (status.serverTaskStatus.value === 'RUNNING'
+                  ? 'lab_server_current_task'
+                  : 'lab_server_last_task'
+                ) | translate
               }}
             </div>
             <div class="task-time-separator">-</div>
@@ -44,9 +42,7 @@
             <div>{{ status.serverTaskText }}</div>
             <div class="task-time-separator">-</div>
             @if (status.serverTaskDatetime) {
-              <fl-from-now
-                [date]="status.serverTaskDatetime"
-              class="no-shrink"></fl-from-now>
+              <fl-from-now [date]="status.serverTaskDatetime" class="no-shrink"></fl-from-now>
             }
           </div>
         </div>

@@ -13,6 +13,25 @@ import {
 } from '../ca-space-user-role-dialog/ca-space-user-role-dialog.component';
 import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 /**
  * Table for the SpaceInvit entity with actions
@@ -21,7 +40,27 @@ import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-u
   selector: 'ca-space-invit-table',
   templateUrl: './ca-space-invit-table.component.html',
   styleUrls: ['./ca-space-invit-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatTooltip,
+    NgClass,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaSpaceInvitTableComponent {
   private spaceInvitService = inject(CaSpaceInvitService);

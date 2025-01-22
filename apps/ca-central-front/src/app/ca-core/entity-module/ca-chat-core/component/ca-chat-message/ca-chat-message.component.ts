@@ -5,6 +5,16 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { TeRichText } from '@monorepo/text-editor';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show a message in a chat
@@ -13,7 +23,19 @@ import { TeRichText } from '@monorepo/text-editor';
   selector: 'ca-chat-message',
   templateUrl: './ca-chat-message.component.html',
   styleUrl: './ca-chat-message.component.scss',
-  standalone: false,
+  imports: [
+    CaNotificationMarkDirective,
+    FlUserModule,
+    FlDateModule,
+    CaChatWriteMessageComponent,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    TranslatePipe,
+  ],
 })
 export class CaChatMessageComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);

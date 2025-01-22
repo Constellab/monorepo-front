@@ -13,6 +13,17 @@ import {
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
+import { FlPortalModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { RouterLink } from '@angular/router';
+import { CaSpacePhotoComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import { MatDivider } from '@angular/material/divider';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaExternalSpaceLinkDirective } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
+import { CaSpaceInlineComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-inline/ca-space-inline.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Portal to list the space of the user with possibility to switch between them
@@ -21,7 +32,19 @@ import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-auth
   selector: 'ca-my-spaces-portal',
   templateUrl: './ca-my-spaces-portal.component.html',
   styleUrls: ['./ca-my-spaces-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    RouterLink,
+    CaSpacePhotoComponent,
+    MatDivider,
+    FlTextIconModule,
+    MatIcon,
+    FlSectionModule,
+    CaExternalSpaceLinkDirective,
+    CaSpaceInlineComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaMySpacesPortalComponent implements OnInit {
   private spaceService = inject(CaSpaceService);

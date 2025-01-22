@@ -1,9 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { Observable } from 'rxjs';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaSelectServerStandardOptionsComponent } from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
+import { CaSelectDiskTypeOptionsComponent } from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog to create or update a server info
@@ -12,7 +26,26 @@ import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
   selector: 'ca-server-cloud-form-dialog',
   templateUrl: './ca-server-cloud-form-dialog.component.html',
   styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    CaSelectCloudProviderOptionsComponent,
+    MatError,
+    MatInput,
+    FlCoreDirectiveModule,
+    CaSelectServerStandardOptionsComponent,
+    CaSelectDiskTypeOptionsComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaServerCloudFormDialogComponent
   extends FlFormDialogAbstractDirective<CaServerCloud>

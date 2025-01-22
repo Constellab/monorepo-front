@@ -1,9 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
 import { CaCloudProviderRegion } from '../../../ca-core/model/entities/ca-cloud-provider.class';
+import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CaSelectCloudProviderOptionsComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
+import { CaSelectOptionsCityComponent } from '../../../ca-core/entity-module/ca-config-core/component/ca-select-city-options/ca-select-options-city.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProviderRegion>;
 
@@ -16,7 +29,25 @@ export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProv
   selector: 'ca-admin-bucket-region-form-dialog',
   templateUrl: './ca-admin-cloud-provider-region-form-dialog.component.html',
   styleUrls: ['./ca-admin-cloud-provider-region-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatError,
+    MatInput,
+    FlCoreDirectiveModule,
+    CaSelectCloudProviderOptionsComponent,
+    CaSelectOptionsCityComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class CaAdminCloudProviderRegionFormDialogComponent
   extends FlFormDialogAbstractDirective<CaCloudProviderRegion, CaCloudProviderRegion>

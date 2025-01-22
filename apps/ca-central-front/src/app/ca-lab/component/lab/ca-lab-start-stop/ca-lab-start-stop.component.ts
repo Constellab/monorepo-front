@@ -14,6 +14,11 @@ import {
   CaLabStopDialogComponent,
   CaStopLabDialogInput,
 } from '../ca-lab-stop-dialog/ca-lab-stop-dialog.component';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Toggle button to start or stop the lab
@@ -22,7 +27,7 @@ import {
   selector: 'ca-lab-start-stop',
   templateUrl: './ca-lab-start-stop.component.html',
   styleUrls: ['./ca-lab-start-stop.component.scss'],
-  standalone: false,
+  imports: [MatButton, MatIcon, MatTooltip, AsyncPipe, TranslatePipe],
 })
 export class CaLabStartStopComponent {
   private state = inject(CaLabDetailPageState);

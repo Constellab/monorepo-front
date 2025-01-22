@@ -12,6 +12,14 @@ import {
 } from '@monorepo/front-core-lib';
 import { CaLabBackupsStatusesAdminComponent } from '../ca-lab-backups-statuses-admin/ca-lab-backups-statuses-admin.component';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CaIsAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { MatButton } from '@angular/material/button';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { CaLabBackupStatusTableComponent } from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Statuses of all lab backups
@@ -20,7 +28,16 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
   selector: 'ca-lab-backups-statuses',
   templateUrl: './ca-lab-backups-statuses.component.html',
   styleUrls: ['./ca-lab-backups-statuses.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    CaIsAdminDirective,
+    MatButton,
+    FlSectionModule,
+    CaLabBackupStatusTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaLabBackupsStatusesComponent implements OnInit {
   private labService = inject(CaLabService);

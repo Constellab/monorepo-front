@@ -14,20 +14,26 @@ import {
   FlSnackBarService,
 } from '@monorepo/front-core-lib';
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TeRichText } from '@monorepo/text-editor';
-import {
-  CaHierarchyObjectDetailState,
-} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaDocumentActionDetailMenu,
   CaDocumentActionEvent,
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
-import {
-  CaConstellabDocumentHistoryService,
-} from '../../../../../ca-core/service/ca-constellab-document-history.service';
+import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/service/ca-constellab-document-history.service';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -36,7 +42,20 @@ import {
   selector: 'ca-document-detail-page',
   templateUrl: './ca-document-detail-page.component.html',
   styleUrls: ['./ca-document-detail-page.component.scss'],
-  standalone: false,
+  imports: [
+    CaHierarchyObjectBreadcrumbComponent,
+    FlSectionModule,
+    FlFormModule,
+    FlCardModule,
+    MatButton,
+    MatIcon,
+    MatIconButton,
+    FlUserModule,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    NgClass,
+    TranslatePipe,
+  ],
 })
 export class CaDocumentDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -1,13 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { FlDialogService, FlPasswordForgottenComponent, FlSnackBarService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
+import { FlAuthModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-login-page',
   templateUrl: './ca-login-page.component.html',
   styleUrls: ['./ca-login-page.component.scss'],
-  standalone: false,
+  imports: [FlAuthModule, RouterLink, TranslatePipe],
 })
 export class CaLoginPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

@@ -4,12 +4,33 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabFormDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { CaLabCardComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-card/ca-lab-card.component';
+import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaDetailRoutePipe } from '../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-my-labs-page',
   templateUrl: './ca-my-labs-page.component.html',
   styleUrls: ['./ca-my-labs-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatButton,
+    RouterLink,
+    CaLabCardComponent,
+    FlInfiniteScrollModule,
+    CaDetailRoutePipe,
+    TranslatePipe,
+  ],
 })
 export class CaMyLabsPageComponent implements OnInit {
   private labService = inject(CaLabService);

@@ -13,6 +13,19 @@ import { Observable } from 'rxjs';
 import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-request-new-licenses.component';
 import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 import { map } from 'rxjs/operators';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlImageModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
+import { CaSpacePhotoComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Show all the information about a space
@@ -21,7 +34,22 @@ import { map } from 'rxjs/operators';
   selector: 'ca-current-space-detail',
   templateUrl: './ca-current-space-detail.component.html',
   styleUrls: ['./ca-current-space-detail.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    CaIsSpaceAdminDirective,
+    MatButton,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    FlImageModule,
+    CaSpacePhotoComponent,
+    FlFormModule,
+    FlTextIconModule,
+    FlIconModule,
+    FlKeyValueModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaCurrentSpaceDetailComponent implements OnInit {
   private dialogService = inject(FlDialogService);

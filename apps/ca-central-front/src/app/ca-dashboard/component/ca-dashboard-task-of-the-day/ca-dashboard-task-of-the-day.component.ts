@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { MatAnchor } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaTask {
   id: string;
@@ -15,7 +19,7 @@ export interface CaTask {
   selector: 'ca-dashboard-task-of-the-day',
   templateUrl: './ca-dashboard-task-of-the-day.component.html',
   styleUrls: ['./ca-dashboard-task-of-the-day.component.scss'],
-  standalone: false,
+  imports: [FlCardModule, MatAnchor, MatIcon, TranslatePipe],
 })
 export class CaDashboardTaskOfTheDayComponent implements OnInit {
   private http = inject(HttpClient);

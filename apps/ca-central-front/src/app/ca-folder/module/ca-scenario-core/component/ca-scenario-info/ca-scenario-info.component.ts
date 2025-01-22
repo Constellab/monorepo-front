@@ -1,12 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { TeBasicConfig } from '@monorepo/text-editor';
+import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
+import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'ca-scenario-info',
-    templateUrl: './ca-scenario-info.component.html',
-    styleUrls: ['./ca-scenario-info.component.scss'],
-    standalone: false
+  selector: 'ca-scenario-info',
+  templateUrl: './ca-scenario-info.component.html',
+  styleUrls: ['./ca-scenario-info.component.scss'],
+  imports: [
+    CaValidatedObjectInfoComponent,
+    CaSyncObjectInfoComponent,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
 })
 export class CaScenarioInfoComponent {
   @Input() scenario: CaScenario;

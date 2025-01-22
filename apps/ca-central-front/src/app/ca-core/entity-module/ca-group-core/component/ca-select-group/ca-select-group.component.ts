@@ -9,13 +9,19 @@ import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { CaGroupInlineComponent } from '../ca-group-inline/ca-group-inline.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-select-group',
   templateUrl: './ca-select-group.component.html',
   styleUrls: ['./ca-select-group.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: CaSelectGroupComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, MatIcon, FlIconModule, FlUserModule, CaGroupInlineComponent, TranslatePipe],
 })
 export class CaSelectGroupComponent extends FlFormFieldDirective<CaGroup> implements OnInit {
   private groupService = inject(CaGroupService);

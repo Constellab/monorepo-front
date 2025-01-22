@@ -4,10 +4,7 @@ import { CaNotificationState, CaNotificationStateFind } from '../../../../state/
 import { mergeMap, Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Directive({
-  selector: '[caNotificationMark]',
-  standalone: false,
-})
+@Directive({ selector: '[caNotificationMark]' })
 export class CaNotificationMarkDirective implements OnInit, OnDestroy {
   private notifState = inject(CaNotificationState);
   private changeDetectorRef = inject(ChangeDetectorRef);

@@ -52,7 +52,7 @@
           @for (serverCloud of serverClouds; track serverCloud.id) {
             <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig class="accent">
               <ca-cloud-provider-inline
-              [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
+                [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
               <div class="g-text-small g-text-light radio-description">
                 <div>{{ serverCloud.cloudProvider.description }}</div>

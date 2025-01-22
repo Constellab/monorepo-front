@@ -4,6 +4,9 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
 import { TeRichText } from '@monorepo/text-editor';
 import { map } from 'rxjs/operators';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 /**
  * Component to show the note content in a disabled text editor
@@ -12,7 +15,7 @@ import { map } from 'rxjs/operators';
   selector: 'ca-note-content',
   templateUrl: './ca-note-content.component.html',
   styleUrls: ['./ca-note-content.component.scss'],
-  standalone: false,
+  imports: [FlSectionModule, TeTextEditorModule, ReactiveFormsModule, FormsModule],
 })
 export class CaNoteContentComponent implements OnInit {
   private noteService = inject(CaNoteService);

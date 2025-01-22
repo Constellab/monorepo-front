@@ -1,14 +1,25 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { CaMainMenuLink, caMainMenuLinks } from '../../model/ca-main-menu-link.class';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
 import { CaNotificationsPortalComponent } from '../../../ca-notifications/ca-notifications-portal/ca-notifications-portal.component';
 import { CaMySpacesPortalComponent } from '../ca-my-spaces-portal/ca-my-spaces-portal.component';
-import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { map } from 'rxjs/operators';
 import { CaNotificationState } from '../../../ca-core/state/ca-notification.state';
+import { FlExpansionMenuModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-expansion-menu/fl-expansion-menu.module';
+import { AsyncPipe, NgClass, NgOptimizedImage } from '@angular/common';
+import { MatBadge } from '@angular/material/badge';
+import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { CaAuthenticatedUserInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Main app component. Menu on the left and page on the right
@@ -17,7 +28,27 @@ import { CaNotificationState } from '../../../ca-core/state/ca-notification.stat
   selector: 'ca-main-app',
   templateUrl: './ca-main-app.component.html',
   styleUrls: ['./ca-main-app.component.scss'],
-  standalone: false,
+  imports: [
+    MatSidenavContainer,
+    MatSidenav,
+    FlExpansionMenuModule,
+    NgClass,
+    MatBadge,
+    FlCoreDirectiveModule,
+    NgOptimizedImage,
+    MatAnchor,
+    RouterLinkActive,
+    RouterLink,
+    MatTooltip,
+    MatIcon,
+    FlIconModule,
+    MatButton,
+    CaAuthenticatedUserInlineComponent,
+    MatSidenavContent,
+    RouterOutlet,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class CaMainAppComponent implements OnInit {
   private authenticatedUserService = inject(CaAuthenticatedUserService);

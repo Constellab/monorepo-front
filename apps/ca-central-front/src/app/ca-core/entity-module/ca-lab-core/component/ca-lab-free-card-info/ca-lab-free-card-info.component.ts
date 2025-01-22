@@ -7,6 +7,16 @@ import {
   CaLabFreeFormDialogComponent,
   CaLabFreeFormDialogInput,
 } from '../ca-lab-free-form-dialog/ca-lab-free-form-dialog.component';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { CaLabFreeInfoComponent } from '../ca-lab-free-info/ca-lab-free-info.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Accessible by admin to show the free lab info of a user
@@ -16,7 +26,18 @@ import {
   selector: 'ca-lab-free-card-info',
   templateUrl: './ca-lab-free-card-info.component.html',
   styleUrls: ['./ca-lab-free-card-info.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    CaIsAdminDirective,
+    MatIconButton,
+    MatTooltip,
+    CaLabFreeInfoComponent,
+    TranslatePipe,
+  ],
 })
 export class CaLabFreeCardInfoComponent implements OnInit {
   private labService = inject(CaLabService);

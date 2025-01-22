@@ -10,6 +10,14 @@ import {
 } from '../ca-space-invit-form-dialog/ca-space-invit-form-dialog.component';
 import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CaSpaceInvitTableComponent } from '../ca-space-invit-table/ca-space-invit-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * List the invitations of the space
@@ -18,7 +26,16 @@ import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-in
   selector: 'ca-current-space-invit-list',
   templateUrl: './ca-current-space-invit-list.component.html',
   styleUrls: ['./ca-current-space-invit-list.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    FlInfiniteScrollModule,
+    CaSpaceInvitTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaCurrentSpaceInvitListComponent implements OnInit {
   private spaceInvitService = inject(CaSpaceInvitService);

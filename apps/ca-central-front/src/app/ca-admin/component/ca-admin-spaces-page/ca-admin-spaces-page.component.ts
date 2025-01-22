@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib';
+import { CaSpaceSearchComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-search/ca-space-search.component';
 
 /**
  * Search page for all the spaces
@@ -9,7 +10,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
   selector: 'ca-admin-spaces-page',
   templateUrl: './ca-admin-spaces-page.component.html',
   styleUrls: ['./ca-admin-spaces-page.component.scss'],
-  standalone: false,
+  imports: [CaSpaceSearchComponent],
 })
 export class CaAdminSpacesPageComponent {
   constructor() {

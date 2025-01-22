@@ -25,12 +25,33 @@ import {
   CaLabConfigDialogInput,
 } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatButton } from '@angular/material/button';
+import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { PrProtocolModule } from '../../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { CaScenarioTechnicalReportGraphComponent } from '../ca-scenario-technical-report-graph/ca-scenario-technical-report-graph.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-scenario-technical-report',
   templateUrl: './ca-scenario-technical-report.component.html',
   styleUrls: ['./ca-scenario-technical-report.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatButton,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    PrProtocolModule,
+    CaScenarioTechnicalReportGraphComponent,
+    TranslatePipe,
+  ],
 })
 export class CaScenarioTechnicalReportComponent implements OnInit, OnDestroy {
   private scenarioService = inject(CaScenarioService);

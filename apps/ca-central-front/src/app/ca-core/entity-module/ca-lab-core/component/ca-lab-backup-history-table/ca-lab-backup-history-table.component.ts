@@ -5,12 +5,47 @@ import {
 } from '../../../../model/entities/lab/ca-lab-backup.class';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { ClDateHelper } from '@monorepo/core-lib';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { FlStatusModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
+import { CaLabBackupHistoryDetailComponent } from '../ca-lab-backup-history-detail/ca-lab-backup-history-detail.component';
+import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
-    selector: 'ca-lab-backup-history-table',
-    templateUrl: './ca-lab-backup-history-table.component.html',
-    styleUrls: ['./ca-lab-backup-history-table.component.scss'],
-    standalone: false
+  selector: 'ca-lab-backup-history-table',
+  templateUrl: './ca-lab-backup-history-table.component.html',
+  styleUrls: ['./ca-lab-backup-history-table.component.scss'],
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    FlStatusModule,
+    CaCloudProviderRegionInlineComponent,
+    CaLabBackupHistoryDetailComponent,
+    FlKeyValueModule,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class CaLabBackupHistoryTableComponent {
   @Input({ required: true }) datasource: CaLabBackupHistoryDatasource;

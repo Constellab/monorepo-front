@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
+import { FlHorizontalNavBarModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Global page for admin
  */
 @Component({
-    selector: 'ca-admin-page',
-    templateUrl: './ca-admin-page.component.html',
-    styleUrls: ['./ca-admin-page.component.scss'],
-    standalone: false
+  selector: 'ca-admin-page',
+  templateUrl: './ca-admin-page.component.html',
+  styleUrls: ['./ca-admin-page.component.scss'],
+  imports: [FlHorizontalNavBarModule, FlTextIconModule, MatIcon, RouterOutlet, TranslatePipe],
 })
 export class CaAdminPageComponent {
   routes: FlHorizontalNavBarItem[] = [

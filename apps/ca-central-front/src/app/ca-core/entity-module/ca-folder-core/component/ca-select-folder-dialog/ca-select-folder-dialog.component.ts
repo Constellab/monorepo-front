@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlTableColumnStatic, FlTranslatableText } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -10,7 +10,19 @@ import {
   CaHierarchyObjectType,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
-import { CaHierarchyObjectTableEvent } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import {
+  CaHierarchyObjectTableEvent,
+  CaHierarchyObjectTableComponent,
+} from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 export interface CaSelectFolderDialogInput {
   /**
@@ -30,7 +42,21 @@ export interface CaSelectFolderDialogInput {
   selector: 'ca-select-folder-dialog',
   templateUrl: './ca-select-folder-dialog.component.html',
   styleUrl: './ca-select-folder-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlInfiniteScrollModule,
+    CaHierarchyObjectTableComponent,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatDialogActions,
+    MatButton,
+    AsyncPipe,
+    TranslatePipe,
+    FlTranslateModule,
+  ],
 })
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<CaSelectFolderDialogComponent>>(MatDialogRef);

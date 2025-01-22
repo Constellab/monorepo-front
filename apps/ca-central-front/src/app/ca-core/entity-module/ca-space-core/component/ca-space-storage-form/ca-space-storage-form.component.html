@@ -9,7 +9,7 @@
       @if (formGp.get('defaultFolderStorageLocation').value) {
         <mat-select-trigger>
           <ca-bucket-location-inline
-          [bucketLocation]="formGp.get('defaultFolderStorageLocation').value"></ca-bucket-location-inline>
+            [bucketLocation]="formGp.get('defaultFolderStorageLocation').value"></ca-bucket-location-inline>
         </mat-select-trigger>
       }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>
@@ -33,9 +33,9 @@
       @if (formGp.get('defaultFolderBackupStorageLocation').value) {
         <mat-select-trigger>
           <ca-bucket-location-inline
-          [bucketLocation]="
-            formGp.get('defaultFolderBackupStorageLocation').value
-          "></ca-bucket-location-inline>
+            [bucketLocation]="
+              formGp.get('defaultFolderBackupStorageLocation').value
+            "></ca-bucket-location-inline>
         </mat-select-trigger>
       }
       <ca-bucket-location-select-options mode="all"></ca-bucket-location-select-options>

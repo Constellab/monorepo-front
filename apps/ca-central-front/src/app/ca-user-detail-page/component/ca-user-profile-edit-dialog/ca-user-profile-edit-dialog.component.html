@@ -14,66 +14,66 @@
           required
           flInputMaxLength="50"
           [placeholder]="'firstname' | translate" />
-          @if (formGp.get('firstname').hasError('required')) {
-            <mat-error>
-              {{ 'firstname' | flErrorRequired }}
-            </mat-error>
-          }
-        </mat-form-field>
-
-        <mat-form-field class="half-input">
-          <mat-label>{{ 'lastname' | translate }}</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="lastname"
-            required
-            flInputMaxLength="50"
-            [placeholder]="'lastname' | translate" />
-            @if (formGp.get('lastname').hasError('required')) {
-              <mat-error>
-                {{ 'lastname' | flErrorRequired }}
-              </mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field class="half-input">
-            <mat-label>{{ 'phone_number' | translate }}</mat-label>
-            <input matInput formControlName="phone" flInputMaxLength="50" />
-          </mat-form-field>
-
-          <mat-form-field class="half-input">
-            <mat-label>{{ 'company' | translate }}</mat-label>
-            <input matInput type="text" formControlName="company" flInputMaxLength="100" />
-          </mat-form-field>
-        </div>
-
-        <mat-form-field class="g-form-input">
-          <mat-label>{{ 'activity' | translate }}</mat-label>
-          <input matInput type="text" formControlName="activity" flInputMaxLength="100" />
-        </mat-form-field>
-
-        <mat-form-field class="g-form-input">
-          <mat-label>{{ 'biography' | translate }}</mat-label>
-          <textarea
-            matInput
-            formControlName="biography"
-            class="biography-input"
-          flInputMaxLength="255"></textarea>
-        </mat-form-field>
-      </form>
-    </mat-dialog-content>
-
-    <div mat-dialog-actions>
-      <button
-        mat-raised-button
-        type="submit"
-        form="edit-user-form"
-        class="g-centered-forced primary"
-        (submit)="submit()">
-        {{ 'save' | translate }}
-        @if (isLoading) {
-          <fl-button-loader></fl-button-loader>
+        @if (formGp.get('firstname').hasError('required')) {
+          <mat-error>
+            {{ 'firstname' | flErrorRequired }}
+          </mat-error>
         }
-      </button>
+      </mat-form-field>
+
+      <mat-form-field class="half-input">
+        <mat-label>{{ 'lastname' | translate }}</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="lastname"
+          required
+          flInputMaxLength="50"
+          [placeholder]="'lastname' | translate" />
+        @if (formGp.get('lastname').hasError('required')) {
+          <mat-error>
+            {{ 'lastname' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="half-input">
+        <mat-label>{{ 'phone_number' | translate }}</mat-label>
+        <input matInput formControlName="phone" flInputMaxLength="50" />
+      </mat-form-field>
+
+      <mat-form-field class="half-input">
+        <mat-label>{{ 'company' | translate }}</mat-label>
+        <input matInput type="text" formControlName="company" flInputMaxLength="100" />
+      </mat-form-field>
     </div>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'activity' | translate }}</mat-label>
+      <input matInput type="text" formControlName="activity" flInputMaxLength="100" />
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'biography' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="biography"
+        class="biography-input"
+        flInputMaxLength="255"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-raised-button
+    type="submit"
+    form="edit-user-form"
+    class="g-centered-forced primary"
+    (submit)="submit()">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

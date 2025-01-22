@@ -6,12 +6,29 @@ import {
   CaStoragePrice,
   CaStoragePriceDatasource,
 } from '../../../../model/entities/server/ca-storage-price.class';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent } from '@angular/material/dialog';
+import { CaStoragePriceTableComponent } from '../ca-storage-price-table/ca-storage-price-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-storage-prices-dialog',
   templateUrl: './ca-storage-prices-dialog.component.html',
   styleUrl: './ca-storage-prices-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    CdkScrollable,
+    MatDialogContent,
+    CaStoragePriceTableComponent,
+    TranslatePipe,
+  ],
 })
 export class CaStoragePricesDialogComponent {
   private serverService = inject(CaServerService);

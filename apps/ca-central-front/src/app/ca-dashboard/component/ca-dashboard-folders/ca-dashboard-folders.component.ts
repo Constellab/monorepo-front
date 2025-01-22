@@ -5,6 +5,7 @@ import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class
 import { CaDashboardListLayoutComponent } from '../ca-dashboard-list-layout/ca-dashboard-list-layout.component';
 import { CaHierarchyObjectDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaHierarchyObjectCardComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-card/ca-hierarchy-object-card.component';
 
 /**
  * Small list of folder in the dashboard
@@ -13,7 +14,7 @@ import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-
   selector: 'ca-dashboard-folders',
   templateUrl: './ca-dashboard-folders.component.html',
   styleUrls: ['./ca-dashboard-folders.component.scss'],
-  standalone: false,
+  imports: [CaDashboardListLayoutComponent, CaHierarchyObjectCardComponent],
 })
 export class CaDashboardFoldersComponent implements OnInit {
   private folderService = inject(CaFolderService);

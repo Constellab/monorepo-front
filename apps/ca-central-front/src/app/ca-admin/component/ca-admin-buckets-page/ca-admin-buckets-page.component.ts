@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FlTranslateService } from '@monorepo/front-core-lib';
+import { CaBucketSearchComponent } from '../bucket/ca-bucket-search/ca-bucket-search.component';
 
 /**
  * Search page for all bucket
@@ -9,7 +10,7 @@ import { FlTranslateService } from '@monorepo/front-core-lib';
   selector: 'ca-ca-admin-buckets-page',
   templateUrl: './ca-admin-buckets-page.component.html',
   styleUrls: ['./ca-admin-buckets-page.component.scss'],
-  standalone: false,
+  imports: [CaBucketSearchComponent],
 })
 export class CaAdminBucketsPageComponent {
   constructor() {
