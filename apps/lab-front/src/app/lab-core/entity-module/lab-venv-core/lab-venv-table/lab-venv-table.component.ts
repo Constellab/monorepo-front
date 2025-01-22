@@ -11,12 +11,47 @@ import {
   LabVenvDetailDialogInput,
 } from '../lab-venv-detail-dialog/lab-venv-detail-dialog.component';
 import { LabVenvService } from '../../../entity-service/lab-venv.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-venv-table',
   templateUrl: './lab-venv-table.component.html',
   styleUrls: ['./lab-venv-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    FlDateModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+  ],
 })
 export class LabVenvTableComponent {
   private dialogService = inject(FlDialogService);

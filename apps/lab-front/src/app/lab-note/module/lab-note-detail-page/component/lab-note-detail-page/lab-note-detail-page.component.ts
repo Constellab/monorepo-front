@@ -26,20 +26,61 @@ import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
 import { first } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   TeRichText,
   TeRichTextDTO,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { LabSyncObjectButtonComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { LabTagListComponent } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import { LabFolderInlineSelectComponent } from '../../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
+import { LabObjectValidationInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
+import { LabObjectSyncInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-note-detail-page',
   templateUrl: './lab-note-detail-page.component.html',
   styleUrls: ['./lab-note-detail-page.component.scss'],
   providers: [LabNoteDetailPageState],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    MatIcon,
+    FlIconModule,
+    MatTooltip,
+    FlTextIconModule,
+    FlFormModule,
+    LabSyncObjectButtonComponent,
+    MatIconButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    FlLoaderModule,
+    TeTextEditorModule,
+    LabTagListComponent,
+    LabFolderInlineSelectComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    LabObjectValidationInfoComponent,
+    LabObjectSyncInfoComponent,
+    FlUserModule,
+    LabNoteLinkedScenariosComponent,
+    TranslatePipe,
+  ],
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   private noteService = inject(LabNoteService);

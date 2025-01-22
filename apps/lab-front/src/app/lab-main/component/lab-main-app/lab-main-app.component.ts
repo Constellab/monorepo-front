@@ -10,12 +10,38 @@ import { LabBrickService } from '../../../lab-core/entity-service/lab-brick.serv
 import { LabBrickEntity } from '../../../lab-core/model/entities/lab-brick.entity';
 import { TdBrick } from '@monorepo/technical-doc';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
+import { NgClass } from '@angular/common';
+import { FlExpansionMenuModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-expansion-menu/fl-expansion-menu.module';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatDivider } from '@angular/material/divider';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-main-app',
   templateUrl: './lab-main-app.component.html',
   styleUrls: ['./lab-main-app.component.scss'],
-  standalone: false,
+  imports: [
+    NgClass,
+    FlExpansionMenuModule,
+    RouterLink,
+    FlCoreDirectiveModule,
+    MatDivider,
+    MatAnchor,
+    RouterLinkActive,
+    MatTooltip,
+    MatIcon,
+    FlIconModule,
+    MatButton,
+    LabMainMenuSettingsComponent,
+    RouterOutlet,
+    TranslatePipe,
+  ],
 })
 export class LabMainAppComponent implements OnInit {
   private labEnvManager = inject(LabEnvStore);

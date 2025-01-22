@@ -1,12 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { LabFolderSelectComponent } from '../../../lab-folder-core/component/lab-folder-select/lab-folder-select.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabResourceUpdateFolderDialogInput {
   resourceId: string;
@@ -29,7 +35,18 @@ export interface LabResourceUpdateFolderDialogOutput {
   selector: 'lab-resource-update-folder-dialog',
   templateUrl: './lab-resource-update-folder-dialog.component.html',
   styleUrls: ['./lab-resource-update-folder-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    FormsModule,
+    LabFolderSelectComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class LabResourceUpdateFolderDialogComponent implements OnInit {
   data = inject<LabResourceUpdateFolderDialogInput>(MAT_DIALOG_DATA);

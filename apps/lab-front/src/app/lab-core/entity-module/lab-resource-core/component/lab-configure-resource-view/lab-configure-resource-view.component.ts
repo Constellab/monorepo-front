@@ -18,8 +18,14 @@ import { LabResourceService } from '../../../../entity-service/lab-resource.serv
 import { Observable } from 'rxjs';
 import { PrConfigValues } from '@monorepo/protocol';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabConfigureResourceViewInput {
   resourceTypingName: string;
@@ -40,15 +46,24 @@ export interface LabConfigureResourceViewOutput {
  * Portal to configure resource view spec
  */
 @Component({
-    selector: 'lab-configure-resource-view',
-    templateUrl: './lab-configure-resource-view.component.html',
-    styleUrls: ['./lab-configure-resource-view.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        // configure the dynamic field to support tags and other custom fields
-        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-    ],
-    standalone: false
+  selector: 'lab-configure-resource-view',
+  templateUrl: './lab-configure-resource-view.component.html',
+  styleUrls: ['./lab-configure-resource-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
+  imports: [
+    FlPortalModule,
+    FlResizeModule,
+    TdTechnicalDocModule,
+    FlSectionModule,
+    ReactiveFormsModule,
+    LabConfigureSpecsFormComponent,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class LabConfigureResourceViewComponent implements OnInit {
   input: LabConfigureResourceViewInput = inject(FL_PORTAL_DATA);

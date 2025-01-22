@@ -11,12 +11,8 @@ import {
   FlTranslatableText,
   FlTranslateService,
 } from '@monorepo/front-core-lib';
-import {
-  LabUpdateResourceTypeComponent,
-} from '../lab-update-resource-type/lab-update-resource-type.component';
-import {
-  LabUpdateResourceNameDialogComponent,
-} from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
+import { LabUpdateResourceTypeComponent } from '../lab-update-resource-type/lab-update-resource-type.component';
+import { LabUpdateResourceNameDialogComponent } from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDownloadService } from '../../../../entity-service/lab-resource-download.service';
 import {
@@ -38,6 +34,12 @@ import {
   LabManageEntityTagsDialogInput,
 } from '../../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Action menu button for resources, it has a ng-content for custom buttons
@@ -46,7 +48,16 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
   selector: 'lab-resource-actions-menu',
   templateUrl: './lab-resource-actions-menu.component.html',
   styleUrls: ['./lab-resource-actions-menu.component.scss'],
-  standalone: false,
+  imports: [
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    FlIconModule,
+    RouterLink,
+    TranslatePipe,
+  ],
 })
 export class LabResourceActionsMenuComponent implements OnInit {
   private resourceService = inject(LabResourceService);

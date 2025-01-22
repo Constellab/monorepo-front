@@ -11,13 +11,28 @@ import { NgControl } from '@angular/forms';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { Observable } from 'rxjs';
 import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/lab-select-scenario-dialog.component';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabScenarioInlineComponent } from '../lab-scenario-inline/lab-scenario-inline.component';
+import { AsyncPipe } from '@angular/common';
+import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 @Component({
   selector: 'lab-select-scenario',
   templateUrl: './lab-select-scenario.component.html',
   styleUrls: ['./lab-select-scenario.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioComponent }],
-  standalone: false,
+  imports: [
+    FlInputSearchModule,
+    FlUserModule,
+    MatIcon,
+    FlIconModule,
+    LabScenarioInlineComponent,
+    AsyncPipe,
+    FlTranslateModule,
+  ],
 })
 export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario> implements OnInit {
   private scenarioService = inject(LabScenarioService);

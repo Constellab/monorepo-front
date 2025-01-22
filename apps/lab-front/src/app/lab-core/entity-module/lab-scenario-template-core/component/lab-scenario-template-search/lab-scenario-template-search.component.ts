@@ -18,13 +18,32 @@ import {
   LabScenarioTemplateSearchFields,
 } from '../../model/lab-scenario-template-search.class';
 import { LabRouterService } from '../../../../service/lab-router.service';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabScenarioTemplateSearchFormComponent } from '../lab-scenario-template-search-form/lab-scenario-template-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { LabScenarioTemplateTableComponent } from '../lab-scenario-template-table/lab-scenario-template-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-template-search',
   templateUrl: './lab-scenario-template-search.component.html',
   styleUrls: ['./lab-scenario-template-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlSearchModule,
+    LabScenarioTemplateSearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlInputFileModule,
+    MatTooltip,
+    LabScenarioTemplateTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioTemplateSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

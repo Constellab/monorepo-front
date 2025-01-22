@@ -30,7 +30,11 @@
               <mat-icon>refresh</mat-icon>
               {{ 'monitoring.synchronize_lab' | translate }}
             </button>
-            <button mat-stroked-button type="button" class="g-button-small action-button" (click)="cleanLab()">
+            <button
+              mat-stroked-button
+              type="button"
+              class="g-button-small action-button"
+              (click)="cleanLab()">
               <mat-icon>delete</mat-icon>
               {{ 'monitoring.clean_lab' | translate }}
             </button>
@@ -65,6 +69,5 @@
         </fl-text-icon>
       </ng-template>
     }
-
   </fl-card-body>
 </fl-card>

@@ -4,12 +4,27 @@ import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process
 import { ActivatedRoute, Router } from '@angular/router';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import { first } from 'rxjs/operators';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabScenarioTemplateDetailHeaderComponent } from '../lab-scenario-template-detail-header/lab-scenario-template-detail-header.component';
+import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { LabScenarioTemplateWorkflowComponent } from '../lab-scenario-template-workflow/lab-scenario-template-workflow.component';
+import { LabScenarioTemplateDetailComponent } from '../lab-scenario-template-detail/lab-scenario-template-detail.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-template-detail-page',
   templateUrl: './lab-scenario-template-detail-page.component.html',
   styleUrls: ['./lab-scenario-template-detail-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    LabScenarioTemplateDetailHeaderComponent,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    LabScenarioTemplateWorkflowComponent,
+    LabScenarioTemplateDetailComponent,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioTemplateDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

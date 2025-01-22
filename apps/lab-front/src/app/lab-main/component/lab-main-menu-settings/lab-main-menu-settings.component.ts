@@ -2,12 +2,21 @@ import { Component, OnInit, inject } from '@angular/core';
 import { labConstLoginRoute } from '../../../lab-core/utils/lab-base-route';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib';
 import { LabAuthService } from '../../../lab-core/service/lab-auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LabSystemService } from '../../../lab-core/service/lab-system.service';
 import { LabEnvironmentHelper } from '../../../lab-core/utils/lab-environment.helper';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 import { LabQueueJobsDialogComponent } from '../lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
 import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
+import { MatButton } from '@angular/material/button';
+import { FlExpansionMenuModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-expansion-menu/fl-expansion-menu.module';
+import { MatMenuTrigger, MatMenu, MatMenuContent, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabEnvironmentToggleComponent } from '../lab-environment-toggle/lab-environment-toggle.component';
+import { LabEnvDevDirective } from '../../../lab-core/directive/lab-env-dev.directive';
+import { MatDivider } from '@angular/material/divider';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component for the settings button on top right of the screen
@@ -16,7 +25,21 @@ import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
   selector: 'lab-main-menu-settings',
   templateUrl: './lab-main-menu-settings.component.html',
   styleUrls: ['./lab-main-menu-settings.component.scss'],
-  standalone: false,
+  imports: [
+    MatButton,
+    FlExpansionMenuModule,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuContent,
+    MatMenuItem,
+    FlIconModule,
+    LabEnvironmentToggleComponent,
+    LabEnvDevDirective,
+    MatDivider,
+    RouterLink,
+    TranslatePipe,
+  ],
 })
 export class LabMainMenuSettingsComponent implements OnInit {
   private authenticationService = inject(LabAuthService);

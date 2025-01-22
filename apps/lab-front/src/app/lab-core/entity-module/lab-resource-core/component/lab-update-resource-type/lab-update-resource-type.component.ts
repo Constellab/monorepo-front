@@ -1,12 +1,22 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog to update the type of a file
@@ -15,7 +25,24 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   selector: 'lab-update-resource-type',
   templateUrl: './lab-update-resource-type.component.html',
   styleUrls: ['./lab-update-resource-type.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    MatError,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabUpdateResourceTypeComponent implements OnInit {
   private resource = inject<LabResource>(MAT_DIALOG_DATA);

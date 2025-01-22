@@ -1,9 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabProgressBar } from '../../../../model/entities/lab-progress-bar.entity';
 import { Observable } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabProgressBarService } from '../../../../entity-service/lab-progress-bar.service';
 import { map } from 'rxjs/operators';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { MatIconAnchor } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabProgressBarInfoComponent } from '../lab-progress-bar-info/lab-progress-bar-info.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Show information about a {@link LabProgressBar} in a dialog
@@ -12,7 +21,18 @@ import { map } from 'rxjs/operators';
   selector: 'lab-progress-bar-info-dialog',
   templateUrl: './lab-progress-bar-info-dialog.component.html',
   styleUrls: ['./lab-progress-bar-info-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatIconAnchor,
+    MatTooltip,
+    MatIcon,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    LabProgressBarInfoComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabProgressBarInfoDialogComponent implements OnInit {
   private labProgressBarService = inject(LabProgressBarService);

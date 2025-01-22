@@ -13,10 +13,7 @@
             <fl-loader size="small" class="loader"></fl-loader>
           }
           @if (!node.isLoading) {
-            <button
-              mat-icon-button
-              class="g-button-icon-tiny action-button"
-              (click)="openMenu(node, $event)">
+            <button mat-icon-button class="g-button-icon-tiny action-button" (click)="openMenu(node, $event)">
               <mat-icon>more_vert</mat-icon>
             </button>
           }

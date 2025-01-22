@@ -1,8 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabLogsBetweenDates } from '../../../model/entities/lab-log.entity';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { DateTime } from 'luxon';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { MatIconAnchor, MatButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabLogsBetweenDatesComponent } from '../lab-logs-between-dates/lab-logs-between-dates.component';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabLogBetweenDatesDialogInput {
   title: string;
@@ -17,7 +26,19 @@ export interface LabLogBetweenDatesDialogInput {
   selector: 'lab-logs-between-dates-dialog',
   templateUrl: './lab-logs-between-dates-dialog.component.html',
   styleUrls: ['./lab-logs-between-dates-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatIconAnchor,
+    MatTooltip,
+    MatIcon,
+    CdkScrollable,
+    MatDialogContent,
+    FlInfiniteScrollModule,
+    LabLogsBetweenDatesComponent,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class LabLogsBetweenDatesDialogComponent implements OnInit {
   title: string;

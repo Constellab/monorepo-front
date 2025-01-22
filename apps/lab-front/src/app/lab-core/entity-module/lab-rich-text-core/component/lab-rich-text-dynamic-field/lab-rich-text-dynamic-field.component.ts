@@ -7,6 +7,8 @@ import {
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { LabRichTextAudioTranscriptionConfig } from '../../../../entity-service/lab-rich-text.service';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Config for the text editor of dynamic field, it is a complete text editor
@@ -49,10 +51,10 @@ class LabDynamicFieldRichTextConfig extends TeCompleteConfig {
  * Component to allow the rich text editor to be used as a dynamic field.
  */
 @Component({
-    selector: 'lab-rich-text-dynamic-field',
-    templateUrl: './lab-rich-text-dynamic-field.component.html',
-    styleUrl: './lab-rich-text-dynamic-field.component.scss',
-    standalone: false
+  selector: 'lab-rich-text-dynamic-field',
+  templateUrl: './lab-rich-text-dynamic-field.component.html',
+  styleUrl: './lab-rich-text-dynamic-field.component.scss',
+  imports: [TeTextEditorModule, ReactiveFormsModule],
 })
 export class LabRichTextDynamicFieldComponent extends FlDynamicFieldAbstractDirective {
   config = new LabDynamicFieldRichTextConfig();

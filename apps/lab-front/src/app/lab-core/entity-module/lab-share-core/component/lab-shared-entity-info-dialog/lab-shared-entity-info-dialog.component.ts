@@ -4,7 +4,7 @@ import {
   LabShareLink,
   LabShareLinkType,
 } from '../../../../model/entities/lab-share.entity';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
@@ -23,6 +23,22 @@ import {
   LabShareResourceWithSpaceDialogComponent,
   LabShareResourceWithSpaceDialogInput,
 } from '../../../lab-resource-core/component/lab-share-resource-with-space-dialog/lab-share-resource-with-space-dialog.component';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu/lab-share-link-actions-menu.component';
+import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-link-links.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabSharedEntityTableComponent } from '../lab-shared-entity-table/lab-shared-entity-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabSharedEntityInfoDialogInput {
   entityType: LabShareLinkType;
@@ -39,10 +55,29 @@ export interface LabSharedEntityInfoDialogInput {
 }
 
 @Component({
-    selector: 'lab-shared-entity-info-dialog',
-    templateUrl: './lab-shared-entity-info-dialog.component.html',
-    styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-shared-entity-info-dialog',
+  templateUrl: './lab-shared-entity-info-dialog.component.html',
+  styleUrls: ['./lab-shared-entity-info-dialog.component.scss'],
+  imports: [
+    FlDialogModule,
+    FlTextIconModule,
+    MatIcon,
+    CdkScrollable,
+    MatDialogContent,
+    MatButton,
+    MatDivider,
+    LabShareLinkActionsMenuComponent,
+    LabShareLinkLinksComponent,
+    MatTooltip,
+    NgClass,
+    FlUserModule,
+    FlDateModule,
+    FlIconModule,
+    FlInfiniteScrollModule,
+    LabSharedEntityTableComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabSharedEntityInfoDialogComponent implements OnInit {
   input: LabSharedEntityInfoDialogInput = inject(MAT_DIALOG_DATA);

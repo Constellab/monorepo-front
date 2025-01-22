@@ -72,7 +72,7 @@ import {
   withRouterConfig,
 } from '@angular/router';
 
-export function translationLoaderFactory(
+function translationLoaderFactory(
   http: HttpClient,
   config: FlTranslateModuleConfig
 ): FlTranslationLoader {

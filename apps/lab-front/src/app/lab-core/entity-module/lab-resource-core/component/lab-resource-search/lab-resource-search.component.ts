@@ -32,6 +32,17 @@ import {
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 import { PrConfigValues } from '@monorepo/protocol';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlDragModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-drag/fl-drag.module';
+import { LabResourceSearchFormComponent } from '../lab-resource-search-form/lab-resource-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { LabResourceTableComponent } from '../lab-resource-table/lab-resource-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export const labResourceSearchName: string = 'biox-resource';
 
@@ -39,11 +50,23 @@ export const labResourceSearchName: string = 'biox-resource';
  * Complete component to search on resource. It supports a select mode and manage file upload.
  */
 @Component({
-    selector: 'lab-resource-search',
-    templateUrl: './lab-resource-search.component.html',
-    styleUrls: ['./lab-resource-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-resource-search',
+  templateUrl: './lab-resource-search.component.html',
+  styleUrls: ['./lab-resource-search.component.scss'],
+  providers: [FlSearchState],
+  imports: [
+    FlSearchModule,
+    FlDragModule,
+    LabResourceSearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlInputFileModule,
+    MatTooltip,
+    MatIconButton,
+    LabResourceTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabResourceSearchComponent implements OnInit, OnDestroy {
   @Input() resourceSelectable: boolean = false;

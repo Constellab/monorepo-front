@@ -10,8 +10,7 @@
       </h2>
 
       @if (displayMode !== 'dense') {
-        <div
-          class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
           @if (resource().scenario) {
             <a
               [routerLink]="resource().scenario.id | labDetailRoute: 'SCENARIO'"
@@ -78,20 +77,14 @@
       (update)="onUpdate($event)"
       (delete)="onDelete()">
       @if (displayMode === 'fullPage') {
-        <button
-          mat-menu-item
-          type="button"
-          (click)="openTransformerResource()">
+        <button mat-menu-item type="button" (click)="openTransformerResource()">
           <mat-icon flIcon="transformer"></mat-icon>
           {{ 'biox.transformers' | translate }}
         </button>
       }
 
       @if (displayMode === 'dense') {
-        <button
-          mat-menu-item
-          type="button"
-          (click)="openResourceInfoDialog()">
+        <button mat-menu-item type="button" (click)="openResourceInfoDialog()">
           <mat-icon>info</mat-icon>
           {{ 'biox.resource_info' | translate }}
         </button>
@@ -110,4 +103,3 @@
     }
   </div>
 }
-

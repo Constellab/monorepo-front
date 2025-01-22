@@ -6,12 +6,14 @@ import { TeConfig, TeRichText } from '@monorepo/text-editor';
 import { LabNoteTemplateTextEditorConfig } from '../../../../../lab-note-template/lab-note-template-detail-page/lab-note-template-text-editor-config.class';
 import { LabRichTextObjectType } from '../../../../entity-service/lab-rich-text.service';
 import { LabNoteTextEditorConfig } from '../../../../../lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'lab-resource-rich-text-view',
-    templateUrl: './lab-resource-rich-text-view.component.html',
-    styleUrls: ['./lab-resource-rich-text-view.component.scss'],
-    standalone: false
+  selector: 'lab-resource-rich-text-view',
+  templateUrl: './lab-resource-rich-text-view.component.html',
+  styleUrls: ['./lab-resource-rich-text-view.component.scss'],
+  imports: [TeTextEditorModule, ReactiveFormsModule, FormsModule],
 })
 export class LabResourceRichTextViewComponent
   extends RvResourceViewDirective<LabResourceViewRichText>

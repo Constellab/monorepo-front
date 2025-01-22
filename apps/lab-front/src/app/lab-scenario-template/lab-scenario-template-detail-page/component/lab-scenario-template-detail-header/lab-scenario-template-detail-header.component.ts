@@ -8,12 +8,17 @@ import {
   FlPortalActionsService,
 } from '@monorepo/front-core-lib';
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-template-detail-header',
   templateUrl: './lab-scenario-template-detail-header.component.html',
   styleUrl: './lab-scenario-template-detail-header.component.scss',
-  standalone: false,
+  imports: [FlFormModule, MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LabScenarioTemplateDetailHeaderComponent {
   private scenarioTemplateService = inject(LabScenarioTemplateService);

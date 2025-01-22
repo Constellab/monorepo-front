@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabNote } from '../../../../model/entities/lab-note.entity';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { LabNoteSearchComponent } from '../lab-note-search/lab-note-search.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog that used the note search to select a note
@@ -9,7 +13,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   selector: 'lab-select-note-dialog',
   templateUrl: './lab-select-note-dialog.component.html',
   styleUrls: ['./lab-select-note-dialog.component.scss'],
-  standalone: false,
+  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabNoteSearchComponent, TranslatePipe],
 })
 export class LabSelectNoteDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<LabSelectNoteDialogComponent>>(MatDialogRef);

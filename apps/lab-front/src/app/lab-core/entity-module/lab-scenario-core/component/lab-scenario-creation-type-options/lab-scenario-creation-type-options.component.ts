@@ -2,12 +2,17 @@ import { AfterViewInit, Component, inject } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
 import { flScenarioCreationTypes } from '../../../../model/entities/lab-scenario.entity';
 import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-creation-type-options',
   templateUrl: './lab-scenario-creation-type-options.component.html',
   styleUrls: ['./lab-scenario-creation-type-options.component.scss'],
-  standalone: false,
+  imports: [MatOption, MatIcon, FlIconModule, FlCorePipeModule, TranslatePipe],
 })
 export class LabScenarioCreationTypeOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

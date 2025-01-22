@@ -19,13 +19,32 @@ import {
   LabQuickConfigureProcessDialogComponent,
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabScenarioSearchFormComponent } from '../lab-scenario-search-form/lab-scenario-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { LabScenarioTableComponent } from '../lab-scenario-table/lab-scenario-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'lab-scenario-search',
-    templateUrl: './lab-scenario-search.component.html',
-    styleUrls: ['./lab-scenario-search.component.scss'],
-    providers: [FlSearchState],
-    standalone: false
+  selector: 'lab-scenario-search',
+  templateUrl: './lab-scenario-search.component.html',
+  styleUrls: ['./lab-scenario-search.component.scss'],
+  providers: [FlSearchState],
+  imports: [
+    FlSearchModule,
+    LabScenarioSearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatIconButton,
+    MatTooltip,
+    LabScenarioTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioSearchComponent implements OnInit {
   @Input() scenarioSelectable: boolean = false;

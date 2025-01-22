@@ -11,69 +11,69 @@
                 class="logo"
                 [ngClass]="{ 'logo-expanded': menuExpanded }"
                 flBackupImage="assets/fl-logo/constellab-logo.svg" />
-              </a>
-
-              @if (menuExpanded) {
-                <div class="lab-name">
-                  <p>{{ labName }}</p>
-                  @if (spaceName) {
-                    <p class="g-text-light g-text-small">{{ spaceName }}</p>
-                  }
-                </div>
-              }
-            </div>
-          </a>
-
-          <!-- List of main menu links   -->
-          <div class="g-flex-auto menu g-layout-col">
-            @for (link of accessibleLinks; track link) {
-              @if (link.divider) {
-                <mat-divider class="divider"></mat-divider>
-              }
-              <a
-                mat-button
-                [routerLink]="link.route"
-                class="menu-button"
-                flExpansionMenuButton
-                routerLinkActive="primary selected-menu"
-                [matTooltip]="link.label | translate"
-                matTooltipPosition="after">
-                <mat-icon [flIcon]="link.icon"></mat-icon>
-                <span>{{ link.label | translate }}</span>
-              </a>
-            }
-          </div>
-
-          <!--  Authenticated user info  -->
-          <div>
-            <!--    Grow/Reduce menu button      -->
-            <button mat-button class="menu-button" flExpansionMenuButton flExpansionMenuButtonToggle>
-              <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
-              <span>{{ 'reduce_menu' | translate }}</span>
-            </button>
-
-            <!-- Dashboard button -->
-            <a
-              mat-button
-              [href]="spaceAppUrl"
-              class="menu-button"
-              flExpansionMenuButton
-              routerLinkActive="selected-menu"
-              [matTooltip]="'home' | translate"
-              matTooltipPosition="after">
-              <mat-icon>home</mat-icon>
-              <span>{{ 'home' | translate }}</span>
             </a>
 
-            <lab-main-menu-settings></lab-main-menu-settings>
+            @if (menuExpanded) {
+              <div class="lab-name">
+                <p>{{ labName }}</p>
+                @if (spaceName) {
+                  <p class="g-text-light g-text-small">{{ spaceName }}</p>
+                }
+              </div>
+            }
           </div>
-        </div>
-      </fl-expansion-menu>
-    </div>
+        </a>
 
-    <div
-      class="content"
-      [ngClass]="{ 'content-expanded': menuExpanded, 'content-not-expanded': !menuExpanded }">
-      <router-outlet></router-outlet>
-    </div>
+        <!-- List of main menu links   -->
+        <div class="g-flex-auto menu g-layout-col">
+          @for (link of accessibleLinks; track link) {
+            @if (link.divider) {
+              <mat-divider class="divider"></mat-divider>
+            }
+            <a
+              mat-button
+              [routerLink]="link.route"
+              class="menu-button"
+              flExpansionMenuButton
+              routerLinkActive="primary selected-menu"
+              [matTooltip]="link.label | translate"
+              matTooltipPosition="after">
+              <mat-icon [flIcon]="link.icon"></mat-icon>
+              <span>{{ link.label | translate }}</span>
+            </a>
+          }
+        </div>
+
+        <!--  Authenticated user info  -->
+        <div>
+          <!--    Grow/Reduce menu button      -->
+          <button mat-button class="menu-button" flExpansionMenuButton flExpansionMenuButtonToggle>
+            <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+            <span>{{ 'reduce_menu' | translate }}</span>
+          </button>
+
+          <!-- Dashboard button -->
+          <a
+            mat-button
+            [href]="spaceAppUrl"
+            class="menu-button"
+            flExpansionMenuButton
+            routerLinkActive="selected-menu"
+            [matTooltip]="'home' | translate"
+            matTooltipPosition="after">
+            <mat-icon>home</mat-icon>
+            <span>{{ 'home' | translate }}</span>
+          </a>
+
+          <lab-main-menu-settings></lab-main-menu-settings>
+        </div>
+      </div>
+    </fl-expansion-menu>
   </div>
+
+  <div
+    class="content"
+    [ngClass]="{ 'content-expanded': menuExpanded, 'content-not-expanded': !menuExpanded }">
+    <router-outlet></router-outlet>
+  </div>
+</div>

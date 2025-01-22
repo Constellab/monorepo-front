@@ -1,6 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabConfigureProtocolDialogInput {
   protocolId: string;
@@ -14,7 +18,7 @@ export interface LabConfigureProtocolDialogInput {
   templateUrl: './lab-configure-protocol-dialog.component.html',
   styleUrls: ['./lab-configure-protocol-dialog.component.scss'],
   providers: [LabProcessDashboardConfigState],
-  standalone: false,
+  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabConfigureProtocolComponent, TranslatePipe],
 })
 export class LabConfigureProtocolDialogComponent implements OnInit {
   protocolId: string;

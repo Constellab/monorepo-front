@@ -2,10 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type LabProcessEditStyleDialogInputData = FlFormDialogInput<LabProcess>;
 
@@ -17,7 +22,15 @@ export interface LabProcessEditStyleFormData {
   selector: 'lab-process-edit-style-dialog',
   templateUrl: './lab-process-edit-style-dialog.component.html',
   styleUrl: './lab-process-edit-style-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    CoCommunityLibModule,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class LabProcessEditStyleDialogComponent
   extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>

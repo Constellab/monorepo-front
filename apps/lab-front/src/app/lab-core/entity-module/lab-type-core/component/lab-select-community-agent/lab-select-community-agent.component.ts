@@ -1,9 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabAgent, LabAgentDatasourcePaginated } from '../../../../model/entities/lab-agent.entity';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabCommunitySpace } from '../../../../model/entities/lab-community-space.entity';
 import { CoAgent } from '@monorepo/community-lib';
+import { MatChipOption } from '@angular/material/chips';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Dialog containing the community agent search to select one
@@ -12,7 +22,21 @@ import { CoAgent } from '@monorepo/community-lib';
   selector: 'lab-select-community-agent',
   templateUrl: './lab-select-community-agent.component.html',
   styleUrls: ['./lab-select-community-agent.component.scss'],
-  standalone: false,
+  imports: [
+    MatChipOption,
+    MatDivider,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormField,
+    MatInput,
+    MatIconButton,
+    MatSuffix,
+    MatIcon,
+    FlInfiniteScrollModule,
+    CoCommunityLibModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabSelectCommunityAgentComponent implements OnInit {
   private protocolService = inject(LabProtocolService);

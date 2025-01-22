@@ -8,20 +8,15 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
-import { LabScenarioTableComponent } from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib';
-import { LabNoteTableComponent } from '../../../lab-note-core/component/lab-note-table/lab-note-table.component';
-import { LabResourceTableComponent } from '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component';
-import { LabViewConfigTableComponent } from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
 
 /**
  * Show a table of navigable entities based on the type
  */
 @Component({
-    selector: 'lab-navigable-entities-table',
-    templateUrl: './lab-navigable-entities-table.component.html',
-    styleUrl: './lab-navigable-entities-table.component.scss',
-    standalone: false
+  selector: 'lab-navigable-entities-table',
+  templateUrl: './lab-navigable-entities-table.component.html',
+  styleUrl: './lab-navigable-entities-table.component.scss',
 })
 export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
   @Input({ required: true }) type: LabEntityType;
@@ -35,48 +30,64 @@ export class LabNavigableEntitiesTableComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     switch (this.type) {
       case 'SCENARIO':
-        this.componentRef = this.scenarioTable();
+        this.componentRef = await this.scenarioTable();
         break;
       case 'RESOURCE':
-        this.componentRef = this.resourceTable();
+        this.componentRef = await this.resourceTable();
         break;
       case 'VIEW':
-        this.componentRef = this.viewConfigTable();
+        this.componentRef = await this.viewConfigTable();
         break;
       case 'NOTE':
-        this.componentRef = this.noteTable();
+        this.componentRef = await this.noteTable();
         break;
       default:
         throw new Error(`[LabNavigableEntitiesTableComponent] Type ${this.type} is not supported`);
     }
   }
 
-  private scenarioTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabScenarioTableComponent);
+  private async scenarioTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType = await import(
+      '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component'
+    ).then((c) => c.LabScenarioTableComponent);
+    const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'status', 'lastModification'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }
 
-  private resourceTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabResourceTableComponent);
+  private async resourceTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType = await import(
+      '../../../lab-resource-core/component/lab-resource-table/lab-resource-table.component'
+    ).then((c) => c.LabResourceTableComponent);
+    const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['name', 'type', 'lastModification', 'viewResource'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }
 
-  private viewConfigTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabViewConfigTableComponent);
+  private async viewConfigTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType = await import(
+      '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component'
+    ).then((c) => c.LabViewConfigTableComponent);
+    const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'resource', 'lastModifiedAt', 'preview'];
     componentRef.instance.rowLinkTarget = '_blank';
     return componentRef;
   }
 
-  private noteTable(): ComponentRef<any> {
-    const componentRef = this.viewContainer.createComponent(LabNoteTableComponent);
+  private async noteTable(): Promise<ComponentRef<any>> {
+    // use lazy loading to avoid circular dependencies
+    const componentType = await import(
+      '../../../lab-note-core/component/lab-note-table/lab-note-table.component'
+    ).then((c) => c.LabNoteTableComponent);
+    const componentRef = this.viewContainer.createComponent(componentType);
     componentRef.instance.datasource = new FlEntityArrayObs(this.entities);
     componentRef.instance.columns = ['title', 'creation'];
     componentRef.instance.rowLinkTarget = '_blank';

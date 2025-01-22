@@ -6,14 +6,40 @@ import { LabNoteTemplateService } from '../../../lab-core/entity-service/lab-not
 import { LabNoteTemplate } from '../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
 import { TeConfig, TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlFormModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlArticleModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-note-template-detail-page',
   templateUrl: './lab-note-template-detail-page.component.html',
   styleUrls: ['./lab-note-template-detail-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlFormModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    FlArticleModule,
+    TeTextEditorModule,
+    FlUserModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
 })
 export class LabNoteTemplateDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

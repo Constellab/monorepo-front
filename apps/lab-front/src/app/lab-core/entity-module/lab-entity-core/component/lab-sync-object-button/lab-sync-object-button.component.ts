@@ -7,6 +7,11 @@ import {
   FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component containing the button to sync a lab folder object with space
@@ -15,7 +20,7 @@ import { Observable } from 'rxjs';
   selector: 'lab-sync-object-button',
   templateUrl: './lab-sync-object-button.component.html',
   styleUrls: ['./lab-sync-object-button.component.scss'],
-  standalone: false,
+  imports: [MatTooltip, MatButton, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
   private dialogService = inject(FlDialogService);

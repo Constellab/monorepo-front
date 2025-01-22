@@ -2,13 +2,17 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-view-config-favorite',
   templateUrl: './lab-view-config-favorite.component.html',
   styleUrls: ['./lab-view-config-favorite.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LabViewConfigFavoriteComponent {
   private viewConfigService = inject(LabViewConfigService);

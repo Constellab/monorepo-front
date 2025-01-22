@@ -3,10 +3,24 @@ import { LabScenario, LabScenarioSimpleForm } from '../../../../model/entities/l
 import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { Observable, of } from 'rxjs';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { catchError, map } from 'rxjs/operators';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { LabSelectScenarioTemplateComponent } from '../../../lab-scenario-template-core/component/lab-select-scenario-template/lab-select-scenario-template.component';
+import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { LabFolderSelectComponent } from '../../../lab-folder-core/component/lab-folder-select/lab-folder-select.component';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabScenarioFormDialogInput extends FlFormDialogInput<LabScenarioSimpleForm> {
   scenarioId?: string;
@@ -20,7 +34,28 @@ export interface LabScenarioFormDialogInput extends FlFormDialogInput<LabScenari
   selector: 'lab-scenario-form-dialog',
   templateUrl: './lab-scenario-form-dialog.component.html',
   styleUrls: ['./lab-scenario-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatError,
+    MatHint,
+    FlFormModule,
+    LabSelectScenarioTemplateComponent,
+    FlInputFileModule,
+    LabFolderSelectComponent,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioFormDialogComponent
   extends FlFormDialogAbstractDirective<LabScenarioSimpleForm, LabScenario>

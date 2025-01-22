@@ -9,13 +9,28 @@ import {
 import { LabActivityDatasource } from '../../../../model/entities/lab-activity.entity';
 import { LabActivityService } from '../../../../entity-service/lab-activity.service';
 import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-activity-search.class';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabActivitySearchFormComponent } from '../lab-activity-search-form/lab-activity-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabActivityTableComponent } from '../lab-activity-table/lab-activity-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-activity-search',
   templateUrl: './lab-activity-search.component.html',
   styleUrls: ['./lab-activity-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlSearchModule,
+    LabActivitySearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    LabActivityTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabActivitySearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

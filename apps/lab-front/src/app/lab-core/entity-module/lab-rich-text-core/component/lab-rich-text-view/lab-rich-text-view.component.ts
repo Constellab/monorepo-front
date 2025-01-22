@@ -7,6 +7,7 @@ import { TeElementBlockDirective } from '@monorepo/text-editor';
 import { LabNoteResourceService } from '../../../../entity-service/lab-note-resource.service';
 import { map } from 'rxjs/operators';
 import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-service/lab-rich-text.service';
+import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
 
 /**
  * Component used in the Text editor to show a resource view.
@@ -16,7 +17,7 @@ import { LabRichTextObjectType, LabRichTextService } from '../../../../entity-se
   selector: 'lab-rich-text-view',
   templateUrl: './lab-rich-text-view.component.html',
   styleUrls: ['./lab-rich-text-view.component.scss'],
-  standalone: false,
+  imports: [RvResourceViewModule],
 })
 export class LabRichTextViewComponent extends TeElementBlockDirective {
   private resourceService = inject(LabResourceService);

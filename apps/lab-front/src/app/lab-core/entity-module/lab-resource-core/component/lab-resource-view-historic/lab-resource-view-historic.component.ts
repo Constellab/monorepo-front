@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import {
@@ -6,6 +6,12 @@ import {
   LabViewConfigDatasource,
 } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabViewConfigTableComponent } from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Show historic of views for a resource
@@ -14,7 +20,14 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
   selector: 'lab-resource-view-historic',
   templateUrl: './lab-resource-view-historic.component.html',
   styleUrls: ['./lab-resource-view-historic.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlInfiniteScrollModule,
+    LabViewConfigTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabResourceViewHistoricComponent implements OnInit {
   private viewConfigService = inject(LabViewConfigService);

@@ -24,6 +24,20 @@ import {
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { LabTagFormDialogComponent } from '../lab-tag-form-dialog/lab-tag-form-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+  MatExpansionPanelContent,
+} from '@angular/material/expansion';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
 
 /**
  * Component to show the LabTagEntity information
@@ -35,7 +49,20 @@ import { ClHelpService } from '@monorepo/core-lib';
   templateUrl: './lab-tag-entity-detail.component.html',
   styleUrls: ['./lab-tag-entity-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatExpansionPanelContent,
+    FlInfiniteScrollModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+    FlTagModule,
+  ],
 })
 export class LabTagEntityDetailComponent implements OnInit {
   private tagService = inject(LabTagService);

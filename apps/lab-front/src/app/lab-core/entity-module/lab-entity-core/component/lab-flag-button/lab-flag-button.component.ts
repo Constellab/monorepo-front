@@ -4,6 +4,10 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { Observable } from 'rxjs';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Button to toggle the flag of an element.
@@ -13,7 +17,7 @@ import { Observable } from 'rxjs';
   templateUrl: './lab-flag-button.component.html',
   styleUrls: ['./lab-flag-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LabFlagButtonComponent {
   private resourceService = inject(LabResourceService);

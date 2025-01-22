@@ -3,12 +3,16 @@ import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboar
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
 import { LabDynamicParamSpecState } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { LabConfigureSpecsFormComponent } from '../../../../lab-core/entity-module/lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'lab-configure-task',
-    templateUrl: './lab-configure-task.component.html',
-    styleUrls: ['./lab-configure-task.component.scss'],
-    standalone: false
+  selector: 'lab-configure-task',
+  templateUrl: './lab-configure-task.component.html',
+  styleUrls: ['./lab-configure-task.component.scss'],
+  imports: [ReactiveFormsModule, FlCoreComponentModule, LabConfigureSpecsFormComponent, TranslatePipe],
 })
 export class LabConfigureTaskComponent implements OnInit, OnDestroy {
   @Input({ required: true }) task: LabProcess;

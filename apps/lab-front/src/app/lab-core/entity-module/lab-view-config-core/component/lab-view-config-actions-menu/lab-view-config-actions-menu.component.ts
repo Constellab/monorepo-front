@@ -20,6 +20,14 @@ import {
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { excludedViewInNote } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Actions menu button for view configs, it has a ng-content for custom buttons
@@ -28,7 +36,19 @@ import { LabTagService } from '../../../../entity-service/lab-tag.service';
   selector: 'lab-view-config-actions-menu',
   templateUrl: './lab-view-config-actions-menu.component.html',
   styleUrls: ['./lab-view-config-actions-menu.component.scss'],
-  standalone: false,
+  imports: [
+    MatButton,
+    MatMenuTrigger,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    FlIconModule,
+    FlLoaderModule,
+    RouterLink,
+    TranslatePipe,
+  ],
 })
 export class LabViewConfigActionsMenuComponent implements OnInit {
   private dialogService = inject(FlDialogService);

@@ -5,12 +5,19 @@ import { filter, map } from 'rxjs/operators';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { TooltipPosition } from '@angular/material/tooltip';
+import { TooltipPosition, MatTooltip } from '@angular/material/tooltip';
 import {
   LabDynamicPortConfigDialogComponent,
-  LabDynamicPortConfigDialogInput
+  LabDynamicPortConfigDialogInput,
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { LabResourceDetailComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
+import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Object that include port and resource
@@ -27,7 +34,19 @@ interface LabWorkflowPortResource {
   selector: 'lab-process-io-panel',
   templateUrl: './lab-process-io-panel.component.html',
   styleUrls: ['./lab-process-io-panel.component.scss'],
-  standalone: false,
+  imports: [
+    NgClass,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatTooltip,
+    LabResourceDetailComponent,
+    FlCoreComponentModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabProcessIoPanelComponent implements OnInit, OnDestroy {
   private nodeState = inject(LabWorkflowNodeDetailState);

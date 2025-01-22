@@ -1,9 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { LabTagDatasource, TagPropagationImpactDTO } from '../../../../model/entities/lab-tag.entity';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib';
 import { Observable, share } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabTagListComponent } from '../lab-tag-list/lab-tag-list.component';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LabNavigableEntityGroupsComponent } from '../../../lab-navigable-entity-core/component/lab-navigable-entity-groups/lab-navigable-entity-groups.component';
 
 export interface LabTagCheckPropagationInput {
   impactDTO$: Observable<TagPropagationImpactDTO>;
@@ -17,7 +24,17 @@ export interface LabTagCheckPropagationInput {
   selector: 'lab-tag-check-propagation',
   templateUrl: './lab-tag-check-propagation.component.html',
   styleUrls: ['./lab-tag-check-propagation.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    MatDialogContent,
+    FlSectionModule,
+    LabTagListComponent,
+    LabNavigableEntityGroupsComponent,
+    MatDialogActions,
+    MatButton,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabTagCheckPropagationComponent {
   private dialogRef = inject<MatDialogRef<LabTagCheckPropagationComponent>>(MatDialogRef);

@@ -10,7 +10,12 @@ import { LabResourceService } from '../../../../entity-service/lab-resource.serv
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabTransformResourceComponent } from '../lab-transform-resource/lab-transform-resource.component';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabTransformResourcePortalInput {
   resourceTypingName: string;
@@ -27,7 +32,15 @@ export interface LabTransformResourcePortalInput {
   selector: 'lab-transform-resource-portal',
   templateUrl: './lab-transform-resource-portal.component.html',
   styleUrls: ['./lab-transform-resource-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    FlResizeModule,
+    ReactiveFormsModule,
+    LabTransformResourceComponent,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class LabTransformResourcePortalComponent {
   private input = inject<LabTransformResourcePortalInput>(FL_PORTAL_DATA);

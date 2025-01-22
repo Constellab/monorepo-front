@@ -5,6 +5,18 @@ import { RvViewConfig } from '@monorepo/resource-view';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { LabViewConfigFavoriteComponent } from '../../../lab-view-config-core/component/lab-view-config-favorite/lab-view-config-favorite.component';
+import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
+import { LabViewConfigActionsMenuComponent } from '../../../lab-view-config-core/component/lab-view-config-actions-menu/lab-view-config-actions-menu.component';
+import { MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabResourceViewPortalInput {
   labView: LabResourceView;
@@ -31,7 +43,20 @@ export interface LabResourceViewPortalInput {
   selector: 'lab-resource-view-portal',
   templateUrl: './lab-resource-view-portal.component.html',
   styleUrls: ['./lab-resource-view-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    FlResizeModule,
+    TdTechnicalDocModule,
+    FlFormModule,
+    LabViewConfigFavoriteComponent,
+    RvResourceViewModule,
+    LabViewConfigActionsMenuComponent,
+    MatMenuItem,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    TranslatePipe,
+  ],
 })
 export class LabResourceViewPortalComponent {
   private input = inject<LabResourceViewPortalInput>(FL_PORTAL_DATA);

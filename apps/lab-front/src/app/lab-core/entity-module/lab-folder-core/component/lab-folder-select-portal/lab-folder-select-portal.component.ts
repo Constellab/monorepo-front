@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { LabFolderSelectComponent } from '../lab-folder-select/lab-folder-select.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabFolderSelectPortalInput {
   folder?: LabFolder;
@@ -15,7 +19,7 @@ export interface LabFolderSelectPortalResult {
   selector: 'lab-folder-select-portal',
   templateUrl: './lab-folder-select-portal.component.html',
   styleUrls: ['./lab-folder-select-portal.component.scss'],
-  standalone: false,
+  imports: [FlPortalModule, LabFolderSelectComponent, ReactiveFormsModule, FormsModule, TranslatePipe],
 })
 export class LabFolderSelectPortalComponent {
   private overlayRef = inject(FlOverlayRef);

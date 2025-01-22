@@ -1,6 +1,9 @@
 import { Component, Signal, inject } from '@angular/core';
 import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { FlMouseButton } from '@monorepo/front-core-lib';
+import { MatRipple } from '@angular/material/core';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 
 /**
  * Component inside the resource detail to list the minimized views
@@ -9,7 +12,7 @@ import { FlMouseButton } from '@monorepo/front-core-lib';
   selector: 'lab-resource-detail-minimized-views',
   templateUrl: './lab-resource-detail-minimized-views.component.html',
   styleUrls: ['./lab-resource-detail-minimized-views.component.scss'],
-  standalone: false,
+  imports: [MatRipple, MatTooltip, TdTechnicalDocModule],
 })
 export class LabResourceDetailMinimizedViewsComponent {
   private state = inject(LabResourceDetailState);

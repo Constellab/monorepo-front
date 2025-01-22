@@ -13,7 +13,15 @@ import {
   FlPortalAction,
   FlPortalActionsService,
 } from '@monorepo/front-core-lib';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import {
+  MatTreeFlatDataSource,
+  MatTreeFlattener,
+  MatTree,
+  MatTreeNodeDef,
+  MatTreeNode,
+  MatTreeNodePadding,
+  MatTreeNodeToggle,
+} from '@angular/material/tree';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import {
   LabFsNodeTypesSelectionDialogComponent,
@@ -24,6 +32,9 @@ import { LabResource } from '../../../../model/entities/resource/lab-resource.en
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 /**
  * Resource view for folder
@@ -32,7 +43,16 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
   selector: 'lab-resource-view-folder',
   templateUrl: './lab-resource-view-folder.component.html',
   styleUrls: ['./lab-resource-view-folder.component.scss'],
-  standalone: false,
+  imports: [
+    MatTree,
+    MatTreeNodeDef,
+    MatTreeNode,
+    MatTreeNodePadding,
+    FlLoaderModule,
+    MatIconButton,
+    MatIcon,
+    MatTreeNodeToggle,
+  ],
 })
 export class LabResourceViewFolderComponent
   extends RvResourceViewDirective<LabResourceViewFolder>

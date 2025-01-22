@@ -2,7 +2,7 @@
   @for (message of value.messages; track message; let index = $index) {
     <lab-open-ai-chat-message
       [message]="message"
-    (action)="onAction($event, message, index)"></lab-open-ai-chat-message>
+      (action)="onAction($event, message, index)"></lab-open-ai-chat-message>
   }
 </div>
 

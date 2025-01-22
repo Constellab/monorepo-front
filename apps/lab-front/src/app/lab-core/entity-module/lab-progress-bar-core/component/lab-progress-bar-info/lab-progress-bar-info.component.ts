@@ -8,6 +8,19 @@ import {
 import { mergeMap, Observable, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
 import { LabProgressBarService } from '../../../../entity-service/lab-progress-bar.service';
+import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabProgressMessageComponent } from '../lab-progress-message/lab-progress-message.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 interface LabProgressWithMessage {
   progressBar?: LabProgressBar;
@@ -21,7 +34,22 @@ interface LabProgressWithMessage {
   selector: 'lab-progress-bar-info',
   templateUrl: './lab-progress-bar-info.component.html',
   styleUrls: ['./lab-progress-bar-info.component.scss'],
-  standalone: false,
+  imports: [
+    FlKeyValueModule,
+    FlTextIconModule,
+    MatIcon,
+    FlLoaderModule,
+    MatSlideToggle,
+    ReactiveFormsModule,
+    FormsModule,
+    FlInfiniteScrollModule,
+    LabProgressMessageComponent,
+    MatDivider,
+    MatButton,
+    AsyncPipe,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
   private progressBarService = inject(LabProgressBarService);

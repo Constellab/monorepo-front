@@ -5,12 +5,51 @@ import {
   LabShareLinkDatasource,
 } from '../../../../model/entities/lab-share.entity';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass } from '@angular/common';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-link-links.component';
+import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu/lab-share-link-actions-menu.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
 
 @Component({
-    selector: 'lab-share-link-table',
-    templateUrl: './lab-share-link-table.component.html',
-    styleUrls: ['./lab-share-link-table.component.scss'],
-    standalone: false
+  selector: 'lab-share-link-table',
+  templateUrl: './lab-share-link-table.component.html',
+  styleUrls: ['./lab-share-link-table.component.scss'],
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatIcon,
+    MatTooltip,
+    NgClass,
+    FlUserModule,
+    LabShareLinkLinksComponent,
+    LabShareLinkActionsMenuComponent,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+    FlDateModule,
+  ],
 })
 export class LabShareLinkTableComponent {
   @Input({ required: true }) datasource: LabShareLinkDatasource;

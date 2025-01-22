@@ -18,6 +18,14 @@ import {
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabAgent } from '../../../../lab-core/model/entities/lab-agent.entity';
 import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-agent-dialog/lab-select-community-agent-dialog.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatDivider } from '@angular/material/divider';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Actions button for the workflow
@@ -26,7 +34,19 @@ import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/ent
   selector: 'lab-workflow-actions',
   templateUrl: './lab-workflow-actions.component.html',
   styleUrls: ['./lab-workflow-actions.component.scss'],
-  standalone: false,
+  imports: [
+    MatButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    MatMenu,
+    MatMenuItem,
+    FlIconModule,
+    MatDivider,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabWorkflowActionsComponent implements OnInit {
   private workflowEditState = inject(LabWorkflowEditConfig);

@@ -41,11 +41,7 @@
   </button>
 
   @if (resource.canUpdateType() && !readOnly) {
-    <button
-      mat-menu-item
-      type="button"
-      (click)="updateResourceType()"
-      >
+    <button mat-menu-item type="button" (click)="updateResourceType()">
       <mat-icon>edit</mat-icon>
       <span>{{ 'biox.update_resource_type' | translate }}</span>
     </button>
@@ -59,8 +55,7 @@
   <ng-content></ng-content>
 
   @if (resource.isDeletable() && !readOnly) {
-    <button mat-menu-item type="button" (click)="deleteResource()"
-      class="warn">
+    <button mat-menu-item type="button" (click)="deleteResource()" class="warn">
       <mat-icon>delete</mat-icon>
       <span>{{ 'databox.delete_resource' | translate }}</span>
     </button>

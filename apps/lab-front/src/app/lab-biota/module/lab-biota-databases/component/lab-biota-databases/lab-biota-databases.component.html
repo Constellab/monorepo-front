@@ -16,13 +16,11 @@
           class="g-flex-auto table"
           [datasource]="biotaDatasource"
           [columns]="columns"
-        (showDetail)="openDetail($event)"></lab-biota-database-table>
+          (showDetail)="openDetail($event)"></lab-biota-database-table>
 
         <div flHide.xs class="max-height g-scrollable-element">
           @if (selectedData) {
-            <lab-biota-data-card
-              class="g-full"
-            [biotaData]="selectedData"></lab-biota-data-card>
+            <lab-biota-data-card class="g-full" [biotaData]="selectedData"></lab-biota-data-card>
           }
         </div>
       </div>

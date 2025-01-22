@@ -3,7 +3,11 @@ import { LabResourceView } from '../../../../model/entities/resource/lab-resourc
 import { Observable } from 'rxjs';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { PrConfigValues } from '@monorepo/protocol';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabResourceViewDetailComponent } from '../lab-resource-view-detail/lab-resource-view-detail.component';
 
 export type LabResourceViewDetailDialogInput =
   | {
@@ -25,7 +29,7 @@ export type LabResourceViewDetailDialogInput =
   selector: 'lab-resource-view-detail-dialog',
   templateUrl: './lab-resource-view-detail-dialog.component.html',
   styleUrls: ['./lab-resource-view-detail-dialog.component.scss'],
-  standalone: false,
+  imports: [FlDialogModule, CdkScrollable, MatDialogContent, FlSectionModule, LabResourceViewDetailComponent],
 })
 export class LabResourceViewDetailDialogComponent implements OnInit {
   private input = inject<LabResourceViewDetailDialogInput>(MAT_DIALOG_DATA);

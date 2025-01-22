@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import {
   labConstBaseRoute,
   labConstBiotaRoute,
@@ -13,11 +12,22 @@ import {
   labConstScenarioTemplateRoute,
   labConstViewRoute,
 } from '../lab-core/utils/lab-base-route';
-import { LabMainAppComponent } from './component/lab-main-app/lab-main-app.component';
+
 import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
 import { FlLabRoute } from '@monorepo/front-core-lib';
+import { labScenarioRoutes } from '../lab-scenario/lab-scenario-routes';
+import { labScenarioTemplateRoutes } from '../lab-scenario-template/lab-scenario-template-routes';
+import { labNoteTemplateRoutes } from '../lab-note-template/lab-note-template-routes';
+import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
+import { labResourceRoutes } from '../lab-resource/lab-resource-routes';
+import { labNoteRoutes } from '../lab-note/lab-note-routes';
+import { labViewRoutes } from '../lab-view/lab-view-routes';
+import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
+import { labMonitoringRoutes } from '../lab-monitoring/lab-monitoring-routes';
+import { LAB_OPEN_ROUTES } from '../lab-open-route/lab-open.routes';
+import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 
-const routes: Routes = [
+export const labMainRoutes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -32,7 +42,8 @@ const routes: Routes = [
   },
   {
     path: labConstBaseRoute,
-    component: LabMainAppComponent,
+    loadComponent: () =>
+      import('./component/lab-main-app/lab-main-app.component').then((m) => m.LabMainAppComponent),
     children: [
       {
         path: '',
@@ -43,70 +54,59 @@ const routes: Routes = [
       ////////////////////////  BIOX  /////////////////////////
       {
         path: labConstScenarioRoute,
-        loadChildren: () => import('../lab-scenario/lab-scenario.module').then((m) => m.LabScenarioModule),
+        children: labScenarioRoutes,
       },
 
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////
       {
         path: labConstScenarioTemplateRoute,
-        loadChildren: () =>
-          import('../lab-scenario-template/lab-scenario-template.module').then(
-            (m) => m.LabScenarioTemplateModule
-          ),
+        children: labScenarioTemplateRoutes,
       },
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
         path: labConstNoteTemplateRoute,
-        loadChildren: () =>
-          import('../lab-note-template/lab-note-template.module').then((m) => m.LabNoteTemplateModule),
+        children: labNoteTemplateRoutes,
       },
 
       ////////////////////////  BIOTA  /////////////////////////
       {
         path: labConstBiotaRoute,
-        loadChildren: () => import('../lab-biota/lab-biota.module').then((m) => m.LabBiotaModule),
+        children: labBiotaRoutes,
       },
 
-      ////////////////////////  DATA  ///////////////////////
+      ////////////////////////  RESOURCES  ///////////////////////
       {
         path: labConstResourceRoute,
-        loadChildren: () => import('../lab-resource/lab-resource.module').then((m) => m.LabResourceModule),
+        children: labResourceRoutes,
       },
       ////////////////////////  NOTE  /////////////////////////
       {
         path: labConstNoteRoute,
-        loadChildren: () => import('../lab-note/lab-note.module').then((m) => m.LabNoteModule),
+        children: labNoteRoutes,
       },
       ////////////////////////  VIEW  /////////////////////////
       {
         path: labConstViewRoute,
-        loadChildren: () => import('../lab-view/lab-view.module').then((m) => m.LabViewModule),
+        children: labViewRoutes,
       },
       ////////////////////////  DOC  /////////////////////////
       {
         path: labConstDocRoute,
-        loadChildren: () =>
-          import('../lab-documentation/lab-documentation.module').then((m) => m.LabDocumentationModule),
+        children: labDocumentationRoutes,
       },
       //////////////////////// MONITORING  /////////////////////////
       {
         path: labConstMonitoringRoute,
-        loadChildren: () =>
-          import('../lab-monitoring/lab-monitoring.module').then((m) => m.LabMonitoringModule),
+        children: labMonitoringRoutes,
       },
     ],
   },
 
   //////////////////////// OPEN  /////////////////////////
+  ...LabLoginRoutes,
   {
     path: labConstOpenRoute,
-    loadChildren: () => import('../lab-open-route/lab-open.routes').then((m) => m.LAB_OPEN_ROUTES),
+    children: LAB_OPEN_ROUTES,
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class LabMainRoutingModule {}

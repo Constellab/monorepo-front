@@ -14,7 +14,7 @@
       <lab-select-note-template
         [formControl]="formControl"
         [placeholder]="'biox.select_note_template' | translate"
-      [required]="true"></lab-select-note-template>
+        [required]="true"></lab-select-note-template>
       @if (formControl.hasError('required')) {
         <mat-error class="g-warn-text g-text-small">
           {{ 'biox.select_note_template' | flErrorRequired }}
@@ -25,11 +25,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button
-    mat-flat-button
-    type="submit"
-    form="insert-doc-template-form"
-    class="g-centered-forced primary">
+  <button mat-flat-button type="submit" form="insert-doc-template-form" class="g-centered-forced primary">
     {{ 'save' | translate }}
   </button>
 </div>

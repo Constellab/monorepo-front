@@ -1,7 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { FlSavedSearch } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { LabResourceSearchComponent } from '../lab-resource-search/lab-resource-search.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabSelectResourceDialogInput {
   savedSearches?: FlSavedSearch[];
@@ -16,7 +20,7 @@ export interface LabSelectResourceDialogInput {
   selector: 'lab-select-resource-dialog',
   templateUrl: './lab-select-resource-dialog.component.html',
   styleUrls: ['./lab-select-resource-dialog.component.scss'],
-  standalone: false,
+  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabResourceSearchComponent, TranslatePipe],
 })
 export class LabSelectResourceDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<LabSelectResourceDialogComponent>>(MatDialogRef);

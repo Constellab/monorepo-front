@@ -14,6 +14,8 @@ import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput,
 } from '../lab-select-type-dialog/lab-select-type-dialog.component';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 
 /**
  * Select component for LabType
@@ -23,7 +25,7 @@ import {
   templateUrl: './lab-select-type.component.html',
   styleUrls: ['./lab-select-type.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectTypeComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, TdTechnicalDocModule],
 })
 export class LabSelectTypeComponent extends FlFormFieldDirective<LabTypeEntity> implements OnInit {
   private typeService = inject(LabTypeService);

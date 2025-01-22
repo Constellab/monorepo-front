@@ -4,6 +4,14 @@ import { Observable, share } from 'rxjs';
 import { LabVenvArrayObs, LabVEnvsStatus } from '../../../../lab-core/model/entities/lab-venv.entity';
 import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
 import { map } from 'rxjs/operators';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { LabVenvTableComponent } from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Sub-page of monitoring to list all venvs
@@ -13,7 +21,16 @@ import { map } from 'rxjs/operators';
   selector: 'lab-monitoring-venvs-page',
   templateUrl: './lab-monitoring-venvs-page.component.html',
   styleUrls: ['./lab-monitoring-venvs-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatButton,
+    FlSectionModule,
+    FlKeyValueModule,
+    LabVenvTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabMonitoringVenvsPageComponent implements OnInit {
   private venvService = inject(LabVenvService);

@@ -3,6 +3,11 @@ import { LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
 import { LabBiotaDatabase, labBiotaDatabaseGroups } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { ActivatedRoute } from '@angular/router';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * component to show the detail of a biota database
@@ -11,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'lab-biota-database-detail-page',
   templateUrl: './lab-biota-database-detail-page.component.html',
   styleUrls: ['./lab-biota-database-detail-page.component.scss'],
-  standalone: false,
+  imports: [FlSectionModule, FlTextIconModule, FlCardModule, LabBiotaDatabaseTableComponent, TranslatePipe],
 })
 export class LabBiotaDatabaseDetailPageComponent implements OnInit {
   private biotaDatabaseService = inject(LabBiotaDatabaseService);

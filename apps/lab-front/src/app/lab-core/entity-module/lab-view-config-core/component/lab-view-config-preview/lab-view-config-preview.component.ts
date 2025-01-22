@@ -7,6 +7,11 @@ import {
   LabResourceViewPortalInput,
 } from '../../../lab-resource-core/component/lab-resource-view-portal/lab-resource-view-portal.component';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Button to open the LabViewConfig preview in a portal
@@ -15,7 +20,7 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
   selector: 'lab-view-config-preview',
   templateUrl: './lab-view-config-preview.component.html',
   styleUrls: ['./lab-view-config-preview.component.scss'],
-  standalone: false,
+  imports: [MatIconButton, MatTooltip, MatIcon, FlLoaderModule, TranslatePipe],
 })
 export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
   private viewConfigService = inject(LabViewConfigService);

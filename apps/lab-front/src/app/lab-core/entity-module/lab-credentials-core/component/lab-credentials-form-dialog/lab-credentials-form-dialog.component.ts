@@ -15,23 +15,61 @@ import {
   LabSaveCredentialsDTO,
 } from '../../../../model/entities/lab-credentials.entity';
 import { Observable, of } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AbstractControl, FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import {
+  AbstractControl,
+  FormBuilder,
+  UntypedFormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import { catchError, map } from 'rxjs/operators';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelectChange, MatSelect } from '@angular/material/select';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatOption } from '@angular/material/core';
+import { FlDynamicFieldModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dynamic-field/fl-dynamic-field.module';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSaveCredentialsDTO> {
   id?: string;
 }
 
 @Component({
-    selector: 'lab-credentials-form-dialog',
-    templateUrl: './lab-credentials-form-dialog.component.html',
-    styleUrls: ['./lab-credentials-form-dialog.component.scss'],
-    standalone: false
+  selector: 'lab-credentials-form-dialog',
+  templateUrl: './lab-credentials-form-dialog.component.html',
+  styleUrls: ['./lab-credentials-form-dialog.component.scss'],
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatError,
+    MatHint,
+    MatSelect,
+    MatOption,
+    FlDynamicFieldModule,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabCredentialsFormDialogComponent implements OnInit {
   dialogInput: LabCredentialsFormDialogInput = inject(MAT_DIALOG_DATA);

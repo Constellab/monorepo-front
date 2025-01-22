@@ -2,14 +2,21 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlDynamicFieldConfigService, FlTranslatableText } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { TdParamSpecs } from '@monorepo/technical-doc';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 import {
   LabConfigureSpecsForm,
   LabConfigureSpecsFormComponent,
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 export interface LabQuickConfigureProcessDialogInput {
   title: FlTranslatableText;
@@ -23,14 +30,26 @@ export interface LabQuickConfigureProcessDialogInput {
  * Then trigger an action (like creating a scenario)
  */
 @Component({
-    selector: 'lab-quick-configure-process-dialog',
-    templateUrl: './lab-quick-configure-process-dialog.component.html',
-    styleUrl: './lab-quick-configure-process-dialog.component.scss',
-    providers: [
-        // configure the dynamic field to support tags and other custom fields
-        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-    ],
-    standalone: false
+  selector: 'lab-quick-configure-process-dialog',
+  templateUrl: './lab-quick-configure-process-dialog.component.html',
+  styleUrl: './lab-quick-configure-process-dialog.component.scss',
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    ReactiveFormsModule,
+    LabConfigureSpecsFormComponent,
+    MatDialogActions,
+    MatButton,
+    AsyncPipe,
+    TranslatePipe,
+    FlTranslateModule,
+  ],
 })
 export class LabQuickConfigureProcessDialogComponent implements OnInit {
   input: LabQuickConfigureProcessDialogInput = inject(MAT_DIALOG_DATA);

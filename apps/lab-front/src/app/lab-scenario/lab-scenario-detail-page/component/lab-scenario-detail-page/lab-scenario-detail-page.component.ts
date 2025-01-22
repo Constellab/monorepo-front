@@ -8,6 +8,12 @@ import { PrWorkflowActionState } from '@monorepo/protocol';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
+import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
+import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Page for the biox scenario detail with workflow view/edit
@@ -22,7 +28,16 @@ import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
     LabWorkflowEditConfig,
     LabWorkflowFactory,
   ],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    LabScenarioDetailHeaderComponent,
+    MatTabGroup,
+    MatTab,
+    MatTabContent,
+    LabWorkflowComponent,
+    LabScenarioDetailComponent,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioDetailPageComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);

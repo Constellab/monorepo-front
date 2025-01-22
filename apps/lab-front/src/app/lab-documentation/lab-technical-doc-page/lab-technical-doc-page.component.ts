@@ -3,12 +3,25 @@ import { ActivatedRoute } from '@angular/router';
 import { LabTypeEntity } from '../../lab-core/model/entities/lab-type/lab-type.entity';
 import { mergeMap, Observable } from 'rxjs';
 import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
+import { FlSectionModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCoreDirectiveModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlArticleModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { TdTechnicalDocModule } from '../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { LabTypeDetailComponent } from '../../lab-core/entity-module/lab-type-core/component/lab-type-detail/lab-type-detail.component';
 
 @Component({
   selector: 'lab-technical-doc-page',
   templateUrl: './lab-technical-doc-page.component.html',
   styleUrls: ['./lab-technical-doc-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    FlCoreDirectiveModule,
+    CdkScrollable,
+    FlArticleModule,
+    TdTechnicalDocModule,
+    LabTypeDetailComponent,
+  ],
 })
 export class LabTechnicalDocPageComponent implements OnInit {
   private route = inject(ActivatedRoute);

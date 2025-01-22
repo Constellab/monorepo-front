@@ -4,12 +4,29 @@ import { LabScenario, LabScenarioDatasource } from '../../../../lab-core/model/e
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabNote, LabNoteDatasource } from '../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
+import { FlPortalModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabScenarioTableComponent } from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+import { LabNoteTableComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-table/lab-note-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-resource-next-objects-portal',
   templateUrl: './lab-resource-next-objects-portal.component.html',
   styleUrl: './lab-resource-next-objects-portal.component.scss',
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlInfiniteScrollModule,
+    LabScenarioTableComponent,
+    LabNoteTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabResourceNextObjectsPortalComponent {
   private scenarioService = inject(LabScenarioService);

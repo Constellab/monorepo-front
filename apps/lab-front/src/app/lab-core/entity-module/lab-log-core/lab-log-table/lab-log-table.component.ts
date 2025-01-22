@@ -6,12 +6,47 @@ import {
   LabLogCompleteInfoDialogInput,
 } from '../lab-log-complete-info-dialog/lab-log-complete-info-dialog.component';
 import { LabLogService } from '../../../entity-service/lab-log.service';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-log-table',
   templateUrl: './lab-log-table.component.html',
   styleUrls: ['./lab-log-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabLogTableComponent {
   private dialogService = inject(FlDialogService);

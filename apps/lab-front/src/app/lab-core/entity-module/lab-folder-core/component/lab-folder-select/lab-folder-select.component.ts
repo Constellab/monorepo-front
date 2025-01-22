@@ -3,10 +3,23 @@ import { FlFlatTreeControl, FlFormFieldDirective } from '@monorepo/front-core-li
 import { LabFolder, LabFolderWithChildren } from '../../../../model/entities/lab-folder.class';
 import { NgControl } from '@angular/forms';
 import { LabFolderService } from '../../../../entity-service/lab-folder.service';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import {
+  MatTreeFlatDataSource,
+  MatTreeFlattener,
+  MatTree,
+  MatTreeNodeDef,
+  MatTreeNode,
+  MatTreeNodePadding,
+} from '@angular/material/tree';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabSystemService } from '../../../../service/lab-system.service';
 import { LabEnvironmentHelper } from '../../../../utils/lab-environment.helper';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { NgClass } from '@angular/common';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
 
 interface LabFolderFlatNode {
   folder: LabFolder;
@@ -19,7 +32,18 @@ interface LabFolderFlatNode {
   selector: 'lab-folder-select',
   templateUrl: './lab-folder-select.component.html',
   styleUrls: ['./lab-folder-select.component.scss'],
-  standalone: false,
+  imports: [
+    FlSectionModule,
+    MatTree,
+    MatTreeNodeDef,
+    MatTreeNode,
+    MatTreeNodePadding,
+    NgClass,
+    FlCoreDirectiveModule,
+    MatIcon,
+    TranslatePipe,
+    FlColorModule,
+  ],
 })
 export class LabFolderSelectComponent
   extends FlFormFieldDirective<FlFlatTreeControl<LabFolderFlatNode, string>, LabFolder[] | LabFolder>

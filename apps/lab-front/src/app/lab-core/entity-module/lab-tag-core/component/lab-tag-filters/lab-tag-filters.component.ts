@@ -12,6 +12,22 @@ import {
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { NgControl } from '@angular/forms';
 import { LabRouterService } from '../../../../service/lab-router.service';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+  MatExpansionPanelDescription,
+} from '@angular/material/expansion';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconAnchor } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to select tag to filter the list of entity
@@ -21,7 +37,22 @@ import { LabRouterService } from '../../../../service/lab-router.service';
   selector: 'lab-tag-filters',
   templateUrl: './lab-tag-filters.component.html',
   styleUrls: ['./lab-tag-filters.component.scss'],
-  standalone: false,
+  imports: [
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    FlTextIconModule,
+    MatIcon,
+    MatExpansionPanelDescription,
+    MatIconAnchor,
+    RouterLink,
+    MatTooltip,
+    FlTagModule,
+    FlInfiniteScrollModule,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
   private tagService = inject(LabTagService);

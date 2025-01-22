@@ -1,7 +1,6 @@
-import { Injectable, NgModule, inject } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterModule, Routes, UrlTree } from '@angular/router';
-import { LabResourceSearchPageComponent } from './lab-resource-search-page/lab-resource-search-page/lab-resource-search-page.component';
-import { LabResourceDetailPageComponent } from './lab-resource-detail-page/lab-resource-detail-page/lab-resource-detail-page.component';
+import { inject, Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Router, Routes, UrlTree } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 import { LabViewConfigService } from '../lab-core/entity-service/lab-view-config.service';
 import { catchError, map } from 'rxjs/operators';
@@ -33,19 +32,29 @@ export class LabViewRouteRedirectGuard {
   }
 }
 
-const routes: Routes = [
-  { path: '', component: LabResourceSearchPageComponent },
-  { path: ':id', component: LabResourceDetailPageComponent },
-  // special route to redirect to the view config page in the resource detail page, there might be a better way to do this
+export const labResourceRoutes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./lab-resource-search-page/lab-resource-search-page/lab-resource-search-page.component').then(
+        (m) => m.LabResourceSearchPageComponent
+      ),
+  },
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('./lab-resource-detail-page/lab-resource-detail-page/lab-resource-detail-page.component').then(
+        (m) => m.LabResourceDetailPageComponent
+      ),
+  },
+  // special route to redirect to the view config page in the resource detail page,
+  // there might be a better way to do this
   {
     path: 'view-redirect/:id',
     canActivate: [LabViewRouteRedirectGuard],
-    component: LabResourceSearchPageComponent,
+    loadComponent: () =>
+      import('./lab-resource-search-page/lab-resource-search-page/lab-resource-search-page.component').then(
+        (m) => m.LabResourceSearchPageComponent
+      ),
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class LabResourceRoutingModule {}

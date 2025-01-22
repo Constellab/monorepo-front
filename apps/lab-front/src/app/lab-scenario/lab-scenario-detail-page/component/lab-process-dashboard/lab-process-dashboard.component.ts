@@ -9,9 +9,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { Observable, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
-import {
-  LabProgressBarInfoDialogComponent,
-} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   LabLogBetweenDatesDialogInput,
@@ -22,33 +20,60 @@ import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import {
-  LabSystemConfigDialogComponent,
-} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
   LabMonitorBetweenDatesDialogInput,
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
-import {
-  LabShareAgentCommunityDialogComponent,
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
+import { LabShareAgentCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 import {
   LabProcessEditStyleDialogComponent,
   LabProcessEditStyleDialogInputData,
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent } from '@angular/material/dialog';
+import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-io-panel.component';
+import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
  */
 @Component({
-    selector: 'lab-process-dashboard',
-    templateUrl: './lab-process-dashboard.component.html',
-    styleUrls: ['./lab-process-dashboard.component.scss'],
-    providers: [LabProcessDashboardConfigState],
-    standalone: false
+  selector: 'lab-process-dashboard',
+  templateUrl: './lab-process-dashboard.component.html',
+  styleUrls: ['./lab-process-dashboard.component.scss'],
+  providers: [LabProcessDashboardConfigState],
+  imports: [
+    CdkScrollable,
+    MatDialogContent,
+    CoCommunityLibModule,
+    FlFormModule,
+    MatIconButton,
+    MatTooltip,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    FlStatusModule,
+    FlIconModule,
+    LabProcessIoPanelComponent,
+    LabConfigureProcessComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private nodeState = inject(LabWorkflowNodeDetailState);

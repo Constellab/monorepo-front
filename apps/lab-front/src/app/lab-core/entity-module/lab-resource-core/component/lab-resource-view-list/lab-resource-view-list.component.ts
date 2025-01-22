@@ -5,6 +5,7 @@ import { LabResource } from '../../../../model/entities/resource/lab-resource.en
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { LabResourceTableComponent } from '../lab-resource-table/lab-resource-table.component';
 
 /**
  * View of resource that show a list of other resources
@@ -13,7 +14,7 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
   selector: 'lab-resource-view-list',
   templateUrl: './lab-resource-view-list.component.html',
   styleUrls: ['./lab-resource-view-list.component.scss'],
-  standalone: false,
+  imports: [LabResourceTableComponent],
 })
 export class LabResourceViewListComponent
   extends RvResourceViewDirective<LabResourceViewResourcesList>

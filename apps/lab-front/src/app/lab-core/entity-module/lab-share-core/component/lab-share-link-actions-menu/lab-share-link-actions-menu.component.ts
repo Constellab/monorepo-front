@@ -6,6 +6,12 @@ import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 /**
  * Action menu for a share link. To update, delete, copy the link or open entity
@@ -14,7 +20,16 @@ import {
   selector: 'lab-share-link-actions-menu',
   templateUrl: './lab-share-link-actions-menu.component.html',
   styleUrls: ['./lab-share-link-actions-menu.component.scss'],
-  standalone: false,
+  imports: [
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    RouterLink,
+    TranslatePipe,
+    LabDetailRoutePipe,
+  ],
 })
 export class LabShareLinkActionsMenuComponent {
   private shareLinkService = inject(LabShareLinkService);

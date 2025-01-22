@@ -8,10 +8,7 @@ import { LabViewConfig } from '../../../model/entities/resource/lab-view-config.
 import { LabEntityTagType, LabTagDatasource } from '../../../model/entities/lab-tag.entity';
 import { LabScenarioTemplate } from '../../../model/entities/process/lab-scenario-template.entity';
 
-@Pipe({
-  name: 'labGetEntityTags',
-  standalone: false,
-})
+@Pipe({ name: 'labGetEntityTags' })
 export class LabGetEntityTagsPipe implements PipeTransform {
   private tagService = inject(LabTagService);
 

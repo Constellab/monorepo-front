@@ -3,13 +3,32 @@ import { Observable } from 'rxjs';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
 import { FlQueryParamHandler } from '@monorepo/front-core-lib';
+import { LabResourceChildrenTabsComponent } from '../lab-resource-children-tabs/lab-resource-children-tabs.component';
+import { LabResourceDetailHeaderComponent } from '../lab-resource-detail-header/lab-resource-detail-header.component';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabResourceViewDetailComponent } from '../lab-resource-view-detail/lab-resource-view-detail.component';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { LabResourceDetailMinimizedViewsComponent } from '../lab-resource-detail-minimized-views/lab-resource-detail-minimized-views.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-resource-detail',
   templateUrl: './lab-resource-detail.component.html',
   styleUrls: ['./lab-resource-detail.component.scss'],
   providers: [LabResourceDetailState, LabViewConfigurerState, FlQueryParamHandler],
-  standalone: false,
+  imports: [
+    LabResourceChildrenTabsComponent,
+    LabResourceDetailHeaderComponent,
+    FlSectionModule,
+    LabResourceViewDetailComponent,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    LabResourceDetailMinimizedViewsComponent,
+    TranslatePipe,
+  ],
 })
 export class LabResourceDetailComponent implements OnInit {
   private state = inject(LabResourceDetailState);

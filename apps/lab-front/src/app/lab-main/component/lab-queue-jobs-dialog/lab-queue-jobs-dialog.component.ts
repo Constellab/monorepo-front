@@ -11,13 +11,47 @@ import { LabQueueService } from '../../../lab-core/entity-service/lab-queue.serv
 import { LabQueueJob } from '../../../lab-core/model/entities/lab-queue.entity';
 import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
 import { Subscription, tap, zip } from 'rxjs';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabRunningScenarioTableComponent } from '../../../lab-core/entity-module/lab-scenario-core/component/lab-running-scenario-table/lab-running-scenario-table.component';
+import {
+  MatList,
+  MatListItem,
+  MatListItemTitle,
+  MatListItemLine,
+  MatListItemMeta,
+} from '@angular/material/list';
+import { RouterLink } from '@angular/router';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LabDetailRoutePipe } from '../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 @Component({
   selector: 'lab-queue-jobs-dialog',
   templateUrl: './lab-queue-jobs-dialog.component.html',
   styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlSectionModule,
+    LabRunningScenarioTableComponent,
+    MatList,
+    MatListItem,
+    MatListItemTitle,
+    RouterLink,
+    MatListItemLine,
+    MatListItemMeta,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    TranslatePipe,
+    LabDetailRoutePipe,
+  ],
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<LabQueueJobsDialogComponent>>(MatDialogRef);

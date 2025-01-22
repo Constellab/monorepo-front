@@ -17,12 +17,40 @@ import {
   LabImportResourceDialogComponent,
   LabImportResourceDialogInput,
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabFlagButtonComponent } from '../../../lab-entity-core/component/lab-flag-button/lab-flag-button.component';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { LabResourceActionsMenuComponent } from '../lab-resource-actions-menu/lab-resource-actions-menu.component';
+import { MatMenuItem } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatDialogClose } from '@angular/material/dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 @Component({
   selector: 'lab-resource-detail-header',
   templateUrl: './lab-resource-detail-header.component.html',
   styleUrls: ['./lab-resource-detail-header.component.scss'],
-  standalone: false,
+  imports: [
+    FlFormModule,
+    RouterLink,
+    MatIcon,
+    FlIconModule,
+    LabFlagButtonComponent,
+    MatButton,
+    LabResourceActionsMenuComponent,
+    MatMenuItem,
+    MatIconButton,
+    MatTooltip,
+    MatDialogClose,
+    TranslatePipe,
+    FlColorModule,
+    LabDetailRoutePipe,
+  ],
 })
 export class LabResourceDetailHeaderComponent {
   private state = inject(LabResourceDetailState);

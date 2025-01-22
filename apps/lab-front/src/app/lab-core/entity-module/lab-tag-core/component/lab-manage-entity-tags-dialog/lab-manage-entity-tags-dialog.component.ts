@@ -7,13 +7,23 @@ import {
   FlPortalActionsService,
   FlSnackBarService,
 } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import {
   LabTagCheckPropagationComponent,
   LabTagCheckPropagationInput,
 } from '../lab-tag-check-propagation/lab-tag-check-propagation.component';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { LabTagListComponent } from '../lab-tag-list/lab-tag-list.component';
+import { MatDivider } from '@angular/material/divider';
+import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabManageEntityTagsDialogInput {
   entityType: LabEntityTagType;
@@ -28,7 +38,20 @@ export interface LabManageEntityTagsDialogInput {
   selector: 'lab-manage-entity-tags-dialog',
   templateUrl: './lab-manage-entity-tags-dialog.component.html',
   styleUrls: ['./lab-manage-entity-tags-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    FlTextIconModule,
+    MatIcon,
+    MatDialogContent,
+    LabTagListComponent,
+    MatDivider,
+    FlTagModule,
+    MatCheckbox,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class LabManageEntityTagsDialogComponent {
   private input = inject<LabManageEntityTagsDialogInput>(MAT_DIALOG_DATA);

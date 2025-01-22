@@ -18,13 +18,32 @@ import {
   LabSelectNoteTemplateDialogComponent,
   LabSelectNoteTemplateDialogInput,
 } from '../../../lab-note-template-core/component/lab-select-note-template-dialog/lab-select-note-template-dialog.component';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabNoteSearchFormComponent } from '../lab-note-search-form/lab-note-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { LabNoteTableComponent } from '../lab-note-table/lab-note-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-note-search',
   templateUrl: './lab-note-search.component.html',
   styleUrls: ['./lab-note-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlSearchModule,
+    LabNoteSearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    MatIconButton,
+    MatTooltip,
+    LabNoteTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabNoteSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

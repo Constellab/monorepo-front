@@ -27,9 +27,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
       @for (process of scenario.runningTasks; track process) {
-        <lab-running-process
-          [runningProcess]="process"
-        class="running-process"></lab-running-process>
+        <lab-running-process [runningProcess]="process" class="running-process"></lab-running-process>
       }
     </mat-cell>
   </ng-container>

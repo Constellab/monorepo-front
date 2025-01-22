@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FlCodeEditorLanguage, FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
 import { TdParamSpecType } from '@monorepo/technical-doc';
+import { FlCodeEditorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-code-editor/fl-code-editor.module';
 
 /**
  * Component used under {@link FlDynamicFieldComponent} to show
  * code editor.
  */
 @Component({
-    selector: 'lab-code-editor-dynamic-field',
-    templateUrl: './lab-code-editor-dynamic-field.component.html',
-    styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
-    standalone: false
+  selector: 'lab-code-editor-dynamic-field',
+  templateUrl: './lab-code-editor-dynamic-field.component.html',
+  styleUrls: ['./lab-code-editor-dynamic-field.component.scss'],
+  imports: [FlCodeEditorModule],
 })
 export class LabCodeEditorDynamicFieldComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() specType: TdParamSpecType;

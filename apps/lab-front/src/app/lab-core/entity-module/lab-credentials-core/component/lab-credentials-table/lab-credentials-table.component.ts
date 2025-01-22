@@ -15,12 +15,47 @@ import {
   LabCredentialsFormDialogInput,
 } from '../lab-credentials-form-dialog/lab-credentials-form-dialog.component';
 import { ClCredentials } from '@monorepo/core-lib';
+import {
+  MatTable,
+  MatColumnDef,
+  MatHeaderCellDef,
+  MatHeaderCell,
+  MatCellDef,
+  MatCell,
+  MatHeaderRowDef,
+  MatHeaderRow,
+  MatRowDef,
+  MatRow,
+} from '@angular/material/table';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-credentials-table',
   templateUrl: './lab-credentials-table.component.html',
   styleUrls: ['./lab-credentials-table.component.scss'],
-  standalone: false,
+  imports: [
+    MatTable,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatCellDef,
+    MatCell,
+    FlUserModule,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    TranslatePipe,
+  ],
 })
 export class LabCredentialsTableComponent {
   private credentialsService = inject(LabCredentialsService);

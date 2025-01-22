@@ -12,12 +12,17 @@ import {
 import { Observable, of } from 'rxjs';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import { ClStringHelper } from '@monorepo/core-lib';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { PrProtocolModule } from '../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-template-workflow',
   templateUrl: './lab-scenario-template-workflow.component.html',
   styleUrl: './lab-scenario-template-workflow.component.scss',
-  standalone: false,
+  imports: [FlTextIconModule, MatIcon, FlSectionModule, PrProtocolModule, TranslatePipe],
 })
 export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
   private actionState = inject(PrWorkflowActionState);

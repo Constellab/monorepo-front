@@ -11,9 +11,13 @@ import {
 import { Subscription } from 'rxjs';
 import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
 import { map } from 'rxjs/operators';
-import {
-  LabSelectNoteDialogComponent,
-} from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
+import { LabSelectNoteDialogComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { LabNoteTableComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-table/lab-note-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component inside the scenario detail to list the notes linked with the scenario
@@ -22,7 +26,7 @@ import {
   selector: 'lab-scenario-linked-notes',
   templateUrl: './lab-scenario-linked-notes.component.html',
   styleUrls: ['./lab-scenario-linked-notes.component.scss'],
-  standalone: false,
+  imports: [FlSectionModule, MatIconButton, MatTooltip, MatIcon, LabNoteTableComponent, TranslatePipe],
 })
 export class LabScenarioLinkedNotesComponent implements OnInit, OnDestroy {
   private noteService = inject(LabNoteService);

@@ -23,10 +23,20 @@ import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.enti
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
 import { PrConfigValues } from '@monorepo/protocol';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatDivider } from '@angular/material/divider';
+import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabImportResourceDialogInput {
   resourceId: string;
@@ -39,14 +49,28 @@ export interface LabImportResourceDialogInput {
  * Dialog to config a resource import and call import
  */
 @Component({
-    selector: 'lab-import-resource-dialog',
-    templateUrl: './lab-import-resource-dialog.component.html',
-    styleUrls: ['./lab-import-resource-dialog.component.scss'],
-    providers: [
-        // configure the dynamic field to support tags and other custom fields
-        { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
-    ],
-    standalone: false
+  selector: 'lab-import-resource-dialog',
+  templateUrl: './lab-import-resource-dialog.component.html',
+  styleUrls: ['./lab-import-resource-dialog.component.scss'],
+  providers: [
+    // configure the dynamic field to support tags and other custom fields
+    { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
+  ],
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    MatButton,
+    FlLoaderModule,
+    ReactiveFormsModule,
+    MatDivider,
+    LabTypeShowDetailButtonComponent,
+    TdTechnicalDocModule,
+    MatIcon,
+    MatTooltip,
+    LabConfigureSpecsFormComponent,
+    TranslatePipe,
+  ],
 })
 export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   formGp: FormGroup<LabConfigureSpecsForm>;

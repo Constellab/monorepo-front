@@ -10,12 +10,27 @@ import {
 import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
 import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
 import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-info',
   templateUrl: './lab-info.component.html',
   styleUrls: ['./lab-info.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlLoaderModule,
+    FlTextIconModule,
+    MatIcon,
+    FlKeyValueModule,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class LabInfoComponent implements OnInit {
   private systemService = inject(LabSystemService);

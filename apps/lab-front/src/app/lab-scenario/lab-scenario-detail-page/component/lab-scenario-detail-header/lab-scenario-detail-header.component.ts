@@ -11,9 +11,7 @@ import {
   FlTranslateService,
 } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
-import {
-  LabProgressBarInfoDialogComponent,
-} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { map } from 'rxjs/operators';
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
@@ -55,6 +53,16 @@ import {
   LabSharedEntityInfoDialogComponent,
   LabSharedEntityInfoDialogInput,
 } from '../../../../lab-core/entity-module/lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
+import { LabScenarioIconsComponent } from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-icons/lab-scenario-icons.component';
+import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { LabSyncObjectButtonComponent } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
+import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Header for the scenario detail page
@@ -63,7 +71,21 @@ import {
   selector: 'lab-scenario-detail-header',
   templateUrl: './lab-scenario-detail-header.component.html',
   styleUrls: ['./lab-scenario-detail-header.component.scss'],
-  standalone: false,
+  imports: [
+    LabScenarioIconsComponent,
+    FlFormModule,
+    LabSyncObjectButtonComponent,
+    FlStatusModule,
+    NgClass,
+    MatIconButton,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenu,
+    MatMenuItem,
+    FlIconModule,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioDetailHeaderComponent implements OnInit {
   private scenarioState = inject(LabScenarioDetailPageState);

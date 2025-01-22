@@ -6,6 +6,12 @@ import {
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.service';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabResourceViewSpecCardComponent } from '../lab-resource-view-spec-card/lab-resource-view-spec-card.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-resource-view-spec-list',
@@ -13,7 +19,14 @@ import { LabViewConfigurerState } from '../../state/lab-view-configurer-state.se
   styleUrls: ['./lab-resource-view-spec-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [LabViewConfigurerState],
-  standalone: false,
+  imports: [
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    LabResourceViewSpecCardComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabResourceViewSpecListComponent {
   private resourceService = inject(LabResourceService);

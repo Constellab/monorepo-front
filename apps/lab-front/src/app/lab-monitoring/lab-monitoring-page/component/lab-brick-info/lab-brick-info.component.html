@@ -30,22 +30,14 @@
 }
 
 <div class="action-buttons">
-  <button
-    mat-stroked-button
-    type="button"
-    (click)="generateTechnicalDoc()"
-    class="g-button-small primary">
+  <button mat-stroked-button type="button" (click)="generateTechnicalDoc()" class="g-button-small primary">
     {{ 'monitoring.generate_technical_doc' | translate }}
     @if (generateDocIsLoading) {
       <fl-button-loader size="small"></fl-button-loader>
     }
   </button>
 
-  <button
-    mat-stroked-button
-    type="button"
-    (click)="openCallMigrationDialog()"
-    class="g-button-small primary">
+  <button mat-stroked-button type="button" (click)="openCallMigrationDialog()" class="g-button-small primary">
     {{ 'monitoring.call_migration_title' | translate }}
   </button>
 

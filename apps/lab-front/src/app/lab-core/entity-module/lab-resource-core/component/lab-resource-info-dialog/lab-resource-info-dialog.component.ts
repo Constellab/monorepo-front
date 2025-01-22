@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { LabResourceInfoComponent } from '../lab-resource-info/lab-resource-info.component';
+import { LabResourceViewHistoricComponent } from '../lab-resource-view-historic/lab-resource-view-historic.component';
+import { LabScenariosUsingResourceComponent } from '../lab-scenarios-using-resource/lab-scenarios-using-resource.component';
+import { LabNotesUsingResourceComponent } from '../lab-notes-using-resource/lab-notes-using-resource.component';
 
 export interface LabResourceInfoDialogInput {
   resource: LabResource;
@@ -10,7 +16,15 @@ export interface LabResourceInfoDialogInput {
   selector: 'lab-resource-info-dialog',
   templateUrl: './lab-resource-info-dialog.component.html',
   styleUrls: ['./lab-resource-info-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    TdTechnicalDocModule,
+    MatDialogContent,
+    LabResourceInfoComponent,
+    LabResourceViewHistoricComponent,
+    LabScenariosUsingResourceComponent,
+    LabNotesUsingResourceComponent,
+  ],
 })
 export class LabResourceInfoDialogComponent {
   resource: LabResource;

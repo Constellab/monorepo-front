@@ -10,9 +10,7 @@
   [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as template">
     @if (template) {
-      <fl-user-profile-picture
-        [user]="template.createdBy"
-      size="small"></fl-user-profile-picture>
+      <fl-user-profile-picture [user]="template.createdBy" size="small"></fl-user-profile-picture>
     }
   </div>
 

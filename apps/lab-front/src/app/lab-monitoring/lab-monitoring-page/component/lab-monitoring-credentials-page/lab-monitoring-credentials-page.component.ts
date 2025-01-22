@@ -9,12 +9,27 @@ import {
   LabCredentialsFormDialogComponent,
   LabCredentialsFormDialogInput,
 } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-form-dialog/lab-credentials-form-dialog.component';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabCredentialsTableComponent } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-table/lab-credentials-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-monitoring-credentials-page',
   templateUrl: './lab-monitoring-credentials-page.component.html',
   styleUrls: ['./lab-monitoring-credentials-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    MatButton,
+    FlSectionModule,
+    LabCredentialsTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabMonitoringCredentialsPageComponent {
   private credentialsService = inject(LabCredentialsService);

@@ -101,7 +101,7 @@
           <te-text-editor-save
             [formCtrl]="formControl"
             [saveFunc]="saveContentFunc"
-          [debounceTime]="2500"></te-text-editor-save>
+            [debounceTime]="2500"></te-text-editor-save>
 
           <!-- Tags -->
           <lab-tag-list
@@ -109,7 +109,7 @@
             entityType="NOTE"
             [entityId]="note.id"
             [showNoTagMessage]="true"
-          class="separator"></lab-tag-list>
+            class="separator"></lab-tag-list>
 
           <!--  Folder  -->
           <lab-folder-inline-select
@@ -117,22 +117,16 @@
             (selectionChange)="updateFolder($event)"
             [disabled]="!note.isEditable()"
             class="separator"
-          [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
+            [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
 
           <!--  Validated info  -->
           @if (note.isValidated) {
-            <lab-object-validation-info
-              class="separator"
-              [object]="note"
-            ></lab-object-validation-info>
+            <lab-object-validation-info class="separator" [object]="note"></lab-object-validation-info>
           }
 
           <!--  Sync info  -->
           @if (note.isSynced) {
-            <lab-object-sync-info
-              class="separator"
-              [object]="note"
-            ></lab-object-sync-info>
+            <lab-object-sync-info class="separator" [object]="note"></lab-object-sync-info>
           }
 
           <!--  Created by & Last modified bt  -->
@@ -142,7 +136,7 @@
           <p class="g-text-small g-text-light">
             <fl-last-modification-info
               [user]="note.lastModifiedBy"
-            [date]="note.lastModifiedAt"></fl-last-modification-info>
+              [date]="note.lastModifiedAt"></fl-last-modification-info>
           </p>
 
           <lab-note-linked-scenarios class="scenarios"></lab-note-linked-scenarios>
@@ -153,7 +147,7 @@
           <te-text-editor
             class="g-full-height g-print-section"
             [config]="textEditorConfig"
-          [formControl]="formControl"></te-text-editor>
+            [formControl]="formControl"></te-text-editor>
         </div>
       </div>
     </ng-container>

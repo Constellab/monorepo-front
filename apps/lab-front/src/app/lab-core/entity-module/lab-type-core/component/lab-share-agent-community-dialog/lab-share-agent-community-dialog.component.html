@@ -18,9 +18,7 @@
     @if ((!isLoading || !agentVersionId) && !onlyUpdate) {
       <mat-divider class="divider"></mat-divider>
       <div class="new-agent-div">
-        <button (click)="openCreateCommunityAgentDialog(agentVersionId)"
-          mat-stroked-button
-          type="button">
+        <button (click)="openCreateCommunityAgentDialog(agentVersionId)" mat-stroked-button type="button">
           <mat-icon>add_circle</mat-icon>
           {{ 'biox.create_new_community_agent' | translate }}
         </button>

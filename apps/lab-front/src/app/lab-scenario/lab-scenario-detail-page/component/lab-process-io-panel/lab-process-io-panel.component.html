@@ -5,11 +5,11 @@
         <div
           class="port-container g-layout-col"
           (click)="onPortClick(port.port.name)"
-        [ngClass]="{
-          'selected-port': (portIsSelected(port.port.name) | async),
-          'port-input': mode === 'input',
-          'port-output': mode === 'output',
-        }">
+          [ngClass]="{
+            'selected-port': (portIsSelected(port.port.name) | async),
+            'port-input': mode === 'input',
+            'port-output': mode === 'output',
+          }">
           <div class="port-color" [style.background-color]="port.port.getDefaultColor$() | async"></div>
           <div class="text">
             {{ port.text }}
@@ -34,11 +34,7 @@
                 <mat-icon>edit</mat-icon>
                 {{ 'td.update_port' | translate }}
               </button>
-              <button
-                mat-menu-item
-                type="button"
-                class="warn"
-                (click)="removePort(port.port.name)">
+              <button mat-menu-item type="button" class="warn" (click)="removePort(port.port.name)">
                 <mat-icon>clear</mat-icon>
                 <span>{{ removePortTooltip | translate }}</span>
               </button>
@@ -69,7 +65,7 @@
       <lab-resource-detail
         [resourceId]="selectedResourceId$"
         displayMode="dense"
-      class="view-container"></lab-resource-detail>
+        class="view-container"></lab-resource-detail>
     } @else {
       <fl-error-text
         class="error-text"

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import {
   LabTypeDialogComponent,
@@ -8,6 +8,19 @@ import { FlClipboardService, FlDialogService } from '@monorepo/front-core-lib';
 import { LabSharedEntityOriginDialogComponent } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { RouterLink } from '@angular/router';
+import { LabFolderInlineComponent } from '../../../lab-folder-core/component/lab-folder-inline/lab-folder-inline.component';
+import { NgClass } from '@angular/common';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 /**
  * Component to show info about a resource
@@ -16,7 +29,21 @@ import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
   selector: 'lab-resource-info',
   templateUrl: './lab-resource-info.component.html',
   styleUrls: ['./lab-resource-info.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    RouterLink,
+    NgClass,
+    TdTechnicalDocModule,
+    FlUserModule,
+    FlCorePipeModule,
+    TranslatePipe,
+    LabDetailRoutePipe,
+    LabFolderInlineComponent,
+    LabTagListComponent,
+  ],
 })
 export class LabResourceInfoComponent implements OnInit {
   private dialogService = inject(FlDialogService);

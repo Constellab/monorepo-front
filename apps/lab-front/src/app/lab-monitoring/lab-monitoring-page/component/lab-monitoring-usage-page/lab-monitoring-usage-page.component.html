@@ -12,7 +12,7 @@
         <fl-key-value>
           <fl-key>{{ 'monitoring.lab_disk_space' | translate }}</fl-key>
           {{ lastMonitor.diskUsageUsed | flByteText }} / {{ lastMonitor.diskTotal | flByteText }} ({{
-          lastMonitor.diskUsageFree | flByteText
+            lastMonitor.diskUsageFree | flByteText
           }}
           {{ 'monitoring.disk_space_available' | translate }})
         </fl-key-value>
@@ -53,14 +53,14 @@
           [placeholder]="'lab_usage_period_from' | translate"
           (dateTimeChange)="startDateChange($event)"
           formControlName="customStartDate"
-        [maxDate]="currentDate"></fl-datetime-picker>
+          [maxDate]="currentDate"></fl-datetime-picker>
         @if (formGroup.value.customStartDate) {
           <fl-datetime-picker
             [placeholder]="'lab_usage_period_to' | translate"
             [minDate]="formGroup.value.customStartDate"
             [maxDate]="currentDate"
             (dateTimeChange)="endDateChange($event)"
-          formControlName="customEndDate"></fl-datetime-picker>
+            formControlName="customEndDate"></fl-datetime-picker>
         }
       }
     </form>

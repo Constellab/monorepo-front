@@ -3,6 +3,10 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { filter } from 'rxjs/operators';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatRipple } from '@angular/material/core';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
 
 /**
  * Component to configure a protocol, can contains nested protocol
@@ -11,7 +15,7 @@ import { filter } from 'rxjs/operators';
   selector: 'lab-configure-protocol',
   templateUrl: './lab-configure-protocol.component.html',
   styleUrls: ['./lab-configure-protocol.component.scss'],
-  standalone: false,
+  imports: [FlSectionModule, MatRipple, NgClass, LabConfigureProcessComponent, AsyncPipe],
 })
 export class LabConfigureProtocolComponent implements OnInit {
   private scenarioState = inject(LabScenarioDetailPageState);

@@ -1,11 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { LabResourceDetailComponent } from '../lab-resource-detail/lab-resource-detail.component';
 
 @Component({
   selector: 'lab-resource-detail-dialog',
   templateUrl: './lab-resource-detail-dialog.component.html',
   styleUrls: ['./lab-resource-detail-dialog.component.scss'],
-  standalone: false,
+  imports: [CdkScrollable, MatDialogContent, LabResourceDetailComponent],
 })
 export class LabResourceDetailDialogComponent implements OnInit {
   resourceId: string;

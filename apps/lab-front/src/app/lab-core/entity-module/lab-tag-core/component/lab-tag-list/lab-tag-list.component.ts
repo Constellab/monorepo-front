@@ -1,21 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { FlDialogService, FlPortalService } from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlCorePipeModule, FlDialogService, FlPortalService, FlTagModule } from '@monorepo/front-core-lib';
 import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
-import {
-  LabManageEntityTagsDialogComponent,
-  LabManageEntityTagsDialogInput,
-} from '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
+import { LabManageEntityTagsDialogInput } from '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   LabTagDetailPortalComponent,
   LabTagDetailPortalInput,
 } from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'lab-tag-list',
   templateUrl: './lab-tag-list.component.html',
   styleUrls: ['./lab-tag-list.component.scss'],
-  standalone: false,
+  imports: [FlTagModule, MatTooltip, TranslatePipe, FlCorePipeModule, AsyncPipe, MatIcon, MatIconButton],
 })
 export class LabTagListComponent implements OnInit {
   private dialogService = inject(FlDialogService);
@@ -45,15 +47,21 @@ export class LabTagListComponent implements OnInit {
     return this.entityType != null && this.entityId != null;
   }
 
-  openManageEntityTagDialog(): void {
+  async openManageEntityTagDialog(): Promise<void> {
     if (!this.entityInformationProvided) return;
+
+    // Lazy load the dialog component to avoid circular dependencies
+    // because the dialog uses lab-tag-list component
+    const componentType = await import(
+      '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component'
+    ).then((m) => m.LabManageEntityTagsDialogComponent);
 
     const data: LabManageEntityTagsDialogInput = {
       entityType: this.entityType,
       entityId: this.entityId,
       tags: this.tags,
     };
-    this.dialogService.openSmallDialog(LabManageEntityTagsDialogComponent, {
+    this.dialogService.openSmallDialog(componentType, {
       data: data,
     });
   }

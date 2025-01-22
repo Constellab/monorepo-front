@@ -11,9 +11,7 @@ import {
 } from '@monorepo/resource-view';
 import { SpSheetChartConfig, SpSpreadsheetPage, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
 import { Observable } from 'rxjs';
-import {
-  LabResourceRichTextViewComponent,
-} from '../../lab-core/entity-module/lab-resource-core/component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
+import { LabResourceRichTextViewComponent } from '../../lab-core/entity-module/lab-resource-core/component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
 import { LabShareService } from '../../lab-core/entity-service/lab-share.service';
 import { LabResourceTableService } from '../../lab-core/entity-service/lab-resource-table.service';
 import { map } from 'rxjs/operators';

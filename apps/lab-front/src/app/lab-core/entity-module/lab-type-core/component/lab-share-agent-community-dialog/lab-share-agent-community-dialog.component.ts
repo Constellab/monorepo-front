@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { LabAgent, LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
 import {
@@ -9,6 +9,16 @@ import {
 import { FlConfirmDialogInput, FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
 import { LabAuthenticatedUserService } from '../../../../service/lab-authenticated-user.service';
 import { LabUser } from '../../../../model/entities/lab-user.entity';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { MatDivider } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { NgClass } from '@angular/common';
+import { LabSelectCommunityAgentComponent } from '../lab-select-community-agent/lab-select-community-agent.component';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabShareAgentCommunityDialogData {
   processId: string;
@@ -20,7 +30,19 @@ export interface LabShareAgentCommunityDialogData {
   selector: 'lab-share-agent-community-dialog',
   templateUrl: './lab-share-agent-community-dialog.component.html',
   styleUrls: ['./lab-share-agent-community-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    CoCommunityLibModule,
+    MatDivider,
+    MatButton,
+    MatIcon,
+    NgClass,
+    LabSelectCommunityAgentComponent,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class LabShareAgentCommunityDialogComponent implements OnInit {
   data = inject<LabShareAgentCommunityDialogData>(MAT_DIALOG_DATA);

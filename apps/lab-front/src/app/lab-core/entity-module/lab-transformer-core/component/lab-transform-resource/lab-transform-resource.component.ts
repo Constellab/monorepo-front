@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/co
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   LabConfigureSpecsForm,
@@ -16,6 +16,7 @@ import {
   FormGroup,
   UntypedFormArray,
   UntypedFormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { FlDialogService, FlDynamicFieldConfigService, FlGlobalValidators } from '@monorepo/front-core-lib';
 import { LabTransformerWithConfig } from '../../../../model/global/lab-transformer.class';
@@ -25,6 +26,14 @@ import {
   LabSelectTypeDialogInput,
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
+import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlCoreComponentModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface LabSelectedTransformer {
   transformer: LabProcessType;
@@ -44,7 +53,24 @@ interface LabSelectedTransformer {
     // configure the dynamic field to support tags and other custom fields
     { provide: FlDynamicFieldConfigService, useClass: LabProcessDynamicFieldConfig },
   ],
-  standalone: false,
+  imports: [
+    MatButton,
+    MatIcon,
+    MatAccordion,
+    CdkDropList,
+    MatExpansionPanel,
+    CdkDrag,
+    ReactiveFormsModule,
+    MatExpansionPanelHeader,
+    LabTypeShowDetailButtonComponent,
+    MatIconButton,
+    CdkDragHandle,
+    MatTooltip,
+    LabConfigureSpecsFormComponent,
+    FlCoreComponentModule,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class LabTransformResourceComponent implements OnInit {
   private typeService = inject(LabTypeService);

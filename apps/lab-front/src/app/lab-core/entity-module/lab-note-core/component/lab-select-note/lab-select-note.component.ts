@@ -11,13 +11,16 @@ import { LabNoteService } from '../../../../entity-service/lab-note.service';
 import { LabSelectNoteDialogComponent } from '../lab-note-note-dialog/lab-select-note-dialog.component';
 import { LabNoteTemplate } from '../../../../model/entities/lab-note-template.entity';
 import { Observable } from 'rxjs';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { LabNoteInlineComponent } from '../lab-note-inline/lab-note-inline.component';
 
 @Component({
   selector: 'lab-select-note',
   templateUrl: './lab-select-note.component.html',
   styleUrls: ['./lab-select-note.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, FlUserModule, LabNoteInlineComponent],
 })
 export class LabSelectNoteComponent extends FlFormFieldDirective<LabNote> implements OnInit {
   private noteService = inject(LabNoteService);

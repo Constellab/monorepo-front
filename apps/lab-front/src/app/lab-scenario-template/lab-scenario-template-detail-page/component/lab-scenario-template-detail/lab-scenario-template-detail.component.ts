@@ -4,14 +4,26 @@ import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { FlArticleModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-scenario-template-detail',
   templateUrl: './lab-scenario-template-detail.component.html',
   styleUrls: ['./lab-scenario-template-detail.component.scss'],
-  standalone: false,
+  imports: [
+    FlArticleModule,
+    LabTagListComponent,
+    FlUserModule,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
 })
 export class LabScenarioTemplateDetailComponent implements OnInit {
   private scenarioTemplateService = inject(LabScenarioTemplateService);

@@ -1,8 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FlPortalActionsService } from '@monorepo/front-core-lib';
 import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
-import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder } from '@angular/forms';
+import { MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface LabSynchroForm {
   syncUsers: boolean;
@@ -16,7 +21,16 @@ interface LabSynchroForm {
   selector: 'lab-synchro-dialog',
   templateUrl: './lab-synchro-dialog.component.html',
   styleUrls: ['./lab-synchro-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatCheckbox,
+    MatDialogActions,
+    MatButton,
+    TranslatePipe,
+  ],
 })
 export class LabSynchroDialogComponent {
   private actionService = inject(FlPortalActionsService);

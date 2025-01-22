@@ -30,6 +30,19 @@ body {
     );
   }
 
+  // Style the component inside the dialog to be full height of parent
+  .mat-mdc-dialog-surface > *:first-child {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  // override the max height of the dialog content
+  .mat-mdc-dialog-content {
+    max-height: none !important;
+  }
+
+
   // disable border radius of dialog
   .g-dialog-no-border-radius .mat-mdc-dialog-surface {
     border-radius: 0 !important;

@@ -17,8 +17,7 @@
   <ng-template matExpansionPanelContent>
     <fl-infinite-scroll [datasource]="tagValues" class="infinite-scroll" textNoMoreResult="">
       @for (value of tagValues | flDatasourceConnect | async; track value) {
-        <div
-          class="value g-layout-row g-layout-start-center g-layout-gap-05em">
+        <div class="value g-layout-row g-layout-start-center g-layout-gap-05em">
           <div class="g-flex-auto">
             {{ value }}
           </div>

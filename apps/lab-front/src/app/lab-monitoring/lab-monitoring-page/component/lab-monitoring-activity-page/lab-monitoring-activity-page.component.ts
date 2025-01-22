@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { LabActivitySearchComponent } from '../../../../lab-core/entity-module/lab-activity-core/component/lab-activity-search/lab-activity-search.component';
 
 @Component({
-    selector: 'lab-monitoring-page-activity',
-    templateUrl: './lab-monitoring-activity-page.component.html',
-    styleUrls: ['./lab-monitoring-activity-page.component.scss'],
-    standalone: false
+  selector: 'lab-monitoring-page-activity',
+  templateUrl: './lab-monitoring-activity-page.component.html',
+  styleUrls: ['./lab-monitoring-activity-page.component.scss'],
+  imports: [FlCardModule, LabActivitySearchComponent],
 })
 export class LabMonitoringActivityPageComponent {}

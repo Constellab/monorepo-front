@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { LabOpenRouteResourcePageComponent } from './lab-open-route-resource-page/lab-open-route-resource-page.component';
 
 export const LAB_OPEN_ROUTES: Routes = [
   {
@@ -7,7 +6,10 @@ export const LAB_OPEN_ROUTES: Routes = [
     children: [
       {
         path: 'resource/:token',
-        component: LabOpenRouteResourcePageComponent,
+        loadComponent: () =>
+          import('./lab-open-route-resource-page/lab-open-route-resource-page.component').then(
+            (m) => m.LabOpenRouteResourcePageComponent
+          ),
       },
     ],
   },

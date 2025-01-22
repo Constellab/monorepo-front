@@ -4,12 +4,14 @@ import { LabBrickService } from '../../../../entity-service/lab-brick.service';
 import { Observable } from 'rxjs';
 import { LabBrickEntity } from '../../../../model/entities/lab-brick.entity';
 import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'lab-bricks-select-options',
   templateUrl: './lab-bricks-select-options.component.html',
   styleUrls: ['./lab-bricks-select-options.component.scss'],
-  standalone: false,
+  imports: [MatOption, AsyncPipe],
 })
 export class LabBricksSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective

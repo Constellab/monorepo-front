@@ -14,6 +14,13 @@ import {
 } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabViewConfigSearch, LabViewConfigSearchFields } from '../../model/lab-view-config-search.class';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabViewConfigSearchFormComponent } from '../lab-view-config-search-form/lab-view-config-search-form.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabViewConfigTableComponent } from '../lab-view-config-table/lab-view-config-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Search on view config, only work for search linked to a note
@@ -23,7 +30,15 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
   templateUrl: './lab-view-config-search.component.html',
   styleUrls: ['./lab-view-config-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [
+    FlSearchModule,
+    LabViewConfigSearchFormComponent,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    LabViewConfigTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabViewConfigSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

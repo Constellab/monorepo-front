@@ -30,16 +30,14 @@
 
     <!--  For Importer, to ignore file extension   -->
     @if (showImporterIgnoreExtensionField) {
-      <mat-checkbox
-        formControlName="importerIgnoreExtension"
-        class="checkbox"
-        >{{ 'biox.type_importer_ignore_extension' | translate }}</mat-checkbox
-        >
-      }
-
-      <!--  Include deprecated   -->
-      <mat-checkbox formControlName="includeDeprecated" class="checkbox">{{
-        'biox.type_include_deprecated' | translate
+      <mat-checkbox formControlName="importerIgnoreExtension" class="checkbox">{{
+        'biox.type_importer_ignore_extension' | translate
       }}</mat-checkbox>
-    </div>
+    }
+
+    <!--  Include deprecated   -->
+    <mat-checkbox formControlName="includeDeprecated" class="checkbox">{{
+      'biox.type_include_deprecated' | translate
+    }}</mat-checkbox>
   </div>
+</div>

@@ -1,7 +1,14 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { LabScenarioTableComponent } from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to list in a Table the scenarios that use a resource
@@ -10,7 +17,15 @@ import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/l
   selector: 'lab-scenarios-using-resource',
   templateUrl: './lab-scenarios-using-resource.component.html',
   styleUrls: ['./lab-scenarios-using-resource.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    FlInfiniteScrollModule,
+    LabScenarioTableComponent,
+    TranslatePipe,
+  ],
 })
 export class LabScenariosUsingResourceComponent implements OnInit {
   private scenarioService = inject(LabScenarioService);

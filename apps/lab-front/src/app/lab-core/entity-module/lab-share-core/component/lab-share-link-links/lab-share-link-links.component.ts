@@ -1,12 +1,14 @@
 import { Component, inject, input } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { FlClipboardService } from '@monorepo/front-core-lib';
+import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'lab-share-link-links',
-    templateUrl: './lab-share-link-links.component.html',
-    styleUrl: './lab-share-link-links.component.scss',
-    standalone: false
+  selector: 'lab-share-link-links',
+  templateUrl: './lab-share-link-links.component.html',
+  styleUrl: './lab-share-link-links.component.scss',
+  imports: [MatTooltip, TranslatePipe],
 })
 export class LabShareLinkLinksComponent {
   shareLink = input.required<LabShareLink>();

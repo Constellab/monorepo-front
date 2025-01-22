@@ -16,6 +16,9 @@ import {
   LabSelectScenarioTemplateDialogInput,
 } from '../lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
 import { Observable } from 'rxjs';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { LabScenarioTemplateInlineComponent } from '../lab-scenario-template-inline/lab-scenario-template-inline.component';
 
 /**
  * Input/Select component to search for a Protocol template and select one.
@@ -26,7 +29,7 @@ import { Observable } from 'rxjs';
   templateUrl: './lab-select-scenario-template.component.html',
   styleUrls: ['./lab-select-scenario-template.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectScenarioTemplateComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, FlUserModule, LabScenarioTemplateInlineComponent],
 })
 export class LabSelectScenarioTemplateComponent
   extends FlFormFieldDirective<LabScenarioTemplate>

@@ -19,31 +19,27 @@
         required
         flInputMaxLength="255"
         [placeholder]="'name' | translate" />
-        @if (formGp.get('name').hasError('required')) {
-          <mat-error>
-            {{ 'name' | flErrorRequired }}
-          </mat-error>
-        }
-      </mat-form-field>
-
-      <!--  Description-->
-      <te-text-editor
-        [config]="textEditorConfig"
-        formControlName="description"
-        class="text-editor"
-      [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
-    </form>
-  </mat-dialog-content>
-
-  <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      type="submit"
-      form="scenario-template-form"
-      class="g-centered-forced primary">
-      {{ 'save' | translate }}
-      @if (isLoading) {
-        <fl-button-loader></fl-button-loader>
+      @if (formGp.get('name').hasError('required')) {
+        <mat-error>
+          {{ 'name' | flErrorRequired }}
+        </mat-error>
       }
-    </button>
-  </div>
+    </mat-form-field>
+
+    <!--  Description-->
+    <te-text-editor
+      [config]="textEditorConfig"
+      formControlName="description"
+      class="text-editor"
+      [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="scenario-template-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

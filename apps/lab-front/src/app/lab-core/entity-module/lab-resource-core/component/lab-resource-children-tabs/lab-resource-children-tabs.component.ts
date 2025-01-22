@@ -10,6 +10,11 @@ import {
 } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
+import { MatRipple } from '@angular/material/core';
+import { NgClass } from '@angular/common';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 /**
  * Component in the resource detail to show the list of children resources (if ResourceSet)
@@ -19,7 +24,7 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
   selector: 'lab-resource-children-tabs',
   templateUrl: './lab-resource-children-tabs.component.html',
   styleUrls: ['./lab-resource-children-tabs.component.scss'],
-  standalone: false,
+  imports: [MatRipple, NgClass, MatTooltip, MatIconButton, MatIcon],
 })
 export class LabResourceChildrenTabsComponent implements DoCheck {
   private state = inject(LabResourceDetailState);

@@ -28,9 +28,7 @@
     <p class="g-text-light help-text">{{ 'tag_dashboard_help' | translate }}</p>
     <fl-infinite-scroll [datasource]="tagKeys" [textNoResult]="'no_tags_dashboard' | translate">
       @for (tagKey of tagKeys | flDatasourceConnect | async; track tagKey) {
-        <lab-tag-entity-detail
-          [tagEntity]="tagKey"
-          (lastTagValueDeleted)="lastTagValueDeleted(tagKey)">
+        <lab-tag-entity-detail [tagEntity]="tagKey" (lastTagValueDeleted)="lastTagValueDeleted(tagKey)">
         </lab-tag-entity-detail>
       }
     </fl-infinite-scroll>

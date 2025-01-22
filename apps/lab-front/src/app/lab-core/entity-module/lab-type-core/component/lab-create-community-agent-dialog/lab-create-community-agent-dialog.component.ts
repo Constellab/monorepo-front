@@ -5,6 +5,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
 import { CoAgentType, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export enum LabCreateCommunityAgentDialogMode {
   CREATE = 'CREATE',
@@ -21,7 +24,7 @@ export interface LabShareAgentCommunityDialogData {
   selector: 'lab-create-community-agent-dialog',
   templateUrl: './lab-create-community-agent-dialog.component.html',
   styleUrls: ['./lab-create-community-agent-dialog.component.scss'],
-  standalone: false,
+  imports: [FlDialogModule, CoCommunityLibModule, TranslatePipe],
 })
 export class LabCreateCommunityAgentDialogComponent implements OnInit {
   data = inject<LabShareAgentCommunityDialogData>(MAT_DIALOG_DATA);

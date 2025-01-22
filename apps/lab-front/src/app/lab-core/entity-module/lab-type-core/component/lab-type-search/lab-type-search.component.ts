@@ -12,13 +12,16 @@ import { LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields } from '../../m
 import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdBrick } from '@monorepo/technical-doc';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { LabTypeSearchFormComponent } from '../lab-type-search-form/lab-type-search-form.component';
+import { LabProcessTypeTableComponent } from '../lab-process-type-table/lab-process-type-table.component';
 
 @Component({
   selector: 'lab-type-search',
   templateUrl: './lab-type-search.component.html',
   styleUrls: ['./lab-type-search.component.scss'],
   providers: [FlSearchState],
-  standalone: false,
+  imports: [FlSearchModule, LabTypeSearchFormComponent, LabProcessTypeTableComponent],
 })
 export class LabTypeSearchComponent implements OnInit {
   private searchState = inject<FlSearchState<any>>(FlSearchState);

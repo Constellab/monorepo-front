@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnInit,
   Output,
-  inject,
 } from '@angular/core';
 import {
   FlArrayObs,
@@ -21,6 +21,40 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDetailDialogComponent } from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import { Observable } from 'rxjs';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable,
+} from '@angular/material/table';
+import { MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { RouterLink } from '@angular/router';
+import { MatAnchor, MatIconButton } from '@angular/material/button';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import { LabFlagButtonComponent } from '../../../lab-entity-core/component/lab-flag-button/lab-flag-button.component';
+import { LabResourceActionsMenuComponent } from '../lab-resource-actions-menu/lab-resource-actions-menu.component';
+
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
+import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-tags.pipe';
 
 /**
  * Table to show resource with possibility actions on resource and a select mode
@@ -30,7 +64,40 @@ import { Observable } from 'rxjs';
   templateUrl: './lab-resource-table.component.html',
   styleUrls: ['./lab-resource-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [
+    MatTable,
+    FlSearchModule,
+    MatColumnDef,
+    MatHeaderCellDef,
+    MatHeaderCell,
+    MatSortHeader,
+    MatCellDef,
+    MatCell,
+    RouterLink,
+    MatIconButton,
+    FlCoreDirectiveModule,
+    MatTooltip,
+    MatIcon,
+    FlIconModule,
+    FlTextIconModule,
+    FlUserModule,
+    TdTechnicalDocModule,
+    LabTagListComponent,
+    LabFlagButtonComponent,
+    LabResourceActionsMenuComponent,
+    MatAnchor,
+    FlLoaderModule,
+    MatHeaderRowDef,
+    MatHeaderRow,
+    MatRowDef,
+    MatRow,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+    FlColorModule,
+    LabDetailRoutePipe,
+    LabGetEntityTagsPipe,
+  ],
 })
 export class LabResourceTableComponent implements OnInit {
   private resourceService = inject(LabResourceService);

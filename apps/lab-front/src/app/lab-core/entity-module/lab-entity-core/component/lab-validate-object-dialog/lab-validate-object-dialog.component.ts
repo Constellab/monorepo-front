@@ -2,9 +2,18 @@ import { Component, OnInit, inject } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { Observable } from 'rxjs';
 import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabEntity } from '../../../../model/global/lab-entity.entity';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { LabFolderSelectComponent } from '../../../lab-folder-core/component/lab-folder-select/lab-folder-select.component';
+import { MatError } from '@angular/material/form-field';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabValidateObjectDialogInput {
   title: string;
@@ -26,7 +35,21 @@ export interface LabValidateObjectDialogInput {
   selector: 'lab-validate-object-dialog',
   templateUrl: './lab-validate-object-dialog.component.html',
   styleUrls: ['./lab-validate-object-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    FormsModule,
+    FlFormModule,
+    LabFolderSelectComponent,
+    MatError,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabValidateObjectDialogComponent implements OnInit {
   private dialogInput = inject<LabValidateObjectDialogInput>(MAT_DIALOG_DATA);

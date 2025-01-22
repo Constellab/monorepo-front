@@ -16,13 +16,16 @@ import {
   LabSelectNoteTemplateDialogComponent,
   LabSelectNoteTemplateDialogInput,
 } from '../lab-select-note-template-dialog/lab-select-note-template-dialog.component';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { LabNoteTemplateInlineComponent } from '../lab-note-template-inline/lab-note-template-inline.component';
 
 @Component({
   selector: 'lab-select-note-template',
   templateUrl: './lab-select-note-template.component.html',
   styleUrls: ['./lab-select-note-template.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectNoteTemplateComponent }],
-  standalone: false,
+  imports: [FlInputSearchModule, FlUserModule, LabNoteTemplateInlineComponent],
 })
 export class LabSelectNoteTemplateComponent extends FlFormFieldDirective<LabNoteTemplate> implements OnInit {
   private noteTemplateService = inject(LabNoteTemplateService);

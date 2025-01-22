@@ -15,13 +15,26 @@ import {
 } from '../../../../model/entities/lab-credentials.entity';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-field/lab-credentials-search.class';
+import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIcon } from '@angular/material/icon';
+import { LabCredentialsInlineComponent } from '../lab-credentials-inline/lab-credentials-inline.component';
+import { AsyncPipe } from '@angular/common';
+import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 @Component({
   selector: 'lab-select-credentials',
   templateUrl: './lab-select-credentials.component.html',
   styleUrls: ['./lab-select-credentials.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabSelectCredentialsComponent }],
-  standalone: false,
+  imports: [
+    FlInputSearchModule,
+    FlUserModule,
+    MatIcon,
+    LabCredentialsInlineComponent,
+    AsyncPipe,
+    FlTranslateModule,
+  ],
 })
 export class LabSelectCredentialsComponent extends FlFormFieldDirective<LabCredentials> implements OnInit {
   private credentialsService = inject(LabCredentialsService);

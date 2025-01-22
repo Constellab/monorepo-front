@@ -9,9 +9,7 @@
   [advancedButton]="advancedButton">
   <div class="photo" *flInputSearchPrefix="datasource as scenarioTemplate">
     @if (scenarioTemplate) {
-      <fl-user-profile-picture
-        [user]="scenarioTemplate.createdBy"
-      size="small"></fl-user-profile-picture>
+      <fl-user-profile-picture [user]="scenarioTemplate.createdBy" size="small"></fl-user-profile-picture>
     }
   </div>
 

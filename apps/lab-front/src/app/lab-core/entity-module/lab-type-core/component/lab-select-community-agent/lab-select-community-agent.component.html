@@ -26,27 +26,27 @@
             matInput
             [formControl]="titleFormControl"
             placeholder="{{ 'biox.search_by_title' | translate }}" />
-            <button mat-icon-button matSuffix (click)="search()">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      @if (agentsDatasource) {
-        <div
-          class="agents-list-div g-scrollable-element"
-          (flInfiniteScroll)="agentsDatasource.getNextPage()"
-          [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
-          flInfiniteMode="auto">
-          @for (agent of agentsDatasource.connect() | async; track agent) {
-            <div>
-              <co-agent-list-item
-                [agent]="pythonLabAgentToCoAgent(agent)"
-                class="agent-item"
-              (click)="onAgentClick(agent)"></co-agent-list-item>
-            </div>
-          }
-        </div>
-      }
+          <button mat-icon-button matSuffix (click)="search()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
     </div>
+    @if (agentsDatasource) {
+      <div
+        class="agents-list-div g-scrollable-element"
+        (flInfiniteScroll)="agentsDatasource.getNextPage()"
+        [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
+        flInfiniteMode="auto">
+        @for (agent of agentsDatasource.connect() | async; track agent) {
+          <div>
+            <co-agent-list-item
+              [agent]="pythonLabAgentToCoAgent(agent)"
+              class="agent-item"
+              (click)="onAgentClick(agent)"></co-agent-list-item>
+          </div>
+        }
+      </div>
+    }
   </div>
+</div>

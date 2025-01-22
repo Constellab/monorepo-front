@@ -7,6 +7,14 @@ import {
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import { PrConfig, PrConfigValues } from '@monorepo/protocol';
+import { FlDynamicFieldModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dynamic-field/fl-dynamic-field.module';
+import {
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
+import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabConfigureSpecsForm {
   public: UntypedFormGroup;
@@ -18,10 +26,17 @@ export interface LabConfigureSpecsForm {
  * The FlDynamicFieldConfigService must be provided to support custom fields
  */
 @Component({
-    selector: 'lab-configure-specs-form',
-    templateUrl: './lab-configure-specs-form.component.html',
-    styleUrls: ['./lab-configure-specs-form.component.scss'],
-    standalone: false
+  selector: 'lab-configure-specs-form',
+  templateUrl: './lab-configure-specs-form.component.html',
+  styleUrls: ['./lab-configure-specs-form.component.scss'],
+  imports: [
+    FlDynamicFieldModule,
+    MatExpansionPanel,
+    FlCoreDirectiveModule,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    TranslatePipe,
+  ],
 })
 export class LabConfigureSpecsFormComponent {
   configData = input.required<LabConfig>();

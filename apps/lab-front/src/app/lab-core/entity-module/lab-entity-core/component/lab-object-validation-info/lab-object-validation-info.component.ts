@@ -1,14 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabFolderObject } from '../../../../model/entities/lab-folder.class';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Simple component to show information about the validation of a folder object
  */
 @Component({
-    selector: 'lab-object-validation-info',
-    templateUrl: './lab-object-validation-info.component.html',
-    styleUrls: ['./lab-object-validation-info.component.scss'],
-    standalone: false
+  selector: 'lab-object-validation-info',
+  templateUrl: './lab-object-validation-info.component.html',
+  styleUrls: ['./lab-object-validation-info.component.scss'],
+  imports: [MatIcon, FlIconModule, FlUserModule, TranslatePipe],
 })
 export class LabObjectValidationInfoComponent implements OnInit {
   @Input() object: LabFolderObject;

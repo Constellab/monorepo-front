@@ -8,12 +8,27 @@ import {
   LabViewConfig,
   LabViewConfigDatasource,
 } from '../../../../model/entities/resource/lab-view-config.entity';
+import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { LabResourceViewSpecCardComponent } from '../lab-resource-view-spec-card/lab-resource-view-spec-card.component';
+import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-resource-available-views-portal',
   templateUrl: './lab-resource-available-views-portal.component.html',
   styleUrls: ['./lab-resource-available-views-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlPortalModule,
+    FlSectionModule,
+    FlTextIconModule,
+    MatIcon,
+    LabResourceViewSpecCardComponent,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class LabResourceAvailableViewsPortalComponent {
   private state = inject(LabResourceDetailState);

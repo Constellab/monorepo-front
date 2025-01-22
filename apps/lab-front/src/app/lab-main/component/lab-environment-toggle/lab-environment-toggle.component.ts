@@ -1,14 +1,16 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabDevEnvironmentService } from '../../../lab-core/service/lab-dev-environment.service';
 import { Subscription } from 'rxjs';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-environment-toggle',
   templateUrl: './lab-environment-toggle.component.html',
   styleUrls: ['./lab-environment-toggle.component.scss'],
-  standalone: false,
+  imports: [MatSlideToggle, ReactiveFormsModule, FormsModule, TranslatePipe],
 })
 export class LabEnvironmentToggleComponent implements OnInit, OnDestroy {
   private labEnvStore = inject(LabEnvStore);

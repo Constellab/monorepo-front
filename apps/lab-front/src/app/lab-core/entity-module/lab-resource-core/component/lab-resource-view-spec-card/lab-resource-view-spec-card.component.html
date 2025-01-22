@@ -9,10 +9,7 @@
       <p class="text g-text-tiny g-text-light">{{ shortDescription }}</p>
     }
     @if (user && creationDate) {
-      <fl-user-with-date
-        [user]="user"
-        [date]="creationDate"
-      class="g-text-tiny"></fl-user-with-date>
+      <fl-user-with-date [user]="user" [date]="creationDate" class="g-text-tiny"></fl-user-with-date>
     }
   </div>
 </div>

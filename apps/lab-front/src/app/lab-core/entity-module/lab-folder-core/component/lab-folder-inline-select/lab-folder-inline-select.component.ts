@@ -7,6 +7,12 @@ import {
   LabFolderSelectPortalInput,
   LabFolderSelectPortalResult,
 } from '../lab-folder-select-portal/lab-folder-select-portal.component';
+import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { LabFolderInlineComponent } from '../lab-folder-inline/lab-folder-inline.component';
+import { MatButton } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Component to show a folder inline with possibility to select another folder
@@ -16,7 +22,7 @@ import {
   templateUrl: './lab-folder-inline-select.component.html',
   styleUrls: ['./lab-folder-inline-select.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
-  standalone: false,
+  imports: [FlTextIconModule, MatIcon, FlIconModule, LabFolderInlineComponent, MatButton, TranslatePipe],
 })
 export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFolder> {
   private portalService = inject(FlPortalService);

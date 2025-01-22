@@ -7,7 +7,19 @@ import {
   LabMonitorGraphicsBetweenDates,
 } from '../../../../lab-core/model/entities/lab-monitor.entity';
 import { DateTime } from 'luxon';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { FlDatetimePickerModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-datetime-picker/fl-datetime-picker.module';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { LabMonitorBetweenDatesComponent } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates/lab-monitor-between-dates.component';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export enum LabMonitoringRunPeriod {
   CURRENT_DAY = 'CURRENT_DAY',
@@ -24,7 +36,22 @@ export enum LabMonitoringRunPeriod {
   selector: 'lab-monitoring-usage-page',
   templateUrl: './lab-monitoring-usage-page.component.html',
   styleUrls: ['./lab-monitoring-usage-page.component.scss'],
-  standalone: false,
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    MatIcon,
+    FlKeyValueModule,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatSelect,
+    MatOption,
+    FlDatetimePickerModule,
+    FlSectionModule,
+    LabMonitorBetweenDatesComponent,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class LabMonitoringUsagePageComponent implements OnInit {
   private monitorService = inject(LabMonitorService);
