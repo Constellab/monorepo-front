@@ -13,7 +13,7 @@ import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
   styleUrls: ['./fl-portal-actions.component.scss'],
   standalone: false,
 })
-export class FlPortalActionsComponent implements OnInit {
+export class FlPortalActionsComponent {
   private actionsState = inject(FlPortalActionsState);
 
   actions$: Observable<FlPortalActionDetail[]>;
@@ -23,8 +23,6 @@ export class FlPortalActionsComponent implements OnInit {
 
     this.actions$ = actionsState.getActions$();
   }
-
-  ngOnInit(): void {}
 
   // track the action with symboles
   trackBySymbole: TrackByFunction<FlPortalActionDetail> = (index: number, item: FlPortalActionDetail) => {

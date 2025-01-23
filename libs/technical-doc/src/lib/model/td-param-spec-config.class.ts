@@ -17,8 +17,6 @@ import {
 import { signal } from '@angular/core';
 
 export class TdParamSpecConfig {
-  constructor() {}
-
   public static convertToFieldConfigs(specs: TdParamSpecs): FlDynamicFormGroupConfig {
     const configs: FlDynamicFormGroupConfig = {
       controlType: 'formGroup',

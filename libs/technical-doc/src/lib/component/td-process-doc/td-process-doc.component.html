@@ -3,10 +3,8 @@
 @if (
   process.additionalInfo &&
   process.additionalInfo.supported_extensions &&
-  process.additionalInfo.supported_extensions.length > 0
-  ) {
-  <fl-key-value
-    class="key-val div-spec">
+  process.additionalInfo.supported_extensions.length > 0) {
+  <fl-key-value class="key-val div-spec">
     <fl-key>{{ 'td.supported_extensions' | translate }}</fl-key>
     {{ process.additionalInfo.supported_extensions.join(', ') }}
   </fl-key-value>

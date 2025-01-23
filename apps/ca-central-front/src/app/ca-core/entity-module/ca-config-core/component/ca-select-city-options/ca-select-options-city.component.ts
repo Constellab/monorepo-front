@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaCountry } from '../../../../model/entities/ca-country.entity';
 import { CaCountryService } from '../../../../service-api/ca-country.service';
 import { MatSelect } from '@angular/material/select';
-import { MatOption, MatOptgroup } from '@angular/material/core';
+import { MatOptgroup, MatOption } from '@angular/material/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

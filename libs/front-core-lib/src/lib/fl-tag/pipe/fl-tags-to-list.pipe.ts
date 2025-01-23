@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
  * Pipe to convert list of tags or record of tags to a list of tags
  */
 @Pipe({
-    name: 'flTagsToList',
-    standalone: false
+  name: 'flTagsToList',
+  standalone: false,
 })
 export class FlTagsToListPipe implements PipeTransform {
   transform(

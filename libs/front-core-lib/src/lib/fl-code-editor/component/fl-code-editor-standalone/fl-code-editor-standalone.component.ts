@@ -2,12 +2,12 @@
 import {
   Component,
   ElementRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { EditorState, Extension } from '@codemirror/state';

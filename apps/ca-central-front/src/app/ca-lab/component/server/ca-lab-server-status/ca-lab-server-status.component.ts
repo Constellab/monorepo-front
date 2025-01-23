@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';

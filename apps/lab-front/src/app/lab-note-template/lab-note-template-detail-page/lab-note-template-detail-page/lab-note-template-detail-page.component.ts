@@ -18,7 +18,7 @@ import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 

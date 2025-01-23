@@ -12,8 +12,6 @@ export interface FlHtmlFindParentOptions {
  * Helper to manage HTML
  */
 export class FlHtmlHelper {
-  constructor() {}
-
   public static domTokenListToArray(tokenList: DOMTokenList): string[] {
     const array: string[] = [];
     for (let i = 0; i < tokenList.length; i++) {

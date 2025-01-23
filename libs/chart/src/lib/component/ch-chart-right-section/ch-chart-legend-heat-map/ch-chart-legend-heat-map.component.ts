@@ -7,10 +7,10 @@ import { select } from 'd3';
  * Component to render legend for heat map, it renders the legend in an svg
  */
 @Component({
-    selector: 'ch-chart-legend-heat-map',
-    templateUrl: './ch-chart-legend-heat-map.component.html',
-    styleUrls: ['./ch-chart-legend-heat-map.component.scss'],
-    standalone: false
+  selector: 'ch-chart-legend-heat-map',
+  templateUrl: './ch-chart-legend-heat-map.component.html',
+  styleUrls: ['./ch-chart-legend-heat-map.component.scss'],
+  standalone: false,
 })
 export class ChChartLegendHeatMapComponent
   extends ChChartRightSectionDirective<ChChartSVGLegend>

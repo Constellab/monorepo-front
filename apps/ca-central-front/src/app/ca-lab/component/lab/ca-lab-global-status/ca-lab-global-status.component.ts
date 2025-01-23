@@ -12,7 +12,9 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';
 import { CaLabServerStatusComponent } from '../../server/ca-lab-server-status/ca-lab-server-status.component';
-import { CaLabLoginButtonComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
+import {
+  CaLabLoginButtonComponent,
+} from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-login-button/ca-lab-login-button.component';
 import { CaLabStartStopComponent } from '../ca-lab-start-stop/ca-lab-start-stop.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

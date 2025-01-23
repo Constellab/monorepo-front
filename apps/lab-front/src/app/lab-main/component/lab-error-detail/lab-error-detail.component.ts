@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-error-detail.component.scss'],
   imports: [TranslatePipe],
 })
-export class LabErrorDetailComponent implements OnInit {
+export class LabErrorDetailComponent {
   error: LabApiError;
 
   constructor() {
@@ -20,6 +20,4 @@ export class LabErrorDetailComponent implements OnInit {
 
     this.error = error;
   }
-
-  ngOnInit(): void {}
 }

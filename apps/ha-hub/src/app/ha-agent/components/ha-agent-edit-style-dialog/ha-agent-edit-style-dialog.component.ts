@@ -8,7 +8,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '
 import { Observable } from 'rxjs';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';

@@ -10,10 +10,10 @@ export interface LmlDockerUpFormInput {
  * Form dialog to select options before running a compose up or restart
  */
 @Component({
-    selector: 'lml-docker-up-form',
-    templateUrl: './lml-docker-up-form.component.html',
-    styleUrls: ['./lml-docker-up-form.component.scss'],
-    standalone: false
+  selector: 'lml-docker-up-form',
+  templateUrl: './lml-docker-up-form.component.html',
+  styleUrls: ['./lml-docker-up-form.component.scss'],
+  standalone: false,
 })
 export class LmlDockerUpFormComponent {
   formGp = new FormBuilder().group({
@@ -42,8 +42,6 @@ export class LmlDockerUpFormComponent {
   }
 
   get submitLabel(): string {
-    return this.input.mode === 'start'
-      ? 'lml.up_containers'
-      : 'lml.restart_containers';
+    return this.input.mode === 'start' ? 'lml.up_containers' : 'lml.restart_containers';
   }
 }

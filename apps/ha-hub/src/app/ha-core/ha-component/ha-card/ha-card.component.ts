@@ -27,8 +27,6 @@ export class HaCardComponent implements AfterViewInit {
   // @HostBinding('style.display') display: string = 'block';
   // @HostBinding('style.width') padding: string = 'auto';
 
-  constructor() {}
-
   ngAfterViewInit(): void {
     if (this.innerCard) {
       this.card.nativeElement.classList.remove('card');

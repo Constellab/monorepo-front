@@ -4,11 +4,11 @@ import { MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY } from '@angular/
 import { Observable, of } from 'rxjs';
 
 @Component({
-    selector: 'fl-menu-dynamic',
-    templateUrl: './fl-menu-dynamic.component.html',
-    styleUrls: ['./fl-menu-dynamic.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-menu-dynamic',
+  templateUrl: './fl-menu-dynamic.component.html',
+  styleUrls: ['./fl-menu-dynamic.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlMenuDynamicComponent {
   public static readonly containerClass = 'fl-dynamic-menu';

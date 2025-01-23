@@ -7,7 +7,7 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { TdTechnicalDocModule } from '../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { LabTypeDetailComponent } from '../../lab-core/entity-module/lab-type-core/component/lab-type-detail/lab-type-detail.component';
 
 @Component({

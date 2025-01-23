@@ -5,13 +5,12 @@ import {
   CaSpaceInvit,
   CaSpaceInvitCreateDTO,
 } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -35,7 +34,6 @@ export interface CaSpaceInvitFormDialogInput {
   styleUrls: ['./ca-space-invit-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

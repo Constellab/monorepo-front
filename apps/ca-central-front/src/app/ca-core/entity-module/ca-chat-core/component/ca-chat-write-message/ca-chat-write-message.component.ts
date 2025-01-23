@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } fro
 import { TeRichText } from '@monorepo/text-editor';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

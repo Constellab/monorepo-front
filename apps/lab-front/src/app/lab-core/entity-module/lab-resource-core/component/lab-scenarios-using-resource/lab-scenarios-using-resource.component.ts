@@ -7,9 +7,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import {
-  LabScenarioTableComponent,
-} from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+import { LabScenarioTableComponent } from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

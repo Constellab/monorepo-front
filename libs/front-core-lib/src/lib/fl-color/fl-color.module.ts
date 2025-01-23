@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlColorSelectorComponent } from './component/fl-color-selector/fl-color-selector.component';
 import { MatIconModule } from '@angular/material/icon';

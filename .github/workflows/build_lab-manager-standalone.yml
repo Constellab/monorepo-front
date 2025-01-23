@@ -39,5 +39,3 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: constellab/lab-manager-standalone
           readme-filepath: ./apps/lab-manager-standalone/README.md
-
-

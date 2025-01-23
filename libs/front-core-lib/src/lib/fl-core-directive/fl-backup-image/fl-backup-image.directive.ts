@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
 
 /**
  * Directive to set a backup image on an image tag if the first image is not found

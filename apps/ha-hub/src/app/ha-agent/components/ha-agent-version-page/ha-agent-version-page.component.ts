@@ -12,7 +12,7 @@ import {
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

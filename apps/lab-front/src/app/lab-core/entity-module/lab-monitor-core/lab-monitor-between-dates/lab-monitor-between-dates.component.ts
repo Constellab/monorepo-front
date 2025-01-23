@@ -16,8 +16,6 @@ export class LabMonitorBetweenDatesComponent implements OnInit {
 
   gpuIsEnabled: boolean;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.gpuIsEnabled = this.monitor.gpuEnabled;
   }

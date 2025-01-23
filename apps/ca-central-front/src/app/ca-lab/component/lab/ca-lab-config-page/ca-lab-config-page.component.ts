@@ -3,7 +3,9 @@ import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { CaLabGlobalStatusComponent } from '../ca-lab-global-status/ca-lab-global-status.component';
 import { CaLabManagerComponent } from '../../manager/ca-lab-manager/ca-lab-manager.component';
-import { CaLabGreenOptionsComponent } from '../../green-option/ca-lab-green-options/ca-lab-green-options.component';
+import {
+  CaLabGreenOptionsComponent,
+} from '../../green-option/ca-lab-green-options/ca-lab-green-options.component';
 import { AsyncPipe } from '@angular/common';
 
 /**

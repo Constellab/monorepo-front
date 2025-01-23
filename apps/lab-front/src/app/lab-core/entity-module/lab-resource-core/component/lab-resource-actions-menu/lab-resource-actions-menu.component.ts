@@ -9,12 +9,8 @@ import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
-import {
-  LabUpdateResourceTypeComponent,
-} from '../lab-update-resource-type/lab-update-resource-type.component';
-import {
-  LabUpdateResourceNameDialogComponent,
-} from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
+import { LabUpdateResourceTypeComponent } from '../lab-update-resource-type/lab-update-resource-type.component';
+import { LabUpdateResourceNameDialogComponent } from '../lab-update-resource-name-dialog/lab-update-resource-name-dialog.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDownloadService } from '../../../../entity-service/lab-resource-download.service';
 import {

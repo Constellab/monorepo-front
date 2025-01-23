@@ -10,9 +10,7 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import {
-  LabViewConfigTableComponent,
-} from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
+import { LabViewConfigTableComponent } from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

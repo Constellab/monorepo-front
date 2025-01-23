@@ -28,7 +28,7 @@ export interface HaDocResourceViewInputDialogOutputData {
   styleUrls: ['./ha-doc-resource-view-input-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, FlLoaderModule, FlInputFileModule, TranslatePipe],
 })
-export class HaDocResourceViewInputDialogComponent implements OnInit {
+export class HaDocResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaDocResourceViewInputDialogComponent>>(MatDialogRef);
   private docService = inject(HaDocumentationService);
 
@@ -40,8 +40,6 @@ export class HaDocResourceViewInputDialogComponent implements OnInit {
 
     this.docId = data.docId;
   }
-
-  ngOnInit(): void {}
 
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {

@@ -13,10 +13,10 @@ import { LmlLabManagerService } from '../../lml-lab-manager.service';
  * Component to list the docker container with name, status and information
  */
 @Component({
-    selector: 'lml-docker-containers-list',
-    templateUrl: './lml-docker-containers-list.component.html',
-    styleUrls: ['./lml-docker-containers-list.component.scss'],
-    standalone: false
+  selector: 'lml-docker-containers-list',
+  templateUrl: './lml-docker-containers-list.component.html',
+  styleUrls: ['./lml-docker-containers-list.component.scss'],
+  standalone: false,
 })
 export class LmlDockerContainersListComponent {
   @Input({ required: true }) containers: LmlDockerInspect[];

@@ -44,7 +44,7 @@ import { LabSyncObjectButtonComponent } from '../../../../../lab-core/entity-mod
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { LabTagListComponent } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
 import { LabFolderInlineSelectComponent } from '../../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
 import { LabObjectValidationInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';

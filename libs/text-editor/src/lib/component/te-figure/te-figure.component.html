@@ -15,31 +15,30 @@
         flImageFullscreen
         [alt]="data.title"
         class="image" />
-      </div>
-      <figcaption class="g-text-centered">
-        <te-title-caption
-          [(title)]="data.title"
-          [(caption)]="data.caption"
+    </div>
+    <figcaption class="g-text-centered">
+      <te-title-caption
+        [(title)]="data.title"
+        [(caption)]="data.caption"
         [editable]="!disabled"></te-title-caption>
-      </figcaption>
-    </figure>
-  } @else {
-    @if (!uploadIsLoading) {
-      <fl-input-file-container class="file-input-container primary">
-        <input
-          flInputFile
-          type="file"
-          [strictMode]="true"
-          [disabled]="disabled"
-          accept="image/*"
-          [autoClearHtmlInput]="true"
-          (fileChange)="onFileSelected($any($event))" />
-        </fl-input-file-container>
-      }
-      @if (uploadIsLoading) {
-        <div class="g-text-centered">
-          <fl-loader size="medium"></fl-loader>
-        </div>
-      }
-    }
-
+    </figcaption>
+  </figure>
+} @else {
+  @if (!uploadIsLoading) {
+    <fl-input-file-container class="file-input-container primary">
+      <input
+        flInputFile
+        type="file"
+        [strictMode]="true"
+        [disabled]="disabled"
+        accept="image/*"
+        [autoClearHtmlInput]="true"
+        (fileChange)="onFileSelected($any($event))" />
+    </fl-input-file-container>
+  }
+  @if (uploadIsLoading) {
+    <div class="g-text-centered">
+      <fl-loader size="medium"></fl-loader>
+    </div>
+  }
+}

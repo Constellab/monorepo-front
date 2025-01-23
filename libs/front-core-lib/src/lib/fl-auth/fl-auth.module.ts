@@ -33,11 +33,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FlSignupPageComponent } from './component/fl-signup-page/fl-signup-page.component';
 import { FlCaptchaModule } from '../fl-captcha/fl-captcha.module';
-import {
-  FlCheckCredentialsDialogComponent,
-} from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
 import { FlLoginFormComponent } from './component/fl-login-form/fl-login-form.component';
 import { FlLoginFooterComponent } from './component/fl-login-footer/fl-login-footer.component';
+import {
+  FlCheckCredentialsDialogComponent
+} from './component/fl-check-credentials-dialog/fl-check-credentials-dialog.component';
 
 /**
  * Module containing component for authentication, sign up, password reset

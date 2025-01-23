@@ -6,9 +6,7 @@ import { CaUserDatasourcePaginated } from '../../../ca-core/model/entities/ca-us
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import {
-  CaUserListInlineComponent,
-} from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaUserListInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { CaDashboardFoldersComponent } from '../ca-dashboard-folders/ca-dashboard-folders.component';
 import { CaDashboardLabsComponent } from '../ca-dashboard-labs/ca-dashboard-labs.component';
 import { CaDashboardTeamsComponent } from '../ca-dashboard-teams/ca-dashboard-teams.component';
@@ -16,7 +14,7 @@ import { MatRipple } from '@angular/material/core';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import {
-  CaDashboardMyActivityComponent,
+  CaDashboardMyActivityComponent
 } from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
 import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-videos.component';
 import { AsyncPipe } from '@angular/common';

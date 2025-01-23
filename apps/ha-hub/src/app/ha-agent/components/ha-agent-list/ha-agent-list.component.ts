@@ -28,7 +28,7 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';

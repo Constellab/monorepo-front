@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -14,10 +14,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-validated-object-info.component.scss'],
   imports: [MatIcon, FlIconModule, FlUserModule, TranslatePipe],
 })
-export class CaValidatedObjectInfoComponent implements OnInit {
+export class CaValidatedObjectInfoComponent {
   @Input() object: CaFolderObject;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

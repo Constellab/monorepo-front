@@ -6,9 +6,7 @@ import {
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  LabSharedEntityOriginDialogComponent,
-} from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
+import { LabSharedEntityOriginDialogComponent } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -18,12 +16,12 @@ import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-lis
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { RouterLink } from '@angular/router';
 import {
-  LabFolderInlineComponent,
+  LabFolderInlineComponent
 } from '../../../lab-folder-core/component/lab-folder-inline/lab-folder-inline.component';
 import { NgClass } from '@angular/common';
 import {
   TdTechnicalDocModule,
-} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+} from '@monorepo/technical-doc';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';

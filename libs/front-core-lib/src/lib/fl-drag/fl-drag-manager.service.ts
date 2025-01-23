@@ -7,8 +7,6 @@ import { FlDragData } from './fl-drag.class';
 export class FlDragManagerService {
   private draggedData: FlDragData;
 
-  constructor() {}
-
   public setDraggedData(type: string, data: any): void {
     this.draggedData = {
       type: type,

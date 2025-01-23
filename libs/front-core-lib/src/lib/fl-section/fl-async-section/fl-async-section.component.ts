@@ -3,11 +3,10 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  inject,
   Input,
   OnDestroy,
-  OnInit,
   TemplateRef,
-  inject,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FlAsyncSectionBodyContext, FlSectionBodyDirective } from '../fl-section-body';
@@ -24,7 +23,7 @@ import { FlDatasource, FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
+export class FlAsyncSectionComponent<T> implements OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private translateService = inject(FlTranslateService);
 
@@ -108,8 +107,6 @@ export class FlAsyncSectionComponent<T> implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private subscription: Subscription;
-
-  ngOnInit(): void {}
 
   private subscribeToObservable(observable: Observable<any>): void {
     this.isLoading = true;

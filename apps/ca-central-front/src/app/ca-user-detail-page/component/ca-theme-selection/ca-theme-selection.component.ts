@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { ClTheme } from '@monorepo/core-lib';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';

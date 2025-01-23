@@ -2,17 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
 
 @Component({
-    selector: 'fl-last-sync-info',
-    templateUrl: './fl-last-sync-info.component.html',
-    styleUrls: ['./fl-last-sync-info.component.scss'],
-    standalone: false
+  selector: 'fl-last-sync-info',
+  templateUrl: './fl-last-sync-info.component.html',
+  styleUrls: ['./fl-last-sync-info.component.scss'],
+  standalone: false,
 })
-export class FlLastSyncInfoComponent implements OnInit {
+export class FlLastSyncInfoComponent {
   @Input() lastSyncBy: string;
 
   @Input() lastSyncAt: DateTime;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

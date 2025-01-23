@@ -33,7 +33,7 @@ export interface LabSelectTypeDialogInput {
     FlTranslateModule,
   ],
 })
-export class LabSelectTypeDialogComponent implements OnInit {
+export class LabSelectTypeDialogComponent {
   private dialogRef = inject<MatDialogRef<LabSelectTypeDialogComponent>>(MatDialogRef);
 
   config: LabTypeSearchConfig;
@@ -47,8 +47,6 @@ export class LabSelectTypeDialogComponent implements OnInit {
     this.title = data.title ?? 'biox.select_process';
     this.helpText = data.helpText;
   }
-
-  ngOnInit(): void {}
 
   onTypeSelected(type: LabTypeEntity): void {
     this.dialogRef.close(type);

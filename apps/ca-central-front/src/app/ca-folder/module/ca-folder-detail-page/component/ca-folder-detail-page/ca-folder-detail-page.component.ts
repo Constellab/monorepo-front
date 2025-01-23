@@ -39,9 +39,6 @@ import {
   CaHierarchyObjectSearchFields,
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
-import {
-  CaFolderActionService,
-} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { CaResourceService } from '../../../../../ca-core/service-api/ca-resource.service';
 import {
   CaHierarchyObjectBreadcrumbComponent,
@@ -57,6 +54,9 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaFolderActionService
+} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 /**
  * Page for a folder detail

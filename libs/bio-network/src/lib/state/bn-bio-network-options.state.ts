@@ -51,8 +51,6 @@ export class BnBioNetworkOptionsState implements OnDestroy {
     coloredClusters: [],
   });
 
-  constructor() {}
-
   public init(): void {
     // clear the pathway selection when the state is reset
     this.emitConfig('init', { coloredClusters: [] });

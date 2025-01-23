@@ -18,15 +18,15 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import {
-  CaIsAdminDirective,
-} from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { MatButton } from '@angular/material/button';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import {
   CaLabBackupStatusTableComponent,
 } from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaIsAdminDirective
+} from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 
 /**
  * Statuses of all lab backups

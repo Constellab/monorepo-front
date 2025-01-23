@@ -44,8 +44,10 @@ export class FlDynamicFormHelper {
     return formGroup;
   }
 
-  public static generateEditableFormGroup(config: FlDynamicEditableFormGroupConfig,
-                                          value: any = {}): UntypedFormGroup {
+  public static generateEditableFormGroup(
+    config: FlDynamicEditableFormGroupConfig,
+    value: any = {}
+  ): UntypedFormGroup {
     const formGroup: UntypedFormGroup = new UntypedFormGroup({});
 
     for (const key in config.subConfigs) {

@@ -1,14 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatButton } from '@angular/material/button';
@@ -22,7 +20,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-user-profile-edit-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

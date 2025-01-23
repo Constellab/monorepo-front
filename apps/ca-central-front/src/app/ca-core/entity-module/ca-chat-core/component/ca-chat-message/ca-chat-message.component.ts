@@ -9,15 +9,13 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { TeRichText } from '@monorepo/text-editor';
-import {
-  CaNotificationMarkDirective,
-} from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
 import {
-  TeTextEditorModule,
-} from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+  TeTextEditorModule
+} from '@monorepo/text-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

@@ -16,9 +16,7 @@ import {
 } from '../lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
 import { Observable } from 'rxjs';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import {
-  LabScenarioTemplateInlineComponent,
-} from '../lab-scenario-template-inline/lab-scenario-template-inline.component';
+import { LabScenarioTemplateInlineComponent } from '../lab-scenario-template-inline/lab-scenario-template-inline.component';
 
 /**
  * Input/Select component to search for a Protocol template and select one.

@@ -1,13 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaScenarioTableComponent } from '../ca-scenario-table/ca-scenario-table.component';
 import { AsyncPipe } from '@angular/common';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface CaScenariosListDialogInput {
   scenarios: FlArrayObs<CaScenario>;
@@ -18,14 +16,7 @@ export interface CaScenariosListDialogInput {
   selector: 'ca-scenarios-table-dialog',
   templateUrl: './ca-scenario-table-dialog.component.html',
   styleUrl: './ca-scenario-table-dialog.component.scss',
-  imports: [
-    FlDialogModule,
-    CdkScrollable,
-    MatDialogContent,
-    CaScenarioTableComponent,
-    AsyncPipe,
-    FlTranslateModule,
-  ],
+  imports: [FlDialogModule, MatDialogContent, CaScenarioTableComponent, AsyncPipe, FlTranslateModule],
 })
 export class CaScenarioTableDialogComponent {
   scenarios: FlArrayObs<CaScenario>;

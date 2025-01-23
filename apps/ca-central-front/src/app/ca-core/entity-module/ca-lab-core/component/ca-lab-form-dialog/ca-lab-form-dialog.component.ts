@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { CaLab, CaLabType } from '../../../../model/entities/lab/ca-lab.class';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTranslateParam } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogModule,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlTranslateParam, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
@@ -18,10 +20,8 @@ import {
 } from '../ca-lab-desktop-form-dialog/ca-lab-desktop-form-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
-import { MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
@@ -46,7 +46,6 @@ interface CaFreeLabInfo {
   styleUrls: ['./ca-lab-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     MatRadioGroup,
     ReactiveFormsModule,

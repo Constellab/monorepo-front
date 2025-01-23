@@ -14,10 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-select-note-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, LabNoteSearchComponent, TranslatePipe],
 })
-export class LabSelectNoteDialogComponent implements OnInit {
+export class LabSelectNoteDialogComponent {
   private dialogRef = inject<MatDialogRef<LabSelectNoteDialogComponent>>(MatDialogRef);
-
-  ngOnInit(): void {}
 
   onNoteSelected(note: LabNote): void {
     this.dialogRef.close(note);

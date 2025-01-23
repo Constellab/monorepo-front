@@ -15,21 +15,20 @@ import { LmsLabState } from '../../service/lms-lab.state';
  * Component to upload the configuration json to configure lab manager
  */
 @Component({
-    selector: 'lms-configure-lab-manager',
-    imports: [
-        FlCardModule,
-        FlTextIconModule,
-        FlTranslateModule,
-        FlInputFileModule,
-        MatIconModule,
-        FlSnackBarModule,
-    ],
-    templateUrl: './lms-configure-lab-manager.component.html',
-    styleUrl: './lms-configure-lab-manager.component.scss'
+  selector: 'lms-configure-lab-manager',
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    FlTranslateModule,
+    FlInputFileModule,
+    MatIconModule,
+    FlSnackBarModule,
+  ],
+  templateUrl: './lms-configure-lab-manager.component.html',
+  styleUrl: './lms-configure-lab-manager.component.scss',
 })
 export class LmsConfigureLabManagerComponent {
-
-  labManagerConfigured = output<void>()
+  labManagerConfigured = output<void>();
 
   isLoading: boolean = false;
 

@@ -1,17 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import {
   CaServerStandard,
   CaServerStandardSaveDTO,
 } from '../../../../model/entities/server/ca-server-standard.class';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
+import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatButton } from '@angular/material/button';
@@ -27,7 +25,6 @@ export type CaServerStandardFormDialogInput = FlFormDialogInput<CaServerStandard
   styleUrl: './ca-server-standard-form-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

@@ -1,18 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   CaCreateStoragePriceDTO,
   CaStoragePrice,
 } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatHint, MatError, MatSuffix } from '@angular/material/form-field';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -24,7 +22,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './ca-storage-price-form-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

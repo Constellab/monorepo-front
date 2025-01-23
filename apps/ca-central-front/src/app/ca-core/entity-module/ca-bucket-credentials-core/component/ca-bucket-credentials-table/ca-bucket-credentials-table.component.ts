@@ -67,7 +67,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class CaBucketCredentialsTableComponent implements OnInit {
+export class CaBucketCredentialsTableComponent {
   private dialogService = inject(FlDialogService);
   private objectStorageService = inject(CaObjectStorageService);
 
@@ -82,8 +82,6 @@ export class CaBucketCredentialsTableComponent implements OnInit {
     'lastModified',
     'actions',
   ];
-
-  ngOnInit(): void {}
 
   updateBucketCredential(credentials: CaBucketCredentials): void {
     // open user check credentials dialog

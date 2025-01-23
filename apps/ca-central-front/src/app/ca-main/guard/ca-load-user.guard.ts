@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';

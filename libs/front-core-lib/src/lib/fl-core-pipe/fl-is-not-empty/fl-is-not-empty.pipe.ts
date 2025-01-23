@@ -6,8 +6,8 @@ import { ClHelpService } from '@monorepo/core-lib';
  * @param value to check
  */
 @Pipe({
-    name: 'flIsNotEmpty',
-    standalone: false
+  name: 'flIsNotEmpty',
+  standalone: false,
 })
 export class FlIsNotEmptyPipe implements PipeTransform {
   transform(value: any): boolean {

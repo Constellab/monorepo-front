@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import { CaCloudProviderRegionDatasource } from '../../../../model/entities/ca-cloud-provider.class';

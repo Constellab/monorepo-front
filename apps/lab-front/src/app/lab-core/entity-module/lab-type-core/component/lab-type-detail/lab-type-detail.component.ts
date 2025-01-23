@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 /**

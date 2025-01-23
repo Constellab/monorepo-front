@@ -1,7 +1,5 @@
 @if ((currentView$ | async) === 'login') {
-  <fl-login
-    class="login"
-    (loginSuccess)="onLoginSuccess($event)">
+  <fl-login class="login" (loginSuccess)="onLoginSuccess($event)">
     <ng-content></ng-content>
   </fl-login>
 } @else {

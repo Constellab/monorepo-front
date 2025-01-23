@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * It returns the list of keys
  */
 @Pipe({
-    name: 'flObjectKeys',
-    standalone: false
+  name: 'flObjectKeys',
+  standalone: false,
 })
 export class FlObjectKeysPipe implements PipeTransform {
   transform<T extends string>(data: Record<T, unknown>): T[] {

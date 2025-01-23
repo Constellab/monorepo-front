@@ -14,8 +14,6 @@ export class HaCommentButtonComponent {
 
   @Output() clicked = new EventEmitter<void>();
 
-  constructor() {}
-
   click(): void {
     this.clicked.emit();
   }

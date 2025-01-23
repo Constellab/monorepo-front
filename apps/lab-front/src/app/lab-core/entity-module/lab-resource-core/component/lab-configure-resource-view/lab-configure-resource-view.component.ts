@@ -19,7 +19,7 @@ import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';

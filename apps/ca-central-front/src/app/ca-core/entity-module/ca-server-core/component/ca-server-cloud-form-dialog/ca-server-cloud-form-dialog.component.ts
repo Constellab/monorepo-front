@@ -1,19 +1,23 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { Observable } from 'rxjs';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
-import { CaSelectCloudProviderOptionsComponent } from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
+import {
+  CaSelectCloudProviderOptionsComponent,
+} from '../../../ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { CaSelectServerStandardOptionsComponent } from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
-import { CaSelectDiskTypeOptionsComponent } from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
+import {
+  CaSelectServerStandardOptionsComponent,
+} from '../ca-select-server-standard-options/ca-select-server-standard-options.component';
+import {
+  CaSelectDiskTypeOptionsComponent,
+} from '../ca-select-disk-type-options/ca-select-disk-type-options.component';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -28,7 +32,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-server-cloud-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

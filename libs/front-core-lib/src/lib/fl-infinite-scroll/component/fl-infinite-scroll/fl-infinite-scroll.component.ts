@@ -7,10 +7,10 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
  * It handle the getNextPage automatically and add a button to load more result
  */
 @Component({
-    selector: 'fl-infinite-scroll',
-    templateUrl: './fl-infinite-scroll.component.html',
-    styleUrls: ['./fl-infinite-scroll.component.scss'],
-    standalone: false
+  selector: 'fl-infinite-scroll',
+  templateUrl: './fl-infinite-scroll.component.html',
+  styleUrls: ['./fl-infinite-scroll.component.scss'],
+  standalone: false,
 })
 export class FlInfiniteScrollComponent implements OnInit {
   @Input() datasource: FlDatasourcePaginated<any, any>;
@@ -58,8 +58,6 @@ export class FlInfiniteScrollComponent implements OnInit {
   @Input() textNoResult: string = 'no_result';
 
   @Input() textNoMoreResult: string = 'no_more_result';
-
-  constructor() {}
 
   ngOnInit(): void {
     if (this.datasource == null) {

@@ -8,9 +8,7 @@ import {
   CaSpaceStorageFormDialogComponent,
   CaSpaceStorageFormDialogInput,
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
-import {
-  CaCurrentSpaceStorageDetailComponent,
-} from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import { CaCurrentSpaceStorageDetailComponent } from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 import {
   CaCurrentSpaceUpdateStorageDialogComponent,
   CaStorageLimitUpdateDialogInput,
@@ -19,7 +17,7 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import {
-  CaIsAdminDirective,
+  CaIsAdminDirective
 } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { MatButton } from '@angular/material/button';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';

@@ -13,12 +13,10 @@ import { RvTechnicalInfoDialogComponent } from '../rv-technical-info-dialog/rv-t
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class RvTechnicalInfoButtonComponent implements OnInit {
+export class RvTechnicalInfoButtonComponent {
   private dialogService = inject(FlDialogService);
 
   @Input() technicalInfo: RvTechnicalInfo[];
-
-  ngOnInit(): void {}
 
   hasTechnicalInfo(): boolean {
     return this.technicalInfo?.length > 0;

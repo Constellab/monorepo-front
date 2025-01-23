@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -8,20 +9,21 @@ import {
   TemplateRef,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import {
+  FlOverlayRef,
+  FlPortalConnectedPosition,
+  FlPortalModule,
+  FlPortalService,
+} from '@monorepo/front-core-lib/fl-portal';
 
-import { NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 

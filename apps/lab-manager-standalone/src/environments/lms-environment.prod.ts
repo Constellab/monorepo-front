@@ -4,7 +4,6 @@
 
 import { LmsEnvironment } from './lms-environment.class';
 
-
 /**
  * File for local environment, env is defined in main file.
  * The environment is not accessible in forRoot method of the module, need to use provider

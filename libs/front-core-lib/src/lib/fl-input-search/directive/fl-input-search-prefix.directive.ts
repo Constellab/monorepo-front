@@ -12,8 +12,8 @@ export interface FlInputSearchPrefixContext<T> extends FlViewContext<T> {
  * Directive to define the template for the prefix of the input search
  */
 @Directive({
-    selector: '[flInputSearchPrefix]',
-    standalone: false
+  selector: '[flInputSearchPrefix]',
+  standalone: false,
 })
 export class FlInputSearchPrefixDirective<T> {
   /**

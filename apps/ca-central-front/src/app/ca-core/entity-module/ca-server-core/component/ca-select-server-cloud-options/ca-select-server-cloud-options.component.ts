@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaServerCloud,

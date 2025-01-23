@@ -10,8 +10,8 @@ import { clRxjsElasticSearch } from '@monorepo/core-lib';
  * It triggers an event after the last key pressed with an idle delay
  */
 @Directive({
-    selector: 'input[flElasticSearch]',
-    standalone: false
+  selector: 'input[flElasticSearch]',
+  standalone: false,
 })
 export class FlElasticSearchDirective implements OnInit, OnDestroy {
   /**
@@ -39,8 +39,6 @@ export class FlElasticSearchDirective implements OnInit, OnDestroy {
   @Input() flElasticLowercase: boolean = true;
 
   private keyUpSubject: Subject<string> = new Subject<string>();
-
-  constructor() {}
 
   ngOnInit(): void {
     // avoid problem with input string when using flElasticSearch without value

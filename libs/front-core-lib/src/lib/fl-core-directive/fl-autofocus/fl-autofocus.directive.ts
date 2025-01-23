@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject, Input } from '@angular/core';
 
 /**
  * Simple directive to force the focus of the container when it appears on screen

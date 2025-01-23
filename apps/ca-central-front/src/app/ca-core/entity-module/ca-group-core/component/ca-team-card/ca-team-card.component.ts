@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatRipple } from '@angular/material/core';
@@ -13,10 +13,6 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
   styleUrls: ['./ca-team-card.component.scss'],
   imports: [FlCardModule, MatRipple, FlTextIconModule, MatIcon, FlIconModule, FlUserModule],
 })
-export class CaTeamCardComponent implements OnInit {
+export class CaTeamCardComponent {
   @Input() team: CaGroup;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -1,11 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
 import { CaUser, CaUserLicense } from '../../../../model/entities/ca-user.class';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
@@ -24,7 +23,6 @@ export interface CaUserUpdateLicenseDialogInput {
   styleUrl: './ca-user-update-license-form-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,

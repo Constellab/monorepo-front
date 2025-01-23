@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import { CaTechnicalReport } from '../../../../../ca-core/model/entities/folder/ca-technical-report.class';
@@ -31,8 +31,8 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatButton } from '@angular/material/button';
-import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
-import { PrProtocolModule } from '../../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
+import { PrProtocolModule } from '@monorepo/protocol';
 import { CaScenarioTechnicalReportGraphComponent } from '../ca-scenario-technical-report-graph/ca-scenario-technical-report-graph.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

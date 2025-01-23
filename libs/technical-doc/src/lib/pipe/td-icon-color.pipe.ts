@@ -3,8 +3,8 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { TdTypeStyleIconColor } from '../model/td-type.class';
 
 @Pipe({
-    name: 'tdIconColor',
-    standalone: false
+  name: 'tdIconColor',
+  standalone: false,
 })
 export class TdIconColorPipe implements PipeTransform {
   private themeService = inject(FlThemeService);

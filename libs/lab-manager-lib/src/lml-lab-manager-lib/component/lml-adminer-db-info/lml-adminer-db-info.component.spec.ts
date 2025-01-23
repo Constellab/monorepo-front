@@ -8,9 +8,8 @@ describe('LmlAdminerDbInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LmlAdminerDbInfoComponent]
-    })
-    .compileComponents();
+      declarations: [LmlAdminerDbInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmlAdminerDbInfoComponent);
     component = fixture.componentInstance;

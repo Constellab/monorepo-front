@@ -9,10 +9,10 @@ import { TeRichText } from '../../model/lib';
  * It shows a save status text and call the provided save function when the content changes.
  */
 @Component({
-    selector: 'te-text-editor-save',
-    templateUrl: './te-text-editor-save.component.html',
-    styleUrl: './te-text-editor-save.component.scss',
-    standalone: false
+  selector: 'te-text-editor-save',
+  templateUrl: './te-text-editor-save.component.html',
+  styleUrl: './te-text-editor-save.component.scss',
+  standalone: false,
 })
 export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
   /**

@@ -40,7 +40,7 @@ export class FlInputFileIconContainerComponent {
 
   get classes(): string[] {
     const classes: string[] = [];
-    if(this.color) {
+    if (this.color) {
       classes.push(this.color);
     }
     if (this.size === 'small') {

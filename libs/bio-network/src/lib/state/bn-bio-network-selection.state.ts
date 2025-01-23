@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';
@@ -20,8 +20,6 @@ export class BnBioNetworkSelectionState implements OnDestroy {
   private selection$: BehaviorSubject<BnBioNetworkSelectionEvent> = new BehaviorSubject({ mode: 'none' });
 
   // private subscription: Subscription;
-
-  constructor() {}
 
   public init(data: BnBioNetworkGraph): void {
     this.data = data;

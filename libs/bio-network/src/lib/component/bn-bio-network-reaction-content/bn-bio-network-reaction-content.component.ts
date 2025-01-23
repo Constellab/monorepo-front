@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { firstValueFrom, Observable, of, switchMap } from 'rxjs';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetworkNodeReaction } from '../../model/bn-bio-network-node-reaction.class';

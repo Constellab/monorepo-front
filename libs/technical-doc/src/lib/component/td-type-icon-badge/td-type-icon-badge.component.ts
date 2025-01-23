@@ -5,11 +5,11 @@ import { TdTypeStyle } from '../../model/td-type.class';
  * Component to show the icon of a type in a round circle
  */
 @Component({
-    selector: 'td-type-icon-badge',
-    templateUrl: './td-type-icon-badge.component.html',
-    styleUrl: './td-type-icon-badge.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'td-type-icon-badge',
+  templateUrl: './td-type-icon-badge.component.html',
+  styleUrl: './td-type-icon-badge.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class TdTypeIconBadgeComponent {
   style = input.required<TdTypeStyle>();

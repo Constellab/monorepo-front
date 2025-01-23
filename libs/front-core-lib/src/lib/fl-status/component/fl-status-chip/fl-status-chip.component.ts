@@ -9,11 +9,11 @@ export type FlStatusChipMode = 'iconText' | 'iconOnly' | 'textOnly';
  * Simple component to display a status on a chip with color
  */
 @Component({
-    selector: 'fl-status-chip',
-    templateUrl: './fl-status-chip.component.html',
-    styleUrls: ['./fl-status-chip.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-status-chip',
+  templateUrl: './fl-status-chip.component.html',
+  styleUrls: ['./fl-status-chip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlStatusChipComponent {
   @Input() set status(status: FlStatus | Observable<FlStatus>) {

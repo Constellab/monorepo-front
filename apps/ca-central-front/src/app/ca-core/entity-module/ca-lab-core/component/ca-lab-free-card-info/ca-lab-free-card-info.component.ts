@@ -1,9 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaLabFreeGetDto } from '../../../../model/entities/lab/ca-lab-free.class';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, of } from 'rxjs';
 import {
   CaLabFreeFormDialogComponent,

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { RvResourceView } from '@monorepo/resource-view';
 import { TeElementBlockDirective } from '@monorepo/text-editor';
 import { HaDocViewConfig } from '../ha-doc-content-view.class';
-import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
+import { RvResourceViewModule } from '@monorepo/resource-view';
 
 @Component({
   selector: 'ha-doc-content-view',

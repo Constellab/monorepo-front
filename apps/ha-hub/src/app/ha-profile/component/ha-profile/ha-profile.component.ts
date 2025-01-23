@@ -34,7 +34,7 @@ import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-p
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';

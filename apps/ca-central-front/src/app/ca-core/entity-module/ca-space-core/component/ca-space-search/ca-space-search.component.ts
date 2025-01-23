@@ -1,10 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSavedSearch,
+  FlSearchConfig,
+  FlSearchModule,
+  FlSearchState,
+} from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
@@ -16,11 +18,10 @@ import {
 } from '../ca-space-form-dialog/ca-space-form-dialog.component';
 import { CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaSpaceSearchFormComponent } from '../ca-space-search-form/ca-space-search-form.component';
 import { CaSpaceTableComponent } from '../ca-space-table/ca-space-table.component';

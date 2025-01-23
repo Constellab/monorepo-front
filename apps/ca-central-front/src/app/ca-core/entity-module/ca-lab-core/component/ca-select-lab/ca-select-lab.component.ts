@@ -2,9 +2,9 @@ import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaLabService } from '../../../../service-api/ca-lab.service';

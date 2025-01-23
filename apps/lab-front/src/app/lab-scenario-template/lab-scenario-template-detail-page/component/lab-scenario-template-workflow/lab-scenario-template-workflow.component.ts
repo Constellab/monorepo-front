@@ -15,7 +15,7 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { PrProtocolModule } from '../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { PrProtocolModule } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

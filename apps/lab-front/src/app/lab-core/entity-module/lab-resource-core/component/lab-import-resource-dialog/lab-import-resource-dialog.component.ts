@@ -30,7 +30,7 @@ import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatDivider } from '@angular/material/divider';
 import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';

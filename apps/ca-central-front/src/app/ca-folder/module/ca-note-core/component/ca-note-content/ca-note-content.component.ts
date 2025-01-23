@@ -1,12 +1,14 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
 import { TeRichText } from '@monorepo/text-editor';
 import { map } from 'rxjs/operators';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {
+  TeTextEditorModule,
+} from '@monorepo/text-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /**
  * Component to show the note content in a disabled text editor

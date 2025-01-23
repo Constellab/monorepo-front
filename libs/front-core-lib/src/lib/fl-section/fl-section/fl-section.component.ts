@@ -24,7 +24,7 @@ import { ClHelpService } from '@monorepo/core-lib';
   styleUrls: ['./fl-section.component.scss'],
   standalone: false,
 })
-export class FlSectionComponent implements OnInit, AfterContentInit {
+export class FlSectionComponent implements AfterContentInit {
   private viewContainerRef = inject(ViewContainerRef);
 
   _isLoading: boolean = false;
@@ -49,8 +49,6 @@ export class FlSectionComponent implements OnInit, AfterContentInit {
 
   /** Portal holding the user's content. */
   portal: TemplatePortal;
-
-  ngOnInit(): void {}
 
   ngAfterContentInit(): void {
     this.lazyRender();

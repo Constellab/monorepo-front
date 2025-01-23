@@ -4,8 +4,6 @@ import { TrackByFunction } from '@angular/core';
  * Class with static method to simplify dev
  */
 export class ClHelpService {
-  constructor() {}
-
   /**
    * Deep clone an object (doesn't work with cyclic object)
    * @param object object to clone

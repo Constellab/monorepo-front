@@ -24,7 +24,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-view-config-preview.component.scss'],
   imports: [MatIconButton, MatTooltip, MatIcon, FlLoaderModule, TranslatePipe],
 })
-export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
+export class LabViewConfigPreviewComponent implements OnDestroy {
   private viewConfigService = inject(LabViewConfigService);
   private portalService = inject(FlPortalService);
 
@@ -33,8 +33,6 @@ export class LabViewConfigPreviewComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private overlay?: FlOverlayRef;
-
-  ngOnInit(): void {}
 
   showPreview(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

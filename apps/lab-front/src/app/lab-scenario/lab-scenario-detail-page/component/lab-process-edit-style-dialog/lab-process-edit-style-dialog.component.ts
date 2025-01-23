@@ -7,7 +7,7 @@ import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
-import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 

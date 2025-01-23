@@ -14,9 +14,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import {
-  LabVenvTableComponent,
-} from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
+import { LabVenvTableComponent } from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

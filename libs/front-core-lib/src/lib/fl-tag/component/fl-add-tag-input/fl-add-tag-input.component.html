@@ -7,7 +7,7 @@
         <div
           matChipAvatar
           class="color"
-        [style.background-color]="currentTagKey.key | flTagColor | async"></div>
+          [style.background-color]="currentTagKey.key | flTagColor | async"></div>
         {{ currentTagKey.key }} :
       </mat-chip-row>
     }
@@ -21,28 +21,26 @@
       (matChipInputTokenEnd)="addUnknownValue()"
       tabindex="0"
       (keydown.enter)="onEnterDown($event)" />
-    </mat-chip-grid>
-    <mat-autocomplete
-      #auto="matAutocomplete"
-      (optionSelected)="optionSelected($event)"
-      [autoActiveFirstOption]="true">
-      <fl-infinite-scroll [datasource]="filteredOptions" class="g-mat-option-infinite-scroll">
-        @for (item of filteredOptions | flDatasourceConnect | async; track item) {
-          <mat-option [value]="item">
-            <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-              @if ((mode$ | async) === 'key') {
-                <div
-                  class="color color-option"
-                [style.background-color]="item.key | flTagColor | async"></div>
-              }
-              <span>{{ item }}</span>
-            </div>
-          </mat-option>
-        }
-      </fl-infinite-scroll>
-    </mat-autocomplete>
+  </mat-chip-grid>
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="optionSelected($event)"
+    [autoActiveFirstOption]="true">
+    <fl-infinite-scroll [datasource]="filteredOptions" class="g-mat-option-infinite-scroll">
+      @for (item of filteredOptions | flDatasourceConnect | async; track item) {
+        <mat-option [value]="item">
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+            @if ((mode$ | async) === 'key') {
+              <div class="color color-option" [style.background-color]="item.key | flTagColor | async"></div>
+            }
+            <span>{{ item }}</span>
+          </div>
+        </mat-option>
+      }
+    </fl-infinite-scroll>
+  </mat-autocomplete>
 
-    @if (allowUnknownTag) {
-      <mat-hint>{{ 'flTag.input_helper_text' | translate }}</mat-hint>
-    }
-  </mat-form-field>
+  @if (allowUnknownTag) {
+    <mat-hint>{{ 'flTag.input_helper_text' | translate }}</mat-hint>
+  }
+</mat-form-field>

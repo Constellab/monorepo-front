@@ -7,19 +7,18 @@ export interface LmsLabManagerConfiguration {
     prodApiKey: string;
     devApiKey: string;
     frontUrl: string;
-  },
+  };
   community: {
     apiUrl: string;
     apiKey: string;
     frontUrl: string;
-  },
+  };
   codelabToken: string;
   gwsCoreProdPassword: string;
   gwsCoreDevPassword: string;
   labConfig: {
     enableBackup: boolean;
-  }
+  };
   captchaSiteKey: string;
   openaiApiKey: string;
 }
-

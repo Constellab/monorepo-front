@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'ca-hierarchy-object-icon',

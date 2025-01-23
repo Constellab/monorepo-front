@@ -1,4 +1,4 @@
-import { Injectable, Injector, inject } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { ReCaptchaV3Service } from 'ng-recaptcha-2';
 import { Observable, of, throwError } from 'rxjs';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from './fl-captcha.class';

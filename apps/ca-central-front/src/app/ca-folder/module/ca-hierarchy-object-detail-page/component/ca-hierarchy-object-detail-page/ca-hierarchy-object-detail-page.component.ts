@@ -11,12 +11,12 @@ import {
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { map } from 'rxjs/operators';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
-import {
-  CaHierarchyObjectTreeComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
+import {
+  CaHierarchyObjectTreeComponent
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 
 /**
  * Detail page for the folder objects (folder, scenario, note).

@@ -16,7 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class LabBiotaDatabaseSelectOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   private select: MatSelect;
 
@@ -29,8 +29,6 @@ export class LabBiotaDatabaseSelectOptionsComponent
 
     this.select = select;
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();

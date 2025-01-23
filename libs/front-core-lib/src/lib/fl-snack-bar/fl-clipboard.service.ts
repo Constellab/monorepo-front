@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FlSnackBarService } from './fl-snack-bar.service';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';

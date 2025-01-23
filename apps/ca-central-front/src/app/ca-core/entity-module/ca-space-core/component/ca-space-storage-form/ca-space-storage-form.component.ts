@@ -3,13 +3,13 @@ import {
   AbstractControlOptions,
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
   UntypedFormGroup,
   ValidatorFn,
   Validators,
-  ReactiveFormsModule,
 } from '@angular/forms';
 import { CaSpaceUpdateStorageLocationDTO } from '../../../../model/entities/space/ca-space.dto';
-import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
 import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';

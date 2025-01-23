@@ -6,17 +6,15 @@ import {
   CaServerPrice,
   CaServerPriceDatasource,
 } from '../../../../model/entities/server/ca-server-price.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   CaServerPriceFormDialogComponent,
   CaServerPriceFormDialogInput,
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaServerPriceTableComponent } from '../ca-server-price-table/ca-server-price-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -29,7 +27,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIconButton,
     MatTooltip,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     CaServerPriceTableComponent,
     TranslatePipe,

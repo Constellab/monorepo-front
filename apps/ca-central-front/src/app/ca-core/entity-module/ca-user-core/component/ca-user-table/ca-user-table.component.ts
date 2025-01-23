@@ -1,10 +1,11 @@
-import { Component, ContentChild, Input, TemplateRef, inject } from '@angular/core';
+import { Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlViewContext } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
 
 import { ClUserStatus } from '@monorepo/core-lib';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
@@ -13,18 +14,18 @@ import {
   CaUserUpdateLicenseFormDialogComponent,
 } from '../ca-user-update-license-form-dialog/ca-user-update-license-form-dialog.component';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -32,7 +33,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
@@ -48,7 +49,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-user-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

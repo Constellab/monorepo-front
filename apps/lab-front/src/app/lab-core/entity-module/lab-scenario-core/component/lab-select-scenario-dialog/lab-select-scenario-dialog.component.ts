@@ -16,10 +16,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-select-scenario-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, LabScenarioSearchComponent, TranslatePipe],
 })
-export class LabSelectScenarioDialogComponent implements OnInit {
+export class LabSelectScenarioDialogComponent {
   private dialogRef = inject<MatDialogRef<LabSelectScenarioDialogComponent>>(MatDialogRef);
-
-  ngOnInit(): void {}
 
   onScenarioSelected(scenario: LabScenario): void {
     this.dialogRef.close(scenario);

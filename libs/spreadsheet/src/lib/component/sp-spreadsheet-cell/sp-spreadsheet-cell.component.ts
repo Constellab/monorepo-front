@@ -35,7 +35,6 @@ import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
-
 @Component({
   selector: 'sp-spreadsheet-cell',
   templateUrl: './sp-spreadsheet-cell.component.html',

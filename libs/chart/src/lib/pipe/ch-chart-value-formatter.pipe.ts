@@ -5,8 +5,8 @@ import { ChChartLabelFormatter } from '../model/ch-chart-label-formatter.class';
  * Pipe to call a formatter on a value
  */
 @Pipe({
-    name: 'chChartValueFormatter',
-    standalone: false
+  name: 'chChartValueFormatter',
+  standalone: false,
 })
 export class ChChartValueFormatterPipe implements PipeTransform {
   transform(value: number, formatter: ChChartLabelFormatter, text: 'short' | 'long' = 'short'): string {

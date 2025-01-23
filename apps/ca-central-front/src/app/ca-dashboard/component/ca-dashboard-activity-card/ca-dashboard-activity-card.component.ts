@@ -7,12 +7,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-dashboard-activity-card.component.scss'],
   imports: [TranslatePipe],
 })
-export class CaDashboardActivityCardComponent implements OnInit {
+export class CaDashboardActivityCardComponent {
   @Input() activityNumber: number;
 
   @Input() activityText: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

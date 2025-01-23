@@ -2,7 +2,10 @@
   <div>
     @if (progress.status !== 'ended') {
       <p>{{ 'bnBioNetwork.calculating_positions' | translate }}</p>
-      <mat-progress-bar mode="determinate" class="progress-bar" [value]="progress.progress"></mat-progress-bar>
+      <mat-progress-bar
+        mode="determinate"
+        class="progress-bar"
+        [value]="progress.progress"></mat-progress-bar>
     } @else {
       <fl-key-value>
         <fl-key>{{ 'bnBioNetwork.last_calculation_duration' | translate }}</fl-key>

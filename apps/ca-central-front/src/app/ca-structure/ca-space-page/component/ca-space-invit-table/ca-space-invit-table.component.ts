@@ -1,10 +1,11 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlDatasourcePaginated, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 
 import {
   CaSpaceUserRoleDialogComponent,
@@ -13,21 +14,21 @@ import {
 import { CaSpaceInvit } from '../../../../ca-core/model/entities/space/ca-space-invit.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';

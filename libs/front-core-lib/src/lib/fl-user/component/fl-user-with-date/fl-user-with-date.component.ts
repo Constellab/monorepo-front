@@ -7,16 +7,12 @@ import { FlUser } from '../../model/fl-user.class';
  * Useful for the created and lastModified fields
  */
 @Component({
-    selector: 'fl-user-with-date',
-    templateUrl: './fl-user-with-date.component.html',
-    styleUrls: ['./fl-user-with-date.component.scss'],
-    standalone: false
+  selector: 'fl-user-with-date',
+  templateUrl: './fl-user-with-date.component.html',
+  styleUrls: ['./fl-user-with-date.component.scss'],
+  standalone: false,
 })
-export class FlUserWithDateComponent implements OnInit {
+export class FlUserWithDateComponent {
   @Input() user: FlUser;
   @Input() date: DateTime;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

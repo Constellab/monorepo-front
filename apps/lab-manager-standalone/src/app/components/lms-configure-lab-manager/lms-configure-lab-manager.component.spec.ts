@@ -8,9 +8,8 @@ describe('LmsInitializedLabManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LmsConfigureLabManagerComponent]
-    })
-    .compileComponents();
+      imports: [LmsConfigureLabManagerComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmsConfigureLabManagerComponent);
     component = fixture.componentInstance;

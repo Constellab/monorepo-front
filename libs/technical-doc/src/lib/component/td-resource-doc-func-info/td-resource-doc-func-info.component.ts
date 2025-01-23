@@ -3,17 +3,15 @@ import { TdTechDocFunction, TdResourceFunctionArg } from '../../model/td-resourc
 import { ClStringHelper } from '@monorepo/core-lib';
 
 @Component({
-    selector: 'td-resource-doc-func-info',
-    templateUrl: './td-resource-doc-func-info.component.html',
-    styleUrls: ['./td-resource-doc-func-info.component.scss'],
-    standalone: false
+  selector: 'td-resource-doc-func-info',
+  templateUrl: './td-resource-doc-func-info.component.html',
+  styleUrls: ['./td-resource-doc-func-info.component.scss'],
+  standalone: false,
 })
 export class TdResourceDocFuncInfoComponent implements OnInit {
   @Input({ required: true }) func: TdTechDocFunction;
   cleanedFuncDoc: string[];
   funcAgrsDocs: string[] = [];
-
-  constructor() {}
 
   ngOnInit(): void {
     this.cleanedFuncDoc = this.getFunctionCleanDocInfo(this.func);

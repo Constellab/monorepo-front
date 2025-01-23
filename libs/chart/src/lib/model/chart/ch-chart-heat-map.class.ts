@@ -9,7 +9,9 @@ import { ChChartLegendHeatMap } from '../legend/ch-chart-legend-heat-map.class';
 import { ChChartScaleBand } from '../scale/ch-chart-scale.class';
 import { ChChartAxis, ChChartAxisBand } from '../drawer/ch-chart-axis.class';
 import { ChChartRendererHeatMap } from '../../renderer/ch-chart-renderer-heat-map.plot';
-import { ChChartLegendHeatMapComponent } from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
+import {
+  ChChartLegendHeatMapComponent,
+} from '../../component/ch-chart-right-section/ch-chart-legend-heat-map/ch-chart-legend-heat-map.component';
 import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
 
 /**

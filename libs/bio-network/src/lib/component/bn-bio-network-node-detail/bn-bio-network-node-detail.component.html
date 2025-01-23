@@ -5,8 +5,7 @@
         <bn-bio-network-node-reaction-detail></bn-bio-network-node-reaction-detail>
       }
       @case ('metabolite') {
-        <bn-bio-network-node-metabolite-detail
-        ></bn-bio-network-node-metabolite-detail>
+        <bn-bio-network-node-metabolite-detail></bn-bio-network-node-metabolite-detail>
       }
       @case ('cofactor') {
         <bn-bio-network-node-cofactor-detail></bn-bio-network-node-cofactor-detail>
@@ -18,7 +17,10 @@
           {{ 'bnBioNetwork.details' | translate }}
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <fl-pretty-json class="g-section json" [object]="node.data" [previewMaxTextLength]="30"></fl-pretty-json>
+      <fl-pretty-json
+        class="g-section json"
+        [object]="node.data"
+        [previewMaxTextLength]="30"></fl-pretty-json>
     </mat-expansion-panel>
     <bn-bio-network-node-layout></bn-bio-network-node-layout>
     <bn-bio-network-node-links class="g-section" [node]="node"></bn-bio-network-node-links>
@@ -26,4 +28,3 @@
 } @else {
   <fl-error-text [errorMessage]="'bnBioNetwork.select_node_help_text' | translate"></fl-error-text>
 }
-

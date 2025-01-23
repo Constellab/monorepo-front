@@ -19,7 +19,7 @@ import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { LabTypeShowDetailButtonComponent } from '../lab-type-show-detail-button/lab-type-show-detail-button.component';
 import { TranslatePipe } from '@ngx-translate/core';

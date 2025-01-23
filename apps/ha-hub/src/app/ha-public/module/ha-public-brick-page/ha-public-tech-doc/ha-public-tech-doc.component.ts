@@ -7,7 +7,7 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TdTechnicalDocModule } from '../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { Ha404Component } from '../../ha404/ha404.component';

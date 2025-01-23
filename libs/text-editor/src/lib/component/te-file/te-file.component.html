@@ -14,12 +14,12 @@
         [autoClearHtmlInput]="true"
         [disabled]="disabled"
         (fileChange)="onFileSelected($any($event))" />
-      </fl-input-file-container>
-    }
-
-    @if (uploadIsLoading) {
-      <div class="g-text-centered">
-        <fl-loader size="medium"></fl-loader>
-      </div>
-    }
+    </fl-input-file-container>
   }
+
+  @if (uploadIsLoading) {
+    <div class="g-text-centered">
+      <fl-loader size="medium"></fl-loader>
+    </div>
+  }
+}

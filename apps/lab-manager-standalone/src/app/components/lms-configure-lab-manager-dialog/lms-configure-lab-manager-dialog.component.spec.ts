@@ -8,9 +8,8 @@ describe('LmsConfigureLabManagerDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LmsConfigureLabManagerDialogComponent]
-    })
-    .compileComponents();
+      imports: [LmsConfigureLabManagerDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmsConfigureLabManagerDialogComponent);
     component = fixture.componentInstance;

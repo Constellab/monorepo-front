@@ -1,11 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -26,7 +25,6 @@ export interface CaLabManagerUpdateDialogInput {
   styleUrls: ['./ca-lab-manager-update-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,

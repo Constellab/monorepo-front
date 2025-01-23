@@ -14,7 +14,7 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-
 })
 export class FlSelectLanguageOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   private select: MatSelect;
 
@@ -27,8 +27,6 @@ export class FlSelectLanguageOptionsComponent
 
     this.select = select;
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();

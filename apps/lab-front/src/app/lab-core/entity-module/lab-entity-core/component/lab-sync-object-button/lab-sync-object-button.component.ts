@@ -21,7 +21,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-sync-object-button.component.scss'],
   imports: [MatTooltip, MatButton, MatIcon, FlLoaderModule, TranslatePipe],
 })
-export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements OnInit {
+export class LabSyncObjectButtonComponent<T extends LabFolderObject> {
   private dialogService = inject(FlDialogService);
   private translateService = inject(FlTranslateService);
 
@@ -34,8 +34,6 @@ export class LabSyncObjectButtonComponent<T extends LabFolderObject> implements 
   @Output() objectUpdate: EventEmitter<T> = new EventEmitter();
 
   isLoading: boolean = false;
-
-  ngOnInit(): void {}
 
   syncClick(): void {
     if (this.isLoading) return;

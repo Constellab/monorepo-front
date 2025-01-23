@@ -9,9 +9,7 @@
       <p>{{ 'bnBioNetwork.metabolite_exists_in_multiple_pathways' | translate }} :</p>
       <ul>
         @for (metaboliteNode of duplicateMetabolites$ | async; track metaboliteNode) {
-          <li
-            class="g-text-link"
-            (click)="selectNode(metaboliteNode)">
+          <li class="g-text-link" (click)="selectNode(metaboliteNode)">
             {{ metaboliteNode.cluster.clusterId }}
           </li>
         }

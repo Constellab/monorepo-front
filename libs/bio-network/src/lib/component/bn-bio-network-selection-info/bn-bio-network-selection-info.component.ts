@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BnBioNetworkSelectionEvent } from '../../model/bn-bio-network-selection.class';
 import { map } from 'rxjs/operators';

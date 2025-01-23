@@ -19,9 +19,7 @@ import { FlTag, FlTagSelectedEvent } from '@monorepo/front-core-lib/fl-tag';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import {
-  LabResourceDetailDialogComponent,
-} from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
+import { LabResourceDetailDialogComponent } from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import { Observable } from 'rxjs';
 import {
   MatCell,
@@ -46,8 +44,8 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
-  TdTechnicalDocModule,
-} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+  TdTechnicalDocModule
+} from '@monorepo/technical-doc';
 import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
 import {
   LabFlagButtonComponent,

@@ -1,14 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { CaGroup, CaSaveTeamDTO } from '../../../../model/entities/ca-group.entity';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaGroupService } from '../../../../service-api/ca-group.service';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatButton } from '@angular/material/button';
@@ -24,7 +22,6 @@ export type CaTeamFormDialogInput = FlFormDialogInput<CaSaveTeamDTO>;
   styleUrls: ['./ca-team-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

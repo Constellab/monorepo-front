@@ -14,12 +14,10 @@ import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-t
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import {
-  LabProcessDashboardDynamicFieldConfig,
-} from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
+import { LabProcessDashboardDynamicFieldConfig } from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
 import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
 import {
-  LabDynamicParamSpecState,
+  LabDynamicParamSpecState
 } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
 
 /**

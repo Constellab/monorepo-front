@@ -11,10 +11,10 @@ import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
  * Leaf button of the DynamicMenu, doesn't work for parent buttons
  */
 @Component({
-    selector: 'fl-menu-dynamic-button',
-    templateUrl: './fl-menu-dynamic-button.component.html',
-    styleUrls: ['./fl-menu-dynamic-button.component.scss'],
-    standalone: false
+  selector: 'fl-menu-dynamic-button',
+  templateUrl: './fl-menu-dynamic-button.component.html',
+  styleUrls: ['./fl-menu-dynamic-button.component.scss'],
+  standalone: false,
 })
 export class FlMenuDynamicButtonComponent {
   menuDynamic = input.required<FlMenuDynamic>();

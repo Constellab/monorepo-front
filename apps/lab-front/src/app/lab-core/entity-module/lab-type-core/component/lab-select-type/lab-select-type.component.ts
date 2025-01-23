@@ -14,7 +14,7 @@ import {
   LabSelectTypeDialogInput,
 } from '../lab-select-type-dialog/lab-select-type-dialog.component';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
 /**
  * Select component for LabType

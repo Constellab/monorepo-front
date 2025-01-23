@@ -3,12 +3,12 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { FlCodeEditorLanguage } from '../../fl-code-editor.class';
 import { FormControl } from '@angular/forms';

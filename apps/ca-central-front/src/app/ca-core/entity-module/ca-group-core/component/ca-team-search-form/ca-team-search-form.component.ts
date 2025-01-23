@@ -1,11 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

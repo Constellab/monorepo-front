@@ -1,4 +1,4 @@
-import { Component, input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 

@@ -1,15 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CaLabBackupStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogModule,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabManagerRestoreBackupConfigDTO } from '../../../../ca-core/model/entities/lab/ca-lab-manager.class';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { CaSelectLabComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-select-lab/ca-select-lab.component';
 import { MatError } from '@angular/material/form-field';
@@ -30,7 +31,6 @@ export interface CaLabRestoreBackupToLabDialogInput {
   styleUrl: './ca-lab-restore-backup-to-lab.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FlFormModule,

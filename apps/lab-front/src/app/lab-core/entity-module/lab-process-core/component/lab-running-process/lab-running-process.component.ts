@@ -8,10 +8,6 @@ import { LabProgressMessageComponent } from '../../../lab-progress-bar-core/comp
   styleUrls: ['./lab-running-process.component.scss'],
   imports: [LabProgressMessageComponent],
 })
-export class LabRunningProcessComponent implements OnInit {
+export class LabRunningProcessComponent {
   @Input() runningProcess: LabRunningProcessInfo;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

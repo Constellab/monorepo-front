@@ -3,7 +3,7 @@
     @if (data.series) {
       <ch-chart-legend-multi-series
         [data]="data"
-      [disableLegends]="tagAreSelected"></ch-chart-legend-multi-series>
+        [disableLegends]="tagAreSelected"></ch-chart-legend-multi-series>
     }
   </div>
 
@@ -14,7 +14,7 @@
         [tagColorer]="data.tagColorer"
         (colorChange)="onTagColorChange($event)"
         class="g-text-small"
-      groupLayout="column"></fl-tags-select-colors>
+        groupLayout="column"></fl-tags-select-colors>
     </div>
   }
 </div>

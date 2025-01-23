@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
 import { CaDiskType } from '../../../../model/entities/server/ca-server-cloud.class';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { MatSelect } from '@angular/material/select';
@@ -13,7 +13,7 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 })
 export class CaSelectDiskTypeOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   diskTypes = CaDiskType;
 
@@ -22,8 +22,6 @@ export class CaSelectDiskTypeOptionsComponent
 
     super(select);
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();

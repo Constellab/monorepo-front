@@ -8,9 +8,8 @@ describe('LmlAdminerInfoDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LmlAdminerInfoDialogComponent]
-    })
-    .compileComponents();
+      declarations: [LmlAdminerInfoDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmlAdminerInfoDialogComponent);
     component = fixture.componentInstance;

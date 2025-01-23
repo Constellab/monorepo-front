@@ -9,9 +9,7 @@ import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page
 import { Observable, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
-import {
-  LabProgressBarInfoDialogComponent,
-} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   LabLogBetweenDatesDialogInput,
@@ -23,7 +21,7 @@ import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.clas
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import {
-  LabSystemConfigDialogComponent,
+  LabSystemConfigDialogComponent
 } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
@@ -42,7 +40,7 @@ import {
 import { MatDialogContent } from '@angular/material/dialog';
 import {
   CoCommunityLibModule,
-} from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+} from '@monorepo/community-lib';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

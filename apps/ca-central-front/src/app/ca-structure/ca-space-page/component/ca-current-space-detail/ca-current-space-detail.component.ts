@@ -14,15 +14,13 @@ import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-req
 import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 import { map } from 'rxjs/operators';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import {
-  CaIsSpaceAdminDirective,
-} from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
+import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import {
-  CaSpacePhotoComponent,
+  CaSpacePhotoComponent
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';

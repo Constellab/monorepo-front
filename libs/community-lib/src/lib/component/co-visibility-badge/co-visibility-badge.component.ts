@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CoSpace } from '../../model/co-space.class';
 import { CoConfig } from '../../service/co-service-config.config';
 import { ClStringHelper } from '@monorepo/core-lib';

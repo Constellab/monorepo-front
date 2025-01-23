@@ -28,7 +28,7 @@ export interface HaAgentResourceViewInputDialogOutputData {
   styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, FlLoaderModule, FlInputFileModule, TranslatePipe],
 })
-export class HaAgentResourceViewInputDialogComponent implements OnInit {
+export class HaAgentResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaAgentResourceViewInputDialogComponent>>(MatDialogRef);
   private agentService = inject(HaAgentService);
 
@@ -40,8 +40,6 @@ export class HaAgentResourceViewInputDialogComponent implements OnInit {
 
     this.agentId = data.agentId;
   }
-
-  ngOnInit(): void {}
 
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {

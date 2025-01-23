@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { TAB } from '@angular/cdk/keycodes';
@@ -13,7 +13,7 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
   styleUrls: ['./fl-autocomplete-multiple.component.scss'],
   standalone: false,
 })
-export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> implements OnInit {
+export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirective<T[]> {
   @Input() placeholder: string;
 
   @Input() searchFunc: (formValue: string) => Observable<T[]>;
@@ -36,8 +36,6 @@ export class FlAutocompleteMultipleComponent<T = any> extends FlFormFieldDirecti
 
     super(ngControl);
   }
-
-  ngOnInit(): void {}
 
   callChangeEvent(value: T[]): void {
     this.valueChange.next(value);

@@ -15,9 +15,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import {
-  CaBucketCredentialsTableComponent,
-} from '../ca-bucket-credentials-table/ca-bucket-credentials-table.component';
+import { CaBucketCredentialsTableComponent } from '../ca-bucket-credentials-table/ca-bucket-credentials-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

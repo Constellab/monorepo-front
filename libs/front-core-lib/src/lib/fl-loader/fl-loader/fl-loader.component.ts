@@ -16,11 +16,9 @@ import { FlAbstractLoaderDirective } from '../fl-abstract-loader.directive';
  * Custom size in px
  */
 @Component({
-    selector: 'fl-loader',
-    templateUrl: './fl-loader.component.html',
-    styleUrls: ['./fl-loader.component.scss'],
-    standalone: false
+  selector: 'fl-loader',
+  templateUrl: './fl-loader.component.html',
+  styleUrls: ['./fl-loader.component.scss'],
+  standalone: false,
 })
-export class FlLoaderComponent extends FlAbstractLoaderDirective implements OnInit {
-  ngOnInit(): void {}
-}
+export class FlLoaderComponent extends FlAbstractLoaderDirective {}

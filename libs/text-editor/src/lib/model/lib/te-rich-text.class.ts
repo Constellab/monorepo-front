@@ -6,7 +6,7 @@ import {
   TeBlockHeaderData,
   TeBlockHeaderLevel,
   TeBlockType,
-  TeBlockViewData
+  TeBlockViewData,
 } from './te-block.class';
 import { TeRichTextMigrator } from './te-rich-text-migrator.class';
 

@@ -3,9 +3,7 @@ import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resour
 import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 import { MatRipple } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import {
-  TdTechnicalDocModule,
-} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 
 /**
  * Component inside the resource detail to list the minimized views

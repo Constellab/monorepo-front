@@ -7,8 +7,4 @@ import { CaSpaceUserSearchComponent } from '../../../../ca-core/entity-module/ca
   styleUrls: ['./ca-current-space-users-page.component.scss'],
   imports: [CaSpaceUserSearchComponent],
 })
-export class CaCurrentSpaceUsersPageComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class CaCurrentSpaceUsersPageComponent {}

@@ -5,8 +5,8 @@ import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
  * Convert a string to RGB color
  */
 @Pipe({
-    name: 'flStringToRgb',
-    standalone: false
+  name: 'flStringToRgb',
+  standalone: false,
 })
 export class FlStringToRgbPipe implements PipeTransform {
   transform(value: any, defaultColor: string = 'transparent'): unknown {

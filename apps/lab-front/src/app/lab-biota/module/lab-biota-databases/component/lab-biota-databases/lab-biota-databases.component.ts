@@ -31,7 +31,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class LabBiotaDatabasesComponent implements OnInit {
+export class LabBiotaDatabasesComponent {
   private biotaDatabaseService = inject(LabBiotaDatabaseService);
   private dialogService = inject(FlDialogService);
   private breakpointObserver = inject(BreakpointObserver);
@@ -42,8 +42,6 @@ export class LabBiotaDatabasesComponent implements OnInit {
   selectedData: LabBiotaData;
 
   private readonly hideCardScreenSize: string[] = [Breakpoints.XSmall];
-
-  ngOnInit(): void {}
 
   onSearch(search: LabBiotaDatabaseSearch): void {
     this.biotaDatasource = this.biotaDatabaseService.searchDatasource(search);

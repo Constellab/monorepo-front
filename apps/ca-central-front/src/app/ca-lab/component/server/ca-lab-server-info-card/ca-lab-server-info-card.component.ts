@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaLabServerInfoDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { Observable } from 'rxjs';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';

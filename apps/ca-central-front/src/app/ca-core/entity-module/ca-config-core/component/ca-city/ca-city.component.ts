@@ -8,10 +8,6 @@ import { CaCountryFlagPipe } from '../../pipe/ca-country-flag/ca-country-flag.pi
   styleUrls: ['./ca-city.component.scss'],
   imports: [CaCountryFlagPipe],
 })
-export class CaCityComponent implements OnInit {
+export class CaCityComponent {
   @Input() city: CaCity;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

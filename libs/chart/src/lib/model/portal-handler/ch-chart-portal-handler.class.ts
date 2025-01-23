@@ -12,7 +12,6 @@ import {
 } from '@monorepo/front-core-lib/fl-portal';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 
-
 /**
  * Used to opening and closing portal
  * on chart renderer object

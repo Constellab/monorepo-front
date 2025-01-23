@@ -1,21 +1,19 @@
-
-
 <fl-key-value>
-  <fl-key>{{'lml.adminer_server' | translate}}</fl-key>
-  {{adminerDbInfo().host}}
+  <fl-key>{{ 'lml.adminer_server' | translate }}</fl-key>
+  {{ adminerDbInfo().host }}
 </fl-key-value>
 
 <fl-key-value>
-  <fl-key>{{'lml.adminer_db' | translate}}</fl-key>
-  {{adminerDbInfo().dbName}}
+  <fl-key>{{ 'lml.adminer_db' | translate }}</fl-key>
+  {{ adminerDbInfo().dbName }}
 </fl-key-value>
 
 <fl-key-value>
-  <fl-key>{{'lml.adminer_user' | translate}}</fl-key>
-  {{adminerDbInfo().username}}
+  <fl-key>{{ 'lml.adminer_user' | translate }}</fl-key>
+  {{ adminerDbInfo().username }}
 </fl-key-value>
 
 <fl-key-value>
-  <fl-key>{{'lml.adminer_password' | translate}}</fl-key>
+  <fl-key>{{ 'lml.adminer_password' | translate }}</fl-key>
   <span class="password">{{ adminerDbInfo().password }}</span>
 </fl-key-value>

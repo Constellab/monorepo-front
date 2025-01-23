@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';

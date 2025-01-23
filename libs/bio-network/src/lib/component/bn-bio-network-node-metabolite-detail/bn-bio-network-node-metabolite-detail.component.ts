@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { filter, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';

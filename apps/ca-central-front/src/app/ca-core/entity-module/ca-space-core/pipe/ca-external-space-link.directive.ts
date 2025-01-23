@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input, OnInit, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input, OnInit } from '@angular/core';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaCurrentSpaceService } from '../../../service-api/ca-current-space.service';
 import { ClHelpService } from '@monorepo/core-lib';

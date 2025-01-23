@@ -5,43 +5,37 @@
         matInput
         [formControl]="searchFormControl"
         placeholder="{{ 'coCommunityLib.search_icon' | translate }}" />
-        <button mat-icon-button matSuffix type="submit" [matTooltip]="'coCommunityLib.search' | translate">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </form>
-  </div>
+      <button mat-icon-button matSuffix type="submit" [matTooltip]="'coCommunityLib.search' | translate">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</div>
 
-  @if (icons) {
-    <div
-      class="icons-list-div"
-      (flInfiniteScroll)="loadMoreResults()"
-      [flInfiniteDisabled]="icons?.isLoading || icons?.page?.last"
-      [flInfiniteMode]="'auto'">
-      @for (icon of icons | flDatasourceConnect | async; track icon) {
-        <div
-          class="icon-div"
-          (click)="onIconClick($event, icon)">
-          <div class="icon-file-div">
-            <td-type-icon
-              [iconSize]="75"
-              [iconTechnicalName]="icon.technicalName"
+@if (icons) {
+  <div
+    class="icons-list-div"
+    (flInfiniteScroll)="loadMoreResults()"
+    [flInfiniteDisabled]="icons?.isLoading || icons?.page?.last"
+    [flInfiniteMode]="'auto'">
+    @for (icon of icons | flDatasourceConnect | async; track icon) {
+      <div class="icon-div" (click)="onIconClick($event, icon)">
+        <div class="icon-file-div">
+          <td-type-icon
+            [iconSize]="75"
+            [iconTechnicalName]="icon.technicalName"
             [iconType]="icon.type"></td-type-icon>
-          </div>
-          <div class="icon-name-div">
-            <span class="icon-name">{{ icon.name }}</span>
-          </div>
         </div>
-      }
-    </div>
-  }
+        <div class="icon-name-div">
+          <span class="icon-name">{{ icon.name }}</span>
+        </div>
+      </div>
+    }
+  </div>
+}
 
-  @if (!icons.isLoading && !icons?.page?.last) {
-    <button
-      mat-flat-button
-      class="load-more-icons-button primary"
-      (click)="loadMoreResults()"
-      >
-      {{ 'coCommunityLib.load_more_icons' | translate }}
-    </button>
-  }
+@if (!icons.isLoading && !icons?.page?.last) {
+  <button mat-flat-button class="load-more-icons-button primary" (click)="loadMoreResults()">
+    {{ 'coCommunityLib.load_more_icons' | translate }}
+  </button>
+}

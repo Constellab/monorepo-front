@@ -19,7 +19,7 @@ import {
 import { MatSort, MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';

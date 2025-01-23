@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaGroupAddUserDialogComponent,
@@ -11,7 +11,9 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { CaUserGroupTableComponent } from '../../../../ca-core/entity-module/ca-group-core/component/ca-user-group-table/ca-user-group-table.component';
+import {
+  CaUserGroupTableComponent,
+} from '../../../../ca-core/entity-module/ca-group-core/component/ca-user-group-table/ca-user-group-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

@@ -39,9 +39,7 @@
 
   <div class="g-layout-row-wrap resource-types">
     @for (resourceType of ioSpec.resource_types; track resourceType) {
-      <td-io-resource
-        [resource]="resourceType"
-      class="resource-type"></td-io-resource>
+      <td-io-resource [resource]="resourceType" class="resource-type"></td-io-resource>
     }
   </div>
 </div>

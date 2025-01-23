@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CoCreateAgentFormData } from '../../model/co-agent.class';
 import { CoSpace } from '../../model/co-space.class';

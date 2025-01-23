@@ -16,8 +16,6 @@ export class HaFolderService {
 
   private readonly route: string = 'folder';
 
-  constructor() {}
-
   /**
    * Call http create
    * @param object json object

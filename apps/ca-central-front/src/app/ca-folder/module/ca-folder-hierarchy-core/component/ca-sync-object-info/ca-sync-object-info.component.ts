@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -13,15 +13,11 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-sync-object-info.component.scss'],
   imports: [MatIcon, FlUserModule, TranslatePipe],
 })
-export class CaSyncObjectInfoComponent implements OnInit {
+export class CaSyncObjectInfoComponent {
   @Input() object: CaFolderObject;
 
   /**
    * If true show the icon and last synchronisation text
    */
   @Input() showText: boolean = true;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

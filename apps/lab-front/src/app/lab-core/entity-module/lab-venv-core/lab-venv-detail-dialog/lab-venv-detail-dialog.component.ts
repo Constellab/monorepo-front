@@ -18,7 +18,7 @@ export interface LabVenvDetailDialogInput {
   styleUrls: ['./lab-venv-detail-dialog.component.scss'],
   imports: [FlDialogModule, CdkScrollable, MatDialogContent, FlSectionModule, LabVenvCompleteInfoComponent],
 })
-export class LabVenvDetailDialogComponent implements OnInit {
+export class LabVenvDetailDialogComponent {
   private input = inject<LabVenvDetailDialogInput>(MAT_DIALOG_DATA);
   private venvService = inject(LabVenvService);
 
@@ -31,6 +31,4 @@ export class LabVenvDetailDialogComponent implements OnInit {
 
     this.venvName = input.venvName;
   }
-
-  ngOnInit(): void {}
 }

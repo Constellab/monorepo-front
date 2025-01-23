@@ -34,7 +34,6 @@ export type TeRichTextAggregateJsonInput =
   | TeOldRichTextContentWithModificationsI
   | TeNewFullRichTextDTO;
 
-
 export class TeRichTextAggregate {
   private static readonly CURRENT_VERSION = 1;
 

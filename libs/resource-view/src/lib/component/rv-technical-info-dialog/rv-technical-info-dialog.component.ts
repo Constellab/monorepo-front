@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./rv-technical-info-dialog.component.scss'],
   standalone: false,
 })
-export class RvTechnicalInfoDialogComponent implements OnInit {
+export class RvTechnicalInfoDialogComponent {
   technicalInfo: RvTechnicalInfo[];
 
   constructor() {
@@ -19,6 +19,4 @@ export class RvTechnicalInfoDialogComponent implements OnInit {
 
     this.technicalInfo = technicalInfo;
   }
-
-  ngOnInit(): void {}
 }

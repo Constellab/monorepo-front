@@ -13,7 +13,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { RouterLink } from '@angular/router';

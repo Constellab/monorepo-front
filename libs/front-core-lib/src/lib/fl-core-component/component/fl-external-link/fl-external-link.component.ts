@@ -5,12 +5,12 @@ import { Component, Input, OnInit } from '@angular/core';
  * This add an icon the the link to warn the user it is an external link
  */
 @Component({
-    selector: 'fl-external-link',
-    templateUrl: './fl-external-link.component.html',
-    styleUrls: ['./fl-external-link.component.scss'],
-    standalone: false
+  selector: 'fl-external-link',
+  templateUrl: './fl-external-link.component.html',
+  styleUrls: ['./fl-external-link.component.scss'],
+  standalone: false,
 })
-export class FlExternalLinkComponent implements OnInit {
+export class FlExternalLinkComponent {
   @Input() link: string;
 
   /**
@@ -20,10 +20,6 @@ export class FlExternalLinkComponent implements OnInit {
   @Input() text: string;
 
   @Input() target: '_blank' | '_parent' | '_self' | '_top' = '_blank';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   get linkText(): string {
     return this.text ?? this.link;

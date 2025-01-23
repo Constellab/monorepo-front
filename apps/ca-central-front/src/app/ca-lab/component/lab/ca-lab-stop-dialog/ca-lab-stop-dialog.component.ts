@@ -3,17 +3,16 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
 } from '@angular/material/dialog';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';
@@ -30,7 +29,6 @@ export interface CaStopLabDialogInput {
   styleUrl: './ca-lab-stop-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     MatCheckbox,

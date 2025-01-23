@@ -4,13 +4,13 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
  * Simple component to show a text with an icon based on a boolean value
  */
 @Component({
-    selector: 'fl-text-ok-nok',
-    templateUrl: './fl-text-ok-nok.component.html',
-    styleUrls: ['./fl-text-ok-nok.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-text-ok-nok',
+  templateUrl: './fl-text-ok-nok.component.html',
+  styleUrls: ['./fl-text-ok-nok.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class FlTextOkNokComponent implements OnInit {
+export class FlTextOkNokComponent {
   @Input() value: boolean;
 
   @Input() okText: string;
@@ -20,10 +20,6 @@ export class FlTextOkNokComponent implements OnInit {
   @Input() okTooltip: string;
 
   @Input() nokTooltip: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   get tooltip(): string {
     return this.value ? this.okTooltip : this.nokTooltip;

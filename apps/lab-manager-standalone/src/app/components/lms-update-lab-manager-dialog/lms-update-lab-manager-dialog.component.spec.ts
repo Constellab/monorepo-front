@@ -8,9 +8,8 @@ describe('LmsUpdateLabManagerDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LmsUpdateLabManagerDialogComponent]
-    })
-    .compileComponents();
+      imports: [LmsUpdateLabManagerDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmsUpdateLabManagerDialogComponent);
     component = fixture.componentInstance;

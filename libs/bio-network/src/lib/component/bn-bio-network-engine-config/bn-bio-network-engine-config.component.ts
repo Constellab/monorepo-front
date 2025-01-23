@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BnBioNetworkEngineConfig, BnBioNetworkEngineState } from '../../state/bn-bio-network-engine.state';
 import { FormBuilder } from '@angular/forms';

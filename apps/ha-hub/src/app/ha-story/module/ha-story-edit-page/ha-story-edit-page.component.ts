@@ -46,7 +46,7 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { MatTooltip } from '@angular/material/tooltip';
 import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { NgClass, AsyncPipe } from '@angular/common';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { TranslatePipe } from '@ngx-translate/core';

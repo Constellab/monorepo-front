@@ -1,9 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import {
   CaServerDecisionTreeDTO,
   CaServerDecisionTreeOptionDTO,
 } from '../../../../model/entities/server/ca-server-standard.class';
-import { MatRadioChange, MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatRadioButton, MatRadioChange, MatRadioGroup } from '@angular/material/radio';
 import { CaSettingsService } from '../../../../service-api/ca-settings.service';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';

@@ -7,8 +7,8 @@ import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
  * Call connect method of FlDatasource
  */
 @Pipe({
-    name: 'flDatasourceConnect',
-    standalone: false
+  name: 'flDatasourceConnect',
+  standalone: false,
 })
 export class FlDatasourceConnectPipe implements PipeTransform {
   transform<T>(value: FlDatasource<T>, slice: number = -1): Observable<T[]> {

@@ -16,7 +16,6 @@ import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
-
 interface SelectionWithOverlay {
   selection: SpSheetChartSelectionForm;
   overlayRef: FlOverlayRef;

@@ -14,7 +14,7 @@ import { flCdkOverlayPanelClass } from '@monorepo/front-core-lib/fl-core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class FlPortalHeaderComponent implements OnInit {
+export class FlPortalHeaderComponent {
   private cdr = inject(ChangeDetectorRef);
 
   /**
@@ -23,8 +23,6 @@ export class FlPortalHeaderComponent implements OnInit {
   @Input() enableDrag: boolean = false;
 
   dragRootElement = '.' + flCdkOverlayPanelClass;
-
-  ngOnInit(): void {}
 
   // call by another component to disable the drag
   public setEnableDrag(enableDrag: boolean): void {

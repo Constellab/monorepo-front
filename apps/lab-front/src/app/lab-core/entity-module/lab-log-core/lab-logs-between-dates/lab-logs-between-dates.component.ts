@@ -11,10 +11,6 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
   styleUrls: ['./lab-logs-between-dates.component.scss'],
   imports: [FlKeyValueModule, LabLogLinesComponent, TranslatePipe, FlDateModule],
 })
-export class LabLogsBetweenDatesComponent implements OnInit {
+export class LabLogsBetweenDatesComponent {
   @Input() logs: LabLogsBetweenDates;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

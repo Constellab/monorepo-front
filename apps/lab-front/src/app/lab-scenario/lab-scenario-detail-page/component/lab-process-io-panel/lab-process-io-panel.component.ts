@@ -15,9 +15,7 @@ import { AsyncPipe, NgClass } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
-import {
-  LabResourceDetailComponent,
-} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
+import { LabResourceDetailComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -9,10 +9,10 @@ export interface PrWorkflowNodeIcon {
 }
 
 @Component({
-    selector: 'pr-workflow-node-content',
-    templateUrl: './pr-workflow-node-content.component.html',
-    styleUrl: './pr-workflow-node-content.component.scss',
-    standalone: false
+  selector: 'pr-workflow-node-content',
+  templateUrl: './pr-workflow-node-content.component.html',
+  styleUrl: './pr-workflow-node-content.component.scss',
+  standalone: false,
 })
 export class PrWorkflowNodeContentComponent {
   @Input({ required: true }) icon: PrWorkflowNodeIcon;

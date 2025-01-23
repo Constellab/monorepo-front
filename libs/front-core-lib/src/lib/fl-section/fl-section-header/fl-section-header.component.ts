@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'fl-section-header',
-    templateUrl: './fl-section-header.component.html',
-    styleUrls: ['./fl-section-header.component.scss'],
-    standalone: false
+  selector: 'fl-section-header',
+  templateUrl: './fl-section-header.component.html',
+  styleUrls: ['./fl-section-header.component.scss'],
+  standalone: false,
 })
-export class FlSectionHeaderComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class FlSectionHeaderComponent {}

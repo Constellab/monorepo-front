@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,
@@ -10,7 +12,7 @@ import {
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -24,7 +26,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-team-action-menu.component.scss'],
   imports: [MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, MatTooltip, TranslatePipe],
 })
-export class CaTeamActionMenuComponent implements OnInit {
+export class CaTeamActionMenuComponent {
   private dialogService = inject(FlDialogService);
   private groupService = inject(CaGroupService);
 
@@ -33,8 +35,6 @@ export class CaTeamActionMenuComponent implements OnInit {
   @Input() stopClickEvent: boolean = false;
 
   @Output() teamDeleted: EventEmitter<CaGroup> = new EventEmitter();
-
-  ngOnInit(): void {}
 
   stopEvent(event: MouseEvent): void {
     if (this.stopClickEvent) ClHelpService.stopEventPropagation(event);

@@ -12,10 +12,10 @@ import { Subscription } from 'rxjs';
 import { MatChip } from '@angular/material/chips';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { NgClass } from '@angular/common';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { TdTechnicalDocModule } from '../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 

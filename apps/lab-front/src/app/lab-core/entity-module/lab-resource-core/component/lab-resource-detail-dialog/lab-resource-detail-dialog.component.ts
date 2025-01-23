@@ -9,7 +9,7 @@ import { LabResourceDetailComponent } from '../lab-resource-detail/lab-resource-
   styleUrls: ['./lab-resource-detail-dialog.component.scss'],
   imports: [CdkScrollable, MatDialogContent, LabResourceDetailComponent],
 })
-export class LabResourceDetailDialogComponent implements OnInit {
+export class LabResourceDetailDialogComponent {
   resourceId: string;
 
   constructor() {
@@ -17,6 +17,4 @@ export class LabResourceDetailDialogComponent implements OnInit {
 
     this.resourceId = resourceId;
   }
-
-  ngOnInit(): void {}
 }

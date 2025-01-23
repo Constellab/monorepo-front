@@ -1,16 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Body of the card component <fl-card> {@link FlCardComponent}
  */
 @Component({
-    selector: 'fl-card-body',
-    templateUrl: './fl-card-body.component.html',
-    styleUrls: ['./fl-card-body.component.scss'],
-    standalone: false
+  selector: 'fl-card-body',
+  templateUrl: './fl-card-body.component.html',
+  styleUrls: ['./fl-card-body.component.scss'],
+  standalone: false,
 })
-export class FlCardBodyComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class FlCardBodyComponent {}

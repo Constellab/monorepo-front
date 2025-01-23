@@ -4,12 +4,6 @@ import {
 } from './component/bn-bio-network-selection-info/bn-bio-network-selection-info.component';
 import { BnBioNetworkLinkPipe } from './pipe/bn-bio-network-link.pipe';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  BnBioNetworkEngineProgressComponent,
-} from './component/bn-bio-network-engine-progress/bn-bio-network-engine-progress.component';
-import {
-  BnBioNetworkNodeReactionDetailComponent,
-} from './component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
 import { CommonModule } from '@angular/common';
 import {
   BnBioNetworkNodeDetailComponent,
@@ -91,7 +85,12 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-
+import {
+  BnBioNetworkEngineProgressComponent
+} from './component/bn-bio-network-engine-progress/bn-bio-network-engine-progress.component';
+import {
+  BnBioNetworkNodeReactionDetailComponent
+} from './component/bn-bio-network-node-reaction-detail/bn-bio-network-node-reaction-detail.component';
 
 /**
  * Module to handle specific chart to show a pathway

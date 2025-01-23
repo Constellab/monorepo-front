@@ -24,7 +24,7 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';

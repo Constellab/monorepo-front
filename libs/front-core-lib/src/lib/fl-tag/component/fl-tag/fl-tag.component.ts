@@ -7,11 +7,11 @@ import { ClHelpService } from '@monorepo/core-lib';
  * Simple component for tags
  */
 @Component({
-    selector: 'fl-tag',
-    templateUrl: './fl-tag.component.html',
-    styleUrls: ['./fl-tag.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'fl-tag',
+  templateUrl: './fl-tag.component.html',
+  styleUrls: ['./fl-tag.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class FlTagComponent {
   @Input({ required: true }) flTag: FlTag;

@@ -3,7 +3,7 @@ import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { LabSelectViewTypeOptionsComponent } from '../lab-select-view-type-options/lab-select-view-type-options.component';
 import { MatInput } from '@angular/material/input';
 import {

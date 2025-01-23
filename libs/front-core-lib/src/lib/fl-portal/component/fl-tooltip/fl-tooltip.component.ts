@@ -10,8 +10,6 @@ import { FL_PORTAL_DATA } from '../../model/fl-portal.class';
   styleUrls: ['./fl-tooltip.component.scss'],
   standalone: false,
 })
-export class FlTooltipComponent implements OnInit {
-  message: string = inject(FL_PORTAL_DATA)
-
-  ngOnInit(): void {}
+export class FlTooltipComponent {
+  message: string = inject(FL_PORTAL_DATA);
 }

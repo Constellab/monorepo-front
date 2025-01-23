@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDatasource } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';

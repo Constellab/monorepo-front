@@ -1,31 +1,31 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
-import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlArrayObs, FlFormDialogInput, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -35,7 +35,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-server-cloud-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

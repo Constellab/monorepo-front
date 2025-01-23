@@ -5,7 +5,7 @@
         [resourceId]="resourceId"
         [view]="view"
         [config]="viewConfig"
-      class="resource-view"></rv-resource-view>
+        class="resource-view"></rv-resource-view>
     }
 
     @if (isLoading) {
@@ -19,12 +19,12 @@
       [caption]="caption"
       (titleChange)="onTitleChange($event)"
       (captionChange)="onCaptionChange($event)"
-    [editable]="editable"></te-title-caption>
+      [editable]="editable"></te-title-caption>
 
     @if (view) {
       <rv-technical-info-button
         [technicalInfo]="view.technical_info"
-      class="g-button-icon-tiny g-text-light"></rv-technical-info-button>
+        class="g-button-icon-tiny g-text-light"></rv-technical-info-button>
     }
   </div>
 </div>

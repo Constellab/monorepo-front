@@ -2,7 +2,7 @@ import { Component, inject, Input } from '@angular/core';
 import { PrProtocolGraph } from '@monorepo/protocol';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { MatDivider } from '@angular/material/divider';
-import { PrProtocolModule } from '../../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { PrProtocolModule } from '@monorepo/protocol';
 import { CaScenarioTechnicalReportLinkComponent } from '../ca-scenario-technical-report-link/ca-scenario-technical-report-link.component';
 import { CaScenarioTechnicalReportIntOutComponent } from '../ca-scenario-technical-report-int-out/ca-scenario-technical-report-int-out.component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';

@@ -13,7 +13,7 @@ import { LabBiotaDataCardComponent } from '../lab-biota-data-card/lab-biota-data
   styleUrls: ['./lab-biota-data-card-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, LabBiotaDataCardComponent],
 })
-export class LabBiotaDataCardDialogComponent implements OnInit {
+export class LabBiotaDataCardDialogComponent {
   biotaData: LabBiotaData;
 
   constructor() {
@@ -21,6 +21,4 @@ export class LabBiotaDataCardDialogComponent implements OnInit {
 
     this.biotaData = biotaData;
   }
-
-  ngOnInit(): void {}
 }

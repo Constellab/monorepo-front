@@ -14,7 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class LabScenarioStatusOptionsComponent
   extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   select: MatSelect;
 
@@ -27,8 +27,6 @@ export class LabScenarioStatusOptionsComponent
 
     this.select = select;
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();

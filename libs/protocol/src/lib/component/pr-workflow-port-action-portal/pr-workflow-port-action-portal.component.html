@@ -12,9 +12,7 @@
     </div>
 
     @for (menuDynamic of data.menuDynamics; track menuDynamic) {
-      <fl-menu-dynamic-button
-        [menuDynamic]="menuDynamic"
-        (buttonClick)="closePortal()">
+      <fl-menu-dynamic-button [menuDynamic]="menuDynamic" (buttonClick)="closePortal()">
       </fl-menu-dynamic-button>
     }
 

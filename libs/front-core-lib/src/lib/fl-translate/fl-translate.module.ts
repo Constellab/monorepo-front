@@ -24,8 +24,6 @@ export function initTranslateService(service: FlTranslateService): () => void {
   imports: [CommonModule, TranslateModule.forChild()],
 })
 export class FlTranslateModule {
-  constructor() {}
-
   /**
    * Call this method only once on the LabAppModule
    *
@@ -42,9 +40,9 @@ export class FlTranslateModule {
         FlMissingTranslationLogService,
         // Init the translate service
         provideAppInitializer(() => {
-        const initializerFn = (initTranslateService)(inject(FlTranslateService));
-        return initializerFn();
-      }),
+          const initializerFn = initTranslateService(inject(FlTranslateService));
+          return initializerFn();
+        }),
       ],
     };
   }

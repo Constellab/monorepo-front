@@ -5,10 +5,10 @@ import { FlCodeEditorComponent } from '@monorepo/front-core-lib/fl-code-editor';
 import { FlCodeEditorLanguage } from '@monorepo/front-core-lib/fl-code-editor';
 
 @Component({
-    selector: 'te-code',
-    templateUrl: './te-code.component.html',
-    styleUrl: './te-code.component.scss',
-    standalone: false
+  selector: 'te-code',
+  templateUrl: './te-code.component.html',
+  styleUrl: './te-code.component.scss',
+  standalone: false,
 })
 export class TeCodeComponent extends TeElementBlockDirective {
   @Input({ required: true }) formControl: FormControl<string>;

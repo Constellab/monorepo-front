@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, O
 import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  LabBrickCallMigrationDialogComponent,
-} from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
+import { LabBrickCallMigrationDialogComponent } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
 import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatButton } from '@angular/material/button';
@@ -22,7 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlKeyValueModule, MatButton, FlLoaderModule, LabBrickMessageListComponent, TranslatePipe],
 })
-export class LabBrickInfoComponent implements OnInit {
+export class LabBrickInfoComponent {
   private labBrickService = inject(LabBrickService);
   private cdr = inject(ChangeDetectorRef);
   private dialogService = inject(FlDialogService);
@@ -31,8 +29,6 @@ export class LabBrickInfoComponent implements OnInit {
   @Input() brick: LabBrickEntity;
 
   generateDocIsLoading: boolean = false;
-
-  ngOnInit(): void {}
 
   generateTechnicalDoc(): void {
     this.generateDocIsLoading = true;

@@ -16,7 +16,7 @@ import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-setti
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
 import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 import {
-  CaConstellabDocumentPreviewComponent,
+  CaConstellabDocumentPreviewComponent
 } from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
 
 /**

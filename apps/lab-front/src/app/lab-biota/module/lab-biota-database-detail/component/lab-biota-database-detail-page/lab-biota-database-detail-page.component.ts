@@ -6,9 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import {
-  LabBiotaDatabaseTableComponent,
-} from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
+import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

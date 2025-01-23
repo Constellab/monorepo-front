@@ -1,14 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlStatus } from '@monorepo/front-core-lib/fl-status';
-import { FlStatusDict } from '@monorepo/front-core-lib/fl-status';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlStatus, FlStatusDict } from '@monorepo/front-core-lib/fl-status';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
@@ -33,7 +31,6 @@ export interface UpdateStatusFormDialogInput<S extends string> {
   styleUrls: ['./ca-update-status-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,

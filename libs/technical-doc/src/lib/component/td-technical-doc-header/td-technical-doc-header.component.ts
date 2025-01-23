@@ -3,10 +3,10 @@ import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeEntity } from '../../model/td-type.class';
 
 @Component({
-    selector: 'td-technical-doc-header',
-    templateUrl: './td-technical-doc-header.component.html',
-    styleUrls: ['./td-technical-doc-header.component.scss'],
-    standalone: false
+  selector: 'td-technical-doc-header',
+  templateUrl: './td-technical-doc-header.component.html',
+  styleUrls: ['./td-technical-doc-header.component.scss'],
+  standalone: false,
 })
 export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {
   @Input()
@@ -15,8 +15,6 @@ export class TdTechnicalDocHeaderComponent implements OnInit, OnChanges {
   color: string;
 
   isTyping: boolean = false;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.checkIsTyping();

@@ -1,19 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlSavedSearch,
+  FlSearchConfig,
+  FlSearchModule,
+  FlSearchState,
+} from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';

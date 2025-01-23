@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { MatSelectChange, MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { TranslatePipe } from '@ngx-translate/core';
 

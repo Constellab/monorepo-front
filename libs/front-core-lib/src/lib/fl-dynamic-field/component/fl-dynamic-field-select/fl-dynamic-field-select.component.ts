@@ -6,10 +6,10 @@ import {
 } from '../../model/fl-dynamic-field-config.class';
 
 @Component({
-    selector: 'fl-dynamic-field-select',
-    templateUrl: './fl-dynamic-field-select.component.html',
-    styleUrls: ['./fl-dynamic-field-select.component.scss'],
-    standalone: false
+  selector: 'fl-dynamic-field-select',
+  templateUrl: './fl-dynamic-field-select.component.html',
+  styleUrls: ['./fl-dynamic-field-select.component.scss'],
+  standalone: false,
 })
 export class FlDynamicFieldSelectComponent extends FlDynamicFieldAbstractDirective {
   selectOptionsInput = input<FlDynamicFieldSelectOptions>();

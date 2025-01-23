@@ -20,10 +20,10 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import {
-  CaAuthenticatedUserInlineComponent,
-} from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaAuthenticatedUserInlineComponent
+} from '../../../ca-core/entity-module/ca-user-core/component/ca-authenticated-user-inline/ca-authenticated-user-inline.component';
 
 /**
  * Main app component. Menu on the left and page on the right

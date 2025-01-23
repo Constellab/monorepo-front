@@ -8,8 +8,6 @@ import { FlOverlayConfig, FlRelativeOverlayConfig } from './fl-portal.class';
 export class FlPortalConfig {
   public config: FlOverlayConfig;
 
-  constructor() {}
-
   public setPositionStrategy(strategy: PositionStrategy): void {
     this.config.positionStrategy = strategy;
   }

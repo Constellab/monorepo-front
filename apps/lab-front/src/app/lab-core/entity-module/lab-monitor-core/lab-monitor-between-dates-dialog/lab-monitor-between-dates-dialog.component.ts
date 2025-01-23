@@ -21,7 +21,7 @@ export interface LabMonitorBetweenDatesDialogInput {
   styleUrls: ['./lab-monitor-between-dates-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, FlSectionModule, LabMonitorBetweenDatesComponent],
 })
-export class LabMonitorBetweenDatesDialogComponent implements OnInit {
+export class LabMonitorBetweenDatesDialogComponent {
   title: string;
 
   monitor$: Observable<LabMonitorGraphicsBetweenDates>;
@@ -32,6 +32,4 @@ export class LabMonitorBetweenDatesDialogComponent implements OnInit {
     this.title = input.title;
     this.monitor$ = input.monitor$;
   }
-
-  ngOnInit(): void {}
 }

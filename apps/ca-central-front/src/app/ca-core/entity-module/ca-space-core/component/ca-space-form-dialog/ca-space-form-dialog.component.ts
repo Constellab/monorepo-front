@@ -1,15 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { CaCreateSpaceDTO, CaSpaceSettingsDto } from '../../../../model/entities/space/ca-space.dto';
 import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-storage-form.component';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatButton } from '@angular/material/button';
@@ -25,7 +23,6 @@ export type CaSpaceFormDialogInput = FlFormDialogInput<CaCreateSpaceDTO>;
   styleUrls: ['./ca-space-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

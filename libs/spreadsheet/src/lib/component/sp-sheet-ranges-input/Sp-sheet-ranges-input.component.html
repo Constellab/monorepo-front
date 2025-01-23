@@ -11,7 +11,7 @@
 
     <sp-spreadsheet-selection-listener
       [group]="selectionListenerGroup"
-    (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
+      (selectionChange)="onNewSelection($event)"></sp-spreadsheet-selection-listener>
   </div>
 
   <!--  In range mode -->
@@ -33,8 +33,8 @@
       @if (formGp.get('rangeSelection').hasError('selectionOutOfBound')) {
         <mat-error>
           {{
-          'spSpreadsheet.selection_out_of_bound'
-          | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
+            'spSpreadsheet.selection_out_of_bound'
+              | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
           }}
         </mat-error>
       }

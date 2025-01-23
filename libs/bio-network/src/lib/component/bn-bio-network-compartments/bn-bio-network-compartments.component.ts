@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';

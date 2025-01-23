@@ -36,7 +36,7 @@ export interface HaStoryResourceViewInputDialogOutputData {
     TranslatePipe,
   ],
 })
-export class HaStoryResourceViewInputDialogComponent implements OnInit {
+export class HaStoryResourceViewInputDialogComponent {
   private dialogRef = inject<MatDialogRef<HaStoryResourceViewInputDialogComponent>>(MatDialogRef);
   private storyService = inject(HaStoryService);
 
@@ -48,8 +48,6 @@ export class HaStoryResourceViewInputDialogComponent implements OnInit {
 
     this.storyId = data.storyId;
   }
-
-  ngOnInit(): void {}
 
   async parseJsonFile(file: any): Promise<any> {
     return new Promise((resolve, reject) => {

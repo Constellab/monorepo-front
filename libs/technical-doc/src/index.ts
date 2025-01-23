@@ -36,8 +36,7 @@ export * from './lib/component/td-other-class-doc/td-other-class-doc.component';
 export * from './lib/component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 export * from './lib/component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 // eslint-disable-next-line max-len
-export *
-  from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
+export * from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 
 //service
 export * from './lib/service/td-technical-doc-service-config.config';

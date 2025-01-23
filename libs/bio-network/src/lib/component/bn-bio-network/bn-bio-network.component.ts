@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { BnBioNetwork } from '../../model/bn-bio-network.class';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { MatDrawer } from '@angular/material/sidenav';

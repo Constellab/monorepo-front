@@ -19,7 +19,7 @@ export interface LabConfigureProtocolDialogInput {
   providers: [LabProcessDashboardConfigState],
   imports: [FlDialogModule, MatDialogContent, LabConfigureProtocolComponent, TranslatePipe],
 })
-export class LabConfigureProtocolDialogComponent implements OnInit {
+export class LabConfigureProtocolDialogComponent {
   protocolId: string;
 
   constructor() {
@@ -27,6 +27,4 @@ export class LabConfigureProtocolDialogComponent implements OnInit {
 
     this.protocolId = input.protocolId;
   }
-
-  ngOnInit(): void {}
 }

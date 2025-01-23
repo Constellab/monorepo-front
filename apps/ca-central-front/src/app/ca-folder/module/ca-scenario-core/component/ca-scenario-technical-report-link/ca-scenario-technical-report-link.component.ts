@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PrProtocolLink } from '@monorepo/protocol';
 import { MatIcon } from '@angular/material/icon';
 
@@ -8,10 +8,6 @@ import { MatIcon } from '@angular/material/icon';
   styleUrls: ['./ca-scenario-technical-report-link.component.scss'],
   imports: [MatIcon],
 })
-export class CaScenarioTechnicalReportLinkComponent implements OnInit {
+export class CaScenarioTechnicalReportLinkComponent {
   @Input() link: PrProtocolLink;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

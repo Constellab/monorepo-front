@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-select-dialog/co-community-icon-select-dialog.component';
@@ -15,7 +14,7 @@ import { CoIcon } from '../../model/co-icon.class';
   styleUrl: './co-update-type-icon-form.component.scss',
   standalone: false,
 })
-export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> implements OnInit {
+export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeStyle> {
   private dialogService = inject(FlDialogService);
   private themeService = inject(FlThemeService);
 
@@ -26,8 +25,6 @@ export class CoUpdateTypeIconFormComponent extends FlFormFieldDirective<TdTypeSt
 
     super(ngControl);
   }
-
-  ngOnInit(): void {}
 
   openCommunityIconSelectMode(): void {
     this.dialogService

@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
-
 // Plotly.newPlot()
 // we use the strict version of plotly even if it's not typed because the normal version
 // use eval (for webgl scatter) which requires unsafe-eval in the CSP
@@ -13,10 +12,10 @@ import { debounceTime } from 'rxjs/operators';
 import { FlResizeObservable } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
-    selector: 'fl-plotly-standalone',
-    imports: [],
-    templateUrl: './fl-plotly-standalone.component.html',
-    styleUrl: './fl-plotly-standalone.component.scss'
+  selector: 'fl-plotly-standalone',
+  imports: [],
+  templateUrl: './fl-plotly-standalone.component.html',
+  styleUrl: './fl-plotly-standalone.component.scss',
 })
 export class FlPlotlyStandaloneComponent implements OnInit, OnDestroy {
   @Input({ required: true }) data: FlPlotlyData;

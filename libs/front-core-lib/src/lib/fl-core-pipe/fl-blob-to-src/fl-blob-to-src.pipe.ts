@@ -1,4 +1,4 @@
-import { OnDestroy, Pipe, PipeTransform, inject } from '@angular/core';
+import { inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 /**

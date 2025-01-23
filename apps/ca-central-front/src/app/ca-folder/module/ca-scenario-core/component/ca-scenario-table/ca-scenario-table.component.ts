@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';

@@ -19,7 +19,7 @@
         <fl-key>{{ 'spSpreadsheet.sort' | translate }}</fl-key>
         <span>{{
           (headerInfo.sort === 'Ascending' ? 'spSpreadsheet.sort_ascending' : 'spSpreadsheet.sort_descending')
-          | translate
+            | translate
         }}</span>
       </fl-key-value>
     }
@@ -27,6 +27,6 @@
     <sp-spreadsheet-header-tags
       [tags]="headerInfo.tags"
       [tagColorer]="headerInfo.tagColorer"
-    class="tags"></sp-spreadsheet-header-tags>
+      class="tags"></sp-spreadsheet-header-tags>
   </fl-portal-content>
 </fl-portal>

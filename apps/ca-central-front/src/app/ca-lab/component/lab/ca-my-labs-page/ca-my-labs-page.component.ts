@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaLab, CaLabDatasource } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaLabFormDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-form-dialog/ca-lab-form-dialog.component';

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { LabViewType } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { MatOption } from '@angular/material/core';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { AsyncPipe } from '@angular/common';
 
 @Component({

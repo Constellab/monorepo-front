@@ -19,7 +19,7 @@ import {
   styleUrls: ['./fl-limit-height.component.scss'],
   standalone: false,
 })
-export class FlLimitHeightComponent implements OnInit, AfterViewInit {
+export class FlLimitHeightComponent implements AfterViewInit {
   private renderer = inject(Renderer2);
 
   // max size to display before 'See more' button
@@ -39,8 +39,6 @@ export class FlLimitHeightComponent implements OnInit, AfterViewInit {
 
   // true after the view init
   private componentIsReady: boolean = false;
-
-  ngOnInit(): void {}
 
   // display or hide the content based on _expand
   private refreshFullContent(): void {

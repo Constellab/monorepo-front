@@ -6,10 +6,10 @@ import { FlUser } from '../../model/fl-user.class';
  * Simple component to show the last modification info
  */
 @Component({
-    selector: 'fl-last-modification-info',
-    templateUrl: './fl-last-modification-info.component.html',
-    styleUrls: ['./fl-last-modification-info.component.scss'],
-    standalone: false
+  selector: 'fl-last-modification-info',
+  templateUrl: './fl-last-modification-info.component.html',
+  styleUrls: ['./fl-last-modification-info.component.scss'],
+  standalone: false,
 })
 export class FlLastModificationInfoComponent {
   @Input() user: FlUser;

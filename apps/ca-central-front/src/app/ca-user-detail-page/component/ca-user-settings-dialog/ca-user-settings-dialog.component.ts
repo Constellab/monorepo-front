@@ -3,7 +3,6 @@ import { CaAuthService } from '../../../ca-login/service/ca-auth.service';
 import { Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatDialogContent } from '@angular/material/dialog';
 import { CaUserTwoFaToggleComponent } from '../ca-user-two-fa-toggle/ca-user-two-fa-toggle.component';
 import { CaThemeSelectionComponent } from '../ca-theme-selection/ca-theme-selection.component';
@@ -22,7 +21,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-user-settings-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     CaUserTwoFaToggleComponent,
     CaThemeSelectionComponent,

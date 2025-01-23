@@ -4,9 +4,7 @@ import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-searc
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import {
-  LabSelectScenarioComponent,
-} from '../../../lab-scenario-core/component/lab-select-scenario/lab-select-scenario.component';
+import { LabSelectScenarioComponent } from '../../../lab-scenario-core/component/lab-select-scenario/lab-select-scenario.component';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
@@ -16,13 +14,13 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
-  LabFolderSelectComponent,
+  LabFolderSelectComponent
 } from '../../../lab-folder-core/component/lab-folder-select/lab-folder-select.component';
 import {
-  LabTagFiltersComponent,
+  LabTagFiltersComponent
 } from '../../../lab-tag-core/component/lab-tag-filters/lab-tag-filters.component';
 import {
-  LabSelectTypeComponent,
+  LabSelectTypeComponent
 } from '../../../lab-type-core/component/lab-select-type/lab-select-type.component';
 import { MatSelect } from '@angular/material/select';
 import {

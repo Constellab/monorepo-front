@@ -2,18 +2,18 @@ import { Component, Input } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { CaLabStatusHistory, CaLabStatusHistoryDatasource } from '../../../model/entities/lab/ca-lab.class';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -26,7 +26,6 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
   styleUrls: ['./ca-status-history-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

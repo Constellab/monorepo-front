@@ -11,10 +11,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-venv-complete-info.component.scss'],
   imports: [FlKeyValueModule, FlDateModule, FlCorePipeModule, TranslatePipe],
 })
-export class LabVenvCompleteInfoComponent implements OnInit {
+export class LabVenvCompleteInfoComponent {
   @Input() venvCompleteInfo: LabVEnvCompleteInfo;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

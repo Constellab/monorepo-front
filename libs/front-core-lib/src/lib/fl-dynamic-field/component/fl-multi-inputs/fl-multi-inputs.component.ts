@@ -22,7 +22,7 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
   providers: [{ provide: FlFormFieldDirective, useExisting: FlMultiInputsComponent }],
   standalone: false,
 })
-export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> implements OnInit {
+export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[]> {
   private cdr = inject(ChangeDetectorRef);
 
   @Input() placeholder: string;
@@ -42,8 +42,6 @@ export class FlMultiInputsComponent extends FlFormFieldDirective<string, string[
 
     super(ngControl);
   }
-
-  ngOnInit(): void {}
 
   onValueChange(): void {
     this.emitCurrentValue();

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
 import { CoAgentType, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export enum LabCreateCommunityAgentDialogMode {

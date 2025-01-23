@@ -21,7 +21,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-public-versions.component.scss'],
   imports: [MatButton, HaPublicBrickVersionsTableComponent, TranslatePipe],
 })
-export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit {
+export class HaPublicVersionsComponent extends HaCommunityPage {
   private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
@@ -37,8 +37,6 @@ export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit
     return brick;
   });
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
-
-  ngOnInit(): void {}
 
   private init(brick: HaBrick): void {
     super.setMetaTags(

@@ -13,7 +13,7 @@ import { LabAuthenticatedUserService } from '../../../../service/lab-authenticat
 import { LabUser } from '../../../../model/entities/lab-user.entity';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';

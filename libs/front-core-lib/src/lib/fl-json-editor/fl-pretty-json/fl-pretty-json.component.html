@@ -20,45 +20,45 @@
             (click)="selectNode(node)"
             class="leaf-container node-selectable">
             <span>{{ node.key }}</span
-              >&nbsp;:
-              <span [ngClass]="node.type"> {{ node.value }}</span>
-            </div>
-          </mat-tree-node>
-          <!-- This is the tree node template for expandable nodes -->
-          <mat-tree-node
-            *matTreeNodeDef="let node; when: hasChild"
-            matTreeNodePadding
-            [matTreeNodePaddingIndent]="paddingIndent"
-            class="tree-node-preview"
-            [ngClass]="node.className">
-            <div
-              matTreeNodeToggle
-              class="clickable tree-container node-selectable g-layout-row g-layout-start-center"
-              [ngClass]="{ 'selected-node': selectedNode === node }"
-              (click)="selectNode(node)">
-              <div class="text-icon">
-                <!--      Arrow icon      -->
-                <mat-icon class="icon">{{
+            >&nbsp;:
+            <span [ngClass]="node.type"> {{ node.value }}</span>
+          </div>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node
+          *matTreeNodeDef="let node; when: hasChild"
+          matTreeNodePadding
+          [matTreeNodePaddingIndent]="paddingIndent"
+          class="tree-node-preview"
+          [ngClass]="node.className">
+          <div
+            matTreeNodeToggle
+            class="clickable tree-container node-selectable g-layout-row g-layout-start-center"
+            [ngClass]="{ 'selected-node': selectedNode === node }"
+            (click)="selectNode(node)">
+            <div class="text-icon">
+              <!--      Arrow icon      -->
+              <mat-icon class="icon">{{
                   treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'
-                }}</mat-icon>
-                <!--     Key       -->
-                <span>{{ node.key }}</span>
-                <!--     Preview       -->
-                @if (!treeControl.isExpanded(node) && node.preview) {
-                  <span>
-                    &nbsp;: <span class="g-text-light">{{ node.preview }}</span>
-                  </span>
-                }
-              </div>
+                }}
+              </mat-icon>
+              <!--     Key       -->
+              <span>{{ node.key }}</span>
+              <!--     Preview       -->
+              @if (!treeControl.isExpanded(node) && node.preview) {
+                <span>
+                  &nbsp;: <span class="g-text-light">{{ node.preview }}</span>
+                </span>
+              }
             </div>
-          </mat-tree-node>
-        </mat-tree>
-      }
-      {{ endChar }}
-    </div>
-  } @else {
-    <div class="g-text-centered g-text-light">
-      <p>{{ 'flJsonEditor.object_not_supported' | translate }}</p>
-    </div>
-  }
-
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+    }
+    {{ endChar }}
+  </div>
+} @else {
+  <div class="g-text-centered g-text-light">
+    <p>{{ 'flJsonEditor.object_not_supported' | translate }}</p>
+  </div>
+}

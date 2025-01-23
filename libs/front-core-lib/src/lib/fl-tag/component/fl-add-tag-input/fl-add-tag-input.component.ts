@@ -3,12 +3,12 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { TAB } from '@angular/cdk/keycodes';

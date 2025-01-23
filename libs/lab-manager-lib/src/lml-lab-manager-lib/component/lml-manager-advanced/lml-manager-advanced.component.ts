@@ -7,10 +7,10 @@ import { LmlLabManagerState } from '../../lml-lab-manager.state';
  * Advanced configuration for the lab manager
  */
 @Component({
-    selector: 'lml-manager-advanced',
-    templateUrl: './lml-manager-advanced.component.html',
-    styleUrls: ['./lml-manager-advanced.component.scss'],
-    standalone: false
+  selector: 'lml-manager-advanced',
+  templateUrl: './lml-manager-advanced.component.html',
+  styleUrls: ['./lml-manager-advanced.component.scss'],
+  standalone: false,
 })
 export class LmlManagerAdvancedComponent {
   private managerState = inject(LmlLabManagerState);

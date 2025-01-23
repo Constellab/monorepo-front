@@ -6,10 +6,10 @@ import { FlBasicDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
  * Dynamic field to show a search with autocomplete
  */
 @Component({
-    selector: 'fl-dynamic-field-select-search',
-    templateUrl: './fl-dynamic-field-select-search.component.html',
-    styleUrl: './fl-dynamic-field-select-search.component.scss',
-    standalone: false
+  selector: 'fl-dynamic-field-select-search',
+  templateUrl: './fl-dynamic-field-select-search.component.html',
+  styleUrl: './fl-dynamic-field-select-search.component.scss',
+  standalone: false,
 })
 export class FlDynamicFieldSelectSearchComponent extends FlDynamicFieldAbstractDirective implements OnInit {
   @Input() selectOptions: string[];

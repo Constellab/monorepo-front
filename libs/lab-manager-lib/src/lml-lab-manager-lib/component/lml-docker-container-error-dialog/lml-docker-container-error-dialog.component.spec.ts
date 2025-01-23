@@ -8,9 +8,8 @@ describe('LmlDockerContainerErrorDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LmlDockerContainerErrorDialogComponent]
-    })
-    .compileComponents();
+      declarations: [LmlDockerContainerErrorDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmlDockerContainerErrorDialogComponent);
     component = fixture.componentInstance;

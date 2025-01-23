@@ -24,10 +24,10 @@ import { LmlBrickVersion } from '../../model/lml-brick.class';
  * Form to update the lab config
  */
 @Component({
-    selector: 'lml-bricks-config-form',
-    templateUrl: './lml-bricks-config-form.component.html',
-    styleUrls: ['./lml-bricks-config-form.component.scss'],
-    standalone: false
+  selector: 'lml-bricks-config-form',
+  templateUrl: './lml-bricks-config-form.component.html',
+  styleUrls: ['./lml-bricks-config-form.component.scss'],
+  standalone: false,
 })
 export class LmlBricksConfigFormComponent {
   @Input({ required: true }) brickVersions: LmlBrickVersionDTODatasource;
@@ -64,7 +64,7 @@ export class LmlBricksConfigFormComponent {
       })
       .afterClosed()
       .subscribe((brickVersion) =>
-        this.onBrickDialogClosed(brickVersionDTO == null ? 'add' : 'update', brickVersion),
+        this.onBrickDialogClosed(brickVersionDTO == null ? 'add' : 'update', brickVersion)
       );
   }
 
@@ -108,7 +108,7 @@ export class LmlBricksConfigFormComponent {
 
   private onDeleteBrickConfirmClosed(
     result: FlConfirmDialogResult,
-    brickVersionDTO: LmlLabManagerBrickVersionDTO,
+    brickVersionDTO: LmlLabManagerBrickVersionDTO
   ): void {
     if (result.choice) {
       this.deleteBrickVersion(brickVersionDTO);
@@ -127,8 +127,8 @@ export class LmlBricksConfigFormComponent {
   addGwsCoreBrick(): void {
     this.addGwsCoreIsLoading = true;
     this.brickService.getBrickLatestVersion(TdBrick.GWS_CORE).subscribe({
-      next: brick => this.getGwsCoreBrickSuccess(brick),
-      error: () => this.addGwsCoreIsLoading = false,
+      next: (brick) => this.getGwsCoreBrickSuccess(brick),
+      error: () => (this.addGwsCoreIsLoading = false),
     });
   }
 

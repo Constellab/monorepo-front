@@ -2,10 +2,10 @@ import { Component, computed, input, Signal } from '@angular/core';
 import { TdParamSpecParamSet, TdParamSpecs } from '../../model/td-config-spec.class';
 
 @Component({
-    selector: 'td-config',
-    templateUrl: './td-config.component.html',
-    styleUrls: ['./td-config.component.scss'],
-    standalone: false
+  selector: 'td-config',
+  templateUrl: './td-config.component.html',
+  styleUrls: ['./td-config.component.scss'],
+  standalone: false,
 })
 export class TdConfigComponent {
   configSpecs = input<TdParamSpecs>();

@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
  * /!\ Can shift the title to the left
  */
 @Component({
-    selector: 'fl-dialog-header-actions',
-    templateUrl: './fl-dialog-header-actions.component.html',
-    styleUrls: ['./fl-dialog-header-actions.component.scss'],
-    standalone: false
+  selector: 'fl-dialog-header-actions',
+  templateUrl: './fl-dialog-header-actions.component.html',
+  styleUrls: ['./fl-dialog-header-actions.component.scss'],
+  standalone: false,
 })
 export class FlDialogHeaderActionsComponent {}

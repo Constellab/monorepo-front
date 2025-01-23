@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatRipple } from '@angular/material/core';
 
@@ -11,10 +11,6 @@ import { MatRipple } from '@angular/material/core';
   styleUrls: ['./ca-add-card.component.scss'],
   imports: [FlCardModule, MatRipple],
 })
-export class CaAddCardComponent implements OnInit {
+export class CaAddCardComponent {
   @Input() cardTitle: string;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

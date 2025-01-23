@@ -8,9 +8,8 @@ describe('LmsGlobalInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LmsGlobalInfoComponent]
-    })
-    .compileComponents();
+      imports: [LmsGlobalInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LmsGlobalInfoComponent);
     component = fixture.componentInstance;

@@ -4,10 +4,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
  * Menu bar that can grow and shrink.
  */
 @Component({
-    selector: 'fl-expansion-menu',
-    templateUrl: './fl-expansion-menu.component.html',
-    styleUrls: ['./fl-expansion-menu.component.scss'],
-    standalone: false
+  selector: 'fl-expansion-menu',
+  templateUrl: './fl-expansion-menu.component.html',
+  styleUrls: ['./fl-expansion-menu.component.scss'],
+  standalone: false,
 })
 export class FlExpansionMenuComponent {
   @Input() expanded: boolean = false;

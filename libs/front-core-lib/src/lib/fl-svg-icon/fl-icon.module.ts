@@ -28,9 +28,9 @@ export class FlIconModule {
         FlIconRegistryService,
         { provide: FL_ICON_MODULE, useValue: config },
         provideAppInitializer(() => {
-        const initializerFn = (initIcons)(inject(FlIconRegistryService));
-        return initializerFn();
-      }),
+          const initializerFn = initIcons(inject(FlIconRegistryService));
+          return initializerFn();
+        }),
       ],
     };
   }

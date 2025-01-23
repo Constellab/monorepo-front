@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BnBioNetworkReaction, BnBioNetworkReactionDataFlux } from '../../model/bn-bio-network.class';
 import { BnBioNetworkHelper } from '../../utils/bn-bio-network.helper';
 
@@ -6,18 +6,14 @@ import { BnBioNetworkHelper } from '../../utils/bn-bio-network.helper';
  * Show the information about a reaction flux
  */
 @Component({
-    selector: 'bn-bio-network-reaction-flux',
-    templateUrl: './bn-bio-network-reaction-flux.component.html',
-    styleUrls: ['./bn-bio-network-reaction-flux.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-reaction-flux',
+  templateUrl: './bn-bio-network-reaction-flux.component.html',
+  styleUrls: ['./bn-bio-network-reaction-flux.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
-export class BnBioNetworkReactionFluxComponent implements OnInit {
+export class BnBioNetworkReactionFluxComponent {
   @Input() reaction: BnBioNetworkReaction;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   get getFlux(): BnBioNetworkReactionDataFlux {
     return BnBioNetworkHelper.getReactionFlux(this.reaction.data);

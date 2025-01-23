@@ -9,10 +9,10 @@ export enum CoCommunityListItemColor {
 }
 
 @Component({
-    selector: 'co-community-list-item',
-    templateUrl: './co-community-list-item.component.html',
-    styleUrls: ['./co-community-list-item.component.scss'],
-    standalone: false
+  selector: 'co-community-list-item',
+  templateUrl: './co-community-list-item.component.html',
+  styleUrls: ['./co-community-list-item.component.scss'],
+  standalone: false,
 })
 export class CoCommunityListItemComponent {
   @Input({ required: true }) title: string;
@@ -23,6 +23,4 @@ export class CoCommunityListItemComponent {
   @Input() date: ClDateInput;
   @Input() likes: number = null;
   @Input() comments: number = null;
-
-  constructor() {}
 }

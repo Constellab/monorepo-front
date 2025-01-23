@@ -3,13 +3,10 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <fl-async-section
-    [object]="logs$"
-    [showServerErrorText]="true"
-    [emptyText]="'lml.glab_no_error_log'">
+  <fl-async-section [object]="logs$" [showServerErrorText]="true" [emptyText]="'lml.glab_no_error_log'">
     <ng-container *flSectionBody="logs$ as logs">
       @if (logs.mainErrors.length > 0) {
-        @for (error of logs.mainErrors; let i = $index; track i;) {
+        @for (error of logs.mainErrors; let i = $index; track i) {
           <p>{{ error }}</p>
         }
       } @else {
@@ -26,7 +23,6 @@
         } @else {
           <p>{{ 'lml.glab_no_error_log' | translate }}</p>
         }
-
       </mat-expansion-panel>
     </ng-container>
   </fl-async-section>

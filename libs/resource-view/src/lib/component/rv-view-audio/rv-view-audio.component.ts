@@ -3,10 +3,10 @@ import { RvResourceViewDirective } from '../../model/rv-resource-view.directive'
 import { RvResourceViewAudio } from '../../model/rv-resource-view.class';
 
 @Component({
-    selector: 'rv-view-audio',
-    templateUrl: './rv-view-audio.component.html',
-    styleUrl: './rv-view-audio.component.scss',
-    standalone: false
+  selector: 'rv-view-audio',
+  templateUrl: './rv-view-audio.component.html',
+  styleUrl: './rv-view-audio.component.scss',
+  standalone: false,
 })
 export class RvViewAudioComponent extends RvResourceViewDirective<RvResourceViewAudio> implements OnInit {
   @ViewChild('audio', { static: true }) audioRef!: ElementRef<HTMLAudioElement>;

@@ -33,13 +33,13 @@
                       [index]="row.index"
                       [header]="row"
                       type="row"
-                    class="g-not-selectable"></sp-spreadsheet-header-cell>
+                      class="g-not-selectable"></sp-spreadsheet-header-cell>
                     @for (cell of row.cells; track cell; let columnIndex = $index) {
                       <sp-spreadsheet-cell
                         [cell]="cell"
                         [row]="row.index"
                         [column]="columnIndex"
-                      class="g-not-selectable"></sp-spreadsheet-cell>
+                        class="g-not-selectable"></sp-spreadsheet-cell>
                     }
                   </tr>
                 }

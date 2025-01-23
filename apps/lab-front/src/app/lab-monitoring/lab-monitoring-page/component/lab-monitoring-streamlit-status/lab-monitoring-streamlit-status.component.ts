@@ -23,9 +23,7 @@ import { RouterLink } from '@angular/router';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  LabDetailRoutePipe,
-} from '../../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
+import { LabDetailRoutePipe } from '../../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 /**
  * Component to show information about the streamlit status

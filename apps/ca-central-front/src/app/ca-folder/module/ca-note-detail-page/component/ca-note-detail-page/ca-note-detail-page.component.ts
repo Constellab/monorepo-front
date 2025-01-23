@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';

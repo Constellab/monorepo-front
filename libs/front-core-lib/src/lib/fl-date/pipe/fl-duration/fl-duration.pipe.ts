@@ -5,8 +5,8 @@ import { ClDateHelper, ClDateScale } from '@monorepo/core-lib';
  * Pipe to make a duration pretty, see {@link ClDateHelper}
  */
 @Pipe({
-    name: 'flDuration',
-    standalone: false
+  name: 'flDuration',
+  standalone: false,
 })
 export class FlDurationPipe implements PipeTransform {
   transform(

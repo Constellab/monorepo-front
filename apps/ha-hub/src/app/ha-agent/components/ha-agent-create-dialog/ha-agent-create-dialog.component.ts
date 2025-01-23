@@ -12,7 +12,7 @@ import {
   HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { TranslatePipe } from '@ngx-translate/core';
 

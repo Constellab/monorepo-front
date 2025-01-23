@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

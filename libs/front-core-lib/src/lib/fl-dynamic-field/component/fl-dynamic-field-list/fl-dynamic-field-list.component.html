@@ -5,7 +5,7 @@
     [placeholder]="placeholder"
     [hint]="hint"
     [prefix]="prefix"
-  [suffix]="suffix"></fl-multi-inputs>
+    [suffix]="suffix"></fl-multi-inputs>
   @if (formCtrl.hasError('required')) {
     <mat-error>
       {{ placeholder | flErrorRequired: false }}

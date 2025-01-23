@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { Observable, of } from 'rxjs';
 import { CaNotificationState } from '../../../../state/ca-notification.state';

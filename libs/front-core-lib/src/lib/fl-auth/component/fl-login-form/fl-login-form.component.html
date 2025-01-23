@@ -9,32 +9,32 @@
       required
       placeholder="{{ 'email' | translate }}"
       autocomplete="username" />
-      @if (formGp.get('email').hasError('required')) {
-        <mat-error>
-          {{ 'error_required' | translate: { field: 'email' | translate } }}
-        </mat-error>
-      }
-      @if (formGp.get('email').hasError('email')) {
-        <mat-error>
-          {{ 'email_invalid' | translate }}
-        </mat-error>
-      }
-    </mat-form-field>
+    @if (formGp.get('email').hasError('required')) {
+      <mat-error>
+        {{ 'error_required' | translate: { field: 'email' | translate } }}
+      </mat-error>
+    }
+    @if (formGp.get('email').hasError('email')) {
+      <mat-error>
+        {{ 'email_invalid' | translate }}
+      </mat-error>
+    }
+  </mat-form-field>
 
-    <!--  Password -->
-    <mat-form-field class="g-form-input">
-      <mat-label>{{ 'flAuth.password' | translate }}</mat-label>
-      <input
-        matInput
-        type="password"
-        formControlName="password"
-        required
-        placeholder="{{ 'flAuth.password' | translate }}"
-        autocomplete="current-password" />
-        @if (formGp.get('password').hasError('required')) {
-          <mat-error>
-            {{ 'error_required' | translate: { field: 'flAuth.password' | translate } }}
-          </mat-error>
-        }
-      </mat-form-field>
-    </ng-container>
+  <!--  Password -->
+  <mat-form-field class="g-form-input">
+    <mat-label>{{ 'flAuth.password' | translate }}</mat-label>
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      required
+      placeholder="{{ 'flAuth.password' | translate }}"
+      autocomplete="current-password" />
+    @if (formGp.get('password').hasError('required')) {
+      <mat-error>
+        {{ 'error_required' | translate: { field: 'flAuth.password' | translate } }}
+      </mat-error>
+    }
+  </mat-form-field>
+</ng-container>

@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -12,18 +12,16 @@ import {
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import {
-  CaHierarchyObjectTableEvent,
   CaHierarchyObjectTableComponent,
+  CaHierarchyObjectTableEvent,
 } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { MatIconButton, MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface CaSelectFolderDialogInput {
   /**
@@ -45,7 +43,6 @@ export interface CaSelectFolderDialogInput {
   styleUrl: './ca-select-folder-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlInfiniteScrollModule,
     CaHierarchyObjectTableComponent,

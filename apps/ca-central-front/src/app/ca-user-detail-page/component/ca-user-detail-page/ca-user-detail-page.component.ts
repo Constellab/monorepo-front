@@ -17,14 +17,14 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import {
-  CaIsAdminDirective,
-} from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces-list.component';
 import {
   CaLabFreeCardInfoComponent,
 } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaIsAdminDirective
+} from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 
 /**
  * Component that show a form on first user login to complete his information

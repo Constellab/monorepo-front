@@ -6,10 +6,10 @@ import { LmlBrickService } from '../../lml-brick.service';
  * Simple component to show brick version detail
  */
 @Component({
-    selector: 'lml-brick-version-detail',
-    templateUrl: './lml-brick-version-detail.component.html',
-    styleUrls: ['./lml-brick-version-detail.component.scss'],
-    standalone: false
+  selector: 'lml-brick-version-detail',
+  templateUrl: './lml-brick-version-detail.component.html',
+  styleUrls: ['./lml-brick-version-detail.component.scss'],
+  standalone: false,
 })
 export class LmlBrickVersionDetailComponent {
   brickName = input.required<string>();

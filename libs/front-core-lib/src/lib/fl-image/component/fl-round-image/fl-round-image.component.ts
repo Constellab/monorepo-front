@@ -7,12 +7,12 @@ import { Component, Input, OnInit } from '@angular/core';
  *
  */
 @Component({
-    selector: 'fl-round-image',
-    templateUrl: './fl-round-image.component.html',
-    styleUrls: ['./fl-round-image.component.scss'],
-    standalone: false
+  selector: 'fl-round-image',
+  templateUrl: './fl-round-image.component.html',
+  styleUrls: ['./fl-round-image.component.scss'],
+  standalone: false,
 })
-export class FlRoundImageComponent implements OnInit {
+export class FlRoundImageComponent {
   /**
    * Image url
    */
@@ -22,8 +22,4 @@ export class FlRoundImageComponent implements OnInit {
    * Size of the image. Support all css sizes.
    */
   @Input() size: string = '3em';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

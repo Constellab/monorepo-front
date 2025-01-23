@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlDatePipe } from './pipe/fl-date/fl-date.pipe';
 import { FlFromNowPipe } from './pipe/fl-from-now/fl-from-now.pipe';

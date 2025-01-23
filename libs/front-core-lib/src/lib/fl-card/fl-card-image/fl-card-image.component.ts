@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Simple graphic component to display a round image on the left of the card
@@ -6,12 +6,12 @@ import { Component, Input, OnInit } from '@angular/core';
  * It support ng-content to display something (mainly text) centered under the image
  */
 @Component({
-    selector: 'fl-card-image',
-    templateUrl: './fl-card-image.component.html',
-    styleUrls: ['./fl-card-image.component.scss'],
-    standalone: false
+  selector: 'fl-card-image',
+  templateUrl: './fl-card-image.component.html',
+  styleUrls: ['./fl-card-image.component.scss'],
+  standalone: false,
 })
-export class FlCardImageComponent implements OnInit {
+export class FlCardImageComponent {
   /**
    * Image url
    */
@@ -21,8 +21,4 @@ export class FlCardImageComponent implements OnInit {
    * Size of the image. Support all css sizes.
    */
   @Input() size: string = '3em';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

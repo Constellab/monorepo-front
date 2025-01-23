@@ -19,12 +19,12 @@
     </div>
 
     <!--  Docker destroy container  -->
-    @if(isRestart){
-    <div>
-      <mat-checkbox formControlName="destroyContainers">
-        {{ 'lml.lab_restart_destroy_containers' | translate }}
-      </mat-checkbox>
-    </div>
+    @if (isRestart) {
+      <div>
+        <mat-checkbox formControlName="destroyContainers">
+          {{ 'lml.lab_restart_destroy_containers' | translate }}
+        </mat-checkbox>
+      </div>
     }
   </form>
 </mat-dialog-content>

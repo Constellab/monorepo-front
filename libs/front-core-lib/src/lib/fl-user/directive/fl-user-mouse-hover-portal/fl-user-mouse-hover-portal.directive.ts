@@ -7,8 +7,8 @@ import {
 } from '@monorepo/front-core-lib/fl-portal';
 
 @Directive({
-    selector: '[flUserMouseHoverPortal]',
-    standalone: false
+  selector: '[flUserMouseHoverPortal]',
+  standalone: false,
 })
 export class FlUserMouseHoverPortalDirective extends FlMouseHoverPortalAbstractDirective {
   @Input() flUserMouseHoverPortal: FlUser;

@@ -12,7 +12,10 @@
   @if (metabolite.chebi_id) {
     <fl-key-value>
       <fl-key>{{ 'bnBioNetwork.chebi_id' | translate }}</fl-key>
-      <a [href]="metabolite.chebi_id | bnBioNetworkLink: 'chebi'" class="g-text-link chebi-id" target="_blank">
+      <a
+        [href]="metabolite.chebi_id | bnBioNetworkLink: 'chebi'"
+        class="g-text-link chebi-id"
+        target="_blank">
         <fl-text-icon gap="0" iconPosition="end">
           <mat-icon class="g-icon-tiny">open_in_new</mat-icon>
           {{ metabolite.chebi_id }}

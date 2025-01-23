@@ -12,14 +12,14 @@ import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import {
-  CaHierarchyObjectIconComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import {
-  CaUserListInlineComponent,
-} from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaHierarchyObjectIconComponent
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import {
+  CaUserListInlineComponent
+} from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder

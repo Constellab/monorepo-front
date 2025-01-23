@@ -5,8 +5,8 @@ import { TdTypingName } from '../model/td-typing-name.class';
  * Simple pipe to convert a typing name str to TypingName
  */
 @Pipe({
-    name: 'tdTypingName',
-    standalone: false
+  name: 'tdTypingName',
+  standalone: false,
 })
 export class TdTypingNamePipe implements PipeTransform {
   transform(value: string | TdTypingName): TdTypingName {

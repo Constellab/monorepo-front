@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 
 /**

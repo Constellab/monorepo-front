@@ -2,9 +2,7 @@
   <div class="nav-container g-layout-row-wrap g-layout-start-center">
     <!-- Large Title -->
     @if ((showSmallMenu$ | async) === false) {
-      <div
-        class="title-container g-layout-row-wrap g-layout-start-center"
-        >
+      <div class="title-container g-layout-row-wrap g-layout-start-center">
         <ng-content select="fl-horizontal-nav-bar-title"></ng-content>
       </div>
     } @else {

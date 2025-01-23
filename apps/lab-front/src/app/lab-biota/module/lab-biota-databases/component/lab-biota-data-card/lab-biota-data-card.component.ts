@@ -14,10 +14,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-biota-data-card.component.scss'],
   imports: [FlCardModule, FlJsonEditorModule, FlDateModule, TranslatePipe],
 })
-export class LabBiotaDataCardComponent implements OnInit {
+export class LabBiotaDataCardComponent {
   @Input() biotaData: LabBiotaData;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

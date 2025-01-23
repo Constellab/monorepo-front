@@ -7,10 +7,10 @@ import { LabViewConfig } from '../../../../model/entities/resource/lab-view-conf
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabViewConfigFavoriteComponent } from '../../../lab-view-config-core/component/lab-view-config-favorite/lab-view-config-favorite.component';
-import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
+import { RvResourceViewModule } from '@monorepo/resource-view';
 import { LabViewConfigActionsMenuComponent } from '../../../lab-view-config-core/component/lab-view-config-actions-menu/lab-view-config-actions-menu.component';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';

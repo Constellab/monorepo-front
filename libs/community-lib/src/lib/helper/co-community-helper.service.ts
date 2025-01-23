@@ -1,6 +1,6 @@
 import { TdBrick, TdTypingName } from '@monorepo/technical-doc';
 import { CoConfig } from '../service/co-service-config.config';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 export type CoBrickVersionPath = 'latest' | string;
 

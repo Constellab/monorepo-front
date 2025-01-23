@@ -3,19 +3,17 @@ import { CommonModule } from '@angular/common';
 import { FlDynamicFieldComponent } from './component/fl-dynamic-field/fl-dynamic-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import {
-  FlDynamicFormGroupComponent,
-} from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
+import { FlDynamicFormGroupComponent } from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
 import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { flDynamicFieldI18n } from './i18n/fl-dynamic-field.i18n';
 import { FlMultiInputsComponent } from './component/fl-multi-inputs/fl-multi-inputs.component';
 import { FlFormModule } from '../fl-form/fl-form.module';
 import {
-  FlDynamicFormArrayComponent,
+  FlDynamicFormArrayComponent
 } from './component/fl-dynamic-form-array/fl-dynamic-form-array.component';
 import {
-  FlDynamicAbstractFormComponent,
+  FlDynamicAbstractFormComponent
 } from './component/fl-dynamic-abstract-form/fl-dynamic-abstract-form.component';
 import { FlSectionModule } from '../fl-section/fl-section.module';
 import { MatIconModule } from '@angular/material/icon';

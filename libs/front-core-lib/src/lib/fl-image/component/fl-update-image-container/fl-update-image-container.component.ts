@@ -16,10 +16,7 @@ import {
 } from '../fl-upload-image-dialog/fl-upload-image-dialog.component';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-} from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogInput, FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 /**

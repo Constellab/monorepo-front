@@ -10,10 +10,10 @@ import {
 import { FlPlotlyData } from '../plotly-data.class';
 
 @Component({
-    selector: 'fl-plotly',
-    templateUrl: './fl-plotly.component.html',
-    styleUrls: ['./fl-plotly.component.scss'],
-    standalone: false
+  selector: 'fl-plotly',
+  templateUrl: './fl-plotly.component.html',
+  styleUrls: ['./fl-plotly.component.scss'],
+  standalone: false,
 })
 export class FlPlotlyComponent implements OnInit, OnDestroy {
   @Input({ required: true }) data: FlPlotlyData;

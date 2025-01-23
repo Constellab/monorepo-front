@@ -1,19 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'ch-chart-serie-inline',
-    templateUrl: './ch-chart-serie-inline.component.html',
-    styleUrls: ['./ch-chart-serie-inline.component.scss'],
-    standalone: false
+  selector: 'ch-chart-serie-inline',
+  templateUrl: './ch-chart-serie-inline.component.html',
+  styleUrls: ['./ch-chart-serie-inline.component.scss'],
+  standalone: false,
 })
-export class ChChartSerieInlineComponent implements OnInit {
+export class ChChartSerieInlineComponent {
   @Input() serieName: string;
 
   @Input() color: string;
 
   @Input() limitSerieNameWidth: boolean = false;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

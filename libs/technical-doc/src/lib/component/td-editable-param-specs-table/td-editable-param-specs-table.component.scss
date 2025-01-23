@@ -18,7 +18,6 @@ tr.element-row:not(.expanded-row):hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
 }
 
 .empty-table {
@@ -28,5 +27,4 @@ tr.element-row:not(.expanded-row):hover {
 
 .button-warn {
   color: var(--warn-color);
-
 }

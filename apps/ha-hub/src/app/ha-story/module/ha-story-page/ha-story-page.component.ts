@@ -43,7 +43,7 @@ import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { MatAnchor } from '@angular/material/button';
-import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';

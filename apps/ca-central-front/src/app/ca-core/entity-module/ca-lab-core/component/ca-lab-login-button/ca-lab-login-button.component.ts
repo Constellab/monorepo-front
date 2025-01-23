@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -14,7 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-lab-login-button.component.scss'],
   imports: [MatTooltip, MatButton, NgClass, MatIcon, FlLoaderModule, TranslatePipe],
 })
-export class CaLabLoginButtonComponent implements OnInit {
+export class CaLabLoginButtonComponent {
   private labService = inject(CaLabService);
 
   @Input() labId: string;
@@ -24,8 +24,6 @@ export class CaLabLoginButtonComponent implements OnInit {
   @Input() size: 'small' | 'normal' = 'normal';
 
   isLoading: boolean = false;
-
-  ngOnInit(): void {}
 
   loginToLab(event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);

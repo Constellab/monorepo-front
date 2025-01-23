@@ -6,7 +6,7 @@ import { TeConfig, TeRichText } from '@monorepo/text-editor';
 import { LabNoteTemplateTextEditorConfig } from '../../../../../lab-note-template/lab-note-template-detail-page/lab-note-template-text-editor-config.class';
 import { LabRichTextObjectType } from '../../../../entity-service/lab-rich-text.service';
 import { LabNoteTextEditorConfig } from '../../../../../lab-note/module/lab-note-detail-page/lab-note-text-editor-config.class';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @Component({

@@ -8,10 +8,10 @@ import { TeRichText } from '../../model/lib';
  * Dialog to record an audio to write text in the rich text editor
  */
 @Component({
-    selector: 'te-audio-transcription-dialog',
-    templateUrl: './te-audio-transcription-dialog.component.html',
-    styleUrl: './te-audio-transcription-dialog.component.scss',
-    standalone: false
+  selector: 'te-audio-transcription-dialog',
+  templateUrl: './te-audio-transcription-dialog.component.html',
+  styleUrl: './te-audio-transcription-dialog.component.scss',
+  standalone: false,
 })
 export class TeAudioTranscriptionDialogComponent implements OnInit, OnDestroy {
   private mediaRecorder: MediaRecorder;

@@ -7,10 +7,8 @@ import { MatSnackBarRef } from '@angular/material/snack-bar';
   styleUrls: ['./fl-new-website-version.component.scss'],
   standalone: false,
 })
-export class FlNewWebsiteVersionComponent implements OnInit {
+export class FlNewWebsiteVersionComponent {
   private snackBarRef = inject<MatSnackBarRef<FlNewWebsiteVersionComponent>>(MatSnackBarRef);
-
-  ngOnInit(): void {}
 
   reload(): void {
     location.reload();

@@ -7,10 +7,10 @@ import { BnBioNetwork } from '@monorepo/bio-network';
  * Display the resource as a network pathway
  */
 @Component({
-    selector: 'rv-view-network',
-    templateUrl: './rv-view-network.component.html',
-    styleUrls: ['./rv-view-network.component.scss'],
-    standalone: false
+  selector: 'rv-view-network',
+  templateUrl: './rv-view-network.component.html',
+  styleUrls: ['./rv-view-network.component.scss'],
+  standalone: false,
 })
 export class RvViewNetworkComponent extends RvResourceViewDirective<RvResourceViewNetwork> implements OnInit {
   networks: BnBioNetwork | BnBioNetwork[];

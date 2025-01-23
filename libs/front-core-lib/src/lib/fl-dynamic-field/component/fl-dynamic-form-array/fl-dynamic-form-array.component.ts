@@ -14,14 +14,12 @@ import { ClHelpService } from '@monorepo/core-lib';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
 })
-export class FlDynamicFormArrayComponent implements OnInit, FlDynamicAbstractFormDirective {
+export class FlDynamicFormArrayComponent implements FlDynamicAbstractFormDirective {
   private translateService = inject(FlTranslateService);
 
   control = input<UntypedFormArray>();
 
   config = input<FlDynamicFormArrayConfig>();
-
-  ngOnInit(): void {}
 
   addGroup(): void {
     FlDynamicFormHelper.addFormGroupToFormArray(

@@ -7,15 +7,14 @@ import { LmlLabManagerService } from '../../lml-lab-manager.service';
  * Component to show the details of a container
  */
 @Component({
-    selector: 'lml-docker-container-details',
-    templateUrl: './lml-docker-container-details.component.html',
-    styleUrls: ['./lml-docker-container-details.component.scss'],
-    standalone: false
+  selector: 'lml-docker-container-details',
+  templateUrl: './lml-docker-container-details.component.html',
+  styleUrls: ['./lml-docker-container-details.component.scss'],
+  standalone: false,
 })
 export class LmlDockerContainerDetailsComponent implements OnInit {
-
   private labService = inject(LmlLabManagerService);
-  @Input({required: true}) containerName: string;
+  @Input({ required: true }) containerName: string;
 
   container$: Observable<LmlDockerPsFull>;
   size$: Observable<LmlDockerContainerSize>;

@@ -9,25 +9,21 @@ import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import {
-  LabTagListComponent,
-} from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import {
-  LabFolderInlineSelectComponent,
-} from '../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
+import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import { LabFolderInlineSelectComponent } from '../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import {
-  LabObjectValidationInfoComponent,
+  LabObjectValidationInfoComponent
 } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
 import {
-  LabObjectSyncInfoComponent,
+  LabObjectSyncInfoComponent
 } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   LabScenarioLinkedNotesComponent,

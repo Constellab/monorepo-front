@@ -8,72 +8,69 @@
         required
         flInputMaxLength="100"
         [placeholder]="'coCommunityLib.title' | translate" />
-        @if (formGp.get('title').hasError('required')) {
-          <mat-error>
-            {{ 'title' | flErrorRequired }}
-          </mat-error>
-        }
-      </mat-form-field>
-
-      <div>
-        <div>{{ 'coCommunityLib.visibility' | translate }}</div>
-        <mat-radio-group formControlName="type" [required]="true">
-          <div class="spaces-div">
-            <button mat-flat-button type="button" class="space-button">
-              <mat-radio-button labelPosition="before" value="PUBLIC" class="primary">
-                {{ 'coCommunityLib.public' | translate }}
-              </mat-radio-button>
-            </button>
-            <button mat-flat-button type="button" class="space-button">
-              <mat-radio-button labelPosition="before" value="SPACE" class="primary">
-                {{ 'coCommunityLib.space' | translate }}
-              </mat-radio-button>
-            </button>
-          </div>
-        </mat-radio-group>
-      </div>
-
-      @if (formGp.get('type').value === 'SPACE') {
-        <fl-async-section [object]="spaces$">
-          <ng-container *flSectionBody="spaces$ as spaces">
-            <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>
-            <mat-radio-group formControlName="space" [required]="true">
-              <div class="spaces-div">
-                @for (space of spaces$ | async; track space) {
-                  <button
-                    mat-flat-button
-                    type="button"
-                    class="space-button">
-                    <mat-radio-button labelPosition="before" [value]="space" class="primary">
-                      <div class="space-info">
-                        @if (space.photo) {
-                          <img [src]="getSpacePhoto(space.photo)" />
-                        }
-                        {{ space.name }}
-                      </div>
-                    </mat-radio-button>
-                  </button>
-                }
-              </div>
-            </mat-radio-group>
-          </ng-container>
-        </fl-async-section>
+      @if (formGp.get('title').hasError('required')) {
+        <mat-error>
+          {{ 'title' | flErrorRequired }}
+        </mat-error>
       }
+    </mat-form-field>
 
-      <ng-content></ng-content>
-    </form>
-  </mat-dialog-content>
+    <div>
+      <div>{{ 'coCommunityLib.visibility' | translate }}</div>
+      <mat-radio-group formControlName="type" [required]="true">
+        <div class="spaces-div">
+          <button mat-flat-button type="button" class="space-button">
+            <mat-radio-button labelPosition="before" value="PUBLIC" class="primary">
+              {{ 'coCommunityLib.public' | translate }}
+            </mat-radio-button>
+          </button>
+          <button mat-flat-button type="button" class="space-button">
+            <mat-radio-button labelPosition="before" value="SPACE" class="primary">
+              {{ 'coCommunityLib.space' | translate }}
+            </mat-radio-button>
+          </button>
+        </div>
+      </mat-radio-group>
+    </div>
 
-  <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      type="submit"
-      form="agent-form"
-      class="g-centered-forced primary"
-      [disabled]="!formGp.valid && !isLoading">
-      {{ 'coCommunityLib.create' | translate }}
-      @if (isLoading) {
-        <fl-button-loader></fl-button-loader>
-      }
-    </button>
-  </div>
+    @if (formGp.get('type').value === 'SPACE') {
+      <fl-async-section [object]="spaces$">
+        <ng-container *flSectionBody="spaces$ as spaces">
+          <div class="spaces-title">{{ 'coCommunityLib.your_spaces' | translate }}</div>
+          <mat-radio-group formControlName="space" [required]="true">
+            <div class="spaces-div">
+              @for (space of spaces$ | async; track space) {
+                <button mat-flat-button type="button" class="space-button">
+                  <mat-radio-button labelPosition="before" [value]="space" class="primary">
+                    <div class="space-info">
+                      @if (space.photo) {
+                        <img [src]="getSpacePhoto(space.photo)" />
+                      }
+                      {{ space.name }}
+                    </div>
+                  </mat-radio-button>
+                </button>
+              }
+            </div>
+          </mat-radio-group>
+        </ng-container>
+      </fl-async-section>
+    }
+
+    <ng-content></ng-content>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    type="submit"
+    form="agent-form"
+    class="g-centered-forced primary"
+    [disabled]="!formGp.valid && !isLoading">
+    {{ 'coCommunityLib.create' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

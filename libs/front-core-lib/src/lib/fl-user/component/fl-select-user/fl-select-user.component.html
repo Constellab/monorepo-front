@@ -8,9 +8,7 @@
   (focused)="onFocused($event)">
   <div class="photo" *flInputSearchPrefix="usersDatasource as currentUser">
     @if (currentUser) {
-      <fl-user-profile-picture
-        [user]="currentUser"
-      size="small"></fl-user-profile-picture>
+      <fl-user-profile-picture [user]="currentUser" size="small"></fl-user-profile-picture>
     } @else {
       <mat-icon>account_circle</mat-icon>
     }
@@ -19,5 +17,5 @@
   <fl-user-inline
     *flInputSearchOption="usersDatasource as user"
     [user]="user"
-  [portalOnHover]="false"></fl-user-inline>
+    [portalOnHover]="false"></fl-user-inline>
 </fl-input-search>

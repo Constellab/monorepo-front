@@ -24,12 +24,6 @@ import {
   CaDocumentActionEvent,
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
-import {
-  CaConstellabDocumentHistoryService,
-} from '../../../../../ca-core/service/ca-constellab-document-history.service';
-import {
-  CaHierarchyObjectBreadcrumbComponent,
-} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -38,9 +32,15 @@ import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   TeTextEditorModule,
-} from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+} from '@monorepo/text-editor';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  CaConstellabDocumentHistoryService
+} from '../../../../../ca-core/service/ca-constellab-document-history.service';
+import {
+  CaHierarchyObjectBreadcrumbComponent
+} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 
 /**
  * Page to show a constellab document with the possibility to edit it.

@@ -21,7 +21,7 @@ export interface LabSelectResourceDialogInput {
   styleUrls: ['./lab-select-resource-dialog.component.scss'],
   imports: [FlDialogModule, MatDialogContent, LabResourceSearchComponent, TranslatePipe],
 })
-export class LabSelectResourceDialogComponent implements OnInit {
+export class LabSelectResourceDialogComponent {
   private dialogRef = inject<MatDialogRef<LabSelectResourceDialogComponent>>(MatDialogRef);
 
   savedSearch: FlSavedSearch[];
@@ -31,8 +31,6 @@ export class LabSelectResourceDialogComponent implements OnInit {
 
     this.savedSearch = data?.savedSearches;
   }
-
-  ngOnInit(): void {}
 
   onResourceSelected(resource: LabResource): void {
     this.dialogRef.close(resource);

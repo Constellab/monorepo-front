@@ -1,16 +1,11 @@
 <div class="ql-bubble td-doc-content">
   @if (technicalDoc.objectType === 'RESOURCE') {
-    <td-resource-doc [resource]="$any(technicalDoc)">
-    </td-resource-doc>
+    <td-resource-doc [resource]="$any(technicalDoc)"></td-resource-doc>
   }
   @if (technicalDoc.objectType === 'TASK' || technicalDoc.objectType === 'PROTOCOL') {
-    <td-process-doc
-      [process]="$any(technicalDoc)"
-      >
-    </td-process-doc>
+    <td-process-doc [process]="$any(technicalDoc)"></td-process-doc>
   }
   @if (technicalDoc.objectType === 'OTHER_CLASS') {
-    <td-other-class-doc [otherClass]="$any(technicalDoc)">
-    </td-other-class-doc>
+    <td-other-class-doc [otherClass]="$any(technicalDoc)"></td-other-class-doc>
   }
 </div>

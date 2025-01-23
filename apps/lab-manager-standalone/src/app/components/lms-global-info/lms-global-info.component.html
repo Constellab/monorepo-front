@@ -48,9 +48,7 @@
         <div>
           <div>{{ 'lms.lab_is_starting' | translate }}</div>
           @if (labStatus().labManagerStatus?.glabStatus?.startProgress; as progress) {
-            <div class="g-text-light g-text-small">
-              {{ progress.percent }}% {{ progress.message }}
-            </div>
+            <div class="g-text-light g-text-small">{{ progress.percent }}% {{ progress.message }}</div>
           }
         </div>
       </div>
@@ -78,7 +76,11 @@
           type="button"
           (click)="startLab()"
           class="primary"
-          [disabled]="!labStatus().labManagerIsConfigured || !labStatus().brickAreConfigured || labStatus().labManagerStatus?.actionInProgress">
+          [disabled]="
+            !labStatus().labManagerIsConfigured ||
+            !labStatus().brickAreConfigured ||
+            labStatus().labManagerStatus?.actionInProgress
+          ">
           <mat-icon>play_arrow</mat-icon>
           {{ 'lms.start_lab' | translate }}
         </button>

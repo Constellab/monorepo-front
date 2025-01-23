@@ -38,8 +38,11 @@
             <mat-icon>edit</mat-icon>
             {{ 'td.edit' | translate }}
           </button>
-          <button mat-menu-item aria-label="delete" class="button-warn warn"
-                  (click)="delete($event, element)">
+          <button
+            mat-menu-item
+            aria-label="delete"
+            class="button-warn warn"
+            (click)="delete($event, element)">
             <mat-icon>delete</mat-icon>
             {{ 'td.delete' | translate }}
           </button>
@@ -66,7 +69,9 @@
               @for (key of Object.keys(element.additional_info); track key) {
                 @if (element.additional_info[key]) {
                   <fl-key-value>
-                    <fl-key><span>{{ 'td.' + key | translate }}</span></fl-key>
+                    <fl-key
+                    ><span>{{ 'td.' + key | translate }}</span></fl-key
+                    >
                     {{ element.additional_info[key] }}
                   </fl-key-value>
                 }

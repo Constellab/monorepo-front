@@ -47,12 +47,8 @@ import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/l
     LabDetailRoutePipe,
   ],
 })
-export class LabRunningScenarioTableComponent implements OnInit {
+export class LabRunningScenarioTableComponent {
   @Input() datasource: FlDatasource<LabRunningScenarioInfo>;
 
   @Input() columns: string[];
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

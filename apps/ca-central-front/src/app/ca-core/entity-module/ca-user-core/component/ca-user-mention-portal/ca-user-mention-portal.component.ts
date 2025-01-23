@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { CaUser } from '../../../../model/entities/ca-user.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, Subscription, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NgClass } from '@angular/common';

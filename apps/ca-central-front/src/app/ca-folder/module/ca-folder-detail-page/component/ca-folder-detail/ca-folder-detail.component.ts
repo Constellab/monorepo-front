@@ -6,15 +6,15 @@ import {
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import {
-  CaHierarchyObjectIconComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import {
-  CaNotificationMarkDirective,
-} from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
+import {
+  CaHierarchyObjectIconComponent
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import {
+  CaNotificationMarkDirective
+} from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 
 /**
  * Show detailed information for a folder , used in FolderDetailPage

@@ -17,12 +17,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FlCardModule, MatIconButton, MatTooltip, MatIcon, FlIconModule, FlDateModule, TranslatePipe],
 })
-export class LabResourceCardComponent implements OnInit {
+export class LabResourceCardComponent {
   private dialogService = inject(FlDialogService);
 
   @Input() resource: LabResource;
-
-  ngOnInit(): void {}
 
   openResourceDetail(): void {
     this.dialogService.openBigDialog(LabResourceDetailDialogComponent, {

@@ -4,7 +4,7 @@ import { LabUser } from '../../../../model/entities/lab-user.entity';
 import { DateTime } from 'luxon';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { MatRipple } from '@angular/material/core';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 @Component({

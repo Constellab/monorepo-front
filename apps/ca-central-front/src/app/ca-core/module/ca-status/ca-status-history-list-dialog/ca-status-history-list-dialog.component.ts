@@ -1,14 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaStatusHistory } from '../../../model/entities/ca-status-history.class';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogContent,
 } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaStatusHistoryCardComponent } from '../ca-status-history-card/ca-status-history-card.component';
 import { MatDivider } from '@angular/material/divider';
@@ -28,7 +27,6 @@ export interface CaStatusHistoryListDialogInput {
   styleUrls: ['./ca-status-history-list-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     CaStatusHistoryCardComponent,

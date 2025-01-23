@@ -23,13 +23,13 @@
         } @else {
           <fl-menu-dynamic-button
             [menuDynamic]="item"
-          (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
+            (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
         }
         <!-- Handle leaf node menu items -->
         <ng-template #leaf>
           <fl-menu-dynamic-button
             [menuDynamic]="item"
-          (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
+            (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
         </ng-template>
       }
     </div>

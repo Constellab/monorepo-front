@@ -14,10 +14,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-object-validation-info.component.scss'],
   imports: [MatIcon, FlIconModule, FlUserModule, TranslatePipe],
 })
-export class LabObjectValidationInfoComponent implements OnInit {
+export class LabObjectValidationInfoComponent {
   @Input() object: LabFolderObject;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

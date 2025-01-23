@@ -13,7 +13,10 @@
         </p>
         <mat-form-field class="g-form-field-compact-height g-full">
           <mat-label>{{ 'bnBioNetwork.metabolite_level' | translate }}</mat-label>
-          <mat-select [(value)]="nodeLevel" required [placeholder]="'bnBioNetwork.metabolite_level' | translate">
+          <mat-select
+            [(value)]="nodeLevel"
+            required
+            [placeholder]="'bnBioNetwork.metabolite_level' | translate">
             @for (key of metabolitesLevels | flObjectKeys; track key) {
               <mat-option [value]="metabolitesLevels[key]">
                 {{ 'bnBioNetwork.metabolite_level_' + metabolitesLevels[key] | translate }}

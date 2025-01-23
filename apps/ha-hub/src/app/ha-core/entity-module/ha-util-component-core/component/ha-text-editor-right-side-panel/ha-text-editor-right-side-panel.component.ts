@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { HaFile, HaFileType } from '../../../ha-file-core/model/ha-file';
 import { TeBlockHeaderLevel, TeRichText } from '@monorepo/text-editor';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { MatDivider } from '@angular/material/divider';
 
 @Component({

@@ -1,8 +1,6 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import {
-  FlDynamicFieldTextareaComponent,
-} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -14,19 +12,19 @@ import {
 } from './fl-dynamic-field-config.class';
 import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
 import {
-  FlDynamicFieldInputComponent,
+  FlDynamicFieldInputComponent
 } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
 import {
-  FlDynamicFieldSelectComponent,
+  FlDynamicFieldSelectComponent
 } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
 import {
-  FlDynamicFieldListComponent,
+  FlDynamicFieldListComponent
 } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
 import {
-  FlDynamicFieldBooleanComponent,
+  FlDynamicFieldBooleanComponent
 } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
 import {
-  FlDynamicFieldSelectSearchComponent,
+  FlDynamicFieldSelectSearchComponent
 } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 import { FlDynamicAbstractFormDirective } from './fl-dynamic-abstract-form.directive';
 import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';

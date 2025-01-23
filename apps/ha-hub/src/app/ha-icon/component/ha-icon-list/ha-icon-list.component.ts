@@ -14,7 +14,7 @@ import {
   HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
 import { CoIcon } from '@monorepo/community-lib';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-icon-list',

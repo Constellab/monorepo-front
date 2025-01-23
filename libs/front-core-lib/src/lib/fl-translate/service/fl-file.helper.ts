@@ -6,8 +6,6 @@ import { FlTranslateService } from './fl-translate.service';
  * Helper to manage files, like download a file
  */
 export class FlFileHelper {
-  constructor() {}
-
   /////////////////////////////////////////// STRING //////////////////////////////////////////////
 
   /**

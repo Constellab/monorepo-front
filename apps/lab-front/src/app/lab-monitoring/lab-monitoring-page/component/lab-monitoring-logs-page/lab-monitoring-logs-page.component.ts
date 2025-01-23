@@ -8,9 +8,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import {
-  LabLogTableComponent,
-} from '../../../../lab-core/entity-module/lab-log-core/lab-log-table/lab-log-table.component';
+import { LabLogTableComponent } from '../../../../lab-core/entity-module/lab-log-core/lab-log-table/lab-log-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

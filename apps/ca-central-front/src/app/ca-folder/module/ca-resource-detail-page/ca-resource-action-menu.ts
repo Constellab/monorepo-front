@@ -7,7 +7,6 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
-
 export type CaResourceActionEvent = {
   action: 'deleteResource';
   resource: CaResourceBasicInfo;

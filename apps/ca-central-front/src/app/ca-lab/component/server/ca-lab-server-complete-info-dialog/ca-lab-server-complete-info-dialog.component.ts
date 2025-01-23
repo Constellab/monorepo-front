@@ -1,10 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaServerCompleteInfo } from '../../../../ca-core/model/entities/lab/ca-lab-server.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabServerCompleteInfoComponent } from '../ca-lab-server-complete-info/ca-lab-server-complete-info.component';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -15,18 +14,15 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-lab-server-complete-info-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     CaLabServerCompleteInfoComponent,
     TranslatePipe,
   ],
 })
-export class CaLabServerCompleteInfoDialogComponent implements OnInit {
+export class CaLabServerCompleteInfoDialogComponent {
   private labService = inject(CaLabService);
   private labId = inject(MAT_DIALOG_DATA);
 
   serverInfo$: Observable<CaServerCompleteInfo> = this.labService.getServerInfo(this.labId);
-
-  ngOnInit(): void {}
 }

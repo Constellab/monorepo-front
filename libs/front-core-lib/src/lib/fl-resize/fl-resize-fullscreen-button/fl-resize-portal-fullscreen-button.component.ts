@@ -13,7 +13,7 @@ import { flCdkOverlayPanelClass, FlHtmlHelper } from '@monorepo/front-core-lib/f
   styleUrls: ['./fl-resize-portal-fullscreen-button.component.scss'],
   standalone: false,
 })
-export class FlResizePortalFullscreenButtonComponent implements OnInit {
+export class FlResizePortalFullscreenButtonComponent {
   private resizeDirective = inject(FlResizeDirective);
   private renderer = inject(Renderer2);
   private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -27,8 +27,6 @@ export class FlResizePortalFullscreenButtonComponent implements OnInit {
 
   // store the original transform of the parent before setting full screen
   private previousParentTransform: string;
-
-  ngOnInit(): void {}
 
   toggleFullscreen(): void {
     this.fullscreen = !this.fullscreen;

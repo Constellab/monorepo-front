@@ -13,36 +13,36 @@
           formControlName="name"
           required
           placeholder="{{ 'spSpreadsheet.serie_name' | translate }}" />
-          @if (formGp.get('name').hasError('required')) {
-            <mat-error>
-              {{ 'spSpreadsheet.serie_name' | flErrorRequired }}
-            </mat-error>
-          }
-        </mat-form-field>
-
-        <!--   X values selection   -->
-        @if (formGp.get('x')) {
-          <sp-sheet-ranges-input
-            formControlName="x"
-            selectionListenerGroup="sheet-chart"
-            [rangeMode]="input.xSelectionMode"
-          [placeholder]="'spSpreadsheet.chart_serie_selection_x' | translate"></sp-sheet-ranges-input>
+        @if (formGp.get('name').hasError('required')) {
+          <mat-error>
+            {{ 'spSpreadsheet.serie_name' | flErrorRequired }}
+          </mat-error>
         }
+      </mat-form-field>
 
-        <!--   Y values selection   -->
+      <!--   X values selection   -->
+      @if (formGp.get('x')) {
         <sp-sheet-ranges-input
-          formControlName="y"
+          formControlName="x"
           selectionListenerGroup="sheet-chart"
-          [required]="true"
-          [rangeMode]="input.ySelectionMode"
-        [placeholder]="'spSpreadsheet.chart_serie_selection_y' | translate"></sp-sheet-ranges-input>
-        <!--<fl-tag-input formControlName="y" [required]=""-->
+          [rangeMode]="input.xSelectionMode"
+          [placeholder]="'spSpreadsheet.chart_serie_selection_x' | translate"></sp-sheet-ranges-input>
+      }
 
-        <div class="g-text-centered validate-button">
-          <button mat-flat-button class="primary" type="submit">
-            {{ 'spSpreadsheet.create_chart_validate' | translate }}
-          </button>
-        </div>
-      </form>
-    </fl-portal-content>
-  </fl-portal>
+      <!--   Y values selection   -->
+      <sp-sheet-ranges-input
+        formControlName="y"
+        selectionListenerGroup="sheet-chart"
+        [required]="true"
+        [rangeMode]="input.ySelectionMode"
+        [placeholder]="'spSpreadsheet.chart_serie_selection_y' | translate"></sp-sheet-ranges-input>
+      <!--<fl-tag-input formControlName="y" [required]=""-->
+
+      <div class="g-text-centered validate-button">
+        <button mat-flat-button class="primary" type="submit">
+          {{ 'spSpreadsheet.create_chart_validate' | translate }}
+        </button>
+      </div>
+    </form>
+  </fl-portal-content>
+</fl-portal>

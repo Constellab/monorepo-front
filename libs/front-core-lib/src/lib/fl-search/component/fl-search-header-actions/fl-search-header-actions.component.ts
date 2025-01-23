@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'fl-search-header-actions',
-    templateUrl: './fl-search-header-actions.component.html',
-    styleUrls: ['./fl-search-header-actions.component.scss'],
-    standalone: false
+  selector: 'fl-search-header-actions',
+  templateUrl: './fl-search-header-actions.component.html',
+  styleUrls: ['./fl-search-header-actions.component.scss'],
+  standalone: false,
 })
-export class FlSearchHeaderActionsComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class FlSearchHeaderActionsComponent {}

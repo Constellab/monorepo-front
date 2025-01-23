@@ -8,8 +8,8 @@ import { Observable, of } from 'rxjs';
  * otherwise generate a color from the tag key and value
  */
 @Pipe({
-    name: 'flTagColor',
-    standalone: false
+  name: 'flTagColor',
+  standalone: false,
 })
 export class FlTagColorPipe implements PipeTransform {
   transform(tag: FlTag | string, tagColorer?: FlTagColorer): Observable<string> {

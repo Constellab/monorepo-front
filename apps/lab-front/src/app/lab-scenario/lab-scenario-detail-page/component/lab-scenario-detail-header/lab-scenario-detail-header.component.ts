@@ -11,9 +11,7 @@ import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { Observable } from 'rxjs';
-import {
-  LabProgressBarInfoDialogComponent,
-} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { map } from 'rxjs/operators';
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
@@ -56,7 +54,7 @@ import {
   LabSharedEntityInfoDialogInput,
 } from '../../../../lab-core/entity-module/lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
 import {
-  LabScenarioIconsComponent,
+  LabScenarioIconsComponent
 } from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-icons/lab-scenario-icons.component';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import {

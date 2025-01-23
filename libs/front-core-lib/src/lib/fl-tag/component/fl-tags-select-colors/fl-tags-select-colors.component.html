@@ -29,7 +29,7 @@
                   class="color"
                   (click)="openColorSelector(tagValue, $event)"
                   [(flColorSelector)]="tagValue.color"
-                (flColorSelectorChange)="emitColors()"></div>
+                  (flColorSelectorChange)="emitColors()"></div>
               } @else {
                 <div class="color"></div>
               }
@@ -42,4 +42,3 @@
 } @else {
   <fl-error-text [errorMessage]="'flTag.no_tags' | translate"></fl-error-text>
 }
-

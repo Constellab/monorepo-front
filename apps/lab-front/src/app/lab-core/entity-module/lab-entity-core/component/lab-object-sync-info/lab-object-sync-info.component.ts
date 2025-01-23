@@ -14,10 +14,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-object-sync-info.component.scss'],
   imports: [MatIcon, FlUserModule, FlTextIconModule, TranslatePipe],
 })
-export class LabObjectSyncInfoComponent implements OnInit {
+export class LabObjectSyncInfoComponent {
   @Input() object: LabFolderObject;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

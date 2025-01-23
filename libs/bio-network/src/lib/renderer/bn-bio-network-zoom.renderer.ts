@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BnBioNetworkMainRenderer } from './bn-bio-network-main.renderer';
 import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
 import { BnBioNetworkSelectionEvent } from '../model/bn-bio-network-selection.class';

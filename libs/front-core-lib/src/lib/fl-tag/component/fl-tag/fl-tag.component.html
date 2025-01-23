@@ -3,19 +3,16 @@
     <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
 
     <div>
-      {{ flTag.key }} @if (flTag.value) {
-      : {{ flTag.value }}
+      {{ flTag.key }}
+      @if (flTag.value) {
+        : {{ flTag.value }}
+      }
+    </div>
+
+    @if (showDeleteIcon) {
+      <button mat-icon-button class="g-button-icon-tiny" (click)="onDeleteTag($event)" type="button">
+        <mat-icon>cancel</mat-icon>
+      </button>
     }
   </div>
-
-  @if (showDeleteIcon) {
-    <button
-      mat-icon-button
-      class="g-button-icon-tiny"
-      (click)="onDeleteTag($event)"
-      type="button">
-      <mat-icon>cancel</mat-icon>
-    </button>
-  }
-</div>
 </fl-chip>

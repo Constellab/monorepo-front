@@ -1,7 +1,9 @@
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchFilterCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchSortCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSearchConverter,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
+} from '@monorepo/front-core-lib/fl-search';
 
 import { Type } from 'class-transformer';
 import { FormBuilder, FormGroup } from '@angular/forms';

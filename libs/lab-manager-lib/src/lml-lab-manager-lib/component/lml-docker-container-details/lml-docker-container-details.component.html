@@ -1,38 +1,42 @@
 <fl-async-section [object]="container$">
   <ng-container *flSectionBody="container$ as container">
     <p>
-      {{'lml.lab_container_status' | translate}} : <span class="g-text-light">{{ container.status }}</span>
+      {{ 'lml.lab_container_status' | translate }} : <span class="g-text-light">{{ container.status }}</span>
     </p>
     <p>
-      {{'lml.lab_container_running_for' | translate}} : <span class="g-text-light">{{ container.runningFor }}</span>
+      {{ 'lml.lab_container_running_for' | translate }} :
+      <span class="g-text-light">{{ container.runningFor }}</span>
     </p>
     <p>
-      {{'lml.lab_container_image' | translate}} : <span class="g-text-light">{{ container.image }}</span>
+      {{ 'lml.lab_container_image' | translate }} : <span class="g-text-light">{{ container.image }}</span>
     </p>
     <p>
-      {{'lml.lab_container_mounts' | translate}} : <span class="g-text-light">{{ container.mounts }}</span>
+      {{ 'lml.lab_container_mounts' | translate }} : <span class="g-text-light">{{ container.mounts }}</span>
     </p>
     <p>
-      {{'lml.lab_container_networks' | translate}} : <span class="g-text-light">{{ container.networks }}</span>
+      {{ 'lml.lab_container_networks' | translate }} :
+      <span class="g-text-light">{{ container.networks }}</span>
     </p>
     <p>
-      {{'lml.lab_container_ports' | translate}} : <span class="g-text-light">{{ container.ports }}</span>
+      {{ 'lml.lab_container_ports' | translate }} : <span class="g-text-light">{{ container.ports }}</span>
     </p>
     <p>
-      {{'lml.lab_container_id' | translate}} : <span class="g-text-light">{{ container.id }}</span>
+      {{ 'lml.lab_container_id' | translate }} : <span class="g-text-light">{{ container.id }}</span>
     </p>
     <p>
-      {{'lml.lab_container_command' | translate}} : <span class="g-text-light">{{ container.command }}</span>
+      {{ 'lml.lab_container_command' | translate }} :
+      <span class="g-text-light">{{ container.command }}</span>
     </p>
 
     <div>
       @if (size$) {
         <p>
-          {{'lml.lab_container_size' | translate}} : <span class="g-text-light">
-          @if (size$ | async; as size) {
-            {{ size.size }}
-          }
-        </span>
+          {{ 'lml.lab_container_size' | translate }} :
+          <span class="g-text-light">
+            @if (size$ | async; as size) {
+              {{ size.size }}
+            }
+          </span>
         </p>
       } @else {
         <button mat-stroked-button type="button" class="g-button-small" (click)="getSize()">

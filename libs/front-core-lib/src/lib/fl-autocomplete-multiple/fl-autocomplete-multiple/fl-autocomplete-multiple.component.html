@@ -20,15 +20,15 @@
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       (matChipInputTokenEnd)="addUnknownValue($event)"
       [disabled]="disabled" />
-    </mat-chip-grid>
-    <mat-autocomplete
-      #auto="matAutocomplete"
-      (optionSelected)="optionSelected($event)"
-      [autoActiveFirstOption]="true">
-      @for (option of filteredOptions$ | async; track option) {
-        <mat-option [value]="option">
-          {{ option }}
-        </mat-option>
-      }
-    </mat-autocomplete>
-  </mat-form-field>
+  </mat-chip-grid>
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="optionSelected($event)"
+    [autoActiveFirstOption]="true">
+    @for (option of filteredOptions$ | async; track option) {
+      <mat-option [value]="option">
+        {{ option }}
+      </mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>

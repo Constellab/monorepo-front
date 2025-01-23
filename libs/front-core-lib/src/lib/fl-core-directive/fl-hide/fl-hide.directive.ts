@@ -5,11 +5,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
  * Directive similar to fxHide from flex-layout to hide element based on media query
  */
 @Directive({
-    selector: '[flHide], [flHide.xs], [flHide.sm], [flHide.md], [flHide.lg], [flHide.xl] ' +
-        '[flHide.lt-sm], [flHide.lt-md], [flHide.lt-lg], [flHide.lt-xl], ' +
-        '[flHide.gt-xs], [flHide.gt-sm], [flHide.gt-md], [flHide.gt-lg],' +
-        '[flHide.print]',
-    standalone: false
+  selector:
+    '[flHide], [flHide.xs], [flHide.sm], [flHide.md], [flHide.lg], [flHide.xl] ' +
+    '[flHide.lt-sm], [flHide.lt-md], [flHide.lt-lg], [flHide.lt-xl], ' +
+    '[flHide.gt-xs], [flHide.gt-sm], [flHide.gt-md], [flHide.gt-lg],' +
+    '[flHide.print]',
+  standalone: false,
 })
 export class FlHideDirective implements OnInit {
   @HostBinding('class')

@@ -11,7 +11,9 @@ import {
 } from '../component/ch-chart-data-portal/ch-chart-bin-data-portal/ch-chart-bin-data-portal.component';
 import { ChChartScaleColor } from '../model/scale/ch-chart-scale-color.class';
 import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
-import { ChChartDataWithSeriePortalInput } from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
+import {
+  ChChartDataWithSeriePortalInput,
+} from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
 
 /**
  * Renderer for bar plot or histogram

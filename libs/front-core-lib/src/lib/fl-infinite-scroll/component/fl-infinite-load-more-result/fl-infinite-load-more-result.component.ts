@@ -6,12 +6,12 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
  * or show no more result text in page is last
  */
 @Component({
-    selector: 'fl-infinite-load-more-result',
-    templateUrl: './fl-infinite-load-more-result.component.html',
-    styleUrls: ['./fl-infinite-load-more-result.component.scss'],
-    standalone: false
+  selector: 'fl-infinite-load-more-result',
+  templateUrl: './fl-infinite-load-more-result.component.html',
+  styleUrls: ['./fl-infinite-load-more-result.component.scss'],
+  standalone: false,
 })
-export class FlInfiniteLoadMoreResultComponent implements OnInit {
+export class FlInfiniteLoadMoreResultComponent {
   @Input() datasource: FlDatasourcePaginated<any>;
 
   /**
@@ -25,10 +25,6 @@ export class FlInfiniteLoadMoreResultComponent implements OnInit {
    * Set empty string to hide the text
    */
   @Input() textNoMoreResult: string = 'no_more_result';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   loadMoreResults(): void {
     this.datasource.getNextPage();

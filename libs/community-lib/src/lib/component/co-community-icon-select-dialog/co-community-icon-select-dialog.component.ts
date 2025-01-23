@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CoIcon } from '../../model/co-icon.class';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -8,12 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './co-community-icon-select-dialog.component.scss',
   standalone: false,
 })
-export class CoCommunityIconSelectDialogComponent implements OnInit {
+export class CoCommunityIconSelectDialogComponent {
   private dialogRef = inject<MatDialogRef<CoCommunityIconSelectDialogComponent>>(MatDialogRef);
 
   matIconName: string;
-
-  ngOnInit(): void {}
 
   changeMaterialIcon(event: string): void {
     this.matIconName = event;

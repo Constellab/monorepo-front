@@ -30,7 +30,7 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -42,7 +42,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -7,10 +7,10 @@ import { RvResourceViewTable, rvTableToSpreadsheet } from '../../model/rv-table.
  * Component to display a resource in a spreadsheet
  */
 @Component({
-    selector: 'rv-view-spreadsheet',
-    templateUrl: './rv-view-spreadsheet.component.html',
-    styleUrls: ['./rv-view-spreadsheet.component.scss'],
-    standalone: false
+  selector: 'rv-view-spreadsheet',
+  templateUrl: './rv-view-spreadsheet.component.html',
+  styleUrls: ['./rv-view-spreadsheet.component.scss'],
+  standalone: false,
 })
 export class RvViewSpreadsheetComponent
   extends RvResourceViewDirective<RvResourceViewTable>

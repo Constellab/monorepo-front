@@ -9,9 +9,7 @@ import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import {
-  LabScenarioDetailHeaderComponent,
-} from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
+import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
 import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';

@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
  * Component to show a resource view inside a rich text editor.
  */
 @Component({
-    selector: 'rv-rich-text-resource-view',
-    templateUrl: './rv-rich-text-resource-view.component.html',
-    styleUrls: ['./rv-rich-text-resource-view.component.scss'],
-    standalone: false
+  selector: 'rv-rich-text-resource-view',
+  templateUrl: './rv-rich-text-resource-view.component.html',
+  styleUrls: ['./rv-rich-text-resource-view.component.scss'],
+  standalone: false,
 })
 export class RvRichTextResourceViewComponent implements OnInit {
   @Input({ required: true }) view$: Observable<RvResourceViewBase>;
@@ -31,8 +31,6 @@ export class RvRichTextResourceViewComponent implements OnInit {
 
   isLoading: boolean = false;
   error: boolean = false;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.isLoading = true;

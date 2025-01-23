@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Directive, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Directive, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
 import { CaNotificationState, CaNotificationStateFind } from '../../../../state/ca-notification.state';
 import { mergeMap, Observable, of, Subscription } from 'rxjs';

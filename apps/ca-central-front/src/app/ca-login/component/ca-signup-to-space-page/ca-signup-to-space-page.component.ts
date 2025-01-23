@@ -1,7 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlCaptchaService } from '@monorepo/front-core-lib/fl-captcha';
-import { FlSignupFormComponent } from '@monorepo/front-core-lib/fl-auth';
-import { FlSignUpUser } from '@monorepo/front-core-lib/fl-auth';
+import { FlAuthModule, FlSignupFormComponent, FlSignUpUser } from '@monorepo/front-core-lib/fl-auth';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { CaSpaceInvitService } from '../../../ca-core/service-api/ca-space-invit.service';
@@ -11,10 +10,9 @@ import { CaSpaceInvitReadDTO } from '../../../ca-core/model/entities/space/ca-sp
 import { Observable, switchMap, tap } from 'rxjs';
 import { CaUserAccountsService } from '../../../ca-core/service-api/ca-user-accounts.service';
 import { CaAuthService } from '../../service/ca-auth.service';
-import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';

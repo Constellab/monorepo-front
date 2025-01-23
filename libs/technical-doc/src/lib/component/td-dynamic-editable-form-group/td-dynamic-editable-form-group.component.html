@@ -7,11 +7,7 @@
       }
       <fl-section-actions>
         <div>
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="openEditConfigDialog()"
-            class="g-button-small">
+          <button mat-stroked-button type="button" (click)="openEditConfigDialog()" class="g-button-small">
             {{ 'flDynamicField.edit_params_specs' | translate }}
           </button>
         </div>
@@ -25,7 +21,6 @@
       } @else {
         {{ empty_text() | translate }}
       }
-
     </ng-container>
   </fl-section>
 }

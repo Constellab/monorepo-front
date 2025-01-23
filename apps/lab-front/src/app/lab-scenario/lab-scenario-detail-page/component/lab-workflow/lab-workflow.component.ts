@@ -6,7 +6,7 @@ import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.clas
 import { LabWorkflowNodeMenuConfig } from '../../model/lab-workflow-node-menu.config';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { first } from 'rxjs/operators';
-import { PrProtocolModule } from '../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
+import { PrProtocolModule } from '@monorepo/protocol';
 import { LabWorkflowActionsComponent } from '../lab-workflow-actions/lab-workflow-actions.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';

@@ -1,10 +1,12 @@
 import { Type } from 'class-transformer';
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
-import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchDateInterval } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchFilterCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchSortCriteriaConverter } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSearchConverter,
+  FlSearchDateInterval,
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
+} from '@monorepo/front-core-lib/fl-search';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaLabServerTaskStatus, CaLabStatus, CaLabType } from '../../../model/entities/lab/ca-lab.class';

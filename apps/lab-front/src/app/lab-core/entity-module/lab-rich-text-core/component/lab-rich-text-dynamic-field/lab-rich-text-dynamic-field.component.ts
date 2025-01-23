@@ -7,9 +7,7 @@ import {
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
 import { LabRichTextAudioTranscriptionConfig } from '../../../../entity-service/lab-rich-text.service';
-import {
-  TeTextEditorModule,
-} from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { ReactiveFormsModule } from '@angular/forms';
 
 /**

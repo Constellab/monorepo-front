@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlColorHelper, FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'fl-color-selector',
@@ -10,7 +9,7 @@ import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
   providers: [{ provide: FlFormFieldDirective, useExisting: FlColorSelectorComponent }],
   standalone: false,
 })
-export class FlColorSelectorComponent extends FlFormFieldDirective<string> implements OnInit {
+export class FlColorSelectorComponent extends FlFormFieldDirective<string> {
   @Input() placeholder: string;
 
   @Input() availableColor: string[] = FlColorHelper.getColorList();
@@ -32,8 +31,6 @@ export class FlColorSelectorComponent extends FlFormFieldDirective<string> imple
 
     super(ngControl);
   }
-
-  ngOnInit(): void {}
 
   callChangeEvent(value: string): void {
     this.colorChange.emit(value);

@@ -19,30 +19,30 @@
       (fileChange)="onNewFile($any($event))"
       [strictMode]="true"
       [autoClearHtmlInput]="true" />
-    </fl-input-file-container>
+  </fl-input-file-container>
 
-    <mat-divider class="divider"></mat-divider>
+  <mat-divider class="divider"></mat-divider>
 
-    @if (compressIsLoading) {
-      <div class="g-text-centered">
-        <fl-loader size="large"></fl-loader>
-      </div>
-    } @else {
-      <img
-        [src]="compressImageSrc"
-        alt="New image"
-        class="g-centered-forced"
-        [width]="dialogInput.config.imagePreviewWidth"
-        [height]="dialogInput.config.imagePreviewHeight"
-        [ngClass]="{ round: dialogInput.config.roundImage }" />
-      }
-    </mat-dialog-content>
-
-    <div mat-dialog-actions>
-      <button mat-flat-button class="g-centered-forced primary" (click)="save()">
-        {{ 'save' | translate }}
-        @if (uploadIsLoading) {
-          <fl-button-loader></fl-button-loader>
-        }
-      </button>
+  @if (compressIsLoading) {
+    <div class="g-text-centered">
+      <fl-loader size="large"></fl-loader>
     </div>
+  } @else {
+    <img
+      [src]="compressImageSrc"
+      alt="New image"
+      class="g-centered-forced"
+      [width]="dialogInput.config.imagePreviewWidth"
+      [height]="dialogInput.config.imagePreviewHeight"
+      [ngClass]="{ round: dialogInput.config.roundImage }" />
+  }
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button class="g-centered-forced primary" (click)="save()">
+    {{ 'save' | translate }}
+    @if (uploadIsLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

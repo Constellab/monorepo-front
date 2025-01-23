@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FlConfirmDialogInput, FlConfirmDialogResult } from '../../model/fl-confirm-dialog.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';

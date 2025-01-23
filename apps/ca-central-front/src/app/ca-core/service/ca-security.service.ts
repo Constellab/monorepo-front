@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CaAuthenticatedUserService } from '../service-api/ca-authenticated-user.service';
 
 /**

@@ -1,9 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import {
+  FlSavedSearch,
+  FlSearchConfig,
+  FlSearchModule,
+  FlSearchState,
+} from '@monorepo/front-core-lib/fl-search';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 import {
@@ -14,7 +17,6 @@ import { CaGroup, CaGroupDatasource } from '../../../../model/entities/ca-group.
 import { CaGroupService } from '../../../../service-api/ca-group.service';
 import { CaTeamSearch, CaTeamSearchFields } from '../../model/ca-team.search.class';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';

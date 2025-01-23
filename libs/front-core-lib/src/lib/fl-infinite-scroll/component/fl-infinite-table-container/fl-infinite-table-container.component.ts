@@ -5,10 +5,10 @@ import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
  * Layout component to wrap a table in an infinite scroll container with loader
  */
 @Component({
-    selector: 'fl-infinite-table-container',
-    templateUrl: './fl-infinite-table-container.component.html',
-    styleUrls: ['./fl-infinite-table-container.component.scss'],
-    standalone: false
+  selector: 'fl-infinite-table-container',
+  templateUrl: './fl-infinite-table-container.component.html',
+  styleUrls: ['./fl-infinite-table-container.component.scss'],
+  standalone: false,
 })
 export class FlInfiniteTableContainerComponent {
   @Input({ required: true }) datasource: FlDatasourcePaginated<any, any>;

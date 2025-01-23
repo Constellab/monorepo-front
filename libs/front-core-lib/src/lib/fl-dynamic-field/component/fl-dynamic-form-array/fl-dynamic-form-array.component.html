@@ -27,7 +27,10 @@
           @for (formGp of control().controls; track formGp; let i = $index; let last = $last) {
             <div class="group">
               <div class="g-layout-row">
-                <fl-dynamic-abstract-form [control]="formGp" [config]="config().formGpConfig" class="g-flex-auto">
+                <fl-dynamic-abstract-form
+                  [control]="formGp"
+                  [config]="config().formGpConfig"
+                  class="g-flex-auto">
                 </fl-dynamic-abstract-form>
                 <div>
                   <div [matTooltip]="removeTooltip">
@@ -50,7 +53,6 @@
           </button>
         </div>
       }
-
     </ng-container>
   </fl-section>
 }

@@ -20,7 +20,7 @@ import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
 import { AsyncPipe, isPlatformBrowser, NgFor, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CoCommunityLibModule } from '../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';

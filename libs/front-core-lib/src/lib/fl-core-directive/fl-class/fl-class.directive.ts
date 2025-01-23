@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Directive, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 

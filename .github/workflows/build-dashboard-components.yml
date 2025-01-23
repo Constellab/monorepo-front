@@ -43,4 +43,3 @@ jobs:
           name: Dashboard components ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}
-

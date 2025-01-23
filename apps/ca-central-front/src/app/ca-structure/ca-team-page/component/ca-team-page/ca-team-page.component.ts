@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { mergeMap, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';

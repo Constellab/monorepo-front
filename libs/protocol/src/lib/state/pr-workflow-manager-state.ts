@@ -19,8 +19,6 @@ export class PrWorkflowManagerState {
   private mode$: Observable<PrWorkflowMode>;
   private currentMode: PrWorkflowMode;
 
-  constructor() {}
-
   // unique function stored to override workflow event
   private stopEventFunction = (event: any): void => {
     event.stopImmediatePropagation();

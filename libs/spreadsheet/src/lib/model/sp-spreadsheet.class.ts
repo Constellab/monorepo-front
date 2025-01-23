@@ -5,8 +5,6 @@ export class SpSpreadsheet {
   private readonly sheets$: BehaviorSubject<SpSheet[]> = new BehaviorSubject([]);
   private readonly currentSheet$: BehaviorSubject<SpSheet> = new BehaviorSubject(null);
 
-  constructor() {}
-
   ///////////////////////////// SHEET //////////////////////////////
   public get currentSheet(): SpSheet {
     return this.currentSheet$.value;

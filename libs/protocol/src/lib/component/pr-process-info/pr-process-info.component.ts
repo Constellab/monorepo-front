@@ -3,9 +3,7 @@ import { PrProtocol } from '../../model/pr-protocol.class';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { TdTypingName } from '@monorepo/technical-doc';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  PrProcessConfigInfoDialogComponent,
-} from '../pr-process-config-info-dialog/pr-process-config-info-dialog.component';
+import { PrProcessConfigInfoDialogComponent } from '../pr-process-config-info-dialog/pr-process-config-info-dialog.component';
 
 /**
  * Component to show info about a process

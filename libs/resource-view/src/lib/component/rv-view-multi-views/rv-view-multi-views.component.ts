@@ -3,14 +3,9 @@ import { RvResourceViewDirective } from '../../model/rv-resource-view.directive'
 import { RvResourceViewMulti } from '../../model/rv-resource-view.class';
 
 @Component({
-    selector: 'rv-view-multi-views',
-    templateUrl: './rv-view-multi-views.component.html',
-    styleUrls: ['./rv-view-multi-views.component.scss'],
-    standalone: false
+  selector: 'rv-view-multi-views',
+  templateUrl: './rv-view-multi-views.component.html',
+  styleUrls: ['./rv-view-multi-views.component.scss'],
+  standalone: false,
 })
-export class RvViewMultiViewsComponent
-  extends RvResourceViewDirective<RvResourceViewMulti>
-  implements OnInit
-{
-  ngOnInit(): void {}
-}
+export class RvViewMultiViewsComponent extends RvResourceViewDirective<RvResourceViewMulti> {}

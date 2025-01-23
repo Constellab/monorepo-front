@@ -24,7 +24,7 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgFor, NgOptimizedImage } from '@angular/common';
-import { CoCommunityLibModule } from '../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatIcon } from '@angular/material/icon';
 import { HaGithubStarButtonComponent } from '../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
 import { TranslatePipe } from '@ngx-translate/core';

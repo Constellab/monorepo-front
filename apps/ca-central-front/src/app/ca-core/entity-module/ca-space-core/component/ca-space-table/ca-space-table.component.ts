@@ -1,21 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { CaSpace } from '../../../../model/entities/space/ca-space.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { CaSpaceInlineComponent } from '../ca-space-inline/ca-space-inline.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -30,7 +29,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-space-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

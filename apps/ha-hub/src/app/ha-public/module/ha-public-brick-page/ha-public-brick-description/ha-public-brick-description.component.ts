@@ -14,7 +14,7 @@ import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { NgOptimizedImage } from '@angular/common';
-import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { HaLikeButtonComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { MatButton } from '@angular/material/button';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';

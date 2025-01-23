@@ -138,8 +138,8 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     name: 'Nom',
     version: 'Version',
     add_gws_core: 'Ajouter gws_core',
-    container_error_details: 'Détails de l\'erreur',
-    no_main_error: 'Pas d\'erreur principale, veuillez ouvrir le detail pour plus d\'informations',
+    container_error_details: "Détails de l'erreur",
+    no_main_error: "Pas d'erreur principale, veuillez ouvrir le detail pour plus d'informations",
     update_lab_manager: 'Mettre à jour le lab manager',
   },
 };
@@ -177,7 +177,7 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
       "Some lab services are not running, please click on 'Restart lab' to restart them.",
     lab_manager_some_apps_error:
       "Some lab services are in error state, please click on 'Restart lab' to restart them.",
-    glab_error: "An error occurred during the installation of the data lab",
+    glab_error: 'An error occurred during the installation of the data lab',
     lab_manager_configured: 'The lab manager is configured.',
     lab_manager_initialize: 'Initialize lab',
     lab_manager_restart: 'Restart lab',

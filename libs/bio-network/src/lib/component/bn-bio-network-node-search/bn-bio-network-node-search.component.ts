@@ -2,10 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   OnDestroy,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { filter, Observable } from 'rxjs';

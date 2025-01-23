@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaServerCloudSearchComponent } from '../ca-server-cloud-search/ca-server-cloud-search.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -10,7 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'ca-select-server-cloud-dialog',
   templateUrl: './ca-select-server-cloud-dialog.component.html',
   styleUrl: './ca-select-server-cloud-dialog.component.scss',
-  imports: [FlDialogModule, CdkScrollable, MatDialogContent, CaServerCloudSearchComponent, TranslatePipe],
+  imports: [FlDialogModule, MatDialogContent, CaServerCloudSearchComponent, TranslatePipe],
 })
 export class CaSelectServerCloudDialogComponent {
   private dialogRef = inject<MatDialogRef<CaSelectServerCloudDialogComponent>>(MatDialogRef);

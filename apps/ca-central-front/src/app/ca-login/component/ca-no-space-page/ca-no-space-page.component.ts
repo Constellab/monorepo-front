@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatIconAnchor } from '@angular/material/button';
@@ -15,9 +15,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-no-space-page.component.scss'],
   imports: [FlCardModule, MatIconAnchor, RouterLink, MatIcon, TranslatePipe],
 })
-export class CaNoSpacePageComponent implements OnInit {
+export class CaNoSpacePageComponent {
   loginRoute = CaRouterService.getLoginRoute();
-  constructor() {}
-
-  ngOnInit(): void {}
 }

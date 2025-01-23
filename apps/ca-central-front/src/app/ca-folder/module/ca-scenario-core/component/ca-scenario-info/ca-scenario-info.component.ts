@@ -3,8 +3,8 @@ import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scen
 import { TeBasicConfig } from '@monorepo/text-editor';
 import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TeTextEditorModule } from '@monorepo/text-editor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ca-scenario-info',

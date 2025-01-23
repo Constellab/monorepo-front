@@ -12,7 +12,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
   styleUrls: ['./fl-snack-bar-info.component.scss'],
   standalone: false,
 })
-export class FlSnackBarInfoComponent implements OnInit {
+export class FlSnackBarInfoComponent {
   private data = inject<FlSnackBarInfoInput>(MAT_SNACK_BAR_DATA);
   private snackBarRef = inject<MatSnackBarRef<FlSnackBarInfoComponent>>(MatSnackBarRef);
 
@@ -36,8 +36,6 @@ export class FlSnackBarInfoComponent implements OnInit {
     this.showCloseButton = data.additionalConfig.showCloseButton;
     this.showDetailButton = data.additionalConfig.detailButton != null;
   }
-
-  ngOnInit(): void {}
 
   closeSnackBar(): void {
     this.snackBarRef.dismiss();

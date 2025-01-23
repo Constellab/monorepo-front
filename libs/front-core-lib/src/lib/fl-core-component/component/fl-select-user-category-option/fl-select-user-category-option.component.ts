@@ -13,7 +13,7 @@ import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-
 })
 export class FlSelectUserCategoryOptionComponent
   extends FlEmbeddedOptionsAbstractDirective
-  implements OnInit, AfterViewInit
+  implements AfterViewInit
 {
   // in basic mode, the ADMIN category is not shown
   @Input() mode: 'all' | 'basic' = 'basic';
@@ -23,8 +23,6 @@ export class FlSelectUserCategoryOptionComponent
 
     super(select);
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initOptions();
