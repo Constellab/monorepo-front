@@ -68,9 +68,11 @@ export function app(): express.Express {
       const connectSrc =
         "connect-src 'self' *.gencovery.com *.constellab.community https://fonts.googleapis.com https://fonts.gstatic.com *.google-analytics.com *.googletagmanager.com *.algolianet.com *.algolia.net https://cdn.jsdelivr.net/npm/@emoji-mart/data https://api.github.com";
       // eslint-disable-next-line max-len
+      const mediaSrc = "media-src 'self' https://storage.sbg.cloud.ovh.net";
+
       res.setHeader(
         'Content-Security-Policy',
-        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}`
+        `${defaultSrc}; ${scriptSrc}; ${frameSrc}; ${workerSrc}; ${styleSrc}; ${imgSrc}; ${fontSrc}; ${connectSrc}; ${mediaSrc}`
       );
 
       res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
