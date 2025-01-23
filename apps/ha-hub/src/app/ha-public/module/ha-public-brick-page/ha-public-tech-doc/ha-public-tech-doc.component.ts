@@ -6,12 +6,23 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TdTechnicalDocModule } from '../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { Ha404Component } from '../../ha404/ha404.component';
 
 @Component({
-    selector: 'ha-public-tech-doc-page',
-    templateUrl: './ha-public-tech-doc.component.html',
-    styleUrls: ['./ha-public-tech-doc.component.scss'],
-    standalone: false
+  selector: 'ha-public-tech-doc-page',
+  templateUrl: './ha-public-tech-doc.component.html',
+  styleUrls: ['./ha-public-tech-doc.component.scss'],
+  imports: [
+    FlLoaderModule,
+    TdTechnicalDocModule,
+    HaRunStatAggregatePanelComponent,
+    FlCoreDirectiveModule,
+    Ha404Component,
+  ],
 })
 export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);

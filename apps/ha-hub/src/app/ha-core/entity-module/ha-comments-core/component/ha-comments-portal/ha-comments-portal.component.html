@@ -21,7 +21,7 @@
           [placeholder]="'write_a_comment' | translate"
           class="text-editor"
           (textChange)="checkCommentValidity()"
-        (keydown.control.enter)="sendComment()"></te-text-editor>
+          (keydown.control.enter)="sendComment()"></te-text-editor>
       </fl-card-body>
       <fl-card-footer>
         <div class="comment-write-card-footer">

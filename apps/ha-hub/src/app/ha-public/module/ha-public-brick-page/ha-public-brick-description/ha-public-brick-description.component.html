@@ -14,7 +14,7 @@
             <ha-like-button
               (clicked)="toggleLikeBrickButton()"
               [isLiked]="brickIsLiked"
-            [likesCount]="brick().likes"></ha-like-button>
+              [likesCount]="brick().likes"></ha-like-button>
           </div>
           <div class="brick-like-edit-button">
             @if (userHasEditRight()) {
@@ -30,7 +30,8 @@
         </div>
       </div>
       @if (brickRunStatAggregate()) {
-        <ha-run-stat-aggregate-panel [runStatAggregate]="brickRunStatAggregate()"></ha-run-stat-aggregate-panel>
+        <ha-run-stat-aggregate-panel
+          [runStatAggregate]="brickRunStatAggregate()"></ha-run-stat-aggregate-panel>
       }
       <div class="description-div">
         <h5>{{ 'description' | translate }} :</h5>

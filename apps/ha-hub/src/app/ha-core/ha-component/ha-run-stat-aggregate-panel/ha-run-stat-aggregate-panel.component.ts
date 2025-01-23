@@ -9,10 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'ha-run-stat-aggregate-panel',
-    imports: [CommonModule, FlTextIconModule, MatIconModule, MatTooltip, FlTranslateModule, FlDateModule],
-    templateUrl: './ha-run-stat-aggregate-panel.component.html',
-    styleUrl: './ha-run-stat-aggregate-panel.component.scss'
+  selector: 'ha-run-stat-aggregate-panel',
+  imports: [CommonModule, FlTextIconModule, MatIconModule, MatTooltip, FlTranslateModule, FlDateModule],
+  templateUrl: './ha-run-stat-aggregate-panel.component.html',
+  styleUrl: './ha-run-stat-aggregate-panel.component.scss',
 })
 export class HaRunStatAggregatePanelComponent {
   runStatAggregate = input.required<HaRunStatAggregate>();

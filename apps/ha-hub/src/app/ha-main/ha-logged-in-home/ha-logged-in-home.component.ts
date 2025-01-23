@@ -18,12 +18,33 @@ import {
 import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgFor, NgOptimizedImage, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { CoCommunityLibModule } from '../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { MatAnchor } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlCorePipeModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 
 @Component({
   selector: 'ha-logged-in-home',
   templateUrl: './ha-logged-in-home.component.html',
   styleUrls: ['./ha-logged-in-home.component.scss'],
+  imports: [
+    RouterLink,
+    NgFor,
+    CoCommunityLibModule,
+    MatAnchor,
+    MatIcon,
+    NgOptimizedImage,
+    AsyncPipe,
+    TranslatePipe,
+    FlCorePipeModule,
+    HaDetailRoutePipe,
+    HaBrickImagePipe,
+  ],
 })
 export class HaLoggedInHomeComponent extends HaCommunityPage implements OnInit, AfterContentInit {
   private storyService: HaStoryService = inject(HaStoryService);

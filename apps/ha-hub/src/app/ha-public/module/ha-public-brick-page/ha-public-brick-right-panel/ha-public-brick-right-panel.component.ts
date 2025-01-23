@@ -9,14 +9,15 @@ import {
   inject,
 } from '@angular/core';
 
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
 import { BlockToolData } from '@editorjs/editorjs/types/tools';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ha-public-brick-right-panel',
   templateUrl: './ha-public-brick-right-panel.component.html',
   styleUrls: ['./ha-public-brick-right-panel.component.scss'],
-  standalone: false,
+  imports: [RouterLink, NgClass],
 })
 export class HaPublicBrickRightPanelComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);

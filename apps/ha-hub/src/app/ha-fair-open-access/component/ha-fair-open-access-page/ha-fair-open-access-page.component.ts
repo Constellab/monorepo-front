@@ -3,12 +3,13 @@ import { HaThemeState } from '../../../ha-core/ha-state/ha-theme.state';
 import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-fair-open-access-page',
   templateUrl: './ha-fair-open-access-page.component.html',
   styleUrl: './ha-fair-open-access-page.component.scss',
-  standalone: false,
+  imports: [TranslatePipe],
 })
 export class HaFairOpenAccessPageComponent implements OnInit {
   private themeState = inject(HaThemeState);

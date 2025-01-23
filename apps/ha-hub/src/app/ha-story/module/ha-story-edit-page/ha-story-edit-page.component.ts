@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlDialogService,
@@ -14,10 +14,14 @@ import { mergeMap, Observable, of, startWith } from 'rxjs';
 import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
 import { HaTopicService } from '../../../ha-core/ha-service/ha-topic.service';
 import { map } from 'rxjs/operators';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+  MatAutocomplete,
+} from '@angular/material/autocomplete';
 import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeRichText,
@@ -29,13 +33,62 @@ import {
   HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
 import { CoStoryCategory } from '@monorepo/community-lib';
+import { MatIcon } from '@angular/material/icon';
+import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlFormModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlImageModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
+import { MatFormField, MatLabel, MatSuffix, MatError } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatChipGrid, MatChipRow, MatChipRemove, MatChipInput } from '@angular/material/chips';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { MatTooltip } from '@angular/material/tooltip';
+import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 // TODO @vfoex, composant a refactor, trop gros complexe (Refactor avec le auto save composant ?)
 @Component({
   selector: 'ha-story-edit-page',
   templateUrl: './ha-story-edit-page.component.html',
   styleUrls: ['./ha-story-edit-page.component.scss'],
-  standalone: false,
+  imports: [
+    MatIcon,
+    HaSidenavButtonDirective,
+    RouterLink,
+    FlTextIconModule,
+    ReactiveFormsModule,
+    FlFormModule,
+    FlImageModule,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatLabel,
+    MatChipGrid,
+    MatChipRow,
+    MatChipRemove,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatAutocompleteTrigger,
+    MatChipInput,
+    MatAutocomplete,
+    MatSuffix,
+    MatTooltip,
+    HaIsAuthenticatedDirective,
+    MatButton,
+    TeTextEditorModule,
+    MatIconButton,
+    MatError,
+    NgClass,
+    Ha404Component,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class HaStoryEditPageComponent implements OnInit {
   private storyService = inject(HaStoryService);

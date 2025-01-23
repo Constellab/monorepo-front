@@ -7,7 +7,9 @@
     <!--  type  -->
     @if (!isUpdate) {
       <mat-radio-group formControlName="type" name="type" class="radio-button-zone">
-        <mat-radio-button [value]="'DOC'" [checked]="true">{{ 'documentation' | translate }}</mat-radio-button>
+        <mat-radio-button [value]="'DOC'" [checked]="true">{{
+          'documentation' | translate
+        }}</mat-radio-button>
         <mat-radio-button [value]="'FOL'" class="radio-button-right">{{
           'folder' | translate
         }}</mat-radio-button>
@@ -28,52 +30,47 @@
           flInputMaxLength="50"
           placeholder="{{ 'title' | translate }}"
           cdkFocusInitial />
-          @if (formGp.get('title').hasError('required')) {
-            <mat-error>
-              {{ 'title' | flErrorRequired }}
-            </mat-error>
-          }
-        </mat-form-field>
+        @if (formGp.get('title').hasError('required')) {
+          <mat-error>
+            {{ 'title' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+    }
+
+    @if (formGp.controls['type'].value === 'TEC' && !isLoadingImport) {
+      <fl-input-file-container
+        [placeholder]="'import_technical_documentation' | translate"
+        class="g-centered-forced input-file primary">
+        <input
+          flInputFile
+          type="file"
+          [strictMode]="true"
+          accept="application/json"
+          (fileChange)="onFileSelected($any($event))" />
+      </fl-input-file-container>
+    }
+    @if (errorFile && formGp.controls['type'].value === 'TEC') {
+      <p class="input-error-text">
+        {{ errorFileText | translate }}
+      </p>
+    }
+
+    @if (formGp.controls['type'].value === 'TEC' && isLoadingImport) {
+      <div class="import-loader">
+        <fl-loader></fl-loader>
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  @if (formGp.controls['type'].value !== 'TEC') {
+    <button mat-raised-button type="submit" form="edit-form" class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
       }
-
-      @if (formGp.controls['type'].value === 'TEC' && !isLoadingImport) {
-        <fl-input-file-container
-          [placeholder]="'import_technical_documentation' | translate"
-          class="g-centered-forced input-file primary">
-          <input
-            flInputFile
-            type="file"
-            [strictMode]="true"
-            accept="application/json"
-            (fileChange)="onFileSelected($any($event))" />
-          </fl-input-file-container>
-        }
-        @if (errorFile && formGp.controls['type'].value === 'TEC') {
-          <p class="input-error-text">
-            {{ errorFileText | translate }}
-          </p>
-        }
-
-        @if (formGp.controls['type'].value === 'TEC' && isLoadingImport) {
-          <div class="import-loader">
-            <fl-loader></fl-loader>
-          </div>
-        }
-      </form>
-    </mat-dialog-content>
-
-    <div mat-dialog-actions>
-      @if (formGp.controls['type'].value !== 'TEC') {
-        <button
-          mat-raised-button
-          type="submit"
-          form="edit-form"
-          class="g-centered-forced primary"
-          >
-          {{ 'save' | translate }}
-          @if (isLoading) {
-            <fl-button-loader></fl-button-loader>
-          }
-        </button>
-      }
-    </div>
+    </button>
+  }
+</div>

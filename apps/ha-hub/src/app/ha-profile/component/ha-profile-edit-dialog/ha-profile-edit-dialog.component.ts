@@ -1,10 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CoUser } from '@monorepo/community-lib';
+import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatFormField, MatHint, MatLabel, MatError, MatPrefix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaProfileEditDialogData {
   user: CoUser;
@@ -23,7 +31,23 @@ export interface HaProfileEditDialogFormData {
   selector: 'ha-profile-edit-dialog',
   templateUrl: './ha-profile-edit-dialog.component.html',
   styleUrl: './ha-profile-edit-dialog.component.scss',
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatFormField,
+    MatHint,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatIcon,
+    MatPrefix,
+    MatDialogActions,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class HaProfileEditDialogComponent
   extends FlFormDialogAbstractDirective<HaProfileEditDialogFormData, CoUser>

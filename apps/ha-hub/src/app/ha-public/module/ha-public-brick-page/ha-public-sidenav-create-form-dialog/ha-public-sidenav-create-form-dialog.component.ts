@@ -2,17 +2,47 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
 import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatButton } from '@angular/material/button';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-public-sidenav-create-form-dialog',
   templateUrl: './ha-public-sidenav-create-form-dialog.component.html',
   styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    ReactiveFormsModule,
+    MatRadioGroup,
+    MatRadioButton,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FlCoreDirectiveModule,
+    MatError,
+    FlInputFileModule,
+    FlLoaderModule,
+    MatDialogActions,
+    MatButton,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class HaPublicSidenavCreateFormDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNodeDTO>>

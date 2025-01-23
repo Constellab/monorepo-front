@@ -1,12 +1,16 @@
 import { Component, input, OnInit, inject } from '@angular/core';
 import { HaShareButtonElement } from '../../model/ha-share.class';
 import { HaMetadataService } from '../../../../ha-service/ha-metadata.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-share-button',
   templateUrl: './ha-share-button.component.html',
   styleUrl: './ha-share-button.component.scss',
-  standalone: false,
+  imports: [MatIconButton, MatMenuTrigger, MatIcon, MatMenu, MatMenuItem, TranslatePipe],
 })
 export class HaShareButtonComponent implements OnInit {
   private metaService = inject(HaMetadataService);

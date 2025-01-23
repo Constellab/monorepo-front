@@ -1,12 +1,13 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { HaMetadataService } from '../../../ha-core/ha-service/ha-metadata.service';
 import { HaMetadataNamesConfig } from '../../../ha-core/ha-model/ha-config/ha-metadata-names.config';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-ha404',
   templateUrl: './ha404.component.html',
   styleUrls: ['./ha404.component.scss'],
-  standalone: false,
+  imports: [TranslatePipe],
 })
 export class Ha404Component implements OnInit {
   private metadataService = inject(HaMetadataService);

@@ -5,10 +5,7 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaAgent } from '../../../ha-model/ha-entities/ha-agent.class';
 import { HaBrick } from '../../../ha-model/ha-entities/ha-brick.class';
 
-@Pipe({
-    name: 'haDetailRoute',
-    standalone: false
-})
+@Pipe({ name: 'haDetailRoute' })
 export class HaDetailRoutePipe implements PipeTransform {
   transform(value: any): string {
     if (value instanceof HaStory || value instanceof HaListStoryDto) {

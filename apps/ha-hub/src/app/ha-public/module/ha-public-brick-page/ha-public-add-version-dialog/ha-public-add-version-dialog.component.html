@@ -11,7 +11,11 @@
       <fl-input-file-container
         [placeholder]="'import_new_version_file' | translate"
         class="bt-input-div primary">
-        <input flInputFile type="file" accept="application/json" (fileChange)="onFileSelected($any($event))" />
+        <input
+          flInputFile
+          type="file"
+          accept="application/json"
+          (fileChange)="onFileSelected($any($event))" />
       </fl-input-file-container>
       @if (errorFile) {
         <p class="input-error-text">{{ errorFileText | translate }}</p>
@@ -29,12 +33,7 @@
   }
 
   @if (inputFile) {
-    <form
-      (ngSubmit)="submit()"
-      id="add-version-form"
-      [formGroup]="formGp"
-      class="g-layout-col"
-      >
+    <form (ngSubmit)="submit()" id="add-version-form" [formGroup]="formGp" class="g-layout-col">
       @if (isUpdate) {
         <p>{{ 'replace_version_text' | translate }}</p>
       }
@@ -67,23 +66,23 @@
             <div>
               <fl-key-value class="info-value">
                 <fl-key>{{ tI }}</fl-key
-                  >{{ inputFile.technicalInfo[tI] }}
-                </fl-key-value>
-              </div>
-            }
-          </div>
-        }
-      </form>
-    }
-  </mat-dialog-content>
-
-  @if (inputFile) {
-    <div mat-dialog-actions>
-      <button mat-raised-button type="submit" form="add-version-form" class="g-centered-forced primary">
-        {{ 'save' | translate }}
-        @if (isLoading) {
-          <fl-button-loader></fl-button-loader>
-        }
-      </button>
-    </div>
+                >{{ inputFile.technicalInfo[tI] }}
+              </fl-key-value>
+            </div>
+          }
+        </div>
+      }
+    </form>
   }
+</mat-dialog-content>
+
+@if (inputFile) {
+  <div mat-dialog-actions>
+    <button mat-raised-button type="submit" form="add-version-form" class="g-centered-forced primary">
+      {{ 'save' | translate }}
+      @if (isLoading) {
+        <fl-button-loader></fl-button-loader>
+      }
+    </button>
+  </div>
+}

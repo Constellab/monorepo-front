@@ -13,64 +13,58 @@
       <mat-label>{{ 'alias' | translate }}</mat-label>
       <input matInput formControlName="alias" placeholder="{{ 'alias' | translate }}" />
       @if (formGp.get('alias').hasError('pattern') || formGp.get('alias').hasError('required')) {
-        <mat-error
-          >{{ 'invalid_alias' | translate }}</mat-error
-          >
-        }
-      </mat-form-field>
-
-      <mat-form-field class="g-form-input">
-        <mat-label>LinkedIn</mat-label>
-        <mat-icon svgIcon="linkedin" matPrefix></mat-icon>
-        <input matInput formControlName="linkedinLink" placeholder="LinkedIn" />
-        @if (formGp.get('linkedinLink').hasError('pattern')) {
-          <mat-error>{{
-            'invalid_link' | translate
-          }}</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field class="g-form-input">
-        <mat-label>Github</mat-label>
-        <mat-icon svgIcon="github" matPrefix></mat-icon>
-        <input matInput formControlName="githubLink" placeholder="Github" />
-        @if (formGp.get('githubLink').hasError('pattern')) {
-          <mat-error>{{
-            'invalid_link' | translate
-          }}</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field class="g-form-input">
-        <mat-label>X</mat-label>
-        <mat-icon svgIcon="x" matPrefix></mat-icon>
-        <input matInput formControlName="xLink" placeholder="X" />
-        @if (formGp.get('xLink').hasError('pattern')) {
-          <mat-error>{{ 'invalid_link' | translate }}</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field class="g-form-input">
-        <mat-label>{{ 'interests' | translate }}</mat-label>
-        <textarea
-          matInput
-          formControlName="interests"
-          placeholder="{{ 'interests' | translate }}"
-        maxlength="255"></textarea>
-      </mat-form-field>
-    </form>
-  </mat-dialog-content>
-
-  <div mat-dialog-actions>
-    <button
-      mat-flat-button
-      type="submit"
-      form="user-infos-form"
-      class="g-centered-forced primary"
-      [disabled]="!checkModified()">
-      {{ 'save' | translate }}
-      @if (isLoading) {
-        <fl-button-loader></fl-button-loader>
+        <mat-error>{{ 'invalid_alias' | translate }}</mat-error>
       }
-    </button>
-  </div>
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>LinkedIn</mat-label>
+      <mat-icon svgIcon="linkedin" matPrefix></mat-icon>
+      <input matInput formControlName="linkedinLink" placeholder="LinkedIn" />
+      @if (formGp.get('linkedinLink').hasError('pattern')) {
+        <mat-error>{{ 'invalid_link' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>Github</mat-label>
+      <mat-icon svgIcon="github" matPrefix></mat-icon>
+      <input matInput formControlName="githubLink" placeholder="Github" />
+      @if (formGp.get('githubLink').hasError('pattern')) {
+        <mat-error>{{ 'invalid_link' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>X</mat-label>
+      <mat-icon svgIcon="x" matPrefix></mat-icon>
+      <input matInput formControlName="xLink" placeholder="X" />
+      @if (formGp.get('xLink').hasError('pattern')) {
+        <mat-error>{{ 'invalid_link' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'interests' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="interests"
+        placeholder="{{ 'interests' | translate }}"
+        maxlength="255"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    type="submit"
+    form="user-infos-form"
+    class="g-centered-forced primary"
+    [disabled]="!checkModified()">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

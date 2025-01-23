@@ -1,10 +1,6 @@
 <div class="div-sidenav">
   @if (userHasEditRight()) {
-    <button
-      mat-flat-button
-      type="button"
-      class="bt"
-      (click)="onClickMenu($event, true)">
+    <button mat-flat-button type="button" class="bt" (click)="onClickMenu($event, true)">
       <mat-icon>add_circle</mat-icon>
       {{ 'create_element' | translate }}
     </button>
@@ -44,7 +40,6 @@
           class="sidenav-item small-text sidenav-item-with-icon g-drag-hide-placeholder"
           [ngClass]="isDocNodeSelected(node) ? 'sidenav-item-selected' : ''"
           [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }">
-
           @if (node.id != null) {
             <a
               [routerLink]="'doc/' + node.completePath + '/' + node.id"
@@ -56,11 +51,7 @@
 
           <div class="line-icons">
             @if (userHasEditRight() && hoverId === node.id) {
-              <mat-icon
-                cdkDragHandle
-                class="drag-drop-bt g-icon-small">
-                drag_handle
-              </mat-icon>
+              <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle </mat-icon>
             }
           </div>
         </mat-tree-node>
@@ -87,16 +78,10 @@
               {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
             </mat-icon>
             @if (userHasEditRight() && hoverId === node.id) {
-              <mat-icon
-                (click)="onClickMenu($event, true, false, node.id)"
-                class="g-icon-small icon-pointer">
+              <mat-icon (click)="onClickMenu($event, true, false, node.id)" class="g-icon-small icon-pointer">
                 more_vert
               </mat-icon>
-              <mat-icon
-                cdkDragHandle
-                class="drag-drop-bt g-icon-small">
-                drag_handle
-              </mat-icon>
+              <mat-icon cdkDragHandle class="drag-drop-bt g-icon-small"> drag_handle </mat-icon>
             }
           </div>
         </mat-tree-node>
@@ -104,9 +89,7 @@
     }
 
     @if (technicalDataSource$ | async) {
-      <mat-tree
-        [dataSource]="technicalDataSource$ | async"
-        [treeControl]="techTreeControl">
+      <mat-tree [dataSource]="technicalDataSource$ | async" [treeControl]="techTreeControl">
         <mat-tree-node
           *matTreeNodeDef="let node"
           class="sidenav-item small-text"

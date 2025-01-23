@@ -1,18 +1,37 @@
 import { Component, inject, OnInit, Signal } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { DOCUMENT } from '@angular/common';
 import { filter } from 'rxjs';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatIcon } from '@angular/material/icon';
+import { HaSidenavButtonDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav.component';
+import { Ha404Component } from '../../ha404/ha404.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ha-public-list-bricks-page',
-    templateUrl: './ha-public-brick-page.component.html',
-    styleUrls: ['./ha-public-brick-page.component.scss'],
-    providers: [HaBrickPageState],
-    standalone: false
+  selector: 'ha-public-list-bricks-page',
+  templateUrl: './ha-public-brick-page.component.html',
+  styleUrls: ['./ha-public-brick-page.component.scss'],
+  providers: [HaBrickPageState],
+  imports: [
+    FlLoaderModule,
+    FlSectionModule,
+    MatIcon,
+    HaSidenavButtonDirective,
+    RouterLink,
+    FlTextIconModule,
+    HaPublicSidenavComponent,
+    RouterOutlet,
+    Ha404Component,
+    TranslatePipe,
+  ],
 })
 export class HaPublicBrickPageComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);

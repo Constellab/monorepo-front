@@ -10,12 +10,15 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { Router } from '@angular/router';
+import { MatButton } from '@angular/material/button';
+import { HaPublicBrickVersionsTableComponent } from '../ha-public-brick-versions-table/ha-public-brick-versions-table.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ha-public-versions-page',
-    templateUrl: './ha-public-versions.component.html',
-    styleUrls: ['./ha-public-versions.component.scss'],
-    standalone: false
+  selector: 'ha-public-versions-page',
+  templateUrl: './ha-public-versions.component.html',
+  styleUrls: ['./ha-public-versions.component.scss'],
+  imports: [MatButton, HaPublicBrickVersionsTableComponent, TranslatePipe],
 })
 export class HaPublicVersionsComponent extends HaCommunityPage implements OnInit {
   private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);

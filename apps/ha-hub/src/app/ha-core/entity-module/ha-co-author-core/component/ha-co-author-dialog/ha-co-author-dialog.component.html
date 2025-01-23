@@ -54,11 +54,9 @@
         <mat-label>Email</mat-label>
         <input matInput type="email" [formControl]="formGp.controls.coAuthorMail" />
         @if (
-          formGp.controls.coAuthorMail.hasError('email') &&
-          !formGp.controls.coAuthorMail.hasError('required')
-          ) {
-          <mat-error
-            >
+          formGp.controls.coAuthorMail.hasError('email') && !formGp.controls.coAuthorMail.hasError('required')
+        ) {
+          <mat-error>
             {{ 'invalidEmail' | translate }}
           </mat-error>
         }

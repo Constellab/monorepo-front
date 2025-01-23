@@ -12,12 +12,32 @@ import {
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ha-agent-version-page',
-    templateUrl: './ha-agent-version-page.component.html',
-    styleUrls: ['./ha-agent-version-page.component.scss'],
-    standalone: false
+  selector: 'ha-agent-version-page',
+  templateUrl: './ha-agent-version-page.component.html',
+  styleUrls: ['./ha-agent-version-page.component.scss'],
+  imports: [
+    CoCommunityLibModule,
+    MatButton,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    HaRunStatAggregatePanelComponent,
+    HaAgentVersionDetailComponent,
+    FlLoaderModule,
+    Ha404Component,
+    TranslatePipe,
+  ],
 })
 export class HaAgentVersionPageComponent extends HaCommunityPage implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);

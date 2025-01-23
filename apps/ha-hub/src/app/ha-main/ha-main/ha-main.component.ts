@@ -20,13 +20,15 @@ import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-in
 import { environment } from '../../../environments/ha-environment';
 import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
+import { HaBigScreenMainComponent } from '../ha-big-screen-main/ha-big-screen-main.component';
+import { HaSmallScreenMainComponent } from '../ha-small-screen-main/ha-small-screen-main.component';
 
 @Component({
-    selector: 'ha-main',
-    templateUrl: './ha-main.component.html',
-    styleUrls: ['./ha-main.component.scss'],
-    providers: [HaThemeState, HaJsonLdState],
-    standalone: false
+  selector: 'ha-main',
+  templateUrl: './ha-main.component.html',
+  styleUrls: ['./ha-main.component.scss'],
+  providers: [HaThemeState, HaJsonLdState],
+  imports: [HaBigScreenMainComponent, HaSmallScreenMainComponent],
 })
 export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   currentLanguage: ClSupportedLanguage;

@@ -6,13 +6,30 @@ import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service'
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { clRxjsElasticSearch } from '@monorepo/core-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatAutocompleteTrigger, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatOptgroup, MatOption } from '@angular/material/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ha-public-find-doc-dialog',
   templateUrl: './ha-public-find-doc.component.html',
   styleUrls: ['./ha-public-find-doc.component.scss'],
-  standalone: false,
+  imports: [
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule,
+    MatAutocompleteTrigger,
+    MatAutocomplete,
+    MatOptgroup,
+    MatOption,
+    TranslatePipe,
+    AsyncPipe,
+  ],
 })
 export class HaPublicFindDocComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<HaPublicFindDocComponent>>(MatDialogRef);

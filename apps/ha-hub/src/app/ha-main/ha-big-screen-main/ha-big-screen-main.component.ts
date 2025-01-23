@@ -9,12 +9,46 @@ import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatFormField, MatPrefix, MatSuffix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { FlTextIconModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { NgOptimizedImage, AsyncPipe } from '@angular/common';
+import { MatIconButton, MatAnchor } from '@angular/material/button';
+import { FlUserModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlCoreDirectiveModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-big-screen-main',
   templateUrl: './ha-big-screen-main.component.html',
   styleUrls: ['./ha-big-screen-main.component.scss'],
-  standalone: false,
+  imports: [
+    RouterLink,
+    MatFormField,
+    MatIcon,
+    MatPrefix,
+    MatSuffix,
+    MatInput,
+    FlTextIconModule,
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    NgOptimizedImage,
+    MatIconButton,
+    FlUserModule,
+    MatAnchor,
+    FlCoreDirectiveModule,
+    HaIsAdminDirective,
+    CdkScrollable,
+    RouterOutlet,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class HaBigScreenMainComponent implements OnInit {
   private authUserService = inject(HaAuthenticatedUserService);

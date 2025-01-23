@@ -10,12 +10,19 @@ import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import { Observable } from 'rxjs';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ha-public-brick-users',
   templateUrl: './ha-public-brick-users.component.html',
   styleUrls: ['./ha-public-brick-users.component.scss'],
-  standalone: false,
+  imports: [MatIconButton, MatTooltip, MatIcon, RouterLink, FlUserModule, TranslatePipe, AsyncPipe],
 })
 export class HaPublicBrickUsersComponent implements OnInit {
   private brickService = inject(HaBrickService);

@@ -2,9 +2,9 @@
   @for (navigationPanelItem of navigationPanelItems; track navigationPanelItem; let i = $index) {
     <a [routerLink]="getUrl(navigationPanelItem, i)" class="navigation-a">
       {{
-      navigationPanelItem.translateTitle
-      ? (navigationPanelItem.title | translate)
-      : navigationPanelItem.title
+        navigationPanelItem.translateTitle
+          ? (navigationPanelItem.title | translate)
+          : navigationPanelItem.title
       }}
     </a>
     @if (i + 1 < navigationPanelItems.length) {

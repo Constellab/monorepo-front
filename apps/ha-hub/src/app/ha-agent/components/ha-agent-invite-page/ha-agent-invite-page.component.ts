@@ -4,12 +4,15 @@ import { HaAgentCoAuthorInvite } from '../../../ha-core/entity-module/ha-co-auth
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-agent-invite-page',
   templateUrl: './ha-agent-invite-page.component.html',
   styleUrls: ['./ha-agent-invite-page.component.scss'],
-  standalone: false,
+  imports: [MatButton, FlLoaderModule, TranslatePipe],
 })
 export class HaAgentInvitePageComponent implements OnInit {
   private activeRoute = inject(ActivatedRoute);

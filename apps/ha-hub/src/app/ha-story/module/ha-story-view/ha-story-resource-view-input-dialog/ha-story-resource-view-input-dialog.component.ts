@@ -1,6 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
 import { HaStoryService } from '../../../../ha-core/ha-service/ha-story.service';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaStoryResourceViewInputDialogInputData {
   storyId: string;
@@ -22,7 +27,14 @@ export interface HaStoryResourceViewInputDialogOutputData {
   selector: 'ha-story-resource-view-input-dialog',
   templateUrl: './ha-story-resource-view-input-dialog.component.html',
   styleUrls: ['./ha-story-resource-view-input-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlLoaderModule,
+    FlInputFileModule,
+    TranslatePipe,
+  ],
 })
 export class HaStoryResourceViewInputDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<HaStoryResourceViewInputDialogComponent>>(MatDialogRef);

@@ -6,6 +6,20 @@ import { HaCommentService } from '../../../../ha-service/ha-comment.service';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
 import { HaCommentTextEditorConfig } from '../../model/ha-comment-text-editor.config';
 import { CoUser } from '@monorepo/community-lib';
+import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { MatIconButton, MatButton, MatAnchor } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { RouterLink } from '@angular/router';
+import { HaCommentComponent } from '../ha-comment/ha-comment.component';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaCommentsPortalData {
   entity: HaCommentsEntity;
@@ -22,7 +36,25 @@ export interface HaCommentsEntity {
   selector: 'ha-comments-portal',
   templateUrl: './ha-comments-portal.component.html',
   styleUrls: ['./ha-comments-portal.component.scss'],
-  standalone: false,
+  imports: [
+    FlInfiniteScrollModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    FlCardModule,
+    FlUserModule,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButton,
+    FlLoaderModule,
+    MatAnchor,
+    RouterLink,
+    HaCommentComponent,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class HaCommentsPortalComponent implements OnInit {
   private overlayRef = inject(FlOverlayRef);

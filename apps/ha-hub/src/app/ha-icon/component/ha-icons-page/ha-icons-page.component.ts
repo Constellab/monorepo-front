@@ -8,12 +8,17 @@ import {
 import { CoIcon } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { HaIconListComponent } from '../ha-icon-list/ha-icon-list.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ha-icons-page',
-    templateUrl: './ha-icons-page.component.html',
-    styleUrls: ['./ha-icons-page.component.scss'],
-    standalone: false
+  selector: 'ha-icons-page',
+  templateUrl: './ha-icons-page.component.html',
+  styleUrls: ['./ha-icons-page.component.scss'],
+  imports: [HaIsGencoveryMemberDirective, MatButton, MatIcon, HaIconListComponent, TranslatePipe],
 })
 export class HaIconsPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);

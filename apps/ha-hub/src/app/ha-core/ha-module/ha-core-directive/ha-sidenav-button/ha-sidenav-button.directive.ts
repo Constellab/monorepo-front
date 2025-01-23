@@ -1,10 +1,7 @@
 import { Directive, ElementRef, HostListener, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Directive({
-  selector: '[haSidenavButton]',
-  standalone: false,
-})
+@Directive({ selector: '[haSidenavButton]' })
 export class HaSidenavButtonDirective implements OnInit {
   private elementRef = inject(ElementRef);
   private router = inject(Router);

@@ -4,9 +4,7 @@
       {{ 'not_logged_home_title' | translate }}
     </h1>
     <h2 class="home-subtitle">
-      {{
-        'not_logged_home_subtitle' | translate
-      }}
+      {{ 'not_logged_home_subtitle' | translate }}
     </h2>
 
     <ha-email-sign-up [light]="true"></ha-email-sign-up>
@@ -23,7 +21,11 @@
             <div class="video-container">
               <video width="100%" height="100%" autoplay muted (click)="onVideoClick($event)">
                 <source
-                  [src]="'https://storage.sbg.cloud.ovh.net/v1/AUTH_a0286631d7b24afba3f3cdebed2992aa/public/community_home_video_' + video_section + '.mp4'"
+                  [src]="
+                    'https://storage.sbg.cloud.ovh.net/v1/AUTH_a0286631d7b24afba3f3cdebed2992aa/public/community_home_video_' +
+                    video_section +
+                    '.mp4'
+                  "
                   type="video/mp4" />
                 Your browser does not support the video tag.
               </video>

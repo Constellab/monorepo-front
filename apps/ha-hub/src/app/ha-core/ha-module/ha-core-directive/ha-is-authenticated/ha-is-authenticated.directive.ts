@@ -3,10 +3,7 @@ import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaAuthService } from '../../../ha-service/ha-auth.service';
 
-@Directive({
-  selector: '[haIsAuthenticated]',
-  standalone: false,
-})
+@Directive({ selector: '[haIsAuthenticated]' })
 export class HaIsAuthenticatedDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   private loginService = inject(HaAuthService);
 

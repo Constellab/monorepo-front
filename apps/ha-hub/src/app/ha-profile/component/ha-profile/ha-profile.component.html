@@ -16,22 +16,17 @@
         </div>
         <div class="links-div">
           @if (user.xLink) {
-            <ha-profile-attached-link
-              [linkType]="'x'"
-              [attachedLink]="user.xLink"
-            ></ha-profile-attached-link>
+            <ha-profile-attached-link [linkType]="'x'" [attachedLink]="user.xLink"></ha-profile-attached-link>
           }
           @if (user.linkedinLink) {
             <ha-profile-attached-link
               [linkType]="'linkedin'"
-              [attachedLink]="user.linkedinLink"
-            ></ha-profile-attached-link>
+              [attachedLink]="user.linkedinLink"></ha-profile-attached-link>
           }
           @if (user.githubLink) {
             <ha-profile-attached-link
               [linkType]="'github'"
-              [attachedLink]="user.githubLink"
-            ></ha-profile-attached-link>
+              [attachedLink]="user.githubLink"></ha-profile-attached-link>
           }
         </div>
       </div>
@@ -53,14 +48,14 @@
                 <mat-icon class="g-icon-small">euro_symbol</mat-icon>
               </fl-text-icon>
             </fl-key-value>
-            <div class="g-text-small">{{ 'learn_more_about_foa' | translate }}
-              <a [href]="foaLink" target="_blank"
-                 rel="noopener noreferrer"
-                 class="here-a">{{ 'here' | translate }}</a>
+            <div class="g-text-small">
+              {{ 'learn_more_about_foa' | translate }}
+              <a [href]="foaLink" target="_blank" rel="noopener noreferrer" class="here-a">{{
+                'here' | translate
+              }}</a>
             </div>
           </div>
         }
-
 
         @if (commonSpace$ | async; as commonSpace) {
           @if (commonSpace.length > 0) {
@@ -77,9 +72,11 @@
 
         @if (userRunStatAggregate$ | async; as userRunStatAggregate) {
           <div>
-            <p>{{ 'stats' | translate }} : </p>
-            <ha-run-stat-aggregate-panel [runStatAggregate]="userRunStatAggregate" [showElapseTime]="false"
-            justifyContent="start"></ha-run-stat-aggregate-panel>
+            <p>{{ 'stats' | translate }} :</p>
+            <ha-run-stat-aggregate-panel
+              [runStatAggregate]="userRunStatAggregate"
+              [showElapseTime]="false"
+              justifyContent="start"></ha-run-stat-aggregate-panel>
           </div>
         }
       </div>
@@ -102,12 +99,10 @@
               [textNoMoreResult]="''"
               [textNoResult]="'no_story_yet' | translate">
               @for (story of stories$ | flDatasourceConnect | async; track story) {
-                <a
-                  class="list-element"
-                  [routerLink]="story | haDetailRoute">
+                <a class="list-element" [routerLink]="story | haDetailRoute">
                   <co-story-list-item
                     [story]="story"
-                  [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+                    [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
                 </a>
               }
             </fl-infinite-scroll>
@@ -128,9 +123,7 @@
                 [textNoMoreResult]="''"
                 [textNoResult]="'no_agent_yet' | translate">
                 @for (agent of agents$ | flDatasourceConnect | async; track agent) {
-                  <a
-                    class="list-element"
-                    [routerLink]="agent | haDetailRoute">
+                  <a class="list-element" [routerLink]="agent | haDetailRoute">
                     <co-agent-list-item [agent]="agent"></co-agent-list-item>
                   </a>
                 }
@@ -153,12 +146,10 @@
                 [textNoMoreResult]="''"
                 [textNoResult]="'no_brick_yet' | translate">
                 @for (brick of bricks$ | flDatasourceConnect | async; track brick) {
-                  <a
-                    class="list-element"
-                    [routerLink]="brick | haDetailRoute">
+                  <a class="list-element" [routerLink]="brick | haDetailRoute">
                     <co-brick-list-item
                       [brick]="brick"
-                    [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+                      [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
                   </a>
                 }
               </fl-infinite-scroll>

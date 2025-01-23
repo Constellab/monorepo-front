@@ -17,12 +17,15 @@ import {
 import { HaStoryService } from '../../ha-core/ha-service/ha-story.service';
 import { HaAgentService } from '../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
+import { HaLoggedInHomeComponent } from '../ha-logged-in-home/ha-logged-in-home.component';
+import { HaNotLoggedInHomeComponent } from '../ha-not-logged-in-home/ha-not-logged-in-home.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'ha-ha-home',
-    templateUrl: './ha-home.component.html',
-    styleUrls: ['./ha-home.component.scss'],
-    standalone: false
+  selector: 'ha-ha-home',
+  templateUrl: './ha-home.component.html',
+  styleUrls: ['./ha-home.component.scss'],
+  imports: [HaLoggedInHomeComponent, HaNotLoggedInHomeComponent, AsyncPipe],
 })
 export class HaHomeComponent implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);

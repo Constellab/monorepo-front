@@ -45,7 +45,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LmlBrickService } from '@monorepo/lab-manager-lib';
 import { CaLabManagerBrickService } from './app/ca-lab/state/ca-lab-manager-brick.service';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
-import { caAppRoutes } from './app/ca-app-routing.module';
+import { caAppRoutes } from './app/ca-app-routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { CaApiServiceConfig } from './app/ca-core/model/config/ca-api-module.config';

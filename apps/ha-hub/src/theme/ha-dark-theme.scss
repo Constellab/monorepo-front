@@ -3,16 +3,10 @@
 // Style to highlight code in text editor
 @use 'highlight.js/styles/monokai-sublime.css';
 
-@use '../../../../libs/text-editor/src/style/te-text-editor-dark';
-
-@include _te-text-editor-dark($theme);
-
 .g-dashboard-background {
   background-color: hsla(359, 0%, 13%, 1);
   background-image: radial-gradient(at 54% 90%, hsla(249, 90%, 70%, 1) 0px, transparent 100%),
-  radial-gradient(at 90% 0%, hsla(180, 50%, 55%, 1) 0px, transparent 100%),
-  radial-gradient(at 76% 50%, hsla(250, 90%, 70%, 1) 0px, transparent 100%),
-  radial-gradient(at 80% 95%, hsla(331, 95%, 85%, 1) 0px, transparent 100%);
+    radial-gradient(at 90% 0%, hsla(180, 50%, 55%, 1) 0px, transparent 100%),
+    radial-gradient(at 76% 50%, hsla(250, 90%, 70%, 1) 0px, transparent 100%),
+    radial-gradient(at 80% 95%, hsla(331, 95%, 85%, 1) 0px, transparent 100%);
 }
-
-

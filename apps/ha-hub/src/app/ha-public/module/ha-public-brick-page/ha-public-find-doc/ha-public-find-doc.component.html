@@ -6,9 +6,7 @@
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
     <mat-optgroup [label]="'documentations' | translate" [hidden]="!documentationsNotEmpty">
       @for (doc of filteredDocumentations$ | async; track doc) {
-        <mat-option
-          [value]="doc"
-          (onSelectionChange)="submit($event.source.value)">
+        <mat-option [value]="doc" (onSelectionChange)="submit($event.source.value)">
           <span class="option">
             {{ doc.anchor ? doc.name + ' - ' + doc.anchor : doc.name }}
             @if (!doc.brickName) {
@@ -35,9 +33,7 @@
       [label]="'technical_documentations' | translate"
       [hidden]="!technicalDocumentationsNotEmpty">
       @for (doc of filteredTechnicalDocumentations$ | async; track doc) {
-        <mat-option
-          [value]="doc"
-          (onSelectionChange)="submit($event.source.value)">
+        <mat-option [value]="doc" (onSelectionChange)="submit($event.source.value)">
           <span class="option">
             {{ doc.anchor ? doc.name + ' - ' + doc.anchor : doc.name }}
             @if (!doc.brickName) {
@@ -61,9 +57,7 @@
     </mat-optgroup>
 
     @if (!documentationsNotEmpty && !technicalDocumentationsNotEmpty) {
-      <mat-option
-        [value]="getCurrentInput()"
-        (onSelectionChange)="submit($event.source.value)">
+      <mat-option [value]="getCurrentInput()" (onSelectionChange)="submit($event.source.value)">
         {{ inputControl.value }}
         <span class="option-info g-text-light">{{ 'external_link' | translate }}</span>
       </mat-option>

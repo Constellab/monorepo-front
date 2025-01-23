@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-
-import { HaCoreModule } from '../../ha-core.module';
+import { RouterModule } from '@angular/router';
+import { FlTranslateModule } from '@monorepo/front-core-lib';
 
 export interface HaNavigationPanelItem {
   title: string;
@@ -9,10 +9,10 @@ export interface HaNavigationPanelItem {
 }
 
 @Component({
-    selector: 'ha-navigation-panel',
-    imports: [HaCoreModule],
-    templateUrl: './ha-navigation-panel.component.html',
-    styleUrls: ['./ha-navigation-panel.component.scss']
+  selector: 'ha-navigation-panel',
+  imports: [RouterModule, FlTranslateModule],
+  templateUrl: './ha-navigation-panel.component.html',
+  styleUrls: ['./ha-navigation-panel.component.scss'],
 })
 export class HaNavigationPanelComponent {
   @Input() navigationPanelItems: HaNavigationPanelItem[];

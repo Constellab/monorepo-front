@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { FlDialogService } from '@monorepo/front-core-lib';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
@@ -12,13 +12,36 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { first } from 'rxjs';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { MatIcon } from '@angular/material/icon';
+import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { HaAgentVersionsPanelComponent } from '../ha-agent-versions-panel/ha-agent-versions-panel.component';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-agent-page',
   templateUrl: './ha-agent-page.component.html',
   styleUrls: ['./ha-agent-page.component.scss'],
   providers: [HaAgentPageState],
-  standalone: false,
+  imports: [
+    MatIcon,
+    HaSidenavButtonDirective,
+    RouterLink,
+    FlTextIconModule,
+    HaAgentVersionsPanelComponent,
+    RouterOutlet,
+    Ha404Component,
+    FlLoaderModule,
+    MatIconButton,
+    MatTooltip,
+    FlUserModule,
+    TranslatePipe,
+  ],
 })
 export class HaAgentPageComponent implements OnInit, OnDestroy {
   private agentService = inject(HaAgentService);

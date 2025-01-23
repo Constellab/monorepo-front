@@ -1,11 +1,22 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FlConfirmDialogInput, FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { HaCoAuthorService } from '../../model/ha-co-author-service';
 import { HaCoAuthorInvite } from '../../model/ha-co-author-invite.class';
 import { HaUser } from '../../../../ha-model/ha-entities/ha-user';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { RouterLink } from '@angular/router';
+import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaCoAuthorsDialogInput {
   id: string;
@@ -17,7 +28,23 @@ export interface HaCoAuthorsDialogInput {
   selector: 'ha-co-author-dialog',
   templateUrl: './ha-co-author-dialog.component.html',
   styleUrls: ['./ha-co-author-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    RouterLink,
+    FlUserModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule,
+    MatError,
+    FlLoaderModule,
+    TranslatePipe,
+  ],
 })
 export class HaCoAuthorDialogComponent implements OnInit {
   private snackBarService = inject(FlSnackBarService);

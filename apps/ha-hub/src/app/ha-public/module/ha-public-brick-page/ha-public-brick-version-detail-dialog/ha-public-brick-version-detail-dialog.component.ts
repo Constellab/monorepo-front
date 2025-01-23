@@ -5,13 +5,27 @@ import {
   HaReferenceDTO,
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-public-brick-version-detail-dialog',
   templateUrl: './ha-public-brick-version-detail-dialog.component.html',
   styleUrls: ['./ha-public-brick-version-detail-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlKeyValueModule,
+    FlUserModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class HaPublicBrickVersionDetailDialogComponent implements OnInit {
   private input = inject<HaBrickVersion>(MAT_DIALOG_DATA);

@@ -5,13 +5,22 @@ import {
   FlPortalAction,
   FlPortalActionsService,
 } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
 import { HaFile } from '../../model/ha-file';
 import { HaBaseEntityWithFiles } from '../../model/ha-base-entity-with-files';
+import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlCoreComponentModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type HaFileDialogInput = FlFormDialogInput<HaFileDialogObjectInput>;
 
@@ -28,7 +37,18 @@ export interface HaFileFormData {
   selector: 'ha-file-dialog',
   templateUrl: './ha-file-dialog.component.html',
   styleUrls: ['./ha-file-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlInputFileModule,
+    FlFormModule,
+    FlCoreComponentModule,
+    MatIconButton,
+    MatTooltip,
+    MatIcon,
+    TranslatePipe,
+  ],
 })
 export class HaFileDialogComponent
   extends FlFormDialogAbstractDirective<HaFileFormData, HaBaseEntityWithFiles>

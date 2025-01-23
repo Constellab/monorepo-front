@@ -1,10 +1,7 @@
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { HaBrickService } from '../../../ha-service/ha-brick.service';
 
-@Pipe({
-  name: 'haBrickImage',
-  standalone: false,
-})
+@Pipe({ name: 'haBrickImage' })
 export class HaBrickImagePipe implements PipeTransform {
   private brickService = inject(HaBrickService);
 

@@ -11,6 +11,10 @@ import {
   HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
+import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { FlInputFileModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
 
@@ -18,7 +22,7 @@ export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;
   selector: 'ha-agent-create-dialog',
   templateUrl: './ha-agent-create-dialog.component.html',
   styleUrls: ['./ha-agent-create-dialog.component.scss'],
-  standalone: false,
+  imports: [FlDialogModule, CoCommunityLibModule, FlInputFileModule, TranslatePipe],
 })
 export class HaAgentCreateDialogComponent
   extends FlFormDialogAbstractDirective<HaCreateAgentDto, HaAgentVersion>

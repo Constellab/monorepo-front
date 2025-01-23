@@ -1,9 +1,6 @@
 import { Directive, ElementRef, HostListener, inject } from '@angular/core';
 
-@Directive({
-  selector: '[haLeftPanel]',
-  standalone: false,
-})
+@Directive({ selector: '[haLeftPanel]' })
 export class HaLeftPanelDirective {
   private elementRef = inject(ElementRef);
 

@@ -1,6 +1,6 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
@@ -12,12 +12,34 @@ import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
+import { NgOptimizedImage } from '@angular/common';
+import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { HaLikeButtonComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { MatButton } from '@angular/material/button';
+import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { HaGithubStarButtonComponent } from '../../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
+import { HaPublicBrickUsersComponent } from '../ha-public-brick-users/ha-public-brick-users.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 
 @Component({
-    selector: 'ha-public-brick-description-page',
-    templateUrl: './ha-public-brick-description.component.html',
-    styleUrls: ['./ha-public-brick-description.component.scss'],
-    standalone: false
+  selector: 'ha-public-brick-description-page',
+  templateUrl: './ha-public-brick-description.component.html',
+  styleUrls: ['./ha-public-brick-description.component.scss'],
+  imports: [
+    NgOptimizedImage,
+    CoCommunityLibModule,
+    HaLikeButtonComponent,
+    MatButton,
+    HaRunStatAggregatePanelComponent,
+    FlKeyValueModule,
+    HaGithubStarButtonComponent,
+    RouterLink,
+    HaPublicBrickUsersComponent,
+    TranslatePipe,
+    HaBrickImagePipe,
+  ],
 })
 export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
   private router: Router = inject(Router);

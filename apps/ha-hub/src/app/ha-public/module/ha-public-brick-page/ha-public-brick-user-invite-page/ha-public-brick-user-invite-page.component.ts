@@ -2,12 +2,15 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickCoAuthorInvite } from '../../../../ha-core/entity-module/ha-co-author-core/model/ha-co-author-invite.class';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-ha-public-brick-user-invite-page',
   templateUrl: './ha-public-brick-user-invite-page.component.html',
   styleUrls: ['./ha-public-brick-user-invite-page.component.scss'],
-  standalone: false,
+  imports: [MatButton, FlLoaderModule, TranslatePipe],
 })
 export class HaPublicBrickUserInvitePageComponent implements OnInit {
   private activeRoute = inject(ActivatedRoute);

@@ -3,10 +3,7 @@ import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 import { HaSpaceService } from '../../../ha-service/ha-space.service';
 
-@Directive({
-  selector: '[haIsGencoveryMember]',
-  standalone: false,
-})
+@Directive({ selector: '[haIsGencoveryMember]' })
 export class HaIsGencoveryMemberDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   private spaceService = inject(HaSpaceService);
 

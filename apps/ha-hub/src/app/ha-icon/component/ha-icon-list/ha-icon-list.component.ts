@@ -14,12 +14,13 @@ import {
   HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
 import { CoIcon } from '@monorepo/community-lib';
+import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 
 @Component({
   selector: 'ha-icon-list',
   templateUrl: './ha-icon-list.component.html',
   styleUrls: ['./ha-icon-list.component.scss'],
-  standalone: false,
+  imports: [CoCommunityLibModule],
 })
 export class HaIconListComponent implements OnInit, OnDestroy {
   private readonly iconService = inject(HaIconService);

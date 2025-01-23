@@ -2,7 +2,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import AppServerModule from './src/main.server';
+import bootstrap from './src/main.server';
 import { environment } from './src/environments/ha-environment';
 import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sitemap';
 import axios from 'axios';
@@ -182,7 +182,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
     const { protocol, originalUrl, baseUrl, headers } = req;
     commonEngine
       .render({
-        bootstrap: AppServerModule,
+        bootstrap: bootstrap,
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,

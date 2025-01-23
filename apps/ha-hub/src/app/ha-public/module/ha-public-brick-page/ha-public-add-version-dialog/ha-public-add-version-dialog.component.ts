@@ -7,13 +7,36 @@ import {
   HaNewVersionFile,
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { Observable } from 'rxjs';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { MatDivider } from '@angular/material/divider';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatButton } from '@angular/material/button';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-public-add-version-dialog',
   templateUrl: './ha-public-add-version-dialog.component.html',
   styleUrls: ['./ha-public-add-version-dialog.component.scss'],
-  standalone: false,
+  imports: [
+    FlDialogModule,
+    CdkScrollable,
+    MatDialogContent,
+    FlInputFileModule,
+    FlLoaderModule,
+    MatDivider,
+    ReactiveFormsModule,
+    FlKeyValueModule,
+    MatDialogActions,
+    MatButton,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class HaPublicAddVersionDialogComponent
   extends FlFormDialogAbstractDirective<Partial<HaNewVersionDTO>>

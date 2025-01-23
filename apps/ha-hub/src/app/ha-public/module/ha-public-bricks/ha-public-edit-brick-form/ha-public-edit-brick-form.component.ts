@@ -3,19 +3,44 @@ import {
   HaBrickCreationDTO,
   HaBrickVisibility,
 } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { Router } from '@angular/router';
 import { FlGlobalValidators, FlSnackBarService } from '@monorepo/front-core-lib';
 import { HaAddVersionInput, HaRepoType } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
 import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
+import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatDivider } from '@angular/material/divider';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatButton } from '@angular/material/button';
+import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
 
 @Component({
   selector: 'ha-public-edit-brick-form',
   templateUrl: './ha-public-edit-brick-form.component.html',
   styleUrls: ['./ha-public-edit-brick-form.component.scss'],
-  standalone: false,
+  imports: [
+    FlInputFileModule,
+    ReactiveFormsModule,
+    FlKeyValueModule,
+    MatDivider,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatError,
+    MatRadioGroup,
+    MatRadioButton,
+    MatButton,
+    FlLoaderModule,
+    TranslatePipe,
+    FlCorePipeModule,
+  ],
 })
 export class HaPublicEditBrickFormComponent implements OnInit {
   private brickService = inject(HaBrickService);

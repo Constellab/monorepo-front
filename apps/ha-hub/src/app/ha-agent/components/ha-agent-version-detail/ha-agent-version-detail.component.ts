@@ -5,14 +5,36 @@ import { FlClipboardService, FlCodeEditorLanguage, FlDebouncer } from '@monorepo
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MatChip } from '@angular/material/chips';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { NgClass } from '@angular/common';
+import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { TdTechnicalDocModule } from '../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlCodeEditorModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-code-editor/fl-code-editor.module';
+import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-agent-version-detail',
   templateUrl: './ha-agent-version-detail.component.html',
   styleUrls: ['./ha-agent-version-detail.component.scss'],
-  standalone: false,
+  imports: [
+    MatChip,
+    MatButton,
+    MatIcon,
+    TeTextEditorModule,
+    NgClass,
+    ReactiveFormsModule,
+    FlCardModule,
+    TdTechnicalDocModule,
+    FlCodeEditorModule,
+    FlCorePipeModule,
+    TranslatePipe,
+  ],
 })
 export class HaAgentVersionDetailComponent implements OnInit {
   private agentService = inject(HaAgentService);

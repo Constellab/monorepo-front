@@ -8,7 +8,7 @@ import {
   StateKey,
   TransferState,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { HaStoryTextEditorConfig } from '../ha-story-edit-page/ha-story-text-editor.config';
@@ -31,15 +31,46 @@ import {
 } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
 import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlDateModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlKeyValueModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-core/component/ha-share-button/ha-share-button.component';
+import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
+import { MatAnchor } from '@angular/material/button';
+import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
+import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'ha-story-page',
-    templateUrl: './ha-story-page.component.html',
-    styleUrls: ['./ha-story-page.component.scss'],
-    standalone: false
+  selector: 'ha-story-page',
+  templateUrl: './ha-story-page.component.html',
+  styleUrls: ['./ha-story-page.component.scss'],
+  imports: [
+    RouterLink,
+    FlTextIconModule,
+    MatIcon,
+    FlUserModule,
+    FlDateModule,
+    FlKeyValueModule,
+    HaShareButtonComponent,
+    HaLikeButtonComponent,
+    HaCommentButtonComponent,
+    MatAnchor,
+    TeTextEditorModule,
+    ReactiveFormsModule,
+    Ha404Component,
+    FlLoaderModule,
+    HaTextEditorRightSidePanelComponent,
+    TranslatePipe,
+  ],
 })
 export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);

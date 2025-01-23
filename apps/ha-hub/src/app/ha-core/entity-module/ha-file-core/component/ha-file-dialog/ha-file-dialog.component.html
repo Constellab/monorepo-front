@@ -12,30 +12,30 @@
           type="file"
           (fileChange)="uploadDocument($event)"
           [autoClearHtmlInput]="true" />
-        </fl-input-file-container>
-        <table>
-          @for (file of entity.files; track file) {
-            <tr>
-              <td class="left-cell" flElementEditable (flElementValueChange)="renameFile($event, file)">
-                <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
-              </td>
-              <td class="right-cell">
-                <button
-                  mat-icon-button
-                  class="button"
-                  (click)="deleteFile(file)"
-                  [matTooltip]="'delete_file' | translate">
-                  <mat-icon class="warn">delete</mat-icon>
-                </button>
-              </td>
-            </tr>
-          }
-        </table>
-        @if (!entity.files || entity.files.length === 0) {
-          <p class="no-file-attached-text">
-            {{ 'no_files_attached' | translate }}
-          </p>
+      </fl-input-file-container>
+      <table>
+        @for (file of entity.files; track file) {
+          <tr>
+            <td class="left-cell" flElementEditable (flElementValueChange)="renameFile($event, file)">
+              <fl-file-text-icon [filename]="file.name"></fl-file-text-icon>
+            </td>
+            <td class="right-cell">
+              <button
+                mat-icon-button
+                class="button"
+                (click)="deleteFile(file)"
+                [matTooltip]="'delete_file' | translate">
+                <mat-icon class="warn">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
         }
+      </table>
+      @if (!entity.files || entity.files.length === 0) {
+        <p class="no-file-attached-text">
+          {{ 'no_files_attached' | translate }}
+        </p>
       }
-    </div>
-  </mat-dialog-content>
+    }
+  </div>
+</mat-dialog-content>

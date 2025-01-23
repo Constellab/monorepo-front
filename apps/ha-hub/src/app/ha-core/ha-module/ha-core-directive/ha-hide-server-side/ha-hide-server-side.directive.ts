@@ -11,10 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
 import { Observable } from 'rxjs';
 
-@Directive({
-  selector: '[haHideServerSide]',
-  standalone: false,
-})
+@Directive({ selector: '[haHideServerSide]' })
 export class HaHideServerSideDirective extends FlAbstractIfDirective implements OnInit, OnDestroy {
   private platformId = inject(PLATFORM_ID);
 

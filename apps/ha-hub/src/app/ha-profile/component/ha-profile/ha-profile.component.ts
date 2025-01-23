@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { mergeMap, Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
 import { map, share } from 'rxjs/operators';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
@@ -28,16 +28,52 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
+import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatButton } from '@angular/material/button';
+import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-profile-attached-link.component';
+import { FlKeyValueModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { MatIcon } from '@angular/material/icon';
+import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
+import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
+import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { AsyncPipe } from '@angular/common';
+import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { TranslatePipe } from '@ngx-translate/core';
+import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
 }
 
 @Component({
-    selector: 'ha-profile',
-    templateUrl: './ha-profile.component.html',
-    styleUrl: './ha-profile.component.scss',
-    standalone: false
+  selector: 'ha-profile',
+  templateUrl: './ha-profile.component.html',
+  styleUrl: './ha-profile.component.scss',
+  imports: [
+    FlUserModule,
+    MatButton,
+    HaProfileAttachedLinkComponent,
+    FlKeyValueModule,
+    FlTextIconModule,
+    MatIcon,
+    CoCommunityLibModule,
+    HaRunStatAggregatePanelComponent,
+    MatTabGroup,
+    MatTab,
+    MatTabLabel,
+    FlInfiniteScrollModule,
+    CdkScrollable,
+    RouterLink,
+    AsyncPipe,
+    FlCorePipeModule,
+    TranslatePipe,
+    HaDetailRoutePipe,
+    HaBrickImagePipe,
+  ],
 })
 export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);

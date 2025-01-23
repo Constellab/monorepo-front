@@ -6,9 +6,20 @@ import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { FlDialogService, FlSnackBarService, FlTranslateService } from '@monorepo/front-core-lib';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
+import { MatFormField, MatPrefix } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { FlUserModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatIconButton } from '@angular/material/button';
+import { FlCoreDirectiveModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export enum HaSmallScreenPossibleRoute {
   STORY = 'story',
@@ -21,7 +32,25 @@ export enum HaSmallScreenPossibleRoute {
   selector: 'ha-small-screen-main',
   templateUrl: './ha-small-screen-main.component.html',
   styleUrls: ['./ha-small-screen-main.component.scss'],
-  standalone: false,
+  imports: [
+    RouterLink,
+    MatFormField,
+    MatIcon,
+    MatPrefix,
+    MatInput,
+    FlUserModule,
+    MatMenuTrigger,
+    MatIconButton,
+    FlCoreDirectiveModule,
+    CdkScrollable,
+    RouterOutlet,
+    NgClass,
+    MatMenu,
+    MatMenuItem,
+    HaIsAdminDirective,
+    AsyncPipe,
+    TranslatePipe,
+  ],
 })
 export class HaSmallScreenMainComponent implements OnInit {
   private authUserService = inject(HaAuthenticatedUserService);

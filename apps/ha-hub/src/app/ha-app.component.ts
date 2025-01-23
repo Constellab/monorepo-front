@@ -1,12 +1,13 @@
 import { Component, makeStateKey, OnInit, PLATFORM_ID, TransferState, inject } from '@angular/core';
 
 import { isPlatformServer } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'ha-monorepo-root',
   templateUrl: './ha-app.component.html',
   styleUrls: ['./ha-app.component.scss'],
-  standalone: false,
+  imports: [RouterOutlet],
 })
 export class HaAppComponent implements OnInit {
   private transferState = inject(TransferState);

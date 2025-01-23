@@ -45,18 +45,16 @@
             matInput
             [formControl]="titleFormControl"
             placeholder="{{ 'search_by_title' | translate }}" />
-            <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </form>
-      </div>
-      @for (agent of agentsPaginated | flDatasourceConnect | async; track agent) {
-        <a
-          class="agent-result-card-div"
-          [routerLink]="agent | haDetailRoute">
-          <co-agent-list-item [agent]="agent"></co-agent-list-item>
-        </a>
-      }
-    </fl-infinite-scroll>
-  </div>
+          <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </div>
+    @for (agent of agentsPaginated | flDatasourceConnect | async; track agent) {
+      <a class="agent-result-card-div" [routerLink]="agent | haDetailRoute">
+        <co-agent-list-item [agent]="agent"></co-agent-list-item>
+      </a>
+    }
+  </fl-infinite-scroll>
+</div>

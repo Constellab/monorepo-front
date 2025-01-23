@@ -4,12 +4,14 @@ import { Location } from '@angular/common';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FlLoginSavedRoute, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlAuthModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-login-page',
   templateUrl: './ha-login-page.component.html',
   styleUrls: ['./ha-login-page.component.scss'],
-  standalone: false,
+  imports: [FlAuthModule, TranslatePipe],
 })
 export class HaLoginPageComponent implements OnInit {
   private location = inject(Location);

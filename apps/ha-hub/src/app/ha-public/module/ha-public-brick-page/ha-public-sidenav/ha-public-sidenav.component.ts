@@ -16,10 +16,16 @@ import {
   HaNodeType,
 } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlattener } from '@angular/material/tree';
+import {
+  MatTreeFlattener,
+  MatTree,
+  MatTreeNodeDef,
+  MatTreeNode,
+  MatTreeNodeToggle,
+} from '@angular/material/tree';
 import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -34,17 +40,22 @@ import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-docume
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 import { SelectionModel } from '@angular/cdk/collections';
 import { filter, Observable, of, startWith, tap } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
-import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { FormControl } from '@angular/forms';
+import { isPlatformBrowser, isPlatformServer, NgClass, NgStyle, AsyncPipe } from '@angular/common';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface FlatNode {
   expandable: boolean;
@@ -59,7 +70,28 @@ interface FlatNode {
   selector: 'ha-public-sidenav',
   templateUrl: './ha-public-sidenav.component.html',
   styleUrls: ['./ha-public-sidenav.component.scss'],
-  standalone: false,
+  imports: [
+    MatButton,
+    MatIcon,
+    MatFormField,
+    MatLabel,
+    MatPrefix,
+    MatInput,
+    ReactiveFormsModule,
+    RouterLink,
+    RouterLinkActive,
+    NgClass,
+    MatTree,
+    CdkDropList,
+    MatTreeNodeDef,
+    MatTreeNode,
+    CdkDrag,
+    NgStyle,
+    CdkDragHandle,
+    MatTreeNodeToggle,
+    TranslatePipe,
+    AsyncPipe,
+  ],
 })
 export class HaPublicSidenavComponent implements OnInit {
   private brickService = inject(HaBrickService);
