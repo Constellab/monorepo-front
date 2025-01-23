@@ -1,5 +1,5 @@
 import { NgModule, TransferState } from '@angular/core';
-import { provideServerRendering, ServerModule } from '@angular/platform-server';
+import { provideServerRendering } from '@angular/platform-server';
 
 import { HaAppModule } from './ha-app.module';
 import { HaAppComponent } from './ha-app.component';
@@ -16,7 +16,7 @@ export function TranslationServerLoader(
 }
 
 @NgModule({
-  imports: [HaAppModule, ServerModule],
+  imports: [HaAppModule],
   providers: [
     provideServerRendering(),
     {

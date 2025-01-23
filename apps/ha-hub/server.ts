@@ -1,6 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
 import express from 'express';
-import { CommonEngine } from '@angular/ssr';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
@@ -11,6 +10,7 @@ import cookieParser from 'cookie-parser';
 import { REQUEST } from '@monorepo/front-core-lib';
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
+import { CommonEngine } from '@angular/ssr/node';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
@@ -194,7 +194,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           { provide: REQUEST, useValue: req },
         ],
       })
-      .then((html) => {
+      .then((html: any) => {
         res.setHeader('Content-Type', 'text/html');
         // Check for redirection
         const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
@@ -212,7 +212,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
 
         res.send(html);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error(err);
         next(err);
       });

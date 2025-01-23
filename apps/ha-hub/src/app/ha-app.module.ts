@@ -1,5 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { Injector, NgModule, TransferState, inject, provideAppInitializer } from '@angular/core';
+import { APP_ID, inject, Injector, NgModule, provideAppInitializer, TransferState } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HaAppComponent } from './ha-app.component';
 import {
@@ -77,7 +76,6 @@ export function TranslationLoaderFactory(
   declarations: [HaAppComponent],
   bootstrap: [HaAppComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HaAppRoutingModule,
     HaCoreModule,
@@ -106,6 +104,10 @@ export function TranslationLoaderFactory(
   ],
   providers: [
     TransferState,
+    {
+      provide: APP_ID,
+      useValue: 'serverApp',
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,
