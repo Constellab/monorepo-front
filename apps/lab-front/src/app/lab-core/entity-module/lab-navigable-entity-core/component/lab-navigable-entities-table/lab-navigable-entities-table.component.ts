@@ -8,7 +8,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
-import { FlEntityArrayObs } from '@monorepo/front-core-lib';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Show a table of navigable entities based on the type

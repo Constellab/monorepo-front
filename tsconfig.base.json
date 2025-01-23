@@ -27,7 +27,74 @@
       "@monorepo/chart": ["libs/chart/src/index.ts"],
       "@monorepo/community-lib": ["libs/community-lib/src/index.ts"],
       "@monorepo/core-lib": ["libs/core-lib/src/index.ts"],
-      "@monorepo/front-core-lib": ["libs/front-core-lib/src/index.ts"],
+      "@monorepo/front-core-lib/fl-core": ["libs/front-core-lib/src/lib/fl-core/index.ts"],
+      "@monorepo/front-core-lib/fl-api": ["libs/front-core-lib/src/lib/fl-api/index.ts"],
+      "@monorepo/front-core-lib/fl-article": ["libs/front-core-lib/src/lib/fl-article/index.ts"],
+      "@monorepo/front-core-lib/fl-auth": ["libs/front-core-lib/src/lib/fl-auth/index.ts"],
+      "@monorepo/front-core-lib/fl-autocomplete-multiple": [
+        "libs/front-core-lib/src/lib/fl-autocomplete-multiple/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-captcha": ["libs/front-core-lib/src/lib/fl-captcha/index.ts"],
+      "@monorepo/front-core-lib/fl-card": ["libs/front-core-lib/src/lib/fl-card/index.ts"],
+      "@monorepo/front-core-lib/fl-code-editor": ["libs/front-core-lib/src/lib/fl-code-editor/index.ts"],
+      "@monorepo/front-core-lib/fl-color": ["libs/front-core-lib/src/lib/fl-color/index.ts"],
+      "@monorepo/front-core-lib/fl-core-component": [
+        "libs/front-core-lib/src/lib/fl-core-component/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-core-directive": [
+        "libs/front-core-lib/src/lib/fl-core-directive/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-core-pipe": ["libs/front-core-lib/src/lib/fl-core-pipe/index.ts"],
+      "@monorepo/front-core-lib/fl-date": ["libs/front-core-lib/src/lib/fl-date/index.ts"],
+
+      "@monorepo/front-core-lib/fl-datetime-picker": [
+        "libs/front-core-lib/src/lib/fl-datetime-picker/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-dialog": ["libs/front-core-lib/src/lib/fl-dialog/index.ts"],
+      "@monorepo/front-core-lib/fl-drag": ["libs/front-core-lib/src/lib/fl-drag/index.ts"],
+      "@monorepo/front-core-lib/fl-drawer": ["libs/front-core-lib/src/lib/fl-drawer/index.ts"],
+      "@monorepo/front-core-lib/fl-dynamic-field": ["libs/front-core-lib/src/lib/fl-dynamic-field/index.ts"],
+      "@monorepo/front-core-lib/fl-emoji-picker": ["libs/front-core-lib/src/lib/fl-emoji-picker/index.ts"],
+      "@monorepo/front-core-lib/fl-expansion-menu": [
+        "libs/front-core-lib/src/lib/fl-expansion-menu/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-form": ["libs/front-core-lib/src/lib/fl-form/index.ts"],
+      "@monorepo/front-core-lib/fl-form-inputs-manager": [
+        "libs/front-core-lib/src/lib/fl-form-inputs-manager/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-formula": ["libs/front-core-lib/src/lib/fl-formula/index.ts"],
+      "@monorepo/front-core-lib/fl-horizontal-nav-bar": [
+        "libs/front-core-lib/src/lib/fl-horizontal-nav-bar/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-image": ["libs/front-core-lib/src/lib/fl-image/index.ts"],
+      "@monorepo/front-core-lib/fl-infinite-scroll": [
+        "libs/front-core-lib/src/lib/fl-infinite-scroll/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-input-file": ["libs/front-core-lib/src/lib/fl-input-file/index.ts"],
+      "@monorepo/front-core-lib/fl-input-search": ["libs/front-core-lib/src/lib/fl-input-search/index.ts"],
+      "@monorepo/front-core-lib/fl-json-editor": ["libs/front-core-lib/src/lib/fl-json-editor/index.ts"],
+      "@monorepo/front-core-lib/fl-key-value": ["libs/front-core-lib/src/lib/fl-key-value/index.ts"],
+      "@monorepo/front-core-lib/fl-loader": ["libs/front-core-lib/src/lib/fl-loader/index.ts"],
+      "@monorepo/front-core-lib/fl-menu-dynamic": ["libs/front-core-lib/src/lib/fl-menu-dynamic/index.ts"],
+      "@monorepo/front-core-lib/fl-plotly": ["libs/front-core-lib/src/lib/fl-plotly/index.ts"],
+      "@monorepo/front-core-lib/fl-portal": ["libs/front-core-lib/src/lib/fl-portal/index.ts"],
+      "@monorepo/front-core-lib/fl-portal-actions": [
+        "libs/front-core-lib/src/lib/fl-portal-actions/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-radio-button-big": [
+        "libs/front-core-lib/src/lib/fl-radio-button-big/index.ts"
+      ],
+      "@monorepo/front-core-lib/fl-resize": ["libs/front-core-lib/src/lib/fl-resize/index.ts"],
+      "@monorepo/front-core-lib/fl-search": ["libs/front-core-lib/src/lib/fl-search/index.ts"],
+      "@monorepo/front-core-lib/fl-section": ["libs/front-core-lib/src/lib/fl-section/index.ts"],
+      "@monorepo/front-core-lib/fl-snack-bar": ["libs/front-core-lib/src/lib/fl-snack-bar/index.ts"],
+      "@monorepo/front-core-lib/fl-status": ["libs/front-core-lib/src/lib/fl-status/index.ts"],
+      "@monorepo/front-core-lib/fl-svg-icon": ["libs/front-core-lib/src/lib/fl-svg-icon/index.ts"],
+      "@monorepo/front-core-lib/fl-tag": ["libs/front-core-lib/src/lib/fl-tag/index.ts"],
+      "@monorepo/front-core-lib/fl-text-icon": ["libs/front-core-lib/src/lib/fl-text-icon/index.ts"],
+      "@monorepo/front-core-lib/fl-theme": ["libs/front-core-lib/src/lib/fl-theme/index.ts"],
+      "@monorepo/front-core-lib/fl-translate": ["libs/front-core-lib/src/lib/fl-translate/index.ts"],
+      "@monorepo/front-core-lib/fl-user": ["libs/front-core-lib/src/lib/fl-user/index.ts"],
       "@monorepo/lab-manager-lib": ["libs/lab-manager-lib/src/index.ts"],
       "@monorepo/mail": ["libs/mail/src/index.ts"],
       "@monorepo/protocol": ["libs/protocol/src/index.ts"],

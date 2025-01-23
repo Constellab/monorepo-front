@@ -29,13 +29,12 @@ import { SpCellsRange } from '../../model/selection/sp-cells-range.class';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { SpCellCoord } from '../../model/sp-cell-coord.class';
 import { SpSpreadsheetCellInfoComponent } from '../sp-spreadsheet-cell-info/sp-spreadsheet-cell-info.component';
-import {
-  FlKeyboardHelper,
-  FlKeyboardKey,
-  FlOverlayRef,
-  FlPortalConnectedPosition,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 
 @Component({
   selector: 'sp-spreadsheet-cell',

@@ -1,20 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
 import { Observable } from 'rxjs';
 import { LabBrickMigration } from '../../../../lab-core/model/entities/lab-brick.entity';
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { ClVersion } from '@monorepo/core-lib';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -26,7 +25,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-brick-call-migration-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,

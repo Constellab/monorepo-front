@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabCodelabInfoComponent } from '../ca-lab-codelab-info/ca-lab-codelab-info.component';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
@@ -18,14 +18,14 @@ import {
   CaLabDesktopConfigureDialogComponent,
   CaLabDesktopConfigureDialogInput,
 } from '../../desktop/ca-lab-desktop-configure-dialog/ca-lab-desktop-configure-dialog.component';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaCityComponent } from '../../../../ca-core/entity-module/ca-config-core/component/ca-city/ca-city.component';
 import { CaLabCurrentTaskComponent } from '../ca-lab-current-task/ca-lab-current-task.component';

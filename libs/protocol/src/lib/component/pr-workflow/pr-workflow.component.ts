@@ -2,11 +2,11 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { PrWorkflowManagerState } from '../../state/pr-workflow-manager-state';
 import { PrWorkflow, PrWorkflowMode } from '../../model/workflow/pr-workflow.class';
@@ -16,7 +16,7 @@ import {
   PrWorkflowActionEvent,
   PrWorkflowActionShowIOFace,
 } from '../../model/workflow/pr-workflow-action-event.class';
-import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
+import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import {
   PrIoFaceConnectedNodeDatasource,
   PrIofaceInfoPortalComponent,

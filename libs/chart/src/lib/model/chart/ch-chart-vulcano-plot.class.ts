@@ -15,7 +15,7 @@ import { ChChartColorFunction, chChartTransparentColorOpacity } from '../scale/c
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
 import { ChChart2dDatum } from '../data/ch-chart-data.class';
 import { ChChartRendererScatterPlot } from '../../renderer/ch-chart-renderer-scatter.plot';
-import { FlColorHelper } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 
 export class ChChartVulcanoPlot extends ChChartLinear2d {
   constructor(

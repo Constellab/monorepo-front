@@ -2,16 +2,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  inject,
   OnDestroy,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BnBioNetworkDrawerState } from '../../state/bn-bio-network-drawer.state';
 import { BnBioNetworkDrawerActionName } from '../../model/bn-bio-network-drawer-action.class';
 import { MatTabGroup } from '@angular/material/tabs';
-import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib';
+import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'bn-bio-network-drawer',

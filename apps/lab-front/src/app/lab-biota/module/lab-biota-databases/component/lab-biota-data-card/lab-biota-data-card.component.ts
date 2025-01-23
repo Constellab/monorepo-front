@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabBiotaData } from '../../../../model/lab-biota-data.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlJsonEditorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-json-editor/fl-json-editor.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

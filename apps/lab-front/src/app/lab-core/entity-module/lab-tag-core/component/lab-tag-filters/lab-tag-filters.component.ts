@@ -1,14 +1,13 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { LabTagKeyModel } from '../../../../model/entities/lab-tag.entity';
-import {
-  FlAddTagEvent,
-  FlAddTagInputComponent,
-  FlDatasourcePaginated,
-  FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
-  FlTag,
-  FlTagDatasource,
-} from '@monorepo/front-core-lib';
+import { FlAddTagEvent } from '@monorepo/front-core-lib/fl-tag';
+import { FlAddTagInputComponent } from '@monorepo/front-core-lib/fl-tag';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { NgControl } from '@angular/forms';
 import { LabRouterService } from '../../../../service/lab-router.service';
@@ -18,15 +17,15 @@ import {
   MatExpansionPanelTitle,
   MatExpansionPanelDescription,
 } from '@angular/material/expansion';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

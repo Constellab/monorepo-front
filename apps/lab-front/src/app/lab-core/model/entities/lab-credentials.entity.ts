@@ -1,5 +1,5 @@
 import { LabBaseEntityWithUser } from './lab-user.entity';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { TdParamSpecs } from '@monorepo/technical-doc';
 import { Expose, Type } from 'class-transformer';
 

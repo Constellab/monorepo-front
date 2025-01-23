@@ -1,12 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CaSpaceService } from './ca-space.service';
 import { CaSpace } from '../model/entities/space/ca-space.class';
 import {
   FlCleanableService,
   FlCleanerService,
-  FlCookieService,
   FlDatasourceGetPageData,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+
 import { BehaviorSubject, filter, firstValueFrom, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaUserDatasourcePaginated } from '../model/entities/ca-user.class';

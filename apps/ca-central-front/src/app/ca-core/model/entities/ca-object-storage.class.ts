@@ -7,7 +7,8 @@ import {
   FlDatasourcePaginated,
   FlDatasourcePaginatedOptions,
   FlEntityPaginatedDatasource,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+
 import { CaLab } from './lab/ca-lab.class';
 
 export class CaBucketCredentials extends CaBaseEntity {

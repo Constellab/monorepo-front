@@ -2,7 +2,8 @@ import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/co
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import { CaTechnicalReport } from '../../../../../ca-core/model/entities/folder/ca-technical-report.class';
-import { FlDialogService, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
   PrProcessInfoDialogComponent,
   PrProcessInfoDialogInput,
@@ -25,10 +26,10 @@ import {
   CaLabConfigDialogInput,
 } from '../../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-config-dialog/ca-lab-config-dialog.component';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatButton } from '@angular/material/button';
 import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
 import { PrProtocolModule } from '../../../../../../../../../libs/protocol/src/lib/pr-protocol.module';

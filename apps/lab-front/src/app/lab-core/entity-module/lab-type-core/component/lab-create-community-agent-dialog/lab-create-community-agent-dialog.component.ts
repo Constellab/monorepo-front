@@ -1,11 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
 import { CoAgentType, CoCreateAgentFormData, CoSpace } from '@monorepo/community-lib';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -1,10 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import { LabVenvArrayObs, LabVenvBasicInfo } from '../../../model/entities/lab-venv.entity';
 import {
   LabVenvDetailDialogComponent,
@@ -23,7 +22,7 @@ import {
   MatRowDef,
   MatRow,
 } from '@angular/material/table';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';

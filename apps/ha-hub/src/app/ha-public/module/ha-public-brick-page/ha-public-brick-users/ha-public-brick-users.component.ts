@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
@@ -14,7 +14,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AsyncPipe } from '@angular/common';
 

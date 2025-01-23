@@ -1,14 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';
@@ -34,7 +33,6 @@ export interface HaAgentEditStyleFormData {
   styleUrl: './ha-agent-edit-style-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     CoCommunityLibModule,

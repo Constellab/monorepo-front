@@ -2,28 +2,27 @@ import { Injector, NgModule, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
 import { TeFormulaComponent } from './component/te-formula/te-formula.component';
-import {
-  FlCodeEditorModule,
-  FlCoreComponentModule,
-  FlCoreDirectiveModule,
-  FlCorePipeModule,
-  FlDateModule,
-  FlDatetimePickerModule,
-  FlDialogModule,
-  FlEmojiPickerModule,
-  FlFormModule,
-  FlFormulaModule,
-  FlImageModule,
-  FlInfiniteScrollModule,
-  FlInputFileModule,
-  FlLoaderModule,
-  FlPortalModule,
-  FlResizeModule,
-  FlTextIconModule,
-  FlTranslateModule,
-  FlTranslateService,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+import { FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDatetimePickerModule } from '@monorepo/front-core-lib/fl-datetime-picker';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEmojiPickerModule } from '@monorepo/front-core-lib/fl-emoji-picker';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlFormulaModule } from '@monorepo/front-core-lib/fl-formula';
+import { FlImageModule } from '@monorepo/front-core-lib/fl-image';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { TeTitleCaptionComponent } from './component/te-title-caption/te-title-caption.component';
 import { teTextEditorI18n } from './te-text-editor.i18n';
 import { MatDialogModule } from '@angular/material/dialog';

@@ -1,16 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FlSearchState } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { FlSearchModule, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { CaActivityEntityType, CaActivityType } from '../../../../model/entities/ca-activity.class';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

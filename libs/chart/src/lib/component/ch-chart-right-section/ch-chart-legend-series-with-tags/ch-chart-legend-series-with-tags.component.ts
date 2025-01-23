@@ -3,7 +3,7 @@ import { ChChartSerieSimple } from '../../../model/data/ch-chart-serie.class';
 import { ChChartRightSectionDirective } from '../ch-chart-right-section.directive';
 import { Observable } from 'rxjs';
 import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
-import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib';
+import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
 
 export interface ChChartLegendSerieWithTagsInput {
   series: ChChartSerieSimple[];
@@ -16,10 +16,10 @@ export interface ChChartLegendSerieWithTagsInput {
  * to change chart color
  */
 @Component({
-    selector: 'ch-chart-legend-series-with-tags',
-    templateUrl: './ch-chart-legend-series-with-tags.component.html',
-    styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
-    standalone: false
+  selector: 'ch-chart-legend-series-with-tags',
+  templateUrl: './ch-chart-legend-series-with-tags.component.html',
+  styleUrls: ['./ch-chart-legend-series-with-tags.component.scss'],
+  standalone: false,
 })
 export class ChChartLegendSeriesWithTagsComponent
   extends ChChartRightSectionDirective<ChChartLegendSerieWithTagsInput>

@@ -1,12 +1,11 @@
 import { Component, ContentChild, Input, TemplateRef, inject } from '@angular/core';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTableColumnStatic,
-  FlViewContext,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlViewContext } from '@monorepo/front-core-lib/fl-core';
+
 import { ClUserStatus } from '@monorepo/core-lib';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
 import {
@@ -26,10 +25,10 @@ import {
   MatRow,
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';

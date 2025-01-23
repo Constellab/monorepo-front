@@ -1,5 +1,7 @@
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { FlLangTranslation, FlTranslateObject, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlLangTranslation } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { I18nConfig } from '@editorjs/editorjs';
 
 /* eslint-disable max-len */

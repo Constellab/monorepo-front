@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabStatusDialogComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-status-dialog/ca-lab-status-dialog.component';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import {

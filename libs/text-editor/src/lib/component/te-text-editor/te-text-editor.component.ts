@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { TeConfig } from '../../model/te-config.class';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { NgControl } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { TeEvent } from '../../model/te-event.class';

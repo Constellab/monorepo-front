@@ -1,4 +1,5 @@
-import { FlEntity, FlUser } from '@monorepo/front-core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';

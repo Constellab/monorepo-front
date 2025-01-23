@@ -1,21 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
 import { CaCloudProviderRegion } from '../../../ca-core/model/entities/ca-cloud-provider.class';
-import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
 import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CaSelectCloudProviderOptionsComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-select-cloud-provider-options/ca-select-cloud-provider-options.component';
 import { CaSelectOptionsCityComponent } from '../../../ca-core/entity-module/ca-config-core/component/ca-select-city-options/ca-select-options-city.component';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaCloudProviderRegionFormDialogInput = FlFormDialogInput<CaCloudProviderRegion>;

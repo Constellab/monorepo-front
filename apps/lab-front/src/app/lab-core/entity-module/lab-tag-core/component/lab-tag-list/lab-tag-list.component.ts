@@ -1,5 +1,8 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { FlCorePipeModule, FlDialogService, FlPortalService, FlTagModule } from '@monorepo/front-core-lib';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import { LabManageEntityTagsDialogInput } from '../lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';

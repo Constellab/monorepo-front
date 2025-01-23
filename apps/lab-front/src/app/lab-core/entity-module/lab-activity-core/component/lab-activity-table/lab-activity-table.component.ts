@@ -5,24 +5,24 @@ import {
   LabActivity,
   LabActivityDatasource,
 } from '../../../../model/entities/lab-activity.entity';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LabEntityType } from '../../../../model/entities/lab-navigable-entity.entity';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
@@ -35,7 +35,6 @@ import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/l
   styleUrls: ['./lab-activity-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

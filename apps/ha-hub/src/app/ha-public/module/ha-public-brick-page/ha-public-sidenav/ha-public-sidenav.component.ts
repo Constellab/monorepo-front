@@ -1,13 +1,13 @@
 import {
   ChangeDetectorRef,
   Component,
+  inject,
   makeStateKey,
   OnInit,
   PLATFORM_ID,
   Signal,
   StateKey,
   TransferState,
-  inject,
 } from '@angular/core';
 import {
   HaMateTreeFlatDataSource,
@@ -17,10 +17,10 @@ import {
 } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import {
-  MatTreeFlattener,
   MatTree,
-  MatTreeNodeDef,
+  MatTreeFlattener,
   MatTreeNode,
+  MatTreeNodeDef,
   MatTreeNodeToggle,
 } from '@angular/material/tree';
 import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
@@ -30,24 +30,24 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlFormDialogInput,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-  FlOverlayRef,
-  FlPortalActionsService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import { HaPublicSidenavCreateFormDialogComponent } from '../ha-public-sidenav-create-form-dialog/ha-public-sidenav-create-form-dialog.component';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { CdkDragDrop, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList } from '@angular/cdk/drag-drop';
 import { SelectionModel } from '@angular/cdk/collections';
 import { filter, Observable, of, startWith, tap } from 'rxjs';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
-import { isPlatformBrowser, isPlatformServer, NgClass, NgStyle, AsyncPipe } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, isPlatformServer, NgClass, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { toObservable } from '@angular/core/rxjs-interop';

@@ -6,12 +6,11 @@ import {
   PrWorkflowNodeMenuConfig,
   PrWorkflowPort,
 } from '@monorepo/protocol';
-import {
-  FlDialogService,
-  FlMenuDynamicButton,
-  FlSavedSearch,
-  flThemeDetailLight,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabResourceDetailDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import {
   LabSelectTypeDialogComponent,

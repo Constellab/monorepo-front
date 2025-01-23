@@ -3,27 +3,33 @@ import { CaSpaceStorage } from '../../../../ca-core/model/entities/space/ca-spac
 import { ThemePalette } from '@angular/material/core';
 import { Observable, of, share } from 'rxjs';
 import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaSpaceStorageFormDialogComponent,
   CaSpaceStorageFormDialogInput,
 } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-storage-form-dialog/ca-space-storage-form-dialog.component';
-import { CaCurrentSpaceStorageDetailComponent } from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
+import {
+  CaCurrentSpaceStorageDetailComponent,
+} from '../ca-current-space-storage-detail/ca-current-space-storage-detail.component';
 import {
   CaCurrentSpaceUpdateStorageDialogComponent,
   CaStorageLimitUpdateDialogInput,
 } from '../ca-current-space-update-storage-dialog/ca-current-space-update-storage-dialog.component';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CaIsAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import {
+  CaIsAdminDirective,
+} from '../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { MatButton } from '@angular/material/button';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { NgClass, AsyncPipe, DecimalPipe } from '@angular/common';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { CaBucketLocationInlineComponent } from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { AsyncPipe, DecimalPipe, NgClass } from '@angular/common';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import {
+  CaBucketLocationInlineComponent,
+} from '../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

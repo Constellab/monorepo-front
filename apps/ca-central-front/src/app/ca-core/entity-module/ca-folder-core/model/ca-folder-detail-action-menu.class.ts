@@ -1,5 +1,7 @@
 import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
-import { FlArrayObs, FlDialogService, FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
 import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 import { CaRouterService } from '../../../service/ca-router.service';

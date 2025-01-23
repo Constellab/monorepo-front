@@ -3,7 +3,7 @@ import { ChChartScaleI } from './ch-chart-scale.class';
 import { ScaleLinear } from 'd3-scale';
 import { ChChartMultiSerie } from '../data/ch-chart-multi-serie.class';
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
-import { FlColorHelper } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 
 export type ChChartColorFunction<T = any> = (d: T) => string;
 export const chChartTransparentColorOpacity = 0.8;

@@ -1,4 +1,4 @@
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Complete Structured data of a pathway

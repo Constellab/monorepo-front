@@ -1,7 +1,8 @@
-import { FlApiService, FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TeRichText } from '@monorepo/text-editor';
 import {
   HaAbstractComment,

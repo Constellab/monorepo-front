@@ -4,7 +4,7 @@ import { BnBioNetworkNode } from './bn-bio-network-node.class';
 import { BnBioNetworkNodeCofactor } from './bn-bio-network-node-cofactor.class';
 import { BnBioNetworkNodeReaction } from './bn-bio-network-node-reaction.class';
 import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
-import { FlCoord, FlCoordHelper } from '@monorepo/front-core-lib';
+import { FlCoord, FlCoordHelper } from '@monorepo/front-core-lib/fl-core';
 
 // const lineFunction = line<FlCoord>().x(d => d.x).y(d => d.y);
 // const lineFunction = line<FlCoord>().x(d => d.x).y(d => d.y).curve(curveStep);

@@ -1,13 +1,15 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { LabScenarioTableComponent } from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import {
+  LabScenarioTableComponent,
+} from '../../../lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

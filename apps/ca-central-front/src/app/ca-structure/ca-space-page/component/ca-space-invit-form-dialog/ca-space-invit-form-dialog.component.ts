@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
   CaSpaceInvit,
   CaSpaceInvitCreateDTO,
@@ -9,7 +9,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CaSpaceType } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaSpaceRole } from '../../../../ca-core/model/entities/space/ca-space-user.class';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -17,8 +17,8 @@ import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaSpaceInvitFormDialogInput {

@@ -3,7 +3,7 @@ import { SpSpreadsheetSelectionState } from './sp-spreadsheet-selection.state';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
 import { SpCellCoord } from '../model/sp-cell-coord.class';
-import { FlClipboardService } from '@monorepo/front-core-lib';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 /**
  * Unique state shared across the spreadsheet to handle clipboard

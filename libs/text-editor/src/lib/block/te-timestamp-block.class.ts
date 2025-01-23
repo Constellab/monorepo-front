@@ -1,4 +1,4 @@
-import { ClDateFormatKey } from '@monorepo/front-core-lib';
+import { ClDateFormatKey } from '@monorepo/front-core-lib/fl-date';
 import { TeComponentBlock } from './te-component-block.class';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { TeHelper } from '../model/te.helper';

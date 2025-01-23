@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
 import { HaStoryService } from '../../../../ha-core/ha-service/ha-story.service';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaStoryResourceViewInputDialogInputData {

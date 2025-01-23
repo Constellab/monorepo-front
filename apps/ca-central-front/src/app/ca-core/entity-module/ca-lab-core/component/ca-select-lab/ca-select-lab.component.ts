@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
   FlInputSearchFilter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaLab, CaLabDatasource } from '../../../../model/entities/lab/ca-lab.class';
 import { map } from 'rxjs/operators';
 import { CaLabSearchFields } from '../../model/ca-lab-search.class';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';

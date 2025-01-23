@@ -1,13 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { map } from 'rxjs/operators';
 import { CaLabStatusDTO } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { LmlDockerProgress, LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { RouterLink } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AsyncPipe } from '@angular/common';

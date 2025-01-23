@@ -3,7 +3,7 @@ import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeHelper } from '../model/te.helper';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlKeyboardKey } from '@monorepo/front-core-lib';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { TeBlockListType } from '../model/lib';
 
 /**

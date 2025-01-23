@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy, OnInit, output, inject } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CoIcon, CoIconDatasourceFilters, CoIconDatasourcePaginated } from '../../model/co-icon.class';
 import { FormControl } from '@angular/forms';
 import { CoIconService } from '../../service/co-icon.service';
-import { FlInfiniteScrollMode } from '@monorepo/front-core-lib';
+import { FlInfiniteScrollMode } from '@monorepo/front-core-lib/fl-infinite-scroll';
 
 @Component({
   selector: 'co-icon-list',

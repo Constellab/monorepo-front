@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { LabLogCompleteInfo } from '../../../model/entities/lab-log.entity';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { LabLogLinesComponent } from '../lab-log-lines/lab-log-lines.component';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

@@ -9,7 +9,7 @@ import {
   rowIdAttributeName,
 } from '../model/sp-cell.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { FlHtmlHelper } from '@monorepo/front-core-lib';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
 
 export type SpSheetMouseEventCell = CellEvent | HeaderCellEvent;
 

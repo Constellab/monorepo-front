@@ -1,11 +1,10 @@
-import {
-  FlHtmlHelper,
-  FlKeyboardKey,
-  FlOverlayRef,
-  FlPortalAbsolutePosition,
-  flRootInjector,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalAbsolutePosition } from '@monorepo/front-core-lib/fl-portal';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ClHelpService } from '@monorepo/core-lib';
 import { SanitizerConfig } from '@editorjs/editorjs/types/configs';
@@ -293,7 +292,7 @@ export class TeHelper {
   /**
    * Get the redactor element
    */
-  public static getRedactorElement(): HTMLElement{
+  public static getRedactorElement(): HTMLElement {
     return document.querySelector('.codex-editor__redactor');
   }
 }

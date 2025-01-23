@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { RvViewConfig } from '@monorepo/resource-view';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
-import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabViewConfigFavoriteComponent } from '../../../lab-view-config-core/component/lab-view-config-favorite/lab-view-config-favorite.component';
 import { RvResourceViewModule } from '../../../../../../../../../libs/resource-view/src/lib/rv-resource-view.module';
 import { LabViewConfigActionsMenuComponent } from '../../../lab-view-config-core/component/lab-view-config-actions-menu/lab-view-config-actions-menu.component';

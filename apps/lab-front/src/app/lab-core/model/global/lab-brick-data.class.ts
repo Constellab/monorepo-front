@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 
 export class LabBrickData {
   @Expose({ name: 'brick_name' })

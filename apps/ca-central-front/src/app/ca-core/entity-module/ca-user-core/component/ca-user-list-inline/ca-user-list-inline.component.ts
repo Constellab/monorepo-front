@@ -12,19 +12,18 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
-import {
-  FlFormFieldDirective,
-  FlOverlayRef,
-  FlPortalConnectedPosition,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import { NgControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 
 interface UserList {
   previewUsers: CaUserSelection[];

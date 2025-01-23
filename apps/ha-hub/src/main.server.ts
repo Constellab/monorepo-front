@@ -3,7 +3,8 @@ import { provideServerRendering } from '@angular/platform-server';
 import { haAppConfig } from './app/ha-app.config';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { HaAppComponent } from './app/ha-app.component';
-import { FL_TRANSLATE_MODULE_CONFIG, FlTranslateModuleConfig } from '@monorepo/front-core-lib';
+import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
 import { TranslateServerLoader } from './app/ha-translation-server-loader';
 import { TranslateLoader } from '@ngx-translate/core';
 

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlUser } from '@monorepo/front-core-lib';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorHistoryModificationGroup } from '../../model/te-modifications-group.class';
 import { TeRichTextBlockModificationWithUser } from '../../model/lib';
 

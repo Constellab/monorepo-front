@@ -1,17 +1,16 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
 import { Observable } from 'rxjs';
-import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { CaSelectGroupComponent } from '../ca-select-group/ca-select-group.component';
 import { MatError } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaGroupShareDialogInput {
@@ -28,7 +27,6 @@ export interface CaGroupShareDialogInput {
   styleUrls: ['./ca-group-share-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,

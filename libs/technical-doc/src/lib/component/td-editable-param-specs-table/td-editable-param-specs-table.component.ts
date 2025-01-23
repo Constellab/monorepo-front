@@ -1,5 +1,7 @@
 import { Component, inject, Input, output } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ClHelpService, ClStringHelper } from '@monorepo/core-lib';
 import { TdParamSpecBase } from '../../model/td-config-spec.class';

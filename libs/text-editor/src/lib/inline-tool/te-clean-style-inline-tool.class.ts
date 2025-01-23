@@ -1,6 +1,7 @@
 import { InlineTool, SanitizerConfig } from '@editorjs/editorjs';
 import { InlineToolConstructorOptions } from '@editorjs/editorjs/types/tools/inline-tool';
-import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TeHelper } from '../model/te.helper';
 
 export class TeCleanStyleInlineTool implements InlineTool {

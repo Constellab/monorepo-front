@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiWithCacheService } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClPageI } from '@monorepo/core-lib';

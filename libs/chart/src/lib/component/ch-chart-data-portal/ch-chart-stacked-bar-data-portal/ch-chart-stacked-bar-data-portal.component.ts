@@ -3,7 +3,7 @@ import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartScaleColor } from '../../../model/scale/ch-chart-scale-color.class';
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 export interface ChChartStackedBarDataPortalInput {
   data: ChChartDataWithSerie<ChChart2dDatum>[];

@@ -1,16 +1,18 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
-import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   LabViewConfig,
   LabViewConfigDatasource,
 } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { LabViewConfigTableComponent } from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import {
+  LabViewConfigTableComponent,
+} from '../../../lab-view-config-core/component/lab-view-config-table/lab-view-config-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

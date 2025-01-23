@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaCountry } from '../../../../model/entities/ca-country.entity';
 import { CaCountryService } from '../../../../service-api/ca-country.service';
 import { MatSelect } from '@angular/material/select';

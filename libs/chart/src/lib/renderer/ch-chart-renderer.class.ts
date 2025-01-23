@@ -1,7 +1,7 @@
 import { Selection } from 'd3-selection';
 import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
 import { ChChartAxis } from '../model/drawer/ch-chart-axis.class';
-import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib';
+import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Object needed by the renderer to renderer the chart

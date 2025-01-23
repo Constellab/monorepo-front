@@ -1,12 +1,10 @@
 import { Component, inject, Injector, OnInit, signal } from '@angular/core';
 import { DC_APP_DATA } from '../dc-text-editor.config-app';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
-import {
-  flSetRootInjector,
-  FlThemeService,
-  FlTranslateModule,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { flSetRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
@@ -48,7 +46,6 @@ export class DcTextEditorComponent implements OnInit {
     Streamlit.setComponentValue(value.toJson());
     return of(value.toJson());
   };
-
 
   constructor() {
     const injector = inject(Injector);

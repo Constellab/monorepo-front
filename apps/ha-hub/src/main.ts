@@ -1,11 +1,10 @@
 import { ApplicationConfig, enableProdMode, mergeApplicationConfig } from '@angular/core';
 import { environment } from './environments/ha-environment';
-import {
-  FL_TRANSLATE_MODULE_CONFIG,
-  flLoadEnvironmentFromAssets,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-} from '@monorepo/front-core-lib';
+import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslationLoader } from '@monorepo/front-core-lib/fl-translate';
+
 import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
 import { HaAppComponent } from './app/ha-app.component';
 import { bootstrapApplication } from '@angular/platform-browser';

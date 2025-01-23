@@ -1,12 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabNote, LabNoteDatasource } from '../../../../model/entities/lab-note.entity';
-import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LabNoteService } from '../../../../entity-service/lab-note.service';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabNoteTableComponent } from '../../../lab-note-core/component/lab-note-table/lab-note-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

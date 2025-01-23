@@ -9,7 +9,7 @@ import {
   Signal,
 } from '@angular/core';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib';
+import { FlCookieService, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClHelpService, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import { isPlatformBrowser } from '@angular/common';

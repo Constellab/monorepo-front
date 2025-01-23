@@ -10,25 +10,22 @@ import {
 import { haAppRoutes } from './ha-app-routes';
 import {
   FL_CAPTCHA_MODULE_CONFIG,
-  FlApiModule,
-  FlAuthModule,
   FlCaptchaModule,
   FlCaptchaModuleConfig,
-  FlDialogModule,
-  FlHttpInterceptorService,
-  FlIconModule,
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  FlPortalActionsModule,
-  FlPortalModule,
-  flSetRootInjector,
-  FlSnackBarModule,
-  FlThemeService,
-  flTooltipConfig,
-  FlTranslateModule,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-captcha';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlLuxonDateAdapter, flLuxonDateFormat } from '@monorepo/front-core-lib/fl-core';
+import { flMatFormFieldConfig, flSetRootInjector, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { HaUserConfig } from './ha-core/ha-model/ha-config/ha-user-config.config';
 import { HaApiServiceConfig } from './ha-core/ha-model/ha-config/ha-api-module.config';
 import { HaApiErrorService } from './ha-core/ha-model/ha-config/ha-api-error.service';

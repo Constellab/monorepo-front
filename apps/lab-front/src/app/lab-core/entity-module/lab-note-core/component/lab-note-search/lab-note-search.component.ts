@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlSavedSearch,
-  FlSearchConfig,
-  FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabNoteSearch, LabNoteSearchFields } from '../../model/lab-note-search.class';
 import { LabNote, LabNoteDatasource } from '../../../../model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../entity-service/lab-note.service';
@@ -18,11 +17,11 @@ import {
   LabSelectNoteTemplateDialogComponent,
   LabSelectNoteTemplateDialogInput,
 } from '../../../lab-note-template-core/component/lab-select-note-template-dialog/lab-select-note-template-dialog.component';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LabNoteSearchFormComponent } from '../lab-note-search-form/lab-note-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabNoteTableComponent } from '../lab-note-table/lab-note-table.component';

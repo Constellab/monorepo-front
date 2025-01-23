@@ -4,17 +4,17 @@ import { DateTime } from 'luxon';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabFolderInlineSelectComponent } from '../../../lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
 import { MatError, MatFormField, MatLabel, MatSuffix, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabShareResourceWithSpaceDialogInput {

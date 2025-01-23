@@ -1,11 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlInputSearchFilter,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPageI } from '@monorepo/core-lib';
 import {

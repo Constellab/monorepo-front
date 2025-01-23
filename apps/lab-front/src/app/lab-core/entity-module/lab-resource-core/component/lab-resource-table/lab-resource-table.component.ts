@@ -10,16 +10,18 @@ import {
 import {
   FlArrayObs,
   FlArrayObsStatus,
-  FlDialogService,
   FlEntityArrayObs,
   FlTableColumnStatic,
-  FlTag,
-  FlTagSelectedEvent,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTag, FlTagSelectedEvent } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import { LabResourceDetailDialogComponent } from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
+import {
+  LabResourceDetailDialogComponent,
+} from '../lab-resource-detail-dialog/lab-resource-detail-dialog.component';
 import { Observable } from 'rxjs';
 import {
   MatCell,
@@ -34,25 +36,31 @@ import {
   MatTable,
 } from '@angular/material/table';
 import { MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
 import { MatAnchor, MatIconButton } from '@angular/material/button';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import {
+  TdTechnicalDocModule,
+} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { LabFlagButtonComponent } from '../../../lab-entity-core/component/lab-flag-button/lab-flag-button.component';
-import { LabResourceActionsMenuComponent } from '../lab-resource-actions-menu/lab-resource-actions-menu.component';
+import {
+  LabFlagButtonComponent,
+} from '../../../lab-entity-core/component/lab-flag-button/lab-flag-button.component';
+import {
+  LabResourceActionsMenuComponent,
+} from '../lab-resource-actions-menu/lab-resource-actions-menu.component';
 
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-tags.pipe';
 

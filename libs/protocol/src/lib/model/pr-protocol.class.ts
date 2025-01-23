@@ -1,4 +1,4 @@
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { PrOI } from './pr-io.class';
 import { PrProcessStatus } from './pr-process.class';
 import { PrConfig } from './pr-config.class';

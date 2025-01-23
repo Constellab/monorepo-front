@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
-import { LabBrickCallMigrationDialogComponent } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  LabBrickCallMigrationDialogComponent,
+} from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
 import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { LabBrickMessageListComponent } from '../lab-brick-message-list/lab-brick-message-list.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

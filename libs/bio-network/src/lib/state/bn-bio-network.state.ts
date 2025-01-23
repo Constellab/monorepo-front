@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   BnBioNetwork,
   BnBioNetworkClusterSelection,
@@ -11,7 +11,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { BnBioNetworkHelper } from '../utils/bn-bio-network.helper';
 import { debounceTime, map } from 'rxjs/operators';
 import { BnBioNetworkEngineState } from './bn-bio-network-engine.state';
-import { FlColorHelper, FlFileHelper, FlThemeService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 
 /**

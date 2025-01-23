@@ -8,7 +8,9 @@ import { SpSheetRow } from '../model/sp-sheet-headers.class';
 import { SpSpreadsheetElementState } from './sp-spreadsheet-element.state';
 import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetPaginationState } from './sp-spreadsheet-pagination.state';
-import { FlHtmlHelper, FlRendererListenerObs, flRxjsEnterNgZone } from '@monorepo/front-core-lib';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlRendererListenerObs } from '@monorepo/front-core-lib/fl-core';
+import { flRxjsEnterNgZone } from '@monorepo/front-core-lib/fl-core';
 
 export interface Interval {
   from: number;

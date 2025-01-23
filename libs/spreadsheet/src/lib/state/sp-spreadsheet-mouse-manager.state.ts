@@ -6,7 +6,8 @@ import { SpSpreadsheetContextMenu } from './sp-spreadsheet-context-menu.state';
 import { SpSpreadsheetScrollState } from './sp-spreadsheet-scroll.state';
 import { SpCellCoord } from '../model/sp-cell-coord.class';
 import { SpSheetMouseEventCell, SpSpreadsheetElementState } from './sp-spreadsheet-element.state';
-import { FlCoord, FlMouseButton } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Unique state shared across the spreadsheet to handle spreadsheet mouse events

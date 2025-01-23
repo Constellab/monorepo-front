@@ -7,15 +7,14 @@ import {
   OnInit,
   Renderer2,
 } from '@angular/core';
-import {
-  FL_PORTAL_DATA,
-  FlEntityPaginatedDatasource,
-  FlKeyboardHelper,
-  FlKeyboardKey,
-  FlOverlayRef,
-  FlUser,
-  FlUserDatasource,
-} from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
+import { FlUserDatasource } from '@monorepo/front-core-lib/fl-user';
+
 import { ClHelpService } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
 import { TeMentionConfig, TeMentionSearchFilter } from '../../plugin/te-mention.class';

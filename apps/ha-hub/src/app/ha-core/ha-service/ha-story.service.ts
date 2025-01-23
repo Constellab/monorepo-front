@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   HaCreateStoryDto,
   HaListStoryDto,

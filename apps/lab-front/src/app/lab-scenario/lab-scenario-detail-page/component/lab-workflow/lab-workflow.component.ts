@@ -4,12 +4,12 @@ import { Observable, of } from 'rxjs';
 import { PrWorkflow, PrWorkflowMode } from '@monorepo/protocol';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowNodeMenuConfig } from '../../model/lab-workflow-node-menu.config';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { first } from 'rxjs/operators';
 import { PrProtocolModule } from '../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
 import { LabWorkflowActionsComponent } from '../lab-workflow-actions/lab-workflow-actions.component';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { LabBrickMessage } from '../../../../lab-core/model/entities/lab-brick.entity';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { MatDivider } from '@angular/material/divider';
 import { TranslatePipe } from '@ngx-translate/core';
 

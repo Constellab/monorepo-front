@@ -1,11 +1,12 @@
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
-  FlFormInputsManagerConfig,
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-  FlTag,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LabSearchConverter } from '../../../model/global/lab-search-converter.class';
 import { Type } from 'class-transformer';

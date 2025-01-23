@@ -1,7 +1,9 @@
 import Header from '@editorjs/header';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlClipboardService, flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeHelper } from '../model/te.helper';

@@ -9,8 +9,9 @@ import {
   flLuxonDateFormat,
   flMatFormFieldConfig,
   flTooltipConfig,
-  FlTranslateModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';

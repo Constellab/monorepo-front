@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
+import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LabPipPackage, LabSystemConfig, LabSystemInfo } from '../model/global/lab-system.class';

@@ -7,7 +7,8 @@ import {
   ClUserStatus,
 } from '@monorepo/core-lib';
 import { CaEntity } from './ca-entity.entity';
-import { FlDatasourcePaginated, FlUser } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 
 export enum CaUserLicense {
   FREE = 'FREE',

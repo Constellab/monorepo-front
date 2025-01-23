@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { LabShareLink, LabShareLinkType } from '../../../../model/entities/lab-share.entity';
 import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel, MatSuffix, MatHint } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabShareLinkFormDialogInput extends FlFormDialogInput<LabShareLink> {

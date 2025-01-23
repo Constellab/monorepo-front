@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
 import { CoBrickVersionPath, CoCommunityHelperService, CoSpace } from '@monorepo/community-lib';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +43,6 @@ export class LmsLabManagerBrickService extends LmlBrickService {
   getBrickVersion(brickName: string, brickVersion: string): Observable<LmlBrickVersion> {
     return this.apiService.get(`${this.route}/${brickName}/version/${brickVersion}`, LmlBrickVersion);
   }
-
 
   getImageUrl(filename: string): string {
     return `${this.communityService.getCommunityApiUrl()}/image/${filename}`;

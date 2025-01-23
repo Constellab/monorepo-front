@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { LabSharedEntity } from '../../../../model/entities/lab-share.entity';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

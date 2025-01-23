@@ -1,4 +1,4 @@
-import { FlColorHelper } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { PrPort } from '../pr-io.class';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TdIOSpec } from '@monorepo/technical-doc';

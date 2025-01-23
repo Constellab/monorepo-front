@@ -1,4 +1,4 @@
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { HaEntity } from './ha-entity.class';
 import { HaRepoType, HaVersionType } from './ha-version.class';
 import { HaBrickMajorVersion } from './ha-brick-major-version.class';

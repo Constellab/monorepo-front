@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { RouterLink } from '@angular/router';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { HaPublicEditBrickFormComponent } from '../ha-public-edit-brick-form/ha-public-edit-brick-form.component';
 import { TranslatePipe } from '@ngx-translate/core';

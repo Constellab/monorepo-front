@@ -1,7 +1,7 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { ClLuxonDateTimeTransform, ClLuxonDateTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
 export type CaLabVolumeType = 'CLASSIC' | 'HIGH_SPEED';
 

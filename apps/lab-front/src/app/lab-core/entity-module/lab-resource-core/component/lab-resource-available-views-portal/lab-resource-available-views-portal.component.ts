@@ -3,14 +3,13 @@ import { LabResourceViewSpec } from '../../../../model/entities/resource/lab-res
 import { Observable, of } from 'rxjs';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
-import { FlOverlayRef } from '@monorepo/front-core-lib';
+import { FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import {
   LabViewConfig,
   LabViewConfigDatasource,
 } from '../../../../model/entities/resource/lab-view-config.entity';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { LabResourceViewSpecCardComponent } from '../lab-resource-view-spec-card/lab-resource-view-spec-card.component';
 import { AsyncPipe } from '@angular/common';

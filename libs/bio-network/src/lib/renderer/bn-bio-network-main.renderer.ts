@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { ForceGraphInstance, GraphData } from 'force-graph';
 import { BnBioNetworkGraph } from '../model/bn-bio-network-graph.class';
 import { BnBioNetworkSelectionState } from '../state/bn-bio-network-selection.state';
@@ -14,7 +14,8 @@ import { BnBioNetworkNodesRenderer } from './bn-bio-network-nodes.renderer';
 import { BnBioNetworkLinksRenderer } from './bn-bio-network-links.renderer';
 import { BnBioNetworkGridState } from '../state/bn-bio-network-grid.state';
 import { BnBioNetworkEngineState } from '../state/bn-bio-network-engine.state';
-import { FlCoord, FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeDetail, FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 export interface BnBioNetworkGraphRenderer {
   graph: ForceGraphInstance;

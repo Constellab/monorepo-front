@@ -1,22 +1,21 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
-import {
-  FlArrayObs,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlEntityArrayObs,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import { LabSelectScenarioDialogComponent } from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-select-scenario-dialog/lab-select-scenario-dialog.component';
 import { LabScenario } from '../../../../../lab-core/model/entities/lab-scenario.entity';
 import { Subscription } from 'rxjs';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabScenarioTableComponent } from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';

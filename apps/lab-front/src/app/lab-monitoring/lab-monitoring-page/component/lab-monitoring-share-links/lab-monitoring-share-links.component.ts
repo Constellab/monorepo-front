@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { LabShareLinkService } from '../../../../lab-core/entity-service/lab-share-link.service';
 import { LabShareLink, LabShareLinkDatasource } from '../../../../lab-core/model/entities/lab-share.entity';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabShareLinkTableComponent } from '../../../../lab-core/entity-module/lab-share-core/component/lab-share-link-table/lab-share-link-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

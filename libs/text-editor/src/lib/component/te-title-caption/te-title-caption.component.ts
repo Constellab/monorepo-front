@@ -9,7 +9,7 @@ import {
   inject,
 } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 /**
  * Component inside text editor to show title and caption with possibility to edit them

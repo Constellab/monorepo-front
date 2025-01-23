@@ -2,7 +2,7 @@ import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflo
 import { map, Observable, of } from 'rxjs';
 import { PrProcess } from '../pr-process.class';
 import { TdTypingName } from '@monorepo/technical-doc';
-import { FlThemeService } from '@monorepo/front-core-lib';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 export class PrWorkflowNodeViewer extends PrWorkflowNodeResource<PrProcess> {
   protected initPorts(object: PrProcess): void {

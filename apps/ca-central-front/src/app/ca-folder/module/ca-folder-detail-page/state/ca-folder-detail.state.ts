@@ -1,16 +1,12 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, filter, first, Observable, of, switchMap } from 'rxjs';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { map } from 'rxjs/operators';
-import {
-  FlArrayObs,
-  FlEntityArrayObs,
-  FlEntityPaginatedDatasource,
-  FlSearchConfig,
-  FlSearchState,
-} from '@monorepo/front-core-lib';
+import { FlArrayObs, FlEntityArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+
 import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {

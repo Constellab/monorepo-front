@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 @Injectable({
   providedIn: 'root',

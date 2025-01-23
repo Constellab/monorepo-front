@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { LabBiotaDatabaseSearch } from '../../../model/lab-biota-database.class';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { LabBiotaDatabaseSelectOptionsComponent } from '../lab-biota-database-select-options/lab-biota-database-select-options.component';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

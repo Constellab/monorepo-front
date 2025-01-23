@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { MatSelect } from '@angular/material/select';
 import { CaServerStandardDatasource } from '../../../../model/entities/server/ca-server-standard.class';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatOption } from '@angular/material/core';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 @Component({
   selector: 'ca-select-server-standard-options',

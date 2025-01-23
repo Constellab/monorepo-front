@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { CaCoServiceConfig } from '../model/config/ca-co-service-config.service';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';

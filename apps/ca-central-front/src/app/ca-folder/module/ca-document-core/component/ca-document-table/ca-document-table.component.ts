@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlMenuDynamicService,
-  FlPortalActionsService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import {
   CaDocument,
   CaDocumentDatasource,
@@ -14,22 +13,22 @@ import { CaRouterService } from '../../../../../ca-core/service/ca-router.servic
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../../ca-document-action-menu';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

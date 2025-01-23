@@ -1,4 +1,5 @@
-import { FlIcon, flIconsDefault } from '@monorepo/front-core-lib';
+import { FlIcon } from '@monorepo/front-core-lib/fl-svg-icon';
+import { flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
 
 export const haSvgIcons: FlIcon[] = [
   ...flIconsDefault,

@@ -1,10 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { Observable } from 'rxjs';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
-import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
-import { FlHorizontalNavBarModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
+import {
+  FlHorizontalNavBarItem,
+  FlHorizontalNavBarModule,
+} from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

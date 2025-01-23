@@ -1,6 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { FlDynamicAbstractFormDirective, FlDynamicEditableFormGroupConfig } from '@monorepo/front-core-lib';
+import { FlDynamicAbstractFormDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicEditableFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 
 @Component({

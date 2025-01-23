@@ -1,37 +1,44 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaConstellabDocument,
   CaDocument,
 } from '../../../../../ca-core/model/entities/folder/ca-document.class';
-import {
-  FlDialogService,
-  FlMenuDynamicService,
-  FlPortalActionsService,
-  FlPortalService,
-  FlServerError,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TeRichText } from '@monorepo/text-editor';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaDocumentActionDetailMenu,
   CaDocumentActionEvent,
 } from '../../../ca-document-core/ca-document-action-menu';
 import { Observable, tap } from 'rxjs';
-import { CaConstellabDocumentHistoryService } from '../../../../../ca-core/service/ca-constellab-document-history.service';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import {
+  CaConstellabDocumentHistoryService,
+} from '../../../../../ca-core/service/ca-constellab-document-history.service';
+import {
+  CaHierarchyObjectBreadcrumbComponent,
+} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import {
+  TeTextEditorModule,
+} from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

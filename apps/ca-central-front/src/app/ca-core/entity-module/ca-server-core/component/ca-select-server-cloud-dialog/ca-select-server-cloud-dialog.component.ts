@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
 import { CaServerCloud } from '../../../../model/entities/server/ca-server-cloud.class';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaServerCloudSearchComponent } from '../ca-server-cloud-search/ca-server-cloud-search.component';
 import { TranslatePipe } from '@ngx-translate/core';

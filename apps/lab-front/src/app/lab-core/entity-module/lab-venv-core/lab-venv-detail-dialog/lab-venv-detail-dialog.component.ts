@@ -3,9 +3,9 @@ import { LabVenvService } from '../../../entity-service/lab-venv.service';
 import { Observable } from 'rxjs';
 import { LabVEnvCompleteInfo } from '../../../model/entities/lab-venv.entity';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabVenvCompleteInfoComponent } from '../lab-venv-complete-info/lab-venv-complete-info.component';
 
 export interface LabVenvDetailDialogInput {

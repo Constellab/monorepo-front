@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { MatSelect } from '@angular/material/select';
 import { LabResourceOrigin } from '../../../../model/entities/resource/lab-resource.entity';
 import { MatOption } from '@angular/material/core';

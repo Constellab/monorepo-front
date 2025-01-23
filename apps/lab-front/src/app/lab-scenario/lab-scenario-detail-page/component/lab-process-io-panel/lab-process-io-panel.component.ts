@@ -1,22 +1,24 @@
-import { Component, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState } from '@monorepo/protocol';
 import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { TooltipPosition, MatTooltip } from '@angular/material/tooltip';
+import { MatTooltip, TooltipPosition } from '@angular/material/tooltip';
 import {
   LabDynamicPortConfigDialogComponent,
   LabDynamicPortConfigDialogInput,
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
-import { LabResourceDetailComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
-import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import {
+  LabResourceDetailComponent,
+} from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

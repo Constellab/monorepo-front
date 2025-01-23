@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { Observable } from 'rxjs';
 import {
   CaHierarchyObject,
@@ -9,10 +11,12 @@ import {
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { map } from 'rxjs/operators';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
-import { CaHierarchyObjectTreeComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
+import {
+  CaHierarchyObjectTreeComponent,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { FlQueryParamHandler } from '@monorepo/front-core-lib';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Detail page for the folder objects (folder, scenario, note).

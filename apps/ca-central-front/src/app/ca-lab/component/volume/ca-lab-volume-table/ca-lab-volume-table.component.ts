@@ -3,7 +3,9 @@ import {
   CaLabVolume,
   CaLabVolumeDatasource,
 } from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import {
   MatTable,
@@ -21,7 +23,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'ca-lab-volume-table',

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ChChart3dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 export interface ChChartHeatMapDataPortalInput {
   data: ChChart3dDatum;

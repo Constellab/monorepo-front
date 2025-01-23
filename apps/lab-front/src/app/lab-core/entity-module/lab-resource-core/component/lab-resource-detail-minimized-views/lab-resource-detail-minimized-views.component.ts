@@ -1,9 +1,11 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { LabMinimizedView, LabResourceDetailState } from '../../state/lab-resource-detail.state';
-import { FlMouseButton } from '@monorepo/front-core-lib';
+import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 import { MatRipple } from '@angular/material/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import {
+  TdTechnicalDocModule,
+} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 
 /**
  * Component inside the resource detail to list the minimized views

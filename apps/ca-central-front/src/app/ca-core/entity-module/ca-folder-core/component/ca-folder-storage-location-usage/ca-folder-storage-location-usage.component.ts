@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CaStorageLocationUsageDTO } from '../../../../model/entities/folder/ca-document.class';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

@@ -15,7 +15,7 @@ import { LabResourceViewFolderComponent } from '../../../entity-module/lab-resou
 import { LabResourceRichTextViewComponent } from '../../../entity-module/lab-resource-core/component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
 import { SpSheetChartConfig, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
 import { inject, Injectable, ViewContainerRef } from '@angular/core';
-import { FlPortalService } from '@monorepo/front-core-lib';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LabResourceTableService } from '../../../entity-service/lab-resource-table.service';
 import {
   LabTableChartConfigBarPlot,

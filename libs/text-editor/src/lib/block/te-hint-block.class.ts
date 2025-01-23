@@ -1,6 +1,7 @@
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { flRootInjector, FlTranslateService } from '@monorepo/front-core-lib';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { TeHelper } from '../model/te.helper';
 import { TeMentionInlineTool } from '../plugin/te-mention.class';
 

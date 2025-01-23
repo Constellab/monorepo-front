@@ -8,15 +8,14 @@ import {
 } from '../model/chart/sp-sheet-chart-selection-form.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { Observable, Subscription } from 'rxjs';
-import {
-  FlMenuDynamic,
-  FlOverlayRef,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlPortalConfig,
-  FlPortalService,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 
 interface SelectionWithOverlay {
   selection: SpSheetChartSelectionForm;

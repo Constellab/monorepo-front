@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
+  FlDynamicFieldModule,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
-  FlFormDialogInput,
-  FlFormHelper,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormDialogInput, FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import {
   LabCredentials,
   LabCredentialsDataSpecs,
@@ -15,30 +16,28 @@ import {
   LabSaveCredentialsDTO,
 } from '../../../../model/entities/lab-credentials.entity';
 import { Observable, of } from 'rxjs';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import {
   AbstractControl,
   FormBuilder,
+  ReactiveFormsModule,
   UntypedFormGroup,
   Validators,
-  ReactiveFormsModule,
 } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import { catchError, map } from 'rxjs/operators';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
-import { MatSelectChange, MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatError, MatHint } from '@angular/material/form-field';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatOption } from '@angular/material/core';
-import { FlDynamicFieldModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dynamic-field/fl-dynamic-field.module';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSaveCredentialsDTO> {
@@ -51,7 +50,6 @@ export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSave
   styleUrls: ['./lab-credentials-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

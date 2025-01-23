@@ -1,20 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { TdIOSpec } from '@monorepo/technical-doc';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { PrWorkflowPortType } from '@monorepo/protocol';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabSelectTypeComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-type/lab-select-type.component';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabDynamicPortConfigDialogInput {
@@ -41,7 +40,6 @@ interface LabFormType {
   styleUrls: ['./lab-dynamic-port-config-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FlFormModule,

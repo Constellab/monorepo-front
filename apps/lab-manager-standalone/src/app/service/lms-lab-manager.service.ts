@@ -15,7 +15,8 @@ import {
 } from '@monorepo/lab-manager-lib';
 import { Observable, tap } from 'rxjs';
 import { inject, Injectable, ViewContainerRef } from '@angular/core';
-import { FlDialogService, FlFileHelper } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { LmsConfigureLabManagerDialogComponent } from '../components/lms-configure-lab-manager-dialog/lms-configure-lab-manager-dialog.component';
 import { LmsLabService } from './lms-lab.service';
 import { LmsUpdateLabManagerDialogComponent } from '../components/lms-update-lab-manager-dialog/lms-update-lab-manager-dialog.component';

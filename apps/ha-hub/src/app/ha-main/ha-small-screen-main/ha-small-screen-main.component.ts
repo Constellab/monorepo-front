@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, Signal, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, Signal } from '@angular/core';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlDialogService, FlSnackBarService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
@@ -12,12 +14,12 @@ import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-in
 import { MatFormField, MatPrefix } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { FlUserModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
-import { FlCoreDirectiveModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { HaIsAdminDirective } from '../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { TranslatePipe } from '@ngx-translate/core';
 

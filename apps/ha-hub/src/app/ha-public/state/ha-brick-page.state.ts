@@ -1,5 +1,6 @@
 import {
   computed,
+  inject,
   Injectable,
   makeStateKey,
   PLATFORM_ID,
@@ -8,9 +9,8 @@ import {
   StateKey,
   TransferState,
   WritableSignal,
-  inject,
 } from '@angular/core';
-import { FlStatusEvent } from '@monorepo/front-core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { HaBrick } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';

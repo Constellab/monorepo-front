@@ -1,25 +1,26 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   HaBrickCreationDTO,
   HaBrickVisibility,
 } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { Router } from '@angular/router';
-import { FlGlobalValidators, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaAddVersionInput, HaRepoType } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaSpaceService } from '../../../../ha-core/ha-service/ha-space.service';
 import { HaSpace } from '../../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatDivider } from '@angular/material/divider';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 @Component({
   selector: 'ha-public-edit-brick-form',

@@ -1,10 +1,11 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
@@ -15,22 +16,22 @@ import {
 } from '../ca-admin-cloud-provider-region-form-dialog/ca-admin-cloud-provider-region-form-dialog.component';
 import { CaCloudProviderService } from '../../../ca-core/service-api/ca-cloud-provider.service';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { CaCloudProviderInlineComponent } from '../../../ca-core/entity-module/ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 import { CaCityComponent } from '../../../ca-core/entity-module/ca-config-core/component/ca-city/ca-city.component';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 

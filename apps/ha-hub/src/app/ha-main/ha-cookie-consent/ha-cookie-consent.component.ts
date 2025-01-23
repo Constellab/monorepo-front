@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { FlSnackBarMode, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlSnackBarMode } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';

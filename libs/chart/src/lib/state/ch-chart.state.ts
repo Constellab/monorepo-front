@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ChChartSvg } from '../model/drawer/ch-chart-svg.class';
 import { ChChartContainer, ChChartContainer2Axis } from '../model/drawer/ch-chart-container.class';
 import { ChChartConfig } from '../model/ch-chart-config.class';
 import { ChChartBrush } from '../model/drawer/ch-chart-brush.class';
-import { FlThemeService } from '@monorepo/front-core-lib';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
 @Injectable()
 export class ChChartState {

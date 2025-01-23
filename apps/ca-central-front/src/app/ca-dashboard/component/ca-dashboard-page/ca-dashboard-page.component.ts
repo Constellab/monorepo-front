@@ -1,19 +1,23 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { Observable } from 'rxjs';
 import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
 import { CaUserDatasourcePaginated } from '../../../ca-core/model/entities/ca-user.class';
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
-import { CaUserListInlineComponent } from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import {
+  CaUserListInlineComponent,
+} from '../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 import { CaDashboardFoldersComponent } from '../ca-dashboard-folders/ca-dashboard-folders.component';
 import { CaDashboardLabsComponent } from '../ca-dashboard-labs/ca-dashboard-labs.component';
 import { CaDashboardTeamsComponent } from '../ca-dashboard-teams/ca-dashboard-teams.component';
 import { MatRipple } from '@angular/material/core';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CaDashboardMyActivityComponent } from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
+import {
+  CaDashboardMyActivityComponent,
+} from '../ca-dashboard-my-activity/ca-dashboard-my-activity.component';
 import { CaDashboardVideosComponent } from '../ca-dashboard-videos/ca-dashboard-videos.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

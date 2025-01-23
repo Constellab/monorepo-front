@@ -1,13 +1,10 @@
 import { Component, inject, output } from '@angular/core';
-import {
-  FlCardModule,
-  FlFileHelper,
-  FlInputFileModule,
-  FlSnackBarModule,
-  FlSnackBarService,
-  FlTextIconModule,
-  FlTranslateModule,
-} from '@monorepo/front-core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlFileHelper, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlSnackBarModule, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+
 import { LmsLabService } from '../../service/lms-lab.service';
 import { MatIconModule } from '@angular/material/icon';
 import { lastValueFrom } from 'rxjs';

@@ -3,6 +3,3 @@
 
 // Style to highlight code in text editor
 @use 'highlight.js/styles/monokai-sublime.css';
-
-// include text editor theme
-@include _te-text-editor-dark($theme);

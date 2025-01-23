@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlFormHelper, FlOverlayRef } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import {
   labConvertTransformFormToParams,
   LabTransformerParams,
@@ -11,10 +13,10 @@ import { LabResource } from '../../../../model/entities/resource/lab-resource.en
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabTransformResourceComponent } from '../lab-transform-resource/lab-transform-resource.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
-import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabTransformResourcePortalInput {

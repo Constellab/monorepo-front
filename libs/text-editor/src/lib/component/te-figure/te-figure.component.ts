@@ -11,7 +11,8 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { FlInputFileDirective, FlResizeEvent } from '@monorepo/front-core-lib';
+import { FlInputFileDirective } from '@monorepo/front-core-lib/fl-input-file';
+import { FlResizeEvent } from '@monorepo/front-core-lib/fl-resize';
 import { Observable, of } from 'rxjs';
 import { TeFigureBlockConfig } from '../../block/te-figure-block.class';
 import { ClHelpService } from '@monorepo/core-lib';

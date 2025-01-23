@@ -5,11 +5,12 @@ import {
   CaLabBackupStatusDatasource,
   CaLabBackupStatusDTO,
 } from '../../../../ca-core/model/entities/lab/ca-lab-backup.class';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { CaLabBackupStatusTableComponent } from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import {
+  CaLabBackupStatusTableComponent,
+} from '../ca-lab-backup-status-table/ca-lab-backup-status-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -22,7 +23,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './ca-lab-backups-statuses-admin.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     CaLabBackupStatusTableComponent,

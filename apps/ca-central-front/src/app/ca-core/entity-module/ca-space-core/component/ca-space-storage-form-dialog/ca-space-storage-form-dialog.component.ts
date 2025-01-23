@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import {
   CaSpaceStorage,
   CaSpaceUpdateStorageLocationDTO,
@@ -9,10 +10,10 @@ import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { Observable } from 'rxjs';
 import { CaSpaceStorageFormComponent } from '../ca-space-storage-form/ca-space-storage-form.component';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export type CaSpaceStorageFormDialogInput = FlFormDialogInput<CaSpaceUpdateStorageLocationDTO>;

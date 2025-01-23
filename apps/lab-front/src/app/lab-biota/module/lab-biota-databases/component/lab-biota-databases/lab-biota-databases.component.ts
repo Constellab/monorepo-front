@@ -1,17 +1,17 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabBiotaDatabaseSearch } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { LabBiotaData, LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LabBiotaDataCardDialogComponent } from '../lab-biota-data-card-dialog/lab-biota-data-card-dialog.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabBiotaDatabaseSearchFormComponent } from '../../../lab-biota-core/lab-biota-database-search-form/lab-biota-database-search-form.component';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { LabBiotaDataCardComponent } from '../lab-biota-data-card/lab-biota-data-card.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

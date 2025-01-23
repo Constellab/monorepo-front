@@ -3,7 +3,7 @@ import { mergeMap, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CaGroupService } from '../../../../ca-core/service-api/ca-group.service';
 import { CaGroup } from '../../../../ca-core/model/entities/ca-group.entity';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaTeamDetailComponent } from '../ca-team-detail/ca-team-detail.component';
 
 /**

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   LabProgressBar,
   LabProgressBarMessages,
@@ -8,19 +8,19 @@ import {
 import { mergeMap, Observable, Subscription } from 'rxjs';
 import { filter, first, map } from 'rxjs/operators';
 import { LabProgressBarService } from '../../../../entity-service/lab-progress-bar.service';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabProgressMessageComponent } from '../lab-progress-message/lab-progress-message.component';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 interface LabProgressWithMessage {
   progressBar?: LabProgressBar;

@@ -1,5 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaCreateAgentDto } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,9 +12,8 @@ import {
   HaAgentVersionFileInput,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
-import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
 import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
-import { FlInputFileModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export type HaCreateAgentInput = FlFormDialogInput<HaCreateAgentDto>;

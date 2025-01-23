@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { FlArrayObs, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaScenarioTableComponent } from '../ca-scenario-table/ca-scenario-table.component';
 import { AsyncPipe } from '@angular/common';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface CaScenariosListDialogInput {
   scenarios: FlArrayObs<CaScenario>;

@@ -1,13 +1,14 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaUser, CaUserDatasourcePaginated } from '../model/entities/ca-user.class';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
-  FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { ClPage } from '@monorepo/core-lib';
 import { CaUserSearch, CaUserSearchFields } from '../entity-module/ca-user-core/model/ca-user-search.class';
 

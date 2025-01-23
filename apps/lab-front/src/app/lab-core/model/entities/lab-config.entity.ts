@@ -3,7 +3,8 @@ import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dynamic-field';
+
 import { PrConfigValues } from '@monorepo/protocol';
 import {
   TdConfig,

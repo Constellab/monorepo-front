@@ -1,5 +1,5 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { CaUser } from '../ca-user.class';
 import { Type } from 'class-transformer';
 import { CaSpaceRole } from './ca-space-user.class';

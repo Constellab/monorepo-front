@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { RvTechnicalInfo } from '../../model/rv-technical-info.class';
 import { RvTechnicalInfoDialogComponent } from '../rv-technical-info-dialog/rv-technical-info-dialog.component';
 

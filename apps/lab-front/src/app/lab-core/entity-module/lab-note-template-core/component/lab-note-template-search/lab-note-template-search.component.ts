@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlFormDialogInput,
-  FlSavedSearch,
-  FlSearchConfig,
-  FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   LabNoteTemplate,
   LabNoteTemplateDatasource,
@@ -15,11 +14,11 @@ import { LabNoteTemplateService } from '../../../../entity-service/lab-note-temp
 import { LabNoteTemplateSearch, LabNoteTemplateSearchFields } from '../../lab-note-template-search.class';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabNoteTemplateFormDialogComponent } from '../lab-note-template-form-dialog/lab-note-template-form-dialog.component';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LabNoteTemplateSearchFormComponent } from '../lab-note-template-search-form/lab-note-template-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabNoteTemplateTableComponent } from '../lab-note-template-table/lab-note-template-table.component';

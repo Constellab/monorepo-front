@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FlColorHelper } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
 import { TdTypeEntity } from '../../model/td-type.class';
 
 @Component({

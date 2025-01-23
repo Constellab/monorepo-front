@@ -1,15 +1,14 @@
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
-import {
-  FlDatasourceGetPageData,
-  FlHtmlHelper,
-  FlKeyboardKey,
-  FlOverlayRef,
-  FlPortalService,
-  flRootInjector,
-  FlTranslateService,
-  FlUser,
-} from '@monorepo/front-core-lib';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
+
 import { TeKeyListener } from './te-key-listener.class';
 import {
   TeMentionPortalComponent,

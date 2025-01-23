@@ -2,7 +2,7 @@ import { Component, Input, OnInit, SecurityContext, inject } from '@angular/core
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ClYoutubeHelper } from '@monorepo/core-lib';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';
 
 @Component({

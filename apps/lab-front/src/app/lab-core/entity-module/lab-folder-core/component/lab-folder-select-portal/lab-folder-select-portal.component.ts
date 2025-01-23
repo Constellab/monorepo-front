@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
 import { LabFolderSelectComponent } from '../lab-folder-select/lab-folder-select.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabFolderSelectPortalInput {

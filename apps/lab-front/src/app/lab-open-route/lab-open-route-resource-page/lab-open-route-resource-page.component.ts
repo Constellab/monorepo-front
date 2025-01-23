@@ -3,12 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { LabResourceView } from '../../lab-core/model/entities/resource/lab-resource-view.entity';
 import { LabShareService } from '../../lab-core/entity-service/lab-share.service';
-import {
-  FlCoreDirectiveModule,
-  FlSectionModule,
-  FlThemeService,
-  FlTranslateModule,
-} from '@monorepo/front-core-lib';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { RvResourceViewModule, RvResourceViewModuleConfig, RvViewConfig } from '@monorepo/resource-view';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { map } from 'rxjs/operators';

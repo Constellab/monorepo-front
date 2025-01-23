@@ -1,4 +1,4 @@
-import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import {
   PrProtocolGraph,
@@ -12,9 +12,9 @@ import {
 import { Observable, of } from 'rxjs';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import { ClStringHelper } from '@monorepo/core-lib';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { PrProtocolModule } from '../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
 import { TranslatePipe } from '@ngx-translate/core';
 

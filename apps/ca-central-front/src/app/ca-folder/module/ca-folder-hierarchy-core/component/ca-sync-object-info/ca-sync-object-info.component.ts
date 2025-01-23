@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { MatIcon } from '@angular/material/icon';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

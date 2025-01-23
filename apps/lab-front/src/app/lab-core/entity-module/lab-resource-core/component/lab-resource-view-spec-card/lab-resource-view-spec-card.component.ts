@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { MatRipple } from '@angular/material/core';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 @Component({
   selector: 'lab-resource-view-spec-card',

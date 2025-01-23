@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 
 @Component({
   selector: 'lab-scenario-inline',

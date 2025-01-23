@@ -1,5 +1,10 @@
 import { LabEntity } from '../global/lab-entity.entity';
-import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import {
+  FlStatus,
+  FlStatusDict,
+  FlStatusHelper,
+  FlStatusTransform,
+} from '@monorepo/front-core-lib/fl-status';
 import { Expose, Type } from 'class-transformer';
 import { ClVersion, ClVersionTransform } from '@monorepo/core-lib';
 

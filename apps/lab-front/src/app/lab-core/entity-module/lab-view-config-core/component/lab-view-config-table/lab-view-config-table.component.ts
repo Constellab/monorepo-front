@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FlArrayObs, FlTableColumnStatic, FlTag } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import {
@@ -15,14 +17,14 @@ import {
   MatRow,
 } from '@angular/material/table';
 import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LabViewConfigPreviewComponent } from '../lab-view-config-preview/lab-view-config-preview.component';
 import { LabViewConfigFavoriteComponent } from '../lab-view-config-favorite/lab-view-config-favorite.component';
 import { LabViewConfigActionsMenuComponent } from '../lab-view-config-actions-menu/lab-view-config-actions-menu.component';

@@ -1,7 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import {
   LabResourceViewPortalComponent,
   LabResourceViewPortalInput,
@@ -10,7 +12,7 @@ import { LabViewConfigService } from '../../../../entity-service/lab-view-config
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

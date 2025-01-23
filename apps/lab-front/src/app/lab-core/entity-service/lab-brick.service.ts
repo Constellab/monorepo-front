@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabBrickEntity, LabBrickMigration } from '../model/entities/lab-brick.entity';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 
 @Injectable({ providedIn: 'root' })
 export class LabBrickService {

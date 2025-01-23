@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import {
   CaLab,
@@ -11,13 +11,11 @@ import {
   CaLabStopRequestDTO,
   CaLabWithSpace,
 } from '../model/entities/lab/ca-lab.class';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlFileHelper,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { ClPage, ClPageI } from '@monorepo/core-lib';
 import {
   CaLabManagerRecommendedVersion,

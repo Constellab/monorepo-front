@@ -1,4 +1,4 @@
-import { FlUser } from '@monorepo/front-core-lib';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 
 export interface TeTextEditorHistoryUser {
   color: string;

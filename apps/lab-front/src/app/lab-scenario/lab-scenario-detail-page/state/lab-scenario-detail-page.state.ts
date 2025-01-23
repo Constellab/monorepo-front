@@ -9,8 +9,9 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
 import { LabWorkflowFactory } from '../model/lab-workflow.factory';

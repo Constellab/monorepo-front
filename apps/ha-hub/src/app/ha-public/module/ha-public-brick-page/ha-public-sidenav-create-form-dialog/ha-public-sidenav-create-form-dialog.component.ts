@@ -1,23 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { HaFolder } from '../../../../ha-core/ha-model/ha-entities/ha-folder.class';
 import { HaFolderService } from '../../../../ha-core/ha-service/ha-folder.service';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
 import { HaNodeDTO, HaNodeType } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
-import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -26,7 +24,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-public-sidenav-create-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatRadioGroup,

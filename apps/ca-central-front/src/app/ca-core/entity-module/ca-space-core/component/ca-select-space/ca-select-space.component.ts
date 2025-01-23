@@ -1,18 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
-  FlInputSearchFilter,
-} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaSpace, CaSpaceDatasource } from '../../../../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import { CaSpaceService } from '../../../../service-api/ca-space.service';
 import { CaCurrentSpaceService } from '../../../../service-api/ca-current-space.service';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { CaSpacePhotoComponent } from '../ca-space-photo/ca-space-photo.component';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { CaSpaceInlineComponent } from '../ca-space-inline/ca-space-inline.component';
 
 @Component({

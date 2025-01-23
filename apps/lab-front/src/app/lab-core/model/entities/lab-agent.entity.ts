@@ -1,6 +1,6 @@
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { LabEntity } from '../global/lab-entity.entity';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { DateTime } from 'luxon';
 import { CoAgent, CoUser } from '@monorepo/community-lib';
 import { TdTypeStyle } from '@monorepo/technical-doc';

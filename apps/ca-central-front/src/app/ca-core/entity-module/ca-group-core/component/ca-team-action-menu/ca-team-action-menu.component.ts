@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CaGroup } from '../../../../model/entities/ca-group.entity';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaTeamFormDialogComponent,
   CaTeamFormDialogInput,

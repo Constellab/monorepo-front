@@ -1,13 +1,16 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import {
   FlPortalAction,
   FlPortalActionResult,
   FlPortalActionsService,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
 import { Observable, switchMap } from 'rxjs';
 import { LabNavigableEntityImpact } from '../../model/entities/lab-navigable-entity.entity';
 import {

@@ -1,17 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { HaBrickUser } from '../../../../ha-core/ha-model/ha-entities/ha-brick-user';
 import { Observable } from 'rxjs';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaInviteBrickUserFormData {
@@ -25,7 +23,6 @@ export interface HaInviteBrickUserFormData {
   styleUrls: ['./ha-public-invite-brick-user-dialog.component.css'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,

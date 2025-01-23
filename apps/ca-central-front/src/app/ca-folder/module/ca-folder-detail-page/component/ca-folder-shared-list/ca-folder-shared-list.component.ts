@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
+  FlDialogModule,
   FlDialogService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaGroupShareDialogComponent,
@@ -12,11 +14,9 @@ import {
 } from '../../../../../ca-core/entity-module/ca-group-core/component/ca-group-share-dialog/ca-group-share-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { MatIconButton, MatButton } from '@angular/material/button';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -36,7 +36,6 @@ export interface CaFolderSharedGroupsListInput {
   styleUrls: ['./ca-folder-shared-list.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     FlUserModule,

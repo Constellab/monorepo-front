@@ -1,10 +1,9 @@
 import { Component, Input, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlFormulaDialogComponent,
-  FlTranslatableText,
-  TeFormulaDialogInput,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormulaDialogComponent } from '@monorepo/front-core-lib/fl-formula';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
+
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { BehaviorSubject } from 'rxjs';
 

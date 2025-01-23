@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { LabAgent, LabAgentDatasourcePaginated } from '../../../../model/entities/lab-agent.entity';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LabCommunitySpace } from '../../../../model/entities/lab-community-space.entity';
 import { CoAgent } from '@monorepo/community-lib';
 import { MatChipOption } from '@angular/material/chips';
@@ -10,8 +10,10 @@ import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import {
+  CoCommunityLibModule,
+} from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

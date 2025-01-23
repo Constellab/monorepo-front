@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabResourceViewResourcesList } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
 import { RvResourceViewDirective } from '@monorepo/resource-view';

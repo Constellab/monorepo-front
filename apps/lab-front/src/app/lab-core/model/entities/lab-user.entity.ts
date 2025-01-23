@@ -1,4 +1,5 @@
-import { FlDatasourcePaginated, FlUser } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 import { Expose, Type } from 'class-transformer';
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';

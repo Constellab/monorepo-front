@@ -2,12 +2,12 @@ import { Component, computed, input, OnDestroy, Signal, inject } from '@angular/
 import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { TeRichText } from '@monorepo/text-editor';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaChatMessageComponent } from '../ca-chat-message/ca-chat-message.component';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 /**
  * Component to load message of a chat of a folder and show them.

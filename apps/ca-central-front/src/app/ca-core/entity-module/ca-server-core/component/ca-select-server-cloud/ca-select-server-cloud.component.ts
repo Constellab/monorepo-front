@@ -1,11 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
-  FlInputSearchAdvancedButton,
-  FlInputSearchFilter,
-} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import {
@@ -14,7 +11,6 @@ import {
 } from '../../../../model/entities/server/ca-server-cloud.class';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaSelectServerCloudDialogComponent } from '../ca-select-server-cloud-dialog/ca-select-server-cloud-dialog.component';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
 import { NgOptimizedImage } from '@angular/common';
 import { CaServerCloudInlineComponent } from '../ca-server-cloud-inline/ca-server-cloud-inline.component';
 import { TranslatePipe } from '@ngx-translate/core';

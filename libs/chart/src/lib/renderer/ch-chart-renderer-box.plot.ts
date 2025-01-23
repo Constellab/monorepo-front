@@ -10,7 +10,8 @@ import {
 } from '../component/ch-chart-data-portal/ch-chart-box-plot-data-portal/ch-chart-box-plot-data-portal.component';
 import { ChChartMultiSerie } from '../model/data/ch-chart-multi-serie.class';
 import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
-import { FlColorHelper, FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
 
 export class ChChartRendererBoxPlot extends ChChart2AxisRendererWithColors<
   ChChartMultiSerie<ChChartBoxPlotData>,

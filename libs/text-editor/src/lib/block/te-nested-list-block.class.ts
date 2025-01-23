@@ -1,7 +1,7 @@
 import List from '@editorjs/list';
 import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { TeHelper } from '../model/te.helper';
-import { FlKeyboardKey } from '@monorepo/front-core-lib';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { TeBlockListData } from '../model/lib';
 
 export class TeNestedListBlock extends List implements BlockTool {

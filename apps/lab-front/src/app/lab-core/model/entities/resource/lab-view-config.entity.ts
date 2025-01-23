@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 import { LabResourceViewType } from './lab-resource-view.entity';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { PrConfigValues } from '@monorepo/protocol';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';

@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,

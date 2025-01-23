@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import {
   CaServerPrice,
@@ -22,12 +21,12 @@ import {
   MatRowDef,
   MatRow,
 } from '@angular/material/table';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'ca-server-price-table',

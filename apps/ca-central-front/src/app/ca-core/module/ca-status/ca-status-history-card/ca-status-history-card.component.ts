@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CaStatusHistory } from '../../../model/entities/ca-status-history.class';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 /**
  * Card to display information about a status history

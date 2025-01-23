@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LabTypeDialogComponent, LabTypeDialogInput } from '../lab-type-dialog/lab-type-dialog.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

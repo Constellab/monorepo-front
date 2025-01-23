@@ -1,5 +1,5 @@
 import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { FlEntity } from '@monorepo/front-core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { HaBaseEntity, HaEntity } from './ha-entity.class';
 

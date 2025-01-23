@@ -1,9 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
-import { FlSavedSearch } from '@monorepo/front-core-lib';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LabResourceSearchComponent } from '../lab-resource-search/lab-resource-search.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -20,7 +19,7 @@ export interface LabSelectResourceDialogInput {
   selector: 'lab-select-resource-dialog',
   templateUrl: './lab-select-resource-dialog.component.html',
   styleUrls: ['./lab-select-resource-dialog.component.scss'],
-  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabResourceSearchComponent, TranslatePipe],
+  imports: [FlDialogModule, MatDialogContent, LabResourceSearchComponent, TranslatePipe],
 })
 export class LabSelectResourceDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<LabSelectResourceDialogComponent>>(MatDialogRef);

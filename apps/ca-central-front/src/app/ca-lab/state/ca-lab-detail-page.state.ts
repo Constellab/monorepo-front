@@ -10,7 +10,7 @@ import {
 import { map } from 'rxjs/operators';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 import { CaLabUserRole } from '../../ca-core/model/entities/lab/ca-lab-user.class';
-import { FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LmlLabManagerStatus } from '@monorepo/lab-manager-lib';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 

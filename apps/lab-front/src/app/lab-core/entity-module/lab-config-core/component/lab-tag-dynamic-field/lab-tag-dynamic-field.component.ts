@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
+import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { ReactiveFormsModule } from '@angular/forms';
 
 /**

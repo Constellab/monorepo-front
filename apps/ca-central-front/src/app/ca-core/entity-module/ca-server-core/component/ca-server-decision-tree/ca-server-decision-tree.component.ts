@@ -5,8 +5,8 @@ import {
 } from '../../../../model/entities/server/ca-server-standard.class';
 import { MatRadioChange, MatRadioGroup, MatRadioButton } from '@angular/material/radio';
 import { CaSettingsService } from '../../../../service-api/ca-settings.service';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 
 export interface CaServerDecisionTreeOptionFlatDTO {
   id: number;

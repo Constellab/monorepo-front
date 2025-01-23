@@ -1,12 +1,11 @@
 import { Component, Input, inject } from '@angular/core';
 import { CaSpaceInvitService } from '../../../../ca-core/service-api/ca-space-invit.service';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDatasourcePaginated,
-  FlDialogService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+
 import {
   CaSpaceUserRoleDialogComponent,
   CaSpaceUserRoleDialogInput,
@@ -31,7 +30,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 /**
  * Table for the SpaceInvit entity with actions

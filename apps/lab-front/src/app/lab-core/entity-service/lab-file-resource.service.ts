@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlFileHelper } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, tap } from 'rxjs';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
 import { HttpEvent } from '@angular/common/http';

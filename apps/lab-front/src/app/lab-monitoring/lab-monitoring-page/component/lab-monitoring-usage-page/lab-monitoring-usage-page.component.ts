@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabMonitorService } from '../../../../lab-core/entity-service/lab-monitor.service';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
@@ -7,18 +7,18 @@ import {
   LabMonitorGraphicsBetweenDates,
 } from '../../../../lab-core/model/entities/lab-monitor.entity';
 import { DateTime } from 'luxon';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
-import { FlDatetimePickerModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-datetime-picker/fl-datetime-picker.module';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlDatetimePickerModule } from '@monorepo/front-core-lib/fl-datetime-picker';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabMonitorBetweenDatesComponent } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates/lab-monitor-between-dates.component';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export enum LabMonitoringRunPeriod {

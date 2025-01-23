@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   CaFolder,
   CaFolderStorageDTO,
@@ -33,12 +33,10 @@ import {
   TeRichTextBlockModificationWithUser,
   TeRichTextDTO,
 } from '@monorepo/text-editor';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,

@@ -2,14 +2,14 @@ import { CaBaseEntity } from '../ca-base-entity.class';
 import { Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { FlArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
-  FlEntityPaginatedDatasource,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
+
 import { CaCloudProviderRegion } from '../ca-cloud-provider.class';
 
 export type CaLabBackupFrequency = 'DAILY' | 'WEEKLY';

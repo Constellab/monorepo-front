@@ -1,5 +1,5 @@
 import { HaMetadataService } from '../ha-service/ha-metadata.service';
-import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { inject } from '@angular/core';
 
 //TODO: Voir si ajouter le type d'objet pour les pages serait pertinnent

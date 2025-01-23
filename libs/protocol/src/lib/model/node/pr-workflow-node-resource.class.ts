@@ -1,7 +1,9 @@
 import { first, map, Observable, switchMap } from 'rxjs';
 import { PrResource } from '../pr-resource.class';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
-import { FlColorHelper, FlStatusEvent, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { PrWorkflowNode } from './pr-workflow-node.class';
 import { PrWorkflowActionState } from '../../state/pr-workflow-action-state';
 import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';

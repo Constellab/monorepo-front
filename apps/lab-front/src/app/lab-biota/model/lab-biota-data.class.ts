@@ -1,5 +1,5 @@
 import { LabBaseEntity } from '../../lab-core/model/global/lab-entity.entity';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
 // export type BiotaDataVM = ViewModel<BiotaData>;
 

@@ -2,13 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core'
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import {
-  FlConfirmDialogInput,
-  FlDialogService,
-  FlOverlayRef,
-  FlPortalService,
-  FlUploadImageDialogConfig,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+
 import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 import { mergeMap, Observable, of, startWith } from 'rxjs';
 import { HaTopic, HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class';
@@ -35,15 +34,15 @@ import {
 import { CoStoryCategory } from '@monorepo/community-lib';
 import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
-import { FlFormModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlImageModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlImageModule } from '@monorepo/front-core-lib/fl-image';
 import { MatFormField, MatLabel, MatSuffix, MatError } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatChipGrid, MatChipRow, MatChipRemove, MatChipInput } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatTooltip } from '@angular/material/tooltip';
 import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';

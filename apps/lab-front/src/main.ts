@@ -1,32 +1,31 @@
 import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
 import { environment } from './environments/lab-environment';
 import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
-import {
-  FL_CAPTCHA_MODULE_CONFIG,
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlApiModule,
-  FlAuthModule,
-  FlCaptchaModuleConfig,
-  FlDialogModule,
-  FlHttpInterceptorService,
-  FlIconModule,
-  flLoadEnvironmentFromAssets,
-  FlLocalStorageService,
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  FlPortalActionsModule,
-  FlPortalModule,
-  flSetRootInjector,
-  FlSnackBarModule,
-  FlTagModule,
-  FlThemeService,
-  flTooltipConfig,
-  FlTranslateModule,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+import { FL_CAPTCHA_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-captcha';
+import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
+import { FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlHttpInterceptorService } from '@monorepo/front-core-lib/fl-translate';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
+import { FlLocalStorageService } from '@monorepo/front-core-lib/fl-core';
+import { FlLuxonDateAdapter } from '@monorepo/front-core-lib/fl-core';
+import { flLuxonDateFormat } from '@monorepo/front-core-lib/fl-core';
+import { flMatFormFieldConfig } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { flSetRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslationLoader } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import {
   HTTP_INTERCEPTORS,
   HttpClient,

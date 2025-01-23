@@ -1,4 +1,4 @@
-import { FlEntity } from '@monorepo/front-core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Entity that support flag feature

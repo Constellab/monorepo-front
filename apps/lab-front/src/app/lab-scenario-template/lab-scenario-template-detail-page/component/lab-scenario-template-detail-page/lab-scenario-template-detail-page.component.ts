@@ -1,12 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable, switchMap } from 'rxjs';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import { first } from 'rxjs/operators';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabScenarioTemplateDetailHeaderComponent } from '../lab-scenario-template-detail-header/lab-scenario-template-detail-header.component';
-import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { LabScenarioTemplateWorkflowComponent } from '../lab-scenario-template-workflow/lab-scenario-template-workflow.component';
 import { LabScenarioTemplateDetailComponent } from '../lab-scenario-template-detail/lab-scenario-template-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';

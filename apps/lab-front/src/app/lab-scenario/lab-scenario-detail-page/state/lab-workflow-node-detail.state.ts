@@ -13,7 +13,9 @@ import {
   LabResourceViewDetailDialogComponent,
   LabResourceViewDetailDialogInput,
 } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
-import { FlDialogService, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import {
   LabWorkflowAction,
   LabWorkflowEditConfig,

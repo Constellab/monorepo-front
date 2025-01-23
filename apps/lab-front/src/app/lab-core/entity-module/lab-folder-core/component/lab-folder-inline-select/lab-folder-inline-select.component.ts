@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FlFormFieldDirective, FlPortalService } from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { NgControl } from '@angular/forms';
 import {
@@ -7,9 +8,9 @@ import {
   LabFolderSelectPortalInput,
   LabFolderSelectPortalResult,
 } from '../lab-folder-select-portal/lab-folder-select-portal.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabFolderInlineComponent } from '../lab-folder-inline/lab-folder-inline.component';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';

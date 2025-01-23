@@ -2,13 +2,13 @@ import { LabEntity } from '../global/lab-entity.entity';
 import { Expose, Type } from 'class-transformer';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
 
 export type LabProgressBarMessageType = 'SUCCESS' | 'INFO' | 'ERROR' | 'WARNING' | 'PROGRESS' | 'DEBUG';
 

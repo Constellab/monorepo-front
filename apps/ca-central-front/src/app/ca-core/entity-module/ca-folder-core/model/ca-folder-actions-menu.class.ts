@@ -3,12 +3,9 @@ import {
   CaFolderInfo,
   CaFolderWithHierarchy,
 } from '../../../model/entities/folder/ca-folder.class';
-import {
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaRouterService } from '../../../service/ca-router.service';

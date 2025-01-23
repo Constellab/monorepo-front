@@ -1,22 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDynamicFieldConfigService, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 import { TdParamSpecs } from '@monorepo/technical-doc';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 import {
   LabConfigureSpecsForm,
   LabConfigureSpecsFormComponent,
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 export interface LabQuickConfigureProcessDialogInput {
   title: FlTranslatableText;
@@ -39,7 +38,6 @@ export interface LabQuickConfigureProcessDialogInput {
   ],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     ReactiveFormsModule,

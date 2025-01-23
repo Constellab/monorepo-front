@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   CaBucketLocationDatasource,
   CaBucketLocationDTO,
@@ -6,12 +6,12 @@ import {
 } from '../../../../model/entities/ca-object-storage.class';
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { map } from 'rxjs/operators';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { MatOption, MatOptgroup } from '@angular/material/core';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { MatOptgroup, MatOption } from '@angular/material/core';
 import { CaBucketLocationInlineComponent } from '../ca-bucket-location-inline/ca-bucket-location-inline.component';
 import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { AsyncPipe } from '@angular/common';

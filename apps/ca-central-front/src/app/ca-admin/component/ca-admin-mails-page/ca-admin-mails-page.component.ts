@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FlTranslateService } from '@monorepo/front-core-lib';
-import { MaMailModule } from '../../../../../../../libs/mail/src/lib/ma-mail.module';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { MaMailModule } from '@monorepo/mail';
 
 @Component({
   selector: 'ca-admin-mails-page',
@@ -14,6 +14,6 @@ export class CaAdminMailsPageComponent {
     const titleService = inject(Title);
     const translateService = inject(FlTranslateService);
 
-    titleService.setTitle(`Admin - ${translateService.translate('maMail.mails')}`);
+    titleService.setTitle(`Admin - ${translateService.translate('mails')}`);
   }
 }

@@ -1,17 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { firstValueFrom, mergeMap, Observable, of } from 'rxjs';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaFolderConfigureStorageComponent,
   CaFolderConfigureStorageInput,
 } from '../ca-folder-configure-storage/ca-folder-configure-storage.component';
 import { CaFolderStorageDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CaBucketLocationInlineComponent } from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
+import {
+  CaBucketLocationInlineComponent,
+} from '../../../../../ca-core/entity-module/ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 

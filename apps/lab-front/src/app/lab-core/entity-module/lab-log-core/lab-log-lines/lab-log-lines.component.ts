@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { LabLogLine } from '../../../model/entities/lab-log.entity';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'lab-log-lines',

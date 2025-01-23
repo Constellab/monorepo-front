@@ -1,4 +1,6 @@
-import { FlDialogService, FlMenuDynamicService, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import {
   CaHierarchyObject,

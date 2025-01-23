@@ -3,10 +3,10 @@ import {
   Component,
   ElementRef,
   HostListener,
+  inject,
   OnDestroy,
   ViewChild,
   ViewEncapsulation,
-  inject,
 } from '@angular/core';
 import { HaInstantSearchService } from '../../ha-service/ha-instant-search.service';
 import { BaseHit } from 'instantsearch.js';
@@ -19,7 +19,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
 import { configure, poweredBy } from 'instantsearch.js/es/widgets';
 import { NgClass } from '@angular/common';
-import { FlTranslateModule } from '@monorepo/front-core-lib';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export class HaInstanceSearchDialogData {
   theme: ClTheme;

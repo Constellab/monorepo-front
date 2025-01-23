@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlFormFieldDirective,
-  FlInputSearchAdvancedButton,
-  FlInputSearchFilter,
-} from '@monorepo/front-core-lib';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+
 import { NgControl } from '@angular/forms';
 import {
   LabNoteTemplate,
@@ -16,8 +15,7 @@ import {
   LabSelectNoteTemplateDialogComponent,
   LabSelectNoteTemplateDialogInput,
 } from '../lab-select-note-template-dialog/lab-select-note-template-dialog.component';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LabNoteTemplateInlineComponent } from '../lab-note-template-inline/lab-note-template-inline.component';
 
 @Component({

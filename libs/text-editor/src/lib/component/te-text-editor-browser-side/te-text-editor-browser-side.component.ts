@@ -18,7 +18,10 @@ import {
 import { TeConfig } from '../../model/te-config.class';
 import { Subject, Subscription } from 'rxjs';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
-import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { teGetI18nConfig } from '../../te-text-editor.i18n';
 import { TeMention } from '../../plugin/te-mention.class';
 import { ClHelpService } from '@monorepo/core-lib';

@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { LabTagDatasource, TagPropagationImpactDTO } from '../../../../model/entities/lab-tag.entity';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable, share } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabTagListComponent } from '../lab-tag-list/lab-tag-list.component';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';

@@ -4,12 +4,10 @@ import {
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import {
-  FL_PORTAL_DATA,
-  FlDynamicFieldConfigService,
-  FlFormHelper,
-  FlOverlayRef,
-} from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+
 import {
   LabConfigureSpecsForm,
   LabConfigureSpecsFormComponent,
@@ -20,10 +18,9 @@ import { PrConfigValues } from '@monorepo/protocol';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
-import { FlPortalModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
-import { FlResizeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-resize/fl-resize.module';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 

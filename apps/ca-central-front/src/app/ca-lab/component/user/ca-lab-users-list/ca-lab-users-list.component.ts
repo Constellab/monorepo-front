@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import { FlDialogService, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   CaLabUserFormDialogComponent,
   LabUserFormDialogInput,
@@ -9,12 +10,12 @@ import { CaLabUser, CaLabUserDatasource } from '../../../../ca-core/model/entiti
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabUsersTableComponent } from '../ca-lab-users-table/ca-lab-users-table.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

@@ -1,11 +1,12 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
-  FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { CaSpace, CaSpaceInfoDto } from '../model/entities/space/ca-space.class';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPage } from '@monorepo/core-lib';

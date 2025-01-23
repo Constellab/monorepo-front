@@ -1,5 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { FlDialogService, FlResizeEvent } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlResizeEvent } from '@monorepo/front-core-lib/fl-resize';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { TeIframeBlockData } from '../../block/te-iframe-block.class';
 import { TeLinkDialogComponent, TeLinkDialogInput } from '../te-link-dialog/te-link-dialog.component';

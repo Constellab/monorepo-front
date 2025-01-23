@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { HaBrickVersionService } from '../../../ha-core/ha-service/ha-brick-version.service';
 import { HaIsAdminDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 
 @Component({
   selector: 'ha-ha-admin-page',

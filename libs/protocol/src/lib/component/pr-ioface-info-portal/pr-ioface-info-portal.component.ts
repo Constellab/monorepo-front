@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { PrInterface } from '../../model/pr-interface.class';
-import { FL_PORTAL_DATA, FlArrayObs } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { PrWorkflowNode } from '../../model/node/pr-workflow-node.class';
 import { PrWorkflowPort } from '../../model/workflow/pr-workflow-port.class';
 
@@ -27,10 +28,10 @@ export interface PrIofaceInfoPortalData {
  * Component to show information about interface or outerface of a protocol
  */
 @Component({
-    selector: 'pr-ioface-info-portal',
-    templateUrl: './pr-ioface-info-portal.component.html',
-    styleUrl: './pr-ioface-info-portal.component.scss',
-    standalone: false
+  selector: 'pr-ioface-info-portal',
+  templateUrl: './pr-ioface-info-portal.component.html',
+  styleUrl: './pr-ioface-info-portal.component.scss',
+  standalone: false,
 })
 export class PrIofaceInfoPortalComponent {
   data: PrIofaceInfoPortalData = inject(FL_PORTAL_DATA);

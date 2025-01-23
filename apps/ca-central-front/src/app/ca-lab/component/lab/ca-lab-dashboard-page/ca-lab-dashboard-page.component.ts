@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabDetailComponent } from '../ca-lab-detail/ca-lab-detail.component';
 import { CaLabServerInfoCardComponent } from '../../server/ca-lab-server-info-card/ca-lab-server-info-card.component';
 import { CaLabUsersListComponent } from '../../user/ca-lab-users-list/ca-lab-users-list.component';

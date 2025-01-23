@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CaLab, CaLabType } from '../../../../model/entities/lab/ca-lab.class';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlTranslateParam,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTranslateParam } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
@@ -20,16 +19,16 @@ import {
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { CaEnvironmentHelper } from '../../../../utils/ca-environment.helper';
 import { MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
 import { MatIcon } from '@angular/material/icon';
 import { MatDivider } from '@angular/material/divider';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

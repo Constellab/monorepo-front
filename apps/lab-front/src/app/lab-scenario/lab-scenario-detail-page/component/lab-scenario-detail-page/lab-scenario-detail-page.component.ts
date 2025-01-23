@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
@@ -8,9 +8,11 @@ import { PrWorkflowActionState } from '@monorepo/protocol';
 import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
-import { MatTabGroup, MatTab, MatTabContent } from '@angular/material/tabs';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import {
+  LabScenarioDetailHeaderComponent,
+} from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
+import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
 import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';

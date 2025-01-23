@@ -1,21 +1,19 @@
-import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
-import {
-  FlCardModule,
-  FlColorModule,
-  FlCoreDirectiveModule,
-  FlCorePipeModule,
-  FlDateModule,
-  FlDialogModule,
-  FlIconModule,
-  FlInfiniteScrollModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlSectionModule,
-  FlTextIconModule,
-  FlTranslateModule,
-  FlTranslateService,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { coCommunityLibI18n } from './co-community-lib.i18n';
 import { CoAgentListItemComponent } from './component/co-agent-list-item/co-agent-list-item.component';
 import { MatButtonModule } from '@angular/material/button';

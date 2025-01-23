@@ -1,12 +1,12 @@
 /**
  * Login page guard to redirect to app pages if a token exists
  */
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 import { HaAuthService } from '../ha-service/ha-auth.service';
 import { Observable } from 'rxjs';
 import { HaRouterService } from '../ha-service/ha-router.service';
-import { FlLoginSavedRoute } from '@monorepo/front-core-lib';
+import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { PlatformLocation } from '@angular/common';
 
 @Injectable({

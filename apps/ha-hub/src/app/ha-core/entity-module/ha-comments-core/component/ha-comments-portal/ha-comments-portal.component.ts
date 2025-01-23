@@ -1,24 +1,25 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlDatasourcePaginated, FlOverlayRef } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { TeRichText } from '@monorepo/text-editor';
 import { HaAbstractComment, HaCommentEntity, HaCommentType } from '../../model/ha-abstract-comment.class';
 import { HaCommentService } from '../../../../ha-service/ha-comment.service';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
 import { HaCommentTextEditorConfig } from '../../model/ha-comment-text-editor.config';
 import { CoUser } from '@monorepo/community-lib';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { MatIconButton, MatButton, MatAnchor } from '@angular/material/button';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { RouterLink } from '@angular/router';
 import { HaCommentComponent } from '../ha-comment/ha-comment.component';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaCommentsPortalData {

@@ -1,10 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { HaAgentService } from '../../../../ha-core/ha-service/ha-agent.service';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface HaAgentResourceViewInputDialogInputData {
@@ -27,14 +26,7 @@ export interface HaAgentResourceViewInputDialogOutputData {
   selector: 'ha-agent-resource-view-input-dialog',
   templateUrl: './ha-agent-resource-view-input-dialog.component.html',
   styleUrls: ['./ha-agent-resource-view-input-dialog.component.scss'],
-  imports: [
-    FlDialogModule,
-    CdkScrollable,
-    MatDialogContent,
-    FlLoaderModule,
-    FlInputFileModule,
-    TranslatePipe,
-  ],
+  imports: [FlDialogModule, MatDialogContent, FlLoaderModule, FlInputFileModule, TranslatePipe],
 })
 export class HaAgentResourceViewInputDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<HaAgentResourceViewInputDialogComponent>>(MatDialogRef);

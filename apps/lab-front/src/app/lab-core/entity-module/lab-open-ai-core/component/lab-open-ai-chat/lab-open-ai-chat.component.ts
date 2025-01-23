@@ -1,5 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { Component, ElementRef, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { LabOpenAiChat, LabOpenAiChatMessage } from '../../model/lab-open-ai.class';
 import { FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -8,7 +8,7 @@ import {
   LabOpenAiChatMessageAction,
   LabOpenAiChatMessageComponent,
 } from '../lab-open-ai-chat-message/lab-open-ai-chat-message.component';
-import { MatFormField, MatLabel, MatSuffix, MatHint } from '@angular/material/form-field';
+import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';

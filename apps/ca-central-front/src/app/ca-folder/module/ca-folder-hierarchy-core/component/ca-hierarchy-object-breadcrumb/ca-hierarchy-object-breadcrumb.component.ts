@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { CaHierarchyObjectDetailState } from '../../state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,

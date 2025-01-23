@@ -1,7 +1,7 @@
 import { PrWorkflowNodeResource, PrWorkNodeIoExternalButton } from './pr-workflow-node-resource.class';
 import { PrProcess } from '../pr-process.class';
 import { TdTaskSourceConfig } from '@monorepo/technical-doc';
-import { FlThemeService } from '@monorepo/front-core-lib';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { PrResource } from '../pr-resource.class';
 import { first, map, Observable, of } from 'rxjs';
 

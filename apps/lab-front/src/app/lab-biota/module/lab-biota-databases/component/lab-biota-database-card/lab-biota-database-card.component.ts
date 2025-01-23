@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { LabBiotaDatabase } from '../../../../model/lab-biota-database.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 /**
  * Portal to display information about a header (row or column)

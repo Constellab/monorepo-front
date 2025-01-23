@@ -1,13 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  FlAdvancedSearchInput,
-  FlApiWithCacheService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlInputSearchFilter,
-  FlSearchConverter,
-  FLSearchFunction,
-} from '@monorepo/front-core-lib';
+import { FlAdvancedSearchInput } from '@monorepo/front-core-lib/fl-search';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
+
 import { LabTypeEntity, LabTypeEntityDatasource } from '../model/entities/lab-type/lab-type.entity';
 import { Observable, throwError } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
@@ -53,7 +52,7 @@ export class LabTypeService {
     return this.apiService.getWithCache(`${this.route}/protocol/${typingName}`, LabProcessType).getObs();
   }
 
-  public getAdvancedSearchFunction(): FLSearchFunction<LabTypeEntity> {
+  public getAdvancedSearchFunction(): FlSearchFunction<LabTypeEntity> {
     return (page: number, pageSize: number, data) => this.basicAdvancedSearch(page, pageSize, data);
   }
 
@@ -68,7 +67,7 @@ export class LabTypeService {
   public getImporterAdvancedSearchFunction(
     resourceTypingName: string,
     extension: string
-  ): FLSearchFunction<LabTypeEntity> {
+  ): FlSearchFunction<LabTypeEntity> {
     const route: string = `${this.route}/importers/search/${resourceTypingName}/${extension}`;
     return (page: number, pageSize: number, data) => this.advancedSearch(route, page, pageSize, data);
   }
@@ -81,7 +80,7 @@ export class LabTypeService {
   public getProcessSuggestion(
     resourceTypingNames: string[],
     suggestBy: 'inputs' | 'outputs'
-  ): FLSearchFunction<LabTypeEntity> {
+  ): FlSearchFunction<LabTypeEntity> {
     const route: string = `${this.route}/processes/suggestion/${suggestBy}`;
     return (page: number, pageSize: number, data) => {
       const searchData: FlAdvancedSearchInput = this.getSearchInput(data);
@@ -102,7 +101,7 @@ export class LabTypeService {
 
   public getTransformerAdvancedSearchFunction(
     resourceTypingNames: string[]
-  ): FLSearchFunction<LabTypeEntity> {
+  ): FlSearchFunction<LabTypeEntity> {
     const route: string = `${this.route}/transformers/search`;
     return (page: number, pageSize: number, data) => {
       const searchData: FlAdvancedSearchInput = this.getSearchInput(data);

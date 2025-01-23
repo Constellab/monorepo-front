@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import {
   MatTable,
@@ -16,11 +17,11 @@ import {
 import { RouterLink } from '@angular/router';
 import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlStatusModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlColorHelper, FlDialogService } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeTextEditorHistoryService } from '../../model/te-text-editor-history.service';
 import { TeConfig } from '../../model/te-config.class';
 import { TeTextEditorHistoryUser } from '../../model/te-text-editor-history-user.class';

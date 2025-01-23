@@ -1,15 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CaStatusHistory } from '../../../model/entities/ca-status-history.class';
-import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   MAT_DIALOG_DATA,
   MatDialogContent,
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaStatusHistoryCardComponent } from '../ca-status-history-card/ca-status-history-card.component';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';

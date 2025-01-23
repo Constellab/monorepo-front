@@ -1,5 +1,6 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
-import { FlDatasourcePaginated, FlFileHelper } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Type } from 'class-transformer';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { ClRecordTransform } from '@monorepo/core-lib';

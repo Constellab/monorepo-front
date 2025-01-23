@@ -4,7 +4,9 @@ import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,
 } from '../../ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { FlDateModule, FlTextIconModule, FlTranslateModule } from '@monorepo/front-core-lib';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 

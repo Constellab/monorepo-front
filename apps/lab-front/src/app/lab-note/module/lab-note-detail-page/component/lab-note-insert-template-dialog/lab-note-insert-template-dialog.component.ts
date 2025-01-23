@@ -4,16 +4,16 @@ import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabSelectNoteTemplateComponent } from '../../../../../lab-core/entity-module/lab-note-template-core/component/lab-select-note-template/lab-select-note-template.component';
 import { MatError } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabNoteInsertTemplateDialogData {

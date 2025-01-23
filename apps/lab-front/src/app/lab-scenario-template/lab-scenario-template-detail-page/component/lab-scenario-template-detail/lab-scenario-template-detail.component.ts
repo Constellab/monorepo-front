@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
@@ -6,9 +6,9 @@ import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.servi
 import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { FlArticleModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { TranslatePipe } from '@ngx-translate/core';
 

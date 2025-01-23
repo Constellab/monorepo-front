@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { HaProfileEditDialogFormData } from '../../ha-profile/component/ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { CoUser } from '@monorepo/community-lib';

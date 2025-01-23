@@ -27,7 +27,7 @@ import { SpSheetChartConfig } from '../../model/chart/sp-sheet-chart-config.clas
 import { SpSpreadsheetElementState } from '../../state/sp-spreadsheet-element.state';
 import { SpSpreadsheetPageLoader } from '../../model/sp-spreadsheet-page.class';
 import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-pagination.state';
-import { FlPortalService } from '@monorepo/front-core-lib';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
   selector: 'sp-spreadsheet',

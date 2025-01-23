@@ -13,7 +13,8 @@ import { LabConfig } from '../../../model/entities/lab-config.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LabWorkflowEditConfig } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-edit-config.class';
-import { FlDialogService, FlPortalActionResult } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LabProtocolUpdateDTO } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
 
 @Injectable()

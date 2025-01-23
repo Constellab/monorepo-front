@@ -6,12 +6,13 @@ import {
   CaServerPrice,
   CaServerPriceDatasource,
 } from '../../../../model/entities/server/ca-server-price.class';
-import { FlDialogService, FlEntityArrayObs } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   CaServerPriceFormDialogComponent,
   CaServerPriceFormDialogInput,
 } from '../ca-server-price-form-dialog/ca-server-price-form-dialog.component';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

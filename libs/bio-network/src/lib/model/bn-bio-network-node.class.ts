@@ -6,7 +6,7 @@ import {
 } from './bn-bio-network.class';
 import { BnBioNetworkLink } from './bn-bio-network-node-link.class';
 import { BnBioNetworkGraphObject } from './bn-bio-network-graph.class';
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 
 export type BnBioNetworkNodeType = 'metabolite' | 'reaction' | 'cofactor';
 

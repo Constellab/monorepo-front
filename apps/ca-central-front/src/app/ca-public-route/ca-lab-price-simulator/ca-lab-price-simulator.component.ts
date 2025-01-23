@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FlCardModule, FlTranslateModule } from '@monorepo/front-core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

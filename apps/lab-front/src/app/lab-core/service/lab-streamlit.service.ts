@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiWithCacheService } from '@monorepo/front-core-lib';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { LabStreamlitStatus } from '../model/global/lab-streamlit.class';
 import { Observable } from 'rxjs';
 

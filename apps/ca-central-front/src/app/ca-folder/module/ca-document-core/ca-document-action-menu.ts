@@ -2,13 +2,11 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-  FlOverlayRef,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput,

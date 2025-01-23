@@ -15,7 +15,9 @@ import {
   SpSpreadsheetGenerateChartOptions,
 } from './sp-sheet-chart-config.class';
 import { SpSheetChartSelectionVulcanoPlot } from './sp-sheet-chart-selection-vulcano-plot.class';
-import { FlMenuDynamic, FlOverlayRef, FlPortalConfig } from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
 import {
   ChChartHistogramMode,
   ChChartPortalConfig,

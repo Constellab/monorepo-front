@@ -1,10 +1,8 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { Observable } from 'rxjs';
 import { CaGroup, CaGroupDatasource, CaUserGroup } from '../model/entities/ca-group.entity';
 import { ClPage, ClPageI } from '@monorepo/core-lib';

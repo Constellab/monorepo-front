@@ -14,7 +14,8 @@ import {
   ChChartLegendSeriesWithTagsComponent,
   ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
-import { FlColorHelper, FlTagColorer } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 // Config box plot
 export class ChChartBoxPlot extends ChChartConfig {

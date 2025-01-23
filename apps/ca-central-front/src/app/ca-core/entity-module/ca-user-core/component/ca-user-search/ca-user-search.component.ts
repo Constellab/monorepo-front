@@ -1,25 +1,24 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlDialogService,
-  FlEntityPaginatedDatasource,
-  FlFileHelper,
-  FlSavedSearch,
-  FlSearchConfig,
-  FlSearchState,
-  FlTableColumnStatic,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { CaUser, CaUserDatasourcePaginated } from '../../../../model/entities/ca-user.class';
 import { CaUsersService } from '../../../../service-api/ca-users.service';
 import { CaUserSearch, CaUserSearchFields } from '../../model/ca-user-search.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { CaIsAdminDirective } from '../../../../module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaUserSearchFormComponent } from '../ca-user-search-form/ca-user-search-form.component';
 import { CaUserTableComponent } from '../ca-user-table/ca-user-table.component';

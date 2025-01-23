@@ -1,8 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Params, RouterLink } from '@angular/router';
-import { FlDialogService, FlPasswordForgottenComponent, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPasswordForgottenComponent } from '@monorepo/front-core-lib/fl-auth';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlAuthModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

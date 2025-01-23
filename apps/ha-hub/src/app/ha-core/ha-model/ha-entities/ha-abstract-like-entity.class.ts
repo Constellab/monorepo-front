@@ -1,4 +1,4 @@
-import { FlEntity } from '@monorepo/front-core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { Type } from 'class-transformer';

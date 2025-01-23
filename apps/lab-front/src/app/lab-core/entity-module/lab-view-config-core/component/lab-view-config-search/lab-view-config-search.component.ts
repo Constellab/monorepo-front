@@ -1,24 +1,23 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlEntityPaginatedDatasource,
-  FlSavedSearch,
-  FlSearchConfig,
-  FlSearchState,
-  FlTableColumnStatic,
-  FlTag,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   LabViewConfig,
   LabViewConfigDatasource,
 } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabViewConfigSearch, LabViewConfigSearchFields } from '../../model/lab-view-config-search.class';
 import { LabViewConfigService } from '../../../../entity-service/lab-view-config.service';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LabViewConfigSearchFormComponent } from '../lab-view-config-search-form/lab-view-config-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabViewConfigTableComponent } from '../lab-view-config-table/lab-view-config-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -1,5 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiWithCacheService, FlEntityPaginatedDatasource, FlFileHelper } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, tap } from 'rxjs';
 import { LabProcessLayout, LabProtocol } from '../model/entities/process/lab-protocol.entity';
 import { LabProtocolUpdateDTO } from '../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';

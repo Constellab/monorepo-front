@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlDialogService,
-  FlEntityPaginatedDatasource,
-  FlFormDialogInput,
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   CaServerCloud,
   CaServerCloudDatasource,
@@ -15,9 +16,8 @@ import {
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { CaServerCloudFormDialogComponent } from '../ca-server-cloud-form-dialog/ca-server-cloud-form-dialog.component';
 import { CaServerCloudSearch, CaServerCloudSearchFields } from '../../model/ca-server-cloud-search.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';

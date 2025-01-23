@@ -1,7 +1,7 @@
 import { ClLuxonDateTimeTransform, ClLuxonDateTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { Type } from 'class-transformer';
-import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { CaUser } from '../ca-user.class';
 import { CaLabVolumeType } from './ca-lab-volume.class';
 

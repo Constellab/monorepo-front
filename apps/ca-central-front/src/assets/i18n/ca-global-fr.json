@@ -283,5 +283,6 @@
   "synchronise_user_with_community_started": "Synchronisation démarrée",
   "data_lab_price_simulator": "Simulateur de prix de data lab",
   "data_lab_price_simulator_help": "Cet outil vous permet de simuler le prix d'un data lab en fonction de vos besoins. Si vous souhaitez en savoir plus sur Constellab et les data lab, veuillez",
-  "contact_us": "nous contacter"
+  "contact_us": "nous contacter",
+  "mails": "Mails"
 }

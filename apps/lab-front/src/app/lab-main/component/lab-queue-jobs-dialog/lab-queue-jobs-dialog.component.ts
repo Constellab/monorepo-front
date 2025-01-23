@@ -1,27 +1,26 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LabRunningScenarioInfo, LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
+  FlDialogModule,
   FlDialogService,
-  FlEntityArrayObs,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+
 import { LabQueueService } from '../../../lab-core/entity-service/lab-queue.service';
 import { LabQueueJob } from '../../../lab-core/model/entities/lab-queue.entity';
 import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
 import { Subscription, tap, zip } from 'rxjs';
-import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabRunningScenarioTableComponent } from '../../../lab-core/entity-module/lab-scenario-core/component/lab-running-scenario-table/lab-running-scenario-table.component';
 import {
   MatList,
   MatListItem,
-  MatListItemTitle,
   MatListItemLine,
   MatListItemMeta,
+  MatListItemTitle,
 } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
 import { MatIconButton } from '@angular/material/button';
@@ -36,7 +35,6 @@ import { LabDetailRoutePipe } from '../../../lab-core/lab-core-pipe/lab-detail-r
   styleUrls: ['./lab-queue-jobs-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     LabRunningScenarioTableComponent,

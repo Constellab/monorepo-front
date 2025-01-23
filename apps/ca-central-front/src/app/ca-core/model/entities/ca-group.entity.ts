@@ -4,7 +4,8 @@ import {
   FlDatasourcePaginated,
   FlDatasourcePaginatedOptions,
   FlEntityPaginatedDatasource,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+
 import { CaUser } from './ca-user.class';
 import { Type } from 'class-transformer';
 import { ClHelpService, ClLuxonDateTimeTransform } from '@monorepo/core-lib';

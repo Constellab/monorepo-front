@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService, flRootInjector } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import {
   TeAudioTranscriptionConfig,

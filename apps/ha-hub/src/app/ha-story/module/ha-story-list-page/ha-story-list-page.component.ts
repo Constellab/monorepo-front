@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   HaCreateStoryDtoInput,
   HaStoryCreateDialogComponent,
@@ -26,12 +26,12 @@ import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-d
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { NgClass, AsyncPipe } from '@angular/common';
 import { MatChipListbox, MatChipOption } from '@angular/material/chips';
-import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
-import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 

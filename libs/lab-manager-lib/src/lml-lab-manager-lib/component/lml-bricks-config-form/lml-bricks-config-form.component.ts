@@ -3,8 +3,9 @@ import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { TdBrick } from '@monorepo/technical-doc';
 import {
   LmlBrickVersionDetailDialogComponent,

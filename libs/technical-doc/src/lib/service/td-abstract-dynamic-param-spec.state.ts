@@ -1,6 +1,7 @@
 import { TdConfig, TdParamSpec, TdParamSpecFormInfoList, TdParamSpecs } from '../model/td-config-spec.class';
 import { Observable } from 'rxjs';
-import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { TdEditableParamSpec } from '../component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 import { Injectable, OnDestroy } from '@angular/core';
 

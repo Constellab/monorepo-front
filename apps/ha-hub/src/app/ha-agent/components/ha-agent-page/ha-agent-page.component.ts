@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {
   HaCoAuthorDialogComponent,
@@ -14,13 +14,13 @@ import { HaAgentPageState } from '../../state/ha-agent-page.state';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { HaAgentVersionsPanelComponent } from '../ha-agent-versions-panel/ha-agent-versions-panel.component';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
-import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

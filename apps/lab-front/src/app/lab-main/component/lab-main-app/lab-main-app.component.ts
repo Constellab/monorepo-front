@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
 import { LabEnvironmentHelper } from '../../../lab-core/utils/lab-environment.helper';
 import { LabAuthenticatedUserService } from '../../../lab-core/service/lab-authenticated-user.service';
@@ -11,14 +11,14 @@ import { LabBrickEntity } from '../../../lab-core/model/entities/lab-brick.entit
 import { TdBrick } from '@monorepo/technical-doc';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
 import { NgClass } from '@angular/common';
-import { FlExpansionMenuModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-expansion-menu/fl-expansion-menu.module';
+import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { FlCoreDirectiveModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatDivider } from '@angular/material/divider';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

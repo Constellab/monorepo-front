@@ -1,10 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlSearchConverter,
-  FLSearchFunction,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
+
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import { LabViewConfig, LabViewType } from '../model/entities/resource/lab-view-config.entity';
@@ -55,7 +54,7 @@ export class LabViewConfigService {
 
   ///////////////////////////////////////////// SEARCH /////////////////////////////////////////////
 
-  public getViewConfigSearchFunction(noteId?: string): FLSearchFunction<LabViewConfig> {
+  public getViewConfigSearchFunction(noteId?: string): FlSearchFunction<LabViewConfig> {
     if (noteId) {
       return (page: number, pageSize: number, data) => this.searchForNote(noteId, page, pageSize, data);
     } else {

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { LabBrickService } from '../../../../entity-service/lab-brick.service';
 import { Observable } from 'rxjs';
 import { LabBrickEntity } from '../../../../model/entities/lab-brick.entity';

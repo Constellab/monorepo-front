@@ -1,5 +1,5 @@
 import { CaBaseEntity } from './ca-base-entity.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { CaCity } from './ca-city.entity';
 

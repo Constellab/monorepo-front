@@ -1,7 +1,8 @@
 import { PrWorkflowNode } from './pr-workflow-node.class';
 import { PrProcess, PrProcessStatus } from '../pr-process.class';
 import { map, Observable } from 'rxjs';
-import { FlStatus, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
 import { PrWorkflowPortType } from '../workflow/pr-workflow-port.class';
 import { PrWorkflowNodeIcon } from '../../component/pr-workflow-node-content/pr-workflow-node-content.component';

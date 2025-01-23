@@ -4,15 +4,18 @@ import {
   CaDocumentDatasource,
 } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogModule,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { CaDocumentActionEvent } from '../../../ca-document-core/ca-document-action-menu';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaDocumentTableComponent } from '../../../ca-document-core/component/ca-document-table/ca-document-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -32,7 +35,6 @@ export interface CaDocumentTrashListDialogInput {
     MatIconButton,
     MatTooltip,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     FlInfiniteScrollModule,
     CaDocumentTableComponent,

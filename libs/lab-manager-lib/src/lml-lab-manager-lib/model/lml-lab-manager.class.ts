@@ -1,10 +1,11 @@
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
+
 import { Type } from 'class-transformer';
 
 export type LmlLabContainersStatus = 'STOP' | 'DOWN' | 'UP' | 'PARTIALLY_UP' | 'ERROR';

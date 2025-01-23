@@ -12,7 +12,8 @@ import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entitie
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
-import { FlDialogService, FlUserConfig } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlUserConfig, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
@@ -28,19 +29,18 @@ import {
 } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaRunStatAggregateService } from '../../../ha-core/ha-service/ha-run-stat-aggregate.service';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
 import { MatButton } from '@angular/material/button';
 import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-profile-attached-link.component';
-import { FlKeyValueModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
-import { MatTabGroup, MatTab, MatTabLabel } from '@angular/material/tabs';
-import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';

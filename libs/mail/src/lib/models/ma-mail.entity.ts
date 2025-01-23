@@ -1,11 +1,11 @@
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlDatasourcePaginated,
-  FlEntity,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
+
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 

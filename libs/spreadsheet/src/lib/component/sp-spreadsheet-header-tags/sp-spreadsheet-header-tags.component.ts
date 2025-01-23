@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ClHelpService } from '@monorepo/core-lib';
-import { FlTagColorer } from '@monorepo/front-core-lib';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 /**
  * List the tags of a header

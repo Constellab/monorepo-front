@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
 import { MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatButton } from '@angular/material/button';

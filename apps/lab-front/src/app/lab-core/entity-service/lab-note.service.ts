@@ -1,14 +1,17 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
-  FlApiService,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
-  FlDatasourceGetPageData,
   FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import {
   LabNote,
   LabNoteDatasource,

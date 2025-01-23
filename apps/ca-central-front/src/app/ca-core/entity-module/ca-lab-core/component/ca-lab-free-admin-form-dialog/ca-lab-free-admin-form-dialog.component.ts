@@ -1,20 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CaLabFreeCreateDto } from '../../../../model/entities/lab/ca-lab-free.class';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatError } from '@angular/material/form-field';
 import { CaSelectSpaceComponent } from '../../../ca-space-core/component/ca-select-space/ca-select-space.component';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

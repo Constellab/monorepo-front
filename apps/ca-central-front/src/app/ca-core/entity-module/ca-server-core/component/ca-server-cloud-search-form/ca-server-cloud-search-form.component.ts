@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FlSearchState } from '@monorepo/front-core-lib';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';

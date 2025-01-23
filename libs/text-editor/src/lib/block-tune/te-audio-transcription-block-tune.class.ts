@@ -2,7 +2,7 @@ import { TeHelper } from '../model/te.helper';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
 import { Observable } from 'rxjs';
 import { TeBlockTune } from '../model/te-block-tune-factory.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TeAudioTranscriptionDialogComponent } from '../component/te-audio-transcription-dialog/te-audio-transcription-dialog.component';
 import { TeRichText } from '../model/lib';
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaStatsService } from '../../../ca-core/service-api/ca-stats.service';
 import { CaStats } from '../../../ca-core/model/entities/ca-stats.class';
-import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { CaDashboardActivityCardComponent } from '../ca-dashboard-activity-card/ca-dashboard-activity-card.component';
 import { TranslatePipe } from '@ngx-translate/core';

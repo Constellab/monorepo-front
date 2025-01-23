@@ -1,8 +1,8 @@
-import { Injectable, Signal, signal, WritableSignal, inject } from '@angular/core';
+import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { CaHierarchyObjectWithChildren } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FlRouterHelper } from '@monorepo/front-core-lib';
+import { FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
 import { map } from 'rxjs/operators';
 import { first, Observable } from 'rxjs';
 import { CaRouterService } from '../../ca-core/service/ca-router.service';

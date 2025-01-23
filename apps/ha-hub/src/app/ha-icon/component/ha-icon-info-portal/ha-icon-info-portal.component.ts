@@ -1,12 +1,9 @@
 import { Component, inject } from '@angular/core';
-import {
-  FL_PORTAL_DATA,
-  FlClipboardService,
-  FlOverlayRef,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlClipboardService, FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { CoIcon } from '@monorepo/community-lib';
-import { FlKeyValueModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

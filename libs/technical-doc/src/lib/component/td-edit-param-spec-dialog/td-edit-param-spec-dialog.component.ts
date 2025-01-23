@@ -10,14 +10,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TdParamSpecConfig } from '../../model/td-param-spec-config.class';
-import {
-  FlDynamicFieldConfigInput,
-  FlDynamicFieldConfigSelect,
-  FlDynamicFieldSelectKeyNameOption,
-  FlDynamicFormGroupConfig,
-  FlDynamicFormHelper,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlDynamicFieldConfigInput } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicFieldConfigSelect } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicFieldSelectKeyNameOption } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlDynamicFormHelper } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { ClStringHelper } from '@monorepo/core-lib';
 

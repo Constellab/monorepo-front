@@ -1,7 +1,7 @@
 import { Directive, Input } from '@angular/core';
 import { RvResourceViewBase } from './rv-resource-view.class';
 import { RvViewConfig } from './rv-view-config.class';
-import { FlMenuDynamic } from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { RvResourceViewModuleConfig } from './rv-resource-view-module.config';
 
 @Directive()

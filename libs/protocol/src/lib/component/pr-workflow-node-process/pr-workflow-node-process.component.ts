@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PrWorkflowNodeProtocol } from '../../model/node/pr-workflow-node-protocol.class';
-import { FlPortalService, FlStatus, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { ClHelpService } from '@monorepo/core-lib';
 import { PrWorkflowNodeIcon } from '../pr-workflow-node-content/pr-workflow-node-content.component';
 import { PrWorkflowNodeDirective } from '../../directive/pr-workflow-node.directive';

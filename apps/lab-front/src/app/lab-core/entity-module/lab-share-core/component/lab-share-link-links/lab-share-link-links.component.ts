@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
-import { FlClipboardService } from '@monorepo/front-core-lib';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 

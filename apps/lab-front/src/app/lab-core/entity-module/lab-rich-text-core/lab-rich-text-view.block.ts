@@ -4,7 +4,7 @@ import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LabSelectViewConfigDialogComponent } from '../lab-view-config-core/component/lab-select-view-config-dialog/lab-select-view-config-dialog.component';
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';

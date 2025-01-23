@@ -1,5 +1,5 @@
 import { HaTopic } from './ha-topic.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { HaUser } from './ha-user';
 import { DateTime } from 'luxon';
 import { HaFile } from '../../entity-module/ha-file-core/model/ha-file';

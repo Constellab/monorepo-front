@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { LabEnvironmentHelper } from '../../utils/lab-environment.helper';
-import { FlDatasourcePaginated, FlInputSearchFilter, FlUserConfig } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlUserConfig } from '@monorepo/front-core-lib/fl-user';
 import { Observable } from 'rxjs';
 import { LabUser } from '../entities/lab-user.entity';
 import { LabUserService } from '../../entity-service/lab-user.service';

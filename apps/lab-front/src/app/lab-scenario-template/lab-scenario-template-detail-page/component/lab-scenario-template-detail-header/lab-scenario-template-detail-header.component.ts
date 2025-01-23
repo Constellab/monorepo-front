@@ -1,14 +1,15 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
 import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionsService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

@@ -1,4 +1,4 @@
-import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib';
+import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
 import { PrOI } from './pr-io.class';
 import { PrConfig } from './pr-config.class';
 import { TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle } from '@monorepo/technical-doc';

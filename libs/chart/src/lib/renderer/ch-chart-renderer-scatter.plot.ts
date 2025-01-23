@@ -5,7 +5,8 @@ import { ChChart2dMultiSerie } from '../model/data/ch-chart-multi-serie.class';
 import { ChChartColorFunction } from '../model/scale/ch-chart-scale-color.class';
 import { ChChartDataWithSeriePortalInput } from '../component/ch-chart-data-portal/ch-chart-data-with-serie-portal/ch-chart-data-with-serie-portal.component';
 import { ChChartPortalHandler } from '../model/portal-handler/ch-chart-portal-handler.class';
-import { FlColorHelper, FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer, FlTagWithColor } from '@monorepo/front-core-lib/fl-tag';
 
 export class ChChartRendererScatterPlot extends ChChart2AxisRendererWithColors<
   ChChart2dMultiSerie<ChChart2dDatum>,

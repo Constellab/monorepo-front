@@ -1,10 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlEntityPaginatedDatasource,
-  FlFormDialogInput,
-  FlTag,
-} from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabTagFormDialogComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-form-dialog/lab-tag-form-dialog.component';
 import { LabTagHelpDialogComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-help-dialog/lab-tag-help-dialog.component';
 import {
@@ -13,15 +11,15 @@ import {
   LabTagKeyModelDatasource,
 } from '../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabTagEntityDetailComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-entity-detail/lab-tag-entity-detail.component';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

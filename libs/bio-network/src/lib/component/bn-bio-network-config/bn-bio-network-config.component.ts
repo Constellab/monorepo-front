@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { BnBioNetworkState } from '../../state/bn-bio-network.state';
 import { BnBioNetwork } from '../../model/bn-bio-network.class';
 import { BnBioNetworkLegendComponent } from '../bn-bio-network-legend/bn-bio-network-legend.component';
 import { MatSelectChange } from '@angular/material/select';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 /**
  * Component to select the network and the pathways database

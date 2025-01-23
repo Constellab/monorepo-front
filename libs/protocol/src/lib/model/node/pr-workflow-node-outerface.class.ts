@@ -1,7 +1,8 @@
 import { PrOuterface } from '../pr-interface.class';
 import { PrWorkflowPort } from '../workflow/pr-workflow-port.class';
 import { map, Observable, of, switchMap } from 'rxjs';
-import { FlStatusEvent, FlThemeService } from '@monorepo/front-core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
 import { PrResource } from '../pr-resource.class';
 import { PrWorkflowNodeProcess } from './pr-workflow-node-process.class';

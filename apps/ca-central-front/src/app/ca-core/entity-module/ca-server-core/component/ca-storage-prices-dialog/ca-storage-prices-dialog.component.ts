@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { CaServerService } from '../../../../service-api/ca-server.service';
-import { FlDialogService, FlEntityArrayObs, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { CaStoragePriceFormDialogComponent } from '../ca-storage-price-form-dialog/ca-storage-price-form-dialog.component';
 import {
   CaStoragePrice,
   CaStoragePriceDatasource,
 } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

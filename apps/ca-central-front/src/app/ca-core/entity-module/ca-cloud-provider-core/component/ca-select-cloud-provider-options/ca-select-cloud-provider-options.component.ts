@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { CaCloudProviderService } from '../../../../service-api/ca-cloud-provider.service';
 import {
   CaCloudProvider,
@@ -7,8 +7,8 @@ import {
 } from '../../../../model/entities/ca-cloud-provider.class';
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatOption } from '@angular/material/core';
 import { CaCloudProviderInlineComponent } from '../ca-cloud-provider-inline/ca-cloud-provider-inline.component';
 import { AsyncPipe } from '@angular/common';

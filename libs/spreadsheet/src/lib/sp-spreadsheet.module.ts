@@ -31,25 +31,24 @@ import { SpSheetRangesInputComponent } from './component/sp-sheet-ranges-input/s
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDividerModule } from '@angular/material/divider';
 
-import {
-  FlAutocompleteMultipleModule,
-  FlCoreComponentModule,
-  FlCoreDirectiveModule,
-  FlCorePipeModule,
-  FlDrawerModule,
-  FlIconModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlMenuDynamicModule,
-  FlPortalActionsModule,
-  FlPortalModule,
-  FlResizeModule,
-  FlSectionModule,
-  FlTagModule,
-  FlTextIconModule,
-  FlTranslateModule,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlAutocompleteMultipleModule } from '@monorepo/front-core-lib/fl-autocomplete-multiple';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDrawerModule } from '@monorepo/front-core-lib/fl-drawer';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlMenuDynamicModule } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { ChChartModule } from '@monorepo/chart';
 
 @NgModule({

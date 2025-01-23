@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ActivatedRoute } from '@angular/router';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 import { LabNoteTemplateService } from '../../../lab-core/entity-service/lab-note-template.service';
@@ -8,16 +10,16 @@ import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-edito
 import { TeConfig, TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlFormModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { FlArticleModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

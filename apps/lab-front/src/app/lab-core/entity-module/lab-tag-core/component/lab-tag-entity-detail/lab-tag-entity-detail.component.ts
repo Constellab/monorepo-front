@@ -13,14 +13,13 @@ import {
   LabTagValueModel,
   LabTagValueModelDatasource,
 } from '../../../../model/entities/lab-tag.entity';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlEntityPaginatedDatasource,
-  FlFormDialogInput,
-  FlTag,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { LabTagFormDialogComponent } from '../lab-tag-form-dialog/lab-tag-form-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -33,11 +32,11 @@ import {
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 
 /**
  * Component to show the LabTagEntity information

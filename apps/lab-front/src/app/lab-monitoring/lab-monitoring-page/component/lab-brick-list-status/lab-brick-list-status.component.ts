@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
 import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import {
   MatAccordion,
   MatExpansionPanel,
+  MatExpansionPanelDescription,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
-  MatExpansionPanelDescription,
 } from '@angular/material/expansion';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { LabBrickInfoComponent } from '../lab-brick-info/lab-brick-info.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

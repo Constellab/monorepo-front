@@ -6,7 +6,7 @@ import { SpSheetSelectionRange } from '../../model/chart/sp-sheet-chart-selectio
 import { SpSheetSingleSelection } from '../../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetChartSelectionHelper } from '../../utils/sp-spreadsheet-chart-selection.helper';
 import { SpCellsMultipleRange } from '../../model/selection/sp-cells-multiple-range.class';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 
 interface SpSpreadsheetRangeForm {
   type: 'range' | 'columns';

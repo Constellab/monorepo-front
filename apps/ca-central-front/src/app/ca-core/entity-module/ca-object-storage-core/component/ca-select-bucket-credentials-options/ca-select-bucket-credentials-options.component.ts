@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import {
   CaBucketCredentials,
@@ -7,8 +7,8 @@ import {
 } from '../../../../model/entities/ca-object-storage.class';
 import { CaObjectStorageService } from '../../../../service-api/ca-object-storage.service';
 import { MatSelect } from '@angular/material/select';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatOption } from '@angular/material/core';
 import { CaBucketCredentialsInlineComponent } from '../ca-bucket-credentials-inline/ca-bucket-credentials-inline.component';
 import { AsyncPipe } from '@angular/common';

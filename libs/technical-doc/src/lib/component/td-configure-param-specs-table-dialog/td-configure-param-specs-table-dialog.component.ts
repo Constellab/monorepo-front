@@ -2,7 +2,9 @@ import { Component, inject, ViewContainerRef } from '@angular/core';
 import { TdAbstractDynamicParamSpecState } from '../../service/td-abstract-dynamic-param-spec.state';
 import { TdConfig, TdParamSpecs } from '../../model/td-config-spec.class';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { TdEditableParamSpec } from '../td-editable-param-specs-table/td-editable-param-specs-table.component';
 import {
   TdEditParamSpecDialogComponent,

@@ -5,21 +5,38 @@ import {
   FlDynamicFieldConfigService,
   FlDynamicFieldConfigUnknown,
   FlDynamicGroupAdditionalConfig,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dynamic-field';
+
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
-import { LabTagDynamicFieldComponent } from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
+import {
+  LabTagDynamicFieldComponent,
+} from './component/lab-tag-dynamic-field/lab-tag-dynamic-field.component';
 import {
   tdCodeParamSpecTypeList,
   TdDynamicEditableFormGroupComponent,
   TdParamSpecType,
 } from '@monorepo/technical-doc';
-import { LabOpenAiChatDynamicFieldComponent } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
-import { LabSelectCredentialsDynamicFieldComponent } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
-import { LabSelectNoteDynamicFieldComponent } from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
-import { LabRichTextDynamicFieldComponent } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
-import { LabSelectNoteTemplateDynamicFieldComponent } from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
-import { LabSelectScenarioDynamicFieldComponent } from '../lab-scenario-core/component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
-import { LabCodeEditorDynamicFieldComponent } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
+import {
+  LabOpenAiChatDynamicFieldComponent,
+} from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
+import {
+  LabSelectCredentialsDynamicFieldComponent,
+} from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
+import {
+  LabSelectNoteDynamicFieldComponent,
+} from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
+import {
+  LabRichTextDynamicFieldComponent,
+} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
+import {
+  LabSelectNoteTemplateDynamicFieldComponent,
+} from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
+import {
+  LabSelectScenarioDynamicFieldComponent,
+} from '../lab-scenario-core/component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
+import {
+  LabCodeEditorDynamicFieldComponent,
+} from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
 
 /**
  * Configuration for the DynamicField that include tags field and other custom field

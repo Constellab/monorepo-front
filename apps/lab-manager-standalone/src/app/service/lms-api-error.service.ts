@@ -1,12 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import {
-  FlApiErrorService,
-  FlServerError,
-  FlSnackBarService,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { ClApiError } from '@monorepo/core-lib';
 
 /**

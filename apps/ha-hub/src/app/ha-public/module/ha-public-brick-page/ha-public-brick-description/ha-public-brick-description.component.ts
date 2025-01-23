@@ -2,7 +2,8 @@ import { Component, computed, inject, Signal } from '@angular/core';
 import { HaBrick, HaEditBrickDTO } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { Router, RouterLink } from '@angular/router';
 import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaReferenceDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaAuthService } from '../../../../ha-core/ha-service/ha-auth.service';
@@ -17,7 +18,7 @@ import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib
 import { HaLikeButtonComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { MatButton } from '@angular/material/button';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { HaGithubStarButtonComponent } from '../../../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
 import { HaPublicBrickUsersComponent } from '../ha-public-brick-users/ha-public-brick-users.component';
 import { TranslatePipe } from '@ngx-translate/core';

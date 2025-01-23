@@ -3,7 +3,7 @@ import { Type } from '@angular/core';
 import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { HaAgentContentViewComponent } from './ha-agent-content-view/ha-agent-content-view.component';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import {

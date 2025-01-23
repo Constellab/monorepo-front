@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CaLabDetailServerState } from '../../../state/ca-lab-detail-server.state';
 import { LmlLabManagerService, LmlLabManagerState } from '@monorepo/lab-manager-lib';
 import { CaLabManagerService } from '../../../state/ca-lab-manager.service';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabHeaderComponent } from '../ca-lab-header/ca-lab-header.component';
 
 @Component({

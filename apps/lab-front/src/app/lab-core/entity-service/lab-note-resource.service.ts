@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 import { PrConfigValues } from '@monorepo/protocol';

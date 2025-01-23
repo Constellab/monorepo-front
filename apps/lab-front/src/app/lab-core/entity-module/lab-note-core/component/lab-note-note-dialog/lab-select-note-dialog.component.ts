@@ -1,8 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabNote } from '../../../../model/entities/lab-note.entity';
-import { MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LabNoteSearchComponent } from '../lab-note-search/lab-note-search.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -13,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'lab-select-note-dialog',
   templateUrl: './lab-select-note-dialog.component.html',
   styleUrls: ['./lab-select-note-dialog.component.scss'],
-  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabNoteSearchComponent, TranslatePipe],
+  imports: [FlDialogModule, MatDialogContent, LabNoteSearchComponent, TranslatePipe],
 })
 export class LabSelectNoteDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<LabSelectNoteDialogComponent>>(MatDialogRef);

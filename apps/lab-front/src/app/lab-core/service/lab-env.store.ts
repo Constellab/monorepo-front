@@ -1,4 +1,5 @@
-import { FlCleanableService, FlCleanerService, FlLocalStorageService } from '@monorepo/front-core-lib';
+import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlLocalStorageService } from '@monorepo/front-core-lib/fl-core';
 import { LabAppEnvironment } from '../model/global/lab-environment.class';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { LabRouterService } from './lab-router.service';

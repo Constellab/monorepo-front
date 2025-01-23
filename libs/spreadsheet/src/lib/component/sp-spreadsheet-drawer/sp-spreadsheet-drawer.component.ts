@@ -4,7 +4,8 @@ import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SpSheet } from '../../model/sp-sheet.class';
-import { flCdkOverlayContainerClass, FlTagColorer } from '@monorepo/front-core-lib';
+import { flCdkOverlayContainerClass } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 @Component({
   selector: 'sp-spreadsheet-drawer',

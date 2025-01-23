@@ -1,5 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlTag, FlTagSearchFilter, FlTagService, FlTagValue } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagSearchFilter } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagService } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagValue } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 import {
   LabCreateTagResponse,
@@ -81,7 +85,7 @@ export class LabTagService extends FlTagService {
     return this.apiService.put(`${this.route}/reorder`, tagKeys, LabTagKeyModel);
   }
 
-  ///////////////////////////////////////////////////// ENTITY TAGS /////////////////////////////////////////////////////
+  ////////////////////////////////// ENTITY TAGS /////////////////////////////////////////////////
 
   addEntityTags(
     entityType: string,
@@ -112,7 +116,7 @@ export class LabTagService extends FlTagService {
     return this.apiService.get(`${this.route}/entity/${entityTagId}/origins`, LabTagOrigin);
   }
 
-  ////////////////////////////////////////////////// PROPAGATION //////////////////////////////////////////////////
+  //////////////////////////////// PROPAGATION ////////////////////////////////////////////
   public checkPropagationAddTags(
     entityType: LabEntityTagType,
     entityId: string,

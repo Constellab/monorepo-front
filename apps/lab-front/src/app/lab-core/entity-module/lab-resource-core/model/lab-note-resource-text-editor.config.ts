@@ -9,7 +9,7 @@ import {
   TeTools,
   TeVariableInlineToolClass,
 } from '@monorepo/text-editor';
-import { flRootInjector } from '@monorepo/front-core-lib';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import { LabNoteResourceService } from '../../../entity-service/lab-note-resource.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';

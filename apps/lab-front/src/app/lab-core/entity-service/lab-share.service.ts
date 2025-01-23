@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   LabSharedEntity,
   LabSharedEntityDatasource,

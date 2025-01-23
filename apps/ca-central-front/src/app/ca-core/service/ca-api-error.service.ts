@@ -1,17 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import {
-  FlApiErrorService,
-  flAuthExpiredCookie,
-  FlCleanerService,
-  FlCookieService,
-  FlLoginSavedRoute,
-  FlServerError,
-  FlSnackBarService,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { caConstLoginRoute } from '../utils/ca-base-route';
 import { PlatformLocation } from '@angular/common';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';

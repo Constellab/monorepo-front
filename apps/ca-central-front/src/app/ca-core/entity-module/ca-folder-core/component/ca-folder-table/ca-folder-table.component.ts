@@ -1,10 +1,8 @@
-import { Component, ContentChild, Input, TemplateRef, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlMenuDynamicService,
-  FlTableColumnStatic,
-  FlViewContext,
-} from '@monorepo/front-core-lib';
+import { Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
+
 import { CaFolder, CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaFolderActionEvent, CaFolderActionsMenu } from '../../model/ca-folder-actions-menu.class';
@@ -12,22 +10,22 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { CaSecurityService } from '../../../../service/ca-security.service';
 import { CaFolderActionService } from '../../ca-folder-action.service';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
 import { CaFolderInlineComponent } from '../ca-folder-inline/ca-folder-inline.component';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { NgTemplateOutlet } from '@angular/common';
@@ -40,7 +38,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-folder-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

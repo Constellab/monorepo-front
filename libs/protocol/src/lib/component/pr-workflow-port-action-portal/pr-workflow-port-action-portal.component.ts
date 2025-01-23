@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FL_PORTAL_DATA, FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { PrWorkflowPort } from '../../model/workflow/pr-workflow-port.class';
 
 export interface PrWorkflowPortActionPortalInput {

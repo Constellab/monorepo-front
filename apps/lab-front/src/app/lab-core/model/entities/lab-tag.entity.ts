@@ -1,13 +1,12 @@
-import {
-  FlDatasourcePaginated,
-  FlEntity,
-  FlTag,
-  FlTagDatasource,
-  FlTagKeyModel,
-  FlTagValue,
-  FlTagValueFormat,
-  FlTagValueModel,
-} from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagKeyModel } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagValue } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagValueFormat } from '@monorepo/front-core-lib/fl-tag';
+import { FlTagValueModel } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType, LabNavigableEntityGrouped } from './lab-navigable-entity.entity';
 import { Expose, Type } from 'class-transformer';

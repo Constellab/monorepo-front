@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlFormFieldDirective,
-  FlInputSearchAdvancedButton,
-  FlInputSearchFilter,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchAdvancedButton } from '@monorepo/front-core-lib/fl-input-search';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+
 import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
 import { NgControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -14,7 +13,7 @@ import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput,
 } from '../lab-select-type-dialog/lab-select-type-dialog.component';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 
 /**

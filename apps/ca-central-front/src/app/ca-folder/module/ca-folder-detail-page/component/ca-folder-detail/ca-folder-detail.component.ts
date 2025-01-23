@@ -2,12 +2,18 @@ import { Component, inject } from '@angular/core';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { Observable } from 'rxjs';
-import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObjectType,
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import {
+  CaHierarchyObjectIconComponent,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import {
+  CaNotificationMarkDirective,
+} from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
 
 /**

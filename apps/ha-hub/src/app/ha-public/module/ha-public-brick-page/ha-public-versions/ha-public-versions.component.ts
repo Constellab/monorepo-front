@@ -1,7 +1,8 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
-import { FlDialogService, FlFormDialogInput } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaNewVersionDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dialog/ha-public-add-version-dialog.component';
 import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';

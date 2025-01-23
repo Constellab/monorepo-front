@@ -4,21 +4,28 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput,
 } from '../../../lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import { FlClipboardService, FlDialogService } from '@monorepo/front-core-lib';
-import { LabSharedEntityOriginDialogComponent } from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  LabSharedEntityOriginDialogComponent,
+} from '../../../lab-share-core/component/lab-shared-entity-origin-dialog/lab-shared-entity-origin-dialog.component';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { LabTagListComponent } from '../../../lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { RouterLink } from '@angular/router';
-import { LabFolderInlineComponent } from '../../../lab-folder-core/component/lab-folder-inline/lab-folder-inline.component';
+import {
+  LabFolderInlineComponent,
+} from '../../../lab-folder-core/component/lab-folder-inline/lab-folder-inline.component';
 import { NgClass } from '@angular/common';
-import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import {
+  TdTechnicalDocModule,
+} from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 

@@ -1,12 +1,12 @@
 import { LabEntity } from '../global/lab-entity.entity';
+import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlEntity,
-  FlEntityPaginatedDatasource,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
+
 import { Expose, Type } from 'class-transformer';
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';

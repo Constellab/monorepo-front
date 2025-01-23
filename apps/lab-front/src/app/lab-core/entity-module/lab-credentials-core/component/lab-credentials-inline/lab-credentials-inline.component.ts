@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { LabCredentials } from '../../../../model/entities/lab-credentials.entity';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

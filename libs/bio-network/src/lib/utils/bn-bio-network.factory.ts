@@ -14,7 +14,8 @@ import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.
 import { BnBioNetworkLink } from '../model/bn-bio-network-node-link.class';
 import { ClHelpService } from '@monorepo/core-lib';
 import { BnBioNetworkNode } from '../model/bn-bio-network-node.class';
-import { FlColorHelper, FlThemeDetail } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 
 export class BnBioNetworkFactory {
   private reactions: BnBioNetworkNodeReaction[] = [];

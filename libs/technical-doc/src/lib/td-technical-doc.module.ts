@@ -6,23 +6,22 @@ import { RouterModule } from '@angular/router';
 import { TdMainDocComponent } from './component/td-main-doc/td-main-doc.component';
 import { TdProcessDocComponent } from './component/td-process-doc/td-process-doc.component';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  FlCoreComponentModule,
-  FlCoreDirectiveModule,
-  FlCorePipeModule,
-  FlDialogModule,
-  FlDynamicFieldModule,
-  FlFormModule,
-  FlIconModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlSectionModule,
-  FlTextIconModule,
-  FlThemeModule,
-  FlTranslateModule,
-  FlTranslateService,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDynamicFieldModule } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlThemeModule } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource.component';

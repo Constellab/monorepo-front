@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaUser } from '../../../../model/entities/ca-user.class';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
 
 /**

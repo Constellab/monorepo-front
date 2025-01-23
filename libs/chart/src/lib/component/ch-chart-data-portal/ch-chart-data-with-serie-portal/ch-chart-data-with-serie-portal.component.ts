@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { ChChart2dDatum } from '../../../model/data/ch-chart-data.class';
 import { ChChartLabelFormatter } from '../../../model/ch-chart-label-formatter.class';
-import { FL_PORTAL_DATA, FlOverlayRef, FlTagColorer } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 export interface ChChartDataWithSeriePortalInput {
   data: ChChartDataWithSerie<ChChart2dDatum>;

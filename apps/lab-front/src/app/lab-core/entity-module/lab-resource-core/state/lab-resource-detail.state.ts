@@ -17,14 +17,12 @@ import {
 } from '../../../model/entities/resource/lab-resource-view.entity';
 import {
   FlEntityPaginatedDatasource,
-  FlOverlayRef,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlPortalConfig,
-  FlPortalService,
   FlQueryParamHandler,
   FlStatusEvent,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import { LabViewConfigService } from '../../../entity-service/lab-view-config.service';
 import {
   LabResourceViewPortalComponent,

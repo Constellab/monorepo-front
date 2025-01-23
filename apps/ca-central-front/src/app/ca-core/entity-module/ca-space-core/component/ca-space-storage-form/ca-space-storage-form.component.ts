@@ -13,7 +13,7 @@ import { MatFormField, MatLabel, MatHint, MatError } from '@angular/material/for
 import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { CaBucketLocationInlineComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-inline/ca-bucket-location-inline.component';
 import { CaBucketLocationSelectOptionsComponent } from '../../../ca-object-storage-core/component/ca-bucket-location-select-options/ca-bucket-location-select-options.component';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

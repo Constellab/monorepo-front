@@ -5,7 +5,7 @@ import { CaSpace } from '../../../ca-core/model/entities/space/ca-space.class';
 import { map } from 'rxjs/operators';
 import { CaCurrentSpaceService } from '../../../ca-core/service-api/ca-current-space.service';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaSpaceFormDialogComponent,
   CaSpaceFormDialogInput,
@@ -13,13 +13,13 @@ import {
 import { CaEnvironmentHelper } from '../../../ca-core/utils/ca-environment.helper';
 import { CaSpaceSettingsDto } from '../../../ca-core/model/entities/space/ca-space.dto';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlPortalModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { RouterLink } from '@angular/router';
 import { CaSpacePhotoComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
 import { MatDivider } from '@angular/material/divider';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaExternalSpaceLinkDirective } from '../../../ca-core/entity-module/ca-space-core/pipe/ca-external-space-link.directive';
 import { CaSpaceInlineComponent } from '../../../ca-core/entity-module/ca-space-core/component/ca-space-inline/ca-space-inline.component';
 import { AsyncPipe } from '@angular/common';

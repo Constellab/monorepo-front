@@ -5,13 +5,12 @@ import {
   LabConfigureSpecsFormComponent,
 } from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import {
-  FlDialogService,
-  FlDynamicFieldConfigService,
-  FlFormHelper,
-  FlOverlayRef,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
@@ -23,14 +22,12 @@ import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.enti
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
 import { PrConfigValues } from '@monorepo/protocol';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatDivider } from '@angular/material/divider';
 import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
 import { TdTechnicalDocModule } from '../../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
@@ -58,7 +55,6 @@ export interface LabImportResourceDialogInput {
   ],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     MatButton,
     FlLoaderModule,

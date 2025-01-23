@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FlStatusEvent } from '@monorepo/front-core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
 

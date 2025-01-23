@@ -1,11 +1,12 @@
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
-  FlFormInputsManagerConfig,
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-  FlTag,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+
 import { LabScenarioCreationType, LabScenarioStatus } from '../../../model/entities/lab-scenario.entity';
 import { Type } from 'class-transformer';
 import { LabFolder } from '../../../model/entities/lab-folder.class';

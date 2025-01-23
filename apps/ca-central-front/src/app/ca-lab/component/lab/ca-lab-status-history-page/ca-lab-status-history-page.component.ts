@@ -1,28 +1,29 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
-  FlEntityPaginatedDatasource,
-  FlFormInputsManagerConfig,
   FlSavedSearch,
   FlSearchConfig,
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
+  FlSearchModule,
   FlSearchSortCriteriaConverter,
   FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   CaLabStatus,
   CaLabStatusHistoryDatasource,
 } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FormBuilder, FormGroup, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { Type } from 'class-transformer';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlSearchModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';

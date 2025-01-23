@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabFolderObject } from '../../../../model/entities/lab-folder.class';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

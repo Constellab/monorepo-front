@@ -4,13 +4,13 @@ import {
   CaHierarchyObjectType,
   CaHierarchyObjectWithChildren,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { FlFlatTreeControl } from '@monorepo/front-core-lib';
+import { FlFlatTreeControl } from '@monorepo/front-core-lib/fl-core';
 import {
+  MatTree,
   MatTreeFlatDataSource,
   MatTreeFlattener,
-  MatTree,
-  MatTreeNodeDef,
   MatTreeNode,
+  MatTreeNodeDef,
   MatTreeNodePadding,
   MatTreeNodeToggle,
 } from '@angular/material/tree';

@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { FlDialogService, FlFileHelper, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
   CaServerStandard,
   CaServerStandardDatasource,
@@ -10,13 +12,13 @@ import {
   CaServerStandardFormDialogInput,
 } from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-form-dialog/ca-server-standard-form-dialog.component';
 import { CaSettingsService } from '../../../ca-core/service-api/ca-settings.service';
-import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlInputFileModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaServerStandardTableComponent } from '../../../ca-core/entity-module/ca-server-core/component/ca-server-standard-table/ca-server-standard-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

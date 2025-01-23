@@ -1,9 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { mergeMap, Observable } from 'rxjs';
 import { CaFolderStorageUsageDTO } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { CaFolderStorageUsageComponent } from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-folder-storage-usage/ca-folder-storage-usage.component';
 import { TranslatePipe } from '@ngx-translate/core';

@@ -6,7 +6,7 @@ import {
   ClCsvJson,
   clCSVLineSeparator,
 } from '@monorepo/core-lib';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 /**
  * Factory to create a spreadsheet

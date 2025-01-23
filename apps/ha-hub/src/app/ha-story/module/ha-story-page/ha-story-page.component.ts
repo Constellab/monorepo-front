@@ -22,7 +22,7 @@ import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authe
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
-import { FlPortalService } from '@monorepo/front-core-lib';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import {
@@ -34,18 +34,18 @@ import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-re
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlDateModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
-import { FlKeyValueModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-core/component/ha-share-button/ha-share-button.component';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { MatAnchor } from '@angular/material/button';
 import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
-import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

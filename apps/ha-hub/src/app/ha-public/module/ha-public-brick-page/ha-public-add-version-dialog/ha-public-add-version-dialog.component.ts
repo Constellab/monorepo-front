@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import {
   HaAddVersionInput,
@@ -7,16 +7,14 @@ import {
   HaNewVersionFile,
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { Observable } from 'rxjs';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlInputFileModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatDivider } from '@angular/material/divider';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +23,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-public-add-version-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlInputFileModule,
     FlLoaderModule,

@@ -1,7 +1,7 @@
 import { CaEntity } from '../ca-entity.entity';
 import { Type } from 'class-transformer';
 import { CaCloudProvider } from '../ca-cloud-provider.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaServerStandard } from './ca-server-standard.class';
 
 /**

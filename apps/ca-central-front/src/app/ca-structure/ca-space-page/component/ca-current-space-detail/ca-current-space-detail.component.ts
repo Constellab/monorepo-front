@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaSpace } from '../../../../ca-core/model/entities/space/ca-space.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlUploadImageDialogConfig,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+
 import { CaSpaceService } from '../../../../ca-core/service-api/ca-space.service';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaCurrentSpaceService } from '../../../../ca-core/service-api/ca-current-space.service';
@@ -13,17 +13,21 @@ import { Observable } from 'rxjs';
 import { CaRequestNewLicensesComponent } from '../ca-request-new-licenses/ca-request-new-licenses.component';
 import { CaSpaceSettingsDto } from '../../../../ca-core/model/entities/space/ca-space.dto';
 import { map } from 'rxjs/operators';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { CaIsSpaceAdminDirective } from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import {
+  CaIsSpaceAdminDirective,
+} from '../../../../ca-core/module/ca-core-directive/ca-is-space-admlin/ca-is-space-admin.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlImageModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
-import { CaSpacePhotoComponent } from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import {
+  CaSpacePhotoComponent,
+} from '../../../../ca-core/entity-module/ca-space-core/component/ca-space-photo/ca-space-photo.component';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

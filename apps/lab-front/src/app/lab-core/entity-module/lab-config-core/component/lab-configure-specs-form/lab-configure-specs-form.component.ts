@@ -1,19 +1,20 @@
 import { Component, computed, input, Signal } from '@angular/core';
 import {
   FlDynamicEditableFormGroupConfig,
+  FlDynamicFieldModule,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dynamic-field';
+
 import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import { PrConfig, PrConfigValues } from '@monorepo/protocol';
-import { FlDynamicFieldModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dynamic-field/fl-dynamic-field.module';
 import {
   MatExpansionPanel,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
-import { FlCoreDirectiveModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabConfigureSpecsForm {

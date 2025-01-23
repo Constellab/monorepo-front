@@ -4,7 +4,9 @@ import { LabResourceService } from '../../../lab-core/entity-service/lab-resourc
 import { Observable, of } from 'rxjs';
 import { ClCachedObservable } from '@monorepo/core-lib';
 import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-core-lib';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+import { flStatutEvent } from '@monorepo/front-core-lib/fl-core';
+import { flStatutEventMap } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * State to resources of the workflow

@@ -9,7 +9,9 @@ import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import { FlDialogService, FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalAction } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { Observable, of, share } from 'rxjs';
 import { LabShareService } from '../../../../entity-service/lab-share.service';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
@@ -23,8 +25,8 @@ import {
   LabShareResourceWithSpaceDialogComponent,
   LabShareResourceWithSpaceDialogInput,
 } from '../../../lab-resource-core/component/lab-share-resource-with-space-dialog/lab-share-resource-with-space-dialog.component';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
@@ -33,10 +35,10 @@ import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu
 import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-link-links.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass, AsyncPipe } from '@angular/common';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabSharedEntityTableComponent } from '../lab-shared-entity-table/lab-shared-entity-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

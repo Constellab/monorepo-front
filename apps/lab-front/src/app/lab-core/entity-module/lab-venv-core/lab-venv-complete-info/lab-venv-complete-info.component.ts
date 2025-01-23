@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LabVEnvCompleteInfo } from '../../../model/entities/lab-venv.entity';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlDateModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

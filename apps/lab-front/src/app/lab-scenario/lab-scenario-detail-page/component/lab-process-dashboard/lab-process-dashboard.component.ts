@@ -4,12 +4,14 @@ import {
   LabTypeDialogComponent,
   LabTypeDialogInput,
 } from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { Observable, Subscription } from 'rxjs';
 import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
 import { map } from 'rxjs/operators';
-import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import {
+  LabProgressBarInfoDialogComponent,
+} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import {
   LabLogBetweenDatesDialogInput,
@@ -20,29 +22,34 @@ import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
-import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import {
+  LabSystemConfigDialogComponent,
+} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
   LabMonitorBetweenDatesDialogInput,
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
-import { LabShareAgentCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
+import {
+  LabShareAgentCommunityDialogComponent,
+} from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 import {
   LabProcessEditStyleDialogComponent,
   LabProcessEditStyleDialogInputData,
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatDialogContent } from '@angular/material/dialog';
-import { CoCommunityLibModule } from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import {
+  CoCommunityLibModule,
+} from '../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-io-panel.component';
 import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
 import { AsyncPipe } from '@angular/common';
@@ -57,7 +64,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-process-dashboard.component.scss'],
   providers: [LabProcessDashboardConfigState],
   imports: [
-    CdkScrollable,
     MatDialogContent,
     CoCommunityLibModule,
     FlFormModule,

@@ -18,17 +18,16 @@ import {
 import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlPortalAction,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlSnackBarService,
-  FlTranslatableText,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalAction } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
 import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';

@@ -1,4 +1,4 @@
-import { FlMenuDynamicButton } from '@monorepo/front-core-lib';
+import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { PrWorkflowPort } from './pr-workflow-port.class';
 import { PrWorkflowMode } from './pr-workflow.class';
 import { PrWorkflowNode } from '../node/pr-workflow-node.class';

@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { LabTypeEntity } from '../../lab-core/model/entities/lab-type/lab-type.entity';
 import { mergeMap, Observable } from 'rxjs';
 import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
-import { FlSectionModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlCoreDirectiveModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlArticleModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
 import { TdTechnicalDocModule } from '../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 import { LabTypeDetailComponent } from '../../lab-core/entity-module/lab-type-core/component/lab-type-detail/lab-type-detail.component';
 

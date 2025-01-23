@@ -1,5 +1,5 @@
 import { environment } from './environments/lms-environment';
-import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
 import { lmsEnvironmentPath, LmsEnvironmentSettings } from './environments/lms-environment.class';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { LmsAppModule } from './app/lms-app.module';

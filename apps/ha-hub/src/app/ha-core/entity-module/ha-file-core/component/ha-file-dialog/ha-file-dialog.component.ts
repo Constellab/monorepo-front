@@ -1,10 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FlFormDialogAbstractDirective,
-  FlFormDialogInput,
-  FlPortalAction,
-  FlPortalActionsService,
-} from '@monorepo/front-core-lib';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
@@ -12,11 +10,9 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { HaFileServiceInterface } from '../../model/ha-file-service.interface';
 import { HaFile } from '../../model/ha-file';
 import { HaBaseEntityWithFiles } from '../../model/ha-base-entity-with-files';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { FlCoreComponentModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
@@ -39,7 +35,6 @@ export interface HaFileFormData {
   styleUrls: ['./ha-file-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlInputFileModule,
     FlFormModule,

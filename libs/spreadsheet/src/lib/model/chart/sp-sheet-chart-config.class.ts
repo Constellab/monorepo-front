@@ -7,7 +7,8 @@ import {
 import { SpCellsRange } from '../selection/sp-cells-range.class';
 import { SpSheet } from '../sp-sheet.class';
 import { Observable } from 'rxjs';
-import { FlMenuDynamic, FlOverlayRef } from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { ChChartType } from '@monorepo/chart';
 
 /**

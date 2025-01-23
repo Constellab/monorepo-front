@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { MatSelect } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { LabViewType } from '../../../../model/entities/resource/lab-view-config.entity';

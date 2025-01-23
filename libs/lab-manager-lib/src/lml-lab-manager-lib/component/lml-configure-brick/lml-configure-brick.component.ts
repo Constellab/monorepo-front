@@ -3,7 +3,7 @@ import { LmlCommunityBrick, LmlCommunityBrickDatasource } from '../../model/lml-
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CoBrick, CoSpace } from '@monorepo/community-lib';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { LmlBrickService } from '../../lml-brick.service';
 import { Observable } from 'rxjs';
@@ -15,10 +15,10 @@ interface LmlCommunityBrickFilers {
 }
 
 @Component({
-    selector: 'lml-config-brick',
-    templateUrl: './lml-configure-brick.component.html',
-    styleUrls: ['./lml-configure-brick.component.scss'],
-    standalone: false
+  selector: 'lml-config-brick',
+  templateUrl: './lml-configure-brick.component.html',
+  styleUrls: ['./lml-configure-brick.component.scss'],
+  standalone: false,
 })
 export class LmlConfigureBrickComponent implements OnInit {
   formGp = new FormBuilder().group({

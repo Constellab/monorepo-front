@@ -8,7 +8,7 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabNavigableEntitiesTableComponent } from '../lab-navigable-entities-table/lab-navigable-entities-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

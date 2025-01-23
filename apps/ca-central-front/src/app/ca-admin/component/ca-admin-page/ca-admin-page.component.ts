@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib';
-import { FlHorizontalNavBarModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import {
+  FlHorizontalNavBarItem,
+  FlHorizontalNavBarModule,
+} from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -44,7 +46,7 @@ export class CaAdminPageComponent {
       route: CaRouterService.getAdminServersInfoRoute(),
     },
     {
-      label: { text: 'maMail.mails', translateText: true },
+      label: { text: 'mails', translateText: true },
       icon: 'email',
       route: CaRouterService.getAdminMailsRoute(),
     },

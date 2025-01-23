@@ -1,12 +1,13 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import {
-  FlApiService,
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
-  FlFileHelper,
   FlInputSearchFilter,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { Observable, of, switchMap } from 'rxjs';
 import {
   LabRunningScenarioInfo,

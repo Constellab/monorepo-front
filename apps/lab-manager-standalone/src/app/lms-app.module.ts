@@ -1,27 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { Injector, NgModule, inject, provideAppInitializer } from '@angular/core';
+import { inject, Injector, NgModule, provideAppInitializer } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
-  FlApiModule,
-  FlDialogModule,
-  FlIconModule,
-  flIconsDefault,
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  FlPortalActionsModule,
-  FlPortalModule,
-  flSetRootInjector,
-  FlSnackBarModule,
-  FlThemeService,
-  flTooltipConfig,
   FlTranslateModule,
   FlTranslateModuleConfig,
   FlTranslationLoader,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-translate';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import {
+  FlLuxonDateAdapter,
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flSetRootInjector,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { LmsAppComponent } from './lms-app.component';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { TranslateLoader } from '@ngx-translate/core';

@@ -6,11 +6,11 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { DOCUMENT } from '@angular/common';
 import { filter } from 'rxjs';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav.component';
 import { Ha404Component } from '../../ha404/ha404.component';
 import { TranslatePipe } from '@ngx-translate/core';

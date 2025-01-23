@@ -1,6 +1,9 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaLab } from '../lab/ca-lab.class';
-import { FlStatus, FlStatusDict, FlStatusHelper, FlStatusTransform } from '@monorepo/front-core-lib';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { FlStatusDict } from '@monorepo/front-core-lib/fl-status';
+import { FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
+import { FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 import { labBiotaDatabaseGroups } from '../../../model/lab-biota-database.class';
 import { MatSelect } from '@angular/material/select';
 import { MatOptgroup, MatOption } from '@angular/material/core';

@@ -19,7 +19,7 @@ import {
   BnBioNetworkSelectionEvent,
   BnBioNetworkSelectionMode,
 } from '../model/bn-bio-network-selection.class';
-import { FlThemeDetail } from '@monorepo/front-core-lib';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Class to render nodes of the network (metabolites, reactions and cofactors)

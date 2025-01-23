@@ -1,13 +1,12 @@
 import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+
 
 export type CaResourceActionEvent = {
   action: 'deleteResource';

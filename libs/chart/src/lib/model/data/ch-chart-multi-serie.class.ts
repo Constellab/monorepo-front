@@ -2,7 +2,7 @@ import { ChChart2dDatum, ChChartData, ChChartDataContainer } from './ch-chart-da
 import { ChChartDataWithSerie, ChChartSerie } from './ch-chart-serie.class';
 import { ChChartDomain } from '../ch-chart-domain.class';
 import { ChChartLabelFormatter } from '../ch-chart-label-formatter.class';
-import { FlTagHelper } from '@monorepo/front-core-lib';
+import { FlTagHelper } from '@monorepo/front-core-lib/fl-tag';
 
 /**
  * Object to manage multiple series

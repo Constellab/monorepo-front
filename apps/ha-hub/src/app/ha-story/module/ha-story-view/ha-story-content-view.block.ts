@@ -4,7 +4,7 @@ import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { HaStoryContentViewComponent } from './ha-story-content-view/ha-story-content-view.component';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClStringHelper } from '@monorepo/core-lib';
 import {
   HaStoryResourceViewInputDialogComponent,

@@ -1,6 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
-import { FlSearchState } from '@monorepo/front-core-lib';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { maMailStatusDict } from '../../models/ma-mail.entity';
 
 @Component({

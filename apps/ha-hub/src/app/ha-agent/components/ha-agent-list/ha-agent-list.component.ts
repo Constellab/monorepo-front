@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { Router, RouterLink } from '@angular/router';
 import {
   HaAgentCreateDialogComponent,
@@ -13,7 +13,7 @@ import {
   HaAgentDatasourceFilters,
   HaAgentDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
@@ -22,15 +22,15 @@ import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChipOption } from '@angular/material/chips';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { HaSelectableSpaceListComponent } from '../../../ha-space/module/ha-selectable-space-list/ha-selectable-space-list.component';
-import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { MatFormField, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CoCommunityLibModule } from '../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 

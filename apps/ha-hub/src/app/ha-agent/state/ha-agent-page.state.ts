@@ -14,12 +14,10 @@ import { HaLikeType } from '../../ha-core/ha-model/ha-entities/ha-entity-type.en
 import { HaLikeService } from '../../ha-core/ha-service/ha-like.service';
 import { TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
-import {
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlSnackBarService,
-  FlStatusEvent,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
+
 import {
   HaRunStatAggregate,
   HaRunStatAggregateObjectType,

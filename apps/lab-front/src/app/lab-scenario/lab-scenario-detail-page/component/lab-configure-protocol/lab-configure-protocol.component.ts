@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
 import { filter } from 'rxjs/operators';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatRipple } from '@angular/material/core';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
 
 /**

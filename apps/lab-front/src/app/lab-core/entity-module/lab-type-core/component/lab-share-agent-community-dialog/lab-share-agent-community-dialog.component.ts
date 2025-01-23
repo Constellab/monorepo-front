@@ -6,10 +6,12 @@ import {
   LabCreateCommunityAgentDialogComponent,
   LabCreateCommunityAgentDialogMode,
 } from '../lab-create-community-agent-dialog/lab-create-community-agent-dialog.component';
-import { FlConfirmDialogInput, FlDialogService, FlTranslateService } from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LabAuthenticatedUserService } from '../../../../service/lab-authenticated-user.service';
 import { LabUser } from '../../../../model/entities/lab-user.entity';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CoCommunityLibModule } from '../../../../../../../../../libs/community-lib/src/lib/co-community-lib.module';
 import { MatDivider } from '@angular/material/divider';
@@ -17,7 +19,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
 import { LabSelectCommunityAgentComponent } from '../lab-select-community-agent/lab-select-community-agent.component';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabShareAgentCommunityDialogData {

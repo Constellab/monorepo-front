@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

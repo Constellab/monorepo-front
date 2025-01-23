@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { LabViewConfigSearchComponent } from '../lab-view-config-search/lab-view-config-search.component';
 import { TranslatePipe } from '@ngx-translate/core';

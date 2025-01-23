@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaActivityDatasource } from '../../../../../ca-core/model/entities/ca-activity.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaActivitySearchFields } from '../../../../../ca-core/entity-module/ca-activity-core/model/ca-activity-search.class';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaActivitySearchComponent } from '../../../../../ca-core/entity-module/ca-activity-core/component/ca-activity-search/ca-activity-search.component';

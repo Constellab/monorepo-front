@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
-import { FlAuthModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 

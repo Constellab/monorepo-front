@@ -1,19 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlEntityPaginatedDatasource,
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaFolderSearch, CaFolderSearchFields } from '../../model/ca-folder-search.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { CaFolderSearchFormComponent } from '../ca-folder-search-form/ca-folder-search-form.component';
 import { CaFolderTableComponent } from '../ca-folder-table/ca-folder-table.component';
 import { TranslatePipe } from '@ngx-translate/core';

@@ -1,16 +1,15 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlEntityArrayObs,
-  FlOverlayRef,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import {
   CaScenariosListDialogInput,
   CaScenarioTableDialogComponent,
@@ -20,16 +19,16 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
 import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { CaIsAdminDirective } from '../../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

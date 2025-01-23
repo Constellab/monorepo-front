@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { LabVEnvCompleteInfo, LabVEnvsStatus } from '../model/entities/lab-venv.entity';
 import { Observable } from 'rxjs';
 

@@ -1,5 +1,5 @@
 import { HaAgent } from './ha-agent.class';
-import { FlEntity } from '@monorepo/front-core-lib';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { DateTime } from 'luxon';
 import { TdIOSpecs, TdParamSpecs, TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';

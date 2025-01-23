@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
 import { CoBrickVersionPath, CoCommunityHelperService, CoSpace } from '@monorepo/community-lib';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { CaCoServiceConfig } from '../../ca-core/model/config/ca-co-service-config.service';
 import { CaSpaceService } from '../../ca-core/service-api/ca-space.service';
 

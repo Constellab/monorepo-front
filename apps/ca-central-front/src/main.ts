@@ -3,29 +3,29 @@ import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitia
 import { environment } from './environments/ca-environment';
 import {
   FL_CAPTCHA_MODULE_CONFIG,
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlApiModule,
-  FlAuthModule,
   FlCaptchaModule,
   FlCaptchaModuleConfig,
-  FlDialogModule,
+} from '@monorepo/front-core-lib/fl-captcha';
+import {
+  FL_TRANSLATE_MODULE_CONFIG,
   FlHttpInterceptorService,
-  FlIconModule,
-  flLoadEnvironmentFromAssets,
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  FlPortalActionsModule,
-  FlPortalModule,
-  flSetRootInjector,
-  FlSnackBarModule,
-  FlThemeService,
-  flTooltipConfig,
   FlTranslateModule,
   FlTranslateModuleConfig,
   FlTranslationLoader,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-translate';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
+import { FlLuxonDateAdapter, flLuxonDateFormat } from '@monorepo/front-core-lib/fl-core';
+import { flMatFormFieldConfig, flSetRootInjector, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-environment.class';
 import {
   HTTP_INTERCEPTORS,
@@ -72,10 +72,7 @@ import {
   withRouterConfig,
 } from '@angular/router';
 
-function translationLoaderFactory(
-  http: HttpClient,
-  config: FlTranslateModuleConfig
-): FlTranslationLoader {
+function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
 

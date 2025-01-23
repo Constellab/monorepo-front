@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FlDatasourcePaginated, FlInputSearchFilter, FlUserConfig } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlUserConfig } from '@monorepo/front-core-lib/fl-user';
 import { HaUser } from '../ha-entities/ha-user';
 import { Observable } from 'rxjs';
 import { HaEnvironmentHelper } from './ha-environment.helper';

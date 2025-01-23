@@ -1,27 +1,29 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaUser } from '../../../ca-core/model/entities/ca-user.class';
 import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import {
-  FlConfirmDialogInput,
-  FlDialogService,
-  FlFormDialogInput,
-  FlUploadImageDialogConfig,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import { CaSpaceService } from '../../../ca-core/service-api/ca-space.service';
 import { CaUserSettingsDialogComponent } from '../ca-user-settings-dialog/ca-user-settings-dialog.component';
-import { CaUserProfileEditDialogComponent } from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
-import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import {
+  CaUserProfileEditDialogComponent,
+} from '../ca-user-profile-edit-dialog/ca-user-profile-edit-dialog.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FlImageModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-image/fl-image.module';
-import { FlUserModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
-import { CaIsAdminDirective } from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import {
+  CaIsAdminDirective,
+} from '../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaUserSpacesListComponent } from '../ca-user-spaces-list/ca-user-spaces-list.component';
-import { CaLabFreeCardInfoComponent } from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
+import {
+  CaLabFreeCardInfoComponent,
+} from '../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

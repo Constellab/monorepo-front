@@ -6,7 +6,8 @@ import {
   FlEntityArrayObs,
   FlQueryParamHandler,
   FlRouterHelper,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';

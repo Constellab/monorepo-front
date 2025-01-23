@@ -1,5 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlTableColumnStatic, FlTranslatableText } from '@monorepo/front-core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
@@ -14,15 +15,15 @@ import {
   CaHierarchyObjectTableEvent,
   CaHierarchyObjectTableComponent,
 } from '../../../ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlInfiniteScrollModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { MatIconButton, MatButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface CaSelectFolderDialogInput {
   /**

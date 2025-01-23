@@ -2,7 +2,7 @@ import { Observable, of } from 'rxjs';
 import { tdTypeStyleDefault, TdTypingName } from '@monorepo/technical-doc';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { NgZone } from '@angular/core';
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { PrProtocol, PrProtocolGraph, PrProtocolLayout } from '../pr-protocol.class';
 import { PrWorkflowResourcesState } from '../../state/pr-workflow-resources.state';
 import { PrWorkflow } from './pr-workflow.class';

@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { HaBrickVersion, HaBrickVersionDataSource } from '../ha-model/ha-entities/ha-brick-version.class';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';

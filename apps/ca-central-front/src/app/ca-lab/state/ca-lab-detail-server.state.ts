@@ -2,13 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
 import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import { CaLabDetailPageState } from './ca-lab-detail-page.state';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlPortalActionsService,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
 import { Observable } from 'rxjs';
 import {
   CaLabManagerUpdateDialogComponent,

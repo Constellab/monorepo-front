@@ -1,4 +1,6 @@
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {

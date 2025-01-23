@@ -1,6 +1,6 @@
 import { TeBlockTune, TeHelper, TeRichText } from '@monorepo/text-editor';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   LabNoteInsertTemplateDialogComponent,
   LabNoteInsertTemplateDialogData,

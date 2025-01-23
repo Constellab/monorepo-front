@@ -1,5 +1,5 @@
-import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef, inject } from '@angular/core';
-import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
+import { Directive, inject, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
 import { LabEnvStore } from '../service/lab-env.store';
 
 /**

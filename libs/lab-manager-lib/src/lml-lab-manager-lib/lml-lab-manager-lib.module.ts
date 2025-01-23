@@ -1,21 +1,19 @@
-import { NgModule, inject } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LmlDockerUpFormComponent } from './component/lml-docker-up-form/lml-docker-up-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  FlCardModule,
-  FlCorePipeModule,
-  FlDialogModule,
-  FlIconModule,
-  FlInfiniteScrollModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlSectionModule,
-  FlStatusModule,
-  FlTextIconModule,
-  FlTranslateModule,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { LmlPullBiotaFormDialogComponent } from './component/lml-pull-biota-form-dialog/lml-pull-biota-form-dialog.component';

@@ -1,0 +1,216 @@
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  inject,
+} from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlSnackBarService } from '../fl-snack-bar/fl-snack-bar.service';
+import { FlFormFieldDirective, FlFormFieldMultipleDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+
+/**
+ * Directive of an input that supports form controls to manage input file.
+ *
+ * Only works on input with the attribute type=file
+ *
+ * Must be inside a {@link FlInputFileContainerComponent}
+ *
+ * Supports multiple
+ */
+@Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'input[flInputFile][type=file]',
+  providers: [{ provide: FlFormFieldDirective, useExisting: FlInputFileDirective }],
+  standalone: false,
+})
+export class FlInputFileDirective
+  extends FlFormFieldMultipleDirective<File>
+  implements OnInit, ControlValueAccessor, OnDestroy
+{
+  private elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  private renderer = inject(Renderer2);
+  private snackBarService = inject(FlSnackBarService);
+
+  private subscription: Subscription;
+
+  /**
+   * NgModel change event
+   */
+  @Output() fileChange: EventEmitter<File | File[]> = new EventEmitter<File | File[]>();
+
+  /**
+   * If true, the directive only accept the file types listed in the accepted attribute
+   */
+  @Input() strictMode: boolean = true;
+
+  /**
+   * If true, clear the input value
+   */
+  @Input() autoClearHtmlInput: boolean = false;
+
+  /**
+   * Maximum individual file size in bytes
+   */
+  @Input() maxFileSize: number = 0;
+
+  /**
+   *  @ignore
+   *  call when a file is added
+   */
+  @HostListener('change')
+  listenOnChange(): void {
+    this.fileChanged(this.elementRef.nativeElement.files);
+    if (this.autoClearHtmlInput) {
+      this.elementRef.nativeElement.value = '';
+      this.clearValue();
+    }
+  }
+
+  constructor() {
+    const ngControl = inject(NgControl, { optional: true, self: true });
+
+    super(ngControl);
+  }
+
+  ngOnInit(): void {
+    this.elementRef.nativeElement.multiple = this.multiple;
+  }
+
+  // when a file is added or changed
+  public fileChanged(fileList: FileList): void {
+    const files: File[] = FlFileHelper.convertFileListToArray(fileList);
+
+    if (this.strictMode) {
+      const filteredFiles = this.filterInputFiles(files);
+
+      if (filteredFiles.length === 0) {
+        this.handleError();
+        return;
+      }
+      // if we are in strict mode we filter the files
+      this.addOrReplaceValue(filteredFiles);
+    } else {
+      this.addOrReplaceValue(files);
+    }
+
+    this.emitCurrentValue();
+    this.markAsTouched();
+  }
+
+  // change local value
+  writeValue(obj: File | File[]): void {
+    this.value = obj;
+
+    if (ClHelpService.isNullOrEmpty(this.value)) {
+      this.clearInput(false);
+    }
+
+    // trigger change event to refresh button
+    this.fileChange.emit(this.value);
+  }
+
+  callChangeEvent(value: File[] | File): void {
+    this.fileChange.emit(value);
+  }
+
+  // handle disable
+  onDisableChange(disable: boolean): void {
+    // use setTimeout to let time for the parent to be set
+    setTimeout(() => {
+      if (disable) {
+        // add disable class to the parent to style label
+        this.renderer.addClass(
+          this.elementRef.nativeElement.parentElement,
+          'fl-input-file-container-disabled'
+        );
+      } else {
+        this.renderer.removeClass(
+          this.elementRef.nativeElement.parentElement,
+          'fl-input-file-container-disabled'
+        );
+      }
+    }, 0);
+  }
+
+  // clear the input and send data back
+  public clearInput(emitEvent: boolean): void {
+    if (!this.disabled) {
+      this.elementRef.nativeElement.value = '';
+      this.clearValue();
+      if (emitEvent) {
+        this.emitCurrentValue();
+      }
+    }
+  }
+
+  // filter the input based on the accept attribute
+  private filterInputFiles(files: File[]): File[] {
+    const acceptList: string[] = this.getAcceptAttribute();
+    if (acceptList.length === 0) {
+      return files;
+    }
+
+    const filteredFiles: File[] = [];
+    for (const file of files) {
+      for (const accept of acceptList) {
+        // check if the file type contains one of the accepted type
+        if (file.type.indexOf(accept) !== -1) {
+          filteredFiles.push(file);
+          break;
+        }
+      }
+    }
+
+    return filteredFiles;
+  }
+
+  private getAcceptAttribute(): string[] {
+    // remove the '*' to compare the types
+    return this.elementRef.nativeElement.accept.replace('*', '').split(',');
+  }
+
+  /**
+   * Method called when all file where filtered out to show an error
+   * @private
+   */
+  private handleError(): void {
+    if (this.maxFileSize) {
+      this.snackBarService.openErrorMessage({
+        text: 'flFileInput.file_too_big',
+        translateText: true,
+        translateParam: {
+          param: {
+            maxSize: FlFileHelper.getFileSizeText(this.maxFileSize),
+          },
+        },
+      });
+      return;
+    }
+
+    if (this.getAcceptAttribute()?.length > 0) {
+      this.snackBarService.openErrorMessage({
+        text: 'flFileInput.file_wrong_format',
+        translateText: true,
+        translateParam: {
+          param: {
+            formats: this.getAcceptAttribute().join(', '),
+          },
+        },
+      });
+      return;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+}

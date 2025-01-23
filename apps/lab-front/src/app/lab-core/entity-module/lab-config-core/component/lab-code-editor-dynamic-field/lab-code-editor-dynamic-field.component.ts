@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FlCodeEditorLanguage, FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
+import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
+import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { TdParamSpecType } from '@monorepo/technical-doc';
-import { FlCodeEditorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-code-editor/fl-code-editor.module';
 
 /**
  * Component used under {@link FlDynamicFieldComponent} to show

@@ -1,5 +1,5 @@
 import { ChChartConfig } from './ch-chart-config.class';
-import { FlMenuDynamic } from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 export interface ChChartPortalConfig {
   chart: ChChartConfig;

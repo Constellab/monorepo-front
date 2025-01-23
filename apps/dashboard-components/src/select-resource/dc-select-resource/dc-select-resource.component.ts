@@ -1,14 +1,14 @@
-import { Component, Injector, OnInit, signal, inject } from '@angular/core';
+import { Component, inject, Injector, OnInit, signal } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlInputSearchFilter,
-  FlInputSearchModule,
   flSetRootInjector,
-  FlTranslateModule,
-  FlUser,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlUser, FlUserModule } from '@monorepo/front-core-lib/fl-user';
+
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 import { AsyncPipe } from '@angular/common';
 import { first, Subject } from 'rxjs';

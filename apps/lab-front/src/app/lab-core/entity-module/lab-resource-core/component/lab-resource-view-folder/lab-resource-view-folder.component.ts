@@ -1,24 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   LabResourceViewFolder,
   LabResourceViewFolderContent,
   LabResourceViewFolderContentFlat,
 } from '../../../../model/entities/resource/lab-resource-view-folder.class';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFlatTreeControl } from '@monorepo/front-core-lib/fl-core';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import {
-  FlClipboardService,
-  FlDialogService,
-  FlFlatTreeControl,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-  FlPortalAction,
-  FlPortalActionsService,
-} from '@monorepo/front-core-lib';
-import {
+  MatTree,
   MatTreeFlatDataSource,
   MatTreeFlattener,
-  MatTree,
-  MatTreeNodeDef,
   MatTreeNode,
+  MatTreeNodeDef,
   MatTreeNodePadding,
   MatTreeNodeToggle,
 } from '@angular/material/tree';
@@ -32,7 +29,7 @@ import { LabResource } from '../../../../model/entities/resource/lab-resource.en
 import { LabRouterService } from '../../../../service/lab-router.service';
 import { RvResourceViewDirective } from '@monorepo/resource-view';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 

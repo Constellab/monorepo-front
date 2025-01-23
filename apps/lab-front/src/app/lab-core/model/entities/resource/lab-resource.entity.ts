@@ -1,5 +1,5 @@
 import { LabEntity } from '../../global/lab-entity.entity';
-import { FlFileHelper } from '@monorepo/front-core-lib';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Expose, Type } from 'class-transformer';
 import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
 import { LabFlaggedEntity } from '../../global/lab-flagged-entity.class';

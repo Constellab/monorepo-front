@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
-  FlPortalAction,
-  FlPortalActionsService,
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlTableColumnStatic,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import {
   LabScenarioTemplate,
   LabScenarioTemplateDatasource,
@@ -18,12 +19,11 @@ import {
   LabScenarioTemplateSearchFields,
 } from '../../model/lab-scenario-template-search.class';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
 import { LabScenarioTemplateSearchFormComponent } from '../lab-scenario-template-search-form/lab-scenario-template-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabScenarioTemplateTableComponent } from '../lab-scenario-template-table/lab-scenario-template-table.component';
 import { TranslatePipe } from '@ngx-translate/core';

@@ -6,7 +6,7 @@ import { RvResourceVennDiagram } from './rv-venn-diagram.class';
 import { RvResourceViewHeatMap } from './rv-heat-map.class';
 import { RvResourceViewTable } from './rv-table.class';
 import { RvResourceViewVulcanoPlot } from './rv-vulcano-plot.class';
-import { FlPlotlyData } from '@monorepo/front-core-lib';
+import { FlPlotlyData } from '@monorepo/front-core-lib/fl-plotly';
 
 // list of available view type
 export type RvResourceViewType =

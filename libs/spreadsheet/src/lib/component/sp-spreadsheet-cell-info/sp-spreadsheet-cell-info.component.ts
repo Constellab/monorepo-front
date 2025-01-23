@@ -3,7 +3,7 @@ import { SpCell } from '../../model/sp-cell.class';
 import { SpCellWithCoord } from '../../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
 
 /**
  * Small portal to show information about a cell

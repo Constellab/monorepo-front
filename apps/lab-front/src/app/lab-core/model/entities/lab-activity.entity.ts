@@ -1,7 +1,7 @@
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabUser } from './lab-user.entity';
 import { Expose, Type } from 'class-transformer';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 export enum ActivityType {
   CREATE = 'CREATE',

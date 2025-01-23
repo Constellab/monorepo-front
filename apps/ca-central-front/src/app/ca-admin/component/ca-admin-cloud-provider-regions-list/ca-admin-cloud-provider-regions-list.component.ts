@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaAdminCloudProviderRegionFormDialogComponent,
   CaCloudProviderRegionFormDialogInput,
@@ -9,12 +9,12 @@ import {
   CaCloudProviderRegion,
   CaCloudProviderRegionDatasource,
 } from '../../../ca-core/model/entities/ca-cloud-provider.class';
-import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlInfiniteScrollModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaAdminCloudProviderRegionTableComponent } from '../ca-admin-cloud-provider-region-table/ca-admin-cloud-provider-region-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

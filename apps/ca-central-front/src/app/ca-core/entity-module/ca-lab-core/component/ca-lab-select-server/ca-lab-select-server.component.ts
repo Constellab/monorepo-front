@@ -13,17 +13,17 @@ import { CaServerStandard } from '../../../../model/entities/server/ca-server-st
 import { CaLabValidator } from '../../../../model/entities/lab/ca-lab.validator';
 import { CaServerDecisionTreeComponent } from '../../../ca-server-core/component/ca-server-decision-tree/ca-server-decision-tree.component';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-radio-button-big/fl-radio-button-big.module';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { CaServerStandardPriceComponent } from '../../../ca-server-core/component/ca-server-standard-price/ca-server-standard-price.component';
 import { CaCloudProviderInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-inline/ca-cloud-provider-inline.component';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { CaCloudProviderRegionMultilinesComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-multilines/ca-cloud-provider-region-multilines.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatError } from '@angular/material/form-field';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaLabSelectServerForm {

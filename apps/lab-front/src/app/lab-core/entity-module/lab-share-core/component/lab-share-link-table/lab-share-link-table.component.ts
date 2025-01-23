@@ -4,7 +4,7 @@ import {
   LabShareLink,
   LabShareLinkDatasource,
 } from '../../../../model/entities/lab-share.entity';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   MatTable,
   MatColumnDef,
@@ -20,11 +20,11 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass } from '@angular/common';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-link-links.component';
 import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu/lab-share-link-actions-menu.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'lab-share-link-table',

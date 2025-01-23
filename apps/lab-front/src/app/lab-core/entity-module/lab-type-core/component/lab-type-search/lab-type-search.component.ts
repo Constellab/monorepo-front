@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import {
-  FlEntityPaginatedDatasource,
-  FlSavedSearch,
-  FlSearchConfig,
-  FLSearchFunction,
-  FlSearchState,
-  FlTableColumnStatic,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchConfig } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabTypeSearch, LabTypeSearchConfig, LabTypeSearchFields } from '../../model/lab-type-search.class';
 import { LabTypeEntity, LabTypeEntityDatasource } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import { TdBrick } from '@monorepo/technical-doc';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { LabTypeSearchFormComponent } from '../lab-type-search-form/lab-type-search-form.component';
 import { LabProcessTypeTableComponent } from '../lab-process-type-table/lab-process-type-table.component';
 
@@ -40,7 +39,7 @@ export class LabTypeSearchComponent implements OnInit {
   ngOnInit(): void {
     // set hidden filters based on config
     let hiddenFilters: Partial<LabTypeSearchFields>;
-    let searchFunction: FLSearchFunction;
+    let searchFunction: FlSearchFunction;
 
     switch (this.config.mode) {
       case 'process':

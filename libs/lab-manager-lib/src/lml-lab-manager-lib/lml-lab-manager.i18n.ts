@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 
 /**
  * Translation file for the Spreadsheet module

@@ -2,7 +2,8 @@ import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { SpSpreadsheetPage, SpSpreadsheetPageLoader } from '../model/sp-spreadsheet-page.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
 import { Subscription } from 'rxjs';
-import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
 @Injectable()
 export class SpSpreadsheetPaginationState implements OnDestroy {

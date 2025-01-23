@@ -1,18 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
 import { Observable } from 'rxjs';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabEntity } from '../../../../model/global/lab-entity.entity';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabFolderSelectComponent } from '../../../lab-folder-core/component/lab-folder-select/lab-folder-select.component';
 import { MatError } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabValidateObjectDialogInput {

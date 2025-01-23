@@ -1,12 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabBiotaDataDatasource } from '../../../../model/lab-biota-data.class';
 import { LabBiotaDatabase, labBiotaDatabaseGroups } from '../../../../model/lab-biota-database.class';
 import { LabBiotaDatabaseService } from '../../../../service/lab-biota-database.service';
 import { ActivatedRoute } from '@angular/router';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { LabBiotaDatabaseTableComponent } from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import {
+  LabBiotaDatabaseTableComponent,
+} from '../../../lab-biota-core/lab-biota-database-table/lab-biota-database-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

@@ -1,7 +1,7 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTransform } from '@monorepo/core-lib';
-import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
 import { CaBucketLocationDTO } from '../ca-object-storage.class';

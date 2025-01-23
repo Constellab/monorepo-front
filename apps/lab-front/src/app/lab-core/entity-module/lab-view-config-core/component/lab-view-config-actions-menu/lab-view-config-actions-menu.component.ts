@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
-import {
-  FlDialogService,
-  FlPrettyJsonDialogComponent,
-  FlPrettyJsonDialogInput,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPrettyJsonDialogComponent } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlPrettyJsonDialogInput } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
 import { LabUpdateViewConfigDialogComponent } from '../lab-update-view-config-dialog/lab-update-view-config-dialog.component';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -24,8 +23,8 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 

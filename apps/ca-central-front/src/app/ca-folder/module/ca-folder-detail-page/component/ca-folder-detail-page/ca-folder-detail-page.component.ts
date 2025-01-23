@@ -13,18 +13,15 @@ import { CaRouterService } from '../../../../../ca-core/service/ca-router.servic
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { ClHelpService } from '@monorepo/core-lib';
-import {
-  FlCardModule,
-  FlDialogService,
-  FlDragModule,
-  FlDropEvent,
-  FlInfiniteScrollModule,
-  FlMenuDynamicService,
-  FlPortalActionsService,
-  FlQueryParamHandler,
-  FlSearchState,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
+
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import {
   CaHierarchyObjectTableComponent,
@@ -38,14 +35,24 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectSearchFields,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
-import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaFolderActionService,
+} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { CaResourceService } from '../../../../../ca-core/service-api/ca-resource.service';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import {
+  CaHierarchyObjectBreadcrumbComponent,
+} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
-import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
-import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import {
+  CaFolderDetailActionsComponent,
+} from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
+import {
+  CaHierarchyObjectSearchFormComponent,
+} from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';

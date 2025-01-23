@@ -1,17 +1,19 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlSnackBarService,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { Observable } from 'rxjs';
-import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
+import {
+  LabProgressBarInfoDialogComponent,
+} from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
 import { map } from 'rxjs/operators';
 import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
 import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
@@ -53,15 +55,19 @@ import {
   LabSharedEntityInfoDialogComponent,
   LabSharedEntityInfoDialogInput,
 } from '../../../../lab-core/entity-module/lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
-import { LabScenarioIconsComponent } from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-icons/lab-scenario-icons.component';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
-import { LabSyncObjectButtonComponent } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
-import { NgClass, AsyncPipe } from '@angular/common';
+import {
+  LabScenarioIconsComponent,
+} from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-icons/lab-scenario-icons.component';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import {
+  LabSyncObjectButtonComponent,
+} from '../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

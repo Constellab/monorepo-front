@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { CaLab } from '../../../../model/entities/lab/ca-lab.class';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatRipple } from '@angular/material/core';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { NgClass } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaCityComponent } from '../../../ca-config-core/component/ca-city/ca-city.component';
@@ -13,7 +13,7 @@ import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 /**
  * Card to display a {@link CaLab}

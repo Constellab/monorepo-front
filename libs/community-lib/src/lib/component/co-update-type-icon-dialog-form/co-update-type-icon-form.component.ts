@@ -1,12 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import {
-  FlColorHelper,
-  FlDialogService,
-  FlFormFieldDirective,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { CoCommunityIconSelectDialogComponent } from '../co-community-icon-select-dialog/co-community-icon-select-dialog.component';
 import { CoIcon } from '../../model/co-icon.class';
 

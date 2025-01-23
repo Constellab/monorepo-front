@@ -3,15 +3,12 @@ import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
 import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
-import {
-  FlConfirmDialogInput,
-  FlDialogService,
-  FlOverlayRef,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import { Observable } from 'rxjs';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   TeBlock,
   TeBlockFigureData,
@@ -26,13 +23,13 @@ import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
-import { FlFormModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { Ha404Component } from '../../ha404/ha404.component';
 import { HaTextEditorRightSidePanelComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';

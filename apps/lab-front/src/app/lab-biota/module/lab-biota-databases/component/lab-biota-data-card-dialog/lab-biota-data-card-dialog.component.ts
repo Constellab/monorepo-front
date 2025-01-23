@@ -1,8 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabBiotaData } from '../../../../model/lab-biota-data.class';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LabBiotaDataCardComponent } from '../lab-biota-data-card/lab-biota-data-card.component';
 
 /**
@@ -12,7 +11,7 @@ import { LabBiotaDataCardComponent } from '../lab-biota-data-card/lab-biota-data
   selector: 'lab-biota-data-card-dialog',
   templateUrl: './lab-biota-data-card-dialog.component.html',
   styleUrls: ['./lab-biota-data-card-dialog.component.scss'],
-  imports: [FlDialogModule, CdkScrollable, MatDialogContent, LabBiotaDataCardComponent],
+  imports: [FlDialogModule, MatDialogContent, LabBiotaDataCardComponent],
 })
 export class LabBiotaDataCardDialogComponent implements OnInit {
   biotaData: LabBiotaData;

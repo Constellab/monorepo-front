@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { LabActivitySearchComponent } from '../../../../lab-core/entity-module/lab-activity-core/component/lab-activity-search/lab-activity-search.component';
 
 @Component({

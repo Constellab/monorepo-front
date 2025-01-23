@@ -1,21 +1,18 @@
-import { Injector, ModuleWithProviders, NgModule, Type, inject } from '@angular/core';
+import { inject, Injector, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrWorkflowManagerState } from './state/pr-workflow-manager-state';
 import { PrWorkflowComponent } from './component/pr-workflow/pr-workflow.component';
-import {
-  FlCoreComponentModule,
-  FlCorePipeModule,
-  FlDialogModule,
-  FlIconModule,
-  FlJsonEditorModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlMenuDynamicModule,
-  FlPortalModule,
-  FlTranslateModule,
-  FlTranslateService,
-  FlUserModule,
-} from '@monorepo/front-core-lib';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlMenuDynamicModule } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 import { PrWorkflowNodeProcessComponent } from './component/pr-workflow-node-process/pr-workflow-node-process.component';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';

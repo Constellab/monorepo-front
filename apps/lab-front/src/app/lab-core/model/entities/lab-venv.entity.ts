@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { Expose, Type } from 'class-transformer';
-import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 
 export class LabVEnvCreationInfo {
   @Expose({ name: 'file_version' })

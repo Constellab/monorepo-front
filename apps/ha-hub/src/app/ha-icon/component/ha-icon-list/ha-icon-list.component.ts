@@ -1,13 +1,13 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { HaIconService } from '../../../ha-core/ha-service/ha-icon.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlPortalConfig,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import { HaIconInfoPortalComponent } from '../ha-icon-info-portal/ha-icon-info-portal.component';
 import {
   HaCreateIconDtoInput,

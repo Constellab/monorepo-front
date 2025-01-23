@@ -1,13 +1,14 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaStatusHistory } from '../ca-status-history.class';
 import { CaServerCloud } from '../server/ca-server-cloud.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlEntityPaginatedDatasource,
   FlStatus,
   FlStatusDict,
   FlStatusHelper,
   FlStatusTransform,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-status';
+
 import { Type } from 'class-transformer';
 import { CaSpace } from '../space/ca-space.class';
 import { CaLabUserRole } from './ca-lab-user.class';

@@ -1,4 +1,4 @@
-import { Component, Signal, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
@@ -7,10 +7,10 @@ import {
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { FlLoaderModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { CaHierarchyObjectTreeComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import { RouterOutlet } from '@angular/router';
-import { FlCoreComponentModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

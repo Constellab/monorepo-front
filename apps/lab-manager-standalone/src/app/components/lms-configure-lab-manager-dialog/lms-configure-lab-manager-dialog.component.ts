@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { LmsConfigureLabManagerComponent } from '../lms-configure-lab-manager/lms-configure-lab-manager.component';
 
 @Component({
-    selector: 'lms-configure-lab-manager-dialog',
-    imports: [FlDialogModule, LmsConfigureLabManagerComponent],
-    templateUrl: './lms-configure-lab-manager-dialog.component.html',
-    styleUrl: './lms-configure-lab-manager-dialog.component.scss'
+  selector: 'lms-configure-lab-manager-dialog',
+  imports: [FlDialogModule, LmsConfigureLabManagerComponent],
+  templateUrl: './lms-configure-lab-manager-dialog.component.html',
+  styleUrl: './lms-configure-lab-manager-dialog.component.scss',
 })
 export class LmsConfigureLabManagerDialogComponent {
   private dialogRef = inject(MatDialogRef);

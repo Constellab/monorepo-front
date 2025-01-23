@@ -1,19 +1,22 @@
 import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
-  FlDialogService,
-  FlDropEvent,
   FlEntityPaginatedDatasource,
-  FlPortalAction,
-  FlPortalActionsService,
+  FlTableColumnStatic,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDragModule, FlDropEvent } from '@monorepo/front-core-lib/fl-drag';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import {
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlSnackBarService,
-  FlTableColumnStatic,
-  FlTag,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabResourceSearch, LabResourceSearchFields } from '../../model/lab-resource-search.class';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
@@ -32,13 +35,11 @@ import {
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
 import { PrConfigValues } from '@monorepo/protocol';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
-import { FlDragModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-drag/fl-drag.module';
 import { LabResourceSearchFormComponent } from '../lab-resource-search-form/lab-resource-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { LabResourceTableComponent } from '../lab-resource-table/lab-resource-table.component';

@@ -1,22 +1,25 @@
 import { Component, inject } from '@angular/core';
-import { FlCardModule, FlLoaderModule, FlTextIconModule, FlTranslateModule } from '@monorepo/front-core-lib';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { LmsLabState } from '../../service/lms-lab.state';
 import { LmlLabManagerState } from '@monorepo/lab-manager-lib';
 
 @Component({
-    selector: 'lms-global-info',
-    imports: [
-        FlCardModule,
-        FlTextIconModule,
-        FlTranslateModule,
-        MatIconModule,
-        MatButtonModule,
-        FlLoaderModule,
-    ],
-    templateUrl: './lms-global-info.component.html',
-    styleUrl: './lms-global-info.component.scss'
+  selector: 'lms-global-info',
+  imports: [
+    FlCardModule,
+    FlTextIconModule,
+    FlTranslateModule,
+    MatIconModule,
+    MatButtonModule,
+    FlLoaderModule,
+  ],
+  templateUrl: './lms-global-info.component.html',
+  styleUrl: './lms-global-info.component.scss',
 })
 export class LmsGlobalInfoComponent {
   private state = inject(LmsLabState);

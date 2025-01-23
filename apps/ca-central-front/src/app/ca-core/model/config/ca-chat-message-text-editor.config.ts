@@ -17,7 +17,7 @@ import {
   TeTools,
   TeUnderlineInlineTool,
 } from '@monorepo/text-editor';
-import { FlDatasourceGetPageData } from '@monorepo/front-core-lib';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 
 export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(

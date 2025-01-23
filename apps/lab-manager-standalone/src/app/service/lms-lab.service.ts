@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { LmsLabManagerConfiguration } from '../model/lms-lab-manager.class';
 import {
   LmlAdminerInfo,
@@ -8,8 +8,8 @@ import {
   LmlComposeUpOptions,
   LmlDockerContainerSize,
   LmlDockerErrorLogs,
-  LmlDockerInspect, LmlDockerLogs,
-  LmlDockerProgress,
+  LmlDockerInspect,
+  LmlDockerLogs,
   LmlDockerPsFull,
   LmlLabManagerConfig,
   LmlLabManagerStatus,

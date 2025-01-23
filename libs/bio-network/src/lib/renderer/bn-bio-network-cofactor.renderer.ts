@@ -1,7 +1,7 @@
 import { BnBioNetworkCanvasHelper } from '../utils/bn-bio-network-canvas.helper';
 import { BnBioNetworkNodeCofactor } from '../model/bn-bio-network-node-cofactor.class';
 import { BnBioNetworkObjectColorFunction } from './bn-bio-network-object.renderer';
-import { FlThemeDetail } from '@monorepo/front-core-lib';
+import { FlThemeDetail } from '@monorepo/front-core-lib/fl-theme';
 
 /**
  * Draw cofactor node using canvas

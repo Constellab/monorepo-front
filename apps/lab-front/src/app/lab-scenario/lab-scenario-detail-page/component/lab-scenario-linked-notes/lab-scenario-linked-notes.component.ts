@@ -1,22 +1,22 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { LabNote } from '../../../../lab-core/model/entities/lab-note.entity';
-import {
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlEntityArrayObs,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+
 import { Subscription } from 'rxjs';
 import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
 import { map } from 'rxjs/operators';
-import { LabSelectNoteDialogComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import {
+  LabSelectNoteDialogComponent,
+} from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-note-dialog/lab-select-note-dialog.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { LabNoteTableComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-table/lab-note-table.component';
+import {
+  LabNoteTableComponent,
+} from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-table/lab-note-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

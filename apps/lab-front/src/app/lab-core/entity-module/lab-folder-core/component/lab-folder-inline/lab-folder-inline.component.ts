@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
-import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 
 /**
  * Show folder information in a compact way

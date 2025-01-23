@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CaServerCompleteInfo } from '../../../../ca-core/model/entities/lab/ca-lab-server.class';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
-import { FlJsonEditorModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-json-editor/fl-json-editor.module';
-import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

@@ -7,7 +7,7 @@ import { combineLatest, Observable, of, share, switchMap } from 'rxjs';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { map } from 'rxjs/operators';
 import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { CaCloudProviderRegionInlineComponent } from '../../../ca-cloud-provider-core/component/ca-cloud-provider-region-inline/ca-cloud-provider-region-inline.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';

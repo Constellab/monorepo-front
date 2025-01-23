@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 
 @Injectable()
 export class BnBioNetworkGridState {

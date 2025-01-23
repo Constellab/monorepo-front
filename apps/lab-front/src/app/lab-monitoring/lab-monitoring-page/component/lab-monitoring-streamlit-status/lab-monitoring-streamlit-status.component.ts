@@ -1,14 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { LabStreamlitService } from '../../../../lab-core/service/lab-streamlit.service';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { LabStreamlitStatus } from '../../../../lab-core/model/global/lab-streamlit.class';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatAnchor } from '@angular/material/button';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -16,10 +20,12 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
-import { FlCoreComponentModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabDetailRoutePipe } from '../../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
+import {
+  LabDetailRoutePipe,
+} from '../../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 /**
  * Component to show information about the streamlit status

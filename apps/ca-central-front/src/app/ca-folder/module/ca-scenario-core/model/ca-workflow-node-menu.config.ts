@@ -1,5 +1,6 @@
 import { PrWorkflowNode, PrWorkflowNodeMenuConfig, PrWorkflowPort } from '@monorepo/protocol';
-import { FlMenuDynamicButton, FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaLab } from '../../../../ca-core/model/entities/lab/ca-lab.class';
 import { CaLabHelper } from '../../../../ca-core/utils/ca-lab.helper';

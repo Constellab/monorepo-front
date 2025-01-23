@@ -1,16 +1,14 @@
-import { NgModule, inject } from '@angular/core';
-import {
-  FlCardModule,
-  FlCorePipeModule,
-  FlDateModule,
-  FlDialogModule,
-  FlIconModule,
-  FlSearchModule,
-  FlStatusModule,
-  FlTextIconModule,
-  FlTranslateModule,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { inject, NgModule } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { maMailI18n } from './ma-mail.i18n';
 import { MaMailSearchComponent } from './components/ma-mail-search/ma-mail-search.component';
 import { MaMailSearchFormComponent } from './components/ma-mail-search-form/ma-mail-search-form.component';

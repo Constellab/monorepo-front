@@ -5,17 +5,18 @@ import {
   InjectionToken,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import {
-  FlDialogModule,
   FlLuxonDateAdapter,
   flLuxonDateFormat,
   flMatFormFieldConfig,
-  FlPortalModule,
-  FlSnackBarModule,
-  FlThemeService,
   flTooltipConfig,
-  FlTranslateModule,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideRouter } from '@angular/router';

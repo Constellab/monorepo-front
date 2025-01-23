@@ -1,7 +1,9 @@
-import { Component, computed, effect, Input, OnInit, Signal, inject } from '@angular/core';
+import { Component, computed, effect, inject, Input, OnInit, Signal } from '@angular/core';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaAgentVersion } from '../../../ha-core/ha-model/ha-entities/ha-agent-version.class';
-import { FlClipboardService, FlCodeEditorLanguage, FlDebouncer } from '@monorepo/front-core-lib';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlCodeEditorLanguage, FlCodeEditorModule } from '@monorepo/front-core-lib/fl-code-editor';
+import { FlDebouncer } from '@monorepo/front-core-lib/fl-core';
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
@@ -12,10 +14,9 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TeTextEditorModule } from '../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { NgClass } from '@angular/common';
-import { FlCardModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { TdTechnicalDocModule } from '../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
-import { FlCodeEditorModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-code-editor/fl-code-editor.module';
-import { FlCorePipeModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

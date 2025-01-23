@@ -1,12 +1,10 @@
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import {
-  FlApiService,
-  flAuthExpiredCookie,
-  FlCleanableService,
-  FlCleanerService,
-  FlTranslateService,
-  REQUEST,
-} from '@monorepo/front-core-lib';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
+import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { REQUEST } from '@monorepo/front-core-lib/fl-theme';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
 import { HaAuthService } from './ha-auth.service';

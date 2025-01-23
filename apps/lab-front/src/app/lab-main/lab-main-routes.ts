@@ -14,7 +14,6 @@ import {
 } from '../lab-core/utils/lab-base-route';
 
 import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
-import { FlLabRoute } from '@monorepo/front-core-lib';
 import { labScenarioRoutes } from '../lab-scenario/lab-scenario-routes';
 import { labScenarioTemplateRoutes } from '../lab-scenario-template/lab-scenario-template-routes';
 import { labNoteTemplateRoutes } from '../lab-note-template/lab-note-template-routes';
@@ -36,7 +35,7 @@ export const labMainRoutes: Routes = [
   {
     // route to get the token from url and auto-log the user
     // the children : [] is used to make a route without a component because there is a redirection
-    path: FlLabRoute.autoLogin.route,
+    path: 'auto-login',
     canActivate: [LabAutoLoginGuard],
     children: [],
   },

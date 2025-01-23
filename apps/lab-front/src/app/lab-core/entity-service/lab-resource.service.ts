@@ -1,10 +1,8 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlSearchConverter,
-  FLSearchFunction,
-} from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter, FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
+
 import { Observable, of } from 'rxjs';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
 import { ClDateHelper, ClPageI } from '@monorepo/core-lib';
@@ -69,7 +67,7 @@ export class LabResourceService {
     return this.apiService.put(`${this.route}/${id}/type/${resourceTypingName}`, null, LabResource);
   }
 
-  public getAdvancedSearchFunction(): FLSearchFunction<LabResource> {
+  public getAdvancedSearchFunction(): FlSearchFunction<LabResource> {
     return (page: number, pageSize: number, data) => this.advancedSearch(page, pageSize, data);
   }
 

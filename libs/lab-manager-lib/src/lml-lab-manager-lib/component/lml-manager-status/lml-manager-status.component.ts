@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import { LmlLabManagerStatus } from '../../model/lml-lab-manager.class';
 import { LmlLabManagerService } from '../../lml-lab-manager.service';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LmlAdminerInfoDialogComponent } from '../lml-adminer-info-dialog/lml-adminer-info-dialog.component';
 import { LmlDockerContainerErrorDialogComponent } from '../lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
 
@@ -29,10 +29,10 @@ interface LmlCurrentStatusInfo {
  * Simple component to display the lab status via the manager
  */
 @Component({
-    selector: 'lml-manager-status',
-    templateUrl: './lml-manager-status.component.html',
-    styleUrls: ['./lml-manager-status.component.scss'],
-    standalone: false
+  selector: 'lml-manager-status',
+  templateUrl: './lml-manager-status.component.html',
+  styleUrls: ['./lml-manager-status.component.scss'],
+  standalone: false,
 })
 export class LmlManagerStatusComponent {
   private managerState = inject(LmlLabManagerState);

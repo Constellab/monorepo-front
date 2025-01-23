@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 
 @Injectable({
   providedIn: 'root',

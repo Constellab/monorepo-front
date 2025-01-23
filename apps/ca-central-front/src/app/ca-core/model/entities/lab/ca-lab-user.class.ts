@@ -1,4 +1,4 @@
-import { FlArrayObs } from '@monorepo/front-core-lib';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';

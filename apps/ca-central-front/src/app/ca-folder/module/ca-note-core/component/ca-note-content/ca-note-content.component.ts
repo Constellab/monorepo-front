@@ -4,7 +4,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import { CaNoteTextEditorConfig } from '../../model/ca-note-text-editor-config.class';
 import { TeRichText } from '@monorepo/text-editor';
 import { map } from 'rxjs/operators';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 

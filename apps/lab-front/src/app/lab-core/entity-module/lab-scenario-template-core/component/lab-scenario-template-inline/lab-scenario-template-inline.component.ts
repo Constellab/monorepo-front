@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { LabScenarioTemplate } from '../../../../model/entities/process/lab-scenario-template.entity';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 @Component({
   selector: 'lab-scenario-template-inline',

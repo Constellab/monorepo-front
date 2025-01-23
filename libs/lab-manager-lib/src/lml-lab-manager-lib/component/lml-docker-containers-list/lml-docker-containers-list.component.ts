@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ClHelpService } from '@monorepo/core-lib';
 import { LmlLabManagerState } from '../../lml-lab-manager.state';
 import {

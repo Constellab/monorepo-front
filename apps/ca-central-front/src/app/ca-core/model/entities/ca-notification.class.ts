@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { Type } from 'class-transformer';
 import { CaUser } from './ca-user.class';
 import { CaSpace } from './space/ca-space.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 export class CaNotification extends CaEntity {
   @ClLuxonDateTimeTransform()

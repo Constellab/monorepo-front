@@ -1,16 +1,24 @@
-import { Component, computed, EventEmitter, input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Component, computed, EventEmitter, inject, input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CaChatMessage } from '../../../../model/entities/ca-chat-message';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaAuthenticatedUserService } from '../../../../service-api/ca-authenticated-user.service';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { TeRichText } from '@monorepo/text-editor';
-import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import {
+  CaNotificationMarkDirective,
+} from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
-import { TeTextEditorModule } from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {
+  TeTextEditorModule,
+} from '../../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';

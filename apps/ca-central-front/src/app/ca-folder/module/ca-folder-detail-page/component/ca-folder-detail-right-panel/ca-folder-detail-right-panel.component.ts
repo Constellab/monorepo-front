@@ -1,19 +1,23 @@
 import {
   Component,
   ComponentRef,
+  inject,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { CaFolderDescriptionComponent } from '../ca-folder-description/ca-folder-description.component';
 import { CaFolderNotePreviewComponent } from '../ca-folder-note-preview/ca-folder-note-preview.component';
-import { CaFolderChatRightPanelComponent } from '../ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
+import {
+  CaFolderChatRightPanelComponent,
+} from '../ca-folder-chat-right-panel/ca-folder-chat-right-panel.component';
 import { CaFolderSettingsComponent } from '../ca-folder-settings/ca-folder-settings.component';
 import { CaFolderDetailRightPanel } from '../../state/ca-folder-right-panel.state';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib';
-import { CaConstellabDocumentPreviewComponent } from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import {
+  CaConstellabDocumentPreviewComponent,
+} from '../ca-constellab-document-preview/ca-constellab-document-preview.component';
 
 /**
  * Right panel of the folder detail page

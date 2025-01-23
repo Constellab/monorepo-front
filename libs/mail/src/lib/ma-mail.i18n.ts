@@ -1,4 +1,4 @@
-import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 
 /**

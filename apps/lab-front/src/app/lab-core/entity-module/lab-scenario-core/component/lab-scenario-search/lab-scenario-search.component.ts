@@ -1,14 +1,16 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
-  FlDialogService,
-  FlFormDialogInput,
-  FlPortalActionsService,
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlSnackBarService,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabScenarioSearch, LabScenarioSearchFields } from '../../model/lab-scenario-search.class';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
@@ -19,11 +21,10 @@ import {
   LabQuickConfigureProcessDialogComponent,
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
 import { LabScenarioSearchFormComponent } from '../lab-scenario-search-form/lab-scenario-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabScenarioTableComponent } from '../lab-scenario-table/lab-scenario-table.component';

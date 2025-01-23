@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { FlInputSearchFilter, FlUserConfig, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlUserConfig, FlUserConfigSearchNameMode } from '@monorepo/front-core-lib/fl-user';
 import { CaUsersService } from '../../service-api/ca-users.service';
 import { CaRouterService } from '../../service/ca-router.service';
 import { CaUser, CaUserDatasourcePaginated } from '../entities/ca-user.class';

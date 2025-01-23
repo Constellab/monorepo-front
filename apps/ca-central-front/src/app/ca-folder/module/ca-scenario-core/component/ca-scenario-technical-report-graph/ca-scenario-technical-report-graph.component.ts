@@ -5,7 +5,7 @@ import { MatDivider } from '@angular/material/divider';
 import { PrProtocolModule } from '../../../../../../../../../libs/protocol/src/lib/pr-protocol.module';
 import { CaScenarioTechnicalReportLinkComponent } from '../ca-scenario-technical-report-link/ca-scenario-technical-report-link.component';
 import { CaScenarioTechnicalReportIntOutComponent } from '../ca-scenario-technical-report-int-out/ca-scenario-technical-report-int-out.component';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

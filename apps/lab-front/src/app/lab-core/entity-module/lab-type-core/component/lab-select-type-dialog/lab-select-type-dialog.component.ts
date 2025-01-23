@@ -2,13 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeSearchConfig } from '../../model/lab-type-search.class';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
-import { FlTranslatableText } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { LabTypeSearchComponent } from '../lab-type-search/lab-type-search.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface LabSelectTypeDialogInput {
   searchConfig: LabTypeSearchConfig;

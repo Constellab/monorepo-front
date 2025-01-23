@@ -1,16 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabVenvService } from '../../../../lab-core/entity-service/lab-venv.service';
 import { Observable, share } from 'rxjs';
 import { LabVenvArrayObs, LabVEnvsStatus } from '../../../../lab-core/model/entities/lab-venv.entity';
-import { FlConfirmDialogInput, FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { map } from 'rxjs/operators';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
-import { FlSectionModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { LabVenvTableComponent } from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import {
+  LabVenvTableComponent,
+} from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**

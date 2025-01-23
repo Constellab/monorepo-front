@@ -1,6 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { LabProgressBar, LabProgressMessage } from '../lab-progress-bar.entity';
-import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib';
+import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
 import { TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle, TdTypingName } from '@monorepo/technical-doc';
 import {

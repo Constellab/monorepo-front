@@ -1,8 +1,9 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { ChChartBoxPlotData } from '../../../model/data/ch-chart-box-plot-data.class';
 import { ChChartDataWithSerie } from '../../../model/data/ch-chart-serie.class';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { FL_PORTAL_DATA, FlTagColorer } from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 export interface ChChartBoxPlotDataPortalInput {
   data: ChChartDataWithSerie<ChChartBoxPlotData>;

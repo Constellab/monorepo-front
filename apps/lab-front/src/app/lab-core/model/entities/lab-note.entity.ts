@@ -1,6 +1,6 @@
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { Expose, Type } from 'class-transformer';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { LabFolder, LabFolderObject } from './lab-folder.class';
 import { LabEntity } from '../global/lab-entity.entity';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';

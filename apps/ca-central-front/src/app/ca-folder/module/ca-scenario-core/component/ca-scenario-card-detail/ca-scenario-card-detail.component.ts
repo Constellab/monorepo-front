@@ -1,9 +1,9 @@
 import { Component, computed, EventEmitter, input, Input, Output } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaLabHelper } from '../../../../../ca-core/utils/ca-lab.helper';
-import { FlCardModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { FlStatusModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { CaScenarioInfoComponent } from '../ca-scenario-info/ca-scenario-info.component';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';

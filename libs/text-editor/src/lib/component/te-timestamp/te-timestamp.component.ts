@@ -2,7 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { DateTime } from 'luxon';
 import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   TeTimestampConfigDialogComponent,
   TeTimestampConfigDialogInput,

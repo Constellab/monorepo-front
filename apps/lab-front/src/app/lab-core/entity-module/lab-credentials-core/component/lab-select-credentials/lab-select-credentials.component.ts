@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import {
   FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
-  FlFormFieldDirective,
   FlInputSearchFilter,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { Observable } from 'rxjs';
 import { NgControl } from '@angular/forms';
 import {
@@ -15,12 +16,11 @@ import {
 } from '../../../../model/entities/lab-credentials.entity';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import { LabCredentialsSearchFields } from '../lab-select-credentials-dynamic-field/lab-credentials-search.class';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIcon } from '@angular/material/icon';
 import { LabCredentialsInlineComponent } from '../lab-credentials-inline/lab-credentials-inline.component';
 import { AsyncPipe } from '@angular/common';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 @Component({
   selector: 'lab-select-credentials',

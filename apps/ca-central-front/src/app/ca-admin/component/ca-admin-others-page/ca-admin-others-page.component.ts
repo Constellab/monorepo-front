@@ -1,9 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FlTranslateService } from '@monorepo/front-core-lib';
-import { CaAdminCloudProvidersListComponent } from '../ca-admin-cloud-providers-list/ca-admin-cloud-providers-list.component';
-import { CaAdminCloudProviderRegionsListComponent } from '../ca-admin-cloud-provider-regions-list/ca-admin-cloud-provider-regions-list.component';
-import { CaBucketCredentialsListComponent } from '../../../ca-core/entity-module/ca-bucket-credentials-core/component/ca-bucket-credentials-list/ca-bucket-credentials-list.component';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import {
+  CaAdminCloudProvidersListComponent,
+} from '../ca-admin-cloud-providers-list/ca-admin-cloud-providers-list.component';
+import {
+  CaAdminCloudProviderRegionsListComponent,
+} from '../ca-admin-cloud-provider-regions-list/ca-admin-cloud-provider-regions-list.component';
+import {
+  CaBucketCredentialsListComponent,
+} from '../../../ca-core/entity-module/ca-bucket-credentials-core/component/ca-bucket-credentials-list/ca-bucket-credentials-list.component';
 
 /**
  * Page to manager cloud providers, object storage, servers

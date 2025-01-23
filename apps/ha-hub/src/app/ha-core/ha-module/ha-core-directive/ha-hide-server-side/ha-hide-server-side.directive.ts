@@ -1,14 +1,14 @@
 import {
   Directive,
+  inject,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   TemplateRef,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { FlAbstractIfDirective } from '@monorepo/front-core-lib';
+import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 
 @Directive({ selector: '[haHideServerSide]' })

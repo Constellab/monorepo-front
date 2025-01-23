@@ -1,19 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlEntityPaginatedDatasource,
   FlSavedSearch,
   FlSearchConfig,
+  FlSearchModule,
   FlSearchState,
-  FlThemeService,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+
 import { LabActivityDatasource } from '../../../../model/entities/lab-activity.entity';
 import { LabActivityService } from '../../../../entity-service/lab-activity.service';
 import { LabActivitySearch, LabActivitySearchFields } from '../../model/lab-activity-search.class';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
 import { LabActivitySearchFormComponent } from '../lab-activity-search-form/lab-activity-search-form.component';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabActivityTableComponent } from '../lab-activity-table/lab-activity-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

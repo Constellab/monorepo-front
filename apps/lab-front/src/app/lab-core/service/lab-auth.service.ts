@@ -1,13 +1,10 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {
-  FlApiService,
-  FlAuthLogin2FaResponse,
-  FlAuthLoginResponse,
-  FlAuthService,
-  FlCleanerService,
-  FlCookieService,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlAuthLogin2FaResponse, FlAuthLoginResponse, FlAuthService } from '@monorepo/front-core-lib/fl-auth';
+import { FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
+
 import { tap } from 'rxjs/operators';
 import { ClCredentials, ClCredentials2Fa } from '@monorepo/core-lib';
 

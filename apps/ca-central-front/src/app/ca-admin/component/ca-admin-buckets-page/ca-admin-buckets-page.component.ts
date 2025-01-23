@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { CaBucketSearchComponent } from '../bucket/ca-bucket-search/ca-bucket-search.component';
 
 /**

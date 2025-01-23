@@ -18,7 +18,9 @@ import {
   UntypedFormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { FlDialogService, FlDynamicFieldConfigService, FlGlobalValidators } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { LabTransformerWithConfig } from '../../../../model/global/lab-transformer.class';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
 import {
@@ -31,8 +33,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlCoreComponentModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 interface LabSelectedTransformer {

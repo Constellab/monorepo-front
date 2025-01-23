@@ -2,7 +2,7 @@ import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
 import { ClDateHelper, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType } from './lab-navigable-entity.entity';
 

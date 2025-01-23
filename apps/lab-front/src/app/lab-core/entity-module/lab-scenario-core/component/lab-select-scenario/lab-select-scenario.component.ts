@@ -1,23 +1,20 @@
-import { Component, input, OnInit, output, inject } from '@angular/core';
-import {
-  FlDialogService,
-  FlFormFieldDirective,
-  FlInputSearchAdvancedButton,
-  FlInputSearchFilter,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
+import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { NgControl } from '@angular/forms';
 import { LabScenarioService } from '../../../../entity-service/lab-scenario.service';
 import { Observable } from 'rxjs';
 import { LabSelectScenarioDialogComponent } from '../lab-select-scenario-dialog/lab-select-scenario-dialog.component';
-import { FlInputSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-search/fl-input-search.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabScenarioInlineComponent } from '../lab-scenario-inline/lab-scenario-inline.component';
 import { AsyncPipe } from '@angular/common';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 @Component({
   selector: 'lab-select-scenario',

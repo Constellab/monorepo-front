@@ -3,7 +3,8 @@ import { SpSpreadsheetActions } from './sp-spreadsheet-actions.state';
 import { SpSpreadsheetChartState } from './sp-spreadsheet-chart.state';
 import { SpSpreadsheetClipboardState } from './sp-spreadsheet-clipboard.state';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 /**
  * State to handle context menu

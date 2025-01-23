@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
-import { FlAuthModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 

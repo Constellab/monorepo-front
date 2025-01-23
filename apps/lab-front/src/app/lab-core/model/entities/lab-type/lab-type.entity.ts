@@ -1,6 +1,7 @@
 import { LabBaseEntity } from '../../global/lab-entity.entity';
 import { Expose } from 'class-transformer';
-import { FlDatasourcePaginated, FlSearchObjectToUrl } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchObjectToUrl } from '@monorepo/front-core-lib/fl-search';
 import {
   TdTypeObjectStatus,
   TdTypeObjectSubType,

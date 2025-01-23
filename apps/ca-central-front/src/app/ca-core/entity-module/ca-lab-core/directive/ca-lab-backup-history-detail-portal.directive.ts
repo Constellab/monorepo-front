@@ -1,7 +1,12 @@
 import { Directive, Input } from '@angular/core';
-import { FlMouseHoverPortalAbstractDirective, FlMouseHoverPortalConfig } from '@monorepo/front-core-lib';
+import {
+  FlMouseHoverPortalAbstractDirective,
+  FlMouseHoverPortalConfig,
+} from '@monorepo/front-core-lib/fl-portal';
 import { CnLabBackupHistoryDetail } from '../../../model/entities/lab/ca-lab-backup.class';
-import { CaLabBackupHistoryDetailPortalComponent } from '../component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
+import {
+  CaLabBackupHistoryDetailPortalComponent,
+} from '../component/ca-lab-backup-history-detail-portal/ca-lab-backup-history-detail-portal.component';
 
 /**
  * Specific directive to open the backup history detail portal

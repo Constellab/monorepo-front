@@ -1,12 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { CaServerCloud, CaServerCloudDatasource } from '../model/entities/server/ca-server-cloud.class';
 import { Observable } from 'rxjs';
-import {
-  FlApiService,
-  FlDatasourceGetPageData,
-  FlEntityPaginatedDatasource,
-  FlSearchConverter,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+
 import { ClPageI } from '@monorepo/core-lib';
 import { CaServerCloudSearch } from '../entity-module/ca-server-core/model/ca-server-cloud-search.class';
 import { CaCloudProviderRegion } from '../model/entities/ca-cloud-provider.class';

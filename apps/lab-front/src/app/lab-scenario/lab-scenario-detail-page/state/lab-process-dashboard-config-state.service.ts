@@ -1,7 +1,8 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
 import { FormGroup } from '@angular/forms';
-import { FlFormHelper, FlPortalActionResult } from '@monorepo/front-core-lib';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LabConfig } from '../../../lab-core/model/entities/lab-config.entity';
 import { Observable, of } from 'rxjs';
 import { prConfigValueAreEqual, PrConfigValues } from '@monorepo/protocol';

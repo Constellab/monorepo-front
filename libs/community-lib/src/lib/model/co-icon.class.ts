@@ -1,4 +1,4 @@
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
 export enum CoIconType {
   COMMUNITY_ICON = 'COMMUNITY_ICON',

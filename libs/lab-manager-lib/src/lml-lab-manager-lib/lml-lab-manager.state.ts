@@ -1,12 +1,9 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import {
-  FlDialogService,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlStatusEvent,
-  flStatutEventSuccess,
-  FlTranslatableText,
-} from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlStatusEvent, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
+import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
+
 import { BehaviorSubject, combineLatest, distinct, first, Observable } from 'rxjs';
 import {
   LmlDockerUpFormComponent,
@@ -57,7 +54,7 @@ export class LmlLabManagerState implements OnDestroy {
   private labManagerService = inject(LmlLabManagerService);
 
   public init(autoRefreshFrequency: number): void {
-    if(autoRefreshFrequency) {
+    if (autoRefreshFrequency) {
       this.autoRefreshFrequency = autoRefreshFrequency;
     }
     if (!this.initialized) {

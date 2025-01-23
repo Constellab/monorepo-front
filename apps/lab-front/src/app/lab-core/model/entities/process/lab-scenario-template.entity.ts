@@ -1,4 +1,4 @@
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { PrProtocolGraph } from '@monorepo/protocol';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';

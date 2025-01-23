@@ -1,5 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiService, FlDatasourceGetPageData, FlSearchConverter } from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import {

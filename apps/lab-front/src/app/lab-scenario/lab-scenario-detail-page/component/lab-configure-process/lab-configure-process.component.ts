@@ -13,10 +13,14 @@ import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-con
 import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib';
-import { LabProcessDashboardDynamicFieldConfig } from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
+import {
+  LabProcessDashboardDynamicFieldConfig,
+} from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
 import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
-import { LabDynamicParamSpecState } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
+import {
+  LabDynamicParamSpecState,
+} from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
 
 /**
  * Component inside LabConfigureProtocol to configure a process.

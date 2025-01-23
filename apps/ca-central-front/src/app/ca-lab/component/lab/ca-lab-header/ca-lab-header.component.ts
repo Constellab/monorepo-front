@@ -1,16 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { CaLab, CaLabStatus } from '../../../../ca-core/model/entities/lab/ca-lab.class';
-import { FlHorizontalNavBarItem, FlStatus } from '@monorepo/front-core-lib';
+import { FlHorizontalNavBarItem } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { CaLabDetailPageState } from '../../../state/ca-lab-detail-page.state';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
-import { FlHorizontalNavBarModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-horizontal-nav-bar/fl-horizontal-nav-bar.module';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlHorizontalNavBarModule } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlStatusModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { AsyncPipe } from '@angular/common';
 
 /**

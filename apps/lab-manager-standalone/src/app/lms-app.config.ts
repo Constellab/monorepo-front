@@ -3,21 +3,23 @@ import { provideRouter } from '@angular/router';
 import { lmsAppRoutes } from './lms-app.routes';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
-  FlApiModule,
-  FlDialogModule,
-  FlIconModule,
-  flIconsDefault,
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  FlPortalActionsModule,
-  FlPortalModule,
-  FlSnackBarModule,
-  flTooltipConfig,
   FlTranslateModule,
   FlTranslateModuleConfig,
   FlTranslationLoader,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-translate';
+import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
+import {
+  FlLuxonDateAdapter,
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib/fl-core';
+import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -35,8 +37,6 @@ export function translationLoaderFactory(
   console.log('translationLoaderFactory');
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
-
-
 
 export const lmsAppConfig: ApplicationConfig = {
   providers: [

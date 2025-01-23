@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
-import { FlDialogService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   LabSelectTypeDialogComponent,
   LabSelectTypeDialogInput,
@@ -22,7 +22,7 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatDivider } from '@angular/material/divider';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';

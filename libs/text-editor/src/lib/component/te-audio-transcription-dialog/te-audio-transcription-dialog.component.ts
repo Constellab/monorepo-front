@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { TeAudioTranscriptionConfig } from '../../block-tune/te-audio-transcription-block-tune.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { TeRichText } from '../../model/lib';
 
 /**

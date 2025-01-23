@@ -1,6 +1,8 @@
 import { LabResourceViewSpecWithConfig } from '../../../model/entities/resource/lab-resource-view.entity';
 import { PrConfigValues } from '@monorepo/protocol';
-import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import {
   LabConfigureResourceViewComponent,
   LabConfigureResourceViewInput,

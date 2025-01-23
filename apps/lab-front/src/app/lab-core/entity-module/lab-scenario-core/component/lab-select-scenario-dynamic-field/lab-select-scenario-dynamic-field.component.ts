@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlDynamicFieldAbstractDirective } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabSelectScenarioComponent } from '../lab-select-scenario/lab-select-scenario.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatError, MatHint } from '@angular/material/form-field';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 @Component({
   selector: 'lab-select-scenario-dynamic-field',

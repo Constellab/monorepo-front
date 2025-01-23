@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform, ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
-import { FlUser } from '@monorepo/front-core-lib';
+import { FlUser } from '@monorepo/front-core-lib/fl-user';
 import { CoUser } from '@monorepo/community-lib';
 
 export class HaUserDetailDto {

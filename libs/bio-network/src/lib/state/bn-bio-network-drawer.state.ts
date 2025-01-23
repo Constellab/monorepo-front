@@ -1,11 +1,11 @@
-import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
+import { inject, Injectable, NgZone, OnDestroy } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import {
   BnBioNetworkDrawerAction,
   BnBioNetworkDrawerStateValue,
 } from '../model/bn-bio-network-drawer-action.class';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { flRxjsEnterNgZone } from '@monorepo/front-core-lib';
+import { flRxjsEnterNgZone } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * State to manage the drawer and it's content in the pathway

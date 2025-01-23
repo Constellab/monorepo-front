@@ -1,14 +1,12 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CaUser } from '../model/entities/ca-user.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import {
-  FlApiService,
-  FlCleanableService,
-  FlCleanerService,
-  FlThemeService,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { ClSupportedLanguage, ClTheme, ClUserCategory } from '@monorepo/core-lib';
 import { CaCurrentSpaceService } from './ca-current-space.service';
 import { CaSpaceInfoDto } from '../model/entities/space/ca-space.class';

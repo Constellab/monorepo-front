@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BnBioNetworkNode } from '../../model/bn-bio-network-node.class';
-import { FlExternalLinkService } from '@monorepo/front-core-lib';
+import { FlExternalLinkService } from '@monorepo/front-core-lib/fl-core';
 
 interface Link {
   link: string;
@@ -12,11 +12,11 @@ interface Link {
  * Such as google scholar search, wikipedia...
  */
 @Component({
-    selector: 'bn-bio-network-node-links',
-    templateUrl: './bn-bio-network-node-links.component.html',
-    styleUrls: ['./bn-bio-network-node-links.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'bn-bio-network-node-links',
+  templateUrl: './bn-bio-network-node-links.component.html',
+  styleUrls: ['./bn-bio-network-node-links.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class BnBioNetworkNodeLinksComponent implements OnInit {
   @Input() set node(node: BnBioNetworkNode) {

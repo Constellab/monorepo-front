@@ -20,7 +20,8 @@ import {
   ChChartLegendSerieWithTagsInput,
 } from '../../component/ch-chart-right-section/ch-chart-legend-series-with-tags/ch-chart-legend-series-with-tags.component';
 import { ChChartDataWithSerie } from '../data/ch-chart-serie.class';
-import { FlColorHelper, FlTagColorer } from '@monorepo/front-core-lib';
+import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlTagColorer } from '@monorepo/front-core-lib/fl-tag';
 
 // abstract class to build line or scatter plot
 export abstract class ChChartLinear2d extends ChChartConfig {

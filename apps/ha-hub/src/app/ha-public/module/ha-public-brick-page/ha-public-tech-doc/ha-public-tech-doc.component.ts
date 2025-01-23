@@ -6,10 +6,10 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TdTechnicalDocModule } from '../../../../../../../../libs/technical-doc/src/lib/td-technical-doc.module';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
-import { FlCoreDirectiveModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-directive/fl-core-directive.module';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { Ha404Component } from '../../ha404/ha404.component';
 
 @Component({

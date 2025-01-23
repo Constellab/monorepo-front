@@ -2,7 +2,7 @@ import { CaBaseEntity } from '../ca-base-entity.class';
 import { DateTime } from 'luxon';
 import { ClDateHelper, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { CaSpace } from './ca-space.class';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { CaSpaceRole } from './ca-space-user.class';
 import { CaUser } from '../ca-user.class';

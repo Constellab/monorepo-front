@@ -1,5 +1,6 @@
 import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
-import { FlOverlayRef, FlPortalService, FlQueryParamHandler } from '@monorepo/front-core-lib';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { Subscription } from 'rxjs';
 import { CaFolderDetailRightPanelComponent } from '../component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
 import { ClHelpService } from '@monorepo/core-lib';

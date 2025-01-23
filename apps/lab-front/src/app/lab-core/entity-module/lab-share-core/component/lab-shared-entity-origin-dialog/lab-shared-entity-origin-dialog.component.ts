@@ -3,9 +3,9 @@ import { LabResourceService } from '../../../../entity-service/lab-resource.serv
 import { Observable } from 'rxjs';
 import { LabSharedEntity } from '../../../../model/entities/lab-share.entity';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabSharedEntityOriginComponent } from '../lab-shared-entity-origin/lab-shared-entity-origin.component';
 import { TranslatePipe } from '@ngx-translate/core';
 

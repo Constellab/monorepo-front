@@ -4,7 +4,8 @@ import {
   CaFolder,
   CaFolderWithHierarchy,
 } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlDialogService, FlMenuDynamicService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
@@ -19,9 +20,9 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { FlInputFileModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-input-file/fl-input-file.module';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

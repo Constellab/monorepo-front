@@ -2,13 +2,13 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { share } from 'rxjs';
 import { CaServerService } from '../../../../service-api/ca-server.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FlGlobalValidators } from '@monorepo/front-core-lib';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
 import { CaStoragePrice } from '../../../../model/entities/server/ca-storage-price.class';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlKeyValueModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatMiniFabButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

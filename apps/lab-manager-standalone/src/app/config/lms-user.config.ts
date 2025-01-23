@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FlDatasourcePaginated, FlInputSearchFilter, FlUser, FlUserConfig } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
+import { FlUser, FlUserConfig } from '@monorepo/front-core-lib/fl-user';
 import { Observable } from 'rxjs';
 
 @Injectable({

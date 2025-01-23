@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HaBrickVersion } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import {
   HaBrickVersionReferenceState,
@@ -6,11 +6,10 @@ import {
 } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
-import { FlCorePipeModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -19,7 +18,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-public-brick-version-detail-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlKeyValueModule,
     FlUserModule,

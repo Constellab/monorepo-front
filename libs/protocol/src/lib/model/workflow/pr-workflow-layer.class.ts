@@ -6,7 +6,7 @@ import { PrConnection } from './pr-workflow-action.class';
 import { PrWorkflowNodeProcess } from '../node/pr-workflow-node-process.class';
 import { PrWorkflowNodeInterface } from '../node/pr-workflow-node-interface.class';
 import { PrWorkflowNodeOuterface } from '../node/pr-workflow-node-outerface.class';
-import { FlCoord } from '@monorepo/front-core-lib';
+import { FlCoord } from '@monorepo/front-core-lib/fl-core';
 import { PrWorkflowNodeProtocol } from '../node/pr-workflow-node-protocol.class';
 import { PrProcess } from '../pr-process.class';
 import { PrOI, PrPort } from '../pr-io.class';

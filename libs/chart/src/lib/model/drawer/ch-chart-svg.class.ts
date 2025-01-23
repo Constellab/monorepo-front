@@ -1,7 +1,7 @@
 import { Selection } from 'd3-selection';
 import { select } from 'd3';
 import { ChChartSVGLegend } from '../legend/ch-chart-legend.class';
-import { FlFileHelper } from '@monorepo/front-core-lib';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 
 /**
  * Main class to manage the svg for the chart.

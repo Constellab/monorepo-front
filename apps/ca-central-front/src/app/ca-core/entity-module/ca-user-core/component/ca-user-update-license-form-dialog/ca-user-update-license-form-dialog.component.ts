@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { CaUserAccountsService } from '../../../../service-api/ca-user-accounts.service';
 import { CaUser, CaUserLicense } from '../../../../model/entities/ca-user.class';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface CaUserUpdateLicenseDialogInput {

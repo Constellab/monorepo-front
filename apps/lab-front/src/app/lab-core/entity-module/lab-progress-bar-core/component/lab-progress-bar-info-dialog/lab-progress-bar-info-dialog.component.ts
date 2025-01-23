@@ -1,15 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabProgressBar } from '../../../../model/entities/lab-progress-bar.entity';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabProgressBarService } from '../../../../entity-service/lab-progress-bar.service';
 import { map } from 'rxjs/operators';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIconAnchor } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabProgressBarInfoComponent } from '../lab-progress-bar-info/lab-progress-bar-info.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -26,7 +25,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIconAnchor,
     MatTooltip,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     LabProgressBarInfoComponent,

@@ -1,6 +1,6 @@
-import { FlApiServiceConfig } from '@monorepo/front-core-lib';
+import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
 import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { LabEnvStore } from './lab-env.store';
 

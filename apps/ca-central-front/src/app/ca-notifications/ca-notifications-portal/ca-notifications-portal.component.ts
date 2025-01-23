@@ -6,18 +6,18 @@ import {
 } from '../../ca-core/model/entities/ca-notification.class';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { CaNotificationState } from '../../ca-core/state/ca-notification.state';
-import { FlPortalModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-portal/fl-portal.module';
-import { FlInfiniteScrollModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
-import { FlUserModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlTextIconModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlDateModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({

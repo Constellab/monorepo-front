@@ -1,6 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LabResource } from '../model/entities/resource/lab-resource.entity';
-import { FlDialogService, FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { LabFileResourceService } from './lab-file-resource.service';
 import { LabResourceService } from './lab-resource.service';
 import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';

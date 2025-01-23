@@ -1,12 +1,9 @@
 import { Component, inject } from '@angular/core';
-import {
-  FlAddTagEvent,
-  FlConfirmDialogResult,
-  FlDialogService,
-  FlPortalActionResult,
-  FlPortalActionsService,
-  FlSnackBarService,
-} from '@monorepo/front-core-lib';
+import { FlAddTagEvent, FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlConfirmDialogResult, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
@@ -14,12 +11,10 @@ import {
   LabTagCheckPropagationComponent,
   LabTagCheckPropagationInput,
 } from '../lab-tag-check-propagation/lab-tag-check-propagation.component';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { FlTextIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { LabTagListComponent } from '../lab-tag-list/lab-tag-list.component';
 import { MatDivider } from '@angular/material/divider';
-import { FlTagModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-tag/fl-tag.module';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';

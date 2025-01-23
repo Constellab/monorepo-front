@@ -2,20 +2,19 @@ import { NgModule, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
 import { RvViewJsonComponent } from './component/rv-view-json/rv-view-json.component';
-import {
-  FlCoreComponentModule,
-  FlDialogModule,
-  FlIconModule,
-  FlImageModule,
-  FlInfiniteScrollModule,
-  FlJsonEditorModule,
-  FlKeyValueModule,
-  FlLoaderModule,
-  FlPlotlyModule,
-  FlThemeModule,
-  FlTranslateModule,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlImageModule } from '@monorepo/front-core-lib/fl-image';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlJsonEditorModule } from '@monorepo/front-core-lib/fl-json-editor';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlPlotlyModule } from '@monorepo/front-core-lib/fl-plotly';
+import { FlThemeModule } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { rvResourceViewI18n } from './rv-resource-view.i18n';
 import { RvViewChart2dComponent } from './component/rv-view-chart-2d/rv-view-chart2d.component';
 import { RvViewMultiViewsComponent } from './component/rv-view-multi-views/rv-view-multi-views.component';

@@ -5,13 +5,12 @@ import {
 } from '../../../../ca-core/model/entities/lab/ca-lab-stats.dto';
 import {
   MAT_DIALOG_DATA,
-  MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MatDialogContent,
 } from '@angular/material/dialog';
-import { FlArrayObs } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CaLabVolumePriceTableComponent } from '../ca-lab-volume-price-table/ca-lab-volume-price-table.component';
 import { CaLabBackupStoragePriceTableComponent } from '../ca-lab-backup-storage-price-table/ca-lab-backup-storage-price-table.component';
 import { MatButton } from '@angular/material/button';
@@ -43,7 +42,6 @@ class CaLabBackupArrayObs extends FlArrayObs<CaLabBackupPeriod> {
   styleUrl: './ca-lab-storage-price-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     CaLabVolumePriceTableComponent,
     CaLabBackupStoragePriceTableComponent,

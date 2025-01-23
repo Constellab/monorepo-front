@@ -4,19 +4,18 @@ import {
   CaLabVolume,
   CaLabVolumeDatasource,
 } from '../../../../ca-core/model/entities/lab/ca-lab-volume.class';
-import { FlDialogService, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 import {
   CaLabVolumeUpdateDialogComponent,
   CaLabVolumeUpdateDialogInput,
 } from '../ca-lab-volume-update-dialog/ca-lab-volume-update-dialog.component';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaLabVolumeTableComponent } from '../ca-lab-volume-table/ca-lab-volume-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -33,7 +32,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIconButton,
     MatTooltip,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     FlInfiniteScrollModule,
     CaLabVolumeTableComponent,

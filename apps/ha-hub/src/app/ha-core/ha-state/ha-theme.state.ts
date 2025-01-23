@@ -1,5 +1,5 @@
 import { computed, Injectable, Signal, signal, WritableSignal, inject } from '@angular/core';
-import { FlThemeService } from '@monorepo/front-core-lib';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { ClTheme } from '@monorepo/core-lib';
 import { HaAuthenticatedUserService } from '../ha-service/ha-authenticated-user.service';
 import { Subject } from 'rxjs';

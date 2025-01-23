@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
@@ -6,22 +6,32 @@ import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scen
 import { LabFolder } from '../../../../lab-core/model/entities/lab-folder.class';
 import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
 import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { FlArticleModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-article/fl-article.module';
-import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { LabFolderInlineSelectComponent } from '../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
-import { FlTextIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
+import {
+  LabTagListComponent,
+} from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
+import {
+  LabFolderInlineSelectComponent,
+} from '../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
-import { FlKeyValueModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-key-value/fl-key-value.module';
-import { LabObjectValidationInfoComponent } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
-import { LabObjectSyncInfoComponent } from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
-import { FlUserModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import {
+  LabObjectValidationInfoComponent,
+} from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
+import {
+  LabObjectSyncInfoComponent,
+} from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TeTextEditorModule } from '../../../../../../../../libs/text-editor/src/lib/te-text-editor.module';
-import { FlCardModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-card/fl-card.module';
-import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import {
+  LabScenarioLinkedNotesComponent,
+} from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 

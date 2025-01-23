@@ -1,5 +1,5 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
 export class CaServerStandard extends CaBaseEntity {
   name: string;

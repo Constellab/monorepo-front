@@ -6,7 +6,9 @@ import { SpSpreadsheetActionStore } from './sp-spreadsheet-action.store';
 import { SpSpreadsheetScrollState } from './sp-spreadsheet-scroll.state';
 import { SpSheetSingleSelection } from '../model/selection/sp-sheet-single-selection.class';
 import { SpSpreadsheetState } from './sp-spreadsheet.state';
-import { FlDeviceHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib';
+import { FlDeviceHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Unique state shared across the spreadsheet to handle spreadsheet keyboard events

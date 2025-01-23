@@ -1,11 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import {
-  FlApiService,
-  FlCleanableService,
-  FlCleanerService,
-  FlThemeService,
-  FlTranslateService,
-} from '@monorepo/front-core-lib';
+import { inject, Injectable } from '@angular/core';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
+import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LabUser } from '../model/entities/lab-user.entity';
 

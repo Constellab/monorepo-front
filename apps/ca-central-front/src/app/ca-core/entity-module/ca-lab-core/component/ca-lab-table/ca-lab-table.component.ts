@@ -1,41 +1,41 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CaLab, CaLabWithSpace } from '../../../../model/entities/lab/ca-lab.class';
 import {
   CaLabAdminFormDialogComponent,
   CaLabAdminFormDialogInput,
 } from '../ca-lab-admin-form-dialog/ca-lab-admin-form-dialog.component';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
-  FlArrayObs,
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
-  FlTableColumnStatic,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-dialog';
+
 import { CaLabStatusDialogComponent } from '../ca-lab-status-dialog/ca-lab-status-dialog.component';
 import { CaLabService } from '../../../../service-api/ca-lab.service';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
-import { FlSearchModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-search/fl-search.module';
+import { MatSortHeader } from '@angular/material/sort';
+import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { CaLabInlineComponent } from '../ca-lab-inline/ca-lab-inline.component';
 import { CaSpaceInlineComponent } from '../../../ca-space-core/component/ca-space-inline/ca-space-inline.component';
-import { FlStatusModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
-import { FlUserModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-user/fl-user.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { CaServerCloudInlineComponent } from '../../../ca-server-core/component/ca-server-cloud-inline/ca-server-cloud-inline.component';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { CaExternalSpaceLinkDirective } from '../../../ca-space-core/pipe/ca-external-space-link.directive';
 import { RouterLink } from '@angular/router';
@@ -48,7 +48,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ca-lab-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,

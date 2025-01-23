@@ -6,7 +6,7 @@ import {
   SpSheetSingleSelection,
   SpSheetSingleSelectionFull,
 } from '../model/selection/sp-sheet-single-selection.class';
-import { FlTranslateService } from '@monorepo/front-core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 /**
  * Class linked to {@link SpSheetChartSerieSelectionComponent} to help handle different

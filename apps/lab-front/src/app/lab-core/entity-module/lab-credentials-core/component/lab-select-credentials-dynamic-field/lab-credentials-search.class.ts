@@ -1,4 +1,7 @@
-import { FlSearchFilterCriteriaConverter, FlSearchSortCriteriaConverter } from '@monorepo/front-core-lib';
+import {
+  FlSearchFilterCriteriaConverter,
+  FlSearchSortCriteriaConverter,
+} from '@monorepo/front-core-lib/fl-search';
 import { LabCredentialsType } from '../../../../model/entities/lab-credentials.entity';
 
 export class LabCredentialsSearchFields {

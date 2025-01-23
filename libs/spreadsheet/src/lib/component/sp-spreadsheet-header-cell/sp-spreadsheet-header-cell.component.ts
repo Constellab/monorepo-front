@@ -20,7 +20,9 @@ import {
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { SpSpreadsheetHeaderInfoComponent } from '../sp-spreadsheet-header-info/sp-spreadsheet-header-info.component';
 import { SpSheetHeader, SpSheetHeaderInfo } from '../../model/sp-sheet-headers.class';
-import { FlOverlayRef, FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
   selector: 'sp-spreadsheet-header-cell',

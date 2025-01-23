@@ -1,16 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LabLogsBetweenDates } from '../../../model/entities/lab-log.entity';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { DateTime } from 'luxon';
-import { FlDialogModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { MatIconAnchor, MatButton } from '@angular/material/button';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { MatButton, MatIconAnchor } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlInfiniteScrollModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-inifite-scroll/fl-infinite-scroll.module';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabLogsBetweenDatesComponent } from '../lab-logs-between-dates/lab-logs-between-dates.component';
-import { FlLoaderModule } from '../../../../../../../../libs/front-core-lib/src/lib/module/fl-loader/fl-loader.module';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabLogBetweenDatesDialogInput {
@@ -31,7 +30,6 @@ export interface LabLogBetweenDatesDialogInput {
     MatIconAnchor,
     MatTooltip,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     FlInfiniteScrollModule,
     LabLogsBetweenDatesComponent,

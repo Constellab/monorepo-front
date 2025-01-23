@@ -1,11 +1,12 @@
 import { Type } from 'class-transformer';
+import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
-  FlFormInputsManagerConfig,
   FlSearchConverter,
   FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
-} from '@monorepo/front-core-lib';
+} from '@monorepo/front-core-lib/fl-search';
+
 import { CaUser } from '../../../model/entities/ca-user.class';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaActivityEntityType, CaActivityType } from '../../../model/entities/ca-activity.class';

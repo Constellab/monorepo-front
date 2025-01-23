@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { FlEntity } from '@monorepo/front-core-lib';
+import { inject, Pipe, PipeTransform } from '@angular/core';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import { LabTagService } from '../../../entity-service/lab-tag.service';
 import { LabNote } from '../../../model/entities/lab-note.entity';

@@ -27,13 +27,12 @@ import {
   SpSheetChartConfig,
   SpSpreadsheetChartSerieSelectionInput,
 } from '../../model/chart/sp-sheet-chart-config.class';
-import {
-  FL_PORTAL_DATA,
-  FlGlobalValidators,
-  FlOverlayRef,
-  FlPortalConfig,
-  FlPortalService,
-} from '@monorepo/front-core-lib';
+import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { FlGlobalValidators } from '@monorepo/front-core-lib/fl-core';
+import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+
 import { ChChartHistogramMode, ChChartType } from '@monorepo/chart';
 
 /**

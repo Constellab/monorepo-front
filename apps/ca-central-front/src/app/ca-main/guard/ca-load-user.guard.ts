@@ -3,7 +3,7 @@ import { Router, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CaAuthenticatedUserService } from '../../ca-core/service-api/ca-authenticated-user.service';
 import { catchError, map } from 'rxjs/operators';
-import { FlServerError } from '@monorepo/front-core-lib';
+import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
 
 /**

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatDialogContent } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';

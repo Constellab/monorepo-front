@@ -1,12 +1,14 @@
 import { Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
-import { FlSectionModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { RouterLink } from '@angular/router';
-import { FlTextIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-text-icon/fl-text-icon.module';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { NgTemplateOutlet } from '@angular/common';
-import { CaAddCardComponent } from '../../../ca-core/module/ca-core-component/ca-add-card/ca-add-card.component';
+import {
+  CaAddCardComponent,
+} from '../../../ca-core/module/ca-core-component/ca-add-card/ca-add-card.component';
 import { CaDetailRoutePipe } from '../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FlApiService } from '@monorepo/front-core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { HaTopicDto } from '../ha-model/ha-entities/ha-topic.class';
 import { Observable } from 'rxjs';
 

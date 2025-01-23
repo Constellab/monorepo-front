@@ -1,12 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LabFileResourceService } from '../../../../entity-service/lab-file-resource.service';
 import {
   FormArray,
   FormBuilder,
+  ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormGroup,
   Validators,
-  ReactiveFormsModule,
 } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { ClCachedObservable } from '@monorepo/core-lib';
@@ -15,18 +15,17 @@ import {
   LabTypeEntity,
 } from '../../../../model/entities/lab-type/lab-type.entity';
 import { TdTypingName } from '@monorepo/technical-doc';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlFileHelper } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
-import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-pipe/fl-core-pipe.module';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export type LabFsNodeTypesSelectionDialogMode = 'files' | 'folder' | 'filesOrFolder';
@@ -74,7 +73,6 @@ export interface UploadFsNodeTypeFolderResult {
   styleUrls: ['./lab-fs-node-types-selection-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatRadioGroup,

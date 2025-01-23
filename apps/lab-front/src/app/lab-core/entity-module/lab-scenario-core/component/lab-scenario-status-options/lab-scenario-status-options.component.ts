@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
-import { FlEmbeddedOptionsAbstractDirective, FlStatus } from '@monorepo/front-core-lib';
+import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
 import { labScenarioStatusDict } from '../../../../model/entities/lab-scenario.entity';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { LabProgressMessage } from '../../../../model/entities/lab-progress-bar.entity';
-import { FlStatusModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-status/fl-status.module';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlCoreComponentModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-core-component/fl-core-component.module';
-import { FlDateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-date/fl-date.module';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 
 @Component({
   selector: 'lab-progress-message',

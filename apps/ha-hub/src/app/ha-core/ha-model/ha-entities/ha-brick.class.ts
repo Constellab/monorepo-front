@@ -3,7 +3,7 @@ import { HaReferenceDTO, HaRepoType } from './ha-version.class';
 import { ClVersion } from '@monorepo/core-lib';
 import { HaSpace } from './ha-space.class';
 import { Type } from 'class-transformer';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { CoBrick } from '@monorepo/community-lib';
 
 export enum HaBrickVisibility {

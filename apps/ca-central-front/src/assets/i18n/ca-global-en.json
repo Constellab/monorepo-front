@@ -283,5 +283,6 @@
   "synchronise_user_with_community_started": "Sync started",
   "data_lab_price_simulator": "Data lab price simulator",
   "data_lab_price_simulator_help": "This tool allows you to simulate the price of a data lab based on your need. If you want to learn more about Constellab and data lab, please",
-  "contact_us": "contact us"
+  "contact_us": "contact us",
+  "mails": "Mails"
 }

@@ -1,8 +1,9 @@
-import { Component, Input, Signal, ViewContainerRef, inject } from '@angular/core';
+import { Component, inject, Input, Signal, ViewContainerRef } from '@angular/core';
 import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import { FlDialogService, FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import {
   LabTransformResourcePortalComponent,
   LabTransformResourcePortalInput,
@@ -17,10 +18,10 @@ import {
   LabImportResourceDialogComponent,
   LabImportResourceDialogInput,
 } from '../lab-import-resource-dialog/lab-import-resource-dialog.component';
-import { FlFormModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-form/fl-form.module';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-svg-icon/fl-icon.module';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabFlagButtonComponent } from '../../../lab-entity-core/component/lab-flag-button/lab-flag-button.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { LabResourceActionsMenuComponent } from '../lab-resource-actions-menu/lab-resource-actions-menu.component';
@@ -28,7 +29,7 @@ import { MatMenuItem } from '@angular/material/menu';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatDialogClose } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlColorModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-color/fl-color.module';
+import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 @Component({

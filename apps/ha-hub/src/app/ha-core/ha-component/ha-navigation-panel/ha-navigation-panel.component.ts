@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FlTranslateModule } from '@monorepo/front-core-lib';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 export interface HaNavigationPanelItem {
   title: string;

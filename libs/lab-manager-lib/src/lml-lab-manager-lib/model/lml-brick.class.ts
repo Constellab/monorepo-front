@@ -1,4 +1,4 @@
-import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib';
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { CoBrick, CoSpace, CoUser } from '@monorepo/community-lib';
 import { DateTime } from 'luxon';

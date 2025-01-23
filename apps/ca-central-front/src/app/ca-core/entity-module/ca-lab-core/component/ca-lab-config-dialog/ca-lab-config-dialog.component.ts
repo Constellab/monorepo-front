@@ -2,13 +2,11 @@ import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CaLabConfig } from '../../../../model/entities/lab/ca-lab-config.class';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FlTranslatableText } from '@monorepo/front-core-lib';
-import { FlDialogModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-dialog/fl-dialog.module';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlSectionModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-section/fl-section.module';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaLabConfigComponent } from '../ca-lab-config/ca-lab-config.component';
 import { AsyncPipe } from '@angular/common';
-import { FlTranslateModule } from '../../../../../../../../../libs/front-core-lib/src/lib/module/fl-translate/fl-translate.module';
 
 export interface CaLabConfigDialogInput {
   labConfig: Observable<CaLabConfig>;
@@ -25,7 +23,6 @@ export interface CaLabConfigDialogInput {
   styleUrls: ['./ca-lab-config-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     FlSectionModule,
     CaLabConfigComponent,

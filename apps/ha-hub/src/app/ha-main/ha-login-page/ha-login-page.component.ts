@@ -1,10 +1,11 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { Location } from '@angular/common';
 import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constellab.helper';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FlLoginSavedRoute, FlSnackBarService } from '@monorepo/front-core-lib';
-import { FlAuthModule } from '../../../../../../libs/front-core-lib/src/lib/module/fl-auth/fl-auth.module';
+import { FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
