@@ -37,29 +37,44 @@
   }
 
   .accent {
-    color-scheme: light-dark;
-    @include mat.theme(
+    // for now, no need to override the whole theme
+    //color-scheme: light-dark;
+    //@include mat.theme(
+    //    (
+    //      color: (
+    //        primary: $accent-palette,
+    //        theme-type: $theme-type,
+    //      ),
+    //    )
+    //);
+
+    @include mat.theme-overrides(
         (
-          color: (
-            primary: $accent-palette,
-            theme-type: $theme-type,
-          ),
+          primary: #6c4ef6,
+          on-primary: #ffffff,
         )
     );
     @include _color_overrides();
   }
 
   .warn {
-    color-scheme: light-dark;
-    @include mat.theme(
+    // for now, no need to override the whole theme
+    //color-scheme: light-dark;
+    //@include mat.theme(
+    //    (
+    //      color: (
+    //        primary: $warn-palette,
+    //        theme-type: $theme-type,
+    //      ),
+    //    )
+    //);
+
+    @include mat.theme-overrides(
         (
-          color: (
-            primary: $warn-palette,
-            theme-type: $theme-type,
-          ),
+          primary: #f991c3,
+          on-primary: #222222,
         )
     );
-
     @include _color_overrides();
   }
 }
@@ -84,7 +99,7 @@
     --navbar-height: 4rem;
     --small-navbar-height: 48px;
 
-    color-scheme: light-dark;
+    color-scheme: $theme-type;
     @include mat.theme(
         (
           color: (
@@ -109,7 +124,15 @@
         body-medium-size: 13px,
         body-large-size: 13px,
         // disable slightly green background on drawer
-        background: var(--mat-sys-surface)
+        background: var(--mat-sys-surface),
+        // override the main colors
+        // we use the same color for light and dark theme
+        primary: #49a8a9,
+        on-primary: #222222,
+        tertiary: #6c4ef6,
+        on-tertiary: #ffffff,
+        error: #f991c3,
+        on-error: #222222
       )
     );
 
