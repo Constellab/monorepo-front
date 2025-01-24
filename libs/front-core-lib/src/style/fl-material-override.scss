@@ -532,4 +532,14 @@ body {
     // reduce size because of margin of the slider
     width: calc(100% - 18px);
   }
+
+  /************************************* MAT CHIPS ***********************************/
+  .g-chips-grey-round {
+    @include mat.chips-overrides(
+        (
+          elevated-container-color: var(--hover-color),
+          container-shape-radius: var(--card-radius),
+        )
+    );
+  }
 }

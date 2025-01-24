@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FlTag, FlTagDatasource, FlTagSelectedEvent } from '../../fl-tag.class';
 import { FlTagColorer } from '../../fl-tag-colorer.class';
+import { FlMouseButton } from '@monorepo/front-core-lib/fl-core';
 
 @Component({
   selector: 'fl-tag-list',
@@ -31,6 +32,12 @@ export class FlTagListComponent {
       tag: tag,
       event: event,
     });
+  }
+
+  onAuxClick(tag: FlTag, event: MouseEvent): void {
+    if (this.showDeleteIcon && event.button === FlMouseButton.MIDDLE) {
+      this.tagDeleted.next(tag);
+    }
   }
 
   deleteTag(tag: FlTag): void {

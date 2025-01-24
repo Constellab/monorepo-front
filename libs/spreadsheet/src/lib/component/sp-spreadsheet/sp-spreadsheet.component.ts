@@ -2,12 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   TrackByFunction,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
 import { SpSpreadsheetSelectionState } from '../../state/sp-spreadsheet-selection.state';
@@ -28,6 +28,7 @@ import { SpSpreadsheetElementState } from '../../state/sp-spreadsheet-element.st
 import { SpSpreadsheetPageLoader } from '../../model/sp-spreadsheet-page.class';
 import { SpSpreadsheetPaginationState } from '../../state/sp-spreadsheet-pagination.state';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { ChChartPortalService } from '@monorepo/chart';
 
 @Component({
   selector: 'sp-spreadsheet',
@@ -47,6 +48,7 @@ import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
     SpSpreadsheetScrollState,
     SpSpreadsheetPaginationState,
     FlPortalService, // providers to access the state in portal
+    ChChartPortalService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,

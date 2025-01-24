@@ -6,7 +6,8 @@
         [tagColorer]="tagColorer"
         [showDeleteIcon]="showDeleteIcon"
         (deleteTag)="deleteTag($event)"
-        (click)="selectTag(tag, $event)"></fl-tag>
+        (click)="selectTag(tag, $event)"
+        (auxclick)="onAuxClick(tag, $event)"></fl-tag>
     }
     @if (showNoTagMessage && tagList.length === 0) {
       <div class="g-text-small g-text-light">

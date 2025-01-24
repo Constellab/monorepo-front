@@ -21,6 +21,12 @@
       )
   );
 
+  @include mat.icon-overrides(
+      (
+        color: var(--mat-sys-primary),
+      )
+  );
+
   // set the color of the mat-button and mat-stroked because by default
   &.mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
     color: var(--mat-sys-primary);
@@ -61,12 +67,12 @@
     // for now, no need to override the whole theme
     //color-scheme: light-dark;
     //@include mat.theme(
-    //    (
-    //      color: (
-    //        primary: $warn-palette,
-    //        theme-type: $theme-type,
-    //      ),
-    //    )
+    //  (
+    //    color: (
+    //      primary: $warn-palette,
+    //      theme-type: $theme-type,
+    //    ),
+    //  )
     //);
 
     @include mat.theme-overrides(
@@ -139,6 +145,8 @@
     @include mat.sidenav-overrides(
       (
         container-background-color: var(--card-background),
+        container-divider-color: var(--hover-color),
+        container-shape: 0,
       )
     );
 
