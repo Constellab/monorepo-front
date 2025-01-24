@@ -6,14 +6,14 @@
           <mat-icon
             flIcon="check_fill"
             [matTooltip]="status.name | translate"
-            class="status primary"></mat-icon>
+            class="status"></mat-icon>
           <!--                          <mat-icon class="primary" [flIcon]="status.icon" [matTooltip]="status.name | translate" fontSet="material-icons"></mat-icon>-->
         }
         @case ('ERROR') {
           <mat-icon
             [flIcon]="status.icon"
             [matTooltip]="status.name | translate"
-            class="status warn"></mat-icon>
+            class="status g-warn-icon"></mat-icon>
         }
         @case ('RUNNING') {
           <fl-loader [size]="20" [matTooltip]="status.name | translate" class="status"></fl-loader>

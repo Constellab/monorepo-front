@@ -58,16 +58,10 @@
         </div>
       } @else {
         <fl-text-icon>
-          <mat-icon class="g-icon-big warn">error</mat-icon>
+          <mat-icon class="g-icon-big g-warn-icon">error</mat-icon>
           <p class="g-text-big">{{ 'monitoring.lab_not_running' | translate }}</p>
         </fl-text-icon>
       }
-      <ng-template #error>
-        <fl-text-icon>
-          <mat-icon class="g-icon-big warn">error</mat-icon>
-          <p class="g-text-big">{{ 'monitoring.lab_not_running' | translate }}</p>
-        </fl-text-icon>
-      </ng-template>
     }
   </fl-card-body>
 </fl-card>

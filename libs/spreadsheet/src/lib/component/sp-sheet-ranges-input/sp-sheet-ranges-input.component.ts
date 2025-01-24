@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, NgControl, UntypedFormGroup } from '@angular/forms';
 import { SpSpreadsheetState } from '../../state/sp-spreadsheet.state';
 import { Observable, of, Subscription } from 'rxjs';
@@ -22,8 +22,8 @@ interface SpSpreadsheetRangeForm {
  */
 @Component({
   selector: 'sp-sheet-ranges-input',
-  templateUrl: './Sp-sheet-ranges-input.component.html',
-  styleUrls: ['./Sp-sheet-ranges-input.component.scss'],
+  templateUrl: './sp-sheet-ranges-input.component.html',
+  styleUrls: ['./sp-sheet-ranges-input.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: SpSheetRangesInputComponent }],
   standalone: false,
 })

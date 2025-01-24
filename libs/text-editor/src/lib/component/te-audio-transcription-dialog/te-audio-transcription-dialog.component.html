@@ -8,7 +8,7 @@
 <mat-dialog-content>
   @if (micDisabled) {
     <div class="g-layout-col g-layout-start-center">
-      <mat-icon class="g-icon-big warn">mic_off</mat-icon>
+      <mat-icon class="g-icon-big g-warn-icon">mic_off</mat-icon>
       <fl-error-text [errorMessage]="'teTextEditor.mic_disabled_error' | translate"> </fl-error-text>
     </div>
   } @else {
@@ -27,7 +27,7 @@
     <div class="g-layout-col g-layout-start-center">
       @if (isRecording) {
         <fl-text-icon>
-          <mat-icon class="g-icon-big record-icon warn">radio_button_checked</mat-icon>
+          <mat-icon class="g-icon-big record-icon g-warn-icon">radio_button_checked</mat-icon>
           {{ 'teTextEditor.recording' | translate }}
         </fl-text-icon>
 

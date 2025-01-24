@@ -65,31 +65,4 @@
       </button>
     </div>
   }
-
-  <ng-template #edit>
-    <div class="edit-container">
-      <mat-form-field class="g-full">
-        <textarea
-          matInput
-          [(ngModel)]="editContent"
-          (keydown.control.enter)="saveEdit()"
-          (keydown.escape)="escapePressed($event)"
-          [rows]="editRowCount"></textarea>
-      </mat-form-field>
-
-      <button mat-stroked-button type="button" class="g-button-small primary" (click)="saveEdit()">
-        <mat-icon>check</mat-icon>
-        {{ 'open_ai_save_update' | translate }}
-      </button>
-
-      <button
-        mat-stroked-button
-        type="button"
-        class="g-button-small cancel-button warn"
-        (click)="cancelEdit()">
-        <mat-icon>cancel</mat-icon>
-        {{ 'open_ai_cancel_update' | translate }}
-      </button>
-    </div>
-  </ng-template>
 </div>

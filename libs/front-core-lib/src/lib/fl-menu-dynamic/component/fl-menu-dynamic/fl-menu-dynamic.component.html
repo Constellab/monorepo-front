@@ -21,16 +21,11 @@
             <fl-menu-dynamic #subMenu [menuItems]="item.children" [hasBackdrop]="false"></fl-menu-dynamic>
           </span>
         } @else {
+          <!-- Handle leaf node menu items -->
           <fl-menu-dynamic-button
             [menuDynamic]="item"
             (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
         }
-        <!-- Handle leaf node menu items -->
-        <ng-template #leaf>
-          <fl-menu-dynamic-button
-            [menuDynamic]="item"
-            (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
-        </ng-template>
       }
     </div>
   </ng-template>

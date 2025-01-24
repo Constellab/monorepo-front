@@ -21,12 +21,6 @@
       )
   );
 
-  @include mat.icon-overrides(
-      (
-        color: var(--mat-sys-primary),
-      )
-  );
-
   // set the color of the mat-button and mat-stroked because by default
   &.mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
     color: var(--mat-sys-primary);
@@ -214,6 +208,30 @@
 
     .g-warn-text {
       color: var(--mat-sys-error);
+    }
+
+    .g-primary-icon {
+      @include mat.icon-overrides(
+          (
+            color: var(--mat-sys-primary),
+          )
+      );
+    }
+
+    .g-accent-icon {
+      @include mat.icon-overrides(
+          (
+            color: var(--mat-sys-tertiary),
+          )
+      );
+    }
+
+    .g-warn-icon {
+      @include mat.icon-overrides(
+          (
+            color: var(--mat-sys-error),
+          )
+      );
     }
 
     /**

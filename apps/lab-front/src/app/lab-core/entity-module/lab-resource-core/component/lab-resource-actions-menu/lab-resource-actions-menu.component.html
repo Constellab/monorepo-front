@@ -5,9 +5,9 @@
 <mat-menu #menu="matMenu" xPosition="before">
   @if (!readOnly) {
     @if (resource.isFsNode()) {
-      <button mat-menu-item type="button" (click)="openImportResource()">
-        <mat-icon fontSet="material-icons" class="primary">system_update_alt</mat-icon>
-        <span class="g-primary-text">{{ 'biox.import_resource' | translate }}</span>
+      <button mat-menu-item type="button" class="primary" (click)="openImportResource()">
+        <mat-icon fontSet="material-icons">system_update_alt</mat-icon>
+        <span>{{ 'biox.import_resource' | translate }}</span>
       </button>
     }
   }
