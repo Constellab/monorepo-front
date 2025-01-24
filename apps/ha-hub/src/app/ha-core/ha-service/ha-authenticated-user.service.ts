@@ -1,7 +1,6 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
-import { FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
+import { flAuthExpiredCookie, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { REQUEST } from '@monorepo/front-core-lib/fl-theme';
 
@@ -47,6 +46,10 @@ export class HaAuthenticatedUserService implements FlCleanableService {
     } else {
       this.userSubject.next(null);
     }
+  }
+
+  public hasAuthorizationCookie(): boolean {
+    return this.hasAuthCookie();
   }
 
   private hasAuthCookie(): boolean {

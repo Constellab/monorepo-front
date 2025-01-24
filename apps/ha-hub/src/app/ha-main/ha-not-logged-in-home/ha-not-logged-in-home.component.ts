@@ -23,7 +23,7 @@ import { HaEmailSignUpComponent } from '../../ha-core/ha-component/ha-email-sign
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgFor, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatIcon } from '@angular/material/icon';
 import { HaGithubStarButtonComponent } from '../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
@@ -42,7 +42,6 @@ import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-
     MatTab,
     MatButton,
     RouterLink,
-    NgFor,
     CoCommunityLibModule,
     MatAnchor,
     MatIcon,

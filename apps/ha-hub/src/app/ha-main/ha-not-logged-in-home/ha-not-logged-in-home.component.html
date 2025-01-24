@@ -65,12 +65,14 @@
       {{ 'stories' | translate }}
     </a>
     <div class="home-list-div">
-      <a *ngFor="let story of stories$() | flDatasourceConnect | async" [routerLink]="story | haDetailRoute">
-        <co-story-list-item
-          class="home-card"
-          [story]="story"
-          [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
-      </a>
+      @for (story of stories$() | flDatasourceConnect | async; track story?.id) {
+        <a [routerLink]="story | haDetailRoute">
+          <co-story-list-item
+            class="home-card"
+            [story]="story"
+            [imageLink]="getStoryImageLink(story.id, story?.mainPicture)"></co-story-list-item>
+        </a>
+      }
     </div>
     <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
       {{ 'go_to_stories' | translate }}
@@ -83,9 +85,11 @@
       {{ 'agents' | translate }}
     </a>
     <div class="home-list-div">
-      <a *ngFor="let agent of agents$() | flDatasourceConnect | async" [routerLink]="agent | haDetailRoute">
-        <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
-      </a>
+      @for (agent of agents$() | flDatasourceConnect | async; track agent.id) {
+        <a [routerLink]="agent | haDetailRoute">
+          <co-agent-list-item class="home-card" [agent]="agent"></co-agent-list-item>
+        </a>
+      }
     </div>
     <a mat-stroked-button [routerLink]="agentsListRoute" class="go-to-button">
       {{ 'go_to_agents' | translate }}
@@ -98,12 +102,14 @@
       {{ 'bricks' | translate }}
     </a>
     <div class="home-list-div">
-      <a *ngFor="let brick of bricks$() | flDatasourceConnect | async" [routerLink]="brick | haDetailRoute">
-        <co-brick-list-item
-          class="home-card"
-          [brick]="brick"
-          [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-      </a>
+      @for (brick of bricks$() | flDatasourceConnect | async; track brick.id) {
+        <a [routerLink]="brick | haDetailRoute">
+          <co-brick-list-item
+            class="home-card"
+            [brick]="brick"
+            [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+        </a>
+      }
     </div>
     <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
       {{ 'go_to_bricks' | translate }}

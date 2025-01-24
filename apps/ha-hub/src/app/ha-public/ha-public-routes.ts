@@ -1,6 +1,19 @@
 import { Route } from '@angular/router';
 
 import { HaLoginGuard } from '../ha-core/ha-guard/ha-login.guard';
+import {
+  HaPublicBrickPageComponent
+} from './module/ha-public-brick-page/ha-public-brick-page/ha-public-brick-page.component';
+import {
+  HaPublicBrickDescriptionComponent
+} from './module/ha-public-brick-page/ha-public-brick-description/ha-public-brick-description.component';
+import {
+  HaPublicVersionsComponent
+} from './module/ha-public-brick-page/ha-public-versions/ha-public-versions.component';
+import {
+  HaPublicTechDocComponent
+} from './module/ha-public-brick-page/ha-public-tech-doc/ha-public-tech-doc.component';
+import { HaPublicDocComponent } from './module/ha-public-brick-page/ha-public-doc/ha-public-doc.component';
 
 export const haPublicRoutes: Route[] = [
   {
@@ -25,6 +38,33 @@ export const haPublicRoutes: Route[] = [
         './module/ha-public-brick-page/ha-public-brick-user-invite-page/ha-public-brick-user-invite-page.component'
       ).then((m) => m.HaPublicBrickUserInvitePageComponent),
     canActivate: [HaLoginGuard],
+  },
+  {
+    path: ':brickName/:version',
+    component: HaPublicBrickPageComponent,
+    children: [
+      {
+        path: '',
+        component: HaPublicBrickDescriptionComponent,
+      },
+      {
+        path: 'version',
+        component: HaPublicVersionsComponent
+      },
+      {
+        path: 'doc',
+        children: [
+          {
+            path: 'technical-folder/:type/:uniqueName',
+            component: HaPublicTechDocComponent
+          },
+          {
+            path: '**',
+            component: HaPublicDocComponent
+          }
+        ]
+      }
+    ]
   },
   // TODO FIX
   // {

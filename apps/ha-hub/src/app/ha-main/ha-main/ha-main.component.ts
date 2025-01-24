@@ -45,14 +45,16 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
   currentTheme: Signal<ClTheme> = this.themeState?.getCurrentTheme();
 
-  @HostListener('window:keydown.control.k', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   onCtrlK(event: KeyboardEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    if (!this.dialogService.isDialogComponentOpened(HaInstantSearchDialogComponent))
-      this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
-        position: { top: '5%' },
-        data: { theme: this.currentTheme() },
-      });
+    if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      ClHelpService.stopEventPropagation(event);
+      if (!this.dialogService.isDialogComponentOpened(HaInstantSearchDialogComponent))
+        this.dialogService.openMediumDialog(HaInstantSearchDialogComponent, {
+          position: { top: '5%' },
+          data: { theme: this.currentTheme() },
+        });
+    }
   }
 
   ngOnInit(): void {

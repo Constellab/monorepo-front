@@ -15,7 +15,7 @@ import { MatFormField, MatInput, MatPrefix, MatSuffix } from '@angular/material/
 import { MatIcon } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { CdkScrollable } from '@angular/cdk/overlay';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { ClHelpService, ClStringHelper, ClTheme } from '@monorepo/core-lib';
 import { configure, poweredBy } from 'instantsearch.js/es/widgets';
 import { NgClass } from '@angular/common';
@@ -37,6 +37,7 @@ export class HaInstanceSearchDialogData {
     MatSuffix,
     NgClass,
     FlTranslateModule,
+    MatDialogContent,
   ],
   templateUrl: './ha-instant-search-dialog.component.html',
   styleUrl: './ha-instant-search-dialog.component.scss',
@@ -47,51 +48,12 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
   private dialogRef = inject<MatDialogRef<HaInstantSearchDialogComponent>>(MatDialogRef);
   private router = inject(Router);
 
-  @HostListener('window:keydown.escape', ['$event'])
-  closeDialog(event: KeyboardEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    this.dialogRef.close();
-  }
-
-  @HostListener('window:keydown.arrowdown', ['$event'])
-  highlightNextHit(event: KeyboardEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    if (this.highlightedHitIndex !== undefined && this.highlightedHitIndex < this.hits.length - 1) {
-      this.highlightedHitIndex++;
-      const hitsDiv = this.hitsDivRef.nativeElement as HTMLElement;
-      const highlightedHit = hitsDiv.children[this.highlightedHitIndex] as HTMLElement;
-      if (highlightedHit) {
-        const hitsDivRect = hitsDiv.getBoundingClientRect();
-        const highlightedHitRect = highlightedHit.getBoundingClientRect();
-        if (highlightedHitRect.bottom > hitsDivRect.bottom) {
-          hitsDiv.scrollTop += highlightedHitRect.bottom - hitsDivRect.bottom;
-        }
-      }
-    }
-  }
-
-  @HostListener('window:keydown.arrowup', ['$event'])
-  highlightPreviousHit(event: KeyboardEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    if (this.highlightedHitIndex !== undefined && this.highlightedHitIndex > 0) {
-      this.highlightedHitIndex--;
-      const hitsDiv = this.hitsDivRef.nativeElement as HTMLElement;
-      const highlightedHit = hitsDiv.children[this.highlightedHitIndex] as HTMLElement;
-      if (highlightedHit) {
-        const hitsDivRect = hitsDiv.getBoundingClientRect();
-        const highlightedHitRect = highlightedHit.getBoundingClientRect();
-        if (highlightedHitRect.top < hitsDivRect.top) {
-          hitsDiv.scrollTop -= hitsDivRect.top - highlightedHitRect.top;
-        }
-      }
-    }
-  }
-
-  @HostListener('window:keydown.enter', ['$event'])
-  openHighlightedHit(event: KeyboardEvent): void {
-    ClHelpService.stopEventPropagation(event);
-    if (this.highlightedHitIndex !== undefined)
-      this.router.navigate([this.hits[this.highlightedHitIndex].path]);
+  @HostListener('keydown', ['$event'])
+  stopEventPropagation(event: KeyboardEvent): void {
+    if (event.key === 'Escape') this.dialogRef.close();
+    else if (event.key === 'ArrowDown') this.highlightNextHit(event);
+    else if (event.key === 'ArrowUp') this.highlightPreviousHit(event);
+    else if (event.key === 'Enter') this.openHighlightedHit(event);
   }
 
   @ViewChild('hitsDiv', { static: true })
@@ -143,5 +105,43 @@ export class HaInstantSearchDialogComponent implements AfterContentInit, OnDestr
 
   ngOnDestroy(): void {
     this.instantSearchService.stop();
+  }
+
+  private highlightNextHit(event: KeyboardEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    if (this.highlightedHitIndex !== undefined && this.highlightedHitIndex < this.hits.length - 1) {
+      this.highlightedHitIndex++;
+      const hitsDiv = this.hitsDivRef.nativeElement as HTMLElement;
+      const highlightedHit = hitsDiv.children[this.highlightedHitIndex] as HTMLElement;
+      if (highlightedHit) {
+        const hitsDivRect = hitsDiv.getBoundingClientRect();
+        const highlightedHitRect = highlightedHit.getBoundingClientRect();
+        if (highlightedHitRect.bottom > hitsDivRect.bottom) {
+          hitsDiv.scrollTop += highlightedHitRect.bottom - hitsDivRect.bottom;
+        }
+      }
+    }
+  }
+
+  private highlightPreviousHit(event: KeyboardEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    if (this.highlightedHitIndex !== undefined && this.highlightedHitIndex > 0) {
+      this.highlightedHitIndex--;
+      const hitsDiv = this.hitsDivRef.nativeElement as HTMLElement;
+      const highlightedHit = hitsDiv.children[this.highlightedHitIndex] as HTMLElement;
+      if (highlightedHit) {
+        const hitsDivRect = hitsDiv.getBoundingClientRect();
+        const highlightedHitRect = highlightedHit.getBoundingClientRect();
+        if (highlightedHitRect.top < hitsDivRect.top) {
+          hitsDiv.scrollTop -= hitsDivRect.top - highlightedHitRect.top;
+        }
+      }
+    }
+  }
+
+  private openHighlightedHit(event: KeyboardEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    if (this.highlightedHitIndex !== undefined)
+      this.router.navigate([this.hits[this.highlightedHitIndex].path]);
   }
 }

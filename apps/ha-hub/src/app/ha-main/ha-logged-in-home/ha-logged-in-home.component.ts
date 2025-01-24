@@ -18,7 +18,7 @@ import {
 import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
-import { AsyncPipe, isPlatformBrowser, NgFor, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatAnchor } from '@angular/material/button';
@@ -34,7 +34,6 @@ import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-
   styleUrls: ['./ha-logged-in-home.component.scss'],
   imports: [
     RouterLink,
-    NgFor,
     CoCommunityLibModule,
     MatAnchor,
     MatIcon,
