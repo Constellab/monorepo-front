@@ -125,6 +125,10 @@ export class CaLabDetailPageState implements OnDestroy {
     return this.getLab$().pipe(map((lab) => lab.isCloud));
   }
 
+  public isFreeLab$(): Observable<boolean> {
+    return this.getLab$().pipe(map((lab) => lab.isFreeLab));
+  }
+
   /**
    * return true if the lab is on desktop
    */

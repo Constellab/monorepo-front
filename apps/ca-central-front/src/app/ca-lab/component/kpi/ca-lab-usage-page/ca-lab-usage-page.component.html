@@ -1,1 +1,5 @@
-<ca-lab-usage [labId]="id" [isCloud$]="isCloud$" class="g-section"></ca-lab-usage>
+@if (isFreeLab$ | async) {
+  <ca-lab-free-card-info class="g-section" [labId]="id"></ca-lab-free-card-info>
+}
+
+<ca-lab-usage [labId]="id" [showPrice$]="showPrice$" class="g-section"></ca-lab-usage>

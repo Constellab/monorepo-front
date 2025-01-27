@@ -72,7 +72,7 @@
           }
         }
 
-        @if (isCloud$ | async) {
+        @if (showPrice$ | async) {
           @if (storageKpi$ | async; as storageKpi) {
             <tr>
               <td>{{ 'lab_volume_price' | translate }}</td>

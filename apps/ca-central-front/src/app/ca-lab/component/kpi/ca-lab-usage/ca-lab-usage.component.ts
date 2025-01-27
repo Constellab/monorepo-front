@@ -69,7 +69,7 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 export class CaLabUsageComponent implements OnInit, OnDestroy {
   @Input({ required: true }) labId: string;
 
-  @Input({ required: true }) isCloud$: Observable<boolean>;
+  @Input({ required: true }) showPrice$: Observable<boolean>;
 
   private labService = inject(CaLabService);
   private dialogService = inject(FlDialogService);

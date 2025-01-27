@@ -5,3 +5,8 @@ fl-text-icon {
 .lab-link {
   margin-top: 1em;
 }
+
+.user-inline {
+  // align with fl-text-icon
+  --user-inline-text-margin: 7px;
+}

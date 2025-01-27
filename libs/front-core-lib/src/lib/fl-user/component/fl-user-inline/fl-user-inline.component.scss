@@ -3,5 +3,5 @@
 }
 
 .user-name {
-  margin-left: 0.4em;
+  margin-left: var(--user-inline-text-margin, 0.4em);
 }

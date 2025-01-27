@@ -52,10 +52,7 @@
       / {{ freeLab.freeLab.usageLimitInHours }} {{ 'lab_usage_hours' | translate }}
     </fl-key-value>
   </fl-text-icon>
-  <fl-text-icon>
-    <mat-icon>person</mat-icon>
-    <fl-user-inline [user]="freeLab.freeLab.createdBy"></fl-user-inline>
-  </fl-text-icon>
+  <fl-user-inline [user]="freeLab.freeLab.createdBy" class="user-inline"></fl-user-inline>
 }
 
 @if (freeLab.freeLab?.labId) {
