@@ -53,5 +53,7 @@
   </fl-card-body>
 </fl-card>
 
-<!--Lab config-->
-<lml-manager-config class="g-section"></lml-manager-config>
+@if (labManagerIsRunning$ | async) {
+  <!--Lab config-->
+  <lml-manager-config class="g-section"></lml-manager-config>
+}

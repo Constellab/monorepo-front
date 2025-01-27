@@ -4,7 +4,7 @@ import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-co
 import { FlStatusEvent, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
-import { BehaviorSubject, combineLatest, distinct, first, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
 import {
   LmlDockerUpFormComponent,
   LmlDockerUpFormInput,
@@ -127,6 +127,13 @@ export class LmlLabManagerState implements OnDestroy {
 
   public getStatus$(): Observable<LmlLabManagerStatus> {
     return this.status$.asObservable().pipe(flStatutEventSuccess());
+  }
+
+  public labManagerIsRunning$(): Observable<boolean> {
+    return this.status$.pipe(
+      filter((status) => status.status === 'success' || status.status === 'error'),
+      map((status) => status.status === 'success')
+    );
   }
 
   public adminerIsRunning$(): Observable<boolean> {

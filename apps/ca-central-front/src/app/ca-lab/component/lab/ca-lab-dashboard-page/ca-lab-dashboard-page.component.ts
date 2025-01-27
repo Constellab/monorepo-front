@@ -7,7 +7,6 @@ import { CaLabDetailComponent } from '../ca-lab-detail/ca-lab-detail.component';
 import { CaLabServerInfoCardComponent } from '../../server/ca-lab-server-info-card/ca-lab-server-info-card.component';
 import { CaLabUsersListComponent } from '../../user/ca-lab-users-list/ca-lab-users-list.component';
 import { CaLabFoldersListComponent } from '../../folder/ca-lab-folders-list/ca-lab-folders-list.component';
-import { CaLabFreeCardInfoComponent } from '../../../../ca-core/entity-module/ca-lab-core/component/ca-lab-free-card-info/ca-lab-free-card-info.component';
 
 @Component({
   selector: 'ca-lab-dashboard-page',
@@ -19,7 +18,6 @@ import { CaLabFreeCardInfoComponent } from '../../../../ca-core/entity-module/ca
     CaLabServerInfoCardComponent,
     CaLabUsersListComponent,
     CaLabFoldersListComponent,
-    CaLabFreeCardInfoComponent,
   ],
 })
 export class CaLabDashboardPageComponent {

@@ -294,6 +294,7 @@
   "lab_open_config_tab": "Ouvrir la configuration",
   "lab_server_section_help": "Cette section vous permet de gérer le serveur du data lab. Utilisez cette section uniquement si vous savez ce que vous faites.",
   "lab_users_section_help": "Cette section vous permet de gérer les utilisateurs du data lab. Vous pouvez ajouter, mettre à jour et supprimer des utilisateurs si vous êtes le propriétaire du data lab.",
+  "no_user_in_lab": "Aucun utilisateur dans le data lab",
   "lab_folders_section_help": "Gérez les dossiers du data lab ici. Les dossiers partagés peuvent être liés aux scénarios et notes du data lab. Ajoutez, mettez à jour ou supprimez des dossiers si vous êtes le propriétaire du data lab.",
   "lab_installed_brick": "Briques installées",
   "lab_installed_brick_help": "Voici la liste des briques installées dans le data lab. Cette liste est automatiquement mise à jour lorsque le data lab est démarré. Si vous avez modifié la configuration du data lab dans la section lab manager et que vous n'avez pas redémarré le data lab, cette liste sera différente de celle dans la configuration du lab manager. Dans ce cas, redémarrez le data lab pour mettre à jour les briques.",
