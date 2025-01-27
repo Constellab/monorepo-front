@@ -13,6 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatDivider } from '@angular/material/divider';
 
 interface CaLabServerPriceEstimation {
   hourPerMonth: number;
@@ -35,6 +36,7 @@ interface CaLabServerPriceEstimation {
     AsyncPipe,
     DecimalPipe,
     TranslatePipe,
+    MatDivider,
   ],
 })
 export class CaLabCreateSummaryComponent implements OnInit {

@@ -98,6 +98,7 @@
   "backup_storage_price": "Prix du stockage de sauvegarde",
   "backup_transfert_price": "Prix du transfert de sauvegarde",
   "storage_price_unit": " € / Go / mois",
+  "storage_price_unit_detail": " € / Go / mois (en supposant 1 mois = 720 h)",
   "transfert_price_unit": " € / Go",
   "storage_prices": "Tous les prix du stockage",
   "create_storage_price": "Créer un prix de stockage",
@@ -114,5 +115,5 @@
   "lab_server_high_usage": "Utilisation élevée",
   "lab_server_hours": "heures",
   "lab_server_price": "Prix",
-  "lab_server_price_simulation": "Simulation de prix par mois"
+  "lab_server_price_simulation": "Estimation du coût pour 1 mois"
 }

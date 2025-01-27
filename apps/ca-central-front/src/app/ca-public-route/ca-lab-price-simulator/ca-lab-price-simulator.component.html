@@ -10,7 +10,7 @@
         <a [href]="contactUsUrl" target="_blank" class="link"> {{ 'contact_us' | translate }}</a
         >.
       </div>
-      <mat-stepper orientation="vertical" [linear]="true">
+      <mat-stepper orientation="vertical" [linear]="true" class="stepper">
         <!--    Choose server    -->
         <mat-step [stepControl]="serverForm">
           <ng-template matStepLabel>{{ 'server' | translate }}</ng-template>

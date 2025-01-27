@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .page {
   padding-bottom: 1em;
 }
@@ -16,6 +18,14 @@
 .help-text {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+.stepper {
+  @include mat.stepper-overrides(
+      (
+        container-color: var(--card-background),
+      )
+  );
 }
 
 .step-section {
