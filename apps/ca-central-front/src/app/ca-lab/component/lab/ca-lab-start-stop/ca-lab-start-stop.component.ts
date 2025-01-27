@@ -71,6 +71,9 @@ export class CaLabStartStopComponent {
     }
 
     this.snackBarService.openSuccessMessage({ text: successText, translateText: true });
+    if (result.result) {
+      this.state.updateLab(result.result);
+    }
   }
 
   stopLab(): void {
