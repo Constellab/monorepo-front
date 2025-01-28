@@ -97,7 +97,7 @@ export const haAppConfig: ApplicationConfig = {
     ),
     provideClientHydration(
       withHttpTransferCacheOptions({
-        includePostRequests: tru,
+        includePostRequests: true,
       })
     ),
     importProvidersFrom(
