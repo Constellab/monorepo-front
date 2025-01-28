@@ -55,8 +55,9 @@ import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
-  CaFolderActionService
+  CaFolderActionService,
 } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 /**
  * Page for a folder detail
@@ -107,6 +108,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   private menuDynamicService = inject(FlMenuDynamicService);
   private securityService = inject(CaSecurityService);
   private resourceService = inject(CaResourceService);
+  private snackBarService = inject(FlSnackBarService);
 
   constructor() {
     this.state.init(this.getIds$());
@@ -157,6 +159,15 @@ export class CaFolderDetailPageComponent implements OnInit {
   }
 
   async onFileDrop(event: FlDropEvent): Promise<void> {
+    const items = event.event.dataTransfer.items;
+    for (let i = 0; i < items.length; i++) {
+      const entry = items[i].webkitGetAsEntry();
+      if (entry.isDirectory) {
+        this.snackBarService.openErrorMessage('drop_folder_error');
+        return;
+      }
+    }
+
     const folderId = await firstValueFrom(this.state.getFolderId$());
     this.folderActionService.uploadDocument(folderId, event.files);
   }

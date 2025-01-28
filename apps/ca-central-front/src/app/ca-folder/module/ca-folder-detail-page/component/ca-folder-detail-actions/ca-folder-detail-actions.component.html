@@ -32,7 +32,18 @@
       (fileChange)="uploadFile($event)"
       #fileInput
       [autoClearHtmlInput]="true"
-      class="file-input" />
+      class="hidden-input" />
+
+    <input
+      flInputFile
+      [multiple]="true"
+      type="file"
+      webkitdirectory
+      mozdirectory
+      (fileChange)="uploadFolder($event)"
+      #folderInput
+      [autoClearHtmlInput]="true"
+      class="hidden-input" />
 
     <button mat-menu-item type="button" (click)="createConstellabDocument(folder)">
       <mat-icon flIcon="constellab_document"></mat-icon>
@@ -47,6 +58,11 @@
     <button mat-menu-item (click)="fileInput.click()" type="button">
       <mat-icon>cloud_upload</mat-icon>
       {{ 'upload_document' | translate }}
+    </button>
+
+    <button mat-menu-item (click)="folderInput.click()" type="button">
+      <mat-icon>drive_folder_upload</mat-icon>
+      {{ 'upload_folder' | translate }}
     </button>
   </mat-menu>
 

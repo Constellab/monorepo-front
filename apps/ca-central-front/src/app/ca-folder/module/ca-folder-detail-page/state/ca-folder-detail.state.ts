@@ -80,6 +80,12 @@ export class CaFolderDetailState implements OnDestroy {
         .getUploadedDocumentActionResult()
         .subscribe((document) => this.onDocumentUploaded(document.document, document.folderId))
     );
+
+    this.subscription.add(
+      this.folderActionService
+        .getUploadedFolderActionResult()
+        .subscribe((event) => this.onFolderUploaded(event.parentFolderId))
+    );
   }
 
   public getFolderId$(): Observable<string> {
@@ -193,5 +199,12 @@ export class CaFolderDetailState implements OnDestroy {
     const currentFolderId = this.folder$.value?.id;
     if (currentFolderId !== folderId) return;
     this.childrenDatasource.unshiftItem(hierarchyObject);
+  }
+
+  private onFolderUploaded(parentFolderId: string): void {
+    const currentFolderId = this.folder$.value?.id;
+    if (currentFolderId !== parentFolderId) return;
+    // reload the datasource
+    this.childrenDatasource.getFirstPage();
   }
 }

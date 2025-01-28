@@ -34,6 +34,7 @@ export class CaFolderActionService {
   private actionService = inject(FlPortalActionsService);
 
   private uploadDocumentActionName = 'upload-document-action';
+  private uploadFolderActionName = 'upload-folder-action';
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
@@ -111,6 +112,22 @@ export class CaFolderActionService {
     }
   }
 
+  public uploadFolder(folderId: string, fileEvent: File | File[]): void {
+    const files = ClHelpService.convertObjectOrArrayToArray(fileEvent);
+
+    const action: FlPortalAction = {
+      type: this.uploadFolderActionName,
+      action: this.folderService.uploadFolder(files, folderId),
+      text: {
+        text: 'uploading_folder',
+        translateText: true,
+      },
+      additionalInformation: folderId,
+    };
+
+    this.actionService.addAction(action, false);
+  }
+
   public getUploadedDocumentActionResult(): Observable<{ folderId: string; document: CaHierarchyObject }> {
     return this.actionService.getResult$(this.uploadDocumentActionName).pipe(
       filter((action) => action.status === 'success'),
@@ -118,6 +135,17 @@ export class CaFolderActionService {
         return {
           folderId: action.additionalInformation,
           document: action.result,
+        };
+      })
+    );
+  }
+
+  public getUploadedFolderActionResult(): Observable<{ parentFolderId: string }> {
+    return this.actionService.getResult$(this.uploadFolderActionName).pipe(
+      filter((action) => action.status === 'success'),
+      map((action) => {
+        return {
+          parentFolderId: action.additionalInformation,
         };
       })
     );

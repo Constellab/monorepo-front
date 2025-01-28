@@ -97,6 +97,11 @@ export class CaFolderDetailActionsComponent {
     this.folderActionService.uploadDocument(folderId, file);
   }
 
+  async uploadFolder(file: File | File[]): Promise<void> {
+    const folderId = await firstValueFrom(this.state.getFolderId$());
+    this.folderActionService.uploadFolder(folderId, file);
+  }
+
   openChildCreation(folder: CaFolder): void {
     this.folderActionService
       .openChildCreation(folder.id)

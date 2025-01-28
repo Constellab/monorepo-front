@@ -276,6 +276,13 @@ export class CaFolderService {
     return this.apiService.post(`${this.route}/${folderId}/document`, formData, CaHierarchyObject);
   }
 
+  public uploadFolder(files: File[], folderId: string): Observable<void> {
+    const formData: FormData = new FormData();
+    files.forEach((file) => formData.append('files', file));
+
+    return this.apiService.post(`${this.route}/${folderId}/documents`, formData);
+  }
+
   public getDocumentPreviewUrl(documentId: string, documentName: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/document/${documentId}/preview/${documentName}`);
   }
