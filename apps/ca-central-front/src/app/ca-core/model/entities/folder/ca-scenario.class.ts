@@ -1,9 +1,11 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { CaLab } from '../lab/ca-lab.class';
-import { FlStatus } from '@monorepo/front-core-lib/fl-status';
-import { FlStatusDict } from '@monorepo/front-core-lib/fl-status';
-import { FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
-import { FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
+import {
+  FlStatus,
+  FlStatusDict,
+  FlStatusHelper,
+  FlStatusTransform,
+} from '@monorepo/front-core-lib/fl-status';
 import { Type } from 'class-transformer';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
@@ -16,10 +18,10 @@ import { caHierarchyObjectTypeInfos } from './ca-hierarchy-object.class';
 export type CaScenarioStatus = 'DRAFT' | 'SUCCESS' | 'ERROR' | 'ARCHIVED' | 'PARTIALLY_RUN';
 
 export const caScenarioStatusDict: FlStatusDict<CaScenarioStatus> = {
-  DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
-  ARCHIVED: FlStatusHelper.getInfoStatus('ARCHIVED'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'draft'),
+  ARCHIVED: FlStatusHelper.getInfoStatus('ARCHIVED', 'archived'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run', FlStatusHelper.draftIcon),
 };
 

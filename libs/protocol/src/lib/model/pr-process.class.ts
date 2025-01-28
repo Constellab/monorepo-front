@@ -22,10 +22,10 @@ export class PrProcessStatusHelper {
 }
 
 export const prProcessStatusDict: FlStatusDict<PrProcessStatus> = {
-  DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
-  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'flStatus.running'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'pr.draft'),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'pr.running'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'pr.success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'pr.error'),
   PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run', FlStatusHelper.draftIcon),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
     'WAITING_FOR_CLI_PROCESS',

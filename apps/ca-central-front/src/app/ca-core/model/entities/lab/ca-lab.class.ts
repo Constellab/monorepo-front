@@ -32,23 +32,23 @@ export type CaLabStatus =
   | 'ERROR';
 
 export const caLabStatusDict: FlStatusDict<CaLabStatus> = {
-  LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING'),
-  SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED'),
+  LAB_RUNNING: FlStatusHelper.getRunningStatus('LAB_RUNNING', 'running'),
+  SERVER_STOPPED: FlStatusHelper.getStoppedStatus('SERVER_STOPPED', 'stopped'),
   SERVER_STARTING: FlStatusHelper.getLoadingStatus('SERVER_STARTING', 'lab_starting'),
   SERVER_STOPPING: FlStatusHelper.getLoadingStatus('SERVER_STOPPING', 'lab_stopping'),
   SERVER_RUNNING: FlStatusHelper.getInfoStatus('SERVER_RUNNING', 'lab_server_running'),
   SERVER_CONFIGURED: FlStatusHelper.getInfoStatus('SERVER_CONFIGURED', 'lab_server_configured'),
   NO_SERVER: FlStatusHelper.getInfoStatus('NO_SERVER', 'lab_no_server', 'clear'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
 };
 
 export const caLabStatusTemp: CaLabStatus[] = ['SERVER_STARTING', 'SERVER_STOPPING', 'SERVER_RUNNING'];
 
 export type CaLabServerTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR' | 'NONE';
 export const caLabServerTaskStatusDict: FlStatusDict<CaLabServerTaskStatus> = {
-  RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  RUNNING: FlStatusHelper.getRunningStatus('RUNNING', 'running'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
   NONE: FlStatusHelper.getInfoStatus('NONE', 'lab_server_task_status_NONE'),
 };
 

@@ -44,7 +44,7 @@ export class FlStatusHelper {
 
   public static getSuccessStatus<STATUS = string>(
     value: STATUS,
-    name: string = 'flStatus.success',
+    name: string,
     icon = FlStatusHelper.successIcon,
     description?: string
   ): FlStatus<STATUS> {
@@ -60,7 +60,7 @@ export class FlStatusHelper {
 
   public static getErrorStatus<STATUS = string>(
     value: STATUS,
-    name: string = 'flStatus.error',
+    name: string,
     icon = FlStatusHelper.errorIcon,
     description?: string
   ): FlStatus<STATUS> {
@@ -76,7 +76,7 @@ export class FlStatusHelper {
 
   public static getWarningStatus<STATUS = string>(
     value: STATUS,
-    name: string = 'flStatus.warning',
+    name: string,
     icon = FlStatusHelper.warningIcon,
     description?: string
   ): FlStatus<STATUS> {
@@ -92,7 +92,7 @@ export class FlStatusHelper {
 
   public static getInfoStatus<STATUS = string>(
     value: STATUS,
-    name: string = 'flStatus.info',
+    name: string,
     icon = FlStatusHelper.infoIcon,
     description?: string
   ): FlStatus<STATUS> {
@@ -108,31 +108,27 @@ export class FlStatusHelper {
 
   //////////////////////// SPECIFIC STATUS //////////////////////
 
-  public static getRunningStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getInfoStatus(value, 'flStatus.running', FlStatusHelper.runningIcon);
+  public static getRunningStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.runningIcon);
   }
 
   public static getLoadingStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
     return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.loaderIcon);
   }
 
-  public static getArchivedStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getInfoStatus(value, 'flStatus.archived', FlStatusHelper.archivedIcon);
+  public static getDraftStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.draftIcon);
   }
 
-  public static getDraftStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getInfoStatus(value, 'flStatus.draft', FlStatusHelper.draftIcon);
+  public static getStoppedStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.stoppedIcon);
   }
 
-  public static getStoppedStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getInfoStatus(value, 'flStatus.stopped', FlStatusHelper.stoppedIcon);
+  public static getCriticalStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getErrorStatus(value, name, FlStatusHelper.errorIcon);
   }
 
-  public static getCriticalStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getErrorStatus(value, 'flStatus.critical', FlStatusHelper.errorIcon);
-  }
-
-  public static getDebugStatus<STATUS = string>(value: STATUS): FlStatus<STATUS> {
-    return FlStatusHelper.getInfoStatus(value, 'flStatus.debug', FlStatusHelper.debugIcon);
+  public static getDebugStatus<STATUS = string>(value: STATUS, name: string): FlStatus<STATUS> {
+    return FlStatusHelper.getInfoStatus(value, name, FlStatusHelper.debugIcon);
   }
 }

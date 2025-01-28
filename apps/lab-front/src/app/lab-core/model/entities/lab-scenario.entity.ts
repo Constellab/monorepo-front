@@ -27,11 +27,11 @@ export type LabScenarioPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the scenario status translation texts
 export const labScenarioStatusDict: FlStatusDict<LabScenarioStatus> = {
-  DRAFT: FlStatusHelper.getDraftStatus('DRAFT'),
+  DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'draft'),
   IN_QUEUE: FlStatusHelper.getInfoStatus('IN_QUEUE', 'biox.scenario_in_queue', FlStatusHelper.draftIcon),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'flStatus.running'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'running'),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
     'WAITING_FOR_CLI_PROCESS',
     'biox.scenario_waiting_for_cli'

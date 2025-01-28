@@ -65,6 +65,9 @@ const prProtocolI18nFr: FlLangTranslation = {
     adding_param_spec: "Ajout d'un paramètre",
     updating_param_spec: "Modification d'un paramètre",
     deleting_param_spec: "Suppression d'un paramètre",
+    success: 'Succès',
+    draft: 'Brouillon',
+    running: 'En cours',
   },
 };
 
@@ -128,6 +131,9 @@ const prProtocolI18nEn: FlLangTranslation = {
     adding_param_spec: 'Adding a parameter',
     updating_param_spec: 'Updating a parameter',
     deleting_param_spec: 'Deleting a parameter',
+    success: 'Success',
+    draft: 'Draft',
+    running: 'Running',
   },
 };
 

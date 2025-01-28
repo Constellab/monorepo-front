@@ -208,6 +208,15 @@ body {
     display: none;
   }
 
+  .g-button-grey {
+    @include mat.button-overrides(
+        (
+          filled-container-color: var(--card-background),
+          filled-label-text-color: var(--color-foreground),
+        )
+    );
+  }
+
   /***************************** Table *****************************/
 
   @include mat.table-overrides(

@@ -11,10 +11,10 @@ import { ClVersion, ClVersionTransform } from '@monorepo/core-lib';
 export type LabBrickMessageStatus = 'INFO' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickMessageStatusDict: FlStatusDict<LabBrickMessageStatus> = {
-  INFO: FlStatusHelper.getInfoStatus('INFO'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING'),
+  INFO: FlStatusHelper.getInfoStatus('INFO', 'info'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
+  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'critical'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
 };
 
 export class LabBrickMessage {
@@ -27,10 +27,10 @@ export class LabBrickMessage {
 export type LabBrickStatus = 'SUCCESS' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickStatusDict: FlStatusDict<LabBrickStatus> = {
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
+  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'critical'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
 };
 
 export class LabBrickEntity extends LabEntity {

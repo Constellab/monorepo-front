@@ -158,5 +158,13 @@
   "public": "Public",
   "login_dev_env": "Attention, c'est l'environnement de dev du lab",
   "login_switch_to_prod": "Basculer vers l'environnement de prod",
-  "powered_by": "Propulsé par"
+  "powered_by": "Propulsé par",
+  "success": "Succès",
+  "error": "Erreur",
+  "archived": "Archivé",
+  "stopped": "Arrêté",
+  "debug": "Debug",
+  "warning": "Warning",
+  "info": "Info",
+  "critical": "Critique"
 }

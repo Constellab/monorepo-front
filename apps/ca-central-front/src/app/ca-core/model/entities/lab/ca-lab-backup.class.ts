@@ -17,9 +17,9 @@ export type CaLabBackupTriggerMode = 'MANUAL' | 'AUTOMATIC';
 export type CaLabBackupStatus = 'IN_PROGRESS' | 'SUCCESS' | 'ERROR' | 'DELETED';
 
 const caLabBackupStatus: FlStatusDict<CaLabBackupStatus> = {
-  IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'flStatus.running'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  IN_PROGRESS: FlStatusHelper.getLoadingStatus('IN_PROGRESS', 'running'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
   DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete'),
 };
 
@@ -82,7 +82,7 @@ export type CaLabBackupHistoryDatasource = FlEntityPaginatedDatasource<CaLabBack
 export type CaLabBackupGlobalStatus = 'SUCCESS' | 'DELETED' | 'NONE';
 
 const caLabBackupGlobalStatus: FlStatusDict<CaLabBackupGlobalStatus> = {
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
   NONE: FlStatusHelper.getErrorStatus('NONE', 'lab_no_backup'),
   DELETED: FlStatusHelper.getInfoStatus('DELETED', 'lab_backup_status_deleted', 'delete'),
 };

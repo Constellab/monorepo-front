@@ -284,5 +284,11 @@
   "data_lab_price_simulator": "Data lab price simulator",
   "data_lab_price_simulator_help": "Estimate your data lab cost with this tool. To learn more about Constellab, please",
   "contact_us": "contact us",
-  "mails": "Mails"
+  "mails": "Mails",
+  "running": "Running",
+  "success": "Success",
+  "error": "Error",
+  "archived": "Archived",
+  "draft": "Draft",
+  "stopped": "Stopped"
 }

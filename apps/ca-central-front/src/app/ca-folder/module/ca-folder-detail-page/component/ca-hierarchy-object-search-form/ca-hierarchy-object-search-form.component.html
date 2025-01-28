@@ -15,7 +15,7 @@
       [placeholder]="'folder_object_type' | translate">
       @if (typeIsSelected()) {
         <mat-select-trigger>
-          {{ getSelectedTypeLabel() | translate }}
+          {{ getSelectedTypeLabel().label | translate }}
         </mat-select-trigger>
       }
       <!-- Split if in two, otherwise, there is a warning     -->

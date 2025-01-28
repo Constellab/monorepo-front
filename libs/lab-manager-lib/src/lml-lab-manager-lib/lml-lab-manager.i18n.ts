@@ -141,6 +141,9 @@ const lmlLabManagerI18nFr: FlLangTranslation = {
     container_error_details: "Détails de l'erreur",
     no_main_error: "Pas d'erreur principale, veuillez ouvrir le detail pour plus d'informations",
     update_lab_manager: 'Mettre à jour le lab manager',
+    success: 'Succès',
+    error: 'Erreur',
+    running: 'En cours',
   },
 };
 
@@ -276,6 +279,9 @@ const lmlLabManagerI18nEn: FlLangTranslation = {
     container_error_details: 'Error details',
     no_main_error: 'No main error, please open the detail for more information',
     update_lab_manager: 'Update lab manager',
+    success: 'Success',
+    error: 'Error',
+    running: 'Running',
   },
 };
 

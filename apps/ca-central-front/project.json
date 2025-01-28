@@ -10,7 +10,7 @@
       "options": {
         "outputPath": "dist/apps/ca-central-front",
         "index": "apps/ca-central-front/src/index.html",
-        "browser": "apps/ca-central-front/src/main.ts",
+        "browser": "apps/ca-central-front/src/ca-main.ts",
         "polyfills": ["apps/ca-central-front/src/polyfills.ts"],
         "tsConfig": "apps/ca-central-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",

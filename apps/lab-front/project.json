@@ -10,7 +10,7 @@
       "options": {
         "outputPath": "dist/apps/lab-front",
         "index": "apps/lab-front/src/index.html",
-        "browser": "apps/lab-front/src/main.ts",
+        "browser": "apps/lab-front/src/lab-main.ts",
         "polyfills": ["apps/lab-front/src/polyfills.ts"],
         "tsConfig": "apps/lab-front/tsconfig.app.json",
         "assets": [

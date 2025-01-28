@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import {
+  CaHierarchyObjectInfo,
   caHierarchyObjectTypeInfos,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
@@ -15,10 +16,10 @@ import { MatOption } from '@angular/material/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
-  CaHierarchyObjectIconComponent
+  CaHierarchyObjectIconComponent,
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import {
-  CaUserListInlineComponent
+  CaUserListInlineComponent,
 } from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 
 /**
@@ -66,7 +67,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit {
     return !!this.formGp.get('objectType').value;
   }
 
-  getSelectedTypeLabel(): string {
+  getSelectedTypeLabel(): CaHierarchyObjectInfo {
     const value = this.formGp.get('objectType').value;
     return value ? (this.objectTypes as any)[value] : null;
   }

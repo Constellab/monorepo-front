@@ -13,11 +13,11 @@ import {
 export type LabProgressBarMessageType = 'SUCCESS' | 'INFO' | 'ERROR' | 'WARNING' | 'PROGRESS' | 'DEBUG';
 
 const labProgressBarMessageTypeDict: FlStatusDict<LabProgressBarMessageType> = {
-  DEBUG: FlStatusHelper.getDebugStatus('DEBUG'),
-  INFO: FlStatusHelper.getInfoStatus('INFO'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING'),
+  DEBUG: FlStatusHelper.getDebugStatus('DEBUG', 'debug'),
+  INFO: FlStatusHelper.getInfoStatus('INFO', 'info'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
   PROGRESS: FlStatusHelper.getInfoStatus('PROGRESS', 'biox.progress_bar_progress', 'cached'),
 };
 

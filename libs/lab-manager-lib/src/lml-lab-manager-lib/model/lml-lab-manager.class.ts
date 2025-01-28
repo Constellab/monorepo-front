@@ -74,9 +74,9 @@ export interface LmlPullBiotaOptions {
 export type LmlTaskStatus = 'RUNNING' | 'SUCCESS' | 'ERROR';
 
 const lmlTaskStatusDict: FlStatusDict<LmlTaskStatus> = {
-  RUNNING: FlStatusHelper.getRunningStatus('RUNNING'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR'),
+  RUNNING: FlStatusHelper.getRunningStatus('RUNNING', 'lml.running'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'lml.success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'lml.error'),
 };
 
 export class LmlTaskStatusInfo {

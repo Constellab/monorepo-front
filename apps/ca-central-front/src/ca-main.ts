@@ -17,9 +17,14 @@ import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
-import { FlLuxonDateAdapter, flLuxonDateFormat } from '@monorepo/front-core-lib/fl-core';
-import { flMatFormFieldConfig, flSetRootInjector, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import {
+  flLoadEnvironmentFromAssets,
+  FlLuxonDateAdapter,
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flSetRootInjector,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -76,8 +81,8 @@ function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleCon
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
 }
 
-function loadThemeOnInit(themeService: FlThemeService): () => void {
-  return (): void => themeService.init();
+function loadThemeOnInit(themeService: FlThemeService): void {
+  themeService.init();
 }
 
 function configureCaptcha(): FlCaptchaModuleConfig {
@@ -87,8 +92,8 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   };
 }
 
-function initRootInjector(injector: Injector): () => void {
-  return (): void => flSetRootInjector(injector);
+function initRootInjector(injector: Injector): void {
+  flSetRootInjector(injector);
 }
 
 function bootstrapApp(): void {
@@ -140,12 +145,10 @@ function bootstrapApp(): void {
         multi: true,
       },
       provideAppInitializer(() => {
-        const initializerFn = loadThemeOnInit(inject(FlThemeService));
-        return initializerFn();
+        loadThemeOnInit(inject(FlThemeService));
       }),
       provideAppInitializer(() => {
-        const initializerFn = initRootInjector(inject(Injector));
-        return initializerFn();
+        initRootInjector(inject(Injector));
       }),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
       { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
