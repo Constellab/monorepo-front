@@ -132,18 +132,7 @@ export class HaSmallScreenMainComponent implements OnInit {
   changeLanguage(): void {
     const newLang =
       this.currentLanguage == ClSupportedLanguage.fr ? ClSupportedLanguage.en : ClSupportedLanguage.fr;
-    this.authUserService.changeLang(newLang).subscribe(() => {
-      this.currentLanguage = newLang;
-      this.snackBarService.openSuccessMessage({
-        text: 'language_changed',
-        translateText: true,
-        translateParam: {
-          param: {
-            lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
-          },
-        },
-      });
-    });
+    this.currentLanguage = this.authUserService.changeLang(newLang);
   }
 
   openInstantSearchDialog(): void {

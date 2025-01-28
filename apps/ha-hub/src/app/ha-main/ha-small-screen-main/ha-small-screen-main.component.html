@@ -16,7 +16,7 @@
       <fl-user-profile-picture [user]="userConnected$ | async" [matMenuTriggerFor]="userMenu">
       </fl-user-profile-picture>
     } @else {
-      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="Settings button with a menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     }
@@ -55,8 +55,6 @@
   <a mat-menu-item [routerLink]="iconsPageRoute" class="doc-menu-item">{{ 'icons' | translate }}</a>
   <!--  <a mat-menu-item [routerLink]="foaPageRoute" class="doc-menu-item">{{ 'foa' | translate }}</a>-->
 </mat-menu>
-
-<mat-menu #langMenu="matMenu"> </mat-menu>
 
 <mat-menu #userMenu="matMenu">
   @if (userConnected$ | async; as user) {

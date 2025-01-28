@@ -10,6 +10,7 @@ import { map, tap } from 'rxjs/operators';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private translateService = inject(FlTranslateService);
   private injector = inject(Injector);
   private platformId = inject(PLATFORM_ID);
-
+  private snackBarService = inject(FlSnackBarService);
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
@@ -77,7 +78,35 @@ export class HaAuthenticatedUserService implements FlCleanableService {
       .pipe(tap(() => this.changeThemeSuccess(theme)));
   }
 
-  public changeLang(lang: ClSupportedLanguage): Observable<void> {
+  public changeLang(lang: ClSupportedLanguage): ClSupportedLanguage {
+    if (this.hasAuthCookie()) {
+      this.changeUserLang(lang).subscribe(() => {
+        this.snackBarService.openSuccessMessage({
+          text: 'language_changed',
+          translateText: true,
+          translateParam: {
+            param: {
+              lang: lang == ClSupportedLanguage.fr ? 'Français' : 'English',
+            },
+          },
+        });
+      });
+    } else {
+      this.translateService.changeAppLanguage(lang);
+      this.snackBarService.openSuccessMessage({
+        text: 'language_changed',
+        translateText: true,
+        translateParam: {
+          param: {
+            lang: lang == ClSupportedLanguage.fr ? 'Français' : 'English',
+          },
+        },
+      });
+    }
+    return lang;
+  }
+
+  private changeUserLang(lang: ClSupportedLanguage): Observable<void> {
     return this.apiService
       .put(`${this.userRoute}/lang/${lang}`, null)
       .pipe(tap(() => this.changeLangSuccess(lang)));

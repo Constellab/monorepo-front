@@ -11,13 +11,15 @@
     @if (!story.publishedAt) {
       <span class="g-warn-text">{{ 'coCommunityLib.no_published' | translate }}</span>
     }
-    <mat-chip-listbox>
-      @for (topic of topics; track topic) {
-        <mat-chip-option>
-          {{ topic.name }}
-        </mat-chip-option>
-      }
-    </mat-chip-listbox>
+    @if (topics.length > 0) {
+      <mat-chip-listbox>
+        @for (topic of topics; track topic) {
+          <mat-chip-option>
+            {{ topic.name }}
+          </mat-chip-option>
+        }
+      </mat-chip-listbox>
+    }
   </div>
 
   <div rightSide [style.background-image]="'url(\'' + imageLink + '\')'" class="story-image"></div>
