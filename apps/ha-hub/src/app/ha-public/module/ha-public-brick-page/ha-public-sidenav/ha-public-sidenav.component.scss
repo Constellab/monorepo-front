@@ -45,7 +45,8 @@
 }
 
 .sidenav-item-selected {
-  color: var(--primary-color);
+  color: var(--primary-contrast-color);
+  background: var(--primary-color);
 }
 
 .sidenav-item > a {

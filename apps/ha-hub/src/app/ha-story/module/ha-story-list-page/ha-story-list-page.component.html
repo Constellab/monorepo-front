@@ -10,7 +10,7 @@
     {{ 'create_story' | translate }}
   </button>
 
-  <mat-divider class="left-panel-separator"></mat-divider>
+  <mat-divider class="left-panel-separator" *haIsAuthenticated></mat-divider>
 
   <button
     mat-stroked-button
@@ -50,7 +50,8 @@
               matInput
               [formControl]="titleFormControl"
               placeholder="{{ 'search_by_title' | translate }}" />
-            <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate">
+            <button mat-icon-button matSuffix (click)="search()" [matTooltip]="'search' | translate"
+                    aria-label="Search by title button">
               <mat-icon>search</mat-icon>
             </button>
           </mat-form-field>

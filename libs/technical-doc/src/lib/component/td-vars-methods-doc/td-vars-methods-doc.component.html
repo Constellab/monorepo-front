@@ -1,6 +1,6 @@
 @if (variables && (variables | keyvalue).length > 0) {
   <div class="methods-div">
-    <h4>{{ 'td.attributes' | translate }}</h4>
+    <div class="tech-doc-part-title">{{ 'td.attributes' | translate }}</div>
     <div class="method-card">
       @for (variable of variables | keyvalue; track variable.key) {
         <code class="variable">
@@ -14,7 +14,7 @@
 
 @if (funcs && funcs.length > 0) {
   <div class="methods-div">
-    <h4>{{ 'td.functions' | translate }}</h4>
+    <div class="tech-doc-part-title">{{ 'td.functions' | translate }}</div>
     <div class="method-card">
       @for (func of funcs; track func) {
         <a class="func-code-line code" [routerLink]="'.'" [fragment]="func.name">

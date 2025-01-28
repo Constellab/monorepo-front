@@ -10,7 +10,7 @@
   </fl-key-value>
 }
 
-@if (process.inputSpecs.specs | flIsNotEmpty) {
+@if (process.inputSpecs?.specs | flIsNotEmpty) {
   <mat-divider class="divider"></mat-divider>
   <div class="div-spec">
     <div class="div-head">
@@ -21,7 +21,7 @@
   </div>
 }
 
-@if (process.outputSpecs.specs | flIsNotEmpty) {
+@if (process.outputSpecs?.specs | flIsNotEmpty) {
   <mat-divider class="divider"></mat-divider>
   <div class="div-spec">
     <div class="div-head">

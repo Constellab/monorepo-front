@@ -50,7 +50,8 @@
                 matInput
                 [formControl]="titleFormControl"
                 placeholder="{{ 'search_by_title' | translate }}" />
-              <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate">
+              <button mat-icon-button matSuffix (click)="search($event)" [matTooltip]="'search' | translate"
+                      aria-label="Search by title button">
                 <mat-icon>search</mat-icon>
               </button>
             </mat-form-field>

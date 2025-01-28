@@ -5,7 +5,8 @@
         matInput
         [formControl]="searchFormControl"
         placeholder="{{ 'coCommunityLib.search_icon' | translate }}" />
-      <button mat-icon-button matSuffix type="submit" [matTooltip]="'coCommunityLib.search' | translate">
+      <button mat-icon-button matSuffix type="submit" [matTooltip]="'coCommunityLib.search' | translate"
+              aria-label="Search icon button">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>

@@ -15,6 +15,7 @@ import {
   TeRichText,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
+  TeTextEditorModule,
 } from '@monorepo/text-editor';
 import { HaFile } from '../../../../ha-core/entity-module/ha-file-core/model/ha-file';
 import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http-redirection.service';
@@ -24,7 +25,6 @@ import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
@@ -101,21 +101,18 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
   constructor() {
     super();
 
-    effect(
-      () => {
-        const doc = this.documentation();
-        if (doc) {
-          const docFigureBlocks: TeBlock<TeBlockFigureData>[] = doc.content.getFiguresBlocks();
-          const docImages: string[] = [];
-          docFigureBlocks.forEach((figureBlock) => {
-            docImages.push(this.documentationService.getImageUrl(doc.id, figureBlock.data.filename));
-          });
+    effect(() => {
+      const doc = this.documentation();
+      if (doc) {
+        const docFigureBlocks: TeBlock<TeBlockFigureData>[] = doc.content.getFiguresBlocks();
+        const docImages: string[] = [];
+        docFigureBlocks.forEach((figureBlock) => {
+          docImages.push(this.documentationService.getImageUrl(doc.id, figureBlock.data.filename));
+        });
 
-          this.jsonLdState.setArticleJsonLdContent(doc.title, docImages, doc.createdAt, [doc.createdBy]);
-        }
-      },
-      { allowSignalWrites: true }
-    );
+        this.jsonLdState.setArticleJsonLdContent(doc.title, docImages, doc.createdAt, [doc.createdBy]);
+      }
+    });
   }
 
   saveContent = (value: TeRichText): Observable<HaDocumentation> =>

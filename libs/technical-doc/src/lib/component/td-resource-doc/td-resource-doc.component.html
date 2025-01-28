@@ -1,7 +1,7 @@
 <td-main-doc [entity]="resource"></td-main-doc>
 
 <div class="methods-div">
-  <h4>{{ 'td.views' | translate }}</h4>
+  <div class="tech-doc-part-title">{{ 'td.views' | translate }}</div>
   @if (orderedViews && orderedViews.length > 0) {
     @for (v of orderedViews; track v) {
       <div class="method-card">

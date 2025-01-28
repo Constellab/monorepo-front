@@ -1,7 +1,7 @@
 <figure class="container">
   @if (sanitizedUrl) {
     <div class="video-wrapper">
-      <iframe [src]="sanitizedUrl"></iframe>
+      <iframe [title]="'Youtube video ' + videoTitle" [src]="sanitizedUrl"></iframe>
     </div>
   }
 

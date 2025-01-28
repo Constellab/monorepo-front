@@ -1,11 +1,9 @@
 @if (files() && files().length > 0) {
   <div class="files-div">
-    <h6 class="side-box-title">
-      <fl-text-icon>
-        <mat-icon>description</mat-icon>
-        {{ 'teTextEditor.attached_files' | translate }}
-      </fl-text-icon>
-    </h6>
+    <fl-text-icon class="side-box-title">
+      <mat-icon>description</mat-icon>
+      {{ 'teTextEditor.attached_files' | translate }}
+    </fl-text-icon>
     <div class="list-div">
       @for (file of files(); track file.name) {
         <div class="file" [matTooltip]="file.name">

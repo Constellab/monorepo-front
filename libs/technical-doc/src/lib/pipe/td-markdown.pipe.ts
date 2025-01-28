@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, SecurityContext, inject } from '@angular/core';
+import { inject, Pipe, PipeTransform, SecurityContext } from '@angular/core';
 import { marked } from 'marked';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
@@ -37,7 +37,7 @@ export class TdMarkdownPipe implements PipeTransform {
       if (ClYoutubeHelper.isYoutubeVideoUrl(href)) {
         const embedHref: SafeResourceUrl = ClYoutubeHelper.convertToEmbedUrl(href);
         // eslint-disable-next-line max-len
-        let iframe: string = `<div class="iframe-div"><iframe src="${embedHref}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen property="binding"`;
+        let iframe: string = `<div class="iframe-div"><iframe title="Youtube video ${title}" src="${embedHref}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen property="binding"`;
         if (title) {
           iframe += ` title="${title}">`;
         } else {
