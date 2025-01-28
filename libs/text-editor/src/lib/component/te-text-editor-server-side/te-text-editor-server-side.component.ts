@@ -29,6 +29,7 @@ export class TeTextEditorServerSideComponent implements OnInit {
             img.src = this.config.figureConfig.getImageUrl(block.data.filename);
             img.height = block.data.height;
             img.width = block.data.width;
+            img.alt = 'Text editor image';
             return `${img.outerHTML}`;
           }
           return '';

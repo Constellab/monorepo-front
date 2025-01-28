@@ -17,7 +17,6 @@ import {
 } from '../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
-import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
 import { AsyncPipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -45,7 +44,7 @@ import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-
     HaBrickImagePipe,
   ],
 })
-export class HaLoggedInHomeComponent extends HaCommunityPage implements OnInit, AfterContentInit {
+export class HaLoggedInHomeComponent implements OnInit, AfterContentInit {
   private storyService: HaStoryService = inject(HaStoryService);
   private userService: HaUserService = inject(HaUserService);
   private themeState: HaThemeState = inject(HaThemeState);
@@ -72,16 +71,6 @@ export class HaLoggedInHomeComponent extends HaCommunityPage implements OnInit, 
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
   ngOnInit(): void {
-    this.metadataService.setPageTitle('ha.home.title');
-    this.metadataService.addMetaTag('description', 'ha.home.description');
-
-    super.setMetaTags(
-      'ha.home.title',
-      'ha.home.description',
-      null,
-      HaRouterService.getFullRoute(HaRouterService.getHomeRoute())
-    );
-
     this.userService.getCount().subscribe((count) => (this.usersCount = count));
   }
 

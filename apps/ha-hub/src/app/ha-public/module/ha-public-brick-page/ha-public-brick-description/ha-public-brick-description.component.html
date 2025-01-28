@@ -4,7 +4,7 @@
       <div class="title-div">
         <div class="icon-title">
           <div class="brick-icon">
-            <img [ngSrc]="brick().imageLink | haBrickImage" fill priority />
+            <img [ngSrc]="brick().imageLink | haBrickImage" [alt]="brick().name + 'logo'" fill priority />
           </div>
           <h1 class="g-text-dense-height">{{ brick().name }}</h1>
         </div>

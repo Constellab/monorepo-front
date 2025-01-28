@@ -20,6 +20,8 @@ import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaLoggedInHomeComponent } from '../ha-logged-in-home/ha-logged-in-home.component';
 import { HaNotLoggedInHomeComponent } from '../ha-not-logged-in-home/ha-not-logged-in-home.component';
 import { AsyncPipe } from '@angular/common';
+import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
+import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 
 @Component({
   selector: 'ha-ha-home',
@@ -27,7 +29,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrls: ['./ha-home.component.scss'],
   imports: [HaLoggedInHomeComponent, HaNotLoggedInHomeComponent, AsyncPipe],
 })
-export class HaHomeComponent implements OnInit {
+export class HaHomeComponent extends HaCommunityPage implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private storyService: HaStoryService = inject(HaStoryService);
   private agentService: HaAgentService = inject(HaAgentService);
@@ -40,6 +42,16 @@ export class HaHomeComponent implements OnInit {
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
 
   ngOnInit(): void {
+    this.metadataService.setPageTitle('ha.home.title');
+    this.metadataService.addMetaTag('description', 'ha.home.description');
+
+    super.setMetaTags(
+      'ha.home.title',
+      'ha.home.description',
+      null,
+      HaRouterService.getFullRoute(HaRouterService.getHomeRoute())
+    );
+
     this.stories$ = this.storyService.getAllPaginatedFiltered(4);
     this.stories$.getFirstPage({ title: '', topics: [] });
 

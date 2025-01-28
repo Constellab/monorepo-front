@@ -6,7 +6,6 @@ import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
@@ -57,7 +56,6 @@ export enum HaSmallScreenPossibleRoute {
 export class HaSmallScreenMainComponent implements OnInit {
   private authUserService = inject(HaAuthenticatedUserService);
   private themeState = inject(HaThemeState);
-  private translateService = inject(FlTranslateService);
   private snackBarService = inject(FlSnackBarService);
   private authService = inject(HaAuthService);
   private activatedRoute = inject(ActivatedRoute);
