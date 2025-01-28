@@ -283,6 +283,8 @@ export class CaFolderDetailPageComponent implements OnInit {
         this.state.deleteHierarchyObject(event.event.folder.id);
       } else if (event.event.action === 'createChild') {
         this.state.addChild(event.event.folder.hierarchyRepresentation);
+      } else if (event.event.action === 'moveFolder') {
+        this.routerService.navigateToFolderDetail(event.event.folder.parentId);
       }
     } else if (event.entity === 'document') {
       if (event.event.action === 'update') {

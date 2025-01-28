@@ -196,6 +196,10 @@ export class CaFolderService {
     });
   }
 
+  public moveFolder(folderId: string, newParentId: string): Observable<CaHierarchyObject> {
+    return this.apiService.put(`${this.route}/${folderId}/move/${newParentId}`, null, CaHierarchyObject);
+  }
+
   /////////////////////////////////// DESCRIPTION //////////////////////////////////
 
   public getFolderDescription(id: string): Observable<CaGetFolderDescriptionDTO> {

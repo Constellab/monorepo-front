@@ -227,7 +227,7 @@ export class CaDocumentActionMenu {
     this.subject.complete();
   }
 
-  moveDocument(): void {
+  private moveDocument(): void {
     const input: CaSelectFolderDialogInput = {
       title: { text: 'move_to_folder', translateText: true },
       mode: 'any',
@@ -286,7 +286,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
     super(dialogService, folderService, menuDynamicService, actionService, documentInfo);
   }
 
-  protected override generateActionMenu(showLinks: boolean) {
+  protected generateActionMenu(showLinks: boolean): FlMenuDynamic[] {
     const menu = super.generateActionMenu(showLinks);
     if (!showLinks && this.documentInfo.isConstellabDocument) {
       menu.unshift({

@@ -103,6 +103,8 @@ export class CaFolderTableComponent {
       this.datasource.removeItemById(folderEvent.folder.id);
     } else if (folderEvent.action === 'createChild') {
       this.routerService.navigateToFolderDetail(folderEvent.folder.id);
+    } else if (folderEvent.action === 'moveFolder') {
+      this.routerService.navigateToFolderDetail(folderEvent.folder.parentId);
     }
   }
 }

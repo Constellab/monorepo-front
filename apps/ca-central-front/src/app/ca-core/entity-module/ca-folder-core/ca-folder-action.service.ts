@@ -7,12 +7,12 @@ import {
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
 import { CaFolderService } from '../../service-api/ca-folder.service';
-import { filter, Observable } from 'rxjs';
+import { filter, mergeMap, Observable, of } from 'rxjs';
 import {
   CaFolderFormDialogComponent,
   CaFolderFormDialogInput,
 } from './component/ca-folder-form-dialog/ca-folder-form-dialog.component';
-import { CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
+import { CaFolder, CaFolderWithHierarchy } from '../../model/entities/folder/ca-folder.class';
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput,
@@ -21,6 +21,10 @@ import { CaConstellabDocument } from '../../model/entities/folder/ca-document.cl
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaHierarchyObject } from '../../model/entities/folder/ca-hierarchy-object.class';
 import { map } from 'rxjs/operators';
+import {
+  CaSelectFolderDialogComponent,
+  CaSelectFolderDialogInput,
+} from './component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 
 /**
  * Service to gather action on folder that can be done in multiple location from the UI
@@ -35,6 +39,7 @@ export class CaFolderActionService {
 
   private uploadDocumentActionName = 'upload-document-action';
   private uploadFolderActionName = 'upload-folder-action';
+  private moveFolderActionName = 'move-folder-action';
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
@@ -149,5 +154,41 @@ export class CaFolderActionService {
         };
       })
     );
+  }
+
+  public moveFolder(folderId: string): Observable<CaHierarchyObject | null> {
+    const input: CaSelectFolderDialogInput = {
+      title: { text: 'move_to_folder', translateText: true },
+      mode: 'any',
+      currentObjectId: folderId,
+    };
+    return this.dialogService
+      .openMediumDialog(CaSelectFolderDialogComponent, {
+        data: input,
+        autoFocus: false,
+      })
+      .afterClosed()
+      .pipe(mergeMap((folder) => this.onMoveFolderClosed(folderId, folder)));
+  }
+
+  private onMoveFolderClosed(folderId: string, folder?: CaFolder): Observable<CaHierarchyObject | null> {
+    if (folder) {
+      return this.actionService
+        .addAction({
+          type: this.moveFolderActionName,
+          action: this.folderService.moveFolder(folderId, folder.id),
+          text: { text: 'moving_to_folder', translateText: true },
+        })
+        .pipe(
+          map((result) => {
+            if (result.status === 'success') {
+              return result.result;
+            } else {
+              throw new Error('Error while moving folder');
+            }
+          })
+        );
+    }
+    return of(null);
   }
 }

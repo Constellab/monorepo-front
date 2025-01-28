@@ -183,6 +183,7 @@
   "constellab_document": "Note",
   "folder_object_type": "Filter",
   "clear": "Clear",
+  "chat": "Chat",
   "folder_chat_activated": "Chat activated in the folder",
   "folder_chat_deactivated": "Chat deactivated in the folder",
   "folder_activate_chat": "Activate chat",

@@ -11,6 +11,7 @@ import { CaConstellabDocument } from '../../../model/entities/folder/ca-document
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaSecurityService } from '../../../service/ca-security.service';
 import { CaFolderActionService } from '../ca-folder-action.service';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
 export type CaFolderActionEvent =
   | {
@@ -28,6 +29,10 @@ export type CaFolderActionEvent =
   | {
       action: 'createConstellabDocument';
       document: CaConstellabDocument;
+    }
+  | {
+      action: 'moveFolder';
+      folder: CaHierarchyObject;
     };
 
 export class CaFolderActionsMenu {
@@ -45,7 +50,11 @@ export class CaFolderActionsMenu {
    * Open the action menu for the folder in the table
    */
   public openTableItemActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
-    const menu = this.generateTableItemActionMenu();
+    const menu: FlMenuDynamic[] = [this.getOpenFolderButton()];
+
+    if (this.canEditFolder()) {
+      menu.push(this.getUpdateFolderButton(), this.getMoveToFolderButton(), this.getDeleteFolderButton());
+    }
 
     return this.openActionMenu(menu, event);
   }
@@ -54,7 +63,15 @@ export class CaFolderActionsMenu {
    * Open the action menu when right-click on the folder children section
    */
   public openFolderChildrenActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
-    const menu = this.generateFolderChildrenActionMenu();
+    const menu: FlMenuDynamic[] = [
+      this.getCreateChildButton(),
+      {
+        type: 'button',
+        text: { text: 'create_constellab_document', translateText: true },
+        icon: 'constellab_document',
+        onClick: () => this.createConstellabDocument(),
+      },
+    ];
 
     return this.openActionMenu(menu, event);
   }
@@ -86,6 +103,15 @@ export class CaFolderActionsMenu {
     };
   }
 
+  public getMoveToFolderButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'move_to_folder', translateText: true },
+      icon: 'drive_file_move',
+      onClick: () => this.moveDocument(),
+    };
+  }
+
   public getDeleteFolderButton(): FlMenuDynamic {
     return {
       type: 'button',
@@ -114,27 +140,6 @@ export class CaFolderActionsMenu {
 
   protected canEditFolder(): boolean {
     return this.securityService.canEditFolder(this.folderInfo.leader.id);
-  }
-
-  private generateTableItemActionMenu(): FlMenuDynamic[] {
-    const menu: FlMenuDynamic[] = [this.getOpenFolderButton()];
-
-    if (this.canEditFolder()) {
-      menu.push(this.getUpdateFolderButton(), this.getDeleteFolderButton());
-    }
-    return menu;
-  }
-
-  private generateFolderChildrenActionMenu(): FlMenuDynamic[] {
-    return [
-      this.getCreateChildButton(),
-      {
-        type: 'button',
-        text: { text: 'create_constellab_document', translateText: true },
-        icon: 'constellab_document',
-        onClick: () => this.createConstellabDocument(),
-      },
-    ];
   }
 
   private openUpdateFolderDialog(): void {
@@ -196,6 +201,22 @@ export class CaFolderActionsMenu {
       this.subject.next({
         action: 'createConstellabDocument',
         document: doc,
+      });
+    }
+    this.subject.complete();
+  }
+
+  private moveDocument(): void {
+    this.folderActionService
+      .moveFolder(this.folderInfo.id)
+      .subscribe((folder) => this.onMoveFolderClosed(folder));
+  }
+
+  private onMoveFolderClosed(folder?: CaHierarchyObject): void {
+    if (folder) {
+      this.subject.next({
+        action: 'moveFolder',
+        folder: folder,
       });
     }
     this.subject.complete();
