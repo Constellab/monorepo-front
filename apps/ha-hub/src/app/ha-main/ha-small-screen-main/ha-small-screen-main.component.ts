@@ -82,13 +82,9 @@ export class HaSmallScreenMainComponent implements OnInit {
 
   agentsRoute = HaRouterService.getAgentsListRoute();
 
-  homeRoute = HaRouterService.getHomeRoute();
-
   profileRoute = HaRouterService.getProfileRoute();
 
   iconsPageRoute = HaRouterService.getIconsRoute();
-
-  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
 
   communityLogo: string;
 
@@ -138,16 +134,17 @@ export class HaSmallScreenMainComponent implements OnInit {
   changeLanguage(): void {
     const newLang =
       this.currentLanguage == ClSupportedLanguage.fr ? ClSupportedLanguage.en : ClSupportedLanguage.fr;
-    this.translateService.changeAppLanguage(newLang);
-    this.currentLanguage = newLang;
-    this.snackBarService.openSuccessMessage({
-      text: 'language_changed',
-      translateText: true,
-      translateParam: {
-        param: {
-          lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
+    this.authUserService.changeLang(newLang).subscribe(() => {
+      this.currentLanguage = newLang;
+      this.snackBarService.openSuccessMessage({
+        text: 'language_changed',
+        translateText: true,
+        translateParam: {
+          param: {
+            lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
+          },
         },
-      },
+      });
     });
   }
 

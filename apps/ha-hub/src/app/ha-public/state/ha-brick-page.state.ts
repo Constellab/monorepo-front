@@ -274,7 +274,9 @@ export class HaBrickPageState {
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
-    this.brickService.checkUserRights(brick.id).subscribe((res) => this.userHasEditRight.set(res));
+    this.brickService.checkUserRights(brick.id).subscribe((res) => {
+      this.userHasEditRight.set(res);
+    });
   }
 
   private initBrick(name: string, version: string): void {

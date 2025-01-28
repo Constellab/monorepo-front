@@ -14,7 +14,8 @@
       </h1>
       <div class="author-div">
         <div>
-          <p class="small-text user-date-info">
+
+          <div class="small-text user-date-info">
             <a [routerLink]="profileRoute + story.createdBy.id">
               <fl-user-inline [user]="story.createdBy" [portalOnHover]="false"></fl-user-inline>
             </a>
@@ -25,7 +26,8 @@
                   story.publishedAt < story.lastModifiedAt ? story.lastModifiedAt : story.publishedAt
                 "></fl-from-now>
             </span>
-          </p>
+          </div>
+
           @if (storyCoAuthors?.length > 0) {
             <fl-key-value class="g-text-small co-author-key-val user-date-info">
               <fl-key>{{ 'coauthors' | translate }}</fl-key>

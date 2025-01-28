@@ -1,8 +1,8 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { afterNextRender, Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { mergeMap, Observable } from 'rxjs';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HaUserService } from '../../../ha-core/ha-service/ha-user.service';
-import { map, share } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import { HaAgentDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
@@ -18,7 +18,7 @@ import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
-import { CoUser } from '@monorepo/community-lib';
+import { CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
 import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
@@ -34,7 +34,6 @@ import { HaProfileAttachedLinkComponent } from '../ha-profile-attached-link/ha-p
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { MatTab, MatTabGroup, MatTabLabel } from '@angular/material/tabs';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
@@ -88,6 +87,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   private router: Router = inject(Router);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
   private runStatAggregateService: HaRunStatAggregateService = inject(HaRunStatAggregateService);
+  private injector: Injector = inject(Injector);
 
   foaLink: string = HaConstellabHelper.getGencoveryFOAUrl();
 
@@ -143,13 +143,19 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
       )
     );
 
-    this.commonSpace$ = id$.pipe(mergeMap((id) => this.spaceService.getUserCommonSpace(id)));
+    afterNextRender(
+      () => {
+        this.commonSpace$ = id$.pipe(mergeMap((id) => this.spaceService.getUserCommonSpace(id)));
+      },
+      { injector: this.injector }
+    );
 
     this.user$ = id$.pipe(
       mergeMap((id) => {
         return this.userService.getUserById(id);
-      }),
-      share()
+      })
+      // TODO: Share avec hydration
+      // share()
     );
 
     this.isCurrentUser$ = id$.pipe(

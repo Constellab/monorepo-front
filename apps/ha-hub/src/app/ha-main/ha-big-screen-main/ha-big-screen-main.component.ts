@@ -6,7 +6,6 @@ import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
@@ -55,7 +54,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class HaBigScreenMainComponent implements OnInit {
   private authUserService = inject(HaAuthenticatedUserService);
   private themeState = inject(HaThemeState);
-  private translateService = inject(FlTranslateService);
   private snackBarService = inject(FlSnackBarService);
   private authService = inject(HaAuthService);
   private dialogService = inject(FlDialogService);
@@ -82,8 +80,6 @@ export class HaBigScreenMainComponent implements OnInit {
   constellabRoute = HaConstellabHelper.getConstellabUrl();
 
   iconsPageRoute = HaRouterService.getIconsRoute();
-
-  foaPageRoute = HaRouterService.getFairOpenAccessRoute();
 
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
 
@@ -115,16 +111,17 @@ export class HaBigScreenMainComponent implements OnInit {
   changeLanguage(): void {
     const newLang =
       this.currentLanguage == ClSupportedLanguage.fr ? ClSupportedLanguage.en : ClSupportedLanguage.fr;
-    this.translateService.changeAppLanguage(newLang);
-    this.currentLanguage = newLang;
-    this.snackBarService.openSuccessMessage({
-      text: 'language_changed',
-      translateText: true,
-      translateParam: {
-        param: {
-          lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
+    this.authUserService.changeLang(newLang).subscribe(() => {
+      this.currentLanguage = newLang;
+      this.snackBarService.openSuccessMessage({
+        text: 'language_changed',
+        translateText: true,
+        translateParam: {
+          param: {
+            lang: newLang == ClSupportedLanguage.fr ? 'Français' : 'English',
+          },
         },
-      },
+      });
     });
   }
 

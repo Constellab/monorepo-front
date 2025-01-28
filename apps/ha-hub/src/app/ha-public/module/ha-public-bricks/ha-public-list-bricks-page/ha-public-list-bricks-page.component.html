@@ -1,12 +1,15 @@
 <div class="left-panel" *haIsAuthenticated>
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
-  <a mat-flat-button routerLink="edit" class="bt first-bt">
+  <a mat-stroked-button routerLink="edit" class="bt first-bt">
     <mat-icon>add_circle</mat-icon>
     {{ 'create_brick' | translate }}
   </a>
+
+  <mat-divider class="left-panel-separator"></mat-divider>
+
   <button
-    mat-flat-button
+    mat-stroked-button
     type="button"
     class="bt my-bricks-bt"
     (click)="selectSpace('my-bricks')"

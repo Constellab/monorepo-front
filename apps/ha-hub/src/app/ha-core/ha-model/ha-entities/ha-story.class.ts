@@ -95,11 +95,9 @@ export class HaListStoryDto implements CoListStoryDto {
 
 export class HaStoryFilters {
   title: string;
-  categories: string[];
   topics: string[];
 
   constructor(title_: string) {
-    this.categories = [];
     this.topics = [];
     this.title = title_ ?? '';
   }

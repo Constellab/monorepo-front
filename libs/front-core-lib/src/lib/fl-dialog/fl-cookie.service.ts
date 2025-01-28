@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, REQUEST } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ClDateHelper } from '@monorepo/core-lib';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import {
   FlAcceptanceCookie,
   FlAcceptanceCookiesConfig,
   FlCookieOptions,
-  FlPlatformService,
+  FlPlatformService
 } from '@monorepo/front-core-lib/fl-core';
 
 /**
@@ -23,6 +23,7 @@ export class FlCookieService {
   private platformService = inject(FlPlatformService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
+  private request = inject(REQUEST, { optional: true });
 
   private readonly ACCEPTANCE_COOKIE_KEY = 'ACCEPT_COOKIE';
 

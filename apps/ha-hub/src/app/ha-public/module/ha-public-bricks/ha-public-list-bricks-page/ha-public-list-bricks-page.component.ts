@@ -27,6 +27,7 @@ import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -55,6 +56,7 @@ import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-
     TranslatePipe,
     FlCorePipeModule,
     HaBrickImagePipe,
+    MatDivider,
   ],
 })
 export class HaPublicListBricksPageComponent extends HaCommunityPage implements OnInit {

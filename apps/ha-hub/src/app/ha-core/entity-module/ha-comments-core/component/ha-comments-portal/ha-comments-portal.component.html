@@ -2,7 +2,7 @@
   (flInfiniteScroll)="loadMoreResults()"
   [flInfiniteDisabled]="datasource?.isLoading || datasource?.page?.last"
   flInfiniteMode="auto"
-  class="comments-portal-div">
+  class="comments-portal-div g-scrollable-element">
   <div class="comments-portal">
     <h4>{{ 'comments' | translate }} - {{ entity.comments }}</h4>
     <button mat-icon-button (click)="closePortal()" [matTooltip]="'close' | translate">
@@ -20,23 +20,25 @@
           [(ngModel)]="commentInputData"
           [placeholder]="'write_a_comment' | translate"
           class="text-editor"
-          (textChange)="checkCommentValidity()"
           (keydown.control.enter)="sendComment()"></te-text-editor>
       </fl-card-body>
       <fl-card-footer>
         <div class="comment-write-card-footer">
-          <button
-            mat-flat-button
-            class="primary"
-            [disabled]="!commentIsValid || isLoading"
-            (click)="sendComment()">
-            @if (isLoading) {
-              <fl-button-loader></fl-button-loader>
-            }
-            @if (!isLoading) {
-              {{ 'comment' | translate }}
-            }
-          </button>
+          @if (!commentInputData.isEmpty()) {
+            <button
+              mat-flat-button
+              class="primary"
+              [disabled]="isLoading"
+              (click)="sendComment()">
+              @if (isLoading) {
+                <fl-button-loader></fl-button-loader>
+              }
+              @if (!isLoading) {
+                {{ 'comment' | translate }}
+              }
+            </button>
+          }
+
         </div>
       </fl-card-footer>
     </fl-card>

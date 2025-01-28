@@ -3,7 +3,7 @@ import { HaAgentTextEditorConfig } from '../ha-agent-core/ha-agent-text-editor.c
 import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
@@ -34,7 +34,7 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -42,7 +42,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -56,7 +55,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     RouterLink,
     FlUserModule,
     FlDateModule,
-    NgTemplateOutlet,
     HaLikeButtonComponent,
     HaCommentButtonComponent,
     MatIconButton,

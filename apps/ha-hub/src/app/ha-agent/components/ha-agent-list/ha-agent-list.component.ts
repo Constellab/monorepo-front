@@ -33,6 +33,7 @@ import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'ha-agent-list',
@@ -60,6 +61,7 @@ import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-de
     FlCorePipeModule,
     TranslatePipe,
     HaDetailRoutePipe,
+    MatDivider,
   ],
 })
 export class HaAgentListComponent extends HaCommunityPage implements OnInit {

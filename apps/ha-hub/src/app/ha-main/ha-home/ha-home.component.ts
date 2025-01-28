@@ -41,7 +41,7 @@ export class HaHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.stories$ = this.storyService.getAllPaginatedFiltered(4);
-    this.stories$.getFirstPage({ title: '', categories: [], topics: [] });
+    this.stories$.getFirstPage({ title: '', topics: [] });
 
     this.agents$ = this.agentService.getAllWithFiltersPaginated(4);
     this.agents$.getFirstPage({ spacesFilter: [], titleFilter: '' });

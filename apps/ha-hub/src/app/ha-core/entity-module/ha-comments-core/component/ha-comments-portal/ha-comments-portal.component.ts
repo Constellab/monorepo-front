@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { HaAbstractComment, HaCommentEntity, HaCommentType } from '../../model/ha-abstract-comment.class';
 import { HaCommentService } from '../../../../ha-service/ha-comment.service';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
@@ -13,7 +13,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { RouterLink } from '@angular/router';
@@ -62,7 +61,6 @@ export class HaCommentsPortalComponent implements OnInit {
   private commentService = inject(HaCommentService);
 
   textEditorConfig: HaCommentTextEditorConfig = new HaCommentTextEditorConfig();
-  commentIsValid = false;
   user: CoUser;
   entity: HaCommentsEntity;
   datasource: FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>>;
@@ -86,19 +84,14 @@ export class HaCommentsPortalComponent implements OnInit {
   closePortal(): void {
     this.overlayRef.dispose(this.entity.comments);
   }
-
-  checkCommentValidity(): void {
-    this.commentIsValid = !this.commentInputData.isEmpty();
-  }
-
   sendComment(): void {
-    if (this.commentIsValid) {
+    if (this.commentInputData && !this.commentInputData.isEmpty()) {
       this.isLoading = true;
-
       this.commentService
         .sendComment(this.commentType, this.commentInputData, this.entity.id)
         .subscribe((comment: HaAbstractComment<HaCommentEntity>) => {
           this.commentInputData = new TeRichText();
+          console.log('OYE', this.commentInputData, this.commentInputData.isEmpty());
           this.datasource.unshiftItem(comment);
           this.entity.comments++;
           this.isLoading = false;

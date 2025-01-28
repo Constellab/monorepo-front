@@ -1,12 +1,16 @@
 <div class="left-panel" *haIsAuthenticated>
   <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
 
-  <button mat-flat-button type="button" class="bt first-bt" (click)="openCreateAgentDialog()">
+  <button mat-stroked-button type="button" class="bt first-bt" (click)="openCreateAgentDialog()">
     <mat-icon>add_circle</mat-icon>
     {{ 'create_agent' | translate }}
   </button>
+
+  <mat-divider class="left-panel-separator"></mat-divider>
+
+
   <button
-    mat-flat-button
+    mat-stroked-button
     type="button"
     class="bt my-agents-bt"
     (click)="selectSpace('my-agents')"

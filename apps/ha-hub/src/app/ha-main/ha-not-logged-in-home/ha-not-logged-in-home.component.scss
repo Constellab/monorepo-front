@@ -93,7 +93,8 @@
   }
 
   .video-select-bt-not-selected {
-    color: white;
+    color: white !important;
+    background: none;
   }
 }
 

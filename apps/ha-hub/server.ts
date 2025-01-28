@@ -7,10 +7,10 @@ import { environment } from './src/environments/ha-environment';
 import { EnumChangefreq, SitemapItem, SitemapStream, streamToPromise } from 'sitemap';
 import axios from 'axios';
 import cookieParser from 'cookie-parser';
-import { REQUEST } from '@monorepo/front-core-lib/fl-theme';
 import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-metadata-names.config';
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
 import { CommonEngine } from '@angular/ssr/node';
+import { REQUEST } from '@angular/core';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',

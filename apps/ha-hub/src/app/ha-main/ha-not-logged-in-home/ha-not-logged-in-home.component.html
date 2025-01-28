@@ -47,7 +47,7 @@
   <div class="video-select-div">
     @for (video_section of video_sections; track video_section; let idx = $index) {
       @if (selectedVideoIndex === idx) {
-        <button mat-flat-button color="warn" class="video-select-bt">
+        <button mat-flat-button class="warn video-select-bt">
           {{ video_section | translate }}
         </button>
       } @else {
@@ -76,7 +76,7 @@
     </div>
     <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
       {{ 'go_to_stories' | translate }}
-      <mat-icon>chevron_right</mat-icon>
+      <mat-icon class="right-button-icon">chevron_right</mat-icon>
     </a>
   </div>
 
@@ -93,7 +93,7 @@
     </div>
     <a mat-stroked-button [routerLink]="agentsListRoute" class="go-to-button">
       {{ 'go_to_agents' | translate }}
-      <mat-icon>chevron_right</mat-icon>
+      <mat-icon class="right-button-icon">chevron_right</mat-icon>
     </a>
   </div>
 
@@ -113,7 +113,7 @@
     </div>
     <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
       {{ 'go_to_bricks' | translate }}
-      <mat-icon>chevron_right</mat-icon>
+      <mat-icon class="right-button-icon">chevron_right</mat-icon>
     </a>
   </div>
 
@@ -131,7 +131,7 @@
         </div>
       </a>
       <a
-        mat-flat-button
+        mat-stroked-button
         class="discord-button"
         target="_blank"
         [href]="discordLink"
@@ -156,7 +156,7 @@
         mat-stroked-button
         class="go-to-button">
         {{ 'learn_more_about_foa' | translate }}
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon class="right-button-icon">chevron_right</mat-icon>
       </a>
     </div>
   </div>

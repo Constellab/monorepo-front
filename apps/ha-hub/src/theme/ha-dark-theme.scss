@@ -1,4 +1,5 @@
 @use '../../../../libs/front-core-lib/src/style/theme/base/base-dark-theme';
+@use '../../../../libs/text-editor/src/style/te-text-editor-dark';
 
 // Style to highlight code in text editor
 @use 'highlight.js/styles/monokai-sublime.css';

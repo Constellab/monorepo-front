@@ -1,8 +1,7 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, Injector, PLATFORM_ID, REQUEST } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie, FlCleanableService, FlCleanerService } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { REQUEST } from '@monorepo/front-core-lib/fl-theme';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HaUser, HaUserCategory } from '../ha-model/ha-entities/ha-user';
@@ -10,8 +9,7 @@ import { HaAuthService } from './ha-auth.service';
 import { map, tap } from 'rxjs/operators';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { HaBrick } from '../ha-model/ha-entities/ha-brick.class';
-import { isPlatformServer } from '@angular/common';
-import { Request } from 'express';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -20,15 +18,16 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   private apiService = inject(FlApiService);
   private authService = inject(HaAuthService);
   private translateService = inject(FlTranslateService);
+  private injector = inject(Injector);
   private platformId = inject(PLATFORM_ID);
 
   private readonly userRoute: string = 'user';
   private userAuthenticated: HaUser;
   public userSubject: BehaviorSubject<HaUser> = new BehaviorSubject<HaUser>(null);
-  private request: Request;
+  private request: any;
 
   constructor() {
-    const request = inject<Request>(REQUEST, { optional: true });
+    const request = this.injector.get(REQUEST, null, { optional: true });
 
     FlCleanerService.getInstance().registerService(this);
     if (isPlatformServer(this.platformId)) {
@@ -53,10 +52,11 @@ export class HaAuthenticatedUserService implements FlCleanableService {
   }
 
   private hasAuthCookie(): boolean {
-    if (isPlatformServer(this.platformId)) {
-      return this.request?.cookies[flAuthExpiredCookie] != null;
-    }
-    return this.authService.hasAuthorizationCookie();
+    if (isPlatformBrowser(this.platformId)) return this.authService.hasAuthorizationCookie();
+
+    if (this.request?.cookies) return this.request?.cookies[flAuthExpiredCookie] != null;
+
+    return false;
   }
 
   public getUser(): Observable<HaUser> {

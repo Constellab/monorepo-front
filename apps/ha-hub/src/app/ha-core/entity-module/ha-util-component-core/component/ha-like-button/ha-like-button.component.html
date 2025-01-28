@@ -1,8 +1,8 @@
-<button mat-flat-button (click)="click()">
+<button mat-button (click)="click()">
   @if (isLiked) {
-    <mat-icon svgIcon="heart-fill" *haIsAuthenticated></mat-icon>
+    <mat-icon svgIcon="heart-fill" class="like-icon" *haIsAuthenticated></mat-icon>
   } @else {
-    <mat-icon svgIcon="heart"></mat-icon>
+    <mat-icon svgIcon="heart" class="like-icon"></mat-icon>
   }
   {{ likesCount }}
 </button>

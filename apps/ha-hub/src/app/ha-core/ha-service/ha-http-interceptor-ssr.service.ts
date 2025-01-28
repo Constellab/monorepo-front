@@ -1,9 +1,8 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, REQUEST } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
 import { Request } from 'express';
-import { REQUEST } from '@monorepo/front-core-lib/fl-theme';
 
 @Injectable()
 export class HaHttpInterceptorSsrService implements HttpInterceptor {
@@ -21,7 +20,11 @@ export class HaHttpInterceptorSsrService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add lang to the headers
-    if (isPlatformServer(this.platformId) && this.request?.cookies['Authorization'] != null) {
+    if (
+      isPlatformServer(this.platformId) &&
+      this.request?.cookies &&
+      this.request?.cookies['Authorization'] != null
+    ) {
       req = req.clone({
         withCredentials: true,
         headers: req.headers

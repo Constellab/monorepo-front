@@ -17,7 +17,7 @@
     </h1>
   </div>
   <div class="agent-utils-div">
-    <p class="small-text user-date-info">
+    <div class="small-text user-date-info">
       <a [routerLink]="profileRoute + agent().createdBy?.id">
         <fl-user-inline [user]="agent().createdBy" [portalOnHover]="false"></fl-user-inline>
       </a>
@@ -25,10 +25,12 @@
         @if (agent().latestPublishVersion > 0) {
           <fl-from-now [date]="agent().createdAt"></fl-from-now>
         } @else {
-          <ng-container [ngTemplateOutlet]="notPublished"></ng-container>
+          <span class="g-warn-text">
+            {{ 'not_published' | translate }}
+          </span>
         }
       </span>
-    </p>
+    </div>
     <div class="agent-buttons">
       <co-visibility-badge [space]="agent().space"></co-visibility-badge>
 
@@ -94,9 +96,3 @@
     <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
   }
 }
-
-<ng-template #notPublished>
-  <span class="g-warn-text">
-    {{ 'not_published' | translate }}
-  </span>
-</ng-template>

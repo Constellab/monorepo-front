@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import edjsHTML from 'editorjs-html';
 import { TeRichText } from '../../model/lib';
 import { TeConfig } from '../../model/te-config.class';
@@ -9,9 +9,10 @@ import { TeFigureBlock } from '../../block/te-figure-block.class';
   templateUrl: './te-text-editor-server-side.component.html',
   styleUrl: './te-text-editor-server-side.component.scss',
   standalone: false,
+  encapsulation: ViewEncapsulation.None,
 })
 export class TeTextEditorServerSideComponent implements OnInit {
-  private renderer = inject(Renderer2);
+  private renderer: Renderer2 = inject(Renderer2);
 
   @Input({ required: true }) richText: TeRichText;
 
@@ -23,9 +24,13 @@ export class TeTextEditorServerSideComponent implements OnInit {
     if (this.richText != null) {
       const parser = edjsHTML({
         figure: (block: TeFigureBlock) => {
-          if (this.config?.figureConfig)
-            // eslint-disable-next-line max-len
-            return `<img src="${this.config.figureConfig.getImageUrl(block.data.filename)}" height="${block.data.height}" width="${block.data.width}" />`;
+          if (this.config?.figureConfig) {
+            const img: HTMLImageElement = this.renderer.createElement('img');
+            img.src = this.config.figureConfig.getImageUrl(block.data.filename);
+            img.height = block.data.height;
+            img.width = block.data.width;
+            return `${img.outerHTML}`;
+          }
           return '';
         },
       });

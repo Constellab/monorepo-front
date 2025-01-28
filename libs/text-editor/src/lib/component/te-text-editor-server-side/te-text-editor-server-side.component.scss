@@ -1,0 +1,16 @@
+:host {
+  width: 100%;
+  max-width: inherit;
+}
+
+.ssr-text-editor {
+  width: 100%;
+  max-width: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    margin: 1em auto;
+  }
+}

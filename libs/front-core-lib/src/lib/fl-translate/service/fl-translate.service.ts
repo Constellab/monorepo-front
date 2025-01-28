@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable, Injector, REQUEST } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   FlTranslatableText,
@@ -22,6 +22,7 @@ export class FlTranslateService {
   private cookieService = inject(CookieService);
   private config = inject<FlTranslateModuleConfig>(FL_TRANSLATE_MODULE_CONFIG);
   private adapter = inject<DateAdapter<any>>(DateAdapter);
+  private injector = inject(Injector);
 
   private static instance: FlTranslateService = null;
 
@@ -31,9 +32,13 @@ export class FlTranslateService {
   // store the module that have been translated
   private modulesTranslation: string[] = [];
 
+  private request: any;
+
   constructor() {
     // save this instance to static attribute
     FlTranslateService.instance = this;
+
+    this.request = this.injector.get(REQUEST);
   }
 
   /**
@@ -135,29 +140,24 @@ export class FlTranslateService {
    * Returns the user's browser preferred language within the available languages
    */
   public getUserLanguage(): ClSupportedLanguage {
-    // check for the platform because of the use of navigator
-    if (this.platformService.isBrowserPlatform()) {
-      // get the language from the cookie if it exists
-      const cookieLang: string = this.getUserLanguageCookie();
-      // if it exists, returns the lang from the cookie
-      if (cookieLang && this.langIsSupported(cookieLang)) {
-        return cookieLang as ClSupportedLanguage;
-      }
+    // get the language from the cookie if it exists
+    const cookieLang: string = this.getUserLanguageCookie();
+    // if it exists, returns the lang from the cookie
+    if (cookieLang && this.langIsSupported(cookieLang)) {
+      return cookieLang as ClSupportedLanguage;
+    }
 
-      if (navigator?.languages?.length) {
-        // get the user languages
-        const languages: ReadonlyArray<string> = navigator.languages;
+    if (this.platformService.isBrowserPlatform() && navigator?.languages?.length) {
+      // get the user languages
+      const languages: ReadonlyArray<string> = navigator.languages;
 
-        // check if the language is available
-        for (const lang of languages) {
-          // if the language is available
-          if (this.langIsSupported(lang)) {
-            return lang as ClSupportedLanguage;
-          }
+      // check if the language is available
+      for (const lang of languages) {
+        // if the language is available
+        if (this.langIsSupported(lang)) {
+          return lang as ClSupportedLanguage;
         }
       }
-    } else {
-      console.error('Not supported in SSR');
     }
 
     return this.getDefaultLanguage();
@@ -194,7 +194,11 @@ export class FlTranslateService {
    * Return the language store in the cookies
    */
   public getUserLanguageCookie(): string {
-    return this.cookieService.get(this.cookieKey);
+    if (this.platformService.isBrowserPlatform() && this.cookieService.check(this.cookieKey))
+      return this.cookieService.get(this.cookieKey);
+
+    if (this.request?.cookies) return this.request?.cookies[this.cookieKey];
+    return null;
   }
 
   /**

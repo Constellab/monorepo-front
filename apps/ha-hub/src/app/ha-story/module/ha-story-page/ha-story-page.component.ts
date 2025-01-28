@@ -17,7 +17,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ClCoreJsonConvert, ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-file';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
@@ -43,7 +43,6 @@ import { HaShareButtonComponent } from '../../../ha-core/entity-module/ha-share-
 import { HaLikeButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { HaCommentButtonComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-comment-button/ha-comment-button.component';
 import { MatAnchor } from '@angular/material/button';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';

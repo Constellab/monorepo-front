@@ -4,9 +4,6 @@
       <a [routerLink]="storyListRoute" class="home-section-title">
         {{ 'stories' | translate }}
       </a>
-      <p class="home-section-description">
-        {{ 'stories_description' | translate }}
-      </p>
       <div class="home-list-div">
         @for (story of stories$() | flDatasourceConnect | async; track story?.id) {
           <a [routerLink]="story | haDetailRoute">
@@ -19,7 +16,7 @@
       </div>
       <a mat-stroked-button [routerLink]="storyListRoute" class="go-to-button">
         {{ 'go_to_stories' | translate }}
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon class="right-button-icon">chevron_right</mat-icon>
       </a>
     </div>
 
@@ -27,9 +24,6 @@
       <a [routerLink]="agentsListRoute" class="home-section-title">
         {{ 'agents' | translate }}
       </a>
-      <p class="home-section-description">
-        {{ 'agents_description' | translate }}
-      </p>
       <div class="home-list-div">
         @for (agent of agents$() | flDatasourceConnect | async; track agent.id) {
           <a [routerLink]="agent | haDetailRoute">
@@ -39,7 +33,7 @@
       </div>
       <a mat-stroked-button [routerLink]="agentsListRoute" class="go-to-button">
         {{ 'go_to_agents' | translate }}
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon class="right-button-icon">chevron_right</mat-icon>
       </a>
     </div>
 
@@ -47,9 +41,6 @@
       <a [routerLink]="brickListRoute" class="home-section-title">
         {{ 'bricks' | translate }}
       </a>
-      <p class="home-section-description">
-        {{ 'bricks_description' | translate }}
-      </p>
       <div class="home-list-div">
         @for (brick of bricks$() | flDatasourceConnect | async; track brick.id) {
           <a [routerLink]="brick | haDetailRoute">
@@ -62,7 +53,7 @@
       </div>
       <a mat-stroked-button [routerLink]="brickListRoute" class="go-to-button">
         {{ 'go_to_bricks' | translate }}
-        <mat-icon>chevron_right</mat-icon>
+        <mat-icon class="right-button-icon">chevron_right</mat-icon>
       </a>
     </div>
 

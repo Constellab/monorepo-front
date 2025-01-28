@@ -1,6 +1,6 @@
 <div class="div-sidenav">
   @if (userHasEditRight()) {
-    <button mat-flat-button type="button" class="bt" (click)="onClickMenu($event, true)">
+    <button mat-stroked-button type="button" class="bt" (click)="onClickMenu($event, true)">
       <mat-icon>add_circle</mat-icon>
       {{ 'create_element' | translate }}
     </button>

@@ -6,7 +6,7 @@
 }
 
 .comments-portal-div {
-  width: 30vw;
+  width: calc(100% - 4em);
   padding: 1em 2em;
   height: inherit;
   overflow-y: auto;
@@ -65,7 +65,8 @@
 
 @media (max-width: 1100px) {
   .comments-portal-div {
-    width: 60vw;
+    width: calc(100% - 3em);
+    padding: 1em 1.5em;
   }
 }
 
@@ -75,6 +76,7 @@
   }
 
   .comments-portal-div {
-    width: calc(100% - 4em);
+    width: calc(100% - 2em);
+    padding: 1em 1em;
   }
 }

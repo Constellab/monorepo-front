@@ -18,8 +18,13 @@ import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlLuxonDateAdapter, flLuxonDateFormat } from '@monorepo/front-core-lib/fl-core';
-import { flMatFormFieldConfig, flSetRootInjector, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlLuxonDateAdapter,
+  flLuxonDateFormat,
+  flMatFormFieldConfig,
+  flSetRootInjector,
+  flTooltipConfig,
+} from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -61,6 +66,7 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import { provideClientHydration, withHttpTransferCacheOptions } from '@angular/platform-browser';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -88,6 +94,11 @@ export const haAppConfig: ApplicationConfig = {
       withPreloading(PreloadAllModules),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' }),
       withRouterConfig({ paramsInheritanceStrategy: 'always', onSameUrlNavigation: 'reload' })
+    ),
+    provideClientHydration(
+      withHttpTransferCacheOptions({
+        includePostRequests: tru,
+      })
     ),
     importProvidersFrom(
       FlUserModule.forRoot(HaUserConfig),

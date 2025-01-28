@@ -1,12 +1,10 @@
-import { inject, Injectable, InjectionToken, PLATFORM_ID, Renderer2, RendererFactory2 } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, Renderer2, RendererFactory2, REQUEST } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
 import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 
-// Define the `Request` token
-export const REQUEST = new InjectionToken<any>('REQUEST');
 
 /**
  * Service to manage light and dark theme
@@ -56,7 +54,7 @@ export class FlThemeService {
   }
 
   private getCookieTheme(): ClTheme {
-    if (isPlatformServer(this.platformId)) {
+    if (isPlatformServer(this.platformId && this.request?.cookies)) {
       return this.request?.cookies[this.themeKey] as ClTheme;
     }
     return this.cookieService.getStringCookie(this.themeKey) as ClTheme;
