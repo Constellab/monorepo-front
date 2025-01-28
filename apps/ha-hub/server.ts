@@ -11,6 +11,7 @@ import { HaMetadataNamesConfig } from './src/app/ha-core/ha-model/ha-config/ha-m
 import { HaRouterService } from './src/app/ha-core/ha-service/ha-router.service';
 import { CommonEngine } from '@angular/ssr/node';
 import { REQUEST } from '@angular/core';
+import compression from 'compression';
 
 environment.settings = {
   apiUrl: process?.env['API_URL'] || 'http://localhost:3333',
@@ -34,6 +35,8 @@ export function app(): express.Express {
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
   const commonEngine = new CommonEngine();
+
+  server.use(compression());
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
@@ -272,6 +275,7 @@ function run(): void {
   const port = process.env['PORT'] || 4000;
   // Start up the Node server
   const server = app();
+
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
