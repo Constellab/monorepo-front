@@ -2,18 +2,34 @@
   <fl-portal-content class="content">
     <div class="g-layout-row g-layout-between-center">
       <div>{{ 'flPortalAction.actions' | translate }}</div>
-      <button flPortalClose type="button" mat-icon-button [matTooltip]="'flPortalAction.close' | translate">
-        <mat-icon>close</mat-icon>
-      </button>
+
+      <div>
+        <button
+          type="button"
+          mat-icon-button
+          (click)="toggleReducePortal()"
+          [matTooltip]="(portalIsReduced ? 'flPortalAction.expand' : 'flPortalAction.reduce') | translate">
+          <mat-icon>{{ portalIsReduced ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}</mat-icon>
+        </button>
+        <button
+          type="button"
+          mat-icon-button
+          (click)="closePortal()"
+          [matTooltip]="'flPortalAction.close' | translate">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
     </div>
 
-    <div class="g-layout-col">
-      @for (loader of actions$ | async; track trackBySymbole($index, loader)) {
-        <div>
-          <fl-portal-action-line [action]="loader"></fl-portal-action-line>
-          <mat-divider></mat-divider>
-        </div>
-      }
-    </div>
+    @if (!portalIsReduced) {
+      <div class="g-layout-col">
+        @for (action of actions$ | async; track action.symbol) {
+          <div>
+            <fl-portal-action-line [action]="action"></fl-portal-action-line>
+            <mat-divider></mat-divider>
+          </div>
+        }
+      </div>
+    }
   </fl-portal-content>
 </fl-portal>

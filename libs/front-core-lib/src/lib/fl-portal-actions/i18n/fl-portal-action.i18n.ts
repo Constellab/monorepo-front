@@ -6,15 +6,27 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
  */
 const flPortalActionFr: FlLangTranslation = {
   flPortalAction: {
-    actions: 'Actions',
+    actions: 'Tâches',
     close: 'Fermer',
+    cancelActions: 'Annuler les tâches en cours',
+    cancelActionsConfirmation: 'Voulez-vous vraiment annuler toutes les tâches en cours ?',
+    cancelAction: 'Annuler la tâche',
+    cancelActionConfirmation: 'Voulez-vous vraiment annuler cette tâche ?',
+    reduce: 'Réduire',
+    expand: 'Développer',
   },
 };
 
 const flPortalActionEn: FlLangTranslation = {
   flPortalAction: {
-    actions: 'Actions',
+    actions: 'Tasks',
     close: 'Close',
+    cancelActions: 'Cancel in progress tasks',
+    cancelActionsConfirmation: 'Do you really want to cancel all tasks in progress?',
+    cancelAction: 'Cancel task',
+    cancelActionConfirmation: 'Do you really want to cancel this task?',
+    reduce: 'Reduce',
+    expand: 'Expand',
   },
 };
 

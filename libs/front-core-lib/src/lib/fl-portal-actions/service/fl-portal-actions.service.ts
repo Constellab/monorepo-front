@@ -1,11 +1,15 @@
-import { Injectable, inject } from '@angular/core';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { inject, Injectable } from '@angular/core';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalAction, FlPortalActionResult } from '../model/fl-portal-actions.class';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionsComponent } from '../component/fl-portal-actions/fl-portal-actions.component';
 import { FlPortalActionsState } from './fl-portal-actions.state';
 import { Observable } from 'rxjs';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
+import { FlWindowsHelper } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 
 /**
  * Singleton to manager the portal actions
@@ -14,6 +18,7 @@ import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 export class FlPortalActionsService {
   private portalService = inject(FlPortalService);
   private actionsState = inject(FlPortalActionsState);
+  private dialogService = inject(FlDialogService);
 
   //provided if a portal is currently opened
   private currentOverlay: FlOverlayRef = null;
@@ -23,9 +28,7 @@ export class FlPortalActionsService {
   private autoCloseTimer: any = null;
 
   constructor() {
-    const actionsState = this.actionsState;
-
-    actionsState.getResult$().subscribe(() => this.onResult());
+    this.actionsState.getResult$().subscribe((result) => this.onResult(result));
   }
 
   /**
@@ -47,6 +50,11 @@ export class FlPortalActionsService {
     // update the auto close value
     if (autoClose != null) {
       this.autoClose = autoClose;
+    }
+
+    // block windows close if we track http events
+    if (action.trackHttpEvents) {
+      FlWindowsHelper.blockWindowsClose();
     }
 
     if (this.currentOverlay != null) {
@@ -79,6 +87,28 @@ export class FlPortalActionsService {
 
   private onPortalClosed(): void {
     this.currentOverlay = null;
+    this.actionsState.unsubscribeAll();
+  }
+
+  public closeActionsPortal(): void {
+    // if some action with track http events are running, we can't show a warning
+    if (this.actionsState.containsRunningTrackHttpAction()) {
+      const dialogData: FlConfirmDialogInput = {
+        title: 'flPortalAction.cancelActions',
+        content: 'flPortalAction.cancelActionsConfirmation',
+      };
+
+      this.dialogService
+        .openConfirmDialog(dialogData)
+        .afterClosed()
+        .subscribe((result: FlConfirmDialogResult) => {
+          if (result.choice) {
+            this.closeOverlay();
+          }
+        });
+    } else {
+      this.closeOverlay();
+    }
   }
 
   private closeOverlay(): void {
@@ -94,16 +124,21 @@ export class FlPortalActionsService {
   }
 
   // each time a result is emitted, check if auto close is set and if all action are finished
-  private onResult(): void {
-    if (this.autoClose && this.actionsState.allActionFinished()) {
+  private onResult(result: FlPortalActionResult): void {
+    if (this.autoClose && this.actionsState.allActionAreFinished()) {
       // call close with a delay
       this.autoCloseTimer = setTimeout(() => this.checkAndAutoClose(), this.autoCloseDelay);
+    }
+
+    // we the action with track http events finished, unblock windows close
+    if (result.action.trackHttpEvents) {
+      FlWindowsHelper.unblockWindowsClose();
     }
   }
 
   // called after a delay, check if all actions are still finished and close if yes
   private checkAndAutoClose(): void {
-    if (this.actionsState.allActionFinished()) {
+    if (this.actionsState.allActionAreFinished()) {
       this.closeOverlay();
     }
   }

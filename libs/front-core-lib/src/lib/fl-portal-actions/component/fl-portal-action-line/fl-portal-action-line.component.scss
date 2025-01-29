@@ -22,3 +22,26 @@
 .icon {
   flex-shrink: 0;
 }
+
+.progress-container {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.cancel-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  display: none;
+}
+
+.progress-container:hover {
+  .progress-loader {
+    opacity: 0;
+  }
+
+  .cancel-button {
+    display: block;
+  }
+}

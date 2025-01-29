@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 import { filter } from 'rxjs/operators';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -34,7 +34,8 @@ export interface FlPortalAction<T = any> {
   additionalInformation?: any;
 
   /**
-   * Method called on success with the observable result. If it returns a string, the action become a clickable link
+   * Method called on success with the observable result.
+   * If it returns a string, the action become a clickable link
    * @param result
    */
   successLink?: (result: T) => string;
@@ -59,6 +60,8 @@ export class FlPortalActionDetail {
     status: 'waiting',
   });
 
+  private subscription: Subscription;
+
   constructor(private action: FlPortalAction) {
     this.symbol = Symbol();
     this.text = action.text;
@@ -66,7 +69,7 @@ export class FlPortalActionDetail {
 
   public callAction(): Observable<FlPortalActionResult> {
     this.emitLoading();
-    this.action.action.subscribe({
+    this.subscription = this.action.action.subscribe({
       next: (result) => this.onSuccess(result),
       error: (error) => this.emitError(error),
     });
@@ -144,6 +147,23 @@ export class FlPortalActionDetail {
 
   public isFinished(): boolean {
     return this.getCurrentStatus() === 'success' || this.getCurrentStatus() === 'error';
+  }
+
+  public isTrackingHttpEvents(): boolean {
+    return this.action.trackHttpEvents;
+  }
+
+  public cancel(): void {
+    // only the tracking http event can be stopped, the others have not effect as the request
+    // is already on server
+    if (this.isTrackingHttpEvents()) {
+      // emit a cancel event
+      this.emitError('Canceled');
+
+      // unsubscribe the observable to kill request
+      // if this is a tracking http event
+      this.subscription?.unsubscribe();
+    }
   }
 }
 

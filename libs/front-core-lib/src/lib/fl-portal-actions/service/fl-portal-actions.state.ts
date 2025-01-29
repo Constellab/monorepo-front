@@ -60,8 +60,12 @@ export class FlPortalActionsState implements FlCleanableService {
     this.results$.next(result);
   }
 
-  public allActionFinished(): boolean {
+  public allActionAreFinished(): boolean {
     return this.actions$.value.every((action) => action.isFinished());
+  }
+
+  public containsRunningTrackHttpAction(): boolean {
+    return this.actions$.value.some((action) => !action.isFinished() && action.isTrackingHttpEvents());
   }
 
   /**
@@ -78,5 +82,11 @@ export class FlPortalActionsState implements FlCleanableService {
 
   clean(): void {
     this.actions$.next([]);
+  }
+
+  unsubscribeAll(): void {
+    for (const action of this.actions$.value) {
+      action.cancel();
+    }
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit, TrackByFunction, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FlPortalActionDetail } from '../../model/fl-portal-actions.class';
 import { Observable } from 'rxjs';
 import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
+import { FlPortalActionsService } from '../../service/fl-portal-actions.service';
 
 /**
  * Portal that pop at the bottom right of the screen that takes
@@ -14,18 +15,17 @@ import { FlPortalActionsState } from '../../service/fl-portal-actions.state';
   standalone: false,
 })
 export class FlPortalActionsComponent {
-  private actionsState = inject(FlPortalActionsState);
+  actions$: Observable<FlPortalActionDetail[]> = inject(FlPortalActionsState).getActions$();
 
-  actions$: Observable<FlPortalActionDetail[]>;
+  private actionPortalService = inject(FlPortalActionsService);
 
-  constructor() {
-    const actionsState = this.actionsState;
+  portalIsReduced: boolean = false;
 
-    this.actions$ = actionsState.getActions$();
+  closePortal(): void {
+    this.actionPortalService.closeActionsPortal();
   }
 
-  // track the action with symboles
-  trackBySymbole: TrackByFunction<FlPortalActionDetail> = (index: number, item: FlPortalActionDetail) => {
-    return item.symbol;
-  };
+  toggleReducePortal(): void {
+    this.portalIsReduced = !this.portalIsReduced;
+  }
 }

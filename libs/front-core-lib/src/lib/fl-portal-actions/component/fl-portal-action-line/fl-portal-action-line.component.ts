@@ -1,8 +1,12 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FlPortalActionDetail, FlPortalActionDetailStatusEvent } from '../../model/fl-portal-actions.class';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 
 /**
  * Component inside {@link FlPortalActionsComponent} that subscribe
@@ -15,21 +19,33 @@ import { map } from 'rxjs/operators';
   standalone: false,
 })
 export class FlPortalActionLineComponent implements OnInit {
-  private translateService = inject(FlTranslateService);
-
   @Input() action: FlPortalActionDetail;
 
   statusEvent$: Observable<FlPortalActionDetailStatusEvent>;
   link$: Observable<string | null>;
 
-  text: string;
+  private dialogService = inject(FlDialogService);
 
   ngOnInit(): void {
-    // translate the text if necessary
-    this.text = this.translateService.translatableText(this.action.text);
     this.statusEvent$ = this.action.getStatusEvent$();
     this.link$ = this.action
       .getResult$()
       .pipe(map((result) => (result.status === 'success' ? result.link : null)));
+  }
+
+  cancelAction(): void {
+    const dialogInput: FlConfirmDialogInput = {
+      title: 'flPortalAction.cancelAction',
+      content: 'flPortalAction.cancelActionConfirmation',
+    };
+
+    this.dialogService
+      .openConfirmDialog(dialogInput)
+      .afterClosed()
+      .subscribe((result: FlConfirmDialogResult) => {
+        if (result.choice) {
+          this.action.cancel();
+        }
+      });
   }
 }

@@ -1,12 +1,13 @@
 <div
   class="g-layout-row g-layout-between-center"
-  [matTooltip]="text"
-  matTooltipShowDelay="1000"
-  matTooltipPosition="above"
   [routerLink]="link$ | async"
   [ngClass]="{ link: link$ | async }">
-  <div class="text">
-    {{ text }}
+  <div
+    class="text"
+    [matTooltip]="action.text | flTranslatableText | async"
+    matTooltipShowDelay="1000"
+    matTooltipPosition="above">
+    {{ action.text | flTranslatableText | async }}
   </div>
 
   @if (statusEvent$ | async; as statusEvent) {
@@ -19,11 +20,24 @@
         <fl-loader [size]="24" class="icon"></fl-loader>
       }
       @case ('progress') {
-        <!--   loader the same size as the icons   -->
-        <fl-progress-loader
-          [percent]="$any(statusEvent).progressValue"
-          size="small"
-          class="icon"></fl-progress-loader>
+        <div class="progress-container">
+          <!--   loader the same size as the icons   -->
+          <fl-progress-loader
+            [percent]="$any(statusEvent).progressValue"
+            size="small"
+            class="progress-loader"></fl-progress-loader>
+
+          <button
+            mat-icon-button
+            class="warn cancel-button g-button-icon-small"
+            type="button"
+            (click)="cancelAction()"
+            [matTooltip]="'flPortalAction.cancelAction' | translate"
+            matTooltipPosition="before"
+          >
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </div>
       }
       @case ('success') {
         <mat-icon class="g-success-text icon">check_circle</mat-icon>

@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, inject } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlPortalActionsComponent } from './component/fl-portal-actions/fl-portal-actions.component';
 import { FlPortalActionLineComponent } from './component/fl-portal-action-line/fl-portal-action-line.component';
@@ -15,6 +15,7 @@ import { flPortalActionI18n } from './i18n/fl-portal-action.i18n';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 
 @NgModule({
   declarations: [FlPortalActionsComponent, FlPortalActionLineComponent],
@@ -31,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
     FlPortalModule,
     FlLoaderModule,
     FlTranslateModule,
+    FlDialogModule,
   ],
 })
 export class FlPortalActionsModule {
