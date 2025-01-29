@@ -13,7 +13,7 @@
               <!--   Header columns cells     -->
               <thead>
                 <tr>
-                  @for (column of columns$ | async; track trackHeaderById($index, column)) {
+                  @for (column of columns$ | async; track column.index) {
                     <sp-spreadsheet-header-cell
                       [index]="column.index"
                       [header]="column"
@@ -26,7 +26,7 @@
               </thead>
 
               <tbody>
-                @for (row of rows$ | async; track trackRowById($index, row)) {
+                @for (row of rows$ | async; track row.index) {
                   <tr>
                     <!--  Row header cells  -->
                     <sp-spreadsheet-header-cell

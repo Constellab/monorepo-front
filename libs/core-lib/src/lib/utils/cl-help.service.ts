@@ -1,5 +1,3 @@
-import { TrackByFunction } from '@angular/core';
-
 /**
  * Class with static method to simplify dev
  */
@@ -37,13 +35,6 @@ export class ClHelpService {
       return false;
     }
     return o1[fieldName] === o2[fieldName];
-  }
-
-  /**
-   * Track by id function for NgFor to track by id
-   */
-  public static trackByIdFunction(): TrackByFunction<{ id: any }> {
-    return (index: number, item: { id: string }): string => item.id;
   }
 
   /**

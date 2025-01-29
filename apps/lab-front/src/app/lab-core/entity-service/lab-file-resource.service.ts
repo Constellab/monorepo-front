@@ -34,7 +34,7 @@ export class LabFileResourceService {
   /**
    * Upload a folder to the serveur. This watch the http events to follow progress.
    */
-  public uploadFolder(folderTypingName: string, files: File[]): Observable<LabResource> {
+  public uploadFolder(folderTypingName: string, files: File[]): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     files.forEach((file) => formData.append('files', file));
 

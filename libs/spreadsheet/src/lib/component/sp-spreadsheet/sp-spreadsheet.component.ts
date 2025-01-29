@@ -6,7 +6,6 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TrackByFunction,
   ViewChild,
 } from '@angular/core';
 import { SpSpreadsheet } from '../../model/sp-spreadsheet.class';
@@ -98,9 +97,6 @@ export class SpSpreadsheetComponent implements OnInit, OnDestroy {
     );
     this.rows$ = this.scrollState.getRowsToDisplay$();
   }
-
-  trackRowById: TrackByFunction<SpSheetRow> = (index: number, header: SpSheetHeader) => header.index;
-  trackHeaderById: TrackByFunction<SpSheetHeader> = (index: number, header: SpSheetHeader) => header.index;
 
   ngOnDestroy(): void {
     this.scrollState.clear();

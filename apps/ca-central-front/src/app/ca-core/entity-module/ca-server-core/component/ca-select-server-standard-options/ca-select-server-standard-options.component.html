@@ -1,7 +1,7 @@
 <fl-infinite-scroll [datasource]="datasource">
-  <mat-option
-    *flForById="let serverStandard of datasource | flDatasourceConnect | async"
-    [value]="serverStandard">
-    {{ serverStandard.name }}
-  </mat-option>
+  @for (serverStandard of datasource | flDatasourceConnect | async; track serverStandard.id) {
+    <mat-option [value]="serverStandard">
+      {{ serverStandard.name }}
+    </mat-option>
+  }
 </fl-infinite-scroll>

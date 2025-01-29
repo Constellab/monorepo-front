@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlInputMaxLengthDirective } from './fl-input-max-length/fl-input-max-length.directive';
 import { FlPortalModule } from '../fl-portal/fl-portal.module';
-import { FlForByIdOfDirective } from './fl-for-by-id-of/fl-for-by-id-of.directive';
 import { FlMouseHoverDirective } from './fl-mouse-hover/fl-mouse-hover.directive';
 import { FlOutsideClickDirective } from './fl-outside-click/fl-outside-click.directive';
 import {
@@ -25,7 +24,6 @@ import { FlRecreateViewDirective } from './fl-recreate-view/fl-recreate-view.dir
 @NgModule({
   declarations: [
     FlInputMaxLengthDirective,
-    FlForByIdOfDirective,
     FlMouseHoverDirective,
     FlOutsideClickDirective,
     FlDisableAnimationInitDirective,
@@ -42,7 +40,6 @@ import { FlRecreateViewDirective } from './fl-recreate-view/fl-recreate-view.dir
   ],
   exports: [
     FlInputMaxLengthDirective,
-    FlForByIdOfDirective,
     FlMouseHoverDirective,
     FlOutsideClickDirective,
     FlDisableAnimationInitDirective,

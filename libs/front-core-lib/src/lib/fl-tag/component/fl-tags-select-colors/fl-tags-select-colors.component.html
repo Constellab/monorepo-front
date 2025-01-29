@@ -1,6 +1,6 @@
 @if (tagGroups?.length > 0) {
   <div class="g-layout-col container">
-    @for (tagGroup of tagGroups; track trackByGroupKey($index, tagGroup)) {
+    @for (tagGroup of tagGroups; track tagGroup.key) {
       <div class="group">
         <div class="g-full g-layout-row g-layout-between-center g-layout-gap-05em">
           <div>{{ tagGroup.key }}</div>
@@ -14,7 +14,7 @@
           </button>
         </div>
         <div class="g-text-small value-list g-styled-scrollbar">
-          @for (tagValue of tagGroup.tags; track trackByTag($index, tagValue)) {
+          @for (tagValue of tagGroup.tags; track tagValue.value) {
             <fl-chip
               size="small"
               class="tag g-layout-row g-layout-between-center g-layout-gap-05em"

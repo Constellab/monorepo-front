@@ -3,12 +3,11 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   Output,
-  TrackByFunction,
-  inject,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -48,10 +47,6 @@ export class FlTagsSelectColorsComponent implements OnInit, OnDestroy {
   tagGroups: FlTagGroupColor[];
 
   private subscription: Subscription;
-
-  // use track by function because the initTagGroups is called after each change(double binding with FlTagColorer)
-  trackByGroupKey: TrackByFunction<FlTagGroupColor> = (_: number, item: FlTagGroupColor) => item.key;
-  trackByTag: TrackByFunction<FlTagColor> = (_: number, item: FlTagColor) => item.value;
 
   ngOnInit(): void {
     this.subscription = this.tagColorer.getTags$().subscribe((tags) => this.initTagGroups(tags));
