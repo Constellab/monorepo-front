@@ -500,9 +500,13 @@ body {
   }
 
   /************************************* MAT TOOLTIP ***********************************/
-  .mat-tooltip {
-    font-size: 0.8rem;
-  }
+
+  // align text vertically
+  @include mat.tooltip-overrides(
+      (
+        supporting-text-line-height: 1.1rem,
+      )
+  );
 
   // use in the matTooltipClass to allow multiline in the tooltip with '\n'
   .g-tooltip-multiline {
