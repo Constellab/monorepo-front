@@ -56,10 +56,10 @@
       }
       @if (brick().gitRepo) {
         <div class="tech-info-div">
-          <span>
+          <div class="tech-info-div-title">
             {{ 'repo_git' | translate }} :
-            <ha-github-star-button [repo]="brick().gitRepo"></ha-github-star-button>
-          </span>
+            <ha-github-star-button [repoUrl]="brick().gitRepo"></ha-github-star-button>
+          </div>
           <div class="git-div">
             <p class="g-scrollable-element tech-info">{{ brick().gitRepo }}</p>
           </div>
@@ -75,9 +75,9 @@
         <div class="tech-info-div">
           {{ 'references' | translate }} :
           @for (r of directReferences(); track r) {
-            <p class="g-scrollable-element tech-info">
+            <div class="g-scrollable-element tech-info">
               <a [routerLink]="'/bricks/' + r.name">{{ r.name }}</a> v{{ r.version }}
-            </p>
+            </div>
           }
         </div>
       }

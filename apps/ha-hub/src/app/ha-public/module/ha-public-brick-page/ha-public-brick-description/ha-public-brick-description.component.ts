@@ -119,7 +119,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
       .afterClosed()
       .subscribe((brick) => {
         if (brick) {
-          this.brick = brick;
+          this.brickPageState.setBrick(brick);
         }
       });
   }

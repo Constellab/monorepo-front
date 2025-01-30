@@ -1,11 +1,10 @@
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID, Signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaMetadataService } from '../../../../ha-core/ha-service/ha-metadata.service';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { DOCUMENT } from '@angular/common';
-import { filter } from 'rxjs';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { filter, Subscription } from 'rxjs';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatIcon } from '@angular/material/icon';
@@ -33,14 +32,16 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class HaPublicBrickPageComponent implements OnInit {
+export class HaPublicBrickPageComponent implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-  private metadataService: HaMetadataService = inject(HaMetadataService);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private router: Router = inject(Router);
   private document: Document = inject(DOCUMENT);
+  private platformId = inject(PLATFORM_ID);
 
   brickListRoute: string = HaRouterService.getBrickListRoute();
+
+  t = 'A';
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;
@@ -48,9 +49,10 @@ export class HaPublicBrickPageComponent implements OnInit {
 
   isLatestVersion: boolean = true;
   currentVersion: string;
+  paramsSubscription: Subscription;
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       this.currentVersion = params.version;
 
       if (params.version != 'latest') {
@@ -69,6 +71,14 @@ export class HaPublicBrickPageComponent implements OnInit {
         this.setLatestBrickCanonicalUrl();
       }
     });
+
+    if (isPlatformServer(this.platformId)) {
+      this.t = 'ABC';
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSubscription?.unsubscribe();
   }
 
   private setLatestBrickCanonicalUrl(): void {

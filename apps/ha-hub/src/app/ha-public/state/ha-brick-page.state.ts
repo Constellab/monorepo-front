@@ -179,7 +179,6 @@ export class HaBrickPageState {
       this.brickStatusEvent.set({ status: 'error', error: 'brick_not_found' });
       return;
     }
-
     this.brickStatusEvent.set({ status: 'success', object: brick });
 
     this.initBrickRunStatAggregate(brick.id);

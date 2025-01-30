@@ -42,7 +42,7 @@
 
       <ha-comment-button
         [commentsCount]="agent().comments"
-        (clicked)="openCommentsPanel()"></ha-comment-button>
+        (clicked)="scrollToComments(comments)"></ha-comment-button>
 
       @if (isAuthor()) {
         <button
@@ -95,4 +95,8 @@
 
     <ha-agent-version-detail [isOverview]="true"></ha-agent-version-detail>
   }
+  <div #comments>
+    <ha-comments-section [commentType]="commentType" [entity]="agent()"
+                         [user]="currentUser()"></ha-comments-section>
+  </div>
 }

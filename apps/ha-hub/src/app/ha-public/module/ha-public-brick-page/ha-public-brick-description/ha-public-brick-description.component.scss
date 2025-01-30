@@ -108,7 +108,8 @@ h2 {
 .tech-info-div {
   margin-top: 15px;
 
-  span {
+
+  .tech-info-div-title {
     display: flex;
     flex-direction: row;
     gap: 1em;

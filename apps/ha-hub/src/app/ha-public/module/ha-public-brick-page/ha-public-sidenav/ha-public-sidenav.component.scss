@@ -40,13 +40,11 @@
   margin-top: 8px;
   padding: 7px 8px;
   border-radius: 10px;
-  background-color: var(--main-background);
   font-weight: 500;
 }
 
-.sidenav-item-selected {
-  color: var(--primary-contrast-color);
-  background: var(--primary-color);
+.sidenav-item-not-selected {
+  background-color: var(--main-background);
 }
 
 .sidenav-item > a {

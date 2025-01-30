@@ -7,20 +7,18 @@ import {
   EnvironmentInjector,
   EventEmitter,
   HostBinding,
+  inject,
   input,
   Input,
   OnDestroy,
   OnInit,
   Output,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { TeConfig } from '../../model/te-config.class';
 import { Subject, Subscription } from 'rxjs';
 import { EditorConfig } from '@editorjs/editorjs/types/configs/editor-config';
-import { FlHtmlHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlKeyboardHelper } from '@monorepo/front-core-lib/fl-core';
-import { FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
+import { FlHtmlHelper, FlKeyboardHelper, FlKeyboardKey } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { teGetI18nConfig } from '../../te-text-editor.i18n';
 import { TeMention } from '../../plugin/te-mention.class';
@@ -111,6 +109,12 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   }
 
   private onDisableChange(disable: boolean): void {
+    if (disable) {
+      this.destroyListeners();
+    } else {
+      this.createListeners();
+    }
+
     if (this.editor == null || this.editor.readOnly == null) return;
     if (disable !== this.editor.readOnly.isEnabled) {
       // if we disable it, we save the content first because the save
@@ -120,12 +124,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       } else {
         this.editor.readOnly.toggle(false);
       }
-    }
-
-    if (disable) {
-      this.destroyListeners();
-    } else {
-      this.createListeners();
     }
   }
 
@@ -152,7 +150,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
       // a blank line is added
       this.renderValue(this.richTextAggregate.richText);
     });
-
     this.textEditorUndoRedo = new TeTextEditorUndoRedo(this.editor);
   }
 
@@ -275,7 +272,6 @@ export class TeTextEditorBrowserSideComponent implements OnInit, OnDestroy {
   undoEvent(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-
     this.textEditorUndoRedo.undoEvent(this.richTextAggregate);
 
     this.skipNextChange = true;

@@ -50,7 +50,7 @@
               [isLiked]="storyIsLiked"
               [likesCount]="story.likes"></ha-like-button>
             <ha-comment-button
-              (clicked)="openCommentsPannel()"
+              (clicked)="scrollToComments(comments)"
               [commentsCount]="story.comments"></ha-comment-button>
           </div>
           @if (hasRightToEdit) {
@@ -70,6 +70,10 @@
           [config]="textEditorConfig"
           class="g-scrollable-element border-none"></te-text-editor>
       </article>
+      <div #comments>
+        <ha-comments-section [commentType]="commentType" [entity]="story"
+                             [user]="currentUser"></ha-comments-section>
+      </div>
     </div>
   </div>
 } @else if (notFound) {

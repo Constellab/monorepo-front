@@ -8,16 +8,10 @@ import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
 import {
-  HaCommentsPortalComponent,
-  HaCommentsPortalData,
-} from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-portal/ha-comments-portal.component';
-import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
-import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaAgentPageState } from '../../state/ha-agent-page.state';
@@ -44,6 +38,9 @@ import { HaRunStatAggregatePanelComponent } from '../../../ha-core/ha-component/
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 
 @Component({
   selector: 'ha-agent-overview',
@@ -68,6 +65,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     ReactiveFormsModule,
     HaAgentVersionDetailComponent,
     TranslatePipe,
+    HaCommentsSectionComponent,
   ],
 })
 export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit {
@@ -75,11 +73,12 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
   private activeRoute: ActivatedRoute = inject(ActivatedRoute);
   private authService: HaAuthService = inject(HaAuthService);
   private likeService: HaLikeService = inject(HaLikeService);
-  private portalService: FlPortalService = inject(FlPortalService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private router: Router = inject(Router);
   private agentPageState: HaAgentPageState = inject(HaAgentPageState);
   private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
+
+  commentType: HaCommentType = HaCommentType.AGENT_COMMENT;
 
   profileRoute = HaRouterService.getProfileRoute();
 
@@ -103,6 +102,8 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
   });
 
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
+
+  currentUser: Signal<HaUser> = this.agentPageState.getCurrentUser();
 
   agentIsLiked: Signal<boolean> = this.agentPageState.getIsLiked();
 
@@ -176,14 +177,8 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
     });
   }
 
-  openCommentsPanel(): void {
-    this.portalService
-      .createPortal(HaCommentsPortalComponent, this.portalService.getRightSidePortalConfig(), {
-        user: this.agentPageState.getCurrentUser()(),
-        entity: this.agent(),
-        commentType: HaCommentType.AGENT_COMMENT,
-      } as HaCommentsPortalData)
-      .detachments();
+  scrollToComments(commentsSection: any): void {
+    commentsSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
   toggleLikeAgentButton(): void {

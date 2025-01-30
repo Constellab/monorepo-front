@@ -125,7 +125,8 @@
              priority />
         <span> {{ usersCount$ | async }} {{ ('members' | translate).toUpperCase() }} </span>
       </div>
-      <ha-github-star-button [repo]="gwsCoreRepoLink" [icon]="'octicon-mark-github'"></ha-github-star-button>
+      <ha-github-star-button [repoUrl]="gwsCoreRepoLink"
+                             [icon]="'octicon-mark-github'"></ha-github-star-button>
       <a target="_blank" [href]="gLabLink" class="docker-pull-link" rel="noopener noreferrer">
         <div class="docker-pull-image">
           <img ngSrc="https://img.shields.io/docker/pulls/constellab/glab" alt="Docker pull image" fill

@@ -1,8 +1,20 @@
-import { Component, Input, OnInit, PLATFORM_ID, Renderer2, Signal, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  OnDestroy,
+  PLATFORM_ID,
+  Renderer2,
+  Signal,
+  ViewChild,
+} from '@angular/core';
 import { GitHubButtonProps } from 'github-buttons';
 import { HaThemeState } from '../../ha-state/ha-theme.state';
-import { ClTheme } from '@monorepo/core-lib';
+import { ClSubscriptionHandler, ClTheme } from '@monorepo/core-lib';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'ha-github-star-button',
@@ -10,22 +22,38 @@ import { ClTheme } from '@monorepo/core-lib';
   templateUrl: './ha-github-star-button.component.html',
   styleUrl: './ha-github-star-button.component.scss',
 })
-export class HaGithubStarButtonComponent implements OnInit {
+export class HaGithubStarButtonComponent implements AfterViewInit, OnDestroy {
   private renderer = inject(Renderer2);
-  private platformId = inject(PLATFORM_ID);
   private themeState = inject(HaThemeState);
+  private platformId = inject(PLATFORM_ID);
 
-  @Input({ required: true }) repo: string;
-  @Input() title: string = 'Stars';
-  @Input() icon: 'octicon-star' | 'octicon-mark-github' = 'octicon-star';
+  repoUrl = input.required<string>();
+  title = input<string>('Stars');
+  icon = input<'octicon-star' | 'octicon-mark-github'>('octicon-star');
 
+  validRepoUrl = computed(() => {
+    const repo = this.repoUrl();
+    return repo.replace('.git', '');
+  });
   isDarkTheme: Signal<boolean> = this.themeState.isDarkTheme;
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId) && this.isValidGithubRepo(this.repo)) {
-      this.renderButton(this.isDarkTheme() ? 'dark' : 'light');
-      this.themeState.onThemeChange$.subscribe((theme) => {
-        this.renderButton(theme == ClTheme.DARK_THEME ? 'dark' : 'light');
+  @ViewChild('githubStarBtDiv', {
+    static: true,
+    read: ElementRef,
+  })
+  githubStarBtDiv: ElementRef<HTMLDivElement>;
+
+  subscriptionHandler: ClSubscriptionHandler = new ClSubscriptionHandler();
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId) && this.isValidGithubRepo(this.validRepoUrl())) {
+      import('github-buttons').then((module) => {
+        this.renderButton(module, this.isDarkTheme() ? 'dark' : 'light');
+        const themeSubscription = this.themeState.onThemeChange$.subscribe((theme: ClTheme) => {
+          this.githubStarBtDiv.nativeElement.innerHTML = '';
+          this.renderButton(module, theme === ClTheme.DARK_THEME ? 'dark' : 'light');
+        });
+        this.subscriptionHandler.add(themeSubscription);
       });
     }
   }
@@ -39,27 +67,26 @@ export class HaGithubStarButtonComponent implements OnInit {
     return repo.match(/https:\/\/github.com\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/?/g) != null;
   }
 
-  renderButton(colorScheme: 'dark' | 'light'): void {
-    // TODO: check theme dynamically to update button theme on theme change
-    import('github-buttons').then((module) => {
-      // create the iframe element + place it in the div
-      module.render(
-        {
-          href: this.repo,
-          title: this.title,
-          'data-show-count': true,
-          'data-color-scheme': colorScheme,
-          'data-size': 'large',
-          'data-icon': this.icon,
-          'data-text': 'Stars',
-          'aria-label': 'Stars',
-        } as GitHubButtonProps,
-        (el: HTMLIFrameElement | HTMLSpanElement) => {
-          const githubButtonDiv = document.getElementById('github-star-bt-div');
-          githubButtonDiv.innerHTML = '';
-          this.renderer.appendChild(githubButtonDiv, el);
-        }
-      );
-    });
+  renderButton(module: any, colorScheme: 'dark' | 'light'): void {
+    // create the iframe element + place it in the div
+    module.render(
+      {
+        href: this.validRepoUrl(),
+        title: this.title(),
+        'data-show-count': true,
+        'data-color-scheme': colorScheme,
+        'data-size': 'large',
+        'data-icon': this.icon(),
+        'data-text': 'Stars',
+        'aria-label': 'Stars',
+      } as GitHubButtonProps,
+      (el: HTMLIFrameElement | HTMLSpanElement) => {
+        this.renderer.appendChild(this.githubStarBtDiv.nativeElement, el);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionHandler.unsubscribe();
   }
 }
