@@ -50,7 +50,7 @@
             </fl-key-value>
             <div class="g-text-small">
               {{ 'learn_more_about' | translate }}
-              <a [href]="foaLink" target="_blank" rel="noopener noreferrer" class="foa-a" [>{{
+              <a [href]="foaLink" target="_blank" rel="noopener noreferrer" class="foa-a">{{
                   'foa' | translate
               }}</a>
             </div>
@@ -86,10 +86,9 @@
         @if (stories$ && stories$.page) {
           <mat-tab>
             <ng-template matTabLabel>
-              <fl-text-icon>
-                <mat-icon>description</mat-icon>
-                {{ 'stories' | translate }} - <span>{{ stories$.page.totalElements }}</span>
-              </fl-text-icon>
+              <mat-icon>description</mat-icon>
+              {{ 'stories' | translate }} - <span
+              class="num-elements-span">{{ stories$.page.totalElements }}</span>
             </ng-template>
             <fl-infinite-scroll
               [datasource]="stories$"
@@ -110,10 +109,9 @@
           @if (agents$ && agents$.page) {
             <mat-tab>
               <ng-template matTabLabel>
-                <fl-text-icon>
-                  <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
-                  {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
-                </fl-text-icon>
+                <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
+                {{ 'agents' | translate }} - <span
+                class="num-elements-span">{{ agents$.page.totalElements }}</span>
               </ng-template>
               <fl-infinite-scroll
                 [datasource]="agents$"
@@ -133,10 +131,9 @@
           @if (bricks$ && bricks$.page) {
             <mat-tab>
               <ng-template matTabLabel>
-                <fl-text-icon>
-                  <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
-                  {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
-                </fl-text-icon>
+                <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
+                {{ 'bricks' | translate }} - <span
+                class="num-elements-span">{{ bricks$.page.totalElements }}</span>
               </ng-template>
               <fl-infinite-scroll
                 [datasource]="bricks$"
