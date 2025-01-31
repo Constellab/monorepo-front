@@ -174,5 +174,5 @@ export interface LmlDockerErrorLogs {
 
 export interface LmlNewVersionAvailable {
   recommendedVersion: string;
-  currentVersion: string;
+  currentVersion?: string;
 }

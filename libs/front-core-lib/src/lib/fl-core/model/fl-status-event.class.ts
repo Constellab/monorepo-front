@@ -30,9 +30,19 @@ export function flStatutEventSuccess<T>() {
   return (source: Observable<FlStatusEvent<T>>): Observable<T> => {
     return source.pipe(
       filter((event: FlStatusEvent) => event && event.status === 'success'),
-      // if the lowercase flag is true, change the input to lowercase
       map((event: FlStatusEvent) => (event as FlStatusEventSuccess).object)
     );
+  };
+}
+
+/**
+ * Operator to filter FlStatusEvent to return event only when status is success or error
+ */
+export function flStatutEventResponse<T>() {
+  return (source: Observable<FlStatusEvent<T>>): Observable<FlStatusEventSuccess<T> | FlStatusEventError> => {
+    return source.pipe(
+      filter((event: FlStatusEvent) => event && (event.status === 'success' || event.status === 'error')),
+    ) as Observable<FlStatusEventSuccess<T> | FlStatusEventError>;
   };
 }
 

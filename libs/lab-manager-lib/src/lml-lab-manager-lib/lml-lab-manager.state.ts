@@ -1,7 +1,7 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlStatusEvent, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
+import { FlStatusEvent, flStatutEventResponse, flStatutEventSuccess } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
 
 import { BehaviorSubject, combineLatest, distinct, filter, first, Observable } from 'rxjs';
@@ -347,10 +347,12 @@ export class LmlLabManagerState implements OnDestroy {
   }
 
   public getNewLabManagerVersion$(): Observable<LmlNewVersionAvailable> {
-    return combineLatest([this.getStatus$(), this.labManagerService.getLabManagerRecommendedVersion()]).pipe(
+    // use getStatusEvent$ to enable update lab manager update event is lab manager status is error
+    const status$ = this.getStatusEvent$().pipe(flStatutEventResponse());
+    return combineLatest([status$, this.labManagerService.getLabManagerRecommendedVersion()]).pipe(
       map(([labManagerStatus, recommendedVersion]) => {
         return {
-          currentVersion: labManagerStatus?.version,
+          currentVersion: labManagerStatus.status === 'success' ? labManagerStatus?.object.version : null,
           recommendedVersion,
         };
       })
