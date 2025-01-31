@@ -22,7 +22,7 @@
   );
 
   // set the color of the mat-button and mat-stroked because by default
-  &.mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
+  &.mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(.mat-mdc-button-disabled) {
     color: var(--mat-sys-primary);
   }
 }
@@ -186,7 +186,7 @@
     @include _theme_overrides($theme-type, theme.$accent-palette, theme.$warn-palette);
 
     // set the default color of mat-button and mat-stroked without theme to white/black
-    .mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(:disabled) {
+    .mdc-button:not(.mdc-button--raised):not(.mdc-button--unelevated):not(.mat-mdc-button-disabled) {
       color: var(--mat-sys-on-surface);
     }
   }
