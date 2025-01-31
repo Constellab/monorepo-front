@@ -13,10 +13,9 @@ import { CaLabService } from '../../../../ca-core/service-api/ca-lab.service';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 
 /**
  * Dialog to show information about the codelab of a lab
@@ -30,13 +29,11 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatDialogContent,
     FlSectionModule,
     FlKeyValueModule,
-    MatIconButton,
-    MatTooltip,
-    MatIcon,
     MatDialogActions,
     MatButton,
     MatDialogClose,
     TranslatePipe,
+    FlCoreComponentModule,
   ],
 })
 export class CaLabCodelabInfoComponent implements OnInit {

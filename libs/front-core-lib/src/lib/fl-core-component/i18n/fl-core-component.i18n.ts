@@ -17,6 +17,9 @@ const flCoreComponentI18nFr: FlLangTranslation = {
     tera_byte_symbole: 'To',
     pin: 'Épingler',
     unpin: 'Désépingler',
+    copy_to_clipboard: 'Cliquer pour copier dans le presse-papier',
+    copied_to_clipboard: 'Copié dans le presse-papier',
+    show: 'Afficher',
   },
 };
 
@@ -31,6 +34,9 @@ const flCoreComponentI18nEn: FlLangTranslation = {
     tera_byte_symbole: 'TB',
     pin: 'Pin',
     unpin: 'Unpin',
+    copy_to_clipboard: 'Click to copy to clipboard',
+    copied_to_clipboard: 'Copied to clipboard',
+    show: 'Show',
   },
 };
 

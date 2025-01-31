@@ -13,7 +13,5 @@
   {{ adminerDbInfo().username }}
 </fl-key-value>
 
-<fl-key-value>
-  <fl-key>{{ 'lml.adminer_password' | translate }}</fl-key>
-  <span class="password">{{ adminerDbInfo().password }}</span>
-</fl-key-value>
+<fl-password-hidden [password]="adminerDbInfo().password" [label]="'lml.adminer_password' | translate">
+</fl-password-hidden>

@@ -46,6 +46,7 @@ import { LmlAdminerDbInfoComponent } from './component/lml-adminer-db-info/lml-a
 import { MatTableModule } from '@angular/material/table';
 import { MatSortHeader } from '@angular/material/sort';
 import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-container-error-dialog/lml-docker-container-error-dialog.component';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { LmlDockerContainerErrorDialogComponent } from './component/lml-docker-c
     CoCommunityLibModule,
     FlIconModule,
     MatSortHeader,
+    FlCoreComponentModule,
   ],
 })
 export class LmlLabManagerLibModule {

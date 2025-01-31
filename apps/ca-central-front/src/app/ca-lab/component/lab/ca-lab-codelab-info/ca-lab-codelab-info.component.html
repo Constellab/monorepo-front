@@ -19,23 +19,8 @@
         {{ codelabInfo.username }}
       </fl-key-value>
 
-      <div class="g-layout-row g-layout-between-center">
-        <div>
-          <span class="g-text-link" (click)="copyToTokenToClipboard(codelabInfo)">{{
-            'codelab_token_click_to_copy' | translate
-          }}</span>
-          @if (showCodeLabToken) {
-            <span> : {{ codelabInfo.token }}</span>
-          }
-        </div>
-        <button
-          mat-icon-button
-          type="button"
-          (click)="toggleShowCodeLabToken()"
-          [matTooltip]="(showCodeLabToken ? 'hide_codelab_token' : 'show_codelab_token') | translate">
-          <mat-icon>{{ showCodeLabToken ? 'visibility_off' : 'visibility' }}</mat-icon>
-        </button>
-      </div>
+      <fl-password-hidden [password]="codelabInfo.token" [label]="'codelab_token' | translate">
+      </fl-password-hidden>
 
       <fl-key-value>
         <fl-key>{{ 'codelab_more_info' | translate }}</fl-key>

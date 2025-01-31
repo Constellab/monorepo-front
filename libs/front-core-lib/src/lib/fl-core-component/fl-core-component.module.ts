@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlFileTextIconComponent } from './component/fl-file-text-icon/fl-file-text-icon.component';
 import { FlTextIconModule } from '../fl-text-icon/fl-text-icon.module';
 import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
+import { FlPasswordHiddenComponent } from './component/fl-password-hidden/fl-password-hidden.component';
 
 /**
  * Core modules containing components
@@ -44,6 +45,7 @@ import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
     FlErrorTextComponent,
     FlPinUnpinButtonComponent,
     FlFileTextIconComponent,
+    FlPasswordHiddenComponent,
   ],
   exports: [
     FlLimitHeightComponent,
@@ -54,6 +56,7 @@ import { FlIconModule } from '../fl-svg-icon/fl-icon.module';
     FlErrorTextComponent,
     FlPinUnpinButtonComponent,
     FlFileTextIconComponent,
+    FlPasswordHiddenComponent,
   ],
   imports: [
     CommonModule,
