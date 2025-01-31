@@ -21,15 +21,13 @@
       </div>
     </div>
 
-    @if (!portalIsReduced) {
-      <div class="g-layout-col">
-        @for (action of actions$ | async; track action.symbol) {
-          <div>
-            <fl-portal-action-line [action]="action"></fl-portal-action-line>
-            <mat-divider></mat-divider>
-          </div>
-        }
-      </div>
-    }
+    <div class="g-layout-col" [ngClass]="{ hide: portalIsReduced }">
+      @for (action of actions$ | async; track action.symbol) {
+        <div>
+          <fl-portal-action-line [action]="action"></fl-portal-action-line>
+          <mat-divider></mat-divider>
+        </div>
+      }
+    </div>
   </fl-portal-content>
 </fl-portal>

@@ -7,3 +7,9 @@
 .content {
   padding-right: 0.3em;
 }
+
+// only hide the content and not use @if because the
+// if the observable is complete the status is not retrieve when if is true
+.hide {
+  display: none;
+}
