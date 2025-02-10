@@ -443,12 +443,22 @@ export class PrWorkflowLayer {
 
     const outputPort: PrWorkflowPort = outputNode.findOutputPortByName(connection.fromPort);
     if (outputPort == null) {
-      console.error("[PrProtocol] can't find output port with name " + connection.fromPort);
+      console.error(
+        "[PrProtocol] can't find output port with name " +
+          connection.fromPort +
+          ' in node ' +
+          outputNode.instanceName
+      );
       return null;
     }
     const inputPort: PrWorkflowPort = inputNode.findInputPortByName(connection.toPort);
     if (inputPort == null) {
-      console.error("[PrProtocol] can't find input port with name " + connection.toPort);
+      console.error(
+        "[PrProtocol] can't find input port with name " +
+          connection.toPort +
+          ' in node ' +
+          inputNode.instanceName
+      );
       return null;
     }
 
