@@ -13,8 +13,7 @@
 }
 
 .monitoring-div {
-  background-color: white;
   padding: 0.5em;
-  border-radius: 12px;
+  border-radius: var(--card-radius);
   margin-top: 1em;
 }
