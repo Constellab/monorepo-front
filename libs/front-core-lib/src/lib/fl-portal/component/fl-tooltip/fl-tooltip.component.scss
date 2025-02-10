@@ -1,10 +1,11 @@
 .tooltip {
-  color: #fff;
   border-radius: 4px;
   margin: 14px;
   max-width: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: var(--card-background);
   padding: 6px 8px;
+  // same color as tooltip
+  background-color: var(--mdc-plain-tooltip-container-color, var(--mat-sys-inverse-surface));
+  color: var(--mdc-plain-tooltip-supporting-text-color, var(--mat-sys-inverse-on-surface));
 }
