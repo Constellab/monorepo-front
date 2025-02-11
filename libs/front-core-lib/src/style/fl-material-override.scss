@@ -32,10 +32,16 @@ body {
 
   @mixin g-form-field-compact-height {
     &.mat-form-field-appearance-outline {
-      --mdc-icon-button-icon-size: 18px;
       @include mat.form-field-density(-5);
-      // reduce size of the icon and button icon
-      @include mat.icon-button-density(-5);
+
+      .mat-mdc-icon-button {
+        @include mat.icon-button-overrides(
+          (
+            icon-size: 18px,
+            state-layer-size: 35px,
+          )
+        );
+      }
     }
 
     .mat-mdc-form-field-icon-prefix > .mat-icon,
@@ -210,19 +216,19 @@ body {
 
   .g-button-grey {
     @include mat.button-overrides(
-        (
-          filled-container-color: var(--card-background),
-          filled-label-text-color: var(--color-foreground),
-        )
+      (
+        filled-container-color: var(--card-background),
+        filled-label-text-color: var(--color-foreground),
+      )
     );
   }
 
   /***************************** Table *****************************/
 
   @include mat.table-overrides(
-      (
-        row-item-label-text-size: 12px,
-      )
+    (
+      row-item-label-text-size: 12px,
+    )
   );
   // set the border to the table because last line does not have it
   mat-table.mat-mdc-table {
@@ -503,9 +509,9 @@ body {
 
   // align text vertically
   @include mat.tooltip-overrides(
-      (
-        supporting-text-line-height: 1.1rem,
-      )
+    (
+      supporting-text-line-height: 1.1rem,
+    )
   );
 
   // use in the matTooltipClass to allow multiline in the tooltip with '\n'
@@ -549,10 +555,10 @@ body {
   /************************************* MAT CHIPS ***********************************/
   .g-chips-grey-round {
     @include mat.chips-overrides(
-        (
-          elevated-container-color: var(--hover-color),
-          container-shape-radius: var(--card-radius),
-        )
+      (
+        elevated-container-color: var(--hover-color),
+        container-shape-radius: var(--card-radius),
+      )
     );
   }
 }
