@@ -148,6 +148,7 @@
   "lab_entity_type_NOTE_TEMPLATE": "Template de document",
   "lab_usage_period_to": "Date de fin",
   "lab_usage_period_from": "Date de début",
+  "lab_usage_period_hour": "Heure",
   "lab_usage_period": "Période",
   "lab_usage_period_CURRENT_DAY": "Aujourd'hui",
   "lab_usage_period_LAST_HOUR": "Dernière heure",

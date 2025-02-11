@@ -113,6 +113,8 @@
     "streamlit_process": "Processus streamlit",
     "other": "Autre",
     "system_config": "Configuration système",
-    "python_version": "Version de Python"
+    "python_version": "Version de Python",
+    "global": "Global",
+    "details": "Détails"
   }
 }

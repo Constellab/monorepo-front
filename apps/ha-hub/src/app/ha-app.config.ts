@@ -8,18 +8,13 @@ import {
   TransferState,
 } from '@angular/core';
 import { haAppRoutes } from './ha-app-routes';
-import {
-  FL_CAPTCHA_MODULE_CONFIG,
-  FlCaptchaModule,
-  FlCaptchaModuleConfig,
-} from '@monorepo/front-core-lib/fl-captcha';
+import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
-  FlLuxonDateAdapter,
   flLuxonDateFormat,
   flMatFormFieldConfig,
   flSetRootInjector,
@@ -39,11 +34,7 @@ import { HaTdServiceConfig } from './ha-core/ha-model/ha-config/ha-td-service.co
 import { HaAuthService } from './ha-core/ha-service/ha-auth.service';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 import { haSvgIcons } from './ha-core/utils/ha-svg-icon-config';
-import {
-  RV_MODULE_CONFIG,
-  RvResourceViewModule,
-  RvResourceViewModuleBasicConfig,
-} from '@monorepo/resource-view';
+import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { HaCoServiceConfig } from './ha-core/ha-model/ha-config/ha-co-service.config';
 import {
@@ -66,6 +57,7 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import {
   BrowserModule,
   provideClientHydration,
@@ -119,13 +111,11 @@ export const haAppConfig: ApplicationConfig = {
       FlDialogModule.forRoot(),
       FlPortalModule.forRoot(),
       FlPortalActionsModule.forRoot(),
-      FlCaptchaModule,
       FlIconModule.forRoot({
         iconFolder: 'assets/fl-mat-icons/',
         iconsToRegister: haSvgIcons,
       }),
       FlUserModule.forRoot(HaUserConfig),
-      RvResourceViewModule,
       TdTechnicalDocModule.forRoot(HaTdServiceConfig),
       CoCommunityLibModule.forRoot(HaCoServiceConfig)
     ),
@@ -163,7 +153,7 @@ export const haAppConfig: ApplicationConfig = {
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: flMatFormFieldConfig },
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
     // configure the date picker to work with luxon
-    { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+    { provide: DateAdapter, useClass: LuxonDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
   ],
 };

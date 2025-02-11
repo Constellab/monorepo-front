@@ -1,7 +1,6 @@
 import { environment } from './environments/lms-environment';
 import {
   flLoadEnvironmentFromAssets,
-  FlLuxonDateAdapter,
   flLuxonDateFormat,
   flMatFormFieldConfig,
   flSetRootInjector,
@@ -41,6 +40,7 @@ import { LmsCoServiceConfig } from './app/config/lms-co-service.config';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LmsUserConfig } from './app/config/lms-user.config';
 import { LmsAppComponent } from './app/lms-app.component';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -99,7 +99,7 @@ function bootstrapApp(): void {
       // tooltip default config
       { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
       // configure the date picker to work with luxon
-      { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+      { provide: DateAdapter, useClass: LuxonDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
       { provide: LmlBrickService, useClass: LmsLabManagerBrickService },
       provideHttpClient(withInterceptorsFromDi()),

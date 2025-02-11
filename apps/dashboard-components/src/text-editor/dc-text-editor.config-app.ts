@@ -6,12 +6,7 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  flTooltipConfig,
-} from '@monorepo/front-core-lib/fl-core';
+import { flLuxonDateFormat, flMatFormFieldConfig, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
@@ -24,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 // Token use to inject config from streamlit to angular app
 export const DC_APP_DATA = new InjectionToken('DC_APP_DATA');
@@ -39,7 +35,7 @@ export function dcTextEditorGetAppConfig(data: any): ApplicationConfig {
       { provide: DC_APP_DATA, useValue: data },
 
       // configure the date picker to work with luxon
-      { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+      { provide: DateAdapter, useClass: LuxonDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
 
       // form field default config

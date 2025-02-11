@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { TeElementBlockDirective } from '../../model/te-element.directive';
 import { DateTime } from 'luxon';
 import { TeTimestampFormat } from '../../block/te-timestamp-block.class';
@@ -27,14 +27,12 @@ export class TeTimestampComponent extends TeElementBlockDirective {
 
   @Input() format?: TeTimestampFormat;
 
-  constructor() {
-    super();
-  }
+  defaultFormat: TeTimestampFormat = 'DATE_TIME_WITH_SECONDS';
 
   openSettings(): void {
     const data: TeTimestampConfigDialogInput = {
       timestamp: this.timestamp,
-      format: this.format,
+      format: this.format ?? this.defaultFormat,
     };
 
     this.dialogService

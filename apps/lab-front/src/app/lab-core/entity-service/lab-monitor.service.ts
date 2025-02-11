@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { DateTime } from 'luxon';
-import { LabMonitor, LabMonitorGraphicsBetweenDates } from '../model/entities/lab-monitor.entity';
+import { LabCurrentMonitorDTO, LabMonitorGraphicsBetweenDates } from '../model/entities/lab-monitor.entity';
 import { ClDateHelper } from '@monorepo/core-lib';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class LabMonitorService {
 
   private readonly route = 'monitor';
 
-  public getLastMonitor(): Observable<LabMonitor> {
-    return this.apiService.get(`${this.route}/current`, LabMonitor);
+  public getCurrentMonitor(): Observable<LabCurrentMonitorDTO> {
+    return this.apiService.get(`${this.route}/current`, LabCurrentMonitorDTO);
   }
 
   public getMonitorGraphics(

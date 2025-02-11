@@ -1,0 +1,36 @@
+<fl-card>
+  <fl-card-header>
+    <fl-text-icon>
+      <h2>{{ 'monitoring.global' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body>
+    <fl-async-section [object]="currentMonitor$">
+      <ng-container *flSectionBody="currentMonitor$ as currentMonitor">
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.lab_disk_space' | translate }}</fl-key>
+          {{ currentMonitor.monitor.diskUsageUsed | flByteText }}
+          / {{ currentMonitor.monitor.diskTotal | flByteText }} ({{
+            currentMonitor.monitor.diskUsageFree | flByteText
+          }}
+          {{ 'monitoring.disk_space_available' | translate }})
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.number_of_processes' | translate }}</fl-key>
+          {{ currentMonitor.monitor.cpuCount }}
+        </fl-key-value>
+        <fl-key-value>
+          <fl-key>{{ 'monitoring.total_memory' | translate }}</fl-key>
+          {{ currentMonitor.monitor.ramUsageTotal | flByteText }}
+        </fl-key-value>
+        @if (currentMonitor.monitor.gpuEnabled) {
+          <fl-key-value>
+            <fl-key>{{ 'monitoring.gpu_ram_total' | translate }}</fl-key>
+            {{ currentMonitor.monitor.gpuMemoryTotal | flByteText }}
+          </fl-key-value>
+        }
+      </ng-container>
+    </fl-async-section>
+  </fl-card-body>
+</fl-card>

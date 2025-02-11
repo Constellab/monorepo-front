@@ -7,16 +7,27 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="timestamp-form" [formGroup]="formGp">
-    <!--  Timestamp  -->
-    <fl-form-field>
-      <fl-datetime-picker formControlName="timestamp" [placeholder]="'teTextEditor.timestamp' | translate">
-      </fl-datetime-picker>
-      @if (formGp.get('timestamp').hasError('required')) {
-        <mat-error>
-          {{ 'teTextEditor.timestamp' | flErrorRequired }}
-        </mat-error>
-      }
-    </fl-form-field>
+    <div class="g-layout-row-wrap g-layout-between-center ">
+      <!--  Timestamp  -->
+      <mat-form-field class="field">
+        <mat-label>{{ 'teTextEditor.timestamp_format_date' | translate }}</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="timestamp" />
+        <mat-datepicker #datepicker />
+        <mat-datepicker-toggle [for]="datepicker" matSuffix />
+        @if (formGp.get('timestamp').hasError('required')) {
+          <mat-error>
+            {{ 'teTextEditor.timestamp_format_date' | flErrorRequired }}
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <mat-label>{{ 'teTextEditor.timestamp_format_time' | translate }}</mat-label>
+        <input matInput [matTimepicker]="timepicker" formControlName="timestamp" />
+        <mat-timepicker #timepicker />
+        <mat-timepicker-toggle [for]="timepicker" matSuffix />
+      </mat-form-field>
+    </div>
 
     <!--  Format  -->
     <mat-form-field class="g-form-input">

@@ -16,7 +16,6 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   flLoadEnvironmentFromAssets,
   FlLocalStorageService,
-  FlLuxonDateAdapter,
   flLuxonDateFormat,
   flMatFormFieldConfig,
   flSetRootInjector,
@@ -64,6 +63,7 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { LabCoServiceConfig } from './app/lab-core/model/config/lab-co-service-config.service';
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { labMainRoutes } from './app/lab-main/lab-main-routes';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -163,7 +163,7 @@ function bootstrapApp(): void {
       // tooltip default config
       { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
       // configure the date picker to work with luxon
-      { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+      { provide: DateAdapter, useClass: LuxonDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
     ],
   }).catch((err) => console.error(err));

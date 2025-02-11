@@ -148,6 +148,7 @@
   "lab_entity_type_NOTE_TEMPLATE": "Note template",
   "lab_usage_period_to": "To date",
   "lab_usage_period_from": "From date",
+  "lab_usage_period_hour": "Hour",
   "lab_usage_period": "Period",
   "lab_usage_period_CURRENT_DAY": "Current day",
   "lab_usage_period_LAST_HOUR": "Last hour",

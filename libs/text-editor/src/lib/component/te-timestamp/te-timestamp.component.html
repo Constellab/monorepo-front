@@ -4,7 +4,7 @@
     @if (format === 'FROM_NOW') {
       <fl-from-now [date]="timestamp"></fl-from-now>
     } @else {
-      {{ timestamp | flDate: format ?? 'DATE_TIME_WITH_SECONDS' }}
+      {{ timestamp | flDate: format ??defaultFormat }}
     }
   </fl-text-icon>
 

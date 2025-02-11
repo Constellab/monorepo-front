@@ -107,3 +107,21 @@ export class LabMonitorGraphicsBetweenDates {
   @Expose({ name: 'gpu_enabled' })
   gpuEnabled: boolean;
 }
+
+export class LabMonitorFreeDiskDTO {
+  @Expose({ name: 'required_disk_free_space' })
+  requiredDiskFreeSpace: number;
+
+  @Expose({ name: 'disk_usage_free' })
+  diskUsageFree: number;
+}
+
+export class LabCurrentMonitorDTO {
+  @Expose({ name: 'monitor' })
+  @Type(() => LabMonitor)
+  monitor: LabMonitor;
+
+  @Expose({ name: 'free_disk' })
+  @Type(() => LabMonitorFreeDiskDTO)
+  freeDisk: LabMonitorFreeDiskDTO;
+}

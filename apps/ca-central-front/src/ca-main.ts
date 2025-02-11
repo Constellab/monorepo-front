@@ -1,11 +1,7 @@
 import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
 
 import { environment } from './environments/ca-environment';
-import {
-  FL_CAPTCHA_MODULE_CONFIG,
-  FlCaptchaModule,
-  FlCaptchaModuleConfig,
-} from '@monorepo/front-core-lib/fl-captcha';
+import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
   FlHttpInterceptorService,
@@ -19,7 +15,6 @@ import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import {
   flLoadEnvironmentFromAssets,
-  FlLuxonDateAdapter,
   flLuxonDateFormat,
   flMatFormFieldConfig,
   flSetRootInjector,
@@ -40,11 +35,7 @@ import {
 } from '@angular/common/http';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaEnvironmentHelper } from './app/ca-core/utils/ca-environment.helper';
-import {
-  RV_MODULE_CONFIG,
-  RvResourceViewModule,
-  RvResourceViewModuleBasicConfig,
-} from '@monorepo/resource-view';
+import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
 import { TranslateLoader } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { LmlBrickService } from '@monorepo/lab-manager-lib';
@@ -76,6 +67,7 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -125,11 +117,9 @@ function bootstrapApp(): void {
         FlDialogModule.forRoot(),
         FlSnackBarModule.forRoot(),
         FlPortalModule.forRoot(),
-        FlCaptchaModule,
         FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
         FlPortalActionsModule.forRoot(),
         FlUserModule.forRoot(CaUserConfig),
-        RvResourceViewModule,
         BnBioNetworkModule.forRoot(),
         TdTechnicalDocModule.forRoot(CaTdServiceConfig),
         CoCommunityLibModule.forRoot(CaCoServiceConfig)
@@ -169,7 +159,7 @@ function bootstrapApp(): void {
       { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
 
       // configure the date picker to work with luxon
-      { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+      { provide: DateAdapter, useClass: LuxonDateAdapter },
       { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
     ],
   }).catch((err) => console.error(err));

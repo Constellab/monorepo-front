@@ -10,12 +10,7 @@ import {
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
-import {
-  FlLuxonDateAdapter,
-  flLuxonDateFormat,
-  flMatFormFieldConfig,
-  flTooltipConfig,
-} from '@monorepo/front-core-lib/fl-core';
+import { flLuxonDateFormat, flMatFormFieldConfig, flTooltipConfig } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionsModule } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
@@ -29,6 +24,7 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { LmsApiServiceConfig } from './config/lms-api-module.config';
 import { LmsApiErrorService } from './service/lms-api-error.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 export function translationLoaderFactory(
   http: HttpClient,
@@ -78,7 +74,7 @@ export const lmsAppConfig: ApplicationConfig = {
     { provide: MAT_TOOLTIP_DEFAULT_OPTIONS, useValue: flTooltipConfig },
 
     // configure the date picker to work with luxon
-    { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
+    { provide: DateAdapter, useClass: LuxonDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
   ],
 };

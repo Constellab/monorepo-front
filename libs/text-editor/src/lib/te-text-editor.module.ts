@@ -1,4 +1,4 @@
-import { Injector, NgModule, PLATFORM_ID, inject } from '@angular/core';
+import { inject, Injector, NgModule, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { TeTextEditorComponent } from './component/te-text-editor/te-text-editor.component';
 import { TeFormulaComponent } from './component/te-formula/te-formula.component';
@@ -7,7 +7,6 @@ import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-componen
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { FlDatetimePickerModule } from '@monorepo/front-core-lib/fl-datetime-picker';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlEmojiPickerModule } from '@monorepo/front-core-lib/fl-emoji-picker';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
@@ -19,8 +18,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 import { TeTitleCaptionComponent } from './component/te-title-caption/te-title-caption.component';
@@ -62,6 +60,8 @@ import { TeTimestampComponent } from './component/te-timestamp/te-timestamp.comp
 import { TeTimestampConfigDialogComponent } from './component/te-timestamp-config-dialog/te-timestamp-config-dialog.component';
 import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-text-editor-save.component';
 import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @NgModule({
   declarations: [
@@ -125,7 +125,6 @@ import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
     FlCoreComponentModule,
     FlDateModule,
     FlTextIconModule,
-    FlDatetimePickerModule,
     FlFormModule,
 
     MatDialogModule,
@@ -141,6 +140,8 @@ import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 
     RouterLink,
     NgOptimizedImage,
+    MatDatepickerModule,
+    MatTimepickerModule,
   ],
 })
 export class TeTextEditorModule {
