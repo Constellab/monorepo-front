@@ -1,4 +1,5 @@
 import { Expose, Type } from 'class-transformer';
+import { LabMonitorFreeDiskDTO } from '../entities/lab-monitor.entity';
 
 export class LabSpace {
   id: string;
@@ -28,4 +29,10 @@ export class LabPipPackage {
 export class LabSystemConfig {
   python_version: string;
   pip_packages: LabPipPackage[];
+}
+
+export class LabSystemStatus {
+  @Expose({ name: 'free_disk' })
+  @Type(() => LabMonitorFreeDiskDTO)
+  freeDisk: LabMonitorFreeDiskDTO;
 }

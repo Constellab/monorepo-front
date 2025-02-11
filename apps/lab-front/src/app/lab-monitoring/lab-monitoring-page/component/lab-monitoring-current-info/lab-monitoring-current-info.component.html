@@ -8,6 +8,8 @@
   <fl-card-body>
     <fl-async-section [object]="currentMonitor$">
       <ng-container *flSectionBody="currentMonitor$ as currentMonitor">
+        <lab-monitor-disk [freeDisk]="currentMonitor.freeDisk"></lab-monitor-disk>
+
         <fl-key-value>
           <fl-key>{{ 'monitoring.lab_disk_space' | translate }}</fl-key>
           {{ currentMonitor.monitor.diskUsageUsed | flByteText }}

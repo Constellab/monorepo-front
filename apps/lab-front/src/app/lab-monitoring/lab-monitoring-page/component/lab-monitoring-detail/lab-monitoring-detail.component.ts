@@ -78,8 +78,10 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
     customStartDate?: DateTime,
     customEndDate?: DateTime
   ): void {
-    let fromDate = customStartDate;
-    let toDate = customEndDate;
+    if (this.formGroup.invalid) return;
+    let fromDate = null;
+    let toDate = null;
+
     switch (period) {
       case LabMonitoringRunPeriod.CURRENT_DAY:
         fromDate = ClDateHelper.getDate().startOf('day');
@@ -98,9 +100,16 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
         toDate = ClDateHelper.getDate();
         break;
       case LabMonitoringRunPeriod.CUSTOM:
-        fromDate = this.formGroup.get('customStartDate').value;
-        toDate = this.formGroup.get('customEndDate').value;
+        fromDate = customStartDate;
+        toDate = customEndDate;
         break;
+    }
+
+    if (fromDate) {
+      console.log(fromDate.toISO());
+    }
+    if (toDate) {
+      console.log(toDate.toISO());
     }
 
     if (!fromDate || !toDate) return;

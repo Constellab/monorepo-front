@@ -55,6 +55,10 @@ export class LabProgressBar extends LabEntity {
   @Expose({ name: 'second_start' })
   @ClLuxonDateTimeTransform()
   secondStart: DateTime;
+
+  isRunning(): boolean {
+    return this.startedAt != null && !this.endedAt;
+  }
 }
 
 /**

@@ -115,6 +115,7 @@
     "system_config": "System configuration",
     "python_version": "Python version",
     "global": "Global",
-    "details": "Details"
+    "details": "Details",
+    "free_disk_limit_reached": "Warning: the free disk space limit ({{limit}}) has been reached. To ensure proper functioning of the data lab you will no longer be able to run scenarios or upload files. Please clean the data lab or increase the disk space."
   }
 }

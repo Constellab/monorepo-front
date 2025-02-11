@@ -102,10 +102,10 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     // init live mode and show live mode toggle on first load
     // enable live mode if the progress bar is not completed
     if (this.liveMode == null) {
-      this.liveMode = progressBar.endedAt == null;
+      this.liveMode = progressBar.isRunning();
     }
     if (this.showLiveModeToggle == null) {
-      this.showLiveModeToggle = progressBar.endedAt != null;
+      this.showLiveModeToggle = progressBar.isRunning();
     }
     // get the last 20 messages
     return this.progressBarService
@@ -156,13 +156,14 @@ export class LabProgressBarInfoComponent implements OnInit, OnDestroy {
     if (progressWithMessage.progressBar) {
       // refresh the live mode and show live mode toggle,
       // if the progress bar is completed, the live mode is disabled automatically
-      this.liveMode = progressWithMessage.progressBar.endedAt == null;
-      this.showLiveModeToggle = progressWithMessage.progressBar.endedAt != null;
+      this.liveMode = progressWithMessage.progressBar.isRunning();
+      this.showLiveModeToggle = progressWithMessage.progressBar.isRunning();
     }
 
     this.messageDatasource.addItem(progressWithMessage.messages.messages, (a, b) => a.datetime > b.datetime);
 
-    // if the number of messages is less than the number of messages requested, it means that there is no more messages
+    // if the number of messages is less than the number of messages requested,
+    // it means that there is no more messages
     if (progressWithMessage.messages.messages.length < this.nbOfMessages) {
       this.loadMoreCompleted = true;
     } else if (this.liveMode && progressWithMessage.messages.messages.length >= this.nbOfMessages) {

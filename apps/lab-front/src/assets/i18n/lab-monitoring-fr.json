@@ -115,6 +115,7 @@
     "system_config": "Configuration système",
     "python_version": "Version de Python",
     "global": "Global",
-    "details": "Détails"
+    "details": "Détails",
+    "free_disk_limit_reached_fr": "Attention : la limite d'espace disque libre ({{limit}}) a été atteinte. Pour garantir le bon fonctionnement du data lab, vous ne pourrez plus lancer de scénarios ou uploader de fichiers. Merci de nettoyer le data lab ou d'augmenter l'espace disque."
   }
 }

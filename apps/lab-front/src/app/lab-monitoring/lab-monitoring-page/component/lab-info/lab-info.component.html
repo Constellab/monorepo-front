@@ -63,5 +63,9 @@
         </fl-text-icon>
       }
     }
+
+    @if (systemStatus$ | async; as systemStatus) {
+      <lab-monitor-disk [freeDisk]="systemStatus.freeDisk" class="disk-info"></lab-monitor-disk>
+    }
   </fl-card-body>
 </fl-card>

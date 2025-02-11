@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
-import { LabSystemInfo } from '../../../../lab-core/model/global/lab-system.class';
+import { LabSystemInfo, LabSystemStatus } from '../../../../lab-core/model/global/lab-system.class';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -18,6 +18,9 @@ import { MatIcon } from '@angular/material/icon';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { LabMonitorDiskComponent } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-disk/lab-monitor-disk.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'lab-info',
@@ -31,6 +34,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlKeyValueModule,
     MatButton,
     TranslatePipe,
+    LabMonitorDiskComponent,
+    AsyncPipe,
   ],
 })
 export class LabInfoComponent implements OnInit {
@@ -41,6 +46,8 @@ export class LabInfoComponent implements OnInit {
 
   labInfo: LabSystemInfo;
   isLoading: boolean = true;
+
+  systemStatus$: Observable<LabSystemStatus> = this.systemService.getSystemStatus();
 
   ngOnInit(): void {
     this.systemService.getSystemInfo().subscribe({

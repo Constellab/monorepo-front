@@ -1,9 +1,13 @@
-import { Injectable, inject } from '@angular/core';
-import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
-import { FlServerError } from '@monorepo/front-core-lib/fl-api';
+import { inject, Injectable } from '@angular/core';
+import { FlApiWithCacheService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LabPipPackage, LabSystemConfig, LabSystemInfo } from '../model/global/lab-system.class';
+import {
+  LabPipPackage,
+  LabSystemConfig,
+  LabSystemInfo,
+  LabSystemStatus,
+} from '../model/global/lab-system.class';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { LabEnvStore } from './lab-env.store';
 
@@ -18,6 +22,10 @@ export class LabSystemService {
 
   public getSystemInfo(): Observable<LabSystemInfo> {
     return this.apiService.get(`${this.route}/info`, LabSystemInfo);
+  }
+
+  public getSystemStatus(): Observable<LabSystemStatus> {
+    return this.apiService.get(`${this.route}/status`, LabSystemStatus);
   }
 
   /**

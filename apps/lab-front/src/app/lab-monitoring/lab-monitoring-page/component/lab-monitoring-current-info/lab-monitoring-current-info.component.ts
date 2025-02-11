@@ -8,6 +8,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import {
+  LabMonitorDiskComponent,
+} from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-disk/lab-monitor-disk.component';
 
 /**
  * Show the current monitoring information.
@@ -21,6 +24,7 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
     FlCardModule,
     FlTextIconModule,
     FlSectionModule,
+    LabMonitorDiskComponent,
   ],
   templateUrl: './lab-monitoring-current-info.component.html',
   styleUrl: './lab-monitoring-current-info.component.scss',
