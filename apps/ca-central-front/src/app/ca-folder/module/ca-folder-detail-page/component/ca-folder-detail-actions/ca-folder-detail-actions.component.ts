@@ -25,6 +25,7 @@ import { FlInputFileModule } from '@monorepo/front-core-lib/fl-input-file';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 @Component({
   selector: 'ca-folder-detail-actions',
@@ -52,6 +53,7 @@ export class CaFolderDetailActionsComponent {
   private folderActionService = inject(CaFolderActionService);
   private securityService = inject(CaSecurityService);
   private routerService = inject(CaRouterService);
+  private hierarchyObjectState = inject(CaHierarchyObjectDetailState);
 
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
@@ -70,7 +72,8 @@ export class CaFolderDetailActionsComponent {
         leader: folder.leader,
       },
       isRootFolder,
-      this.state.getUsers()
+      this.state.getUsers(),
+      this.hierarchyObjectState.getTags()
     );
 
     folderActionsMenu.openDetailActionMenu(event).subscribe((event) => {

@@ -4,7 +4,7 @@
       @for (tag of tagList; track tag) {
         <fl-tag
           [flTag]="tag"
-          class="tag"
+          [ngClass]="{'selectable-tag': tagSelectable}"
           [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
           (deleteTag)="deleteTag(tag)"
           (click)="showTagDetail(tag, $event)"></fl-tag>
@@ -14,7 +14,7 @@
     @if (showNoTagMessage && tags.isEmpty()) {
       <div class="g-full-height g-layout-col g-layout-center-start">
         <div class="g-text-small g-text-light">
-          {{ 'no_tags' | translate }}
+          {{ 'no_tag' | translate }}
         </div>
       </div>
     }

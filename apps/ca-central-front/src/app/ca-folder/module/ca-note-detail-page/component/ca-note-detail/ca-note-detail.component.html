@@ -20,32 +20,23 @@
         <mat-icon>print</mat-icon>
       </button>
 
-      <button mat-icon-button [matMenuTriggerFor]="menu">
+      <button mat-icon-button (click)="openActionMenu(note, $event)">
         <mat-icon>more_vert</mat-icon>
       </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <button mat-menu-item type="button" (click)="toggleNoteHistoryPanel(note)">
-          <mat-icon>history</mat-icon>
-          <span>{{ 'history' | translate }}</span>
-        </button>
-
-        <button mat-menu-item type="button" (click)="deleteNote()" *caIsAdmin class="warn">
-          <mat-icon>delete</mat-icon>
-          <span class="delete-text">{{ 'delete_note' | translate }}</span>
-        </button>
-      </mat-menu>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <!--  Validated info  -->
-    @if (note.isValidated) {
-      <ca-validated-object-info class="separator" [object]="note"></ca-validated-object-info>
-    }
-
     <div class="g-print-hide">
+      <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
+
+      <!--  Validated info  -->
+      @if (note.isValidated) {
+        <ca-validated-object-info class="g-text-small" [object]="note"></ca-validated-object-info>
+      }
+
       <!-- Sync info -->
-      <ca-sync-object-info class="separator" [object]="note"></ca-sync-object-info>
+      <ca-sync-object-info class="g-text-small" [object]="note"></ca-sync-object-info>
 
       <!--  Created by & Last modified bt  -->
       <fl-creation-info
@@ -56,6 +47,7 @@
         class="g-text-small g-text-light"
         [user]="note.lastModifiedBy"
         [date]="note.lastModifiedAt"></fl-last-modification-info>
+
     </div>
 
     <ca-note-content [noteId]="note.id" class="note-content"></ca-note-content>

@@ -2,19 +2,20 @@ import { Component, inject } from '@angular/core';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { Observable } from 'rxjs';
-import {
-  CaHierarchyObjectType,
-} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
 import {
-  CaHierarchyObjectIconComponent
+  CaHierarchyObjectIconComponent,
 } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import {
-  CaNotificationMarkDirective
+  CaNotificationMarkDirective,
 } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 /**
  * Show detailed information for a folder , used in FolderDetailPage
@@ -29,6 +30,7 @@ import {
     FlFormModule,
     FlUserModule,
     AsyncPipe,
+    FlTagModule,
   ],
 })
 export class CaFolderDetailComponent {
@@ -36,8 +38,7 @@ export class CaFolderDetailComponent {
 
   folder$: Observable<CaFolder> = this.state.getFolder$();
   canEdit$: Observable<boolean> = this.state.canEditFolder$();
-
-  folderObjectType = CaHierarchyObjectType.FOLDER;
+  tags = inject(CaHierarchyObjectDetailState).getTags();
 
   private folderService = inject(CaFolderService);
 

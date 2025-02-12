@@ -65,6 +65,9 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
       if (data instanceof Array) {
         this.array = data;
       } else if (data instanceof Observable) {
+        if (!this.isEmpty()) {
+          this.array = [];
+        }
         data.subscribe({
           next: (array) => (this.array = array),
           error: (error) => this.error(error, true),
@@ -250,6 +253,10 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     this.array$.next(array);
     // update the status to success
     this.status = { status: 'success', result: array };
+  }
+
+  public setData(data: T[] | Observable<T[]>): void {
+    this.initData(data);
   }
 
   /**

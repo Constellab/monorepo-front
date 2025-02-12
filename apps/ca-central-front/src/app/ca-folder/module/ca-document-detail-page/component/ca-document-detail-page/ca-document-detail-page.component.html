@@ -24,6 +24,8 @@
           </fl-card-actions>
         </div>
 
+        <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
+
         <div class="g-print-hide doc-header">
           @if (document.inTrash) {
             <div class="g-warn-text">

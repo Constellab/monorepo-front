@@ -14,7 +14,7 @@ import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import {
   CaHierarchyObjectDetailState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
@@ -30,17 +30,15 @@ import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import {
-  TeTextEditorModule,
-} from '@monorepo/text-editor';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
-  CaConstellabDocumentHistoryService
+  CaConstellabDocumentHistoryService,
 } from '../../../../../ca-core/service/ca-constellab-document-history.service';
 import {
-  CaHierarchyObjectBreadcrumbComponent
+  CaHierarchyObjectBreadcrumbComponent,
 } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
@@ -62,6 +60,7 @@ import {
     ReactiveFormsModule,
     NgClass,
     TranslatePipe,
+    FlTagModule,
   ],
 })
 export class CaDocumentDetailPageComponent implements OnInit {
@@ -82,6 +81,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
   textEditorConfig: CaDocumentTextEditorConfig;
   contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
+
+  tags = this.state.getTags();
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => this.init(params.id));
@@ -133,10 +134,11 @@ export class CaDocumentDetailPageComponent implements OnInit {
       document.basicInfo,
       this.constellabDocumentService,
       this.portalService,
-      this.textEditorConfig
+      this.textEditorConfig,
+      this.state.getTags()
     );
 
-    documentActionMenu.openActionMenu(false, event).subscribe((event) => {
+    documentActionMenu.openDetailActionsMenu(event).subscribe((event) => {
       this.onDocumentAction(event);
     });
   }

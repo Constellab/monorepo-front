@@ -35,29 +35,20 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import {
-  CaHierarchyObjectSearchFields,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import { CaResourceService } from '../../../../../ca-core/service-api/ca-resource.service';
-import {
-  CaHierarchyObjectBreadcrumbComponent,
-} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
-import {
-  CaFolderDetailActionsComponent,
-} from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
-import {
-  CaHierarchyObjectSearchFormComponent,
-} from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
+import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  CaFolderActionService,
-} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 
 /**
  * Page for a folder detail
@@ -92,6 +83,7 @@ export class CaFolderDetailPageComponent implements OnInit {
     'name',
     'user',
     'lastModifiedAt',
+    'tags',
     'statusIcons',
     'customAction',
   ];
@@ -109,6 +101,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   private securityService = inject(CaSecurityService);
   private resourceService = inject(CaResourceService);
   private snackBarService = inject(FlSnackBarService);
+  private noteService = inject(CaNoteService);
 
   constructor() {
     this.state.init(this.getIds$());
@@ -178,6 +171,8 @@ export class CaFolderDetailPageComponent implements OnInit {
       CaHierarchyObjectType.DOCUMENT,
       CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
       CaHierarchyObjectType.RESOURCE,
+      CaHierarchyObjectType.NOTE,
+      CaHierarchyObjectType.SCENARIO,
     ].includes(hierarchyObject.objectType);
   }
 
@@ -261,6 +256,7 @@ export class CaFolderDetailPageComponent implements OnInit {
       this.menuDynamicService,
       this.securityService,
       this.resourceService,
+      this.noteService,
       hierarchyObject
     );
     service

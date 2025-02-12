@@ -6,12 +6,16 @@ import {
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
-import { mergeMap, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaSecurityService } from '../../../service/ca-security.service';
 import { CaFolderActionService } from '../ca-folder-action.service';
-import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectTagDatasource,
+} from '../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectBaseActionMenu } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaFolderActionEvent =
   | {
@@ -35,28 +39,29 @@ export type CaFolderActionEvent =
       folder: CaHierarchyObject;
     };
 
-export class CaFolderActionsMenu {
-  protected subject: Subject<CaFolderActionEvent> = new Subject();
-
+export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolderActionEvent> {
   constructor(
-    protected dialogService: FlDialogService,
+    dialogService: FlDialogService,
     protected folderActionService: CaFolderActionService,
-    protected menuDynamicService: FlMenuDynamicService,
+    menuDynamicService: FlMenuDynamicService,
     protected securityService: CaSecurityService,
-    protected folderInfo: CaFolderInfo
-  ) {}
+    protected folderInfo: CaFolderInfo,
+    tags?: CaHierarchyObjectTagDatasource
+  ) {
+    super(dialogService, menuDynamicService, folderInfo.id, tags);
+  }
 
   /**
    * Open the action menu for the folder in the table
    */
   public openTableItemActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
-    const menu: FlMenuDynamic[] = [this.getOpenFolderButton()];
+    const menu: FlMenuDynamic[] = [this.getOpenFolderButton(), this.getManageTagsButton()];
 
     if (this.canEditFolder()) {
       menu.push(this.getUpdateFolderButton(), this.getMoveToFolderButton(), this.getDeleteFolderButton());
     }
 
-    return this.openActionMenu(menu, event);
+    return this.generateMenu(menu, event);
   }
 
   /**
@@ -73,10 +78,10 @@ export class CaFolderActionsMenu {
       },
     ];
 
-    return this.openActionMenu(menu, event);
+    return this.generateMenu(menu, event);
   }
 
-  public getCreateChildButton(): FlMenuDynamic {
+  protected getCreateChildButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: { text: 'create_sub_folder', translateText: true },
@@ -85,7 +90,7 @@ export class CaFolderActionsMenu {
     };
   }
 
-  public getOpenFolderButton(): FlMenuDynamic {
+  protected getOpenFolderButton(): FlMenuDynamic {
     return {
       type: 'link',
       text: { text: 'open_folder', translateText: true },
@@ -94,7 +99,7 @@ export class CaFolderActionsMenu {
     };
   }
 
-  public getUpdateFolderButton(): FlMenuDynamic {
+  protected getUpdateFolderButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: { text: 'update_folder', translateText: true },
@@ -103,7 +108,7 @@ export class CaFolderActionsMenu {
     };
   }
 
-  public getMoveToFolderButton(): FlMenuDynamic {
+  protected getMoveToFolderButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: { text: 'move_to_folder', translateText: true },
@@ -112,7 +117,7 @@ export class CaFolderActionsMenu {
     };
   }
 
-  public getDeleteFolderButton(): FlMenuDynamic {
+  protected getDeleteFolderButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: { text: 'delete_folder', translateText: true },
@@ -120,22 +125,6 @@ export class CaFolderActionsMenu {
       onClick: () => this.openDeleteFolderDialog(),
       color: 'warn',
     };
-  }
-
-  protected openActionMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<CaFolderActionEvent> {
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
-
-    return overlayRef.detachments().pipe(
-      mergeMap((menu: FlMenuDynamic) => {
-        // when the menu was closed without clicking a button
-        // we have to complete the subject
-        // if the menu was a button, the subject will be completed in the button action
-        if (!menu || menu.type !== 'button') {
-          this.subject.complete();
-        }
-        return this.subject.asObservable();
-      })
-    );
   }
 
   protected canEditFolder(): boolean {

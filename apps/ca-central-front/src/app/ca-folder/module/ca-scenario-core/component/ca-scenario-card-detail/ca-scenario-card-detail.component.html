@@ -8,12 +8,16 @@
 
       <fl-card-actions>
         <fl-status-chip [status]="scenario().status"></fl-status-chip>
+
+        <button mat-icon-button (click)="openActionMenu($event)" class="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
       </fl-card-actions>
     </fl-card-header>
   }
 
   <fl-card-body>
-    <ca-scenario-info [scenario]="scenario()"></ca-scenario-info>
+    <ca-scenario-info [scenario]="scenario()" [tags]="tags"></ca-scenario-info>
 
     <div class="g-text-centered open-button">
       @if (scenarioRoute()) {

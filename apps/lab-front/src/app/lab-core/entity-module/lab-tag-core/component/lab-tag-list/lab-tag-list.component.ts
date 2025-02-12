@@ -12,7 +12,7 @@ import {
 } from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 
@@ -20,7 +20,16 @@ import { MatIconButton } from '@angular/material/button';
   selector: 'lab-tag-list',
   templateUrl: './lab-tag-list.component.html',
   styleUrls: ['./lab-tag-list.component.scss'],
-  imports: [FlTagModule, MatTooltip, TranslatePipe, FlCorePipeModule, AsyncPipe, MatIcon, MatIconButton],
+  imports: [
+    FlTagModule,
+    MatTooltip,
+    TranslatePipe,
+    FlCorePipeModule,
+    AsyncPipe,
+    MatIcon,
+    MatIconButton,
+    NgClass,
+  ],
 })
 export class LabTagListComponent implements OnInit {
   private dialogService = inject(FlDialogService);
@@ -70,6 +79,7 @@ export class LabTagListComponent implements OnInit {
   }
 
   showTagDetail(tag: LabTag, event: MouseEvent): void {
+    if (!this.tagSelectable) return;
     ClHelpService.stopEventPropagation(event);
     const config = this.portalService.configureRelativePortalFromMouseEvent(
       event,

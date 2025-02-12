@@ -5,6 +5,7 @@ import { CaUser } from '../ca-user.class';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaEntity } from '../ca-entity.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 
 export enum CaHierarchyObjectType {
   FOLDER = 'FOLDER',
@@ -111,3 +112,5 @@ export class CaHierarchyObjectWithChildren extends CaHierarchyObject {
     return Object.assign(new CaHierarchyObjectWithChildren(), folder, { children: [] });
   }
 }
+
+export type CaHierarchyObjectTagDatasource = FlTagDatasource;

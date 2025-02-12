@@ -1,0 +1,34 @@
+<fl-dialog-header>
+  <fl-text-icon>
+    <mat-icon>local_offer</mat-icon>
+    {{ 'tags' | translate }}
+  </fl-text-icon>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <!-- Existing/Delete section -->
+  <h2>{{ 'existing_tags' | translate }}</h2>
+  <fl-tag-list
+    class="tag-list"
+    [tags]="tags"
+    [showDeleteIcon]="true"
+    (tagDeleted)="deleteExistingTag($event)"
+    [showNoTagMessage]="true"></fl-tag-list>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <!-- Add section -->
+  <h2>{{ 'add_tags_to_entity' | translate }}</h2>
+
+  <fl-add-tag-input class="section" (addTag)="addTag($event)"></fl-add-tag-input>
+
+  <fl-tag-list
+    class="tag-list"
+    [tags]="newTags"
+    [showDeleteIcon]="true"
+    (tagDeleted)="removeNewTag($event)"></fl-tag-list>
+
+  <button mat-flat-button type="button" (click)="saveTags()" class="g-centered-forced add-button primary">
+    {{ 'add_tags_to_entity' | translate }}
+  </button>
+</mat-dialog-content>

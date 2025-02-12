@@ -1,50 +1,37 @@
 import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
-import { mergeMap, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectBaseActionMenu } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaResourceActionEvent = {
   action: 'deleteResource';
   resource: CaResourceBasicInfo;
 };
 
-export class CaResourceActionMenu {
-  protected subject: Subject<CaResourceActionEvent> = new Subject();
-
+export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaResourceActionEvent> {
   constructor(
     private resourceService: CaResourceService,
-    protected menuDynamicService: FlMenuDynamicService,
-    private dialogService: FlDialogService,
-    protected resourceInfo: CaResourceBasicInfo
-  ) {}
+    menuDynamicService: FlMenuDynamicService,
+    dialogService: FlDialogService,
+    private resourceInfo: CaResourceBasicInfo,
+    tags?: CaHierarchyObjectTagDatasource
+  ) {
+    super(dialogService, menuDynamicService, resourceInfo.id, tags);
+  }
 
   public openActionMenu(event: MouseEvent): Observable<CaResourceActionEvent> {
-    const menu = this.generateTableItemActionMenu();
-
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
-
-    return overlayRef.detachments().pipe(
-      mergeMap((menu: FlMenuDynamic) => {
-        // when the menu was closed without clicking a button
-        // we have to complete the subject
-        // if the menu was a button, the subject will be completed in the button action
-        if (!menu || menu.type !== 'button') {
-          this.subject.complete();
-        }
-        return this.subject.asObservable();
-      })
-    );
+    const menu = [this.getOpenInLabButton(), this.getManageTagsButton(), this.getDeleteResourceButton()];
+    return this.generateMenu(menu, event);
   }
 
-  private generateTableItemActionMenu(): FlMenuDynamic[] {
-    return [this.getOpenInLabButton(), this.getDeleteResourceButton()];
-  }
-
-  public getDeleteResourceButton(): FlMenuDynamic {
+  private getDeleteResourceButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: 'delete_resource',
@@ -75,7 +62,7 @@ export class CaResourceActionMenu {
     this.subject.complete();
   }
 
-  public getOpenInLabButton(): FlMenuDynamic {
+  private getOpenInLabButton(): FlMenuDynamic {
     return {
       type: 'button',
       text: 'open_resource_in_lab',

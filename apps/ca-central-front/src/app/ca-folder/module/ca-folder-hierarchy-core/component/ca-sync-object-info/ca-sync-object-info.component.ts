@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CaFolderObject } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -11,7 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'ca-sync-object-info',
   templateUrl: './ca-sync-object-info.component.html',
   styleUrls: ['./ca-sync-object-info.component.scss'],
-  imports: [MatIcon, FlUserModule, TranslatePipe],
+  imports: [FlUserModule, TranslatePipe],
 })
 export class CaSyncObjectInfoComponent {
   @Input() object: CaFolderObject;

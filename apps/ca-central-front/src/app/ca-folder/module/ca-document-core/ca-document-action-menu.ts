@@ -18,7 +18,7 @@ import {
 } from '../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
 import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
-import { mergeMap, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
   TeCompleteConfig,
@@ -26,6 +26,8 @@ import {
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
 import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-constellab-document-history.service';
+import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectBaseActionMenu } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaDocumentActionEvent =
   | {
@@ -37,36 +39,25 @@ export type CaDocumentActionEvent =
       document: CaDocumentBasicInfo;
     };
 
-export class CaDocumentActionMenu {
-  private subject: Subject<CaDocumentActionEvent> = new Subject();
-
+export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocumentActionEvent> {
   constructor(
-    private dialogService: FlDialogService,
+    dialogService: FlDialogService,
     private folderService: CaFolderService,
-    private menuDynamicService: FlMenuDynamicService,
+    menuDynamicService: FlMenuDynamicService,
     private actionService: FlPortalActionsService,
-    protected documentInfo: CaDocumentBasicInfo
-  ) {}
-
-  public openActionMenu(showLinks: boolean, event: MouseEvent): Observable<CaDocumentActionEvent | null> {
-    const menu = this.generateActionMenu(showLinks);
-
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
-
-    return overlayRef.detachments().pipe(
-      mergeMap((menu: FlMenuDynamic) => {
-        // when the menu was closed without clicking a button
-        // we have to complete the subject
-        // if the menu was a button, the subject will be completed in the button action
-        if (!menu || menu.type !== 'button') {
-          this.subject.complete();
-        }
-        return this.subject.asObservable();
-      })
-    );
+    protected documentInfo: CaDocumentBasicInfo,
+    tags?: CaHierarchyObjectTagDatasource
+  ) {
+    super(dialogService, menuDynamicService, documentInfo.id, tags);
   }
 
-  protected generateActionMenu(showLinks: boolean): FlMenuDynamic[] {
+  public openDefaultActionMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {
+    const menu = this.getDefaultMenuItems(true);
+
+    return this.generateMenu(menu, event);
+  }
+
+  protected getDefaultMenuItems(showLinks: boolean): FlMenuDynamic[] {
     if (this.documentInfo.inTrash) {
       return this.getTrashMenu();
     }
@@ -90,6 +81,8 @@ export class CaDocumentActionMenu {
         });
       }
     }
+
+    menu.push(this.getManageTagsButton());
 
     menu.push({
       type: 'button',
@@ -132,7 +125,7 @@ export class CaDocumentActionMenu {
     ];
   }
 
-  renameDocument(): void {
+  private renameDocument(): void {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'update',
       object: { name: this.documentInfo.name },
@@ -155,7 +148,7 @@ export class CaDocumentActionMenu {
     this.subject.complete();
   }
 
-  moveToTrash(): void {
+  private moveToTrash(): void {
     const input: FlConfirmDialogInput = {
       title: 'move_document_to_trash',
       content: 'move_document_to_trash_confirmation',
@@ -179,7 +172,7 @@ export class CaDocumentActionMenu {
     this.subject.complete();
   }
 
-  restoreFromTrash(): void {
+  private restoreFromTrash(): void {
     const input: FlConfirmDialogInput = {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
@@ -203,7 +196,7 @@ export class CaDocumentActionMenu {
     this.subject.complete();
   }
 
-  deleteDocument(): void {
+  private deleteDocument(): void {
     const input: FlConfirmDialogInput = {
       title: 'delete_document',
       content: 'delete_document_confirmation',
@@ -281,14 +274,15 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
     documentInfo: CaDocumentBasicInfo,
     private constellabDocumentService: CaConstellabDocumentHistoryService,
     private portalService: FlPortalService,
-    private textEditorConfig: TeCompleteConfig
+    private textEditorConfig: TeCompleteConfig,
+    tags?: CaHierarchyObjectTagDatasource
   ) {
-    super(dialogService, folderService, menuDynamicService, actionService, documentInfo);
+    super(dialogService, folderService, menuDynamicService, actionService, documentInfo, tags);
   }
 
-  protected generateActionMenu(showLinks: boolean): FlMenuDynamic[] {
-    const menu = super.generateActionMenu(showLinks);
-    if (!showLinks && this.documentInfo.isConstellabDocument) {
+  public openDetailActionsMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {
+    const menu = this.getDefaultMenuItems(false);
+    if (this.documentInfo.isConstellabDocument) {
       menu.unshift({
         type: 'button',
         text: { text: 'history', translateText: true },
@@ -296,7 +290,8 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
         onClick: () => this.toggleConstellabDocumentHistoryPanel(),
       });
     }
-    return menu;
+
+    return this.generateMenu(menu, event);
   }
 
   private toggleConstellabDocumentHistoryPanel(): void {

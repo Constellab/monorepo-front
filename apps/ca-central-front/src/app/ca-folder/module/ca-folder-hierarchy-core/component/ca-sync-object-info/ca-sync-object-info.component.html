@@ -1,7 +1,6 @@
 @if (object) {
   <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
     @if (showText) {
-      <mat-icon>sync</mat-icon>
       <div>{{ 'last_sync' | translate }} :</div>
     }
     <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>

@@ -1,5 +1,5 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, filter, first, firstValueFrom, Observable, Subscription, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, first, firstValueFrom, Observable, switchMap } from 'rxjs';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import {
   FlDatasourceTree,
@@ -10,12 +10,15 @@ import {
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, ClHelpService, ClSubscriptionHandler } from '@monorepo/core-lib';
 import {
   CaHierarchyObject,
+  CaHierarchyObjectTagDatasource,
   CaHierarchyObjectWithChildren,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
+import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 
 /**
  * State for the CaHierarchyObjectDetailPageComponent
@@ -23,6 +26,7 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 @Injectable()
 export class CaHierarchyObjectDetailState implements OnDestroy {
   private folderService = inject(CaFolderService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private routerService = inject(CaRouterService);
@@ -34,7 +38,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   // by default the tree is opened
   private treeDrawerOpened$: BehaviorSubject<boolean>;
 
-  private subscription: Subscription;
+  private subscriptions = new ClSubscriptionHandler();
+
+  private tags: CaHierarchyObjectTagDatasource = new FlTagDatasource();
 
   public init(): void {
     // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
@@ -43,11 +49,13 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     );
 
     this.ancestorFolders$ = new FlEntityArrayObs([]);
-    this.subscription = objectId$
-      .pipe(switchMap((objectId) => this.folderService.getObjectFolderAncestors(objectId)))
-      .subscribe({
-        next: (ancestors) => this.getAncestorSuccess(ancestors),
-      });
+    this.subscriptions.add(
+      objectId$
+        .pipe(switchMap((objectId) => this.folderService.getObjectFolderAncestors(objectId)))
+        .subscribe({
+          next: (ancestors) => this.getAncestorSuccess(ancestors),
+        })
+    );
 
     this.folderTree = new FlDatasourceTree<CaHierarchyObjectWithChildren>(null, (a, b) =>
       ClHelpService.sortAlphabeticalFunction(a.name, b.name)
@@ -72,6 +80,14 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.treeDrawerOpened$ = new BehaviorSubject(false);
 
     this.initTreeDrawerOpened();
+
+    // handle tags
+    this.subscriptions.add(
+      objectId$.subscribe((id) =>
+        // load the tags
+        this.tags.setData(this.hierarchyObjectService.getAllTags(id))
+      )
+    );
   }
 
   toggleTree(): void {
@@ -161,13 +177,6 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     return this.folderTree.findNode$(folderId);
   }
 
-  ngOnDestroy(): void {
-    this.treeDrawerOpened$?.complete();
-    this.folderTree?.disconnect();
-    this.subscription?.unsubscribe();
-    this.ancestorFolders$?.disconnect();
-  }
-
   private getTreeSuccess(folderTree: CaHierarchyObjectWithChildren): void {
     this.folderTree.setData(folderTree);
   }
@@ -176,11 +185,22 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.ancestorFolders$.array = ancestors;
   }
 
+  public getTags(): CaHierarchyObjectTagDatasource {
+    return this.tags;
+  }
+
   private initTreeDrawerOpened(): void {
     // init tree open
     this.queryParamHandler.getFirstQueryParams().subscribe(
       // if the query param is not present, the tree is opened
       (params) => this.treeDrawerOpened$.next(params.showTree !== 'false')
     );
+  }
+
+  ngOnDestroy(): void {
+    this.treeDrawerOpened$?.complete();
+    this.folderTree?.disconnect();
+    this.subscriptions?.unsubscribe();
+    this.ancestorFolders$?.disconnect();
   }
 }

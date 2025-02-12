@@ -60,7 +60,8 @@ export class CaResourceDetailPageComponent {
         id: resource.id,
         name: resource.name,
         shareLink: resource.shareLink,
-      }
+      },
+      this.state.getTags()
     );
 
     resourceMenu.openActionMenu(event).subscribe((action) => this.onMenuAction(action));

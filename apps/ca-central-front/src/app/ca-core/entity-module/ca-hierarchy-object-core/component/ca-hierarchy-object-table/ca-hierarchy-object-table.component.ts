@@ -33,6 +33,8 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { CaHierarchyObjectGetTagsPipe } from '../../pipe/ca-hierarchy-object-get-tags.pipe';
 
 export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';
@@ -72,6 +74,8 @@ export interface CaHierarchyObjectTableEvent {
     CaDetailRoutePipe,
     FlCorePipeModule,
     TranslatePipe,
+    FlTagModule,
+    CaHierarchyObjectGetTagsPipe,
   ],
 })
 export class CaHierarchyObjectTableComponent {
@@ -89,7 +93,7 @@ export class CaHierarchyObjectTableComponent {
   // to support custom column
   @ContentChild(TemplateRef) templateRef: TemplateRef<any>;
 
-  onFolderClick(object: CaHierarchyObject, event: MouseEvent): void {
+  onClick(object: CaHierarchyObject, event: MouseEvent): void {
     if (this.rowSelectable) {
       this.selectedObject = object;
       this.rowEvent.emit({
@@ -100,7 +104,7 @@ export class CaHierarchyObjectTableComponent {
     }
   }
 
-  onFolderDblClick(object: CaHierarchyObject, event: MouseEvent): void {
+  onDblClick(object: CaHierarchyObject, event: MouseEvent): void {
     if (this.rowSelectable) {
       this.rowEvent.emit({ action: 'dblClick', hierarchyObject: object, event: event });
     }

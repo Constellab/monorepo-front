@@ -170,13 +170,6 @@ export class CaFolderDetailState implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.folder$?.complete();
-    this.users$?.disconnect();
-    this.childrenDatasource?.manualDisconnect();
-    this.subscription?.unsubscribe();
-  }
-
   private initFolder(folder: CaFolder): void {
     // update the folder id in the search function
     this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
@@ -206,5 +199,12 @@ export class CaFolderDetailState implements OnDestroy {
     if (currentFolderId !== parentFolderId) return;
     // reload the datasource
     this.childrenDatasource.getFirstPage();
+  }
+
+  ngOnDestroy(): void {
+    this.folder$?.complete();
+    this.users$?.disconnect();
+    this.childrenDatasource?.manualDisconnect();
+    this.subscription?.unsubscribe();
   }
 }

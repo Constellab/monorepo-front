@@ -22,6 +22,7 @@ import {
   CaFolderUserConfigDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
 import { CaFolderActionService } from '../ca-folder-action.service';
+import { CaHierarchyObjectTagDatasource } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
@@ -43,13 +44,14 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     private rightPanelState: CaFolderRightPanelState,
     folderInfo: CaFolderInfo,
     private isRootFolder: boolean,
-    private folderUsers$: FlArrayObs<CaUser>
+    private folderUsers$: FlArrayObs<CaUser>,
+    tags?: CaHierarchyObjectTagDatasource
   ) {
-    super(dialogService, folderActionService, menuDynamicService, securityService, folderInfo);
+    super(dialogService, folderActionService, menuDynamicService, securityService, folderInfo, tags);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<CaFolderDetailActionEvent> {
-    const menus: FlMenuDynamic[] = [];
+    const menus: FlMenuDynamic[] = [this.getManageTagsButton()];
 
     if (this.isRootFolder) {
       if (this.canEditFolder()) {
@@ -61,7 +63,7 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     menus.push(this.getActivitiesButton());
     menus.push(this.getDocumentInTrashButton(), this.getOpenSettingsButton());
 
-    return this.openActionMenu(menus, event);
+    return this.generateMenu(menus, event);
   }
 
   private getShareButton(): FlMenuDynamic {

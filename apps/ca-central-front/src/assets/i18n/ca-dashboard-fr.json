@@ -209,5 +209,13 @@
   "delete_resource_confirmation": "Êtes-vous sûr de vouloir supprimer cette ressource ? Elle sera toujours disponible dans le lab.",
   "resource_deleted": "Ressource supprimée",
   "open_resource_in_lab": "Ouvrir la ressource dans le lab",
-  "resource_expiration_date": "Expire le"
+  "resource_expiration_date": "Expire le",
+  "tags": "Tags",
+  "existing_tags": "Tags existants",
+  "adding_tags": "Ajout de tags",
+  "delete_tag": "Supprimer le tag",
+  "delete_tag_confirmation": "Êtes-vous sûr de vouloir supprimer ce tag ?",
+  "tag_deleted": "Tag supprimé",
+  "tag_already_exists": "Le tag existe déjà",
+  "add_tags": "Ajouter des tags"
 }

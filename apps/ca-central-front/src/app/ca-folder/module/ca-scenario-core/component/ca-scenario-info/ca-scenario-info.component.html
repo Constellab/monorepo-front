@@ -1,12 +1,11 @@
+<fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
+<!--  Validated info  -->
 @if (scenario.isValidated) {
-  <!--  Validated info  -->
-  @if (scenario.isValidated) {
-    <ca-validated-object-info class="separator" [object]="scenario"></ca-validated-object-info>
-  }
+  <ca-validated-object-info class="g-text-small" [object]="scenario"></ca-validated-object-info>
 }
 
 <!-- Sync ino -->
-<ca-sync-object-info class="separator" [object]="scenario"></ca-sync-object-info>
+<ca-sync-object-info class="g-text-small" [object]="scenario"></ca-sync-object-info>
 
 <div>
   <!-- Description-->

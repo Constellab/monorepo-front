@@ -90,7 +90,7 @@ export class CaDocumentTableComponent {
       document.basicInfo
     );
 
-    documentActionMenu.openActionMenu(true, event).subscribe((event) => {
+    documentActionMenu.openDefaultActionMenu(event).subscribe((event) => {
       this.onDocumentAction(event, document);
     });
   }

@@ -20,6 +20,9 @@ import {
   CaResourceActionMenu,
 } from '../ca-resource-detail-page/ca-resource-action-menu';
 import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
+import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
+import { CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
+import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 
 export type CaHierarchyObjectActionEvent =
   | {
@@ -33,8 +36,16 @@ export type CaHierarchyObjectActionEvent =
   | {
       entity: 'resource';
       event: CaResourceActionEvent;
+    }
+  | {
+      entity: 'note';
+      event: CaNoteActionEvent;
     };
 
+/**
+ * Action menu for the hierarchy object in the folder children list.
+ * It calls the correct action menu based on the object type.
+ */
 export class CaHierarchyObjectActionMenu {
   constructor(
     private dialogService: FlDialogService,
@@ -44,6 +55,7 @@ export class CaHierarchyObjectActionMenu {
     private menuDynamicService: FlMenuDynamicService,
     private securityService: CaSecurityService,
     private resourceService: CaResourceService,
+    private noteService: CaNoteService,
     private hierarchyObject: CaHierarchyObject
   ) {}
 
@@ -63,6 +75,10 @@ export class CaHierarchyObjectActionMenu {
       return this.openResourceActionMenu(event).pipe(
         map((event) => (event ? { entity: 'resource', event } : null))
       );
+    } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.NOTE) {
+      return this.openNoteActionMenu(event).pipe(map((event) => (event ? { entity: 'note', event } : null)));
+    } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.SCENARIO) {
+      return this.openScenarioActionMenu(event);
     } else {
       return of(null);
     }
@@ -96,7 +112,7 @@ export class CaHierarchyObjectActionMenu {
         isConstellabDocument: this.hierarchyObject.objectType === CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
       }
     );
-    return service.openActionMenu(true, event);
+    return service.openDefaultActionMenu(event);
   }
 
   private openResourceActionMenu(event: MouseEvent): Observable<CaResourceActionEvent | null> {
@@ -111,5 +127,24 @@ export class CaHierarchyObjectActionMenu {
     );
 
     return resourceActionsMenu.openActionMenu(event);
+  }
+
+  private openNoteActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
+    const noteActionMenu = new CaNoteActionMenu(
+      this.noteService,
+      this.dialogService,
+      this.menuDynamicService,
+      this.hierarchyObject.id
+    );
+    return noteActionMenu.openActionMenu(event);
+  }
+
+  private openScenarioActionMenu(event: MouseEvent): Observable<null> {
+    const scenarioActionMenu = new CaScenarioActionMenu(
+      this.dialogService,
+      this.menuDynamicService,
+      this.hierarchyObject.id
+    );
+    return scenarioActionMenu.openActionMenu(event);
   }
 }

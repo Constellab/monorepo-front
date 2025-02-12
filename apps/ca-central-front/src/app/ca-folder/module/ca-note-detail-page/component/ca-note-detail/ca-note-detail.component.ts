@@ -1,14 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
-import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
-import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import {
   CaScenariosListDialogInput,
@@ -16,7 +11,6 @@ import {
 } from '../../../ca-scenario-core/component/ca-scenario-table-dialog/ca-scenario-table-dialog.component';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
 import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -24,13 +18,14 @@ import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-mo
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { CaIsAdminDirective } from '../../../../../ca-core/module/ca-core-directive/ca-is-admin/ca-is-admin.directive';
 import { CaValidatedObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-validated-object-info/ca-validated-object-info.component';
 import { CaSyncObjectInfoComponent } from '../../../ca-folder-hierarchy-core/component/ca-sync-object-info/ca-sync-object-info.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaNoteActionEvent, CaNoteDetailActionMenu } from '../../../ca-note-core/ca-note-action-menu';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 
 @Component({
   selector: 'ca-note-detail',
@@ -43,15 +38,12 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIcon,
     FlIconModule,
     MatIconButton,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    CaIsAdminDirective,
     CaValidatedObjectInfoComponent,
     CaSyncObjectInfoComponent,
     FlUserModule,
     CaNoteContentComponent,
     TranslatePipe,
+    FlTagModule,
   ],
 })
 export class CaNoteDetailComponent implements OnInit {
@@ -61,18 +53,13 @@ export class CaNoteDetailComponent implements OnInit {
   private noteHistoryService = inject(CaNoteHistoryService);
   private state = inject(CaHierarchyObjectDetailState);
   private portalService = inject(FlPortalService);
+  private menuDynamicService = inject(FlMenuDynamicService);
 
   @Input({ required: true }) note: CaNote;
 
-  scenarios: FlArrayObs<CaScenario>;
+  tags = this.state.getTags();
 
-  private historyOverlayRef: FlOverlayRef;
-
-  textEditorConfig: CaNoteTextEditorConfig;
-
-  ngOnInit(): void {
-    this.textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);
-  }
+  ngOnInit(): void {}
 
   printNote(): void {
     if (window) {
@@ -81,10 +68,10 @@ export class CaNoteDetailComponent implements OnInit {
   }
 
   openScenariosListDialog(): void {
-    this.scenarios = new FlEntityArrayObs(this.scenarioService.getScenariosByNote(this.note.id));
+    const scenarios = new FlEntityArrayObs(this.scenarioService.getScenariosByNote(this.note.id));
 
     const input: CaScenariosListDialogInput = {
-      scenarios: this.scenarios,
+      scenarios: scenarios,
       title: { text: 'note_associated_scenarios', translateText: true },
     };
 
@@ -93,43 +80,25 @@ export class CaNoteDetailComponent implements OnInit {
     });
   }
 
-  toggleNoteHistoryPanel(note: CaNote): void {
-    if (this.historyOverlayRef) {
-      this.historyOverlayRef.dispose();
-      this.historyOverlayRef = null;
-    } else {
-      this.historyOverlayRef = this.portalService?.createPortal(
-        TeTextEditorHistoryPortalComponent,
-        this.portalService?.getRightSidePortalConfig(true),
-        {
-          service: this.noteHistoryService,
-          entityId: this.note.id,
-          textEditorConfig: this.textEditorConfig,
-          isEditable: false,
-        } as TeTextEditorHistoryPortalData
-      );
-      this.historyOverlayRef.detachments().subscribe(() => {
-        this.historyOverlayRef = null;
-      });
-    }
+  openActionMenu(note: CaNote, event: MouseEvent): void {
+    const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);
+
+    const noteActionMenu = new CaNoteDetailActionMenu(
+      this.noteService,
+      this.dialogService,
+      this.menuDynamicService,
+      note.id,
+      this.portalService,
+      textEditorConfig,
+      this.noteHistoryService,
+      this.tags
+    );
+
+    noteActionMenu.openDetailActionMenu(event).subscribe((action) => this.onNoteAction(action));
   }
 
-  deleteNote(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_note',
-      content: 'delete_note_confirmation',
-      observable: this.noteService.deleteNote(this.note.id),
-      successMessage: 'note_deleted',
-    };
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onNoteDeleted(result));
-  }
-
-  private async onNoteDeleted(result: FlConfirmDialogResult): Promise<void> {
-    if (result.choice) {
+  private onNoteAction(event: CaNoteActionEvent): void {
+    if (event.action === 'delete') {
       this.state.navigateToParentFolder();
     }
   }
