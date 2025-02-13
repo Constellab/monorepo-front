@@ -60,6 +60,8 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
    */
   @Input() allowUnknownTag: boolean = true;
 
+  @Input() helpText: string = 'flTag.input_helper_text';
+
   @Output() addTag: EventEmitter<FlAddTagEvent> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;

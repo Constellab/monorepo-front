@@ -1,28 +1,32 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { Component, EventEmitter, inject, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { LabTagKeyModel } from '../../../../model/entities/lab-tag.entity';
-import { FlAddTagEvent } from '@monorepo/front-core-lib/fl-tag';
-import { FlAddTagInputComponent } from '@monorepo/front-core-lib/fl-tag';
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
-import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import {
+  FlAddTagEvent,
+  FlAddTagInputComponent,
+  FlTag,
+  FlTagDatasource,
+  FlTagModule,
+} from '@monorepo/front-core-lib/fl-tag';
+import {
+  FlDatasourcePaginated,
+  FlEntityPaginatedDatasource,
+  FlFormFieldDirective,
+} from '@monorepo/front-core-lib/fl-core';
 
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import { NgControl } from '@angular/forms';
 import { LabRouterService } from '../../../../service/lab-router.service';
 import {
   MatExpansionPanel,
+  MatExpansionPanelDescription,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
-  MatExpansionPanelDescription,
 } from '@angular/material/expansion';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
@@ -53,7 +57,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit {
+export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit, OnDestroy {
   private tagService = inject(LabTagService);
 
   @Output() selectionChange: EventEmitter<FlTag[]> = new EventEmitter();
@@ -68,7 +72,6 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
 
   constructor() {
     const ngControl = inject(NgControl, { optional: true, self: true });
-
     super(ngControl);
   }
 
@@ -102,5 +105,9 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
 
   writeValue(obj: FlTag[]): void {
     this.selectedTags.array = obj ?? [];
+  }
+
+  ngOnDestroy(): void {
+    this.selectedTags.disconnect();
   }
 }

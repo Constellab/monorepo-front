@@ -10,6 +10,7 @@ import {
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CaHierarchyObjectType } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 
 export class CaHierarchyObjectSearchFields {
   name: string;
@@ -21,6 +22,8 @@ export class CaHierarchyObjectSearchFields {
   lastModifiedAt: FlSearchDateInterval;
 
   objectType: CaHierarchyObjectType;
+
+  tags: FlTag;
 
   id: string;
 }
@@ -36,6 +39,7 @@ export class CaHierarchyObjectSearch {
     users: { key: 'user.id', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId },
     lastModifiedAt: FlSearchConverter.dateInterval('lastModifiedAt'),
     objectType: { key: 'objectType', operator: 'EQ' },
+    tags: { key: 'tags', operator: 'EQ' },
     id: { key: 'id', operator: 'EQ' },
   };
 
@@ -54,6 +58,7 @@ export class CaHierarchyObjectSearch {
         to: [null],
       }),
       objectType: null,
+      tags: null,
       id: null,
     });
   }

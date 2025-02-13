@@ -40,7 +40,7 @@
     </fl-infinite-scroll>
   </mat-autocomplete>
 
-  @if (allowUnknownTag) {
-    <mat-hint>{{ 'flTag.input_helper_text' | translate }}</mat-hint>
+  @if (allowUnknownTag && helpText) {
+    <mat-hint>{{ helpText | translate }}</mat-hint>
   }
 </mat-form-field>

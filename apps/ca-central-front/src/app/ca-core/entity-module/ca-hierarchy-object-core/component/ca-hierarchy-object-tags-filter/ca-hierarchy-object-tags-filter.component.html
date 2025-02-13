@@ -1,0 +1,10 @@
+<div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+  <mat-form-field class="g-form-field-compact-height" subscriptSizing="dynamic">
+    <mat-label>{{ 'tags' | translate }}</mat-label>
+    <input matInput [placeholder]="'tags' | translate" [(ngModel)]="inputValue" (keydown.enter)="setTag(inputValue)" />
+  </mat-form-field>
+
+  @if (value) {
+    <fl-tag [flTag]="value" [showDeleteIcon]="true" (deleteTag)="clearTag()" class="g-text-small"></fl-tag>
+  }
+</div>
