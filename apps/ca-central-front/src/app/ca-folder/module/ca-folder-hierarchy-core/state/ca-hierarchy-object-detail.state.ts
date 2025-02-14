@@ -1,5 +1,14 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, filter, first, firstValueFrom, Observable, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  filter,
+  first,
+  firstValueFrom,
+  Observable,
+  Subject,
+  switchMap,
+  takeUntil,
+} from 'rxjs';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import {
   FlDatasourceTree,
@@ -42,10 +51,14 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
   private tags: CaHierarchyObjectTagDatasource = new FlTagDatasource();
 
+  // used to unsubscribe from all the observables
+  private destroy = new Subject<void>();
+
   public init(): void {
     // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
     const objectId$: Observable<string> = FlRouterHelper.listenToChildrenParams(this.router, this.route).pipe(
-      map((params) => params.id)
+      map((params) => params.id),
+      takeUntil(this.destroy)
     );
 
     this.ancestorFolders$ = new FlEntityArrayObs([]);
@@ -83,7 +96,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
     // handle tags
     this.subscriptions.add(
-      objectId$.subscribe((id) =>
+      objectId$.pipe().subscribe((id) =>
         // load the tags
         this.tags.setData(this.hierarchyObjectService.getAllTags(id))
       )
@@ -202,5 +215,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.folderTree?.disconnect();
     this.subscriptions?.unsubscribe();
     this.ancestorFolders$?.disconnect();
+    this.destroy.next();
+    this.destroy.complete();
   }
 }

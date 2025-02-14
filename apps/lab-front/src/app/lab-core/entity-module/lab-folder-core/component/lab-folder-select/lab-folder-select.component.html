@@ -13,7 +13,7 @@
           <div class="node-content leaf g-layout-row g-layout-start-center">
             <div class="circle-color" [style.background-color]="node.folder.id | flStringToRgb"></div>
             <div class="g-text-dense-height">
-              {{ node.folder.title }}
+              {{ node.folder.name }}
             </div>
           </div>
         </mat-tree-node>
@@ -32,7 +32,7 @@
             </mat-icon>
             <div class="circle-color" [style.background-color]="node.folder.id | flStringToRgb"></div>
             <div class="g-text-dense-height">
-              {{ node.folder.title }}
+              {{ node.folder.name }}
             </div>
           </div>
         </mat-tree-node>

@@ -5,7 +5,7 @@ import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 
 export class LabFolder extends LabEntity {
-  title: string;
+  name: string;
 }
 
 export class LabFolderWithChildren extends LabFolder {
