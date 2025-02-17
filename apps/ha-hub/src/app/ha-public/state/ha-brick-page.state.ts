@@ -220,7 +220,7 @@ export class HaBrickPageState {
     this.initBrickVersionDirectReferences(brickVersion.id);
   }
 
-  public initDoc(docId: string, url: UrlSegment[]): void {
+  public initDoc(docId: string, url: UrlSegment[], brick: HaBrick): void {
     if (this.doc() && this.doc().id === docId) {
       return;
     }
@@ -228,6 +228,11 @@ export class HaBrickPageState {
     this.docStatusEvent.set({ status: 'loading' });
 
     if (!ClStringHelper.isUUID(docId)) {
+      if (url.length == 1 && url[0].path == 'getting-started') {
+        this.redirectToGettingStartedDoc(brick);
+        return;
+      }
+
       this.redirectToCompletePathDoc(url);
       return;
     }
@@ -261,6 +266,23 @@ export class HaBrickPageState {
     });
   }
 
+  private redirectToGettingStartedDoc(brick: HaBrick): void {
+    this.brickService
+      .getBrickGettingStarted(this.brick()?.name ?? brick?.name, this.pathVersion())
+      .subscribe((doc) => {
+        if (doc) {
+          this.httpRedirectionService.redirectTo(
+            HaRouterService.getDocumentationRoute(
+              this.brick().name,
+              this.pathVersion(),
+              doc.completePath,
+              doc.id
+            )
+          );
+        }
+      });
+  }
+
   public setDoc(doc: HaDocumentation): void {
     if (doc == null || doc.id == null) {
       this.docStatusEvent.set({ status: 'error', error: 'doc_not_found' });
@@ -273,7 +295,7 @@ export class HaBrickPageState {
   }
 
   private initUserHasEditRight(brick: HaBrick): void {
-    this.brickService.checkUserRights(brick.id).subscribe((res) => {
+    this.brickService.checkUserRights(brick.id, false).subscribe((res) => {
       this.userHasEditRight.set(res);
     });
   }

@@ -8,16 +8,6 @@
   margin-top: 16px;
 }
 
-.right-side-div {
-  position: fixed;
-  padding: 8px;
-  width: 279px;
-  height: fit-content;
-  border-radius: 18px;
-  max-height: 50vh;
-  right: 100px;
-}
-
 .title-div {
   display: flex;
   align-items: center;
@@ -32,8 +22,10 @@
   align-items: center;
   gap: 1em;
 
-  h2 {
+  h1 {
     flex: auto;
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
 }
 
@@ -91,6 +83,7 @@ h2 {
 }
 
 .brick-icon {
+  flex-shrink: 0;
   position: relative;
   width: 105px;
   height: 105px;
@@ -133,15 +126,8 @@ h2 {
 }
 
 .icon-title {
-  max-width: calc(100% - 375px);
   flex: auto;
   width: auto;
-}
-
-.icon-title h2 {
-  word-wrap: break-word;
-  table-layout: fixed;
-  max-width: calc(100% - 105px);
 }
 
 @media (max-width: 1600px) {

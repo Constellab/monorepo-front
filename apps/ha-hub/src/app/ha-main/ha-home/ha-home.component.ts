@@ -22,12 +22,13 @@ import { HaNotLoggedInHomeComponent } from '../ha-not-logged-in-home/ha-not-logg
 import { AsyncPipe } from '@angular/common';
 import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 
 @Component({
   selector: 'ha-ha-home',
   templateUrl: './ha-home.component.html',
   styleUrls: ['./ha-home.component.scss'],
-  imports: [HaLoggedInHomeComponent, HaNotLoggedInHomeComponent, AsyncPipe],
+  imports: [HaLoggedInHomeComponent, HaNotLoggedInHomeComponent, AsyncPipe, FlLoaderModule],
 })
 export class HaHomeComponent extends HaCommunityPage implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);

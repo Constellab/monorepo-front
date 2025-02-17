@@ -66,7 +66,11 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
-import { provideClientHydration, withHttpTransferCacheOptions } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
 
 function loadUserOnInit(authenticatedUserService: HaAuthenticatedUserService): () => void {
   return (): void => authenticatedUserService.init();
@@ -101,9 +105,8 @@ export const haAppConfig: ApplicationConfig = {
       })
     ),
     importProvidersFrom(
-      FlUserModule.forRoot(HaUserConfig),
+      BrowserModule,
       FlApiModule.forRoot(HaApiServiceConfig, HaApiErrorService),
-      TdTechnicalDocModule.forRoot(HaTdServiceConfig),
       FlAuthModule.forRoot(HaAuthService),
       // Setup translate module
       FlTranslateModule.forRoot({
@@ -121,14 +124,11 @@ export const haAppConfig: ApplicationConfig = {
         iconFolder: 'assets/fl-mat-icons/',
         iconsToRegister: haSvgIcons,
       }),
+      FlUserModule.forRoot(HaUserConfig),
       RvResourceViewModule,
+      TdTechnicalDocModule.forRoot(HaTdServiceConfig),
       CoCommunityLibModule.forRoot(HaCoServiceConfig)
     ),
-    TransferState,
-    {
-      provide: APP_ID,
-      useValue: 'serverApp',
-    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: FlHttpInterceptorService,
@@ -139,20 +139,24 @@ export const haAppConfig: ApplicationConfig = {
       useClass: HaHttpInterceptorSsrService,
       multi: true,
     },
+    TransferState,
+    {
+      provide: APP_ID,
+      useValue: 'serverApp',
+    },
+    provideAppInitializer(() => {
+      loadThemeOnInit(inject(FlThemeService));
+    }),
+    provideAppInitializer(() => {
+      initRootInjector(inject(Injector));
+    }),
+    { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
+    { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
+    provideAnimations(),
     provideAppInitializer(() => {
       const initializerFn = loadUserOnInit(inject(HaAuthenticatedUserService));
       return initializerFn();
     }),
-    provideAppInitializer(() => {
-      const initializerFn = loadThemeOnInit(inject(FlThemeService));
-      return initializerFn();
-    }),
-    provideAppInitializer(() => {
-      const initializerFn = initRootInjector(inject(Injector));
-      return initializerFn();
-    }),
-    { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
-    { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
 
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     // form field default config
@@ -161,6 +165,5 @@ export const haAppConfig: ApplicationConfig = {
     // configure the date picker to work with luxon
     { provide: DateAdapter, useExisting: FlLuxonDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: flLuxonDateFormat },
-    provideAnimations(),
   ],
 };

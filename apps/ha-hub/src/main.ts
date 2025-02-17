@@ -1,16 +1,17 @@
 import { ApplicationConfig, enableProdMode, mergeApplicationConfig } from '@angular/core';
 import { environment } from './environments/ha-environment';
-import { FL_TRANSLATE_MODULE_CONFIG } from '@monorepo/front-core-lib/fl-translate';
+import {
+  FL_TRANSLATE_MODULE_CONFIG,
+  FlTranslateModuleConfig,
+  FlTranslationLoader,
+} from '@monorepo/front-core-lib/fl-translate';
 import { flLoadEnvironmentFromAssets } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateModuleConfig } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslationLoader } from '@monorepo/front-core-lib/fl-translate';
 
 import { haEnvironmentPath, HaEnvironmentSettings } from './environments/ha-environment.class';
 import { HaAppComponent } from './app/ha-app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { haAppConfig } from './app/ha-app.config';
 import { HttpClient } from '@angular/common/http';
-import { provideServerRendering } from '@angular/platform-server';
 import { TranslateLoader } from '@ngx-translate/core';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
@@ -20,7 +21,6 @@ function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleCon
 function bootstrapApp(): void {
   const browserConfig: ApplicationConfig = {
     providers: [
-      provideServerRendering(),
       {
         provide: TranslateLoader,
         useFactory: translationLoaderFactory,

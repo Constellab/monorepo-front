@@ -1,12 +1,11 @@
 import { Component, computed, effect, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { HaDocumentation } from '../../../../ha-core/ha-model/ha-entities/ha-documentation.class';
-import { HaBrickService } from '../../../../ha-core/ha-service/ha-brick.service';
 import { HaDocumentationService } from '../../../../ha-core/ha-service/ha-documentation.service';
 import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HaDocTextEditorConfig } from '../ha-doc-text-editor-config.class';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -56,7 +55,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnDestroy {
-  private brickService: HaBrickService = inject(HaBrickService);
   private documentationService: HaDocumentationService = inject(HaDocumentationService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
@@ -98,8 +96,23 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
 
   historyOverlayRef: FlOverlayRef;
 
+  urlSubscription: Subscription;
+
   constructor() {
     super();
+    effect(() => {
+      const brick = this.brick();
+      if (brick == null) {
+        return;
+      }
+      if (this.urlSubscription != null) {
+        this.urlSubscription?.unsubscribe();
+      }
+      this.urlSubscription = this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
+        const docId = url[url.length - 1].path;
+        this.brickPageState.initDoc(docId, url, brick);
+      });
+    });
 
     effect(() => {
       const doc = this.documentation();
@@ -121,17 +134,6 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
   ngOnInit(): void {
     this.activatedRoute.fragment.subscribe((anchor) => {
       this.anchor = anchor;
-    });
-
-    this.activatedRoute.url.subscribe((url: UrlSegment[]) => {
-      if (url.length == 1 && url[0]?.path == 'getting-started') {
-        this.redirectToGettingStartedDoc();
-        return;
-      }
-
-      const docId = url[url.length - 1].path;
-
-      this.brickPageState.initDoc(docId, url);
     });
   }
 
@@ -196,21 +198,6 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
     }
   }
 
-  private redirectToGettingStartedDoc(): void {
-    this.brickService.getBrickGettingStarted(this.brick().name, this.versionPath()).subscribe((doc) => {
-      if (doc) {
-        this.httpRedirectionService.redirectTo(
-          HaRouterService.getDocumentationRoute(
-            this.brick().name,
-            this.versionPath(),
-            doc.completePath,
-            doc.id
-          )
-        );
-      }
-    });
-  }
-
   private onDocLoaded(doc: HaDocumentation): void {
     this.currentDocTitle = doc.title;
 
@@ -244,5 +231,6 @@ export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnD
 
   ngOnDestroy(): void {
     this.jsonLdState.clearJsonLdContent();
+    this.urlSubscription?.unsubscribe();
   }
 }

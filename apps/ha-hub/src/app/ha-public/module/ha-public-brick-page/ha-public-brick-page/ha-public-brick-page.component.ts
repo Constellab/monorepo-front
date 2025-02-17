@@ -1,9 +1,9 @@
-import { Component, inject, OnDestroy, OnInit, PLATFORM_ID, Signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { filter, Subscription } from 'rxjs';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -37,11 +37,8 @@ export class HaPublicBrickPageComponent implements OnInit, OnDestroy {
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private router: Router = inject(Router);
   private document: Document = inject(DOCUMENT);
-  private platformId = inject(PLATFORM_ID);
 
   brickListRoute: string = HaRouterService.getBrickListRoute();
-
-  t = 'A';
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;
@@ -71,10 +68,6 @@ export class HaPublicBrickPageComponent implements OnInit, OnDestroy {
         this.setLatestBrickCanonicalUrl();
       }
     });
-
-    if (isPlatformServer(this.platformId)) {
-      this.t = 'ABC';
-    }
   }
 
   ngOnDestroy(): void {
