@@ -87,8 +87,8 @@ function configureCaptcha(): FlCaptchaModuleConfig {
   };
 }
 
-function initRootInjector(injector: Injector): () => void {
-  return (): void => flSetRootInjector(injector);
+function initRootInjector(injector: Injector): void {
+  return flSetRootInjector(injector);
 }
 
 export const haAppConfig: ApplicationConfig = {
