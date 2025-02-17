@@ -143,7 +143,10 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getFolderTree$(): Observable<CaHierarchyObjectWithChildren> {
-    return this.folderTree.connect().pipe(filter((folderTree) => folderTree != null));
+    return this.folderTree.connect().pipe(
+      filter((folderTree) => folderTree.length > 0),
+      map((folderTree) => folderTree[0])
+    );
   }
 
   public hasSubFolders$(): Observable<boolean> {
@@ -191,7 +194,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   private getTreeSuccess(folderTree: CaHierarchyObjectWithChildren): void {
-    this.folderTree.setData(folderTree);
+    this.folderTree.setData([folderTree]);
   }
 
   private getAncestorSuccess(ancestors: CaHierarchyObject[]): void {

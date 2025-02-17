@@ -7,27 +7,27 @@ export class FlTree<T> {
 }
 
 export class FlDatasourceTree<T extends FlTree<T>> {
-  private tree$: BehaviorSubject<T> = new BehaviorSubject<T>(null);
+  private tree$ = new BehaviorSubject<T[]>([]);
 
   private readonly childrenOrder: (a: T, b: T) => number;
 
-  constructor(data?: T, childrenOrder?: (a: T, b: T) => number) {
+  constructor(data?: T[], childrenOrder?: (a: T, b: T) => number) {
     if (data) {
       this.setData(data);
     }
     this.childrenOrder = childrenOrder;
   }
 
-  setData(data: T): void {
+  setData(data: T[]): void {
     this.tree$.next(data);
     this.sortAll();
   }
 
-  private get tree(): T {
+  private get tree(): T[] {
     return this.tree$.getValue();
   }
 
-  connect(): Observable<T> {
+  connect(): Observable<T[]> {
     return this.tree$.asObservable();
   }
 
@@ -48,31 +48,31 @@ export class FlDatasourceTree<T extends FlTree<T>> {
 
   public findParentNode(nodeId: string): T | null {
     if (!this.tree) return null;
-    return this.findParentNodeRecur(this.tree, nodeId);
+    return this.findParentNodeRecur(this.tree, nodeId, null);
   }
 
-  private findNodeRecur(currentNode: T, nodeId: string): T {
-    if (!currentNode) return null;
-    if (currentNode.id === nodeId) {
-      return currentNode;
-    }
-    for (const child of currentNode.children) {
-      const node = this.findNodeRecur(child as T, nodeId);
-      if (node != null) {
+  private findNodeRecur(nodes: T[], nodeId: string): T {
+    if (!nodes) return null;
+    for (const node of nodes) {
+      if (node.id === nodeId) {
         return node;
+      }
+      const found = this.findNodeRecur(node.children as T[], nodeId);
+      if (found) {
+        return found;
       }
     }
     return null;
   }
 
-  private findParentNodeRecur(currentNode: T, nodeId: string): T {
-    for (const child of currentNode.children) {
-      if (child.id === nodeId) {
-        return currentNode;
+  private findParentNodeRecur(nodes: T[], nodeId: string, parent: T): T {
+    for (const node of nodes) {
+      if (node.id === nodeId) {
+        return parent;
       }
-      const node = this.findParentNodeRecur(child as T, nodeId);
-      if (node != null) {
-        return node;
+      const found = this.findParentNodeRecur(node.children as T[], nodeId, node);
+      if (found) {
+        return found;
       }
     }
     return null;
@@ -131,7 +131,7 @@ export class FlDatasourceTree<T extends FlTree<T>> {
 
   private sortChildren(node: T): void {
     if (this.childrenOrder) {
-      node.children = node.children.sort(this.childrenOrder);
+      node.children = this.sortArray(node.children as T[]);
     }
   }
 
@@ -141,10 +141,16 @@ export class FlDatasourceTree<T extends FlTree<T>> {
     }
   }
 
-  private sortAllRecur(node: T): void {
-    this.sortChildren(node);
-    for (const child of node.children) {
-      this.sortAllRecur(child as T);
+  private sortArray(array: T[]): T[] {
+    return array.sort(this.childrenOrder);
+  }
+
+  private sortAllRecur(nodes: T[]): void {
+    nodes = this.sortArray(nodes);
+    for (const node of nodes) {
+      if (node.children) {
+        this.sortAllRecur(node.children as T[]);
+      }
     }
   }
 }

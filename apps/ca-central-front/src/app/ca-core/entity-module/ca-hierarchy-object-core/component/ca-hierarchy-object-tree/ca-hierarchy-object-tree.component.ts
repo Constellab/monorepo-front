@@ -1,40 +1,25 @@
-import { Component, Input, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectType,
   CaHierarchyObjectWithChildren,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { FlFlatTreeControl } from '@monorepo/front-core-lib/fl-core';
 import {
   MatTree,
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
   MatTreeNode,
   MatTreeNodeDef,
   MatTreeNodePadding,
   MatTreeNodeToggle,
 } from '@angular/material/tree';
 import { CaNotificationType } from '../../../../model/entities/ca-notification.class';
-import { combineLatest, Observable } from 'rxjs';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { TdTypeStyle } from '@monorepo/technical-doc';
-import { NgClass } from '@angular/common';
+import { clRxjsDebug, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { CaHierarchyObjectIconComponent } from '../ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { RouterLink } from '@angular/router';
 import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
-
-interface CaFolderFlatNode {
-  id: string;
-  name: string;
-  level: number;
-  expandable: boolean;
-  isSelected: boolean;
-  objectType: CaHierarchyObjectType;
-  parentId: string;
-  style: TdTypeStyle;
-}
+import { FlDatasourceTree } from '@monorepo/front-core-lib/fl-core';
+import { combineLatest, Observable } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ca-hierarchy-object-tree',
@@ -45,84 +30,69 @@ interface CaFolderFlatNode {
     MatTreeNodeDef,
     MatTreeNode,
     MatTreeNodePadding,
-    NgClass,
     MatIconButton,
     MatTreeNodeToggle,
     MatIcon,
     CaHierarchyObjectIconComponent,
     RouterLink,
     CaNotificationMarkDirective,
+    NgClass,
   ],
 })
 export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   @Input({ required: true }) hierarchyObjects$: Observable<CaHierarchyObjectWithChildren[]>;
 
-  @Input() selectedObject$: Observable<string>;
+  @Input({ required: true }) selectedObject$: Observable<string>;
+
+  datasource: FlDatasourceTree<CaHierarchyObjectWithChildren> =
+    new FlDatasourceTree<CaHierarchyObjectWithChildren>();
 
   getRoute = input.required<(node: CaHierarchyObject) => string>();
 
   notificationObjectType = input<CaNotificationType>();
 
-  treeControl: FlFlatTreeControl<CaFolderFlatNode, string> = new FlFlatTreeControl<CaFolderFlatNode, string>(
-    (node) => node.level,
-    (node) => node.expandable,
-    {
-      trackBy: (node) => node.id,
-    }
-  );
+  matTree = viewChild.required(MatTree);
 
-  private transformer = (node: CaHierarchyObjectWithChildren, level: number): CaFolderFlatNode => {
-    return {
-      id: node.id,
-      expandable: !!node.children && node.children.length > 0,
-      level: level,
-      name: node.name,
-      isSelected: false,
-      objectType: node.objectType,
-      parentId: node.parentId,
-      style: node.style,
-    };
-  };
+  selectedObjectAndParent: CaHierarchyObjectWithChildren[] = [];
 
-  // object to flatten tree
-  treeFlattener: MatTreeFlattener<CaHierarchyObjectWithChildren, CaFolderFlatNode, string> =
-    new MatTreeFlattener(
-      this.transformer,
-      (node) => node.level,
-      (node) => node.expandable,
-      (node) => node.children
-    );
-
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener, []);
-
-  hasChild = (_: number, node: CaFolderFlatNode): boolean => node.expandable;
+  childrenAccessor = (node: CaHierarchyObjectWithChildren): CaHierarchyObjectWithChildren[] =>
+    node.children ?? [];
 
   private subscription = new ClSubscriptionHandler();
 
   ngOnInit(): void {
     this.subscription.add(
-      this.hierarchyObjects$.subscribe((hierarchyObjects) => (this.dataSource.data = hierarchyObjects))
+      this.hierarchyObjects$.subscribe((data) => {
+        this.datasource.setData(data);
+      })
     );
 
-    // when the list of object or the selected object are update, we refresh the expand and selected attribute
-    this.subscription.add(
-      combineLatest([this.selectedObject$, this.hierarchyObjects$]).subscribe(([hierarchyObjectId]) =>
-        this.refreshSelectedAndExpand(hierarchyObjectId)
-      )
-    );
+    // timeout required to correctly expand the tree on init in chat page
+    setTimeout(() => {
+      this.subscription.add(
+        combineLatest([this.selectedObject$, this.datasource.connect()])
+          .pipe(clRxjsDebug())
+          .subscribe(([hierarchyObjectId]) => this.refreshSelectedAndExpand(hierarchyObjectId))
+      );
+    }, 0);
   }
 
   private refreshSelectedAndExpand(hierarchyObjectId: string): void {
-    // cancel selection
-    this.treeControl.dataNodes.forEach((n) => (n.isSelected = false));
-    let node = this.treeControl.dataNodes.find((n) => n.id === hierarchyObjectId);
+    let node = this.datasource.findNode(hierarchyObjectId);
 
+    const nodeAndParent: CaHierarchyObjectWithChildren[] = [];
     while (node) {
-      node.isSelected = true;
-      this.treeControl.expand(node);
+      this.matTree().expand(node);
       // also expand and select parents
-      node = this.treeControl.getAncestor(node);
+      nodeAndParent.push(node);
+      node = this.datasource.findParentNode(node.id);
     }
+
+    this.selectedObjectAndParent = nodeAndParent;
+  }
+
+  isSelected(node: CaHierarchyObjectWithChildren): boolean {
+    return this.selectedObjectAndParent.find((n) => n.id === node.id) != null;
   }
 
   ngOnDestroy(): void {
