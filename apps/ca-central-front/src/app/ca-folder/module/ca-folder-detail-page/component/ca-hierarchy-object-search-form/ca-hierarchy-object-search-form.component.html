@@ -1,13 +1,16 @@
-<form [formGroup]="formGp" (ngSubmit)="submit()" class="g-layout-row g-layout-start-center g-layout-gap-1em">
+<form
+  [formGroup]="formGp"
+  (ngSubmit)="submit()"
+  class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
   <!--    Filter by name    -->
-  <mat-form-field class="g-form-field-compact-height name-search" subscriptSizing="dynamic">
+  <mat-form-field class="g-form-field-compact-height name-search field" subscriptSizing="dynamic">
     <mat-label>{{ 'name' | translate }}</mat-label>
     <input matInput [placeholder]="'name' | translate" formControlName="name" />
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
   <!--   Filter by object type     -->
-  <mat-form-field class="g-form-field-compact-height" subscriptSizing="dynamic">
+  <mat-form-field class="g-form-field-compact-height field" subscriptSizing="dynamic">
     <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
     <mat-select
       formControlName="objectType"
@@ -41,7 +44,8 @@
     </mat-select>
   </mat-form-field>
 
-  <ca-user-list-inline [users$]="users$" formControlName="users"></ca-user-list-inline>
+  <ca-hierarchy-object-tags-filter formControlName="tags" class="field"></ca-hierarchy-object-tags-filter>
 
-  <ca-hierarchy-object-tags-filter formControlName="tags"></ca-hierarchy-object-tags-filter>
+  <ca-user-list-inline [users$]="users$" formControlName="users" class="field"></ca-user-list-inline>
+
 </form>

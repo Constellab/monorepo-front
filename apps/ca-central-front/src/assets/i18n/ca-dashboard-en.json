@@ -181,7 +181,7 @@
   "drop_file_in_folder": "Drop file here to import them into {{name}}",
   "document": "File",
   "constellab_document": "Note",
-  "folder_object_type": "Filter",
+  "folder_object_type": "Type",
   "clear": "Clear",
   "chat": "Chat",
   "folder_chat_activated": "Chat activated in the folder",
