@@ -80,13 +80,9 @@
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let hierarchyObject">
-      @defer (on viewport) {
         <fl-tag-list class="g-text-tiny"
-          [tags]="hierarchyObject | caHierarchyObjectGetTags"
+          [tags]="hierarchyObject.lastTags"
           [showNoTagMessage]="false"></fl-tag-list>
-      } @placeholder {
-        <div></div>
-      }
     </mat-cell>
   </ng-container>
 

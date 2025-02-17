@@ -5,7 +5,7 @@ import { CaUser } from '../ca-user.class';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaEntity } from '../ca-entity.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
-import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 
 export enum CaHierarchyObjectType {
   FOLDER = 'FOLDER',
@@ -96,6 +96,8 @@ export class CaHierarchyObject extends CaEntity {
   documentSize: number;
 
   style: TdTypeStyle;
+
+  lastTags: FlTag[];
 
   isRoot(): boolean {
     return this.parentId === null;
