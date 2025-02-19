@@ -219,5 +219,5 @@
   "tag_already_exists": "This tag already exists",
   "add_tags_to_entity": "Add tags",
   "all_tag_values": "All values",
-  "no_tag_to_filter": "No tag used in the folder, add tags to object to enable filtering"
+  "no_tag_to_filter": "No tag used in the folder, add tags to objects to enable filtering"
 }

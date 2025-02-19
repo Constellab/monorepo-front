@@ -65,11 +65,14 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.selectedObject$
-        .pipe(switchMap((selectedObjectId) => this.hierarchyObjects().findAncestorsNode$(selectedObjectId)))
-        .subscribe((ancestors) => this.refreshSelectedAndExpand(ancestors))
-    );
+    // use a timeout to let the matTree be initialized, otherwise the expand() doesn't work well
+    setTimeout(() => {
+      this.subscription.add(
+        this.selectedObject$
+          .pipe(switchMap((selectedObjectId) => this.hierarchyObjects().findAncestorsNode$(selectedObjectId)))
+          .subscribe((ancestors) => this.refreshSelectedAndExpand(ancestors))
+      );
+    }, 0);
   }
 
   private refreshSelectedAndExpand(ancestors: FlTree<CaHierarchyObjectSimple>[]): void {
@@ -77,7 +80,10 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
 
     // expand all the ancestors
     for (const ancestor of ancestors) {
-      this.matTree().expand(ancestor);
+      // don't expand if the children are not loaded
+      if (ancestor.children != null) {
+        this.matTree().expand(ancestor);
+      }
     }
   }
 
