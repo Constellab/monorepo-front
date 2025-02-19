@@ -5,7 +5,7 @@ import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/
 import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
 import { CaBucketLocationDTO } from '../ca-object-storage.class';
-import { CaHierarchyObject, caHierarchyObjectTypeInfos } from './ca-hierarchy-object.class';
+import { CaHierarchyObject } from './ca-hierarchy-object.class';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 
@@ -31,21 +31,14 @@ export class CaFolder extends CaBaseEntity {
 
   chatEnabled: boolean;
 
+  style: TdTypeStyle;
+
   get info(): CaFolderInfo {
     return {
       id: this.id,
       name: this.name,
       leader: this.leader,
     };
-  }
-
-  // TODO fix for root folder
-  get style(): TdTypeStyle {
-    return CaFolder.getDefaultStyle();
-  }
-
-  public static getDefaultStyle(): TdTypeStyle {
-    return caHierarchyObjectTypeInfos.FOLDER.style;
   }
 }
 
