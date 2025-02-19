@@ -23,6 +23,7 @@ import { CaResourceService } from '../../../ca-core/service-api/ca-resource.serv
 import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
 import { CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
 import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
+import { CaHierarchyObjectActionTags } from './ca-hierarchy-object-base-action-menu';
 
 export type CaHierarchyObjectActionEvent =
   | {
@@ -56,7 +57,8 @@ export class CaHierarchyObjectActionMenu {
     private securityService: CaSecurityService,
     private resourceService: CaResourceService,
     private noteService: CaNoteService,
-    private hierarchyObject: CaHierarchyObject
+    private hierarchyObject: CaHierarchyObject,
+    private tags: CaHierarchyObjectActionTags
   ) {}
 
   public openActionMenu(event: MouseEvent): Observable<CaHierarchyObjectActionEvent | null> {
@@ -94,7 +96,8 @@ export class CaHierarchyObjectActionMenu {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
         leader: this.hierarchyObject.user,
-      }
+      },
+      this.tags
     );
     return folderActionsMenu.openTableItemActionMenu(event);
   }
@@ -110,7 +113,8 @@ export class CaHierarchyObjectActionMenu {
         name: this.hierarchyObject.name,
         inTrash: false, // if the folder is visible, it is not in trash
         isConstellabDocument: this.hierarchyObject.objectType === CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
-      }
+      },
+      this.tags
     );
     return service.openDefaultActionMenu(event);
   }
@@ -123,7 +127,8 @@ export class CaHierarchyObjectActionMenu {
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
-      }
+      },
+      this.tags
     );
 
     return resourceActionsMenu.openActionMenu(event);
@@ -134,7 +139,8 @@ export class CaHierarchyObjectActionMenu {
       this.noteService,
       this.dialogService,
       this.menuDynamicService,
-      this.hierarchyObject.id
+      this.hierarchyObject.id,
+      this.tags
     );
     return noteActionMenu.openActionMenu(event);
   }
@@ -143,7 +149,8 @@ export class CaHierarchyObjectActionMenu {
     const scenarioActionMenu = new CaScenarioActionMenu(
       this.dialogService,
       this.menuDynamicService,
-      this.hierarchyObject.id
+      this.hierarchyObject.id,
+      this.tags
     );
     return scenarioActionMenu.openActionMenu(event);
   }

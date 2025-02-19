@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectSimple } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
@@ -28,7 +28,7 @@ export class CaFolderChatRightPanelComponent implements OnInit {
 
   @Input({ required: true }) folderId: string;
 
-  folder$: Observable<CaHierarchyObject>;
+  folder$: Observable<CaHierarchyObjectSimple>;
 
   chatDetailRoute: string;
 

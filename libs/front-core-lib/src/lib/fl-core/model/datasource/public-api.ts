@@ -5,3 +5,4 @@ export * from './fl-datasource-paginated.class';
 export * from './fl-datasource-tree.class';
 export * from './fl-entity-array.class';
 export * from './fl-entity-datasource.class';
+export * from './fl-tree-object.class';

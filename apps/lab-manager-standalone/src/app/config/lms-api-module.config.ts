@@ -1,5 +1,5 @@
 import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
-import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, ClDeserializationRef, ClPage, ClPageI } from '@monorepo/core-lib';
 import { Injectable } from '@angular/core';
 import { LmsEnvironmentHelper } from './lms-environmnet.helper';
 
@@ -10,11 +10,11 @@ import { LmsEnvironmentHelper } from './lms-environmnet.helper';
   providedIn: 'root',
 })
 export class LmsApiServiceConfig extends FlApiServiceConfig {
-  deserializePage(json: any, classReference: ClDeserializationRef): ClPageI<any> {
+  deserializePage(json: any, classReference: ClDeserializationRef): ClPage<any> {
     // if the result is paginated (we supposed the json is type of ClPage)
     if (json.objects != null && json.objects instanceof Array) {
       json.objects = ClCoreJsonConvert.deserialize(json.objects, classReference);
-      return json;
+      return ClPage.fromInterface(json as ClPageI<any>);
     } else {
       console.error('Response object not paginated');
       throw 'Response object not paginated';

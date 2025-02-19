@@ -135,7 +135,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
       this.constellabDocumentService,
       this.portalService,
       this.textEditorConfig,
-      this.state.getTags()
+      {tags: this.state.getTags()}
     );
 
     documentActionMenu.openDetailActionsMenu(event).subscribe((event) => {

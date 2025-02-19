@@ -79,6 +79,7 @@ export const flIconsDefault: FlIcon[] = [
   { name: 'brick', filename: 'brick.svg' },
   { name: 'agent', filename: 'agent.svg' },
   { name: 'community-icon', filename: 'community_logo.svg' },
+  { name: 'tag', matIconName: 'local_offer' },
 ];
 
 export function getFileIconFromExtension(extension: string): string {

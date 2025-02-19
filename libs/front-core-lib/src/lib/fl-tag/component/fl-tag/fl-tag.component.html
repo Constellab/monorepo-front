@@ -1,18 +1,19 @@
-<fl-chip class="chip">
-  <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-    <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
+<fl-chip
+  class="chip g-layout-row g-layout-start-center g-layout-gap-05em"
+  [matTooltip]="flTag.value ? flTag.key + ' : ' + flTag.value : flTag.key"
+  [matTooltipShowDelay]="2000">
+  <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
 
-    <div>
-      {{ flTag.key }}
-      @if (flTag.value) {
-        : {{ flTag.value }}
-      }
-    </div>
-
-    @if (showDeleteIcon) {
-      <button mat-icon-button class="g-button-icon-tiny" (click)="onDeleteTag($event)" type="button">
-        <mat-icon>cancel</mat-icon>
-      </button>
+  <div class="text">
+    {{ flTag.key }}
+    @if (flTag.value) {
+      : {{ flTag.value }}
     }
   </div>
+
+  @if (showDeleteIcon) {
+    <button mat-icon-button class="g-button-icon-tiny" (click)="onDeleteTag($event)" type="button">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  }
 </fl-chip>

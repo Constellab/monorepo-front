@@ -89,7 +89,7 @@
   "tag_dashboard_help": "Gérez les tags du lab pour organiser et retrouver rapidement des objets tels que des Ressources ou des Scénarios. Créez, mettez à jour ou supprimez des tags, avec des changements appliqués aux objets associés. Les clés sont supprimées lorsque toutes leurs valeurs sont supprimées.",
   "no_tags_dashboard": "Aucun tag, cliquez sur le bouton '+' au dessus pour commencez à utiliser des tags pour organiser vos objets",
   "no_tags_filters": "Aucun tag, cliquez sur le bouton ⚙️ au dessus pour commencez à utiliser des tags pour filtrer vos objets",
-  "no_tags": "Aucun tag",
+  "no_tag": "Aucun tag",
   "tag_help_tooltip": "Vous ne savez pas comment utiliser des tags ? Cliquez ici pour en savoir plus",
   "go_to_tag_management": "Aller à la gestion des tags",
   "tag_help_title": "Tags",

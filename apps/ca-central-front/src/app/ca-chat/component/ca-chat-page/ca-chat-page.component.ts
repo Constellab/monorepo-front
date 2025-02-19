@@ -3,16 +3,15 @@ import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
   CaHierarchyObject,
-  CaHierarchyObjectWithChildren,
+  CaHierarchyObjectsTreeDatasource,
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { CaHierarchyObjectTreeComponent } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tree/ca-hierarchy-object-tree.component';
 import { RouterOutlet } from '@angular/router';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-chat-page',
@@ -24,13 +23,14 @@ import { TranslatePipe } from '@ngx-translate/core';
     CaHierarchyObjectTreeComponent,
     RouterOutlet,
     FlCoreComponentModule,
-    AsyncPipe,
     TranslatePipe,
+    AsyncPipe,
   ],
 })
 export class CaChatPageComponent {
   isLoading: Signal<boolean>;
-  folders$: Observable<CaHierarchyObjectWithChildren[]>;
+  folders: CaHierarchyObjectsTreeDatasource;
+  isEmpty$: Observable<boolean>;
 
   selectedObjectId$: Observable<string>;
 
@@ -42,8 +42,10 @@ export class CaChatPageComponent {
     const state = inject(CaChatState);
 
     state.init();
-    this.folders$ = toObservable(state.folders);
+    this.folders = state.getFolders();
+    this.isEmpty$ = this.folders.isEmpty$();
     this.isLoading = state.isLoading;
     this.selectedObjectId$ = state.getSelectedFolderId$();
   }
 }
+

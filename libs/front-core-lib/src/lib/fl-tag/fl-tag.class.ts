@@ -1,8 +1,7 @@
 import { Observable } from 'rxjs';
 import { DateTime } from 'luxon';
 import { ClPageI } from '@monorepo/core-lib';
-import { FlArrayObs, FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
-import { FlColorHelper } from '@monorepo/front-core-lib/fl-core';
+import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 
 export type FlTagValue = string | number | DateTime;
 
@@ -18,27 +17,6 @@ export class FlTagDatasource<T extends FlTag = FlTag> extends FlArrayObs<T> {
   protected equals(a: T, b: T): boolean {
     return a.key === b.key && a.value === b.value;
   }
-}
-
-export class FlTagDatasourcePaginated<T extends FlTag = FlTag> extends FlDatasourcePaginated<T> {
-  protected equals(a: T, b: T): boolean {
-    return a.key === b.key && a.value === b.value;
-  }
-}
-
-export type FlTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'DATETIME';
-
-/**
- * Tag information that contains the list of available values for a tag
- */
-export interface FlTagKeyModel extends FlEntity {
-  key: string;
-  isPropagable: boolean;
-}
-
-export interface FlTagValueModel extends FlEntity {
-  key: string;
-  value: FlTagValue;
 }
 
 /**
@@ -58,80 +36,30 @@ export interface FlTagSelectedEvent {
   event: MouseEvent;
 }
 
-export class FlTagHelper {
-  public static readonly MAX_LENGTH = 20;
-
-  public static addOrReplaceTag(tags: FlTag[], tag: FlTag): FlTag[] {
-    if (!tags) return [tag];
-
-    const existingTag: number = tags.findIndex((t) => t.key === tag.key);
-    if (existingTag >= 0) {
-      const newTags = [...tags];
-      newTags[existingTag] = tag;
-      return newTags;
-    } else {
-      return [...tags, tag];
-    }
-  }
-
-  /**
-   * Group a list of tag by keys
-   * @param tagsList
-   */
-  public static groupTagsByKey(tagsList: Record<string, string>[]): Record<string, string[]> {
-    const tags: Record<string, string[]> = {};
-
-    if (tagsList) {
-      for (const t of tagsList) {
-        for (const key of Object.keys(t)) {
-          if (tags[key] == null) {
-            tags[key] = [];
-          }
-          if (tags[key].includes(t[key])) continue;
-
-          tags[key].push(t[key]);
-          tags[key] = tags[key].sort();
-        }
-      }
-    }
-    return tags;
-  }
-
-  /**
-   * Convert tag groups to TagWith colors
-   * @param tags
-   * @param colors
-   */
-  public static tagGroupsToTagWithColors(tags: Record<string, string[]>, colors: string[]): FlTagWithColor[] {
-    const tagsColors: FlTagWithColor[] = [];
-    let i = 0;
-    Object.keys(tags).forEach((tagKey) => {
-      // generate a color for each tag value
-      tags[tagKey].forEach((tagValue) => {
-        tagsColors.push({
-          key: tagKey,
-          value: tagValue,
-          color: colors[i % colors.length],
-        });
-        i++;
-      });
-    });
-    return tagsColors;
-  }
-
-  public static getTagDefaultColor(key: string): string {
-    return FlColorHelper.stringToRGBColor(`${key}${key}${key}`);
-  }
-
-  public static tagValueToString(tag: FlTagValue): string {
-    if (tag == null) return '';
-    if (tag instanceof DateTime) {
-      return tag.toISODate();
-    } else {
-      return tag.toString();
-    }
-  }
+/**
+ * Used for search
+ */
+export interface FlTagKeySearchResult<T = any> {
+  type: 'key';
+  content: string;
+  // contains the DB entity with full object
+  entity?: T;
 }
+
+/**
+ * Used for search
+ */
+export interface FlTagValueSearchResult<T = any> {
+  type: 'value';
+  content: FlTagValue;
+  // contains the DB entity with full object
+  entity?: T;
+}
+
+/**
+ * Used for search
+ */
+export type FlTagSearchResult<T = any> = FlTagKeySearchResult<T> | FlTagValueSearchResult<T>;
 
 export interface FlTagSearchFilter {
   key: string;
@@ -143,5 +71,5 @@ export abstract class FlTagService {
     filters: Partial<FlTagSearchFilter>,
     page: number,
     pageSize: number
-  ): Observable<ClPageI<any>>;
+  ): Observable<ClPageI<FlTagSearchResult>>;
 }

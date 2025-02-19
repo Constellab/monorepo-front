@@ -1,8 +1,9 @@
-@use '@angular/material' as mat;
-
-
 :host {
   display: block;
+}
+
+.option-container {
+  width: 100%;
 }
 
 .color {
@@ -11,5 +12,12 @@
   height: 10px !important;
 }
 
-.color-option {
+.option {
+  // make a text ellipsis of 2 lines
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // multi-line ellipsis
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

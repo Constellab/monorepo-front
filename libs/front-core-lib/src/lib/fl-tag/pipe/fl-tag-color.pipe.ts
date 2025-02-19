@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FlTag, FlTagHelper } from '../fl-tag.class';
+import { FlTag } from '../fl-tag.class';
 import { FlTagColorer } from '../fl-tag-colorer.class';
 import { Observable, of } from 'rxjs';
+import { FlTagHelper } from '../fl-tag.helper';
 
 /**
  * If the tag has a color, use it,

@@ -7,8 +7,8 @@
         <div
           matChipAvatar
           class="color"
-          [style.background-color]="currentTagKey.key | flTagColor | async"></div>
-        {{ currentTagKey.key }} :
+          [style.background-color]="currentTagKey.content | flTagColor | async"></div>
+        {{ currentTagKey.content }} :
       </mat-chip-row>
     }
     <input
@@ -28,12 +28,12 @@
     [autoActiveFirstOption]="true">
     <fl-infinite-scroll [datasource]="filteredOptions" class="g-mat-option-infinite-scroll" [textNoResult]="null">
       @for (item of filteredOptions | flDatasourceConnect | async; track item) {
-        <mat-option [value]="item">
-          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-            @if ((mode$ | async) === 'key') {
-              <div class="color color-option" [style.background-color]="item.key | flTagColor | async"></div>
+        <mat-option [value]="item" class="g-mat-option-no-wrap">
+          <div class="option-container g-layout-row g-layout-start-center g-layout-gap-05em">
+            @if (item.type === 'key') {
+              <div class="color color-option" [style.background-color]="item.content | flTagColor | async"></div>
             }
-            <span>{{ item }}</span>
+            <span class="option">{{ item.content }}</span>
           </div>
         </mat-option>
       }

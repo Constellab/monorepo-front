@@ -1,15 +1,13 @@
 <div class="g-layout-row-wrap g-layout-start-center g-text-light container">
   <!-- Button to toggle folder tree, hidden if the tree is empty  -->
-  @if (hasChildren$ | async) {
-    <button
-      mat-icon-button
-      type="button"
-      (click)="toggleTree()"
-      class="toggle-button"
-      [matTooltip]="'toggle_folder_hierarchy' | translate">
-      <mat-icon>menu_open</mat-icon>
-    </button>
-  }
+  <button
+    mat-icon-button
+    type="button"
+    (click)="toggleTree()"
+    class="toggle-button"
+    [matTooltip]="'toggle_folder_hierarchy' | translate">
+    <mat-icon>menu_open</mat-icon>
+  </button>
 
   @for (link of links$ | async; let last = $last; track link.id) {
     <a [routerLink]="link.url" class="g-text-link">

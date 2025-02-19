@@ -11,10 +11,10 @@ import {
   LabTagDetailPortalInput,
 } from '../lab-tag-detail-portal/lab-tag-detail-portal.component';
 import { MatTooltip } from '@angular/material/tooltip';
-import { TranslatePipe } from '@ngx-translate/core';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 @Component({
   selector: 'lab-tag-list',
@@ -23,7 +23,7 @@ import { MatIconButton } from '@angular/material/button';
   imports: [
     FlTagModule,
     MatTooltip,
-    TranslatePipe,
+    FlTranslateModule,
     FlCorePipeModule,
     AsyncPipe,
     MatIcon,

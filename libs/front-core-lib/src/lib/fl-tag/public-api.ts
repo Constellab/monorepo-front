@@ -15,4 +15,5 @@ export * from './pipe/fl-tags-to-list.pipe';
 
 // Models
 export * from './fl-tag.class';
+export * from './fl-tag.helper';
 export * from './fl-tag-colorer.class';

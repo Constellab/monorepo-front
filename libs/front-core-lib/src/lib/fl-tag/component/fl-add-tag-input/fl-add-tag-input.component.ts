@@ -15,28 +15,31 @@ import { TAB } from '@angular/cdk/keycodes';
 import { UntypedFormControl } from '@angular/forms';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
-  FlTagKeyModel,
+  FlTagKeySearchResult,
   FlTagSearchFilter,
+  FlTagSearchResult,
   FlTagService,
-  FlTagValue,
-  FlTagValueModel,
+  FlTagValueSearchResult,
 } from '../../fl-tag.class';
 import { BehaviorSubject, combineLatest, startWith, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 
-export interface FlAddTagEvent {
-  key: string;
-  value: FlTagValue;
-  defaultIsPropagable: boolean;
-}
-
-interface FlNewTagKey {
-  key: string;
-  defaultIsPropagable: boolean;
+export interface FlAddTagEvent<T = any> {
+  key: FlTagKeySearchResult<T>;
+  value: FlTagValueSearchResult;
 }
 
 type FlTagMode = 'key' | 'value';
+
+class FlTagInputSearchDatasourcePaginated extends FlDatasourcePaginated<
+  FlTagSearchResult,
+  FlTagSearchFilter
+> {
+  protected equals(a: FlTagSearchResult, b: FlTagSearchResult): boolean {
+    return a.content === b.content;
+  }
+}
 
 /**
  * Component that supports NgModel to search and add a tag
@@ -70,18 +73,18 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [TAB];
   inputCtrl = new UntypedFormControl();
 
-  filteredOptions: FlDatasourcePaginated<any, FlTagSearchFilter>;
+  filteredOptions: FlTagInputSearchDatasourcePaginated;
 
   // provided when adding a new tag. It is set when the key has been defined but not the value
   // this is a temp storage
-  currentTagKey: FlNewTagKey;
+  currentTagKey: FlTagKeySearchResult;
 
   mode$: BehaviorSubject<FlTagMode> = new BehaviorSubject('key');
 
   private subscription: Subscription;
 
   ngOnInit(): void {
-    this.filteredOptions = new FlEntityPaginatedDatasource<any, FlTagSearchFilter>(
+    this.filteredOptions = new FlTagInputSearchDatasourcePaginated(
       (page, size, filter) => this.tagService.searchTag(filter.filtersCriteria, page, size),
       20,
       { initFirstPage: false }
@@ -94,7 +97,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   private loadPage(inputText: string, mode: FlTagMode): void {
     if (mode === 'value') {
-      this.filteredOptions.getFirstPage({ key: this.currentTagKey.key, value: inputText });
+      this.filteredOptions.getFirstPage({ key: this.currentTagKey.content, value: inputText });
     } else {
       this.filteredOptions.getFirstPage({ key: inputText });
     }
@@ -142,30 +145,27 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
     this.addChip(event.option.value);
   }
 
-  private addChip(value: any): void {
+  private addChip(value: string | FlTagSearchResult): void {
     if (!value) return;
     if (this.mode$.value === 'value') {
-      let tagValue: FlTagValue;
+      let tagValue: FlTagSearchResult;
       if (typeof value === 'string') {
-        tagValue = value;
+        tagValue = { type: 'value', content: value };
       } else {
-        tagValue = (value as FlTagValueModel).value;
+        tagValue = value;
       }
       this.addTag.emit({
-        key: this.currentTagKey.key,
-        value: tagValue,
-        defaultIsPropagable: this.currentTagKey.defaultIsPropagable,
+        key: this.currentTagKey,
+        value: tagValue as FlTagValueSearchResult,
       });
 
       this.switchMode('key');
     } else {
       if (typeof value === 'string') {
         // create a new tag key
-        this.currentTagKey = { key: value, defaultIsPropagable: false };
+        this.currentTagKey = { type: 'key', content: value };
       } else {
-        const key: FlTagKeyModel = value as FlTagKeyModel;
-        // find the selected tag and save it
-        this.currentTagKey = { key: key.key, defaultIsPropagable: key.isPropagable };
+        this.currentTagKey = value as FlTagKeySearchResult;
       }
 
       this.switchMode('value');
@@ -179,7 +179,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
    * and focus the input
    * @param key
    */
-  public setKey(key: string): void {
+  public setKey(key: FlTagKeySearchResult): void {
     // switch to key mode to set the key
     this.switchMode('key');
     this.addChip(key);

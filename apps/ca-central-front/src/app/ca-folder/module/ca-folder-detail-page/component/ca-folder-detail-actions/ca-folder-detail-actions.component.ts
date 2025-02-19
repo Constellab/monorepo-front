@@ -73,7 +73,7 @@ export class CaFolderDetailActionsComponent {
       },
       isRootFolder,
       this.state.getUsers(),
-      this.hierarchyObjectState.getTags()
+      { tags: this.hierarchyObjectState.getTags() }
     );
 
     folderActionsMenu.openDetailActionMenu(event).subscribe((event) => {

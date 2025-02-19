@@ -26,8 +26,10 @@ import {
   TeTextEditorHistoryPortalData,
 } from '@monorepo/text-editor';
 import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-constellab-document-history.service';
-import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectBaseActionMenu } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import {
+  CaHierarchyObjectActionTags,
+  CaHierarchyObjectBaseActionMenu,
+} from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaDocumentActionEvent =
   | {
@@ -46,7 +48,7 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
     menuDynamicService: FlMenuDynamicService,
     private actionService: FlPortalActionsService,
     protected documentInfo: CaDocumentBasicInfo,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, menuDynamicService, documentInfo.id, tags);
   }
@@ -275,7 +277,7 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
     private constellabDocumentService: CaConstellabDocumentHistoryService,
     private portalService: FlPortalService,
     private textEditorConfig: TeCompleteConfig,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, folderService, menuDynamicService, actionService, documentInfo, tags);
   }

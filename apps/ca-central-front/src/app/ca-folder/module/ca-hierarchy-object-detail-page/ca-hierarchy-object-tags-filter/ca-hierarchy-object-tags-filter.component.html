@@ -1,0 +1,25 @@
+@if (showTags$ | async) {
+  <mat-divider class="divider"></mat-divider>
+
+  <fl-text-icon class="title">
+    <mat-icon flIcon="tag" class="g-icon-small"></mat-icon>
+    <div class="g-text-small">{{ 'tags' | translate }}</div>
+  </fl-text-icon>
+
+  @if (value) {
+    <fl-tag [flTag]="value" [showDeleteIcon]="true" (deleteTag)="deleteTag()" class="g-text-small"></fl-tag>
+    <mat-divider class="small-divider"></mat-divider>
+  }
+
+  <div class="bottom">
+    <div class="g-layout-col g-layout-start-start g-text-small">
+      @for (tagKey of tags | flDatasourceConnect | async; track tagKey.key) {
+        <fl-tag class="tag" [flTag]="tagKey" (click)="openValueMenu(tagKey, $event)"></fl-tag>
+      }
+    </div>
+
+    @if (tags.isEmpty()) {
+      <div class="g-text-tiny g-text-light g-text-centered">{{ 'no_tag_to_filter' | translate }}</div>
+    }
+  </div>
+}

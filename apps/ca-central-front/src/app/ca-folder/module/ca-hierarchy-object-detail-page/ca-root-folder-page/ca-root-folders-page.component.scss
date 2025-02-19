@@ -1,0 +1,15 @@
+:host {
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--main-menu-margin) 1em 1em 1em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
+
+.card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

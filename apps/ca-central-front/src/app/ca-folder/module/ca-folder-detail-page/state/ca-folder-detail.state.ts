@@ -1,38 +1,34 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, filter, first, Observable, of, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, Observable, switchMap } from 'rxjs';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { map } from 'rxjs/operators';
-import { FlArrayObs, FlEntityArrayObs, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
+import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 
-import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import {
-  CaHierarchyObjectSearch,
-  CaHierarchyObjectSearchFields,
-} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 
 @Injectable()
 export class CaFolderDetailState implements OnDestroy {
   private folderService = inject(CaFolderService);
   private folderActionService = inject(CaFolderActionService);
   private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
-  private searchState = inject<FlSearchState<CaHierarchyObject>>(FlSearchState);
+  private searchState = inject(CaHierarchyObjectSearchState);
   private securityService = inject(CaSecurityService);
 
   private id$: Observable<string>;
 
   private folder$: BehaviorSubject<CaFolder>;
   private users$: FlArrayObs<CaUser>;
-  private childrenDatasource: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
   private subscription: ClSubscriptionHandler = new ClSubscriptionHandler();
 
@@ -47,33 +43,14 @@ export class CaFolderDetailState implements OnDestroy {
       })
     );
 
-    this.childrenDatasource = new FlEntityPaginatedDatasource<
-      CaHierarchyObject,
-      CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 30, { initFirstPage: false });
-
+    const rootFolderId$ = this.hierarchyObjectDetailState.getRootFolder$().pipe(
+      map((folder) => folder.id),
+      distinctUntilChanged()
+    );
     this.users$ = new FlEntityArrayObs(
-      this.id$.pipe(
-        first(), // as the share is handle at the root folder level, not need to refresh it every time
-        switchMap((id) => this.folderService.getUsersOfFolder(id))
-      ),
+      rootFolderId$.pipe(switchMap((id) => this.folderService.getUsersOfFolder(id))),
       true
     );
-
-    // init the children search state
-    const config: FlSearchConfig = {
-      version: 1,
-      buildAdvancedForm: CaHierarchyObjectSearch.getSearchForm,
-      advancedFormClass: CaHierarchyObjectSearchFields,
-      savedSearch: [],
-      advancedFormManager: {
-        config: CaHierarchyObjectSearch.searchManagerConfig,
-        skipFalseBoolean: true,
-      },
-      storeSearchInUrl: true,
-      defaultSort: { key: 'lastModifiedAt', direction: 'DESC' },
-    };
-    this.searchState.init(config, this.childrenDatasource);
 
     this.subscription.add(
       this.folderActionService
@@ -117,8 +94,8 @@ export class CaFolderDetailState implements OnDestroy {
     );
   }
 
-  public getChildrenDatasource(): CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields> {
-    return this.childrenDatasource;
+  public get childrenDatasource(): CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields> {
+    return this.searchState.childrenDatasource;
   }
 
   public refreshChildren(): void {
@@ -136,7 +113,7 @@ export class CaFolderDetailState implements OnDestroy {
     if (folder.parentId === this.getCurrentFolder().id) {
       this.childrenDatasource.unshiftItem(folder);
     }
-    this.hierarchyObjectDetailState.addFolderInTree(folder);
+    this.hierarchyObjectDetailState.addFoldersInTree([folder]);
   }
 
   public updatePartialChild(hierarchyObjectId: string, hierarchyObject: Partial<CaHierarchyObject>): void {
@@ -179,10 +156,10 @@ export class CaFolderDetailState implements OnDestroy {
     // if this is not the first get (navigation between folder), reset the search form
     if (this.folder$.value) {
       // reset the search form and prevent event so the valueChange is not triggered
-      this.searchState.resetFormAndCallSearch({ emitEvent: false });
+      this.searchState.resetFormAndCallSearch();
     } else {
       // trigger the first search using form value
-      this.searchState.submitForm();
+      this.searchState.submitFormAndCallSearch();
     }
 
     this.folder$.next(folder);
@@ -204,7 +181,6 @@ export class CaFolderDetailState implements OnDestroy {
   ngOnDestroy(): void {
     this.folder$?.complete();
     this.users$?.disconnect();
-    this.childrenDatasource?.manualDisconnect();
     this.subscription?.unsubscribe();
   }
 }

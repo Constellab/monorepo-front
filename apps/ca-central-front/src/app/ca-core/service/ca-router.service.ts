@@ -5,11 +5,10 @@ import {
   caConstFolderRoute,
   caConstHomeRoute,
   caConstLabsRoute,
-  caConstMyFoldersRoute,
   caConstStructureRoute,
   caConstUserPageRoute,
 } from '../utils/ca-base-route';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 
@@ -67,7 +66,7 @@ export class CaRouterService {
   }
 
   public static getMyFoldersRoute(): string {
-    return CaRouterService.getFullRoute(caConstMyFoldersRoute);
+    return CaRouterService.getFullRoute(caConstFolderRoute);
   }
 
   public static getScenarioDetailRoute(scenarioId: string): string {
@@ -100,14 +99,6 @@ export class CaRouterService {
 
   public navigateToDocumentPreview(documentId: string): void {
     this.router.navigate([CaRouterService.getDocumentPreviewRoute(documentId)]);
-  }
-
-  public navigateToScenarioDetail(scenarioId: string): void {
-    this.router.navigate([CaRouterService.getScenarioDetailRoute(scenarioId)]);
-  }
-
-  public navigateToNoteDetail(noteId: string): void {
-    this.router.navigate([CaRouterService.getNoteDetailRoute(noteId)]);
   }
 
   //////////////////////////// Lab //////////////////////////////

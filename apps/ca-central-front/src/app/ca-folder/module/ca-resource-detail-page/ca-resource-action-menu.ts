@@ -7,8 +7,10 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectBaseActionMenu } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import {
+  CaHierarchyObjectActionTags,
+  CaHierarchyObjectBaseActionMenu,
+} from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaResourceActionEvent = {
   action: 'deleteResource';
@@ -21,7 +23,7 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
     menuDynamicService: FlMenuDynamicService,
     dialogService: FlDialogService,
     private resourceInfo: CaResourceBasicInfo,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, menuDynamicService, resourceInfo.id, tags);
   }

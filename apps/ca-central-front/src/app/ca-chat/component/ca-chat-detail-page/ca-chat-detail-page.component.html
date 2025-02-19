@@ -1,9 +1,9 @@
 <div class="container g-max-article-width">
   <div class="header g-layout-row g-layout-between-center">
     <div class="g-layout-row-wrap g-layout-start-center">
-      @if (folder()) {
-        <ca-hierarchy-object-icon [style]="folder().style"></ca-hierarchy-object-icon>
-        <h1 class="folder-name">{{ folder().name }}</h1>
+      @if (folder$ | async; as folder) {
+        <ca-hierarchy-object-icon [style]="folder.style"></ca-hierarchy-object-icon>
+        <h1 class="folder-name">{{ folder.name }}</h1>
       }
     </div>
     <ca-user-list-inline [users$]="users$" [disabled]="true"></ca-user-list-inline>

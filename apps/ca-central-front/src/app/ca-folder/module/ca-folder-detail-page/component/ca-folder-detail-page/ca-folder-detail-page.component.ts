@@ -20,7 +20,6 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
 import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlQueryParamHandler, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import {
@@ -35,20 +34,33 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import {
+  CaHierarchyObjectSearchFields,
+} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import { CaResourceService } from '../../../../../ca-core/service-api/ca-resource.service';
-import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import {
+  CaHierarchyObjectBreadcrumbComponent,
+} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
-import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
-import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import {
+  CaFolderDetailActionsComponent,
+} from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
+import {
+  CaHierarchyObjectSearchFormComponent,
+} from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaFolderActionService,
+} from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 /**
  * Page for a folder detail
@@ -57,7 +69,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
   selector: 'ca-folder-detail-page',
   templateUrl: './ca-folder-detail-page.component.html',
   styleUrls: ['./ca-folder-detail-page.component.scss'],
-  providers: [FlSearchState, CaFolderDetailState, CaFolderRightPanelState, FlQueryParamHandler],
+  providers: [CaFolderDetailState, CaFolderRightPanelState, FlQueryParamHandler],
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     FlDragModule,
@@ -91,6 +103,7 @@ export class CaFolderDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private routerService = inject(CaRouterService);
+  private hierarchyObjectState = inject(CaHierarchyObjectDetailState);
   private state = inject(CaFolderDetailState);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderService = inject(CaFolderService);
@@ -111,7 +124,7 @@ export class CaFolderDetailPageComponent implements OnInit {
     this.folderId$ = this.state.getFolderId$();
     this.folder$ = this.state.getFolder$();
 
-    this.children = this.state.getChildrenDatasource();
+    this.children = this.state.childrenDatasource;
 
     // call init method of right panel state on the init to let the ui load
     this.rightPanelState.init();
@@ -257,7 +270,8 @@ export class CaFolderDetailPageComponent implements OnInit {
       this.securityService,
       this.resourceService,
       this.noteService,
-      hierarchyObject
+      hierarchyObject,
+      { availableTags: this.hierarchyObjectState.getChildrenAvailableTags() }
     );
     service
       .openActionMenu(event)

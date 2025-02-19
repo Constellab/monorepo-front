@@ -1,5 +1,8 @@
 import { Observable } from 'rxjs';
-import { CaHierarchyObjectBaseActionMenu } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import {
+  CaHierarchyObjectActionTags,
+  CaHierarchyObjectBaseActionMenu,
+} from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -7,7 +10,6 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { CaNoteTextEditorConfig } from './model/ca-note-text-editor-config.class';
 import {
@@ -30,7 +32,7 @@ export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActi
     dialogService: FlDialogService,
     menuDynamicService: FlMenuDynamicService,
     hierarchyObjectId: string,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, menuDynamicService, hierarchyObjectId, tags);
   }
@@ -82,7 +84,7 @@ export class CaNoteDetailActionMenu extends CaNoteActionMenu {
     private portalService: FlPortalService,
     private textEditorConfig: CaNoteTextEditorConfig,
     private noteHistoryService: TeTextEditorHistoryService,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(noteService, dialogService, menuDynamicService, hierarchyObjectId, tags);
   }

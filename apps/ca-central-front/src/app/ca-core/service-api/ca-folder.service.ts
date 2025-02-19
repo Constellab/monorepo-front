@@ -40,6 +40,7 @@ import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
+  CaHierarchyObjectSimple,
   CaHierarchyObjectWithChildren,
 } from '../model/entities/folder/ca-hierarchy-object.class';
 import {
@@ -96,16 +97,24 @@ export class CaFolderService {
     return this.apiService.getById(this.route, id, CaFolder);
   }
 
-  public getMyFoldersDatasource(pageSize: number = 20): CaHierarchyObjectDatasource {
-    return new FlEntityPaginatedDatasource((page, size) => this.getMyFolders(page, size), pageSize);
+  public getRootFoldersDatasource(pageSize: number = 20): CaHierarchyObjectDatasource {
+    return new FlEntityPaginatedDatasource((page, size) => this.getRootFolders(page, size), pageSize);
   }
 
-  private getMyFolders(page: number, pageSize: number): Observable<ClPageI<CaHierarchyObject>> {
-    return this.apiService.get(`${this.route}/current`, CaFolder, {
+  public getRootFolders(page: number, pageSize: number): Observable<ClPageI<CaHierarchyObject>> {
+    return this.apiService.get(`${this.route}/root/current`, CaHierarchyObject, {
       resultIsPaginated: true,
       page: page,
       pageSize: pageSize,
     });
+  }
+
+  public getAllRootFolders(): Observable<CaHierarchyObjectSimple[]> {
+    return this.apiService.get(`${this.route}/root/all`, CaHierarchyObjectSimple);
+  }
+
+  public getChildFolders(id: string): Observable<CaHierarchyObjectSimple[]> {
+    return this.apiService.get(`${this.route}/${id}/children/folders`, CaHierarchyObjectSimple);
   }
 
   public shareFolder(id: string, groupId: string): Observable<CaGroup> {
@@ -158,10 +167,6 @@ export class CaFolderService {
 
   public updateFolderLeader(id: string, userId: string): Observable<CaFolder> {
     return this.apiService.put(`${this.route}/${id}/leader/${userId}`, null, CaFolder);
-  }
-
-  public getFolderTree(objectId: string): Observable<CaHierarchyObjectWithChildren> {
-    return this.apiService.get(`${this.route}/tree/${objectId}`, CaHierarchyObjectWithChildren);
   }
 
   public getFolderByCurrentSpaceDatasource(): CaHierarchyObjectDatasource {

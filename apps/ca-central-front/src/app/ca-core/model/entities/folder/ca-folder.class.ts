@@ -39,6 +39,7 @@ export class CaFolder extends CaBaseEntity {
     };
   }
 
+  // TODO fix for root folder
   get style(): TdTypeStyle {
     return CaFolder.getDefaultStyle();
   }

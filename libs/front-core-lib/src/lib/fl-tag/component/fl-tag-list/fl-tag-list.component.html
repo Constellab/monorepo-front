@@ -1,6 +1,6 @@
 <div>
   @if (tags | flTagsToList: limitNumber | async; as tagList) {
-    @for (tag of tagList; track tag) {
+    @for (tag of tagList; track tag.key + tag.value) {
       <fl-tag
         [flTag]="tag"
         [tagColorer]="tagColorer"

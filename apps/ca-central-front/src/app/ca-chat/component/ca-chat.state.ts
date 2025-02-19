@@ -1,5 +1,8 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { CaHierarchyObjectWithChildren } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObjectsTreeDatasource,
+  CaHierarchyObjectWithChildren,
+} from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
@@ -17,13 +20,13 @@ export class CaChatState {
   private router = inject(Router);
   private routerService = inject(CaRouterService);
 
-  private folderSignal: WritableSignal<CaHierarchyObjectWithChildren[]>;
+  private folders: CaHierarchyObjectsTreeDatasource;
   private isLoadingSignal: WritableSignal<boolean>;
 
   public folderId$: Observable<string>;
 
   public init(): void {
-    this.folderSignal = signal([]);
+    this.folders = new CaHierarchyObjectsTreeDatasource();
     this.isLoadingSignal = signal(true);
     this.folderId$ = FlRouterHelper.listenToChildrenParams(this.router, this.route).pipe(
       map((params) => params.id)
@@ -34,8 +37,8 @@ export class CaChatState {
     });
   }
 
-  public get folders(): Signal<CaHierarchyObjectWithChildren[]> {
-    return this.folderSignal;
+  public getFolders(): CaHierarchyObjectsTreeDatasource {
+    return this.folders;
   }
 
   public get isLoading(): Signal<boolean> {
@@ -43,7 +46,7 @@ export class CaChatState {
   }
 
   private getFolderTreeSuccess(folders: CaHierarchyObjectWithChildren[]): void {
-    this.folderSignal.set(folders);
+    this.folders.addHierarchyObjectsWithChildren(folders);
 
     // if there is not selected folder, select the first one
     this.folderId$.pipe(first()).subscribe((folderId) => {

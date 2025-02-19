@@ -21,9 +21,6 @@ import {
 import {
   CaUserListInlineComponent,
 } from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
-import {
-  CaHierarchyObjectTagsFilterComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tags-filter/ca-hierarchy-object-tags-filter.component';
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder
@@ -46,11 +43,10 @@ import {
     CaUserListInlineComponent,
     FlCorePipeModule,
     TranslatePipe,
-    CaHierarchyObjectTagsFilterComponent,
   ],
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit {
-  searchState = inject(FlSearchState);
+  private searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
 
   objectTypes = caHierarchyObjectTypeInfos;

@@ -1,16 +1,22 @@
-<mat-tree #tree [dataSource]="datasource" [childrenAccessor]="childrenAccessor" class="tree">
+<mat-tree
+  #tree
+  [dataSource]="hierarchyObjects()"
+  [childrenAccessor]="childrenAccessor"
+  [trackBy]="hierarchyObjects().trackById"
+  class="tree">
   <!-- This is the tree node template for leaf nodes -->
   <mat-tree-node
     *matTreeNodeDef="let node"
     matTreeNodePadding
     [matTreeNodePaddingIndent]="10"
+    (expandedChange)="onExpand(node)"
     [ngClass]="{ 'selected-tree-node': isSelected(node) }">
     <div class="g-text-small tree-node g-layout-row g-layout-start-center">
       <button
         mat-icon-button
         matTreeNodeToggle
         class="g-button-icon-small toggle-parent-button"
-        [attr.aria-label]="'Toggle ' + node.name"
+        [attr.aria-label]="'Toggle ' + node.object.name"
         type="button">
         <mat-icon>
           {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
@@ -19,15 +25,18 @@
 
       <ca-hierarchy-object-icon
         class="node-icon"
-        [style]="node.style"
+        [style]="node.object.style"
         size="small"></ca-hierarchy-object-icon>
-      <a [routerLink]="getRoute()(node)" queryParamsHandling="preserve" class="object-name g-text-link">
+      <a
+        [routerLink]="getRoute()(node.object)"
+        queryParamsHandling="preserve"
+        class="object-name g-text-link">
         <div
-          [caNotificationMark]="node.id"
+          [caNotificationMark]="node.object.id"
           [caNotificationObjectType]="notificationObjectType()"
           [caNotificationAssociatedObjectIds]="1"
           [caNotificationMarkDisabled]="!notificationObjectType()">
-          {{ node.name }}
+          {{ node.object.name }}
         </div>
       </a>
     </div>

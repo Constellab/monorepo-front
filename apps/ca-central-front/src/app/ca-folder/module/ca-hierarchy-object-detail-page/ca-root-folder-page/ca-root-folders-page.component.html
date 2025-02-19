@@ -1,0 +1,32 @@
+<div>
+  <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
+</div>
+
+<fl-card class="g-full-height card-table">
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon flIcon="folder"></mat-icon>
+      <h1 class="folder-title">
+        {{ 'my_folders' | translate }}
+      </h1>
+    </fl-text-icon>
+
+    <fl-card-actions>
+      <button mat-stroked-button type="button" (click)="openCreateFolderDialog()" class="g-button-small">
+        <mat-icon>add</mat-icon>
+        <span>{{ 'new_folder' | translate }}</span>
+      </button>
+    </fl-card-actions>
+  </fl-card-header>
+
+  <fl-card-body class="card-body">
+    <fl-infinite-table-container
+      [datasource]="children"
+      textNoResult="folder_empty"
+      textNoMoreResult=""
+      class="table-container">
+      <ca-hierarchy-object-table [datasource]="children" [columns]="columns" [rowSelectable]="false">
+      </ca-hierarchy-object-table>
+    </fl-infinite-table-container>
+  </fl-card-body>
+</fl-card>

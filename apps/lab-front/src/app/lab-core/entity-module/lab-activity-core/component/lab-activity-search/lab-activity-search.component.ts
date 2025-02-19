@@ -50,7 +50,7 @@ export class LabActivitySearchComponent implements OnInit {
         config: LabActivitySearch.searchManagerConfig,
         skipFalseBoolean: true,
       },
-      storeSearchInUrl: true,
+      storeSearchInUrl: false,
       defaultSort: { key: 'date', direction: 'DESC' },
     };
 

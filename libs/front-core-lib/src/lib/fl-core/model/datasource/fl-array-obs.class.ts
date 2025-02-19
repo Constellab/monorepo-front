@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { FlDatasource } from './fl-datasource.class';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -47,6 +47,8 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
 
   private filters: Record<string, (item: T) => boolean> = {};
 
+  private subscription: Subscription;
+
   /**
    * @param data initial data
    * @param disableAutoDisconnect if true the auto disconnect is disabled. mat-table and fl-async-section will
@@ -68,7 +70,11 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
         if (!this.isEmpty()) {
           this.array = [];
         }
-        data.subscribe({
+
+        if(this.subscription) {
+          this.subscription.unsubscribe();
+        }
+        this.subscription = data.subscribe({
           next: (array) => (this.array = array),
           error: (error) => this.error(error, true),
         });
@@ -341,6 +347,7 @@ export abstract class FlArrayObs<T = any> implements FlDatasource<T> {
     this.array$.complete();
     this.status = { status: 'complete' };
     this.status$.complete();
+    this.subscription?.unsubscribe();
   }
 
   public isEmpty(): boolean {

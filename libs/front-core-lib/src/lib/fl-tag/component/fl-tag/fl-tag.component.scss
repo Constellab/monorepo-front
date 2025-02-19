@@ -1,10 +1,12 @@
 :host {
   display: inline-block;
+  max-width: 100%;
 }
 
 .chip {
-  background-color: var(--hover-color);
   margin: 4px;
+  max-width: 100%;
+  border: 1px solid var(--color-foreground);
 }
 
 .color {
@@ -12,4 +14,10 @@
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

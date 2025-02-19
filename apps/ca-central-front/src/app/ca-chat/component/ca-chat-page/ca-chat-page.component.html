@@ -1,25 +1,25 @@
 @if (isLoading()) {
   <div class="center-container">
-    <fl-loader size="large"></fl-loader>
+    <fl-loader size="medium"></fl-loader>
   </div>
 } @else {
-  @if (folders$ | async; as folders) {
-    @if (folders.length > 0) {
-      <div class="g-full drawer-container g-layout-row g-layout-start-stretch">
-        <div class="tree">
-          <ca-hierarchy-object-tree
-            [hierarchyObjects$]="folders$"
-            [selectedObject$]="selectedObjectId$"
-            [getRoute]="getRoute"
-            notificationObjectType="MESSAGE"></ca-hierarchy-object-tree>
-        </div>
+  @if (isEmpty$ | async) {
+    <div class="center-container g-text-big">
+      <fl-error-text [errorMessage]="'no_chat_activated' | translate"></fl-error-text>
+    </div>
+  } @else {
+    <div class="g-full drawer-container g-layout-row g-layout-start-stretch">
+      <div class="tree-container">
+        <ca-hierarchy-object-tree
+          class="tree"
+          [hierarchyObjects]="folders"
+          [selectedObject$]="selectedObjectId$"
+          [enableLazyChildrenLoading]="false"
+          [getRoute]="getRoute"
+          notificationObjectType="MESSAGE"></ca-hierarchy-object-tree>
+      </div>
 
-        <router-outlet></router-outlet>
-      </div>
-    } @else {
-      <div class="center-container g-text-big">
-        <fl-error-text [errorMessage]="'no_chat_activated' | translate"></fl-error-text>
-      </div>
-    }
+      <router-outlet></router-outlet>
+    </div>
   }
 }

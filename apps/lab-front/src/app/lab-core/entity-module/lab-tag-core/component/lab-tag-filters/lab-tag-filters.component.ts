@@ -31,6 +31,7 @@ import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scr
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 /**
  * Component to select tag to filter the list of entity
@@ -55,6 +56,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     AsyncPipe,
     FlCorePipeModule,
     TranslatePipe,
+    FlIconModule,
   ],
 })
 export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implements OnInit, OnDestroy {
@@ -88,13 +90,13 @@ export class LabTagFiltersComponent extends FlFormFieldDirective<FlTag[]> implem
   }
 
   addTag(tag: FlAddTagEvent): void {
-    this.selectedTags.addItem({ key: tag.key, value: tag.value });
+    this.selectedTags.addItem({ key: tag.key.content, value: tag.value.content });
     this.setAndEmitValue(this.selectedTags.array);
   }
 
   onKeyClick(key: LabTagKeyModel): void {
     // when a key is clicked, set the key in the add tag input
-    this.addTagInputComponent.setKey(key.key);
+    this.addTagInputComponent.setKey({ type: 'key', content: key.key, entity: key });
   }
 
   callChangeEvent(value: FlTag[]): void {

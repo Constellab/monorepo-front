@@ -59,7 +59,7 @@ export class CaScenarioCardDetailComponent {
       this.dialogService,
       this.menuDynamicService,
       this.scenario().id,
-      this.tags
+      { tags: this.tags }
     );
 
     scenarioActionMenu.openActionMenu(event);

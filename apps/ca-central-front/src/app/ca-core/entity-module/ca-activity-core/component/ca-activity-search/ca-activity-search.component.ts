@@ -48,7 +48,7 @@ export class CaActivitySearchComponent implements OnInit {
         config: CaActivitySearch.searchManagerConfig,
         skipFalseBoolean: true,
       },
-      storeSearchInUrl: true,
+      storeSearchInUrl: false,
       defaultSort: { key: 'creation', direction: 'DESC' },
     };
 

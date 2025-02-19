@@ -11,11 +11,11 @@ import { CaConstellabDocument } from '../../../model/entities/folder/ca-document
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaSecurityService } from '../../../service/ca-security.service';
 import { CaFolderActionService } from '../ca-folder-action.service';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 import {
-  CaHierarchyObject,
-  CaHierarchyObjectTagDatasource,
-} from '../../../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectBaseActionMenu } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+  CaHierarchyObjectActionTags,
+  CaHierarchyObjectBaseActionMenu,
+} from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaFolderActionEvent =
   | {
@@ -46,7 +46,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
     menuDynamicService: FlMenuDynamicService,
     protected securityService: CaSecurityService,
     protected folderInfo: CaFolderInfo,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, menuDynamicService, folderInfo.id, tags);
   }

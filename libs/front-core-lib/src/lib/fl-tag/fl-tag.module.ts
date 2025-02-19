@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Type, inject } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlTagInputComponent } from './component/fl-tag-input/fl-tag-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -82,6 +82,11 @@ export class FlTagModule {
     translateService.addModuleTranslation('FlTagModule', flTagI18n);
   }
 
+  /**
+   * Use this method in your root module to provide a tag service globally
+   * Otherwise it is possible to provide the service when using the fl-add-tag-input component
+   * @param tagService
+   */
   public static forRoot(tagService: Type<FlTagService>): ModuleWithProviders<FlTagModule> {
     return {
       ngModule: FlTagModule,

@@ -21,7 +21,8 @@ export class ClPage<T> implements ClPageI<T> {
     public totalElements: number,
     public currentPage: number,
     public pageSize: number,
-    public objects: T[]
+    public objects: T[],
+    public totalIsApproximate?: boolean
   ) {}
 
   public static fromInterface<T>(page: ClPageI<T>): ClPage<T> {
@@ -31,7 +32,8 @@ export class ClPage<T> implements ClPageI<T> {
       page.totalElements,
       page.currentPage,
       page.pageSize,
-      page.objects
+      page.objects,
+      page.totalIsApproximate
     );
   }
 

@@ -1,5 +1,5 @@
 import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
-import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, ClDeserializationRef, ClPage } from '@monorepo/core-lib';
 import { Injectable } from '@angular/core';
 import { HaEnvironmentHelper } from './ha-environment.helper';
 
@@ -10,11 +10,11 @@ import { HaEnvironmentHelper } from './ha-environment.helper';
   providedIn: 'root',
 })
 export class HaApiServiceConfig extends FlApiServiceConfig {
-  deserializePage(json: any, classReference: ClDeserializationRef): ClPageI<any> {
+  deserializePage(json: any, classReference: ClDeserializationRef): ClPage<any> {
     // if the result is paginated (we supposed the json is type of ClPage)
     if (json.objects != null && json.objects instanceof Array) {
       json.objects = ClCoreJsonConvert.deserialize(json.objects, classReference);
-      return json;
+      return ClPage.fromInterface(json);
     } else {
       throw 'Response object not paginated';
     }

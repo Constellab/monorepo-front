@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, map, Observable } from 'rxjs';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { CaHierarchyObjectDetailState } from '../../state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,
+  CaHierarchyObjectSimple,
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { MatIconButton } from '@angular/material/button';
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
-interface BreadcrumbLink {
+interface CaBreadcrumbLink {
   id: string;
   title: string;
   url: string;
@@ -35,39 +35,53 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
   private state = inject(CaHierarchyObjectDetailState);
   private translateService = inject(FlTranslateService);
 
-  links$: Observable<BreadcrumbLink[]>;
-
-  hasChildren$: Observable<boolean> = this.state.hasSubFolders$();
+  links$: Observable<CaBreadcrumbLink[]>;
 
   ngOnInit(): void {
     // read children route params
-    this.links$ = this.state
-      .getAncestorsFolders$()
-      .pipe(map((ancestors) => this.ancestorsToLinks(ancestors)));
+    this.links$ = combineLatest([this.state.getAncestorsFolders$(), this.state.getHierarchyObject$()]).pipe(
+      map(([ancestors, currentObject]) => this.ancestorsToLinks(ancestors, currentObject))
+    );
   }
 
-  private ancestorsToLinks(ancestors: CaHierarchyObject[]): BreadcrumbLink[] {
-    const links: BreadcrumbLink[] = [];
+  private ancestorsToLinks(
+    ancestors: CaHierarchyObjectSimple[],
+    currentObject: CaHierarchyObject
+  ): CaBreadcrumbLink[] {
+    const links: CaBreadcrumbLink[] = [];
 
-    for (const ancestor of ancestors) {
-      links.unshift({
-        id: ancestor.id,
-        title: ancestor.name,
-        url: this.getAncestorLink(ancestor),
-      });
+    if (ancestors?.length > 0) {
+      for (const ancestor of ancestors) {
+        links.unshift({
+          id: ancestor.id,
+          title: ancestor.name,
+          url: this.getAncestorLink(ancestor),
+        });
+      }
+
+      if (currentObject && currentObject.id !== ancestors[0].id) {
+        links.push({
+          id: currentObject.id,
+          title: currentObject.name,
+          url: this.getAncestorLink(currentObject),
+        });
+      }
     }
 
-    // add the dashboard link
-    links.unshift({
-      id: '1',
-      title: this.translateService.translate('home'),
-      url: CaRouterService.getHomeRoute(),
-    });
+    links.unshift(this.getDefaultLinks());
 
     return links;
   }
 
-  private getAncestorLink(ancestor: CaHierarchyObject): string {
+  private getDefaultLinks(): CaBreadcrumbLink {
+    return {
+      id: '1',
+      title: this.translateService.translate('my_folders'),
+      url: CaRouterService.getMyFoldersRoute(),
+    };
+  }
+
+  private getAncestorLink(ancestor: CaHierarchyObjectSimple): string {
     switch (ancestor.objectType) {
       case CaHierarchyObjectType.FOLDER:
         return CaRouterService.getFolderDetailRoute(ancestor.id);

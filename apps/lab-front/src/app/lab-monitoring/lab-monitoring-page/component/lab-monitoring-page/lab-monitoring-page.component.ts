@@ -30,7 +30,7 @@ export class LabMonitoringPageComponent {
     },
     {
       label: { text: 'tags', translateText: true },
-      icon: 'local_offer',
+      icon: 'tag',
       route: LabRouterService.getMonitoringTagsRoute(),
     },
     {

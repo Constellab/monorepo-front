@@ -1,11 +1,5 @@
-import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { FlEntity } from '@monorepo/front-core-lib/fl-core';
-import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagKeyModel } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagValue } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagValueFormat } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagValueModel } from '@monorepo/front-core-lib/fl-tag';
+import { FlDatasourcePaginated, FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { FlTag, FlTagDatasource, FlTagValue } from '@monorepo/front-core-lib/fl-tag';
 
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType, LabNavigableEntityGrouped } from './lab-navigable-entity.entity';
@@ -14,6 +8,7 @@ import { LabUser } from './lab-user.entity';
 import { TypeHelpOptions } from 'class-transformer/types/interfaces/type-help-options.interface';
 
 export type LabEntityTagType = 'SCENARIO' | 'NOTE' | 'RESOURCE' | 'VIEW' | 'SCENARIO_TEMPLATE';
+export type LabTagValueFormat = 'STRING' | 'INTEGER' | 'FLOAT' | 'DATETIME';
 
 /**
  * Object representing the tag
@@ -124,11 +119,11 @@ export class LabTagDetail implements FlTag, FlEntity {
 /**
  * Object representing the tags entity
  */
-export class LabTagKeyModel extends LabBaseEntity implements FlTagKeyModel {
+export class LabTagKeyModel extends LabBaseEntity {
   key: string;
 
   @Expose({ name: 'value_format' })
-  valueFormat: FlTagValueFormat;
+  valueFormat: LabTagValueFormat;
 
   @Expose({ name: 'is_propagable' })
   isPropagable: boolean;
@@ -147,13 +142,13 @@ export class LabTagKeyModel extends LabBaseEntity implements FlTagKeyModel {
 
 export type LabTagKeyModelDatasource = FlDatasourcePaginated<LabTagKeyModel>;
 
-export class LabTagValueModel extends LabBaseEntity implements FlTagValueModel {
+export class LabTagValueModel extends LabBaseEntity {
   key: string;
 
   value: FlTagValue;
 
   @Expose({ name: 'value_format' })
-  valueFormat: FlTagValueFormat;
+  valueFormat: LabTagValueFormat;
 
   toString(): string {
     return this.value.toString();

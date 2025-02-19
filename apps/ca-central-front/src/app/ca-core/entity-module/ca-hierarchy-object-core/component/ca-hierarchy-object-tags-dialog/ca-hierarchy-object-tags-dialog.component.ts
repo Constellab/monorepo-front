@@ -2,7 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CaHierarchyObjectTagDatasource } from '../../../../model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
-import { FlAddTagEvent, FlTag, FlTagDatasource, FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import {
+  FlAddTagEvent,
+  FlTag,
+  FlTagDatasource,
+  FlTagModule,
+  FlTagService,
+} from '@monorepo/front-core-lib/fl-tag';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -16,10 +22,14 @@ import { MatDivider } from '@angular/material/divider';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CaTagService } from '../../../../service-api/ca-tag.service';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { CaAvailableTagDatasource } from '../../../../model/entities/ca-tag.class';
 
 export interface CaHierarchyObjectTagsDialogInput {
   hierarchyObjectId: string;
   tags?: FlTagDatasource;
+  availableTags?: CaAvailableTagDatasource;
 }
 
 /**
@@ -35,9 +45,11 @@ export interface CaHierarchyObjectTagsDialogInput {
     FlTranslateModule,
     MatButtonModule,
     MatIconModule,
+    FlIconModule,
   ],
   templateUrl: './ca-hierarchy-object-tags-dialog.component.html',
   styleUrl: './ca-hierarchy-object-tags-dialog.component.scss',
+  providers: [{ provide: FlTagService, useClass: CaTagService }],
 })
 export class CaHierarchyObjectTagsDialogComponent implements OnInit {
   data: CaHierarchyObjectTagsDialogInput = inject(MAT_DIALOG_DATA);
@@ -46,6 +58,7 @@ export class CaHierarchyObjectTagsDialogComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private portalActionService = inject(FlPortalActionsService);
   private snackBarService = inject(FlSnackBarService);
+  private tagService: CaTagService = inject(FlTagService) as CaTagService;
 
   tags: CaHierarchyObjectTagDatasource;
 
@@ -59,10 +72,16 @@ export class CaHierarchyObjectTagsDialogComponent implements OnInit {
     } else {
       this.tags = new FlTagDatasource(this.hierarchyObjectService.getAllTags(this.data.hierarchyObjectId));
     }
+
+    if (this.data.availableTags) {
+      this.tagService.initFromTags(this.data.availableTags);
+    } else {
+      this.tagService.initFromObject(this.data.hierarchyObjectId);
+    }
   }
 
   addTag(tagEvent: FlAddTagEvent): void {
-    const tag: FlTag = { key: tagEvent.key, value: tagEvent.value };
+    const tag: FlTag = { key: tagEvent.key.content, value: tagEvent.value.content };
     if (this.tags.findItem(tag)) {
       this.snackBarService.openErrorMessage({ text: 'tag_already_exists', translateText: true });
       return;
@@ -95,6 +114,7 @@ export class CaHierarchyObjectTagsDialogComponent implements OnInit {
       .subscribe((result: FlPortalActionResult<FlTag[]>) => {
         if (result.status === 'success') {
           this.tags.addItem(result.result);
+          this.tagService.availableTags.addTag(result.result);
         }
       });
     this.newTags.clear();

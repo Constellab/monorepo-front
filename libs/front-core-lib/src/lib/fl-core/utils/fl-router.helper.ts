@@ -1,15 +1,12 @@
-import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Data, NavigationEnd, Params, Router } from '@angular/router';
 import { distinctUntilChanged, Observable, startWith } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 export class FlRouterHelper {
-  /**
-   * Method used to listen to params of children routes. The paramsInheritanceStrategy: 'always' option must
-   * be set in the main RouterModule config (RouterModule.forRoot)
-   * @param router
-   * @param route
-   */
-  public static listenToChildrenParams(router: Router, route: ActivatedRoute): Observable<Params> {
+  public static listenToChildrenRoute(
+    router: Router,
+    route: ActivatedRoute
+  ): Observable<ActivatedRouteSnapshot> {
     return router.events.pipe(
       // have a first emission
       startWith(new NavigationEnd(0, '', '')),
@@ -25,8 +22,34 @@ export class FlRouterHelper {
         while (currentRoute.firstChild) {
           currentRoute = currentRoute.firstChild;
         }
-        return currentRoute.params;
+        return currentRoute;
       })
+    );
+  }
+
+  /**
+   * Method used to listen to params of children routes. The paramsInheritanceStrategy: 'always' option must
+   * be set in the main RouterModule config (RouterModule.forRoot)
+   * @param router
+   * @param route
+   */
+  public static listenToChildrenParams(router: Router, route: ActivatedRoute): Observable<Params> {
+    return FlRouterHelper.listenToChildrenRoute(router, route).pipe(
+      // retrieve the child route
+      map((routeSnapshot) => routeSnapshot.params)
+    );
+  }
+
+  /**
+   * Method used to listen to data of children routes. The paramsInheritanceStrategy: 'always' option must
+   * be set in the main RouterModule config (RouterModule.forRoot)
+   * @param router
+   * @param route
+   */
+  public static listenToChildrenData(router: Router, route: ActivatedRoute): Observable<Data> {
+    return FlRouterHelper.listenToChildrenRoute(router, route).pipe(
+      // retrieve the child route
+      map((routeSnapshot) => routeSnapshot.data)
     );
   }
 }

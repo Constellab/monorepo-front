@@ -13,7 +13,14 @@
   align-items: center;
 }
 
-.tree {
+.tree-container {
   width: 17em;
   padding: var(--main-menu-margin) 0.5em var(--main-menu-margin) 0.5em;
+}
+
+.tree{
+  background-color: var(--card-background);
+  border-radius: var(--card-radius);
+  display: block;
+  padding: 8px;
 }

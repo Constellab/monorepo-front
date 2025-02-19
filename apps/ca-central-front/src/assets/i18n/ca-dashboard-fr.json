@@ -217,5 +217,7 @@
   "delete_tag_confirmation": "Êtes-vous sûr de vouloir supprimer ce tag ?",
   "tag_deleted": "Tag supprimé",
   "tag_already_exists": "Le tag existe déjà",
-  "add_tags": "Ajouter des tags"
+  "add_tags": "Ajouter des tags",
+  "all_tag_values": "Toutes les valeurs",
+  "no_tag_to_filter": "Aucun tag utilisé dans le dossier, ajoutez des tags aux objets pour activer le filtrage"
 }

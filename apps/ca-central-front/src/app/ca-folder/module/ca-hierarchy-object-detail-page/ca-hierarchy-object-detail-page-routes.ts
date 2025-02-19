@@ -4,10 +4,17 @@ export const caHierarchyObjectRoutes: Route[] = [
   {
     path: '',
     loadComponent: () =>
-      import('./component/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component').then(
+      import('./ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page.component').then(
         (m) => m.CaHierarchyObjectDetailPageComponent
       ),
     children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./ca-root-folder-page/ca-root-folders-page.component').then(
+            (m) => m.CaRootFoldersPageComponent
+          ),
+      },
       {
         path: ':id',
         loadComponent: () =>

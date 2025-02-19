@@ -3,13 +3,12 @@ import { Observable } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolderDescriptionTextEditorConfig } from './ca-folder-description-text-editor.config';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { CaGetFolderDescriptionDTO } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectSimple } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
@@ -36,7 +35,7 @@ export class CaFolderDescriptionComponent implements OnInit {
 
   @Input({ required: true }) folderId: string;
 
-  folder$: Observable<CaHierarchyObject>;
+  folder$: Observable<CaHierarchyObjectSimple>;
 
   @Input({ required: true }) folderName: string;
 

@@ -7,7 +7,6 @@ import {
   caConstFolderRoute,
   caConstHomeRoute,
   caConstLabsRoute,
-  caConstMyFoldersRoute,
   caConstPublicRoute,
   caConstStructureRoute,
   caConstUserPageRoute,
@@ -18,7 +17,6 @@ import { caStructureRoutes } from '../ca-structure/ca-structure-routes';
 import { caHierarchyObjectRoutes } from '../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-detail-page-routes';
 import { caDashboardRoutes } from '../ca-dashboard/ca-dashboard-routes';
 import { caLabRoutes } from '../ca-lab/ca-lab-routes';
-import { caMyFolderRoutes } from '../ca-folder/module/ca-my-folders/ca-my-folder-routes';
 import { caAdminRoutes } from '../ca-admin/ca-admin-routes';
 import { caChatRoutes } from '../ca-chat/ca-chat-routes';
 import { caUserRoutes } from '../ca-user-detail-page/ca-user-detail-page-routes';
@@ -51,12 +49,6 @@ export const caMainRoutes: Route[] = [
       {
         path: caConstLabsRoute,
         children: caLabRoutes,
-      },
-
-      //////////////////////// MY FOLDER /////////////////////////
-      {
-        path: caConstMyFoldersRoute,
-        children: caMyFolderRoutes,
       },
 
       //////////////////////// FOLDER DETAIL /////////////////////////

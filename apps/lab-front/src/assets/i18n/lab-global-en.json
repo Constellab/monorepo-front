@@ -89,7 +89,7 @@
   "tag_dashboard_help": "Manage lab tags to organize and quickly find objects such as Resources or Scenarios. Create, update, or delete tags, with changes applied to associated objects. Keys are removed when all their values are deleted.",
   "no_tags_dashboard": "No tag, click on the '+' button above to start using tags to organize your objects",
   "no_tags_filters": "No tag, click on the ⚙️ button above to start using tags to organize your objects",
-  "no_tags": "No tag",
+  "no_tag": "No tag",
   "tag_help_tooltip": "Don't know how to use tags ? Click here",
   "go_to_tag_management": "Go to tag management",
   "tag_help_title": "Tags",

@@ -68,8 +68,6 @@ import {
   withRouterConfig,
 } from '@angular/router';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
-import { CaTagService } from './app/ca-core/service-api/ca-tag.service';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -122,7 +120,6 @@ function bootstrapApp(): void {
         FlAuthModule.forRoot(CaAuthService, CaUserAccountsService),
         FlPortalActionsModule.forRoot(),
         FlUserModule.forRoot(CaUserConfig),
-        FlTagModule.forRoot(CaTagService),
         BnBioNetworkModule.forRoot(),
         TdTechnicalDocModule.forRoot(CaTdServiceConfig),
         CoCommunityLibModule.forRoot(CaCoServiceConfig)

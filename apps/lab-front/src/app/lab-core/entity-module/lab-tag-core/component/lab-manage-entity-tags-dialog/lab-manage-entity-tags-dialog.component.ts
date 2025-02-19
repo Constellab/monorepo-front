@@ -5,7 +5,12 @@ import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-co
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { LabEntityTagType, LabTag, LabTagDatasource } from '../../../../model/entities/lab-tag.entity';
+import {
+  LabEntityTagType,
+  LabTag,
+  LabTagDatasource,
+  LabTagKeyModel,
+} from '../../../../model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 import {
   LabTagCheckPropagationComponent,
@@ -19,6 +24,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 export interface LabManageEntityTagsDialogInput {
   entityType: LabEntityTagType;
@@ -46,6 +52,7 @@ export interface LabManageEntityTagsDialogInput {
     FormsModule,
     MatButton,
     TranslatePipe,
+    FlIconModule,
   ],
 })
 export class LabManageEntityTagsDialogComponent {
@@ -68,15 +75,15 @@ export class LabManageEntityTagsDialogComponent {
     this.currentTags = input.tags;
   }
 
-  addTag(tagEvent: FlAddTagEvent): void {
-    const tag = LabTag.newUserTag(tagEvent.key, tagEvent.value);
+  addTag(tagEvent: FlAddTagEvent<LabTagKeyModel>): void {
+    const tag = LabTag.newUserTag(tagEvent.key.content, tagEvent.value.content);
     if (this.currentTags.findItem(tag)) {
       this.snackBarService.openErrorMessage({ text: 'tag_already_exists', translateText: true });
       return;
     }
     // init the propagable value with the first tag
     if (this.newTags.isEmpty()) {
-      this.isPropagable = tagEvent.defaultIsPropagable;
+      this.isPropagable = tagEvent.key.entity?.isPropagable ?? false;
     }
 
     if (this.newTags.findItem(tag)) return;

@@ -1,9 +1,12 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagSearchFilter } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagService } from '@monorepo/front-core-lib/fl-tag';
-import { FlTagValue } from '@monorepo/front-core-lib/fl-tag';
+import {
+  FlTag,
+  FlTagSearchFilter,
+  FlTagSearchResult,
+  FlTagService,
+  FlTagValue,
+} from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
 import {
   LabCreateTagResponse,
@@ -16,7 +19,8 @@ import {
   LabTagValueModel,
   TagPropagationImpactDTO,
 } from '../model/entities/lab-tag.entity';
-import { ClPageI } from '@monorepo/core-lib';
+import { ClPage, ClPageI } from '@monorepo/core-lib';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +34,7 @@ export class LabTagService extends FlTagService {
     super();
   }
 
-  public searchKeys(key: string, page: number, pageSize: number): Observable<ClPageI<LabTagKeyModel>> {
+  public searchKeys(key: string, page: number, pageSize: number): Observable<ClPage<LabTagKeyModel>> {
     const strKey = key ? '/' + key : '';
     return this.apiService.get(`${this.route}/search/key${strKey}`, LabTagKeyModel, {
       page: page,
@@ -44,7 +48,7 @@ export class LabTagService extends FlTagService {
     value: FlTagValue,
     page: number,
     pageSize: number
-  ): Observable<ClPageI<LabTagValueModel>> {
+  ): Observable<ClPage<LabTagValueModel>> {
     const strValue = value ? '/' + value : '';
     return this.apiService.get(`${this.route}/search/key/${key}/value${strValue}`, LabTagValueModel, {
       page: page,
@@ -53,11 +57,39 @@ export class LabTagService extends FlTagService {
     });
   }
 
-  searchTag(filters: Partial<FlTagSearchFilter>, page: number, pageSize: number): Observable<ClPageI<any>> {
+  searchTag(
+    filters: Partial<FlTagSearchFilter>,
+    page: number,
+    pageSize: number
+  ): Observable<ClPageI<FlTagSearchResult>> {
     if (filters.value == null) {
-      return this.searchKeys(filters.key, page, pageSize);
+      return this.searchKeys(filters.key, page, pageSize).pipe(
+        // Convert the Page<LabTagKeyModel> to Page<FlTagInputSearch>
+        map((page) =>
+          page.map(
+            (tag) =>
+              ({
+                type: 'key',
+                content: tag.key,
+                entity: tag,
+              }) as FlTagSearchResult
+          )
+        )
+      );
     } else {
-      return this.searchValues(filters.key, filters.value, page, pageSize) as any;
+      return this.searchValues(filters.key, filters.value, page, pageSize).pipe(
+        // Convert the Page<LabTagValueModel  to Page<FlTagInputSearch>
+        map((page) =>
+          page.map(
+            (tag) =>
+              ({
+                type: 'value',
+                content: tag.value,
+                entity: tag,
+              }) as FlTagSearchResult
+          )
+        )
+      );
     }
   }
 

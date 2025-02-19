@@ -1,8 +1,8 @@
-import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { ClHelpService, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceTree, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { CaEntity } from '../ca-entity.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
@@ -102,17 +102,75 @@ export class CaHierarchyObject extends CaEntity {
   isRoot(): boolean {
     return this.parentId === null;
   }
+
+  /**
+   * Get the folder id of the object (if the object is a folder, return the id, else return the parentId)
+   */
+  getFolderId(): string {
+    if (this.objectType === CaHierarchyObjectType.FOLDER) {
+      return this.id;
+    } else {
+      return this.parentId;
+    }
+  }
 }
 
 export type CaHierarchyObjectDatasource<F = void> = FlEntityPaginatedDatasource<CaHierarchyObject, F>;
 
-export class CaHierarchyObjectWithChildren extends CaHierarchyObject {
-  @Type(() => CaHierarchyObjectWithChildren)
-  children: CaHierarchyObjectWithChildren[];
+export class CaHierarchyObjectSimple extends CaEntity {
+  name: string;
 
-  public static fromHierarchyObject(folder: CaHierarchyObject): CaHierarchyObjectWithChildren {
-    return Object.assign(new CaHierarchyObjectWithChildren(), folder, { children: [] });
+  parentId: string;
+
+  style: TdTypeStyle;
+
+  objectType: CaHierarchyObjectType;
+
+  public static fromHierarchyObject(folder: CaHierarchyObject): CaHierarchyObjectSimple {
+    const withChildren = new CaHierarchyObjectSimple();
+    withChildren.id = folder.id;
+    withChildren.name = folder.name;
+    withChildren.parentId = folder.parentId;
+    withChildren.style = folder.style;
+    withChildren.objectType = folder.objectType;
+    return withChildren;
   }
 }
 
+export class CaHierarchyObjectWithChildren extends CaHierarchyObjectSimple {
+  @Type(() => CaHierarchyObjectWithChildren)
+  children: CaHierarchyObjectWithChildren[];
+}
+
 export type CaHierarchyObjectTagDatasource = FlTagDatasource;
+
+export class CaHierarchyObjectsTreeDatasource extends FlDatasourceTree<CaHierarchyObjectSimple> {
+  constructor() {
+    super((a, b) => ClHelpService.sortAlphabeticalFunction(a.name, b.name));
+  }
+
+  addHierarchyObjects(objects: CaHierarchyObjectSimple[]): void {
+    for (const object of objects) {
+      if (object.objectType === CaHierarchyObjectType.FOLDER) {
+        this.tree.addOrReplaceObject(object, object.parentId);
+      }
+    }
+
+    this.sortAndEmits();
+  }
+
+  addHierarchyObjectsWithChildren(objects: CaHierarchyObjectWithChildren[]): void {
+    this.addHierarchyObjectsWithChildrenRecur(objects);
+    this.sortAndEmits();
+  }
+
+  private addHierarchyObjectsWithChildrenRecur(objects: CaHierarchyObjectWithChildren[]): void {
+    for (const object of objects) {
+      this.tree.addOrReplaceObject(object, object.parentId);
+
+      if (object.children) {
+        this.addHierarchyObjectsWithChildrenRecur(object.children);
+      }
+    }
+  }
+}

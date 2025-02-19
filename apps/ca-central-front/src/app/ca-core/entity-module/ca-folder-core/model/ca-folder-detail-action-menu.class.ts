@@ -22,7 +22,7 @@ import {
   CaFolderUserConfigDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
 import { CaFolderActionService } from '../ca-folder-action.service';
-import { CaHierarchyObjectTagDatasource } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
@@ -45,7 +45,7 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     folderInfo: CaFolderInfo,
     private isRootFolder: boolean,
     private folderUsers$: FlArrayObs<CaUser>,
-    tags?: CaHierarchyObjectTagDatasource
+    tags?: CaHierarchyObjectActionTags
   ) {
     super(dialogService, folderActionService, menuDynamicService, securityService, folderInfo, tags);
   }

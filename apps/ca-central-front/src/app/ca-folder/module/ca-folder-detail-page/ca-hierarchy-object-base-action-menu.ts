@@ -1,13 +1,17 @@
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import {
-  CaHierarchyObjectTagDatasource,
-} from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { mergeMap, Observable, Subject } from 'rxjs';
 import {
   CaHierarchyObjectTagsDialogComponent,
   CaHierarchyObjectTagsDialogInput,
 } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tags-dialog/ca-hierarchy-object-tags-dialog.component';
+import { CaAvailableTagDatasource } from '../../../ca-core/model/entities/ca-tag.class';
+
+export interface CaHierarchyObjectActionTags {
+  tags?: CaHierarchyObjectTagDatasource;
+  availableTags?: CaAvailableTagDatasource;
+}
 
 /**
  * Base class to manage the action menu for a hierarchy object (folder, document, ...)
@@ -20,7 +24,7 @@ export class CaHierarchyObjectBaseActionMenu<T> {
     protected dialogService: FlDialogService,
     protected menuDynamicService: FlMenuDynamicService,
     protected hierarchyObjectId: string,
-    private tags?: CaHierarchyObjectTagDatasource
+    private tags?: CaHierarchyObjectActionTags
   ) {}
 
   protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<T> {
@@ -43,7 +47,7 @@ export class CaHierarchyObjectBaseActionMenu<T> {
     return {
       type: 'button',
       text: { text: 'tags', translateText: true },
-      icon: 'local_offer',
+      icon: 'tag',
       onClick: () => this.openTagDialog(),
     };
   }
@@ -51,7 +55,8 @@ export class CaHierarchyObjectBaseActionMenu<T> {
   private openTagDialog(): void {
     const data: CaHierarchyObjectTagsDialogInput = {
       hierarchyObjectId: this.hierarchyObjectId,
-      tags: this.tags,
+      tags: this.tags?.tags,
+      availableTags: this.tags?.availableTags,
     };
     this.dialogService
       .openSmallDialog(CaHierarchyObjectTagsDialogComponent, { data: data })

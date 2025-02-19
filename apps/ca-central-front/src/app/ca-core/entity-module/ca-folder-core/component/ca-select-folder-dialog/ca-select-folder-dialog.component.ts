@@ -110,7 +110,7 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     if (this.authenticatedUserService.isCurrentSpaceAdmin()) {
       this.foldersDatasource = this.folderService.getFolderByCurrentSpaceDatasource();
     } else {
-      this.foldersDatasource = this.folderService.getMyFoldersDatasource();
+      this.foldersDatasource = this.folderService.getRootFoldersDatasource();
     }
     this.parentFolders = [];
   }

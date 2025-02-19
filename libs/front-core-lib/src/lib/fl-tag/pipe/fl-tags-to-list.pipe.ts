@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FlTag, FlTagDatasource, FlTagValue } from '../fl-tag.class';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { clRxjsDebug } from '@monorepo/core-lib';
 
 /**
  * Pipe to convert list of tags or record of tags to a list of tags
@@ -30,7 +29,7 @@ export class FlTagsToListPipe implements PipeTransform {
     if (slice > 0) {
       return obs.pipe(map((values: FlTag[]) => values.slice(0, slice)));
     }
-    return obs.pipe(clRxjsDebug());
+    return obs;
   }
 
   private recordToList(tags: Record<string, FlTagValue>): FlTag[] {

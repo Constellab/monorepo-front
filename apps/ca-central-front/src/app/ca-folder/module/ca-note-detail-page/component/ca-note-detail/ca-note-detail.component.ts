@@ -91,7 +91,7 @@ export class CaNoteDetailComponent implements OnInit {
       this.portalService,
       textEditorConfig,
       this.noteHistoryService,
-      this.tags
+      { tags: this.tags }
     );
 
     noteActionMenu.openDetailActionMenu(event).subscribe((action) => this.onNoteAction(action));

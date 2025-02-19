@@ -1,4 +1,4 @@
-import { ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { ClDeserializationRef, ClPage } from '@monorepo/core-lib';
 
 /**
  * Service to provide to configure {@link FlApiService}
@@ -30,5 +30,5 @@ export abstract class FlApiServiceConfig {
    * @param json returned json form the api
    * @param classReference for deserialization
    */
-  public abstract deserializePage(json: any, classReference: ClDeserializationRef): ClPageI<any>;
+  public abstract deserializePage(json: any, classReference: ClDeserializationRef): ClPage<any>;
 }

@@ -1,7 +1,8 @@
-import { FlTag, FlTagHelper, FlTagWithColor } from './fl-tag.class';
+import { FlTag, FlTagWithColor } from './fl-tag.class';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ClHelpService } from '@monorepo/core-lib';
+import { FlTagHelper } from './fl-tag.helper';
 
 export interface FlTagColorWithSelection extends FlTagWithColor {
   selected: boolean;

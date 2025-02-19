@@ -1,5 +1,5 @@
 import { FlApiServiceConfig } from '@monorepo/front-core-lib/fl-api';
-import { ClCoreJsonConvert, ClDeserializationRef, ClPageI } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, ClDeserializationRef, ClPage } from '@monorepo/core-lib';
 import { inject, Injectable } from '@angular/core';
 import { LabEnvironmentHelper } from '../utils/lab-environment.helper';
 import { LabEnvStore } from './lab-env.store';
@@ -40,10 +40,10 @@ export class LabApiServiceConfig extends FlApiServiceConfig {
     super();
   }
 
-  deserializePage(json: LabPaginatedResponse, classReference: ClDeserializationRef): ClPageI<any> {
-    // if the result if paginated (we supposed the json is type of ClPage)
+  deserializePage(json: LabPaginatedResponse, classReference: ClDeserializationRef): ClPage<any> {
+    // if the result is paginated (we supposed the json is type of ClPage)
     if (json.objects != null && json.objects instanceof Array) {
-      return {
+      return ClPage.fromInterface({
         first: json.page === 0,
         last: json.is_last_page ?? json.last,
         currentPage: json.page ?? json.currentPage,
@@ -51,7 +51,7 @@ export class LabApiServiceConfig extends FlApiServiceConfig {
         totalElements: json.total_number_of_items ?? json.totalElements,
         objects: ClCoreJsonConvert.deserialize(json.objects, classReference),
         totalIsApproximate: json.total_is_approximate,
-      };
+      });
     } else {
       console.error('Response object not paginated');
       throw 'Response object not paginated';

@@ -21,6 +21,7 @@ import { LabTagEntityDetailComponent } from '../../../../lab-core/entity-module/
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 @Component({
   selector: 'lab-monitoring-tags-page',
@@ -37,6 +38,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     AsyncPipe,
     FlCorePipeModule,
     TranslatePipe,
+    FlIconModule,
   ],
 })
 export class LabMonitoringTagsPageComponent implements OnInit {

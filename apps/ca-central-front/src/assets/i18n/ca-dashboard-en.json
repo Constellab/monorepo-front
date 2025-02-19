@@ -217,5 +217,7 @@
   "delete_tag_confirmation": "Are you sure you want to delete this tag ?",
   "tag_deleted": "Tag deleted",
   "tag_already_exists": "This tag already exists",
-  "add_tags_to_entity": "Add tags"
+  "add_tags_to_entity": "Add tags",
+  "all_tag_values": "All values",
+  "no_tag_to_filter": "No tag used in the folder, add tags to object to enable filtering"
 }
