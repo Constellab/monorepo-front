@@ -12,11 +12,19 @@ import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.servi
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { CaFolderWithHierarchy } from '../../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaFolderActionEvent,
+  CaFolderActionsMenu,
+} from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
+import { ClHelpService } from '@monorepo/core-lib';
 
 @Component({
   selector: 'ca-root-folder-page',
@@ -30,6 +38,7 @@ import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-fold
     TranslatePipe,
     MatButton,
     MatIcon,
+    MatIconButton,
   ],
   templateUrl: './ca-root-folders-page.component.html',
   styleUrl: './ca-root-folders-page.component.scss',
@@ -37,11 +46,20 @@ import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-fold
 export class CaRootFoldersPageComponent {
   children: CaHierarchyObjectDatasource = inject(CaFolderService).getRootFoldersDatasource();
 
-  columns: FlTableColumnStatic<CaHierarchyObject>[] = ['name', 'user', 'lastModifiedAt', 'tags'];
+  columns: FlTableColumnStatic<CaHierarchyObject>[] = [
+    'name',
+    'user',
+    'lastModifiedAt',
+    'tags',
+    'customAction',
+  ];
 
   private state = inject(CaHierarchyObjectDetailState);
 
   private folderActionService = inject(CaFolderActionService);
+  private dialogService = inject(FlDialogService);
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private securityService = inject(CaSecurityService);
 
   openCreateFolderDialog(): void {
     this.folderActionService
@@ -53,6 +71,39 @@ export class CaRootFoldersPageComponent {
     if (folder) {
       this.state.addFoldersInTree([folder.hierarchyRepresentation]);
       this.children.addItem(folder.hierarchyRepresentation, () => true);
+    }
+  }
+
+  hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+    ClHelpService.stopEventPropagation(event);
+    this.openHierarchyObjectActionMenu(hierarchyObject, event);
+  }
+
+  private openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+    const service = new CaFolderActionsMenu(
+      this.dialogService,
+      this.folderActionService,
+      this.menuDynamicService,
+      this.securityService,
+      { id: hierarchyObject.id, name: hierarchyObject.name, leader: hierarchyObject.user }
+    );
+    service
+      .openTableItemActionMenu(event, true)
+      .subscribe((hierarchyObjectActionEvent) =>
+        this.onHierarchyObjectActionMenuEvent(hierarchyObjectActionEvent, hierarchyObject)
+      );
+  }
+
+  private onHierarchyObjectActionMenuEvent(
+    event: CaFolderActionEvent,
+    hierarchyObject: CaHierarchyObject
+  ): void {
+    if (!event) return;
+
+    if (event.action === 'update') {
+      this.children.updatePartial(hierarchyObject.id, { name: event.folder.name }, CaHierarchyObject);
+    } else if (event.action === 'delete') {
+      this.children.removeItem(hierarchyObject);
     }
   }
 }

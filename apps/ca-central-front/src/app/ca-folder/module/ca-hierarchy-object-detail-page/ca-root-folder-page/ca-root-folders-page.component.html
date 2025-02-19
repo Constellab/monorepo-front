@@ -26,6 +26,12 @@
       textNoMoreResult=""
       class="table-container">
       <ca-hierarchy-object-table [datasource]="children" [columns]="columns" [rowSelectable]="false">
+        <ng-template let-object>
+            <!--   Settings menu   -->
+            <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+        </ng-template>
       </ca-hierarchy-object-table>
     </fl-infinite-table-container>
   </fl-card-body>

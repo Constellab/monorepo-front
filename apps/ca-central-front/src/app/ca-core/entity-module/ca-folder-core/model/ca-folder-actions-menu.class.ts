@@ -54,11 +54,18 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   /**
    * Open the action menu for the folder in the table
    */
-  public openTableItemActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
+  public openTableItemActionMenu(
+    event: MouseEvent,
+    disableMove: boolean = false
+  ): Observable<CaFolderActionEvent> {
     const menu: FlMenuDynamic[] = [this.getOpenFolderButton(), this.getManageTagsButton()];
 
     if (this.canEditFolder()) {
-      menu.push(this.getUpdateFolderButton(), this.getMoveToFolderButton(), this.getDeleteFolderButton());
+      menu.push(this.getUpdateFolderButton());
+      if (!disableMove) {
+        menu.push(this.getMoveToFolderButton());
+      }
+      menu.push(this.getDeleteFolderButton());
     }
 
     return this.generateMenu(menu, event);
