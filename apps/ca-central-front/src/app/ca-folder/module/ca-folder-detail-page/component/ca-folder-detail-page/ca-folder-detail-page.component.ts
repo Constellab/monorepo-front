@@ -61,6 +61,7 @@ import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.servic
 import {
   CaHierarchyObjectDetailState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 
 /**
  * Page for a folder detail
@@ -116,8 +117,11 @@ export class CaFolderDetailPageComponent implements OnInit {
   private snackBarService = inject(FlSnackBarService);
   private noteService = inject(CaNoteService);
 
+  users$: Observable<CaUser[]>;
+
   constructor() {
     this.state.init(this.getIds$());
+    this.users$ = this.state.getUsers().connect();
   }
 
   ngOnInit(): void {

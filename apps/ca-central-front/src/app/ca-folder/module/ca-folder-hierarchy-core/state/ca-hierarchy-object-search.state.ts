@@ -2,6 +2,7 @@ import { inject, Injectable, OnDestroy } from '@angular/core';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
+  CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectSearch,
@@ -10,8 +11,10 @@ import {
 import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { of } from 'rxjs';
-import { clGetEmptyPage } from '@monorepo/core-lib';
+import { clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CaHierarchyObjectDetailState } from './ca-hierarchy-object-detail.state';
+import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 
 /**
  * State to manager the search at hierarchy object level when the object is a folder
@@ -20,6 +23,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class CaHierarchyObjectSearchState implements OnDestroy {
   public childrenDatasource: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
   private searchState = inject<FlSearchState<CaHierarchyObject>>(FlSearchState);
+  private state = inject(CaHierarchyObjectDetailState);
+  private folderService = inject(CaFolderService);
+
+  private subscriptions = new ClSubscriptionHandler();
+
+  private isInitialized = false;
 
   public init(): FormGroup {
     this.childrenDatasource = new FlEntityPaginatedDatasource<
@@ -42,6 +51,29 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     };
     this.searchState.init(config, this.childrenDatasource);
 
+    this.subscriptions.add(
+      this.state.getHierarchyContext$().subscribe((context) => {
+        // search for root folders
+        if (context.type === 'rootFolders') {
+          this.childrenDatasource.setPageFunction((page, pageSIze, requestData) =>
+            this.folderService.searchRootFolders(page, pageSIze, requestData)
+          );
+          // search for children of a folder
+        } else if (context.type === CaHierarchyObjectType.FOLDER) {
+          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+            this.folderService.searchChildren(context.hierarchyObject.id, page, pageSize, requestData)
+          );
+        }
+
+        if (this.isInitialized) {
+          // if it not the first time we need to reset the form (because it is a navigation)
+          // the first time will be triggered by the url params
+          this.searchState.resetFormAndCallSearch();
+        }
+        this.isInitialized = true;
+      })
+    );
+
     return this.searchState.advancedSearchFormGroup;
   }
 
@@ -49,15 +81,8 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     return this.searchState.advancedSearchFormGroup.get('tags') as FormControl;
   }
 
-  public resetFormAndCallSearch(): void {
-    this.searchState.resetFormAndCallSearch({ emitEvent: false });
-  }
-
-  public submitFormAndCallSearch(): void {
-    this.searchState.submitForm();
-  }
-
   public ngOnDestroy(): void {
     this.childrenDatasource?.manualDisconnect();
+    this.subscriptions.unsubscribe();
   }
 }

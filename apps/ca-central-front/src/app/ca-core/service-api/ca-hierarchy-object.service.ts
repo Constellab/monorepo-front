@@ -56,4 +56,8 @@ export class CaHierarchyObjectService {
   public getAvailableTags(hierarchyObjectId: string): Observable<CaAvailableTags> {
     return this.apiService.get(`${this.route}/${hierarchyObjectId}/tags/available`);
   }
+
+  public getAvailableTagForRootFolder(): Observable<CaAvailableTags> {
+    return this.apiService.get(`${this.route}/roots/tags/available`);
+  }
 }

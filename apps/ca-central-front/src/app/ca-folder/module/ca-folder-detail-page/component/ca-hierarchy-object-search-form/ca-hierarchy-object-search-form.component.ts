@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import {
@@ -7,7 +7,6 @@ import {
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
 import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
@@ -15,12 +14,8 @@ import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  CaHierarchyObjectIconComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import {
-  CaUserListInlineComponent,
-} from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaUserListInlineComponent } from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder
@@ -46,12 +41,14 @@ import {
   ],
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit {
+  showTypeFilter = input<boolean>(true);
+
+  users$ = input<Observable<CaUser[]>>();
+
   private searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
 
   objectTypes = caHierarchyObjectTypeInfos;
-
-  users$: Observable<CaUser[]> = inject(CaFolderDetailState).getUsers().connect();
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;

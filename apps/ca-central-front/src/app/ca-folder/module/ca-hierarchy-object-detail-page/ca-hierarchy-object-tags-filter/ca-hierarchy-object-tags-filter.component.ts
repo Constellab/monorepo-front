@@ -1,5 +1,7 @@
 import { Component, inject, OnInit, output } from '@angular/core';
-import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import {
+  CaHierarchyObjectDetailState,
+} from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaTagService } from '../../../../ca-core/service-api/ca-tag.service';
 import { FlTag, FlTagModule, FlTagService } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
@@ -64,10 +66,11 @@ export class CaHierarchyObjectTagsFilterComponent extends FlFormFieldDirective<F
     this.tags = this.state.getChildrenAvailableTags();
 
     this.showTags$ = this.state
-      .getHierarchyObject$()
+      .getHierarchyContext$()
       .pipe(
         map(
-          (hierarchyObject) => hierarchyObject && hierarchyObject.objectType === CaHierarchyObjectType.FOLDER
+          (hierarchyObject) =>
+            hierarchyObject.type === 'rootFolders' || hierarchyObject.type === CaHierarchyObjectType.FOLDER
         )
       );
   }

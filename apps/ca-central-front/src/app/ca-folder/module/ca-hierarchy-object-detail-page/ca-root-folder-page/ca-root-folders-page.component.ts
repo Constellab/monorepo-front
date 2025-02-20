@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -8,7 +8,6 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -25,6 +24,9 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { ClHelpService } from '@monorepo/core-lib';
+import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
+import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFormComponent } from '../../ca-folder-detail-page/component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 
 @Component({
   selector: 'ca-root-folder-page',
@@ -39,12 +41,13 @@ import { ClHelpService } from '@monorepo/core-lib';
     MatButton,
     MatIcon,
     MatIconButton,
+    CaHierarchyObjectSearchFormComponent,
   ],
   templateUrl: './ca-root-folders-page.component.html',
   styleUrl: './ca-root-folders-page.component.scss',
 })
-export class CaRootFoldersPageComponent {
-  children: CaHierarchyObjectDatasource = inject(CaFolderService).getRootFoldersDatasource();
+export class CaRootFoldersPageComponent implements OnInit {
+  children: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = [
     'name',
@@ -55,11 +58,16 @@ export class CaRootFoldersPageComponent {
   ];
 
   private state = inject(CaHierarchyObjectDetailState);
+  private searchState = inject(CaHierarchyObjectSearchState);
 
   private folderActionService = inject(CaFolderActionService);
   private dialogService = inject(FlDialogService);
   private menuDynamicService = inject(FlMenuDynamicService);
   private securityService = inject(CaSecurityService);
+
+  ngOnInit(): void {
+    this.children = this.searchState.childrenDatasource;
+  }
 
   openCreateFolderDialog(): void {
     this.folderActionService

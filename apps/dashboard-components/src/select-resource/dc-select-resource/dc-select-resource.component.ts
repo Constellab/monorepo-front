@@ -12,7 +12,7 @@ import { FlUser, FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 import { AsyncPipe } from '@angular/common';
 import { first, Subject } from 'rxjs';
-import { ClPage, clRxjsDebug } from '@monorepo/core-lib';
+import { ClPage } from '@monorepo/core-lib';
 
 interface DcResource {
   id: string;
@@ -48,7 +48,7 @@ export class DcSelectResourceComponent implements OnInit {
       console.log('Search ', data.filtersCriteria?.searchText);
       dcEmitStreamlitValue(this.selectedResource, data.filtersCriteria?.searchText ?? null);
       // return the next emission of the subject
-      return this.subject.pipe(first(), clRxjsDebug('Result'));
+      return this.subject.pipe(first());
     },
     20,
     { initFirstPage: true }
@@ -66,7 +66,7 @@ export class DcSelectResourceComponent implements OnInit {
       const customEvent: CustomEvent<RenderData<DcSelectResourceConfig>> = event as CustomEvent<RenderData>;
       const data = customEvent.detail.args;
       console.log(data);
-      this.subject.pipe(first(), clRxjsDebug('Result 2'));
+      this.subject.pipe(first());
       if (data.resources) {
         this.subject.next(data.resources);
       }
@@ -76,7 +76,6 @@ export class DcSelectResourceComponent implements OnInit {
     Streamlit.setComponentReady();
     Streamlit.setFrameHeight();
 
-    this.datasource.connect().pipe(clRxjsDebug()).subscribe();
     // this.subject.pipe(clRxjsDebug()).subscribe();
   }
 

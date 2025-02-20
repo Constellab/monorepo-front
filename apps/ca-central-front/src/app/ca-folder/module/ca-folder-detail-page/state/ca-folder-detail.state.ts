@@ -148,20 +148,6 @@ export class CaFolderDetailState implements OnDestroy {
   }
 
   private initFolder(folder: CaFolder): void {
-    // update the folder id in the search function
-    this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
-      this.folderService.searchChildren(folder.id, page, pageSize, requestData)
-    );
-
-    // if this is not the first get (navigation between folder), reset the search form
-    if (this.folder$.value) {
-      // reset the search form and prevent event so the valueChange is not triggered
-      this.searchState.resetFormAndCallSearch();
-    } else {
-      // trigger the first search using form value
-      this.searchState.submitFormAndCallSearch();
-    }
-
     this.folder$.next(folder);
   }
 

@@ -3,7 +3,6 @@ import { CaUser } from '../../../model/entities/ca-user.class';
 import { FlFormInputsManagerConfig } from '@monorepo/front-core-lib/fl-form-inputs-manager';
 import {
   FlSearchConverter,
-  FlSearchDateInterval,
   FlSearchFilterCriteriaConverter,
   FlSearchSortCriteriaConverter,
 } from '@monorepo/front-core-lib/fl-search';
@@ -18,29 +17,21 @@ export class CaHierarchyObjectSearchFields {
   @Type(() => CaUser)
   users: CaUser[];
 
-  @Type(() => FlSearchDateInterval)
-  lastModifiedAt: FlSearchDateInterval;
-
   objectType: CaHierarchyObjectType;
 
   tags: FlTag;
-
-  id: string;
 }
 
 export class CaHierarchyObjectSearch {
   public static searchManagerConfig: FlFormInputsManagerConfig<CaHierarchyObjectSearchFields> = {
     name: 'name',
-    lastModifiedAt: 'date',
   };
 
   public static filterConverter: FlSearchFilterCriteriaConverter<CaHierarchyObjectSearchFields> = {
     name: { key: 'name', operator: 'CONTAINS' },
     users: { key: 'user.id', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId },
-    lastModifiedAt: FlSearchConverter.dateInterval('lastModifiedAt'),
     objectType: { key: 'objectType', operator: 'EQ' },
     tags: { key: 'tags', operator: 'EQ', convertValue: CaHierarchyObjectSearch.tagConverter },
-    id: { key: 'id', operator: 'EQ' },
   };
 
   public static sortConverter: FlSearchSortCriteriaConverter = {
@@ -53,13 +44,8 @@ export class CaHierarchyObjectSearch {
     return new FormBuilder().group({
       name: null,
       users: null,
-      lastModifiedAt: new FormBuilder().group({
-        from: [null],
-        to: [null],
-      }),
       objectType: null,
       tags: null,
-      id: null,
     });
   }
 

@@ -109,6 +109,23 @@ export class CaFolderService {
     });
   }
 
+  public searchRootFolders(
+    page: number,
+    size: number,
+    data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+  ): Observable<ClPageI<CaHierarchyObject>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/root/search`, searchInput, CaHierarchyObject, {
+      resultIsPaginated: true,
+      page: page,
+      pageSize: size,
+    });
+  }
+
   public getAllRootFolders(): Observable<CaHierarchyObjectSimple[]> {
     return this.apiService.get(`${this.route}/root/all`, CaHierarchyObjectSimple);
   }
@@ -123,20 +140,6 @@ export class CaFolderService {
 
   public unshareFolder(id: string, userId: string): Observable<void> {
     return this.apiService.delete(`${this.route}/${id}/unshare/${userId}`);
-  }
-
-  public searchChildrenDatasource(
-    id: string,
-    filters?: CaHierarchyObjectSearchFields
-  ): CaHierarchyObjectDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, pageSize) =>
-        this.searchChildren(id, page, pageSize, {
-          filtersCriteria: filters,
-          sortsCriteria: [{ key: 'name', direction: 'ASC' }],
-        }),
-      30
-    );
   }
 
   public searchChildren(

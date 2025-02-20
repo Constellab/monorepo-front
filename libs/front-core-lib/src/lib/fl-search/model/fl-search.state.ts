@@ -65,7 +65,7 @@ export class FlSearchState<T> implements OnDestroy {
 
   public submitForm(): void {
     this.callAdvancedSearchFromForm();
-    // cancel the search call on form change
+    // emit a skip to cancel current form change
     this.skipSearch.next({ _skipSearch: true });
 
     // if the drawer is in over mode (small screens) close it
@@ -104,8 +104,8 @@ export class FlSearchState<T> implements OnDestroy {
     this.callAdvancedSearchFromForm();
   }
 
-  public resetFormAndCallSearch(options?: { onlySelf?: boolean; emitEvent?: boolean }): void {
-    this.resetAdvancedFormGroup(null, options);
+  public resetFormAndCallSearch(): void {
+    this.resetAdvancedFormGroup(null, { emitEvent: false });
     this.callAdvancedSearchFromForm();
   }
 

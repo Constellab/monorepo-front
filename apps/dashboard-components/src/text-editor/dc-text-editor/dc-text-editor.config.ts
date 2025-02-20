@@ -7,7 +7,6 @@ import {
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { clRxjsDebug } from '@monorepo/core-lib';
 
 export class DcRichTextImageConfig implements TeFigureBlockConfig {
   constructor(
@@ -20,9 +19,7 @@ export class DcRichTextImageConfig implements TeFigureBlockConfig {
     const formData = new FormData();
     formData.append('image', file);
     formData.append('dir', this.imageFolder);
-    return this.httpClient
-      .post(`${this.apiUrl}/core-api/streamlit/rich-text/image`, formData)
-      .pipe(clRxjsDebug()) as any;
+    return this.httpClient.post(`${this.apiUrl}/core-api/streamlit/rich-text/image`, formData) as any;
   }
 
   getImageUrl(filename: string): string {

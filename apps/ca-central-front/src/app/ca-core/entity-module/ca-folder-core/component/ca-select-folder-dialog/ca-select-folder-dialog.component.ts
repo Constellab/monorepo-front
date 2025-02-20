@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
@@ -176,7 +176,14 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     // get only folder children
     const filters = new CaHierarchyObjectSearchFields();
     filters.objectType = CaHierarchyObjectType.FOLDER;
-    this.foldersDatasource = this.folderService.searchChildrenDatasource(folderId, filters);
+    this.foldersDatasource = new FlEntityPaginatedDatasource(
+      (page, pageSize) =>
+        this.folderService.searchChildren(folderId, page, pageSize, {
+          filtersCriteria: filters,
+          sortsCriteria: [{ key: 'name', direction: 'ASC' }],
+        }),
+      30
+    );
   }
 
   close(): void {

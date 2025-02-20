@@ -16,6 +16,7 @@ export class CaTagService extends FlTagService implements OnDestroy {
   public availableTags: CaAvailableTagDatasource = new CaAvailableTagDatasource();
 
   private folderId: string;
+  private clearDatasource: boolean = true;
 
   public initFromObject(hierarchyObjectId: string): void {
     if (this.folderId === hierarchyObjectId) return;
@@ -27,7 +28,12 @@ export class CaTagService extends FlTagService implements OnDestroy {
   }
 
   public initFromTags(tags: CaAvailableTagDatasource): void {
+    if (this.availableTags) {
+      this.availableTags.manualDisconnect();
+    }
     this.availableTags = tags;
+    // do not clear the datasource on complete as it is not managed by this service
+    this.clearDatasource = false;
   }
 
   searchTag(filters: Partial<FlTagSearchFilter>): Observable<ClPageI<FlTagSearchResult>> {
@@ -86,6 +92,8 @@ export class CaTagService extends FlTagService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.availableTags.manualDisconnect();
+    if (this.clearDatasource) {
+      this.availableTags.manualDisconnect();
+    }
   }
 }

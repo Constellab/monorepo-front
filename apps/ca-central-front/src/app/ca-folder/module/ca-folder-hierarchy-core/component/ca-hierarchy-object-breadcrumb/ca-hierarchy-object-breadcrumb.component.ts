@@ -2,9 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { CaHierarchyObjectDetailState } from '../../state/ca-hierarchy-object-detail.state';
 import {
-  CaHierarchyObject,
+  CaHierarchyObjectContext,
+  CaHierarchyObjectDetailState,
+} from '../../state/ca-hierarchy-object-detail.state';
+import {
   CaHierarchyObjectSimple,
   CaHierarchyObjectType,
 } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
@@ -39,14 +41,14 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
 
   ngOnInit(): void {
     // read children route params
-    this.links$ = combineLatest([this.state.getAncestorsFolders$(), this.state.getHierarchyObject$()]).pipe(
+    this.links$ = combineLatest([this.state.getAncestorsFolders$(), this.state.getHierarchyContext$()]).pipe(
       map(([ancestors, currentObject]) => this.ancestorsToLinks(ancestors, currentObject))
     );
   }
 
   private ancestorsToLinks(
     ancestors: CaHierarchyObjectSimple[],
-    currentObject: CaHierarchyObject
+    hierarchyContext: CaHierarchyObjectContext
   ): CaBreadcrumbLink[] {
     const links: CaBreadcrumbLink[] = [];
 
@@ -59,11 +61,14 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
         });
       }
 
-      if (currentObject && currentObject.id !== ancestors[0].id) {
+      if (hierarchyContext.hierarchyObject && hierarchyContext.hierarchyObject.id !== ancestors[0].id) {
         links.push({
-          id: currentObject.id,
-          title: currentObject.name,
-          url: this.getAncestorLink(currentObject.objectType, currentObject.id),
+          id: hierarchyContext.hierarchyObject.id,
+          title: hierarchyContext.hierarchyObject.name,
+          url: this.getAncestorLink(
+            hierarchyContext.hierarchyObject.objectType,
+            hierarchyContext.hierarchyObject.id
+          ),
         });
       }
     }

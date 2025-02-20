@@ -9,41 +9,44 @@
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
-  <!--   Filter by object type     -->
-  <mat-form-field class="g-form-field-compact-height field" subscriptSizing="dynamic">
-    <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
-    <mat-select
-      formControlName="objectType"
-      panelClass="g-mat-select-panel-no-max-height"
-      [placeholder]="'folder_object_type' | translate">
-      @if (typeIsSelected()) {
-        <mat-select-trigger>
-          {{ getSelectedTypeLabel().label | translate }}
-        </mat-select-trigger>
-      }
-      <!-- Split if in two, otherwise, there is a warning     -->
-      @if (typeIsSelected()) {
-        <mat-option [value]="null">
-          <div class="g-layout-row g-layout-start-center g-text-light">
-            <mat-icon>block</mat-icon>
-            <div>{{ 'clear' | translate }}</div>
-          </div>
-        </mat-option>
-      }
+  @if (showTypeFilter()) {
+    <!--   Filter by object type     -->
+    <mat-form-field class="g-form-field-compact-height field" subscriptSizing="dynamic">
+      <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
+      <mat-select
+        formControlName="objectType"
+        panelClass="g-mat-select-panel-no-max-height"
+        [placeholder]="'folder_object_type' | translate">
+        @if (typeIsSelected()) {
+          <mat-select-trigger>
+            {{ getSelectedTypeLabel().label | translate }}
+          </mat-select-trigger>
+        }
+        <!-- Split if in two, otherwise, there is a warning     -->
+        @if (typeIsSelected()) {
+          <mat-option [value]="null">
+            <div class="g-layout-row g-layout-start-center g-text-light">
+              <mat-icon>block</mat-icon>
+              <div>{{ 'clear' | translate }}</div>
+            </div>
+          </mat-option>
+        }
 
-      @for (key of objectTypes | flObjectKeys; track key) {
-        <mat-option [value]="key">
-          <div class="g-layout-row g-layout-start-center">
-            <ca-hierarchy-object-icon
-              [style]="objectTypes[key].style"
-              class="icon"></ca-hierarchy-object-icon>
-            {{ objectTypes[key].label | translate }}
-          </div>
-        </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+        @for (key of objectTypes | flObjectKeys; track key) {
+          <mat-option [value]="key">
+            <div class="g-layout-row g-layout-start-center">
+              <ca-hierarchy-object-icon
+                [style]="objectTypes[key].style"
+                class="icon"></ca-hierarchy-object-icon>
+              {{ objectTypes[key].label | translate }}
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  }
 
-  <ca-user-list-inline [users$]="users$" formControlName="users" class="field"></ca-user-list-inline>
-
+  @if (users$()) {
+    <ca-user-list-inline [users$]="users$()" formControlName="users" class="field"></ca-user-list-inline>
+  }
 </form>

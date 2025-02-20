@@ -13,7 +13,7 @@
     </fl-card-header>
 
     <fl-card-body class="card-body">
-      <ca-hierarchy-object-search-form></ca-hierarchy-object-search-form>
+      <ca-hierarchy-object-search-form [users$]="users$"></ca-hierarchy-object-search-form>
 
       <fl-infinite-table-container
         [datasource]="children"
