@@ -39,7 +39,7 @@ export class CaHierarchyObjectSearch {
     users: { key: 'user.id', operator: 'IN', convertValue: FlSearchConverter.getEntitiesId },
     lastModifiedAt: FlSearchConverter.dateInterval('lastModifiedAt'),
     objectType: { key: 'objectType', operator: 'EQ' },
-    tags: { key: 'tags', operator: 'EQ' },
+    tags: { key: 'tags', operator: 'EQ', convertValue: CaHierarchyObjectSearch.tagConverter },
     id: { key: 'id', operator: 'EQ' },
   };
 
@@ -61,5 +61,13 @@ export class CaHierarchyObjectSearch {
       tags: null,
       id: null,
     });
+  }
+
+  private static tagConverter(tag: FlTag): FlTag {
+    if (tag == null) return tag;
+    if (tag.value === '*') {
+      return { key: tag.key, value: undefined };
+    }
+    return tag;
   }
 }

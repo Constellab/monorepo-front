@@ -25,7 +25,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     this.childrenDatasource = new FlEntityPaginatedDatasource<
       CaHierarchyObject,
       CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 30, { initFirstPage: false });
+    >(() => of(clGetEmptyPage()), 30, { initFirstPage: false, disableAutoDisconnect: true });
 
     // init the children search state
     const config: FlSearchConfig = {
@@ -49,14 +49,13 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     return this.searchState.advancedSearchFormGroup.get('tags') as FormControl;
   }
 
-  public resetFormAndCallSearch(): void{
-    this.searchState.resetFormAndCallSearch({emitEvent: false});
+  public resetFormAndCallSearch(): void {
+    this.searchState.resetFormAndCallSearch({ emitEvent: false });
   }
 
-  public submitFormAndCallSearch(): void{
+  public submitFormAndCallSearch(): void {
     this.searchState.submitForm();
   }
-
 
   public ngOnDestroy(): void {
     this.childrenDatasource?.manualDisconnect();

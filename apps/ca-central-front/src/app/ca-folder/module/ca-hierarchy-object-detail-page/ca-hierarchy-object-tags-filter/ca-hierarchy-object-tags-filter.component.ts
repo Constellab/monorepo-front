@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, output } from '@angular/core';
-import {
-  CaHierarchyObjectDetailState,
-} from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaTagService } from '../../../../ca-core/service-api/ca-tag.service';
 import { FlTag, FlTagModule, FlTagService } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
@@ -86,7 +84,7 @@ export class CaHierarchyObjectTagsFilterComponent extends FlFormFieldDirective<F
     menus.unshift({
       type: 'button',
       text: { text: 'all_tag_values', translateText: true },
-      onClick: () => this.selectTag({ key: tag.key, value: undefined }),
+      onClick: () => this.selectTag({ key: tag.key, value: '*' }),
       color: 'primary',
     });
 

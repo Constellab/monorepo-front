@@ -110,7 +110,13 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
             }
           })
         )
-        .subscribe((hierarchyObject) => this.hierarchyObject$.next(hierarchyObject))
+        .subscribe((hierarchyObject) => {
+          // the object might not be in the tree yet so we add it
+          if (hierarchyObject) {
+            this.addFoldersInTree([hierarchyObject]);
+          }
+          this.hierarchyObject$.next(hierarchyObject);
+        })
     );
 
     // load all the available tags for the children of the current object
@@ -228,7 +234,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public getChildrenAvailableTags(): CaAvailableTagDatasource {
-    return this.childrenTags
+    return this.childrenTags;
   }
 
   private initTreeDrawerOpened(): void {
