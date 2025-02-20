@@ -4,7 +4,6 @@ import {
 } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { Observable } from 'rxjs';
 import {
-  CaHierarchyObject,
   CaHierarchyObjectSimple,
   CaHierarchyObjectsTreeDatasource,
   CaHierarchyObjectType,
@@ -61,7 +60,7 @@ export class CaHierarchyObjectDetailPageComponent implements OnInit {
 
   tagFormControl: FormControl;
 
-  getRoute: (node: CaHierarchyObject) => string = (node: CaHierarchyObject) => {
+  getRoute: (node: CaHierarchyObjectSimple) => string = (node: CaHierarchyObjectSimple) => {
     return CaRouterService.getFolderDetailRoute(node.id);
   };
 

@@ -5,7 +5,7 @@ import { FlTree } from './fl-tree-object.class';
 import { FlEntity } from '../fl-entity.class';
 
 export class FlDatasourceTree<T extends FlEntity> {
-  private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T));
+  private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T, []));
 
   private readonly childrenOrder: (a: T, b: T) => number;
 

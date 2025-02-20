@@ -55,7 +55,7 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
         links.unshift({
           id: ancestor.id,
           title: ancestor.name,
-          url: this.getAncestorLink(ancestor),
+          url: this.getAncestorLink(ancestor.objectType, ancestor.id),
         });
       }
 
@@ -63,7 +63,7 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
         links.push({
           id: currentObject.id,
           title: currentObject.name,
-          url: this.getAncestorLink(currentObject),
+          url: this.getAncestorLink(currentObject.objectType, currentObject.id),
         });
       }
     }
@@ -81,20 +81,20 @@ export class CaHierarchyObjectBreadcrumbComponent implements OnInit {
     };
   }
 
-  private getAncestorLink(ancestor: CaHierarchyObjectSimple): string {
-    switch (ancestor.objectType) {
+  private getAncestorLink(objectType: CaHierarchyObjectType, id: string): string {
+    switch (objectType) {
       case CaHierarchyObjectType.FOLDER:
-        return CaRouterService.getFolderDetailRoute(ancestor.id);
+        return CaRouterService.getFolderDetailRoute(id);
       case CaHierarchyObjectType.SCENARIO:
-        return CaRouterService.getScenarioDetailRoute(ancestor.id);
+        return CaRouterService.getScenarioDetailRoute(id);
       case CaHierarchyObjectType.NOTE:
-        return CaRouterService.getNoteDetailRoute(ancestor.id);
+        return CaRouterService.getNoteDetailRoute(id);
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-        return CaRouterService.getDocumentDetailRoute(ancestor.id);
+        return CaRouterService.getDocumentDetailRoute(id);
       case CaHierarchyObjectType.DOCUMENT:
-        return CaRouterService.getDocumentPreviewRoute(ancestor.id);
+        return CaRouterService.getDocumentPreviewRoute(id);
       case CaHierarchyObjectType.RESOURCE:
-        return CaRouterService.getResourceDetailRoute(ancestor.id);
+        return CaRouterService.getResourceDetailRoute(id);
     }
   }
 

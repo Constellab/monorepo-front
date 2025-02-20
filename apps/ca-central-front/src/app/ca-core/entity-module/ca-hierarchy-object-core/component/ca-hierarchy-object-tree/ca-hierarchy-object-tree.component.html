@@ -30,6 +30,7 @@
       <a
         [routerLink]="getRoute()(node.object)"
         queryParamsHandling="preserve"
+        [ngClass]="{ 'g-text-link': !!getRoute()(node.object) }"
         class="object-name g-text-link">
         <div
           [caNotificationMark]="node.object.id"

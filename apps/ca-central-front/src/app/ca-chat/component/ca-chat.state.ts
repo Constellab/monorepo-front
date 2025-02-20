@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import {
+  CaChatFolder,
   CaHierarchyObjectsTreeDatasource,
-  CaHierarchyObjectWithChildren,
 } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -45,7 +45,7 @@ export class CaChatState {
     return this.isLoadingSignal;
   }
 
-  private getFolderTreeSuccess(folders: CaHierarchyObjectWithChildren[]): void {
+  private getFolderTreeSuccess(folders: CaChatFolder[]): void {
     this.folders.addHierarchyObjectsWithChildren(folders);
 
     // if there is not selected folder, select the first one

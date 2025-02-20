@@ -2,7 +2,7 @@ import { Component, inject, Signal } from '@angular/core';
 import { CaChatState } from '../ca-chat.state';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
-  CaHierarchyObject,
+  CaChatFolder,
   CaHierarchyObjectsTreeDatasource,
 } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Observable } from 'rxjs';
@@ -34,8 +34,13 @@ export class CaChatPageComponent {
 
   selectedObjectId$: Observable<string>;
 
-  getRoute: (node: CaHierarchyObject) => string = (node: CaHierarchyObject) => {
-    return CaRouterService.getChatFolderRoute(node.id);
+  getRoute: (node: CaChatFolder) => string = (node: CaChatFolder) => {
+    if (node.chatEnabled) {
+      return CaRouterService.getChatFolderRoute(node.id);
+    } else {
+      // disable the link for the folders that are not chat enabled
+      return null;
+    }
   };
 
   constructor() {
@@ -48,4 +53,3 @@ export class CaChatPageComponent {
     this.selectedObjectId$ = state.getSelectedFolderId$();
   }
 }
-

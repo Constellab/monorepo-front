@@ -137,9 +137,14 @@ export class CaHierarchyObjectSimple extends CaEntity {
   }
 }
 
-export class CaHierarchyObjectWithChildren extends CaHierarchyObjectSimple {
-  @Type(() => CaHierarchyObjectWithChildren)
-  children: CaHierarchyObjectWithChildren[];
+/**
+ * Entity representing a chat folder
+ */
+export class CaChatFolder extends CaHierarchyObjectSimple {
+  @Type(() => CaChatFolder)
+  children: CaChatFolder[];
+
+  chatEnabled: boolean;
 }
 
 export type CaHierarchyObjectTagDatasource = FlTagDatasource;
@@ -159,12 +164,12 @@ export class CaHierarchyObjectsTreeDatasource extends FlDatasourceTree<CaHierarc
     this.sortAndEmits();
   }
 
-  addHierarchyObjectsWithChildren(objects: CaHierarchyObjectWithChildren[]): void {
+  addHierarchyObjectsWithChildren(objects: CaChatFolder[]): void {
     this.addHierarchyObjectsWithChildrenRecur(objects);
     this.sortAndEmits();
   }
 
-  private addHierarchyObjectsWithChildrenRecur(objects: CaHierarchyObjectWithChildren[]): void {
+  private addHierarchyObjectsWithChildrenRecur(objects: CaChatFolder[]): void {
     for (const object of objects) {
       this.tree.addOrReplaceObject(object, object.parentId);
 

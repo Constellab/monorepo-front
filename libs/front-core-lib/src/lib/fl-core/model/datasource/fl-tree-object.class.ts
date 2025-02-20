@@ -6,11 +6,11 @@ export class FlTree<T extends FlEntity> {
   children: FlTree<T>[];
   parent: FlTree<T> | null;
 
-  constructor(object: T) {
+  constructor(object: T, children?: FlTree<T>[]) {
     this.id = object.id;
     this.object = object;
     // set the children to undefined differentiate between children no loaded and children loaded but empty
-    this.children = undefined;
+    this.children = children;
     this.parent = null;
   }
 

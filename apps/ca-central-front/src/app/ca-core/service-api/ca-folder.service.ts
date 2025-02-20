@@ -38,10 +38,10 @@ import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 
 import {
+  CaChatFolder,
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
   CaHierarchyObjectSimple,
-  CaHierarchyObjectWithChildren,
 } from '../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectSearch,
@@ -227,8 +227,8 @@ export class CaFolderService {
 
   /////////////////////////////// CHAT //////////////////////////////////
 
-  public getChatRootFolders(): Observable<CaHierarchyObjectWithChildren[]> {
-    return this.apiService.get(`${this.route}/chat/folder-tree`, CaHierarchyObjectWithChildren);
+  public getChatRootFolders(): Observable<CaChatFolder[]> {
+    return this.apiService.get(`${this.route}/chat/folder-tree`, CaChatFolder);
   }
 
   /////////////////////////////// MESSAGE //////////////////////////////////
