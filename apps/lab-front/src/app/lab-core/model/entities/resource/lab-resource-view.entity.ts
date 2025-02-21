@@ -65,7 +65,7 @@ export class LabResourceView {
 
   @Expose({ name: 'view_config' })
   @Type(() => LabViewConfig)
-  viewConfig: LabViewConfig;
+  viewConfig?: LabViewConfig;
 
   title: string;
 

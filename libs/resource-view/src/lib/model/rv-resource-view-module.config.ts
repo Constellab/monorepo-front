@@ -52,6 +52,13 @@ export abstract class RvResourceViewModuleConfig {
    * Configuration for the text view (pagination)
    */
   abstract getTextViewConfig(): RvTextViewConfig;
+
+  /**
+   * If true the query params can be read by the view (useful for public routes for dashboards)
+   */
+  enableQueryParams(): boolean {
+    return false;
+  }
 }
 
 export class RvSpreadsheetViewBasicConfig extends RvSpreadsheetViewConfig {

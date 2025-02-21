@@ -133,4 +133,11 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
   getTextViewConfig(): RvTextViewConfig {
     return new LabTextViewConfig(this.shareService, this.token);
   }
+
+  /**
+   * If true the query params can be read by the view (useful for public routes for dashboards)
+   */
+  enableQueryParams(): boolean {
+    return true;
+  }
 }

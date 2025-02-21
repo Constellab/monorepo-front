@@ -98,7 +98,10 @@ export interface RvResourceViewPlotly extends RvResourceViewBase {
 export interface RvResourceViewStreamlit extends RvResourceViewBase {
   type: 'streamlit-view';
   data: {
-    url: string;
+    url: {
+      host_url: string;
+      params: Record<string, string>;
+    };
   };
 }
 

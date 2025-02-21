@@ -48,6 +48,7 @@ export class LabOpenRouteResourcePageComponent {
   constellabUrl = LabEnvironmentHelper.getConstellabPublicUrl();
 
   getViewConfig(view: LabResourceView): RvViewConfig {
+    if (view.viewConfig == null) return null;
     return {
       methodName: view.viewConfig.viewName,
       configValues: view.viewConfig.configValues,

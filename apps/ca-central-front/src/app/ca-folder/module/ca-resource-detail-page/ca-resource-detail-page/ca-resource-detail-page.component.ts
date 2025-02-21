@@ -17,6 +17,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 
 @Component({
   selector: 'ca-resource-detail-page',
@@ -38,6 +39,7 @@ export class CaResourceDetailPageComponent {
   private menuDynamicService = inject(FlMenuDynamicService);
   private dialogService = inject(FlDialogService);
   private state = inject(CaHierarchyObjectDetailState);
+  private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
@@ -48,7 +50,13 @@ export class CaResourceDetailPageComponent {
   resource$: Observable<CaResource> = this.route.params.pipe(
     map((params) => params.id),
     switchMap((id) => this.resourceService.findById(id)),
-    tap((resource) => (this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.shareLink)))
+    tap((resource) => {
+      const userId = this.authenticatedUserService.getCurrentUser().id;
+      // provide the user in iframe url to authenticate the user
+      // useful to authenticate the user for dashboard resource
+      // this is not the perfect solution, but it works
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.shareLink + '?gws_user_id=' + userId);
+    })
   );
 
   openMenu(resource: CaResource, event: MouseEvent): void {
