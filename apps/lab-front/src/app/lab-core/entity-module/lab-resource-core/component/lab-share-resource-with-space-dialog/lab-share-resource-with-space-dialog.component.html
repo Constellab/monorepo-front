@@ -14,9 +14,7 @@
       <fl-form-field>
         <lab-folder-inline-select formControlName="folder"></lab-folder-inline-select>
         @if (formGp.get('folder').hasError('required')) {
-          <mat-error>
-            {{ 'biox.folder' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'biox.folder' | flErrorRequired }}</mat-error>
         }
       </fl-form-field>
     </div>

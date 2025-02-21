@@ -9,14 +9,10 @@
       <mat-label>{{ 'teTextEditor.url' | translate }}</mat-label>
       <input matInput [formControl]="linkControl" required [placeholder]="'teTextEditor.url' | translate" />
       @if (linkControl.hasError('required')) {
-        <mat-error>
-          {{ 'teTextEditor.url' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'teTextEditor.url' | flErrorRequired }}</mat-error>
       }
       @if (linkControl.hasError('notYoutube')) {
-        <mat-error>
-          {{ linkControl.getError('notYoutube') | translate }}
-        </mat-error>
+        <mat-error>{{ linkControl.getError('notYoutube') | translate }}</mat-error>
       }
     </mat-form-field>
   </form>

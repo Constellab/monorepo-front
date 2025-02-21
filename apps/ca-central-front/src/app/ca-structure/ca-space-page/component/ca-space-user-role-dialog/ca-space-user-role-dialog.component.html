@@ -14,9 +14,7 @@
         }
       </mat-select>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'role' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'role' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

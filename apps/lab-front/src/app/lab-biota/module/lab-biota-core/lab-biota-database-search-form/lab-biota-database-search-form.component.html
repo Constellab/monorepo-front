@@ -10,9 +10,7 @@
       <lab-biota-database-select-options></lab-biota-database-select-options>
     </mat-select>
     @if (formGp.get('typingName').hasError('required')) {
-      <mat-error>
-        {{ 'biota.database_type' | flErrorRequired }}
-      </mat-error>
+      <mat-error>{{ 'biota.database_type' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>
 
@@ -25,9 +23,7 @@
       required
       placeholder="{{ 'biota.database_search_field' | translate }}" />
     @if (formGp.get('searchText').hasError('required')) {
-      <mat-error>
-        {{ 'biota.database_search_field' | flErrorRequired }}
-      </mat-error>
+      <mat-error>{{ 'biota.database_search_field' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>
 

@@ -10,14 +10,10 @@
       placeholder="{{ 'email' | translate }}"
       autocomplete="username" />
     @if (formGp.get('email').hasError('required')) {
-      <mat-error>
-        {{ 'error_required' | translate: { field: 'email' | translate } }}
-      </mat-error>
+      <mat-error>{{ 'error_required' | translate: { field: 'email' | translate } }}</mat-error>
     }
     @if (formGp.get('email').hasError('email')) {
-      <mat-error>
-        {{ 'email_invalid' | translate }}
-      </mat-error>
+      <mat-error>{{ 'email_invalid' | translate }}</mat-error>
     }
   </mat-form-field>
 
@@ -32,9 +28,7 @@
       placeholder="{{ 'flAuth.password' | translate }}"
       autocomplete="current-password" />
     @if (formGp.get('password').hasError('required')) {
-      <mat-error>
-        {{ 'error_required' | translate: { field: 'flAuth.password' | translate } }}
-      </mat-error>
+      <mat-error>{{ 'error_required' | translate: { field: 'flAuth.password' | translate } }}</mat-error>
     }
   </mat-form-field>
 </ng-container>

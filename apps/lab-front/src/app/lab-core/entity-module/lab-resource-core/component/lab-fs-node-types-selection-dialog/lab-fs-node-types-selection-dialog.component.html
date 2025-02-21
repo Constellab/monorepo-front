@@ -50,9 +50,7 @@
                     }
                   </mat-select>
                   @if (control.get('typingName').hasError('required')) {
-                    <mat-error>
-                      {{ typePlaceholder | flErrorRequired }}
-                    </mat-error>
+                    <mat-error>{{ typePlaceholder | flErrorRequired }}</mat-error>
                   }
                 </mat-form-field>
               </div>

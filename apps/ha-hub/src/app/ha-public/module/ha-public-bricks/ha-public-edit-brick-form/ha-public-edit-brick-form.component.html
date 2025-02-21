@@ -42,9 +42,7 @@
         maxlength="255"
         placeholder="{{ 'description' | translate }}"></textarea>
       @if (formGp.get('description').hasError('required')) {
-        <mat-error>
-          {{ 'description' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'description' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
     <!--  visibility  -->

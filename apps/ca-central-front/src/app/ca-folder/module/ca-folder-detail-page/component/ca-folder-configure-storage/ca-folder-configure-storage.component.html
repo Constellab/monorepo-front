@@ -23,9 +23,7 @@
         <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
       @if (formGp.get('mainStorage').hasError('required')) {
-        <mat-error>
-          {{ 'folder_main_storage_location' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'folder_main_storage_location' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -44,16 +42,12 @@
         <ca-bucket-location-select-options></ca-bucket-location-select-options>
       </mat-select>
       @if (formGp.get('backupStorage').hasError('required')) {
-        <mat-error>
-          {{ 'folder_backup_storage_location' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'folder_backup_storage_location' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
     @if (formGp.hasError('sameBackupStorage')) {
-      <mat-error>
-        {{ 'folder_storage_location_same_error' | translate }}
-      </mat-error>
+      <mat-error>{{ 'folder_storage_location_same_error' | translate }}</mat-error>
     }
   </form>
 </mat-dialog-content>

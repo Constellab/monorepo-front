@@ -15,9 +15,7 @@
         [placeholder]="'title' | translate"
         (change)="onTitleChange()" />
       @if (formGp.get('title').hasError('required')) {
-        <mat-error>
-          {{ 'title' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
       }
       @if (sameTitleCount$ | async; as count) {
         <mat-hint class="g-warning-text"

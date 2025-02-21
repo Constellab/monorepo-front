@@ -50,7 +50,7 @@
           class="g-layout-row-wrap g-layout-start-stretch g-layout-gap-1em"
           formControlName="serverCloud">
           @for (serverCloud of serverClouds; track serverCloud.id) {
-            <mat-radio-button [value]="serverCloud" class="radio-button" flRadioButtonBig class="accent">
+            <mat-radio-button [value]="serverCloud" class="radio-button accent" flRadioButtonBig>
               <ca-cloud-provider-inline
                 [cloudProvider]="serverCloud.cloudProvider"></ca-cloud-provider-inline>
 
@@ -144,9 +144,7 @@
         </mat-radio-group>
 
         @if (formGp.hasError('sameBackupRegion')) {
-          <mat-error class="g-warn-text">
-            {{ 'lab_backups_same_region_error' | translate }}
-          </mat-error>
+          <mat-error class="g-warn-text">{{ 'lab_backups_same_region_error' | translate }}</mat-error>
         }
       } @else {
         <fl-loader></fl-loader>

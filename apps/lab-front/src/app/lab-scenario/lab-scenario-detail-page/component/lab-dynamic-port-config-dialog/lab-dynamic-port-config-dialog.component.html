@@ -15,9 +15,7 @@
         [required]="true">
       </lab-select-type>
       @if (formGp.get('resourceType').hasError('required')) {
-        <mat-error>
-          {{ 'resource_type' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'resource_type' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
 
@@ -31,9 +29,7 @@
         formControlName="humanName"
         [required]="true" />
       @if (formGp.get('humanName').hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 

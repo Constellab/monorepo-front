@@ -20,14 +20,10 @@
       pattern="[0-9]*"
       autocomplete="one-time-code" />
     @if (formControl.hasError('required')) {
-      <mat-error>
-        {{ 'error_required' | translate: { field: 'flAuth.two_fa_code' | translate } }}
-      </mat-error>
+      <mat-error>{{ 'error_required' | translate: { field: 'flAuth.two_fa_code' | translate } }}</mat-error>
     }
     @if (formControl.hasError('pattern')) {
-      <mat-error>
-        {{ 'flAuth.two_fa_invalid_code' | translate }}
-      </mat-error>
+      <mat-error>{{ 'flAuth.two_fa_invalid_code' | translate }}</mat-error>
     }
   </mat-form-field>
 

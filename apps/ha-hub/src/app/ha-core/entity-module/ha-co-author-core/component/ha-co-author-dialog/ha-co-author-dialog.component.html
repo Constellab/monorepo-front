@@ -56,14 +56,10 @@
         @if (
           formGp.controls.coAuthorMail.hasError('email') && !formGp.controls.coAuthorMail.hasError('required')
         ) {
-          <mat-error>
-            {{ 'invalidEmail' | translate }}
-          </mat-error>
+          <mat-error>{{ 'invalidEmail' | translate }}</mat-error>
         }
         @if (formGp.controls.coAuthorMail.hasError('required')) {
-          <mat-error>
-            {{ 'error_required' | translate: { field: 'email' } }}
-          </mat-error>
+          <mat-error>{{ 'error_required' | translate: { field: 'email' } }}</mat-error>
         }
       </mat-form-field>
 

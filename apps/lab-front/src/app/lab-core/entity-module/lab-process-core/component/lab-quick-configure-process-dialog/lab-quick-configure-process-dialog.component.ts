@@ -16,6 +16,7 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 
 export interface LabQuickConfigureProcessDialogInput {
   title: FlTranslatableText;
@@ -80,6 +81,8 @@ export class LabQuickConfigureProcessDialogComponent implements OnInit {
   submit(): void {
     if (this.formGp.valid) {
       this.dialogRef.close(LabConfigureSpecsFormComponent.buildValues(this.formGp));
+    } else {
+      FlFormHelper.markAllAsTouched(this.formGp);
     }
   }
 }

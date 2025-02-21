@@ -24,9 +24,7 @@
                   [placeholder]="'name' | translate"
                   class="input" />
                 @if (nameForm.get('name').hasError('required')) {
-                  <mat-error>
-                    {{ 'name' | flErrorRequired }}
-                  </mat-error>
+                  <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
             </div>

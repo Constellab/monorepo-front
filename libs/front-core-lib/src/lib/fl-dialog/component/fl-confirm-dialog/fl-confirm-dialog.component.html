@@ -18,9 +18,7 @@
         [formControl]="confirmTextFormControl"
         required />
       @if (confirmTextFormControl.invalid) {
-        <mat-error>
-          {{ 'flDialog.invalid_confirm_text' | translate }}
-        </mat-error>
+        <mat-error>{{ 'flDialog.invalid_confirm_text' | translate }}</mat-error>
       }
     </mat-form-field>
   }

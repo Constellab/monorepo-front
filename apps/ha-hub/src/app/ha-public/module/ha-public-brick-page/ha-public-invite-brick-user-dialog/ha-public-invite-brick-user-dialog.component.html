@@ -8,9 +8,7 @@
       <mat-label>{{ 'email' | translate }}</mat-label>
       <input matInput type="email" formControlName="email" />
       @if (formGp.get('email').hasError('required')) {
-        <mat-error>
-          {{ 'email' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'email' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

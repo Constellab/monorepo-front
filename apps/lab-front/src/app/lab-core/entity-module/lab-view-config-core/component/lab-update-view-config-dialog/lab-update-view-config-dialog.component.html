@@ -13,9 +13,7 @@
         flInputMaxLength="50"
         placeholder="{{ 'name' | translate }}" />
       @if (formCtrl.hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

@@ -31,9 +31,7 @@
         rows="4">
       </textarea>
       @if (formulaControl.hasError('required')) {
-        <mat-error>
-          {{ 'flFormula.formula' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'flFormula.formula' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

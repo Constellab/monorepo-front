@@ -20,14 +20,10 @@
         [flInputMaxLength]="maxNameLength"
         [placeholder]="'name' | translate" />
       @if (formGp.get('name').hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
       @if (formGp.get('name').hasError('pattern')) {
-        <mat-error>
-          {{ 'lab_name_invalid' | translate }}
-        </mat-error>
+        <mat-error>{{ 'lab_name_invalid' | translate }}</mat-error>
       }
     </mat-form-field>
 

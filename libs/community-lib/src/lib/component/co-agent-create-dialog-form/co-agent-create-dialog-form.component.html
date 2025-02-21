@@ -9,9 +9,7 @@
         flInputMaxLength="100"
         [placeholder]="'coCommunityLib.title' | translate" />
       @if (formGp.get('title').hasError('required')) {
-        <mat-error>
-          {{ 'title' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -39,7 +37,7 @@
                 <mat-radio-button labelPosition="before" [value]="space" class="primary">
                   <div class="space-info">
                     @if (space.photo) {
-                      <img [src]="getSpacePhoto(space.photo)" />
+                      <img [src]="getSpacePhoto(space.photo)" alt="Space photo" />
                     }
                     {{ space.name }}
                   </div>

@@ -14,9 +14,7 @@
         [flInputMaxLength]="255"
         [placeholder]="'name' | translate" />
       @if (formGp.get('name').hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

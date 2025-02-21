@@ -22,9 +22,7 @@
             }
           </mat-select>
           @if (formControl.hasError('required')) {
-            <mat-error>
-              {{ 'biox.resource_type' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'biox.resource_type' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
       </form>

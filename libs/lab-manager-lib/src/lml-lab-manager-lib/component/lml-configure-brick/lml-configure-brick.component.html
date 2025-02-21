@@ -101,9 +101,7 @@
             }
           </mat-select>
           @if (formGp.get('version').hasError('required')) {
-            <mat-error>
-              {{ 'lml.brick_version' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'lml.brick_version' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
 

@@ -14,9 +14,7 @@
         flInputMaxLength="100"
         placeholder="{{ 'name' | translate }}" />
       @if (formGp.get('name').hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -54,9 +52,7 @@
         <!--          {{'ending_date' | flErrorRequired }}-->
         <!--        </mat-error>-->
         @if (formGp.get('endingDate').hasError('matDatepickerMin')) {
-          <mat-error>
-            {{ 'error_end_date_before_start' | translate }}
-          </mat-error>
+          <mat-error>{{ 'error_end_date_before_start' | translate }}</mat-error>
         }
       </mat-form-field>
     </div>
@@ -82,9 +78,7 @@
             <ca-bucket-location-select-options></ca-bucket-location-select-options>
           </mat-select>
           @if (formGp.get('mainStorage').hasError('required')) {
-            <mat-error>
-              {{ 'folder_main_storage_location' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'folder_main_storage_location' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
         <mat-form-field class="g-form-input">
@@ -102,9 +96,7 @@
           </mat-select>
         </mat-form-field>
         @if (formGp.hasError('sameBackupStorage')) {
-          <mat-error>
-            {{ 'folder_storage_location_same_error' | translate }}
-          </mat-error>
+          <mat-error>{{ 'folder_storage_location_same_error' | translate }}</mat-error>
         }
       </div>
     }

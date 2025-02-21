@@ -14,9 +14,7 @@
           required
           placeholder="{{ 'spSpreadsheet.serie_name' | translate }}" />
         @if (formGp.get('name').hasError('required')) {
-          <mat-error>
-            {{ 'spSpreadsheet.serie_name' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'spSpreadsheet.serie_name' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 

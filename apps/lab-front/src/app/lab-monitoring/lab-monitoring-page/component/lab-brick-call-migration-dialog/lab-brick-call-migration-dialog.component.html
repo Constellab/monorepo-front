@@ -18,9 +18,7 @@
         }
       </mat-select>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'monitoring.select_migration_version' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'monitoring.select_migration_version' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

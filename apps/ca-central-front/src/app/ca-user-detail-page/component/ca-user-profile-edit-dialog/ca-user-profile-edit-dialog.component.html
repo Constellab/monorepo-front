@@ -15,9 +15,7 @@
           flInputMaxLength="50"
           [placeholder]="'firstname' | translate" />
         @if (formGp.get('firstname').hasError('required')) {
-          <mat-error>
-            {{ 'firstname' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'firstname' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 
@@ -31,9 +29,7 @@
           flInputMaxLength="50"
           [placeholder]="'lastname' | translate" />
         @if (formGp.get('lastname').hasError('required')) {
-          <mat-error>
-            {{ 'lastname' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'lastname' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 

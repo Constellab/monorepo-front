@@ -19,9 +19,7 @@
         }
       </mat-select>
       @if (formGp.get('bucketType').hasError('required')) {
-        <mat-error>
-          {{ 'bucket_type' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'bucket_type' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -35,9 +33,7 @@
         flInputMaxLength="100"
         [placeholder]="'name' | translate" />
       @if (formGp.get('name').hasError('required')) {
-        <mat-error>
-          {{ 'name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -52,9 +48,7 @@
         }
       </mat-select>
       @if (formGp.get('contentType').hasError('required')) {
-        <mat-error>
-          {{ 'bucket_content_type' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'bucket_content_type' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -74,9 +68,7 @@
             [mode]="regionOption"></ca-select-cloud-provider-region-options>
         </mat-select>
         @if (formGp.get('region').hasError('required')) {
-          <mat-error>
-            {{ 'cloud_provider_region' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'cloud_provider_region' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
     } @else {
@@ -88,9 +80,7 @@
           [required]="true"
           [placeholder]="'lab' | translate"></ca-select-lab>
         @if (formGp.get('lab').hasError('required')) {
-          <mat-error>
-            {{ 'lab' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'lab' | flErrorRequired }}</mat-error>
         }
       </fl-form-field>
     }
@@ -102,9 +92,7 @@
         <ca-select-bucket-credentials-options></ca-select-bucket-credentials-options>
       </mat-select>
       @if (formGp.get('credentials').hasError('required')) {
-        <mat-error>
-          {{ 'bucket_credentials' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'bucket_credentials' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

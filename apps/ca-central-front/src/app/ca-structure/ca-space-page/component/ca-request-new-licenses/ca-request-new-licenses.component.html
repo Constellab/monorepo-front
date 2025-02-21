@@ -16,9 +16,7 @@
         [min]="0" />
 
       @if (formGroup.get('nbLicenses').hasError('required')) {
-        <mat-error>
-          {{ 'nb_licenses' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'nb_licenses' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -31,9 +29,7 @@
         rows="5"></textarea>
 
       @if (formGroup.get('text').hasError('required')) {
-        <mat-error>
-          {{ 'request_licenses_comment' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'request_licenses_comment' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

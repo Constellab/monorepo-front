@@ -5,9 +5,7 @@
     [required]="required"></lab-select-note>
 
   @if (formCtrl.hasError('required')) {
-    <mat-error class="g-warn-text g-text-small">
-      {{ placeholder | flErrorRequired }}
-    </mat-error>
+    <mat-error class="g-warn-text g-text-small">{{ placeholder | flErrorRequired }}</mat-error>
   }
 
   @if (hint) {

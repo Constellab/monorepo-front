@@ -31,9 +31,7 @@
           placeholder="{{ 'title' | translate }}"
           cdkFocusInitial />
         @if (formGp.get('title').hasError('required')) {
-          <mat-error>
-            {{ 'title' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
     }

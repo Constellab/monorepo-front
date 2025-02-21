@@ -60,14 +60,10 @@
             [flInputMaxLength]="maxNameLength"
             [placeholder]="'name' | translate" />
           @if (formGp.get('name').hasError('required')) {
-            <mat-error>
-              {{ 'name' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
           }
           @if (formGp.get('name').hasError('pattern')) {
-            <mat-error>
-              {{ 'lab_name_invalid' | translate }}
-            </mat-error>
+            <mat-error>{{ 'lab_name_invalid' | translate }}</mat-error>
           }
         </mat-form-field>
 
@@ -78,9 +74,7 @@
             [placeholder]="'space' | translate"
             [required]="true"></ca-select-space>
           @if (formGp.get('space').hasError('required')) {
-            <mat-error>
-              {{ 'space' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'space' | flErrorRequired }}</mat-error>
           }
         </fl-form-field>
 
@@ -107,19 +101,13 @@
               flInputMaxLength="255"
               [placeholder]="'virtual_host' | translate" />
             @if (formGp.get('virtualHost').hasError('required')) {
-              <mat-error>
-                {{ 'virtual_host' | flErrorRequired }}
-              </mat-error>
+              <mat-error>{{ 'virtual_host' | flErrorRequired }}</mat-error>
             }
             @if (formGp.get('virtualHost').hasError('pattern')) {
-              <mat-error>
-                {{ 'lab_virtual_host_pattern_error' | translate }}
-              </mat-error>
+              <mat-error>{{ 'lab_virtual_host_pattern_error' | translate }}</mat-error>
             }
             @if (formGp.get('virtualHost').hasError('invalid')) {
-              <mat-error>
-                {{ 'lab_virtual_host_domain_error' | translate: { domain: supportedDomainsText } }}
-              </mat-error>
+              <mat-error>{{ 'lab_virtual_host_domain_error' | translate: { domain: supportedDomainsText } }}</mat-error>
             }
           </mat-form-field>
         }
@@ -133,18 +121,14 @@
               <mat-option [value]="'HOURLY'">{{ 'lab_billing_mode_HOURLY' | translate }}</mat-option>
             </mat-select>
             @if (formGp.get('billingMode').hasError('required')) {
-              <mat-error>
-                {{ 'lab_billing_mode' | flErrorRequired }}
-              </mat-error>
+              <mat-error>{{ 'lab_billing_mode' | flErrorRequired }}</mat-error>
             }
           </mat-form-field>
           <!--  Server cloud  -->
           <fl-form-field class="g-full">
             <ca-select-server-cloud formControlName="serverCloud"></ca-select-server-cloud>
             @if (formGp.get('serverCloud').hasError('required')) {
-              <mat-error>
-                {{ 'server_cloud' | flErrorRequired }}
-              </mat-error>
+              <mat-error>{{ 'server_cloud' | flErrorRequired }}</mat-error>
             }
           </fl-form-field>
           <!-- Region -->
@@ -162,9 +146,7 @@
                 mode="SERVER"></ca-select-cloud-provider-region-options>
             </mat-select>
             @if (formGp.get('region').hasError('required')) {
-              <mat-error>
-                {{ 'region' | flErrorRequired }}
-              </mat-error>
+              <mat-error>{{ 'region' | flErrorRequired }}</mat-error>
             }
           </mat-form-field>
           @if (isCreateMode()) {
@@ -176,9 +158,7 @@
                 <mat-option [value]="'HIGH_SPEED'">{{ 'lab_volume_type_HIGH_SPEED' | translate }}</mat-option>
               </mat-select>
               @if (formGp.get('volumeType').hasError('required')) {
-                <mat-error>
-                  {{ 'lab_volume_type' | flErrorRequired }}
-                </mat-error>
+                <mat-error>{{ 'lab_volume_type' | flErrorRequired }}</mat-error>
               }
             </mat-form-field>
             <!-- Volume Size -->
@@ -190,9 +170,7 @@
                 [placeholder]="'lab_volume_size' | translate"
                 type="number" />
               @if (formGp.get('volumeSize').invalid) {
-                <mat-error>
-                  {{ 'lab_volume_size_error' | translate }}
-                </mat-error>
+                <mat-error>{{ 'lab_volume_size_error' | translate }}</mat-error>
               }
             </mat-form-field>
           }
@@ -211,9 +189,7 @@
                 <ca-select-cloud-provider-region-options mode="S3"></ca-select-cloud-provider-region-options>
               </mat-select>
               @if (formGp.get('dailyBackupRegion').hasError('required')) {
-                <mat-error>
-                  {{ 'lab_backup_daily_region' | flErrorRequired }}
-                </mat-error>
+                <mat-error>{{ 'lab_backup_daily_region' | flErrorRequired }}</mat-error>
               }
             </mat-form-field>
             <div>
@@ -231,15 +207,11 @@
                     mode="S3"></ca-select-cloud-provider-region-options>
                 </mat-select>
                 @if (formGp.get('weeklyBackupRegion').hasError('required')) {
-                  <mat-error>
-                    {{ 'lab_backup_weekly_region' | flErrorRequired }}
-                  </mat-error>
+                  <mat-error>{{ 'lab_backup_weekly_region' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
               @if (formGp.hasError('sameBackupRegion')) {
-                <mat-error>
-                  {{ 'lab_backups_same_region_error' | translate }}
-                </mat-error>
+                <mat-error>{{ 'lab_backups_same_region_error' | translate }}</mat-error>
               }
             </div>
           }

@@ -17,14 +17,10 @@
       <mat-label>{{ 'email' | translate }}</mat-label>
       <input matInput type="email" formControlName="userMail" required [placeholder]="'email' | translate" />
       @if (formGp.get('userMail').hasError('required')) {
-        <mat-error>
-          {{ 'email' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'email' | flErrorRequired }}</mat-error>
       }
       @if (formGp.get('userMail').hasError('email')) {
-        <mat-error>
-          {{ 'email_invalid' | translate }}
-        </mat-error>
+        <mat-error>{{ 'email_invalid' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -39,9 +35,7 @@
         }
       </mat-select>
       @if (formGp.get('role').hasError('required')) {
-        <mat-error>
-          {{ 'role' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'role' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>

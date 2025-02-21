@@ -20,19 +20,15 @@
       <mat-label>{{ placeholder }}</mat-label>
       <input matInput formControlName="rangeSelection" [placeholder]="placeholder" [required]="required" />
       @if (formGp.get('rangeSelection').hasError('required')) {
-        <mat-error>
-          {{ placeholder | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ placeholder | flErrorRequired }}</mat-error>
       }
       @if (formGp.get('rangeSelection').hasError('invalidFormat')) {
-        <mat-error>
-          {{ 'spSpreadsheet.series_data_wrong_format' | translate }}
+        <mat-error>{{ 'spSpreadsheet.series_data_wrong_format' | translate }}
           {{ formGp.get('rangeSelection').getError('invalidFormat') }}
         </mat-error>
       }
       @if (formGp.get('rangeSelection').hasError('selectionOutOfBound')) {
-        <mat-error>
-          {{
+        <mat-error>{{
             'spSpreadsheet.selection_out_of_bound'
               | translate: formGp.get('rangeSelection').getError('selectionOutOfBound')
           }}

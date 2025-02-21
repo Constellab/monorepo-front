@@ -6,16 +6,14 @@
   @if (formGp) {
     <form (ngSubmit)="submit()" id="icon-form" [formGroup]="formGp">
       <mat-radio-group formControlName="type" name="type" class="form-rb-list">
-        <mat-radio-button
-          [value]="'COMMUNITY_ICON'"
-          [checked]="formGp.get('type').value == 'COMMUNITY_ICON'"
-          >{{ 'community_icon' | translate }}</mat-radio-button
-        >
+        <mat-radio-button [value]="'COMMUNITY_ICON'" [checked]="formGp.get('type').value == 'COMMUNITY_ICON'"
+        >{{ 'community_icon' | translate }}
+        </mat-radio-button>
         <mat-radio-button
           [value]="'COMMUNITY_IMAGE'"
           [checked]="formGp.get('type').value == 'COMMUNITY_IMAGE'"
-          >{{ 'community_image' | translate }}</mat-radio-button
-        >
+        >{{ 'community_image' | translate }}
+        </mat-radio-button>
       </mat-radio-group>
 
       <mat-form-field class="g-form-input">
@@ -27,14 +25,10 @@
           flInputMaxLength="30"
           [placeholder]="'icon_technical_name' | translate" />
         @if (formGp.get('technicalName').hasError('required')) {
-          <mat-error>
-            {{ 'icon_technical_name' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'icon_technical_name' | flErrorRequired }}</mat-error>
         }
         @if (formGp.get('technicalName').hasError('pattern')) {
-          <mat-error>
-            {{ 'icon_technical_name_pattern_error' | translate }}
-          </mat-error>
+          <mat-error>{{ 'icon_technical_name_pattern_error' | translate }}</mat-error>
         }
       </mat-form-field>
 
@@ -47,9 +41,7 @@
           [placeholder]="'icon_name' | translate"
           flInputMaxLength="30" />
         @if (formGp.get('name').hasError('required')) {
-          <mat-error>
-            {{ 'icon_name' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'icon_name' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 
@@ -58,14 +50,10 @@
         <mat-label>{{ 'icon_sub_names' | translate }}</mat-label>
         <input matInput formControlName="subNames" required [placeholder]="'icon_sub_names' | translate" />
         @if (formGp.get('subNames').hasError('required')) {
-          <mat-error>
-            {{ 'icon_sub_names' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'icon_sub_names' | flErrorRequired }}</mat-error>
         }
         @if (formGp.get('subNames').hasError('pattern')) {
-          <mat-error>
-            {{ 'icon_sub_names_pattern_error' | translate }}
-          </mat-error>
+          <mat-error>{{ 'icon_sub_names_pattern_error' | translate }}</mat-error>
         }
       </mat-form-field>
 
@@ -80,9 +68,7 @@
             (fileChange)="onFileSelected()" />
         </fl-input-file-container>
         @if (formGp.get('file').hasError('required') && input_file_trigered) {
-          <mat-error>
-            {{ 'file' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'file' | flErrorRequired }}</mat-error>
         }
       </div>
     </form>

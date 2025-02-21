@@ -18,9 +18,7 @@
       {{ 'space_folder_default_storage_location_help' | translate }}
     </mat-hint>
     @if (formGp.get('defaultFolderStorageLocation').hasError('required')) {
-      <mat-error>
-        {{ 'space_folder_default_storage_location' | flErrorRequired }}
-      </mat-error>
+      <mat-error>{{ 'space_folder_default_storage_location' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>
 
@@ -44,15 +42,11 @@
       {{ 'space_default_folder_backup_storage_location_help' | translate }}
     </mat-hint>
     @if (formGp.get('defaultFolderBackupStorageLocation').hasError('required')) {
-      <mat-error>
-        {{ 'space_default_folder_backup_storage_location' | flErrorRequired }}
-      </mat-error>
+      <mat-error>{{ 'space_default_folder_backup_storage_location' | flErrorRequired }}</mat-error>
     }
   </mat-form-field>
 
   @if (formGp.hasError('sameBackupStorage')) {
-    <mat-error>
-      {{ 'folder_storage_location_same_error' | translate }}
-    </mat-error>
+    <mat-error>{{ 'folder_storage_location_same_error' | translate }}</mat-error>
   }
 </div>

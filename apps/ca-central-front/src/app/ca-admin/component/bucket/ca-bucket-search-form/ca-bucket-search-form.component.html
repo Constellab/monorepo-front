@@ -57,9 +57,7 @@
     <fl-form-field class="g-search-field">
       <ca-select-lab formControlName="lab" mode="all-cloud" [placeholder]="'lab' | translate"></ca-select-lab>
       @if (formGp.get('lab').hasError('required')) {
-        <mat-error>
-          {{ 'lab' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'lab' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
 

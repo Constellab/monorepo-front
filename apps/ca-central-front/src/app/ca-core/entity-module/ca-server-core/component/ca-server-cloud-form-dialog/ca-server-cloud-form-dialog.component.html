@@ -11,9 +11,7 @@
         <ca-select-cloud-provider-options></ca-select-cloud-provider-options>
       </mat-select>
       @if (formGp.get('cloudProvider').hasError('required')) {
-        <mat-error>
-          {{ 'cloud_provider' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'cloud_provider' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -27,9 +25,7 @@
         flInputMaxLength="50"
         [placeholder]="'technical_name' | translate" />
       @if (formGp.get('technicalName').hasError('required')) {
-        <mat-error>
-          {{ 'technical_name' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'technical_name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -40,9 +36,7 @@
         <ca-select-server-standard-options></ca-select-server-standard-options>
       </mat-select>
       @if (formGp.get('serverStandard').hasError('required')) {
-        <mat-error>
-          {{ 'server_standard' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'server_standard' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -51,14 +45,10 @@
       <mat-label>{{ 'ram' | translate }} ({{ 'flCoreComponent.giga_byte_symbole' | translate }})</mat-label>
       <input matInput formControlName="ram" required [placeholder]="'ram' | translate" type="number" />
       @if (formGp.get('ram').hasError('required')) {
-        <mat-error>
-          {{ 'ram' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'ram' | flErrorRequired }}</mat-error>
       }
       @if (formGp.get('ram').hasError('min')) {
-        <mat-error>
-          {{ 'input_number_must_be_positive' | translate }}
-        </mat-error>
+        <mat-error>{{ 'input_number_must_be_positive' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -73,14 +63,10 @@
           [placeholder]="'diskSpace' | translate"
           type="number" />
         @if (formGp.get('diskSpace').hasError('required')) {
-          <mat-error>
-            {{ 'diskSpace' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'diskSpace' | flErrorRequired }}</mat-error>
         }
         @if (formGp.get('diskSpace').hasError('min')) {
-          <mat-error>
-            {{ 'input_number_must_be_positive' | translate }}
-          </mat-error>
+          <mat-error>{{ 'input_number_must_be_positive' | translate }}</mat-error>
         }
       </mat-form-field>
 
@@ -91,9 +77,7 @@
           <ca-select-disk-type-options></ca-select-disk-type-options>
         </mat-select>
         @if (formGp.get('diskType').hasError('required')) {
-          <mat-error>
-            {{ 'diskType' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'diskType' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 
@@ -107,14 +91,10 @@
           [placeholder]="'cpuCount' | translate"
           type="number" />
         @if (formGp.get('cpuCount').hasError('required')) {
-          <mat-error>
-            {{ 'cpuCount' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'cpuCount' | flErrorRequired }}</mat-error>
         }
         @if (formGp.get('cpuCount').hasError('min')) {
-          <mat-error>
-            {{ 'input_number_must_be_positive' | translate }}
-          </mat-error>
+          <mat-error>{{ 'input_number_must_be_positive' | translate }}</mat-error>
         }
       </mat-form-field>
 
@@ -128,9 +108,7 @@
           [placeholder]="'cpuType' | translate"
           flInputMaxLength="30" />
         @if (formGp.get('cpuType').hasError('required')) {
-          <mat-error>
-            {{ 'cpuType' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'cpuType' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 
@@ -139,9 +117,7 @@
         <mat-label>{{ 'gpuCount' | translate }}</mat-label>
         <input matInput formControlName="gpuCount" [placeholder]="'gpuCount' | translate" type="number" />
         @if (formGp.get('gpuCount').hasError('min')) {
-          <mat-error>
-            {{ 'input_number_must_be_positive' | translate }}
-          </mat-error>
+          <mat-error>{{ 'input_number_must_be_positive' | translate }}</mat-error>
         }
       </mat-form-field>
 

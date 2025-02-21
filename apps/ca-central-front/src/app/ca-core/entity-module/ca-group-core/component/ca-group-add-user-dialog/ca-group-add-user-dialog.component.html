@@ -12,9 +12,7 @@
         [placeholder]="'user' | translate"
         [required]="true"></fl-select-user>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'user' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'user' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
   </form>

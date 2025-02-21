@@ -15,14 +15,10 @@
         }
       </mat-select>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'status' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'status' | flErrorRequired }}</mat-error>
       }
       @if (formControl.hasError('sameValue')) {
-        <mat-error>
-          {{ 'same_status_error' | translate }}
-        </mat-error>
+        <mat-error>{{ 'same_status_error' | translate }}</mat-error>
       }
     </mat-form-field>
   </form>

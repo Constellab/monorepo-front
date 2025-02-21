@@ -82,6 +82,13 @@ body {
     @include g-form-field-compact-width;
   }
 
+  // class to copy a mat-error when not used in fl-form-field
+  .g-mat-error {
+    color: var(--warn-color);
+    font-size: 0.8rem;
+    line-height: 1.2em;
+  }
+
   //////////////////////////////////// BUTTON //////////////////////////////////
   // set the button texts to uppercase
   .mdc-button {

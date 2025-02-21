@@ -18,8 +18,6 @@
   }
 
   @if (formCtrl.hasError('required')) {
-    <mat-error>
-      {{ placeholder | flErrorRequired: false }}
-    </mat-error>
+    <mat-error>{{ placeholder | flErrorRequired: false }}</mat-error>
   }
 </mat-form-field>

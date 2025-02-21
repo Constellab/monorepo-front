@@ -12,9 +12,7 @@
     <fl-form-field>
       <lab-folder-select [formControl]="formControl" [multiple]="false"></lab-folder-select>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'biox.folder' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'biox.folder' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
   </form>

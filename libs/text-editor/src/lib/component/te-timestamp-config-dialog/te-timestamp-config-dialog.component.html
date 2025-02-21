@@ -15,9 +15,7 @@
         <mat-datepicker #datepicker />
         <mat-datepicker-toggle [for]="datepicker" matSuffix />
         @if (formGp.get('timestamp').hasError('required')) {
-          <mat-error>
-            {{ 'teTextEditor.timestamp_format_date' | flErrorRequired }}
-          </mat-error>
+          <mat-error>{{ 'teTextEditor.timestamp_format_date' | flErrorRequired }}</mat-error>
         }
       </mat-form-field>
 

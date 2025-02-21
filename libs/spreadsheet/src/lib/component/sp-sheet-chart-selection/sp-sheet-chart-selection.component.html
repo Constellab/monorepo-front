@@ -23,9 +23,7 @@
           </mat-select>
 
           @if (formGp.get('chartType').hasError('required')) {
-            <mat-error>
-              {{ 'spSpreadsheet.create_chart' | flErrorRequired }}
-            </mat-error>
+            <mat-error>{{ 'spSpreadsheet.create_chart' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
 
@@ -50,9 +48,7 @@
                 [placeholder]="'spSpreadsheet.chart_nb_of_bins' | translate"
                 type="number" />
               @if (formGp.get('additionalFields').get('nbOfBins').invalid) {
-                <mat-error>
-                  {{ 'spSpreadsheet.chart_nb_of_bins_error' | translate }}
-                </mat-error>
+                <mat-error>{{ 'spSpreadsheet.chart_nb_of_bins_error' | translate }}</mat-error>
               }
             </mat-form-field>
           }
@@ -94,9 +90,7 @@
                   [placeholder]="'spSpreadsheet.chart_x_threshold' | translate"
                   type="number" />
                 @if (additionalFieldFormGp.get('xThreshold').hasError('required')) {
-                  <mat-error>
-                    {{ 'spSpreadsheet.chart_x_threshold' | flErrorRequired }}
-                  </mat-error>
+                  <mat-error>{{ 'spSpreadsheet.chart_x_threshold' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
             }
@@ -112,9 +106,7 @@
                   [placeholder]="'spSpreadsheet.chart_y_threshold' | translate"
                   type="number" />
                 @if (additionalFieldFormGp.get('yThreshold').hasError('required')) {
-                  <mat-error>
-                    {{ 'spSpreadsheet.chart_y_threshold' | flErrorRequired }}
-                  </mat-error>
+                  <mat-error>{{ 'spSpreadsheet.chart_y_threshold' | flErrorRequired }}</mat-error>
                 }
               </mat-form-field>
             }

@@ -8,9 +8,7 @@
     <fl-form-field class="g-form-input">
       <ca-select-group [formControl]="formControl" [required]="true"></ca-select-group>
       @if (formControl.hasError('required')) {
-        <mat-error>
-          {{ 'group' | flErrorRequired }}
-        </mat-error>
+        <mat-error>{{ 'group' | flErrorRequired }}</mat-error>
       }
     </fl-form-field>
   </form>
