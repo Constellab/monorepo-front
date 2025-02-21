@@ -67,8 +67,11 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
 
         if (this.isInitialized) {
           // if it not the first time we need to reset the form (because it is a navigation)
-          // the first time will be triggered by the url params
           this.searchState.resetFormAndCallSearch();
+        } else {
+          // so we submit the form to trigger the search if it is not trigger by the url params
+          // if it is also triggered by the url params it will be ignored, only 1 search will be done
+          this.searchState.submitForm();
         }
         this.isInitialized = true;
       })
