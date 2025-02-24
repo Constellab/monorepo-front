@@ -14,27 +14,14 @@ import {
   TdDynamicEditableFormGroupComponent,
   TdParamSpecType,
 } from '@monorepo/technical-doc';
-import {
-  LabOpenAiChatDynamicFieldComponent
-} from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
-import {
-  LabSelectCredentialsDynamicFieldComponent
-} from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
-import {
-  LabSelectNoteDynamicFieldComponent
-} from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
-import {
-  LabRichTextDynamicFieldComponent
-} from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
-import {
-  LabSelectNoteTemplateDynamicFieldComponent
-} from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
-import {
-  LabSelectScenarioDynamicFieldComponent
-} from '../lab-scenario-core/component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
-import {
-  LabCodeEditorDynamicFieldComponent
-} from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
+import { LabOpenAiChatDynamicFieldComponent } from '../lab-open-ai-core/component/lab-open-ai-chat-dynamic-field/lab-open-ai-chat-dynamic-field.component';
+import { LabSelectCredentialsDynamicFieldComponent } from '../lab-credentials-core/component/lab-select-credentials-dynamic-field/lab-select-credentials-dynamic-field.component';
+import { LabSelectNoteDynamicFieldComponent } from '../lab-note-core/component/lab-select-note-dynamic-field/lab-select-note-dynamic-field.component';
+import { LabRichTextDynamicFieldComponent } from '../lab-rich-text-core/component/lab-rich-text-dynamic-field/lab-rich-text-dynamic-field.component';
+import { LabSelectNoteTemplateDynamicFieldComponent } from '../lab-note-template-core/component/lab-select-note-template-dynamic-field/lab-select-note-template-dynamic-field.component';
+import { LabSelectScenarioDynamicFieldComponent } from '../lab-scenario-core/component/lab-select-scenario-dynamic-field/lab-select-scenario-dynamic-field.component';
+import { LabCodeEditorDynamicFieldComponent } from './component/lab-code-editor-dynamic-field/lab-code-editor-dynamic-field.component';
+import { LabSelectFolderDynamicFieldComponent } from '../lab-folder-core/component/lab-select-folder-dynamic-field/lab-select-folder-dynamic-field.component';
 
 /**
  * Configuration for the DynamicField that include tags field and other custom field
@@ -49,6 +36,7 @@ export class LabProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
       note_template_param: this.buildSelectNoteTemplateField,
       note_param: this.buildSelectNoteField,
       scenario_param: this.buildSelectScenarioField,
+      space_folder_param: this.buildSelectFolderField,
       rich_text_param: this.buildRichTextField,
     };
 
@@ -104,6 +92,12 @@ export class LabProcessDynamicFieldConfig extends FlDynamicFieldConfigService {
     viewContainer: ViewContainerRef
   ): ComponentRef<FlDynamicFieldAbstractDirective> {
     return viewContainer.createComponent(LabSelectScenarioDynamicFieldComponent);
+  }
+
+  private buildSelectFolderField(
+    viewContainer: ViewContainerRef
+  ): ComponentRef<FlDynamicFieldAbstractDirective> {
+    return viewContainer.createComponent(LabSelectFolderDynamicFieldComponent);
   }
 
   private buildRichTextField(viewContainer: ViewContainerRef): ComponentRef<FlDynamicFieldAbstractDirective> {

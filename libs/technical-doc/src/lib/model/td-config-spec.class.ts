@@ -28,6 +28,7 @@ export type TdParamSpecType =
   | 'note_template_param'
   | 'note_param'
   | 'scenario_param'
+  | 'space_folder_param'
   | 'dynamic'
   | 'dict';
 
@@ -148,6 +149,7 @@ interface TdParamSpecBasic extends TdParamSpecBase {
     | 'note_template_param'
     | 'note_param'
     | 'scenario_param'
+    | 'space_folder_param'
     | 'rich_text_param';
 }
 

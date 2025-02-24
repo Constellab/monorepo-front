@@ -1,8 +1,7 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlFormFieldDirective, FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
-import { FlInputSearchFilter } from '@monorepo/front-core-lib/fl-core';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
@@ -60,17 +59,19 @@ export class LabSelectScenarioComponent extends FlFormFieldDirective<LabScenario
   }
 
   writeValue(obj: LabScenario): void {
-    if (obj == null || obj.id == null) {
+    if (obj == null) {
       this.selectedScenario = null;
       this.value = null;
       return;
     }
 
     // if the provided object is not an instance of LabScenario, load it from the api
-    if (!(obj instanceof LabScenario)) {
-      this.selectedScenario = this.scenarioService.getScenario((obj as any).id);
-    } else {
+    if (obj instanceof LabScenario) {
       this.selectedScenario = obj;
+    } else if (typeof obj == 'string') {
+      this.selectedScenario = this.scenarioService.getScenario(obj);
+    } else if ((obj as any).id != null) {
+      this.selectedScenario = this.scenarioService.getScenario((obj as any).id);
     }
     this.value = obj;
   }

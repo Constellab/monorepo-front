@@ -1,12 +1,14 @@
-import { FlDynamicFieldConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigBase } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigBoolean } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigInput } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigList } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigSelect } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigSelectSearch } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFieldConfigUnknown } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { FlDynamicFormGroupConfig } from '@monorepo/front-core-lib/fl-dynamic-field';
+import {
+  FlDynamicFieldConfig,
+  FlDynamicFieldConfigBase,
+  FlDynamicFieldConfigBoolean,
+  FlDynamicFieldConfigInput,
+  FlDynamicFieldConfigList,
+  FlDynamicFieldConfigSelect,
+  FlDynamicFieldConfigSelectSearch,
+  FlDynamicFieldConfigUnknown,
+  FlDynamicFormGroupConfig,
+} from '@monorepo/front-core-lib/fl-dynamic-field';
 
 import {
   tdCodeParamSpecTypeList,
@@ -148,6 +150,13 @@ export class TdParamSpecConfig {
         defaultPlaceholder
       ) as any;
       config.type = 'scenario_param';
+      return config;
+    } else if (spec.type === 'space_folder_param') {
+      const config: FlDynamicFieldConfigUnknown = TdParamSpecConfig.convertToBaseFieldConfig(
+        spec,
+        defaultPlaceholder
+      ) as any;
+      config.type = 'space_folder_param';
       return config;
     } else if (tdCodeParamSpecTypeList.includes(spec.type)) {
       const config: FlDynamicFieldConfig = TdParamSpecConfig.convertToBaseFieldConfig(

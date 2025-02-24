@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { LabFolder } from '../../../../model/entities/lab-folder.class';
@@ -13,7 +13,9 @@ import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabFolderInlineComponent } from '../lab-folder-inline/lab-folder-inline.component';
 import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { AsyncPipe } from '@angular/common';
+import { LabFolderService } from '../../../../entity-service/lab-folder.service';
 
 /**
  * Component to show a folder inline with possibility to select another folder
@@ -23,12 +25,23 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './lab-folder-inline-select.component.html',
   styleUrls: ['./lab-folder-inline-select.component.scss'],
   providers: [{ provide: FlFormFieldDirective, useExisting: LabFolderInlineSelectComponent }],
-  imports: [FlTextIconModule, MatIcon, FlIconModule, LabFolderInlineComponent, MatButton, TranslatePipe],
+  imports: [
+    FlTextIconModule,
+    MatIcon,
+    FlIconModule,
+    LabFolderInlineComponent,
+    MatButton,
+    AsyncPipe,
+    FlTranslateModule,
+  ],
 })
 export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFolder> {
   private portalService = inject(FlPortalService);
+  private folderService = inject(LabFolderService);
 
   @Input() updateFolderHelpText?: string;
+
+  placeholder = input<FlTranslatableText>('biox.select_folder');
 
   @Output() selectionChange: EventEmitter<LabFolder | null> = new EventEmitter();
 
@@ -45,7 +58,20 @@ export class LabFolderInlineSelectComponent extends FlFormFieldDirective<LabFold
   onDisableChange(): void {}
 
   writeValue(obj: LabFolder): void {
-    this.value = obj;
+    if (obj == null) {
+      this.value = null;
+      return;
+    }
+
+    if (obj instanceof LabFolder) {
+      this.value = obj;
+    } else if(typeof obj === 'string') {
+      this.folderService.getFolder(obj).subscribe((folder) => (this.value = folder));
+    } else if ((obj as any).id != null) {
+      this.folderService.getFolder((obj as any).id).subscribe((folder) => (this.value = folder));
+    } else {
+      this.value = null;
+    }
   }
 
   openPortal(event: MouseEvent): void {

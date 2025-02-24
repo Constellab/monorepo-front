@@ -18,4 +18,8 @@ export class LabFolderService {
   public getFolderTrees(): Observable<LabFolderWithChildren[]> {
     return this.apiService.get(`${this.route}/trees`, LabFolderWithChildren);
   }
+
+  public getFolder(id: string): Observable<LabFolder> {
+    return this.apiService.get(`${this.route}/${id}`, LabFolder);
+  }
 }

@@ -1,8 +1,9 @@
 <fl-form-field>
-  <lab-select-scenario
+  <div>{{placeholder}}</div>
+  <lab-folder-inline-select
     [formControl]="formCtrl"
     [placeholder]="{ text: placeholder, translateText: false }"
-    [required]="required"></lab-select-scenario>
+    [required]="required"></lab-folder-inline-select>
 
   @if (formCtrl.hasError('required')) {
     <mat-error class="g-warn-text g-text-small">{{ placeholder | flErrorRequired:false }}</mat-error>

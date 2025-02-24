@@ -12,7 +12,7 @@
       [disabled]="disabled"
       (click)="openPortal($event)"
       class="g-button-small">
-      {{ 'biox.select_folder' | translate }}
+      {{ placeholder() | flTranslatableText | async }}
     </button>
   }
 </fl-text-icon>
