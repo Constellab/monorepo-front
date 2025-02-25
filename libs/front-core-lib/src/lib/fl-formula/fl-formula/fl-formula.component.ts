@@ -2,14 +2,13 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
-  Input,
+  inject,
+  input,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef,
-  inject,
 } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fl-formula',
@@ -20,14 +19,14 @@ import { Observable } from 'rxjs';
 export class FlFormulaComponent implements OnInit, OnDestroy {
   private changeDetectorRef = inject(ChangeDetectorRef);
 
-  @Input() formula: string | Observable<string>;
+  formula = input.required<string>();
 
   /**
    * Change the handling of error messages
    * If set to 'view', the error message not be display but the formula will be displayed as is
    * If set to 'edit', the error message will be displayed
    */
-  @Input() mode: 'view' | 'edit' = 'view';
+  mode = input<'view' | 'edit'>('view');
 
   private componentRef: ComponentRef<any>;
 

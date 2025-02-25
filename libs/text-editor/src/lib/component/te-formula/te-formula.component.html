@@ -1,22 +1,20 @@
-@if (formula$ | async) {
-  <div class="g-layout-row g-layout-center-center g-layout-gap-1em">
-    <!-- Fake button to center the formula -->
-    @if (!disabled) {
-      <div class="fake-button"></div>
-    }
-    <fl-formula [formula]="formula$"></fl-formula>
-    @if (!disabled) {
-      <button
-        mat-icon-button
-        type="button"
-        class="g-button-icon-small"
-        (click)="updateFormula()"
-        [matTooltip]="'flFormula.edit_formula' | translate">
-        <mat-icon>edit</mat-icon>
-      </button>
-    }
-  </div>
-}
+<div class="g-layout-row g-layout-center-center g-layout-gap-1em">
+  <!-- Fake button to center the formula -->
+  @if (!disabled) {
+    <div class="fake-button"></div>
+  }
+  <fl-formula [formula]="formula"></fl-formula>
+  @if (!disabled) {
+    <button
+      mat-icon-button
+      type="button"
+      class="g-button-icon-small"
+      (click)="updateFormula()"
+      [matTooltip]="'flFormula.edit_formula' | translate">
+      <mat-icon>edit</mat-icon>
+    </button>
+  }
+</div>
 
 <div class="g-text-centered" contenteditable="false">
   <te-title-caption [(title)]="formulaTitle" [(caption)]="caption" [editable]="!disabled"></te-title-caption>

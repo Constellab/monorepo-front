@@ -27,7 +27,7 @@
         matInput
         [formControl]="formulaControl"
         required
-        placeholder="{{ 'flFormula.formula' | translate }}"
+        [placeholder]="'flFormula.formula' | translate"
         rows="4">
       </textarea>
       @if (formulaControl.hasError('required')) {
@@ -38,7 +38,7 @@
 
   <div class="preview">
     <p class="g-text-light">{{ 'flFormula.formula_preview' | translate }}</p>
-    <fl-formula [formula]="formula$" mode="edit"></fl-formula>
+    <fl-formula [formula]="formula$ | async" mode="edit"></fl-formula>
   </div>
 </mat-dialog-content>
 

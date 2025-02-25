@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, ViewEncapsulation, inject } from '@angular/core';
+import { Component, effect, inject, input, OnDestroy, ViewEncapsulation } from '@angular/core';
 
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import katex from 'katex';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -15,23 +15,23 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class FlFormulaStandaloneComponent implements OnDestroy {
   private sanitizer = inject(DomSanitizer);
 
-  @Input() set formula(formula: string | Observable<string>) {
-    this.clear();
-    if (formula instanceof Observable) {
-      this.subscription = formula.subscribe((formula) => this.onFormulaChange(formula));
-    } else {
-      this.onFormulaChange(formula);
-    }
-  }
+  formula = input.required<string>();
 
-  @Input() mode: 'view' | 'edit' = 'view';
+  mode = input<'view' | 'edit'>('view');
 
   private subscription: Subscription;
 
   katexResult: SafeHtml;
   katexError: string;
 
-  private onFormulaChange(formula: string): void {
+  constructor() {
+    effect(() => {
+      this.clear();
+      this.onFormulaChange(this.formula(), this.mode());
+    });
+  }
+
+  private onFormulaChange(formula: string, mode: 'view' | 'edit'): void {
     const macros = {
       '\\f': '#1f(#2)',
     };
@@ -46,7 +46,7 @@ export class FlFormulaStandaloneComponent implements OnDestroy {
       this.katexError = null;
     } catch (e: any) {
       this.katexResult = null;
-      if (this.mode === 'view' || !e.message) {
+      if (mode === 'view' || !e.message) {
         this.katexError = formula;
       } else {
         this.katexError = e.message;

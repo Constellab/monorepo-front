@@ -1,11 +1,9 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormulaDialogComponent } from '@monorepo/front-core-lib/fl-formula';
+import { FlFormulaDialogComponent, TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { TeFormulaDialogInput } from '@monorepo/front-core-lib/fl-formula';
 
 import { TeElementBlockDirective } from '../../model/te-element.directive';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'te-formula',
@@ -22,11 +20,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
 
   @Input() helpText: FlTranslatableText;
 
-  public formula$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
-  constructor() {
-    super();
-  }
+  @Input() formula: string;
 
   public openInitFormulaDialog(): void {
     // on init, we check if we need to show formula dialog
@@ -45,7 +39,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
   public updateFormula(): void {
     const input: TeFormulaDialogInput = {
       mode: 'update',
-      object: this.formula$.value,
+      object: this.formula,
       helpText: this.helpText,
     };
     this.dialogService
@@ -56,7 +50,7 @@ export class TeFormulaComponent extends TeElementBlockDirective {
 
   public setFormula(formula?: string): void {
     if (formula) {
-      this.formula$.next(formula);
+      this.formula = formula;
     }
   }
 }

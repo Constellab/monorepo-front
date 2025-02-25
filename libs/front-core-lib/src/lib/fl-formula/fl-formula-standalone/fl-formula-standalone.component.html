@@ -1,7 +1,5 @@
 @if (katexResult) {
-  @if (katexResult) {
-    <div [innerHTML]="katexResult"></div>
-  }
+  <div [innerHTML]="katexResult" class="katex"></div>
 } @else if (katexError) {
   <div class="g-warn-text">{{ katexError }}</div>
 }

@@ -36,6 +36,7 @@ import {
 import { teBlockTuneFactory } from './te-block-tune-factory.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 import { TeIframeBlock } from '../block/te-iframe-block.class';
+import { TeFormulaInlineToolClass } from '../inline-tool/te-formula-inline-tool.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -215,6 +216,7 @@ export abstract class TeConfig {
   getFullInlineToolbar(variable: boolean = false): string[] {
     const tools = ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
     if (variable) tools.push('variable');
+    tools.push('formulaInline');
     tools.push('cleanStyle');
     return tools;
   }
@@ -274,6 +276,7 @@ export class TeCompleteConfig extends TeConfig {
       strikethrough: TeStrikethroughInlineTool,
       inlineCode: this.getInlineCodeConfig(),
       variable: teInlineToolFactory(TeVariableInlineToolClass),
+      formulaInline: teInlineToolFactory(TeFormulaInlineToolClass),
       cleanStyle: TeCleanStyleInlineTool,
       fake: TeFakeInlineTool,
 

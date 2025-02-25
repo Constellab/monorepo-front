@@ -62,6 +62,8 @@ import { TeTextEditorSaveComponent } from './component/te-text-editor-save/te-te
 import { TeIframeComponent } from './component/te-iframe/te-iframe.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import { TeFormulaInlineComponent } from './component/te-formula-inline/te-formula-inline.component';
+import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.class';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
     TeTimestampConfigDialogComponent,
     TeTextEditorSaveComponent,
     TeIframeComponent,
+    TeFormulaInlineComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -164,6 +167,11 @@ export class TeTextEditorModule {
         customElements.define(
           teMentionTagName,
           createCustomElement(TeMentionInlineComponent, { injector: injector })
+        );
+
+        customElements.define(
+          TeFormulaInlineToolClass.TAG,
+          createCustomElement(TeFormulaInlineComponent, { injector: injector })
         );
 
         // use to fix the error Unable to preventDefault inside passive event listener invocation.

@@ -1,7 +1,9 @@
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { FlLangTranslation } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import {
+  FlLangTranslation,
+  FlTranslateObject,
+  FlTranslateService,
+} from '@monorepo/front-core-lib/fl-translate';
 import { I18nConfig } from '@editorjs/editorjs';
 
 /* eslint-disable max-len */
@@ -88,7 +90,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     no_modifications: 'Aucune modification',
     attached_files: 'Fichiers attachés',
     table_of_contents: 'Table des matières',
+    formula: 'Formule',
     formula_help: "Vous pouvez générez des formules en parlant en utilisant l'option 'Dicter'",
+    edit_formula: 'Modifier la formule',
     // Audio transcription
     dictate: 'Dicter',
     mic_disabled_error: "Le microphone est désactivé, veuillez l'activer pour utiliser cette fonctionnalité.",
@@ -202,7 +206,9 @@ const teTextEditorI18nEn: FlLangTranslation = {
     no_modifications: 'No modifications',
     attached_files: 'Attached files',
     table_of_contents: 'Table of contents',
+    formula: 'Formula',
     formula_help: "You can generate formulas by speaking using the 'Dictate' option",
+    edit_formula: 'Edit formula',
     // Audio transcription
     dictate: 'Dictate',
     mic_disabled_error: 'Microphone is disabled, please enable it to use this feature.',

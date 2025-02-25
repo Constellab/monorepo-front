@@ -1,0 +1,12 @@
+:host {
+  display: inline-block;
+  background-color: var(--card-background);
+}
+
+:host:not(.disabled) {
+  cursor: pointer;
+}
+
+.formula{
+  display: inline;
+}

@@ -3,3 +3,7 @@
 // I also updated the project.json max ComponentStyle size error to 300kb
 // because of this
 @use 'katex/dist/katex.min.css';
+
+.katex{
+  display: inline;
+}

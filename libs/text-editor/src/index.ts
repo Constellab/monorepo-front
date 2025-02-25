@@ -8,6 +8,7 @@ export * from './lib/component/te-audio-transcription-dialog/te-audio-transcript
 export * from './lib/component/te-figure/te-figure.component';
 export * from './lib/component/te-file/te-file.component';
 export * from './lib/component/te-formula/te-formula.component';
+export * from './lib/component/te-formula-inline/te-formula-inline.component';
 export * from './lib/component/te-link-dialog/te-link-dialog.component';
 export * from './lib/component/te-mention-inline/te-mention-inline.component';
 export * from './lib/component/te-mention-portal/te-mention-portal.component';
@@ -62,6 +63,7 @@ export * from './lib/block/te-iframe-block.class';
 export * from './lib/inline-tool/te-clean-style-inline-tool.class';
 export * from './lib/inline-tool/te-component-inline-tool.class';
 export * from './lib/inline-tool/te-fake-inline-tool.class';
+export * from './lib/inline-tool/te-formula-inline-tool.class';
 export * from './lib/inline-tool/te-inline-tool.factory';
 export * from './lib/inline-tool/te-strikethrough-inline-tool.class';
 export * from './lib/inline-tool/te-underline-inline-tool.class';
