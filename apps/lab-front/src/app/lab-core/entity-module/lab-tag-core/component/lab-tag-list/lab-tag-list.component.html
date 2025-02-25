@@ -1,5 +1,5 @@
 <div class="g-layout-row">
-  <div class="g-flex-auto">
+  <div class="g-flex-auto container g-text-small">
     @if (tags | flDatasourceConnect | async; as tagList) {
       @for (tag of tagList; track tag) {
         <fl-tag

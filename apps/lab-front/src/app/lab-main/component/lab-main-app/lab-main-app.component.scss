@@ -90,6 +90,8 @@
 
 .content-expanded {
   margin-left: var(--expanded-menu-large-width);
+  // limit max width to parent 100%
+  min-width: 0;
 }
 
 .content-not-expanded {

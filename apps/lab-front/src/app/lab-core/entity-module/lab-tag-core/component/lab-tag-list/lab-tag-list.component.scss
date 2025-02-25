@@ -1,3 +1,13 @@
+:host {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  // limit max width to parent 100%
+  min-width: 0;
+}
+
 .selectable-tag {
   cursor: pointer;
 }
