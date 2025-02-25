@@ -40,5 +40,11 @@
         <fl-loader></fl-loader>
       </div>
     }
+
+    @if(logs && logs.logs.length === 0) {
+      <div class="g-text-centered">
+        <p>{{ 'no_logs_found' | translate }}</p>
+      </div>
+    }
   </div>
 </mat-dialog-content>

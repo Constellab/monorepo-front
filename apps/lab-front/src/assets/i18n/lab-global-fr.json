@@ -167,5 +167,6 @@
   "debug": "Debug",
   "warning": "Warning",
   "info": "Info",
-  "critical": "Critique"
+  "critical": "Critique",
+  "no_logs_found": "Aucun log trouvé"
 }

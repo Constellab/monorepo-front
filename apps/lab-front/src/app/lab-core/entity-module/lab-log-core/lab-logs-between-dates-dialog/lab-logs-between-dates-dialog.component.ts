@@ -79,6 +79,7 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
       this.logs.logs.push(...logs.logs);
     } else {
       this.logs = logs;
+      this.logs.logs = [];
     }
     this.logs.isLastPage = logs.isLastPage;
     if (!this.logs.isLastPage) {
