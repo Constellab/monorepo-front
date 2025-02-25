@@ -5,4 +5,9 @@
   </div>
 </div>
 
-<fl-limit-height class="text">{{ progressMessage.text }}</fl-limit-height>
+<fl-limit-height class="text">
+  @if (progressMessage.progress) {
+    {{ progressMessage.progress | number: '1.0-1' }}%
+  }
+  {{ progressMessage.text }}
+</fl-limit-height>
