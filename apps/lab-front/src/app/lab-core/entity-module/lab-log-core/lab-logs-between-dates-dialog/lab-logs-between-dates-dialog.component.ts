@@ -81,7 +81,9 @@ export class LabLogsBetweenDatesDialogComponent implements OnInit {
       this.logs = logs;
     }
     this.logs.isLastPage = logs.isLastPage;
-    this.logs.nextPageDate = logs.logs[logs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime;
+    if (!this.logs.isLastPage) {
+      this.logs.nextPageDate = logs.logs[logs.logs.length - 1].datetime.plus({ milliseconds: 1 }) as DateTime;
+    }
     this.isLoading = false;
   }
 
