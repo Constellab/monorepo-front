@@ -1,7 +1,11 @@
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import {
+  FlBaseActionMenu,
+  FlMenuDynamic,
+  FlMenuDynamicService,
+} from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { mergeMap, Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   CaHierarchyObjectTagsDialogComponent,
   CaHierarchyObjectTagsDialogInput,
@@ -17,7 +21,7 @@ export interface CaHierarchyObjectActionTags {
  * Base class to manage the action menu for a hierarchy object (folder, document, ...)
  * It contains common actions like manage tags
  */
-export class CaHierarchyObjectBaseActionMenu<T> {
+export class CaHierarchyObjectBaseActionMenu<T> extends FlBaseActionMenu<T> {
   protected subject: Subject<T> = new Subject();
 
   constructor(
@@ -25,22 +29,8 @@ export class CaHierarchyObjectBaseActionMenu<T> {
     protected menuDynamicService: FlMenuDynamicService,
     protected hierarchyObjectId: string,
     private tags?: CaHierarchyObjectActionTags
-  ) {}
-
-  protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<T> {
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
-
-    return overlayRef.detachments().pipe(
-      mergeMap((menu: FlMenuDynamic) => {
-        // when the menu was closed without clicking a button
-        // we have to complete the subject
-        // if the menu was a button, the subject will be completed in the button action
-        if (!menu || menu.type !== 'button') {
-          this.subject.complete();
-        }
-        return this.subject.asObservable();
-      })
-    );
+  ) {
+    super(menuDynamicService);
   }
 
   protected getManageTagsButton(): FlMenuDynamic {

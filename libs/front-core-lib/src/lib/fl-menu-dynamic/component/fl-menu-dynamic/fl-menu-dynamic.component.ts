@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewCh
 import { FlMenuDynamic, FlMenuDynamicButton } from '../../model/fl-menu-dynamic.class';
 import { MatMenu, MatMenuTrigger, MenuPositionX, MenuPositionY } from '@angular/material/menu';
 import { Observable, of } from 'rxjs';
+import { FlThemeHelper } from '@monorepo/front-core-lib/fl-theme';
 
 @Component({
   selector: 'fl-menu-dynamic',
@@ -35,9 +36,9 @@ export class FlMenuDynamicComponent {
 
   @Output() buttonClick: EventEmitter<FlMenuDynamic> = new EventEmitter();
 
-  containerClass = FlMenuDynamicComponent.containerClass;
-
   menuItems$: Observable<FlMenuDynamic[]>;
+
+  containerClass = FlMenuDynamicComponent.containerClass;
 
   callItem(menuItem: FlMenuDynamicButton, event: MouseEvent): void {
     if (menuItem.onClick) {
@@ -46,7 +47,8 @@ export class FlMenuDynamicComponent {
     }
   }
 
-  onButtonClick(menuItem: FlMenuDynamic): void {
-    this.buttonClick.next(menuItem);
+  getTextClass(menuItem: FlMenuDynamic): string {
+    if (!menuItem.color) return null;
+    return FlThemeHelper.paletteToTextCssClass(menuItem.color);
   }
 }

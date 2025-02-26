@@ -434,8 +434,6 @@
     "duplicate_task": "Dupliquer la tâche",
     "view": "Vue",
     "task": "Tâche",
-    "resource_tags": "Tags de la ressource",
-    "view_tags": "Tags de la vue",
     "downloading_scenario": "Téléchargement du scénario",
     "downloading_scenario_help_text": "Le téléchargement du scénario est en cours, vous pouvez suivre l'avancement dans les scénarios en cours.",
     "import_scenario_from_lab": "Importer un scénario depuis un autre lab",

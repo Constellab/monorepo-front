@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlFormDialogInput, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
   FlSavedSearch,
@@ -53,6 +53,8 @@ export class LabScenarioSearchComponent implements OnInit {
   @Input() fullPageSearch: boolean = true;
 
   @Output() scenarioSelected: EventEmitter<LabScenario> = new EventEmitter();
+
+  columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status', 'tags', 'lastModification', 'actions'];
 
   datasource: LabScenarioDatasource<LabScenarioSearchFields>;
 

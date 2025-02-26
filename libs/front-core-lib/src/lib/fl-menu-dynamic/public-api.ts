@@ -10,4 +10,5 @@ export * from './component/fl-menu-dynamic-portal/fl-menu-dynamic-portal.compone
 export * from './fl-menu-dynamic.service';
 
 // Model
+export * from './model/fl-base-action-menu.class';
 export * from './model/fl-menu-dynamic.class';

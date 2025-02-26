@@ -434,8 +434,6 @@
     "duplicate_task": "Duplicate task",
     "view": "View",
     "task": "Task",
-    "resource_tags": "Resource tags",
-    "view_tags": "View tags",
     "downloading_scenario": "Downloading scenario",
     "downloading_scenario_help_text": "The scenario is being downloaded, you can check the progress in the running scenarios.",
     "import_scenario_from_lab": "Import a scenario from another lab",

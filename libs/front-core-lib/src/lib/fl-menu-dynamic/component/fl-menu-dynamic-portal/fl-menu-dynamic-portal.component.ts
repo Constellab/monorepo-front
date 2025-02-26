@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, Renderer2, ViewChild, inject } from '@angular/core';
-import { FL_PORTAL_DATA } from '@monorepo/front-core-lib/fl-portal';
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { FL_PORTAL_DATA, FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlMenuDynamic } from '../../model/fl-menu-dynamic.class';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
 import { FlMenuDynamicComponent } from '../fl-menu-dynamic/fl-menu-dynamic.component';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { FlEventWrapper } from '@monorepo/front-core-lib/fl-core';
@@ -21,15 +20,9 @@ export class FlMenuDynamicPortalComponent implements OnInit, AfterViewInit, OnDe
 
   @ViewChild(MatMenuTrigger, { static: true }) menuTrigger: MatMenuTrigger;
 
-  menu: FlMenuDynamic[];
+  menu: FlMenuDynamic[]  = inject(FL_PORTAL_DATA);
 
   private listener: () => void;
-
-  constructor() {
-    const menu = inject(FL_PORTAL_DATA);
-
-    this.menu = menu;
-  }
 
   ngOnInit(): void {
     // when the menu closed, dispose the overlay

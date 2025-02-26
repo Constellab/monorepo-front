@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { LabScenario } from '../../../../model/entities/lab-scenario.entity';
@@ -31,6 +31,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-tags.pipe';
+import { LabScenarioActionEvent, LabScenarioActionMenu } from '../../model/lab-scenario-action-menu';
+import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { LabTagService } from '../../../../entity-service/lab-tag.service';
 
 @Component({
   selector: 'lab-scenario-table',
@@ -80,6 +83,10 @@ export class LabScenarioTableComponent {
 
   @Output() scenarioUnlink: EventEmitter<LabScenario> = new EventEmitter();
 
+  private menuDynamicService = inject(FlMenuDynamicService);
+  private tagService = inject(LabTagService);
+  private injector = inject(Injector);
+
   rowClicked(scenario: LabScenario): void {
     if (this.rowSelectable) {
       this.scenarioSelected.next(scenario);
@@ -89,5 +96,22 @@ export class LabScenarioTableComponent {
   unlinkedScenario(scenario: LabScenario, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.scenarioUnlink.next(scenario);
+  }
+
+  openActionMenu(scenario: LabScenario, event: MouseEvent): void {
+    const scenarioActionMenu = new LabScenarioActionMenu(
+      this.menuDynamicService,
+      this.injector,
+      scenario,
+      this.tagService.getEntityTagsDatasource('SCENARIO', scenario.id)
+    );
+
+    scenarioActionMenu.openActionMenuInTable(event).subscribe((action) => this.onActionClosed(action));
+  }
+
+  private onActionClosed(event: LabScenarioActionEvent): void {
+    if (event.action === 'archive' || event.action === 'unarchive') {
+      this.datasource.updateItem(event.scenario);
+    }
   }
 }

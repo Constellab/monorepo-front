@@ -1,6 +1,8 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
-import { FlDynamicFieldTextareaComponent } from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
+import {
+  FlDynamicFieldTextareaComponent,
+} from '../component/fl-dynamic-field-textarea/fl-dynamic-field-textarea.component';
 import {
   FlDynamicFieldConfig,
   FlDynamicFieldConfigBase,
@@ -12,19 +14,19 @@ import {
 } from './fl-dynamic-field-config.class';
 import { FlDynamicFieldAbstractDirective } from './fl-dynamic-field-abstract.directive';
 import {
-  FlDynamicFieldInputComponent
+  FlDynamicFieldInputComponent,
 } from '../component/fl-dynamic-field-input/fl-dynamic-field-input.component';
 import {
-  FlDynamicFieldSelectComponent
+  FlDynamicFieldSelectComponent,
 } from '../component/fl-dynamic-field-select/fl-dynamic-field-select.component';
 import {
-  FlDynamicFieldListComponent
+  FlDynamicFieldListComponent,
 } from '../component/fl-dynamic-field-list/fl-dynamic-field-list.component';
 import {
-  FlDynamicFieldBooleanComponent
+  FlDynamicFieldBooleanComponent,
 } from '../component/fl-dynamic-field-boolean/fl-dynamic-field-boolean.component';
 import {
-  FlDynamicFieldSelectSearchComponent
+  FlDynamicFieldSelectSearchComponent,
 } from '../component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 import { FlDynamicAbstractFormDirective } from './fl-dynamic-abstract-form.directive';
 import { FlDynamicFieldComponent } from '../component/fl-dynamic-field/fl-dynamic-field.component';
@@ -41,7 +43,7 @@ import {
 export type FlDynamicFieldAdditionalConfig = (
   viewContainer: ViewContainerRef,
   config: FlDynamicFieldConfigBase
-) => ComponentRef<FlDynamicFieldAbstractDirective>;
+) => Promise<ComponentRef<FlDynamicFieldAbstractDirective>>;
 
 /**
  * Function to create a custom component for a group type
@@ -78,16 +80,16 @@ export class FlDynamicFieldConfigService {
    * @param viewContainer
    * @param formCtrl
    */
-  public generateFieldComponent(
+  public async generateFieldComponent(
     config: FlDynamicFieldConfig,
     viewContainer: ViewContainerRef,
     formCtrl: FormControl
-  ): ComponentRef<FlDynamicFieldAbstractDirective> {
+  ): Promise<ComponentRef<FlDynamicFieldAbstractDirective>> {
     let viewComponentRef: ComponentRef<FlDynamicFieldAbstractDirective>;
     // if the type is supported by the module config, use it
     if (this.isAdditionalType(config.type)) {
       const additionalConfig = this.getAdditionalFieldConfig()[config.type];
-      viewComponentRef = additionalConfig(viewContainer, config);
+      viewComponentRef = await additionalConfig(viewContainer, config);
     } else {
       switch (config.type) {
         case 'input':

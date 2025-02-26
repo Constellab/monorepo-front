@@ -6,25 +6,48 @@
           <mat-divider></mat-divider>
         }
         <!-- Handle branch node menu items -->
-        @if (item.type === 'button' && item.children?.length > 0) {
-          <span>
+        @if (item.type === 'button' && $any(item).children?.length > 0) {
+          @if (subMenu.menu) {
             <button
               mat-menu-item
               [matMenuTriggerFor]="subMenu.menu"
-              (click)="callItem(item, $event)"
-              [disabled]="item.disabled">
+              (click)="callItem($any(item), $event)"
+              [disabled]="$any(item).disabled">
               @if (item.icon) {
                 <mat-icon [flIcon]="item.icon"></mat-icon>
               }
               {{ item.text | flTranslatableText | async }}
             </button>
-            <fl-menu-dynamic #subMenu [menuItems]="item.children" [hasBackdrop]="false"></fl-menu-dynamic>
-          </span>
+          }
+
+          <fl-menu-dynamic #subMenu [menuItems]="$any(item).children" [hasBackdrop]="false"></fl-menu-dynamic>
         } @else {
-          <!-- Handle leaf node menu items -->
-          <fl-menu-dynamic-button
-            [menuDynamic]="item"
-            (buttonClick)="onButtonClick($event)"></fl-menu-dynamic-button>
+          <!-- Handle leaf node menu items, provide item directly not in a component otherwise it doesn't work well with sub menu -->
+          @if (item.type === 'link') {
+            <!--    Link    -->
+            <a mat-menu-item [routerLink]="$any(item).link">
+              @if (item.icon) {
+                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+              }
+              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+            </a>
+          } @else if (item.type === 'downloadLink') {
+            <!--    Link    -->
+            <a mat-menu-item [href]="$any(item).href" download>
+              @if (item.icon) {
+                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+              }
+              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+            </a>
+          } @else {
+            <!--    Button    -->
+            <button mat-menu-item (click)="callItem($any(item), $event)" [disabled]="$any(item).disabled">
+              @if (item.icon) {
+                <mat-icon [flIcon]="item.icon" [ngClass]="item.color"></mat-icon>
+              }
+              <div [ngClass]="getTextClass(item)">{{ item.text | flTranslatableText | async }}</div>
+            </button>
+          }
         }
       }
     </div>
