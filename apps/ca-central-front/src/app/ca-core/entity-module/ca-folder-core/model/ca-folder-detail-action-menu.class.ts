@@ -1,7 +1,5 @@
-import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
 import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
 import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 import { CaRouterService } from '../../../service/ca-router.service';
@@ -11,7 +9,6 @@ import {
   CaDocumentTrashListDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
 import { CaDocument } from '../../../model/entities/folder/ca-document.class';
-import { CaSecurityService } from '../../../service/ca-security.service';
 import {
   CaFolderSharedGroupsListInput,
   CaFolderSharedListComponent,
@@ -21,8 +18,10 @@ import {
   CaFolderUserConfigDialogComponent,
   CaFolderUserConfigDialogInput,
 } from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-user-config-dialog/ca-folder-user-config-dialog.component';
-import { CaFolderActionService } from '../ca-folder-action.service';
 import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import { Injector } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
@@ -37,17 +36,13 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
   protected subject: Subject<any> = new Subject();
 
   constructor(
-    dialogService: FlDialogService,
-    folderActionService: CaFolderActionService,
-    menuDynamicService: FlMenuDynamicService,
-    securityService: CaSecurityService,
-    private rightPanelState: CaFolderRightPanelState,
+    injector: Injector,
     folderInfo: CaFolderInfo,
     private isRootFolder: boolean,
     private folderUsers$: FlArrayObs<CaUser>,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(dialogService, folderActionService, menuDynamicService, securityService, folderInfo, tags);
+    super(injector, folderInfo, tags);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<CaFolderDetailActionEvent> {
@@ -82,7 +77,10 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       users$: this.folderUsers$,
     };
 
-    this.dialogService.openSmallDialog(CaFolderSharedListComponent, { data: input, autoFocus: false });
+    this.injector.get(FlDialogService).openSmallDialog(CaFolderSharedListComponent, {
+      data: input,
+      autoFocus: false,
+    });
   }
 
   private getUserConfigButton(): FlMenuDynamic {
@@ -99,7 +97,9 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       folderId: this.folderInfo.id,
     };
 
-    this.dialogService.openMediumDialog(CaFolderUserConfigDialogComponent, { data: dialogInput });
+    this.injector
+      .get(FlDialogService)
+      .openMediumDialog(CaFolderUserConfigDialogComponent, { data: dialogInput });
   }
 
   private getActivitiesButton(): FlMenuDynamic {
@@ -121,7 +121,10 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
   }
 
   private openSettings(): void {
-    this.rightPanelState.updateRightPanelState({ type: 'settings', objectId: this.folderInfo.id });
+    this.injector.get(CaFolderRightPanelState).updateRightPanelState({
+      type: 'settings',
+      objectId: this.folderInfo.id,
+    });
     this.subject.complete();
   }
 
@@ -139,7 +142,8 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       folderId: this.folderInfo.id,
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openMediumDialog(CaDocumentTrashListDialogComponent, { data: input, autoFocus: false })
       .afterClosed()
       .subscribe((restoredDocs) => this.onDocumentInTrashClosed(restoredDocs));

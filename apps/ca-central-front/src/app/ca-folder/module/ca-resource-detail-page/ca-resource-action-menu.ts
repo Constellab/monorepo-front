@@ -6,11 +6,12 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import { Injector } from '@angular/core';
 
 export type CaResourceActionEvent = {
   action: 'deleteResource';
@@ -19,13 +20,11 @@ export type CaResourceActionEvent = {
 
 export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaResourceActionEvent> {
   constructor(
-    private resourceService: CaResourceService,
-    menuDynamicService: FlMenuDynamicService,
-    dialogService: FlDialogService,
+    injector: Injector,
     private resourceInfo: CaResourceBasicInfo,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(dialogService, menuDynamicService, resourceInfo.id, tags);
+    super(injector, resourceInfo.id, tags);
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaResourceActionEvent> {
@@ -47,11 +46,12 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
     const input: FlConfirmDialogInput = {
       title: 'delete_resource',
       content: 'delete_resource_confirmation',
-      observable: this.resourceService.deleteById(this.resourceInfo.id),
+      observable: this.injector.get(CaResourceService).deleteById(this.resourceInfo.id),
       successMessage: 'resource_deleted',
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((result) => this.onDeleteClosed(result));
@@ -77,9 +77,12 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
     if (this.resourceInfo.shareLink) {
       this.openInLab(this.resourceInfo.shareLink);
     } else {
-      this.resourceService.findById(this.resourceInfo.id).subscribe((resource) => {
-        this.openInLab(resource.shareLink);
-      });
+      this.injector
+        .get(CaResourceService)
+        .findById(this.resourceInfo.id)
+        .subscribe((resource) => {
+          this.openInLab(resource.shareLink);
+        });
     }
   }
 

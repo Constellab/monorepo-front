@@ -1,7 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { Component, EventEmitter, inject, Injector, Input, Output } from '@angular/core';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 
 import {
@@ -57,9 +54,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class CaDocumentTableComponent {
   private folderService = inject(CaFolderService);
   private routerService = inject(CaRouterService);
-  private dialogService = inject(FlDialogService);
-  private menuDynamicService = inject(FlMenuDynamicService);
-  private actionService = inject(FlPortalActionsService);
+  private injector = inject(Injector);
 
   @Input() datasource: CaDocumentDatasource;
 
@@ -82,13 +77,7 @@ export class CaDocumentTableComponent {
 
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const documentActionMenu = new CaDocumentActionMenu(
-      this.dialogService,
-      this.folderService,
-      this.menuDynamicService,
-      this.actionService,
-      document.basicInfo
-    );
+    const documentActionMenu = new CaDocumentActionMenu(this.injector, document.basicInfo);
 
     documentActionMenu.openDefaultActionMenu(event).subscribe((event) => {
       this.onDocumentAction(event, document);

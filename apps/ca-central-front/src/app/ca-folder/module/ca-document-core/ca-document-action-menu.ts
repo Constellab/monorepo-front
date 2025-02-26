@@ -3,7 +3,7 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
@@ -30,6 +30,7 @@ import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import { Injector } from '@angular/core';
 
 export type CaDocumentActionEvent =
   | {
@@ -43,14 +44,11 @@ export type CaDocumentActionEvent =
 
 export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocumentActionEvent> {
   constructor(
-    dialogService: FlDialogService,
-    private folderService: CaFolderService,
-    menuDynamicService: FlMenuDynamicService,
-    private actionService: FlPortalActionsService,
+    injector: Injector,
     protected documentInfo: CaDocumentBasicInfo,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(dialogService, menuDynamicService, documentInfo.id, tags);
+    super(injector, documentInfo.id, tags);
   }
 
   public openDefaultActionMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {
@@ -79,7 +77,9 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
           type: 'downloadLink',
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
-          href: this.folderService.getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name),
+          href: this.injector
+            .get(CaFolderService)
+            .getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name),
         });
       }
     }
@@ -134,7 +134,8 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
       documentId: this.documentInfo.id,
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openSmallDialog(CaDocumentNameFormDialogComponent, { data: input })
       .afterClosed()
       .subscribe((result) => this.onRenameClosed(result));
@@ -154,11 +155,12 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
     const input: FlConfirmDialogInput = {
       title: 'move_document_to_trash',
       content: 'move_document_to_trash_confirmation',
-      observable: this.folderService.moveDocumentToTrash(this.documentInfo.id),
+      observable: this.injector.get(CaFolderService).moveDocumentToTrash(this.documentInfo.id),
       successMessage: 'document_moved_to_trash',
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((result) => this.onMoveToTrashClosed(result));
@@ -178,11 +180,12 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
     const input: FlConfirmDialogInput = {
       title: 'restore_document_from_trash',
       content: 'restore_document_from_trash_confirmation',
-      observable: this.folderService.restoreDocumentFromTrash(this.documentInfo.id),
+      observable: this.injector.get(CaFolderService).restoreDocumentFromTrash(this.documentInfo.id),
       successMessage: 'document_restored_from_trash',
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((result) => this.onRestoreFromTrashClosed(result));
@@ -202,11 +205,12 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
     const input: FlConfirmDialogInput = {
       title: 'delete_document',
       content: 'delete_document_confirmation',
-      observable: this.folderService.deleteDocument(this.documentInfo.id),
+      observable: this.injector.get(CaFolderService).deleteDocument(this.documentInfo.id),
       successMessage: 'document_deleted',
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((result) => this.onDeleteClosed(result, this.documentInfo));
@@ -228,7 +232,8 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
       mode: 'any',
       currentObjectId: this.documentInfo.id,
     };
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openMediumDialog(CaSelectFolderDialogComponent, {
         data: input,
         autoFocus: false,
@@ -239,10 +244,11 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
 
   private onMoveDocumentClosed(folder?: CaFolder): void {
     if (folder) {
-      this.actionService
+      this.injector
+        .get(FlPortalActionsService)
         .addAction({
           type: 'move-doc-to-folder',
-          action: this.folderService.moveDocumentToFolder(this.documentInfo.id, folder.id),
+          action: this.injector.get(CaFolderService).moveDocumentToFolder(this.documentInfo.id, folder.id),
           text: { text: 'moving_to_folder', translateText: true },
         })
         .subscribe({
@@ -269,17 +275,12 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
   private historyOverlayRef: FlOverlayRef;
 
   constructor(
-    dialogService: FlDialogService,
-    folderService: CaFolderService,
-    menuDynamicService: FlMenuDynamicService,
-    actionService: FlPortalActionsService,
+    injector: Injector,
     documentInfo: CaDocumentBasicInfo,
-    private constellabDocumentService: CaConstellabDocumentHistoryService,
-    private portalService: FlPortalService,
     private textEditorConfig: TeCompleteConfig,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(dialogService, folderService, menuDynamicService, actionService, documentInfo, tags);
+    super(injector, documentInfo, tags);
   }
 
   public openDetailActionsMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {
@@ -301,11 +302,12 @@ export class CaDocumentActionDetailMenu extends CaDocumentActionMenu {
       this.historyOverlayRef.dispose();
       this.historyOverlayRef = null;
     } else {
-      this.historyOverlayRef = this.portalService?.createPortal(
+      const portalService = this.injector.get(FlPortalService);
+      this.historyOverlayRef = portalService.createPortal(
         TeTextEditorHistoryPortalComponent,
-        this.portalService?.getRightSidePortalConfig(true),
+        portalService.getRightSidePortalConfig(true),
         {
-          service: this.constellabDocumentService,
+          service: this.injector.get(CaConstellabDocumentHistoryService),
           entityId: this.documentInfo.id,
           textEditorConfig: this.textEditorConfig,
           isEditable: true,

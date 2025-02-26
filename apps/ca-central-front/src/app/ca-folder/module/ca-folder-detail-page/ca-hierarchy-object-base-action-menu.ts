@@ -1,9 +1,4 @@
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  FlBaseActionMenu,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-} from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlBaseActionMenu, FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaHierarchyObjectTagDatasource } from '../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { Subject } from 'rxjs';
 import {
@@ -11,6 +6,8 @@ import {
   CaHierarchyObjectTagsDialogInput,
 } from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tags-dialog/ca-hierarchy-object-tags-dialog.component';
 import { CaAvailableTagDatasource } from '../../../ca-core/model/entities/ca-tag.class';
+import { Injector } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 export interface CaHierarchyObjectActionTags {
   tags?: CaHierarchyObjectTagDatasource;
@@ -25,12 +22,11 @@ export class CaHierarchyObjectBaseActionMenu<T> extends FlBaseActionMenu<T> {
   protected subject: Subject<T> = new Subject();
 
   constructor(
-    protected dialogService: FlDialogService,
-    protected menuDynamicService: FlMenuDynamicService,
+    injector: Injector,
     protected hierarchyObjectId: string,
     private tags?: CaHierarchyObjectActionTags
   ) {
-    super(menuDynamicService);
+    super(injector);
   }
 
   protected getManageTagsButton(): FlMenuDynamic {
@@ -48,7 +44,8 @@ export class CaHierarchyObjectBaseActionMenu<T> extends FlBaseActionMenu<T> {
       tags: this.tags?.tags,
       availableTags: this.tags?.availableTags,
     };
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openSmallDialog(CaHierarchyObjectTagsDialogComponent, { data: data })
       .afterClosed()
       .subscribe(() => this.subject.complete());

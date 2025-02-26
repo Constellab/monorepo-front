@@ -111,6 +111,15 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef class="g-table-icon-button-cell"> </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-table-icon-button-cell">
+      <button mat-icon-button type="button" (click)="openActionMenu(row, $event)" class="g-row-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
   <mat-row
     *matRowDef="let row; columns: columns"

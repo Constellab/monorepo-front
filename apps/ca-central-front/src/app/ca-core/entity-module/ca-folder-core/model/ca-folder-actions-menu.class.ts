@@ -3,8 +3,8 @@ import {
   CaFolderInfo,
   CaFolderWithHierarchy,
 } from '../../../model/entities/folder/ca-folder.class';
-import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 import { Observable } from 'rxjs';
 import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
@@ -16,6 +16,7 @@ import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import { Injector } from '@angular/core';
 
 export type CaFolderActionEvent =
   | {
@@ -41,14 +42,11 @@ export type CaFolderActionEvent =
 
 export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolderActionEvent> {
   constructor(
-    dialogService: FlDialogService,
-    protected folderActionService: CaFolderActionService,
-    menuDynamicService: FlMenuDynamicService,
-    protected securityService: CaSecurityService,
+    injector: Injector,
     protected folderInfo: CaFolderInfo,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(dialogService, menuDynamicService, folderInfo.id, tags);
+    super(injector, folderInfo.id, tags);
   }
 
   /**
@@ -135,11 +133,12 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   }
 
   protected canEditFolder(): boolean {
-    return this.securityService.canEditFolder(this.folderInfo.leader.id);
+    return this.injector.get(CaSecurityService).canEditFolder(this.folderInfo.leader.id);
   }
 
   private openUpdateFolderDialog(): void {
-    this.folderActionService
+    this.injector
+      .get(CaFolderActionService)
       .openUpdateFolderDialog(this.folderInfo.id)
       .subscribe((folder) => this.updateDialogClosed(folder));
   }
@@ -155,7 +154,8 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   }
 
   private openChildCreation(): void {
-    this.folderActionService
+    this.injector
+      .get(CaFolderActionService)
       .openChildCreation(this.folderInfo.id)
       .subscribe((folder) => this.createChildSuccess(folder));
   }
@@ -171,7 +171,8 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   }
 
   private openDeleteFolderDialog(): void {
-    this.folderActionService
+    this.injector
+      .get(CaFolderActionService)
       .openDeleteFolderDialog(this.folderInfo.id)
       .subscribe((result) => this.onDeleteClosed(result));
   }
@@ -187,7 +188,8 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   }
 
   private createConstellabDocument(): void {
-    this.folderActionService
+    this.injector
+      .get(CaFolderActionService)
       .createConstellabDocument(this.folderInfo.id)
       .subscribe((doc: CaConstellabDocument) => this.createConstellabDocClosed(doc));
   }
@@ -203,7 +205,8 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
   }
 
   private moveDocument(): void {
-    this.folderActionService
+    this.injector
+      .get(CaFolderActionService)
       .moveFolder(this.folderInfo.id)
       .subscribe((folder) => this.onMoveFolderClosed(folder));
   }

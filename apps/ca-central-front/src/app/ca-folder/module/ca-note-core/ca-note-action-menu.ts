@@ -8,15 +8,13 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
+import { Injector } from '@angular/core';
 import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { CaNoteHistoryService } from '../../../ca-core/service/ca-note-history.service';
 import { CaNoteTextEditorConfig } from './model/ca-note-text-editor-config.class';
-import {
-  TeTextEditorHistoryPortalComponent,
-  TeTextEditorHistoryPortalData,
-  TeTextEditorHistoryService,
-} from '@monorepo/text-editor';
 
 export type CaNoteActionEvent = {
   action: 'delete';
@@ -27,14 +25,8 @@ export type CaNoteActionEvent = {
  * Class to manage action menu for the note
  */
 export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActionEvent> {
-  constructor(
-    protected noteService: CaNoteService,
-    dialogService: FlDialogService,
-    menuDynamicService: FlMenuDynamicService,
-    hierarchyObjectId: string,
-    tags?: CaHierarchyObjectActionTags
-  ) {
-    super(dialogService, menuDynamicService, hierarchyObjectId, tags);
+  constructor(injector: Injector, hierarchyObjectId: string, tags?: CaHierarchyObjectActionTags) {
+    super(injector, hierarchyObjectId, tags);
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
@@ -56,11 +48,12 @@ export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActi
     const input: FlConfirmDialogInput = {
       title: 'delete_note',
       content: 'delete_note_confirmation',
-      observable: this.noteService.deleteNote(this.hierarchyObjectId),
+      observable: this.injector.get(CaNoteService).deleteNote(this.hierarchyObjectId),
       successMessage: 'note_deleted',
     };
 
-    this.dialogService
+    this.injector
+      .get(FlDialogService)
       .openConfirmDialog(input)
       .afterClosed()
       .subscribe((result) => this.onNoteDeleted(result));
@@ -77,16 +70,12 @@ export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActi
 
 export class CaNoteDetailActionMenu extends CaNoteActionMenu {
   constructor(
-    noteService: CaNoteService,
-    dialogService: FlDialogService,
-    menuDynamicService: FlMenuDynamicService,
+    injector: Injector,
     hierarchyObjectId: string,
-    private portalService: FlPortalService,
     private textEditorConfig: CaNoteTextEditorConfig,
-    private noteHistoryService: TeTextEditorHistoryService,
     tags?: CaHierarchyObjectActionTags
   ) {
-    super(noteService, dialogService, menuDynamicService, hierarchyObjectId, tags);
+    super(injector, hierarchyObjectId, tags);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
@@ -109,11 +98,12 @@ export class CaNoteDetailActionMenu extends CaNoteActionMenu {
   }
 
   private openHistoryPanel(): void {
-    this.portalService.createPortal(
+    const portalService = this.injector.get(FlPortalService);
+    portalService.createPortal(
       TeTextEditorHistoryPortalComponent,
-      this.portalService.getRightSidePortalConfig(true),
+      portalService.getRightSidePortalConfig(true),
       {
-        service: this.noteHistoryService,
+        service: this.injector.get(CaNoteHistoryService),
         entityId: this.hierarchyObjectId,
         textEditorConfig: this.textEditorConfig,
         isEditable: false,

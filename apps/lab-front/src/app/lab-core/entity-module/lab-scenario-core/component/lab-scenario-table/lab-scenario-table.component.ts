@@ -32,7 +32,6 @@ import { FlColorModule } from '@monorepo/front-core-lib/fl-color';
 import { LabDetailRoutePipe } from '../../../../lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-tags.pipe';
 import { LabScenarioActionEvent, LabScenarioActionMenu } from '../../model/lab-scenario-action-menu';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { LabTagService } from '../../../../entity-service/lab-tag.service';
 
 @Component({
@@ -83,7 +82,6 @@ export class LabScenarioTableComponent {
 
   @Output() scenarioUnlink: EventEmitter<LabScenario> = new EventEmitter();
 
-  private menuDynamicService = inject(FlMenuDynamicService);
   private tagService = inject(LabTagService);
   private injector = inject(Injector);
 
@@ -100,7 +98,6 @@ export class LabScenarioTableComponent {
 
   openActionMenu(scenario: LabScenario, event: MouseEvent): void {
     const scenarioActionMenu = new LabScenarioActionMenu(
-      this.menuDynamicService,
       this.injector,
       scenario,
       this.tagService.getEntityTagsDatasource('SCENARIO', scenario.id)

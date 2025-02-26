@@ -1,14 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Injector } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
 import {
   CaFolder,
   CaFolderWithHierarchy,
 } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
-import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import {
   CaFolderDetailActionEvent,
   CaFolderDetailActionMenu,
@@ -46,14 +43,12 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
   ],
 })
 export class CaFolderDetailActionsComponent {
-  private dialogService = inject(FlDialogService);
   private state = inject(CaFolderDetailState);
   private rightPanelState = inject(CaFolderRightPanelState);
-  private menuDynamicService = inject(FlMenuDynamicService);
   private folderActionService = inject(CaFolderActionService);
-  private securityService = inject(CaSecurityService);
   private routerService = inject(CaRouterService);
   private hierarchyObjectState = inject(CaHierarchyObjectDetailState);
+  private injector = inject(Injector);
 
   folderId$: Observable<string> = this.state.getFolderId$();
   folder$: Observable<CaFolder> = this.state.getFolder$();
@@ -61,11 +56,7 @@ export class CaFolderDetailActionsComponent {
   async openFolderActionMenu(folder: CaFolder, event: MouseEvent): Promise<void> {
     const isRootFolder = await firstValueFrom(this.state.isRootFolder$());
     const folderActionsMenu = new CaFolderDetailActionMenu(
-      this.dialogService,
-      this.folderActionService,
-      this.menuDynamicService,
-      this.securityService,
-      this.rightPanelState,
+      this.injector,
       {
         id: folder.id,
         name: folder.name,

@@ -54,7 +54,7 @@ export class LabScenarioSearchComponent implements OnInit {
 
   @Output() scenarioSelected: EventEmitter<LabScenario> = new EventEmitter();
 
-  columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status', 'tags', 'lastModification', 'actions'];
+  columns: FlTableColumnStatic<LabScenario>[] = ['title', 'status', 'tags', 'lastModification'];
 
   datasource: LabScenarioDatasource<LabScenarioSearchFields>;
 
@@ -82,6 +82,10 @@ export class LabScenarioSearchComponent implements OnInit {
 
     this.datasource = this.scenarioService.searchDatasource();
     this.searchState.init(config, this.datasource);
+
+    if (this.fullPageSearch) {
+      this.columns.push('actions');
+    }
   }
 
   private getSavedSearch(): FlSavedSearch[] {

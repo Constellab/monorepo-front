@@ -23,7 +23,6 @@ export interface LabNoteFormDialogInput extends FlFormDialogInput<LabNoteForm> {
   noteId?: string;
   scenarioId?: string; // can be provided during create to link the note directly to a scenario
   folder?: LabEntity;
-  disableFolder?: boolean;
 }
 
 @Component({
@@ -70,19 +69,13 @@ export class LabNoteFormDialogComponent
   }
 
   buildForm(): UntypedFormGroup {
-    const formGroup = new FormBuilder().group({
+    return new FormBuilder().group({
       title: [null, Validators.required],
       folder: [
         { value: this.dialogInput.folder, disabled: this.isCreateMode() && this.dialogInput.folder != null },
       ],
       template: [{ value: null, disabled: this.isUpdateMode() }],
     });
-
-    if (this.dialogInput.disableFolder) {
-      formGroup.get('folder').disable();
-    }
-
-    return formGroup;
   }
 
   create(formValue: LabNoteForm): Observable<LabNote> {

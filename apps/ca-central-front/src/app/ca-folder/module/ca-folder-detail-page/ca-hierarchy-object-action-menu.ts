@@ -1,7 +1,3 @@
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import {
   CaHierarchyObject,
   CaHierarchyObjectType,
@@ -13,17 +9,14 @@ import {
 import { CaDocumentActionEvent, CaDocumentActionMenu } from '../ca-document-core/ca-document-action-menu';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CaSecurityService } from '../../../ca-core/service/ca-security.service';
-import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import {
   CaResourceActionEvent,
   CaResourceActionMenu,
 } from '../ca-resource-detail-page/ca-resource-action-menu';
-import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
 import { CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
-import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import { CaHierarchyObjectActionTags } from './ca-hierarchy-object-base-action-menu';
+import { Injector } from '@angular/core';
 
 export type CaHierarchyObjectActionEvent =
   | {
@@ -49,14 +42,7 @@ export type CaHierarchyObjectActionEvent =
  */
 export class CaHierarchyObjectActionMenu {
   constructor(
-    private dialogService: FlDialogService,
-    private folderService: CaFolderService,
-    private folderActionService: CaFolderActionService,
-    private actionService: FlPortalActionsService,
-    private menuDynamicService: FlMenuDynamicService,
-    private securityService: CaSecurityService,
-    private resourceService: CaResourceService,
-    private noteService: CaNoteService,
+    private injector: Injector,
     private hierarchyObject: CaHierarchyObject,
     private tags: CaHierarchyObjectActionTags
   ) {}
@@ -88,10 +74,7 @@ export class CaHierarchyObjectActionMenu {
 
   private openFolderActionMenu(event: MouseEvent): Observable<CaFolderActionEvent | null> {
     const folderActionsMenu = new CaFolderActionsMenu(
-      this.dialogService,
-      this.folderActionService,
-      this.menuDynamicService,
-      this.securityService,
+      this.injector,
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
@@ -104,10 +87,7 @@ export class CaHierarchyObjectActionMenu {
 
   private openDocumentActionMenu(event: MouseEvent): Observable<CaDocumentActionEvent | null> {
     const service = new CaDocumentActionMenu(
-      this.dialogService,
-      this.folderService,
-      this.menuDynamicService,
-      this.actionService,
+      this.injector,
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
@@ -121,9 +101,7 @@ export class CaHierarchyObjectActionMenu {
 
   private openResourceActionMenu(event: MouseEvent): Observable<CaResourceActionEvent | null> {
     const resourceActionsMenu = new CaResourceActionMenu(
-      this.resourceService,
-      this.menuDynamicService,
-      this.dialogService,
+      this.injector,
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
@@ -135,23 +113,12 @@ export class CaHierarchyObjectActionMenu {
   }
 
   private openNoteActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const noteActionMenu = new CaNoteActionMenu(
-      this.noteService,
-      this.dialogService,
-      this.menuDynamicService,
-      this.hierarchyObject.id,
-      this.tags
-    );
+    const noteActionMenu = new CaNoteActionMenu(this.injector, this.hierarchyObject.id, this.tags);
     return noteActionMenu.openActionMenu(event);
   }
 
   private openScenarioActionMenu(event: MouseEvent): Observable<null> {
-    const scenarioActionMenu = new CaScenarioActionMenu(
-      this.dialogService,
-      this.menuDynamicService,
-      this.hierarchyObject.id,
-      this.tags
-    );
+    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.hierarchyObject.id, this.tags);
     return scenarioActionMenu.openActionMenu(event);
   }
 }

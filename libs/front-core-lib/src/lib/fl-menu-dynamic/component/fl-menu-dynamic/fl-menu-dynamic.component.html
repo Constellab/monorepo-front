@@ -1,4 +1,4 @@
-<mat-menu [hasBackdrop]="hasBackdrop" [xPosition]="xPosition" [yPosition]="yPosition">
+<mat-menu [hasBackdrop]="hasBackdrop" [xPosition]="xPosition" [yPosition]="yPosition" class="g-print-hide">
   <ng-template matMenuContent>
     <div [ngClass]="containerClass">
       @for (item of menuItems$ | async; track item) {

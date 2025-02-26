@@ -19,7 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
 import {
   LabScenarioDetailActionMenu,
 } from '../../../../lab-core/entity-module/lab-scenario-core/model/lab-scenario-detail-action-menu';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { MatMenuModule } from '@angular/material/menu';
 
 /**
@@ -45,7 +44,6 @@ import { MatMenuModule } from '@angular/material/menu';
 export class LabScenarioDetailHeaderComponent implements OnInit {
   private scenarioState = inject(LabScenarioDetailPageState);
   private scenarioService = inject(LabScenarioService);
-  private menuDynamicService = inject(FlMenuDynamicService);
   private injector = inject(Injector);
 
   scenario$: Observable<LabScenario>;
@@ -72,7 +70,7 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
   openActionMenu(scenario: LabScenario, event: MouseEvent): void {
     const actionMenu = this.getActionMenu(scenario);
 
-    actionMenu.openActionMenuDetail(event);
+    actionMenu.openActionMenuDetail(event).subscribe();
   }
 
   openProgressInformation(scenario: LabScenario): void {
@@ -82,12 +80,6 @@ export class LabScenarioDetailHeaderComponent implements OnInit {
   }
 
   private getActionMenu(scenario: LabScenario): LabScenarioDetailActionMenu {
-
-    return new LabScenarioDetailActionMenu(
-      this.menuDynamicService,
-      this.injector,
-      scenario,
-      this.scenarioState.getTags$()
-    );
+    return new LabScenarioDetailActionMenu(this.injector, scenario, this.scenarioState.getTags$());
   }
 }

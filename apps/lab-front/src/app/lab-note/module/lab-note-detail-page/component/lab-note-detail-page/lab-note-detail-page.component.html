@@ -40,57 +40,10 @@
         </lab-sync-object-button>
 
         <div class="g-print-hide action-buttons">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
+          <button mat-icon-button type="button" (click)="openActionMenu(note, $event)">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #menu="matMenu" xPosition="before" class="g-print-hide">
-            @if (note.isEditable()) {
-              <button mat-menu-item type="button" (click)="updateNote()">
-                <mat-icon>edit</mat-icon>
-                <span>{{ 'biox.update_note' | translate }}</span>
-              </button>
-              <button
-                mat-menu-item
-                type="button"
-                [matTooltip]="'biox.validate_note' | translate"
-                (click)="validate()">
-                <mat-icon flIcon="validated"></mat-icon>
-                <span>{{ 'biox.validate_note' | translate }}</span>
-              </button>
-            }
 
-            <button mat-menu-item type="button" (click)="openHistoryPanel(note.id)">
-              <mat-icon>history</mat-icon>
-              <span>{{ 'biox.history' | translate }}</span>
-            </button>
-
-            <button mat-menu-item type="button" (click)="printNote()">
-              <mat-icon>print</mat-icon>
-              <span>{{ 'biox.print_note' | translate }}</span>
-            </button>
-
-            <button mat-menu-item type="button" (click)="createNoteTemplate()">
-              <mat-icon flIcon="note"></mat-icon>
-              <span>{{ 'biox.create_note_template' | translate }}</span>
-              @if (createTemplateLoading) {
-                <fl-button-loader></fl-button-loader>
-              }
-            </button>
-
-            <button mat-menu-item type="button" (click)="archiveNote()">
-              <mat-icon [flIcon]="note.isArchived ? 'unarchive' : 'archive'"></mat-icon>
-              <span>
-                {{ note.isArchived ? 'biox.unarchive_note' : ('biox.archive_note' | translate) }}
-              </span>
-            </button>
-
-            @if (note.isEditable()) {
-              <button mat-menu-item type="button" (click)="delete()" class="warn">
-                <mat-icon>delete</mat-icon>
-                <span>{{ 'biox.delete_note' | translate }}</span>
-              </button>
-            }
-          </mat-menu>
         </div>
       </div>
 

@@ -1,14 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaConstellabDocument,
   CaDocument,
 } from '../../../../../ca-core/model/entities/folder/ca-document.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
@@ -32,9 +28,6 @@ import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  CaConstellabDocumentHistoryService,
-} from '../../../../../ca-core/service/ca-constellab-document-history.service';
 import {
   CaHierarchyObjectBreadcrumbComponent,
 } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
@@ -67,12 +60,8 @@ export class CaDocumentDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private folderService = inject(CaFolderService);
   private state = inject(CaHierarchyObjectDetailState);
-  private dialogService = inject(FlDialogService);
-  private menuDynamicService = inject(FlMenuDynamicService);
-  private actionService = inject(FlPortalActionsService);
   private snackBarService = inject(FlSnackBarService);
-  private portalService = inject(FlPortalService);
-  private constellabDocumentService = inject(CaConstellabDocumentHistoryService);
+  private injector = inject(Injector);
 
   document: CaDocument;
 
@@ -127,15 +116,10 @@ export class CaDocumentDetailPageComponent implements OnInit {
   openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     const documentActionMenu = new CaDocumentActionDetailMenu(
-      this.dialogService,
-      this.folderService,
-      this.menuDynamicService,
-      this.actionService,
+      this.injector,
       document.basicInfo,
-      this.constellabDocumentService,
-      this.portalService,
       this.textEditorConfig,
-      {tags: this.state.getTags()}
+      { tags: this.state.getTags() }
     );
 
     documentActionMenu.openDetailActionsMenu(event).subscribe((event) => {

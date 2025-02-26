@@ -1,6 +1,7 @@
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { FlMenuDynamicService } from '../fl-menu-dynamic.service';
 import { FlMenuDynamic } from './fl-menu-dynamic.class';
+import { Injector } from '@angular/core';
 
 /**
  * Base class to manage the action menu for an object
@@ -8,10 +9,10 @@ import { FlMenuDynamic } from './fl-menu-dynamic.class';
 export class FlBaseActionMenu<T> {
   protected subject: Subject<T> = new Subject();
 
-  constructor(protected menuDynamicService: FlMenuDynamicService) {}
+  constructor(protected injector: Injector) {}
 
   protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<T> {
-    const overlayRef = this.menuDynamicService.openDynamicMenuFromMouseEvent(menu, event);
+    const overlayRef = this.injector.get(FlMenuDynamicService).openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(
       mergeMap((menu: FlMenuDynamic) => {

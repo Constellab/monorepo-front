@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, input, Input, Output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Injector, input, Input, Output } from '@angular/core';
 import { CaScenario } from '../../../../../ca-core/model/entities/folder/ca-scenario.class';
 import { CaLabHelper } from '../../../../../ca-core/utils/ca-lab.helper';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -14,8 +14,6 @@ import {
   CaHierarchyObjectDetailState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaScenarioActionMenu } from '../../ca-scenario-action-menu';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 /**
  * Detail card of the scenario used in the scenario page
@@ -51,16 +49,12 @@ export class CaScenarioCardDetailComponent {
 
   tags = inject(CaHierarchyObjectDetailState).getTags();
 
-  private dialogService = inject(FlDialogService);
-  private menuDynamicService = inject(FlMenuDynamicService);
+  private injector = inject(Injector);
 
   openActionMenu(event: MouseEvent): void {
-    const scenarioActionMenu = new CaScenarioActionMenu(
-      this.dialogService,
-      this.menuDynamicService,
-      this.scenario().id,
-      { tags: this.tags }
-    );
+    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.scenario().id, {
+      tags: this.tags,
+    });
 
     scenarioActionMenu.openActionMenu(event);
   }

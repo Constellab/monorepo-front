@@ -1,39 +1,16 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
 import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-
-import {
-  LabNoteFormDialogComponent,
-  LabNoteFormDialogInput,
-} from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-form-dialog/lab-note-form-dialog.component';
-import { LabRouterService } from '../../../../../lab-core/service/lab-router.service';
 import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 import { Observable, Subscription } from 'rxjs';
-import {
-  LabValidateObjectDialogComponent,
-  LabValidateObjectDialogInput,
-} from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-validate-object-dialog/lab-validate-object-dialog.component';
 import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
-import { LabNoteTemplateService } from '../../../../../lab-core/entity-service/lab-note-template.service';
-import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
 import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
 import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
 import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
 import { first } from 'rxjs/operators';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  TeRichText,
-  TeRichTextDTO,
-  TeTextEditorHistoryPortalComponent,
-  TeTextEditorHistoryPortalData,
-} from '@monorepo/text-editor';
+import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -42,9 +19,7 @@ import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabSyncObjectButtonComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { LabTagListComponent } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
 import { LabFolderInlineSelectComponent } from '../../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
 import { LabObjectValidationInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
@@ -52,6 +27,7 @@ import { LabObjectSyncInfoComponent } from '../../../../../lab-core/entity-modul
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabNoteDetailActionMenu } from '../../../../../lab-core/entity-module/lab-note-core/model/lab-note-detail-action-menu.class';
 
 @Component({
   selector: 'lab-note-detail-page',
@@ -67,9 +43,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlFormModule,
     LabSyncObjectButtonComponent,
     MatIconButton,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
     FlLoaderModule,
     TeTextEditorModule,
     LabTagListComponent,
@@ -87,11 +60,8 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   private noteService = inject(LabNoteService);
   private state = inject(LabNoteDetailPageState);
   private route = inject(ActivatedRoute);
-  private dialogService = inject(FlDialogService);
-  private routerService = inject(LabRouterService);
-  private noteTemplateService = inject(LabNoteTemplateService);
   private tagService = inject(LabTagService);
-  private portalService = inject(FlPortalService);
+  private injector = inject(Injector);
 
   note$: Observable<LabNote>;
   formControl: FormControl<TeRichText> = new FormControl({ value: null });
@@ -99,8 +69,6 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
   textEditorConfig: LabNoteTextEditorConfig;
 
   syncObjectFunc: (id: string) => Observable<LabNote>;
-
-  createTemplateLoading: boolean = false;
 
   tags: LabTagDatasource;
 
@@ -150,136 +118,14 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateNote(): void {
-    const note: LabNote = this.state.currentNote;
-    const input: LabNoteFormDialogInput = {
-      mode: 'update',
-      noteId: note.id,
-      object: {
-        title: note.title,
-        folder: note.folder,
-        template: null,
-      },
-      disableFolder: note.isSynced,
-    };
+  openActionMenu(note: LabNote, event: MouseEvent): void {
+    const actionMenu = new LabNoteDetailActionMenu(this.injector, note, this.tags, this.textEditorConfig);
 
-    this.dialogService
-      .openSmallDialog(LabNoteFormDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((note) => this.updateNoteClosed(note));
+    actionMenu.openDetailActionMenu(event).subscribe();
   }
 
-  private updateNoteClosed(note?: LabNote): void {
-    if (note) {
-      this.state.updateNote(note);
-    }
-  }
-
-  validate(): void {
-    const note = this.state.currentNote;
-
-    const input: LabValidateObjectDialogInput = {
-      title: 'biox.validate_note',
-      validate: (folder: LabFolder): Observable<any> => this.noteService.validate(note.id, folder.id),
-      folder: note.folder,
-      helpText: 'biox.validate_note_help_text',
-      successMessage: 'biox.note_validated',
-    };
-
-    this.dialogService
-      .openSmallDialog(LabValidateObjectDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((result) => this.onNoteUpdate(result));
-  }
-
-  onNoteUpdate(note?: LabNote): void {
-    if (note) {
-      this.state.updateNote(note);
-    }
-  }
-
-  delete(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'biox.delete_note',
-      content: 'biox.delete_note_confirmation',
-      observable: this.noteService.delete(this.state.currentNote.id),
-      successMessage: 'biox.note_deleted',
-    };
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.deletedClosed(result));
-  }
-
-  private deletedClosed(result: FlConfirmDialogResult<LabNote>): void {
-    if (result.choice) {
-      this.routerService.navigateToNoteSearch();
-    }
-  }
-
-  printNote(): void {
-    if (window) {
-      window.print();
-    }
-  }
-
-  archiveNote(): void {
-    const note = this.state.currentNote;
-
-    let input: FlConfirmDialogInput;
-    if (note.isArchived) {
-      input = {
-        title: 'biox.unarchive_note',
-        content: 'biox.unarchive_note_confirmation',
-        observable: this.noteService.unarchive(note.id),
-        successMessage: 'biox.note_unarchived',
-      };
-    } else {
-      input = {
-        title: 'biox.archive_note',
-        content: 'biox.archive_note_confirmation',
-        observable: this.noteService.archive(note.id),
-        successMessage: 'biox.note_archived',
-      };
-    }
-
-    this.dialogService
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onArchiveClosed(result));
-  }
-
-  private onArchiveClosed(result: FlConfirmDialogResult<LabNote>): void {
-    if (result.choice) {
-      this.state.updateNote(result.result);
-    }
-  }
-
-  createNoteTemplate(): void {
-    if (this.createTemplateLoading) return;
-    this.createTemplateLoading = true;
-    this.noteTemplateService.createFromNote(this.state.currentNote.id).subscribe({
-      next: (template) => this.createNoteTemplateSuccess(template),
-      error: () => (this.createTemplateLoading = false),
-    });
-  }
-
-  openHistoryPanel(id: string): void {
-    this.portalService.createPortal(
-      TeTextEditorHistoryPortalComponent,
-      this.portalService.getRightSidePortalConfig(),
-      {
-        service: this.noteService,
-        entityId: id,
-        textEditorConfig: this.textEditorConfig,
-        isEditable: !this.state.currentNote.isArchived,
-      } as TeTextEditorHistoryPortalData
-    );
-  }
-
-  private createNoteTemplateSuccess(noteTemplate: LabNoteTemplate): void {
-    this.routerService.navigateToNoteTemplateDetail(noteTemplate.id);
+  onNoteUpdate(note: LabNote): void {
+    this.state.updateNote(note);
   }
 
   ngOnDestroy(): void {

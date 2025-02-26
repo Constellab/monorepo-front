@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit } from '@angular/core';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaHierarchyObjectTableComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-table/ca-hierarchy-object-table.component';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
@@ -20,9 +20,6 @@ import {
   CaFolderActionEvent,
   CaFolderActionsMenu,
 } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
@@ -61,9 +58,7 @@ export class CaRootFoldersPageComponent implements OnInit {
   private searchState = inject(CaHierarchyObjectSearchState);
 
   private folderActionService = inject(CaFolderActionService);
-  private dialogService = inject(FlDialogService);
-  private menuDynamicService = inject(FlMenuDynamicService);
-  private securityService = inject(CaSecurityService);
+  private injector = inject(Injector);
 
   ngOnInit(): void {
     this.children = this.searchState.childrenDatasource;
@@ -88,13 +83,11 @@ export class CaRootFoldersPageComponent implements OnInit {
   }
 
   private openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
-    const service = new CaFolderActionsMenu(
-      this.dialogService,
-      this.folderActionService,
-      this.menuDynamicService,
-      this.securityService,
-      { id: hierarchyObject.id, name: hierarchyObject.name, leader: hierarchyObject.user }
-    );
+    const service = new CaFolderActionsMenu(this.injector, {
+      id: hierarchyObject.id,
+      name: hierarchyObject.name,
+      leader: hierarchyObject.user,
+    });
     service
       .openTableItemActionMenu(event, true)
       .subscribe((hierarchyObjectActionEvent) =>

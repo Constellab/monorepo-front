@@ -1,9 +1,8 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Injector, Input, OnInit } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
 import {
   CaScenariosListDialogInput,
@@ -12,7 +11,6 @@ import {
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
-import { CaNoteHistoryService } from '../../../../../ca-core/service/ca-note-history.service';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -24,7 +22,6 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaNoteActionEvent, CaNoteDetailActionMenu } from '../../../ca-note-core/ca-note-action-menu';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 
 @Component({
@@ -50,10 +47,8 @@ export class CaNoteDetailComponent implements OnInit {
   private scenarioService = inject(CaScenarioService);
   private dialogService = inject(FlDialogService);
   private noteService = inject(CaNoteService);
-  private noteHistoryService = inject(CaNoteHistoryService);
   private state = inject(CaHierarchyObjectDetailState);
-  private portalService = inject(FlPortalService);
-  private menuDynamicService = inject(FlMenuDynamicService);
+  private injector = inject(Injector);
 
   @Input({ required: true }) note: CaNote;
 
@@ -83,16 +78,9 @@ export class CaNoteDetailComponent implements OnInit {
   openActionMenu(note: CaNote, event: MouseEvent): void {
     const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);
 
-    const noteActionMenu = new CaNoteDetailActionMenu(
-      this.noteService,
-      this.dialogService,
-      this.menuDynamicService,
-      note.id,
-      this.portalService,
-      textEditorConfig,
-      this.noteHistoryService,
-      { tags: this.tags }
-    );
+    const noteActionMenu = new CaNoteDetailActionMenu(this.injector, note.id, textEditorConfig, {
+      tags: this.tags,
+    });
 
     noteActionMenu.openDetailActionMenu(event).subscribe((action) => this.onNoteAction(action));
   }

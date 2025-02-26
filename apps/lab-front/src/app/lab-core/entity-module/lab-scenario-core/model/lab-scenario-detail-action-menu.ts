@@ -1,4 +1,4 @@
-import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import {
   FlConfirmDialogInput,
@@ -46,24 +46,18 @@ import { LabQueueService } from '../../../entity-service/lab-queue.service';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { Injector } from '@angular/core';
 import { LabTagDatasource } from '../../../model/entities/lab-tag.entity';
-import { clRxjsDebug } from '@monorepo/core-lib';
 
 /**
  * Action menu for a lab scenario
  */
 export class LabScenarioDetailActionMenu extends LabScenarioActionMenu {
-  constructor(
-    menuDynamicService: FlMenuDynamicService,
-    injector: Injector,
-    scenario: LabScenario,
-    tags: LabTagDatasource
-  ) {
-    super(menuDynamicService, injector, scenario, tags);
+  constructor(injector: Injector, scenario: LabScenario, tags: LabTagDatasource) {
+    super(injector, scenario, tags);
   }
 
   public openActionMenuDetail(event: MouseEvent): Observable<LabScenarioActionEvent> {
     const menu = [
-      this.getTagsButton(),
+      this.getTagsButton('SCENARIO', this.scenario.id, this.tags),
       this.getCreateNoteButton(),
       this.getProtocolMenuButton(),
     ];
@@ -92,7 +86,6 @@ export class LabScenarioDetailActionMenu extends LabScenarioActionMenu {
     }
 
     return this.generateMenu(menu, event).pipe(
-      clRxjsDebug(),
       tap((event) => {
         this.injector.get(LabScenarioDetailPageState).updateScenario(event.scenario);
       })
@@ -371,9 +364,6 @@ export class LabScenarioDetailActionMenu extends LabScenarioActionMenu {
       this.injector.get(LabRouterService).navigateToScenarioListRoute();
     }
   }
-
-
-
 
   private deleteIntermediateResources(): void {
     const scenario = this.injector.get(LabScenarioDetailPageState).currentScenario;

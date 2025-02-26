@@ -1,8 +1,4 @@
-import {
-  FlBaseActionMenu,
-  FlMenuDynamic,
-  FlMenuDynamicService,
-} from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { LabScenario } from '../../../model/entities/lab-scenario.entity';
 import {
   FlConfirmDialogInput,
@@ -11,10 +7,6 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { Observable } from 'rxjs';
 import { LabScenarioService } from '../../../entity-service/lab-scenario.service';
-import {
-  LabManageEntityTagsDialogComponent,
-  LabManageEntityTagsDialogInput,
-} from '../../lab-tag-core/component/lab-manage-entity-tags-dialog/lab-manage-entity-tags-dialog.component';
 import { LabTagDatasource } from '../../../model/entities/lab-tag.entity';
 import {
   LabNoteFormDialogComponent,
@@ -27,6 +19,7 @@ import {
   LabSharedEntityInfoDialogInput,
 } from '../../lab-share-core/component/lab-shared-entity-info-dialog/lab-shared-entity-info-dialog.component';
 import { Injector } from '@angular/core';
+import { LabEntityActionMenu } from '../../lab-entity-core/lab-entity-action-menu.class';
 
 export type LabScenarioActionEvent = {
   action: 'archive' | 'unarchive';
@@ -36,19 +29,18 @@ export type LabScenarioActionEvent = {
 /**
  * Action menu for a lab scenario
  */
-export class LabScenarioActionMenu extends FlBaseActionMenu<LabScenarioActionEvent> {
+export class LabScenarioActionMenu extends LabEntityActionMenu<LabScenarioActionEvent> {
   constructor(
-    menuDynamicService: FlMenuDynamicService,
-    protected injector: Injector,
+    injector: Injector,
     protected scenario: LabScenario,
     protected tags: LabTagDatasource
   ) {
-    super(menuDynamicService);
+    super(injector);
   }
 
   public openActionMenuInTable(event: MouseEvent): Observable<LabScenarioActionEvent> {
     const menu = [
-      this.getTagsButton(),
+      this.getTagsButton('SCENARIO', this.scenario.id, this.tags),
       this.getCreateNoteButton(),
       this.getShareButton(),
       this.getDuplicateButton(),
@@ -59,15 +51,6 @@ export class LabScenarioActionMenu extends FlBaseActionMenu<LabScenarioActionEve
   }
 
   //////////////////////////////////// BUTTONS ////////////////////////////////////
-
-  protected getTagsButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: 'tags',
-      icon: 'tag',
-      onClick: () => this.openTagsFormDialog(),
-    };
-  }
 
   protected getCreateNoteButton(): FlMenuDynamic {
     return {
@@ -129,19 +112,6 @@ export class LabScenarioActionMenu extends FlBaseActionMenu<LabScenarioActionEve
   }
 
   //////////////////////////////////// ACTIONS ////////////////////////////////////
-  private openTagsFormDialog(): void {
-    const data: LabManageEntityTagsDialogInput = {
-      entityType: 'SCENARIO',
-      entityId: this.scenario.id,
-      tags: this.tags,
-    };
-
-    this.injector
-      .get(FlDialogService)
-      .openSmallDialog(LabManageEntityTagsDialogComponent, { data: data })
-      .afterClosed()
-      .subscribe(() => this.subject.complete());
-  }
 
   private toggleArchive(dialogInput: FlConfirmDialogInput): void {
     this.injector

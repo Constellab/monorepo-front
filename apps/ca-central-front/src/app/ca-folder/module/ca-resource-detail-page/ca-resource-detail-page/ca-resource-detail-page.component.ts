@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Injector } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -6,8 +6,6 @@ import { CaResourceService } from '../../../../ca-core/service-api/ca-resource.s
 import { CaResource } from '../../../../ca-core/model/entities/folder/ca-resource.class';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { CaResourceActionEvent, CaResourceActionMenu } from '../ca-resource-action-menu';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -36,10 +34,9 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
 })
 export class CaResourceDetailPageComponent {
   private resourceService = inject(CaResourceService);
-  private menuDynamicService = inject(FlMenuDynamicService);
-  private dialogService = inject(FlDialogService);
   private state = inject(CaHierarchyObjectDetailState);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
+  private injector = inject(Injector);
 
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
@@ -61,9 +58,7 @@ export class CaResourceDetailPageComponent {
 
   openMenu(resource: CaResource, event: MouseEvent): void {
     const resourceMenu = new CaResourceActionMenu(
-      this.resourceService,
-      this.menuDynamicService,
-      this.dialogService,
+      this.injector,
       {
         id: resource.id,
         name: resource.name,

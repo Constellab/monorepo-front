@@ -1,14 +1,10 @@
-import { Component, ContentChild, inject, Input, TemplateRef } from '@angular/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { Component, ContentChild, inject, Injector, Input, TemplateRef } from '@angular/core';
 import { FlTableColumnStatic, FlViewContext } from '@monorepo/front-core-lib/fl-core';
 
 import { CaFolder, CaFolderDatasource } from '../../../../model/entities/folder/ca-folder.class';
 import { CaRouterService } from '../../../../service/ca-router.service';
 import { CaFolderActionEvent, CaFolderActionsMenu } from '../../model/ca-folder-actions-menu.class';
 import { ClHelpService } from '@monorepo/core-lib';
-import { CaSecurityService } from '../../../../service/ca-security.service';
-import { CaFolderActionService } from '../../ca-folder-action.service';
 import {
   MatCell,
   MatCellDef,
@@ -61,10 +57,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class CaFolderTableComponent {
   private routerService = inject(CaRouterService);
-  private dialogService = inject(FlDialogService);
-  private menuDynamicService = inject(FlMenuDynamicService);
-  private folderActionService = inject(CaFolderActionService);
-  private securityService = inject(CaSecurityService);
+  private injector = inject(Injector);
 
   @Input({ required: true }) datasource: CaFolderDatasource<any>;
 
@@ -75,17 +68,11 @@ export class CaFolderTableComponent {
 
   openFolderActionMenu(folder: CaFolder, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    const folderActionsMenu = new CaFolderActionsMenu(
-      this.dialogService,
-      this.folderActionService,
-      this.menuDynamicService,
-      this.securityService,
-      {
-        id: folder.id,
-        name: folder.name,
-        leader: folder.leader,
-      }
-    );
+    const folderActionsMenu = new CaFolderActionsMenu(this.injector, {
+      id: folder.id,
+      name: folder.name,
+      leader: folder.leader,
+    });
 
     folderActionsMenu.openTableItemActionMenu(event).subscribe((event) => {
       this.onFolderAction(event);
