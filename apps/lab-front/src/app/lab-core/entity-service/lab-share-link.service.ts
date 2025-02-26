@@ -1,7 +1,12 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { LabShareLink, LabShareLinkDatasource, LabShareLinkType } from '../model/entities/lab-share.entity';
+import {
+  LabCleanShareLinks,
+  LabShareLink,
+  LabShareLinkDatasource,
+  LabShareLinkType,
+} from '../model/entities/lab-share.entity';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 
@@ -43,5 +48,9 @@ export class LabShareLinkService {
 
   public getShareLink(entityType: LabShareLinkType, entityId: string): Observable<LabShareLink> {
     return this.apiService.get(`${this.route}/${entityType}/${entityId}`, LabShareLink);
+  }
+
+  public cleanLinks(cleanDTO: LabCleanShareLinks): Observable<void> {
+    return this.apiService.post(`${this.route}/clean`, cleanDTO);
   }
 }

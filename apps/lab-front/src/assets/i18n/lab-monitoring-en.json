@@ -116,6 +116,10 @@
     "python_version": "Python version",
     "global": "Global",
     "details": "Details",
-    "free_disk_limit_reached": "Warning: the free disk space limit ({{limit}}) has been reached. To ensure proper functioning of the data lab you will no longer be able to run scenarios or upload files. Please clean the data lab or increase the disk space."
+    "free_disk_limit_reached": "Warning: the free disk space limit ({{limit}}) has been reached. To ensure proper functioning of the data lab you will no longer be able to run scenarios or upload files. Please clean the data lab or increase the disk space.",
+    "clean_share_links": "Clean share links",
+    "clean_expired_share_links": "Delete expired share links",
+    "clean_invalid_share_links": "Delete invalid share links (links where share object was delete)",
+    "share_links_cleaned": "Links cleaned"
   }
 }

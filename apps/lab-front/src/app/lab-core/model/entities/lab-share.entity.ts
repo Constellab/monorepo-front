@@ -70,3 +70,8 @@ export class LabSharedEntity extends LabBaseEntity {
 }
 
 export type LabSharedEntityDatasource = FlDatasourcePaginated<LabSharedEntity>;
+
+export interface LabCleanShareLinks {
+  clean_expired_links: boolean;
+  clean_invalid_links: boolean;
+}

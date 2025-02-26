@@ -116,6 +116,10 @@
     "python_version": "Version de Python",
     "global": "Global",
     "details": "Détails",
-    "free_disk_limit_reached_fr": "Attention : la limite d'espace disque libre ({{limit}}) a été atteinte. Pour garantir le bon fonctionnement du data lab, vous ne pourrez plus lancer de scénarios ou uploader de fichiers. Merci de nettoyer le data lab ou d'augmenter l'espace disque."
+    "free_disk_limit_reached_fr": "Attention : la limite d'espace disque libre ({{limit}}) a été atteinte. Pour garantir le bon fonctionnement du data lab, vous ne pourrez plus lancer de scénarios ou uploader de fichiers. Merci de nettoyer le data lab ou d'augmenter l'espace disque.",
+    "clean_share_links": "Nettoyer les liens de partage",
+    "clean_expired_share_links": "Supprimer les liens de partage expirés",
+    "clean_invalid_share_links": "Supprimer les liens de partage invalides (liens où l'objet partagé a été supprimé)",
+    "share_links_cleaned": "Liens nettoyés"
   }
 }
