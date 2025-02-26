@@ -1,0 +1,21 @@
+<fl-dialog-header>
+  {{ data.title | flTranslatableText | async }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  @if (data.helpText) {
+    <div class="help-text">{{ data.helpText | flTranslatableText | async }}</div>
+  }
+  <form (ngSubmit)="submit()"  id="dynamic-form">
+    <fl-dynamic-abstract-form [config]="data.config" [control]="formGp"></fl-dynamic-abstract-form>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="dynamic-form" class="g-centered-forced primary">
+    {{ 'flDynamicField.save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

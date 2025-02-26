@@ -1,50 +1,33 @@
 <div class="container g-scrollable-element">
-  @if (dataSource) {
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <mat-tree-node
-        *matTreeNodeDef="let node"
-        [matTreeNodePadding]="node.level"
-        [matTreeNodePaddingIndent]="20">
+  <mat-tree
+    #tree
+    [dataSource]="datasource"
+    [childrenAccessor]="datasource.childrenAccessor"
+    [trackBy]="datasource.trackById">
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [matTreeNodePaddingIndent]="20">
+      <div matTreeNodeToggle class="g-layout-row g-layout-start-center">
+        @if (node.object.isFolder) {
+          <mat-icon>{{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
+        }
+        <!--      Arrow icon      -->
         <div
-          class="leaf-container node-container g-layout-row-wrap g-layout-start-center"
+          class="node-container g-layout-row-wrap g-layout-start-center"
           (contextmenu)="openMenu(node, $event)">
-          <span>{{ node.name }}</span>
-          @if (node.isLoading) {
+          <span>{{ node.object.name }}</span>
+          @if (node.object.isLoading) {
             <fl-loader size="small" class="loader"></fl-loader>
-          }
-          @if (!node.isLoading) {
+          } @else {
             <button mat-icon-button class="g-button-icon-tiny action-button" (click)="openMenu(node, $event)">
               <mat-icon>more_vert</mat-icon>
             </button>
           }
         </div>
-      </mat-tree-node>
-      <!-- This is the tree node template for expandable nodes -->
-      <mat-tree-node
-        *matTreeNodeDef="let node; when: hasChild"
-        [matTreeNodePadding]="node.level"
-        [matTreeNodePaddingIndent]="20">
-        <div matTreeNodeToggle class="g-layout-row g-layout-start-center">
-          <!--      Arrow icon      -->
-          <mat-icon>{{ treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}</mat-icon>
-          <div
-            class="node-container g-layout-row-wrap g-layout-start-center"
-            (contextmenu)="openMenu(node, $event)">
-            <span>{{ node.name }}</span>
-            @if (node.isLoading) {
-              <fl-loader size="small" class="loader"></fl-loader>
-            }
-            @if (!node.isLoading) {
-              <button
-                mat-icon-button
-                class="g-button-icon-tiny action-button"
-                (click)="openMenu(node, $event)">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            }
-          </div>
-        </div>
-      </mat-tree-node>
-    </mat-tree>
+      </div>
+    </mat-tree-node>
+  </mat-tree>
+
+  @if (datasource.isEmpty$() | async) {
+    <fl-error-text [errorMessage]="'biox.folder_empty' | translate"></fl-error-text>
   }
 </div>

@@ -84,6 +84,19 @@ export class LabFileResourceService {
       );
   }
 
+  public renameFolderSubNode(id: string, subPath: string, newName: string): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/folder/rename-sub-node`, {
+      sub_node_path: subPath,
+      new_name: newName,
+    });
+  }
+
+  public deleteFolderSubNode(id: string, subPath: string): Observable<void> {
+    return this.apiService.put(`${this.route}/${id}/folder/delete-sub-node`, {
+      sub_file_path: subPath,
+    });
+  }
+
   //////////////////////////////////////////// FILE TYPE ////////////////////////////////////////
   // return the list of all file types
   public getFileTypes(): Observable<LabTypeEntity[]> {

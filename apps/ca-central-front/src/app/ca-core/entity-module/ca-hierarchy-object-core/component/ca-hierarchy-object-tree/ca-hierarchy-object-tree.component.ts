@@ -57,9 +57,6 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
 
   selectedObjectAndParent: FlTree<CaHierarchyObjectSimple>[] = [];
 
-  childrenAccessor = (node: FlTree<CaHierarchyObjectSimple>): FlTree<CaHierarchyObjectSimple>[] =>
-    node.children ?? [];
-
   private subscription = new ClSubscriptionHandler();
 
   private folderService = inject(CaFolderService);

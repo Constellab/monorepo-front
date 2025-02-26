@@ -20,10 +20,10 @@ export interface LabResourceViewFolderContent {
   children?: LabResourceViewFolderContent[];
 }
 
-export interface LabResourceViewFolderContentFlat {
+export interface LabResourceViewFolderContentTree {
+  id: string;
   name: string;
   resource_model_id?: string;
-  level: number;
-  isFolder: boolean;
   isLoading: boolean;
+  isFolder: boolean;
 }

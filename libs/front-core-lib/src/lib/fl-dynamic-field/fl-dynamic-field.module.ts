@@ -1,19 +1,21 @@
-import { NgModule, inject } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlDynamicFieldComponent } from './component/fl-dynamic-field/fl-dynamic-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
-import { FlDynamicFormGroupComponent } from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
+import {
+  FlDynamicFormGroupComponent,
+} from './component/fl-dynamic-form-group/fl-dynamic-form-group.component';
 import { FlCorePipeModule } from '../fl-core-pipe/fl-core-pipe.module';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { flDynamicFieldI18n } from './i18n/fl-dynamic-field.i18n';
 import { FlMultiInputsComponent } from './component/fl-multi-inputs/fl-multi-inputs.component';
 import { FlFormModule } from '../fl-form/fl-form.module';
 import {
-  FlDynamicFormArrayComponent
+  FlDynamicFormArrayComponent,
 } from './component/fl-dynamic-form-array/fl-dynamic-form-array.component';
 import {
-  FlDynamicAbstractFormComponent
+  FlDynamicAbstractFormComponent,
 } from './component/fl-dynamic-abstract-form/fl-dynamic-abstract-form.component';
 import { FlSectionModule } from '../fl-section/fl-section.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -45,6 +47,11 @@ import {
 } from './component/fl-dynamic-field-select-search/fl-dynamic-field-select-search.component';
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlUserModule } from '../fl-user/fl-user.module';
+import {
+  FlDynamicFieldFormDialogComponent,
+} from './component/fl-dynamic-field-form-dialog/fl-dynamic-field-form-dialog.component';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 
 /**
  * Module for the {@link FlDynamicFieldComponent} to create dynamic form field input
@@ -63,6 +70,7 @@ import { FlUserModule } from '../fl-user/fl-user.module';
     FlDynamicFieldListComponent,
     FlDynamicFieldTextareaComponent,
     FlDynamicFieldSelectSearchComponent,
+    FlDynamicFieldFormDialogComponent,
   ],
   exports: [
     FlDynamicFieldComponent,
@@ -94,6 +102,8 @@ import { FlUserModule } from '../fl-user/fl-user.module';
     FlCardModule,
     FlInputSearchModule,
     FlUserModule,
+    FlDialogModule,
+    FlLoaderModule,
   ],
 })
 export class FlDynamicFieldModule {

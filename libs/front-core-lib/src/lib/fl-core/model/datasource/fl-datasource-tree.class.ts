@@ -7,7 +7,7 @@ import { FlEntity } from '../fl-entity.class';
 export class FlDatasourceTree<T extends FlEntity> {
   private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T, []));
 
-  private readonly childrenOrder: (a: T, b: T) => number;
+  private readonly childrenOrder?: (a: T, b: T) => number;
 
   constructor(childrenOrder?: (a: T, b: T) => number) {
     this.childrenOrder = childrenOrder;
@@ -110,10 +110,12 @@ export class FlDatasourceTree<T extends FlEntity> {
   }
 
   private sortAllRecur(nodes: FlTree<T>[]): FlTree<T>[] {
-    nodes = nodes.sort((a, b) => this.childrenOrder(a.object, b.object));
-    for (const node of nodes) {
-      if (node.children) {
-        this.sortAllRecur(node.children);
+    if (this.childrenOrder) {
+      nodes = nodes.sort((a, b) => this.childrenOrder(a.object, b.object));
+      for (const node of nodes) {
+        if (node.children) {
+          this.sortAllRecur(node.children);
+        }
       }
     }
 
@@ -132,5 +134,9 @@ export class FlDatasourceTree<T extends FlEntity> {
 
   public trackById(_: number, item: FlTree<T>): string {
     return item.id;
+  }
+
+  public childrenAccessor(node: FlTree<T>): FlTree<T>[] {
+    return node.children ?? [];
   }
 }

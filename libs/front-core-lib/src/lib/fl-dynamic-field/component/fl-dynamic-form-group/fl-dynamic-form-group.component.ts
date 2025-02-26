@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
@@ -21,9 +21,9 @@ export class FlDynamicFormGroupComponent implements FlDynamicAbstractFormDirecti
    * Form where control will be added
    */
 
-  control = input<UntypedFormGroup>();
+  control = input.required<FormGroup>();
 
-  config = input<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig>();
+  config = input.required<FlDynamicFormGroupConfig | FlDynamicEditableFormGroupConfig>();
 
   getControlClass(config: FlDynamicFormAbstractControl): string {
     // different classe based on type

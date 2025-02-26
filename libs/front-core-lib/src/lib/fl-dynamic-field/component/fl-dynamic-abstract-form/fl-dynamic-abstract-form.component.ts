@@ -23,9 +23,9 @@ import { FlDynamicFieldConfigService } from '../../model/fl-dynamic-field-config
   standalone: false,
 })
 export class FlDynamicAbstractFormComponent implements OnDestroy {
-  config = input<FlDynamicFormAbstractControl>();
+  config = input.required<FlDynamicFormAbstractControl>();
 
-  control = input<AbstractControl>();
+  control = input.required<AbstractControl>();
 
   configName = input<string>();
 

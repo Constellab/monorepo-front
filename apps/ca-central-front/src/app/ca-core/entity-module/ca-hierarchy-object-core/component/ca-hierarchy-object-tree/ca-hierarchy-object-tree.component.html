@@ -1,7 +1,7 @@
 <mat-tree
   #tree
   [dataSource]="hierarchyObjects()"
-  [childrenAccessor]="childrenAccessor"
+  [childrenAccessor]="hierarchyObjects().childrenAccessor"
   [trackBy]="hierarchyObjects().trackById"
   class="tree">
   <!-- This is the tree node template for leaf nodes -->

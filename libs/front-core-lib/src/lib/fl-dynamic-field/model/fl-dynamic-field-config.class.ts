@@ -13,7 +13,7 @@ export type FlDynamicFormAbstractControl =
  * Base object for configs
  */
 interface FlDynamicFormConfigBase {
-  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup' | string;
+  controlType: 'formControl' | 'formGroup' | 'formArray' | 'editableFormGroup';
   placeholder?: string;
   hint?: string;
 }

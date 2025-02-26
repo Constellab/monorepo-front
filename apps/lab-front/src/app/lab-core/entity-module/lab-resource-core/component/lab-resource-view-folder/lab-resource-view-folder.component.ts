@@ -1,19 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   LabResourceViewFolder,
   LabResourceViewFolderContent,
-  LabResourceViewFolderContentFlat,
+  LabResourceViewFolderContentTree,
 } from '../../../../model/entities/resource/lab-resource-view-folder.class';
 import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlFlatTreeControl } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic, FlMenuDynamicService } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
 import {
   MatTree,
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
   MatTreeNode,
   MatTreeNodeDef,
   MatTreeNodePadding,
@@ -32,6 +33,16 @@ import { LabResourceDetailState } from '../../state/lab-resource-detail.state';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { FlDatasourceTree, FlTree } from '@monorepo/front-core-lib/fl-core';
+import {
+  FlDynamicFieldFormDialogComponent,
+  FlDynamicFieldFormDialogInput,
+  FlDynamicFieldFormDialogOutput,
+} from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { AsyncPipe } from '@angular/common';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Resource view for folder
@@ -49,11 +60,14 @@ import { MatIcon } from '@angular/material/icon';
     MatIconButton,
     MatIcon,
     MatTreeNodeToggle,
+    AsyncPipe,
+    FlCoreComponentModule,
+    TranslatePipe,
   ],
 })
 export class LabResourceViewFolderComponent
   extends RvResourceViewDirective<LabResourceViewFolder>
-  implements OnInit
+  implements OnInit, OnDestroy
 {
   private fileService = inject(LabFileResourceService);
   private dialogService = inject(FlDialogService);
@@ -62,55 +76,44 @@ export class LabResourceViewFolderComponent
   private resourceState = inject(LabResourceDetailState, { optional: true });
   private clipboardService = inject(FlClipboardService);
   private actionService = inject(FlPortalActionsService);
+  private translateService = inject(FlTranslateService);
 
-  treeControl: FlFlatTreeControl<LabResourceViewFolderContentFlat>;
-
-  dataSource: MatTreeFlatDataSource<LabResourceViewFolderContent, LabResourceViewFolderContentFlat>;
-
-  constructor() {
-    super();
-  }
-
-  private _transformer = (
-    node: LabResourceViewFolderContent,
-    level: number
-  ): LabResourceViewFolderContentFlat => {
-    return {
-      name: node.name,
-      resource_model_id: node.resource_model_id,
-      isFolder: !!node.children && node.children.length > 0,
-      level: level,
-      isLoading: false,
-    };
-  };
-
-  hasChild = (_: number, node: LabResourceViewFolderContentFlat): boolean => node.isFolder;
+  datasource: FlDatasourceTree<LabResourceViewFolderContentTree>;
 
   ngOnInit(): void {
-    this.treeControl = new FlFlatTreeControl<LabResourceViewFolderContentFlat>(
-      (node) => node.level,
-      (node) => node.isFolder
-    );
+    this.datasource = new FlDatasourceTree();
+    for (const child of this.view.data.content.children) {
+      this.convertToTreeDataRecur(child, '');
+    }
+  }
 
-    // object to flatten tree
-    const treeFlattener: MatTreeFlattener<LabResourceViewFolderContent, LabResourceViewFolderContentFlat> =
-      new MatTreeFlattener(
-        this._transformer,
-        (node) => node.level,
-        (node) => node.isFolder,
-        (node) => node.children
-      );
+  private convertToTreeDataRecur(
+    data: LabResourceViewFolderContent,
+    path: string,
+    parentNodeId: string = null
+  ): void {
+    const isFolder = data.children != null;
+    const node: LabResourceViewFolderContentTree = {
+      id: path + '/' + data.name,
+      name: data.name,
+      resource_model_id: data.resource_model_id,
+      isFolder: isFolder,
+      isLoading: false,
+    };
+    this.datasource.addOrReplaceNode(node, parentNodeId);
 
-    // create the datasource and set data
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
-    this.dataSource.data = this.view.data.content.children;
+    if (isFolder) {
+      for (const child of data.children) {
+        this.convertToTreeDataRecur(child, node.id, node.id);
+      }
+    }
   }
 
   // open the dialog to select the node type
-  extractNode(node: LabResourceViewFolderContentFlat): void {
+  extractNode(node: FlTree<LabResourceViewFolderContentTree>): void {
     const input: LabFsNodeTypesSelectionDialogInput = {
-      dialogMode: node.isFolder ? 'folder' : 'files',
-      filenames: [node.name],
+      dialogMode: node.object.isFolder ? 'folder' : 'files',
+      filenames: [node.object.name],
       helpText: 'biox.extract_fs_node_help',
     };
 
@@ -122,77 +125,73 @@ export class LabResourceViewFolderComponent
 
   private selectNodeTypeClosed(
     result: LabFsNodeTypesSelectionDialogResult,
-    node: LabResourceViewFolderContentFlat
+    node: FlTree<LabResourceViewFolderContentTree>
   ): void {
     if (result == null) return;
 
     const path: string = this.getNodePath(node);
     const typingName = result.uploadMode === 'files' ? result.fileTypingNames[0] : result.folderTypingName;
 
-    node.isLoading = true;
+    node.object.isLoading = true;
     this.fileService.extractNode(this.resourceId, path, typingName).subscribe({
       next: (resource) => this.extractFileSuccess(node, resource),
-      error: () => (node.isLoading = false),
+      error: () => (node.object.isLoading = false),
     });
   }
 
-  private extractFileSuccess(node: LabResourceViewFolderContentFlat, resource: LabResource): void {
-    node.isLoading = false;
-    node.resource_model_id = resource.id;
+  private extractFileSuccess(node: FlTree<LabResourceViewFolderContentTree>, resource: LabResource): void {
+    node.object.isLoading = false;
+    node.object.resource_model_id = resource.id;
     this.routerService.navigateToResourceDetail(resource.id);
   }
 
   // retrieve the node full path by calling ancestors, with '/' separator
-  private getNodePath(node: LabResourceViewFolderContentFlat): string {
+  private getNodePath(node: FlTree<LabResourceViewFolderContentTree>): string {
     let path: string = null;
-    let currentNode: LabResourceViewFolderContentFlat = node;
+    let currentNode: FlTree<LabResourceViewFolderContentTree> = node;
     while (currentNode) {
-      if (path == null) {
-        path = currentNode.name;
-      } else {
-        path = currentNode.name + '/' + path;
+      if (currentNode.object.name) {
+        if (path == null) {
+          path = currentNode.object.name;
+        } else {
+          path = currentNode.object.name + '/' + path;
+        }
       }
-      currentNode = this.treeControl.getAncestor(currentNode);
+      currentNode = currentNode.parent;
     }
     return path;
   }
 
   // use to open menu on right click
-  openMenu(node: LabResourceViewFolderContentFlat, event: MouseEvent): void {
+  openMenu(node: FlTree<LabResourceViewFolderContentTree>, event: MouseEvent): void {
     event.preventDefault();
     event.stopImmediatePropagation();
 
     const menuDynamic: FlMenuDynamic[] = [];
 
     //TODO : this only work when the view is under resource state
-    if (!node.isFolder && this.resourceState) {
+    if (!node.object.isFolder && this.resourceState) {
       // button to extract the node
       menuDynamic.push({
         type: 'button',
-        text: {
-          text: 'biox.folder_view_sub_files',
-          translateText: true,
-        },
+        text: 'biox.folder_view_sub_files',
         onClick: () => this.callFileView(node),
         icon: 'visibility',
       });
     }
 
-    if (node.resource_model_id) {
+    if (node.object.resource_model_id) {
       menuDynamic.push({
         type: 'link',
-        text: { text: 'resource', translateText: true },
-        link: LabRouterService.getResourceDetailRoute(node.resource_model_id),
+        text: 'resource',
+        link: LabRouterService.getResourceDetailRoute(node.object.resource_model_id),
         icon: 'resource',
       });
     } else {
       // button to extract the node
       menuDynamic.push({
         type: 'button',
-        text: {
-          text: node.isFolder ? 'biox.folder_extract_folder' : 'biox.folder_extract_file',
-          translateText: true,
-        },
+        text: node.object.isFolder ? 'biox.folder_extract_folder' : 'biox.folder_extract_file',
         onClick: () => this.extractNode(node),
         icon: 'drive_file_move',
       });
@@ -201,10 +200,7 @@ export class LabResourceViewFolderComponent
     // button to download
     menuDynamic.push({
       type: 'button',
-      text: {
-        text: 'biox.download_folder_sub_node',
-        translateText: true,
-      },
+      text: 'biox.download_folder_sub_node',
       onClick: () => this.downloadFolderSubFile(node),
       icon: 'cloud_download',
     });
@@ -212,30 +208,40 @@ export class LabResourceViewFolderComponent
     // button to copy the node path
     menuDynamic.push({
       type: 'button',
-      text: {
-        text: 'biox.folder_copy_node_path',
-        translateText: true,
-      },
-      onClick: () =>
-        this.clipboardService.copy(this.getNodePath(node), {
-          text: 'biox.folder_node_path_copied',
-          translateText: true,
-        }),
+      text: 'biox.folder_copy_node_path',
+      onClick: () => this.clipboardService.copy(this.getNodePath(node), 'biox.folder_node_path_copied'),
       icon: 'content_copy',
+    });
+
+    // button to rename the node
+    menuDynamic.push({
+      type: 'button',
+      text: node.object.isFolder ? 'biox.rename_folder' : 'biox.rename_file',
+      onClick: () => this.updateSubNodeName(node),
+      icon: 'edit',
+    });
+
+    // button to delete the node
+    menuDynamic.push({
+      type: 'button',
+      text: node.object.isFolder ? 'biox.delete_folder' : 'biox.delete_file',
+      onClick: () => this.deleteSubNode(node),
+      icon: 'delete',
+      color: 'warn',
     });
 
     this.menuDynamicService.openDynamicMenuAbsolute(menuDynamic, event);
   }
 
   // open the dialog to select the node type
-  private callFileView(node: LabResourceViewFolderContentFlat): void {
+  private callFileView(node: FlTree<LabResourceViewFolderContentTree>): void {
     this.resourceState.callView(
       this.fileService.callFolderSubFileView(this.resourceId, this.getNodePath(node)),
-      node.name
+      node.object.name
     );
   }
 
-  private downloadFolderSubFile(node: LabResourceViewFolderContentFlat): void {
+  private downloadFolderSubFile(node: FlTree<LabResourceViewFolderContentTree>): void {
     const action: FlPortalAction = {
       type: 'download-folder-sub-node',
       action: this.fileService.downloadFolderSubFile(this.resourceId, this.getNodePath(node)),
@@ -243,5 +249,63 @@ export class LabResourceViewFolderComponent
     };
 
     this.actionService.addAction(action);
+  }
+
+  private deleteSubNode(node: FlTree<LabResourceViewFolderContentTree>): void {
+    const confirm: FlConfirmDialogInput = {
+      title: node.object.isFolder ? 'biox.delete_folder' : 'biox.delete_file',
+      content: 'biox.delete_node_confirmation',
+      observable: this.fileService.deleteFolderSubNode(this.resourceId, this.getNodePath(node)),
+      successMessage: 'biox.node_deleted',
+    };
+
+    this.dialogService
+      .openConfirmDialog(confirm)
+      .afterClosed()
+      .subscribe((result) => this.onDeleteClosed(result, node));
+  }
+
+  private onDeleteClosed(
+    result: FlConfirmDialogResult,
+    node: FlTree<LabResourceViewFolderContentTree>
+  ): void {
+    if (result.choice) {
+      this.datasource.deleteNode(node.id);
+    }
+  }
+
+  private updateSubNodeName(node: FlTree<LabResourceViewFolderContentTree>): void {
+    const data: FlDynamicFieldFormDialogInput = {
+      title: node.object.isFolder ? 'biox.rename_folder' : 'biox.rename_file',
+      helpText: 'biox.rename_node_help',
+      data: node.object.name,
+      config: {
+        controlType: 'formControl',
+        type: 'input',
+        inputType: 'text',
+        placeholder: this.translateService.translate('name'),
+      },
+      submit: (data) => this.fileService.renameFolderSubNode(this.resourceId, this.getNodePath(node), data),
+      successMessage: 'biox.node_renamed',
+    };
+
+    this.dialogService
+      .openSmallDialog(FlDynamicFieldFormDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe((result) => this.onNodeRenamed(node, result));
+  }
+
+  private onNodeRenamed(
+    node: FlTree<LabResourceViewFolderContentTree>,
+    result?: FlDynamicFieldFormDialogOutput
+  ): void {
+    if (result) {
+      node.object.name = result.formValue;
+      this.datasource.updateNodeInfo(node.object);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.datasource?.disconnect();
   }
 }
