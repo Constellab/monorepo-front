@@ -412,5 +412,14 @@
   "stats": "Stats",
   "sign_up": "Sign up",
   "not_logged_home_title": "The platform to connect, collaborate and innovate",
-  "not_logged_home_subtitle": "Discover community tools, streamline your workflow, and share your creations globally"
+  "not_logged_home_subtitle": "Discover community tools, streamline your workflow, and share your creations globally",
+  "apps": "Apps",
+  "add_an_app": "Add an app",
+  "edit_app": "Edit app",
+  "app_url": "App URL",
+  "create_community_app_success": "Community app created successfully",
+  "edit_community_app_success": "Community app updated successfully",
+  "application": "Application",
+  "detail": "Detail",
+  "app_execution_count": "App execution count"
 }

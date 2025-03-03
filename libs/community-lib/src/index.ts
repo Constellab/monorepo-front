@@ -16,6 +16,7 @@ export * from './lib/component/co-update-type-icon-container/co-update-type-icon
 export * from './lib/component/co-update-type-icon-dialog-form/co-update-type-icon-form.component';
 export * from './lib/component/co-community-icon-select-dialog/co-community-icon-select-dialog.component';
 export * from './lib/component/co-icon-list/co-icon-list.component';
+export * from './lib/component/co-community-app-list-item/co-community-app-list-item.component';
 
 // Helpers
 export * from './lib/helper/co-community-helper.service';
@@ -27,3 +28,4 @@ export * from './lib/model/co-brick.class';
 export * from './lib/model/co-space.class';
 export * from './lib/model/co-user.class';
 export * from './lib/model/co-icon.class';
+export * from './lib/model/co-community-app.class';

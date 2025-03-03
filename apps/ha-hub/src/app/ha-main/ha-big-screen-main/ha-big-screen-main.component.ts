@@ -69,6 +69,8 @@ export class HaBigScreenMainComponent implements OnInit {
 
   brickListRoute = HaRouterService.getBrickListRoute();
 
+  appsListRoute = HaRouterService.getCommunityAppListRoute();
+
   productDocRoute = HaRouterService.getProductDocRoute();
 
   techDocRoute = HaRouterService.getTechDocRoute();
