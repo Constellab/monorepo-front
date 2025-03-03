@@ -414,5 +414,14 @@
   "stats": "Statistiques",
   "sign_up": "S'inscrire",
   "not_logged_home_title": "La plateforme pour se connecter, collaborer et innover",
-  "not_logged_home_subtitle": "Découvrez les outils de la communauté, simplifiez votre workflow et partagez vos créations à l’échelle mondiale"
+  "not_logged_home_subtitle": "Découvrez les outils de la communauté, simplifiez votre workflow et partagez vos créations à l’échelle mondiale",
+  "apps": "Apps",
+  "add_an_app": "Ajouter une app",
+  "edit_app": "Éditer l'app",
+  "app_url": "URL de l'app",
+  "create_community_app_success": "App de la communauté créée avec succès",
+  "edit_community_app_success": "App de la communauté éditée avec succès",
+  "application": "Application",
+  "detail": "Détail",
+  "app_execution_count": "Nombre d'éxécution de l'application"
 }

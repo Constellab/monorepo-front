@@ -18,4 +18,5 @@ export class CoCommunityListItemMainContentComponent {
   @Input() date: ClDateInput;
   @Input() likes: number = null;
   @Input() comments: number = null;
+  @Input() executions: number = null;
 }

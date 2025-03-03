@@ -1,0 +1,18 @@
+<div class="app-detail g-scrollable-element">
+  @if (communityApp) {
+    <div class="main-panel">
+      <div class="app-description-div">
+        <h4>{{ 'description' | translate }}</h4>
+        <p>
+          {{ communityApp.shortDescription }}
+        </p>
+      </div>
+      <div #comments id="comments">
+        <ha-comments-section
+          [commentType]="commentType"
+          [entity]="communityApp"
+          [user]="currentUser"></ha-comments-section>
+      </div>
+    </div>
+  }
+</div>

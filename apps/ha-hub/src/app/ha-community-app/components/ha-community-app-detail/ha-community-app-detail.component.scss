@@ -1,0 +1,8 @@
+.app-detail {
+  max-height: calc(100vh - (2 * var(--navbar-height)));
+  overflow-y: auto;
+}
+
+.app-description-div {
+  margin-top: 2rem;
+}

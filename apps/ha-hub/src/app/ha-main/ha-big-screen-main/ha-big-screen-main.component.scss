@@ -142,7 +142,7 @@
 
 @media (max-width: 1024px) {
   .utilities {
-    gap: 0.9em;
+    gap: 0.8em;
     font-size: 0.8em;
   }
 
@@ -154,6 +154,13 @@
 @media (min-width: 1280px) {
   .nav-bar {
     max-width: 1280px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .search-bar-suffix {
+    font-size: 0.8em;
+    padding-left: 0.1em;
   }
 }
 
