@@ -1,0 +1,12 @@
+:host {
+  width: calc(100vw - 2em);
+  margin: 0 auto;
+  min-height: calc(100vh - (var(--navbar-height) * 2) - 7px);
+  align-items: center;
+}
+
+iframe {
+  border: none;
+  min-height: inherit;
+  width: inherit;
+}

@@ -1,0 +1,62 @@
+<fl-dialog-header>
+  @if (dialogInput.mode == 'create') {
+    {{ 'add_an_app' | translate }}
+  } @else {
+    {{ 'edit_app' | translate }}
+  }
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="app-form" [formGroup]="formGp">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'title' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+        flInputMaxLength="50"
+        placeholder="{{ 'title' | translate }}"
+        cdkFocusInitial />
+      @if (formGp.get('title').hasError('required')) {
+        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'app_url' | translate }}</mat-label>
+      <input matInput formControlName="appUrl" required placeholder="{{ 'app_url' | translate }}" />
+      @if (formGp.get('appUrl').hasError('required')) {
+        <mat-error>{{ 'app_url' | flErrorRequired }}</mat-error>
+      } @else if (formGp.get('appUrl').hasError('pattern')) {
+        <mat-error>{{ 'app_url_pattern_error' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'description' | translate }}</mat-label>
+      <textarea
+        matInput
+        formControlName="shortDescription"
+        flInputMaxLength="500"
+        placeholder="{{ 'description' | translate }}"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    type="submit"
+    form="app-form"
+    class="g-centered-forced primary"
+    [disabled]="!formGp.valid && !isLoading">
+    @if (dialogInput.mode == 'create') {
+      {{ 'create' | translate }}
+    } @else {
+      {{ 'edit' | translate }}
+    }
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>
