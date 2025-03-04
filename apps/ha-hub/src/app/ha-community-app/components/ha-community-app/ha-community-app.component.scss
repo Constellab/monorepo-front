@@ -10,3 +10,9 @@ iframe {
   min-height: inherit;
   width: inherit;
 }
+
+@media (max-width: 965px) {
+  :host {
+    min-height: calc(100vh - var(--small-navbar-height) - (var(--navbar-height) * 2) - 7px);
+  }
+}

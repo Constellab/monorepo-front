@@ -1,8 +1,24 @@
-.app-detail {
-  max-height: calc(100vh - (2 * var(--navbar-height)));
-  overflow-y: auto;
-}
-
 .app-description-div {
   margin-top: 2rem;
+}
+
+.main-detail-div {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.app-picture {
+  position: relative;
+  width: 15rem;
+  height: 15rem;
+}
+
+.main-detail-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
 }

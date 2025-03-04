@@ -100,7 +100,8 @@ export class HaCommunityAppPageComponent implements OnInit {
         appUrl: this.communityApp().appUrl,
         spaceId: this.communityApp().space?.id,
         title: this.communityApp().title,
-        shortDescription: this.communityApp().shortDescription,
+        description: this.communityApp().description,
+        picture: this.communityApp().picture,
       },
     };
 

@@ -14,7 +14,8 @@
     </div>
     @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp) {
       <a class="agent-result-card-div" [routerLink]="communityApp | haDetailRoute">
-        <co-community-app-list-item [communityApp]="communityApp"></co-community-app-list-item>
+        <co-community-app-list-item [communityApp]="communityApp"
+                                    [appPicture]="communityApp.picture | haAppPicture"></co-community-app-list-item>
       </a>
     }
   </fl-infinite-scroll>

@@ -18,6 +18,7 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { AsyncPipe } from '@angular/common';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { CoCommunityAppListItemComponent } from '@monorepo/community-lib';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 
 @Component({
   selector: 'ha-community-app-list-page',
@@ -33,6 +34,7 @@ import { CoCommunityAppListItemComponent } from '@monorepo/community-lib';
     HaDetailRoutePipe,
     RouterLink,
     CoCommunityAppListItemComponent,
+    HaAppPicturePipe,
   ],
   templateUrl: './ha-community-app-list-page.component.html',
   styleUrl: './ha-community-app-list-page.component.scss',

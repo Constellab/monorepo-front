@@ -1,24 +1,38 @@
 .app-header {
-  display: flex;
-  flex-direction: row;
-  padding: 0 1rem;
-  justify-content: space-between;
-  height: var(--navbar-height);
   background: var(--card-background);
+
+  .nav-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+  }
 }
 
 .app-header-div {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
 }
 
-.app-header-middle {
-  gap: 0;
+.app-header-left {
+  gap: 0.25rem;
+
+  h2 {
+    font-weight: bold;
+    margin-right: 0.25rem;
+  }
+
+  .execution-count {
+    margin-right: 0.25rem;
+  }
+}
+
+.app-header-right {
+  height: 100%;
 
   a {
-    width: 8rem;
+    width: 7rem;
     justify-content: center;
     display: flex;
     flex-direction: row;
@@ -26,6 +40,7 @@
     height: calc(100% - 3px);
     flex: 1;
     padding-bottom: 3px;
+    font-size: 0.85em;
   }
 
   .activated-a {
@@ -34,8 +49,25 @@
   }
 }
 
-.app-header-left {
-  h2 {
-    font-weight: bold;
+.app-page-content {
+  max-height: calc(100vh - (2 * var(--navbar-height)));
+  overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+  .app-header-left h2 {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 965px) {
+  .app-page-content {
+    max-height: calc(100vh - (2 * var(--navbar-height) - var(--small-navbar-height)));
+  }
+}
+
+@media (max-width: 896px) {
+  .app-header-left h2 {
+    font-size: 1.25em;
   }
 }
