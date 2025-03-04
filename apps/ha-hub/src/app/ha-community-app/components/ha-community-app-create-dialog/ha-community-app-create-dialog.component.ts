@@ -4,7 +4,11 @@ import {
   HaCommunityApp,
   HaCommunityAppEdit,
 } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
-import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlConfirmDialogInput,
+  FlDialogModule,
+  FlFormDialogAbstractDirective,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
 import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
 import { Observable } from 'rxjs';
@@ -17,6 +21,10 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { map } from 'rxjs/operators';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 
 export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
 
@@ -33,6 +41,9 @@ export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
     MatFormFieldModule,
     MatButton,
     FlLoaderModule,
+    TeTextEditorModule,
+    FlImageModule,
+    HaAppPicturePipe,
   ],
   templateUrl: './ha-community-app-create-dialog.component.html',
   styleUrl: './ha-community-app-create-dialog.component.scss',
@@ -44,19 +55,54 @@ export class HaCommunityAppCreateDialogComponent
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private spaceService = inject(HaSpaceService);
 
+  textEditorConfig = new TeCompleteConfig();
   spaces$: Observable<HaSpace[]>;
+  imageConfig: FlUploadImageDialogConfig;
+  deleteImageConfig: FlConfirmDialogInput;
 
   ngOnInit(): void {
     this.spaces$ = this.spaceService.getSpacesOfCurrentUser();
-
     this.init();
+
+    this.imageConfig = {
+      title: { text: 'upload_app_picture', translateText: true },
+      helpText: { text: 'image_square_help', translateText: true },
+      imagePreviewWidth: 115,
+      imagePreviewHeight: 115,
+      compressOptions: {
+        cropWidth: 300,
+        cropHeight: 300,
+        resizeWidthMax: 300,
+      },
+      uploadImage: (file: File) => {
+        return this.communityAppService.uploadAppPicture(file).pipe(
+          map((file: any) => {
+            this.formGp.controls.picture.patchValue(file.filename);
+          })
+        );
+      },
+      uploadImageSuccessMessage: {
+        text: 'app_picture_uploaded',
+        translateText: true,
+      },
+    };
+
+    this.deleteImageConfig = {
+      title: 'delete_app_picture',
+      content: 'delete_app_picture_confirmation',
+      observable: this.communityAppService
+        .deleteFile(this.formGp.value.picture)
+        .pipe(map(() => this.formGp.controls.picture.patchValue(null))),
+      successMessage: 'app_picture_deleted',
+    };
   }
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
+      picture: [null],
       title: [null, Validators.required],
       appUrl: [null, [Validators.required, Validators.pattern('https?://.+')]],
-      shortDescription: [null],
+      description: [null],
       spaceId: [null],
       id: [null],
     });

@@ -1,18 +1,34 @@
-<div class="app-detail g-scrollable-element">
-  @if (communityApp) {
-    <div class="main-panel">
-      <div class="app-description-div">
-        <h4>{{ 'description' | translate }}</h4>
-        <p>
-          {{ communityApp.shortDescription }}
-        </p>
+@if (communityApp) {
+  <div class="main-panel">
+    <div class="main-detail-div">
+      <div class="app-picture">
+        <img
+          [ngSrc]="communityApp.picture | haAppPicture"
+          [alt]="communityApp.title + 'logo'"
+          fill
+          priority />
       </div>
-      <div #comments id="comments">
-        <ha-comments-section
-          [commentType]="commentType"
-          [entity]="communityApp"
-          [user]="currentUser"></ha-comments-section>
+      <div>
+        <h2>{{ communityApp.title }}</h2>
+        <div class="main-detail-info g-text-small">
+          <span>{{ 'created_by' | translate }} :</span>
+          <fl-user-inline [user]="communityApp.createdBy" [portalOnHover]="false"></fl-user-inline>
+          <fl-from-now [date]="communityApp.createdAt" class="g-text-dense-height"></fl-from-now>
+        </div>
       </div>
     </div>
-  }
-</div>
+    <div class="app-description-div">
+      <h4>{{ 'description' | translate }}</h4>
+      <te-text-editor
+        [config]="textEditorConfig"
+        [ngModel]="communityApp.description"
+        [disabled]="true"></te-text-editor>
+    </div>
+    <div #comments id="comments">
+      <ha-comments-section
+        [commentType]="commentType"
+        [entity]="communityApp"
+        [user]="currentUser"></ha-comments-section>
+    </div>
+  </div>
+}

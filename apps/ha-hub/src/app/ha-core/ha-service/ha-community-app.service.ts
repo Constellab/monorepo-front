@@ -38,4 +38,18 @@ export class HaCommunityAppService {
   public update(appEdit: HaCommunityAppEdit): Observable<HaCommunityApp> {
     return this.apiService.put(this.route, appEdit, HaCommunityApp);
   }
+
+  public getAppPictureUrl(picture: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/app-picture/${picture}`);
+  }
+
+  public uploadAppPicture(picture: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', picture);
+    return this.apiService.post(`${this.route}/app-picture`, formData);
+  }
+
+  public deleteFile(filename: string): Observable<any> {
+    return this.apiService.delete(`${this.route}/app-picture/${filename}`);
+  }
 }
