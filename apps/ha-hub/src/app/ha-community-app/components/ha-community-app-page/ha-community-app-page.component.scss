@@ -1,5 +1,10 @@
 .app-header {
   background: var(--card-background);
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  width: 100vw;
+  z-index: 20;
 
   .nav-bar {
     display: flex;
@@ -50,6 +55,7 @@
 }
 
 .app-page-content {
+  margin-top: var(--navbar-height);
   max-height: calc(100vh - (2 * var(--navbar-height)));
   overflow-y: auto;
 }
@@ -62,12 +68,16 @@
 
 @media (max-width: 965px) {
   .app-page-content {
-    max-height: calc(100vh - (2 * var(--navbar-height) - var(--small-navbar-height)));
+    max-height: calc(100vh - (2 * var(--navbar-height)) - var(--small-navbar-height));
   }
 }
 
 @media (max-width: 896px) {
   .app-header-left h2 {
     font-size: 1.25em;
+  }
+
+  .hide-small-screen {
+    display: none;
   }
 }

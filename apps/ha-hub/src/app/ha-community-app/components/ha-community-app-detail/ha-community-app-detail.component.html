@@ -1,6 +1,10 @@
 @if (communityApp) {
   <div class="main-panel">
     <div class="main-detail-div">
+      <button mat-flat-button (click)="openEditAppDialog()" class="edit-button primary">
+        <mat-icon class="g-icon-small">edit</mat-icon>
+        {{ 'edit' | translate }}
+      </button>
       <div class="app-picture">
         <img
           [ngSrc]="communityApp.picture | haAppPicture"
@@ -18,11 +22,25 @@
       </div>
     </div>
     <div class="app-description-div">
-      <h4>{{ 'description' | translate }}</h4>
+      <div class="app-description-div-header">
+        <h4>{{ 'description' | translate }}</h4>
+        @if (communityApp.createdBy.id === currentUser?.id) {
+          @if (appDescriptionFormControl.disabled) {
+            <button mat-flat-button class="g-button-small" (click)="editDescription()">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'edit' | translate }}</span>
+            </button>
+          } @else {
+            <button mat-flat-button class="g-button-small" (click)="saveDescription()">
+              <mat-icon>save</mat-icon>
+              <span>{{ 'save' | translate }}</span>
+            </button>
+          }
+        }
+      </div>
       <te-text-editor
         [config]="textEditorConfig"
-        [ngModel]="communityApp.description"
-        [disabled]="true"></te-text-editor>
+        [formControl]="appDescriptionFormControl"></te-text-editor>
     </div>
     <div #comments id="comments">
       <ha-comments-section

@@ -14,13 +14,7 @@ import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
 import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  HaCommunityAppCreateDialogComponent,
-  HaCreateCommunityAppInput,
-} from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass } from '@angular/common';
@@ -38,7 +32,6 @@ import { map } from 'rxjs/operators';
     Ha404Component,
     FlLoaderModule,
     TranslatePipe,
-    MatButton,
     RouterOutlet,
     RouterLink,
     MatTooltip,
@@ -53,7 +46,6 @@ export class HaCommunityAppPageComponent implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private authService: HaAuthService = inject(HaAuthService);
   private likeService: HaLikeService = inject(HaLikeService);
-  private dialogService: FlDialogService = inject(FlDialogService);
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private router: Router = inject(Router);
 
@@ -87,31 +79,6 @@ export class HaCommunityAppPageComponent implements OnInit {
       .subscribe((firstChildUrls) => {
         if (firstChildUrls.length > 0) this.currentChildrenPath = firstChildUrls[0].path;
         else this.currentChildrenPath = '';
-      });
-  }
-
-  openEditAppDialog(): void {
-    if (!this.communityApp()) return;
-
-    const input: HaCreateCommunityAppInput = {
-      mode: 'update',
-      object: {
-        id: this.communityApp().id,
-        appUrl: this.communityApp().appUrl,
-        spaceId: this.communityApp().space?.id,
-        title: this.communityApp().title,
-        description: this.communityApp().description,
-        picture: this.communityApp().picture,
-      },
-    };
-
-    this.dialogService
-      .openMediumDialog(HaCommunityAppCreateDialogComponent, { data: input })
-      .afterClosed()
-      .subscribe((communityApp: HaCommunityApp) => {
-        if (communityApp) {
-          this.communityAppState.set(communityApp);
-        }
       });
   }
 

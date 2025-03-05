@@ -6,12 +6,22 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import { TranslatePipe } from '@ngx-translate/core';
-import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
-import { FormsModule } from '@angular/forms';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { HaCommunityAppTextEditorConfig } from '../../utils/ha-community-app-text-editor.config';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { MatButton } from '@angular/material/button';
+import {
+  HaCommunityAppCreateDialogComponent,
+  HaCreateCommunityAppInput,
+} from '../ha-community-app-create-dialog/ha-community-app-create-dialog.component';
+import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'ha-community-app-detail',
@@ -25,6 +35,9 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
     HaAppPicturePipe,
     FlUserModule,
     FlDateModule,
+    ReactiveFormsModule,
+    MatButton,
+    MatIcon,
   ],
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',
@@ -32,16 +45,63 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 export class HaCommunityAppDetailComponent implements OnInit {
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
+  private communityAppService = inject(HaCommunityAppService);
+  private dialogService = inject(FlDialogService);
 
   communityApp = this.communityAppState.app();
 
   currentUser: HaUser;
   commentType: HaCommentType = HaCommentType.APP_COMMENT;
-  textEditorConfig = new TeCompleteConfig();
+  textEditorConfig: HaCommunityAppTextEditorConfig;
+  appDescriptionFormControl = new FormControl<TeRichText>(null);
 
   ngOnInit(): void {
+    this.textEditorConfig = new HaCommunityAppTextEditorConfig(
+      this.communityAppService,
+      this.communityApp.id
+    );
+    this.appDescriptionFormControl.patchValue(this.communityApp.description);
+    this.appDescriptionFormControl.disable();
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.currentUser = user;
     });
+  }
+
+  editDescription(): void {
+    this.appDescriptionFormControl.enable();
+  }
+
+  saveDescription(): void {
+    this.communityAppService
+      .updateAppDescription(this.communityApp.id, this.appDescriptionFormControl.value)
+      .subscribe((app) => {
+        this.communityAppState.set(app);
+        this.appDescriptionFormControl.disable();
+      });
+  }
+
+  openEditAppDialog(): void {
+    if (!this.communityApp) return;
+
+    const input: HaCreateCommunityAppInput = {
+      mode: 'update',
+      object: {
+        id: this.communityApp.id,
+        appUrl: this.communityApp.appUrl,
+        spaceId: this.communityApp.space?.id,
+        title: this.communityApp.title,
+        description: this.communityApp.description,
+        picture: this.communityApp.picture,
+      },
+    };
+
+    this.dialogService
+      .openSmallDialog(HaCommunityAppCreateDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((communityApp: HaCommunityApp) => {
+        if (communityApp) {
+          this.communityAppState.set(communityApp);
+        }
+      });
   }
 }

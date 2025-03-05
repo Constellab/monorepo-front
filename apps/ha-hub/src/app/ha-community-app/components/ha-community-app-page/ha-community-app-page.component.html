@@ -14,7 +14,7 @@
       <div class="app-header-left app-header-div">
         <h2>{{ communityApp().title }}</h2>
         <fl-text-icon iconPosition="start" [gap]="'8px'" [matTooltip]="'app_execution_count' | translate"
-                      class="execution-count">
+                      class="execution-count hide-small-screen">
           <mat-icon>play_circle</mat-icon>
           <span>{{ communityApp().executions }}</span>
         </fl-text-icon>
@@ -23,15 +23,9 @@
           [likesCount]="communityApp().likes"
           (clicked)="toggleLikeAppButton()"></ha-like-button>
 
-        <a [routerLink]="'detail'" [fragment]="'comments'">
+        <a [routerLink]="'detail'" [fragment]="'comments'" class="hide-small-screen">
           <ha-comment-button [commentsCount]="communityApp().comments"></ha-comment-button>
         </a>
-        @if (currentUser && communityApp().createdBy.id === currentUser.id) {
-          <button mat-flat-button (click)="openEditAppDialog()" class="edit-button primary g-button-small">
-            <mat-icon class="g-icon-small">edit</mat-icon>
-            {{ 'edit' | translate }}
-          </button>
-        }
       </div>
 
       <div class="app-header-right app-header-div">

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
 import { HaCommunityApp, HaCommunityAppEdit } from '../ha-model/ha-entities/ha-community-app.class';
 import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
+import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 
 @Injectable({
   providedIn: 'root',
@@ -51,5 +53,41 @@ export class HaCommunityAppService {
 
   public deleteFile(filename: string): Observable<any> {
     return this.apiService.delete(`${this.route}/app-picture/${filename}`);
+  }
+
+  uploadImage(file: File, appId: string): Observable<TeBlockFigureUploadedResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.put(`${this.route}/image/${appId}`, formData);
+  }
+
+  getImageUrl(appId: string, name: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${appId}/image/${name}`);
+  }
+
+  uploadFile(file: File, appId: string): Observable<HaFile> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.apiService.post(`${this.route}/file/${appId}`, formData);
+  }
+
+  public getAppFilePathPrefix(appId: string): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/${appId}/file/`);
+  }
+
+  public getAppFilePath(appId: string, appFileId: string): string {
+    return `${this.getAppFilePathPrefix(appId)}${appFileId}`;
+  }
+
+  public renameFile(appFileId: string, newName: string): Observable<HaFile> {
+    return this.apiService.put(`${this.route}/file/${appFileId}/rename`, { humanName: newName }, HaFile);
+  }
+
+  public updateAppDescription(appId: string, description: TeRichText): Observable<HaCommunityApp> {
+    return this.apiService.put(
+      `${this.route}/description/${appId}`,
+      { description: description },
+      HaCommunityApp
+    );
   }
 }
