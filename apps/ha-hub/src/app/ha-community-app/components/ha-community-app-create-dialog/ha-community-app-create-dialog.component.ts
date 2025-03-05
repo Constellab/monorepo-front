@@ -21,7 +21,7 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TeCompleteConfig, TeTextEditorModule } from '@monorepo/text-editor';
+import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import { map } from 'rxjs/operators';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
@@ -55,7 +55,6 @@ export class HaCommunityAppCreateDialogComponent
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private spaceService = inject(HaSpaceService);
 
-  textEditorConfig = new TeCompleteConfig();
   spaces$: Observable<HaSpace[]>;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;

@@ -6,7 +6,7 @@
   }
 </fl-dialog-header>
 
-<mat-dialog-content class="dialog-content g-scrollable-element">
+<mat-dialog-content class="g-scrollable-element">
   <form (ngSubmit)="submit()" id="app-form" [formGroup]="formGp">
 
     <div class="picture-container">
@@ -39,10 +39,6 @@
         <mat-error>{{ 'app_url_pattern_error' | translate }}</mat-error>
       }
     </mat-form-field>
-
-    <label>{{ 'description' | translate }}</label>
-    <te-text-editor formControlName="description" [config]="textEditorConfig"
-                    class="dialog-text-editor"></te-text-editor>
   </form>
 </mat-dialog-content>
 
