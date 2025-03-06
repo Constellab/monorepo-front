@@ -53,7 +53,7 @@ export class CaResourceDetailPageComponent {
       // useful to authenticate the user for dashboard resource
       // this is not the perfect solution, but it works
       this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
-        resource.shareLink + '?gws_user_id=' + userId + '?hideHeader=true'
+        resource.shareLink + '?gws_user_id=' + userId + '?hide_header=true'
       );
     })
   );
