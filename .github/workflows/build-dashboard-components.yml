@@ -1,9 +1,18 @@
+# Generic workflow to build and release the dashboard components
 name: Main Workflow dashboard components
 
 on:
-  push:
-    tags:
-      - 'dc_*'
+  workflow_call:
+    inputs:
+      app_name:
+        required: true
+        type: string
+      github_ref:
+          required: true
+          type: string
+    secrets:
+      release_dashboard_components:
+        required: true
 
 jobs:
   build:
@@ -22,15 +31,15 @@ jobs:
         run: npm ci
 
       - name: Build the Angular app
-        run: npm run dc-text-editor:build-prod
+        run: npm run dc-${{ inputs.app_name }}:build-prod
 
       # create a simple json file with the version number
       - name: Create version.json file
-        run: echo '{"version":"${{ github.ref_name }}" }' > dist/apps/dashboard-components/text-editor/browser/version.json
+        run: echo '{"version":"${{ inputs.github_ref }}" }' > dist/apps/dashboard-components/${{ inputs.app_name }}/browser/version.json
 
       # This action will zip the build artifacts
       - name: Zip the build artifacts
-        run: cd dist/apps/dashboard-components/text-editor//browser && zip -r ../../../../../text-editor.zip ./*
+        run: cd dist/apps/dashboard-components/${{ inputs.app_name }}/browser && zip -r ../../../../../${{ inputs.app_name }}.zip ./*
 
       # This action will push a release to the gws_core repository
       # It uses the monorepo-front secret PUSH_GWS_CORE_RELEASE which value is a Personal Access Token
@@ -38,8 +47,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          files: text-editor.zip
+          files: ${{ inputs.app_name }}.zip
           repository: Constellab/dashboard-components
-          name: Dashboard components ${{ github.ref_name }}
+          name: Dashboard components ${{ inputs.github_ref }}
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_DASHBOARD_COMPONENTS }}
+          GITHUB_TOKEN: ${{ secrets.release_dashboard_components }}
