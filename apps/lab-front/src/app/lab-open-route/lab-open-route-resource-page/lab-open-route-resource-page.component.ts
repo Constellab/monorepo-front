@@ -44,7 +44,7 @@ export class LabOpenRouteResourcePageComponent {
   );
 
   hideHeader$: Observable<boolean> = this.activatedRoute.queryParams.pipe(
-    map((queryParams) => queryParams['hideHeader'] === 'true')
+    map((queryParams) => queryParams['hide_header'] === 'true')
   );
 
   logo = this.themeService.getConstellabLogo();
