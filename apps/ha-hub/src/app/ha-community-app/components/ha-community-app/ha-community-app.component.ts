@@ -23,6 +23,7 @@ export class HaCommunityAppComponent {
   appSafeUrl = computed(() => {
     const app: HaCommunityApp = this.communityAppState.app();
     if (!app) return null;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(app.appUrl);
+    // create a safe url for the iframe + hide the header
+    return this.sanitizer.bypassSecurityTrustResourceUrl(app.appUrl + '?hideHeader=true');
   });
 }

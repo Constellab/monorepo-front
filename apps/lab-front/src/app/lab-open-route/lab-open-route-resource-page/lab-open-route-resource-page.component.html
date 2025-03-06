@@ -1,14 +1,17 @@
 <fl-async-section [object]="resourceView$" [showServerErrorText]="true" class="g-full-height">
   <ng-container *flSectionBody="resourceView$ as resourceView">
-    <div class="g-layout-row g-layout-start-center g-layout-gap-05em header">
-      <td-type-icon-badge [style]="resourceView.style" [iconSize]="32"></td-type-icon-badge>
-      <h1 class="g-flex-auto g-text-dense-height">{{ resourceView.title }}</h1>
+    @if ((hideHeader$ | async) === false) {
+      <div class="g-layout-row g-layout-start-center g-layout-gap-05em header">
+        <td-type-icon-badge [style]="resourceView.style" [iconSize]="32"></td-type-icon-badge>
+        <h1 class="g-flex-auto g-text-dense-height">{{ resourceView.title }}</h1>
 
-      <a [href]="constellabUrl" target="_blank" class="g-layout-row g-layout-start-center g-layout-gap-05em">
-        <div flHide.lt-md>{{ 'powered_by' | translate }}</div>
-        <img [ngSrc]="logo" alt="Constellab logo" class="logo" width="150" height="28" />
-      </a>
-    </div>
+        <a [href]="constellabUrl" target="_blank"
+           class="g-layout-row g-layout-start-center g-layout-gap-05em">
+          <div flHide.lt-md>{{ 'powered_by' | translate }}</div>
+          <img [ngSrc]="logo" alt="Constellab logo" class="logo" width="150" height="28" />
+        </a>
+      </div>
+    }
 
     <rv-resource-view
       class="view"
