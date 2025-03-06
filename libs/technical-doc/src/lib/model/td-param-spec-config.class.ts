@@ -7,60 +7,12 @@ import {
   FlDynamicFieldConfigSelect,
   FlDynamicFieldConfigSelectSearch,
   FlDynamicFieldConfigUnknown,
-  FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
 
-import {
-  tdCodeParamSpecTypeList,
-  TdParamSpec,
-  TdParamSpecs,
-  TdParamSpecSimple,
-} from './td-config-spec.class';
+import { tdCodeParamSpecTypeList, TdParamSpec, TdParamSpecSimple } from './td-config-spec.class';
 import { signal } from '@angular/core';
 
 export class TdParamSpecConfig {
-  public static convertToFieldConfigs(specs: TdParamSpecs): FlDynamicFormGroupConfig {
-    const configs: FlDynamicFormGroupConfig = {
-      controlType: 'formGroup',
-      subConfigs: {},
-    };
-
-    for (const specName of Object.keys(specs)) {
-      configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-        specs[specName] as TdParamSpecSimple,
-        ''
-      );
-    }
-
-    return configs;
-  }
-
-  public static convertToFieldConfigsRecursive(
-    specs: Record<string, TdParamSpec | TdParamSpecs>
-  ): FlDynamicFormGroupConfig {
-    const configs: FlDynamicFormGroupConfig = {
-      controlType: 'formGroup',
-      subConfigs: {},
-    };
-
-    for (const specName of Object.keys(specs)) {
-      if (specs[specName] == null) {
-        continue;
-      }
-      if (specName === 'additional_info') {
-        configs.subConfigs[specName] = TdParamSpecConfig.convertToFieldConfigs(
-          specs[specName] as TdParamSpecs
-        );
-      } else {
-        configs.subConfigs[specName] = TdParamSpecConfig.convertParamSpecToAbstractConfig(
-          specs[specName] as TdParamSpecSimple,
-          ''
-        );
-      }
-    }
-    return configs;
-  }
-
   public static convertParamSpecToAbstractConfig(
     spec: TdParamSpecSimple,
     defaultPlaceholder: string // TODO @vfoex pk avoir besoin de ça ? Le human_name est déjà là

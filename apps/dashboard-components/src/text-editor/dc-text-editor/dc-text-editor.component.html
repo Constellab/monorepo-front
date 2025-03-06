@@ -1,21 +1,20 @@
 <div class="container">
-  <div class="g-layout-row g-layout-start-center g-layout-gap-05em header">
-    <div class="g-flex-auto">
-      {{ placeholder() }}
+  @if (textEditorConfig) {
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em header">
+      <div class="g-flex-auto">
+        {{ placeholder() }}
+      </div>
+
+      <te-text-editor-save
+        class="save-button"
+        [formCtrl]="formCtrl"
+        [saveFunc]="saveFunc"
+        [debounceTime]="2500"></te-text-editor-save>
     </div>
 
-    <te-text-editor-save
-      class="save-button"
-      [formCtrl]="formCtrl"
-      [saveFunc]="saveFunc"
-      [debounceTime]="2500"></te-text-editor-save>
-  </div>
-
-  @if (textEditorConfig) {
     <te-text-editor
       [config]="textEditorConfig"
       [formControl]="formCtrl"
-      class="text-editor"
-      (textChange)="onChange()"></te-text-editor>
+      class="text-editor"></te-text-editor>
   }
 </div>

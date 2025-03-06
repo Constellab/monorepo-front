@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PrConfig } from '../../model/pr-config.class';
 import { ArrayDataSource } from '@angular/cdk/collections';
+import { TdConfigI } from '@monorepo/technical-doc';
 
 interface PrConfigLine {
   name: string;
@@ -25,7 +25,7 @@ export class PrProcessConfigInfoDialogComponent {
   configs: ArrayDataSource<PrConfigLine>;
 
   constructor() {
-    const config = inject<PrConfig>(MAT_DIALOG_DATA);
+    const config = inject<TdConfigI>(MAT_DIALOG_DATA);
 
     const configs: PrConfigLine[] = [];
 

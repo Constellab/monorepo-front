@@ -3,7 +3,7 @@ name: Main Workflow dashboard components
 on:
   push:
     tags:
-      - 'dc_text_editor_*'
+      - 'dc_*'
 
 jobs:
   build:

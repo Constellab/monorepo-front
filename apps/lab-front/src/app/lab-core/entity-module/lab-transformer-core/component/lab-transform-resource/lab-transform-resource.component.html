@@ -8,7 +8,7 @@
     <mat-accordion cdkDropList (cdkDropListDropped)="drop($event)" class="g-drag-anim-order">
       @for (transformer of selectedTransformers; track transformer; let index = $index; let last = $last) {
         <mat-expansion-panel
-          hideToggle
+          [hideToggle]="true"
           cdkDrag
           [expanded]="true"
           class="transform-panel g-drag-hide-placeholder"
@@ -42,10 +42,10 @@
             </div>
           </mat-expansion-panel-header>
           @if (transformer.hasConfig) {
-            <lab-configure-specs-form
+            <td-configure-specs-form
               [formGp]="getConfigFormGroup(index)"
               [configData]="transformer.configData"
-              formGroupName="config"></lab-configure-specs-form>
+              formGroupName="config"></td-configure-specs-form>
           } @else {
             <fl-error-text [errorMessage]="'biox.transformer_no_config' | translate"></fl-error-text>
           }

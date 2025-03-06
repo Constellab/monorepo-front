@@ -10,7 +10,7 @@ import { TdTypeStyle, tdTypeStyleDefault } from '../../model/td-type.class';
   styleUrl: './td-type-inline.component.scss',
   standalone: false,
 })
-export class tdTypeInlineComponent {
+export class TdTypeInlineComponent {
   @Input({ required: true }) text: string;
 
   @Input({ required: true }) style: TdTypeStyle;

@@ -2,8 +2,7 @@ import { Expose, Type } from 'class-transformer';
 import { RvResourceView, RvResourceViewBase, RvResourceViewType } from '@monorepo/resource-view';
 import { LabResourceViewFolder } from './lab-resource-view-folder.class';
 import { LabViewConfig } from './lab-view-config.entity';
-import { PrConfigValues } from '@monorepo/protocol';
-import { TdParamSpecs, TdTypeStyle } from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecsValues, TdTypeStyle } from '@monorepo/technical-doc';
 import { LabRichTextObjectType } from '../../../entity-service/lab-rich-text.service';
 import { TeRichTextDTO } from '@monorepo/text-editor';
 
@@ -46,7 +45,7 @@ export class LabResourceViewSpec {
 export interface LabResourceViewSpecWithConfig {
   viewName: string;
   viewMethodName: string;
-  viewConfigValues: PrConfigValues;
+  viewConfigValues: TdParamSpecsValues;
 }
 
 /**

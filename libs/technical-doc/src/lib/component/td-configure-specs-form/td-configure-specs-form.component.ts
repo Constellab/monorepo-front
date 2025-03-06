@@ -1,46 +1,29 @@
 import { Component, computed, input, Signal } from '@angular/core';
+import { TdConfig, TdConfigI } from '../../model/td-config.class';
+import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
 import {
   FlDynamicEditableFormGroupConfig,
-  FlDynamicFieldModule,
   FlDynamicFormGroupConfig,
   FlDynamicFormHelper,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { TdParamSpecsValues } from '../../model/td-config-spec.class';
 
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
-import { FormBuilder, FormGroup, UntypedFormGroup } from '@angular/forms';
-import { PrConfig, PrConfigValues } from '@monorepo/protocol';
-import {
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { TranslatePipe } from '@ngx-translate/core';
-
-export interface LabConfigureSpecsForm {
+export interface TdConfigureSpecsForm {
   public: UntypedFormGroup;
   protected: UntypedFormGroup;
 }
 
 /**
- * Use to create a form to configure a process
- * The FlDynamicFieldConfigService must be provided to support custom fields
+ * Component to generate the form to configure the specs of a process
  */
 @Component({
-  selector: 'lab-configure-specs-form',
-  templateUrl: './lab-configure-specs-form.component.html',
-  styleUrls: ['./lab-configure-specs-form.component.scss'],
-  imports: [
-    FlDynamicFieldModule,
-    MatExpansionPanel,
-    FlCoreDirectiveModule,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    TranslatePipe,
-  ],
+  selector: 'td-configure-specs-form',
+  standalone: false,
+  templateUrl: './td-configure-specs-form.component.html',
+  styleUrl: './td-configure-specs-form.component.scss',
 })
-export class LabConfigureSpecsFormComponent {
-  configData = input.required<LabConfig>();
+export class TdConfigureSpecsFormComponent {
+  configData = input.required<TdConfig>();
 
   formGp = input.required<FormGroup>();
 
@@ -59,8 +42,8 @@ export class LabConfigureSpecsFormComponent {
   protectedConfigExpand: Signal<boolean> = computed(() => !this.configData().hasConfigs('public'));
 
   // build the form group to configure specs
-  public static buildFormGroup(configData: PrConfig): FormGroup<LabConfigureSpecsForm> {
-    const labConfig = LabConfig.fromSpecs(configData.specs, configData.values);
+  public static buildFormGroup(configData: TdConfigI): FormGroup<TdConfigureSpecsForm> {
+    const labConfig = TdConfig.fromSpecs(configData.specs, configData.values);
     const value = labConfig.mergeConfigWithDefault();
     return new FormBuilder().group({
       public: FlDynamicFormHelper.generateFormGroup(labConfig.getDynamicFormFieldsConfig('public'), value),
@@ -71,7 +54,7 @@ export class LabConfigureSpecsFormComponent {
     });
   }
 
-  public static buildValues(formGp: FormGroup<LabConfigureSpecsForm>): PrConfigValues {
+  public static buildValues(formGp: FormGroup<TdConfigureSpecsForm>): TdParamSpecsValues {
     return { ...formGp.getRawValue().public, ...formGp.getRawValue().protected };
   }
 }

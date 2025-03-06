@@ -1,6 +1,5 @@
 import {
   PrAddNodeWithConnection,
-  PrConfigValues,
   PrNodeRelativeCoord,
   PrProcess,
   PrProcessStatusHelper,
@@ -17,21 +16,24 @@ import {
 } from '@monorepo/protocol';
 import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
 import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import { Injectable, OnDestroy, inject } from '@angular/core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalAction } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { inject, Injectable, OnDestroy } from '@angular/core';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlPortalAction,
+  FlPortalActionResult,
+  FlPortalActionsService,
+} from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslatableText } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { LabWorkflowFactory } from './lab-workflow.factory';
 import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
 import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
-import { TdIOSpec } from '@monorepo/technical-doc';
+import { TdIOSpec, TdParamSpecsValues } from '@monorepo/technical-doc';
 import { map } from 'rxjs/operators';
 import {
   LabNavigableCallActionResult,
@@ -295,7 +297,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   public saveProcessConfig(
     protocolId: string,
     processInstanceName: string,
-    config: PrConfigValues
+    config: TdParamSpecsValues
   ): Observable<FlPortalActionResult | null> {
     const labProcess = this.getAndCheckProcessNodeObject(protocolId, processInstanceName);
     if (labProcess == null) return of(null);

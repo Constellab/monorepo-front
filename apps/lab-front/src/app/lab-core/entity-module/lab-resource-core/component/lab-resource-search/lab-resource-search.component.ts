@@ -34,7 +34,6 @@ import {
   LabQuickConfigureProcessDialogComponent,
   LabQuickConfigureProcessDialogInput,
 } from '../../../lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
-import { PrConfigValues } from '@monorepo/protocol';
 import { LabResourceSearchFormComponent } from '../lab-resource-search-form/lab-resource-search-form.component';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
@@ -44,6 +43,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { LabResourceTableComponent } from '../lab-resource-table/lab-resource-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export const labResourceSearchName: string = 'biox-resource';
 
@@ -285,7 +285,7 @@ export class LabResourceSearchComponent implements OnInit, OnDestroy {
       .subscribe((configValues) => this.onImportFromUrlClosed(configValues));
   }
 
-  private onImportFromUrlClosed(configValues: PrConfigValues): void {
+  private onImportFromUrlClosed(configValues: TdParamSpecsValues): void {
     if (configValues) {
       this.actionsService.addAction(
         {

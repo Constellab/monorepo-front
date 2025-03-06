@@ -29,7 +29,6 @@ import {
   LabResourceViewPortalInput,
 } from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
 import { Observable, Subscription } from 'rxjs';
-import { PrConfigValues } from '@monorepo/protocol';
 import { filter } from 'rxjs/operators';
 import {
   LabViewConfig,
@@ -37,6 +36,7 @@ import {
 } from '../../../model/entities/resource/lab-view-config.entity';
 import { ComponentType } from '@angular/cdk/overlay';
 import { LabViewConfigurerState } from './lab-view-configurer-state.service';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export interface LabMinimizedView {
   symbol: symbol;
@@ -218,7 +218,7 @@ export class LabResourceDetailState implements OnDestroy {
   private callResourceView(
     resourceId: string,
     methodName: string,
-    configValues: PrConfigValues
+    configValues: TdParamSpecsValues
   ): Observable<LabResourceView> {
     return this.resourceService.callResourceView(resourceId, methodName, configValues, true);
   }

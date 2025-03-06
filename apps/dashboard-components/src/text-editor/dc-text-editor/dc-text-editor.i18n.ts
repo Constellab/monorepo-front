@@ -14,7 +14,7 @@ const dcEn: FlLangTranslation = {
   dc: {},
 };
 
-export const dcI18n: FlTranslateObject = {
+export const dcTextEditorI18n: FlTranslateObject = {
   [ClSupportedLanguage.en]: dcFr,
   [ClSupportedLanguage.fr]: dcEn,
 };

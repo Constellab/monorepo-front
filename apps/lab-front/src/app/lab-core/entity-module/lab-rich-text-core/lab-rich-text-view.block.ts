@@ -1,5 +1,4 @@
 import { LabRichTextViewComponent } from './component/lab-rich-text-view/lab-rich-text-view.component';
-import { PrConfigValues } from '@monorepo/protocol';
 import { TeComponentBlock, TeHelper } from '@monorepo/text-editor';
 import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
 import { ApplicationRef, EnvironmentInjector, Type } from '@angular/core';
@@ -9,6 +8,7 @@ import { LabSelectViewConfigDialogComponent } from '../lab-view-config-core/comp
 import { LabViewConfig } from '../../model/entities/resource/lab-view-config.entity';
 import { BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
 import { LabRichTextObjectType } from '../../entity-service/lab-rich-text.service';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export interface LabRichTextViewBlockAdditionalData {
   type: 'note' | 'note-resource' | 'note-file-view' | 'note-template-view-file';
@@ -29,7 +29,7 @@ export interface LabNoteContentView {
   resource_id: string;
   scenario_id?: string;
   view_method_name: string;
-  view_config: PrConfigValues;
+  view_config: TdParamSpecsValues;
   title: string;
   caption: string;
 }
@@ -41,7 +41,7 @@ export interface LabNoteResourceContentView {
   id: string;
   sub_resource_key: string;
   view_method_name: string;
-  view_config: PrConfigValues;
+  view_config: TdParamSpecsValues;
   title: string;
   caption: string;
 }
@@ -193,7 +193,8 @@ export class LabRichTextViewBlock extends TeComponentBlock<LabRichTextViewCompon
 
 /**
  * Override of the LabRichTextViewBlock to show a file view in the text editor
- * It works the same except it has no toolbox, so no button is shown in the editor toolboxes. As this can't be added from the editor.
+ * It works the same except it has no toolbox, so no button is shown in the editor toolboxes.
+ * As this can't be added from the editor.
  */
 export class LabRichTextFileViewBlock extends LabRichTextViewBlock {
   static override get toolbox(): ToolboxConfig {

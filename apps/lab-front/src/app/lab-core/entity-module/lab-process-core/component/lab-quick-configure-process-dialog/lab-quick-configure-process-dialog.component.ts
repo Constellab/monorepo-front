@@ -2,15 +2,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdParamSpecs,
+  TdTechnicalDocModule,
+} from '@monorepo/technical-doc';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
-import {
-  LabConfigureSpecsForm,
-  LabConfigureSpecsFormComponent,
-} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
@@ -42,19 +43,19 @@ export interface LabQuickConfigureProcessDialogInput {
     MatDialogContent,
     FlSectionModule,
     ReactiveFormsModule,
-    LabConfigureSpecsFormComponent,
     MatDialogActions,
     MatButton,
     AsyncPipe,
     TranslatePipe,
     FlTranslateModule,
+    TdTechnicalDocModule,
   ],
 })
 export class LabQuickConfigureProcessDialogComponent implements OnInit {
   input: LabQuickConfigureProcessDialogInput = inject(MAT_DIALOG_DATA);
 
-  formGp: FormGroup<LabConfigureSpecsForm>;
-  processConfig: LabConfig;
+  formGp: FormGroup<TdConfigureSpecsForm>;
+  processConfig: TdConfig;
 
   getIsLoading: boolean = true;
 
@@ -72,15 +73,15 @@ export class LabQuickConfigureProcessDialogComponent implements OnInit {
   }
 
   private getSpecsSuccess(specs: TdParamSpecs): void {
-    this.processConfig = LabConfig.fromSpecs(specs, null);
-    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.processConfig);
+    this.processConfig = TdConfig.fromSpecs(specs, null);
+    this.formGp = TdConfigureSpecsFormComponent.buildFormGroup(this.processConfig);
 
     this.getIsLoading = false;
   }
 
   submit(): void {
     if (this.formGp.valid) {
-      this.dialogRef.close(LabConfigureSpecsFormComponent.buildValues(this.formGp));
+      this.dialogRef.close(TdConfigureSpecsFormComponent.buildValues(this.formGp));
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }

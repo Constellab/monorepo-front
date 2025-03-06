@@ -17,11 +17,10 @@ import {
   LabResourceSearchFields,
 } from '../entity-module/lab-resource-core/model/lab-resource-search.class';
 import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
-import { PrConfigValues } from '@monorepo/protocol';
 import { LabSharedEntity } from '../model/entities/lab-share.entity';
 import { LabTransformerParams } from '../model/global/lab-transformer.class';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
-import { TdParamSpecs } from '@monorepo/technical-doc';
+import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
 import { LabFolder } from '../model/entities/lab-folder.class';
 import { DateTime } from 'luxon';
 
@@ -132,7 +131,7 @@ export class LabResourceService {
   public callResourceViewData(
     id: string,
     viewMethodName: string,
-    config: PrConfigValues,
+    config: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<LabResourceViewData> {
     return this.callResourceView(id, viewMethodName, config, saveViewConfig).pipe(
@@ -143,7 +142,7 @@ export class LabResourceService {
   public callResourceView(
     id: string,
     viewMethodName: string,
-    configValue: PrConfigValues,
+    configValue: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<LabResourceView> {
     for (const key in configValue) {
@@ -168,7 +167,7 @@ export class LabResourceService {
   public downloadResourceViewJsonFile(
     id: string,
     viewMethodName: string,
-    configValue: PrConfigValues,
+    configValue: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<Blob> {
     for (const key in configValue) {
@@ -204,7 +203,7 @@ export class LabResourceService {
   public callImporter(
     resourceId: string,
     importerType: string,
-    config: PrConfigValues
+    config: TdParamSpecsValues
   ): Observable<LabResource> {
     return this.apiService.post(`${this.route}/${resourceId}/import/${importerType}`, config, LabResource);
   }
@@ -218,7 +217,7 @@ export class LabResourceService {
   public exportResource(
     resourceId: string,
     exporterTypingName: string,
-    config: PrConfigValues
+    config: TdParamSpecsValues
   ): Observable<LabResource> {
     return this.apiService.post(
       `${this.route}/${resourceId}/export/${exporterTypingName}`,
@@ -232,7 +231,7 @@ export class LabResourceService {
     return this.apiService.get(`${this.route}/${id}/shared-origin`, LabSharedEntity);
   }
 
-  public importResourceFromLink(configValues: PrConfigValues): Observable<LabResource> {
+  public importResourceFromLink(configValues: TdParamSpecsValues): Observable<LabResource> {
     return this.apiService.post(`${this.route}/import-from-link`, configValues, LabResource);
   }
 
@@ -240,7 +239,7 @@ export class LabResourceService {
     return this.apiService.get(`${this.route}/import-from-link/config-specs`);
   }
 
-  public exportResourceToLab(id: string, configValues: PrConfigValues): Observable<LabResource> {
+  public exportResourceToLab(id: string, configValues: TdParamSpecsValues): Observable<LabResource> {
     return this.apiService.post(`${this.route}/${id}/export-to-lab`, configValues, LabResource);
   }
 

@@ -1,22 +1,17 @@
-import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { LabProcessType } from '../../../../model/entities/lab-type/lab-process-type.entity';
-import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ClHelpService } from '@monorepo/core-lib';
-import {
-  LabConfigureSpecsForm,
-  LabConfigureSpecsFormComponent,
-} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import {
   ControlContainer,
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormGroup,
-  ReactiveFormsModule,
 } from '@angular/forms';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
@@ -36,10 +31,16 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdTechnicalDocModule,
+} from '@monorepo/technical-doc';
 
 interface LabSelectedTransformer {
   transformer: LabProcessType;
-  configData: LabConfig;
+  configData: TdConfig;
   hasConfig: boolean;
 }
 
@@ -68,10 +69,10 @@ interface LabSelectedTransformer {
     MatIconButton,
     CdkDragHandle,
     MatTooltip,
-    LabConfigureSpecsFormComponent,
     FlCoreComponentModule,
     FlLoaderModule,
     TranslatePipe,
+    TdTechnicalDocModule,
   ],
 })
 export class LabTransformResourceComponent implements OnInit {
@@ -101,10 +102,10 @@ export class LabTransformResourceComponent implements OnInit {
   }
 
   private static buildFormGroup(transformer: LabTransformerWithConfig): UntypedFormGroup {
-    const configData = LabConfig.fromSpecs(transformer.transformer.configSpecs, transformer.config);
+    const configData = TdConfig.fromSpecs(transformer.transformer.configSpecs, transformer.config);
     return new FormBuilder().group({
       transformer: [transformer.transformer],
-      config: LabConfigureSpecsFormComponent.buildFormGroup(configData),
+      config: TdConfigureSpecsFormComponent.buildFormGroup(configData),
     });
   }
 
@@ -123,7 +124,7 @@ export class LabTransformResourceComponent implements OnInit {
     this.formArray.push(
       new FormGroup({
         transformer: new FormControl(transformer),
-        config: LabConfigureSpecsFormComponent.buildFormGroup(selectedTransformer.configData),
+        config: TdConfigureSpecsFormComponent.buildFormGroup(selectedTransformer.configData),
       })
     );
 
@@ -132,7 +133,7 @@ export class LabTransformResourceComponent implements OnInit {
   }
 
   private createSelectedTransformer(transformer: LabProcessType): LabSelectedTransformer {
-    const configData = LabConfig.fromSpecs(transformer.configSpecs);
+    const configData = TdConfig.fromSpecs(transformer.configSpecs);
 
     const selectedTransformer: LabSelectedTransformer = {
       transformer: transformer,
@@ -158,7 +159,7 @@ export class LabTransformResourceComponent implements OnInit {
     return this.formArray.at(index) as any;
   }
 
-  getConfigFormGroup(index: number): FormGroup<LabConfigureSpecsForm> {
+  getConfigFormGroup(index: number): FormGroup<TdConfigureSpecsForm> {
     return this.getFormGroup(index).get('config') as any;
   }
 

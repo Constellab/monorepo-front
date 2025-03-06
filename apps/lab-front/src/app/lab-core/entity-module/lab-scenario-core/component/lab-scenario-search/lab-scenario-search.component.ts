@@ -16,7 +16,6 @@ import { LabScenarioService } from '../../../../entity-service/lab-scenario.serv
 import { LabScenario, LabScenarioDatasource } from '../../../../model/entities/lab-scenario.entity';
 import { LabScenarioFormDialogComponent } from '../lab-scenario-form-dialog/lab-scenario-form-dialog.component';
 import { LabRouterService } from '../../../../service/lab-router.service';
-import { PrConfigValues } from '@monorepo/protocol';
 import {
   LabQuickConfigureProcessDialogComponent,
   LabQuickConfigureProcessDialogInput,
@@ -29,6 +28,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { LabScenarioTableComponent } from '../lab-scenario-table/lab-scenario-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 @Component({
   selector: 'lab-scenario-search',
@@ -148,7 +148,7 @@ export class LabScenarioSearchComponent implements OnInit {
       .subscribe((configValues) => this.onImportScenarioClosed(configValues));
   }
 
-  private onImportScenarioClosed(configValues: PrConfigValues): void {
+  private onImportScenarioClosed(configValues: TdParamSpecsValues): void {
     if (configValues) {
       this.actionService.addAction(
         {

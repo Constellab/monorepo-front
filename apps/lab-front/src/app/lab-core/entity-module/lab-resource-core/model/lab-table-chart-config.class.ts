@@ -1,6 +1,4 @@
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalConfig } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {
@@ -12,7 +10,6 @@ import {
   LabResourceViewPortalComponent,
   LabResourceViewPortalInput,
 } from '../component/lab-resource-view-portal/lab-resource-view-portal.component';
-import { PrConfigValues } from '@monorepo/protocol';
 import {
   SpSheet,
   SpSheetChart2dSerieSelectionForm,
@@ -24,6 +21,7 @@ import {
 } from '@monorepo/spreadsheet';
 import { ChChartType } from '@monorepo/chart';
 import { ViewContainerRef } from '@angular/core';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 /**
  * Main config class to generate chart from the sheet by calling the resource service
@@ -32,7 +30,7 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
   constructor(
     private resourceId: string,
     private tableViewMethodName: string,
-    private tableViewConfig: PrConfigValues,
+    private tableViewConfig: TdParamSpecsValues,
     private resourceTableService: LabResourceTableService,
     private portalService: FlPortalService,
     private viewContainerRef: ViewContainerRef
@@ -42,7 +40,7 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
 
   protected callChartOnTable(
     chartType: LabTableChartType,
-    chartConfig: PrConfigValues,
+    chartConfig: TdParamSpecsValues,
     options: SpSpreadsheetGenerateChartOptions
   ): Observable<FlOverlayRef> {
     return this.resourceTableService
@@ -92,10 +90,10 @@ export abstract class LabTableChartConfig extends SpSheetChartConfig {
 export abstract class LabTableChart2dConfig extends LabTableChartConfig {
   generate2dChart(
     chartType: LabTableChartType,
-    chartConfig: PrConfigValues,
+    chartConfig: TdParamSpecsValues,
     options: SpSpreadsheetGenerateChartOptions
   ): Observable<FlOverlayRef> {
-    const fullChartConfig: PrConfigValues = Object.assign(
+    const fullChartConfig: TdParamSpecsValues = Object.assign(
       {
         x_axis_label: options.additionalFields.xAxisLabel,
         y_axis_label: options.additionalFields.yAxisLabel,

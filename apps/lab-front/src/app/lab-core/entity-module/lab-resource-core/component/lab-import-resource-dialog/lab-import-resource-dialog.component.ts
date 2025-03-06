@@ -1,10 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import {
-  LabConfigureSpecsForm,
-  LabConfigureSpecsFormComponent,
-} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
@@ -20,8 +15,15 @@ import {
 } from '../../../lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
 import { LabTypeEntity } from '../../../../model/entities/lab-type/lab-type.entity';
 import { LabTypeService } from '../../../../entity-service/lab-type.service';
-import { TdIOSpec, TdTypingName } from '@monorepo/technical-doc';
-import { PrConfigValues } from '@monorepo/protocol';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdIOSpec,
+  TdParamSpecsValues,
+  TdTechnicalDocModule,
+  TdTypingName,
+} from '@monorepo/technical-doc';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { CoCommunityHelperService } from '@monorepo/community-lib';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +32,6 @@ import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { MatDivider } from '@angular/material/divider';
 import { LabTypeShowDetailButtonComponent } from '../../../lab-type-core/component/lab-type-show-detail-button/lab-type-show-detail-button.component';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -64,18 +65,17 @@ export interface LabImportResourceDialogInput {
     TdTechnicalDocModule,
     MatIcon,
     MatTooltip,
-    LabConfigureSpecsFormComponent,
     TranslatePipe,
   ],
 })
 export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
-  formGp: FormGroup<LabConfigureSpecsForm>;
+  formGp: FormGroup<TdConfigureSpecsForm>;
 
   selectedImporterType: LabProcessType = null;
   sourceSpec: TdIOSpec;
   targetSpec: TdIOSpec;
 
-  configData: LabConfig;
+  configData: TdConfig;
 
   processTypeIsLoading: boolean = false;
   callIsLoading: boolean = false;
@@ -156,8 +156,8 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
       this.selectedImporterType = importer;
       this.sourceSpec = importer.getSourceInputSpec();
       this.targetSpec = importer.getTargetOutputSpec();
-      this.configData = LabConfig.fromSpecs(importer.configSpecs);
-      this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.configData);
+      this.configData = TdConfig.fromSpecs(importer.configSpecs);
+      this.formGp = TdConfigureSpecsFormComponent.buildFormGroup(this.configData);
     }
   }
 
@@ -168,14 +168,14 @@ export class LabImportResourceDialogComponent implements OnInit, OnDestroy {
   submit(): void {
     if (this.callIsLoading) return;
     if (this.formGp.valid) {
-      const value: PrConfigValues = LabConfigureSpecsFormComponent.buildValues(this.formGp);
+      const value: TdParamSpecsValues = TdConfigureSpecsFormComponent.buildValues(this.formGp);
       this.callImport(value);
     } else {
       FlFormHelper.markAllAsTouched(this.formGp);
     }
   }
 
-  private callImport(configValue: PrConfigValues): void {
+  private callImport(configValue: TdParamSpecsValues): void {
     this.callIsLoading = true;
     this.resourceService
       .callImporter(this.input.resourceId, this.selectedImporterType.typingName, configValue)

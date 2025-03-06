@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule, Provider, Type, inject } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule, Provider, Type } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { TdResourceDocComponent } from './component/td-resource-doc/td-resource-doc.component';
 import { TdTechnicalDocComponent } from './component/td-technical-doc/td-technical-doc.component';
@@ -18,8 +18,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlThemeModule } from '@monorepo/front-core-lib/fl-theme';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 import { TdIoDocsComponent } from './component/td-io-docs/td-io-docs.component';
@@ -39,33 +38,34 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { TdTypeIconComponent } from './component/td-type-icon/td-type-icon.component';
-import { tdTypeInlineComponent } from './component/td-type-inline/td-type-inline.component';
+import { TdTypeInlineComponent } from './component/td-type-inline/td-type-inline.component';
 import { TdTypeIconBadgeComponent } from './component/td-type-icon-badge/td-type-icon-badge.component';
 import { TdResourceDocFunctionSignatureComponent } from './component/td-resource-doc-function-signature/td-resource-doc-function-signature.component';
 import { TdResourceDocFuncInfoComponent } from './component/td-resource-doc-func-info/td-resource-doc-func-info.component';
 import { TdCleanTypePipe } from './pipe/td-clean-type.pipe';
 import { TdVarsMethodsDocComponent } from './component/td-vars-methods-doc/td-vars-methods-doc.component';
 import { TdOtherClassDocComponent } from './component/td-other-class-doc/td-other-class-doc.component';
-import { MatDialogContent } from '@angular/material/dialog';
 import { TdEditableParamSpecsTableComponent } from './component/td-editable-param-specs-table/td-editable-param-specs-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { TdEditParamSpecDialogComponent } from './component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatSelect } from '@angular/material/select';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TdConfigureParamSpecsTableDialogComponent } from './component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
 import { TdIconBackgroundColorPipe } from './pipe/td-icon-background-color.pipe';
 import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
 import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
+import { TdConfigureSpecsFormComponent } from './component/td-configure-specs-form/td-configure-specs-form.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgOptimizedImage,
+    ReactiveFormsModule,
 
     MatIconModule,
     MatChipsModule,
@@ -73,6 +73,12 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     MatTooltipModule,
     MatButtonModule,
     MatMenuModule,
+    MatExpansionModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatCheckboxModule,
 
     FlCorePipeModule,
     FlCoreComponentModule,
@@ -81,20 +87,10 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     FlIconModule,
     FlTextIconModule,
     FlThemeModule,
-    MatDialogContent,
     FlDialogModule,
-    MatTableModule,
-    ReactiveFormsModule,
     FlFormModule,
     FlCoreDirectiveModule,
-    MatError,
-    MatInput,
-    MatLabel,
-    MatFormField,
     FlUserModule,
-    MatOption,
-    MatSelect,
-    MatCheckbox,
     FlDynamicFieldModule,
     FlSectionModule,
     FlLoaderModule,
@@ -114,7 +110,7 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     TdTypeUnavailableComponent,
     TdTypingNamePipe,
     TdTypeIconComponent,
-    tdTypeInlineComponent,
+    TdTypeInlineComponent,
     TdTypeIconBadgeComponent,
     TdResourceDocFunctionSignatureComponent,
     TdResourceDocFuncInfoComponent,
@@ -127,6 +123,7 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
     TdDynamicEditableFormGroupComponent,
+    TdConfigureSpecsFormComponent,
   ],
   exports: [
     TdTechnicalDocComponent,
@@ -141,7 +138,7 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     TdIoResourceComponent,
     TdConfigComponent,
     TdTypeIconComponent,
-    tdTypeInlineComponent,
+    TdTypeInlineComponent,
     TdTypeIconBadgeComponent,
     TdResourceDocFunctionSignatureComponent,
     TdResourceDocFuncInfoComponent,
@@ -154,6 +151,7 @@ import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-edit
     TdIconBackgroundColorPipe,
     TdIconColorPipe,
     TdDynamicEditableFormGroupComponent,
+    TdConfigureSpecsFormComponent,
   ],
 })
 export class TdTechnicalDocModule {

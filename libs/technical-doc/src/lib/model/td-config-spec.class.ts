@@ -1,8 +1,3 @@
-export interface TdConfig {
-  specs: TdParamSpecs;
-  values: Record<string, any>;
-}
-
 /**
  * Define the type of the param spec
  */
@@ -196,9 +191,4 @@ export const tdCodeParamSpecTypeList: TdParamSpecType[] = [
   'json_code_param',
 ];
 
-export type TdParamSpecFormInfoList = Record<string, Record<string, TdParamSpec | TdParamSpecs>>;
-
-export interface TdParamSpecsValues {
-  specs: TdParamSpecs;
-  values: Record<string, any>;
-}
+export type TdParamSpecsValues = Record<string, any>;

@@ -1,11 +1,11 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
-import { PrConfigValues } from '@monorepo/protocol';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 /**
- * Service to call methods on note resource resource
+ * Service to call methods on note resource
  */
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class LabNoteResourceService {
     noteResourceId: string,
     subResourceKey: string,
     viewMethodName: string,
-    config: PrConfigValues
+    config: TdParamSpecsValues
   ): Observable<LabResourceView> {
     return this.apiService.post(
       `${this.route}/${noteResourceId}/resource/${subResourceKey}/views/${viewMethodName}`,

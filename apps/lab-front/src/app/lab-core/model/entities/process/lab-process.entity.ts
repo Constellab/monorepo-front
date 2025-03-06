@@ -2,9 +2,14 @@ import { Expose, Type } from 'class-transformer';
 import { LabProgressBar, LabProgressMessage } from '../lab-progress-bar.entity';
 import { FlStatus, FlStatusTransform } from '@monorepo/front-core-lib/fl-status';
 import { LabBaseEntityWithUser } from '../lab-user.entity';
-import { TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle, TdTypingName } from '@monorepo/technical-doc';
 import {
-  PrConfig,
+  TdConfigI,
+  TdSimpleTypeEntity,
+  TdTypeObjectStatus,
+  TdTypeStyle,
+  TdTypingName,
+} from '@monorepo/technical-doc';
+import {
   PrOI,
   PrProcess,
   PrProcessStatus,
@@ -40,7 +45,7 @@ export class LabProcess extends LabBaseEntityWithUser {
   @FlStatusTransform(prProcessStatusDict)
   status: FlStatus<PrProcessStatus>;
 
-  config: PrConfig;
+  config: TdConfigI;
 
   @Expose({ name: 'instance_name' })
   instanceName: string;

@@ -2,6 +2,7 @@ export * from './lib/td-technical-doc.module';
 
 // model
 export * from './lib/model/td-brick.class';
+export * from './lib/model/td-config.class';
 export * from './lib/model/td-config-spec.class';
 export * from './lib/model/td-highlight.class';
 export * from './lib/model/td-process-type.class';
@@ -37,6 +38,7 @@ export * from './lib/component/td-editable-param-specs-table/td-editable-param-s
 export * from './lib/component/td-edit-param-spec-dialog/td-edit-param-spec-dialog.component';
 // eslint-disable-next-line max-len
 export * from './lib/component/td-configure-param-specs-table-dialog/td-configure-param-specs-table-dialog.component';
+export * from './lib/component/td-configure-specs-form/td-configure-specs-form.component';
 
 //service
 export * from './lib/service/td-technical-doc-service-config.config';

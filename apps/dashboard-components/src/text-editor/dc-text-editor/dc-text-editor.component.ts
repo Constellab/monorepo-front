@@ -1,16 +1,13 @@
-import { Component, inject, Injector, OnInit, signal } from '@angular/core';
-import { DC_APP_DATA } from '../dc-text-editor.config-app';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
-import { flSetRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
-import { RenderData, Streamlit } from 'streamlit-component-lib';
+import { Streamlit } from 'streamlit-component-lib';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { dcI18n } from './dc-text-editor.i18n';
 import { DcTextEditorConfig } from './dc-text-editor.config';
-import { ClTheme } from '@monorepo/core-lib';
+import { DcCoreMainDirective } from '../../core/dc-core-main/dc-core-main.directive';
+import { DcResizeIframeDirective } from '../../core/dc-resize-iframe/dc-resize-iframe.directive';
 
 export interface DcRichTextConfig {
   placeholder: string;
@@ -28,71 +25,43 @@ export interface DcRichTextConfig {
   selector: 'dc-root',
   templateUrl: './dc-text-editor.component.html',
   styleUrl: './dc-text-editor.component.scss',
+  hostDirectives: [DcCoreMainDirective, DcResizeIframeDirective],
 })
 export class DcTextEditorComponent implements OnInit {
   placeholder = signal<string>(null);
-
-  data: any = inject<any>(DC_APP_DATA);
 
   textEditorConfig: DcTextEditorConfig;
 
   formCtrl = new FormControl<TeRichText>(null);
 
-  private isInitialized: boolean = false;
-
-  private themeService = inject(FlThemeService);
+  private mainDirective = inject(DcCoreMainDirective);
 
   saveFunc = (value: TeRichText): Observable<any> => {
     Streamlit.setComponentValue(value.toJson());
     return of(value.toJson());
   };
 
-  constructor() {
-    const injector = inject(Injector);
-    const translateService = inject(FlTranslateService);
-
-    flSetRootInjector(injector);
-    translateService.addModuleTranslation('dc', dcI18n);
-  }
-
   ngOnInit(): void {
-    Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event: Event) => {
-      const customEvent: CustomEvent<RenderData<DcRichTextConfig>> = event as CustomEvent<RenderData>;
-
-      const clTheme: ClTheme =
-        customEvent.detail.theme.base === 'dark' ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;
-      this.themeService.changeTheme(clTheme);
-
-      const data = customEvent.detail.args;
-      this.placeholder.set(data.placeholder);
-
-      if (!this.isInitialized) {
-        if (data.initial_value) {
-          const richText = new TeRichText(data.initial_value);
-          this.formCtrl.setValue(richText, { emitEvent: false });
-          Streamlit.setComponentValue(data.initial_value);
-        }
-
-        this.textEditorConfig = new DcTextEditorConfig();
-      }
-
-      if (data.disabled !== this.formCtrl.disabled) {
-        if (data.disabled) {
-          this.formCtrl.disable();
-        } else {
-          this.formCtrl.enable();
-        }
-      }
-
-      Streamlit.setFrameHeight();
-      this.isInitialized = true;
-    });
-
-    Streamlit.setComponentReady();
-    Streamlit.setFrameHeight();
+    this.mainDirective.getInitData().subscribe((data) => this.init(data));
   }
 
-  onChange(): void {
-    Streamlit.setFrameHeight();
+  private init(data: DcRichTextConfig): void {
+    this.placeholder.set(data.placeholder);
+
+    if (data.initial_value) {
+      const richText = new TeRichText(data.initial_value);
+      this.formCtrl.setValue(richText, { emitEvent: false });
+      Streamlit.setComponentValue(data.initial_value);
+    }
+
+    this.textEditorConfig = new DcTextEditorConfig();
+
+    if (data.disabled !== this.formCtrl.disabled) {
+      if (data.disabled) {
+        this.formCtrl.disable();
+      } else {
+        this.formCtrl.enable();
+      }
+    }
   }
 }

@@ -28,7 +28,6 @@ import { ClHelpService } from '@monorepo/core-lib';
 import { catchError, map } from 'rxjs/operators';
 import { LabCredentialsService } from '../../../../entity-service/lab-credentials.service';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { MatError, MatFormField, MatHint, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -39,6 +38,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { TdConfig } from '@monorepo/technical-doc';
 
 export interface LabCredentialsFormDialogInput extends FlFormDialogInput<LabSaveCredentialsDTO> {
   id?: string;
@@ -212,7 +212,7 @@ export class LabCredentialsFormDialogComponent implements OnInit {
     spec: LabCredentialsDataTypeSpec,
     defaultValue?: any
   ): FlDynamicFormGroupConfig {
-    const labConfig = LabConfig.fromSpecs(spec.specs, defaultValue);
+    const labConfig = TdConfig.fromSpecs(spec.specs, defaultValue);
     return labConfig.getDynamicFormFieldsConfig();
   }
 }

@@ -1,7 +1,6 @@
 import { FlStatus, FlStatusDict, FlStatusHelper } from '@monorepo/front-core-lib/fl-status';
 import { PrOI } from './pr-io.class';
-import { PrConfig } from './pr-config.class';
-import { TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle } from '@monorepo/technical-doc';
+import { TdConfigI, TdSimpleTypeEntity, TdTypeObjectStatus, TdTypeStyle } from '@monorepo/technical-doc';
 
 export type PrProcessStatus =
   | 'DRAFT'
@@ -47,7 +46,7 @@ export interface PrProcess {
 
   status: FlStatus<PrProcessStatus>;
 
-  config: PrConfig;
+  config: TdConfigI;
 
   inputs: PrOI;
 

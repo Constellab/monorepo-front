@@ -8,12 +8,14 @@ const flDynamicFieldI18nFr: FlLangTranslation = {
     integer_error_validator: 'The value doit être un entier',
     multi_input_help: 'Renseigner une valeur par ligne',
     add_value_in_array: 'Ajouter une valeur',
+    no_value_in_array: 'Aucune valeur pour cette config',
     edit_params_specs: 'Modifier les paramètres',
     remove_value_from_array: 'Supprimer une valeur',
     form_array_delete_disable:
       'Suppression désactivée, le formulaire nécessite au moins  {{value}} valeur(s)',
     form_array_add_disable: 'Ajout désactivée, le formulaire support au maximum {{value}} valeur(s)',
     save: 'Enregistrer',
+    error_required: "The field '{{field}}' is mandatory",
   },
 };
 
@@ -24,11 +26,13 @@ const flDynamicFieldI18nEn: FlLangTranslation = {
     integer_error_validator: 'The value must be an integer',
     multi_input_help: 'Specify one value per line',
     add_value_in_array: 'Add a value',
+    no_value_in_array: 'No value for this config',
     edit_params_specs: 'Edit parameters',
     remove_value_from_array: 'Remove value',
     form_array_delete_disable: "Can't delete, it needs at least {{value}} value(s)",
     form_array_add_disable: "Can't add, it supports maximum {{value}} value(s)",
     save: 'Save',
+    error_required: "The field '{{field}}' is mandatory",
   },
 };
 

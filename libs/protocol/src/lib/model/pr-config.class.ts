@@ -1,18 +1,8 @@
-import { TdConfig, TdParamSpecs } from '@monorepo/technical-doc';
-
-export type PrConfigValues = Record<string, any>;
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 /**
  * Config object for a process
  */
-export interface PrConfig extends TdConfig {
-  // object describing the type of the configs and default values
-  specs: TdParamSpecs;
-
-  // actual values of the config
-  values: PrConfigValues;
-}
-
-export const prConfigValueAreEqual = (a: PrConfigValues, b: PrConfigValues): boolean => {
+export const prConfigValueAreEqual = (a: TdParamSpecsValues, b: TdParamSpecsValues): boolean => {
   return JSON.stringify(a) === JSON.stringify(b);
 };

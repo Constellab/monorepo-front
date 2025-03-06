@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 import { RvResourceViewTable } from '@monorepo/resource-view';
 import { LabResourceService } from './lab-resource.service';
-import { PrConfigValues } from '@monorepo/protocol';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export type LabTableChartType =
   | 'line-plot-2d'
@@ -39,9 +39,9 @@ export class LabResourceTableService {
   public callChartOnTable(
     resourceId: string,
     tableViewMethodName: string,
-    tableViewConfig: PrConfigValues,
+    tableViewConfig: TdParamSpecsValues,
     chartType: LabTableChartType,
-    chartConfig: PrConfigValues
+    chartConfig: TdParamSpecsValues
   ): Observable<LabResourceView> {
     const data = {
       table_view_name: tableViewMethodName,
@@ -63,7 +63,7 @@ export class LabResourceTableService {
   public callNextPage(
     id: string,
     viewMethodName: string,
-    config: PrConfigValues,
+    config: TdParamSpecsValues,
     fromRow: number
   ): Observable<RvResourceViewTable> {
     const viewConfig = LabResourceTableService.getViewConfigNextPage(config, fromRow);
@@ -85,7 +85,7 @@ export class LabResourceTableService {
   public callPreviousPage(
     id: string,
     viewMethodName: string,
-    config: PrConfigValues,
+    config: TdParamSpecsValues,
     toRow: number
   ): Observable<RvResourceViewTable> {
     // merge config with pagination config
@@ -99,13 +99,13 @@ export class LabResourceTableService {
     ) as Observable<RvResourceViewTable>;
   }
 
-  public static getViewConfigNextPage(viewConfig: PrConfigValues, fromRow: number): PrConfigValues {
+  public static getViewConfigNextPage(viewConfig: TdParamSpecsValues, fromRow: number): TdParamSpecsValues {
     // merge config with pagination config,
     // add 1 to the fromRow because communication are made using 1-based index
     return Object.assign({}, viewConfig, { [this.tableViewFromRowParam]: fromRow + 1 });
   }
 
-  public static getViewConfigPreviousPage(viewConfig: PrConfigValues, toRow: number): PrConfigValues {
+  public static getViewConfigPreviousPage(viewConfig: TdParamSpecsValues, toRow: number): TdParamSpecsValues {
     let pageSize = viewConfig[this.tableViewNbOfRowsPerPageParam] ?? this.tableDefaultPageSize;
     let fromRow = toRow - pageSize;
 

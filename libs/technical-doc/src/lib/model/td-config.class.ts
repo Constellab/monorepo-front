@@ -1,35 +1,35 @@
-import { LabBaseEntity } from '../global/lab-entity.entity';
 import {
   FlDynamicEditableFormGroupConfig,
   FlDynamicFormAbstractControl,
   FlDynamicFormGroupConfig,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { TdParamSpec, TdParamSpecs, TdParamSpecsValues, TdParamSpecVisibility } from './td-config-spec.class';
+import { TdParamSpecConfig } from './td-param-spec-config.class';
 
-import { PrConfigValues } from '@monorepo/protocol';
-import {
-  TdConfig,
-  TdParamSpec,
-  TdParamSpecConfig,
-  TdParamSpecs,
-  TdParamSpecVisibility,
-} from '@monorepo/technical-doc';
-
-/**
- * Config object for a process
- */
-export class LabConfig extends LabBaseEntity implements TdConfig {
+export interface TdConfigI {
   // object describing the type of the configs and default values
   specs: TdParamSpecs;
 
   // actual values of the config
-  values: PrConfigValues;
+  values: TdParamSpecsValues;
+}
+
+/**
+ * Config object for a process
+ */
+export class TdConfig implements TdConfigI {
+  // object describing the type of the configs and default values
+  specs: TdParamSpecs;
+
+  // actual values of the config
+  values: TdParamSpecsValues;
 
   /**
    * Create a ConfigData with defined specs and empty params
    * if the values are not provided, use the default config
    */
-  public static fromSpecs(specs: TdParamSpecs, values?: PrConfigValues): LabConfig {
-    const config = new LabConfig();
+  public static fromSpecs(specs: TdParamSpecs, values?: TdParamSpecsValues): TdConfig {
+    const config = new TdConfig();
     config.specs = specs;
     config.values = config.getCleanConfigValues(values) ?? config.getDefaultConfig();
     return config;
@@ -118,9 +118,9 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
   }
 
   // TODO @vfoex c'est quoi ça ?
-  public getCleanConfigValues(values: PrConfigValues, specs?: TdParamSpecs): PrConfigValues {
+  public getCleanConfigValues(values: TdParamSpecsValues, specs?: TdParamSpecs): TdParamSpecsValues {
     if (!values) return null;
-    const res: PrConfigValues = {};
+    const res: TdParamSpecsValues = {};
     for (const specName of Object.keys(specs ?? this.specs)) {
       const spec: TdParamSpec = specs ? specs[specName] : this.specs[specName];
       if (spec.type === 'dynamic') {
@@ -139,8 +139,8 @@ export class LabConfig extends LabBaseEntity implements TdConfig {
   /**
    * return the complete default config object
    */
-  public getDefaultConfig(): PrConfigValues {
-    const defaultConfig: PrConfigValues = {};
+  public getDefaultConfig(): TdParamSpecsValues {
+    const defaultConfig: TdParamSpecsValues = {};
     for (const specName of Object.keys(this.specs)) {
       const spec: TdParamSpec = this.specs[specName];
       if (spec.type === 'param_set' && spec.optional) {

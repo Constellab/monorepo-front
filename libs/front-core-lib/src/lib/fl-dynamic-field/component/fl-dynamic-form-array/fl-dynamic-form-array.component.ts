@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { UntypedFormArray } from '@angular/forms';
 import { FlDynamicFormArrayConfig } from '../../model/fl-dynamic-field-config.class';
 import { FlDynamicFormHelper } from '../../model/fl-dynamic-form-helper.class';
@@ -46,18 +46,22 @@ export class FlDynamicFormArrayComponent implements FlDynamicAbstractFormDirecti
   }
 
   get addTooltip(): string {
-    return this.disableAdd
-      ? this.translateService.translate('flDynamicField.form_array_add_disable', {
-          param: { value: this.config().maxSize },
-        })
-      : this.translateService.translate('flDynamicField.add_value_in_array');
+    if (this.disableAdd) {
+      return this.translateService.translate('flDynamicField.form_array_add_disable', {
+        param: { value: this.config().maxSize },
+      });
+    } else {
+      return this.translateService.translate('flDynamicField.add_value_in_array');
+    }
   }
 
   get removeTooltip(): string {
-    return this.disableRemove
-      ? this.translateService.translate('flDynamicField.form_array_delete_disable', {
-          param: { value: this.config().minSize },
-        })
-      : this.translateService.translate('flDynamicField.remove_value_from_array');
+    if (this.disableRemove) {
+      return this.translateService.translate('flDynamicField.form_array_delete_disable', {
+        param: { value: this.config().minSize },
+      });
+    } else {
+      return this.translateService.translate('flDynamicField.remove_value_from_array');
+    }
   }
 }

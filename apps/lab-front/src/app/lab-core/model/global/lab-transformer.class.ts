@@ -1,22 +1,22 @@
 import { LabProcessType } from '../entities/lab-type/lab-process-type.entity';
-import { PrConfigValues } from '@monorepo/protocol';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export interface LabTransformForm {
   transformer: LabProcessType;
   config: {
-    public: PrConfigValues;
-    protected: PrConfigValues;
+    public: TdParamSpecsValues;
+    protected: TdParamSpecsValues;
   };
 }
 
 export interface LabTransformerWithConfig {
   transformer: LabProcessType;
-  config: PrConfigValues;
+  config: TdParamSpecsValues;
 }
 
 export interface LabTransformerParams {
   typing_name: string;
-  config_values: PrConfigValues;
+  config_values: TdParamSpecsValues;
 }
 
 export function labConvertTransformFormToParams(formValue: LabTransformForm[]): LabTransformerParams[] {

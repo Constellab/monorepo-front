@@ -5,15 +5,15 @@ import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 import { Observable, tap } from 'rxjs';
 import { LabProcessLayout, LabProtocol } from '../model/entities/process/lab-protocol.entity';
 import { LabProtocolUpdateDTO } from '../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-action.class';
-import { PrConfigValues } from '@monorepo/protocol';
 import {
   LabCreateScenarioTemplateDTO,
   LabScenarioTemplate,
 } from '../model/entities/process/lab-scenario-template.entity';
 import {
+  TdEditParamSpecDict,
   TdIOSpec,
   TdParamSpec,
-  TdParamSpecFormInfoList,
+  TdParamSpecsValues,
   TdParamSpecVisibility,
   TdTypeStyle,
 } from '@monorepo/technical-doc';
@@ -24,7 +24,7 @@ import {
 } from '../model/entities/lab-agent.entity';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { LabProcess } from '../model/entities/process/lab-process.entity';
-import { ClPage } from '@monorepo/core-lib';
+import { ClPage, clRxjsDebug } from '@monorepo/core-lib';
 import { LabCommunitySpace } from '../model/entities/lab-community-space.entity';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
 
@@ -285,7 +285,7 @@ export class LabProtocolService {
   public saveProcessConfig(
     protocolId: string,
     processInstanceName: string,
-    config: PrConfigValues
+    config: TdParamSpecsValues
   ): Observable<LabProtocolUpdateDTO> {
     return this.apiService.put(
       `${this.baseRoute}/${protocolId}/process/${processInstanceName}/config`,
@@ -503,8 +503,10 @@ export class LabProtocolService {
 
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
 
-  public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdParamSpecFormInfoList> {
-    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
+  public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdEditParamSpecDict> {
+    return this.apiService
+      .get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`)
+      .pipe(clRxjsDebug());
   }
 
   public addDynamicParamSpec(

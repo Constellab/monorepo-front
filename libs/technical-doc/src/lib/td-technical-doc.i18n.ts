@@ -1,5 +1,4 @@
-import { FlLangTranslation } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
+import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/fl-translate';
 import { ClSupportedLanguage } from '@monorepo/core-lib';
 /* eslint-disable max-len */
 
@@ -73,6 +72,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
     param_spec_description:
       "Vous pouvez ajouter, modifier ou supprimer des paramètres pour configurer votre agent, les valeurs de ces paramètres seront accessibles dans le code de votre agent en utilisant le dictionnaire 'params'.",
     no_value_in_array: 'Aucune valeur pour cette config',
+    advanced_configuration: 'Configuration avancée',
   },
 };
 
@@ -146,6 +146,7 @@ const tdTechnicalDocI18nEn: FlLangTranslation = {
     param_spec_description:
       "You can add, edit or delete parameters to configure your agent, values of these parameters will be accessible in the code of your agent by using the dictionnary 'params'.",
     no_value_in_array: 'No value for this config',
+    advanced_configuration: 'Advanced config',
   },
 };
 

@@ -3,23 +3,22 @@ import {
   LabResourceViewSpec,
   LabResourceViewSpecWithConfig,
 } from '../../../../model/entities/resource/lab-resource-view.entity';
-import { LabConfig } from '../../../../model/entities/lab-config.entity';
 import { FL_PORTAL_DATA, FlOverlayRef, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
-
-import {
-  LabConfigureSpecsForm,
-  LabConfigureSpecsFormComponent,
-} from '../../../lab-config-core/component/lab-configure-specs-form/lab-configure-specs-form.component';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { Observable } from 'rxjs';
-import { PrConfigValues } from '@monorepo/protocol';
-import { TdTypeStyle } from '@monorepo/technical-doc';
+import {
+  TdConfig,
+  TdConfigureSpecsForm,
+  TdConfigureSpecsFormComponent,
+  TdParamSpecsValues,
+  TdTechnicalDocModule,
+  TdTypeStyle,
+} from '@monorepo/technical-doc';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LabProcessDynamicFieldConfig } from '../../../lab-config-core/lab-process-dynamic-field-config.service';
 import { FlResizeModule } from '@monorepo/front-core-lib/fl-resize';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -36,7 +35,7 @@ export interface LabConfigureResourceViewInput {
 
 export interface LabConfigureResourceViewOutput {
   viewMethodName: string;
-  viewConfigValues: PrConfigValues;
+  viewConfigValues: TdParamSpecsValues;
 }
 
 /**
@@ -57,7 +56,6 @@ export interface LabConfigureResourceViewOutput {
     TdTechnicalDocModule,
     FlSectionModule,
     ReactiveFormsModule,
-    LabConfigureSpecsFormComponent,
     MatButton,
     TranslatePipe,
   ],
@@ -69,8 +67,8 @@ export class LabConfigureResourceViewComponent implements OnInit {
   private resourceService = inject(LabResourceService);
   private cdr = inject(ChangeDetectorRef);
 
-  formGp: FormGroup<LabConfigureSpecsForm>;
-  configs: LabConfig;
+  formGp: FormGroup<TdConfigureSpecsForm>;
+  configs: TdConfig;
 
   isLoading: boolean = true;
 
@@ -99,12 +97,9 @@ export class LabConfigureResourceViewComponent implements OnInit {
   }
 
   private init(specs: LabResourceViewSpec): void {
-    this.configs = LabConfig.fromSpecs(
-      specs.configSpecs,
-      this.input.preConfiguration?.viewConfigValues ?? {}
-    );
+    this.configs = TdConfig.fromSpecs(specs.configSpecs, this.input.preConfiguration?.viewConfigValues ?? {});
 
-    this.formGp = LabConfigureSpecsFormComponent.buildFormGroup(this.configs);
+    this.formGp = TdConfigureSpecsFormComponent.buildFormGroup(this.configs);
 
     this.isLoading = false;
     this.cdr.markForCheck();
@@ -122,7 +117,7 @@ export class LabConfigureResourceViewComponent implements OnInit {
   private convertFormValueToResult(): LabConfigureResourceViewOutput {
     return {
       viewMethodName: this.input.viewMethodName,
-      viewConfigValues: LabConfigureSpecsFormComponent.buildValues(this.formGp),
+      viewConfigValues: TdConfigureSpecsFormComponent.buildValues(this.formGp),
     };
   }
 }

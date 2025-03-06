@@ -1,0 +1,25 @@
+<div class="g-layout-row g-layout-start-center">
+  <div class="process-description g-flex-auto">
+    @if (processDescription) {
+      {{ processDescription }}
+    }
+  </div>
+  <a mat-stroked-button [href]="docUrl" target="_blank" class="g-button-small">
+    <mat-icon>help_outline</mat-icon>
+    {{ 'dc.documentation' | translate }}
+  </a>
+</div>
+@if (formGp && formConfig) {
+  <form [formGroup]="formGp" (ngSubmit)="submit()" class="form g-layout-col">
+    <td-configure-specs-form
+      class="g-form-field-compact g-flex-auto"
+      [formGp]="formGp"
+      [configData]="configData"></td-configure-specs-form>
+
+    <button mat-flat-button type="submit" class="g-centered-forced primary save-button">
+      {{ 'dc.save' | translate }}
+    </button>
+  </form>
+} @else {
+  {{ 'dc.config_not_provided' | translate }}
+}

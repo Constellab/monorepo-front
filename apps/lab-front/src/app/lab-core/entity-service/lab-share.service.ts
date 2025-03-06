@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
@@ -9,8 +9,8 @@ import {
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
-import { PrConfigValues } from '@monorepo/protocol';
 import { LabResourceService } from './lab-resource.service';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +48,7 @@ export class LabShareService {
   public callViewOnResource(
     token: string,
     viewMethodName: string,
-    configValues: PrConfigValues,
+    configValues: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<LabResourceView> {
     return this.apiService.post(

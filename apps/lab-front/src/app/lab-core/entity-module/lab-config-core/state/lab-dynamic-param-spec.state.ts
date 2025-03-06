@@ -1,15 +1,15 @@
 import {
   TdAbstractDynamicParamSpecState,
+  TdConfig,
   TdConfigureParamSpecsTableDialogComponent,
   TdConfigureParamSpecsTableDialogInput,
+  TdEditParamSpecDict,
   TdParamSpec,
-  TdParamSpecFormInfoList,
   TdParamSpecs,
 } from '@monorepo/technical-doc';
 import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { LabProtocolService } from '../../../entity-service/lab-protocol.service';
 import { LabProcess } from '../../../model/entities/process/lab-process.entity';
-import { LabConfig } from '../../../model/entities/lab-config.entity';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LabWorkflowEditConfig } from '../../../../lab-scenario/lab-scenario-detail-page/model/lab-workflow-edit-config.class';
@@ -56,7 +56,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     });
   }
 
-  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
+  addParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
     const obs = this.labProtocolService.addDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
@@ -71,7 +71,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     );
   }
 
-  deleteParamSpec(configSpecName: string, paramName: string): Observable<LabConfig> {
+  deleteParamSpec(configSpecName: string, paramName: string): Observable<TdConfig> {
     const obs = this.labProtocolService.deleteDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
@@ -85,7 +85,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     );
   }
 
-  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<LabConfig> {
+  editParamSpec(configSpecName: string, paramName: string, paramSpec: TdParamSpec): Observable<TdConfig> {
     const obs = this.labProtocolService.updateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
@@ -105,7 +105,7 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
     oldName: string,
     newName: string,
     paramSpec: TdParamSpec
-  ): Observable<LabConfig> {
+  ): Observable<TdConfig> {
     const obs = this.labProtocolService.renameAndUpdateDynamicParamSpec(
       this.process.parentProtocolId,
       this.process.instanceName,
@@ -114,14 +114,17 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
       newName,
       paramSpec
     );
-    return this.editConfig.updateParamSpecUpdateAction(this.process, obs).pipe(
-      map((result: FlPortalActionResult<LabProtocolUpdateDTO>): LabConfig => {
-        return this.onPortalActionResult(result, configSpecName);
-      })
-    );
+    return this.editConfig
+      .updateParamSpecUpdateAction(this.process, obs)
+      .pipe(
+        map(
+          (result: FlPortalActionResult<LabProtocolUpdateDTO>): TdConfig =>
+            this.onPortalActionResult(result, configSpecName)
+        )
+      );
   }
 
-  getParamSpecsInfos(): Observable<TdParamSpecFormInfoList> {
+  getParamSpecsInfos(): Observable<TdEditParamSpecDict> {
     return this.labProtocolService.getParamSpecsInfos(
       this.process.parentProtocolId,
       this.process.instanceName
@@ -131,16 +134,16 @@ export class LabDynamicParamSpecState extends TdAbstractDynamicParamSpecState im
   private onPortalActionResult(
     result: FlPortalActionResult<LabProtocolUpdateDTO>,
     configSpecName: string
-  ): LabConfig {
+  ): TdConfig {
     if (result && result.status == 'success') {
-      const config = result.result.process.config as LabConfig;
+      const config = result.result.process.config as TdConfig;
       this.updateProcessConfig(configSpecName, config);
       return config;
     }
     return null;
   }
 
-  private updateProcessConfig(configSpecName: string, config: LabConfig): void {
+  private updateProcessConfig(configSpecName: string, config: TdConfig): void {
     this.setParamSpecs(config.specs[configSpecName].additional_info.specs);
   }
 }

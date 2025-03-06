@@ -56,7 +56,9 @@
     "dc-text-editor:serve": "nx run dashboard-components:serve-text-editor:development -- --no-hmr",
     "dc-text-editor:build-prod": "nx run dashboard-components:build-text-editor:production --base-href='.'",
     "dc-select-resource:serve": " nx run dashboard-components:serve-select-resource:development -- --no-hmr",
-    "dc-select-resource:build-prod": "nx run dashboard-components:build-select-resource:production --base-href='.'"
+    "dc-select-resource:build-prod": "nx run dashboard-components:build-select-resource:production --base-href='.'",
+    "dc-process-config:serve": "nx run dashboard-components:serve-process-config:development -- --no-hmr",
+    "dc-process-config:build-prod": "nx run dashboard-components:build-process-config:production --base-href='.'"
   },
   "private": true,
   "dependencies": {

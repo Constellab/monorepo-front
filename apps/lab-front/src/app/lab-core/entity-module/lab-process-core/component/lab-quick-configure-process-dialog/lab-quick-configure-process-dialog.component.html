@@ -9,7 +9,7 @@
   <fl-section [object]="formGp" [isLoading]="getIsLoading">
     <ng-container *flSectionBody>
       <form (ngSubmit)="submit()" id="upload-scenario-from-link" [formGroup]="formGp">
-        <lab-configure-specs-form [configData]="processConfig" [formGp]="formGp"></lab-configure-specs-form>
+        <td-configure-specs-form [configData]="processConfig" [formGp]="formGp"></td-configure-specs-form>
       </form>
     </ng-container>
   </fl-section>

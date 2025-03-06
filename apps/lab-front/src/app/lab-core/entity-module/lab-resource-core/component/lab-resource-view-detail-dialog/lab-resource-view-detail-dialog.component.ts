@@ -2,11 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { LabResourceView } from '../../../../model/entities/resource/lab-resource-view.entity';
 import { Observable } from 'rxjs';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
-import { PrConfigValues } from '@monorepo/protocol';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabResourceViewDetailComponent } from '../lab-resource-view-detail/lab-resource-view-detail.component';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 export type LabResourceViewDetailDialogInput =
   | {
@@ -21,7 +21,7 @@ export type LabResourceViewDetailDialogInput =
       resourceName: string;
       viewMethodName: string;
       saveViewConfig: boolean;
-      config: PrConfigValues;
+      config: TdParamSpecsValues;
     };
 
 @Component({

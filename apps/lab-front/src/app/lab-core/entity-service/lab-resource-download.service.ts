@@ -7,11 +7,11 @@ import { LabResourceService } from './lab-resource.service';
 import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
 import { Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { PrConfigValues } from '@monorepo/protocol';
 import {
   LabQuickConfigureProcessDialogComponent,
   LabQuickConfigureProcessDialogInput,
 } from '../entity-module/lab-process-core/component/lab-quick-configure-process-dialog/lab-quick-configure-process-dialog.component';
+import { TdParamSpecsValues } from '@monorepo/technical-doc';
 
 /**
  * Service to download any downloadable resource
@@ -84,7 +84,7 @@ export class LabResourceDownloadService {
   private exportResource(
     resourceId: string,
     exporterTypingName: string,
-    config?: PrConfigValues
+    config?: TdParamSpecsValues
   ): Observable<LabResource> {
     // cancel the process
     if (config == null) {
