@@ -19,9 +19,8 @@
           <span>{{ communityApp().executions }}</span>
         </fl-text-icon>
         <ha-like-button
-          [isLiked]="isLiked()"
-          [likesCount]="communityApp().likes"
-          (clicked)="toggleLikeAppButton()"></ha-like-button>
+          [entityId]="communityApp().id"
+          [entityType]="entityType"></ha-like-button>
 
         <a [routerLink]="'detail'" [fragment]="'comments'" class="hide-small-screen">
           <ha-comment-button [commentsCount]="communityApp().comments"></ha-comment-button>

@@ -4,12 +4,6 @@ import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
 import { DateTime } from 'luxon';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 
-export enum HaCommentType {
-  STORY_COMMENT = 'story',
-  AGENT_COMMENT = 'agent',
-  APP_COMMENT = 'app',
-}
-
 export interface HaCommentEntity extends FlEntity {
   comments: number;
 }

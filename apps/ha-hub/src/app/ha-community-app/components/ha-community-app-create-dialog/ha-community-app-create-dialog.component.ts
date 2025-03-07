@@ -25,6 +25,8 @@ import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 import { map } from 'rxjs/operators';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { AsyncPipe } from '@angular/common';
 
 export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
 
@@ -44,6 +46,9 @@ export type HaCreateCommunityAppInput = FlFormDialogInput<HaCommunityAppEdit>;
     TeTextEditorModule,
     FlImageModule,
     HaAppPicturePipe,
+    MatRadioButton,
+    MatRadioGroup,
+    AsyncPipe,
   ],
   templateUrl: './ha-community-app-create-dialog.component.html',
   styleUrl: './ha-community-app-create-dialog.component.scss',

@@ -19,6 +19,7 @@
           <fl-user-inline [user]="communityApp.createdBy" [portalOnHover]="false"></fl-user-inline>
           <fl-from-now [date]="communityApp.createdAt" class="g-text-dense-height"></fl-from-now>
         </div>
+        <co-visibility-badge [space]="communityApp.space"></co-visibility-badge>
       </div>
     </div>
     <div class="app-description-div">
@@ -38,9 +39,11 @@
           }
         }
       </div>
-      <te-text-editor
-        [config]="textEditorConfig"
-        [formControl]="appDescriptionFormControl"></te-text-editor>
+      <article>
+        <te-text-editor
+          [config]="textEditorConfig"
+          [formControl]="appDescriptionFormControl"></te-text-editor>
+      </article>
     </div>
     <div #comments id="comments">
       <ha-comments-section

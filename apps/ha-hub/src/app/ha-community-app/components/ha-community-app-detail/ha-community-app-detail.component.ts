@@ -4,7 +4,6 @@ import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-co
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +21,11 @@ import {
 import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIcon } from '@angular/material/icon';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
 
 @Component({
   selector: 'ha-community-app-detail',
@@ -38,11 +42,12 @@ import { MatIcon } from '@angular/material/icon';
     ReactiveFormsModule,
     MatButton,
     MatIcon,
+    CoCommunityLibModule,
   ],
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',
 })
-export class HaCommunityAppDetailComponent implements OnInit {
+export class HaCommunityAppDetailComponent extends HaCommunityPage implements OnInit {
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private communityAppService = inject(HaCommunityAppService);
@@ -51,7 +56,7 @@ export class HaCommunityAppDetailComponent implements OnInit {
   communityApp = this.communityAppState.app();
 
   currentUser: HaUser;
-  commentType: HaCommentType = HaCommentType.APP_COMMENT;
+  commentType: HaEntityType = HaEntityType.APP;
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
 
@@ -65,6 +70,22 @@ export class HaCommunityAppDetailComponent implements OnInit {
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.currentUser = user;
     });
+
+    const appImage: string = this.communityApp.picture
+      ? this.communityAppService.getAppPictureUrl(this.communityApp.picture)
+      : null;
+
+    super.setMetaTags(
+      { text: 'ha.app_detail.title', translateParam: { param: { title: this.communityApp.title } } },
+      { text: 'ha.app_detail.description', translateParam: { param: { title: this.communityApp.title } } },
+      appImage,
+      HaRouterService.getFullRoute(
+        HaRouterService.getCommunityAppRoute(
+          this.communityApp.id,
+          ClStringHelper.getCleanUrlPath(this.communityApp.title)
+        )
+      )
+    );
   }
 
   editDescription(): void {
@@ -96,7 +117,7 @@ export class HaCommunityAppDetailComponent implements OnInit {
     };
 
     this.dialogService
-      .openSmallDialog(HaCommunityAppCreateDialogComponent, { data: input })
+      .openMediumDialog(HaCommunityAppCreateDialogComponent, { data: input })
       .afterClosed()
       .subscribe((communityApp: HaCommunityApp) => {
         if (communityApp) {

@@ -10,8 +10,6 @@ import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaHttpRedirectionService } from '../../ha-core/ha-service/ha-http-redirection.service';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
-import { HaLikeType } from '../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import { HaLikeService } from '../../ha-core/ha-service/ha-like.service';
 import { TeRichText } from '@monorepo/text-editor';
 import { HaBrickVersion } from '../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -29,7 +27,6 @@ export class HaAgentPageState {
   private agentService = inject(HaAgentService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);
   private httpRedirectionService = inject(HaHttpRedirectionService);
-  private likeService = inject(HaLikeService);
   private snackBarService = inject(FlSnackBarService);
   private dialogService = inject(FlDialogService);
 
@@ -43,9 +40,6 @@ export class HaAgentPageState {
     const agentStatusEvent = this.agentStatusEvent();
     if (agentStatusEvent && agentStatusEvent.status == 'success') return agentStatusEvent.object;
     return null;
-  });
-  public likes: Signal<number> = computed(() => {
-    return this.agent().likes;
   });
   private isAgentLoading: Signal<boolean> = computed(() => {
     return this.agentStatusEvent() && this.agentStatusEvent().status == 'loading';
@@ -99,7 +93,6 @@ export class HaAgentPageState {
   });
   private brickDependencies: WritableSignal<HaBrickVersion[]> = signal(null);
   private agentDescription: WritableSignal<TeRichText> = signal(null);
-  private isLiked: WritableSignal<boolean> = signal<boolean>(false);
 
   private agentRunStatAggregateStatusEvent: WritableSignal<FlStatusEvent<HaRunStatAggregate>> =
     signal<FlStatusEvent<HaRunStatAggregate>>(null);
@@ -266,14 +259,6 @@ export class HaAgentPageState {
     }
   }
 
-  public getIsLiked(): Signal<boolean> {
-    return this.isLiked;
-  }
-
-  public setIsLiked(isLiked: boolean): void {
-    this.isLiked.set(isLiked);
-  }
-
   public initCoAuthors(): void {
     this.agentService.getCoAuthors(this.agent()?.id).subscribe((coAuthors) => {
       this.agentCoAuthors.set(coAuthors);
@@ -326,7 +311,6 @@ export class HaAgentPageState {
           this.agentDescription.set(agent.description);
           this.initCoAuthors();
           this.initAgentVersionsList(agent);
-          this.initIsLiked(agent);
           this.initAgentRunStatAggregate(agent.id);
 
           if (paramTitle !== ClStringHelper.getCleanUrlPath(agent.title)) {
@@ -363,15 +347,6 @@ export class HaAgentPageState {
     this.authenticatedUserService.getUser().subscribe((user) => {
       this.currentUser.set(user);
       this.initAgent(agentId, paramTitle);
-    });
-  }
-
-  private initIsLiked(agent: HaAgent): void {
-    if (agent == null) {
-      return;
-    }
-    this.likeService.checkIfLiked(HaLikeType.AGENT_LIKE, agent.id).subscribe((isLiked) => {
-      this.setIsLiked(isLiked);
     });
   }
 

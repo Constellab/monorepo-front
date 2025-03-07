@@ -36,9 +36,7 @@
 
       <ha-like-button
         class="agent-like-bt"
-        (clicked)="toggleLikeAgentButton()"
-        [isLiked]="agentIsLiked()"
-        [likesCount]="agent().likes"></ha-like-button>
+        [entityId]="agent().id" [entityType]="commentType"></ha-like-button>
 
       <ha-comment-button
         [commentsCount]="agent().comments"

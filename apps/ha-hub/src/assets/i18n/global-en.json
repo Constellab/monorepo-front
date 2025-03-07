@@ -163,6 +163,12 @@
   "ha.agent.description": "This is the page of the agent {{title}}",
   "ha.agent_version.title": "V{{version}} - {{title}} - Community",
   "ha.agent_version.description": "This is the page of the agent {{title}} version {{version}}",
+  "ha.app.title": "{{title}} - Community",
+  "ha.app.description": "This is the page of the app {{title}}",
+  "ha.apps.title": "Apps - Community",
+  "ha.apps.description": "List of apps page",
+  "ha.app_detail.title": "{{title}} detail - Community",
+  "ha.app_detail.description": "This is the page of the app {{title}} detail",
   "ha.user.title": "{{alias}} - Community",
   "ha.user.description": "This is the page of the user {{alias}}",
   "ha.icons.title": "Icons - Community",
@@ -421,5 +427,6 @@
   "edit_community_app_success": "Community app updated successfully",
   "application": "Application",
   "detail": "Detail",
-  "app_execution_count": "App execution count"
+  "app_execution_count": "App execution count",
+  "my_apps": "My apps"
 }

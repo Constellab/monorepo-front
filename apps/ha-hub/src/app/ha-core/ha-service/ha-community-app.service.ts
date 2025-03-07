@@ -2,8 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
-import { HaCommunityApp, HaCommunityAppEdit } from '../ha-model/ha-entities/ha-community-app.class';
-import { FlDatasourcePaginated, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import {
+  HaCommunityApp,
+  HaCommunityAppDatasourceFilters,
+  HaCommunityAppDatasourcePaginated,
+  HaCommunityAppEdit,
+} from '../ha-model/ha-entities/ha-community-app.class';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
 
@@ -15,18 +20,40 @@ export class HaCommunityAppService {
 
   private readonly route: string = 'app';
 
-  private getAll(page: number, size: number): Observable<ClPage<HaCommunityApp>> {
-    return this.apiService.get(this.route, HaCommunityApp, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true,
-    });
+  private getAll(
+    spacesFilter: string[],
+    titleFilter: string,
+    page: number,
+    size: number
+  ): Observable<ClPage<HaCommunityApp>> {
+    return this.apiService.post(
+      `${this.route}/filters`,
+      { spacesFilter: spacesFilter, titleFilter: titleFilter },
+      HaCommunityApp,
+      {
+        page: page,
+        pageSize: size,
+        resultIsPaginated: tru,
+      }
+    );
   }
 
-  public getAllPaginated(pageSize: number = 10): FlDatasourcePaginated<HaCommunityApp> {
-    return new FlEntityPaginatedDatasource((page, size, requestData) => this.getAll(page, size), pageSize, {
-      initFirstPage: false,
-    });
+  public getAllPaginated(
+    pageSize: number = 10
+  ): HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters> {
+    return new FlEntityPaginatedDatasource(
+      (page, size, requestData) =>
+        this.getAll(
+          requestData.filtersCriteria.spacesFilter,
+          requestData.filtersCriteria.titleFilter,
+          page,
+          size
+        ),
+      pageSize,
+      {
+        initFirstPage: false,
+      }
+    );
   }
 
   public getById(id: string): Observable<HaCommunityApp> {

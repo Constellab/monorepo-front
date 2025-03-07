@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
-import { HaLikeType } from '../ha-model/ha-entities/ha-entity-type.enum';
-import { ClDeserializationRef } from '@monorepo/core-lib';
+import { HaEntityType } from '../ha-model/ha-entities/ha-entity-type';
 
 @Injectable({
   providedIn: 'root',
@@ -12,19 +11,19 @@ export class HaLikeService {
 
   private readonly route: string = 'like';
 
-  public checkIfLiked(likeType: HaLikeType, entityId: string): Observable<boolean> {
+  public checkIfLiked(likeType: HaEntityType, entityId: string): Observable<boolean> {
     return this.apiService.get(this.route + '/' + likeType + '/' + entityId);
   }
 
-  public like(likeType: HaLikeType, entityId: string, classInstance: ClDeserializationRef): Observable<any> {
-    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/like', {}, classInstance);
+  public getLikeCount(likeType: HaEntityType, entityId: string): Observable<number> {
+    return this.apiService.get(this.route + '/' + likeType + '/' + entityId + '/count');
   }
 
-  public unlike(
-    likeType: HaLikeType,
-    entityId: string,
-    classInstance: ClDeserializationRef
-  ): Observable<any> {
-    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/unlike', {}, classInstance);
+  public like(likeType: HaEntityType, entityId: string): Observable<number> {
+    return this.apiService.post(this.route + '/' + likeType + '/' + entityId + '/like', {});
+  }
+
+  public unlike(entityType: HaEntityType, entityId: string): Observable<number> {
+    return this.apiService.post(this.route + '/' + entityType + '/' + entityId + '/unlike', {});
   }
 }

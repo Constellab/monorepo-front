@@ -6,16 +6,12 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaReferenceDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
-import { HaAuthService } from '../../../../ha-core/ha-service/ha-auth.service';
-import { HaLikeService } from '../../../../ha-core/ha-service/ha-like.service';
-import { HaLikeType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { NgOptimizedImage } from '@angular/common';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { HaLikeButtonComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
 import { MatButton } from '@angular/material/button';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
@@ -23,6 +19,8 @@ import { HaGithubStarButtonComponent } from '../../../../ha-core/ha-component/ha
 import { HaPublicBrickUsersComponent } from '../ha-public-brick-users/ha-public-brick-users.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaLikeButtonComponent } from '../../../../ha-core/entity-module/ha-util-component-core/component/ha-like-button/ha-like-button.component';
+import { HaEntityType } from '../../../../ha-core/ha-model/ha-entities/ha-entity-type';
 
 @Component({
   selector: 'ha-public-brick-description-page',
@@ -31,7 +29,6 @@ import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-
   imports: [
     NgOptimizedImage,
     CoCommunityLibModule,
-    HaLikeButtonComponent,
     MatButton,
     HaRunStatAggregatePanelComponent,
     FlKeyValueModule,
@@ -40,13 +37,12 @@ import { HaBrickImagePipe } from '../../../../ha-core/ha-module/ha-core-pipe/ha-
     HaPublicBrickUsersComponent,
     TranslatePipe,
     HaBrickImagePipe,
+    HaLikeButtonComponent,
   ],
 })
 export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
   private router: Router = inject(Router);
   private dialogService: FlDialogService = inject(FlDialogService);
-  private authService: HaAuthService = inject(HaAuthService);
-  private likeService: HaLikeService = inject(HaLikeService);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
 
   brick: Signal<HaBrick> = computed(() => {
@@ -61,7 +57,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
   directReferences: Signal<HaReferenceDTO[]> = this.brickPageState.getDirectReferences();
   brickRunStatAggregate: Signal<HaRunStatAggregate> = this.brickPageState.brickRunStatAggregate;
 
-  brickIsLiked = false;
+  entityType = HaEntityType.BRICK;
 
   createEditBrickDialog(): void {
     const node: HaEditBrickDTO = new HaEditBrickDTO();
@@ -83,18 +79,7 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
     this.openSmallDialog(input);
   }
 
-  toggleLikeBrickButton(): void {
-    if (this.brickIsLiked) {
-      this.unlikeBrick();
-    } else {
-      this.likeBrick();
-    }
-  }
-
   private onBrick(brick: HaBrick): void {
-    this.likeService.checkIfLiked(HaLikeType.BRICK_LIKE, brick.id).subscribe((isLiked) => {
-      this.brickIsLiked = isLiked;
-    });
     this.metadataService.setPageTitle('ha.brick.title', true, {
       title: brick.name,
     });
@@ -122,29 +107,5 @@ export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
           this.brickPageState.setBrick(brick);
         }
       });
-  }
-
-  // TODO : utiliser le state
-  private unlikeBrick(): void {
-    this.likeService.unlike(HaLikeType.BRICK_LIKE, this.brick().id, HaBrick).subscribe((brick: HaBrick) => {
-      if (brick != null) {
-        this.brickPageState.setBrick(brick);
-        this.brickIsLiked = false;
-      }
-    });
-  }
-
-  private likeBrick(): void {
-    if (!this.authService.hasAuthorizationCookie()) {
-      // navigate to login page
-      this.router.navigate(['/login']);
-      return;
-    }
-    this.likeService.like(HaLikeType.BRICK_LIKE, this.brick().id, HaBrick).subscribe((brick: HaBrick) => {
-      if (brick != null) {
-        this.brickPageState.setBrick(brick);
-        this.brickIsLiked = true;
-      }
-    });
   }
 }

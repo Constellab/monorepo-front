@@ -164,6 +164,12 @@
   "ha.agent.description": "Page de l'agent {{title}}",
   "ha.agent_version.title": "V{{version}} - {{title}} - Community",
   "ha.agent_version.description": "Page de la version {{version}} de l'agent {{title}}",
+  "ha.app.title": "{{title}} - Community",
+  "ha.app.description": "Page de l'app {{title}}",
+  "ha.apps.title": "Apps - Community",
+  "ha.apps.description": "Liste des apps de Constellab Community",
+  "ha.app_detail.title": "{{title}} détail - Community",
+  "ha.app_detail.description": "Page de détail de l'app {{title}}",
   "ha.user.title": "{{alias}} - Community",
   "ha.user.description": "Page de l'utilisateur {{alias}}",
   "ha.icons.title": "Icônes - Community",
@@ -423,5 +429,6 @@
   "edit_community_app_success": "App de la communauté éditée avec succès",
   "application": "Application",
   "detail": "Détail",
-  "app_execution_count": "Nombre d'éxécution de l'application"
+  "app_execution_count": "Nombre d'éxécution de l'application",
+  "my_apps": "Mes apps"
 }

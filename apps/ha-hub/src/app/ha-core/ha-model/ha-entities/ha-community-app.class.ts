@@ -29,6 +29,7 @@ export class HaCommunityAppEdit {
 
 export interface HaCommunityAppDatasourceFilters {
   spacesFilter: string[];
+  titleFilter: string;
 }
 
 export type HaCommunityAppDatasourcePaginated<F = void> = FlDatasourcePaginated<HaCommunityApp, F>;

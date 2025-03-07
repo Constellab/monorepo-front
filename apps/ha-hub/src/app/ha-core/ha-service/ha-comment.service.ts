@@ -7,8 +7,8 @@ import { TeRichText } from '@monorepo/text-editor';
 import {
   HaAbstractComment,
   HaCommentEntity,
-  HaCommentType,
 } from '../entity-module/ha-comments-core/model/ha-abstract-comment.class';
+import { HaEntityType } from '../ha-model/ha-entities/ha-entity-type';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class HaCommentService {
   private readonly route: string = 'comment';
 
   public sendComment(
-    commentType: HaCommentType,
+    commentType: HaEntityType,
     comment: TeRichText,
     entityId: string
   ): Observable<HaAbstractComment<HaCommentEntity>> {
@@ -27,7 +27,7 @@ export class HaCommentService {
   }
 
   public getComments(
-    commentType: HaCommentType,
+    commentType: HaEntityType,
     entityId: string
   ): FlDatasourcePaginated<HaAbstractComment<HaCommentEntity>> {
     return new FlEntityPaginatedDatasource(
@@ -37,7 +37,7 @@ export class HaCommentService {
   }
 
   private getAllComments(
-    commentType: HaCommentType,
+    commentType: HaEntityType,
     page: number,
     size: number,
     entityId: string
