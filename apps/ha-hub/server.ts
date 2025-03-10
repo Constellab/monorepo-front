@@ -121,14 +121,20 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
           { url: HaRouterService.getAgentsListRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: HaRouterService.getLoginRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
           { url: HaRouterService.getIconsRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
-          // { url: HaRouterService.getFairOpenAccessRoute(), changefreq: EnumChangefreq.MONTHLY, priority: 1 },
+          {
+            url: HaRouterService.getCommunityAppListRoute(),
+            changefreq: EnumChangefreq.MONTHLY,
+            priority: 1,
+          },
         ];
 
         const dynamicBricksUrls = await fetchBricksMap();
         const dynamicStoriesUrls = await fetchStoriesMap();
         const dynamicAgentsUrls = await fetchAgentsMap();
         const dynamicProfilesUrls = await fetchProfilesMap();
+        const dynamicAppsUrls = await fetchAppsMap();
         const dynamicUrls = [
+          ...dynamicAppsUrls,
           ...dynamicBricksUrls,
           ...dynamicStoriesUrls,
           ...dynamicAgentsUrls,
@@ -247,6 +253,16 @@ async function fetchStoriesMap(): Promise<SitemapItem[]> {
 async function fetchAgentsMap(): Promise<SitemapItem[]> {
   try {
     const response = await axios.get(`${environment.settings.apiUrl}/agent/all-map`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching agents URLs:', error);
+    return [];
+  }
+}
+
+async function fetchAppsMap(): Promise<SitemapItem[]> {
+  try {
+    const response = await axios.get(`${environment.settings.apiUrl}/app/all-map`);
     return response.data;
   } catch (error) {
     console.error('Error fetching agents URLs:', error);

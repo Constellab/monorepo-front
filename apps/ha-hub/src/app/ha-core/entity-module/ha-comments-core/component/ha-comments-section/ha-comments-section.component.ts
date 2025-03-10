@@ -3,7 +3,7 @@ import { HaCommentTextEditorConfig } from '../../model/ha-comment-text-editor.co
 import { CoUser } from '@monorepo/community-lib';
 
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
-import { HaAbstractComment, HaCommentEntity, HaCommentType } from '../../model/ha-abstract-comment.class';
+import { HaAbstractComment, HaCommentEntity } from '../../model/ha-abstract-comment.class';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { HaRouterService } from '../../../../ha-service/ha-router.service';
 import { HaCommentService } from '../../../../ha-service/ha-comment.service';
@@ -18,6 +18,7 @@ import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { HaEntityType } from '../../../../ha-model/ha-entities/ha-entity-type';
 
 export interface HaCommentsEntity {
   id: string;
@@ -47,7 +48,7 @@ export interface HaCommentsEntity {
 export class HaCommentsSectionComponent implements OnInit {
   user = input<CoUser>();
   entity = input.required<HaCommentsEntity>();
-  commentType = input.required<HaCommentType>();
+  commentType = input.required<HaEntityType>();
 
   private commentService = inject(HaCommentService);
 

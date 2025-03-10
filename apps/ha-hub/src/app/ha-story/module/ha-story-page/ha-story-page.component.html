@@ -46,9 +46,7 @@
 
           <div class="story-like-comment">
             <ha-like-button
-              (clicked)="toggleLikeStoryButton()"
-              [isLiked]="storyIsLiked"
-              [likesCount]="story.likes"></ha-like-button>
+              [entityType]="commentType" [entityId]="story.id"></ha-like-button>
             <ha-comment-button
               (clicked)="scrollToComments(comments)"
               [commentsCount]="story.comments"></ha-comment-button>

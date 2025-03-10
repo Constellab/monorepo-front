@@ -20,10 +20,6 @@ import { HaFile } from '../../../ha-core/entity-module/ha-file-core/model/ha-fil
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
-import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
-import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
-import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +39,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaTextEditorRightSidePanelComponent } from '../../../ha-core/entity-module/ha-util-component-core/component/ha-text-editor-right-side-panel/ha-text-editor-right-side-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 
 @Component({
   selector: 'ha-story-page',
@@ -56,7 +53,6 @@ import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-co
     FlDateModule,
     FlKeyValueModule,
     HaShareButtonComponent,
-    HaLikeButtonComponent,
     HaCommentButtonComponent,
     MatAnchor,
     TeTextEditorModule,
@@ -66,6 +62,7 @@ import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-co
     HaTextEditorRightSidePanelComponent,
     TranslatePipe,
     HaCommentsSectionComponent,
+    HaLikeButtonComponent,
   ],
 })
 export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
@@ -74,8 +71,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
   private platformId: object = inject(PLATFORM_ID);
   private transferState: TransferState = inject(TransferState);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
-  private authService: HaAuthService = inject(HaAuthService);
-  private likeService: HaLikeService = inject(HaLikeService);
   private router: Router = inject(Router);
   private httpRedirectionService: HaHttpRedirectionService = inject(HaHttpRedirectionService);
   private jsonLdState: HaJsonLdState = inject(HaJsonLdState);
@@ -100,8 +95,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
 
   storyCoAuthors: HaUser[] = [];
 
-  storyIsLiked: boolean;
-
   notFound = false;
 
   paramTitle: string;
@@ -112,7 +105,7 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
 
   subscription: Subscription;
 
-  commentType: HaCommentType = HaCommentType.STORY_COMMENT;
+  commentType: HaEntityType = HaEntityType.STORY;
 
   ngOnInit(): void {
     this.STORY_KEY = makeStateKey<object>('story');
@@ -122,7 +115,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
       this.textEditorConfig = new HaStoryTextEditorConfig(this.storyService, params.id);
       this.paramTitle = params.title;
       this.getCurrentUserBeforeStory(params.id);
-      this.checkIfStoryIsLiked(params.id);
     });
   }
 
@@ -130,17 +122,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.currentUser = user;
       this.getStory(storyId);
-    });
-  }
-
-  private checkIfStoryIsLiked(storyId: string): void {
-    this.likeService.checkIfLiked(HaLikeType.STORY_LIKE, storyId).subscribe({
-      next: (isLiked: boolean) => {
-        this.storyIsLiked = isLiked;
-      },
-      error: () => {
-        this.redirect404();
-      },
     });
   }
 
@@ -185,37 +166,6 @@ export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnD
   private getStoryFiles(): void {
     this.storyService.getStoryFiles(this.story.id).subscribe((files: HaFile[]) => {
       this.storyFiles = files;
-    });
-  }
-
-  toggleLikeStoryButton(): void {
-    if (this.storyIsLiked) {
-      this.unlikeStory();
-    } else {
-      this.likeStory();
-    }
-  }
-
-  private unlikeStory(): void {
-    this.likeService.unlike(HaLikeType.STORY_LIKE, this.story.id, HaStory).subscribe((story: HaStory) => {
-      if (story != null) {
-        this.story = story;
-        this.storyIsLiked = false;
-      }
-    });
-  }
-
-  private likeStory(): void {
-    if (!this.authService.hasAuthorizationCookie()) {
-      // navigate to login page
-      this.router.navigate(['/login']);
-      return;
-    }
-    this.likeService.like(HaLikeType.STORY_LIKE, this.story.id, HaStory).subscribe((story: HaStory) => {
-      if (story != null) {
-        this.story = story;
-        this.storyIsLiked = true;
-      }
     });
   }
 

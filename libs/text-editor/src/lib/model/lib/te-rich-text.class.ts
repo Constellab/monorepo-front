@@ -165,7 +165,12 @@ export class TeRichText {
     );
 
     return titleBlocks.map((block) => {
-      block.data.text = block.data.text.trim().replace('&nbsp;', '');
+      block.data.text = block.data.text
+        .trim()
+        .replace('&nbsp;', '')
+        .replace('&amp;', '&')
+        .replace('&lt;', '<')
+        .replace('&gt;', '>');
       return block.data;
     });
   }

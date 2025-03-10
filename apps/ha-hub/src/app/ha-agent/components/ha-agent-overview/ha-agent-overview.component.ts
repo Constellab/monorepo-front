@@ -4,9 +4,6 @@ import { HaAgent } from '../../../ha-core/ha-model/ha-entities/ha-agent.class';
 import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import { HaLikeType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type.enum';
-import { HaLikeService } from '../../../ha-core/ha-service/ha-like.service';
-import { HaAuthService } from '../../../ha-core/ha-service/ha-auth.service';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
@@ -39,8 +36,8 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { HaAgentVersionDetailComponent } from '../ha-agent-version-detail/ha-agent-version-detail.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaCommentsSectionComponent } from '../../../ha-core/entity-module/ha-comments-core/component/ha-comments-section/ha-comments-section.component';
-import { HaCommentType } from '../../../ha-core/entity-module/ha-comments-core/model/ha-abstract-comment.class';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 
 @Component({
   selector: 'ha-agent-overview',
@@ -71,14 +68,12 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);
   private activeRoute: ActivatedRoute = inject(ActivatedRoute);
-  private authService: HaAuthService = inject(HaAuthService);
-  private likeService: HaLikeService = inject(HaLikeService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private router: Router = inject(Router);
   private agentPageState: HaAgentPageState = inject(HaAgentPageState);
   private tdService: HaTdServiceConfig = inject(HaTdServiceConfig);
 
-  commentType: HaCommentType = HaCommentType.AGENT_COMMENT;
+  commentType: HaEntityType = HaEntityType.AGENT;
 
   profileRoute = HaRouterService.getProfileRoute();
 
@@ -104,8 +99,6 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
   canEditAgent: Signal<boolean> = this.agentPageState.canEditAgent;
 
   currentUser: Signal<HaUser> = this.agentPageState.getCurrentUser();
-
-  agentIsLiked: Signal<boolean> = this.agentPageState.getIsLiked();
 
   isLoading: Signal<boolean> = this.agentPageState.getIsLoading();
 
@@ -181,14 +174,6 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
     commentsSection.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 
-  toggleLikeAgentButton(): void {
-    if (this.agentIsLiked()) {
-      this.unlikeAgent();
-    } else {
-      this.likeAgent();
-    }
-  }
-
   deleteAgent(): void {
     const confirmDeleteDialogInput: FlConfirmDialogInput = {
       title: 'delete_agent',
@@ -204,34 +189,6 @@ export class HaAgentOverviewComponent extends HaCommunityPage implements OnInit 
           this.router.navigate(['../'], { relativeTo: this.activeRoute });
         }
       });
-  }
-
-  private unlikeAgent(): void {
-    if (!this.authService.hasAuthorizationCookie()) {
-      // navigate to login page
-      this.router.navigate(['/login']);
-      return;
-    }
-    this.likeService.unlike(HaLikeType.AGENT_LIKE, this.agent().id, HaAgent).subscribe((agent: HaAgent) => {
-      if (agent != null) {
-        this.agentPageState.setIsLiked(false);
-        this.agentPageState.setAgent(agent);
-      }
-    });
-  }
-
-  private likeAgent(): void {
-    if (!this.authService.hasAuthorizationCookie()) {
-      // navigate to login page
-      this.router.navigate(['/login']);
-      return;
-    }
-    this.likeService.like(HaLikeType.AGENT_LIKE, this.agent().id, HaAgent).subscribe((agent: HaAgent) => {
-      if (agent != null) {
-        this.agentPageState.setIsLiked(true);
-        this.agentPageState.setAgent(agent);
-      }
-    });
   }
 
   openAgentEditStyleDialog(): void {

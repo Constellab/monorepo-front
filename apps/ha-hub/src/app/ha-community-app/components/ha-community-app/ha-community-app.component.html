@@ -1,0 +1,3 @@
+@if (appSafeUrl() && appTitle()) {
+  <iframe [title]="appTitle()" [src]="appSafeUrl()" class="iframe"></iframe>
+}

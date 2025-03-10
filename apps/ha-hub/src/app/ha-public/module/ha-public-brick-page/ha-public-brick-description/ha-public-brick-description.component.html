@@ -12,9 +12,7 @@
           <div class="brick-like-edit-button brick-like-edit-button-top">
             <co-visibility-badge [space]="brick().space"> </co-visibility-badge>
             <ha-like-button
-              (clicked)="toggleLikeBrickButton()"
-              [isLiked]="brickIsLiked"
-              [likesCount]="brick().likes"></ha-like-button>
+              [entityType]="entityType" [entityId]="brick().id"></ha-like-button>
           </div>
           <div class="brick-like-edit-button">
             @if (userHasEditRight()) {

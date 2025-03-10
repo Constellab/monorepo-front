@@ -1,0 +1,55 @@
+@if (communityApp()) {
+  <div class="main-panel">
+    <div class="main-detail-div">
+      <button mat-flat-button (click)="openEditAppDialog()" class="edit-button primary">
+        <mat-icon class="g-icon-small">edit</mat-icon>
+        {{ 'edit' | translate }}
+      </button>
+      <div class="app-picture">
+        <img
+          [ngSrc]="communityApp().picture | haAppPicture"
+          [alt]="communityApp().title + 'logo'"
+          fill
+          priority />
+      </div>
+      <div>
+        <h2>{{ communityApp().title }}</h2>
+        <div class="main-detail-info g-text-small">
+          <span>{{ 'created_by' | translate }} :</span>
+          <fl-user-inline [user]="communityApp().createdBy" [portalOnHover]="false"></fl-user-inline>
+          <fl-from-now [date]="communityApp().createdAt" class="g-text-dense-height"></fl-from-now>
+        </div>
+        <co-visibility-badge [space]="communityApp().space"></co-visibility-badge>
+      </div>
+    </div>
+    <div class="app-description-div">
+      <div class="app-description-div-header">
+        <h4>{{ 'description' | translate }}</h4>
+        @if (communityApp().createdBy.id === (currentUser$ | async)?.id) {
+          @if (appDescriptionFormControl.disabled) {
+            <button mat-flat-button class="g-button-small" (click)="editDescription()">
+              <mat-icon>edit</mat-icon>
+              <span>{{ 'edit' | translate }}</span>
+            </button>
+          } @else {
+            <button mat-flat-button class="g-button-small" (click)="saveDescription()">
+              <mat-icon>save</mat-icon>
+              <span>{{ 'save' | translate }}</span>
+            </button>
+          }
+        }
+      </div>
+      <article>
+        <te-text-editor
+          [config]="textEditorConfig"
+          [formControl]="appDescriptionFormControl"></te-text-editor>
+      </article>
+    </div>
+    <div #comments id="comments">
+      <ha-comments-section
+        [commentType]="commentType"
+        [entity]="communityApp()"
+        [user]="(currentUser$ | async)"></ha-comments-section>
+    </div>
+  </div>
+}

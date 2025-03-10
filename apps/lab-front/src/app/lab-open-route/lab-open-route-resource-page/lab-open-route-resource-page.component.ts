@@ -43,6 +43,10 @@ export class LabOpenRouteResourcePageComponent {
     switchMap((params) => this.labShareService.callDefaultViewOnResource(params['token']))
   );
 
+  hideHeader$: Observable<boolean> = this.activatedRoute.queryParams.pipe(
+    map((queryParams) => queryParams['hide_header'] === 'true')
+  );
+
   logo = this.themeService.getConstellabLogo();
 
   constellabUrl = LabEnvironmentHelper.getConstellabPublicUrl();

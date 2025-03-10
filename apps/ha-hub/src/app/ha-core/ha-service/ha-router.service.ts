@@ -114,6 +114,15 @@ export class HaRouterService {
     return `${this.getBrickPageRoute(brickName, brickMajor)}version/`;
   }
 
+  ////////////////////////////// COMMUNITY APP ////////////////////////////////
+  public static getCommunityAppListRoute(): string {
+    return '/apps/';
+  }
+
+  public static getCommunityAppRoute(id: string, titlePath: string): string {
+    return `${this.getCommunityAppListRoute()}${id}/${titlePath}`;
+  }
+
   ///////////////////////////// PROFILE ////////////////////////////////
   public static getProfileRoute(): string {
     return '/profile/';

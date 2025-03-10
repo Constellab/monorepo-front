@@ -52,7 +52,9 @@ export class CaResourceDetailPageComponent {
       // provide the user in iframe url to authenticate the user
       // useful to authenticate the user for dashboard resource
       // this is not the perfect solution, but it works
-      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.shareLink + '?gws_user_id=' + userId);
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
+        resource.shareLink + '?gws_user_id=' + userId + '?hide_header=true'
+      );
     })
   );
 
