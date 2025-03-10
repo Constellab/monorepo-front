@@ -428,5 +428,8 @@
   "application": "Application",
   "detail": "Detail",
   "app_execution_count": "App execution count",
-  "my_apps": "My apps"
+  "my_apps": "My apps",
+  "save_description": "Save description",
+  "edit_description": "Edit description",
+  "app_url_pattern_error": "The app URL must be a valid URL"
 }

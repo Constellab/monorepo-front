@@ -105,7 +105,7 @@ export class HaCommunityAppCreateDialogComponent
     return new FormBuilder().group({
       picture: [null],
       title: [null, Validators.required],
-      appUrl: [null, [Validators.required, Validators.pattern('https?://.+')]],
+      appUrl: [null, [Validators.required, Validators.pattern('^\\s*https?://.+\\s*$')]],
       description: [null],
       spaceId: [null],
       id: [null],
@@ -113,6 +113,7 @@ export class HaCommunityAppCreateDialogComponent
   }
 
   create(formValue: HaCommunityAppEdit): Observable<HaCommunityApp> {
+    formValue.appUrl = formValue.appUrl.trim();
     return this.communityAppService.create(formValue);
   }
 
@@ -125,6 +126,7 @@ export class HaCommunityAppCreateDialogComponent
   }
 
   update(formValue: HaCommunityAppEdit): Observable<HaCommunityApp> {
+    formValue.appUrl = formValue.appUrl.trim();
     return this.communityAppService.update(formValue);
   }
 }

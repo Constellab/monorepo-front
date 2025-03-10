@@ -430,5 +430,8 @@
   "application": "Application",
   "detail": "Détail",
   "app_execution_count": "Nombre d'éxécution de l'application",
-  "my_apps": "Mes apps"
+  "my_apps": "Mes apps",
+  "save_description": "Sauvegarder la description",
+  "edit_description": "Éditer la description",
+  "app_url_pattern_error": "L'URL de l'app doit être une URL valide"
 }

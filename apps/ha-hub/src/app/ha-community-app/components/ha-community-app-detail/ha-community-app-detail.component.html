@@ -1,10 +1,12 @@
 @if (communityApp()) {
   <div class="main-panel">
     <div class="main-detail-div">
-      <button mat-flat-button (click)="openEditAppDialog()" class="edit-button primary">
-        <mat-icon class="g-icon-small">edit</mat-icon>
-        {{ 'edit' | translate }}
-      </button>
+      @if (communityApp().createdBy.id === (currentUser$ | async)?.id) {
+        <button mat-stroked-button (click)="openEditAppDialog()" class="edit-button primary">
+          <mat-icon class="g-icon-small">edit</mat-icon>
+          {{ 'edit' | translate }}
+        </button>
+      }
       <div class="app-picture">
         <img
           [ngSrc]="communityApp().picture | haAppPicture"
@@ -27,14 +29,14 @@
         <h4>{{ 'description' | translate }}</h4>
         @if (communityApp().createdBy.id === (currentUser$ | async)?.id) {
           @if (appDescriptionFormControl.disabled) {
-            <button mat-flat-button class="g-button-small" (click)="editDescription()">
+            <button mat-stroked-button class="g-button-small" (click)="editDescription()">
               <mat-icon>edit</mat-icon>
-              <span>{{ 'edit' | translate }}</span>
+              <span>{{ 'edit_description' | translate }}</span>
             </button>
           } @else {
-            <button mat-flat-button class="g-button-small" (click)="saveDescription()">
+            <button mat-stroked-button class="g-button-small" (click)="saveDescription()">
               <mat-icon>save</mat-icon>
-              <span>{{ 'save' | translate }}</span>
+              <span>{{ 'save_description' | translate }}</span>
             </button>
           }
         }
