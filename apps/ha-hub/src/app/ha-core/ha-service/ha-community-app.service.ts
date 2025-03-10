@@ -33,7 +33,7 @@ export class HaCommunityAppService {
       {
         page: page,
         pageSize: size,
-        resultIsPaginated: tru,
+        resultIsPaginated: true,
       }
     );
   }
@@ -85,7 +85,7 @@ export class HaCommunityAppService {
   uploadImage(file: File, appId: string): Observable<TeBlockFigureUploadedResponse> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.apiService.put(`${this.route}/image/${appId}`, formData);
+    return this.apiService.post(`${this.route}/image/${appId}`, formData);
   }
 
   getImageUrl(appId: string, name: string): string {

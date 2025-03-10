@@ -52,7 +52,9 @@ export class HaCommunityAppPageComponent implements OnInit {
   isLoading = this.communityAppState.isLoading;
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => this.communityAppState.init(params.id));
+    this.activatedRoute.params.subscribe((params) => {
+      this.communityAppState.init(params.id);
+    });
 
     this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
       this.currentUser = user;
