@@ -7,7 +7,7 @@ import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authe
 import { TranslatePipe } from '@ngx-translate/core';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
@@ -26,6 +26,7 @@ import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ha-community-app-detail',
@@ -43,6 +44,7 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
     MatButton,
     MatIcon,
     CoCommunityLibModule,
+    AsyncPipe,
   ],
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',
@@ -53,9 +55,9 @@ export class HaCommunityAppDetailComponent extends HaCommunityPage implements On
   private communityAppService = inject(HaCommunityAppService);
   private dialogService = inject(FlDialogService);
 
-  communityApp = this.communityAppState.app();
+  communityApp = this.communityAppState.app;
 
-  currentUser: HaUser;
+  currentUser$: Observable<HaUser>;
   commentType: HaEntityType = HaEntityType.APP;
   textEditorConfig: HaCommunityAppTextEditorConfig;
   appDescriptionFormControl = new FormControl<TeRichText>(null);
@@ -63,26 +65,24 @@ export class HaCommunityAppDetailComponent extends HaCommunityPage implements On
   ngOnInit(): void {
     this.textEditorConfig = new HaCommunityAppTextEditorConfig(
       this.communityAppService,
-      this.communityApp.id
+      this.communityApp().id
     );
-    this.appDescriptionFormControl.patchValue(this.communityApp.description);
+    this.appDescriptionFormControl.patchValue(this.communityApp().description);
     this.appDescriptionFormControl.disable();
-    this.authenticatedUserService.getUser().subscribe((user: HaUser) => {
-      this.currentUser = user;
-    });
+    this.currentUser$ = this.authenticatedUserService.getUser();
 
-    const appImage: string = this.communityApp.picture
-      ? this.communityAppService.getAppPictureUrl(this.communityApp.picture)
+    const appImage: string = this.communityApp().picture
+      ? this.communityAppService.getAppPictureUrl(this.communityApp().picture)
       : null;
 
     super.setMetaTags(
-      { text: 'ha.app_detail.title', translateParam: { param: { title: this.communityApp.title } } },
-      { text: 'ha.app_detail.description', translateParam: { param: { title: this.communityApp.title } } },
+      { text: 'ha.app_detail.title', translateParam: { param: { title: this.communityApp().title } } },
+      { text: 'ha.app_detail.description', translateParam: { param: { title: this.communityApp().title } } },
       appImage,
       HaRouterService.getFullRoute(
         HaRouterService.getCommunityAppRoute(
-          this.communityApp.id,
-          ClStringHelper.getCleanUrlPath(this.communityApp.title)
+          this.communityApp().id,
+          ClStringHelper.getCleanUrlPath(this.communityApp().title)
         )
       )
     );
@@ -94,7 +94,7 @@ export class HaCommunityAppDetailComponent extends HaCommunityPage implements On
 
   saveDescription(): void {
     this.communityAppService
-      .updateAppDescription(this.communityApp.id, this.appDescriptionFormControl.value)
+      .updateAppDescription(this.communityApp().id, this.appDescriptionFormControl.value)
       .subscribe((app) => {
         this.communityAppState.set(app);
         this.appDescriptionFormControl.disable();
@@ -102,17 +102,17 @@ export class HaCommunityAppDetailComponent extends HaCommunityPage implements On
   }
 
   openEditAppDialog(): void {
-    if (!this.communityApp) return;
+    if (!this.communityApp()) return;
 
     const input: HaCreateCommunityAppInput = {
       mode: 'update',
       object: {
-        id: this.communityApp.id,
-        appUrl: this.communityApp.appUrl,
-        spaceId: this.communityApp.space?.id,
-        title: this.communityApp.title,
-        description: this.communityApp.description,
-        picture: this.communityApp.picture,
+        id: this.communityApp().id,
+        appUrl: this.communityApp().appUrl,
+        spaceId: this.communityApp().space?.id,
+        title: this.communityApp().title,
+        description: this.communityApp().description,
+        picture: this.communityApp().picture,
       },
     };
 

@@ -55,7 +55,7 @@
         </mat-form-field>
       </form>
     </div>
-    @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp) {
+    @for (communityApp of communityAppsPaginated | flDatasourceConnect | async; track communityApp.id) {
       <a class="agent-result-card-div" [routerLink]="communityApp | haDetailRoute">
         <co-community-app-list-item [communityApp]="communityApp"
                                     [appPicture]="communityApp.picture | haAppPicture"></co-community-app-list-item>

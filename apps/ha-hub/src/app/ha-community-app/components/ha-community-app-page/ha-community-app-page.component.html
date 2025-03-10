@@ -28,10 +28,10 @@
       </div>
 
       <div class="app-header-right app-header-div">
-        <a [routerLink]="'.'" [ngClass]="currentChildrenPath === '' ? 'activated-a' : ''">{{
+        <a [routerLink]="'.'" [routerLinkActive]="'activated-a'" [routerLinkActiveOptions]="{ exact: true }">{{
             'application' | translate
           }}</a>
-        <a [routerLink]="'detail'" [ngClass]="currentChildrenPath === 'detail' ? 'activated-a' : ''">{{
+        <a [routerLink]="'detail'" [routerLinkActive]="'activated-a'" [routerLinkActiveOptions]="{ exact: true }">{{
             'detail' | translate
           }}</a>
       </div>
