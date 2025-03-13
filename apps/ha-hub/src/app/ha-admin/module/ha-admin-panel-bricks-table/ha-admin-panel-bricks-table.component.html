@@ -1,0 +1,57 @@
+<mat-table mat-table [dataSource]="datasource()" flSearchTableSort>
+  <!-- name -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'name' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let brick">
+      {{ brick.name }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="space">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'space' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let brick">
+      <co-visibility-badge [space]="brick.space"></co-visibility-badge>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Created -->
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'creation_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let brick">
+      <fl-user-with-date [user]="brick.createdBy" [date]="brick.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Last modified -->
+  <ng-container matColumnDef="lastModified">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ 'last_modification_info' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let brick">
+      <fl-user-with-date [user]="brick.lastModifiedBy" [date]="brick.lastModifiedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef  class="actions-cell">
+      {{'actions' | translate}}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let brick" class="actions-cell">
+      @for (action of haAdminPanelBricksTableActions; track action.type){
+        <button mat-icon-button class="g-table-icon-button-cell"
+                (click)="onAction(action, brick)" [matTooltip]="action.tooltip | translate">
+          <mat-icon>{{action.icon}}</mat-icon>
+        </button>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns(); sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns()"></mat-row>
+</mat-table>

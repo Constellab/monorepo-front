@@ -68,7 +68,7 @@ export class HaSmallScreenMainComponent implements OnInit {
 
   loginRoute: string = HaRouterService.getLoginRoute();
 
-  adminRoute: string = HaRouterService.getAdminRoute();
+  adminRoute: string = HaRouterService.getAdminPanelRoute();
 
   storyListRoute = HaRouterService.getStoriesListRoute();
 

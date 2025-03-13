@@ -28,9 +28,29 @@ export class HaRouterService {
     return '/login';
   }
 
-  public static getAdminRoute(): string {
+  ////////////////////////// ADMIN ////////////////////////////////
+
+  public static getAdminPanelRoute(): string {
     return '/admin';
   }
+
+  public static getAdminPanelAgentsRoute(): string {
+    return `${this.getAdminPanelRoute()}/agents`;
+  }
+
+  public static getAdminPanelAppsRoute(): string {
+    return `${this.getAdminPanelRoute()}/apps`;
+  }
+
+  public static getAdminPanelBricksRoute(): string {
+    return `${this.getAdminPanelRoute()}/bricks`;
+  }
+
+  public static getAdminPanelStoriesRoute(): string {
+    return `${this.getAdminPanelRoute()}/stories`;
+  }
+
+  ////////////////////////// USEFUL ////////////////////////////////
 
   public static getProductDocRoute(): string {
     return `/bricks/${TdBrick.GWS_ACADEMY}/latest/doc/getting-started`;

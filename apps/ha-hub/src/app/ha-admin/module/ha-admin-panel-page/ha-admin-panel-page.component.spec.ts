@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HaAdminPageComponent } from './ha-admin-page.component';
+import { HaAdminPanelPageComponent } from './ha-admin-panel-page.component';
 
 describe('HaAdminPageComponent', () => {
-  let component: HaAdminPageComponent;
-  let fixture: ComponentFixture<HaAdminPageComponent>;
+  let component: HaAdminPanelPageComponent;
+  let fixture: ComponentFixture<HaAdminPanelPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HaAdminPageComponent],
+      declarations: [HaAdminPanelPageComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HaAdminPageComponent);
+    fixture = TestBed.createComponent(HaAdminPanelPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

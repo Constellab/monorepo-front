@@ -431,5 +431,18 @@
   "my_apps": "My apps",
   "save_description": "Save description",
   "edit_description": "Edit description",
-  "app_url_pattern_error": "The app URL must be a valid URL"
+  "app_url_pattern_error": "The app URL must be a valid URL",
+  "creation_info": "Creation info",
+  "actions": "Actions",
+  "creation_date": "Creation date",
+  "last_modification_date": "Last modification date",
+  "download_brick_docs_zip_file": "Download brick documentation zip file",
+  "send_to_dify": "Send to Dify",
+  "send_all_brick_versions_to_queue": "Send all brick versions to queue",
+  "knowledge_base": "Knowledge base",
+  "brick_docs_sent_to_dify": "Brick documentation sent to Dify",
+  "error_while_sending_brick_docs_to_dify": "Error while sending brick documentation to Dify",
+  "send": "Send",
+  "download_stories_zip_file": "Download stories zip file",
+  "send_stories_to_dify": "Send stories to Dify"
 }

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
-import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
 import {
   HaBrick,
@@ -14,13 +14,17 @@ import { HaDocumentation, HaDocumentationSearchDTO } from '../ha-model/ha-entiti
 import { HaNewVersionDTO, HaReferenceDTO } from '../ha-model/ha-entities/ha-version.class';
 import { HaBrickVersion } from '../ha-model/ha-entities/ha-brick-version.class';
 import { TdTypeEntity } from '@monorepo/technical-doc';
-import { HaBrickUser } from '../ha-model/ha-entities/ha-brick-user';
 import { ClPage, ClVersion } from '@monorepo/core-lib';
 import { HaBrickCoAuthorInvite } from '../entity-module/ha-co-author-core/model/ha-co-author-invite.class';
 import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-co-author-service';
 import { HaUser } from '../ha-model/ha-entities/ha-user';
 import { HaStory } from '../ha-model/ha-entities/ha-story.class';
 import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import {
+  HaAdminPanelBrickSearch,
+  HaAdminPanelBrickSearchFields,
+} from '../../ha-admin/model/ha-admin-panel-brick-search.class';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 
 @Injectable({
   providedIn: 'root',
@@ -209,16 +213,8 @@ export class HaBrickService implements HaCoAuthorService {
     return this.apiService.post(`${this.route}/get-doc-by-link`, { link: link });
   }
 
-  public getBrickUsers(brickId: string): Observable<HaBrickUser[]> {
-    return this.apiService.get(`${this.route}/${brickId}/users`);
-  }
-
   public inviteUser(brickId: string, email: string): Observable<any> {
     return this.apiService.put(`${this.route}/${brickId}/invite-user`, { email: email });
-  }
-
-  public removeBrickUser(brickUser: HaBrickUser): Observable<any> {
-    return this.apiService.delete(`${this.route}/remove-brick-user/${brickUser.id}`);
   }
 
   isCoAuthorInviteValid(token: string): Observable<HaBrickCoAuthorInvite> {
@@ -253,6 +249,27 @@ export class HaBrickService implements HaCoAuthorService {
 
   removeCoAuthor(brickId: string, coAuthorId: string): Observable<any> {
     return this.apiService.put(`${this.route}/${brickId}/remove-co-author/${coAuthorId}`, {}, HaStory);
+  }
+
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<HaAdminPanelBrickSearchFields>
+  ): Observable<ClPage<HaBrick>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      HaAdminPanelBrickSearch.filterConverter,
+      HaAdminPanelBrickSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/search`, searchInput, HaBrick, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
+  }
+
+  public urlToDownloadDocsZipPrefix(): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/download-docs-zip/`);
   }
 
   ////////////////////////////////////////// USER RIGHTS ON BRICK //////////////////////////////

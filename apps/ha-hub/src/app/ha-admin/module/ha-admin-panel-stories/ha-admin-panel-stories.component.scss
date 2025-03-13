@@ -1,0 +1,14 @@
+:host {
+  // full remaining height
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.card{
+  flex: auto;
+  display: grid;
+}

@@ -1,0 +1,73 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { TranslatePipe } from '@ngx-translate/core';
+import { HaDifyService } from '../../../ha-core/ha-service/ha-dify.service';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { MatButton } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { HaDifyKnowledgeBase } from '../../../ha-core/ha-model/ha-entities/ha-dify.class';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+
+export interface HaAdminSendToDifyDialogInput {
+  entityType: HaEntityType;
+  entityId?: string;
+}
+
+@Component({
+  selector: 'ha-admin-send-to-dify-dialog',
+  imports: [
+    FlDialogModule,
+    TranslatePipe,
+    FlLoaderModule,
+    MatButton,
+    MatFormField,
+    MatSelect,
+    FormsModule,
+    MatOption,
+    MatLabel,
+  ],
+  templateUrl: './ha-admin-send-to-dify-dialog.component.html',
+  styleUrl: './ha-admin-send-to-dify-dialog.component.scss',
+})
+export class HaAdminSendToDifyDialogComponent implements OnInit {
+  private difyService = inject(HaDifyService);
+  private dialogRef = inject<MatDialogRef<HaAdminSendToDifyDialogComponent>>(MatDialogRef);
+  private snackBarService = inject(FlSnackBarService);
+
+  inputs: HaAdminSendToDifyDialogInput;
+  difyKnowledgeBases: HaDifyKnowledgeBase[];
+  selectedKnowledgeBaseId: string = null;
+  isLoading: boolean;
+
+  constructor() {
+    this.inputs = inject<HaAdminSendToDifyDialogInput>(MAT_DIALOG_DATA);
+  }
+
+  ngOnInit(): void {
+    this.difyService.getKnowledgeBaseList().subscribe((res) => {
+      this.difyKnowledgeBases = res.data;
+    });
+  }
+
+  sendToKnowledgeBase(): void {
+    this.isLoading = true;
+    this.difyService
+      .createDocuments(this.selectedKnowledgeBaseId, this.inputs.entityType, this.inputs.entityId)
+      .subscribe((res) => {
+        if (res) {
+          this.isLoading = false;
+          this.snackBarService.openSuccessMessage({ text: 'brick_docs_sent_to_dify', translateText: true });
+          this.dialogRef.close();
+        } else {
+          this.snackBarService.openErrorMessage({
+            text: 'error_while_sending_brick_docs_to_dify',
+            translateText: true,
+          });
+        }
+      });
+  }
+}

@@ -1,0 +1,45 @@
+<div class="form g-layout-col" [formGroup]="formGp">
+  <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+    <!--  name  -->
+    <mat-form-field class="g-search-field-full">
+      <mat-label>{{ 'name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off" />
+    </mat-form-field>
+
+    <!-- Visibility -->
+    <mat-form-field class="g-search-field-full">
+      <mat-label>{{'visibility' | translate}}</mat-label>
+      <mat-select formControlName="visibility" [placeholder]="'visibility' | translate">
+        @for (visibilityOption of visibilityOptions; track visibilityOption) {
+          <mat-option [value]="visibilityOption">
+            {{ visibilityOption | translate }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    @if (spaces$ | async; as spaces){
+      <mat-form-field class="g-search-field-full">
+        <mat-label>{{'space' | translate}}</mat-label>
+        <mat-select formControlName="space" [placeholder]="'space' | translate">
+          @for (space of spaces; track space.id) {
+            <mat-option [value]="space">
+              {{ space.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    }
+
+    <div class="g-form-field-no-hint g-full">
+      <p class="g-text-small date">{{ 'creation_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
+    </div>
+
+    <div class="g-form-field-no-hint g-full">
+      <p class="g-text-small date">{{ 'last_modification_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="lastModifiedAt"> </fl-search-date-interval>
+    </div>
+
+  </div>
+</div>

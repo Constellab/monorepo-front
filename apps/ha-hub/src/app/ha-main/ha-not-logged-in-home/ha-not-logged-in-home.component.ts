@@ -3,8 +3,8 @@ import { HaConstellabHelper } from '../../ha-core/ha-model/ha-config/ha-constell
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { HaEnvironmentHelper } from '../../ha-core/ha-model/ha-config/ha-environment.helper';
 import {
-  HaStoryDatasourcePaginated,
   HaStoryFilters,
+  HaStoryListDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import {
   HaAgentDatasourceFilters,
@@ -59,7 +59,7 @@ export class HaNotLoggedInHomeComponent {
   private themeState: HaThemeState = inject(HaThemeState);
   private userService: HaUserService = inject(HaUserService);
 
-  stories$ = input<HaStoryDatasourcePaginated<HaStoryFilters>>();
+  stories$ = input<HaStoryListDatasourcePaginated<HaStoryFilters>>();
   agents$ = input<HaAgentDatasourcePaginated<HaAgentDatasourceFilters>>();
   bricks$ = input<HaBrickDatasourcePaginated<HaBrickDatasourceFilters>>();
 

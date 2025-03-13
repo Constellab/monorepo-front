@@ -103,4 +103,5 @@ export class HaStoryFilters {
   }
 }
 
-export type HaStoryDatasourcePaginated<F = void> = FlDatasourcePaginated<HaListStoryDto, F>;
+export type HaStoryDatasourcePaginated<F = void> = FlDatasourcePaginated<HaStory, F>;
+export type HaStoryListDatasourcePaginated<F = void> = FlDatasourcePaginated<HaListStoryDto, F>;

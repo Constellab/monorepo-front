@@ -10,7 +10,7 @@ import { HaAgentService } from '../../../ha-core/ha-service/ha-agent.service';
 import { HaBrickService } from '../../../ha-core/ha-service/ha-brick.service';
 import { HaBrickDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
-import { HaStoryDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
+import { HaStoryListDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ClStringHelper, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlUserConfig, FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -97,7 +97,7 @@ export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDes
   isCurrentUser$: Observable<boolean>;
   commonSpace$: Observable<HaSpace[]>;
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
-  stories$: HaStoryDatasourcePaginated<HaProfileDatasourceFilters>;
+  stories$: HaStoryListDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
 
   userRunStatAggregate$: Observable<HaRunStatAggregate>;
