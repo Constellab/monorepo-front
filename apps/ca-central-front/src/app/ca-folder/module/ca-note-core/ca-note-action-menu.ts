@@ -15,6 +15,7 @@ import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { CaNoteHistoryService } from '../../../ca-core/service/ca-note-history.service';
 import { CaNoteTextEditorConfig } from './model/ca-note-text-editor-config.class';
+import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 
 export type CaNoteActionEvent = {
   action: 'delete';
@@ -30,7 +31,12 @@ export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActi
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const menu = [this.getManageTagsButton(), this.getDeleteButton()];
+    const menu = [this.getManageTagsButton()];
+    const isAdmin = this.injector.get(CaAuthenticatedUserService).isAdmin();
+
+    if (isAdmin) {
+      menu.push(this.getDeleteButton());
+    }
     return this.generateMenu(menu, event);
   }
 
