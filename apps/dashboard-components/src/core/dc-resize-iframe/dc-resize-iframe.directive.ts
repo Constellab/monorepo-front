@@ -28,7 +28,6 @@ export class DcResizeIframeDirective implements OnInit, OnDestroy {
       for (const entry of entries) {
         if (entry.target === this.element.nativeElement) {
           this.heightChange$.next(entry.contentRect.height);
-          Streamlit.setFrameHeight(entry.contentRect.height);
         }
       }
     });
