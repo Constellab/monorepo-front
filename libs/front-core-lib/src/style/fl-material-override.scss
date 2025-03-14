@@ -18,6 +18,7 @@ body {
 // wrap with body to override material style
 
 body {
+
   .g-form-field-no-hint.mat-mdc-form-field,
   .g-form-field-no-hint {
     .mat-mdc-form-field-subscript-wrapper {
@@ -28,6 +29,22 @@ body {
   // align the text vertically in the input
   .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-text-field__input {
     padding-top: 5px;
+  }
+
+  @mixin g-button-icon-small {
+    &.mdc-icon-button.mat-mdc-button-base,
+    & .mdc-icon-button.mat-mdc-button-base {
+      width: 30px;
+      height: 30px;
+      padding: 2px;
+
+      mat-icon {
+        height: 18px;
+        width: 18px;
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
   }
 
   @mixin g-form-field-compact-height {
@@ -41,6 +58,11 @@ body {
             state-layer-size: 35px,
           )
         );
+      }
+
+      // reduce size of the icon button
+      button {
+        @include g-button-icon-small;
       }
     }
 
@@ -182,20 +204,10 @@ body {
     font-family: initial;
   }
 
-  .g-button-icon-small {
-    &.mdc-icon-button.mat-mdc-button-base,
-    & .mdc-icon-button.mat-mdc-button-base {
-      width: 30px;
-      height: 30px;
-      padding: 2px;
 
-      mat-icon {
-        height: 18px;
-        width: 18px;
-        font-size: 18px;
-        line-height: 18px;
-      }
-    }
+
+  .g-button-icon-small {
+    @include g-button-icon-small;
   }
 
   .g-button-icon-tiny {
@@ -504,11 +516,10 @@ body {
     line-height: initial;
   }
 
-
   // Class to be placed on a mat-option to avoid the text to wrap
   // the text will be truncated
   // Ths text children must implement the nowrap logic
-  .g-mat-option-no-wrap .mdc-list-item__primary-text{
+  .g-mat-option-no-wrap .mdc-list-item__primary-text {
     width: 100%;
   }
 
@@ -576,6 +587,4 @@ body {
       )
     );
   }
-
-
 }
