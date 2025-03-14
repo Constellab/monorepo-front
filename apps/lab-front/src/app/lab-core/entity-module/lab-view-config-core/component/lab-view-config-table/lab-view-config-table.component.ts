@@ -1,22 +1,20 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FlArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
 import { LabViewConfig } from '../../../../model/entities/resource/lab-view-config.entity';
-import { LabRouterService } from '../../../../service/lab-router.service';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
-import { MatSort, MatSortHeader } from '@angular/material/sort';
+import { MatSortHeader } from '@angular/material/sort';
 import { FlSearchModule } from '@monorepo/front-core-lib/fl-search';
 import { RouterLink } from '@angular/router';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
@@ -38,7 +36,6 @@ import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-
   styleUrls: ['./lab-view-config-table.component.scss'],
   imports: [
     MatTable,
-    MatSort,
     FlSearchModule,
     MatColumnDef,
     MatHeaderCellDef,
@@ -66,8 +63,6 @@ import { LabGetEntityTagsPipe } from '../../../lab-tag-core/pipe/lab-get-entity-
   ],
 })
 export class LabViewConfigTableComponent {
-  private routerService = inject(LabRouterService);
-
   @Input({ required: true }) datasource: FlArrayObs<LabViewConfig>;
 
   @Input() columns: FlTableColumnStatic<LabViewConfig>[] = ['title', 'resource', 'lastModifiedAt', 'preview'];
@@ -76,8 +71,6 @@ export class LabViewConfigTableComponent {
   @Input() selectableRow: boolean = false;
 
   @Input() rowLinkTarget: '_self' | '_blank' = '_self';
-
-  @Input() tagSelectable: boolean = true;
 
   @Output() tagSelected: EventEmitter<FlTag> = new EventEmitter();
 
@@ -91,9 +84,5 @@ export class LabViewConfigTableComponent {
 
   onUpdate(viewConfig: LabViewConfig): void {
     this.datasource.updateItem(viewConfig);
-  }
-
-  navigateToViewConfigPage(viewConfig: LabViewConfig): void {
-    this.routerService.navigateToViewConfig(viewConfig.resource.id, viewConfig.id);
   }
 }

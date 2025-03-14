@@ -71,7 +71,7 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario" class="g-column-width-2">
       @defer (on viewport) {
-        <lab-tag-list [tags]="scenario | labGetEntityTags" [tagSelectable]="true"></lab-tag-list>
+        <lab-tag-list [tags]="scenario | labGetEntityTags"></lab-tag-list>
       } @placeholder {
         <div></div>
       }

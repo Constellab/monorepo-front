@@ -37,7 +37,10 @@ export class LabTagListComponent implements OnInit {
 
   @Input({ required: true }) tags: LabTagDatasource;
 
-  @Input() tagSelectable: boolean = false;
+  /**
+   * If true, the user can click on the tag to see the detail (including the tag origins)
+   */
+  @Input() enableDetails: boolean = false;
 
   @Input() showNoTagMessage: boolean = false;
 
@@ -79,7 +82,7 @@ export class LabTagListComponent implements OnInit {
   }
 
   showTagDetail(tag: LabTag, event: MouseEvent): void {
-    if (!this.tagSelectable) return;
+    if (!this.enableDetails) return;
     ClHelpService.stopEventPropagation(event);
     const config = this.portalService.configureRelativePortalFromMouseEvent(
       event,

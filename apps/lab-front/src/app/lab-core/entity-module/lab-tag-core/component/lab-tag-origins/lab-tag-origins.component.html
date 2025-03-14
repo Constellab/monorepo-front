@@ -5,8 +5,8 @@
     <ul>
       @for (origin of origins; track origin) {
         <li>
-          <fl-key-value>
-            <fl-key>{{ origin.originTypeText | translate }}</fl-key>
+          <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+            <div>{{ origin.originTypeText | translate }} :</div>
 
             @if (origin.isUserOrigin) {
               <fl-user-inline [user]="$any(origin.originObject)" class="user-inline"></fl-user-inline>
@@ -20,7 +20,7 @@
             } @else {
               {{ origin.originObject ?? origin.originId }}
             }
-          </fl-key-value>
+          </div>
         </li>
       }
     </ul>

@@ -1,7 +1,7 @@
 <fl-chip
   class="chip g-layout-row g-layout-start-center g-layout-gap-05em"
   [matTooltip]="flTag.value ? flTag.key + ' : ' + flTag.value : flTag.key"
-  [matTooltipShowDelay]="2000">
+  [matTooltipShowDelay]="2000" matTooltipClass="g-text-capitalize">
   <div class="color" [style.background-color]="flTag | flTagColor: tagColorer | async"></div>
 
   <div class="text">

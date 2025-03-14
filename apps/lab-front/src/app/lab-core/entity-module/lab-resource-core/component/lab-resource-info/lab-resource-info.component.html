@@ -14,16 +14,16 @@
       </fl-text-icon>
     }
 
-    <fl-text-icon class="line">
+    <div class="line tags">
       <mat-icon flIcon="tag"></mat-icon>
       <lab-tag-list
         [tags]="tags"
-        [tagSelectable]="false"
-        class="g-text-small"
+        [enableDetails]="true"
+        class="g-text-small tags-list"
         [showNoTagMessage]="true"
         entityType="RESOURCE"
         [entityId]="resource.id"></lab-tag-list>
-    </fl-text-icon>
+    </div>
 
     <!--  Scenario  -->
     @if (resource.scenario) {

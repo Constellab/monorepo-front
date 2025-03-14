@@ -4,7 +4,7 @@
       @for (tag of tagList; track tag) {
         <fl-tag
           [flTag]="tag"
-          [ngClass]="{'selectable-tag': tagSelectable}"
+          [ngClass]="{'selectable-tag': enableDetails}"
           [showDeleteIcon]="mode === 'edit' && tag.isUserOrigin"
           (deleteTag)="deleteTag(tag)"
           (click)="showTagDetail(tag, $event)"></fl-tag>
