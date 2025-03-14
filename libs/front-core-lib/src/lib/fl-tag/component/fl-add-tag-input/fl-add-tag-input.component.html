@@ -8,7 +8,7 @@
           matChipAvatar
           class="color"
           [style.background-color]="currentTagKey.content | flTagColor | async"></div>
-        {{ currentTagKey.content }} :
+        <span class="tag-key">{{ currentTagKey.content }} :</span>
       </mat-chip-row>
     }
     <input

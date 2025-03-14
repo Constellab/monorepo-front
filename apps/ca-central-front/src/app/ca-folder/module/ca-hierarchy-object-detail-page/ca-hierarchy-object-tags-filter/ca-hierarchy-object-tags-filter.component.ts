@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, output } from '@angular/core';
-import {
-  CaHierarchyObjectDetailState,
-} from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaTagService } from '../../../../ca-core/service-api/ca-tag.service';
 import { FlTag, FlTagModule, FlTagService } from '@monorepo/front-core-lib/fl-tag';
 import { Observable } from 'rxjs';
@@ -77,9 +75,11 @@ export class CaHierarchyObjectTagsFilterComponent extends FlFormFieldDirective<F
 
   openValueMenu(tag: CaTagKey, event: MouseEvent): void {
     const menus: FlMenuDynamic[] = tag.values.map((value) => {
+      const strValue = value.toString();
+      const capitalizedValue = strValue.charAt(0).toUpperCase() + strValue.slice(1);
       return {
         type: 'button',
-        text: { text: value as string, translateText: false },
+        text: { text: capitalizedValue, translateText: false },
         onClick: () => this.selectTag({ key: tag.key, value }),
       };
     });
