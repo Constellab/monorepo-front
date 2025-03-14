@@ -67,8 +67,8 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
       this.updateIsSmallScreen();
     });
 
-    if (environment.production && environment.settings.algoliaSiteVerificationKey) {
-      this.metadataService.setAlgoliaVerificationMetaTag(environment.settings.algoliaSiteVerificationKey);
+    if (environment.settings && environment.settings.difyChatbotToken && isPlatformBrowser(this.platformId)) {
+      this.addChatbotScript();
     }
   }
 
@@ -100,7 +100,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     script.async = true;
     script.id = 'google-analytics-script';
     script.src = `https://www.googletagmanager.com/gtag/js?id=${HaEnvironmentHelper.getGoogleAnalyticsId()}`;
-    document.head.appendChild(script);
+    document.body.appendChild(script);
 
     const windowObj = window as any;
     windowObj['dataLayer'] = windowObj['dataLayer'] || [];
@@ -110,6 +110,47 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     };
     windowObj['gtag']('js', new Date());
     windowObj['gtag']('config', HaEnvironmentHelper.getGoogleAnalyticsId());
+  }
+
+  private addChatbotScript(): void {
+    const chatBotToken = environment.settings.difyChatbotToken;
+    if (!chatBotToken) return;
+
+    (window as any).difyChatbotConfig = { token: chatBotToken };
+
+    const script2 = document.createElement('script');
+    script2.src = 'assets/dify-chatbot.js';
+    script2.id = chatBotToken;
+    script2.defer = true;
+
+    script2.onload = () => {
+      (window as any).initDifyChatbot();
+      console.log('Dify chatbot script loaded successfully');
+      setTimeout(() => {
+        if ((window as any).DifyChatbot) {
+          console.log('Restarting Dify Chatbot...');
+          (window as any).initDifyChatbot();
+        }
+      }, 500);
+    };
+
+    script2.onerror = () => {
+      console.error('Failed to load Dify chatbot script');
+    };
+
+    document.body.appendChild(script2);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      #dify-chatbot-bubble-button {
+        background-color: var(--primary-color) !important;
+      }
+      #dify-chatbot-bubble-window {
+        width: 40rem !important;
+        border-radius: 20px;
+      }
+    `;
+    document.body.appendChild(style);
   }
 
   ngOnDestroy(): void {

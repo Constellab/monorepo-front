@@ -19,6 +19,16 @@
           }
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field class="g-search-field-full">
+        <mat-label>{{ 'separator' | translate }}</mat-label>
+        <input matInput [(ngModel)]="separator" placeholder="{{ 'separator' | translate }}" />
+      </mat-form-field>
+
+      <mat-form-field class="g-search-field-full">
+        <mat-label>{{ 'max_tokens' | translate }}</mat-label>
+        <input matInput type="number" [(ngModel)]="maxTokens" placeholder="{{ 'max_tokens' | translate }}" />
+      </mat-form-field>
     } @else {
       <div class="g-centered-forced g-text-centered g-full">
         <fl-loader></fl-loader>

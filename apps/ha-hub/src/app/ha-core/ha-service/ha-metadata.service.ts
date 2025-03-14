@@ -44,10 +44,6 @@ export class HaMetadataService {
     this.setOGMetaTags(title, description, image, url, hasTranslation, data);
   }
 
-  setAlgoliaVerificationMetaTag(algoliaSiteVerificationKey: string): void {
-    this.metaService.addTag({ name: 'algolia-site-verification', content: algoliaSiteVerificationKey });
-  }
-
   getMetaTag(name: string, isProperty: boolean = false): string {
     return isProperty
       ? this.metaService.getTag(`property="${name}"`).content

@@ -25,6 +25,7 @@ environment.settings = {
   algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
   algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
+  difyChatbotToken: process?.env['DIFY_CHATBOT_TOKEN'] || '22bhCqCeaaGiVEhr',
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
@@ -56,7 +57,7 @@ export function app(): express.Express {
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
       const scriptSrc =
-        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com data:";
+        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:";
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
       const frameSrc =
@@ -65,7 +66,8 @@ export function app(): express.Express {
       const styleSrc =
         "style-src 'self' 'unsafe-inline' *.gencovery.com *.constellab.community https://fonts.googleapis.com";
       const fontSrc = "font-src 'self' data: http: https: fonts.googleapis.com fonts.gstatic.com";
-      const imgSrc = "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community";
+      const imgSrc =
+        "img-src 'self' blob: data: http: https: *.gencovery.com *.constellab.community http://www.w3.org";
       // https://cdn.jsdelivr.net/npm/@emoji-mart/data is used to allow the emoji-mart data
       // eslint-disable-next-line max-len
       const connectSrc =

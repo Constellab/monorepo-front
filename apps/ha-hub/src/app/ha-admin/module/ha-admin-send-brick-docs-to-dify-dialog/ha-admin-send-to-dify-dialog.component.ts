@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HaDifyKnowledgeBase } from '../../../ha-core/ha-model/ha-entities/ha-dify.class';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { MatInput } from '@angular/material/input';
 
 export interface HaAdminSendToDifyDialogInput {
   entityType: HaEntityType;
@@ -29,6 +30,7 @@ export interface HaAdminSendToDifyDialogInput {
     FormsModule,
     MatOption,
     MatLabel,
+    MatInput,
   ],
   templateUrl: './ha-admin-send-to-dify-dialog.component.html',
   styleUrl: './ha-admin-send-to-dify-dialog.component.scss',
@@ -42,6 +44,8 @@ export class HaAdminSendToDifyDialogComponent implements OnInit {
   difyKnowledgeBases: HaDifyKnowledgeBase[];
   selectedKnowledgeBaseId: string = null;
   isLoading: boolean;
+  separator: string;
+  maxTokens: number;
 
   constructor() {
     this.inputs = inject<HaAdminSendToDifyDialogInput>(MAT_DIALOG_DATA);
@@ -56,7 +60,10 @@ export class HaAdminSendToDifyDialogComponent implements OnInit {
   sendToKnowledgeBase(): void {
     this.isLoading = true;
     this.difyService
-      .createDocuments(this.selectedKnowledgeBaseId, this.inputs.entityType, this.inputs.entityId)
+      .createDocuments(this.selectedKnowledgeBaseId, this.inputs.entityType, this.inputs.entityId, {
+        separator: this.separator,
+        maxTokens: this.maxTokens,
+      })
       .subscribe((res) => {
         if (res) {
           this.isLoading = false;

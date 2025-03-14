@@ -446,5 +446,7 @@
   "error_while_sending_brick_docs_to_dify": "Erreur lors de l'envoi des documentations de la brique à Dify",
   "send": "Envoyer",
   "download_stories_zip_file": "Télécharger le fichier zip des stories",
-  "send_stories_to_dify": "Envoyer les stories à Dify"
+  "send_stories_to_dify": "Envoyer les stories à Dify",
+  "separator": "Séparateur",
+  "max_tokens": "Nombre maximum de tokens"
 }

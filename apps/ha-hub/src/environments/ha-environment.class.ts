@@ -40,6 +40,8 @@ export interface HaEnvironmentSettings {
   algoliaIndexName: string;
 
   algoliaSiteVerificationKey: string;
+
+  difyChatbotToken: string;
 }
 
 // Path of the environment json file created during the docker run (used in production)
