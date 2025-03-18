@@ -444,6 +444,7 @@
   "error_while_sending_brick_docs_to_dify": "Error while sending brick documentation to Dify",
   "send": "Send",
   "download_stories_zip_file": "Download stories zip file",
+  "send_brick_docs_to_dify": "Send brick documentation to Dify",
   "send_stories_to_dify": "Send stories to Dify",
   "separator": "Separator",
   "max_tokens": "Max tokens"
