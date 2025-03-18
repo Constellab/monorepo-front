@@ -64,6 +64,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { TeFormulaInlineComponent } from './component/te-formula-inline/te-formula-inline.component';
 import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.class';
+import { TeEditBlockMetadataDialogComponent } from './component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
+import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.c
     TeTextEditorSaveComponent,
     TeIframeComponent,
     TeFormulaInlineComponent,
+    TeEditBlockMetadataDialogComponent,
   ],
   exports: [
     TeTextEditorComponent,
@@ -145,6 +148,8 @@ import { TeFormulaInlineToolClass } from './inline-tool/te-formula-inline-tool.c
     NgOptimizedImage,
     MatDatepickerModule,
     MatTimepickerModule,
+    MatAutocompleteTrigger,
+    MatAutocomplete,
   ],
 })
 export class TeTextEditorModule {

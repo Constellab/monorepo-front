@@ -29,6 +29,7 @@ export * from './lib/component/te-files-list/te-files-list.component';
 export * from './lib/component/te-titles-list/te-titles-list.component';
 export * from './lib/component/te-text-editor-save/te-text-editor-save.component';
 export * from './lib/component/te-iframe/te-iframe.component';
+export * from './lib/component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
 
 // Model
 export * from './lib/model/lib';
@@ -43,6 +44,7 @@ export * from './lib/model/te-text-editor-history.service';
 export * from './lib/model/te-text-editor-history-user.class';
 export * from './lib/model/te-text-editor-undo-redo.class';
 export * from './lib/model/te-variable.class';
+export * from './lib/model/te-metadata-block-config.class';
 
 // Block
 export * from './lib/block/te-code-block.class';

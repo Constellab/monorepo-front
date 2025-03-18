@@ -1,0 +1,31 @@
+<fl-dialog-header>
+  {{ 'teTextEditor.edit_metadata' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="metadata-form" [formGroup]="formGp">
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'teTextEditor.app_route' | translate}}</mat-label>
+      <input matInput formControlName="appRoute" [placeholder]="'teTextEditor.app_route' | translate">
+      @if (formGp.controls.appRoute.hasError('pattern')) {
+        <mat-error>{{'teTextEditor.app_route_error' | translate}}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="g-form-input">
+      <mat-label>{{'teTextEditor.permission' | translate}}</mat-label>
+      <input matInput [placeholder]="'teTextEditor.permission' | translate" formControlName="permission" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption="true" #auto=matAutocomplete>
+        @for (permission of permissions; track permission){
+          <mat-option [value]="permission">{{permission}}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="metadata-form" class="centered primary">
+    {{ 'teTextEditor.save' | translate }}
+  </button>
+</div>
