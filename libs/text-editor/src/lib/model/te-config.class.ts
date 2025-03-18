@@ -37,6 +37,7 @@ import { teBlockTuneFactory } from './te-block-tune-factory.class';
 import { TeTimestampBlock } from '../block/te-timestamp-block.class';
 import { TeIframeBlock } from '../block/te-iframe-block.class';
 import { TeFormulaInlineToolClass } from '../inline-tool/te-formula-inline-tool.class';
+import { TeBoldInlineTool } from '../inline-tool/te-bold-inline-tool.class';
 
 export type TeTools = { [toolName: string]: ToolConstructable | ToolSettings };
 
@@ -230,6 +231,7 @@ export class TeBasicConfig extends TeConfig {
       list: this.getListConfig(),
 
       // Inline
+      bold: TeBoldInlineTool as any,
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
       cleanStyle: TeCleanStyleInlineTool,
@@ -272,6 +274,7 @@ export class TeCompleteConfig extends TeConfig {
       timestamp: this.getTimeStampConfig(envInjector, applicationRef),
 
       // Inline
+      bold: TeBoldInlineTool as any,
       underline: TeUnderlineInlineTool,
       strikethrough: TeStrikethroughInlineTool,
       inlineCode: this.getInlineCodeConfig(),

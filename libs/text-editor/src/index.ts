@@ -60,6 +60,7 @@ export * from './lib/block/te-video-block.class';
 export * from './lib/block/te-iframe-block.class';
 
 // Inline tool
+export * from './lib/inline-tool/te-bold-inline-tool.class';
 export * from './lib/inline-tool/te-clean-style-inline-tool.class';
 export * from './lib/inline-tool/te-component-inline-tool.class';
 export * from './lib/inline-tool/te-fake-inline-tool.class';
