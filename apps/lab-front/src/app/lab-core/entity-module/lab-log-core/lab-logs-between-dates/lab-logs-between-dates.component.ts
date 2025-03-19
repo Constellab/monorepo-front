@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LabLogsBetweenDates } from '../../../model/entities/lab-log.entity';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { LabLogLinesComponent } from '../lab-log-lines/lab-log-lines.component';

@@ -13,5 +13,5 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 export class LabLogLinesComponent {
   logLines = input.required<LabLogLine[]>();
 
-  showScenarioId = input<boolean>(true);
+  showContext = input<boolean>(true);
 }

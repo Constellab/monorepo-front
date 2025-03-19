@@ -42,7 +42,10 @@ export class LabLogLine {
 
   message: string;
 
-  scenario_id?: string;
+  context: 'MAIN' | 'SCENARIO' | 'STREAMLIT';
+
+  @Expose({ name: 'context_id' })
+  contextId: string;
 }
 
 export class LabLogsBetweenDates {
