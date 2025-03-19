@@ -31,3 +31,65 @@
     padding-right: 0;
   }
 }
+
+::ng-deep td-main-doc .technical-doc-content {
+  // use border-collapse: collapse; to make the table look better
+  // set border on cell and zebra stripe the table
+  table {
+    border-collapse: collapse;
+    //border: 1px solid #000;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--hover-color);
+    padding: 8px;
+  }
+
+  th {
+    background-color: var(--card-background);
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--card-background);
+  }
+
+  // reduce space between item in a list
+  ul,
+  ol {
+    margin: 0;
+    white-space: normal;
+  }
+
+  // style code
+  pre {
+    background-color: var(--card-background);
+    padding: 1em;
+    border-radius: var(--card-radius);
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  p,
+  li {
+    code {
+      padding: 2px 7px;
+      font-size: 85%;
+      border-radius: 3px;
+      display: inline;
+      line-height: normal;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      background-color: var(--hover-color);
+      color: #e8912d;
+    }
+  }
+
+  blockquote {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-left-color: var(--hover-color);
+  }
+}
