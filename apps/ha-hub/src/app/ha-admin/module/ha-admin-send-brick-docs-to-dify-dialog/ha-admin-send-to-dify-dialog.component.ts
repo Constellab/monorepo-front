@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDifyService } from '../../../ha-core/ha-service/ha-dify.service';
@@ -12,6 +12,9 @@ import { HaDifyKnowledgeBase } from '../../../ha-core/ha-model/ha-entities/ha-di
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
 import { MatInput } from '@angular/material/input';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { map } from 'rxjs/operators';
 
 export interface HaAdminSendToDifyDialogInput {
   entityType: HaEntityType;
@@ -31,30 +34,28 @@ export interface HaAdminSendToDifyDialogInput {
     MatOption,
     MatLabel,
     MatInput,
+    AsyncPipe,
   ],
   templateUrl: './ha-admin-send-to-dify-dialog.component.html',
   styleUrl: './ha-admin-send-to-dify-dialog.component.scss',
 })
-export class HaAdminSendToDifyDialogComponent implements OnInit {
+export class HaAdminSendToDifyDialogComponent {
   private difyService = inject(HaDifyService);
   private dialogRef = inject<MatDialogRef<HaAdminSendToDifyDialogComponent>>(MatDialogRef);
   private snackBarService = inject(FlSnackBarService);
 
   inputs: HaAdminSendToDifyDialogInput;
-  difyKnowledgeBases: HaDifyKnowledgeBase[];
+  difyKnowledgeBases$: Observable<HaDifyKnowledgeBase[]> = this.difyService
+    .getKnowledgeBaseList()
+    .pipe(map((res) => res.data));
   selectedKnowledgeBaseId: string = null;
   isLoading: boolean;
   separator: string;
   maxTokens: number;
+  indexingTechnique: 'high_quality' | 'economy' = 'high_quality';
 
   constructor() {
     this.inputs = inject<HaAdminSendToDifyDialogInput>(MAT_DIALOG_DATA);
-  }
-
-  ngOnInit(): void {
-    this.difyService.getKnowledgeBaseList().subscribe((res) => {
-      this.difyKnowledgeBases = res.data;
-    });
   }
 
   sendToKnowledgeBase(): void {
@@ -63,6 +64,7 @@ export class HaAdminSendToDifyDialogComponent implements OnInit {
       .createDocuments(this.selectedKnowledgeBaseId, this.inputs.entityType, this.inputs.entityId, {
         separator: this.separator,
         maxTokens: this.maxTokens,
+        indexingTechnique: this.indexingTechnique,
       })
       .subscribe((res) => {
         if (res) {

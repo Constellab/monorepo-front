@@ -116,6 +116,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     const chatBotToken = environment.settings.difyChatbotToken;
     if (!chatBotToken) return;
 
+    // init window.difyChatbotConfig and load dify-chatbot.js
     (window as any).difyChatbotConfig = { token: chatBotToken };
 
     const script2 = document.createElement('script');
@@ -123,12 +124,11 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
     script2.id = chatBotToken;
     script2.defer = true;
 
+    // reload chatbot on load if window.DifyChatbot is not defined yet
     script2.onload = () => {
       (window as any).initDifyChatbot();
-      console.log('Dify chatbot script loaded successfully');
       setTimeout(() => {
         if ((window as any).DifyChatbot) {
-          console.log('Restarting Dify Chatbot...');
           (window as any).initDifyChatbot();
         }
       }, 500);
@@ -140,6 +140,7 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
 
     document.body.appendChild(script2);
 
+    // add custom dify chatbot styles
     const style = document.createElement('style');
     style.innerHTML = `
       #dify-chatbot-bubble-button {

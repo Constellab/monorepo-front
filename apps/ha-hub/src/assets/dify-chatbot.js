@@ -1,3 +1,7 @@
+// Usage: <script src="assets/dify-chatbot.js"></script>
+// Here to replace the replace the default dify chatbot script because the default script is working on
+// body load and we need to run it on demand to avoid loading the chatbot if the chatbot key is not provided.
+// source of the default script: https://udify.app/embed.min.js
 (function() {
   window.initDifyChatbot = async function() {
     let n = "difyChatbotConfig",

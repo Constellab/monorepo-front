@@ -31,8 +31,8 @@ import {
   HaAdminSendToDifyDialogComponent,
   HaAdminSendToDifyDialogInput,
 } from '../ha-admin-send-brick-docs-to-dify-dialog/ha-admin-send-to-dify-dialog.component';
-import { DOCUMENT } from '@angular/common';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
 
 @Component({
   selector: 'ha-admin-panel-bricks',
@@ -59,8 +59,6 @@ export class HaAdminPanelBricksComponent implements OnInit {
   private themeService = inject(FlThemeService);
 
   private dialogService = inject(FlDialogService);
-
-  private document = inject(DOCUMENT);
 
   datasource: HaBrickDatasourcePaginated<HaAdminPanelBrickSearchFields>;
 
@@ -107,16 +105,7 @@ export class HaAdminPanelBricksComponent implements OnInit {
 
   private urlToDownloadDocsZipPrefix(brickId: string): void {
     const zipFileUrl = this.brickService.urlToDownloadDocsZipPrefix() + brickId;
-    //create a element to download the file
-    const link = document.createElement('a');
-    link.href = zipFileUrl;
-    link.download = '';
-    //add the element to the body
-    this.document.body.appendChild(link);
-    //click the element
-    link.click();
-    //remove the element
-    this.document.body.removeChild(link);
+    FlFileHelper.downloadUrl(zipFileUrl);
   }
 
   private openAdminSendBrickDocsToDifyDialog(brick: HaBrick): void {

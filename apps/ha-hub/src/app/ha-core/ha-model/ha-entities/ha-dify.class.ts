@@ -6,4 +6,5 @@ export interface HaDifyKnowledgeBase {
 export interface HaDifyOptions{
   separator: string;
   maxTokens: number;
+  indexingTechnique: 'high_quality' | 'economy';
 }

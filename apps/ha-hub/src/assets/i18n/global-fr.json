@@ -449,5 +449,8 @@
   "send_brick_docs_to_dify": "Envoyer les documentations de la brique à Dify",
   "send_stories_to_dify": "Envoyer les stories à Dify",
   "separator": "Séparateur",
-  "max_tokens": "Nombre maximum de tokens"
+  "max_tokens": "Nombre maximum de tokens",
+  "high_quality": "Haute qualité",
+  "economy": "Économique",
+  "indexing_technique": "Technique d'indexation"
 }

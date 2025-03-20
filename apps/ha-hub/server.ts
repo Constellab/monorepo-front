@@ -25,7 +25,7 @@ environment.settings = {
   algoliaSearchKey: process?.env['ALGOLIA_SEARCH_KEY'] || '8fd4e2048efc6363ff0dca169b6522af',
   algoliaIndexName: process?.env['ALGOLIA_INDEX_NAME'] || 'Community Preprod',
   algoliaSiteVerificationKey: process?.env['ALGOLIA_SITE_VERIFICATION_KEY'] || null,
-  difyChatbotToken: process?.env['DIFY_CHATBOT_TOKEN'] || '22bhCqCeaaGiVEhr',
+  difyChatbotToken: process?.env['DIFY_CHATBOT_TOKEN'] || null,
 };
 
 // The Express app is exported so that it can be used by serverless Functions.
