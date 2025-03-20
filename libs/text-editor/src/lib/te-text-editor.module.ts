@@ -178,15 +178,6 @@ export class TeTextEditorModule {
           TeFormulaInlineToolClass.TAG,
           createCustomElement(TeFormulaInlineComponent, { injector: injector })
         );
-
-        // use to fix the error Unable to preventDefault inside passive event listener invocation.
-        // we create a custom event listener call before all others with passive false so the
-        // text editor is using this listener and not another one with passive true
-        // this is a dirty fix
-        document.addEventListener('keydown', () => {}, {
-          passive: false,
-          capture: true,
-        });
       }
       TeTextEditorModule.init = true;
     }

@@ -64,6 +64,7 @@ import { LabCoServiceConfig } from './app/lab-core/model/config/lab-co-service-c
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { labMainRoutes } from './app/lab-main/lab-main-routes';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { TeFixInit } from '@monorepo/text-editor';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -142,12 +143,9 @@ function bootstrapApp(): void {
         useClass: FlHttpInterceptorService,
         multi: true,
       },
-      provideAppInitializer(() => {
-        loadThemeOnInit(inject(FlThemeService));
-      }),
-      provideAppInitializer(() => {
-        initRootInjector(inject(Injector));
-      }),
+      provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
+      provideAppInitializer(() => initRootInjector(inject(Injector))),
+      provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
       { provide: RV_MODULE_CONFIG, useClass: LabResourceViewModuleConfig },
       {

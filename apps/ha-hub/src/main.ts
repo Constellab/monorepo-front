@@ -1,4 +1,9 @@
-import { ApplicationConfig, enableProdMode, mergeApplicationConfig } from '@angular/core';
+import {
+  ApplicationConfig,
+  enableProdMode,
+  mergeApplicationConfig,
+  provideAppInitializer,
+} from '@angular/core';
 import { environment } from './environments/ha-environment';
 import {
   FL_TRANSLATE_MODULE_CONFIG,
@@ -13,6 +18,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { haAppConfig } from './app/ha-app.config';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader } from '@ngx-translate/core';
+import { TeFixInit } from '@monorepo/text-editor';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -26,6 +32,7 @@ function bootstrapApp(): void {
         useFactory: translationLoaderFactory,
         deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
       },
+      provideAppInitializer(() => TeFixInit.fixEditorInit()),
     ],
   };
 

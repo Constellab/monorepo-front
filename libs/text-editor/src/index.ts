@@ -84,3 +84,5 @@ export * from './lib/plugin/te-emoji.class';
 export * from './lib/plugin/te-key-listener.class';
 export * from './lib/plugin/te-mention.class';
 export * from './lib/plugin/te-portal-plugin.class';
+
+export * from './lib/te-fix-init.class';

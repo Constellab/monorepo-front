@@ -68,6 +68,7 @@ import {
   withRouterConfig,
 } from '@angular/router';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { TeFixInit } from '@monorepo/text-editor';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -134,12 +135,9 @@ function bootstrapApp(): void {
         useClass: CaSpaceInterceptor,
         multi: true,
       },
-      provideAppInitializer(() => {
-        loadThemeOnInit(inject(FlThemeService));
-      }),
-      provideAppInitializer(() => {
-        initRootInjector(inject(Injector));
-      }),
+      provideAppInitializer(() => loadThemeOnInit(inject(FlThemeService))),
+      provideAppInitializer(() => initRootInjector(inject(Injector))),
+      provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
       { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
       {
