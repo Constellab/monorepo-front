@@ -1,23 +1,54 @@
-.func-parameters {
+:host{
+  display: block;
+}
+
+.container {
+  background-color: var(--card-background);
   margin-top: 1em;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+.func-name {
+  padding: 1em;
+  background-color: var(--hover-color);
+}
+
+.content{
+  padding-inline: 1em;
+}
+
+.func-doc{
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.methods{
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.method {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.description {
+  white-space: pre-line;
+}
+
+.code {
+  padding: 2px 7px;
+  font-size: 85%;
+  border-radius: 3px;
+  display: inline;
+  line-height: normal;
+  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+  background-color: var(--hover-color);
+  color: #e8912d;
 }
 
 .return-type-div {
-  margin-top: 1em;
-}
-
-.func-parameters-table {
-  width: 100%;
-}
-
-.func-parameters-description {
-  width: 40%;
-}
-
-.func-parameters-element {
-  width: 20%;
-}
-
-.func-parameters-header {
-  text-align: left;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }

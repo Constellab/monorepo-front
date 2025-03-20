@@ -1,54 +1,53 @@
-{{ func.name.toUpperCase() }}
-@if (func.method_type == 'classmethod') {
-  <span> - {{ '@classmethod' }}</span>
-} @else if (func.method_type == 'staticmethod') {
-  <span> - {{ '@staticmethod' }}</span>
-}
-@if (cleanedFuncDoc) {
-  <div class="func-doc" [innerHTML]="cleanedFuncDoc.join('\n') | tdMarkdown"></div>
-}
-@if (func.args.length > 0) {
-  <div class="func-parameters">
-    {{ 'td.parameters' | translate }}:
-    <table class="func-parameters-table">
-      <tr>
-        <th class="func-parameters-element func-parameters-header">{{ 'td.name' | translate }}</th>
-        <th class="func-parameters-element func-parameters-header">{{ 'td.type' | translate }}</th>
-        <th class="func-parameters-element func-parameters-header">{{ 'td.default_value' | translate }}</th>
-        <th class="func-parameters-description func-parameters-header">{{ 'td.description' | translate }}</th>
-      </tr>
-      @for (arg of func.args; track arg; let i = $index) {
-        <tr>
-          <td class="func-parameters-element">{{ arg.arg_name }}</td>
-          <td class="func-parameters-element">
-            <code>{{ arg.arg_type | tdCleanType }}</code>
-          </td>
-          <td class="func-parameters-element">
-            @if (arg.arg_default_value.length > 0) {
-              {{ arg.arg_default_value }}
-            }
-          </td>
-          <td class="func-parameters-description">
-            @if (funcAgrsDocs && funcAgrsDocs[i]) {
-              {{ funcAgrsDocs[i] }}
-            }
-          </td>
-        </tr>
+<div [id]="func().name" class="container">
+  <div class="func-name">
+    {{ func().name.toUpperCase() }}
+    @if (func().method_type === CLASS_METHOD) {
+      <span> - {{ '@classmethod' }}</span>
+    } @else if (func().method_type === STATIC_METHOD) {
+      <span> - {{ '@staticmethod' }}</span>
+    }
+  </div>
+
+  <div class="content">
+    @if (cleanedFuncDoc()) {
+      <div class="func-doc g-text-light" [innerHTML]="cleanedFuncDoc() | tdMarkdown"></div>
+    }
+
+    @if (funcArgsDocs().length > 0) {
+      @if (cleanedFuncDoc()) {
+        <mat-divider></mat-divider>
       }
-    </table>
+
+      <div class="methods">
+        @for (argWithDoc of funcArgsDocs(); track argWithDoc) {
+          <div class="method">
+            <div>
+              {{ argWithDoc.arg.arg_name | translate }} :
+              <code class="code">{{ argWithDoc.arg.arg_type | tdCleanType }}</code>
+              @if (argWithDoc.arg.arg_default_value) {
+                - <code class="code">{{ argWithDoc.arg.arg_default_value }}</code>
+              }
+            </div>
+
+            @if (argWithDoc.doc) {
+              <div class="description g-text-light">
+                {{ argWithDoc.doc }}
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+
+    @if (returnTypeName()) {
+      @if (cleanedFuncDoc() || func().args.length > 0) {
+        <mat-divider></mat-divider>
+      }
+
+      <div class="return-type-div">
+        {{ 'td.return_type' | translate }} : <code class="code">{{ returnTypeName() | tdCleanType }}</code>
+      </div>
+    }
   </div>
-}
-@if (func.return_type !== 'None' && func.return_type != null) {
-  <div class="return-type-div">
-    {{ 'td.return_type' | translate }}:
-    <table>
-      <tr>
-        <td class="func-parameters-name func-parameters-element">
-          <b
-            ><code>{{ func.return_type | tdCleanType }}</code></b
-          >
-        </td>
-      </tr>
-    </table>
-  </div>
-}
+</div>

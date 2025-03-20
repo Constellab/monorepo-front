@@ -1,32 +1,44 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TdTechDocFunction, TdResourceFunctionArg } from '../../model/td-resource-type.class';
-import { ClStringHelper } from '@monorepo/core-lib';
+import { ChangeDetectionStrategy, Component, computed, input, Signal } from '@angular/core';
+import {
+  TdResourceFunctionArg,
+  TdTechDocFunction,
+  TdTechDocFunctionType,
+} from '../../model/td-resource-type.class';
+
+interface TdResourceFunctionArgWithDoc {
+  arg: TdResourceFunctionArg;
+  doc: string;
+}
 
 @Component({
   selector: 'td-resource-doc-func-info',
   templateUrl: './td-resource-doc-func-info.component.html',
   styleUrls: ['./td-resource-doc-func-info.component.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TdResourceDocFuncInfoComponent implements OnInit {
-  @Input({ required: true }) func: TdTechDocFunction;
-  cleanedFuncDoc: string[];
-  funcAgrsDocs: string[] = [];
+export class TdResourceDocFuncInfoComponent {
+  func = input.required<TdTechDocFunction>();
 
-  ngOnInit(): void {
-    this.cleanedFuncDoc = this.getFunctionCleanDocInfo(this.func);
-    for (const arg of this.func.args) {
-      this.funcAgrsDocs.push(this.getFuncArgDoc(this.func, arg));
+  cleanedFuncDoc: Signal<string> = computed(() => this.getFunctionCleanDocInfo(this.func()));
+  funcArgsDocs: Signal<TdResourceFunctionArgWithDoc[]> = computed(() => this.buildFuncArgDocs(this.func()));
+
+  returnTypeName: Signal<string> = computed(() => {
+    if (this.func().return_type === 'None' || this.func().return_type == null) {
+      return null;
     }
-  }
+    return this.func().return_type;
+  });
 
-  getFunctionCleanDocInfo(func: TdTechDocFunction, getTechInfo: boolean = false): string[] {
+  CLASS_METHOD = TdTechDocFunctionType.CLASSMETHOD;
+  STATIC_METHOD = TdTechDocFunctionType.STATICMETHOD;
+
+  private getFunctionCleanDocInfo(func: TdTechDocFunction): string {
     if (!func.doc) {
       return null;
     }
     const lines = func.doc.split('\n');
     const cleanLines = [];
-    const techLines = [];
     for (const line of lines) {
       if (
         line.includes(':type') ||
@@ -34,40 +46,39 @@ export class TdResourceDocFuncInfoComponent implements OnInit {
         line.includes(':return') ||
         line.includes(':rtype')
       ) {
-        techLines.push(line.trim());
+        break;
       } else {
         cleanLines.push(line);
       }
     }
-    if (getTechInfo) {
-      return techLines;
-    }
-    return cleanLines;
+
+    if (cleanLines.length === 0) return null;
+    return cleanLines.join('\n');
   }
 
-  getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string {
-    const techDocLines = this.getFunctionCleanDocInfo(func, true);
-    let res: string = '';
-    if (techDocLines == null || techDocLines.length == 0) return res;
-    for (const line of techDocLines) {
-      if (line.includes(':param ' + arg.arg_name)) {
-        res += line.replace(':param ' + arg.arg_name + ':', '');
-      }
-      if (line.includes(':type ' + arg.arg_name)) {
-        res += line.replace(':type ' + arg.arg_name + ':', '');
-      }
-      if (line.includes(':return ' + arg.arg_name)) {
-        res += line.replace(':return ' + arg.arg_name + ':', '');
-      }
-      res += '\n';
+  private buildFuncArgDocs(func: TdTechDocFunction): TdResourceFunctionArgWithDoc[] {
+    const argDocs: TdResourceFunctionArgWithDoc[] = [];
+    for (const arg of func.args) {
+      const doc = this.getFuncArgDoc(func, arg);
+      argDocs.push({ arg, doc });
+    }
+    return argDocs;
+  }
+
+  /**
+   * Method to extract the description of an argument from the docstring of the method
+   * Ex : for string ":param argName: argument name" it will extract 'argument_name'
+   */
+  private getFuncArgDoc(func: TdTechDocFunction, arg: TdResourceFunctionArg): string {
+    if (!func.doc) {
+      return null;
     }
 
-    if (res.includes(arg.arg_type)) {
-      res = res.replace(arg.arg_type, '');
+    const pattern = new RegExp(`:param ${arg.arg_name}: (.+?)(?=, defaults to|\\n\\s*:\\w|\\Z)`, 's');
+    const match = pattern.exec(func.doc);
+    if (match) {
+      return match[1].trim();
     }
-    if (res.includes(arg.arg_type + ', ')) {
-      res = res.replace(arg.arg_type + ', ', '');
-    }
-    return ClStringHelper.capitalize(res.trim());
+    return null;
   }
 }

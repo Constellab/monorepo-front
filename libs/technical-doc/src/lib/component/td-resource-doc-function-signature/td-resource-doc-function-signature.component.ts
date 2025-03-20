@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import {
-  TdTechDocFunction,
   TdResourceFunctionArg,
+  TdTechDocFunction,
   TdTechDocFunctionType,
 } from '../../model/td-resource-type.class';
 import { isPlatformBrowser } from '@angular/common';
@@ -26,14 +26,14 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
     this.signature.nativeElement.innerHTML = this.getFunctionSignature(this.func);
   }
 
-  getFunctionSignature(func: TdTechDocFunction): string {
+  private getFunctionSignature(func: TdTechDocFunction): string {
     if (isPlatformBrowser(this.platformId)) {
       return TeHighlight.highlight(this.getFunctionSignatureToString(func), 'python');
     }
     return '';
   }
 
-  getFunctionSignatureToString(func: TdTechDocFunction): string {
+  private getFunctionSignatureToString(func: TdTechDocFunction): string {
     this.methodType = func.method_type;
     return (
       'def ' +
@@ -45,7 +45,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
     );
   }
 
-  getFunctionArgsToString(args: TdResourceFunctionArg[]): string {
+  private getFunctionArgsToString(args: TdResourceFunctionArg[]): string {
     return args
       .map((a) => {
         if (a.arg_default_value.length > 0)

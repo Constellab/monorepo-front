@@ -16,7 +16,7 @@
   <div class="methods-div">
     <div class="tech-doc-part-title">{{ 'td.functions' | translate }}</div>
     <div class="method-card">
-      @for (func of funcs; track func) {
+      @for (func of funcs; track func.name) {
         <a class="func-code-line code" [routerLink]="'.'" [fragment]="func.name">
           <code>
             <td-resource-doc-function-signature [func]="func"></td-resource-doc-function-signature>
@@ -25,10 +25,8 @@
       }
     </div>
 
-    @for (func of funcs; track func) {
-      <div id="{{ func.name }}" class="func">
-        <td-resource-doc-func-info [func]="func"></td-resource-doc-func-info>
-      </div>
+    @for (func of funcs; track func.name) {
+        <td-resource-doc-func-info [func]="func" class="func g-text-small"></td-resource-doc-func-info>
     }
   </div>
 }
