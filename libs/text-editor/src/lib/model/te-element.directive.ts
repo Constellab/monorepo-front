@@ -5,7 +5,7 @@ import {
   HostBinding,
   inject,
   Input,
-  Renderer2,
+  Renderer2
 } from '@angular/core';
 import { TeHelper } from './te.helper';
 

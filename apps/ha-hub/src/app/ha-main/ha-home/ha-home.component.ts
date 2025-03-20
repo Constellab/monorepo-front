@@ -3,8 +3,8 @@ import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenti
 import { Observable } from 'rxjs';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import {
-  HaStoryDatasourcePaginated,
   HaStoryFilters,
+  HaStoryListDatasourcePaginated,
 } from '../../ha-core/ha-model/ha-entities/ha-story.class';
 import {
   HaAgentDatasourceFilters,
@@ -38,7 +38,7 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit {
 
   user$: Observable<HaUser> = this.authenticatedUserService.getUser();
 
-  stories$: HaStoryDatasourcePaginated<HaStoryFilters>;
+  stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
   agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
 

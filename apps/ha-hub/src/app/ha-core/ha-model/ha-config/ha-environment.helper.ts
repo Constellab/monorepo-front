@@ -15,6 +15,7 @@ export class HaEnvironmentHelper {
       algoliaSearchKey: environment.settings.algoliaSearchKey || '8fd4e2048efc6363ff0dca169b6522af',
       algoliaIndexName: environment.settings.algoliaIndexName || 'Community Preprod',
       algoliaSiteVerificationKey: environment.settings.algoliaSiteVerificationKey || null,
+      difyChatbotToken: environment.settings.difyChatbotToken || null,
     };
     return environment;
   }

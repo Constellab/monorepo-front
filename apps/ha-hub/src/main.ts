@@ -56,6 +56,7 @@ if (environment.production) {
     algoliaSearchKey: '8fd4e2048efc6363ff0dca169b6522af',
     algoliaIndexName: 'Community Preprod',
     algoliaSiteVerificationKey: null,
+    difyChatbotToken: '22bhCqCeaaGiVEhr',
   };
 
   bootstrapApp();

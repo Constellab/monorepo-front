@@ -1,0 +1,12 @@
+.admin-panel-div{
+  padding: 1em 2em 0 2em;
+  min-height: calc(100vh - var(--navbar-height));
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-nav-bar{
+  max-width: none !important;
+}

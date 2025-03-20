@@ -6,8 +6,8 @@ import {
 } from '../ha-story-create-dialog/ha-story-create-dialog.component';
 import {
   HaStory,
-  HaStoryDatasourcePaginated,
   HaStoryFilters,
+  HaStoryListDatasourcePaginated,
 } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
@@ -71,7 +71,7 @@ export class HaStoryListPageComponent extends HaCommunityPage implements OnInit 
   private storyService: HaStoryService = inject(HaStoryService);
   private topicService: HaTopicService = inject(HaTopicService);
 
-  stories: HaStoryDatasourcePaginated<HaStoryFilters>;
+  stories: HaStoryListDatasourcePaginated<HaStoryFilters>;
   popularTopics$: Observable<HaTopicDto[]>;
 
   filters: HaStoryFilters = new HaStoryFilters(this.route.snapshot.queryParams.titleFilter);

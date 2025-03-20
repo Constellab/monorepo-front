@@ -5,8 +5,8 @@ import {
   HaCreateStoryDto,
   HaListStoryDto,
   HaStory,
-  HaStoryDatasourcePaginated,
   HaStoryFilters,
+  HaStoryListDatasourcePaginated,
 } from '../ha-model/ha-entities/ha-story.class';
 import { Observable } from 'rxjs';
 import { ClPage } from '@monorepo/core-lib';
@@ -26,6 +26,11 @@ import { HaCoAuthorService } from '../entity-module/ha-co-author-core/model/ha-c
 import { CoStoryCategory } from '@monorepo/community-lib';
 import { HaFileServiceInterface } from '../entity-module/ha-file-core/model/ha-file-service.interface';
 import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
+import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import {
+  HaAdminPanelStorySearch,
+  HaAdminPanelStorySearchFields,
+} from '../../ha-admin/model/ha-admin-panel-story-search.class';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +69,7 @@ export class HaStoryService
     return this.apiService.delete(this.route + '/' + id);
   }
 
-  public getAllPaginatedFiltered(pageSize: number = 10): HaStoryDatasourcePaginated<HaStoryFilters> {
+  public getAllPaginatedFiltered(pageSize: number = 10): HaStoryListDatasourcePaginated<HaStoryFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getAllByFilter(filters, page, size),
       pageSize,
@@ -94,7 +99,7 @@ export class HaStoryService
 
   public getUserStoriesPaginated(
     pageSize: number = 4
-  ): HaStoryDatasourcePaginated<HaProfileDatasourceFilters> {
+  ): HaStoryListDatasourcePaginated<HaProfileDatasourceFilters> {
     return new FlEntityPaginatedDatasource(
       (page, size, filters) => this.getUserStories(filters.filtersCriteria.userId, page, size),
       pageSize,
@@ -168,7 +173,7 @@ export class HaStoryService
     return this.apiService.put(`${this.route}/${id}/publish`, {});
   }
 
-  getMyStoriesForList(): HaStoryDatasourcePaginated<HaStoryFilters> {
+  getMyStoriesForList(): HaStoryListDatasourcePaginated<HaStoryFilters> {
     return new FlEntityPaginatedDatasource<HaListStoryDto, HaStoryFilters>(
       (page, size, filters) => this.getMyStoriesForListPaginated(page, size, filters),
       10,
@@ -302,5 +307,26 @@ export class HaStoryService
 
   rollbackContent(entityId: string, modificationId: string): Observable<HaStory> {
     return this.apiService.put(`${this.route}/history/rollback/${entityId}/${modificationId}`, {});
+  }
+
+  public urlToDownloadStoriesZip(): string {
+    return this.apiService.getBaseRouteUrl(`${this.route}/download-stories-zip`);
+  }
+
+  public search(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<HaAdminPanelStorySearchFields>
+  ): Observable<ClPage<HaStory>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      HaAdminPanelStorySearch.filterConverter,
+      HaAdminPanelStorySearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/search`, searchInput, HaStory, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
   }
 }

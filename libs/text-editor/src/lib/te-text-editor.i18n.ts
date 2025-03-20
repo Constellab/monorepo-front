@@ -124,6 +124,10 @@ const teTextEditorI18nFr: FlLangTranslation = {
     timestamp_edit: 'Modifier',
     // Settings
     settings: 'Paramètres',
+    edit_metadata: 'Modifier les métadonnées',
+    app_route: "Route de l'application",
+    permission: 'Permission',
+    app_route_error: "Route de l'application invalide",
   },
 };
 
@@ -239,6 +243,10 @@ const teTextEditorI18nEn: FlLangTranslation = {
     timestamp_edit: 'Edit',
     // Settings
     settings: 'Settings',
+    edit_metadata: 'Edit metadata',
+    app_route: 'App route',
+    permission: 'Permission',
+    app_route_error: 'Invalid app route',
   },
 };
 

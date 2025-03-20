@@ -1,13 +1,20 @@
-import Header from '@editorjs/header';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { ToolboxConfig } from '@editorjs/editorjs/types/tools/tool-settings';
-import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { BlockTool, BlockToolConstructorOptions } from '@editorjs/editorjs/types/tools/block-tool';
-import { BlockToolData } from '@editorjs/editorjs/types/tools/block-tool-data';
 import { TeHelper } from '../model/te.helper';
+import { TeBlockWithMetadata, TeMetadataBlockConfig } from '../model/te-metadata-block-config.class';
+import Header from '@editorjs/header';
+import { BlockTool, BlockToolConstructorOptions, BlockToolData, ToolboxConfig } from '@editorjs/editorjs';
+import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { MenuConfig } from '@editorjs/editorjs/types/tools';
+import { FlClipboardService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { TeEditBlockMetadataDialogComponent } from '../component/te-edit-block-metadata-dialog/te-edit-block-metadata-dialog.component';
+
+export interface TeHeaderWithIdBlockData {
+  text: string;
+  level: number;
+  metadata?: TeMetadataBlockConfig;
+}
 
 export class TeHeaderWithIdBlockConfig {
   levels: number[];
@@ -34,11 +41,14 @@ export function teGetHeaderWithIdBlockDefaultConfig(): TeHeaderWithIdBlockConfig
 /**
  * Override header block to add an id attribute based on the text
  */
-export class TeHeaderWithIdBlock extends Header implements BlockTool {
+export class TeHeaderWithIdBlock extends Header implements TeBlockWithMetadata, BlockTool {
   node: HTMLElement;
+
+  metadata: TeMetadataBlockConfig;
 
   constructor(private options: BlockToolConstructorOptions) {
     super(options);
+    this.metadata = options.data?.metadata;
   }
 
   static get toolbox(): ToolboxConfig {
@@ -90,7 +100,23 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
   }
 
   save(block: HTMLElement): BlockToolData {
-    return super.save(block);
+    super.save(block);
+    return {
+      ...this.data,
+      metadata: this.metadata,
+    };
+  }
+
+  validate(blockData: TeHeaderWithIdBlockData): boolean {
+    return blockData.text != null && blockData.level != null;
+  }
+
+  normalizeData(data: TeHeaderWithIdBlockData): TeHeaderWithIdBlockData {
+    return {
+      text: data.text,
+      metadata: data.metadata,
+      level: data.level,
+    } as TeHeaderWithIdBlockData;
   }
 
   get config(): TeHeaderWithIdBlockConfig {
@@ -108,23 +134,29 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
       {
         icon: 'H1',
         title: translateService.translate('teTextEditor.header_1'),
-        onActivate: () => super.setLevel(2),
+        onActivate: () => this.changeLevel(2),
         closeOnActivate: true,
         isActive: super.currentLevel.number === 2,
       },
       {
         icon: 'H2',
         title: translateService.translate('teTextEditor.header_2'),
-        onActivate: () => super.setLevel(3),
+        onActivate: () => this.changeLevel(3),
         closeOnActivate: true,
         isActive: super.currentLevel.number === 3,
       },
       {
         icon: 'H3',
         title: translateService.translate('teTextEditor.header_3'),
-        onActivate: () => super.setLevel(4),
+        onActivate: () => this.changeLevel(4),
         closeOnActivate: true,
         isActive: super.currentLevel.number === 4,
+      },
+      {
+        icon: TeHelper.getMatIconElement('edit'),
+        title: translateService.translate('teTextEditor.edit_metadata'),
+        onActivate: () => this.openMetadataDialog(),
+        closeOnActivate: true,
       },
     ];
 
@@ -148,5 +180,22 @@ export class TeHeaderWithIdBlock extends Header implements BlockTool {
     }
 
     return config;
+  }
+
+  openMetadataDialog(): void {
+    const dialogService = flRootInjector.get(FlDialogService);
+    dialogService
+      .openSmallDialog(TeEditBlockMetadataDialogComponent, { data: this.metadata })
+      .afterClosed()
+      .subscribe((metadata: TeMetadataBlockConfig) => {
+        if (metadata) {
+          this.metadata = metadata;
+          this.render();
+        }
+      });
+  }
+
+  private changeLevel(level: number): void {
+    this.setLevel(level);
   }
 }
