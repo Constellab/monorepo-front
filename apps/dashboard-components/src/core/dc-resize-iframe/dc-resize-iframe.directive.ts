@@ -14,6 +14,7 @@ export class DcResizeIframeDirective implements OnInit, OnDestroy {
   private resizeObserver: ResizeObserver;
 
   @HostBinding('style.display') display = 'flex';
+  @HostBinding('style.flex-direction') flexDirection = 'column';
 
   private heightChange$ = new Subject<number>();
 
