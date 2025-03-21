@@ -6,16 +6,16 @@ import {
 } from '../../../../model/entities/lab-share.entity';
 import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
-  MatTable,
-  MatColumnDef,
-  MatHeaderCellDef,
-  MatHeaderCell,
-  MatCellDef,
   MatCell,
-  MatHeaderRowDef,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
   MatHeaderRow,
-  MatRowDef,
+  MatHeaderRowDef,
   MatRow,
+  MatRowDef,
+  MatTable,
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -25,6 +25,7 @@ import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-li
 import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu/lab-share-link-actions-menu.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 
 @Component({
   selector: 'lab-share-link-table',
@@ -49,6 +50,7 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
     MatRow,
     TranslatePipe,
     FlDateModule,
+    FlTextIconModule,
   ],
 })
 export class LabShareLinkTableComponent {

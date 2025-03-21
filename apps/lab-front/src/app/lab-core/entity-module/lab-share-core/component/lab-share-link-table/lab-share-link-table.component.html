@@ -5,12 +5,15 @@
       <span> {{ 'biox.share_link_entity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      @if (row.status === 'ERROR') {
-        <mat-icon class="warn" [matTooltip]="'biox.share_link_object_not_found' | translate">
-          errors
-        </mat-icon>
-      }
-      <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
+      <div>
+        <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
+        @if (row.status === 'ERROR') {
+          <fl-text-icon [matTooltip]="'biox.share_link_object_not_found' | translate" gap="5px">
+            <div class="g-text-small g-warn-text">{{'biox.share_link_object_not_found_short' | translate}}</div>
+            <mat-icon class="g-warn-icon g-icon-small">errors</mat-icon>
+          </fl-text-icon>
+        }
+      </div>
     </mat-cell>
   </ng-container>
 

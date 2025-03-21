@@ -269,6 +269,7 @@
     "share_link_no_valid_until": "No expiration date",
     "share_link_no_valid_until_help": "Leave empty to have no expiration date",
     "share_link_object_not_found": "The associated object might have been deleted and was not found, this link is not valid anymore",
+    "share_link_object_not_found_short": "Object not found",
     "share_object_help": "You can share an object with a link that will be valid for a limited time. Anyone with the share link will be able to view and download the object. You can delete the share link at any time.",
     "share_link_download": "Download link",
     "share_link_preview": "Public link",

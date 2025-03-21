@@ -269,6 +269,7 @@
     "share_link_no_valid_until": "Pas de date d'expiration",
     "share_link_no_valid_until_help": "Laisser vide pour un lien de partage sans date d'expiration",
     "share_link_object_not_found": "L'objet associé a dû être supprimé et n'a pas pu être trouvé, le lien n'est plus valide",
+    "share_link_object_not_found_short": "Objet introuvable",
     "share_object_help": "Vous pouvez partager un objet avec un lien qui sera valide pour une durée limitée. Toute personne disposant du lien pourra visualiser et télécharger l'objet. Vous pouvez supprimer le lien de partage à tout moment.",
     "share_link_download": "Lien de téléchargement",
     "share_link_preview": "Lien publique",

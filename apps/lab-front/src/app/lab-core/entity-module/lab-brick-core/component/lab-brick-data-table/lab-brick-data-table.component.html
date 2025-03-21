@@ -5,17 +5,8 @@
       {{ 'name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ row.fsNodeName }}
-    </mat-cell>
-  </ng-container>
-
-  <!-- FsNodeSize-->
-  <ng-container matColumnDef="fsNodeSize">
-    <mat-header-cell *matHeaderCellDef>
-      {{ 'monitoring.brick_data_size' | translate }}
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      {{ row.fsNodeSize | flByteText }}
+      <span class="name">{{ row.fsNodeName }}</span>
+      <span class="g-text-light">&nbsp;({{ row.fsNodeSize | flByteText }})</span>
     </mat-cell>
   </ng-container>
 
@@ -25,7 +16,12 @@
       {{ 'monitoring.brick_data_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      {{ 'monitoring.brick_data_' + row.fsNodeType | translate }}
+      <div>
+        <div>{{ 'monitoring.brick_data_' + row.fsNodeType | translate }}</div>
+        <div class="g-text-small g-text-light">
+          {{ row.fsNodePath }}
+        </div>
+      </div>
     </mat-cell>
   </ng-container>
 
@@ -41,7 +37,7 @@
 
   <!-- Actions -->
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef> </mat-header-cell>
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
     <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
       <!--   Mat menu containing action buttons   -->
       <button mat-icon-button [matMenuTriggerFor]="menu">

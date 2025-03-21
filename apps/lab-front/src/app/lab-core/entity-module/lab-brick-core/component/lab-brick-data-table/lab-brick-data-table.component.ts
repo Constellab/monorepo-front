@@ -54,7 +54,7 @@ export class LabBrickDataTableComponent {
 
   @Input() datasource: LabBrickDataArrayObs;
 
-  @Input() columns: string[] = ['fsNodeName', 'brickName', 'fsNodeSize', 'fsNodeType', 'actions'];
+  @Input() columns: string[] = ['fsNodeName', 'brickName', 'fsNodeType', 'actions'];
 
   openDeleteBrickData(brickData: LabBrickData): void {
     const data: FlConfirmDialogInput = {
