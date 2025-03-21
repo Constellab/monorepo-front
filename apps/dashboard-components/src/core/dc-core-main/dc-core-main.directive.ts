@@ -1,7 +1,6 @@
 import { Directive, inject, OnInit } from '@angular/core';
 import { RenderData, Streamlit } from 'streamlit-component-lib';
 import { ClTheme } from '@monorepo/core-lib';
-import { DcRichTextConfig } from '../../text-editor/dc-text-editor/dc-text-editor.component';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { Observable, Subject } from 'rxjs';
 
@@ -19,7 +18,7 @@ export class DcCoreMainDirective implements OnInit {
 
   ngOnInit(): void {
     Streamlit.events.addEventListener(Streamlit.RENDER_EVENT, (event: Event) => {
-      const customEvent: CustomEvent<RenderData<DcRichTextConfig>> = event as CustomEvent<RenderData>;
+      const customEvent: CustomEvent<RenderData> = event as CustomEvent<RenderData>;
 
       const clTheme: ClTheme =
         customEvent.detail.theme.base === 'dark' ? ClTheme.DARK_THEME : ClTheme.LIGHT_THEME;

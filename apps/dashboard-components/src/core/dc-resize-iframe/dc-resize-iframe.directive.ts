@@ -13,7 +13,7 @@ export class DcResizeIframeDirective implements OnInit, OnDestroy {
 
   private resizeObserver: ResizeObserver;
 
-  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.display') display = 'flex';
 
   private heightChange$ = new Subject<number>();
 

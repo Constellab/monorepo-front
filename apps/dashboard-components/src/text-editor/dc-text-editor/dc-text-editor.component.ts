@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, HostBinding, inject, OnInit, signal } from '@angular/core';
 import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
@@ -13,6 +13,8 @@ export interface DcRichTextConfig {
   placeholder: string;
   initial_value: TeRichTextDTO;
   disabled: boolean;
+  min_height: string;
+  max_height: string;
   // config: {
   //   api_url: string;
   //   image_folder: string;
@@ -26,8 +28,14 @@ export interface DcRichTextConfig {
   templateUrl: './dc-text-editor.component.html',
   styleUrl: './dc-text-editor.component.scss',
   hostDirectives: [DcCoreMainDirective, DcResizeIframeDirective],
+  host: {
+    class: 'g-scrollable-element',
+  },
 })
 export class DcTextEditorComponent implements OnInit {
+  @HostBinding('style.minHeight') minHeight: string;
+  @HostBinding('style.maxHeight') maxHeight: string;
+
   placeholder = signal<string>(null);
 
   textEditorConfig: DcTextEditorConfig;
@@ -62,6 +70,14 @@ export class DcTextEditorComponent implements OnInit {
       } else {
         this.formCtrl.enable();
       }
+    }
+
+    if (data.min_height) {
+      this.minHeight = data.min_height;
+    }
+
+    if (data.max_height) {
+      this.maxHeight = data.max_height;
     }
   }
 }
