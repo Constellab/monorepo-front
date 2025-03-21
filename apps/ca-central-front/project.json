@@ -32,6 +32,9 @@
             "output": "assets/fl-font"
           }
         ],
+        "externalDependencies": [
+          "assets/fl-font/*"
+        ],
         "styles": [
           "apps/ca-central-front/src/ca-styles.scss",
           {

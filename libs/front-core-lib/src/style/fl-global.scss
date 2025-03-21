@@ -17,30 +17,35 @@ html {
   font-size: 14px;
 }
 
+// Use the url as relative path to the assets folder
+// Because this file will be imported at the root of the application
+// This is to make the link work with default base-ref '/' and custom '.' (used in dashboard-components)
+// To prevent error by the angular compiler, we ser the path "assets/fl-font/*" as "externalDependencies"
+// in project.json
 @font-face {
   font-family: 'Poppins';
-  src: url('/assets/fl-font/Poppins-Regular.ttf') format('truetype');
+  src: url('assets/fl-font/Poppins-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('/assets/fl-font/Poppins-Light.ttf') format('truetype');
+  src: url('assets/fl-font/Poppins-Light.ttf') format('truetype');
   font-style: normal;
   font-weight: 100;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('/assets/fl-font/Poppins-SemiBold.ttf') format('truetype');
+  src: url('assets/fl-font/Poppins-SemiBold.ttf') format('truetype');
   font-style: normal;
   font-weight: 600;
 }
 
 @font-face {
   font-family: 'Poppins';
-  src: url('/assets/fl-font/Poppins-Bold.ttf') format('truetype');
+  src: url('assets/fl-font/Poppins-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: 700;
 }

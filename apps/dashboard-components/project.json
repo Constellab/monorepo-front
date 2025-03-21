@@ -33,6 +33,9 @@
             "output": "assets/fl-font"
           }
         ],
+        "externalDependencies": [
+          "assets/fl-font/*"
+        ],
         "styles": [
           "apps/dashboard-components/src/text-editor/dc-text-editor-styles.scss",
           {
@@ -118,6 +121,9 @@
             "output": "assets/fl-font"
           }
         ],
+        "externalDependencies": [
+          "assets/fl-font/*"
+        ],
         "styles": [
           "apps/dashboard-components/src/select-resource/dc-select-resource-styles.scss",
           {
@@ -197,6 +203,9 @@
             "input": "libs/front-core-lib/src/assets/font",
             "output": "assets/fl-font"
           }
+        ],
+        "externalDependencies": [
+          "assets/fl-font/*"
         ],
         "styles": [
           "apps/dashboard-components/src/process-config/dc-process-config-styles.scss",
