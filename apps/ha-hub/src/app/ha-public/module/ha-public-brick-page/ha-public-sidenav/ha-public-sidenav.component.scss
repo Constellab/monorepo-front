@@ -1,3 +1,48 @@
+mat-tree-node {
+  min-height: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  //background-color: var(--main-background);
+  border-radius: 10px;
+}
+
+.selected-tree-node {
+  background-color: var(--hover-color);
+}
+
+.tree .tree-node:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+.tree-node {
+  min-height: 32px;
+  padding-right: 0;
+  width: 100%;
+  border-radius: 0.7rem;
+}
+
+.tree-node:hover{
+  cursor: pointer;
+}
+
+.a-tree-node{
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.toggle-parent-button {
+  flex-shrink: 0;
+}
+
+.tree-node-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 0 0.5rem;
+  justify-content: space-between;
+}
+
 .div-sidenav {
   display: flex;
   flex-direction: column;

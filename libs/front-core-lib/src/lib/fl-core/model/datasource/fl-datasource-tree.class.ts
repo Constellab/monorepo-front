@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { ClHelpService } from '@monorepo/core-lib';
 import { FlTree } from './fl-tree-object.class';
 import { FlEntity } from '../fl-entity.class';
+import { MatTree } from '@angular/material/tree';
 
 export class FlDatasourceTree<T extends FlEntity> {
   private tree$ = new BehaviorSubject<FlTree<T>>(new FlTree<T>({ id: null } as T, []));
@@ -123,6 +124,27 @@ export class FlDatasourceTree<T extends FlEntity> {
   }
 
   ///////////////////////////// OTHERS //////////////////////////////
+  public getVisibleNodes(tree: MatTree<FlTree<T>>): FlTree<T>[] {
+    const visibleNodes: FlTree<T>[] = [];
+    for (const child of this.tree.children) {
+      visibleNodes.push(...this.getVisibleNodesRecur(tree, child));
+    }
+    return visibleNodes;
+  }
+
+  private getVisibleNodesRecur(tree: MatTree<FlTree<T>>, node: FlTree<T>): FlTree<T>[] {
+    const visibleNodes: FlTree<T>[] = [node];
+    if (node.children && tree.isExpanded(node)) {
+      for (const child of node.children) {
+        visibleNodes.push(...this.getVisibleNodesRecur(tree, child));
+      }
+    }
+    return visibleNodes;
+  }
+
+  public getRootNode(): FlTree<T> {
+    return this.tree;
+  }
 
   public isEmpty$(): Observable<boolean> {
     return this.tree$.pipe(map((tree) => tree.children.length === 0));

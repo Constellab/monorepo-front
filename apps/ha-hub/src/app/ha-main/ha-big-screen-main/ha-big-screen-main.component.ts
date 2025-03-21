@@ -1,11 +1,10 @@
-import { Component, inject, Input, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, Input, Signal } from '@angular/core';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { ClSupportedLanguage, ClTheme } from '@monorepo/core-lib';
 import { Observable } from 'rxjs';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
@@ -51,10 +50,9 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class HaBigScreenMainComponent implements OnInit {
+export class HaBigScreenMainComponent {
   private authUserService = inject(HaAuthenticatedUserService);
   private themeState = inject(HaThemeState);
-  private snackBarService = inject(FlSnackBarService);
   private authService = inject(HaAuthService);
   private dialogService = inject(FlDialogService);
 
@@ -89,25 +87,18 @@ export class HaBigScreenMainComponent implements OnInit {
 
   userConnected$: Observable<HaUser> = this.authUserService.getUser();
 
-  communityLogo: string;
+  communityLogo = computed(() => {
+    return this.isDarkTheme()
+      ? 'assets/fl-logo/community-logo-text-white.svg'
+      : 'assets/fl-logo/community-logo-text-black.svg';
+  });
 
   protected readonly theme = ClTheme;
-
-  ngOnInit(): void {
-    this.setCommunityLogo();
-  }
 
   selectTheme(theme: ClTheme): void {
     if (this.currentTheme() !== theme) {
       this.themeState.changeTheme(theme);
-      this.setCommunityLogo();
     }
-  }
-
-  setCommunityLogo(): void {
-    this.communityLogo = this.isDarkTheme()
-      ? 'assets/fl-logo/community-logo-text-white.svg'
-      : 'assets/fl-logo/community-logo-text-black.svg';
   }
 
   changeLanguage(): void {

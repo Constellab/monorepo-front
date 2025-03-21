@@ -59,8 +59,8 @@ export class HaFolderService {
    * Call http updateTree
    * @param nodes HaNode array
    */
-  updateTree(nodes: HaNode[]): Observable<HaNode[]> {
-    return this.apiService.put(this.route + '/tree', nodes);
+  updateTree(body: any): Observable<HaNode> {
+    return this.apiService.put(this.route + '/tree', body);
   }
 
   /**

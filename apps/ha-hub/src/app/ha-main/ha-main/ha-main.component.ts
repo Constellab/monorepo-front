@@ -18,7 +18,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { HaInstantSearchDialogComponent } from '../../ha-core/ha-component/ha-instant-search-dialog/ha-instant-search-dialog.component';
 import { environment } from '../../../environments/ha-environment';
-import { HaMetadataService } from '../../ha-core/ha-service/ha-metadata.service';
 import { HaJsonLdState } from '../../ha-core/ha-state/ha-json-ld.state';
 import { HaBigScreenMainComponent } from '../ha-big-screen-main/ha-big-screen-main.component';
 import { HaSmallScreenMainComponent } from '../ha-small-screen-main/ha-small-screen-main.component';
@@ -40,7 +39,6 @@ export class HaMainComponent implements OnInit, AfterContentInit, OnDestroy {
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
   private themeState: HaThemeState = inject(HaThemeState);
   private dialogService: FlDialogService = inject(FlDialogService);
-  private metadataService: HaMetadataService = inject(HaMetadataService);
   private platformId: any = inject(PLATFORM_ID);
 
   currentTheme: Signal<ClTheme> = this.themeState?.getCurrentTheme();

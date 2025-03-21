@@ -452,5 +452,6 @@
   "max_tokens": "Nombre maximum de tokens",
   "high_quality": "Haute qualité",
   "economy": "Économique",
-  "indexing_technique": "Technique d'indexation"
+  "indexing_technique": "Technique d'indexation",
+
 }

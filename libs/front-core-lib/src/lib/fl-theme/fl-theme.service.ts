@@ -5,7 +5,6 @@ import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
 
-
 /**
  * Service to manage light and dark theme
  */
@@ -47,14 +46,14 @@ export class FlThemeService {
 
     if (!this.checkTheme(theme)) {
       theme = this.getBrowserTheme();
-      this.setCookieTheme(theme);
+      // this.setCookieTheme(theme);
     }
 
     return theme;
   }
 
   private getCookieTheme(): ClTheme {
-    if (isPlatformServer(this.platformId && this.request?.cookies)) {
+    if (isPlatformServer(this.platformId) && this.request?.cookies) {
       return this.request?.cookies[this.themeKey] as ClTheme;
     }
     return this.cookieService.getStringCookie(this.themeKey) as ClTheme;
@@ -87,10 +86,11 @@ export class FlThemeService {
     ) {
       this.storeTheme(theme);
       this.loadTheme(theme);
+      // remove all class
+      this.document.body.className = '';
+      // set the class theme in the body element to be able to use it in the css
+      this.renderer.addClass(this.document.body, 'g-' + theme);
     }
-
-    // set the class theme in the body element to be able to use it in the css
-    this.renderer.addClass(this.document.body, 'g-' + theme);
   }
 
   // change the app theme by changing the css file

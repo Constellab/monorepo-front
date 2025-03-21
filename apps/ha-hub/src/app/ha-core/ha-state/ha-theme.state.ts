@@ -23,15 +23,14 @@ export class HaThemeState {
     this.setTheme(this.themeService.getCurrentTheme());
     this.authUserService.getUser().subscribe((user) => {
       if (user != null && user.theme != this.currentTheme()) {
-        this.changeTheme(user.theme, true);
+        this.setTheme(user.theme);
       }
     });
   }
 
-  changeTheme(theme: ClTheme, onUserLoading = false): void {
-    this.themeService.changeTheme(theme);
+  changeTheme(theme: ClTheme): void {
     this.setTheme(theme);
-    if (!onUserLoading && this.authUserService.hasAuthorizationCookie()) {
+    if (this.authUserService.hasAuthorizationCookie()) {
       this.authUserService.changeTheme(theme).subscribe();
     }
   }
@@ -43,5 +42,6 @@ export class HaThemeState {
   private setTheme(theme: ClTheme): void {
     this.currentTheme.set(theme);
     this.onThemeChange$.next(theme);
+    this.themeService.changeTheme(theme);
   }
 }

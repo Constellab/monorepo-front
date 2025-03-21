@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { HaUser } from '../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { HaAuthService } from '../../ha-core/ha-service/ha-auth.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
@@ -56,7 +55,6 @@ export enum HaSmallScreenPossibleRoute {
 export class HaSmallScreenMainComponent implements OnInit {
   private authUserService = inject(HaAuthenticatedUserService);
   private themeState = inject(HaThemeState);
-  private snackBarService = inject(FlSnackBarService);
   private authService = inject(HaAuthService);
   private activatedRoute = inject(ActivatedRoute);
   private dialogService = inject(FlDialogService);
@@ -84,8 +82,6 @@ export class HaSmallScreenMainComponent implements OnInit {
 
   iconsPageRoute = HaRouterService.getIconsRoute();
 
-  communityLogo: string;
-
   currentRoute: HaSmallScreenPossibleRoute;
 
   currentTheme: Signal<ClTheme> = this.themeState.getCurrentTheme();
@@ -95,7 +91,6 @@ export class HaSmallScreenMainComponent implements OnInit {
   protected readonly theme = ClTheme;
 
   ngOnInit(): void {
-    this.setCommunityLogo();
     this.activatedRoute.url.subscribe((url) => {
       if (url.length === 0) {
         return;
@@ -119,14 +114,7 @@ export class HaSmallScreenMainComponent implements OnInit {
   selectTheme(theme: ClTheme): void {
     if (this.currentTheme() !== theme) {
       this.themeState.changeTheme(theme);
-      this.setCommunityLogo();
     }
-  }
-
-  setCommunityLogo(): void {
-    this.communityLogo = this.isDarkTheme()
-      ? 'assets/fl-logo/community-logo-text-white.svg'
-      : 'assets/fl-logo/community-logo-text-black.svg';
   }
 
   changeLanguage(): void {

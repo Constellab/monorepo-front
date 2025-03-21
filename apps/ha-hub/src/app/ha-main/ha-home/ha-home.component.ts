@@ -43,9 +43,6 @@ export class HaHomeComponent extends HaCommunityPage implements OnInit {
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
 
   ngOnInit(): void {
-    this.metadataService.setPageTitle('ha.home.title');
-    this.metadataService.addMetaTag('description', 'ha.home.description');
-
     super.setMetaTags(
       'ha.home.title',
       'ha.home.description',

@@ -1,7 +1,67 @@
-import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { FlEntity } from '@monorepo/front-core-lib/fl-core';
+import { FlDatasourceTree, FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { HaBaseEntity, HaEntity } from './ha-entity.class';
+
+export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
+  constructor() {
+    super((a, b) => a.order - b.order);
+  }
+
+  addNodeObjects(objects: HaNode[]): void {
+    for (const object of objects) {
+      this.tree.addOrReplaceObject(object, object.parentId);
+    }
+
+    this.sortAndEmits();
+  }
+
+  public updateNodeLocation(node: HaNode, oldParentId: string, newParentId: string): void {
+    this.tree.updateNodeObject(node);
+    if (oldParentId != newParentId) {
+      this.moveNode(node.id, oldParentId, newParentId);
+    } else {
+      console.log('C');
+      this.sortAndEmits();
+    }
+  }
+
+  private moveNode(nodeId: string, oldParentId: string, newParentId: string): void {
+    const node = this.tree.findNodeById(nodeId);
+    if (!node) return null;
+
+    const oldParent = this.tree.findNodeById(oldParentId);
+    const newParent = this.tree.findNodeById(newParentId);
+    if (!oldParent || !newParent) return null;
+
+    oldParent.deleteNodeById(nodeId);
+    if (oldParent.object.children) {
+      oldParent.object.children = oldParent.object.children.filter((child) => child.id !== nodeId);
+      this.tree.updateNodeObject(oldParent.object);
+    }
+
+    this.sortAndEmits();
+
+    setTimeout(() => {
+      this.addOrReplaceNode([node.object], newParentId);
+      this.sortAndEmits();
+    }, 10);
+  }
+
+  addNodeObjectsWithChildren(objects: HaNode[]): void {
+    this.addNodeObjectsWithChildrenRecur(objects);
+    this.sortAndEmits();
+  }
+
+  private addNodeObjectsWithChildrenRecur(objects: HaNode[]): void {
+    for (const object of objects) {
+      this.tree.addOrReplaceObject(object, object.parentId);
+
+      if (object.children) {
+        this.addNodeObjectsWithChildrenRecur(object.children);
+      }
+    }
+  }
+}
 
 export class HaNode extends HaBaseEntity {
   path: string;
@@ -16,6 +76,8 @@ export class HaNode extends HaBaseEntity {
   children?: HaNode[];
 
   parentId: string;
+
+  isExpanded = false;
 
   constructor(
     id: string,
@@ -56,21 +118,4 @@ export enum HaNodeType {
 export class EntityWithPotentialsChildren<T> implements FlEntity {
   id: string;
   children?: T[];
-}
-
-export class HaMateTreeFlatDataSource<
-  T extends EntityWithPotentialsChildren<T>,
-  F,
-  K = F,
-> extends MatTreeFlatDataSource<T, F, K> {
-  findNode(nodeId: string, data: T[]): T {
-    const node: T = data.find((n) => n.id == nodeId);
-    if (node) {
-      return node;
-    }
-    data.map((n) => {
-      return this.findNode(nodeId, n.children);
-    });
-    return null;
-  }
 }

@@ -15,7 +15,7 @@ export class HaCommunityPage {
   ): void {
     const title = this.translateService.translatableText(pageTitle);
     const description = this.translateService.translatableText(pageDescription);
-    this.metadataService.setPageTitle(title);
+    this.metadataService.setPageTitle(title, false);
 
     this.metadataService.addMetaTag('description', description);
 
