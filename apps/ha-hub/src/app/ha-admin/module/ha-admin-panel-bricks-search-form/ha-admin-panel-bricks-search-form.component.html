@@ -18,19 +18,6 @@
       </mat-select>
     </mat-form-field>
 
-    @if (spaces$ | async; as spaces){
-      <mat-form-field class="g-search-field-full">
-        <mat-label>{{'space' | translate}}</mat-label>
-        <mat-select formControlName="space" [placeholder]="'space' | translate">
-          @for (space of spaces; track space.id) {
-            <mat-option [value]="space">
-              {{ space.name }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    }
-
     <div class="g-form-field-no-hint g-full">
       <p class="g-text-small date">{{ 'creation_date' | translate }}</p>
       <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>

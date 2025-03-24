@@ -50,8 +50,8 @@ export class HaAdminSendToDifyDialogComponent {
     .pipe(map((res) => res.data));
   selectedKnowledgeBaseId: string = null;
   isLoading: boolean;
-  separator: string;
-  maxTokens: number;
+  separator: string = '\\n\\n';
+  maxTokens: number = 500;
   indexingTechnique: 'high_quality' | 'economy' = 'high_quality';
 
   constructor() {

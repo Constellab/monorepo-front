@@ -46,7 +46,9 @@ export class FlThemeService {
 
     if (!this.checkTheme(theme)) {
       theme = this.getBrowserTheme();
-      // this.setCookieTheme(theme);
+
+      this.setCookieTheme(theme);
+      this.loadTheme(theme);
     }
 
     return theme;
@@ -82,14 +84,10 @@ export class FlThemeService {
   public changeTheme(theme: ClTheme): void {
     if (
       this.checkTheme(theme) &&
-      (theme !== this.getCurrentTheme() || this.cookieService.getStringCookie(this.themeKey) != theme)
+      (this.cookieService.getStringCookie(this.themeKey) != theme || theme !== this.getCurrentTheme())
     ) {
       this.storeTheme(theme);
       this.loadTheme(theme);
-      // remove all class
-      this.document.body.className = '';
-      // set the class theme in the body element to be able to use it in the css
-      this.renderer.addClass(this.document.body, 'g-' + theme);
     }
   }
 
@@ -100,6 +98,11 @@ export class FlThemeService {
     if (link) {
       this.renderer.setAttribute(link, 'href', `${theme}.css`);
     }
+
+    // remove all class
+    this.document.body.className = '';
+    // set the class theme in the body element to be able to use it in the css
+    this.renderer.addClass(this.document.body, 'g-' + theme);
   }
 
   private storeTheme(theme: ClTheme): void {

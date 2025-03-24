@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TeMetadataBlockConfig, TeMetadataPermission } from '../../model/te-metadata-block-config.class';
-import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -28,7 +28,7 @@ export class TeEditBlockMetadataDialogComponent implements OnInit {
 
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
-      appRoute: [this.dialogInput?.appRoute ?? null, [Validators.pattern('^\\s*https?://.+\\s*$')]],
+      appRoute: [this.dialogInput?.appRoute ?? null],
       permission: [this.dialogInput?.permission ?? null],
     });
   }

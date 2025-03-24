@@ -125,7 +125,9 @@ const teTextEditorI18nFr: FlLangTranslation = {
     // Settings
     settings: 'Paramètres',
     edit_metadata: 'Modifier les métadonnées',
+    app_route_hint: 'Route front correspondant à l\'action comme "app/scenario/create"',
     app_route: "Route de l'application",
+    permission_hint: "Permissions utilisateur requises pour effectuer l'action",
     permission: 'Permission',
     app_route_error: "Route de l'application invalide",
   },
@@ -244,7 +246,9 @@ const teTextEditorI18nEn: FlLangTranslation = {
     // Settings
     settings: 'Settings',
     edit_metadata: 'Edit metadata',
+    app_route_hint: 'Front route corresponding to the action like "app/scenario/create"',
     app_route: 'App route',
+    permission_hint: 'Required user permissions to do the action',
     permission: 'Permission',
     app_route_error: 'Invalid app route',
   },

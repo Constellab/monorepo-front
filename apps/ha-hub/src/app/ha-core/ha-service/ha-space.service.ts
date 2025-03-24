@@ -12,14 +12,6 @@ export class HaSpaceService {
   private readonly route: string = 'space';
 
   /**
-   * Call http get to get all spaces
-   * return a list of spaces
-   */
-  public getAll(): Observable<HaSpace[]> {
-    return this.apiService.get(this.route, HaSpace);
-  }
-
-  /**
    * Call http get to get a space by user id
    * return a list of spaces
    */

@@ -41,7 +41,9 @@
         [isExpanded]="node.object.isExpanded"
         matTreeNodePadding
         [matTreeNodePaddingIndent]="10" class="g-drag-hide-placeholder"
-        [ngClass]="{ 'selected-tree-node': isSelected(node) }">
+        [ngClass]="{ 'selected-tree-node': isSelected(node) }"
+        (mouseenter)="hoverId = node.id"
+        (mouseleave)="hoverId = null">
         @if (node.object.children) {
           <div class="g-text-small tree-node g-layout-row g-layout-start-center"
                (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
@@ -59,7 +61,7 @@
               {{ node.object.name }}
 
               <div class="line-icons">
-                @if (userHasEditRight()) {
+                @if (userHasEditRight() && hoverId === node.object.id) {
                   <mat-icon (click)="onClickMenu($event, true, node.children?.length > 0, node.id)" class="g-icon-small icon-pointer">
                     more_vert
                   </mat-icon>
@@ -75,7 +77,7 @@
             <div class="tree-node-without-children tree-node-div">
               {{ node.object.name }}
               <div class="line-icons">
-                @if (userHasEditRight()) {
+                @if (userHasEditRight() && hoverId === node.object.id) {
                   <mat-icon (click)="onClickMenu($event, false, false, node.id)" class="g-icon-small icon-pointer">
                     more_vert
                   </mat-icon>

@@ -5,14 +5,13 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="metadata-form" [formGroup]="formGp">
     <mat-form-field class="g-form-input">
+      <mat-hint>{{'teTextEditor.app_route_hint' | translate}}</mat-hint>
       <mat-label>{{'teTextEditor.app_route' | translate}}</mat-label>
       <input matInput formControlName="appRoute" [placeholder]="'teTextEditor.app_route' | translate">
-      @if (formGp.controls.appRoute.hasError('pattern')) {
-        <mat-error>{{'teTextEditor.app_route_error' | translate}}</mat-error>
-      }
     </mat-form-field>
 
     <mat-form-field class="g-form-input">
+      <mat-hint>{{'teTextEditor.permission_hint' | translate}}</mat-hint>
       <mat-label>{{'teTextEditor.permission' | translate}}</mat-label>
       <input matInput [placeholder]="'teTextEditor.permission' | translate" formControlName="permission" [matAutocomplete]="auto">
       <mat-autocomplete autoActiveFirstOption="true" #auto=matAutocomplete>
@@ -25,7 +24,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button type="submit" form="metadata-form" class="centered primary">
+  <button mat-flat-button type="submit" form="metadata-form" class="centered primary" [disabled]="!formGp.valid">
     {{ 'teTextEditor.save' | translate }}
   </button>
 </div>

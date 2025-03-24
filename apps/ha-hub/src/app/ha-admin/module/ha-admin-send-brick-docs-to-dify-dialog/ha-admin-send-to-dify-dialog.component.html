@@ -12,7 +12,7 @@
       @if (difyKnowledgeBases.length > 0) {
         <mat-form-field class="g-form-input">
           <mat-label>{{'knowledge_base' | translate}}</mat-label>
-          <mat-select [(ngModel)]="selectedKnowledgeBaseId">
+          <mat-select [(ngModel)]="selectedKnowledgeBaseId" required>
             @for (knowledgeBase of difyKnowledgeBases; track knowledgeBase.id) {
               <mat-option [value]="knowledgeBase.id">
                 {{ knowledgeBase.name }}

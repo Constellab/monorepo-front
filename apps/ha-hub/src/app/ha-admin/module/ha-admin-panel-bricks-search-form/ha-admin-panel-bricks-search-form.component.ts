@@ -6,10 +6,6 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatInput } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { HaSpaceService } from '../../../ha-core/ha-service/ha-space.service';
-import { HaSpace } from '../../../ha-core/ha-model/ha-entities/ha-space.class';
-import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 
 @Component({
@@ -23,7 +19,6 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
     MatSelect,
     MatOption,
     FlSearchModule,
-    AsyncPipe,
     CoCommunityLibModule,
   ],
   templateUrl: './ha-admin-panel-bricks-search-form.component.html',
@@ -31,12 +26,10 @@ import { CoCommunityLibModule } from '@monorepo/community-lib';
 })
 export class HaAdminPanelBricksSearchFormComponent implements OnInit {
   private searchState = inject<FlSearchState<HaBrick>>(FlSearchState);
-  private spaceService = inject(HaSpaceService);
 
   formGp: UntypedFormGroup;
 
   visibilityOptions = Object.values(HaBrickVisibility);
-  spaces$: Observable<HaSpace[]> = this.spaceService.getAll();
 
   ngOnInit(): void {
     this.formGp = this.searchState.advancedSearchFormGroup;
