@@ -27,6 +27,6 @@ export class HaCommunityPageDirective implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }
