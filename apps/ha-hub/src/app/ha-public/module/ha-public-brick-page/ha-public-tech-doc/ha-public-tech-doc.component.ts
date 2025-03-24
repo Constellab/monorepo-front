@@ -1,13 +1,12 @@
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TdTypeEntity } from '@monorepo/technical-doc';
+import { TdTechnicalDocModule, TdTypeEntity } from '@monorepo/technical-doc';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
-import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { HaRunStatAggregatePanelComponent } from '../../../../ha-core/ha-component/ha-run-stat-aggregate-panel/ha-run-stat-aggregate-panel.component';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { Ha404Component } from '../../ha404/ha404.component';
@@ -24,7 +23,7 @@ import { Ha404Component } from '../../ha404/ha404.component';
     Ha404Component,
   ],
 })
-export class HaPublicTechDocComponent extends HaCommunityPage implements OnInit {
+export class HaPublicTechDocComponent extends HaCommunityPageDirective implements OnInit {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);

@@ -20,7 +20,7 @@ import { HaBrickService } from '../../ha-core/ha-service/ha-brick.service';
 import { HaLoggedInHomeComponent } from '../ha-logged-in-home/ha-logged-in-home.component';
 import { HaNotLoggedInHomeComponent } from '../ha-not-logged-in-home/ha-not-logged-in-home.component';
 import { AsyncPipe } from '@angular/common';
-import { HaCommunityPage } from '../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 
@@ -30,7 +30,7 @@ import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
   styleUrls: ['./ha-home.component.scss'],
   imports: [HaLoggedInHomeComponent, HaNotLoggedInHomeComponent, AsyncPipe, FlLoaderModule],
 })
-export class HaHomeComponent extends HaCommunityPage implements OnInit {
+export class HaHomeComponent extends HaCommunityPageDirective implements OnInit {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private storyService: HaStoryService = inject(HaStoryService);
   private agentService: HaAgentService = inject(HaAgentService);

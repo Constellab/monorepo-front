@@ -9,7 +9,7 @@ import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.servic
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HaUser } from '../../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaIsAuthenticatedDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
@@ -59,7 +59,7 @@ import { MatDivider } from '@angular/material/divider';
     MatDivider,
   ],
 })
-export class HaPublicListBricksPageComponent extends HaCommunityPage implements OnInit {
+export class HaPublicListBricksPageComponent extends HaCommunityPageDirective implements OnInit {
   private haBrickService: HaBrickService = inject(HaBrickService);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
 

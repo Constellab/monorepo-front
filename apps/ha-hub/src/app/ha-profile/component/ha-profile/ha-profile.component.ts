@@ -19,7 +19,7 @@ import {
   HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
 import { CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { HaConstellabHelper } from '../../../ha-core/ha-model/ha-config/ha-constellab.helper';
@@ -74,7 +74,7 @@ export interface HaProfileDatasourceFilters {
     HaBrickImagePipe,
   ],
 })
-export class HaProfileComponent extends HaCommunityPage implements OnInit, OnDestroy {
+export class HaProfileComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private userService: HaUserService = inject(HaUserService);
   private spaceService: HaSpaceService = inject(HaSpaceService);

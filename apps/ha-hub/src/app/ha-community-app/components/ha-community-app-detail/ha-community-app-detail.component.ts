@@ -22,7 +22,7 @@ import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-communi
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { MatIcon } from '@angular/material/icon';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -49,7 +49,7 @@ import { Observable } from 'rxjs';
   templateUrl: './ha-community-app-detail.component.html',
   styleUrl: './ha-community-app-detail.component.scss',
 })
-export class HaCommunityAppDetailComponent extends HaCommunityPage implements OnInit {
+export class HaCommunityAppDetailComponent extends HaCommunityPageDirective implements OnInit {
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private communityAppService = inject(HaCommunityAppService);

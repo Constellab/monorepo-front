@@ -7,7 +7,7 @@ import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { HaPublicEditBrickDialogComponent } from '../ha-public-edit-brick-dialog/ha-public-edit-brick-dialog.component';
 import { HaReferenceDTO } from '../../../../ha-core/ha-model/ha-entities/ha-version.class';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
-import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaRunStatAggregate } from '../../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { NgOptimizedImage } from '@angular/common';
@@ -40,7 +40,7 @@ import { HaEntityType } from '../../../../ha-core/ha-model/ha-entities/ha-entity
     HaLikeButtonComponent,
   ],
 })
-export class HaPublicBrickDescriptionComponent extends HaCommunityPage {
+export class HaPublicBrickDescriptionComponent extends HaCommunityPageDirective {
   private router: Router = inject(Router);
   private dialogService: FlDialogService = inject(FlDialogService);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);

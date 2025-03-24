@@ -9,7 +9,7 @@ import {
   HaAgentEditStyleDialogComponent,
   HaAgentEditStyleDialogInputData,
 } from '../ha-agent-edit-style-dialog/ha-agent-edit-style-dialog.component';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaTdServiceConfig } from '../../../ha-core/ha-model/ha-config/ha-td-service.config';
 import { HaRunStatAggregate } from '../../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
@@ -39,7 +39,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class HaAgentVersionPageComponent extends HaCommunityPage implements OnInit {
+export class HaAgentVersionPageComponent extends HaCommunityPageDirective implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private dialogService: FlDialogService = inject(FlDialogService);

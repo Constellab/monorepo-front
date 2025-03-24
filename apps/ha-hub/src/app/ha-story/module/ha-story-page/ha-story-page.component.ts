@@ -23,7 +23,7 @@ import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { first, Subscription } from 'rxjs';
 import { HaHttpRedirectionService } from '../../../ha-core/ha-service/ha-http-redirection.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
@@ -65,7 +65,7 @@ import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-ty
     HaLikeButtonComponent,
   ],
 })
-export class HaStoryPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
+export class HaStoryPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private storyService: HaStoryService = inject(HaStoryService);
   private platformId: object = inject(PLATFORM_ID);

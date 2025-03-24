@@ -6,7 +6,7 @@ import {
   HaIconCreateDialogComponent,
 } from '../ha-icon-create-dialog/ha-icon-create-dialog.component';
 import { CoIcon } from '@monorepo/community-lib';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaIsGencoveryMemberDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-gencovery-member/ha-is-gencovery-member.directive';
 import { MatButton } from '@angular/material/button';
@@ -20,7 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-icons-page.component.scss'],
   imports: [HaIsGencoveryMemberDirective, MatButton, MatIcon, HaIconListComponent, TranslatePipe],
 })
-export class HaIconsPageComponent extends HaCommunityPage implements OnInit, OnDestroy {
+export class HaIconsPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);
 
   reloadList$ = new Subject<boolean>();

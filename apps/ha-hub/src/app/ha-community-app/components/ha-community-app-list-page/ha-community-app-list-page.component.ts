@@ -32,7 +32,7 @@ import { HaSelectableSpaceListComponent } from '../../../ha-space/module/ha-sele
 import { MatChipOption } from '@angular/material/chips';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 
 @Component({
@@ -64,7 +64,7 @@ import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
   templateUrl: './ha-community-app-list-page.component.html',
   styleUrl: './ha-community-app-list-page.component.scss',
 })
-export class HaCommunityAppListPageComponent extends HaCommunityPage implements OnInit {
+export class HaCommunityAppListPageComponent extends HaCommunityPageDirective implements OnInit {
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private authenticatedUserService = inject(HaAuthenticatedUserService);

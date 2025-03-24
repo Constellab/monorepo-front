@@ -16,7 +16,7 @@ import {
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatIcon } from '@angular/material/icon';
 import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
@@ -64,7 +64,7 @@ import { MatDivider } from '@angular/material/divider';
     MatDivider,
   ],
 })
-export class HaAgentListComponent extends HaCommunityPage implements OnInit {
+export class HaAgentListComponent extends HaCommunityPageDirective implements OnInit {
   private agentService: HaAgentService = inject(HaAgentService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private router: Router = inject(Router);

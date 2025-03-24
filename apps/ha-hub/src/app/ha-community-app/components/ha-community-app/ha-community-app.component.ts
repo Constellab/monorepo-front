@@ -3,7 +3,7 @@ import { HaCommunityApp } from '../../../ha-core/ha-model/ha-entities/ha-communi
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
@@ -14,7 +14,7 @@ import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-
   templateUrl: './ha-community-app.component.html',
   styleUrl: './ha-community-app.component.scss',
 })
-export class HaCommunityAppComponent extends HaCommunityPage implements OnInit {
+export class HaCommunityAppComponent extends HaCommunityPageDirective implements OnInit {
   private communityAppState: HaCommunityAppState = inject(HaCommunityAppState);
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);

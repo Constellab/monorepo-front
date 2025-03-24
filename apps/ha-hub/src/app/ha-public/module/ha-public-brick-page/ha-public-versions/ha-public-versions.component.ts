@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { HaBrickVersionDataSource } from '../../../../ha-core/ha-model/ha-entities/ha-brick-version.class';
 import { HaBrickVersionService } from '../../../../ha-core/ha-service/ha-brick-version.service';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
@@ -8,7 +8,7 @@ import { HaPublicAddVersionDialogComponent } from '../ha-public-add-version-dial
 import { HaNodeDTO } from '../../../../ha-core/ha-model/ha-entities/ha-node.class';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { Router } from '@angular/router';
 import { MatButton } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-public-versions.component.scss'],
   imports: [MatButton, HaPublicBrickVersionsTableComponent, TranslatePipe],
 })
-export class HaPublicVersionsComponent extends HaCommunityPage {
+export class HaPublicVersionsComponent extends HaCommunityPageDirective {
   private brickVersionService: HaBrickVersionService = inject(HaBrickVersionService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);

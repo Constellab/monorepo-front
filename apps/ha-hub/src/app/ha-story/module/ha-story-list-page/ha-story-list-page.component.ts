@@ -17,7 +17,7 @@ import { HaTopicDto } from '../../../ha-core/ha-model/ha-entities/ha-topic.class
 import { ClStringHelper } from '@monorepo/core-lib';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoCommunityLibModule, CoStoryCategory } from '@monorepo/community-lib';
-import { HaCommunityPage } from '../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaLeftPanelDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-left-panel/ha-left-panel.directive';
 import { MatIcon } from '@angular/material/icon';
@@ -64,7 +64,7 @@ import { MatDivider } from '@angular/material/divider';
     MatDivider,
   ],
 })
-export class HaStoryListPageComponent extends HaCommunityPage implements OnInit {
+export class HaStoryListPageComponent extends HaCommunityPageDirective implements OnInit {
   private dialogService: FlDialogService = inject(FlDialogService);
   private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);

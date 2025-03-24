@@ -21,7 +21,7 @@ import { HaHttpRedirectionService } from '../../../../ha-core/ha-service/ha-http
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
-import { HaCommunityPage } from '../../../../ha-core/utils/ha-community.page';
+import { HaCommunityPageDirective } from '../../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaJsonLdState } from '../../../../ha-core/ha-state/ha-json-ld.state';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
@@ -54,7 +54,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe,
   ],
 })
-export class HaPublicDocComponent extends HaCommunityPage implements OnInit, OnDestroy {
+export class HaPublicDocComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private documentationService: HaDocumentationService = inject(HaDocumentationService);
   private dialogService: FlDialogService = inject(FlDialogService);
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
