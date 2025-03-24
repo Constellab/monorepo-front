@@ -73,12 +73,12 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
     MatTreeNodeDef,
     MatTreeNode,
     CdkDragHandle,
-    MatTreeNodeToggle,
     TranslatePipe,
     MatTreeNodePadding,
     MatIconButton,
     CdkDropList,
     CdkDrag,
+    MatTreeNodeToggle,
   ],
 })
 export class HaPublicSidenavComponent implements OnInit {

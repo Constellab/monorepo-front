@@ -45,11 +45,10 @@
         (mouseenter)="hoverId = node.id"
         (mouseleave)="hoverId = null">
         @if (node.object.children) {
-          <div class="g-text-small tree-node g-layout-row g-layout-start-center"
+          <div class="g-text-small tree-node g-layout-row g-layout-start-center" matTreeNodeToggle
                (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
             <button
               mat-icon-button
-              matTreeNodeToggle
               class="g-button-icon-small toggle-parent-button"
               [attr.aria-label]="'Toggle ' + node.object.name"
               type="button">
@@ -105,15 +104,16 @@
         [ngClass]="{ 'selected-tree-node': isSelectedTech(node) }">
         @if (node.object.children) {
           <div class="g-text-small tree-node g-layout-row g-layout-start-center"
+               matTreeNodeToggle
                (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
             <button
               mat-icon-button
-              matTreeNodeToggle
+
               class="g-button-icon-small toggle-parent-button"
               [attr.aria-label]="'Toggle ' + node.object.name"
               type="button">
               <mat-icon>
-                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+                {{ techTree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
               </mat-icon>
             </button>
             <div class="tree-node-div">
@@ -131,44 +131,6 @@
         }
       </mat-tree-node>
     </mat-tree>
-
-    <!--    @if (technicalDataSource$ | async) {-->
-    <!--      <mat-tree [dataSource]="technicalDataSource$ | async" [treeControl]="techTreeControl">-->
-    <!--        <mat-tree-node-->
-    <!--          *matTreeNodeDef="let node"-->
-    <!--          class="sidenav-item small-text"-->
-    <!--          [ngClass]="isDocNodeSelected(node) ? 'g-primary-background' : 'sidenav-item-not-selected'"-->
-    <!--          [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }">-->
-    <!--          @if (node.id != null) {-->
-    <!--            <a-->
-    <!--              [routerLink]="'doc/' + node.completePath"-->
-    <!--              [relativeTo]="activatedRoute"-->
-    <!--              [routerLinkActive]="'active'">-->
-    <!--              {{ node.name }}-->
-    <!--            </a>-->
-    <!--          }-->
-    <!--        </mat-tree-node>-->
-
-    <!--        <mat-tree-node-->
-    <!--          *matTreeNodeDef="let node; when: hasChild"-->
-    <!--          class="sidenav-item sidenav-item-with-icon small-text icon-pointer"-->
-    <!--          [ngClass]="currentCompletePath?.includes(node.completePath) ? 'g-primary-background' : 'sidenav-item-not-selected'"-->
-    <!--          [ngStyle]="{ 'margin-left': node.level * 15 + 'px' }"-->
-    <!--          (click)="techExpansionModel.toggle(node)"-->
-    <!--          matTreeNodeToggle>-->
-    <!--          @if (node.id) {-->
-    <!--            <div>-->
-    <!--              {{ node.name }}-->
-    <!--            </div>-->
-    <!--          }-->
-    <!--          <div class="line-icons">-->
-    <!--            <mat-icon class="g-icon-small icon-pointer">-->
-    <!--              {{ techTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}-->
-    <!--            </mat-icon>-->
-    <!--          </div>-->
-    <!--        </mat-tree-node>-->
-    <!--      </mat-tree>-->
-    <!--    }-->
 
     <a
       [routerLink]="'version'"
