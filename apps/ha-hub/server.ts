@@ -57,7 +57,8 @@ export function app(): express.Express {
       // script-src : https://www.google.com, https://www.gstatic.com
       // eslint-disable-next-line max-len
       const scriptSrc =
-        "script-src 'self' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' 'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:";
+        "script-src 'self' 'unsafe-inline' 'unsafe-hashes' 'sha256-MhtPZXr7+LpJUY5qtMutB+qWfQtMaPccfe7QXtCcEYc=' 'sha256-fPMfCibMhhkJZAz+L32w5D6q/jMoM8B+cblEqezMH44=' *.constellab.community https://www.google.com https://www.gstatic.com *.googletagmanager.com *.udify.app data:";
+
       // frame-src https://www.google.com/' is for the recaptcha
       // eslint-disable-next-line max-len
       const frameSrc =
