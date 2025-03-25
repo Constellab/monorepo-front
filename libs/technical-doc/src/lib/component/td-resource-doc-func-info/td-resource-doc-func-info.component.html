@@ -10,7 +10,7 @@
 
   <div class="content">
     @if (cleanedFuncDoc()) {
-      <div class="func-doc g-text-light" [innerHTML]="cleanedFuncDoc() | tdMarkdown"></div>
+      <div class="func-doc g-text-light" [innerHTML]="cleanedFuncDoc() | flMarkdown"></div>
     }
 
     @if (funcArgsDocs().length > 0) {
@@ -22,10 +22,10 @@
         @for (argWithDoc of funcArgsDocs(); track argWithDoc) {
           <div class="method">
             <div>
-              {{ argWithDoc.arg.arg_name | translate }} :
-              <code class="code">{{ argWithDoc.arg.arg_type | tdCleanType }}</code>
+              {{ argWithDoc.arg.arg_name }} :
+              <code class="g-embed-inline-code">{{ argWithDoc.arg.arg_type | tdCleanType }}</code>
               @if (argWithDoc.arg.arg_default_value) {
-                - <code class="code">{{ argWithDoc.arg.arg_default_value }}</code>
+                - <code class="g-embed-inline-code">{{ argWithDoc.arg.arg_default_value }}</code>
               }
             </div>
 
@@ -46,7 +46,7 @@
       }
 
       <div class="return-type-div">
-        {{ 'td.return_type' | translate }} : <code class="code">{{ returnTypeName() | tdCleanType }}</code>
+        {{ 'td.return_type' | translate }} : <code class="g-embed-inline-code">{{ returnTypeName() | tdCleanType }}</code>
       </div>
     }
   </div>

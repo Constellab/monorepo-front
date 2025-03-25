@@ -27,7 +27,6 @@ import { TdIoResourceComponent } from './component/td-io-resource/td-io-resource
 import { tdTechnicalDocI18n } from './td-technical-doc.i18n';
 import { TdTechnicalDocServiceConfig } from './service/td-technical-doc-service-config.config';
 import { TdTechDocLinkComponent } from './component/td-tech-doc-link/td-tech-doc-link.component';
-import { TdMarkdownPipe } from './pipe/td-markdown.pipe';
 import { TdConfigComponent } from './component/td-config/td-config.component';
 import { TdTechnicalDocHeaderComponent } from './component/td-technical-doc-header/td-technical-doc-header.component';
 import { TdDocIoComponent } from './component/td-doc-io/td-doc-io.component';
@@ -59,6 +58,7 @@ import { TdIconColorPipe } from './pipe/td-icon-color.pipe';
 import { TdDynamicEditableFormGroupComponent } from './component/td-dynamic-editable-form-group/td-dynamic-editable-form-group.component';
 import { TdConfigureSpecsFormComponent } from './component/td-configure-specs-form/td-configure-specs-form.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
 
 @NgModule({
   imports: [
@@ -94,6 +94,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     FlDynamicFieldModule,
     FlSectionModule,
     FlLoaderModule,
+    FlMarkdownModule,
   ],
   declarations: [
     TdResourceDocComponent,
@@ -103,7 +104,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TdIoDocsComponent,
     TdIoResourceComponent,
     TdTechDocLinkComponent,
-    TdMarkdownPipe,
     TdConfigComponent,
     TdTechnicalDocHeaderComponent,
     TdDocIoComponent,
@@ -134,7 +134,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     TdDocIoComponent,
     TdTypeUnavailableComponent,
     TdTypingNamePipe,
-    TdMarkdownPipe,
     TdIoResourceComponent,
     TdConfigComponent,
     TdTypeIconComponent,

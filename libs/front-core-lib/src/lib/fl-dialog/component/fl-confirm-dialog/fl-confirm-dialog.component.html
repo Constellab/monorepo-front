@@ -3,12 +3,12 @@
 </fl-dialog-header>
 
 <div mat-dialog-content>
-  <div [innerHTML]="inputData.content | flTranslatableText | async" class="content g-text-with-jump"></div>
+  <div [innerHTML]="inputData.content | flTranslatableText | async" class="g-embedded-html content"></div>
 
   @if (confirmTextFormControl) {
     <p class="confirm-text">
       {{ 'flDialog.confirm_with_text' | translate }} :
-      <code class="code">{{ inputData.confirmWithText }}</code>
+      <code class="g-embed-inline-code">{{ inputData.confirmWithText }}</code>
     </p>
     <mat-form-field class="form-field">
       <mat-label>{{ 'flDialog.confirm_text' | translate }}</mat-label>

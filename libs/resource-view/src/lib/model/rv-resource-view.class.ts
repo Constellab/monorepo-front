@@ -28,6 +28,7 @@ export type RvResourceViewType =
   | 'venn-diagram-view'
   | 'heatmap-view'
   | 'html-view'
+  | 'markdown-view'
   | 'plotly-view'
   | 'streamlit-view'
   | 'audio-view';
@@ -73,6 +74,13 @@ export interface RvResourceViewHTML extends RvResourceViewBase {
   type: 'html-view';
   data: {
     html: string;
+  };
+}
+
+export interface RvResourceViewMarkdown extends RvResourceViewBase {
+  type: 'markdown-view';
+  data: {
+    markdown: string;
   };
 }
 
@@ -123,6 +131,7 @@ export type RvResourceView =
   | RvResourceViewText
   | RvResourceViewTable
   | RvResourceViewHTML
+  | RvResourceViewMarkdown
   | RvResourceViewPlotly
   | RvResourceViewStreamlit
   | RvResourceViewAudio;

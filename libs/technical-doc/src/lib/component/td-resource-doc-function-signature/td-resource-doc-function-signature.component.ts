@@ -5,7 +5,7 @@ import {
   TdTechDocFunctionType,
 } from '../../model/td-resource-type.class';
 import { isPlatformBrowser } from '@angular/common';
-import { TeHighlight } from '../../model/td-highlight.class';
+import { FlHighlight } from '@monorepo/front-core-lib/fl-markdown';
 
 @Component({
   selector: 'td-resource-doc-function-signature',
@@ -28,7 +28,7 @@ export class TdResourceDocFunctionSignatureComponent implements OnInit {
 
   private getFunctionSignature(func: TdTechDocFunction): string {
     if (isPlatformBrowser(this.platformId)) {
-      return TeHighlight.highlight(this.getFunctionSignatureToString(func), 'python');
+      return FlHighlight.highlight(this.getFunctionSignatureToString(func), 'python');
     }
     return '';
   }

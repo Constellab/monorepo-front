@@ -19,6 +19,7 @@
     color: var(--color-foreground);
     background-color: var(--main-background);
     border-radius: 30px;
+    border: 1px solid var(--card-background)
   }
 
   &.interface,

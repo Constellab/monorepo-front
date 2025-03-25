@@ -75,6 +75,7 @@
       "@monorepo/front-core-lib/fl-json-editor": ["libs/front-core-lib/src/lib/fl-json-editor/index.ts"],
       "@monorepo/front-core-lib/fl-key-value": ["libs/front-core-lib/src/lib/fl-key-value/index.ts"],
       "@monorepo/front-core-lib/fl-loader": ["libs/front-core-lib/src/lib/fl-loader/index.ts"],
+      "@monorepo/front-core-lib/fl-markdown": ["libs/front-core-lib/src/lib/fl-markdown/index.ts"],
       "@monorepo/front-core-lib/fl-menu-dynamic": ["libs/front-core-lib/src/lib/fl-menu-dynamic/index.ts"],
       "@monorepo/front-core-lib/fl-plotly": ["libs/front-core-lib/src/lib/fl-plotly/index.ts"],
       "@monorepo/front-core-lib/fl-portal": ["libs/front-core-lib/src/lib/fl-portal/index.ts"],

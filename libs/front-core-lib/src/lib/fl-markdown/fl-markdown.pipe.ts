@@ -3,22 +3,22 @@ import { marked } from 'marked';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
 import { ClStringHelper, ClYoutubeHelper } from '@monorepo/core-lib';
 import { markedHighlight } from 'marked-highlight';
-import { TeHighlight } from '../model/td-highlight.class';
+import { FlHighlight } from './fl-highlight.class';
 
 marked.use(
   markedHighlight({
     langPrefix: 'hljs language-',
     highlight(code, lang) {
-      return TeHighlight.highlight(code, lang);
+      return FlHighlight.highlight(code, lang);
     },
   })
 );
 
 @Pipe({
-  name: 'tdMarkdown',
+  name: 'flMarkdown',
   standalone: false,
 })
-export class TdMarkdownPipe implements PipeTransform {
+export class FlMarkdownPipe implements PipeTransform {
   private domSanitizer = inject(DomSanitizer);
 
   transform(value: string): SafeHtml {

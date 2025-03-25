@@ -12,6 +12,7 @@ import { RvViewHtmlComponent } from '../component/rv-view-html/rv-view-html.comp
 import { RvViewStreamlitComponent } from '../component/rv-view-streamlit/rv-view-streamlit.component';
 import { RvViewPlotlyComponent } from '../component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewAudioComponent } from '../component/rv-view-audio/rv-view-audio.component';
+import { RvViewMarkdownComponent } from '../component/rv-view-markdown/rv-view-markdown.component';
 
 // Information of the view type
 export interface RvResourceViewTypeInfo {
@@ -35,6 +36,9 @@ export const rvDefaultViewTypeInfos: Record<RvResourceViewType, RvResourceViewTy
   },
   'html-view': {
     viewComponent: RvViewHtmlComponent,
+  },
+  'markdown-view': {
+    viewComponent: RvViewMarkdownComponent,
   },
   'table-view': {
     viewComponent: RvViewSpreadsheetComponent,

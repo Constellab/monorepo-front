@@ -1,4 +1,4 @@
-import { NgModule, inject } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RvResourceViewComponent } from './component/rv-resource-view/rv-resource-view.component';
 import { RvViewJsonComponent } from './component/rv-view-json/rv-view-json.component';
@@ -12,8 +12,7 @@ import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlPlotlyModule } from '@monorepo/front-core-lib/fl-plotly';
 import { FlThemeModule } from '@monorepo/front-core-lib/fl-theme';
-import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { rvResourceViewI18n } from './rv-resource-view.i18n';
 import { RvViewChart2dComponent } from './component/rv-view-chart-2d/rv-view-chart2d.component';
@@ -38,6 +37,8 @@ import { TeTextEditorModule } from '@monorepo/text-editor';
 import { RvViewStreamlitComponent } from './component/rv-view-streamlit/rv-view-streamlit.component';
 import { RvViewPlotlyComponent } from './component/rv-view-plotly/rv-view-plotly.component';
 import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.component';
+import { RvViewMarkdownComponent } from './component/rv-view-markdown/rv-view-markdown.component';
+import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
 
 /**
  * When imported a RV_MODULE_CONFIG must be provided, which is an instance of RvResourceViewModuleConfig.
@@ -63,6 +64,7 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
     FlIconModule,
     FlPlotlyModule,
     FlInfiniteScrollModule,
+    FlMarkdownModule,
 
     TeTextEditorModule, // for the te-title-caption component
     BnBioNetworkModule,
@@ -85,6 +87,7 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
     RvViewStreamlitComponent,
     RvViewPlotlyComponent,
     RvViewAudioComponent,
+    RvViewMarkdownComponent,
   ],
   exports: [
     RvResourceViewComponent,
@@ -102,6 +105,7 @@ import { RvViewAudioComponent } from './component/rv-view-audio/rv-view-audio.co
     RvViewStreamlitComponent,
     RvViewPlotlyComponent,
     RvViewAudioComponent,
+    RvViewMarkdownComponent,
   ],
 })
 export class RvResourceViewModule {

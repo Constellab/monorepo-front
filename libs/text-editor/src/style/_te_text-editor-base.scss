@@ -1,3 +1,5 @@
+@use '../../../front-core-lib/src/style/fl-embeded-html' as embeded-html;
+
 @mixin text-editor-theme-base() {
   // override the default behaviour to always have the toolbar on the left
   .codex-editor--narrow {
@@ -229,10 +231,9 @@
 
     ///////////////////////// PARAGRAPH /////////////////////////
     .ce-paragraph,
-    p {
-      padding: 5px 0;
-      margin: 0;
-      line-height: 1.5em;
+    p  {
+
+      @include embeded-html.g-embed-paragraph()
     }
 
     // color the paragraph placeholder
@@ -250,33 +251,19 @@
 
     ///////////////////////// HEADER /////////////////////////
     h1 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-top: 1em;
+      @include embeded-html.g-embed-header-h1();
     }
 
     h2 {
-      font-weight: 600;
-      font-size: 1.875em;
-      line-height: 1.3;
-      margin-top: 1em;
-      margin-bottom: 4px;
+      @include embeded-html.g-embed-header-h2();
     }
 
     h3 {
-      font-weight: 600;
-      font-size: 1.5em;
-      line-height: 1.3;
-      margin-top: 1em;
-      margin-bottom: 4px;
+      @include embeded-html.g-embed-header-h3();
     }
 
     h4 {
-      font-weight: 600;
-      font-size: 1.25em;
-      line-height: 1.3;
-      margin-top: 1em;
-      margin-bottom: 4px;
+      @include embeded-html.g-embed-header-h4();
     }
 
     // always show the placeholder of header if empty
@@ -309,7 +296,7 @@
     }
 
     .cdx-list__item {
-      margin: 4px 0;
+      @include embeded-html.g-embed-list-item();
     }
 
     // style for the unordered list bullet (max depth 6)
@@ -351,14 +338,12 @@
 
     ///////////////////////// LINK /////////////////////////
     a {
-      text-decoration: underline;
+      @include embeded-html.g-embed-link();
     }
 
     ///////////////////////// BLOCKQUOTE /////////////////////////
     blockquote {
-      margin-top: 2em;
-      margin-bottom: 2em;
-      border-left-color: var(--hover-color);
+      @include embeded-html.g-embed-blockquote();
     }
 
     ///////////////////////// HINT /////////////////////////
@@ -372,7 +357,6 @@
       }
     }
 
-    // TODO FIX
     .g-te-hint-info {
       background-color: var(--primary-color);
       color: var(--primary-color-contrast);
@@ -433,18 +417,12 @@
     te-variable-inline,
     te-formula-inline,
     te-mention-inline {
-      padding: 2px 7px;
-      font-size: 85%;
-      border-radius: 3px;
-      display: inline;
-      line-height: normal;
-      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      @include embeded-html.g-embed-inline-block();
     }
 
     ///////////////////////// CODE INLINE /////////////////////////
     code {
-      background-color: var(--hover-color);
-      color: #e8912d;
+      @include embeded-html.g-embed-inline-code();
     }
   }
 

@@ -10,7 +10,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
-import { TdTechnicalDocModule } from '@monorepo/technical-doc';
+import { FlMarkdownModule } from '@monorepo/front-core-lib/fl-markdown';
 
 export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
 
@@ -32,7 +32,7 @@ export type LabOpenAiChatMessageAction = 'delete' | 'delete-all';
     FormsModule,
     MatButton,
     TranslatePipe,
-    TdTechnicalDocModule,
+    FlMarkdownModule,
   ],
 })
 export class LabOpenAiChatMessageComponent implements OnInit {

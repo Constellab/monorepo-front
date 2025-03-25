@@ -2,14 +2,10 @@
   padding-bottom: 2em;
 }
 
-::ng-deep fl-confirm-dialog .content {
-  a {
-    cursor: pointer;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
+.content{
+  // prevent a scrollbar in dialog content
+  padding-bottom: 1em;
+  box-sizing: border-box;
 }
 
 .yes-button {
@@ -18,17 +14,6 @@
 
 .confirm-text {
   margin-bottom: 1em;
-}
-
-.code {
-  padding: 2px 7px;
-  font-size: 85%;
-  border-radius: 3px;
-  display: inline;
-  line-height: normal;
-  font-family: 'Poppins', 'Helvetica Neue', sans-serif;
-  background-color: var(--hover-color);
-  color: #e8912d;
 }
 
 .form-field {

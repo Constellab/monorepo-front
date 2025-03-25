@@ -12,7 +12,7 @@
           </fl-text-icon>
         }
         @if (role === 'assistant') {
-          <div [innerHTML]="message.content | tdMarkdown"></div>
+          <div [innerHTML]="message.content | flMarkdown"></div>
         } @else {
           @if (showContent) {
             <div>{{ message.content }}</div>

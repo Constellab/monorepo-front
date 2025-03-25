@@ -50,5 +50,5 @@
 
   <p class="doc-info">{{ entity.shortDescription }}</p>
 
-  <div class="doc-info technical-doc-content" [innerHTML]="entity.doc | tdMarkdown"></div>
+  <div class="doc-info g-embedded-html" [innerHTML]="entity.doc | flMarkdown"></div>
 </div>
