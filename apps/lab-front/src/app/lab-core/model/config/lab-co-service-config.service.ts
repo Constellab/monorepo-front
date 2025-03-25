@@ -17,4 +17,8 @@ export class LabCoServiceConfig extends CoConfig {
   getCommunityFrontUrl(): string {
     return LabEnvironmentHelper.getCommunityFrontUrl();
   }
+
+  getCommunityAgentPageUrl(agentId: string): string {
+    return LabEnvironmentHelper.getCommunityFrontUrl() + '/agents/' + agentId;
+  }
 }

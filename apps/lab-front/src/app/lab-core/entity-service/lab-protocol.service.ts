@@ -116,6 +116,13 @@ export class LabProtocolService {
     return this.apiService.get(`${this.baseRoute}/get-current-agent/${agentVersionId}`, LabAgent);
   }
 
+  public getCurrentAgentAndCheckRights(agentVersionId: string): Observable<LabAgent> {
+    return this.apiService.get(
+      `${this.baseRoute}/get-current-agent-and-check-rights/${agentVersionId}`,
+      LabAgent
+    );
+  }
+
   public createCommunityAgent(
     processId: string,
     formData: CoCreateAgentFormData

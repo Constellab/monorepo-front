@@ -4,19 +4,7 @@
 
 <mat-dialog-content>
   <div class="content">
-    @if (currentAgent && currentAgent.created_by.id === currentUser.id) {
-      <div class="existant-agent-info-div">
-        <span>{{ 'biox.existent_agent_info_1' | translate }}</span>
-      </div>
-      <div class="current-agent-div">
-        <co-agent-list-item
-          class="current-agent"
-          [agent]="currentAgent.toCoAgent()"
-          (click)="onSelectAgent(currentAgent)"></co-agent-list-item>
-      </div>
-    }
-    @if ((!isLoading || !agentVersionId) && !onlyUpdate) {
-      <mat-divider class="divider"></mat-divider>
+    @if (!isLoading) {
       <div class="new-agent-div">
         <button (click)="openCreateCommunityAgentDialog(agentVersionId)" mat-stroked-button type="button">
           <mat-icon>add_circle</mat-icon>
@@ -24,11 +12,11 @@
         </button>
       </div>
 
-      @if ((currentAgent && currentAgent.created_by.id === currentUser.id) || !agentVersionId) {
+      @if (currentAgent || !agentVersionId) {
         <mat-divider class="divider"></mat-divider>
         <h3>{{ 'biox.my_agents' | translate }}</h3>
-        <div class="existant-agent-info-div">
-          <span>{{ 'biox.existent_agent_info_2' | translate }}</span>
+        <div class="existant-agent-info-div g-text-centered">
+          <span>{{ 'biox.add_existent_agent_info' | translate }}</span>
         </div>
         <div
           class="all-agent-list-div"
@@ -37,12 +25,13 @@
           ">
           <lab-select-community-agent
             [personalOnly]="true"
-            (agentSelected)="onSelectAgent($event)"></lab-select-community-agent>
+            (agentSelected)="openAddVersionConfirmDialog($event)"></lab-select-community-agent>
         </div>
       }
-    } @else if (!onlyUpdate) {
-      <mat-divider class="divider"></mat-divider>
-      <fl-loader></fl-loader>
+    } @else {
+      <div class="g-text-centered">
+        <fl-loader></fl-loader>
+      </div>
     }
   </div>
 </mat-dialog-content>

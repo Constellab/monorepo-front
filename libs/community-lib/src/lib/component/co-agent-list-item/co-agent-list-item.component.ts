@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CoAgent } from '../../model/co-agent.class';
 
 @Component({
@@ -7,13 +7,9 @@ import { CoAgent } from '../../model/co-agent.class';
   styleUrls: ['./co-agent-list-item.component.scss'],
   standalone: false,
 })
-export class CoAgentListItemComponent implements OnInit {
+export class CoAgentListItemComponent {
   @Input()
   agent: CoAgent;
 
   description: string;
-
-  ngOnInit(): void {
-    // this.description = this.agent.description?.getFirstParagraphsText() ?? '';
-  }
 }

@@ -39,7 +39,7 @@
         [flInfiniteDisabled]="agentsDatasource?.isLoading || agentsDatasource?.page?.last"
         flInfiniteMode="auto">
         @for (agent of agentsDatasource.connect() | async; track agent) {
-          <div>
+          <div class="g-clickable">
             <co-agent-list-item
               [agent]="pythonLabAgentToCoAgent(agent)"
               class="agent-item"

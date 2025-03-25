@@ -19,28 +19,21 @@ import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboar
 import { DateTime } from 'luxon';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
-import { CoCommunityHelperService } from '@monorepo/community-lib';
-import {
-  LabSystemConfigDialogComponent
-} from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
+import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
+import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
 import {
   LabMonitorBetweenDatesDialogComponent,
   LabMonitorBetweenDatesDialogInput,
 } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
 import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
 import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
-import {
-  LabShareAgentCommunityDialogComponent,
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
+import { LabShareAgentCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
 import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
 import {
   LabProcessEditStyleDialogComponent,
   LabProcessEditStyleDialogInputData,
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
 import { MatDialogContent } from '@angular/material/dialog';
-import {
-  CoCommunityLibModule,
-} from '@monorepo/community-lib';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -52,6 +45,9 @@ import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-
 import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
+import { LabCoServiceConfig } from '../../../../lab-core/model/config/lab-co-service-config.service';
+import { LabShareAgentNewVersionCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-new-version-community-dialog/lab-share-agent-new-version-community-dialog.component';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -88,6 +84,8 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private workflowEditConfig = inject(LabWorkflowEditConfig);
   private taskGeneratorService = inject(LabTaskGeneratorService);
   private communityHelper = inject(CoCommunityHelperService);
+  private protocolService = inject(LabProtocolService);
+  private labCoServiceConfig = inject(LabCoServiceConfig);
 
   process$ = this.nodeState.getProcess$();
   nodeProcess$ = this.nodeState.getNode$();
@@ -111,10 +109,13 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   processSubscription: Subscription;
 
+  communityAgentPageUrl: string;
+
   ngOnInit(): void {
     this.processSubscription = this.nodeState.getProcess$().subscribe((process) => {
       if (process?.communityAgentVersionId != null) {
         this.isCommunityAgent = true;
+        this.setCommunityAgentPageUrl(process.communityAgentVersionId);
         this.isCodeShown.set(process.config.specs['code']?.visibility == 'public');
       }
     });
@@ -202,24 +203,34 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.nodeState.updateCommunityAgentCodeParamsVisibility(process, newVisibility);
   }
 
-  openShareCommunityAgentDialog(process: LabProcess, onlyUpdate = false): void {
+  openShareCommunityAgentNewVersionDialog(process: LabProcess): void {
+    this.dialogService
+      .openMediumDialog(LabShareAgentNewVersionCommunityDialogComponent, {
+        data: {
+          processId: process.id,
+          agentVersionId: process.communityAgentVersionId,
+        },
+      })
+      .afterClosed()
+      .subscribe((res: LabCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
+  }
+
+  openShareCommunityAgentDialog(process: LabProcess): void {
     this.dialogService
       .openMediumDialog(LabShareAgentCommunityDialogComponent, {
         data: {
           processId: process.id,
           agentVersionId: process.communityAgentVersionId,
-          onlyUpdate: onlyUpdate,
         },
       })
       .afterClosed()
-      .subscribe((res: LabCreateCommunityAgentVersionResDto) => {
-        if (res) {
-          window.open(
-            this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version),
-            '_blank'
-          );
-        }
-      });
+      .subscribe((res: LabCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
+  }
+
+  private onShareAgentRes(res: LabCreateCommunityAgentVersionResDto): void {
+    if (res) {
+      window.open(this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version), '_blank');
+    }
   }
 
   openProcessEditStyleDialog(process: LabProcess): void {
@@ -248,5 +259,11 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.processSubscription?.unsubscribe();
+  }
+
+  private setCommunityAgentPageUrl(agentVersionId: string): void {
+    this.protocolService.getCurrentAgent(agentVersionId).subscribe((agent) => {
+      if (agent) this.communityAgentPageUrl = this.labCoServiceConfig.getCommunityAgentPageUrl(agent.id);
+    });
   }
 }

@@ -32,18 +32,25 @@
               @if (isCodeShown()) {
                 <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'private')">
                   <mat-icon>visibility_off</mat-icon>
-                  {{ 'biox.hide_config_mode' | translate }}
+                  {{ 'biox.switch_to_read_only_mode' | translate }}
                 </button>
               } @else {
                 <button mat-menu-item type="button" (click)="triggerCodeShown(process, 'public')">
-                  <mat-icon>visibility</mat-icon>
-                  {{ 'biox.show_config_mode' | translate }}
+                  <mat-icon>edit</mat-icon>
+                  {{ 'biox.edit_community_agent' | translate }}
                 </button>
               }
-              <button mat-menu-item type="button" (click)="openShareCommunityAgentDialog(process, true)">
+              <button mat-menu-item type="button" (click)="openShareCommunityAgentNewVersionDialog(process)">
                 <mat-icon>share</mat-icon>
                 {{ 'biox.share_a_new_agent_version' | translate }}
               </button>
+
+              @if (communityAgentPageUrl) {
+                <a mat-menu-item [href]="communityAgentPageUrl" target="_blank">
+                  <mat-icon>open_in_new</mat-icon>
+                  {{ 'biox.view_agent_in_community' | translate }}
+                </a>
+              }
             </mat-menu>
           }
 

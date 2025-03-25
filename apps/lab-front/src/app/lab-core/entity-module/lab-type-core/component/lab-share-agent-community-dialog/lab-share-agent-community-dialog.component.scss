@@ -1,5 +1,5 @@
-.content {
-  max-height: 80vh;
+.content{
+  max-height: 70vh;
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
@@ -22,25 +22,11 @@
   height: calc(80vh - 10em);
 }
 
-.all-agent-list-div-short {
-  height: calc(80vh - 24em);
-}
-
 .existant-agent-info-div {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-bottom: 0.5em;
-}
-
-.current-agent-div {
-  display: block;
-  width: 40rem;
-}
-
-.current-agent {
-  background-color: var(--main-background) !important;
-  cursor: pointer;
 }
 
 .create-agent-button {

@@ -67,4 +67,9 @@
 
 .agent-item {
   background-color: var(--main-background) !important;
+  transition: 0.2s;
+}
+
+.agent-item:hover {
+  background-color: var(--hover-color) !important;
 }

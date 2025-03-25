@@ -1,18 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent } from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { LabProtocolService } from '../../../../entity-service/lab-protocol.service';
 import { LabAgent, LabCreateCommunityAgentVersionResDto } from '../../../../model/entities/lab-agent.entity';
 import {
   LabCreateCommunityAgentDialogComponent,
   LabCreateCommunityAgentDialogMode,
 } from '../lab-create-community-agent-dialog/lab-create-community-agent-dialog.component';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlConfirmDialogInput, FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 import { LabAuthenticatedUserService } from '../../../../service/lab-authenticated-user.service';
 import { LabUser } from '../../../../model/entities/lab-user.entity';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatDivider } from '@angular/material/divider';
 import { MatButton } from '@angular/material/button';
@@ -25,7 +22,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 export interface LabShareAgentCommunityDialogData {
   processId: string;
   agentVersionId: string;
-  onlyUpdate: boolean;
 }
 
 @Component({
@@ -34,7 +30,6 @@ export interface LabShareAgentCommunityDialogData {
   styleUrls: ['./lab-share-agent-community-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     CoCommunityLibModule,
     MatDivider,
@@ -60,20 +55,15 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
   currentAgent: LabAgent;
   currentUser: LabUser;
   isLoading: boolean = false;
-  onlyUpdate: boolean = false;
-  protected readonly labCreateCommunityAgentDialogMode = LabCreateCommunityAgentDialogMode;
 
   constructor() {
     const data = this.data;
-
     this.processId = data.processId;
     this.agentVersionId = data.agentVersionId;
-
-    // if true, only display the add new version to linked community agent part
-    this.onlyUpdate = data.onlyUpdate;
   }
 
   ngOnInit(): void {
+    this.currentUser = this.authUserService.getCurrentUser();
     if (this.agentVersionId) {
       this.isLoading = true;
       this.protocolService.getCurrentAgent(this.agentVersionId).subscribe((agent) => {
@@ -81,11 +71,6 @@ export class LabShareAgentCommunityDialogComponent implements OnInit {
         this.isLoading = false;
       });
     }
-    this.currentUser = this.authUserService.getCurrentUser();
-  }
-
-  onSelectAgent(agent: LabAgent): void {
-    this.openAddVersionConfirmDialog(agent);
   }
 
   openAddVersionConfirmDialog(agent?: LabAgent): void {

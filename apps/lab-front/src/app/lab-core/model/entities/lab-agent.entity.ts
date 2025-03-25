@@ -16,6 +16,9 @@ export class LabAgent extends LabEntity {
   description?: TeRichText;
   latest_publish_version: number;
   latest_style?: TdTypeStyle;
+  agent_co_authors?: CoUser[];
+  likes?: number;
+  comments?: number;
 
   toCoAgent(): CoAgent {
     const coAgent = new CoAgent();
@@ -28,6 +31,8 @@ export class LabAgent extends LabEntity {
     coAgent.createdBy = this.created_by;
     coAgent.space = this.space;
     coAgent.latestStyle = this.latest_style;
+    coAgent.likes = this.likes;
+    coAgent.comments = this.comments;
     return coAgent;
   }
 }
