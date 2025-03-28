@@ -1,0 +1,35 @@
+import { LiResourceTableService } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+import { RvResourceViewTable, RvViewConfig } from '@monorepo/resource-view';
+import { SpSpreadsheetPage, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
+import { map } from 'rxjs/operators';
+
+/**
+ * Class to make request to lab api when loading a spreadsheet page
+ */
+export class LiResourceSpreadsheetPageLoader implements SpSpreadsheetPageLoader {
+  constructor(
+    private resourceTableService: LiResourceTableService,
+    private resourceId: string,
+    private viewConfig: RvViewConfig
+  ) {}
+
+  loadRows(fromRow: number): Observable<SpSpreadsheetPage> {
+    return this.resourceTableService
+      .callNextPage(this.resourceId, this.viewConfig.methodName, this.viewConfig.configValues, fromRow)
+      .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
+  }
+
+  loadPreviousRows(toRow: number): Observable<SpSpreadsheetPage> {
+    return this.resourceTableService
+      .callPreviousPage(this.resourceId, this.viewConfig.methodName, this.viewConfig.configValues, toRow)
+      .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
+  }
+
+  private convertToSpSpreadPaginationResult(tableView: RvResourceViewTable): SpSpreadsheetPage {
+    return {
+      data: tableView.data.table,
+      rows: tableView.data.rows,
+    };
+  }
+}

@@ -11,12 +11,13 @@
   </p>
   <form (ngSubmit)="submit()" id="insert-doc-template-form">
     <fl-form-field>
-      <lab-select-note-template
+      <li-select-note-template
         [formControl]="formControl"
         [placeholder]="'biox.select_note_template' | translate"
-        [required]="true"></lab-select-note-template>
+        [required]="true"></li-select-note-template>
       @if (formControl.hasError('required')) {
-        <mat-error class="g-warn-text g-text-small">{{ 'biox.select_note_template' | flErrorRequired }}
+        <mat-error class="g-warn-text g-text-small"
+          >{{ 'biox.select_note_template' | flErrorRequired }}
         </mat-error>
       }
     </fl-form-field>

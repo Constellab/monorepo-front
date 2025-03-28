@@ -1,33 +1,31 @@
-import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
-import { LabNote } from '../../../../../lab-core/model/entities/lab-note.entity';
-import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
 import { ActivatedRoute } from '@angular/router';
-import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
-import { Observable, Subscription } from 'rxjs';
-import { LabFolder } from '../../../../../lab-core/model/entities/lab-folder.class';
-import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
-import { LabTagDatasource } from '../../../../../lab-core/model/entities/lab-tag.entity';
-import { LabTagService } from '../../../../../lab-core/entity-service/lab-tag.service';
-import { first } from 'rxjs/operators';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { LabSyncObjectButtonComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-sync-object-button/lab-sync-object-button.component';
-import { MatIconButton } from '@angular/material/button';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { LabTagListComponent } from '../../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { LabFolderInlineSelectComponent } from '../../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
-import { LabObjectValidationInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
-import { LabObjectSyncInfoComponent } from '../../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
 import { LabNoteLinkedScenariosComponent } from '../lab-note-linked-scenarios/lab-note-linked-scenarios.component';
+import { LabNoteTextEditorConfig } from '../../lab-note-text-editor-config.class';
+import { LiFolder, LiNote, LiNoteService, LiTagDatasource, LiTagService } from '@monorepo/lab-lib/li-core';
+import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
+import {
+  LiObjectSyncInfoComponent,
+  LiObjectValidationInfoComponent,
+  LiSyncObjectButtonComponent,
+} from '@monorepo/lab-lib/li-entity';
+import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Observable, Subscription } from 'rxjs';
+import { TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabNoteDetailActionMenu } from '../../../../../lab-core/entity-module/lab-note-core/model/lab-note-detail-action-menu.class';
+import { first } from 'rxjs/operators';
+import { LabNoteDetailActionMenu } from '../../li-note-detail-action-menu.class';
 
 @Component({
   selector: 'lab-note-detail-page',
@@ -41,36 +39,36 @@ import { LabNoteDetailActionMenu } from '../../../../../lab-core/entity-module/l
     MatTooltip,
     FlTextIconModule,
     FlFormModule,
-    LabSyncObjectButtonComponent,
+    LiSyncObjectButtonComponent,
     MatIconButton,
     FlLoaderModule,
     TeTextEditorModule,
-    LabTagListComponent,
-    LabFolderInlineSelectComponent,
+    LiTagListComponent,
+    LiFolderInlineSelectComponent,
     ReactiveFormsModule,
     FormsModule,
-    LabObjectValidationInfoComponent,
-    LabObjectSyncInfoComponent,
+    LiObjectValidationInfoComponent,
+    LiObjectSyncInfoComponent,
     FlUserModule,
     LabNoteLinkedScenariosComponent,
     TranslatePipe,
   ],
 })
 export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
-  private noteService = inject(LabNoteService);
+  private noteService = inject(LiNoteService);
   private state = inject(LabNoteDetailPageState);
   private route = inject(ActivatedRoute);
-  private tagService = inject(LabTagService);
+  private tagService = inject(LiTagService);
   private injector = inject(Injector);
 
-  note$: Observable<LabNote>;
+  note$: Observable<LiNote>;
   formControl: FormControl<TeRichText> = new FormControl({ value: null });
 
   textEditorConfig: LabNoteTextEditorConfig;
 
-  syncObjectFunc: (id: string) => Observable<LabNote>;
+  syncObjectFunc: (id: string) => Observable<LiNote>;
 
-  tags: LabTagDatasource;
+  tags: LiTagDatasource;
 
   saveContentFunc: (content: TeRichText) => Observable<TeRichTextDTO>;
 
@@ -110,7 +108,7 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
       .subscribe((note) => this.state.updateNote(note));
   }
 
-  updateFolder(folder: LabFolder): void {
+  updateFolder(folder: LiFolder): void {
     this.noteService.updateFolder(this.state.currentNote.id, folder?.id ?? null).subscribe({
       next: (note) => this.state.updateNote(note),
       // call refresh note to set the folder back
@@ -118,13 +116,13 @@ export class LabNoteDetailPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  openActionMenu(note: LabNote, event: MouseEvent): void {
+  openActionMenu(note: LiNote, event: MouseEvent): void {
     const actionMenu = new LabNoteDetailActionMenu(this.injector, note, this.tags, this.textEditorConfig);
 
     actionMenu.openDetailActionMenu(event).subscribe();
   }
 
-  onNoteUpdate(note: LabNote): void {
+  onNoteUpdate(note: LiNote): void {
     this.state.updateNote(note);
   }
 

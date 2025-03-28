@@ -1,0 +1,12 @@
+<fl-dialog-header>
+  {{ 'select_resource' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-resource-search
+    [resourceSelectable]="true"
+    [fullPageSearch]="false"
+    [customSavedSearches]="savedSearch"
+    class="search"
+    (resourceSelected)="onResourceSelected($event)"></li-resource-search>
+</mat-dialog-content>

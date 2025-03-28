@@ -1,0 +1,28 @@
+<fl-dialog-header>
+  {{ 'biox.update_folder' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="folder-form">
+    <p class="help-text g-text-light">
+      {{
+        (isUpdateResourceFolderMode
+          ? 'biox.associate_resource_to_folder'
+          : 'biox.associate_resource_scenario_to_folder'
+        ) | translate
+      }}
+    </p>
+
+    <!--    Folder      -->
+    <li-folder-select [formControl]="formControl" [multiple]="false"></li-folder-select>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="folder-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

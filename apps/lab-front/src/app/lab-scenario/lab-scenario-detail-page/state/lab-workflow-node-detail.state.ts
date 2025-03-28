@@ -1,6 +1,23 @@
+import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalConnectedPosition, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { Injectable, ViewContainerRef, inject } from '@angular/core';
-import { BehaviorSubject, filter, Observable, switchMap } from 'rxjs';
-import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
+import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
+import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
+import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
+import {
+  LabWorkflowAction,
+  LabWorkflowEditConfig,
+  LabWorkflowEventNodeAdditionalInfo,
+} from '../model/lab-workflow-edit-config.class';
+import { LiProcess, LiProtocolService, LiResource, LiRouterService } from '@monorepo/lab-lib/li-core';
+import {
+  LiResourceDetailDialogComponent,
+  LiResourceViewDetailDialogComponent,
+  LiResourceViewDetailDialogInput,
+  LiSelectResourceDialogComponent,
+} from '@monorepo/lab-lib/li-resource';
 import {
   PrWorkflowActionEvent,
   PrWorkflowActionShowView,
@@ -8,28 +25,7 @@ import {
   PrWorkflowNode,
   PrWorkflowNodeProcess,
 } from '@monorepo/protocol';
-import { LabResourceDetailDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
-import {
-  LabResourceViewDetailDialogComponent,
-  LabResourceViewDetailDialogInput,
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-view-detail-dialog/lab-resource-view-detail-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalConnectedPosition } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import {
-  LabWorkflowAction,
-  LabWorkflowEditConfig,
-  LabWorkflowEventNodeAdditionalInfo,
-} from '../model/lab-workflow-edit-config.class';
 import { TdIOSpec, TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
-import { ClSubscriptionHandler } from '@monorepo/core-lib';
-import { LabProcessDashboardComponent } from '../component/lab-process-dashboard/lab-process-dashboard.component';
-import { LabScenarioDetailPageState } from './lab-scenario-detail-page.state';
-import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import { LabSelectResourceDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
-import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import { LabResourceNextObjectsPortalComponent } from '../component/lab-resource-next-objects-portal/lab-resource-next-objects-portal.component';
-import { LabRouterService } from '../../../lab-core/service/lab-router.service';
 
 /**
  * State to manage the selected node to show it in the drawer
@@ -41,9 +37,9 @@ export class LabWorkflowNodeDetailState {
   private dialogService = inject(FlDialogService);
   private viewContainerRef = inject(ViewContainerRef);
   private scenarioState = inject(LabScenarioDetailPageState);
-  private protocolService = inject(LabProtocolService);
+  private protocolService = inject(LiProtocolService);
   private portalService = inject(FlPortalService);
-  private routerService = inject(LabRouterService);
+  private routerService = inject(LiRouterService);
 
   private node$: BehaviorSubject<PrWorkflowNodeProcess>;
 
@@ -120,7 +116,7 @@ export class LabWorkflowNodeDetailState {
     return this.node$.asObservable();
   }
 
-  public getProcess$(): Observable<LabProcess> {
+  public getProcess$(): Observable<LiProcess> {
     return this.getNode$().pipe(
       filter((node) => node != null),
       switchMap((node) => this.scenarioState.getLabProcess$(node.currentObject.id))
@@ -162,7 +158,7 @@ export class LabWorkflowNodeDetailState {
   }
 
   private openResourceDetail(resourceId: string): void {
-    this.dialogService.openBigDialog(LabResourceDetailDialogComponent, {
+    this.dialogService.openBigDialog(LiResourceDetailDialogComponent, {
       data: resourceId,
       panelClass: 'g-dialog-main-background',
       closeOnNavigation: true,
@@ -170,7 +166,7 @@ export class LabWorkflowNodeDetailState {
   }
 
   private openViewDetail(event: PrWorkflowActionShowView): void {
-    const data: LabResourceViewDetailDialogInput = {
+    const data: LiResourceViewDetailDialogInput = {
       mode: 'view',
       resourceId: event.resourceId,
       resourceName: event.resourceName,
@@ -178,17 +174,17 @@ export class LabWorkflowNodeDetailState {
       config: event.config.view_config.config_values,
       saveViewConfig: true,
     };
-    this.dialogService.openBigDialog(LabResourceViewDetailDialogComponent, { data: data });
+    this.dialogService.openBigDialog(LiResourceViewDetailDialogComponent, { data: data });
   }
 
   private openResourceSelection(node: PrWorkflowNode): void {
     this.dialogService
-      .openBigDialog(LabSelectResourceDialogComponent)
+      .openBigDialog(LiSelectResourceDialogComponent)
       .afterClosed()
       .subscribe((resource) => this.onResourceSelectionClosed(node, resource));
   }
 
-  private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LabResource): void {
+  private onResourceSelectionClosed(node: PrWorkflowNode, resource?: LiResource): void {
     if (resource) {
       this.workflowEditConfig.saveProcessConfig(node.parentLayerId, node.instanceName, {
         [TdTypingName.task.input.configName]: resource.id,
@@ -196,19 +192,19 @@ export class LabWorkflowNodeDetailState {
     }
   }
 
-  updateProcessName(process: LabProcess, newName: string): void {
+  updateProcessName(process: LiProcess, newName: string): void {
     this.protocolService
       .renameProcess(process.parentProtocolId, process.instanceName, newName)
       .subscribe((process) => this.onProcessUpdateSuccess(process));
   }
 
-  updateCommunityAgentCodeParamsVisibility(process: LabProcess, visibility: TdParamSpecVisibility): void {
+  updateCommunityAgentCodeParamsVisibility(process: LiProcess, visibility: TdParamSpecVisibility): void {
     this.protocolService
       .updateCommunityAgentCodeParamsVisibility(process.parentProtocolId, process.instanceName, visibility)
       .subscribe((process) => this.onProcessUpdateSuccess(process));
   }
 
-  private onProcessUpdateSuccess(process: LabProcess): void {
+  private onProcessUpdateSuccess(process: LiProcess): void {
     console.log('OnProcessSuccess', process.config.specs.code);
     this.scenarioState.refreshProcess(process);
   }

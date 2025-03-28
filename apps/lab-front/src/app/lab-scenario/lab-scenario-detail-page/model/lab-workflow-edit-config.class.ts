@@ -1,4 +1,26 @@
 import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlPortalAction,
+  FlPortalActionResult,
+  FlPortalActionsService,
+} from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { inject, Injectable, OnDestroy } from '@angular/core';
+import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
+import { LabWorkflowFactory } from './lab-workflow.factory';
+import {
+  LiNavigableCallActionResult,
+  LiNavigableEntityService,
+  LiNavigableImpactConfig,
+} from '@monorepo/lab-lib/li-navigable-entity';
+import { LiProcess, LiProtocolService, LiProtocolUpdateDTO } from '@monorepo/lab-lib/li-core';
+import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
+import {
   PrAddNodeWithConnection,
   PrNodeRelativeCoord,
   PrProcess,
@@ -14,33 +36,8 @@ import {
   PrWorkflowNodeProcess,
   PrWorkflowNodeProtocol,
 } from '@monorepo/protocol';
-import { Observable, of, Subscription, switchMap, tap } from 'rxjs';
-import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
-import { inject, Injectable, OnDestroy } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
-import {
-  FlPortalAction,
-  FlPortalActionResult,
-  FlPortalActionsService,
-} from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslatableText, FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-
-import { LabWorkflowFactory } from './lab-workflow.factory';
-import { LabProtocolUpdateDTO } from './lab-workflow-action.class';
-import { LabScenarioDetailPageState } from '../state/lab-scenario-detail-page.state';
 import { TdIOSpec, TdParamSpecsValues } from '@monorepo/technical-doc';
 import { map } from 'rxjs/operators';
-import {
-  LabNavigableCallActionResult,
-  LabNavigableEntityService,
-  LabNavigableImpactConfig,
-} from '../../../lab-core/entity-module/lab-navigable-entity-core/lab-navigable-entity.service';
-import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 
 export enum LabWorkflowAction {
   ADD_PROCESS = 'workflow-add-process',
@@ -78,13 +75,13 @@ export interface LabWorkflowEventBasicAdditionalInfo {
 
 @Injectable()
 export class LabWorkflowEditConfig implements OnDestroy {
-  private protocolService = inject(LabProtocolService);
+  private protocolService = inject(LiProtocolService);
   private actionsService = inject(FlPortalActionsService);
   private snackBarService = inject(FlSnackBarService);
   private workflowFactory = inject(LabWorkflowFactory);
   private scenarioState = inject(LabScenarioDetailPageState);
   private dialogService = inject(FlDialogService);
-  private labNavigableService = inject(LabNavigableEntityService);
+  private labNavigableService = inject(LiNavigableEntityService);
   private translateService = inject(FlTranslateService);
 
   private workflow: PrWorkflow;
@@ -234,7 +231,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   // create the action to add a process
-  private addProcessAction(process$: Observable<LabProtocolUpdateDTO>, actionText: FlTranslatableText): void {
+  private addProcessAction(process$: Observable<LiProtocolUpdateDTO>, actionText: FlTranslatableText): void {
     // create an action to add this process
     const action: FlPortalAction = {
       text: actionText,
@@ -251,7 +248,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   // create the action to add a process with a link
   private addProcessWithLinkAction(
-    processWithLink$: Observable<LabProtocolUpdateDTO>,
+    processWithLink$: Observable<LiProtocolUpdateDTO>,
     processNodeName: string,
     newProcessPosition: 'before' | 'after',
     actionText: FlTranslatableText
@@ -388,7 +385,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   private modifyDynamicPort(
-    obs: Observable<LabProtocolUpdateDTO>,
+    obs: Observable<LiProtocolUpdateDTO>,
     node: PrWorkflowNodeProcess,
     text: string
   ): void {
@@ -437,9 +434,9 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   public addParamSpecUpdateAction(
-    process: LabProcess,
-    obs: Observable<LabProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
+    process: LiProcess,
+    obs: Observable<LiProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.ADD_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -450,9 +447,9 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   public deleteParamSpecUpdateAction(
-    process: LabProcess,
-    obs: Observable<LabProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
+    process: LiProcess,
+    obs: Observable<LiProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.DELETE_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -463,9 +460,9 @@ export class LabWorkflowEditConfig implements OnDestroy {
   }
 
   public updateParamSpecUpdateAction(
-    process: LabProcess,
-    obs: Observable<LabProtocolUpdateDTO>
-  ): Observable<FlPortalActionResult<LabProtocolUpdateDTO> | null> {
+    process: LiProcess,
+    obs: Observable<LiProtocolUpdateDTO>
+  ): Observable<FlPortalActionResult<LiProtocolUpdateDTO> | null> {
     const action: FlPortalAction = {
       type: LabWorkflowAction.UPDATE_DYNAMIC_PARAM_SPEC,
       action: obs,
@@ -613,13 +610,13 @@ export class LabWorkflowEditConfig implements OnDestroy {
     processInstanceName: string,
     title: string,
     noImpactConfirmText: string
-  ): Observable<LabNavigableCallActionResult<LabProtocolUpdateDTO>> {
+  ): Observable<LiNavigableCallActionResult<LiProtocolUpdateDTO>> {
     const updateFinishedProcess = this.translateService.translate(noImpactConfirmText);
     const resetProcessImpact = this.translateService.translate('biox.scenario_ressource_used_after', {
       param: { title: this.scenarioState.currentScenario.title },
     });
 
-    const impactData: LabNavigableImpactConfig = {
+    const impactData: LiNavigableImpactConfig = {
       title: { text: title, translateText: true },
       confirmImpactConfirmText: {
         text: `<p>${updateFinishedProcess}</p><p>${resetProcessImpact}</p>`,
@@ -632,7 +629,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
           // on reset result, refresh the protocol, the process will be refreshed by the event
           // we need the protocol here because the next
           // request (like configure process) might not refresh the protocol
-          tap((result: LabProtocolUpdateDTO) => {
+          tap((result: LiProtocolUpdateDTO) => {
             if (result.protocolUpdated && result.protocol) {
               this.scenarioState.refreshProtocolAndOthers(result.protocol);
             }
@@ -775,7 +772,7 @@ export class LabWorkflowEditConfig implements OnDestroy {
    * @param actionResult
    * @private
    */
-  private onLabWorkflowActionResult(actionResult: FlPortalActionResult<LabProtocolUpdateDTO>): void {
+  private onLabWorkflowActionResult(actionResult: FlPortalActionResult<LiProtocolUpdateDTO>): void {
     if (actionResult.status === 'error') {
       this.revertWorkflowEvent(
         actionResult.action.type as LabWorkflowAction,
@@ -880,8 +877,8 @@ export class LabWorkflowEditConfig implements OnDestroy {
 
   /////////////////////////////////////////////// OTHER ///////////////////////////////////////////////
   // call after an update action has been performed to check if the protocol has been updated
-  private refreshProtocolAndParent(protocolUpdate: LabProtocolUpdateDTO): void {
-    if (!(protocolUpdate instanceof LabProtocolUpdateDTO)) return;
+  private refreshProtocolAndParent(protocolUpdate: LiProtocolUpdateDTO): void {
+    if (!(protocolUpdate instanceof LiProtocolUpdateDTO)) return;
 
     if (protocolUpdate.protocolUpdated && protocolUpdate.protocol) {
       this.scenarioState.refreshProtocolAndOthers(protocolUpdate.protocol);

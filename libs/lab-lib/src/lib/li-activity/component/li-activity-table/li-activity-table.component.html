@@ -1,0 +1,70 @@
+<mat-table mat-table [dataSource]="datasource" class="table" flSearchTableSort>
+  <!-- User -->
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'user' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-inline [user]="row.user"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- activityType-->
+  <ng-container matColumnDef="activityType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'monitoring.activity_type' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.activityType }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Object type-->
+  <ng-container matColumnDef="objectType">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'monitoring.activity_object_type' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.objectType }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- objectId-->
+  <ng-container matColumnDef="objectId">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'monitoring.activity_object_id' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span>{{ row.objectId }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- date-->
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <span>{{ 'monitoring.activity_date' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-from-now [date]="row.lastModifiedAt"></fl-from-now>
+    </mat-cell>
+  </ng-container>
+
+  <!-- link-->
+  <ng-container matColumnDef="link">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (showLink(row)) {
+        <a
+          [routerLink]="row.objectId | liDetailRoute: getLabObjectType(row)"
+          mat-stroked-button
+          class="g-button-small">
+          <mat-icon>visibility</mat-icon>
+          {{ 'detail' | translate }}
+        </a>
+      }
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>

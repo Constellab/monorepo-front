@@ -1,0 +1,11 @@
+<fl-dialog-header>
+  {{ logName }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="labLogCompleteInfo$">
+    <ng-container *flSectionBody="labLogCompleteInfo$ as log">
+      <li-log-complete-info [log]="log"></li-log-complete-info>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

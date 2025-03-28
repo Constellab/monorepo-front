@@ -1,12 +1,12 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { BehaviorSubject, combineLatest, Observable, switchMap } from 'rxjs';
-import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { filter } from 'rxjs/operators';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { MatRipple } from '@angular/material/core';
 import { AsyncPipe, NgClass } from '@angular/common';
+import { BehaviorSubject, Observable, combineLatest, switchMap } from 'rxjs';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
+import { MatRipple } from '@angular/material/core';
+import { filter } from 'rxjs/operators';
 
 /**
  * Component to configure a protocol, can contains nested protocol
@@ -22,17 +22,17 @@ export class LabConfigureProtocolComponent implements OnInit {
 
   @Input() protocolId: string;
 
-  selectedProcess$: Observable<LabProcess>;
+  selectedProcess$: Observable<LiProcess>;
 
   private selectedProcessId: BehaviorSubject<string> = new BehaviorSubject(null);
 
-  childrenProcesses$: Observable<LabProcess[]>;
+  childrenProcesses$: Observable<LiProcess[]>;
 
   ngOnInit(): void {
     this.childrenProcesses$ = this.scenarioState.getProtocol$(this.protocolId).pipe(
       switchMap((protocol) => {
         // for each process of the protocol, load the process
-        const processes$: Observable<LabProcess>[] = [];
+        const processes$: Observable<LiProcess>[] = [];
         for (const key in protocol.data.nodes) {
           processes$.push(this.scenarioState.getLabProcess$(protocol.data.nodes[key].id));
         }

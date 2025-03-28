@@ -1,0 +1,9 @@
+<fl-dialog-header>
+  {{ 'biox.select_scenario_template' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-scenario-template-search
+    [rowSelectable]="rowSelectable"
+    (templateSelected)="onTemplateSelected($event)"></li-scenario-template-search>
+</mat-dialog-content>

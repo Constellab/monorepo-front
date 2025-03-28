@@ -1,11 +1,11 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { TdAbstractDynamicParamSpecState, TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { LabDynamicParamSpecState } from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
-import { ReactiveFormsModule } from '@angular/forms';
 import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TdAbstractDynamicParamSpecState, TdTechnicalDocModule } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
 
 @Component({
   selector: 'lab-configure-task',
@@ -14,7 +14,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [ReactiveFormsModule, FlCoreComponentModule, TranslatePipe, TdTechnicalDocModule],
 })
 export class LabConfigureTaskComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) task: LabProcess;
+  @Input({ required: true }) task: LiProcess;
 
   private dashboardState = inject(LabProcessDashboardConfigState);
 

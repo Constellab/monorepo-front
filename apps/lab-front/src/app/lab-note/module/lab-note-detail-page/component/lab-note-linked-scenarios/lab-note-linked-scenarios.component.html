@@ -19,10 +19,10 @@
   </fl-section-header>
 
   <ng-container *flSectionBody>
-    <lab-scenario-table
+    <li-scenario-table
       [datasource]="scenarios"
       [columns]="columns"
       class="g-mat-table-main-background"
-      (scenarioUnlink)="unlinkScenario($event)"></lab-scenario-table>
+      (scenarioUnlink)="unlinkScenario($event)"></li-scenario-table>
   </ng-container>
 </fl-async-section>

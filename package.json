@@ -151,6 +151,7 @@
     "@types/d3": "~7.4.0",
     "@types/diff": "^5.2.3",
     "@types/drawflow": "0.0.4",
+    "@types/glob": "^8.1.0",
     "@types/jest": "29.5.14",
     "@types/katex": "^0.14.0",
     "@types/luxon": "^3.3.0",
@@ -171,7 +172,7 @@
     "nx": "20.3.2",
     "prettier": "^3.3.3",
     "ts-jest": "^29.1.0",
-    "ts-node": "10.9.1",
+    "ts-node": "^10.9.1",
     "typescript": "5.6.3"
   },
   "browser": {

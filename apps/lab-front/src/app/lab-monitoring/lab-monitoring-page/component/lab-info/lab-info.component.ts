@@ -1,26 +1,23 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { LabSystemService } from '../../../../lab-core/service/lab-system.service';
-import { LabSystemInfo, LabSystemStatus } from '../../../../lab-core/model/global/lab-system.class';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-
-import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
-import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
-import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LabSynchroDialogComponent } from '../lab-synchro-dialog/lab-synchro-dialog.component';
+import { LiMonitorDiskComponent } from '@monorepo/lab-lib/li-monitor';
+import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
+import { LiSystemInfo, LiSystemService, LiSystemStatus, LiTypeService } from '@monorepo/lab-lib/li-core';
 import { MatButton } from '@angular/material/button';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatIcon } from '@angular/material/icon';
 import { Observable } from 'rxjs';
-import { LabMonitorDiskComponent } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-disk/lab-monitor-disk.component';
-import { AsyncPipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-info',
@@ -34,20 +31,20 @@ import { AsyncPipe } from '@angular/common';
     FlKeyValueModule,
     MatButton,
     TranslatePipe,
-    LabMonitorDiskComponent,
+    LiMonitorDiskComponent,
     AsyncPipe,
   ],
 })
 export class LabInfoComponent implements OnInit {
-  private systemService = inject(LabSystemService);
-  private typeService = inject(LabTypeService);
+  private systemService = inject(LiSystemService);
+  private typeService = inject(LiTypeService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
 
-  labInfo: LabSystemInfo;
+  labInfo: LiSystemInfo;
   isLoading: boolean = true;
 
-  systemStatus$: Observable<LabSystemStatus> = this.systemService.getSystemStatus();
+  systemStatus$: Observable<LiSystemStatus> = this.systemService.getSystemStatus();
 
   ngOnInit(): void {
     this.systemService.getSystemInfo().subscribe({
@@ -56,7 +53,7 @@ export class LabInfoComponent implements OnInit {
     });
   }
 
-  private onSuccess(labInfo: LabSystemInfo): void {
+  private onSuccess(labInfo: LiSystemInfo): void {
     this.labInfo = labInfo;
     this.isLoading = false;
   }
@@ -105,6 +102,6 @@ export class LabInfoComponent implements OnInit {
   }
 
   openPipPackageList(): void {
-    this.dialogService.openSmallDialog(LabSystemConfigDialogComponent);
+    this.dialogService.openSmallDialog(LiSystemConfigDialogComponent);
   }
 }

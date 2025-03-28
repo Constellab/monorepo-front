@@ -1,6 +1,6 @@
 import { Directive, inject, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FlAbstractIfDirective } from '@monorepo/front-core-lib/fl-core';
-import { LabEnvStore } from '../service/lab-env.store';
+import { LabEnvStore } from '../lab-env.store';
 
 /**
  * Template directive to show the content only if the environment is dev

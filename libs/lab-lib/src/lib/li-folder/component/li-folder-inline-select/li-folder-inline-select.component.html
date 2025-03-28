@@ -1,0 +1,18 @@
+<fl-text-icon>
+  <mat-icon flIcon="folder"></mat-icon>
+
+  @if (value) {
+    <div class="container" (click)="openPortal($event)">
+      <li-folder-inline [folder]="value"></li-folder-inline>
+    </div>
+  } @else {
+    <button
+      mat-stroked-button
+      type="button"
+      [disabled]="disabled"
+      (click)="openPortal($event)"
+      class="g-button-small">
+      {{ placeholder() | flTranslatableText | async }}
+    </button>
+  }
+</fl-text-icon>

@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie, FlCleanerService, FlLoginSavedRoute } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { caConstLoginRoute } from '../utils/ca-base-route';
 import { PlatformLocation } from '@angular/common';
@@ -22,13 +20,6 @@ export class CaApiErrorService extends FlApiErrorService {
   private router = inject(Router);
   private cookieService = inject(FlCookieService);
   private platformLocation = inject(PlatformLocation);
-
-  constructor() {
-    const snackBarService = inject(FlSnackBarService);
-    const translateService = inject(FlTranslateService);
-
-    super(snackBarService, translateService);
-  }
 
   get defaultApiErrorDuration(): number {
     return null;

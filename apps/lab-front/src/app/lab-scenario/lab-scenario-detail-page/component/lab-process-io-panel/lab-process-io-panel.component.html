@@ -62,10 +62,10 @@
 
   @if (isOpened) {
     @if (selectedResourceId$ | async) {
-      <lab-resource-detail
+      <li-resource-detail
         [resourceId]="selectedResourceId$"
         displayMode="dense"
-        class="view-container"></lab-resource-detail>
+        class="view-container"></li-resource-detail>
     } @else {
       <fl-error-text
         class="error-text"

@@ -1,19 +1,19 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
+import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
 import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { first } from 'rxjs/operators';
-import { PrWorkflowActionState } from '@monorepo/protocol';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
 import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
 import { LabWorkflowFactory } from '../../model/lab-workflow.factory';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabScenarioDetailHeaderComponent } from '../lab-scenario-detail-header/lab-scenario-detail-header.component';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { LiScenario } from '@monorepo/lab-lib/li-core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
-import { LabWorkflowComponent } from '../lab-workflow/lab-workflow.component';
-import { LabScenarioDetailComponent } from '../lab-scenario-detail/lab-scenario-detail.component';
+import { Observable } from 'rxjs';
+import { PrWorkflowActionState } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
+import { first } from 'rxjs/operators';
 
 /**
  * Page for the biox scenario detail with workflow view/edit
@@ -46,7 +46,7 @@ export class LabScenarioDetailPageComponent implements OnInit, OnDestroy {
   private actionState = inject(PrWorkflowActionState);
   private nodeDetailState = inject(LabWorkflowNodeDetailState);
 
-  scenario$: Observable<LabScenario>;
+  scenario$: Observable<LiScenario>;
 
   selectedTabIndex: number = 0;
 

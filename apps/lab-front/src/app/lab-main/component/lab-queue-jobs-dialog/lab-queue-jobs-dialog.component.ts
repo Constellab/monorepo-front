@@ -1,5 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { LabRunningScenarioInfo, LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 import {
   FlConfirmDialogInput,
@@ -7,14 +6,19 @@ import {
   FlDialogModule,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-
-import { LabQueueService } from '../../../lab-core/entity-service/lab-queue.service';
-import { LabQueueJob } from '../../../lab-core/model/entities/lab-queue.entity';
-import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
-import { Subscription, tap, zip } from 'rxjs';
-import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabRunningScenarioTableComponent } from '../../../lab-core/entity-module/lab-scenario-core/component/lab-running-scenario-table/lab-running-scenario-table.component';
+import {
+  LiDetailRoutePipe,
+  LiQueueJob,
+  LiQueueService,
+  LiRunningScenarioInfo,
+  LiScenario,
+  LiScenarioService,
+} from '@monorepo/lab-lib/li-core';
+import { LiRunningScenarioTableComponent } from '@monorepo/lab-lib/li-scenario';
+import { MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 import {
   MatList,
   MatListItem,
@@ -22,12 +26,10 @@ import {
   MatListItemMeta,
   MatListItemTitle,
 } from '@angular/material/list';
-import { RouterLink } from '@angular/router';
-import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { Subscription, tap, zip } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabDetailRoutePipe } from '../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 @Component({
   selector: 'lab-queue-jobs-dialog',
@@ -37,7 +39,7 @@ import { LabDetailRoutePipe } from '../../../lab-core/lab-core-pipe/lab-detail-r
     FlDialogModule,
     MatDialogContent,
     FlSectionModule,
-    LabRunningScenarioTableComponent,
+    LiRunningScenarioTableComponent,
     MatList,
     MatListItem,
     MatListItemTitle,
@@ -48,19 +50,19 @@ import { LabDetailRoutePipe } from '../../../lab-core/lab-core-pipe/lab-detail-r
     MatTooltip,
     MatIcon,
     TranslatePipe,
-    LabDetailRoutePipe,
+    LiDetailRoutePipe,
   ],
 })
 export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<LabQueueJobsDialogComponent>>(MatDialogRef);
-  private queueService = inject(LabQueueService);
+  private queueService = inject(LiQueueService);
   private dialogService = inject(FlDialogService);
-  private scenarioService = inject(LabScenarioService);
+  private scenarioService = inject(LiScenarioService);
 
-  runningScenarios: FlArrayObs<LabRunningScenarioInfo>;
+  runningScenarios: FlArrayObs<LiRunningScenarioInfo>;
   scenarioColumns: string[] = ['title', 'runningTasks'];
 
-  jobs: LabQueueJob[];
+  jobs: LiQueueJob[];
 
   isLoading: boolean = true;
 
@@ -94,12 +96,12 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
     this.timer = setTimeout(() => this.loadInfo(), this.refreshRate);
   }
 
-  private getJobSuccess(jobs: LabQueueJob[]): void {
+  private getJobSuccess(jobs: LiQueueJob[]): void {
     this.jobs = jobs;
     this.isLoading = false;
   }
 
-  removeScenarioFromQueue(job: LabQueueJob, index: number): void {
+  removeScenarioFromQueue(job: LiQueueJob, index: number): void {
     const input: FlConfirmDialogInput = {
       title: 'biox.remove_scenario_from_queue',
       content: 'biox.remove_scenario_from_queue_confirmation',
@@ -113,7 +115,7 @@ export class LabQueueJobsDialogComponent implements OnInit, OnDestroy {
       .subscribe((result) => this.onConfirmUpdateClosed(result, index));
   }
 
-  private onConfirmUpdateClosed(result: FlConfirmDialogResult<LabScenario>, index: number): void {
+  private onConfirmUpdateClosed(result: FlConfirmDialogResult<LiScenario>, index: number): void {
     if (result.choice) {
       this.jobs.splice(index, 1);
     }

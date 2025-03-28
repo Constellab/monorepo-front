@@ -1,0 +1,9 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content">
+    <li-select-community-agent (agentSelected)="onAgentClick($event)"></li-select-community-agent>
+  </div>
+</mat-dialog-content>

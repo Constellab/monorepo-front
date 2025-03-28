@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { LiAuthService, LiRouterService } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
-import { LabRouterService } from '../../lab-core/service/lab-router.service';
-import { LabAuthService } from '../../lab-core/service/lab-auth.service';
 
 /**
  * Login page guard to redirect to app pages if a token exists
@@ -11,7 +10,7 @@ import { LabAuthService } from '../../lab-core/service/lab-auth.service';
   providedIn: 'root',
 })
 export class LabLoginGuard {
-  private authenticationService = inject(LabAuthService);
+  private authenticationService = inject(LiAuthService);
   private router = inject(Router);
 
   canActivate(
@@ -19,7 +18,7 @@ export class LabLoginGuard {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (route.queryParams.autoRedirect === 'false') return true;
     if (this.authenticationService.hasAuthorizationCookie()) {
-      return this.router.createUrlTree([LabRouterService.getAppRoute()]);
+      return this.router.createUrlTree([LiRouterService.getAppRoute()]);
     }
     return true;
   }

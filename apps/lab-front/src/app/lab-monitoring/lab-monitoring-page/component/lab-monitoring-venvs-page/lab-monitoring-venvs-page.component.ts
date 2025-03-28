@@ -1,21 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { LabVenvService } from '../../../../lab-core/entity-service/lab-venv.service';
-import { Observable, share } from 'rxjs';
-import { LabVenvArrayObs, LabVEnvsStatus } from '../../../../lab-core/model/entities/lab-venv.entity';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { map } from 'rxjs/operators';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { LabVenvTableComponent } from '../../../../lab-core/entity-module/lab-venv-core/lab-venv-table/lab-venv-table.component';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiVEnvsStatus, LiVenvArrayObs, LiVenvService } from '@monorepo/lab-lib/li-core';
+import { LiVenvTableComponent } from '@monorepo/lab-lib/li-venv';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { Observable, share } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import { map } from 'rxjs/operators';
 
 /**
  * Sub-page of monitoring to list all venvs
@@ -32,21 +31,21 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatButton,
     FlSectionModule,
     FlKeyValueModule,
-    LabVenvTableComponent,
+    LiVenvTableComponent,
     TranslatePipe,
   ],
 })
 export class LabMonitoringVenvsPageComponent implements OnInit {
-  private venvService = inject(LabVenvService);
+  private venvService = inject(LiVenvService);
   private dialogService = inject(FlDialogService);
 
-  venvsStatus$: Observable<LabVEnvsStatus>;
+  venvsStatus$: Observable<LiVEnvsStatus>;
 
-  venvsList: LabVenvArrayObs;
+  venvsList: LiVenvArrayObs;
 
   ngOnInit(): void {
     this.venvsStatus$ = this.venvService.getVenvsStatus().pipe(share());
-    this.venvsList = new LabVenvArrayObs(this.venvsStatus$.pipe(map((status) => status.envs)));
+    this.venvsList = new LiVenvArrayObs(this.venvsStatus$.pipe(map((status) => status.envs)));
   }
 
   openDeleteAllEnvsDialog(): void {

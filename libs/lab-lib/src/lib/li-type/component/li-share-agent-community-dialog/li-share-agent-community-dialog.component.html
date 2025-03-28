@@ -1,0 +1,37 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content">
+    @if (!isLoading) {
+      <div class="new-agent-div">
+        <button (click)="openCreateCommunityAgentDialog(agentVersionId)" mat-stroked-button type="button">
+          <mat-icon>add_circle</mat-icon>
+          {{ 'biox.create_new_community_agent' | translate }}
+        </button>
+      </div>
+
+      @if (currentAgent || !agentVersionId) {
+        <mat-divider class="divider"></mat-divider>
+        <h3>{{ 'biox.my_agents' | translate }}</h3>
+        <div class="existant-agent-info-div g-text-centered">
+          <span>{{ 'biox.add_existent_agent_info' | translate }}</span>
+        </div>
+        <div
+          class="all-agent-list-div"
+          [ngClass]="
+            currentAgent && currentAgent.created_by.id === currentUser.id ? 'all-lt-list-div-short' : ''
+          ">
+          <li-select-community-agent
+            [personalOnly]="true"
+            (agentSelected)="openAddVersionConfirmDialog($event)"></li-select-community-agent>
+        </div>
+      }
+    } @else {
+      <div class="g-text-centered">
+        <fl-loader></fl-loader>
+      </div>
+    }
+  </div>
+</mat-dialog-content>

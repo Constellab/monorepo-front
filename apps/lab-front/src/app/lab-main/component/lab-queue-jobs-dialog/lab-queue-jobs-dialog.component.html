@@ -9,10 +9,10 @@
     </fl-section-header>
 
     <ng-container *flSectionBodyDatasource>
-      <lab-running-scenario-table
+      <li-running-scenario-table
         [datasource]="runningScenarios"
         [columns]="scenarioColumns"
-        class="content"></lab-running-scenario-table>
+        class="content"></li-running-scenario-table>
     </ng-container>
   </fl-async-section>
 
@@ -26,7 +26,7 @@
         @for (job of jobs; track job; let index = $index) {
           <mat-list-item>
             <h3 matListItemTitle>
-              <a [routerLink]="job.scenario | labDetailRoute" class="g-text-link">{{ job.scenario.title }}</a>
+              <a [routerLink]="job.scenario | liDetailRoute" class="g-text-link">{{ job.scenario.title }}</a>
             </h3>
             <p matListItemLine>
               <span>{{ job.user.alias }}</span>

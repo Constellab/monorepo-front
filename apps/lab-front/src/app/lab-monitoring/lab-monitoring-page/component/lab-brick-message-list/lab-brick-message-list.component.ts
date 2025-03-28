@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { LabBrickMessage } from '../../../../lab-core/model/entities/lab-brick.entity';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { LiBrickMessage } from '@monorepo/lab-lib/li-core';
 import { MatDivider } from '@angular/material/divider';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -15,5 +15,5 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [FlSectionModule, FlStatusModule, MatDivider, TranslatePipe],
 })
 export class LabBrickMessageListComponent {
-  @Input() messages: LabBrickMessage[];
+  @Input() messages: LiBrickMessage[];
 }

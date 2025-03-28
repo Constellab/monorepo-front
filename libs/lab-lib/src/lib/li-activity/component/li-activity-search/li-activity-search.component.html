@@ -1,0 +1,18 @@
+<fl-search class="g-full-height">
+  <!-- Advanced section in the right in a drawer -->
+  <fl-search-advanced-form>
+    <li-activity-search-form></li-activity-search-form>
+  </fl-search-advanced-form>
+
+  <!--  Center header  -->
+  <fl-search-header>
+    <fl-text-icon>
+      <mat-icon flIcon="task"></mat-icon>
+      <h2>{{ 'monitoring.activities' | translate }}</h2>
+    </fl-text-icon>
+  </fl-search-header>
+
+  <fl-search-result>
+    <li-activity-table [datasource]="datasource"></li-activity-table>
+  </fl-search-result>
+</fl-search>

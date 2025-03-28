@@ -1,0 +1,20 @@
+@if (shareLink().validUntil) {
+  {{ 'biox.share_link_exist' | translate }}
+  <span
+    [matTooltip]="shareLink().validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+    [ngClass]="{ 'g-warn-text': !shareLink().isValid() }">
+    {{ shareLink().validUntil | flDate }}
+  </span>
+  @if (!shareLink().isValid()) {
+    <span class="g-warn-text"> ({{ 'biox.shared_link_expired' | translate }})</span>
+  }
+} @else {
+  {{ 'biox.share_link_no_valid_until' | translate }}
+}
+
+<div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+  <div>{{ 'biox.shared_by' | translate }}</div>
+  <fl-user-inline [user]="shareLink().createdBy"></fl-user-inline>
+  <div>-</div>
+  <fl-from-now [date]="shareLink().createdAt"></fl-from-now>
+</div>

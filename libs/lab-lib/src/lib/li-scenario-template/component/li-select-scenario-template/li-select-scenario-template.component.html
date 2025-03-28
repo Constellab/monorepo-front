@@ -1,0 +1,20 @@
+<fl-input-search
+  [selectedItem]="selectedTemplate"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [advancedButton]="advancedButton">
+  <div class="photo" *flInputSearchPrefix="datasource as scenarioTemplate">
+    @if (scenarioTemplate) {
+      <fl-user-profile-picture [user]="scenarioTemplate.createdBy" size="small"></fl-user-profile-picture>
+    }
+  </div>
+
+  <li-scenario-template-inline
+    *flInputSearchOption="datasource as scenarioTemplate"
+    [scenarioTemplate]="scenarioTemplate">
+  </li-scenario-template-inline>
+</fl-input-search>

@@ -1,0 +1,29 @@
+<div class="g-layout-col g-full-height">
+  @if (hasChildren()) {
+    <li-resource-children-tabs></li-resource-children-tabs>
+  }
+  <li-resource-detail-header [displayMode]="displayMode" class="header"></li-resource-detail-header>
+
+  <!-- View -->
+  <fl-async-section
+    [object]="selectedView()"
+    [isFlStatusEvent]="true"
+    [showServerErrorText]="true"
+    class="g-flex-auto main-view">
+    <ng-container *flSectionBodyStatusEvent="selectedView() as view">
+      @if (view) {
+        <li-resource-view-detail [labView]="view" class="g-full-height">
+          <button
+            mat-icon-button
+            type="button"
+            [matTooltip]="'biox.undock_view' | translate"
+            (click)="undockView()">
+            <mat-icon>open_in_browser</mat-icon>
+          </button>
+        </li-resource-view-detail>
+      }
+    </ng-container>
+  </fl-async-section>
+
+  <li-resource-detail-minimized-views></li-resource-detail-minimized-views>
+</div>

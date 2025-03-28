@@ -12,16 +12,20 @@ import { FlDynamicFieldModule, FlDynamicFormGroupConfig } from '@monorepo/front-
 import { Streamlit } from 'streamlit-component-lib';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { MatButtonModule } from '@angular/material/button';
-import { DcResizeIframeDirective } from '../../core/dc-resize-iframe/dc-resize-iframe.directive';
-import { DcCoreMainDirective } from '../../core/dc-core-main/dc-core-main.directive';
+import { DcResizeIframeDirective } from '../../core/directive/dc-resize-iframe/dc-resize-iframe.directive';
+import { DcCoreMainDirective } from '../../core/directive/dc-core-main/dc-core-main.directive';
 import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
+import { clRxjsDebug } from '@monorepo/core-lib';
+import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 
 export interface DcProcessConfigConfig {
-  processDescription: string;
+  process_description: string;
   specs: TdParamSpecs;
   values: TdParamSpecsValues;
-  docUrl: string;
+  doc_url: string;
+  url: string;
 }
 
 @Component({
@@ -47,6 +51,7 @@ export class DcProcessConfigComponent implements OnInit {
   docUrl: string;
 
   private mainDirective = inject(DcCoreMainDirective);
+  private apiService = inject(FlApiService);
 
   ngOnInit(): void {
     this.mainDirective.getInitData().subscribe((data) => this.init(data));
@@ -56,8 +61,10 @@ export class DcProcessConfigComponent implements OnInit {
     this.configData = TdConfig.fromSpecs(data.specs);
     this.formConfig = this.configData.getDynamicFormFieldsConfig();
     this.formGp = TdConfigureSpecsFormComponent.buildFormGroup({ specs: data.specs, values: data.values });
-    this.processDescription = data.processDescription;
-    this.docUrl = data.docUrl;
+    this.processDescription = data.process_description;
+    this.docUrl = data.doc_url;
+    this.apiService.get('/core-api/scenario/running').pipe(clRxjsDebug()).subscribe();
+    this.apiService.get('/core-api/scenario/runnijng').subscribe();
   }
 
   submit(): void {

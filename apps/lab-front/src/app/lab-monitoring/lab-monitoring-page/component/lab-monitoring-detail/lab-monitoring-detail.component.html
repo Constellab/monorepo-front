@@ -5,7 +5,9 @@
     </fl-text-icon>
   </fl-card-header>
   <fl-card-body>
-    <form [formGroup]="formGroup" class="g-form-field-compact g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
+    <form
+      [formGroup]="formGroup"
+      class="g-form-field-compact g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
       <!--  Period  -->
       <mat-form-field subscriptSizing="dynamic" class="period">
         <mat-label>{{ 'lab_usage_period' | translate }}</mat-label>
@@ -19,7 +21,6 @@
       </mat-form-field>
 
       @if (formGroup.value.period === customPeriod) {
-
         <div class="divider">-</div>
 
         <!--    From date    -->
@@ -35,13 +36,13 @@
         </mat-form-field>
 
         <!--   From hour     -->
-<!--         TODO Wait for this issue to be fixed : https://github.com/angular/components/issues/30469 -->
-<!--        <mat-form-field subscriptSizing="dynamic">-->
-<!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
-<!--          <input matInput [matTimepicker]="fromTimePicker" formControlName="customStartDate" />-->
-<!--          <mat-timepicker #fromTimePicker />-->
-<!--          <mat-timepicker-toggle [for]="fromTimePicker" matSuffix />-->
-<!--        </mat-form-field>-->
+        <!--         TODO Wait for this issue to be fixed : https://github.com/angular/components/issues/30469 -->
+        <!--        <mat-form-field subscriptSizing="dynamic">-->
+        <!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
+        <!--          <input matInput [matTimepicker]="fromTimePicker" formControlName="customStartDate" />-->
+        <!--          <mat-timepicker #fromTimePicker />-->
+        <!--          <mat-timepicker-toggle [for]="fromTimePicker" matSuffix />-->
+        <!--        </mat-form-field>-->
 
         <div class="divider">-</div>
         <!--    To date    -->
@@ -58,18 +59,18 @@
         </mat-form-field>
 
         <!--   To hour     -->
-<!--        <mat-form-field subscriptSizing="dynamic">-->
-<!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
-<!--          <input matInput [matTimepicker]="toTimePicker" formControlName="customEndDate" />-->
-<!--          <mat-timepicker #toTimePicker />-->
-<!--          <mat-timepicker-toggle [for]="toTimePicker" matSuffix />-->
-<!--        </mat-form-field>-->
+        <!--        <mat-form-field subscriptSizing="dynamic">-->
+        <!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
+        <!--          <input matInput [matTimepicker]="toTimePicker" formControlName="customEndDate" />-->
+        <!--          <mat-timepicker #toTimePicker />-->
+        <!--          <mat-timepicker-toggle [for]="toTimePicker" matSuffix />-->
+        <!--        </mat-form-field>-->
       }
     </form>
 
     <fl-async-section [object]="monitor$" class="g-full-height">
       <ng-container *flSectionBody="monitor$ as monitor">
-        <lab-monitor-between-dates [monitor]="monitor"></lab-monitor-between-dates>
+        <li-monitor-between-dates [monitor]="monitor"></li-monitor-between-dates>
       </ng-container>
     </fl-async-section>
   </fl-card-body>

@@ -1,19 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
-import { Observable } from 'rxjs';
-import { LabBrickMigration } from '../../../../lab-core/model/entities/lab-brick.entity';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { ClVersion } from '@monorepo/core-lib';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
-import { MatOption } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
-import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { AsyncPipe } from '@angular/common';
+import { ClVersion } from '@monorepo/core-lib';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LiBrickMigration, LiBrickService } from '@monorepo/lab-lib/li-core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -44,10 +43,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class LabBrickCallMigrationDialogComponent implements OnInit {
   private brickName = inject(MAT_DIALOG_DATA);
   private dialogRef = inject<MatDialogRef<LabBrickCallMigrationDialogComponent>>(MatDialogRef);
-  private brickService = inject(LabBrickService);
+  private brickService = inject(LiBrickService);
   private snackBarService = inject(FlSnackBarService);
 
-  brickMigrations$: Observable<LabBrickMigration[]>;
+  brickMigrations$: Observable<LiBrickMigration[]>;
 
   formControl: FormControl<ClVersion>;
 

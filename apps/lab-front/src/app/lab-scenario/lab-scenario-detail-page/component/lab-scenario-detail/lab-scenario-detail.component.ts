@@ -1,34 +1,23 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
-import { LabFolder } from '../../../../lab-core/model/entities/lab-folder.class';
-import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
-import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
 import { ClSubscriptionHandler } from '@monorepo/core-lib';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
-import { LabFolderInlineSelectComponent } from '../../../../lab-core/entity-module/lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import {
-  LabObjectValidationInfoComponent
-} from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-validation-info/lab-object-validation-info.component';
-import {
-  LabObjectSyncInfoComponent
-} from '../../../../lab-core/entity-module/lab-entity-core/component/lab-object-sync-info/lab-object-sync-info.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '@monorepo/text-editor';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import {
-  LabScenarioLinkedNotesComponent,
-} from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
-import { AsyncPipe } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabScenarioLinkedNotesComponent } from '../lab-scenario-linked-notes/lab-scenario-linked-notes.component';
+import { LiFolder, LiScenario, LiScenarioService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import { LiFolderInlineSelectComponent } from '@monorepo/lab-lib/li-folder';
+import { LiObjectSyncInfoComponent, LiObjectValidationInfoComponent } from '@monorepo/lab-lib/li-entity';
+import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Observable, tap } from 'rxjs';
+import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -40,8 +29,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-scenario-detail.component.scss'],
   imports: [
     FlArticleModule,
-    LabTagListComponent,
-    LabFolderInlineSelectComponent,
+    LiTagListComponent,
+    LiFolderInlineSelectComponent,
     ReactiveFormsModule,
     FormsModule,
     FlTextIconModule,
@@ -49,8 +38,8 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIcon,
     FlIconModule,
     FlKeyValueModule,
-    LabObjectValidationInfoComponent,
-    LabObjectSyncInfoComponent,
+    LiObjectValidationInfoComponent,
+    LiObjectSyncInfoComponent,
     FlUserModule,
     TeTextEditorModule,
     FlCardModule,
@@ -61,16 +50,16 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class LabScenarioDetailComponent implements OnInit, OnDestroy {
   private scenarioState = inject(LabScenarioDetailPageState);
-  private scenarioService = inject(LabScenarioService);
+  private scenarioService = inject(LiScenarioService);
 
-  scenario$: Observable<LabScenario>;
-  tags$: LabTagDatasource;
+  scenario$: Observable<LiScenario>;
+  tags$: LiTagDatasource;
 
   textEditorConfig: TeBasicConfig = new TeBasicConfig();
 
   descriptionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
 
-  saveDescriptionFunc: (content: TeRichText) => Observable<LabScenario>;
+  saveDescriptionFunc: (content: TeRichText) => Observable<LiScenario>;
 
   private subscription = new ClSubscriptionHandler();
 
@@ -99,7 +88,7 @@ export class LabScenarioDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateFolder(folder: LabFolder): void {
+  updateFolder(folder: LiFolder): void {
     this.scenarioService.updateFolder(this.scenarioState.currentScenario.id, folder?.id ?? null).subscribe({
       next: (scenario) => this.scenarioState.updateScenario(scenario),
       // call refresh scenario to set the folder back

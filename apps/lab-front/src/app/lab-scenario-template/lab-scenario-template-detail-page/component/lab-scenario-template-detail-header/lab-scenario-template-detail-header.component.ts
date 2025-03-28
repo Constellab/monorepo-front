@@ -1,18 +1,15 @@
-import { Component, inject, Input } from '@angular/core';
-import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
-import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
+import { Component, Input, inject } from '@angular/core';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-
-import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { LiRouterService, LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
+import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -22,17 +19,17 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [FlFormModule, MatIconButton, MatTooltip, MatIcon, TranslatePipe],
 })
 export class LabScenarioTemplateDetailHeaderComponent {
-  private scenarioTemplateService = inject(LabScenarioTemplateService);
+  private scenarioTemplateService = inject(LiScenarioTemplateService);
   private dialogService = inject(FlDialogService);
-  private routerService = inject(LabRouterService);
+  private routerService = inject(LiRouterService);
   private actionsService = inject(FlPortalActionsService);
 
-  @Input() template: LabScenarioTemplate;
+  @Input() template: LiScenarioTemplate;
 
   updateName(name: string): void {
     this.scenarioTemplateService
       .updateScenarioTemplateName(this.template.id, name)
-      .subscribe((updatedScenarioTemplate: LabScenarioTemplate) => {
+      .subscribe((updatedScenarioTemplate: LiScenarioTemplate) => {
         this.template.name = updatedScenarioTemplate.name;
       });
   }

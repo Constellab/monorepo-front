@@ -1,3 +1,16 @@
+import { ClHelpService } from '@monorepo/core-lib';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
+import { LabWorkflowEditConfig } from './lab-workflow-edit-config.class';
+import { LiResource, LiResourceSearchFields, LiTypeEntity } from '@monorepo/lab-lib/li-core';
+import {
+  LiResourceDetailDialogComponent,
+  LiSelectResourceDialogComponent,
+  LiSelectResourceDialogInput,
+  labResourceSearchName,
+} from '@monorepo/lab-lib/li-resource';
+import { LiSelectTypeDialogComponent, LiSelectTypeDialogInput } from '@monorepo/lab-lib/li-type';
 import {
   PrWorkflowLayer,
   PrWorkflowMode,
@@ -6,26 +19,7 @@ import {
   PrWorkflowNodeMenuConfig,
   PrWorkflowPort,
 } from '@monorepo/protocol';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlMenuDynamicButton } from '@monorepo/front-core-lib/fl-menu-dynamic';
-import { FlSavedSearch } from '@monorepo/front-core-lib/fl-search';
 import { flThemeDetailLight } from '@monorepo/front-core-lib/fl-theme';
-
-import { LabResourceDetailDialogComponent } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail-dialog/lab-resource-detail-dialog.component';
-import {
-  LabSelectTypeDialogComponent,
-  LabSelectTypeDialogInput,
-} from '../../../lab-core/entity-module/lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
-import { LabTypeEntity } from '../../../lab-core/model/entities/lab-type/lab-type.entity';
-import { LabResourceSearchFields } from '../../../lab-core/entity-module/lab-resource-core/model/lab-resource-search.class';
-import { labResourceSearchName } from '../../../lab-core/entity-module/lab-resource-core/component/lab-resource-search/lab-resource-search.component';
-import {
-  LabSelectResourceDialogComponent,
-  LabSelectResourceDialogInput,
-} from '../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
-import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import { ClHelpService } from '@monorepo/core-lib';
-import { LabWorkflowEditConfig } from './lab-workflow-edit-config.class';
 
 export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   constructor(
@@ -110,7 +104,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
 
   private openResourceSelection(port: PrWorkflowPort, node: PrWorkflowNode): void {
     // add a default search filtered by resource type
-    const filter: Partial<LabResourceSearchFields> = {
+    const filter: Partial<LiResourceSearchFields> = {
       resourceTypingNames: port.currentSpecs.resource_types.map((type) => type.typing_name),
     };
     const savedSearch: FlSavedSearch = {
@@ -123,17 +117,17 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       filtersCriteria: filter,
     };
 
-    const data: LabSelectResourceDialogInput = {
+    const data: LiSelectResourceDialogInput = {
       savedSearches: [savedSearch],
     };
 
     this.dialogService
-      .openBigDialog(LabSelectResourceDialogComponent, { data: data })
+      .openBigDialog(LiSelectResourceDialogComponent, { data: data })
       .afterClosed()
       .subscribe((resource) => this.addSource(resource, port, node));
   }
 
-  private addSource(resource: LabResource | null, port: PrWorkflowPort, node: PrWorkflowNode): void {
+  private addSource(resource: LiResource | null, port: PrWorkflowPort, node: PrWorkflowNode): void {
     if (resource == null) return;
 
     this.editState.addSourceToProcessInput(resource.id, node.instanceName, port.name, resource.name);
@@ -183,7 +177,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   }
 
   private openResourceDetail(resourceId: string): void {
-    this.dialogService.openBigDialog(LabResourceDetailDialogComponent, {
+    this.dialogService.openBigDialog(LiResourceDetailDialogComponent, {
       data: resourceId,
       panelClass: 'g-dialog-main-background',
       closeOnNavigation: true,
@@ -195,7 +189,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     node: PrWorkflowNode,
     portType: 'input' | 'output'
   ): void {
-    const data: LabSelectTypeDialogInput = {
+    const data: LiSelectTypeDialogInput = {
       searchConfig: {
         mode: 'processSuggestion',
         // if the port type selected is an input, we need to suggest process where output matches the input
@@ -204,7 +198,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
       },
     };
     this.dialogService
-      .openBigDialog(LabSelectTypeDialogComponent, { data: data })
+      .openBigDialog(LiSelectTypeDialogComponent, { data: data })
       .afterClosed()
       .subscribe((processType) => {
         // if the process where suggested
@@ -217,7 +211,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   }
 
   private addProcessConnectedToOutput(
-    processType: LabTypeEntity | null,
+    processType: LiTypeEntity | null,
     outputProcessName: string,
     outputPortName: string
   ): void {
@@ -232,7 +226,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   }
 
   private addProcessConnectedToInput(
-    processType: LabTypeEntity | null,
+    processType: LiTypeEntity | null,
     inputProcessName: string,
     inputPortName: string
   ): void {
@@ -267,14 +261,14 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
     port: PrWorkflowPort,
     node: PrWorkflowNode
   ): void {
-    const data: LabSelectTypeDialogInput = {
+    const data: LiSelectTypeDialogInput = {
       searchConfig: {
         mode: 'transformer',
         resourceTypingNames: this.getPortTypingNames(port, node),
       },
     };
     this.dialogService
-      .openBigDialog(LabSelectTypeDialogComponent, { data: data })
+      .openBigDialog(LiSelectTypeDialogComponent, { data: data })
       .afterClosed()
       .subscribe((processType) =>
         this.addProcessConnectedToOutput(processType, outputProcessName, port.name)

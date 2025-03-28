@@ -1,7 +1,7 @@
 @if (scenario$ | async; as scenario) {
   <div class="g-layout-row g-layout-start-center">
     <div class="g-flex-auto g-layout-row g-layout-start-center">
-      <lab-scenario-icons [scenario]="scenario" size="big"></lab-scenario-icons>
+      <li-scenario-icons [scenario]="scenario" size="big"></li-scenario-icons>
 
       <h1
         flElementEditable
@@ -12,11 +12,11 @@
       </h1>
     </div>
 
-    <lab-sync-object-button
+    <li-sync-object-button
       [object]="scenario"
       [syncObjectFunc]="syncObjectFunc"
       (objectUpdate)="onScenarioUpdate($event)">
-    </lab-sync-object-button>
+    </li-sync-object-button>
 
     <fl-status-chip
       [status]="scenario.status"

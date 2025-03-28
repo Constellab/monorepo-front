@@ -1,11 +1,10 @@
-import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
-import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
-import { FormGroup } from '@angular/forms';
 import { FlFormHelper } from '@monorepo/front-core-lib/fl-core';
 import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FormGroup } from '@angular/forms';
+import { Injectable, Signal, WritableSignal, inject, signal } from '@angular/core';
+import { LabWorkflowEditConfig } from '../model/lab-workflow-edit-config.class';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
 import { Observable, of } from 'rxjs';
-import { prConfigValueAreEqual } from '@monorepo/protocol';
-import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
 import {
   TdConfig,
   TdConfigI,
@@ -13,6 +12,7 @@ import {
   TdConfigureSpecsFormComponent,
   TdParamSpecsValues,
 } from '@monorepo/technical-doc';
+import { prConfigValueAreEqual } from '@monorepo/protocol';
 
 /**
  * State for the process dashboard configuration.
@@ -70,7 +70,7 @@ export class LabProcessDashboardConfigState {
   /**
    * return truc if the config has changed compared to the current task
    */
-  public configHasChanged(process: LabProcess): boolean {
+  public configHasChanged(process: LiProcess): boolean {
     return (
       !this.taskInstanceName ||
       !this.parentProtocolId ||

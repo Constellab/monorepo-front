@@ -1,0 +1,106 @@
+<fl-card class="g-full-height">
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>info</mat-icon>
+      <h2>{{ 'biox.resource_info' | translate }}</h2>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body class="card-body">
+    @if (resource.typeStatus === 'UNAVAILABLE') {
+      <fl-text-icon class="line">
+        <mat-icon class="warn">error</mat-icon>
+        <div class="g-warn-text">{{ 'biox.resource_type_unavailable_error' | translate }}</div>
+      </fl-text-icon>
+    }
+
+    <div class="line tags">
+      <mat-icon flIcon="tag"></mat-icon>
+      <li-tag-list
+        [tags]="tags"
+        [enableDetails]="true"
+        class="g-text-small tags-list"
+        [showNoTagMessage]="true"
+        entityType="RESOURCE"
+        [entityId]="resource.id"></li-tag-list>
+    </div>
+
+    <!--  Scenario  -->
+    @if (resource.scenario) {
+      <fl-text-icon class="line">
+        <mat-icon flIcon="scenario"></mat-icon>
+        <a [routerLink]="resource.scenario.id | liDetailRoute: 'SCENARIO'" class="g-text-link">{{
+          resource.scenario.title
+        }}</a>
+      </fl-text-icon>
+    }
+
+    <!--  Folder  -->
+    @if (resource.folder) {
+      <fl-text-icon class="line">
+        <mat-icon flIcon="folder"></mat-icon>
+        <li-folder-inline [folder]="resource.folder"></li-folder-inline>
+      </fl-text-icon>
+    }
+
+    <!--  Origin  -->
+    <fl-text-icon class="line" (click)="openResourceShareOrigin()">
+      <mat-icon>trip_origin</mat-icon>
+      <div [ngClass]="{ 'g-text-link': resource.origin === 'IMPORTED_FROM_LAB' }">
+        {{ 'biox.resource_origin' | translate }} :
+        <span class="g-text-light">
+          {{ 'biox.resource_origin_' + resource.origin | translate }}
+        </span>
+      </div>
+    </fl-text-icon>
+
+    @if (resource.isFsNode()) {
+      <!--  File  -->
+      <fl-text-icon class="line">
+        <mat-icon>{{ resource.fsNode.isFile ? 'description' : 'folder' }}</mat-icon>
+        {{ resource.fsNode.name }} : {{ resource.fsNode.size | flByteText }}
+      </fl-text-icon>
+
+      <!--  Path  -->
+      <fl-text-icon class="line path">
+        <mat-icon>location_on</mat-icon>
+        {{ resource.fsNode.path }}
+      </fl-text-icon>
+    }
+
+    <!--  TODO test if resource type is none  -->
+    @if (resource.resourceType) {
+      <!--  Resource type  -->
+      <div class="line g-layout-row g-layout-start-center">
+        <mat-icon>info</mat-icon>
+        <div class="resource-type">{{ 'biox.resource_type' | translate }} :</div>
+        <td-type-inline
+          class="resource-type g-text-link"
+          (click)="openTypingDoc()"
+          [text]="resource.resourceType.human_name"
+          [style]="resource.resourceType.style"></td-type-inline>
+      </div>
+
+      @if (resource.resourceType.short_description) {
+        <!--  Resource type short description  -->
+        <fl-text-icon class="line">
+          <mat-icon>text_snippet</mat-icon>
+          <div>{{ resource.resourceType.short_description }}</div>
+        </fl-text-icon>
+      }
+    }
+
+    <!--  Creation info  -->
+    <fl-text-icon class="line">
+      <mat-icon>save</mat-icon>
+      <fl-creation-info [user]="resource.createdBy" [date]="resource.createdAt"></fl-creation-info>
+    </fl-text-icon>
+
+    <!--  Id  -->
+    <div class="line g-layout-row g-layout-start-center">
+      <mat-icon>fingerprint</mat-icon>
+      <div class="resource-type">{{ 'id' | translate }} :&nbsp;</div>
+      <div class="g-text-link" (click)="copyIdToClipboard()">{{ resource.id }}</div>
+    </div>
+  </fl-card-body>
+</fl-card>

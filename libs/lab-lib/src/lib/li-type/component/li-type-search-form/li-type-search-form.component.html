@@ -1,0 +1,43 @@
+<div class="form g-layout-col" [formGroup]="formGp">
+  <div class="g-full g-layout-row-wrap g-layout-between-center g-layout-gap-1em">
+    <!--  Text  -->
+    <mat-form-field class="g-full">
+      <mat-label>{{ 'name' | translate }}</mat-label>
+      <input matInput formControlName="text" [placeholder]="'name' | translate" autocomplete="off" />
+    </mat-form-field>
+
+    <!--  Brick  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'brick' | translate }}</mat-label>
+      <mat-select [placeholder]="'brick' | translate" [multiple]="true" formControlName="brick">
+        <li-bricks-select-options></li-bricks-select-options>
+      </mat-select>
+    </mat-form-field>
+
+    <!--  Object sub type  -->
+    @if (showObjectSubTypeField) {
+      <mat-form-field class="g-search-field">
+        <mat-label>{{ 'biox.process_type_type' | translate }}</mat-label>
+        <mat-select [placeholder]="'biox.process_type_type' | translate" formControlName="objectSubType">
+          <mat-option value="TASK">{{ 'biox.process_sub_type_TASK' | translate }}</mat-option>
+          <mat-option value="PROTOCOL">{{ 'biox.process_sub_type_PROTOCOL' | translate }}</mat-option>
+          <mat-option value="IMPORTER">{{ 'biox.process_sub_type_IMPORTER' | translate }}</mat-option>
+          <mat-option value="EXPORTER">{{ 'biox.process_sub_type_EXPORTER' | translate }}</mat-option>
+          <mat-option value="TRANSFORMER">{{ 'biox.process_sub_type_TRANSFORMER' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    }
+
+    <!--  For Importer, to ignore file extension   -->
+    @if (showImporterIgnoreExtensionField) {
+      <mat-checkbox formControlName="importerIgnoreExtension" class="checkbox">{{
+        'biox.type_importer_ignore_extension' | translate
+      }}</mat-checkbox>
+    }
+
+    <!--  Include deprecated   -->
+    <mat-checkbox formControlName="includeDeprecated" class="checkbox">{{
+      'biox.type_include_deprecated' | translate
+    }}</mat-checkbox>
+  </div>
+</div>

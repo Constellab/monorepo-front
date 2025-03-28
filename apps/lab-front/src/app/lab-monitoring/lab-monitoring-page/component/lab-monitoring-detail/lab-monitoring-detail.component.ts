@@ -1,21 +1,20 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { LabMonitorService } from '../../../../lab-core/entity-service/lab-monitor.service';
-import { debounceTime, Observable, Subscription } from 'rxjs';
-import { LabMonitorGraphicsBetweenDates } from '../../../../lab-core/model/entities/lab-monitor.entity';
-import { DateTime } from 'luxon';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClDateHelper } from '@monorepo/core-lib';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { DateTime } from 'luxon';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { LabMonitorBetweenDatesComponent } from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates/lab-monitor-between-dates.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
-import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LiMonitorBetweenDatesComponent } from '@monorepo/lab-lib/li-monitor';
+import { LiMonitorGraphicsBetweenDates, LiMonitorService } from '@monorepo/lab-lib/li-core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
+import { Observable, Subscription, debounceTime } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export enum LabMonitoringRunPeriod {
   CURRENT_DAY = 'CURRENT_DAY',
@@ -35,7 +34,7 @@ export enum LabMonitoringRunPeriod {
     FlCorePipeModule,
     FlSectionModule,
     FlTextIconModule,
-    LabMonitorBetweenDatesComponent,
+    LiMonitorBetweenDatesComponent,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -48,9 +47,9 @@ export enum LabMonitoringRunPeriod {
   styleUrl: './lab-monitoring-detail.component.scss',
 })
 export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
-  private monitorService = inject(LabMonitorService);
+  private monitorService = inject(LiMonitorService);
 
-  monitor$: Observable<LabMonitorGraphicsBetweenDates>;
+  monitor$: Observable<LiMonitorGraphicsBetweenDates>;
 
   formGroup = new FormBuilder().group({
     period: [LabMonitoringRunPeriod.CURRENT_DAY, Validators.required],
@@ -103,13 +102,6 @@ export class LabMonitoringDetailComponent implements OnInit, OnDestroy {
         fromDate = customStartDate;
         toDate = customEndDate;
         break;
-    }
-
-    if (fromDate) {
-      console.log(fromDate.toISO());
-    }
-    if (toDate) {
-      console.log(toDate.toISO());
     }
 
     if (!fromDate || !toDate) return;

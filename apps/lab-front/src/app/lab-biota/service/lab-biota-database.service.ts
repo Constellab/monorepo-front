@@ -1,18 +1,18 @@
-import { inject, Injectable } from '@angular/core';
+import { ClPageI } from '@monorepo/core-lib';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
 import { LabBiotaData, LabBiotaDataDatasource } from '../model/lab-biota-data.class';
-import { ClPageI } from '@monorepo/core-lib';
 import { LabBiotaDatabaseSearch } from '../model/lab-biota-database.class';
-import { LabModelService } from '../../lab-core/service/lab-model.service';
+import { LiModelService } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LabBiotaDatabaseService {
   private apiService = inject(FlApiService);
-  private modelService = inject(LabModelService);
+  private modelService = inject(LiModelService);
 
   public countDatabaseEntries(typingName: string): Observable<number> {
     return this.modelService.countDatabaseEntries(typingName);

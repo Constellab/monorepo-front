@@ -1,24 +1,24 @@
 import { Component, inject } from '@angular/core';
-import { LabShareLinkService } from '../../../../lab-core/entity-service/lab-share-link.service';
-import {
-  LabCleanShareLinks,
-  LabShareLink,
-  LabShareLinkDatasource,
-} from '../../../../lab-core/model/entities/lab-share.entity';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { LabShareLinkTableComponent } from '../../../../lab-core/entity-module/lab-share-core/component/lab-share-link-table/lab-share-link-table.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   FlDynamicFieldFormDialogComponent,
   FlDynamicFieldFormDialogInput,
 } from '@monorepo/front-core-lib/fl-dynamic-field';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  LiCleanShareLinks,
+  LiShareLink,
+  LiShareLinkDatasource,
+  LiShareLinkService,
+} from '@monorepo/lab-lib/li-core';
+import { LiShareLinkTableComponent } from '@monorepo/lab-lib/li-share';
 import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'lab-monitoring-share-links',
@@ -29,17 +29,17 @@ import { MatButton } from '@angular/material/button';
     FlTextIconModule,
     MatIcon,
     FlInfiniteScrollModule,
-    LabShareLinkTableComponent,
+    LiShareLinkTableComponent,
     TranslatePipe,
     MatButton,
   ],
 })
 export class LabMonitoringShareLinksComponent {
-  private shareLinkService = inject(LabShareLinkService);
+  private shareLinkService = inject(LiShareLinkService);
 
-  shareLinks: LabShareLinkDatasource = this.shareLinkService.getAllDatasource();
+  shareLinks: LiShareLinkDatasource = this.shareLinkService.getAllDatasource();
 
-  columns: FlTableColumnStatic<LabShareLink>[] = [
+  columns: FlTableColumnStatic<LiShareLink>[] = [
     'entityType',
     'entityName',
     'validUntil',
@@ -71,8 +71,8 @@ export class LabMonitoringShareLinksComponent {
           },
         },
       },
-      submit: (data: LabCleanShareLinks) => this.shareLinkService.cleanLinks(data),
-      data: { clean_expired_links: true, clean_invalid_links: true } as LabCleanShareLinks,
+      submit: (data: LiCleanShareLinks) => this.shareLinkService.cleanLinks(data),
+      data: { clean_expired_links: true, clean_invalid_links: true } as LiCleanShareLinks,
       successMessage: 'monitoring.share_links_cleaned',
     };
 

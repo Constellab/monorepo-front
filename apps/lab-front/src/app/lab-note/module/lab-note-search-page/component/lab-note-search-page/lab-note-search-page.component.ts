@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LabNoteSearchComponent } from '../../../../../lab-core/entity-module/lab-note-core/component/lab-note-search/lab-note-search.component';
+import { LiNoteSearchComponent } from '@monorepo/lab-lib/li-note';
 
 @Component({
   selector: 'lab-note-search-page',
   templateUrl: './lab-note-search-page.component.html',
   styleUrls: ['./lab-note-search-page.component.scss'],
-  imports: [LabNoteSearchComponent],
+  imports: [LiNoteSearchComponent],
 })
 export class LabNoteSearchPageComponent {}

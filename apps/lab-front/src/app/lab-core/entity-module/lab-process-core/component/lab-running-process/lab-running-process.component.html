@@ -1,7 +1,0 @@
-<div class="title">
-  <strong>{{ runningProcess.title }}</strong> | {{ runningProcess.progression }}%
-</div>
-
-@if (runningProcess.lastMessage) {
-  <lab-progress-message [progressMessage]="runningProcess.lastMessage"></lab-progress-message>
-}

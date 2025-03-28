@@ -1,27 +1,27 @@
-import {
-  teBlockTuneFactory,
-  TeCompleteConfig,
-  teComponentBlockFactory,
-  teInlineToolFactory,
-  TeTools,
-  TeVariableInlineToolClass,
-} from '@monorepo/text-editor';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
-import {
-  LabRichTextFileViewBlock,
-  LabRichTextViewBlock,
-  LabRichTextViewBlockAdditionalData,
-} from '../../../lab-core/entity-module/lab-rich-text-core/lab-rich-text-view.block';
-import {
-  LabRichTextAudioTranscriptionConfig,
-  LabRichTextFileConfig,
-  LabRichTextImageConfig,
-  LabRichTextObjectType,
-} from '../../../lab-core/entity-service/lab-rich-text.service';
 import {
   LabNoteInsertTemplateBlockTune,
   LabNoteInsertTemplateBlockTuneConfig,
 } from './model/lab-note-insert-template-block-tune.class';
+import {
+  LiRichTextAudioTranscriptionConfig,
+  LiRichTextFileConfig,
+  LiRichTextImageConfig,
+  LiRichTextObjectType,
+} from '@monorepo/lab-lib/li-core';
+import {
+  LiRichTextFileViewBlock,
+  LiRichTextViewBlock,
+  LiRichTextViewBlockAdditionalData,
+} from '@monorepo/lab-lib/li-rich-text';
+import {
+  TeCompleteConfig,
+  TeTools,
+  TeVariableInlineToolClass,
+  teBlockTuneFactory,
+  teComponentBlockFactory,
+  teInlineToolFactory,
+} from '@monorepo/text-editor';
 
 /**
  * Config for the text editor in the note to support view in the editor
@@ -40,39 +40,39 @@ export class LabNoteTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // add the view block
-    const data: LabRichTextViewBlockAdditionalData = {
+    const data: LiRichTextViewBlockAdditionalData = {
       type: 'note',
       entityId: this.noteId,
     };
-    tools.resourceView = teComponentBlockFactory(LabRichTextViewBlock, envInjector, applicationRef, data);
+    tools.resourceView = teComponentBlockFactory(LiRichTextViewBlock, envInjector, applicationRef, data);
 
     // add the file view block
-    const fileViewData: LabRichTextViewBlockAdditionalData = {
+    const fileViewData: LiRichTextViewBlockAdditionalData = {
       type: 'note-file-view',
       entityId: this.noteId,
     };
     tools.fileView = teComponentBlockFactory(
-      LabRichTextFileViewBlock,
+      LiRichTextFileViewBlock,
       envInjector,
       applicationRef,
       fileViewData
     );
 
     // configure and add the image block
-    const imageConfig = new LabRichTextImageConfig(LabRichTextObjectType.NOTE, this.noteId);
+    const imageConfig = new LiRichTextImageConfig(LiRichTextObjectType.NOTE, this.noteId);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     tools.variable = teInlineToolFactory(TeVariableInlineToolClass);
 
     tools.file = this.getFileConfig(
-      new LabRichTextFileConfig(LabRichTextObjectType.NOTE, this.noteId),
+      new LiRichTextFileConfig(LiRichTextObjectType.NOTE, this.noteId),
       envInjector,
       applicationRef
     );
 
     // block tune
     tools.audioTranscription = this.getAudioTranscriptionConfig(
-      new LabRichTextAudioTranscriptionConfig(),
+      new LiRichTextAudioTranscriptionConfig(),
       envInjector,
       applicationRef
     );

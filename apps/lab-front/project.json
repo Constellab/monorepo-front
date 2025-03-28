@@ -31,9 +31,7 @@
             "output": "assets/fl-font"
           }
         ],
-        "externalDependencies": [
-          "assets/fl-font/*"
-        ],
+        "externalDependencies": ["assets/fl-font/*"],
         "styles": [
           {
             "input": "apps/lab-front/src/theme/lab-light-theme.scss",

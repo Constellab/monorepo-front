@@ -1,4 +1,6 @@
-import { LabProcessLayout, LabProtocol } from '../../../lab-core/model/entities/process/lab-protocol.entity';
+import { Injectable, NgZone, inject } from '@angular/core';
+import { LiProcess, LiProcessLayout, LiProtocol } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
 import {
   PrAddNodeWithConnection,
   PrProtocolLink,
@@ -13,9 +15,6 @@ import {
   PrWorkflowNodeViewer,
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
-import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
-import { Observable } from 'rxjs';
-import { Injectable, NgZone, inject } from '@angular/core';
 
 @Injectable()
 export class LabWorkflowFactory {
@@ -29,12 +28,12 @@ export class LabWorkflowFactory {
     this.createSubLayer = layerLoader;
   }
 
-  public protocolToWorkflow(protocol: LabProtocol): PrWorkflow {
+  public protocolToWorkflow(protocol: LiProtocol): PrWorkflow {
     const layer = this.createLayer(protocol, true);
     return new PrWorkflow(layer, 'edit', this.ngZone);
   }
 
-  public createLayer(protocol: LabProtocol, rootLayer: boolean): PrWorkflowLayer {
+  public createLayer(protocol: LiProtocol, rootLayer: boolean): PrWorkflowLayer {
     let layer: PrWorkflowLayer;
     if (rootLayer) {
       layer = PrWorkflowLayer.rootLayer(protocol.id, this.resourceState, this.actionState);
@@ -52,7 +51,7 @@ export class LabWorkflowFactory {
     const protocolLayout = protocol.data.layout;
 
     for (const key in protocol.data.nodes) {
-      const process: LabProcess = protocol.data.nodes[key];
+      const process: LiProcess = protocol.data.nodes[key];
       // retrieve the layout of the process if it exists
       const processLayout = protocolLayout?.getProcess(key) ?? null;
       const node = this.labProcessToWorkflowNode(process, processLayout);
@@ -81,7 +80,7 @@ export class LabWorkflowFactory {
     return layer;
   }
 
-  public labProcessToWorkflowNode(process: LabProcess, processLayout?: LabProcessLayout): PrWorkflowNode {
+  public labProcessToWorkflowNode(process: LiProcess, processLayout?: LiProcessLayout): PrWorkflowNode {
     let processNode: PrWorkflowNode;
     if (process.isInput()) {
       processNode = new PrWorkflowNodeInput(
@@ -129,10 +128,7 @@ export class LabWorkflowFactory {
     return processNode;
   }
 
-  public labProcessWithLinkToNodeWithLink(
-    process: LabProcess,
-    link: PrProtocolLink
-  ): PrAddNodeWithConnection {
+  public labProcessWithLinkToNodeWithLink(process: LiProcess, link: PrProtocolLink): PrAddNodeWithConnection {
     const node = this.labProcessToWorkflowNode(process);
 
     return {

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { LabDevEnvironmentService } from '../../../lab-core/service/lab-dev-environment.service';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
-import { MatSlideToggleChange, MatSlideToggle } from '@angular/material/slide-toggle';
-import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabDevEnvironmentService } from '../../../lab-core/lab-dev-environment.service';
+import { LabEnvStore } from '../../../lab-core/lab-env.store';
 
 @Component({
   selector: 'lab-environment-toggle',

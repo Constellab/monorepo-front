@@ -1,25 +1,24 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { ActivatedRoute } from '@angular/router';
-import { LabRouterService } from '../../../lab-core/service/lab-router.service';
-import { LabNoteTemplateService } from '../../../lab-core/entity-service/lab-note-template.service';
-import { LabNoteTemplate } from '../../../lab-core/model/entities/lab-note-template.entity';
-import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
-import { TeConfig, TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { LabNoteTemplateTextEditorConfig } from '../lab-note-template-text-editor-config.class';
+import { LiNoteTemplate, LiNoteTemplateService, LiRouterService } from '@monorepo/lab-lib/li-core';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { Observable } from 'rxjs';
+import { TeConfig, TeRichText, TeRichTextDTO, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -46,10 +45,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class LabNoteTemplateDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private dialogService = inject(FlDialogService);
-  private routerService = inject(LabRouterService);
-  private noteTemplateService = inject(LabNoteTemplateService);
+  private routerService = inject(LiRouterService);
+  private noteTemplateService = inject(LiNoteTemplateService);
 
-  noteTemplate: LabNoteTemplate;
+  noteTemplate: LiNoteTemplate;
 
   textEditorConfig: TeConfig;
 
@@ -81,7 +80,7 @@ export class LabNoteTemplateDetailPageComponent implements OnInit {
       this.noteTemplateService.updateContent(this.noteTemplateId, value);
   }
 
-  private getNoteTemplateSuccess(noteTemplate: LabNoteTemplate): void {
+  private getNoteTemplateSuccess(noteTemplate: LiNoteTemplate): void {
     this.noteTemplate = noteTemplate;
     this.isLoading = false;
   }

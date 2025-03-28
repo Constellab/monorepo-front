@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Input, OnInit } from '@angular/core';
-import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
-import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { LabBrickCallMigrationDialogComponent } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
-import { LabTypeService } from '../../../../lab-core/entity-service/lab-type.service';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { LabBrickCallMigrationDialogComponent } from '../lab-brick-call-migration-dialog/lab-brick-call-migration-dialog.component';
 import { LabBrickMessageListComponent } from '../lab-brick-message-list/lab-brick-message-list.component';
+import { LiBrickEntity, LiBrickService, LiTypeService } from '@monorepo/lab-lib/li-core';
+import { MatButton } from '@angular/material/button';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -21,12 +19,12 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [FlKeyValueModule, MatButton, FlLoaderModule, LabBrickMessageListComponent, TranslatePipe],
 })
 export class LabBrickInfoComponent {
-  private labBrickService = inject(LabBrickService);
+  private labBrickService = inject(LiBrickService);
   private cdr = inject(ChangeDetectorRef);
   private dialogService = inject(FlDialogService);
-  private typeService = inject(LabTypeService);
+  private typeService = inject(LiTypeService);
 
-  @Input() brick: LabBrickEntity;
+  @Input() brick: LiBrickEntity;
 
   generateDocIsLoading: boolean = false;
 

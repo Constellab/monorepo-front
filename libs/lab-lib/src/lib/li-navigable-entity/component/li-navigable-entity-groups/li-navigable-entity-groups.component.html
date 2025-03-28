@@ -1,0 +1,27 @@
+<mat-accordion>
+  @for (group of groups; track group.type) {
+    @if (group.entities.length > 0) {
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon [flIcon]="group.typeIcon" class="group-icon"></mat-icon>
+            {{ group.entities.length }} {{ 'lab_entity_type_' + group.type | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-template matExpansionPanelContent>
+          <li-navigable-entities-table
+            [type]="group.type"
+            [entities]="group.entities"></li-navigable-entities-table>
+        </ng-template>
+        <!--      <mat-nav-list>-->
+
+        <!--        <a mat-list-item *ngFor="let entity of group.entities" target="_blank"-->
+        <!--           [routerLink]="entity.id | liDetailRoute:group.type">-->
+        <!--          <li-navigable-entity-inline [entity]="entity"></li-navigable-entity-inline>-->
+        <!--        </a>-->
+        <!--      </mat-nav-list>-->
+      </mat-expansion-panel>
+    }
+  }
+</mat-accordion>

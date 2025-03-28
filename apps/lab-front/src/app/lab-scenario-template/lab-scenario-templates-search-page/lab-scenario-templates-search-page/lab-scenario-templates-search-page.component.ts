@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LabScenarioTemplateSearchComponent } from '../../../lab-core/entity-module/lab-scenario-template-core/component/lab-scenario-template-search/lab-scenario-template-search.component';
+import { LiScenarioTemplateSearchComponent } from '@monorepo/lab-lib/li-scenario-template';
 
 @Component({
   selector: 'lab-scenario-templates-page',
   templateUrl: './lab-scenario-templates-search-page.component.html',
   styleUrl: './lab-scenario-templates-search-page.component.scss',
-  imports: [LabScenarioTemplateSearchComponent],
+  imports: [LiScenarioTemplateSearchComponent],
 })
 export class LabScenarioTemplatesSearchPageComponent {}

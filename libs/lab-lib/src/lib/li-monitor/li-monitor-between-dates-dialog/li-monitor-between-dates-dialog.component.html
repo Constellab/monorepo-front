@@ -1,0 +1,11 @@
+<fl-dialog-header>
+  {{ title }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="monitor$">
+    <ng-container *flSectionBody="monitor$ as monitor">
+      <li-monitor-between-dates [monitor]="monitor"></li-monitor-between-dates>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

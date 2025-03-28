@@ -1,19 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { TdIOSpec } from '@monorepo/technical-doc';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
-import { PrWorkflowPortType } from '@monorepo/protocol';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { LabSelectTypeComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-type/lab-select-type.component';
+import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LiSelectTypeComponent } from '@monorepo/lab-lib/li-type';
+import { LiTypeEntity } from '@monorepo/lab-lib/li-core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { FlRadioButtonBigModule } from '@monorepo/front-core-lib/fl-radio-button-big';
-import { MatButton } from '@angular/material/button';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { PrWorkflowPortType } from '@monorepo/protocol';
+import { TdIOSpec } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
 export interface LabDynamicPortConfigDialogInput {
@@ -23,7 +23,7 @@ export interface LabDynamicPortConfigDialogInput {
 }
 
 interface LabFormType {
-  resourceType: FormControl<LabTypeEntity>;
+  resourceType: FormControl<LiTypeEntity>;
   humanName: FormControl<string>;
   shortDescription: FormControl<string>;
   isOptional: FormControl<boolean>;
@@ -43,7 +43,7 @@ interface LabFormType {
     MatDialogContent,
     ReactiveFormsModule,
     FlFormModule,
-    LabSelectTypeComponent,
+    LiSelectTypeComponent,
     MatError,
     MatFormField,
     MatLabel,
@@ -69,7 +69,7 @@ export class LabDynamicPortConfigDialogComponent {
 
     this.portType = data.portType;
     this.formGp = new FormBuilder().group({
-      resourceType: new FormControl(LabTypeEntity.fromResourceType(data.spec.resource_types[0])),
+      resourceType: new FormControl(LiTypeEntity.fromResourceType(data.spec.resource_types[0])),
       humanName: new FormControl(data.spec.human_name),
       shortDescription: new FormControl(data.spec.short_description),
       isOptional: new FormControl(data.spec.is_optional),

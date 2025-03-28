@@ -1,0 +1,24 @@
+<fl-search class="g-full-height">
+  <!-- Advanced section in the right in a drawer -->
+  <fl-search-advanced-form>
+    <!--  Show folder filter only when full page (the search). Otherwise, it is useless  -->
+    <li-view-config-search-form [showFolderFilter]="fullPageSearch"></li-view-config-search-form>
+  </fl-search-advanced-form>
+
+  <!--  Center header  -->
+  <fl-search-header>
+    <fl-text-icon>
+      <mat-icon flIcon="view"></mat-icon>
+      <h2>{{ 'biox.views' | translate }}</h2>
+    </fl-text-icon>
+  </fl-search-header>
+
+  <fl-search-result>
+    <li-view-config-table
+      [datasource]="datasource"
+      [columns]="columns"
+      [selectableRow]="!fullPageSearch"
+      (viewConfigSelected)="selectViewConfig($event)"
+      (tagSelected)="searchOnTag($event)"></li-view-config-table>
+  </fl-search-result>
+</fl-search>

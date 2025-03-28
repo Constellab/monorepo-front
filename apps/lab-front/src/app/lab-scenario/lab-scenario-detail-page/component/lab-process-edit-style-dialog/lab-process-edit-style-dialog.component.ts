@@ -1,17 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { LiProcess, LiProtocolService } from '@monorepo/lab-lib/li-core';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatButton } from '@angular/material/button';
+import { Observable } from 'rxjs';
+import { TdTypeStyle } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
-export type LabProcessEditStyleDialogInputData = FlFormDialogInput<LabProcess>;
+export type LabProcessEditStyleDialogInputData = FlFormDialogInput<LiProcess>;
 
 export interface LabProcessEditStyleFormData {
   style: TdTypeStyle;
@@ -31,12 +30,12 @@ export interface LabProcessEditStyleFormData {
   ],
 })
 export class LabProcessEditStyleDialogComponent
-  extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LabProcess>
+  extends FlFormDialogAbstractDirective<LabProcessEditStyleFormData, LiProcess>
   implements OnInit
 {
-  private protocolService = inject(LabProtocolService);
+  private protocolService = inject(LiProtocolService);
 
-  process: LabProcess;
+  process: LiProcess;
 
   constructor() {
     const data = inject<LabProcessEditStyleDialogInputData>(MAT_DIALOG_DATA);
@@ -55,7 +54,7 @@ export class LabProcessEditStyleDialogComponent
     });
   }
 
-  create(formValue: LabProcessEditStyleFormData): Observable<LabProcess> {
+  create(formValue: LabProcessEditStyleFormData): Observable<LiProcess> {
     return undefined;
   }
 
@@ -67,7 +66,7 @@ export class LabProcessEditStyleDialogComponent
     return 'biox.process_style_updated';
   }
 
-  update(formValue: LabProcessEditStyleFormData): Observable<LabProcess> {
+  update(formValue: LabProcessEditStyleFormData): Observable<LiProcess> {
     return this.protocolService.updateStyle(
       this.process.parentProtocolId,
       this.process.instanceName,

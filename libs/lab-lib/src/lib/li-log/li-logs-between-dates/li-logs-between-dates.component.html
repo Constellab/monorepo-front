@@ -1,0 +1,15 @@
+<div>
+  <fl-key-value>
+    <fl-key>{{ 'monitoring.from_date' | translate }}</fl-key>
+    {{ logs.fromDate | flDate: 'DATE_TIME_WITH_SECONDS' }}
+  </fl-key-value>
+
+  <fl-key-value>
+    <fl-key>{{ 'monitoring.to_date' | translate }}</fl-key>
+    {{ logs.toDate | flDate: 'DATE_TIME_WITH_SECONDS' }}
+  </fl-key-value>
+
+  <div class="logs">
+    <li-log-lines [logLines]="logs.logs" [showContext]="false"></li-log-lines>
+  </div>
+</div>

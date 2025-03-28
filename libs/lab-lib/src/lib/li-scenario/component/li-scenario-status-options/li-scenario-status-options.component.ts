@@ -1,0 +1,34 @@
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
+import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
+import { FlStatus } from '@monorepo/front-core-lib/fl-status';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
+import { TranslatePipe } from '@ngx-translate/core';
+import { labScenarioStatusDict } from '@monorepo/lab-lib/li-core';
+
+@Component({
+  selector: 'li-scenario-status-options',
+  templateUrl: './li-scenario-status-options.component.html',
+  styleUrls: ['./li-scenario-status-options.component.scss'],
+  imports: [MatOption, TranslatePipe],
+})
+export class LiScenarioStatusOptionsComponent
+  extends FlEmbeddedOptionsAbstractDirective
+  implements AfterViewInit
+{
+  select: MatSelect;
+
+  statusList: FlStatus[] = Object.values(labScenarioStatusDict);
+
+  constructor() {
+    const select = inject(MatSelect, { host: true, optional: true });
+
+    super(select);
+
+    this.select = select;
+  }
+
+  ngAfterViewInit(): void {
+    this.initOptions();
+  }
+}

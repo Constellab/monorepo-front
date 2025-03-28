@@ -6,8 +6,8 @@ import { Streamlit } from 'streamlit-component-lib';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { DcTextEditorConfig } from './dc-text-editor.config';
-import { DcCoreMainDirective } from '../../core/dc-core-main/dc-core-main.directive';
-import { DcResizeIframeDirective } from '../../core/dc-resize-iframe/dc-resize-iframe.directive';
+import { DcCoreMainDirective } from '../../core/directive/dc-core-main/dc-core-main.directive';
+import { DcResizeIframeDirective } from '../../core/directive/dc-resize-iframe/dc-resize-iframe.directive';
 
 export interface DcRichTextConfig {
   placeholder: string;

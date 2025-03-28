@@ -1,16 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { LabScenario, LabScenarioDatasource } from '../../../../lab-core/model/entities/lab-scenario.entity';
-import { LabScenarioService } from '../../../../lab-core/entity-service/lab-scenario.service';
-import { LabNote, LabNoteDatasource } from '../../../../lab-core/model/entities/lab-note.entity';
-import { LabNoteService } from '../../../../lab-core/entity-service/lab-note.service';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { LabScenarioTableComponent } from '../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
-import { LabNoteTableComponent } from '../../../../lab-core/entity-module/lab-note-core/component/lab-note-table/lab-note-table.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import {
+  LiNote,
+  LiNoteDatasource,
+  LiNoteService,
+  LiScenario,
+  LiScenarioDatasource,
+  LiScenarioService,
+} from '@monorepo/lab-lib/li-core';
+import { LiNoteTableComponent } from '@monorepo/lab-lib/li-note';
+import { LiScenarioTableComponent } from '@monorepo/lab-lib/li-scenario';
+import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -23,20 +27,20 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIcon,
     FlIconModule,
     FlInfiniteScrollModule,
-    LabScenarioTableComponent,
-    LabNoteTableComponent,
+    LiScenarioTableComponent,
+    LiNoteTableComponent,
     TranslatePipe,
   ],
 })
 export class LabResourceNextObjectsPortalComponent {
-  private scenarioService = inject(LabScenarioService);
-  private noteService = inject(LabNoteService);
+  private scenarioService = inject(LiScenarioService);
+  private noteService = inject(LiNoteService);
 
-  scenarios: LabScenarioDatasource;
-  scenarioColumns: FlTableColumnStatic<LabScenario>[] = ['title', 'status'];
+  scenarios: LiScenarioDatasource;
+  scenarioColumns: FlTableColumnStatic<LiScenario>[] = ['title', 'status'];
 
-  notes: LabNoteDatasource;
-  noteColumns: FlTableColumnStatic<LabNote>[] = ['title', 'lastModification'];
+  notes: LiNoteDatasource;
+  noteColumns: FlTableColumnStatic<LiNote>[] = ['title', 'lastModification'];
 
   constructor() {
     const resourceId = inject(FL_PORTAL_DATA);

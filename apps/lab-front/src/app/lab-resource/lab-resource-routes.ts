@@ -1,16 +1,14 @@
-import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, Routes, UrlTree } from '@angular/router';
-
+import { Injectable, inject } from '@angular/core';
+import { LiRouterService, LiViewConfigService } from '@monorepo/lab-lib/li-core';
 import { Observable, of } from 'rxjs';
-import { LabViewConfigService } from '../lab-core/entity-service/lab-view-config.service';
 import { catchError, map } from 'rxjs/operators';
-import { LabRouterService } from '../lab-core/service/lab-router.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LabViewRouteRedirectGuard {
-  private viewConfigService = inject(LabViewConfigService);
+  private viewConfigService = inject(LiViewConfigService);
   private router = inject(Router);
 
   canActivate(
@@ -19,15 +17,15 @@ export class LabViewRouteRedirectGuard {
     const viewId = route.params.id;
 
     if (!viewId) {
-      return this.router.createUrlTree([LabRouterService.getDataboxRoute()]);
+      return this.router.createUrlTree([LiRouterService.getDataboxRoute()]);
     }
 
     return this.viewConfigService.getById(viewId).pipe(
       map((viewConfig) => {
-        const route = LabRouterService.getViewConfigDetailRoute(viewConfig.resource.id, viewConfig.id);
+        const route = LiRouterService.getViewConfigDetailRoute(viewConfig.resource.id, viewConfig.id);
         return this.router.createUrlTree([route.route], { queryParams: route.queryParams });
       }),
-      catchError(() => of(this.router.createUrlTree([LabRouterService.getDataboxRoute()])))
+      catchError(() => of(this.router.createUrlTree([LiRouterService.getDataboxRoute()])))
     );
   }
 }

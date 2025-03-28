@@ -1,0 +1,31 @@
+<div class="chat-content">
+  @for (message of value.messages; track message; let index = $index) {
+    <li-open-ai-chat-message
+      [message]="message"
+      (action)="onAction($event, message, index)"></li-open-ai-chat-message>
+  }
+</div>
+
+<mat-form-field class="g-full" subscriptSizing="dynamic" #textarea>
+  <mat-label>{{ placeholder }}</mat-label>
+
+  <textarea
+    matInput
+    type="number"
+    [formControl]="messageCtrl"
+    [placeholder]="placeholder"
+    rows="4"
+    (keydown.enter)="onEnter($event)"
+    (blur)="markAsTouched()">
+  </textarea>
+
+  <button mat-icon-button matSuffix type="button" (click)="addMessage()">
+    <mat-icon>send</mat-icon>
+  </button>
+
+  @if (hint) {
+    <mat-hint>
+      {{ hint }}
+    </mat-hint>
+  }
+</mat-form-field>

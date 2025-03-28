@@ -1,15 +1,14 @@
-import { Injectable, OnDestroy, inject } from '@angular/core';
-import { LabNoteService } from '../../../lab-core/entity-service/lab-note.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LabNote } from '../../../lab-core/model/entities/lab-note.entity';
-import { filter } from 'rxjs/operators';
+import { Injectable, OnDestroy, inject } from '@angular/core';
+import { LiNote, LiNoteService } from '@monorepo/lab-lib/li-core';
 import { TeRichText } from '@monorepo/text-editor';
+import { filter } from 'rxjs/operators';
 
 @Injectable()
 export class LabNoteDetailPageState implements OnDestroy {
-  private noteService = inject(LabNoteService);
+  private noteService = inject(LiNoteService);
 
-  private note$: BehaviorSubject<LabNote> = new BehaviorSubject(null);
+  private note$: BehaviorSubject<LiNote> = new BehaviorSubject(null);
   private noteContent$: BehaviorSubject<TeRichText> = new BehaviorSubject(null);
 
   public init(noteId: string): void {
@@ -24,11 +23,11 @@ export class LabNoteDetailPageState implements OnDestroy {
     });
   }
 
-  public get currentNote(): LabNote {
+  public get currentNote(): LiNote {
     return this.note$.value;
   }
 
-  public getNote$(): Observable<LabNote> {
+  public getNote$(): Observable<LiNote> {
     return this.note$.asObservable().pipe(filter((note) => note != null));
   }
 
@@ -36,7 +35,7 @@ export class LabNoteDetailPageState implements OnDestroy {
     return this.noteContent$.asObservable().pipe(filter((note) => note != null));
   }
 
-  public updateNote(note: LabNote): void {
+  public updateNote(note: LiNote): void {
     const currentNote = this.currentNote;
     currentNote.title = note.title;
     currentNote.folder = note.folder;

@@ -1,16 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LabCurrentMonitorDTO } from '../../../../lab-core/model/entities/lab-monitor.entity';
-import { LabMonitorService } from '../../../../lab-core/entity-service/lab-monitor.service';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
-import { TranslatePipe } from '@ngx-translate/core';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import {
-  LabMonitorDiskComponent,
-} from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-disk/lab-monitor-disk.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiCurrentMonitorDTO, LiMonitorService } from '@monorepo/lab-lib/li-core';
+import { LiMonitorDiskComponent } from '@monorepo/lab-lib/li-monitor';
+import { Observable } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Show the current monitoring information.
@@ -24,11 +21,11 @@ import {
     FlCardModule,
     FlTextIconModule,
     FlSectionModule,
-    LabMonitorDiskComponent,
+    LiMonitorDiskComponent,
   ],
   templateUrl: './lab-monitoring-current-info.component.html',
   styleUrl: './lab-monitoring-current-info.component.scss',
 })
 export class LabMonitoringCurrentInfoComponent {
-  currentMonitor$: Observable<LabCurrentMonitorDTO> = inject(LabMonitorService).getCurrentMonitor();
+  currentMonitor$: Observable<LiCurrentMonitorDTO> = inject(LiMonitorService).getCurrentMonitor();
 }

@@ -1,24 +1,22 @@
 import {
   Component,
-  inject,
   Input,
   OnDestroy,
   OnInit,
   OutputRefSubscription,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
 import { LabConfigureProtocolComponent } from '../lab-configure-protocol/lab-configure-protocol.component';
 import { LabConfigureTaskComponent } from '../lab-configure-task/lab-configure-task.component';
 import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import { FlDynamicFieldConfigService } from '@monorepo/front-core-lib/fl-dynamic-field';
-import { LabProcessDashboardDynamicFieldConfig } from '../../../../lab-core/entity-module/lab-config-core/lab-process-dynamic-field-config.service';
+import { LiProcessDashboardDynamicFieldConfig } from '@monorepo/lab-lib/li-config';
+import { LiProcess } from '@monorepo/lab-lib/li-core';
+import { Observable, Subscription } from 'rxjs';
 import { TdAbstractDynamicParamSpecState } from '@monorepo/technical-doc';
-import {
-  LabDynamicParamSpecState
-} from '../../../../lab-core/entity-module/lab-config-core/state/lab-dynamic-param-spec.state';
+import { LabDynamicParamSpecState } from '../../state/lab-dynamic-param-spec.state';
 
 /**
  * Component inside LabConfigureProtocol to configure a process.
@@ -32,7 +30,7 @@ import {
   providers: [
     // configure the dynamic field to support tags and other custom fields
     // enable dynamic config
-    { provide: FlDynamicFieldConfigService, useClass: LabProcessDashboardDynamicFieldConfig },
+    { provide: FlDynamicFieldConfigService, useClass: LiProcessDashboardDynamicFieldConfig },
     // configure the dynamic param spec state for dynamic config
     // create the instance at this level so there is only 1 instance per dashboard (even in protocol config)
     // and it is not destroyed when the process changes (if yes it closes the edit dynamic config dialog)
@@ -40,7 +38,7 @@ import {
   ],
 })
 export class LabConfigureProcessComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) process$: Observable<LabProcess>;
+  @Input({ required: true }) process$: Observable<LiProcess>;
 
   @ViewChild('viewContainer', { static: true, read: ViewContainerRef }) viewContainer: ViewContainerRef;
 
@@ -54,7 +52,7 @@ export class LabConfigureProcessComponent implements OnInit, OnDestroy {
     this.subscription = this.process$.subscribe((process) => this.showProcessConfig(process));
   }
 
-  private showProcessConfig(process: LabProcess): void {
+  private showProcessConfig(process: LiProcess): void {
     // Check if the config has changed since the last process to avoid reloading the component
     if (!this.dashboardState.configHasChanged(process)) return;
     this.clearViewRef();

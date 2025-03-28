@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LabViewConfigSearchComponent } from '../../../lab-core/entity-module/lab-view-config-core/component/lab-view-config-search/lab-view-config-search.component';
+import { LiViewConfigSearchComponent } from '@monorepo/lab-lib/li-view-config';
 
 /**
  * Page of the views to search views.
@@ -8,6 +8,6 @@ import { LabViewConfigSearchComponent } from '../../../lab-core/entity-module/la
   selector: 'lab-views-page',
   templateUrl: './lab-view-search-page.component.html',
   styleUrls: ['./lab-view-search-page.component.scss'],
-  imports: [LabViewConfigSearchComponent],
+  imports: [LiViewConfigSearchComponent],
 })
 export class LabViewSearchPageComponent {}

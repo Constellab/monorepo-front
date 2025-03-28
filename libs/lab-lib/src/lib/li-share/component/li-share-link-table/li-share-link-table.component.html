@@ -1,0 +1,87 @@
+<mat-table mat-table [dataSource]="datasource" class="table">
+  <!-- Entity type -->
+  <ng-container matColumnDef="entityType">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'biox.share_link_entity_type' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div>
+        <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
+        @if (row.status === 'ERROR') {
+          <fl-text-icon [matTooltip]="'biox.share_link_object_not_found' | translate" gap="5px">
+            <div class="g-text-small g-warn-text">
+              {{ 'biox.share_link_object_not_found_short' | translate }}
+            </div>
+            <mat-icon class="g-warn-icon g-icon-small">errors</mat-icon>
+          </fl-text-icon>
+        }
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Name -->
+  <ng-container matColumnDef="entityName">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'name' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.entityName }}
+    </mat-cell>
+  </ng-container>
+
+  <!-- Valid until -->
+  <ng-container matColumnDef="validUntil">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'biox.share_link_valid_until' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.validUntil) {
+        <div
+          [matTooltip]="row.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
+          [ngClass]="{ 'g-warn-text': !row.isValid() }">
+          {{ row.validUntil | flDate }}
+        </div>
+      } @else {
+        {{ 'biox.share_link_no_valid_until' | translate }}
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Created -->
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'creation_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Download link -->
+  <ng-container matColumnDef="downloadLink">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'biox.share_links' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2">
+      <div class="download-link g-text-tiny">
+        <li-share-link-links [shareLink]="row"></li-share-link-links>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+      <!--   Mat menu containing action buttons   -->
+      <li-share-link-actions-menu
+        [shareLink]="row"
+        [showLinkToEntity]="true"
+        (update)="onLinkUpdated($event)"
+        (delete)="onLinkDeleted($event)"></li-share-link-actions-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns"></mat-row>
+</mat-table>

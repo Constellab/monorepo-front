@@ -1,9 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { ClApiError } from '@monorepo/core-lib';
 
@@ -13,13 +11,6 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class LmsApiErrorService extends FlApiErrorService {
-  constructor() {
-    const snackBarService = inject(FlSnackBarService);
-    const translateService = inject(FlTranslateService);
-
-    super(snackBarService, translateService);
-  }
-
   get defaultApiErrorDuration(): number {
     return null;
   }

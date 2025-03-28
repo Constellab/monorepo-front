@@ -3,19 +3,19 @@
     <!-- Technical information -->
     <fl-article-left-side>
       <!--  Tags  -->
-      <lab-tag-list
+      <li-tag-list
         class="g-flex-auto"
         [tags]="tags$"
         [showNoTagMessage]="true"
         entityType="SCENARIO"
         [enableDetails]="true"
-        [entityId]="scenario.id"></lab-tag-list>
+        [entityId]="scenario.id"></li-tag-list>
       <!--  Folder  -->
-      <lab-folder-inline-select
+      <li-folder-inline-select
         class="separator"
         [(ngModel)]="scenario.folder"
         (selectionChange)="updateFolder($event)"
-        [disabled]="!scenario.isInfoEditable()"></lab-folder-inline-select>
+        [disabled]="!scenario.isInfoEditable()"></li-folder-inline-select>
       <!--  Type  -->
       <fl-text-icon
         class="separator"
@@ -28,11 +28,11 @@
       </fl-text-icon>
       <!--  Validated info  -->
       @if (scenario.isValidated) {
-        <lab-object-validation-info class="separator" [object]="scenario"></lab-object-validation-info>
+        <li-object-validation-info class="separator" [object]="scenario"></li-object-validation-info>
       }
       <!--  Sync info  -->
       @if (scenario.isSynced) {
-        <lab-object-sync-info class="separator" [object]="scenario"></lab-object-sync-info>
+        <li-object-sync-info class="separator" [object]="scenario"></li-object-sync-info>
       }
       <!--  Created by & Last modified bt  -->
       <p class="g-text-small g-text-light separator">

@@ -1,26 +1,28 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
-import { LabEnvironmentHelper } from '../../../lab-core/utils/lab-environment.helper';
-import { LabAuthenticatedUserService } from '../../../lab-core/service/lab-authenticated-user.service';
-import { LabRouterService } from '../../../lab-core/service/lab-router.service';
-import { LabSystemService } from '../../../lab-core/service/lab-system.service';
-import { Title } from '@angular/platform-browser';
-import { LabSystemInfo } from '../../../lab-core/model/global/lab-system.class';
-import { LabBrickService } from '../../../lab-core/entity-service/lab-brick.service';
-import { LabBrickEntity } from '../../../lab-core/model/entities/lab-brick.entity';
-import { TdBrick } from '@monorepo/technical-doc';
-import { LabEnvStore } from '../../../lab-core/service/lab-env.store';
-import { NgClass } from '@angular/common';
-import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
-import { MatDivider } from '@angular/material/divider';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIcon } from '@angular/material/icon';
+import { FlExpansionMenuModule } from '@monorepo/front-core-lib/fl-expansion-menu';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { getMainMenuLinks, labBiotaMenuLink, LabMainMenuLink } from '../../lab-main-menu-link.class';
 import { LabMainMenuSettingsComponent } from '../lab-main-menu-settings/lab-main-menu-settings.component';
+import {
+  LiAuthenticatedUserService,
+  LiBrickEntity,
+  LiBrickService,
+  LiRouterService,
+  LiSystemInfo,
+  LiSystemService,
+} from '@monorepo/lab-lib/li-core';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { NgClass } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TdBrick } from '@monorepo/technical-doc';
+import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
+import { LabEnvStore } from '../../../lab-core/lab-env.store';
 
 @Component({
   selector: 'lab-main-app',
@@ -45,10 +47,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class LabMainAppComponent implements OnInit {
   private labEnvManager = inject(LabEnvStore);
-  private authenticatedUserService = inject(LabAuthenticatedUserService);
-  private systemService = inject(LabSystemService);
+  private authenticatedUserService = inject(LiAuthenticatedUserService);
+  private systemService = inject(LiSystemService);
   private titleService = inject(Title);
-  private brickService = inject(LabBrickService);
+  private brickService = inject(LiBrickService);
 
   accessibleLinks: LabMainMenuLink[] = getMainMenuLinks();
 
@@ -56,7 +58,7 @@ export class LabMainAppComponent implements OnInit {
 
   menuExpanded: boolean = true;
 
-  appRoute = LabRouterService.getAppRoute();
+  appRoute = LiRouterService.getAppRoute();
 
   labName: string;
 
@@ -79,7 +81,7 @@ export class LabMainAppComponent implements OnInit {
     this.brickService.getBrick(TdBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
   }
 
-  private checkBiotaSuccess(brick: LabBrickEntity): void {
+  private checkBiotaSuccess(brick: LiBrickEntity): void {
     if (brick && brick.status.value !== 'CRITICAL') {
       this.accessibleLinks.push(labBiotaMenuLink);
     }
@@ -89,12 +91,12 @@ export class LabMainAppComponent implements OnInit {
     this.systemService.getSystemInfo().subscribe((systemInfo) => this.getSystemInfoSuccess(systemInfo));
   }
 
-  private getSystemInfoSuccess(systemInfo: LabSystemInfo): void {
+  private getSystemInfoSuccess(systemInfo: LiSystemInfo): void {
     this.setLabName(systemInfo.labName);
     if (systemInfo.space) {
       this.spaceName = systemInfo.space.name;
       if (systemInfo.space.photo) {
-        this.logo = this.systemService.getSpacePhotoUrl(systemInfo.space.photo);
+        this.logo = LabEnvironmentHelper.getSpaceApiUrl() + '/spaces/photo/' + systemInfo.space.photo;
       }
     } else {
       console.error('No space found');

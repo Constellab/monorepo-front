@@ -1,0 +1,44 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="note-form" [formGroup]="formGp">
+    <!--  Title  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'title' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        required
+        flInputMaxLength="255"
+        placeholder="{{ 'title' | translate }}" />
+      @if (formGp.get('title').hasError('required')) {
+        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+
+    <!--  Template  -->
+    @if (isCreateMode()) {
+      <fl-form-field class="g-form-input">
+        <li-select-note-template
+          formControlName="template"
+          [placeholder]="'biox.select_note_template' | translate"
+          (valueChange)="onTemplateSelected($event)"></li-select-note-template>
+      </fl-form-field>
+    }
+
+    <!--    Folder      -->
+    <p class="g-text-light helper-text">{{ 'biox.select_folder_help' | translate }}</p>
+    <li-folder-select formControlName="folder" [multiple]="false"></li-folder-select>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="note-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

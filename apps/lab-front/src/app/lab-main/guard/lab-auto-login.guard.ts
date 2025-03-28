@@ -1,8 +1,7 @@
-import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { LiAuthService, LiRouterService } from '@monorepo/lab-lib/li-core';
 import { Observable } from 'rxjs';
-import { LabAuthService } from '../../lab-core/service/lab-auth.service';
-import { LabRouterService } from '../../lab-core/service/lab-router.service';
 
 /**
  * Guard to get the token from the query param named 'token', store it locally
@@ -14,7 +13,7 @@ import { LabRouterService } from '../../lab-core/service/lab-router.service';
 })
 export class LabAutoLoginGuard {
   private router = inject(Router);
-  private authenticateService = inject(LabAuthService);
+  private authenticateService = inject(LiAuthService);
 
   canActivate(
     route: ActivatedRouteSnapshot
@@ -29,9 +28,9 @@ export class LabAutoLoginGuard {
     if (expiresIn) {
       // store the token in the
       this.authenticateService.afterLogin(expiresIn);
-      return this.router.parseUrl(LabRouterService.getLoginRoute());
+      return this.router.parseUrl(LiRouterService.getLoginRoute());
     } else {
-      return this.router.parseUrl(LabRouterService.getLoginRoute());
+      return this.router.parseUrl(LiRouterService.getLoginRoute());
     }
   }
 }

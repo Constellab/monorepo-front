@@ -1,7 +1,13 @@
-import { Component, inject, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
-import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
+import { ClStringHelper } from '@monorepo/core-lib';
+import { Component, Input, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiScenarioTemplate, LiScenarioTemplateService } from '@monorepo/lab-lib/li-core';
+import { MatIcon } from '@angular/material/icon';
+import { Observable, of } from 'rxjs';
 import {
   PrProtocolGraph,
+  PrProtocolModule,
   PrWorkflow,
   PrWorkflowActionState,
   PrWorkflowFactory,
@@ -9,13 +15,6 @@ import {
   PrWorkflowNodeMenuConfigEmpty,
   PrWorkflowResourcesState,
 } from '@monorepo/protocol';
-import { Observable, of } from 'rxjs';
-import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
-import { ClStringHelper } from '@monorepo/core-lib';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { PrProtocolModule } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -28,9 +27,9 @@ export class LabScenarioTemplateWorkflowComponent implements OnInit, OnDestroy {
   private actionState = inject(PrWorkflowActionState);
   private ngZone = inject(NgZone);
   private workflowResourcesState = inject(PrWorkflowResourcesState);
-  private scenarioTemplateService = inject(LabScenarioTemplateService);
+  private scenarioTemplateService = inject(LiScenarioTemplateService);
 
-  @Input() template: LabScenarioTemplate;
+  @Input() template: LiScenarioTemplate;
 
   viewConfig = new PrWorkflowNodeMenuConfigEmpty();
 

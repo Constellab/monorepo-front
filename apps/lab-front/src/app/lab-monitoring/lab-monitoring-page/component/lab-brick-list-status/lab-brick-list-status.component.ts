@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LabBrickEntity } from '../../../../lab-core/model/entities/lab-brick.entity';
-import { LabBrickService } from '../../../../lab-core/entity-service/lab-brick.service';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { LabBrickInfoComponent } from '../lab-brick-info/lab-brick-info.component';
+import { LiBrickEntity, LiBrickService } from '@monorepo/lab-lib/li-core';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -11,8 +11,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { LabBrickInfoComponent } from '../lab-brick-info/lab-brick-info.component';
+import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -34,9 +33,9 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class LabBrickListStatusComponent implements OnInit {
-  private brickService = inject(LabBrickService);
+  private brickService = inject(LiBrickService);
 
-  bricks$: Observable<LabBrickEntity[]>;
+  bricks$: Observable<LiBrickEntity[]>;
 
   ngOnInit(): void {
     this.bricks$ = this.brickService.getAllBricks();

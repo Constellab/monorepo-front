@@ -1,6 +1,13 @@
+import { LiResourceRichTextViewComponent } from '@monorepo/lab-lib/li-resource';
+import {
+  LiResourceTableService,
+  LiResourceView,
+  LiShareLinkPublicAuth,
+  LiShareService,
+} from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
 import {
   RvConfigValues,
-  rvDefaultViewTypeInfos,
   RvResourceViewModuleConfig,
   RvResourceViewTable,
   RvResourceViewText,
@@ -8,41 +15,36 @@ import {
   RvSpreadsheetViewConfig,
   RvTextViewConfig,
   RvViewConfig,
+  rvDefaultViewTypeInfos,
 } from '@monorepo/resource-view';
 import { SpSheetChartConfig, SpSpreadsheetPage, SpSpreadsheetPageLoader } from '@monorepo/spreadsheet';
-import { Observable } from 'rxjs';
-import { LabResourceRichTextViewComponent } from '../../lab-core/entity-module/lab-resource-core/component/lab-resource-rich-text-view/lab-resource-rich-text-view.component';
-import { LabShareService } from '../../lab-core/entity-service/lab-share.service';
-import { LabResourceTableService } from '../../lab-core/entity-service/lab-resource-table.service';
 import { map } from 'rxjs/operators';
-import { LabResourceView } from '../../lab-core/model/entities/resource/lab-resource-view.entity';
-import { LabShareLinkPublicAuth } from '../../lab-core/model/entities/lab-share.entity';
 
 /**
  * Class to make request to lab api when loading a spreadsheet page
  */
 export class LabOpenRouteResourceSpreadsheetLoader implements SpSpreadsheetPageLoader {
   constructor(
-    private shareService: LabShareService,
+    private shareService: LiShareService,
     private viewConfig: RvViewConfig,
-    private auth: LabShareLinkPublicAuth
+    private auth: LiShareLinkPublicAuth
   ) {}
 
   loadRows(fromRow: number): Observable<SpSpreadsheetPage> {
-    const viewConfig = LabResourceTableService.getViewConfigNextPage(this.viewConfig.configValues, fromRow);
+    const viewConfig = LiResourceTableService.getViewConfigNextPage(this.viewConfig.configValues, fromRow);
     return this.shareService
       .callViewOnResource(this.auth, this.viewConfig.methodName, viewConfig)
       .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
   }
 
   loadPreviousRows(toRow: number): Observable<SpSpreadsheetPage> {
-    const viewConfig = LabResourceTableService.getViewConfigPreviousPage(this.viewConfig.configValues, toRow);
+    const viewConfig = LiResourceTableService.getViewConfigPreviousPage(this.viewConfig.configValues, toRow);
     return this.shareService
       .callViewOnResource(this.auth, this.viewConfig.methodName, viewConfig)
       .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
   }
 
-  private convertToSpSpreadPaginationResult(view: LabResourceView): SpSpreadsheetPage {
+  private convertToSpSpreadPaginationResult(view: LiResourceView): SpSpreadsheetPage {
     const tableView: RvResourceViewTable = view.view as RvResourceViewTable;
     return {
       data: tableView.data.table,
@@ -53,8 +55,8 @@ export class LabOpenRouteResourceSpreadsheetLoader implements SpSpreadsheetPageL
 
 export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
   constructor(
-    private shareService: LabShareService,
-    private auth: LabShareLinkPublicAuth
+    private shareService: LiShareService,
+    private auth: LiShareLinkPublicAuth
   ) {
     super();
   }
@@ -73,10 +75,10 @@ export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
   }
 }
 
-export class LabTextViewConfig extends RvTextViewConfig {
+export class LiTextViewConfig extends RvTextViewConfig {
   constructor(
-    private shareService: LabShareService,
-    private auth: LabShareLinkPublicAuth
+    private shareService: LiShareService,
+    private auth: LiShareLinkPublicAuth
   ) {
     super();
   }
@@ -102,8 +104,8 @@ export class LabTextViewConfig extends RvTextViewConfig {
  */
 export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleConfig {
   constructor(
-    private shareService: LabShareService,
-    private auth: LabShareLinkPublicAuth
+    private shareService: LiShareService,
+    private auth: LiShareLinkPublicAuth
   ) {
     super();
   }
@@ -116,13 +118,13 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
       //   viewComponent: null,
       // },
       // 'resources-list-view': {
-      //   viewComponent: LabResourceViewListComponent,
+      //   viewComponent: LiResourceViewListComponent,
       // },
       // 'folder-view': {
-      //   viewComponent: LabResourceViewFolderComponent,
+      //   viewComponent: LiResourceViewFolderComponent,
       // },
       'rich-text-view': {
-        viewComponent: LabResourceRichTextViewComponent,
+        viewComponent: LiResourceRichTextViewComponent,
       },
     };
   }
@@ -132,7 +134,7 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
   }
 
   getTextViewConfig(): RvTextViewConfig {
-    return new LabTextViewConfig(this.shareService, this.auth);
+    return new LiTextViewConfig(this.shareService, this.auth);
   }
 
   /**

@@ -1,0 +1,19 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
+import { LiFolderObject } from '@monorepo/lab-lib/li-core';
+import { MatIcon } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
+
+/**
+ * Component to show information about the sync of a folder object
+ */
+@Component({
+  selector: 'li-object-sync-info',
+  templateUrl: './li-object-sync-info.component.html',
+  styleUrls: ['./li-object-sync-info.component.scss'],
+  imports: [MatIcon, FlUserModule, FlTextIconModule, TranslatePipe],
+})
+export class LiObjectSyncInfoComponent {
+  @Input() object: LiFolderObject;
+}

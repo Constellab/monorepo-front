@@ -1,0 +1,11 @@
+<fl-dialog-header>
+  {{ 'biox.share_origin_info' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [object]="resourceShare$">
+    <ng-container *flSectionBody="resourceShare$ as resourceShare">
+      <li-shared-entity-origin [sharedEntity]="resourceShare"></li-shared-entity-origin>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

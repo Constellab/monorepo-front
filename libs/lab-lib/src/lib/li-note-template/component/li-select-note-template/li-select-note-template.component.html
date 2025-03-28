@@ -1,0 +1,19 @@
+<fl-input-search
+  [selectedItem]="selectedNoteTemplate"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [initSearchOnFocus]="true"
+  [advancedButton]="advancedButton">
+  <div class="photo" *flInputSearchPrefix="datasource as template">
+    @if (template) {
+      <fl-user-profile-picture [user]="template.createdBy" size="small"></fl-user-profile-picture>
+    }
+  </div>
+
+  <li-note-template-inline *flInputSearchOption="datasource as template" [noteTemplate]="template">
+  </li-note-template-inline>
+</fl-input-search>

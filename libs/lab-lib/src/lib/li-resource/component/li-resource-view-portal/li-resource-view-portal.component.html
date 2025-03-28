@@ -1,0 +1,72 @@
+<fl-portal class="portal" flResize="both" [style.width]="width" [style.height]="height">
+  <fl-portal-header [enableDrag]="!editTitle">
+    <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+      <td-type-icon-badge [style]="labView.style" [iconSize]="19" class="header-button"></td-type-icon-badge>
+
+      <div
+        class="title g-flex-auto"
+        [(flElementEditable)]="editTitle"
+        [flElementIgnoreDrag]="true"
+        [flElementDisabled]="labView.viewConfig == null"
+        (flElementValueChange)="updateTitle($event)">
+        {{ labView.title }}
+      </div>
+    </div>
+
+    <fl-portal-header-buttons>
+      @if (labView.viewConfig) {
+        <li-view-config-favorite
+          [viewConfig]="labView.viewConfig"
+          (update)="onUpdate($event)"
+          class="header-button"></li-view-config-favorite>
+      }
+
+      <rv-technical-info-button [technicalInfo]="labView.view.technical_info"></rv-technical-info-button>
+
+      @if (labView.viewConfig) {
+        <li-view-config-actions-menu
+          [viewConfig]="labView.viewConfig"
+          (update)="onUpdate($event)"
+          mode="icon">
+          @if (resourceStateAccessible) {
+            <ng-container>
+              <button mat-menu-item type="button" (click)="updateView()">
+                <mat-icon>settings</mat-icon>
+                {{ 'biox.update_view' | translate }}
+              </button>
+            </ng-container>
+          }
+        </li-view-config-actions-menu>
+      }
+
+      @if (resourceStateAccessible) {
+        <button
+          mat-icon-button
+          type="button"
+          [matTooltip]="'biox.dock_view' | translate"
+          (click)="dockView()">
+          <mat-icon>dock</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          type="button"
+          [matTooltip]="'biox.minimize_view' | translate"
+          (click)="minimizeView()">
+          <mat-icon>remove</mat-icon>
+        </button>
+      }
+
+      <fl-resize-portal-fullscreen-button></fl-resize-portal-fullscreen-button>
+    </fl-portal-header-buttons>
+  </fl-portal-header>
+
+  <fl-portal-content>
+    <rv-resource-view
+      [view]="labView.view"
+      [config]="rvConfig"
+      [resourceId]="labView.resourceId"
+      [contextMenuItems]="contextMenuItems">
+    </rv-resource-view>
+  </fl-portal-content>
+</fl-portal>

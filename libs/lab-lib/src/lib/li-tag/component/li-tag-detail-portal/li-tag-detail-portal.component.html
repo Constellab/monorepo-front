@@ -1,0 +1,36 @@
+<fl-portal>
+  <fl-portal-content>
+    <fl-async-section [object]="tagDetail$">
+      <ng-container *flSectionBody="tagDetail$ as tagDetail">
+        <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+          <div class="color" [style.background-color]="tagDetail | flTagColor | async"></div>
+          <div>
+            <fl-key-value>
+              <fl-key>{{ 'tag_key' | translate }}</fl-key>
+              <span class="tag">{{ tagDetail.key }}</span>
+            </fl-key-value>
+
+            <fl-key-value>
+              <fl-key>{{ 'tag_value' | translate }}</fl-key>
+              <span class="tag">{{ tagDetail.value }}</span>
+            </fl-key-value>
+          </div>
+        </div>
+
+        <mat-divider class="divider"></mat-divider>
+
+        <fl-key-value>
+          <fl-key>{{ 'created_at' | translate }}</fl-key>
+          {{ tagDetail.createdAt | flDate: 'DATE_TIME' }}
+        </fl-key-value>
+
+        <fl-text-ok-nok
+          [value]="tagDetail.isPropagable"
+          [okText]="'tag_is_propagable' | translate"
+          [nokText]="'tag_is_not_propagable' | translate"></fl-text-ok-nok>
+
+        <li-tag-origins [tagEntityId]="tagDetail.id" class="origins"></li-tag-origins>
+      </ng-container>
+    </fl-async-section>
+  </fl-portal-content>
+</fl-portal>

@@ -31,19 +31,18 @@
           </fl-text-icon>
         </div>
 
-        <lab-sync-object-button
+        <li-sync-object-button
           [object]="note"
           [syncObjectFunc]="syncObjectFunc"
           additionalConfirmText="biox.sync_note_confirmation"
           (objectUpdate)="onNoteUpdate($event)"
           class="g-print-hide">
-        </lab-sync-object-button>
+        </li-sync-object-button>
 
         <div class="g-print-hide action-buttons">
           <button mat-icon-button type="button" (click)="openActionMenu(note, $event)">
             <mat-icon>more_vert</mat-icon>
           </button>
-
         </div>
       </div>
 
@@ -57,30 +56,30 @@
             [debounceTime]="2500"></te-text-editor-save>
 
           <!-- Tags -->
-          <lab-tag-list
+          <li-tag-list
             [tags]="tags"
             entityType="NOTE"
             [entityId]="note.id"
             [showNoTagMessage]="true"
             [enableDetails]="true"
-            class="separator"></lab-tag-list>
+            class="separator"></li-tag-list>
 
           <!--  Folder  -->
-          <lab-folder-inline-select
+          <li-folder-inline-select
             [(ngModel)]="note.folder"
             (selectionChange)="updateFolder($event)"
             [disabled]="!note.isEditable()"
             class="separator"
-            [updateFolderHelpText]="'biox.update_note_folder_help' | translate"></lab-folder-inline-select>
+            updateFolderHelpText="biox.update_note_folder_help"></li-folder-inline-select>
 
           <!--  Validated info  -->
           @if (note.isValidated) {
-            <lab-object-validation-info class="separator" [object]="note"></lab-object-validation-info>
+            <li-object-validation-info class="separator" [object]="note"></li-object-validation-info>
           }
 
           <!--  Sync info  -->
           @if (note.isSynced) {
-            <lab-object-sync-info class="separator" [object]="note"></lab-object-sync-info>
+            <li-object-sync-info class="separator" [object]="note"></li-object-sync-info>
           }
 
           <!--  Created by & Last modified bt  -->

@@ -1,7 +1,7 @@
 import { ApplicationConfig } from '@angular/core';
-import { dcCoreConfig } from '../core/dc-core-config';
 import { dcProcessConfigI18n } from './dc-process-config.i18n';
+import { dcCoreWithAuthConfig } from '../core/dc-core-with-auth-config';
 
 export function dcProcessConfigGetAppConfig(): ApplicationConfig {
-  return dcCoreConfig(dcProcessConfigI18n);
+  return dcCoreWithAuthConfig(dcProcessConfigI18n);
 }

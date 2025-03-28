@@ -8,12 +8,12 @@
 
     <!--  ResourceType   -->
     <fl-form-field class="g-form-input">
-      <lab-select-type
+      <li-select-type
         mode="resource"
         [placeholder]="'resource_type' | translate"
         formControlName="resourceType"
         [required]="true">
-      </lab-select-type>
+      </li-select-type>
       @if (formGp.get('resourceType').hasError('required')) {
         <mat-error>{{ 'resource_type' | flErrorRequired }}</mat-error>
       }

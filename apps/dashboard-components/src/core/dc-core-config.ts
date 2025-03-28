@@ -38,6 +38,10 @@ function initRootInjector(injector: Injector): void {
   flSetRootInjector(injector);
 }
 
+/**
+ * Basic Dc core config
+ * @param translations
+ */
 export function dcCoreConfig(translations: FlTranslateObject): ApplicationConfig {
   return {
     providers: [

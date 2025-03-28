@@ -1,27 +1,28 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlEntityPaginatedDatasource, FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { FlTag } from '@monorepo/front-core-lib/fl-tag';
-
-import { LabTagFormDialogComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-form-dialog/lab-tag-form-dialog.component';
-import { LabTagHelpDialogComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-help-dialog/lab-tag-help-dialog.component';
-import {
-  LabCreateTagResponse,
-  LabTagKeyModel,
-  LabTagKeyModelDatasource,
-} from '../../../../lab-core/model/entities/lab-tag.entity';
-import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import {
+  LiCreateTagResponse,
+  LiTagKeyModel,
+  LiTagKeyModelDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
+import {
+  LiTagEntityDetailComponent,
+  LiTagFormDialogComponent,
+  LiTagHelpDialogComponent,
+} from '@monorepo/lab-lib/li-tag';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
-import { LabTagEntityDetailComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-entity-detail/lab-tag-entity-detail.component';
-import { AsyncPipe } from '@angular/common';
-import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 
 @Component({
   selector: 'lab-monitoring-tags-page',
@@ -34,7 +35,7 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
     MatIconButton,
     MatTooltip,
     FlInfiniteScrollModule,
-    LabTagEntityDetailComponent,
+    LiTagEntityDetailComponent,
     AsyncPipe,
     FlCorePipeModule,
     TranslatePipe,
@@ -42,10 +43,10 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
   ],
 })
 export class LabMonitoringTagsPageComponent implements OnInit {
-  private tagService = inject(LabTagService);
+  private tagService = inject(LiTagService);
   private dialogService = inject(FlDialogService);
 
-  tagKeys: LabTagKeyModelDatasource;
+  tagKeys: LiTagKeyModelDatasource;
 
   ngOnInit(): void {
     this.tagKeys = new FlEntityPaginatedDatasource(
@@ -60,22 +61,22 @@ export class LabMonitoringTagsPageComponent implements OnInit {
     };
 
     this.dialogService
-      .openSmallDialog(LabTagFormDialogComponent, { data: input })
+      .openSmallDialog(LiTagFormDialogComponent, { data: input })
       .afterClosed()
       .subscribe((createResponse) => this.onAddClosed(createResponse));
   }
 
-  private onAddClosed(createResponse?: LabCreateTagResponse): void {
+  private onAddClosed(createResponse?: LiCreateTagResponse): void {
     if (createResponse) {
       this.tagKeys.addItem(createResponse.keyModel);
     }
   }
 
   openTagHelpDialog(): void {
-    this.dialogService.openSmallDialog(LabTagHelpDialogComponent, { panelClass: 'g-dialog-main-background' });
+    this.dialogService.openSmallDialog(LiTagHelpDialogComponent, { panelClass: 'g-dialog-main-background' });
   }
 
-  lastTagValueDeleted(tagKey: LabTagKeyModel): void {
+  lastTagValueDeleted(tagKey: LiTagKeyModel): void {
     this.tagKeys.removeItem(tagKey);
   }
 }

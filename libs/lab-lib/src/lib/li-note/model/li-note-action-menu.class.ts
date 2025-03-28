@@ -1,0 +1,87 @@
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
+import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
+import { Injector } from '@angular/core';
+import { LiEntityActionMenu } from '@monorepo/lab-lib/li-entity';
+import { LiNote, LiNoteService, LiTagDatasource } from '@monorepo/lab-lib/li-core';
+import { Observable } from 'rxjs';
+
+export type LiNoteActionEvent = {
+  action: 'archive' | 'unarchive';
+  note: LiNote;
+};
+
+export class LiNoteActionMenu extends LiEntityActionMenu<LiNoteActionEvent> {
+  constructor(
+    injector: Injector,
+    protected note: LiNote,
+    protected tags: LiTagDatasource
+  ) {
+    super(injector);
+  }
+
+  public openActionMenuInTable(event: MouseEvent): Observable<LiNoteActionEvent> {
+    const menu = [this.getTagsButton('NOTE', this.note.id, this.tags), this.getArchiveButton()];
+
+    return this.generateMenu(menu, event);
+  }
+
+  ////////////////////////////////////////// BUTTONS //////////////////////////////////////////
+
+  protected getArchiveButton(): FlMenuDynamic {
+    if (this.note.isArchived) {
+      return {
+        type: 'button',
+        text: 'biox.unarchive_note',
+        icon: 'unarchive',
+        color: 'warn',
+        onClick: () =>
+          this.toggleArchive({
+            title: 'biox.unarchive_note',
+            content: 'biox.unarchive_note_confirmation',
+            observable: this.injector.get(LiNoteService).unarchive(this.note.id),
+            successMessage: 'biox.note_unarchived',
+          }),
+      };
+    } else {
+      return {
+        type: 'button',
+        text: 'biox.archive_note',
+        icon: 'archive',
+        color: 'warn',
+        onClick: () =>
+          this.toggleArchive({
+            title: 'biox.archive_note',
+            content: 'biox.archive_note_confirmation',
+            observable: this.injector.get(LiNoteService).archive(this.note.id),
+            successMessage: 'biox.note_archived',
+          }),
+      };
+    }
+  }
+
+  ////////////////////////////////////////// ACTIONS //////////////////////////////////////////
+
+  private toggleArchive(dialogInput: FlConfirmDialogInput): void {
+    this.injector
+      .get(FlDialogService)
+      .openConfirmDialog(dialogInput)
+      .afterClosed()
+      .subscribe((result) => this.onArchiveClosed(result));
+  }
+
+  private onArchiveClosed(result: FlConfirmDialogResult<LiNote>): void {
+    if (result.choice) {
+      if (result.result.isArchived) {
+        this.subject.next({ action: 'archive', note: result.result });
+      } else {
+        this.subject.next({ action: 'unarchive', note: result.result });
+      }
+    }
+
+    this.subject.complete();
+  }
+}

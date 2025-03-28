@@ -1,29 +1,27 @@
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { LabStreamlitService } from '../../../../lab-core/service/lab-streamlit.service';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { Observable } from 'rxjs';
-import { LabStreamlitStatus } from '../../../../lab-core/model/global/lab-streamlit.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
 import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiDetailRoutePipe, LiStreamlitService, LiStreamlitStatus } from '@monorepo/lab-lib/li-core';
 import {
   MatAccordion,
   MatExpansionPanel,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
-import { AsyncPipe, JsonPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabDetailRoutePipe } from '../../../../lab-core/lab-core-pipe/lab-detail-route/lab-detail-route.pipe';
 
 /**
  * Component to show information about the streamlit status
@@ -49,14 +47,14 @@ import { LabDetailRoutePipe } from '../../../../lab-core/lab-core-pipe/lab-detai
     AsyncPipe,
     JsonPipe,
     TranslatePipe,
-    LabDetailRoutePipe,
+    LiDetailRoutePipe,
   ],
 })
 export class LabMonitoringStreamlitStatusComponent {
-  private streamlitService = inject(LabStreamlitService);
+  private streamlitService = inject(LiStreamlitService);
   private dialogService = inject(FlDialogService);
 
-  status$: Observable<LabStreamlitStatus> = this.streamlitService.getStatus();
+  status$: Observable<LiStreamlitStatus> = this.streamlitService.getStatus();
 
   stopAll(): void {
     const input: FlConfirmDialogInput = {

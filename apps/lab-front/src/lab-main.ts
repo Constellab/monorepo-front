@@ -34,11 +34,8 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { LabEnvironmentHelper } from './app/lab-core/utils/lab-environment.helper';
-import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './app/lab-core/service/lab-env.store';
 import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { RV_MODULE_CONFIG } from '@monorepo/resource-view';
-import { LabResourceViewModuleConfig } from './app/lab-core/model/entities/resource/lab-resource-view.config';
 import { TranslateLoader } from '@ngx-translate/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -47,24 +44,31 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
-import { LabApiServiceConfig } from './app/lab-core/service/lab-api-module.config';
-import { LabApiErrorService } from './app/lab-core/service/lab-api-error.service';
-import { labSvgIcons } from './app/lab-core/utils/lab-svg-icon-config';
-import { LabAuthService } from './app/lab-core/service/lab-auth.service';
-import { LabTagService } from './app/lab-core/entity-service/lab-tag.service';
 import { BnBioNetworkModule } from '@monorepo/bio-network';
-import { LabBioNetworkService } from './app/lab-core/entity-service/lab-bio-network.service';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { LabTdServiceConfig } from './app/lab-core/service/lab-td-service.config';
-import { LabUserConfig } from './app/lab-core/model/config/lab-user-config.service';
 import { PrProtocolModule } from '@monorepo/protocol';
 import { LabWorkflowResourcesState } from './app/lab-scenario/lab-scenario-detail-page/state/lab-workflow-resources.state';
 import { CoCommunityLibModule } from '@monorepo/community-lib';
-import { LabCoServiceConfig } from './app/lab-core/model/config/lab-co-service-config.service';
 import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { labMainRoutes } from './app/lab-main/lab-main-routes';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { TeFixInit } from '@monorepo/text-editor';
+import { LabEnvironmentHelper } from './app/lab-core/lab-environment.helper';
+import { LabEnvStore, LabEnvStoreLocalStorage, LabEnvStoreUrl } from './app/lab-core/lab-env.store';
+import { LabApiServiceConfig } from './app/lab-core/lab-api-module.config';
+import {
+  LiAuthService,
+  LiBioNetworkService,
+  LiConfig,
+  liSvgIcons,
+  LiTagService,
+  LiTdServiceConfig,
+} from '@monorepo/lab-lib/li-core';
+import { LabApiErrorService } from './app/lab-core/lab-api-error.service';
+import { LabCoServiceConfig } from './app/lab-core/lab-co-service-config.service';
+import { LabUserConfig } from './app/lab-core/lab-user-config.service';
+import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
+import { LabLibConfig } from './app/lab-core/lab-lib.config';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
   return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
@@ -124,16 +128,16 @@ function bootstrapApp(): void {
         // configuration of Front library
         FlIconModule.forRoot({
           iconFolder: 'assets/fl-mat-icons/',
-          iconsToRegister: labSvgIcons,
+          iconsToRegister: liSvgIcons,
         }),
         FlDialogModule.forRoot(),
         FlSnackBarModule.forRoot(),
         FlPortalModule.forRoot(),
         FlPortalActionsModule.forRoot(),
-        FlAuthModule.forRoot(LabAuthService),
-        FlTagModule.forRoot(LabTagService),
-        BnBioNetworkModule.forRoot(LabBioNetworkService),
-        TdTechnicalDocModule.forRoot(LabTdServiceConfig),
+        FlAuthModule.forRoot(LiAuthService),
+        FlTagModule.forRoot(LiTagService),
+        BnBioNetworkModule.forRoot(LiBioNetworkService),
+        TdTechnicalDocModule.forRoot(LiTdServiceConfig),
         FlUserModule.forRoot(LabUserConfig),
         PrProtocolModule.forRoot(LabWorkflowResourcesState),
         CoCommunityLibModule.forRoot(LabCoServiceConfig)
@@ -154,6 +158,7 @@ function bootstrapApp(): void {
         deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
       },
       { provide: LabEnvStore, useFactory: provideLabEnvStore, deps: [FlLocalStorageService] },
+      { provide: LiConfig, useClass: LabLibConfig },
       provideHttpClient(withInterceptorsFromDi()),
       provideAnimations(),
       // form field default config

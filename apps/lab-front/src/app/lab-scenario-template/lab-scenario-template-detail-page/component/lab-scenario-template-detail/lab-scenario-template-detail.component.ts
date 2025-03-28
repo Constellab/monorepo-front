@@ -1,15 +1,16 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
-import { LabScenarioTemplateService } from '../../../../lab-core/entity-service/lab-scenario-template.service';
-import { TeBasicConfig, TeRichText } from '@monorepo/text-editor';
-import { LabTagService } from '../../../../lab-core/entity-service/lab-tag.service';
-import { LabTagDatasource } from '../../../../lab-core/model/entities/lab-tag.entity';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
-import { LabTagListComponent } from '../../../../lab-core/entity-module/lab-tag-core/component/lab-tag-list/lab-tag-list.component';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { TeTextEditorModule } from '@monorepo/text-editor';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  LiScenarioTemplate,
+  LiScenarioTemplateService,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
+import { LiTagListComponent } from '@monorepo/lab-lib/li-tag';
+import { Observable } from 'rxjs';
+import { TeBasicConfig, TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -18,7 +19,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./lab-scenario-template-detail.component.scss'],
   imports: [
     FlArticleModule,
-    LabTagListComponent,
+    LiTagListComponent,
     FlUserModule,
     TeTextEditorModule,
     ReactiveFormsModule,
@@ -26,12 +27,12 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class LabScenarioTemplateDetailComponent implements OnInit {
-  private scenarioTemplateService = inject(LabScenarioTemplateService);
-  private tagService = inject(LabTagService);
+  private scenarioTemplateService = inject(LiScenarioTemplateService);
+  private tagService = inject(LiTagService);
 
-  @Input({ required: true }) template: LabScenarioTemplate;
+  @Input({ required: true }) template: LiScenarioTemplate;
 
-  tags$: LabTagDatasource;
+  tags$: LiTagDatasource;
 
   formControl: FormControl<TeRichText> = new FormControl({ value: null });
 

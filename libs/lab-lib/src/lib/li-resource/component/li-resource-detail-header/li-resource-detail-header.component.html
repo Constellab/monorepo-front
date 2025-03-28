@@ -1,0 +1,103 @@
+@if (resource()) {
+  <div class="g-layout-row g-layout-start-center g-layout-gap-05em container">
+    <div class="g-flex-auto g-layout-col g-layout-start-start header-left">
+      <!--  Resource,  scenario name & folder name  -->
+      <h2
+        class="header-title g-text-ellipsis-2-lines"
+        flElementEditable
+        (flElementValueChange)="updateName($event)">
+        {{ resource().name }}
+      </h2>
+
+      @if (displayMode !== 'dense') {
+        <div class="g-layout-row g-layout-start-center g-layout-gap-05em g-text-light g-text-small">
+          @if (resource().scenario) {
+            <a [routerLink]="resource().scenario.id | liDetailRoute: 'SCENARIO'" class="g-text-link subtitle">
+              <div class="g-layout-row g-layout-start-center">
+                <mat-icon flIcon="scenario" class="g-icon-small separator"></mat-icon>
+                {{ resource().scenario.title }}
+              </div>
+            </a>
+          }
+
+          @if (resource().scenario && resource().folder) {
+            <div class="subtitle">-</div>
+          }
+
+          @if (resource().folder) {
+            <div class="g-layout-row g-layout-start-center subtitle">
+              <mat-icon flIcon="folder" class="g-icon-small separator"></mat-icon>
+              <div
+                class="circle-color separator"
+                [style.background-color]="resource().folder.id | flStringToRgb"></div>
+              <div>{{ resource().folder.name }}</div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    @if (displayMode !== 'dense') {
+      <li-flag-button [entity]="resource()"></li-flag-button>
+    }
+
+    @if (resource().isFsNode()) {
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="openImportResource()"
+        class="g-button-small import primary">
+        {{ 'biox.import_resource' | translate }}
+      </button>
+    }
+
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="openViewSpecListPortal($event)"
+      class="g-button-small button">
+      {{ 'biox.views' | translate }}
+    </button>
+
+    @if (displayMode !== 'dense') {
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="openResourceInfoDialog()"
+        class="g-button-small button">
+        {{ 'biox.resource_info' | translate }}
+      </button>
+    }
+
+    <li-resource-actions-menu
+      [readOnly]="displayMode !== 'fullPage'"
+      [resource]="resource()"
+      (update)="onUpdate($event)"
+      (delete)="onDelete()">
+      @if (displayMode === 'fullPage') {
+        <button mat-menu-item type="button" (click)="openTransformerResource()">
+          <mat-icon flIcon="transformer"></mat-icon>
+          {{ 'biox.transformers' | translate }}
+        </button>
+      }
+
+      @if (displayMode === 'dense') {
+        <button mat-menu-item type="button" (click)="openResourceInfoDialog()">
+          <mat-icon>info</mat-icon>
+          {{ 'biox.resource_info' | translate }}
+        </button>
+      }
+    </li-resource-actions-menu>
+
+    @if (displayMode === 'fullDialog') {
+      <button
+        mat-icon-button
+        type="button"
+        [matTooltip]="'close' | translate"
+        [mat-dialog-close]="null"
+        tabindex="-1">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </div>
+}

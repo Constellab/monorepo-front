@@ -1,8 +1,0 @@
-<fl-form-field>
-  <p class="g-text-light">{{ 'open_ai_help' | translate }}</p>
-  <lab-open-ai-chat [formControl]="formCtrl" [placeholder]="placeholder" [hint]="hint"></lab-open-ai-chat>
-
-  @if (formCtrl.hasError('required')) {
-    <mat-error class="g-warn-text g-text-small">{{ 'open_ai_no_message_error' | translate }}</mat-error>
-  }
-</fl-form-field>

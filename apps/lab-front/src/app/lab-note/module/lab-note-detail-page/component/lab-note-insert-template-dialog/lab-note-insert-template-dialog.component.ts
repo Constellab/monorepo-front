@@ -1,20 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { LabNoteTemplate } from '../../../../../lab-core/model/entities/lab-note-template.entity';
-import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
-import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { LabSelectNoteTemplateComponent } from '../../../../../lab-core/entity-module/lab-note-template-core/component/lab-select-note-template/lab-select-note-template.component';
-import { MatError } from '@angular/material/form-field';
-import { MatButton } from '@angular/material/button';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LiNoteService, LiNoteTemplate } from '@monorepo/lab-lib/li-core';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MatError } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { TeRichText, TeRichTextDTO } from '@monorepo/text-editor';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LiSelectNoteTemplateComponent } from '@monorepo/lab-lib/li-note-template';
 
 export interface LabNoteInsertTemplateDialogData {
   noteId: string;
@@ -33,12 +31,11 @@ export interface LabNoteInsertTemplateDialogData {
     FlTextIconModule,
     MatIcon,
     FlIconModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FormsModule,
     FlFormModule,
-    LabSelectNoteTemplateComponent,
+    LiSelectNoteTemplateComponent,
     MatError,
     MatDialogActions,
     MatButton,
@@ -47,12 +44,12 @@ export interface LabNoteInsertTemplateDialogData {
   ],
 })
 export class LabNoteInsertTemplateDialogComponent {
-  formControl: FormControl<LabNoteTemplate> = new FormControl();
+  formControl: FormControl<LiNoteTemplate> = new FormControl();
   isLoading: boolean = false;
 
   private dialogInput: LabNoteInsertTemplateDialogData = inject(MAT_DIALOG_DATA);
   private dialogRef = inject(MatDialogRef);
-  private noteService = inject(LabNoteService);
+  private noteService = inject(LiNoteService);
 
   submit(): void {
     if (!this.isLoading && this.formControl.valid) {
@@ -60,7 +57,7 @@ export class LabNoteInsertTemplateDialogComponent {
     }
   }
 
-  private insertTemplate(noteTemplate: LabNoteTemplate): void {
+  private insertTemplate(noteTemplate: LiNoteTemplate): void {
     this.isLoading = true;
     this.noteService
       .insertNoteTemplate(this.dialogInput.noteId, {

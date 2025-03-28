@@ -1,0 +1,28 @@
+<fl-dialog-header>
+  {{ title | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" id="validation-form">
+    @if (helpText) {
+      <p class="g-text-light help-text">{{ helpText | translate }}</p>
+    }
+
+    <!--    Folder      -->
+    <fl-form-field>
+      <li-folder-select [formControl]="formControl" [multiple]="false"></li-folder-select>
+      @if (formControl.hasError('required')) {
+        <mat-error>{{ 'biox.folder' | flErrorRequired }}</mat-error>
+      }
+    </fl-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="validation-form" class="g-centered-forced primary">
+    {{ title | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

@@ -1,0 +1,17 @@
+<fl-search class="g-full-height">
+  <!-- Advanced section in the right in a drawer -->
+  <fl-search-advanced-form>
+    <li-type-search-form [config]="config"></li-type-search-form>
+  </fl-search-advanced-form>
+
+  <!--  Center header  -->
+  <fl-search-header></fl-search-header>
+
+  <fl-search-result>
+    <li-process-type-table
+      [datasource]="datasource"
+      [columns]="columns"
+      [rowSelectable]="true"
+      (typeSelected)="selectType($event)"></li-process-type-table>
+  </fl-search-result>
+</fl-search>

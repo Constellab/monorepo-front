@@ -1,17 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { LabBrickDataService } from '../../../../lab-core/service/lab-brick-data.service';
-import { LabBrickDataArrayObs } from '../../../../lab-core/model/global/lab-brick-data.class';
-import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabBrickDataTableComponent } from '../../../../lab-core/entity-module/lab-brick-core/component/lab-brick-data-table/lab-brick-data-table.component';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiBrickDataArrayObs, LiBrickDataService } from '@monorepo/lab-lib/li-core';
+import { LiBrickDataTableComponent } from '@monorepo/lab-lib/li-brick';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -24,18 +23,18 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIcon,
     MatButton,
     FlSectionModule,
-    LabBrickDataTableComponent,
+    LiBrickDataTableComponent,
     TranslatePipe,
   ],
 })
 export class LabMonitoringBrickDataComponent implements OnInit {
-  private brickDataService = inject(LabBrickDataService);
+  private brickDataService = inject(LiBrickDataService);
   private dialogService = inject(FlDialogService);
 
-  brickDataList: LabBrickDataArrayObs;
+  brickDataList: LiBrickDataArrayObs;
 
   ngOnInit(): void {
-    this.brickDataList = new LabBrickDataArrayObs(this.brickDataService.getBrickData());
+    this.brickDataList = new LiBrickDataArrayObs(this.brickDataService.getBrickData());
   }
 
   openDeleteAllBrickData(): void {

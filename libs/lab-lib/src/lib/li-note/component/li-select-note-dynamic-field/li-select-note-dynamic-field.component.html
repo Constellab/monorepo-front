@@ -1,0 +1,11 @@
+<fl-form-field>
+  <li-select-note [formControl]="formCtrl" [placeholder]="placeholder" [required]="required"></li-select-note>
+
+  @if (formCtrl.hasError('required')) {
+    <mat-error class="g-warn-text g-text-small">{{ placeholder | flErrorRequired }}</mat-error>
+  }
+
+  @if (hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
+</fl-form-field>

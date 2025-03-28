@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { LabRouterService } from '../../../../lab-core/service/lab-router.service';
 import {
   FlHorizontalNavBarItem,
   FlHorizontalNavBarModule,
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiRouterService } from '@monorepo/lab-lib/li-core';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -20,43 +20,43 @@ export class LabMonitoringPageComponent {
     {
       label: { text: 'monitoring.dashboard', translateText: true },
       icon: 'dashboard',
-      route: LabRouterService.getMonitoringRoute(),
+      route: LiRouterService.getMonitoringRoute(),
       linkActiveExact: true,
     },
     {
       label: { text: 'monitoring.monitoring', translateText: true },
       icon: 'monitor_heart',
-      route: LabRouterService.getMonitoringUsageRoute(),
+      route: LiRouterService.getMonitoringUsageRoute(),
     },
     {
       label: { text: 'tags', translateText: true },
       icon: 'tag',
-      route: LabRouterService.getMonitoringTagsRoute(),
+      route: LiRouterService.getMonitoringTagsRoute(),
     },
     {
       label: { text: 'monitoring.venv_list', translateText: true },
       icon: 'takeout_dining',
-      route: LabRouterService.getMonitoringVenvsRoute(),
+      route: LiRouterService.getMonitoringVenvsRoute(),
     },
     {
       label: { text: 'monitoring.logs', translateText: true },
       icon: 'description',
-      route: LabRouterService.getMonitoringLogsRoute(),
+      route: LiRouterService.getMonitoringLogsRoute(),
     },
     {
       label: { text: 'biox.credentials', translateText: true },
       icon: 'key',
-      route: LabRouterService.getMonitoringCredentialsRoute(),
+      route: LiRouterService.getMonitoringCredentialsRoute(),
     },
     {
       label: { text: 'monitoring.activities', translateText: true },
       icon: 'task',
-      route: LabRouterService.getMonitoringActivityRoute(),
+      route: LiRouterService.getMonitoringActivityRoute(),
     },
     {
       label: { text: 'monitoring.other', translateText: true },
       icon: 'source',
-      route: LabRouterService.getOtherRoute(),
+      route: LiRouterService.getOtherRoute(),
     },
   ];
 }

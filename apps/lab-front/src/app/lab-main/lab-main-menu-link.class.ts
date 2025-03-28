@@ -6,7 +6,7 @@ import {
   labConstResourceFullRoute,
   labConstScenarioTemplateRoute,
   labConstViewFullRoute,
-} from '../lab-core/utils/lab-base-route';
+} from '@monorepo/lab-lib/li-core';
 
 /**
  * Describe one main menu link button

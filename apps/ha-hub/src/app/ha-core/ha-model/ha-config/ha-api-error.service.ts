@@ -1,12 +1,9 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Router } from '@angular/router';
 import { FlApiErrorService, FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { flAuthExpiredCookie } from '@monorepo/front-core-lib/fl-core';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
 
 import { isPlatformBrowser } from '@angular/common';
 import { ClApiError } from '@monorepo/core-lib';
@@ -17,16 +14,8 @@ import { ClApiError } from '@monorepo/core-lib';
  */
 @Injectable()
 export class HaApiErrorService extends FlApiErrorService {
-  private router = inject(Router);
   private cookieService = inject(FlCookieService);
   private platformId = inject<Object>(PLATFORM_ID);
-
-  constructor() {
-    const snackBarService = inject(FlSnackBarService);
-    const translateService = inject(FlTranslateService);
-
-    super(snackBarService, translateService);
-  }
 
   /**
    * Handle the error message for the not specific errors

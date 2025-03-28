@@ -1,53 +1,53 @@
-import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
-import {
-  LabTypeDialogComponent,
-  LabTypeDialogInput,
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-type-dialog/lab-type-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable, Subscription } from 'rxjs';
-import { LabProgressBar } from '../../../../lab-core/model/entities/lab-progress-bar.entity';
-import { map } from 'rxjs/operators';
-import { LabProgressBarInfoDialogComponent } from '../../../../lab-core/entity-module/lab-progress-bar-core/component/lab-progress-bar-info-dialog/lab-progress-bar-info-dialog.component';
-import { LabProcess } from '../../../../lab-core/model/entities/process/lab-process.entity';
-import {
-  LabLogBetweenDatesDialogInput,
-  LabLogsBetweenDatesDialogComponent,
-} from '../../../../lab-core/entity-module/lab-log-core/lab-logs-between-dates-dialog/lab-logs-between-dates-dialog.component';
-import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
-import { DateTime } from 'luxon';
-import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
+import { AsyncPipe } from '@angular/common';
 import { CoCommunityHelperService, CoCommunityLibModule } from '@monorepo/community-lib';
-import { LabSystemConfigDialogComponent } from '../../../../lab-core/entity-module/lab-system-core/component/lab-system-config-dialog/lab-system-config-dialog.component';
-import {
-  LabMonitorBetweenDatesDialogComponent,
-  LabMonitorBetweenDatesDialogInput,
-} from '../../../../lab-core/entity-module/lab-monitor-core/lab-monitor-between-dates-dialog/lab-monitor-between-dates-dialog.component';
-import { LabProcessService } from '../../../../lab-core/entity-service/lab-process.service';
-import { LabTaskGeneratorService } from '../../../../lab-core/service/lab-task-generator.service';
-import { LabShareAgentCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-community-dialog/lab-share-agent-community-dialog.component';
-import { LabCreateCommunityAgentVersionResDto } from '../../../../lab-core/model/entities/lab-agent.entity';
+import { Component, HostListener, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
+import { DateTime } from 'luxon';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
+import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
+import { LabProcessDashboardConfigState } from '../../state/lab-process-dashboard-config-state.service';
 import {
   LabProcessEditStyleDialogComponent,
   LabProcessEditStyleDialogInputData,
 } from '../lab-process-edit-style-dialog/lab-process-edit-style-dialog.component';
-import { MatDialogContent } from '@angular/material/dialog';
-import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { MatIconButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { FlStatusModule } from '@monorepo/front-core-lib/fl-status';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { LabProcessIoPanelComponent } from '../lab-process-io-panel/lab-process-io-panel.component';
-import { LabConfigureProcessComponent } from '../lab-configure-process/lab-configure-process.component';
-import { AsyncPipe } from '@angular/common';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import {
+  LiCreateCommunityAgentVersionResDto,
+  LiProcess,
+  LiProcessService,
+  LiProgressBar,
+  LiProtocolService,
+  LiTaskGeneratorService,
+} from '@monorepo/lab-lib/li-core';
+import { LiLogBetweenDatesDialogInput, LiLogsBetweenDatesDialogComponent } from '@monorepo/lab-lib/li-log';
+import {
+  LiMonitorBetweenDatesDialogComponent,
+  LiMonitorBetweenDatesDialogInput,
+} from '@monorepo/lab-lib/li-monitor';
+import { LiProgressBarInfoDialogComponent } from '@monorepo/lab-lib/li-progress-bar';
+import {
+  LiShareAgentCommunityDialogComponent,
+  LiShareAgentCommunityDialogData,
+  LiShareAgentNewVersionCommunityDialogComponent,
+  LiTypeDialogComponent,
+  LiTypeDialogInput,
+} from '@monorepo/lab-lib/li-type';
+import { LiSystemConfigDialogComponent } from '@monorepo/lab-lib/li-system';
+import { MatDialogContent } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Observable, Subscription } from 'rxjs';
+import { TdParamSpecVisibility, TdTypingName } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LabProtocolService } from '../../../../lab-core/entity-service/lab-protocol.service';
-import { LabCoServiceConfig } from '../../../../lab-core/model/config/lab-co-service-config.service';
-import { LabShareAgentNewVersionCommunityDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-share-agent-new-version-community-dialog/lab-share-agent-new-version-community-dialog.component';
+import { map } from 'rxjs/operators';
+import { LabCoServiceConfig } from '../../../../lab-core/lab-co-service-config.service';
 
 /**
  * Complete dashboard to edit, view and run a workflow node
@@ -79,12 +79,12 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   private nodeState = inject(LabWorkflowNodeDetailState);
   private scenarioState = inject(LabScenarioDetailPageState);
   private dialogService = inject(FlDialogService);
-  private processService = inject(LabProcessService);
+  private processService = inject(LiProcessService);
   private dashboardState = inject(LabProcessDashboardConfigState);
   private workflowEditConfig = inject(LabWorkflowEditConfig);
-  private taskGeneratorService = inject(LabTaskGeneratorService);
+  private taskGeneratorService = inject(LiTaskGeneratorService);
   private communityHelper = inject(CoCommunityHelperService);
-  private protocolService = inject(LabProtocolService);
+  private protocolService = inject(LiProtocolService);
   private labCoServiceConfig = inject(LabCoServiceConfig);
 
   process$ = this.nodeState.getProcess$();
@@ -122,16 +122,16 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   openTypingDoc(typingName: string): void {
-    const data: LabTypeDialogInput = {
+    const data: LiTypeDialogInput = {
       typingName: typingName,
     };
-    this.dialogService.openMediumDialog(LabTypeDialogComponent, {
+    this.dialogService.openMediumDialog(LiTypeDialogComponent, {
       data: data,
       panelClass: 'g-dialog-main-background',
     });
   }
 
-  saveConfigAndRunProcess(process: LabProcess): void {
+  saveConfigAndRunProcess(process: LiProcess): void {
     this.dashboardState.saveCurrentTaskConfig().subscribe((result) => {
       if (result == null || result.status === 'success') {
         this.workflowEditConfig.runProcess(process.parentProtocolId, process.instanceName);
@@ -156,84 +156,82 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
   }
 
   openProgressDetails(): void {
-    const progressBar$: Observable<LabProgressBar> = this.process$.pipe(
-      map((process) => process.progressBar)
-    );
+    const progressBar$: Observable<LiProgressBar> = this.process$.pipe(map((process) => process.progressBar));
 
-    this.dialogService.openBigDialog(LabProgressBarInfoDialogComponent, { data: progressBar$ });
+    this.dialogService.openBigDialog(LiProgressBarInfoDialogComponent, { data: progressBar$ });
   }
 
-  openProcessLogs(process: LabProcess): void {
-    const input: LabLogBetweenDatesDialogInput = {
+  openProcessLogs(process: LiProcess): void {
+    const input: LiLogBetweenDatesDialogInput = {
       title: process.instanceName,
       loadFunction: (fromDatePage?: DateTime) =>
         this.processService.getProcessLogs(process.getProcessType(), process.id, fromDatePage),
       downloadUrl: this.processService.getDownloadProcessLogUrl(process.getProcessType(), process.id),
     };
 
-    this.dialogService.openBigDialog(LabLogsBetweenDatesDialogComponent, { data: input });
+    this.dialogService.openBigDialog(LiLogsBetweenDatesDialogComponent, { data: input });
   }
 
-  openProcessMonitor(process: LabProcess): void {
-    const input: LabMonitorBetweenDatesDialogInput = {
+  openProcessMonitor(process: LiProcess): void {
+    const input: LiMonitorBetweenDatesDialogInput = {
       title: process.instanceName,
       monitor$: this.processService.getProcessMonitor(process.getProcessType(), process.id),
     };
 
-    this.dialogService.openBigDialog(LabMonitorBetweenDatesDialogComponent, { data: input });
+    this.dialogService.openBigDialog(LiMonitorBetweenDatesDialogComponent, { data: input });
   }
 
   resetProcess(): void {
     this.nodeState.resetProcess();
   }
 
-  convertAgentCodeToTask(process: LabProcess): void {
+  convertAgentCodeToTask(process: LiProcess): void {
     this.taskGeneratorService.generateTaskCodeFromAgent(process.id).subscribe();
   }
 
   openPipPackageList(): void {
-    this.dialogService.openSmallDialog(LabSystemConfigDialogComponent);
+    this.dialogService.openSmallDialog(LiSystemConfigDialogComponent);
   }
 
-  downloadAgentFile(process: LabProcess): void {
+  downloadAgentFile(process: LiProcess): void {
     this.taskGeneratorService.generateAgentFile(process.parentProtocolId, process.id).subscribe();
   }
 
-  triggerCodeShown(process: LabProcess, newVisibility: TdParamSpecVisibility): void {
+  triggerCodeShown(process: LiProcess, newVisibility: TdParamSpecVisibility): void {
     this.nodeState.updateCommunityAgentCodeParamsVisibility(process, newVisibility);
   }
 
-  openShareCommunityAgentNewVersionDialog(process: LabProcess): void {
+  openShareCommunityAgentNewVersionDialog(process: LiProcess): void {
     this.dialogService
-      .openMediumDialog(LabShareAgentNewVersionCommunityDialogComponent, {
+      .openMediumDialog(LiShareAgentNewVersionCommunityDialogComponent, {
         data: {
           processId: process.id,
           agentVersionId: process.communityAgentVersionId,
-        },
+        } as LiShareAgentCommunityDialogData,
       })
       .afterClosed()
-      .subscribe((res: LabCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
+      .subscribe((res: LiCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
   }
 
-  openShareCommunityAgentDialog(process: LabProcess): void {
+  openShareCommunityAgentDialog(process: LiProcess): void {
     this.dialogService
-      .openMediumDialog(LabShareAgentCommunityDialogComponent, {
+      .openMediumDialog(LiShareAgentCommunityDialogComponent, {
         data: {
           processId: process.id,
           agentVersionId: process.communityAgentVersionId,
-        },
+        } as LiShareAgentCommunityDialogData,
       })
       .afterClosed()
-      .subscribe((res: LabCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
+      .subscribe((res: LiCreateCommunityAgentVersionResDto) => this.onShareAgentRes(res));
   }
 
-  private onShareAgentRes(res: LabCreateCommunityAgentVersionResDto): void {
+  private onShareAgentRes(res: LiCreateCommunityAgentVersionResDto): void {
     if (res) {
       window.open(this.communityHelper.getAgentVersionUrl(res.id, res.title, res.agent_version), '_blank');
     }
   }
 
-  openProcessEditStyleDialog(process: LabProcess): void {
+  openProcessEditStyleDialog(process: LiProcess): void {
     const dialogData: LabProcessEditStyleDialogInputData = {
       mode: 'update',
       object: process,
@@ -242,18 +240,18 @@ export class LabProcessDashboardComponent implements OnInit, OnDestroy {
     this.dialogService
       .openSmallDialog(LabProcessEditStyleDialogComponent, { data: dialogData })
       .afterClosed()
-      .subscribe((process: LabProcess) => {
+      .subscribe((process: LiProcess) => {
         if (process) {
           this.scenarioState.refreshProcess(process);
         }
       });
   }
 
-  updateProcessName(process: LabProcess, newName: string): void {
+  updateProcessName(process: LiProcess, newName: string): void {
     this.nodeState.updateProcessName(process, newName);
   }
 
-  duplicateTask(process: LabProcess): void {
+  duplicateTask(process: LiProcess): void {
     this.workflowEditConfig.duplicateProcess(process.instanceName, process.name);
   }
 

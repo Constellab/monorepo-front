@@ -1,14 +1,13 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LabTypeEntity } from '../../lab-core/model/entities/lab-type/lab-type.entity';
-import { mergeMap, Observable } from 'rxjs';
-import { LabTypeService } from '../../lab-core/entity-service/lab-type.service';
-import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Component, OnInit, inject } from '@angular/core';
 import { FlArticleModule } from '@monorepo/front-core-lib/fl-article';
+import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { LiTypeDetailComponent } from '@monorepo/lab-lib/li-type';
+import { LiTypeEntity, LiTypeService } from '@monorepo/lab-lib/li-core';
+import { Observable, mergeMap } from 'rxjs';
 import { TdTechnicalDocModule } from '@monorepo/technical-doc';
-import { LabTypeDetailComponent } from '../../lab-core/entity-module/lab-type-core/component/lab-type-detail/lab-type-detail.component';
 
 @Component({
   selector: 'lab-technical-doc-page',
@@ -20,14 +19,14 @@ import { LabTypeDetailComponent } from '../../lab-core/entity-module/lab-type-co
     CdkScrollable,
     FlArticleModule,
     TdTechnicalDocModule,
-    LabTypeDetailComponent,
+    LiTypeDetailComponent,
   ],
 })
 export class LabTechnicalDocPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private typeService = inject(LabTypeService);
+  private typeService = inject(LiTypeService);
 
-  type$: Observable<LabTypeEntity>;
+  type$: Observable<LiTypeEntity>;
 
   ngOnInit(): void {
     this.type$ = this.route.params.pipe(

@@ -1,0 +1,7 @@
+<div class="title">
+  <strong>{{ runningProcess.title }}</strong> | {{ runningProcess.progression }}%
+</div>
+
+@if (runningProcess.lastMessage) {
+  <li-progress-message [progressMessage]="runningProcess.lastMessage"></li-progress-message>
+}

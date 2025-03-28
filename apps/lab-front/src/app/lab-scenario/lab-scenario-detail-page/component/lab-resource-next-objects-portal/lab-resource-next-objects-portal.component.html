@@ -10,7 +10,7 @@
       <h2>{{ 'biox.scenarios' | translate }}</h2>
     </fl-text-icon>
     <fl-infinite-table-container [datasource]="scenarios" textNoResult="biox.no_scenario" textNoMoreResult="">
-      <lab-scenario-table [datasource]="scenarios" [columns]="scenarioColumns"></lab-scenario-table>
+      <li-scenario-table [datasource]="scenarios" [columns]="scenarioColumns"></li-scenario-table>
     </fl-infinite-table-container>
 
     <!--  Notes  -->
@@ -19,7 +19,7 @@
       <h2>{{ 'biox.notes' | translate }}</h2>
     </fl-text-icon>
     <fl-infinite-table-container [datasource]="notes" textNoResult="biox.no_note" textNoMoreResult="">
-      <lab-note-table [datasource]="notes" [columns]="noteColumns"></lab-note-table>
+      <li-note-table [datasource]="notes" [columns]="noteColumns"></li-note-table>
     </fl-infinite-table-container>
   </fl-portal-content>
 </fl-portal>

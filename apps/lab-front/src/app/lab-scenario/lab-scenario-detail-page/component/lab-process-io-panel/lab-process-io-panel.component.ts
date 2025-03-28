@@ -1,23 +1,23 @@
-import { Component, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState } from '@monorepo/protocol';
-import { BehaviorSubject, combineLatest, Observable, of, switchMap } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { BehaviorSubject, Observable, combineLatest, of, switchMap } from 'rxjs';
 import { ClHelpService } from '@monorepo/core-lib';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { MatTooltip, TooltipPosition } from '@angular/material/tooltip';
+import { Component, HostBinding, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   LabDynamicPortConfigDialogComponent,
   LabDynamicPortConfigDialogInput,
 } from '../lab-dynamic-port-config-dialog/lab-dynamic-port-config-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabWorkflowNodeDetailState } from '../../state/lab-workflow-node-detail.state';
+import { LiResourceDetailComponent } from '@monorepo/lab-lib/li-resource';
+import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { LabResourceDetailComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-resource-detail/lab-resource-detail.component';
-import { FlCoreComponentModule } from '@monorepo/front-core-lib/fl-core-component';
+import { MatTooltip, TooltipPosition } from '@angular/material/tooltip';
+import { PrWorkflowNodeProcess, PrWorkflowPort, PrWorkflowResourcesState } from '@monorepo/protocol';
 import { TranslatePipe } from '@ngx-translate/core';
+import { filter, map } from 'rxjs/operators';
 
 /**
  * Object that include port and resource
@@ -42,7 +42,7 @@ interface LabWorkflowPortResource {
     MatMenu,
     MatMenuItem,
     MatTooltip,
-    LabResourceDetailComponent,
+    LiResourceDetailComponent,
     FlCoreComponentModule,
     AsyncPipe,
     TranslatePipe,

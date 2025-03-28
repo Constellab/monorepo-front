@@ -1,0 +1,10 @@
+<fl-dialog-header>
+  {{ 'biox.note_select' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <li-note-search
+    [noteSelectable]="true"
+    [fullPageSearch]="false"
+    (noteSelected)="onNoteSelected($event)"></li-note-search>
+</mat-dialog-content>

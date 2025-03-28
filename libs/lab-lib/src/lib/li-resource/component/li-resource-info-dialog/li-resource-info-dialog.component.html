@@ -1,0 +1,15 @@
+<fl-dialog-header>
+  <td-type-inline [style]="resource.style" [text]="resource.name"></td-type-inline>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="content-grid">
+    <li-resource-info [resource]="resource"></li-resource-info>
+
+    <li-resource-view-historic [resourceId]="resource.id"></li-resource-view-historic>
+
+    <li-scenarios-using-resource [resourceId]="resource.id"></li-scenarios-using-resource>
+
+    <li-notes-using-resource [resourceId]="resource.id"></li-notes-using-resource>
+  </div>
+</mat-dialog-content>

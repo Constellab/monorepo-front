@@ -1,24 +1,17 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { LabNoteService } from '../../../../../lab-core/entity-service/lab-note.service';
-import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
-import { FlPortalActionResult } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-
-import { LabSelectScenarioDialogComponent } from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-select-scenario-dialog/lab-select-scenario-dialog.component';
-import { LabScenario } from '../../../../../lab-core/model/entities/lab-scenario.entity';
-import { Subscription } from 'rxjs';
-import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
+import { FlArrayObs, FlEntityArrayObs, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlConfirmDialogResult, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LabNoteDetailPageState } from '../../lab-note-detail-page-state.service';
+import { LiNoteService, LiScenario } from '@monorepo/lab-lib/li-core';
+import { LiScenarioTableComponent, LiSelectScenarioDialogComponent } from '@monorepo/lab-lib/li-scenario';
 import { MatIcon } from '@angular/material/icon';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
-import { LabScenarioTableComponent } from '../../../../../lab-core/entity-module/lab-scenario-core/component/lab-scenario-table/lab-scenario-table.component';
+import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
 /**
@@ -36,21 +29,21 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlIconModule,
     MatIconButton,
     MatTooltip,
-    LabScenarioTableComponent,
+    LiScenarioTableComponent,
     TranslatePipe,
   ],
 })
 export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
   private state = inject(LabNoteDetailPageState);
-  private noteService = inject(LabNoteService);
+  private noteService = inject(LiNoteService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
 
-  scenarios: FlArrayObs<LabScenario>;
+  scenarios: FlArrayObs<LiScenario>;
 
   canEdit: boolean = false;
 
-  columns: FlTableColumnStatic<LabScenario>[];
+  columns: FlTableColumnStatic<LiScenario>[];
 
   private readonly actionName: string = 'note-link-scenario';
 
@@ -73,7 +66,7 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
       .subscribe((result) => this.onAddAction(result));
   }
 
-  private onAddAction(result: FlPortalActionResult<LabScenario>): void {
+  private onAddAction(result: FlPortalActionResult<LiScenario>): void {
     if (result.status === 'success') {
       this.scenarios.addItem(result.result);
     }
@@ -81,12 +74,12 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
 
   linkScenario(): void {
     this.dialogService
-      .openBigDialog(LabSelectScenarioDialogComponent)
+      .openBigDialog(LiSelectScenarioDialogComponent)
       .afterClosed()
       .subscribe((scenario) => this.selectScenarioClosed(scenario));
   }
 
-  private selectScenarioClosed(scenario?: LabScenario): void {
+  private selectScenarioClosed(scenario?: LiScenario): void {
     if (scenario) {
       this.actionService.addAction(
         {
@@ -99,13 +92,13 @@ export class LabNoteLinkedScenariosComponent implements OnInit, OnDestroy {
     }
   }
 
-  unlinkScenario(scenario: LabScenario): void {
+  unlinkScenario(scenario: LiScenario): void {
     this.noteService
       .removeScenarioWithConfirmation(this.state.currentNote.id, scenario.id)
       .subscribe((result) => this.unlinkClosed(result, scenario));
   }
 
-  private unlinkClosed(result: FlConfirmDialogResult<void>, scenario: LabScenario): void {
+  private unlinkClosed(result: FlConfirmDialogResult<void>, scenario: LiScenario): void {
     if (result.choice) {
       this.scenarios.removeItem(scenario);
     }

@@ -1,21 +1,18 @@
-import { Injectable, inject } from '@angular/core';
-import { PrResource, PrWorkflowResourcesState } from '@monorepo/protocol';
-import { LabResourceService } from '../../../lab-core/entity-service/lab-resource.service';
-import { Observable, of } from 'rxjs';
 import { ClCachedObservable } from '@monorepo/core-lib';
-import { LabResource } from '../../../lab-core/model/entities/resource/lab-resource.entity';
-import { FlStatusEvent } from '@monorepo/front-core-lib/fl-core';
-import { flStatutEvent } from '@monorepo/front-core-lib/fl-core';
-import { flStatutEventMap } from '@monorepo/front-core-lib/fl-core';
+import { FlStatusEvent, flStatutEvent, flStatutEventMap } from '@monorepo/front-core-lib/fl-core';
+import { Injectable, inject } from '@angular/core';
+import { LiResource, LiResourceService } from '@monorepo/lab-lib/li-core';
+import { Observable, of } from 'rxjs';
+import { PrResource, PrWorkflowResourcesState } from '@monorepo/protocol';
 
 /**
  * State to resources of the workflow
  */
 @Injectable()
 export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
-  private resourceService = inject(LabResourceService);
+  private resourceService = inject(LiResourceService);
 
-  private resources: Record<string, ClCachedObservable<LabResource>> = {};
+  private resources: Record<string, ClCachedObservable<LiResource>> = {};
 
   constructor() {
     super();
@@ -23,11 +20,11 @@ export class LabWorkflowResourcesState extends PrWorkflowResourcesState {
 
   getResource(resourceId: string): Observable<FlStatusEvent<PrResource>> {
     return this.getLabResource(resourceId).pipe(
-      flStatutEventMap((resource: LabResource) => resource.toPrResource())
+      flStatutEventMap((resource: LiResource) => resource.toPrResource())
     );
   }
 
-  getLabResource(resourceId: string): Observable<FlStatusEvent<LabResource>> {
+  getLabResource(resourceId: string): Observable<FlStatusEvent<LiResource>> {
     if (resourceId == null) return of(null);
 
     if (this.resources[resourceId] == null) {

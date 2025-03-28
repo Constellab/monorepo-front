@@ -1,0 +1,44 @@
+<fl-dialog-header>
+  {{ 'biox.share_resource_with_space' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="help-text">
+    <p>{{ 'biox.share_resource_with_space_help' | translate }}</p>
+    <p>{{ 'biox.share_resource_with_space_help_2' | translate }}</p>
+  </div>
+  <form (ngSubmit)="submit()" id="biox-form" [formGroup]="formGp">
+    <div class="folder">
+      <!--    Folder      -->
+      <div class="g-text-big folder-title">{{ 'biox.select_folder' | translate }}</div>
+      <fl-form-field>
+        <li-folder-inline-select formControlName="folder"></li-folder-inline-select>
+        @if (formGp.get('folder').hasError('required')) {
+          <mat-error>{{ 'biox.folder' | flErrorRequired }}</mat-error>
+        }
+      </fl-form-field>
+    </div>
+
+    <!--    Valid until      -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'biox.share_link_valid_until' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="validUntil"
+        [matDatepicker]="endingPicker"
+        [placeholder]="'flDate.date_picker_placeholder' | translate" />
+      <mat-datepicker-toggle matSuffix [for]="endingPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endingPicker startView="month"></mat-datepicker>
+      <mat-hint>{{ 'biox.share_link_no_valid_until_help' | translate }}</mat-hint>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="biox-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

@@ -1,21 +1,17 @@
 import { Component, inject } from '@angular/core';
-import {
-  LabCredentials,
-  LabCredentialsDatasource,
-} from '../../../../lab-core/model/entities/lab-credentials.entity';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
-import { LabCredentialsService } from '../../../../lab-core/entity-service/lab-credentials.service';
-import {
-  LabCredentialsFormDialogComponent,
-  LabCredentialsFormDialogInput,
-} from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-form-dialog/lab-credentials-form-dialog.component';
 import { FlCardModule } from '@monorepo/front-core-lib/fl-card';
-import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
-import { LabCredentialsTableComponent } from '../../../../lab-core/entity-module/lab-credentials-core/component/lab-credentials-table/lab-credentials-table.component';
+import { FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
+import { LiCredentials, LiCredentialsDatasource } from '@monorepo/lab-lib/li-core';
+import {
+  LiCredentialsFormDialogComponent,
+  LiCredentialsFormDialogInput, LiCredentialsService,
+  LiCredentialsTableComponent,
+} from '@monorepo/lab-lib/li-credentials';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -28,17 +24,17 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIcon,
     MatButton,
     FlSectionModule,
-    LabCredentialsTableComponent,
+    LiCredentialsTableComponent,
     TranslatePipe,
   ],
 })
 export class LabMonitoringCredentialsPageComponent {
-  private credentialsService = inject(LabCredentialsService);
+  private credentialsService = inject(LiCredentialsService);
   private dialogService = inject(FlDialogService);
 
-  allCredentials: LabCredentialsDatasource = this.credentialsService.getAllDatasource();
+  allCredentials: LiCredentialsDatasource = this.credentialsService.getAllDatasource();
 
-  displayedColumns: FlTableColumnStatic<LabCredentials>[] = [
+  displayedColumns: FlTableColumnStatic<LiCredentials>[] = [
     'name',
     'description',
     'type',
@@ -47,19 +43,19 @@ export class LabMonitoringCredentialsPageComponent {
   ];
 
   createCredentials(): void {
-    const data: LabCredentialsFormDialogInput = {
+    const data: LiCredentialsFormDialogInput = {
       mode: 'create',
     };
 
     this.dialogService
-      .openMediumDialog(LabCredentialsFormDialogComponent, {
+      .openMediumDialog(LiCredentialsFormDialogComponent, {
         data: data,
       })
       .afterClosed()
       .subscribe((result) => this.createCredentialsClosed(result));
   }
 
-  private createCredentialsClosed(credentials?: LabCredentials): void {
+  private createCredentialsClosed(credentials?: LiCredentials): void {
     if (credentials) {
       this.allCredentials.addItem(credentials, () => true);
     }

@@ -1,4 +1,8 @@
+import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
+import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
+import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 import { Routes } from '@angular/router';
+import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import {
   labConstBaseRoute,
   labConstBiotaRoute,
@@ -11,20 +15,15 @@ import {
   labConstScenarioRoute,
   labConstScenarioTemplateRoute,
   labConstViewRoute,
-} from '../lab-core/utils/lab-base-route';
-
-import { LabAutoLoginGuard } from './guard/lab-auto-login.guard';
-import { labScenarioRoutes } from '../lab-scenario/lab-scenario-routes';
-import { labScenarioTemplateRoutes } from '../lab-scenario-template/lab-scenario-template-routes';
-import { labNoteTemplateRoutes } from '../lab-note-template/lab-note-template-routes';
-import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
-import { labResourceRoutes } from '../lab-resource/lab-resource-routes';
-import { labNoteRoutes } from '../lab-note/lab-note-routes';
-import { labViewRoutes } from '../lab-view/lab-view-routes';
+} from '@monorepo/lab-lib/li-core';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
 import { labMonitoringRoutes } from '../lab-monitoring/lab-monitoring-routes';
-import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
-import { LabLoginRoutes } from '../lab-login/lab-login-routes';
+import { labNoteRoutes } from '../lab-note/lab-note-routes';
+import { labNoteTemplateRoutes } from '../lab-note-template/lab-note-template-routes';
+import { labResourceRoutes } from '../lab-resource/lab-resource-routes';
+import { labScenarioRoutes } from '../lab-scenario/lab-scenario-routes';
+import { labScenarioTemplateRoutes } from '../lab-scenario-template/lab-scenario-template-routes';
+import { labViewRoutes } from '../lab-view/lab-view-routes';
 
 export const labMainRoutes: Routes = [
   {

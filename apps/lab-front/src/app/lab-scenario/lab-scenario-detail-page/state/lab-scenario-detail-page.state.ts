@@ -1,41 +1,42 @@
-import { inject, Injectable } from '@angular/core';
-import { LabScenarioService } from '../../../lab-core/entity-service/lab-scenario.service';
-import { BehaviorSubject, merge, Observable, Subscription } from 'rxjs';
-import { LabScenario } from '../../../lab-core/model/entities/lab-scenario.entity';
-import { filter, map, tap } from 'rxjs/operators';
-import { LabProtocol } from '../../../lab-core/model/entities/process/lab-protocol.entity';
-import { LabProtocolService } from '../../../lab-core/entity-service/lab-protocol.service';
+import { BehaviorSubject, Observable, Subscription, merge } from 'rxjs';
 import {
   FlConfirmDialogInput,
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-
-import { LabProcess } from '../../../lab-core/model/entities/process/lab-process.entity';
-import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
+import { Injectable, inject } from '@angular/core';
 import { LabWorkflowFactory } from '../model/lab-workflow.factory';
-import { LabTagService } from '../../../lab-core/entity-service/lab-tag.service';
-import { LabTagDatasource } from '../../../lab-core/model/entities/lab-tag.entity';
+import {
+  LiProcess,
+  LiProtocol,
+  LiProtocolService,
+  LiScenario,
+  LiScenarioService,
+  LiTagDatasource,
+  LiTagService,
+} from '@monorepo/lab-lib/li-core';
+import { PrWorkflow, PrWorkflowLayer } from '@monorepo/protocol';
 import { TeRichText } from '@monorepo/text-editor';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class LabScenarioDetailPageState {
-  private scenarioService = inject(LabScenarioService);
-  private protocolService = inject(LabProtocolService);
+  private scenarioService = inject(LiScenarioService);
+  private protocolService = inject(LiProtocolService);
   private workflowFactory = inject(LabWorkflowFactory);
   private snackBarService = inject(FlSnackBarService);
   private dialogService = inject(FlDialogService);
-  private tagService = inject(LabTagService);
+  private tagService = inject(LiTagService);
 
-  private scenario$: BehaviorSubject<LabScenario>;
+  private scenario$: BehaviorSubject<LiScenario>;
   private scenarioDescription$: BehaviorSubject<TeRichText>;
-  private tags$: LabTagDatasource;
+  private tags$: LiTagDatasource;
 
   public workflow: PrWorkflow;
   private mainProtocolId: string;
-  private protocols: Record<string, BehaviorSubject<LabProtocol>>;
-  private processes: Record<string, BehaviorSubject<LabProcess>>;
+  private protocols: Record<string, BehaviorSubject<LiProtocol>>;
+  private processes: Record<string, BehaviorSubject<LiProcess>>;
 
   // does not emit scenario until ready is true
   private ready$: BehaviorSubject<boolean>;
@@ -64,7 +65,7 @@ export class LabScenarioDetailPageState {
     this.tags$ = this.tagService.getEntityTagsDatasource('SCENARIO', scenarioId);
   }
 
-  private getScenarioSuccess(scenario: LabScenario): void {
+  private getScenarioSuccess(scenario: LiScenario): void {
     this.scenario$.next(scenario);
     this.scenarioDescription$.next(scenario.description);
     this.mainProtocolId = scenario.protocol.id;
@@ -79,7 +80,7 @@ export class LabScenarioDetailPageState {
     });
   }
 
-  private onMainProtocolLoaded(protocol: LabProtocol): void {
+  private onMainProtocolLoaded(protocol: LiProtocol): void {
     const createSubLayer = (protocolId: string): Observable<PrWorkflowLayer> =>
       this.getProtocol$(protocolId).pipe(
         map((protocol) => this.workflowFactory.createLayer(protocol, false))
@@ -93,11 +94,11 @@ export class LabScenarioDetailPageState {
     this.ready$.next(true);
   }
 
-  public getScenario$(): Observable<LabScenario> {
+  public getScenario$(): Observable<LiScenario> {
     return this.scenario$.asObservable().pipe(filter((scenario) => scenario != null));
   }
 
-  public get currentScenario(): LabScenario {
+  public get currentScenario(): LiScenario {
     return this.scenario$.value;
   }
 
@@ -114,7 +115,7 @@ export class LabScenarioDetailPageState {
    * @param scenario
    * @param refreshWorkflow if true, the protocol are reloaded
    */
-  public updateScenario(scenario: LabScenario, refreshWorkflow: boolean = false): void {
+  public updateScenario(scenario: LiScenario, refreshWorkflow: boolean = false): void {
     if (scenario == null) return;
     this.scenario$.next(scenario);
 
@@ -125,7 +126,7 @@ export class LabScenarioDetailPageState {
     this.checkAndStartRefreshProtocol();
   }
 
-  public getTags$(): LabTagDatasource {
+  public getTags$(): LiTagDatasource {
     return this.tags$;
   }
 
@@ -195,12 +196,12 @@ export class LabScenarioDetailPageState {
     this.refreshProtocols(this.getCurrentProtocols().map((process) => process.id)).subscribe();
   }
 
-  private getCurrentProtocols(): LabProtocol[] {
+  private getCurrentProtocols(): LiProtocol[] {
     return Object.values(this.protocols).map((behavior) => behavior.value);
   }
 
-  private refreshProtocols(protocolIds: string[]): Observable<LabProtocol> {
-    const obs: Observable<LabProtocol>[] = protocolIds.map((id) => this.protocolService.getProtocol(id));
+  private refreshProtocols(protocolIds: string[]): Observable<LiProtocol> {
+    const obs: Observable<LiProtocol>[] = protocolIds.map((id) => this.protocolService.getProtocol(id));
     return merge(...obs).pipe(tap((protocol) => this.refreshProtocolSuccess(protocol)));
   }
 
@@ -208,7 +209,7 @@ export class LabScenarioDetailPageState {
    * Refresh the protocol passed as parameter directly and then others protocols
    * @param dbProtocol
    */
-  public refreshProtocolAndOthers(dbProtocol: LabProtocol): void {
+  public refreshProtocolAndOthers(dbProtocol: LiProtocol): void {
     const protocol = this.workflow.findLayerById(dbProtocol.id);
     if (protocol == null) return;
 
@@ -223,7 +224,7 @@ export class LabScenarioDetailPageState {
     this.refreshScenario();
   }
 
-  public refreshProcess(process: LabProcess): void {
+  public refreshProcess(process: LiProcess): void {
     // store it in the dict
     const process$ = this.processes[process.id];
     if (process$) {
@@ -255,11 +256,11 @@ export class LabScenarioDetailPageState {
     this.workflow.deleteLayerAndChildren(protocolId);
   }
 
-  public getLabProcess$(processId: string): Observable<LabProcess> {
+  public getLabProcess$(processId: string): Observable<LiProcess> {
     return this.processes[processId].asObservable();
   }
 
-  public getProtocol$(protocolId: string): Observable<LabProtocol> {
+  public getProtocol$(protocolId: string): Observable<LiProtocol> {
     // if the protocol is not loaded, load it
     if (this.protocols[protocolId] == null) {
       this.protocols[protocolId] = new BehaviorSubject(null);
@@ -271,7 +272,7 @@ export class LabScenarioDetailPageState {
     return this.protocols[protocolId].asObservable().pipe(filter((protocol) => protocol != null));
   }
 
-  private refreshProtocolProcesses(protocol: LabProtocol): void {
+  private refreshProtocolProcesses(protocol: LiProtocol): void {
     for (const labProcess of Object.values(protocol.data.nodes)) {
       this.refreshProcess(labProcess);
     }
@@ -279,13 +280,13 @@ export class LabScenarioDetailPageState {
 
   /////////////////////////////////// FLOW ////////////////////////////////////
 
-  public refreshProtocolsSuccess(protocols: LabProtocol[]): void {
+  public refreshProtocolsSuccess(protocols: LiProtocol[]): void {
     for (const protocol of protocols) {
       this.refreshProtocolSuccess(protocol);
     }
   }
 
-  private refreshProtocolSuccess(protocol: LabProtocol): void {
+  private refreshProtocolSuccess(protocol: LiProtocol): void {
     this.refreshProtocolProcesses(protocol);
 
     // refresh the stored protocol
@@ -299,14 +300,14 @@ export class LabScenarioDetailPageState {
     }
   }
 
-  public getMainProtocol$(): Observable<LabProtocol> {
+  public getMainProtocol$(): Observable<LiProtocol> {
     return this.getProtocol$(this.mainProtocolId);
   }
 
   ////////////////////// START / STOP //////////////////////
   start(): void {
     if (this.scenarioIsStarting) return;
-    const scenario: LabScenario = this.currentScenario;
+    const scenario: LiScenario = this.currentScenario;
 
     this.scenarioIsStarting = true;
     this.scenarioService.startScenario(scenario.id).subscribe({
@@ -315,7 +316,7 @@ export class LabScenarioDetailPageState {
     });
   }
 
-  private onStartSuccess(scenario: LabScenario): void {
+  private onStartSuccess(scenario: LiScenario): void {
     this.snackBarService.openSuccessMessage({ text: 'biox.scenario_started', translateText: true });
     this.scenarioIsStarting = false;
     this.updateScenario(scenario);
@@ -333,7 +334,7 @@ export class LabScenarioDetailPageState {
     this.dialogService
       .openConfirmDialog(data)
       .afterClosed()
-      .subscribe((result: FlConfirmDialogResult<LabScenario>) => {
+      .subscribe((result: FlConfirmDialogResult<LiScenario>) => {
         if (result.choice) {
           this.updateScenario(result.result);
         }

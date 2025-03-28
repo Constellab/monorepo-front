@@ -1,31 +1,27 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { LabScenario } from '../../../../lab-core/model/entities/lab-scenario.entity';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  LabSelectTypeDialogComponent,
-  LabSelectTypeDialogInput,
-} from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-type-dialog/lab-select-type-dialog.component';
-import { LabTypeEntity } from '../../../../lab-core/model/entities/lab-type/lab-type.entity';
-import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
-import { Observable } from 'rxjs';
-import { LabResource } from '../../../../lab-core/model/entities/resource/lab-resource.entity';
-import { LabSelectResourceDialogComponent } from '../../../../lab-core/entity-module/lab-resource-core/component/lab-select-resource-dialog/lab-select-resource-dialog.component';
-import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
-import {
-  LabSelectScenarioTemplateDialogComponent,
-  LabSelectScenarioTemplateDialogInput,
-} from '../../../../lab-core/entity-module/lab-scenario-template-core/component/lab-select-scenario-template-dialog/lab-select-scenario-template-dialog.component';
-import { LabScenarioTemplate } from '../../../../lab-core/model/entities/process/lab-scenario-template.entity';
-import { LabAgent } from '../../../../lab-core/model/entities/lab-agent.entity';
-import { LabSelectCommunityAgentDialogComponent } from '../../../../lab-core/entity-module/lab-type-core/component/lab-select-community-agent-dialog/lab-select-community-agent-dialog.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
-import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
-import { MatDivider } from '@angular/material/divider';
 import { AsyncPipe } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
+import { LabScenarioDetailPageState } from '../../state/lab-scenario-detail-page.state';
+import { LabWorkflowEditConfig } from '../../model/lab-workflow-edit-config.class';
+import { LiAgent, LiResource, LiScenario, LiScenarioTemplate, LiTypeEntity } from '@monorepo/lab-lib/li-core';
+import {
+  LiSelectCommunityAgentDialogComponent,
+  LiSelectTypeDialogComponent,
+  LiSelectTypeDialogInput,
+} from '@monorepo/lab-lib/li-type';
+import { LiSelectResourceDialogComponent } from '@monorepo/lab-lib/li-resource';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
+import { MatTooltip } from '@angular/material/tooltip';
+import { Observable } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
+import {
+  LiSelectScenarioTemplateDialogComponent,
+  LiSelectScenarioTemplateDialogInput,
+} from '@monorepo/lab-lib/li-scenario-template';
 
 /**
  * Actions button for the workflow
@@ -53,23 +49,23 @@ export class LabWorkflowActionsComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private scenarioState = inject(LabScenarioDetailPageState);
 
-  scenario$: Observable<LabScenario>;
+  scenario$: Observable<LiScenario>;
 
   ngOnInit(): void {
     this.scenario$ = this.scenarioState.getScenario$();
   }
 
   addProcess(): void {
-    const data: LabSelectTypeDialogInput = {
+    const data: LiSelectTypeDialogInput = {
       searchConfig: { mode: 'process' },
     };
     this.dialogService
-      .openBigDialog(LabSelectTypeDialogComponent, { data: data })
+      .openBigDialog(LiSelectTypeDialogComponent, { data: data })
       .afterClosed()
       .subscribe((processType) => this.onSelectTypeClosed(processType));
   }
 
-  private onSelectTypeClosed(processType?: LabTypeEntity): void {
+  private onSelectTypeClosed(processType?: LiTypeEntity): void {
     if (processType) {
       this.workflowEditState.addNode(processType.typingName, processType.name);
     }
@@ -77,28 +73,28 @@ export class LabWorkflowActionsComponent implements OnInit {
 
   addResource(): void {
     this.dialogService
-      .openBigDialog(LabSelectResourceDialogComponent)
+      .openBigDialog(LiSelectResourceDialogComponent)
       .afterClosed()
       .subscribe((resource) => this.onSelectResourceClosed(resource));
   }
 
-  private onSelectResourceClosed(resource?: LabResource): void {
+  private onSelectResourceClosed(resource?: LiResource): void {
     if (resource) {
       this.workflowEditState.addSource(resource.id, resource.name);
     }
   }
 
   addScenarioTemplate(): void {
-    const data: LabSelectScenarioTemplateDialogInput = {
+    const data: LiSelectScenarioTemplateDialogInput = {
       rowSelectable: true,
     };
     this.dialogService
-      .openBigDialog(LabSelectScenarioTemplateDialogComponent, { data: data })
+      .openBigDialog(LiSelectScenarioTemplateDialogComponent, { data: data })
       .afterClosed()
       .subscribe((scenarioTemplate) => this.onSelectScenarioTemplateClosed(scenarioTemplate));
   }
 
-  private onSelectScenarioTemplateClosed(scenarioTemplate?: LabScenarioTemplate): void {
+  private onSelectScenarioTemplateClosed(scenarioTemplate?: LiScenarioTemplate): void {
     if (scenarioTemplate) {
       this.workflowEditState.addScenarioTemplate(scenarioTemplate.id, scenarioTemplate.name);
     }
@@ -106,9 +102,9 @@ export class LabWorkflowActionsComponent implements OnInit {
 
   addCommunityAgent(): void {
     this.dialogService
-      .openMediumDialog(LabSelectCommunityAgentDialogComponent)
+      .openMediumDialog(LiSelectCommunityAgentDialogComponent)
       .afterClosed()
-      .subscribe((agentVersion: LabAgent) => {
+      .subscribe((agentVersion: LiAgent) => {
         if (agentVersion) {
           this.workflowEditState.addCommunityAgent(agentVersion.id, agentVersion.title);
         }
