@@ -31,40 +31,20 @@
         <h2>{{ 'biox.share_link' | translate }}</h2>
       </fl-text-icon>
 
-      @if (shareLink$ | async; as shareLink) {
+      @if (publicShareLink$ | async; as shareLink) {
         <lab-share-link-actions-menu
           [shareLink]="shareLink"
-          (update)="onShareLinkUpdate($event)"
-          (delete)="onShareLinkDelete()"
+          (update)="onPublicShareLinkUpdate($event)"
+          (delete)="onPublicShareLinkDelete()"
           class="action-menu">
         </lab-share-link-actions-menu>
       }
     </div>
 
-    @if (shareLink$ | async; as shareLink) {
+    @if (publicShareLink$ | async; as shareLink) {
       <lab-share-link-links [shareLink]="shareLink"></lab-share-link-links>
-      <div class="share-info">
-        @if (shareLink.validUntil) {
-          {{ 'biox.share_link_exist' | translate }}
-          <span
-            [matTooltip]="shareLink.validUntil | flDate: 'DATE_TIME_WITH_SECONDS'"
-            [ngClass]="{ 'g-warn-text': !shareLink.isValid() }">
-            {{ shareLink.validUntil | flDate }}
-          </span>
-          @if (!shareLink.isValid()) {
-            <span class="g-warn-text"> ({{ 'biox.shared_link_expired' | translate }})</span>
-          }
-        } @else {
-          {{ 'biox.share_link_no_valid_until' | translate }}
-        }
-      </div>
 
-      <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
-        <div>{{ 'biox.shared_by' | translate }}</div>
-        <fl-user-inline [user]="shareLink.createdBy"></fl-user-inline>
-        <div>-</div>
-        <fl-from-now [date]="shareLink.createdAt"></fl-from-now>
-      </div>
+      <lab-share-link-info class="share-info" [shareLink]="shareLink"></lab-share-link-info>
 
       <!--   No share link   -->
     } @else {
@@ -81,12 +61,30 @@
     <!--   Special section for the resources to share with space -->
     <mat-divider></mat-divider>
 
-    <fl-text-icon>
-      <mat-icon flIcon="space"></mat-icon>
-      <h2>{{ 'biox.share_resource_with_space' | translate }}</h2>
-    </fl-text-icon>
+    <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+      <fl-text-icon class="g-flex-auto">
+        <mat-icon flIcon="space"></mat-icon>
+        <h2>{{ 'biox.share_resource_with_space' | translate }}</h2>
+      </fl-text-icon>
+
+      @if (spaceShareLink$ | async; as shareLink) {
+        <lab-share-link-actions-menu
+          [shareLink]="shareLink"
+          (update)="onSpaceShareLinkUpdate($event)"
+          (delete)="onSpaceShareLinkDelete()"
+          class="action-menu">
+        </lab-share-link-actions-menu>
+      }
+    </div>
 
     <div>{{ 'biox.share_resource_with_space_short_help' | translate }}</div>
+
+    @if (spaceShareLink$ | async; as shareLink) {
+      <div class="space-share-link-info">
+        <div>{{ 'biox.share_resource_with_space_link_exists' | translate }}</div>
+        <lab-share-link-info [shareLink]="shareLink"></lab-share-link-info>
+      </div>
+    }
 
     <div class="button-container">
       <button mat-stroked-button type="button" (click)="shareResourceWithSpace()">

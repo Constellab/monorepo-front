@@ -17,7 +17,7 @@ import {
   LabResourceSearchFields,
 } from '../entity-module/lab-resource-core/model/lab-resource-search.class';
 import { LabProcessType } from '../model/entities/lab-type/lab-process-type.entity';
-import { LabSharedEntity } from '../model/entities/lab-share.entity';
+import { LabSharedEntity, LabShareLink } from '../model/entities/lab-share.entity';
 import { LabTransformerParams } from '../model/global/lab-transformer.class';
 import { LabNavigableEntityImpact } from '../model/entities/lab-navigable-entity.entity';
 import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
@@ -253,11 +253,11 @@ export class LabResourceService {
       folder: LabFolder;
       validUntil?: DateTime;
     }
-  ): Observable<void> {
+  ): Observable<LabShareLink> {
     const requestDTO = {
       folder_id: shareInfo.folder.id,
       valid_until: ClDateHelper.serializeDate(shareInfo.validUntil),
     };
-    return this.apiService.post(`${this.route}/${resourceId}/share-with-space`, requestDTO);
+    return this.apiService.post(`${this.route}/${resourceId}/share-with-space`, requestDTO, LabShareLink);
   }
 }

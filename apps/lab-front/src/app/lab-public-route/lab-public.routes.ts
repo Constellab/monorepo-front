@@ -7,8 +7,8 @@ export const LAB_OPEN_ROUTES: Routes = [
       {
         path: 'resource/:token',
         loadComponent: () =>
-          import('./lab-open-route-resource-page/lab-open-route-resource-page.component').then(
-            (m) => m.LabOpenRouteResourcePageComponent
+          import('./lab-public-route-resource-page/lab-public-route-resource-page.component').then(
+            (m) => m.LabPublicRouteResourcePageComponent
           ),
       },
     ],

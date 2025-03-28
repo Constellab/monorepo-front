@@ -28,7 +28,7 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaResourceActionEvent> {
-    const menu = [this.getOpenInLabButton(), this.getManageTagsButton(), this.getDeleteResourceButton()];
+    const menu = [this.getManageTagsButton(), this.getDeleteResourceButton()];
     return this.generateMenu(menu, event);
   }
 
@@ -61,34 +61,6 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
     if (result.choice) {
       this.subject.next({ action: 'deleteResource', resource: this.resourceInfo });
     }
-    this.subject.complete();
-  }
-
-  private getOpenInLabButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: 'open_resource_in_lab',
-      icon: 'open_in_new',
-      onClick: () => this.loadAndOpenInLab(),
-    };
-  }
-
-  public loadAndOpenInLab(): void {
-    if (this.resourceInfo.shareLink) {
-      this.openInLab(this.resourceInfo.shareLink);
-    } else {
-      this.injector
-        .get(CaResourceService)
-        .findById(this.resourceInfo.id)
-        .subscribe((resource) => {
-          this.openInLab(resource.shareLink);
-        });
-    }
-  }
-
-  public openInLab(link: string): void {
-    // open link in new tab
-    window.open(link, '_blank');
     this.subject.complete();
   }
 }

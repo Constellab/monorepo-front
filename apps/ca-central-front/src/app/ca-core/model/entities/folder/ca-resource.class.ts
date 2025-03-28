@@ -12,7 +12,7 @@ export class CaResource extends CaBaseEntity {
 
   style: TdTypeStyle;
 
-  shareLink: string;
+  accessUrl: string;
 
   @ClLuxonDateTimeTransform()
   validUntil: DateTime;
@@ -21,5 +21,4 @@ export class CaResource extends CaBaseEntity {
 export class CaResourceBasicInfo {
   id: string;
   name: string;
-  shareLink?: string;
 }

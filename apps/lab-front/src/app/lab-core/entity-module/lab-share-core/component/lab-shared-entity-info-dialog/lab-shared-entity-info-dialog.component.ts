@@ -2,16 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import {
   LabSharedEntityDatasource,
   LabShareLink,
-  LabShareLinkType,
+  LabShareLinkEntityType,
 } from '../../../../model/entities/lab-share.entity';
 import { MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlPortalAction } from '@monorepo/front-core-lib/fl-portal-actions';
-import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
+import { FlDialogModule, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import { Observable, of, share } from 'rxjs';
 import { LabShareService } from '../../../../entity-service/lab-share.service';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
@@ -25,25 +24,23 @@ import {
   LabShareResourceWithSpaceDialogComponent,
   LabShareResourceWithSpaceDialogInput,
 } from '../../../lab-resource-core/component/lab-share-resource-with-space-dialog/lab-share-resource-with-space-dialog.component';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { LabShareLinkActionsMenuComponent } from '../lab-share-link-actions-menu/lab-share-link-actions-menu.component';
 import { LabShareLinkLinksComponent } from '../lab-share-link-links/lab-share-link-links.component';
-import { MatTooltip } from '@angular/material/tooltip';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { LabSharedEntityTableComponent } from '../lab-shared-entity-table/lab-shared-entity-table.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabShareLinkInfoComponent } from '../lab-share-link-info/lab-share-link-info.component';
 
 export interface LabSharedEntityInfoDialogInput {
-  entityType: LabShareLinkType;
+  entityType: LabShareLinkEntityType;
   entityId: string;
   /**
    * Config to enable auto send to lab button and dialog
@@ -64,14 +61,11 @@ export interface LabSharedEntityInfoDialogInput {
     FlDialogModule,
     FlTextIconModule,
     MatIcon,
-    CdkScrollable,
     MatDialogContent,
     MatButton,
     MatDivider,
     LabShareLinkActionsMenuComponent,
     LabShareLinkLinksComponent,
-    MatTooltip,
-    NgClass,
     FlUserModule,
     FlDateModule,
     FlIconModule,
@@ -79,24 +73,28 @@ export interface LabSharedEntityInfoDialogInput {
     LabSharedEntityTableComponent,
     AsyncPipe,
     TranslatePipe,
+    LabShareLinkInfoComponent,
   ],
 })
 export class LabSharedEntityInfoDialogComponent implements OnInit {
-  input: LabSharedEntityInfoDialogInput = inject(MAT_DIALOG_DATA);
-
-  shareLink$: Observable<LabShareLink>;
-
-  sharedEntities: LabSharedEntityDatasource;
-
   private shareService = inject(LabShareService);
   private shareLinkService = inject(LabShareLinkService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
 
+  input: LabSharedEntityInfoDialogInput = inject(MAT_DIALOG_DATA);
+
+  sharedEntities: LabSharedEntityDatasource;
+
+  publicShareLink$: Observable<LabShareLink> = this.shareLinkService
+    .getShareLink(this.input.entityType, this.input.entityId, 'PUBLIC')
+    .pipe(share());
+
+  spaceShareLink$: Observable<LabShareLink> = this.shareLinkService
+    .getShareLink(this.input.entityType, this.input.entityId, 'SPACE')
+    .pipe(share());
+
   ngOnInit(): void {
-    this.shareLink$ = this.shareLink$ = this.shareLinkService
-      .getShareLink(this.input.entityType, this.input.entityId)
-      .pipe(share());
     this.sharedEntities = this.shareService.getSharedToDatasource(this.input.entityType, this.input.entityId);
   }
 
@@ -116,7 +114,7 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
 
   private onShareClosedClosed(shareLink?: LabShareLink): void {
     if (shareLink) {
-      this.onShareLinkUpdate(shareLink);
+      this.onPublicShareLinkUpdate(shareLink);
     }
   }
 
@@ -142,12 +140,20 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
     }
   }
 
-  onShareLinkUpdate(entity: LabShareLink): void {
-    this.shareLink$ = of(entity);
+  onPublicShareLinkUpdate(entity: LabShareLink): void {
+    this.publicShareLink$ = of(entity);
   }
 
-  onShareLinkDelete(): void {
-    this.shareLink$ = of(null);
+  onSpaceShareLinkUpdate(entity: LabShareLink): void {
+    this.spaceShareLink$ = of(entity);
+  }
+
+  onPublicShareLinkDelete(): void {
+    this.publicShareLink$ = of(null);
+  }
+
+  onSpaceShareLinkDelete(): void {
+    this.spaceShareLink$ = of(null);
   }
 
   openAutoSendDialog(): void {
@@ -184,6 +190,15 @@ export class LabSharedEntityInfoDialogComponent implements OnInit {
       resource: this.input.shareResourceWithSpaceConfig.resource,
     };
 
-    this.dialogService.openSmallDialog(LabShareResourceWithSpaceDialogComponent, { data: input });
+    this.dialogService
+      .openSmallDialog(LabShareResourceWithSpaceDialogComponent, { data: input })
+      .afterClosed()
+      .subscribe((shareLink: LabShareLink) => this.onShareWithSpaceClosed(shareLink));
+  }
+
+  private onShareWithSpaceClosed(shareLink: LabShareLink): void {
+    if (shareLink) {
+      this.onSpaceShareLinkUpdate(shareLink);
+    }
   }
 }

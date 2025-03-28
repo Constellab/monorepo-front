@@ -22,7 +22,7 @@ export class FlApiService {
    * HTTP GET. Get a single element with the id.
    * @param route the route for the api call
    * @param id of the object to get. The id is added to at the end of the request with a '/'.
-   * Can be add²  ed in the anywhere in the request with the string '\{id\}'
+   * Can be added in the anywhere in the request with the string '\{id\}'
    * @param classReference if not null the response is converted to the classReference
    * @param options custom http options
    */
@@ -308,7 +308,7 @@ export class FlApiService {
 
     if (headers != null) {
       // append the header of the request
-      headers.keys().map((key) => ((headers as any)[key] = headers.get(key)));
+      headers.keys().map((key) => (headerObject[key] = headers.get(key)));
     }
 
     if (Object.keys(headerObject).length === 0) return null;

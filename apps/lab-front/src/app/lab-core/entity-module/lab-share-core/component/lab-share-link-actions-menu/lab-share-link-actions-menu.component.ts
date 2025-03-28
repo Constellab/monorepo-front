@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import {
   LabShareLinkFormDialogComponent,
   LabShareLinkFormDialogInput,
 } from '../lab-share-link-form-dialog/lab-share-link-form-dialog.component';
 import { MatIconButton } from '@angular/material/button';
-import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -64,8 +66,11 @@ export class LabShareLinkActionsMenuComponent {
 
   deleteShareLink(): void {
     const input: FlConfirmDialogInput = {
-      title: 'biox.delete_share_link',
-      content: 'biox.delete_share_link_confirmation',
+      title: this.deleteText,
+      content:
+        this.shareLink.linkType === 'PUBLIC'
+          ? 'biox.delete_share_link_confirmation'
+          : 'biox.delete_space_share_link_confirmation',
       observable: this.shareLinkService.delete(this.shareLink.id),
       successMessage: 'biox.share_link_deleted',
     };
@@ -80,5 +85,13 @@ export class LabShareLinkActionsMenuComponent {
     if (result.choice) {
       this.delete.emit(this.shareLink);
     }
+  }
+
+  get updateText(): string {
+    return this.shareLink.linkType === 'PUBLIC' ? 'biox.update_share_link' : 'biox.update_space_share_link';
+  }
+
+  get deleteText(): string{
+    return this.shareLink.linkType === 'PUBLIC' ? 'biox.delete_share_link' : 'biox.delete_space_share_link';
   }
 }

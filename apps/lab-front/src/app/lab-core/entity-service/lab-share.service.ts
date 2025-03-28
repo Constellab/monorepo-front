@@ -4,13 +4,15 @@ import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import {
   LabSharedEntity,
   LabSharedEntityDatasource,
-  LabShareLinkType,
+  LabShareLinkEntityType,
+  LabShareLinkPublicAuth,
 } from '../model/entities/lab-share.entity';
 import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import { LabResourceView } from '../model/entities/resource/lab-resource-view.entity';
 import { LabResourceService } from './lab-resource.service';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,7 @@ export class LabShareService {
   private route: string = 'share';
 
   public getSharedTo(
-    entityType: LabShareLinkType,
+    entityType: LabShareLinkEntityType,
     entityId: string,
     page: number,
     size: number
@@ -33,7 +35,10 @@ export class LabShareService {
     });
   }
 
-  public getSharedToDatasource(entityType: LabShareLinkType, entityId: string): LabSharedEntityDatasource {
+  public getSharedToDatasource(
+    entityType: LabShareLinkEntityType,
+    entityId: string
+  ): LabSharedEntityDatasource {
     return new FlEntityPaginatedDatasource(
       (page, pageSize) => this.getSharedTo(entityType, entityId, page, pageSize),
       20
@@ -41,23 +46,30 @@ export class LabShareService {
   }
 
   /////////////////////////////////// RESOURCE ///////////////////////////////////
-  public callDefaultViewOnResource(token: string): Observable<LabResourceView> {
-    return this.callViewOnResource(token, LabResourceService.defaultViewName, {}, true);
+  public callDefaultViewOnResource(auth: LabShareLinkPublicAuth): Observable<LabResourceView> {
+    return this.callViewOnResource(auth, LabResourceService.defaultViewName, {}, true);
   }
 
   public callViewOnResource(
-    token: string,
+    auth: LabShareLinkPublicAuth,
     viewMethodName: string,
     configValues: TdParamSpecsValues,
     saveViewConfig: boolean = false
   ): Observable<LabResourceView> {
+    let headers: HttpHeaders = undefined;
+    if (auth.userAccessToken) {
+      headers = new HttpHeaders({
+        gws_user_access_token: auth.userAccessToken,
+      });
+    }
     return this.apiService.post(
-      `${this.route}/resource/${token}/views/${viewMethodName}`,
+      `${this.route}/resource/${auth.token}/views/${viewMethodName}`,
       {
         values: configValues,
         save_view_config: saveViewConfig,
       },
-      LabResourceView
+      LabResourceView,
+      { headers: headers }
     );
   }
 }

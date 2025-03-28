@@ -1,16 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
-import { LabShareLink, LabShareLinkType } from '../../../../model/entities/lab-share.entity';
-import { FormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { LabShareLink, LabShareLinkEntityType } from '../../../../model/entities/lab-share.entity';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LabShareLinkService } from '../../../../entity-service/lab-share-link.service';
-import { MAT_DIALOG_DATA, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
-import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { MatFormField, MatLabel, MatSuffix, MatHint } from '@angular/material/form-field';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -18,16 +16,20 @@ import { TranslatePipe } from '@ngx-translate/core';
 export interface LabShareLinkFormDialogInput extends FlFormDialogInput<LabShareLink> {
   createTitle?: string;
   entityId?: string;
-  entityType?: LabShareLinkType;
+  entityType?: LabShareLinkEntityType;
 }
 
+/**
+ * Dialog to create or update a share link
+ * In create mode, it creates a PUBLIC share link
+ * In update mode, it updates the share link (PUBLIC or SPACE)
+ */
 @Component({
   selector: 'lab-share-link-form-dialog',
   templateUrl: './lab-share-link-form-dialog.component.html',
   styleUrls: ['./lab-share-link-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,
@@ -66,15 +68,21 @@ export class LabShareLinkFormDialogComponent
   }
 
   create(formValue: Partial<LabShareLink>): Observable<LabShareLink> {
-    return this.shareLinkService.create(formValue);
+    return this.shareLinkService.createPublicShareLink(formValue);
   }
 
   update(formValue: Partial<LabShareLink>): Observable<LabShareLink> {
-    return this.shareLinkService.update(formValue);
+    return this.shareLinkService.update(formValue.id, formValue.validUntil);
   }
 
   get title(): string {
-    return this.isCreateMode() ? this.dialogInput.createTitle : 'biox.update_share_link';
+    if (this.isCreateMode()) {
+      return this.dialogInput.createTitle;
+    }
+
+    return this.dialogInput.object.linkType === 'PUBLIC'
+      ? 'biox.update_share_link'
+      : 'biox.update_space_share_link';
   }
 
   getCreateSuccessMessage(): string {
@@ -83,5 +91,9 @@ export class LabShareLinkFormDialogComponent
 
   getUpdateSuccessMessage(): string {
     return 'biox.share_link_updated';
+  }
+
+  get isPublicLink(): boolean {
+    return this.isCreateMode() || this.dialogInput.object.linkType === 'PUBLIC';
   }
 }

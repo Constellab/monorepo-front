@@ -12,11 +12,11 @@
 
   <button mat-menu-item type="button" (click)="openUpdateDialog()">
     <mat-icon>edit</mat-icon>
-    <span>{{ 'biox.update_share_link' | translate }}</span>
+    <span>{{ updateText | translate }}</span>
   </button>
 
   <button mat-menu-item type="button" (click)="deleteShareLink()" class="warn">
     <mat-icon>clear</mat-icon>
-    <span>{{ 'biox.delete_share_link' | translate }}</span>
+    <span>{{ deleteText | translate }}</span>
   </button>
 </mat-menu>

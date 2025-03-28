@@ -23,7 +23,7 @@ import { labNoteRoutes } from '../lab-note/lab-note-routes';
 import { labViewRoutes } from '../lab-view/lab-view-routes';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
 import { labMonitoringRoutes } from '../lab-monitoring/lab-monitoring-routes';
-import { LAB_OPEN_ROUTES } from '../lab-open-route/lab-open.routes';
+import { LAB_OPEN_ROUTES } from '../lab-public-route/lab-public.routes';
 import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 
 export const labMainRoutes: Routes = [

@@ -1,25 +1,27 @@
 import { Expose, Type } from 'class-transformer';
 import { DateTime } from 'luxon';
-import { ClDateHelper, ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { ClDateHelper, ClLuxonDateTransform } from '@monorepo/core-lib';
 import { LabBaseEntityWithUser, LabUser } from './lab-user.entity';
 import { FlDatasourcePaginated } from '@monorepo/front-core-lib/fl-core';
 import { LabBaseEntity } from '../global/lab-entity.entity';
 import { LabEntityType } from './lab-navigable-entity.entity';
 
-export type LabShareLinkType = 'RESOURCE' | 'SCENARIO';
+export type LabShareLinkEntityType = 'RESOURCE' | 'SCENARIO';
+
+export type LabShareLinkType = 'PUBLIC' | 'SPACE';
 
 export class LabShareLink extends LabBaseEntityWithUser {
   @Expose({ name: 'entity_id' })
   entityId: string;
 
   @Expose({ name: 'entity_type' })
-  entityType: LabShareLinkType;
+  entityType: LabShareLinkEntityType;
 
   @Expose({ name: 'entity_name' })
   entityName: string;
 
   @Expose({ name: 'valid_until' })
-  @ClLuxonDateTimeTransform()
+  @ClLuxonDateTransform()
   validUntil: DateTime;
 
   status: 'SUCCESS' | 'ERROR';
@@ -29,6 +31,9 @@ export class LabShareLink extends LabBaseEntityWithUser {
 
   @Expose({ name: 'preview_link' })
   previewLink?: string;
+
+  @Expose({ name: 'link_type' })
+  linkType: LabShareLinkType;
 
   isValid(): boolean {
     return this.validUntil > ClDateHelper.getDate();
@@ -74,4 +79,15 @@ export type LabSharedEntityDatasource = FlDatasourcePaginated<LabSharedEntity>;
 export interface LabCleanShareLinks {
   clean_expired_links: boolean;
   clean_invalid_links: boolean;
+}
+
+/**
+ * Auth object used when requesting a public share link
+ */
+export interface LabShareLinkPublicAuth {
+  token: string;
+  /**
+   * For link that require user authentication
+   */
+  userAccessToken?: string;
 }

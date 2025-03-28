@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DateTime } from 'luxon';
 import { LabResourceService } from '../../../../entity-service/lab-resource.service';
 import { LabResource } from '../../../../model/entities/resource/lab-resource.entity';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogContent, MatDialogActions } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { LabFolderInlineSelectComponent } from '../../../lab-folder-core/component/lab-folder-inline-select/lab-folder-inline-select.component';
-import { MatError, MatFormField, MatLabel, MatSuffix, MatHint } from '@angular/material/form-field';
+import { MatError, MatFormField, MatHint, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
 import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { LabShareLink } from '../../../../model/entities/lab-share.entity';
 
 export interface LabShareResourceWithSpaceDialogInput {
   resource: LabResource;
@@ -27,7 +27,6 @@ export interface LabShareResourceWithSpaceDialogInput {
   styleUrl: './lab-share-resource-with-space-dialog.component.scss',
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     FlFormModule,
@@ -74,14 +73,14 @@ export class LabShareResourceWithSpaceDialogComponent {
   private shareResourceWithSpace(): void {
     this.isLoading = true;
     this.resourceService.shareWithSpace(this.input.resource.id, this.formGp.getRawValue()).subscribe({
-      next: () => this.shareResourceSuccess(),
+      next: (shareLink) => this.shareResourceSuccess(shareLink),
       error: () => (this.isLoading = false),
     });
   }
 
-  private shareResourceSuccess(): void {
+  private shareResourceSuccess(shareLink: LabShareLink): void {
     this.snackBarService.openSuccessMessage('biox.resource_shared_with_space');
-    this.dialogRef.close();
+    this.dialogRef.close(shareLink);
     this.isLoading = false;
   }
 }

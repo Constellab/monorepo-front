@@ -4,7 +4,9 @@
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="share-link-form" [formGroup]="formGp">
-    <p class="help-text">{{ 'biox.share_object_help' | translate }}</p>
+    @if (isPublicLink) {
+      <p class="help-text">{{ 'biox.share_object_help' | translate }}</p>
+    }
 
     <!--    Valid until      -->
     <mat-form-field class="g-form-input">

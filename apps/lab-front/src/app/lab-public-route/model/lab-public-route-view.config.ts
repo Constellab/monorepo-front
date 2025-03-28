@@ -16,6 +16,7 @@ import { LabShareService } from '../../lab-core/entity-service/lab-share.service
 import { LabResourceTableService } from '../../lab-core/entity-service/lab-resource-table.service';
 import { map } from 'rxjs/operators';
 import { LabResourceView } from '../../lab-core/model/entities/resource/lab-resource-view.entity';
+import { LabShareLinkPublicAuth } from '../../lab-core/model/entities/lab-share.entity';
 
 /**
  * Class to make request to lab api when loading a spreadsheet page
@@ -24,20 +25,20 @@ export class LabOpenRouteResourceSpreadsheetLoader implements SpSpreadsheetPageL
   constructor(
     private shareService: LabShareService,
     private viewConfig: RvViewConfig,
-    private token: string
+    private auth: LabShareLinkPublicAuth
   ) {}
 
   loadRows(fromRow: number): Observable<SpSpreadsheetPage> {
     const viewConfig = LabResourceTableService.getViewConfigNextPage(this.viewConfig.configValues, fromRow);
     return this.shareService
-      .callViewOnResource(this.token, this.viewConfig.methodName, viewConfig)
+      .callViewOnResource(this.auth, this.viewConfig.methodName, viewConfig)
       .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
   }
 
   loadPreviousRows(toRow: number): Observable<SpSpreadsheetPage> {
     const viewConfig = LabResourceTableService.getViewConfigPreviousPage(this.viewConfig.configValues, toRow);
     return this.shareService
-      .callViewOnResource(this.token, this.viewConfig.methodName, viewConfig)
+      .callViewOnResource(this.auth, this.viewConfig.methodName, viewConfig)
       .pipe(map((view) => this.convertToSpSpreadPaginationResult(view)));
   }
 
@@ -53,7 +54,7 @@ export class LabOpenRouteResourceSpreadsheetLoader implements SpSpreadsheetPageL
 export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
   constructor(
     private shareService: LabShareService,
-    private token: string
+    private auth: LabShareLinkPublicAuth
   ) {
     super();
   }
@@ -65,7 +66,7 @@ export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
   getPagination(view: RvResourceViewTable, _: string, config: RvViewConfig): SpSpreadsheetPageLoader | null {
     // activate the pagination only for the table-view
     if (view.type === 'table-view') {
-      return new LabOpenRouteResourceSpreadsheetLoader(this.shareService, config, this.token);
+      return new LabOpenRouteResourceSpreadsheetLoader(this.shareService, config, this.auth);
     } else {
       return null;
     }
@@ -75,7 +76,7 @@ export class LabOpenRouteSpreadsheetViewConfig extends RvSpreadsheetViewConfig {
 export class LabTextViewConfig extends RvTextViewConfig {
   constructor(
     private shareService: LabShareService,
-    private token: string
+    private auth: LabShareLinkPublicAuth
   ) {
     super();
   }
@@ -90,7 +91,7 @@ export class LabTextViewConfig extends RvTextViewConfig {
     config: RvViewConfig
   ): Observable<RvResourceViewText> {
     return this.shareService
-      .callViewOnResource(this.token, config.methodName, viewConfig)
+      .callViewOnResource(this.auth, config.methodName, viewConfig)
       .pipe(map((view) => view.view as RvResourceViewText));
   }
 }
@@ -102,7 +103,7 @@ export class LabTextViewConfig extends RvTextViewConfig {
 export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleConfig {
   constructor(
     private shareService: LabShareService,
-    private token: string
+    private auth: LabShareLinkPublicAuth
   ) {
     super();
   }
@@ -127,11 +128,11 @@ export class LabOpenRouteResourceViewModuleConfig extends RvResourceViewModuleCo
   }
 
   getSpreadsheetViewConfig(): RvSpreadsheetViewConfig {
-    return new LabOpenRouteSpreadsheetViewConfig(this.shareService, this.token);
+    return new LabOpenRouteSpreadsheetViewConfig(this.shareService, this.auth);
   }
 
   getTextViewConfig(): RvTextViewConfig {
-    return new LabTextViewConfig(this.shareService, this.token);
+    return new LabTextViewConfig(this.shareService, this.auth);
   }
 
   /**

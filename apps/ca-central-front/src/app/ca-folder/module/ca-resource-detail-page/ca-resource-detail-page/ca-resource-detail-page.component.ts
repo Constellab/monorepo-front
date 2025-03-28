@@ -15,7 +15,6 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-authenticated-user.service';
 
 @Component({
   selector: 'ca-resource-detail-page',
@@ -35,7 +34,6 @@ import { CaAuthenticatedUserService } from '../../../../ca-core/service-api/ca-a
 export class CaResourceDetailPageComponent {
   private resourceService = inject(CaResourceService);
   private state = inject(CaHierarchyObjectDetailState);
-  private authenticatedUserService = inject(CaAuthenticatedUserService);
   private injector = inject(Injector);
 
   private route = inject(ActivatedRoute);
@@ -48,13 +46,10 @@ export class CaResourceDetailPageComponent {
     map((params) => params.id),
     switchMap((id) => this.resourceService.findById(id)),
     tap((resource) => {
-      const userId = this.authenticatedUserService.getCurrentUser().id;
       // provide the user in iframe url to authenticate the user
       // useful to authenticate the user for dashboard resource
       // this is not the perfect solution, but it works
-      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
-        resource.shareLink + '?gws_user_id=' + userId + '?hide_header=true'
-      );
+      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(resource.accessUrl);
     })
   );
 
@@ -64,7 +59,6 @@ export class CaResourceDetailPageComponent {
       {
         id: resource.id,
         name: resource.name,
-        shareLink: resource.shareLink,
       },
       { tags: this.state.getTags() }
     );

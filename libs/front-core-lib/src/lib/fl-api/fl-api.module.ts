@@ -22,8 +22,10 @@ export class FlApiModule {
    * allow to load environment before settings the config
    * @param apiServiceConfig
    * @param errorApiService Class for the error service
-   * @param logErrorApiRoute If this string is provided, the FlErrorHandlerApiService is activated and registered as a
-   * ErrorHandler. TS errors will be catch by this class, logged to the console and send to the API in POST request
+   * @param logErrorApiRoute If this string is provided, the FlErrorHandlerApiService
+   * is activated and registered as a
+   * ErrorHandler. TS errors will be caught by this class,
+   * logged to the console and send to the API in POST request
    */
   public static forRoot(
     apiServiceConfig: Type<FlApiServiceConfig>,

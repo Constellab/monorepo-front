@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LabOpenRouteResourcePageComponent } from './lab-open-route-resource-page.component';
+import { LabPublicRouteResourcePageComponent } from './lab-public-route-resource-page.component';
 
 describe('LabOpenRouteResourcePageComponent', () => {
-  let component: LabOpenRouteResourcePageComponent;
-  let fixture: ComponentFixture<LabOpenRouteResourcePageComponent>;
+  let component: LabPublicRouteResourcePageComponent;
+  let fixture: ComponentFixture<LabPublicRouteResourcePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LabOpenRouteResourcePageComponent],
+      imports: [LabPublicRouteResourcePageComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LabOpenRouteResourcePageComponent);
+    fixture = TestBed.createComponent(LabPublicRouteResourcePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
