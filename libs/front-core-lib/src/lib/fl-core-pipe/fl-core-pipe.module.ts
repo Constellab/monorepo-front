@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlErrorRequiredPipe } from './fl-error-required/fl-error-required.pipe';
 import { FlObjectKeysPipe } from './fl-object-keys/fl-object-keys.pipe';
@@ -10,6 +10,8 @@ import { FlCallMethodPipe } from './fl-call-method/fl-call-method.pipe';
 import { FlByteTextPipe } from './fl-byte-text/fl-byte-text.pipe';
 import { FlIsNotEmptyPipe } from './fl-is-not-empty/fl-is-not-empty.pipe';
 import { FlDatasourceConnectPipe } from './fl-datasource-connect/fl-datasource-connect.pipe';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { flCorePipeI18n } from './fl-core-pipe.i18n';
 
 /**
  * Core module containing pipes
@@ -39,4 +41,10 @@ import { FlDatasourceConnectPipe } from './fl-datasource-connect/fl-datasource-c
   ],
   imports: [CommonModule, FlTranslateModule],
 })
-export class FlCorePipeModule {}
+export class FlCorePipeModule {
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
+    translateService.addModuleTranslation('FlCorePipeModule', flCorePipeI18n);
+  }
+}

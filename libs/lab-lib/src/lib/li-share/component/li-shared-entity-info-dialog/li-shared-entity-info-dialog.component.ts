@@ -121,9 +121,9 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
   private getShareDialogTitle(): string {
     switch (this.input.entityType) {
       case 'RESOURCE':
-        return 'biox.share_resource';
+        return 'li.share_resource';
       case 'SCENARIO':
-        return 'biox.share_scenario';
+        return 'li.share_scenario';
       default:
         throw new Error('Unknown entity type');
     }
@@ -132,9 +132,9 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
   get sendToLabButtonText(): string {
     switch (this.input.entityType) {
       case 'RESOURCE':
-        return 'biox.send_resource_to_lab';
+        return 'li.send_resource_to_lab';
       case 'SCENARIO':
-        return 'biox.send_scenario_to_lab';
+        return 'li.send_scenario_to_lab';
       default:
         throw new Error('Unknown entity type');
     }
@@ -166,9 +166,9 @@ export class LiSharedEntityInfoDialogComponent implements OnInit {
   private getSendActionText(): string {
     switch (this.input.entityType) {
       case 'RESOURCE':
-        return 'biox.sending_resource_to_lab';
+        return 'li.sending_resource_to_lab';
       case 'SCENARIO':
-        return 'biox.sending_scenario_to_lab';
+        return 'li.sending_scenario_to_lab';
       default:
         throw new Error('Unknown entity type');
     }

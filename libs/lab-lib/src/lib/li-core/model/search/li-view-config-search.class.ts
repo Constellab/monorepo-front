@@ -35,13 +35,13 @@ export class LiViewConfigSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiViewConfigSearchFields> = {
-    title: 'title',
-    folder: 'biox.folder',
-    viewType: 'biox.view_type',
+    title: 'li.title',
+    folder: 'li.folder',
+    viewType: 'li.view_type',
     // group the creation date into one chip
-    createdAt: 'creation_date',
+    createdAt: 'li.creation_date',
     tags: 'flTag.tags',
-    includeNotFavorite: 'biox.view_include_not_favorite',
+    includeNotFavorite: 'li.view_include_not_favorite',
   };
 
   /**

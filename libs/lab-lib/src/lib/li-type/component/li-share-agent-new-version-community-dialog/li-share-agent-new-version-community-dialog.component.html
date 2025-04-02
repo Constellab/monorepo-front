@@ -10,23 +10,23 @@
       </div>
     } @else if (currentAgent) {
       <div class="g-text-centered current-agent-div">
-        {{ 'biox.add_new_version_of_community_agent_text' | translate: { agentTitle: currentAgent.title } }}
+        {{ 'li.add_new_version_of_community_agent_text' | translate: { agentTitle: currentAgent.title } }}
       </div>
       <div class="current-agent-div">
         <co-agent-list-item class="current-agent" [agent]="currentAgent.toCoAgent()"></co-agent-list-item>
       </div>
       <button mat-stroked-button type="button" (click)="onAddNewVersion()">
         {{
-          'biox.create_new_agent_version' | translate: { version: currentAgent.latest_publish_version + 1 }
+          'li.create_new_agent_version' | translate: { version: currentAgent.latest_publish_version + 1 }
         }}
       </button>
     } @else {
       <div class="g-text-centered g-mat-error current-agent-div">
-        {{ 'biox.no_right_to_create_new_version' | translate }}
+        {{ 'li.no_right_to_create_new_version' | translate }}
       </div>
 
       <button mat-stroked-button type="button" (click)="onCreateNewCommunityAgent()">
-        {{ 'biox.create_new_community_agent' | translate }}
+        {{ 'li.create_new_community_agent' | translate }}
       </button>
     }
   </div>

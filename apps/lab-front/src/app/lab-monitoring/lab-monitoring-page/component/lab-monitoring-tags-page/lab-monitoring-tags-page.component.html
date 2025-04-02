@@ -2,7 +2,7 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon class="g-icon-big" flIcon="tag"></mat-icon>
-      <h2>{{ 'tags' | translate }}</h2>
+      <h2>{{ 'g.tags' | translate }}</h2>
     </fl-text-icon>
 
     <fl-card-actions>
@@ -10,7 +10,7 @@
         mat-icon-button
         type="button"
         (click)="openAddTagDialog()"
-        [matTooltip]="'tag_create' | translate">
+        [matTooltip]="'g.tag_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
 
@@ -18,15 +18,15 @@
         mat-icon-button
         type="button"
         (click)="openTagHelpDialog()"
-        [matTooltip]="'tag_help_tooltip' | translate">
+        [matTooltip]="'g.tag_help_tooltip' | translate">
         <mat-icon>help</mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <p class="g-text-light help-text">{{ 'tag_dashboard_help' | translate }}</p>
-    <fl-infinite-scroll [datasource]="tagKeys" [textNoResult]="'no_tags_dashboard' | translate">
+    <p class="g-text-light help-text">{{ 'g.tag_dashboard_help' | translate }}</p>
+    <fl-infinite-scroll [datasource]="tagKeys" [textNoResult]="'g.no_tags_dashboard' | translate">
       @for (tagKey of tagKeys | flDatasourceConnect | async; track tagKey) {
         <li-tag-entity-detail [tagEntity]="tagKey" (lastTagValueDeleted)="lastTagValueDeleted(tagKey)">
         </li-tag-entity-detail>

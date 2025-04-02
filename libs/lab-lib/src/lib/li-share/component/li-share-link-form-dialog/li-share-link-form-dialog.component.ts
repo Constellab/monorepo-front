@@ -80,16 +80,16 @@ export class LiShareLinkFormDialogComponent
     }
 
     return this.dialogInput.object.linkType === 'PUBLIC'
-      ? 'biox.update_share_link'
-      : 'biox.update_space_share_link';
+      ? 'li.update_share_link'
+      : 'li.update_space_share_link';
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.share_entity_success';
+    return 'li.share_entity_success';
   }
 
   getUpdateSuccessMessage(): string {
-    return 'biox.share_link_updated';
+    return 'li.share_link_updated';
   }
 
   get isPublicLink(): boolean {

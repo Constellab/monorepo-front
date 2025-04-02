@@ -70,6 +70,6 @@ export class LiResourceInfoComponent implements OnInit {
   }
 
   copyIdToClipboard(): void {
-    this.clipboardService.copy(this.resource.id, { text: 'id_copied_to_clipboard', translateText: true });
+    this.clipboardService.copy(this.resource.id, { text: 'li.id_copied_to_clipboard', translateText: true });
   }
 }

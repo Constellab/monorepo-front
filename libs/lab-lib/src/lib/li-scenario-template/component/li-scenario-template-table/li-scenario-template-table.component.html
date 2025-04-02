@@ -2,7 +2,7 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'name' | translate }}</span>
+      <span> {{ 'li.name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <!--    Invisible link  -->
@@ -16,7 +16,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'creation_info' | translate }}</span>
+      <span> {{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <fl-user-with-date [user]="template.createdBy" [date]="template.createdAt"></fl-user-with-date>
@@ -26,7 +26,7 @@
   <!-- Last modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'last_modification_info' | translate }}</span>
+      <span> {{ 'li.last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       <fl-user-with-date
@@ -38,7 +38,7 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'tags' | translate }}</span>
+      <span> {{ 'li.tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let template">
       @defer (on viewport) {
@@ -59,7 +59,7 @@
         target="_blank"
         class="g-button-small"
         (click)="openInNewTab($event)">
-        {{ 'biox.open_in_new_tab' | translate }}
+        {{ 'li.open_in_new_tab' | translate }}
         <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-cell>

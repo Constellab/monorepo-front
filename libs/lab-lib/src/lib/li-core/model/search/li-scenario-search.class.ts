@@ -46,16 +46,16 @@ export class LiScenarioSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiScenarioSearchFields> = {
-    creationTypes: 'biox.scenario_creation_type',
+    creationTypes: 'li.scenario_creation_type',
     tags: 'flTag.tags',
-    folder: 'biox.folder',
-    isArchived: 'is_archived',
+    folder: 'li.folder',
+    isArchived: 'li.is_archived',
     // group the creation date into one chip
-    createdAt: 'creation_date',
-    createdBy: 'created_by',
-    lastModifiedAt: 'last_modified_date',
-    isNotValidated: 'biox.scenario_is_not_validated',
-    processTypingName: 'biox.contain_process',
+    createdAt: 'li.creation_date',
+    createdBy: 'li.created_by',
+    lastModifiedAt: 'li.last_modified_date',
+    isNotValidated: 'li.scenario_is_not_validated',
+    processTypingName: 'li.contain_process',
   };
 
   /**

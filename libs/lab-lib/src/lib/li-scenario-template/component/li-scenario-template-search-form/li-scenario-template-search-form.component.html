@@ -3,8 +3,8 @@
   <div class="g-full main-fields">
     <!--  Title and description  -->
     <mat-form-field class="g-full">
-      <mat-label>{{ 'name' | translate }}</mat-label>
-      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off" />
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'li.name' | translate" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -17,7 +17,7 @@
       <mat-panel-title>
         <fl-text-icon>
           <mat-icon>manage_search</mat-icon>
-          {{ 'advanced_search' | translate }}
+          {{ 'li.advanced_search' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -25,24 +25,24 @@
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
       <!--  Created by  -->
       <fl-form-field class="g-search-field">
-        <fl-select-user formControlName="createdBy" [placeholder]="'created_by' | translate"></fl-select-user>
+        <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
       </fl-form-field>
 
       <!--  Id -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'id' | translate }}</mat-label>
-        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+        <mat-label>{{ 'li.id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'li.id' | translate" autocomplete="off" />
       </mat-form-field>
 
       <!--  Creation date  -->
       <div class="g-form-field-no-hint g-full">
-        <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.creation_date' | translate }}</p>
         <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
       </div>
 
       <!-- Last modification date  -->
       <div class="g-form-field-no-hint g-full">
-        <p class="g-text-small subtitle">{{ 'last_modified_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.last_modified_date' | translate }}</p>
         <fl-search-date-interval formGroupName="lastModifiedAt"> </fl-search-date-interval>
       </div>
     </div>

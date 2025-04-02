@@ -2,7 +2,7 @@
   <div class="g-flex-auto">
     @if (elapsedTime$ | async; as elapsedTime) {
       <fl-key-value>
-        <fl-key>{{ 'biox.execution_time' | translate }}</fl-key>
+        <fl-key>{{ 'li.execution_time' | translate }}</fl-key>
         {{ elapsedTime | flDuration }}
       </fl-key-value>
     }
@@ -10,14 +10,14 @@
     @if (progressBar$ | async; as progressBar) {
       @if (progressBar.startedAt) {
         <fl-key-value>
-          <fl-key>{{ 'begin_date' | translate }}</fl-key>
+          <fl-key>{{ 'li.begin_date' | translate }}</fl-key>
           {{ progressBar.startedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
         </fl-key-value>
       }
 
       @if (progressBar.endedAt) {
         <fl-key-value>
-          <fl-key>{{ 'end_date' | translate }}</fl-key>
+          <fl-key>{{ 'li.end_date' | translate }}</fl-key>
           {{ progressBar.endedAt | flDate: 'DATE_TIME_WITH_SECONDS' }}
         </fl-key-value>
       }
@@ -25,7 +25,7 @@
       @if (progressBar.secondStart) {
         <fl-text-icon class="g-text-light g-text-small" gap="5px">
           <mat-icon class="g-icon-small">info</mat-icon>
-          {{ 'biox.progress_bar_multiple_start' | translate }}
+          {{ 'li.progress_bar_multiple_start' | translate }}
         </fl-text-icon>
       }
     }
@@ -38,7 +38,7 @@
 
     @if (showLiveModeToggle) {
       <mat-slide-toggle [(ngModel)]="liveMode" (ngModelChange)="liveModeChanged()" labelPosition="before">
-        {{ 'biox.progress_bar_live_messages' | translate }}
+        {{ 'li.progress_bar_live_messages' | translate }}
       </mat-slide-toggle>
     }
   </div>
@@ -65,7 +65,7 @@
         mat-stroked-button
         type="button"
         (click)="loadMoreMessagesManually()">
-        {{ 'show_more_result' | translate }}
+        {{ 'li.show_more_result' | translate }}
         @if (loadMoreIsLoading) {
           <fl-button-loader size="small"></fl-button-loader>
         }

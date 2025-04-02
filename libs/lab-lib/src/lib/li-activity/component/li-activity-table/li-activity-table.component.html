@@ -2,7 +2,7 @@
   <!-- User -->
   <ng-container matColumnDef="user">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'user' | translate }}</span>
+      <span> {{ 'li.user' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-inline [user]="row.user"></fl-user-inline>
@@ -12,7 +12,7 @@
   <!-- activityType-->
   <ng-container matColumnDef="activityType">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'monitoring.activity_type' | translate }}</span>
+      <span>{{ 'li.activity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <span>{{ row.activityType }}</span>
@@ -22,7 +22,7 @@
   <!-- Object type-->
   <ng-container matColumnDef="objectType">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'monitoring.activity_object_type' | translate }}</span>
+      <span>{{ 'li.activity_object_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <span>{{ row.objectType }}</span>
@@ -32,7 +32,7 @@
   <!-- objectId-->
   <ng-container matColumnDef="objectId">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'monitoring.activity_object_id' | translate }}</span>
+      <span>{{ 'li.activity_object_id' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <span>{{ row.objectId }}</span>
@@ -42,7 +42,7 @@
   <!-- date-->
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'monitoring.activity_date' | translate }}</span>
+      <span>{{ 'li.activity_date' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-from-now [date]="row.lastModifiedAt"></fl-from-now>
@@ -59,7 +59,7 @@
           mat-stroked-button
           class="g-button-small">
           <mat-icon>visibility</mat-icon>
-          {{ 'detail' | translate }}
+          {{ 'li.detail' | translate }}
         </a>
       }
     </mat-cell>

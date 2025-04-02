@@ -77,7 +77,7 @@ export class LiManageEntityTagsDialogComponent {
   addTag(tagEvent: FlAddTagEvent<LiTagKeyModel>): void {
     const tag = LiTag.newUserTag(tagEvent.key.content, tagEvent.value.content);
     if (this.currentTags.findItem(tag)) {
-      this.snackBarService.openErrorMessage({ text: 'tag_already_exists', translateText: true });
+      this.snackBarService.openErrorMessage({ text: 'li.tag_already_exists', translateText: true });
       return;
     }
     // init the propagable value with the first tag
@@ -131,7 +131,7 @@ export class LiManageEntityTagsDialogComponent {
       .addAction(
         {
           type: 'add-tag',
-          text: { text: 'adding_tag', translateText: true },
+          text: { text: 'li.adding_tag', translateText: true },
           action: this.tagService.addEntityTags(
             this.input.entityType,
             this.input.entityId,
@@ -168,7 +168,7 @@ export class LiManageEntityTagsDialogComponent {
         .addAction(
           {
             type: 'delete-tag',
-            text: { text: 'deleting_tag', translateText: true },
+            text: { text: 'li.deleting_tag', translateText: true },
             action: this.tagService.deleteEntityTag(this.input.entityType, this.input.entityId, tag),
           },
           true

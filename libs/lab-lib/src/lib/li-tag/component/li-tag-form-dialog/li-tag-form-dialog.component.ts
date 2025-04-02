@@ -1,5 +1,4 @@
-import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
@@ -23,7 +22,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./li-tag-form-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatFormField,
@@ -73,11 +71,11 @@ export class LiTagFormDialogComponent
   }
 
   getCreateSuccessMessage(): string {
-    return 'tag_created';
+    return 'li.tag_created';
   }
 
   getUpdateSuccessMessage(): string {
-    return 'tag_updated';
+    return 'li.tag_updated';
   }
 
   update(formValue: FlTag): Observable<LiCreateTagResponse> {
@@ -89,6 +87,6 @@ export class LiTagFormDialogComponent
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'tag_create' : 'tag_update';
+    return this.isCreateMode() ? 'li.tag_create' : 'li.tag_update';
   }
 }

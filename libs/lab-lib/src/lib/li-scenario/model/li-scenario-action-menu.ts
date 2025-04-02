@@ -51,7 +51,7 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
   protected getCreateNoteButton(): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'biox.create_note',
+      text: 'li.create_note',
       icon: 'post_add',
       onClick: () => this.openCreateNote(),
     };
@@ -61,29 +61,29 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
     if (this.scenario.isArchived) {
       return {
         type: 'button',
-        text: 'biox.unarchive_scenario',
+        text: 'li.unarchive_scenario',
         icon: 'unarchive',
         color: 'warn',
         onClick: () =>
           this.toggleArchive({
-            title: 'biox.unarchive_scenario',
-            content: 'biox.unarchive_scenario_confirmation',
+            title: 'li.unarchive_scenario',
+            content: 'li.unarchive_scenario_confirmation',
             observable: this.injector.get(LiScenarioService).unarchiveScenario(this.scenario.id),
-            successMessage: 'biox.scenario_unarchived',
+            successMessage: 'li.scenario_unarchived',
           }),
       };
     } else {
       return {
         type: 'button',
-        text: 'biox.archive_scenario',
+        text: 'li.archive_scenario',
         icon: 'archive',
         color: 'warn',
         onClick: () =>
           this.toggleArchive({
-            title: 'biox.archive_scenario',
-            content: 'biox.archive_scenario_confirmation',
+            title: 'li.archive_scenario',
+            content: 'li.archive_scenario_confirmation',
             observable: this.injector.get(LiScenarioService).archiveScenario(this.scenario.id),
-            successMessage: 'biox.scenario_archived',
+            successMessage: 'li.scenario_archived',
           }),
       };
     }
@@ -92,7 +92,7 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
   protected getDuplicateButton(): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'biox.clone_scenario',
+      text: 'li.clone_scenario',
       icon: 'content_copy',
       onClick: () => this.openDuplicateConfirmation(),
     };
@@ -101,7 +101,7 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
   protected getShareButton(): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'biox.share',
+      text: 'li.share',
       icon: 'share',
       onClick: () => this.openShareDialog(),
     };
@@ -152,10 +152,10 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
 
   private openDuplicateConfirmation(): void {
     const input: FlConfirmDialogInput = {
-      title: 'biox.clone_scenario',
-      content: 'biox.clone_scenario_confirmation',
+      title: 'li.clone_scenario',
+      content: 'li.clone_scenario_confirmation',
       observable: this.injector.get(LiScenarioService).cloneScenario(this.scenario.id),
-      successMessage: 'biox.scenario_cloned',
+      successMessage: 'li.scenario_cloned',
     };
 
     this.injector
@@ -177,8 +177,8 @@ export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEve
       entityType: 'SCENARIO',
       entityId: this.scenario.id,
       autoSendConfig: {
-        title: 'biox.send_scenario_to_lab',
-        helpText: 'biox.send_entity_to_lab_help',
+        title: 'li.send_scenario_to_lab',
+        helpText: 'li.send_entity_to_lab_help',
         specs$: this.injector.get(LiScenarioService).getExportToLabConfigSpecs(),
       },
       autoSend: (configValues) =>

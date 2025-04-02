@@ -7,6 +7,8 @@ import { FlLangTranslation, FlTranslateObject } from '@monorepo/front-core-lib/f
  */
 const flAuthI18nFr: FlLangTranslation = {
   flAuth: {
+    firstname: 'Prénom',
+    lastname: 'Nom',
     email: 'Email',
     email_invalid: "L'adresse email n'est pas valide",
     password: 'Mot de passe',
@@ -38,11 +40,14 @@ const flAuthI18nFr: FlLangTranslation = {
     captcha_protection: `Ce site est protégé par reCAPTCHA et la <a href="https://policies.google.com/privacy" target="_blank">Politique de confidentialité</a> et les <a href="https://policies.google.com/terms" target="_blank">Conditions d'utilisation</a> de Google s'appliquent.`,
     please_enter_you_credentials: 'Veuillez entrer vos identifiants',
     validate: 'Valider',
+    error_required: 'Le champ \'{{field}}\' est obligatoire',
   },
 };
 
 const flAuthI18nEn: FlLangTranslation = {
   flAuth: {
+    firstname: 'First name',
+    lastname: 'Last name',
     email: 'Email',
     email_invalid: 'Email address is not valid',
     password: 'Password',
@@ -73,6 +78,7 @@ const flAuthI18nEn: FlLangTranslation = {
     captcha_protection: `This site is protected by reCAPTCHA and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.`,
     please_enter_you_credentials: 'Please enter your credentials',
     validate: 'Validate',
+    error_required: 'The field \'{{field}}\' is mandatory',
   },
 };
 

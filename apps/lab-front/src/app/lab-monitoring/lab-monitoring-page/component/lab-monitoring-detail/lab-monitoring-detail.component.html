@@ -10,11 +10,11 @@
       class="g-form-field-compact g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
       <!--  Period  -->
       <mat-form-field subscriptSizing="dynamic" class="period">
-        <mat-label>{{ 'lab_usage_period' | translate }}</mat-label>
-        <mat-select [placeholder]="'lab_usage_period' | translate" formControlName="period">
+        <mat-label>{{ 'g.lab_usage_period' | translate }}</mat-label>
+        <mat-select [placeholder]="'g.lab_usage_period' | translate" formControlName="period">
           @for (key of periods | flObjectKeys; track key) {
             <mat-option [value]="periods[key]">
-              {{ 'lab_usage_period_' + key | translate }}
+              {{ 'g.lab_usage_period_' + key | translate }}
             </mat-option>
           }
         </mat-select>
@@ -25,7 +25,7 @@
 
         <!--    From date    -->
         <mat-form-field subscriptSizing="dynamic">
-          <mat-label>{{ 'lab_usage_period_from' | translate }}</mat-label>
+          <mat-label>{{ 'g.lab_usage_period_from' | translate }}</mat-label>
           <input
             matInput
             [matDatepicker]="fromDatePicker"
@@ -38,7 +38,7 @@
         <!--   From hour     -->
         <!--         TODO Wait for this issue to be fixed : https://github.com/angular/components/issues/30469 -->
         <!--        <mat-form-field subscriptSizing="dynamic">-->
-        <!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
+        <!--          <mat-label>{{ 'g.lab_usage_period_hour' | translate }}</mat-label>-->
         <!--          <input matInput [matTimepicker]="fromTimePicker" formControlName="customStartDate" />-->
         <!--          <mat-timepicker #fromTimePicker />-->
         <!--          <mat-timepicker-toggle [for]="fromTimePicker" matSuffix />-->
@@ -47,7 +47,7 @@
         <div class="divider">-</div>
         <!--    To date    -->
         <mat-form-field subscriptSizing="dynamic">
-          <mat-label>{{ 'lab_usage_period_to' | translate }}</mat-label>
+          <mat-label>{{ 'g.lab_usage_period_to' | translate }}</mat-label>
           <input
             matInput
             [matDatepicker]="toDatePicker"
@@ -60,7 +60,7 @@
 
         <!--   To hour     -->
         <!--        <mat-form-field subscriptSizing="dynamic">-->
-        <!--          <mat-label>{{ 'lab_usage_period_hour' | translate }}</mat-label>-->
+        <!--          <mat-label>{{ 'g.lab_usage_period_hour' | translate }}</mat-label>-->
         <!--          <input matInput [matTimepicker]="toTimePicker" formControlName="customEndDate" />-->
         <!--          <mat-timepicker #toTimePicker />-->
         <!--          <mat-timepicker-toggle [for]="toTimePicker" matSuffix />-->

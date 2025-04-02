@@ -76,10 +76,10 @@ export class LiVenvTableComponent {
 
   openDeleteVenvDialog(venv: LiVenvBasicInfo): void {
     const data: FlConfirmDialogInput = {
-      title: 'monitoring.delete_venv',
-      content: 'monitoring.delete_venv_confirmation',
+      title: 'li.delete_venv',
+      content: 'li.delete_venv_confirmation',
       observable: this.venvService.deleteVenv(venv.name),
-      successMessage: 'monitoring.delete_venv_success',
+      successMessage: 'li.delete_venv_success',
     };
 
     this.dialogService

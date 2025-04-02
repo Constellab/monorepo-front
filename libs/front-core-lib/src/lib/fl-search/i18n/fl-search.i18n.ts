@@ -11,6 +11,7 @@ const flSearchFr: FlLangTranslation = {
     begin_date: 'Date de début',
     end_date: 'Date de fin',
     search: 'Rechercher',
+    date_picker_placeholder: 'jj/mm/aaaa',
   },
 };
 
@@ -21,6 +22,7 @@ const flSearchEn: FlLangTranslation = {
     begin_date: 'Start date',
     end_date: 'End date',
     search: 'Search',
+    date_picker_placeholder: 'dd/mm/yyyy',
   },
 };
 

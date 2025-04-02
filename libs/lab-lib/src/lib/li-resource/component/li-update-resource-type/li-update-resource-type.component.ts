@@ -84,7 +84,7 @@ export class LiUpdateResourceTypeComponent implements OnInit {
   }
 
   private updateTypeSuccess(resource: LiResource): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.resource_type_updated', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.resource_type_updated', translateText: true });
     this.dialogRef.close(resource);
     this.isLoading = false;
   }

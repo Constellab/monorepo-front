@@ -88,7 +88,7 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
   }
 
   private updateResourceFolderSuccess(resource: LiResource): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.resource_folder_updated', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.resource_folder_updated', translateText: true });
     this.closeDialog(resource.folder);
   }
 
@@ -100,7 +100,7 @@ export class LiResourceUpdateFolderDialogComponent implements OnInit {
   }
 
   private updateScenarioFolderSuccess(scenario: LiScenario): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.scenario_folder_updated', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.scenario_folder_updated', translateText: true });
     this.closeDialog(scenario.folder);
   }
 

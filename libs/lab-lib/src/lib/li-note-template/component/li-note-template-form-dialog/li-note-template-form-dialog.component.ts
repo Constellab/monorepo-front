@@ -49,7 +49,7 @@ export class LiNoteTemplateFormDialogComponent
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'biox.create_note_template' : '';
+    return this.isCreateMode() ? 'li.create_note_template' : '';
   }
 
   buildForm(): UntypedFormGroup {
@@ -67,7 +67,7 @@ export class LiNoteTemplateFormDialogComponent
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.note_created';
+    return 'li.note_created';
   }
 
   getUpdateSuccessMessage(): string {

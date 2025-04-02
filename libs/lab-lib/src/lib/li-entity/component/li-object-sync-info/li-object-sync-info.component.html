@@ -1,12 +1,12 @@
 @if (object.isSynced) {
   <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
     <mat-icon>sync</mat-icon>
-    <div>{{ 'biox.last_sync' | translate }} :</div>
+    <div>{{ 'li.last_sync' | translate }} :</div>
     <fl-user-with-date [user]="object.lastSyncBy" [date]="object.lastSyncAt"></fl-user-with-date>
   </div>
 } @else {
   <fl-text-icon class="separator">
     <mat-icon>sync_disabled</mat-icon>
-    {{ 'biox.not_synced_with_space' | translate }}
+    {{ 'li.not_synced_with_space' | translate }}
   </fl-text-icon>
 }

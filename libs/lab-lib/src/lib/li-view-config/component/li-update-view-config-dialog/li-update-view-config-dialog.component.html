@@ -1,19 +1,19 @@
 <fl-dialog-header>
-  {{ 'biox.update_view_config_title' | translate }}
+  {{ 'li.update_view_config_title' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="view-config-form">
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'name' | translate }}</mat-label>
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
       <input
         matInput
         [formControl]="formCtrl"
         required
         flInputMaxLength="50"
-        placeholder="{{ 'name' | translate }}" />
+        placeholder="{{ 'li.name' | translate }}" />
       @if (formCtrl.hasError('required')) {
-        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
+        <mat-error>{{ 'li.name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>
@@ -21,7 +21,7 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="view-config-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

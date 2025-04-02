@@ -99,10 +99,10 @@ export class LiNoteService implements TeTextEditorHistoryService {
     scenarioId: string
   ): Observable<FlConfirmDialogResult<void>> {
     const input: FlConfirmDialogInput = {
-      title: 'biox.note_unlink_scenario',
-      content: 'biox.note_unlink_scenario_confirmation',
+      title: 'li.note_unlink_scenario',
+      content: 'li.note_unlink_scenario_confirmation',
       observable: this.removeScenario(noteId, scenarioId),
-      successMessage: 'biox.note_scenario_unlinked',
+      successMessage: 'li.note_scenario_unlinked',
     };
 
     return this.dialogService.openConfirmDialog(input).afterClosed();

@@ -3,8 +3,8 @@
   <div class="g-full main-fields">
     <!--  Name  -->
     <mat-form-field class="g-full">
-      <mat-label>{{ 'name' | translate }}</mat-label>
-      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off" />
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'li.name' | translate" autocomplete="off" />
     </mat-form-field>
 
     <!--  Scenario  -->
@@ -18,7 +18,7 @@
     <mat-expansion-panel-header>
       <fl-text-icon>
         <mat-icon flIcon="folder"></mat-icon>
-        {{ 'biox.folders' | translate }}
+        {{ 'li.folders' | translate }}
       </fl-text-icon>
     </mat-expansion-panel-header>
 
@@ -34,7 +34,7 @@
       <mat-panel-title>
         <fl-text-icon>
           <mat-icon>manage_search</mat-icon>
-          {{ 'advanced_search' | translate }}
+          {{ 'li.advanced_search' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -44,14 +44,14 @@
       <fl-form-field class="g-search-field">
         <li-select-type
           mode="resource"
-          [placeholder]="'resource_type' | translate"
+          [placeholder]="'li.resource_type' | translate"
           formControlName="resourceTypingName"></li-select-type>
       </fl-form-field>
 
       <!--  Origin  -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'resource_origin' | translate }}</mat-label>
-        <mat-select formControlName="origin" [placeholder]="'resource_origin' | translate">
+        <mat-label>{{ 'li.resource_origin' | translate }}</mat-label>
+        <mat-select formControlName="origin" [placeholder]="'li.resource_origin' | translate">
           <li-resource-origin-options></li-resource-origin-options>
         </mat-select>
       </mat-form-field>
@@ -60,37 +60,37 @@
       <fl-form-field class="g-full">
         <li-select-type
           mode="process"
-          [placeholder]="'biox.generated_by_process' | translate"
+          [placeholder]="'li.generated_by_process' | translate"
           formControlName="generatedByProcess"></li-select-type>
       </fl-form-field>
 
       <!--  Created by  -->
       <fl-form-field class="g-search-field">
-        <fl-select-user formControlName="createdBy" [placeholder]="'created_by' | translate"></fl-select-user>
+        <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
       </fl-form-field>
 
       <!--  Id -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'id' | translate }}</mat-label>
-        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+        <mat-label>{{ 'li.id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'li.id' | translate" autocomplete="off" />
       </mat-form-field>
 
       <!-- Creation date  -->
       <div class="g-form-field-no-hint g-full g-form-field-compact">
-        <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.creation_date' | translate }}</p>
         <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
       </div>
 
       <mat-checkbox formControlName="includeChildrenResource" class="checkbox"
-        >{{ 'resource_include_children' | translate }}
+        >{{ 'li.resource_include_children' | translate }}
       </mat-checkbox>
 
       <mat-checkbox formControlName="includeNotFlagged" class="checkbox"
-        >{{ 'biox.resource_include_not_flagged' | translate }}
+        >{{ 'li.resource_include_not_flagged' | translate }}
       </mat-checkbox>
 
       <mat-checkbox formControlName="isArchived" class="checkbox"
-        >{{ 'resource_include_archived' | translate }}
+        >{{ 'li.resource_include_archived' | translate }}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>

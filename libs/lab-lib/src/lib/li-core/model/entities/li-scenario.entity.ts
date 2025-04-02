@@ -26,37 +26,37 @@ export type LiScenarioPidStatus = 'NONE' | 'RUNNING' | 'UNEXPECTED_STOPPED';
 
 // const to list the scenario status translation texts
 export const labScenarioStatusDict: FlStatusDict<LiScenarioStatus> = {
-  DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'draft'),
-  IN_QUEUE: FlStatusHelper.getInfoStatus('IN_QUEUE', 'biox.scenario_in_queue', FlStatusHelper.draftIcon),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
-  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'running'),
+  DRAFT: FlStatusHelper.getDraftStatus('DRAFT', 'li.draft'),
+  IN_QUEUE: FlStatusHelper.getInfoStatus('IN_QUEUE', 'li.scenario_in_queue', FlStatusHelper.draftIcon),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'li.success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'li.error'),
+  RUNNING: FlStatusHelper.getLoadingStatus('RUNNING', 'li.running'),
   WAITING_FOR_CLI_PROCESS: FlStatusHelper.getLoadingStatus(
     'WAITING_FOR_CLI_PROCESS',
-    'biox.scenario_waiting_for_cli'
+    'li.scenario_waiting_for_cli'
   ),
-  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'pr.partially_run', FlStatusHelper.draftIcon),
+  PARTIALLY_RUN: FlStatusHelper.getInfoStatus('PARTIALLY_RUN', 'li.partially_run', FlStatusHelper.draftIcon),
 };
 
 export type LiScenarioCreationType = 'MANUAL' | 'AUTO' | 'IMPORTED';
 export const flScenarioCreationTypes: FlStatusDict<LiScenarioCreationType> = {
   MANUAL: FlStatusHelper.getInfoStatus(
     'MANUAL',
-    'biox.scenario_creation_type_MANUAL',
+    'li.scenario_creation_type_MANUAL',
     'fiber_manual_record',
-    'biox.scenario_creation_type_help_MANUAL'
+    'li.scenario_creation_type_help_MANUAL'
   ),
   AUTO: FlStatusHelper.getInfoStatus(
     'AUTO',
-    'biox.scenario_creation_type_AUTO',
+    'li.scenario_creation_type_AUTO',
     'smart_toy',
-    'biox.scenario_creation_type_help_AUTO'
+    'li.scenario_creation_type_help_AUTO'
   ),
   IMPORTED: FlStatusHelper.getInfoStatus(
     'IMPORTED',
-    'biox.scenario_creation_type_IMPORTED',
+    'li.scenario_creation_type_IMPORTED',
     'cloud_download',
-    'biox.scenario_creation_type_help_IMPORTED'
+    'li.scenario_creation_type_help_IMPORTED'
   ),
 };
 

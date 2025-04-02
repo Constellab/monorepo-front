@@ -6,15 +6,15 @@
   <form (ngSubmit)="submit()" id="doc-template-form" [formGroup]="formGp">
     <!--  Title  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'title' | translate }}</mat-label>
+      <mat-label>{{ 'li.title' | translate }}</mat-label>
       <input
         matInput
         formControlName="title"
         required
         flInputMaxLength="255"
-        placeholder="{{ 'title' | translate }}" />
+        placeholder="{{ 'li.title' | translate }}" />
       @if (formGp.get('title').hasError('required')) {
-        <mat-error>{{ 'title' | flErrorRequired }}</mat-error>
+        <mat-error>{{ 'li.title' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
   </form>
@@ -22,7 +22,7 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="doc-template-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

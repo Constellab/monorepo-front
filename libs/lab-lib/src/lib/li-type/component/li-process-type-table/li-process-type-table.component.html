@@ -6,13 +6,13 @@
   <!-- Name -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2" mat-sort-header>
-      {{ 'name' | translate }}
+      {{ 'li.name' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType" class="g-column-width-2">
       @if (processType.status === 'UNAVAILABLE') {
         <mat-icon
           class="type-unavailable warn"
-          [matTooltip]="'biox.process_type_unavailable_error' | translate">
+          [matTooltip]="'li.process_type_unavailable_error' | translate">
           error
         </mat-icon>
       }
@@ -24,7 +24,7 @@
           size="tiny"
           class="g-warn-background deprecated-chip"
           [matTooltip]="processType.deprecatedMessage">
-          {{ 'biox.type_deprecated' | translate }}
+          {{ 'li.type_deprecated' | translate }}
         </fl-chip>
       }
     </mat-cell>
@@ -33,7 +33,7 @@
   <!-- Description -->
   <ng-container matColumnDef="description">
     <mat-header-cell *matHeaderCellDef class="g-column-width-3" mat-sort-header>
-      {{ 'description' | translate }}
+      {{ 'li.description' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType" class="g-column-width-3">
       {{ processType.shortDescription }}
@@ -43,7 +43,7 @@
   <!-- Sub type -->
   <ng-container matColumnDef="objectSubType">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      {{ 'biox.process_type_type' | translate }}
+      {{ 'li.process_type_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType">
       {{ 'biox.process_sub_type_' + processType.objectSubType | translate }}

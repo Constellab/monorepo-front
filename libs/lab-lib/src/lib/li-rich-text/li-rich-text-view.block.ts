@@ -72,7 +72,7 @@ export class LiRichTextViewBlock extends TeComponentBlock<LiRichTextViewComponen
 
   static override get toolbox(): ToolboxConfig {
     return {
-      title: TeHelper.getTranslateService().translate('biox.note_resource_view'),
+      title: TeHelper.getTranslateService().translate('li.note_resource_view'),
       icon: TeHelper.getMatIconElement('add_chart'),
     };
   }

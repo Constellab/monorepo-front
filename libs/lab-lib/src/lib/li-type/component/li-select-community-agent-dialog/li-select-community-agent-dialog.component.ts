@@ -17,7 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class LiSelectCommunityAgentDialogComponent {
   private dialogRef = inject<MatDialogRef<LiSelectCommunityAgentDialogComponent>>(MatDialogRef);
 
-  title: string = 'biox.select_community_agent';
+  title: string = 'li.select_community_agent';
 
   onAgentClick(agent: LiAgent): void {
     this.dialogRef.close(agent);

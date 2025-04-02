@@ -1,14 +1,14 @@
 @switch (mode) {
   @case ('between') {
     <div>
-      {{ 'between_the_from' | translate }} {{ startingDate | flDate: dateFormat }}
-      {{ 'between_the_to' | translate }} {{ endingDate | flDate: dateFormat }}
+      {{ 'flDate.between_the_from' | translate }} {{ startingDate | flDate: dateFormat }}
+      {{ 'flDate.between_the_to' | translate }} {{ endingDate | flDate: dateFormat }}
     </div>
   }
   @case ('from') {
-    <div>{{ 'from_the' | translate }} {{ startingDate | flDate: dateFormat }}</div>
+    <div>{{ 'flDate.from_the' | translate }} {{ startingDate | flDate: dateFormat }}</div>
   }
   @case ('to') {
-    <div>{{ 'until_the' | translate }} {{ endingDate | flDate: dateFormat }}</div>
+    <div>{{ 'flDate.until_the' | translate }} {{ endingDate | flDate: dateFormat }}</div>
   }
 }

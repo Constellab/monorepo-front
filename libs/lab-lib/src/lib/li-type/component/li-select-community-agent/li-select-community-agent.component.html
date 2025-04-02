@@ -4,7 +4,7 @@
       [value]="isSelected('public')"
       (click)="selectSpace('public')"
       class="space-list-option accent">
-      {{ 'biox.public' | translate }}
+      {{ 'li.public' | translate }}
     </mat-chip-option>
     @if (spaces?.length > 0) {
       <mat-divider></mat-divider>
@@ -25,7 +25,7 @@
           <input
             matInput
             [formControl]="titleFormControl"
-            placeholder="{{ 'biox.search_by_title' | translate }}" />
+            placeholder="{{ 'li.search_by_title' | translate }}" />
           <button mat-icon-button matSuffix (click)="search()">
             <mat-icon>search</mat-icon>
           </button>

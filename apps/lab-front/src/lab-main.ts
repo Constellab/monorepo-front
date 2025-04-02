@@ -122,7 +122,7 @@ function bootstrapApp(): void {
         FlTranslateModule.forRoot({
           defaultLang: ClSupportedLanguage.en,
           availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
-          filenames: ['lab-global-', 'lab-biox-', 'lab-biota-', 'lab-databox-', 'lab-monitoring-'],
+          filenames: ['lab-global-', 'lab-biox-', 'lab-biota-', 'lab-databox-', 'lab-monitoring-', 'li-'],
         }),
         FlTranslateModule.forRoot2(),
         // configuration of Front library

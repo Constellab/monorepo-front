@@ -23,7 +23,7 @@ export class LiShareAgentNewVersionCommunityDialogComponent implements OnInit {
   private dialogRef = inject<MatDialogRef<LiShareAgentNewVersionCommunityDialogComponent>>(MatDialogRef);
   private dialogService = inject(FlDialogService);
 
-  title: string = 'biox.share_agent_new_version_to_community';
+  title: string = 'li.share_agent_new_version_to_community';
   processId: string;
   agentVersionId: string;
 

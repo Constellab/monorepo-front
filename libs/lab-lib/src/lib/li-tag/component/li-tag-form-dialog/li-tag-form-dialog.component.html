@@ -5,20 +5,20 @@
 <mat-dialog-content>
   @if (isUpdateMode()) {
     <div class="help-text">
-      {{ 'tag_update_help_text' | translate }}
+      {{ 'li.tag_update_help_text' | translate }}
     </div>
   }
 
   <form (ngSubmit)="submit()" id="tag-form" [formGroup]="formGp">
     <!--  Key  -->
     <mat-form-field class="g-form-input" appearance="outline">
-      <mat-label>{{ 'tag_key' | translate }}</mat-label>
+      <mat-label>{{ 'li.tag_key' | translate }}</mat-label>
       <input
         matInput
         formControlName="key"
         required
         [flInputMaxLength]="maxLength"
-        placeholder="{{ 'tag_key' | translate }}" />
+        placeholder="{{ 'li.tag_key' | translate }}" />
       @if (formGp.get('key').hasError('required')) {
         <mat-error>{{ 'tag_key' | flErrorRequired }}</mat-error>
       }
@@ -26,13 +26,13 @@
 
     <!--  Value  -->
     <mat-form-field class="g-form-input" appearance="outline">
-      <mat-label>{{ 'tag_value' | translate }}</mat-label>
+      <mat-label>{{ 'li.tag_value' | translate }}</mat-label>
       <input
         matInput
         formControlName="value"
         required
         [flInputMaxLength]="maxLength"
-        placeholder="{{ 'tag_value' | translate }}" />
+        placeholder="{{ 'li.tag_value' | translate }}" />
       @if (formGp.get('value').hasError('required')) {
         <mat-error>{{ 'tag_value' | flErrorRequired }}</mat-error>
       }
@@ -42,7 +42,7 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="tag-form" class="g-centered primary">
-    {{ 'save' | translate }}
+    {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

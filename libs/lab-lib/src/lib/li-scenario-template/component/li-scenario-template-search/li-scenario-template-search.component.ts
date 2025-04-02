@@ -99,7 +99,7 @@ export class LiScenarioTemplateSearchComponent implements OnInit {
 
   createFromFile(file: File): void {
     const action: FlPortalAction = {
-      text: { text: 'biox.import_scenario_template', translateText: true },
+      text: { text: 'li.import_scenario_template', translateText: true },
       type: 'importScenarioTemplate',
       action: this.scenarioTemplateService.createFromFile(file),
       successLink: (result: LiScenarioTemplate) => LiRouterService.getScenarioTemplateDetailRoute(result.id),

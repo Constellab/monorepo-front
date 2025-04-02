@@ -47,14 +47,14 @@ export class LiSyncObjectButtonComponent<T extends LiFolderObject> {
   }
 
   private openSyncConfirmDialog(): void {
-    let content = `<p>${this.translateService.translate('biox.sync_object_confirmation')}</p>`;
+    let content = `<p>${this.translateService.translate('li.sync_object_confirmation')}</p>`;
 
     if (this.additionalConfirmText) {
       content += `<p>${this.translateService.translate(this.additionalConfirmText)}</p>`;
     }
 
     const data: FlConfirmDialogInput = {
-      title: 'biox.sync_with_space',
+      title: 'li.sync_with_space',
       content: { text: content, translateText: false },
     };
 

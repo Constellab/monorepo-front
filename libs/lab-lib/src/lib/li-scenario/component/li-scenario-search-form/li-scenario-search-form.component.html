@@ -3,8 +3,8 @@
   <div class="g-full main-fields">
     <!--  Title and description  -->
     <mat-form-field class="g-full">
-      <mat-label>{{ 'title' | translate }}</mat-label>
-      <input matInput formControlName="title" [placeholder]="'title' | translate" autocomplete="off" />
+      <mat-label>{{ 'li.title' | translate }}</mat-label>
+      <input matInput formControlName="title" [placeholder]="'li.title' | translate" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -13,7 +13,7 @@
     <mat-expansion-panel-header>
       <fl-text-icon>
         <mat-icon flIcon="folder"></mat-icon>
-        {{ 'biox.folders' | translate }}
+        {{ 'li.folders' | translate }}
       </fl-text-icon>
     </mat-expansion-panel-header>
 
@@ -29,7 +29,7 @@
       <mat-panel-title>
         <fl-text-icon>
           <mat-icon>manage_search</mat-icon>
-          {{ 'advanced_search' | translate }}
+          {{ 'li.advanced_search' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -37,18 +37,18 @@
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
       <!--  status  -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'status' | translate }}</mat-label>
-        <mat-select formControlName="status" [placeholder]="'status' | translate" multiple>
+        <mat-label>{{ 'li.status' | translate }}</mat-label>
+        <mat-select formControlName="status" [placeholder]="'li.status' | translate" multiple>
           <li-scenario-status-options></li-scenario-status-options>
         </mat-select>
       </mat-form-field>
 
       <!--  Creation Type  -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'biox.scenario_creation_type' | translate }}</mat-label>
+        <mat-label>{{ 'li.scenario_creation_type' | translate }}</mat-label>
         <mat-select
           formControlName="creationTypes"
-          [placeholder]="'biox.scenario_creation_type' | translate"
+          [placeholder]="'li.scenario_creation_type' | translate"
           [multiple]="true">
           <li-scenario-creation-type-options></li-scenario-creation-type-options>
         </mat-select>
@@ -56,41 +56,41 @@
 
       <!--  Created by  -->
       <fl-form-field class="g-search-field">
-        <fl-select-user formControlName="createdBy" [placeholder]="'created_by' | translate"></fl-select-user>
+        <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
       </fl-form-field>
 
       <!--  Id -->
       <mat-form-field class="g-search-field">
-        <mat-label>{{ 'id' | translate }}</mat-label>
-        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+        <mat-label>{{ 'li.id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'li.id' | translate" autocomplete="off" />
       </mat-form-field>
 
       <!--  Process Type  -->
       <fl-form-field class="g-full">
         <li-select-type
           mode="process"
-          [placeholder]="'biox.contain_process' | translate"
+          [placeholder]="'li.contain_process' | translate"
           formControlName="processTypingName"></li-select-type>
       </fl-form-field>
 
       <!--  Creation date  -->
       <div class="g-form-field-no-hint g-full">
-        <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.creation_date' | translate }}</p>
         <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
       </div>
 
       <!-- Last modification date  -->
       <div class="g-form-field-no-hint g-full">
-        <p class="g-text-small subtitle">{{ 'last_modified_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.last_modified_date' | translate }}</p>
         <fl-search-date-interval formGroupName="lastModifiedAt"> </fl-search-date-interval>
       </div>
 
       <mat-checkbox formControlName="isNotValidated" class="checkbox"
-        >{{ 'biox.scenario_exclude_validated' | translate }}
+        >{{ 'li.scenario_exclude_validated' | translate }}
       </mat-checkbox>
 
       <mat-checkbox formControlName="isArchived" class="checkbox"
-        >{{ 'biox.scenario_include_archived' | translate }}
+        >{{ 'li.scenario_include_archived' | translate }}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>

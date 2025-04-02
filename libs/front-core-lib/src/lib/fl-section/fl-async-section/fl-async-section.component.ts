@@ -68,7 +68,7 @@ export class FlAsyncSectionComponent<T> implements OnDestroy {
    * Show if the observable return an empty object or an error and error text is not defined
    * The text is translated
    */
-  @Input() emptyText: string = 'object_not_found';
+  @Input() emptyText: string = 'flSection.object_not_found';
 
   /**
    * Show if the observable end up in error and the errorText is defined

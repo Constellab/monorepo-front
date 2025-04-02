@@ -8,13 +8,13 @@
   <fl-search-header>
     <fl-text-icon>
       <mat-icon flIcon="resource"></mat-icon>
-      <h2>{{ 'resources' | translate }}</h2>
+      <h2>{{ 'li.resources' | translate }}</h2>
     </fl-text-icon>
 
     <fl-search-header-actions class="g-layout-row">
       <!--   Upload files     -->
       <fl-input-file-icon-container
-        [matTooltip]="'databox.upload_file' | translate"
+        [matTooltip]="'li.upload_file' | translate"
         icon="upload_file"
         class="upload-button accent">
         <input
@@ -27,7 +27,7 @@
 
       <!--   Upload folders     -->
       <fl-input-file-icon-container
-        [matTooltip]="'databox.upload_folder' | translate"
+        [matTooltip]="'li.upload_folder' | translate"
         icon="drive_folder_upload"
         class="upload-button accent">
         <input
@@ -46,7 +46,7 @@
         type="button"
         class="accent"
         (click)="openImportFromUrlDialog()"
-        [matTooltip]="'biox.import_resource_from_link' | translate">
+        [matTooltip]="'li.import_resource_from_link' | translate">
         <mat-icon>cloud_download</mat-icon>
       </button>
     </fl-search-header-actions>
@@ -63,7 +63,7 @@
 
     <div class="drop-info g-layout-col g-layout-center-center g-text-centered">
       <mat-icon>upload_file</mat-icon>
-      <div class="g-text-big">{{ 'databox.upload_file_drop' | translate }}</div>
+      <div class="g-text-big">{{ 'li.upload_file_drop' | translate }}</div>
     </div>
   </fl-search-result>
 </fl-search>

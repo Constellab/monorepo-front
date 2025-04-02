@@ -154,7 +154,7 @@ export class LabWorkflowNodeMenuConfig extends PrWorkflowNodeMenuConfig {
   private getResourceDetailContextButton(resourceId: string | null): FlMenuDynamicButton {
     return {
       type: 'button',
-      text: { text: 'resource', translateText: true },
+      text: { text: 'g.resource', translateText: true },
       icon: 'resource',
       onClick: () => this.openResourceDetail(resourceId),
       disabled: ClHelpService.isNullOrEmpty(resourceId),

@@ -75,13 +75,13 @@ export class LiTagOrigin {
         return 'tag_origin_s3';
       case 'TASK':
       case 'TASK_PROPAGATED':
-        return 'biox.task';
+        return 'li.task';
       case 'SCENARIO_PROPAGATED':
-        return 'biox.scenario';
+        return 'li.scenario';
       case 'RESOURCE_PROPAGATED':
         return 'resource';
       case 'VIEW_PROPAGATED':
-        return 'biox.view';
+        return 'li.view';
     }
   }
 

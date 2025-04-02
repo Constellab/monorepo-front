@@ -52,20 +52,20 @@ export class LiResourceSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiResourceSearchFields> = {
-    resourceTypingName: 'resource_type',
-    resourceTypingNames: 'resource_type',
+    resourceTypingName: 'li.resource_type',
+    resourceTypingNames: 'li.resource_type',
     tags: 'flTag.tags',
-    origin: 'resource_origin',
-    data: 'resource_data',
-    scenario: 'biox.scenario',
+    origin: 'li.resource_origin',
+    data: 'li.resource_data',
+    scenario: 'li.scenario',
     isArchived: 'is_archived',
     // group the creation date into one chip
-    createdAt: 'creation_date',
-    createdBy: 'created_by',
-    folder: 'biox.folder',
-    includeChildrenResource: 'resource_include_children_short',
-    includeNotFlagged: 'biox.include_not_flagged_short',
-    generatedByProcess: 'biox.generated_by_process',
+    createdAt: 'li.creation_date',
+    createdBy: 'li.created_by',
+    folder: 'li.folder',
+    includeChildrenResource: 'li.resource_include_children_short',
+    includeNotFlagged: 'li.include_not_flagged_short',
+    generatedByProcess: 'li.generated_by_process',
   };
 
   /**

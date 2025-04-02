@@ -29,7 +29,7 @@ export class LabMonitoringPageComponent {
       route: LiRouterService.getMonitoringUsageRoute(),
     },
     {
-      label: { text: 'tags', translateText: true },
+      label: { text: 'g.tags', translateText: true },
       icon: 'tag',
       route: LiRouterService.getMonitoringTagsRoute(),
     },

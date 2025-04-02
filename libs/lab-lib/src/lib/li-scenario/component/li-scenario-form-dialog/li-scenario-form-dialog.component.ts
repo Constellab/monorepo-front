@@ -100,15 +100,15 @@ export class LiScenarioFormDialogComponent
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'biox.new_scenario' : 'biox.update_scenario';
+    return this.isCreateMode() ? 'li.new_scenario' : 'li.update_scenario';
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.scenario_created';
+    return 'li.scenario_created';
   }
 
   getUpdateSuccessMessage(): string {
-    return 'biox.scenario_updated';
+    return 'li.scenario_updated';
   }
 
   onTitleChange(): void {

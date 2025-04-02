@@ -23,6 +23,6 @@ export class FlErrorRequiredPipe implements PipeTransform {
       value = this.translateService.translate(value);
     }
 
-    return this.translateService.translate('error_required', { param: { field: value } });
+    return this.translateService.translate('flCorePipe.error_required', { param: { field: value } });
   }
 }

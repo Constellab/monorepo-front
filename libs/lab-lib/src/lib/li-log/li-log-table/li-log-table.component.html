@@ -2,7 +2,7 @@
   <!-- Name-->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'monitoring.log_file' | translate }}
+      {{ 'li.log_file' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let log">
       {{ log.name }}
@@ -12,7 +12,7 @@
   <!-- fileSize-->
   <ng-container matColumnDef="fileSize">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'monitoring.log_size' | translate }}
+      {{ 'li.log_size' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let log">
       {{ log.fileSize | flByteText }}
@@ -30,17 +30,17 @@
       <mat-menu #menu="matMenu" xPosition="before">
         <button mat-menu-item type="button" (click)="openCompleteLog(row)">
           <mat-icon>visibility</mat-icon>
-          <span>{{ 'monitoring.view_logs' | translate }}</span>
+          <span>{{ 'li.view_logs' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="downloadLog(row)">
           <mat-icon>download</mat-icon>
-          <span>{{ 'monitoring.log_download' | translate }}</span>
+          <span>{{ 'li.log_download' | translate }}</span>
         </button>
 
         <button mat-menu-item type="button" (click)="downloadJsonLog(row)">
           <mat-icon>download</mat-icon>
-          <span>{{ 'monitoring.log_download_json' | translate }}</span>
+          <span>{{ 'li.log_download_json' | translate }}</span>
         </button>
       </mat-menu>
     </mat-cell>

@@ -20,6 +20,8 @@ const flCoreComponentI18nFr: FlLangTranslation = {
     copy_to_clipboard: 'Cliquer pour copier dans le presse-papier',
     copied_to_clipboard: 'Copié dans le presse-papier',
     show: 'Afficher',
+    USER: 'Utilisateur',
+    ADMIN: 'Administrateur',
   },
 };
 
@@ -37,6 +39,8 @@ const flCoreComponentI18nEn: FlLangTranslation = {
     copy_to_clipboard: 'Click to copy to clipboard',
     copied_to_clipboard: 'Copied to clipboard',
     show: 'Show',
+    USER: 'User',
+    ADMIN: 'Administrator',
   },
 };
 

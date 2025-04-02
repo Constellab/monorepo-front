@@ -1,20 +1,20 @@
 <div>
-  <strong>{{ 'biox.share_link_download' | translate }}</strong> :
+  <strong>{{ 'li.share_link_download' | translate }}</strong> :
   <span
     class="g-text-link"
     (click)="copyDownloadLink()"
-    [matTooltip]="'biox.share_link_click_to_copy' | translate">
+    [matTooltip]="'li.share_link_click_to_copy' | translate">
     {{ shareLink().downloadLink }}
   </span>
 </div>
 
 @if (shareLink().previewLink) {
   <div>
-    <strong>{{ 'biox.share_link_preview' | translate }}</strong> :
+    <strong>{{ 'li.share_link_preview' | translate }}</strong> :
     <span
       class="g-text-link"
       (click)="copyPreviewLink()"
-      [matTooltip]="'biox.share_link_click_to_copy' | translate">
+      [matTooltip]="'li.share_link_click_to_copy' | translate">
       {{ shareLink().previewLink }}
     </span>
   </div>

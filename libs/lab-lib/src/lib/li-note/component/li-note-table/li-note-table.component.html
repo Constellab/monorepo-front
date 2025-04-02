@@ -2,7 +2,7 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
-      <span> {{ 'title' | translate }}</span>
+      <span> {{ 'li.title' | translate }}</span>
     </mat-header-cell>
     <mat-cell
       *matCellDef="let note"
@@ -26,7 +26,7 @@
       @if (note.isValidated) {
         <mat-icon
           class="status-icon over-link"
-          [matTooltip]="'biox.note_validated' | translate"
+          [matTooltip]="'li.note_validated' | translate"
           flIcon="validated">
         </mat-icon>
       }
@@ -34,7 +34,7 @@
       @if (note.isArchived) {
         <mat-icon
           class="status-icon over-link"
-          [matTooltip]="'biox.note_archived' | translate"
+          [matTooltip]="'li.note_archived' | translate"
           flIcon="archive">
         </mat-icon>
       }
@@ -44,7 +44,7 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'tags' | translate }}</span>
+      <span> {{ 'li.tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let note" class="g-column-width-2">
       @defer (on viewport) {
@@ -58,7 +58,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'creation_info' | translate }}</span>
+      <span>{{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date
@@ -71,7 +71,7 @@
   <!-- Last Modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'last_modification_info' | translate }}</span>
+      <span>{{ 'li.last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date
@@ -84,7 +84,7 @@
   <!-- Last Synchro -->
   <ng-container matColumnDef="lastSynchro">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'biox.last_sync' | translate }}</span>
+      <span>{{ 'li.last_sync' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       @if (row.isSynced) {
@@ -104,7 +104,7 @@
         mat-icon-button
         type="button"
         (click)="unlinkNote(note, $event)"
-        [matTooltip]="'biox.note_unlink_scenario' | translate"
+        [matTooltip]="'li.note_unlink_scenario' | translate"
         class="over-link">
         <mat-icon>clear</mat-icon>
       </button>

@@ -2,7 +2,7 @@
   <fl-card-header>
     <fl-text-icon>
       <mat-icon>info</mat-icon>
-      <h2>{{ 'biox.resource_info' | translate }}</h2>
+      <h2>{{ 'li.resource_info' | translate }}</h2>
     </fl-text-icon>
   </fl-card-header>
 
@@ -10,7 +10,7 @@
     @if (resource.typeStatus === 'UNAVAILABLE') {
       <fl-text-icon class="line">
         <mat-icon class="warn">error</mat-icon>
-        <div class="g-warn-text">{{ 'biox.resource_type_unavailable_error' | translate }}</div>
+        <div class="g-warn-text">{{ 'li.resource_type_unavailable_error' | translate }}</div>
       </fl-text-icon>
     }
 
@@ -47,7 +47,7 @@
     <fl-text-icon class="line" (click)="openResourceShareOrigin()">
       <mat-icon>trip_origin</mat-icon>
       <div [ngClass]="{ 'g-text-link': resource.origin === 'IMPORTED_FROM_LAB' }">
-        {{ 'biox.resource_origin' | translate }} :
+        {{ 'li.resource_origin' | translate }} :
         <span class="g-text-light">
           {{ 'biox.resource_origin_' + resource.origin | translate }}
         </span>
@@ -73,7 +73,7 @@
       <!--  Resource type  -->
       <div class="line g-layout-row g-layout-start-center">
         <mat-icon>info</mat-icon>
-        <div class="resource-type">{{ 'biox.resource_type' | translate }} :</div>
+        <div class="resource-type">{{ 'li.resource_type' | translate }} :</div>
         <td-type-inline
           class="resource-type g-text-link"
           (click)="openTypingDoc()"
@@ -99,7 +99,7 @@
     <!--  Id  -->
     <div class="line g-layout-row g-layout-start-center">
       <mat-icon>fingerprint</mat-icon>
-      <div class="resource-type">{{ 'id' | translate }} :&nbsp;</div>
+      <div class="resource-type">{{ 'li.id' | translate }} :&nbsp;</div>
       <div class="g-text-link" (click)="copyIdToClipboard()">{{ resource.id }}</div>
     </div>
   </fl-card-body>

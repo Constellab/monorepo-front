@@ -29,7 +29,7 @@ export class LiCreateCommunityAgentDialogComponent implements OnInit {
   private protocolService = inject(LiProtocolService);
   private dialogRef = inject<MatDialogRef<LiCreateCommunityAgentDialogComponent>>(MatDialogRef);
 
-  title: string = 'biox.create_community_agent';
+  title: string = 'li.create_community_agent';
   processId: string;
   spaces$: Observable<CoSpace[]>;
   formGp = new FormBuilder().group({

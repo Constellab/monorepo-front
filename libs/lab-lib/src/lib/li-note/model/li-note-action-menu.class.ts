@@ -35,29 +35,29 @@ export class LiNoteActionMenu extends LiEntityActionMenu<LiNoteActionEvent> {
     if (this.note.isArchived) {
       return {
         type: 'button',
-        text: 'biox.unarchive_note',
+        text: 'li.unarchive_note',
         icon: 'unarchive',
         color: 'warn',
         onClick: () =>
           this.toggleArchive({
-            title: 'biox.unarchive_note',
-            content: 'biox.unarchive_note_confirmation',
+            title: 'li.unarchive_note',
+            content: 'li.unarchive_note_confirmation',
             observable: this.injector.get(LiNoteService).unarchive(this.note.id),
-            successMessage: 'biox.note_unarchived',
+            successMessage: 'li.note_unarchived',
           }),
       };
     } else {
       return {
         type: 'button',
-        text: 'biox.archive_note',
+        text: 'li.archive_note',
         icon: 'archive',
         color: 'warn',
         onClick: () =>
           this.toggleArchive({
-            title: 'biox.archive_note',
-            content: 'biox.archive_note_confirmation',
+            title: 'li.archive_note',
+            content: 'li.archive_note_confirmation',
             observable: this.injector.get(LiNoteService).archive(this.note.id),
-            successMessage: 'biox.note_archived',
+            successMessage: 'li.note_archived',
           }),
       };
     }

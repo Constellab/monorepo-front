@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, Input } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { FlEmbeddedOptionsAbstractDirective } from '@monorepo/front-core-lib/fl-core';
 

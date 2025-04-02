@@ -29,6 +29,11 @@
             "glob": "**/*",
             "input": "libs/front-core-lib/src/assets/font",
             "output": "assets/fl-font"
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/lab-lib/src/assets/i18n",
+            "output": "assets/i18n"
           }
         ],
         "externalDependencies": ["assets/fl-font/*"],

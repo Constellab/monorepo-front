@@ -1,7 +1,7 @@
 <fl-dialog-header>
   <fl-text-icon>
     <mat-icon>share</mat-icon>
-    {{ 'biox.share' | translate }}
+    {{ 'li.share' | translate }}
   </fl-text-icon>
 </fl-dialog-header>
 
@@ -13,7 +13,7 @@
     </fl-text-icon>
 
     <div>
-      {{ 'biox.send_entity_to_lab' | translate }}
+      {{ 'li.send_entity_to_lab' | translate }}
     </div>
     <div class="button-container">
       <button mat-stroked-button type="button" (click)="openAutoSendDialog()">
@@ -28,7 +28,7 @@
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
       <fl-text-icon class="g-flex-auto">
         <mat-icon>link</mat-icon>
-        <h2>{{ 'biox.share_link' | translate }}</h2>
+        <h2>{{ 'li.share_link' | translate }}</h2>
       </fl-text-icon>
 
       @if (publicShareLink$ | async; as shareLink) {
@@ -48,10 +48,10 @@
 
       <!--   No share link   -->
     } @else {
-      <div>{{ 'biox.no_share_link' | translate }}</div>
+      <div>{{ 'li.no_share_link' | translate }}</div>
       <div class="button-container">
         <button mat-stroked-button type="button" (click)="openShareDialog()">
-          <span>{{ 'biox.create_share_link' | translate }}</span>
+          <span>{{ 'li.create_share_link' | translate }}</span>
         </button>
       </div>
     }
@@ -64,7 +64,7 @@
     <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
       <fl-text-icon class="g-flex-auto">
         <mat-icon flIcon="space"></mat-icon>
-        <h2>{{ 'biox.share_resource_with_space' | translate }}</h2>
+        <h2>{{ 'li.share_resource_with_space' | translate }}</h2>
       </fl-text-icon>
 
       @if (spaceShareLink$ | async; as shareLink) {
@@ -77,18 +77,18 @@
       }
     </div>
 
-    <div>{{ 'biox.share_resource_with_space_short_help' | translate }}</div>
+    <div>{{ 'li.share_resource_with_space_short_help' | translate }}</div>
 
     @if (spaceShareLink$ | async; as shareLink) {
       <div class="space-share-link-info">
-        <div>{{ 'biox.share_resource_with_space_link_exists' | translate }}</div>
+        <div>{{ 'li.share_resource_with_space_link_exists' | translate }}</div>
         <li-share-link-info [shareLink]="shareLink"></li-share-link-info>
       </div>
     }
 
     <div class="button-container">
       <button mat-stroked-button type="button" (click)="shareResourceWithSpace()">
-        <span>{{ 'biox.share_resource_with_space' | translate }}</span>
+        <span>{{ 'li.share_resource_with_space' | translate }}</span>
       </button>
     </div>
   }
@@ -98,12 +98,12 @@
 
   <fl-text-icon>
     <mat-icon flIcon="lab"></mat-icon>
-    <h2>{{ 'biox.labs_that_used_share_link' | translate }}</h2>
+    <h2>{{ 'li.labs_that_used_share_link' | translate }}</h2>
   </fl-text-icon>
   <fl-infinite-scroll
     [datasource]="sharedEntities"
     class="g-infinite-table"
-    textNoResult="biox.not_shared_yet">
+    textNoResult="li.not_shared_yet">
     @if (!sharedEntities.isEmpty()) {
       <li-shared-entity-table [datasource]="sharedEntities"></li-shared-entity-table>
     }

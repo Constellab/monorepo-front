@@ -10,7 +10,7 @@
     <fl-form-field class="g-form-input">
       <li-select-type
         mode="resource"
-        [placeholder]="'resource_type' | translate"
+        [placeholder]="'g.resource_type' | translate"
         formControlName="resourceType"
         [required]="true">
       </li-select-type>
@@ -21,11 +21,11 @@
 
     <!--  Name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'name' | translate }}</mat-label>
+      <mat-label>{{ 'g.name' | translate }}</mat-label>
       <input
         matInput
         flInputMaxLength="50"
-        [placeholder]="'name' | translate"
+        [placeholder]="'g.name' | translate"
         formControlName="humanName"
         [required]="true" />
       @if (formGp.get('humanName').hasError('required')) {
@@ -35,11 +35,11 @@
 
     <!--  Short description  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'description' | translate }}</mat-label>
+      <mat-label>{{ 'g.description' | translate }}</mat-label>
       <input
         matInput
         flInputMaxLength="100"
-        [placeholder]="'description' | translate"
+        [placeholder]="'g.description' | translate"
         formControlName="shortDescription" />
     </mat-form-field>
 
@@ -90,6 +90,6 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="port-config-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'g.save' | translate }}
   </button>
 </div>

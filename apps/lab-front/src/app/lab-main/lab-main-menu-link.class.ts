@@ -26,7 +26,7 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
       route: labConstBioxFullRoute,
     },
     {
-      label: 'resources',
+      label: 'g.resources',
       icon: 'resource',
       route: labConstResourceFullRoute,
     },

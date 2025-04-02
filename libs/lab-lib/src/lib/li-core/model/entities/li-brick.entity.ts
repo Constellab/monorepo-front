@@ -11,10 +11,10 @@ import { LiEntity } from '../global/li-entity.entity';
 export type LiBrickMessageStatus = 'INFO' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickMessageStatusDict: FlStatusDict<LiBrickMessageStatus> = {
-  INFO: FlStatusHelper.getInfoStatus('INFO', 'info'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
-  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'critical'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
+  INFO: FlStatusHelper.getInfoStatus('INFO', 'li.info'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'li.error'),
+  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'li.critical'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'li.warning'),
 };
 
 export class LiBrickMessage {
@@ -27,10 +27,10 @@ export class LiBrickMessage {
 export type LiBrickStatus = 'SUCCESS' | 'ERROR' | 'CRITICAL' | 'WARNING';
 
 const labBrickStatusDict: FlStatusDict<LiBrickStatus> = {
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
-  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'critical'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'li.success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'li.error'),
+  CRITICAL: FlStatusHelper.getCriticalStatus('CRITICAL', 'li.critical'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'li.warning'),
 };
 
 export class LiBrickEntity extends LiEntity {

@@ -113,7 +113,7 @@ export class LiResourceViewFolderComponent
     const input: LiFsNodeTypesSelectionDialogInput = {
       dialogMode: node.object.isFolder ? 'folder' : 'files',
       filenames: [node.object.name],
-      helpText: 'biox.extract_fs_node_help',
+      helpText: 'li.extract_fs_node_help',
     };
 
     this.dialogService
@@ -173,7 +173,7 @@ export class LiResourceViewFolderComponent
       // button to extract the node
       menuDynamic.push({
         type: 'button',
-        text: 'biox.folder_view_sub_files',
+        text: 'li.folder_view_sub_files',
         onClick: () => this.callFileView(node),
         icon: 'visibility',
       });
@@ -182,7 +182,7 @@ export class LiResourceViewFolderComponent
     if (node.object.resource_model_id) {
       menuDynamic.push({
         type: 'link',
-        text: 'resource',
+        text: 'li.resource',
         link: LiRouterService.getResourceDetailRoute(node.object.resource_model_id),
         icon: 'resource',
       });
@@ -190,7 +190,7 @@ export class LiResourceViewFolderComponent
       // button to extract the node
       menuDynamic.push({
         type: 'button',
-        text: node.object.isFolder ? 'biox.folder_extract_folder' : 'biox.folder_extract_file',
+        text: node.object.isFolder ? 'li.folder_extract_folder' : 'li.folder_extract_file',
         onClick: () => this.extractNode(node),
         icon: 'drive_file_move',
       });
@@ -199,7 +199,7 @@ export class LiResourceViewFolderComponent
     // button to download
     menuDynamic.push({
       type: 'button',
-      text: 'biox.download_folder_sub_node',
+      text: 'li.download_folder_sub_node',
       onClick: () => this.downloadFolderSubFile(node),
       icon: 'cloud_download',
     });
@@ -207,15 +207,15 @@ export class LiResourceViewFolderComponent
     // button to copy the node path
     menuDynamic.push({
       type: 'button',
-      text: 'biox.folder_copy_node_path',
-      onClick: () => this.clipboardService.copy(this.getNodePath(node), 'biox.folder_node_path_copied'),
+      text: 'li.folder_copy_node_path',
+      onClick: () => this.clipboardService.copy(this.getNodePath(node), 'li.folder_node_path_copied'),
       icon: 'content_copy',
     });
 
     // button to rename the node
     menuDynamic.push({
       type: 'button',
-      text: node.object.isFolder ? 'biox.rename_folder' : 'biox.rename_file',
+      text: node.object.isFolder ? 'li.rename_folder' : 'li.rename_file',
       onClick: () => this.updateSubNodeName(node),
       icon: 'edit',
     });
@@ -223,7 +223,7 @@ export class LiResourceViewFolderComponent
     // button to delete the node
     menuDynamic.push({
       type: 'button',
-      text: node.object.isFolder ? 'biox.delete_folder' : 'biox.delete_file',
+      text: node.object.isFolder ? 'li.delete_folder' : 'li.delete_file',
       onClick: () => this.deleteSubNode(node),
       icon: 'delete',
       color: 'warn',
@@ -244,7 +244,7 @@ export class LiResourceViewFolderComponent
     const action: FlPortalAction = {
       type: 'download-folder-sub-node',
       action: this.fileService.downloadFolderSubFile(this.resourceId, this.getNodePath(node)),
-      text: { text: 'biox.folder_sub_node_downloading', translateText: true },
+      text: { text: 'li.folder_sub_node_downloading', translateText: true },
     };
 
     this.actionService.addAction(action);
@@ -252,10 +252,10 @@ export class LiResourceViewFolderComponent
 
   private deleteSubNode(node: FlTree<LiResourceViewFolderContentTree>): void {
     const confirm: FlConfirmDialogInput = {
-      title: node.object.isFolder ? 'biox.delete_folder' : 'biox.delete_file',
-      content: 'biox.delete_node_confirmation',
+      title: node.object.isFolder ? 'li.delete_folder' : 'li.delete_file',
+      content: 'li.delete_node_confirmation',
       observable: this.fileService.deleteFolderSubNode(this.resourceId, this.getNodePath(node)),
-      successMessage: 'biox.node_deleted',
+      successMessage: 'li.node_deleted',
     };
 
     this.dialogService
@@ -272,8 +272,8 @@ export class LiResourceViewFolderComponent
 
   private updateSubNodeName(node: FlTree<LiResourceViewFolderContentTree>): void {
     const data: FlDynamicFieldFormDialogInput = {
-      title: node.object.isFolder ? 'biox.rename_folder' : 'biox.rename_file',
-      helpText: 'biox.rename_node_help',
+      title: node.object.isFolder ? 'li.rename_folder' : 'li.rename_file',
+      helpText: 'li.rename_node_help',
       data: node.object.name,
       config: {
         controlType: 'formControl',
@@ -282,7 +282,7 @@ export class LiResourceViewFolderComponent
         placeholder: this.translateService.translate('name'),
       },
       submit: (data) => this.fileService.renameFolderSubNode(this.resourceId, this.getNodePath(node), data),
-      successMessage: 'biox.node_renamed',
+      successMessage: 'li.node_renamed',
     };
 
     this.dialogService

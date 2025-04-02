@@ -1,7 +1,7 @@
 <div class="g-full">
   <button mat-stroked-button type="button" (click)="selectTransformer()" class="g-button-small add-button">
     <mat-icon>add</mat-icon>
-    {{ 'biox.add_transformer' | translate }}
+    {{ 'li.add_transformer' | translate }}
   </button>
 
   <div class="right-section">
@@ -19,7 +19,7 @@
               <div class="transform-name g-flex-auto">{{ transformer.transformer.name }}</div>
               @if (!transformer.hasConfig) {
                 <div class="g-text-light">
-                  {{ 'biox.transformer_no_config' | translate }}
+                  {{ 'li.transformer_no_config' | translate }}
                 </div>
               }
               <li-type-show-detail-button [typingName]="transformer.transformer.typingName">
@@ -29,7 +29,7 @@
                 type="button"
                 class="g-button-icon-small drag-indicator"
                 cdkDragHandle
-                [matTooltip]="'biox.reorder_transformers' | translate">
+                [matTooltip]="'li.reorder_transformers' | translate">
                 <mat-icon>drag_handle</mat-icon>
               </button>
               <button
@@ -47,7 +47,7 @@
               [configData]="transformer.configData"
               formGroupName="config"></td-configure-specs-form>
           } @else {
-            <fl-error-text [errorMessage]="'biox.transformer_no_config' | translate"></fl-error-text>
+            <fl-error-text [errorMessage]="'li.transformer_no_config' | translate"></fl-error-text>
           }
         </mat-expansion-panel>
         @if (!last) {

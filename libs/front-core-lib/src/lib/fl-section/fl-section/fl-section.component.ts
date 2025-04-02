@@ -40,7 +40,7 @@ export class FlSectionComponent implements AfterContentInit {
     this.lazyRender();
   }
 
-  @Input() emptyText: string = 'object_not_found';
+  @Input() emptyText: string = 'flSection.object_not_found';
 
   @Input() disableEmptyText: boolean = false;
 

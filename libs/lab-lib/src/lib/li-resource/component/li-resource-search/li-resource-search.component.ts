@@ -150,7 +150,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
     for (let i = 0; i < items.length; i++) {
       const entry = items[i].webkitGetAsEntry();
       if (entry.isDirectory) {
-        this.snackBarService.openErrorMessage('databox.drop_folder_error');
+        this.snackBarService.openErrorMessage('li.drop_folder_error');
         return;
       }
     }
@@ -164,7 +164,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
   openUploadFolder(fileEvent: File | File[]): void {
     if (Array.isArray(fileEvent) && fileEvent.length >= 1000) {
       this.snackBarService.openErrorMessage({
-        text: 'databox.upload_folder_too_many_file_error',
+        text: 'li.upload_folder_too_many_file_error',
         translateText: true,
         translateParam: { param: { maxFiles: 1000 } },
       });
@@ -216,7 +216,7 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   private uploadFolder(folderTypingName: string, files: File[]): void {
     const action: FlPortalAction = {
-      text: { text: 'databox.uploading_folder', translateText: true },
+      text: { text: 'li.uploading_folder', translateText: true },
       type: LiFileResourceService.uploadFileActon,
       action: this.fileResourceService.uploadFolder(folderTypingName, files),
       trackHttpEvents: true,
@@ -276,8 +276,8 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
 
   openImportFromUrlDialog(): void {
     const data: LiQuickConfigureProcessDialogInput = {
-      title: 'biox.import_resource_from_link',
-      helpText: 'biox.import_from_link_help',
+      title: 'li.import_resource_from_link',
+      helpText: 'li.import_from_link_help',
       specs$: this.resourceService.getImportResourceConfigSpecs(),
     };
 
@@ -293,14 +293,14 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
         {
           type: 'import-resource',
           action: this.resourceService.importResourceFromLink(configValues),
-          text: { text: 'biox.downloading_resource', translateText: true },
+          text: { text: 'li.downloading_resource', translateText: true },
           successLink: (resource: LiResource) => LiRouterService.getResourceDetailRoute(resource.id),
         },
         false
       );
 
       this.snackBarService.openSuccessMessage(
-        { text: 'biox.downloading_resource_help_text', translateText: true },
+        { text: 'li.downloading_resource_help_text', translateText: true },
         5000
       );
     }

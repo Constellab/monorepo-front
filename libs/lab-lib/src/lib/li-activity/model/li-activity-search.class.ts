@@ -28,12 +28,12 @@ export class LiActivitySearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiActivitySearchFields> = {
-    user: 'monitoring.activity_user',
-    activityType: 'monitoring.activity_type',
-    activityObjectType: 'monitoring.activity_object_type',
-    objectId: 'monitoring.activity_object_id',
+    user: 'li.activity_user',
+    activityType: 'li.activity_type',
+    activityObjectType: 'li.activity_object_type',
+    objectId: 'li.activity_object_id',
     // group the creation date into one chip
-    createdAt: 'monitoring.activity_date',
+    createdAt: 'li.activity_date',
   };
 
   /**

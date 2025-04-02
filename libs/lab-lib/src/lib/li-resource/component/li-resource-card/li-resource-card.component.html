@@ -8,17 +8,17 @@
         (click)="openResourceDetail()"
         type="button"
         class="primary"
-        [matTooltip]="'resource' | translate">
+        [matTooltip]="'li.resource' | translate">
         <mat-icon flIcon="resource"></mat-icon>
       </button>
     </fl-card-actions>
   </fl-card-header>
 
   <fl-card-body>
-    <p>{{ 'resource_type' | translate }} : {{ resource.resourceType.human_name }}</p>
+    <p>{{ 'li.resource_type' | translate }} : {{ resource.resourceType.human_name }}</p>
   </fl-card-body>
 
   <fl-card-footer class="g-text-light g-text-small">
-    <fl-from-now [prefix]="'created' | translate" [date]="resource.createdAt"></fl-from-now>
+    <fl-from-now [prefix]="'li.created' | translate" [date]="resource.createdAt"></fl-from-now>
   </fl-card-footer>
 </fl-card>

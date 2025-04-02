@@ -1,7 +1,7 @@
 <!--  Settings button    -->
 <button mat-button type="button" [matMenuTriggerFor]="menu" flExpansionMenuButton>
   <mat-icon>settings</mat-icon>
-  <span>{{ 'settings' | translate }}</span>
+  <span>{{ 'g.settings' | translate }}</span>
 </button>
 
 <!--   Menu for settings   -->
@@ -10,18 +10,18 @@
     <lab-environment-toggle class="env-toggle"></lab-environment-toggle>
     <a mat-menu-item [href]="codeServerUrl" target="_blank">
       <mat-icon flIcon="code"></mat-icon>
-      <span>{{ 'codelab_link' | translate }}</span>
+      <span>{{ 'g.codelab_link' | translate }}</span>
     </a>
 
     <ng-container *labEnvDev>
       <button mat-menu-item (click)="resetDevEnvironment()">
         <mat-icon>delete_forever</mat-icon>
-        <span>{{ 'reset_dev_env' | translate }}</span>
+        <span>{{ 'g.reset_dev_env' | translate }}</span>
       </button>
 
       <button mat-menu-item (click)="stopDevServer()">
         <mat-icon>stop</mat-icon>
-        <span>{{ 'stop_dev_api' | translate }}</span>
+        <span>{{ 'g.stop_dev_api' | translate }}</span>
       </button>
     </ng-container>
 
@@ -34,13 +34,13 @@
 
     <button mat-menu-item type="button" (click)="openQueueJobsDialog()">
       <mat-icon>format_list_numbered</mat-icon>
-      <span>{{ 'queue_jobs' | translate }}</span>
+      <span>{{ 'g.queue_jobs' | translate }}</span>
     </button>
 
     @if (labConfigRoute) {
       <a mat-menu-item [href]="labConfigRoute">
         <mat-icon>settings</mat-icon>
-        <span>{{ 'lab_config' | translate }}</span>
+        <span>{{ 'g.lab_config' | translate }}</span>
       </a>
     }
 

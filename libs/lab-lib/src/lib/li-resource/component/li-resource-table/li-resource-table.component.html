@@ -10,7 +10,7 @@
       *matHeaderCellDef
       class="g-cell-header-with-left-border g-column-width-2"
       mat-sort-header>
-      <span> {{ 'name' | translate }}</span>
+      <span> {{ 'li.name' | translate }}</span>
     </mat-header-cell>
     <mat-cell
       *matCellDef="let resource"
@@ -25,7 +25,7 @@
           mat-icon-button
           type="button"
           (click)="toggleResourceChildren(resource, $event)"
-          [matTooltip]="'databox.resource_see_children' | translate"
+          [matTooltip]="'li.resource_see_children' | translate"
           [matTooltipDisabled]="expandedResource === resource"
           class="expand-button g-button-icon-small"
           flHide.xs>
@@ -39,7 +39,7 @@
 
       @if (resource.isArchived) {
         <mat-icon
-          [matTooltip]="'biox.resource_archived' | translate"
+          [matTooltip]="'li.resource_archived' | translate"
           class="archived-icon over-link"
           flIcon="archive">
         </mat-icon>
@@ -48,7 +48,7 @@
       @if (resource.typeStatus === 'UNAVAILABLE') {
         <mat-icon
           class="type-unavailable over-link warn"
-          [matTooltip]="'biox.resource_type_unavailable_error' | translate"
+          [matTooltip]="'li.resource_type_unavailable_error' | translate"
           flHide.xs>
           error
         </mat-icon>
@@ -70,7 +70,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'creation_info' | translate }}</span>
+      <span> {{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       <fl-user-with-date
@@ -83,7 +83,7 @@
   <!-- Last modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'last_modification_info' | translate }}</span>
+      <span>{{ 'li.last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       <fl-user-with-date
@@ -96,7 +96,7 @@
   <!-- Type -->
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'resource_type' | translate }}</span>
+      <span> {{ 'li.resource_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource">
       @if (resource.resourceType) {
@@ -113,7 +113,7 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'tags' | translate }}</span>
+      <span> {{ 'li.tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let resource" class="g-column-width-2">
       @defer (on viewport) {
@@ -154,7 +154,7 @@
         mat-icon-button
         (click)="openResourceDetail(resource, $event)"
         type="button"
-        [matTooltip]="'biox.open_resource' | translate"
+        [matTooltip]="'li.open_resource' | translate"
         class="over-link">
         <mat-icon>visibility</mat-icon>
       </button>
@@ -171,7 +171,7 @@
         target="_blank"
         class="g-button-small over-link"
         (click)="openInNewTab($event)">
-        {{ 'biox.open_in_new_tab' | translate }}
+        {{ 'li.open_in_new_tab' | translate }}
         <mat-icon>open_in_new</mat-icon>
       </a>
     </mat-cell>

@@ -77,7 +77,7 @@ export class LiShareResourceWithSpaceDialogComponent {
   }
 
   private shareResourceSuccess(shareLink: LiShareLink): void {
-    this.snackBarService.openSuccessMessage('biox.resource_shared_with_space');
+    this.snackBarService.openSuccessMessage('li.resource_shared_with_space');
     this.dialogRef.close(shareLink);
     this.isLoading = false;
   }

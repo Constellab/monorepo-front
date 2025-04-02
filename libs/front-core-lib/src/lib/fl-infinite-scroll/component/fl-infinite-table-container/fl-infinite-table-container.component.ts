@@ -17,13 +17,13 @@ export class FlInfiniteTableContainerComponent {
    * Text translated show if the datasource is empty.
    * Set empty string to hide the text
    */
-  @Input() textNoResult: string = 'no_result';
+  @Input() textNoResult: string = 'flInfiniteScroll.no_result';
 
   /**
    * Text translated showed if the last page is loaded and there is no more result
    * Set empty string to hide the text
    */
-  @Input() textNoMoreResult: string = 'no_more_result';
+  @Input() textNoMoreResult: string = 'flInfiniteScroll.no_more_result';
 
   loadMoreResults(): void {
     this.datasource.getNextPage();

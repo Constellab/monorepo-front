@@ -113,8 +113,8 @@ export class LiImportResourceDialogComponent implements OnInit, OnDestroy {
         resourceTypingName: this.input.resourceTypingName,
         extension: this.input.nodeExtension,
       },
-      title: 'biox.select_importer',
-      helpText: { text: 'biox.select_importer_help', translateText: true },
+      title: 'li.select_importer',
+      helpText: { text: 'li.select_importer_help', translateText: true },
     };
 
     this.dialogService
@@ -187,7 +187,7 @@ export class LiImportResourceDialogComponent implements OnInit, OnDestroy {
   }
 
   private callImportSuccess(resource: LiResource): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.resource_imported', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.resource_imported', translateText: true });
     this.routerService.navigateToResourceDetail(resource.id);
     this.dialogRef.close();
   }

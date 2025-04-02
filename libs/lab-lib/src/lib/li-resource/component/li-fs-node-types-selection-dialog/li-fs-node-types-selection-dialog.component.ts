@@ -192,11 +192,11 @@ export class LiFsNodeTypesSelectionDialogComponent implements OnInit {
   }
 
   get title(): string {
-    return this.selectedNodes === 'files' ? 'databox.select_file_types' : 'databox.upload_folder';
+    return this.selectedNodes === 'files' ? 'li.select_file_types' : 'li.upload_folder';
   }
 
   get typePlaceholder(): string {
-    return this.formGp.value.nodeMode === 'files' ? 'databox.select_file_type' : 'databox.select_folder_type';
+    return this.formGp.value.nodeMode === 'files' ? 'li.select_file_type' : 'li.select_folder_type';
   }
 
   private getFileDefaultTyping(filename: string, typeEntities: LiTypeEntity[]): string {

@@ -67,10 +67,10 @@ export class LiShareLinkActionsMenuComponent {
       title: this.deleteText,
       content:
         this.shareLink.linkType === 'PUBLIC'
-          ? 'biox.delete_share_link_confirmation'
-          : 'biox.delete_space_share_link_confirmation',
+          ? 'li.delete_share_link_confirmation'
+          : 'li.delete_space_share_link_confirmation',
       observable: this.shareLinkService.delete(this.shareLink.id),
-      successMessage: 'biox.share_link_deleted',
+      successMessage: 'li.share_link_deleted',
     };
 
     this.dialogService
@@ -86,10 +86,10 @@ export class LiShareLinkActionsMenuComponent {
   }
 
   get updateText(): string {
-    return this.shareLink.linkType === 'PUBLIC' ? 'biox.update_share_link' : 'biox.update_space_share_link';
+    return this.shareLink.linkType === 'PUBLIC' ? 'li.update_share_link' : 'li.update_space_share_link';
   }
 
   get deleteText(): string {
-    return this.shareLink.linkType === 'PUBLIC' ? 'biox.delete_share_link' : 'biox.delete_space_share_link';
+    return this.shareLink.linkType === 'PUBLIC' ? 'li.delete_share_link' : 'li.delete_space_share_link';
   }
 }

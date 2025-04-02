@@ -109,10 +109,10 @@ export class LiCredentialsTableComponent {
 
   deleteCredentials(credentials: LiCredentials): void {
     const data: FlConfirmDialogInput = {
-      title: 'biox.delete_credentials',
-      content: 'biox.delete_credentials_confirmation',
+      title: 'li.delete_credentials',
+      content: 'li.delete_credentials_confirmation',
       observable: this.credentialsService.delete(credentials.id),
-      successMessage: 'biox.credentials_deleted',
+      successMessage: 'li.credentials_deleted',
     };
 
     this.dialogService

@@ -81,14 +81,14 @@ export class LiScenarioTemplateFormDialogComponent
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'biox.create_scenario_template' : 'biox.update_scenario_template';
+    return this.isCreateMode() ? 'li.create_scenario_template' : 'li.update_scenario_template';
   }
 
   getCreateSuccessMessage(): string {
-    return 'biox.scenario_template_created';
+    return 'li.scenario_template_created';
   }
 
   getUpdateSuccessMessage(): string {
-    return 'biox.scenario_template_updated';
+    return 'li.scenario_template_updated';
   }
 }

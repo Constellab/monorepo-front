@@ -2,7 +2,7 @@
   <!-- Lab -->
   <ng-container matColumnDef="lab">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'biox.share_to_lab' | translate }}
+      {{ 'li.share_to_lab' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       {{ row.labName }}
@@ -12,7 +12,7 @@
   <!-- Space -->
   <ng-container matColumnDef="space">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'biox.share_to_space' | translate }}
+      {{ 'li.share_to_space' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       {{ row.spaceName }}
@@ -22,7 +22,7 @@
   <!-- Receiver -->
   <ng-container matColumnDef="receiver">
     <mat-header-cell *matHeaderCellDef>
-      {{ 'biox.received_by' | translate }}
+      {{ 'li.received_by' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{ row.userFirstname }} {{ row.userLastname }} </mat-cell>
   </ng-container>
@@ -30,7 +30,7 @@
   <!-- SharedBy -->
   <ng-container matColumnDef="sharedBy">
     <mat-header-cell *matHeaderCellDef>
-      <span>{{ 'biox.shared_by' | translate }}</span>
+      <span>{{ 'li.shared_by' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>

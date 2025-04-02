@@ -141,8 +141,8 @@ export class LiScenarioSearchComponent implements OnInit {
 
   openImportFromUrlDialog(): void {
     const data: LiQuickConfigureProcessDialogInput = {
-      title: 'biox.import_scenario_from_lab',
-      helpText: 'biox.import_scenario_from_lab_help',
+      title: 'li.import_scenario_from_lab',
+      helpText: 'li.import_scenario_from_lab_help',
       specs$: this.scenarioService.getImportScenarioConfigSpecs(),
     };
     this.dialogService
@@ -157,7 +157,7 @@ export class LiScenarioSearchComponent implements OnInit {
         {
           type: 'import-scenario',
           action: this.scenarioService.importScenarioFromLab(configValues),
-          text: { text: 'biox.downloading_scenario', translateText: true },
+          text: { text: 'li.downloading_scenario', translateText: true },
           successLink: (scenario: LiScenario) => LiRouterService.getScenarioDetailRoute(scenario.id),
         },
         false
@@ -165,7 +165,7 @@ export class LiScenarioSearchComponent implements OnInit {
 
       this.snackBarService.openSuccessMessage(
         {
-          text: 'biox.downloading_scenario_help_text',
+          text: 'li.downloading_scenario_help_text',
           translateText: true,
         },
         5000

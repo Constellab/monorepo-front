@@ -4,25 +4,25 @@
     <fl-form-field class="g-search-field">
       <fl-select-user
         formControlName="user"
-        [placeholder]="'monitoring.activity_user' | translate"></fl-select-user>
+        [placeholder]="'li.activity_user' | translate"></fl-select-user>
     </fl-form-field>
 
     <!--  Object id  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{ 'monitoring.activity_object_id' | translate }}</mat-label>
+      <mat-label>{{ 'li.activity_object_id' | translate }}</mat-label>
       <input
         matInput
         formControlName="objectId"
         flInputMaxLength="36"
-        [placeholder]="'monitoring.activity_object_id' | translate" />
+        [placeholder]="'li.activity_object_id' | translate" />
     </mat-form-field>
 
     <!--  Activity type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{ 'monitoring.activity_type' | translate }}</mat-label>
+      <mat-label>{{ 'li.activity_type' | translate }}</mat-label>
       <mat-select
         formControlName="activityType"
-        [placeholder]="'monitoring.activity_type' | translate"
+        [placeholder]="'li.activity_type' | translate"
         [multiple]="true">
         @for (activityType of activityTypes | flObjectKeys; track activityType) {
           <mat-option [value]="activityType">
@@ -34,10 +34,10 @@
 
     <!--  Activity type  -->
     <mat-form-field class="g-search-field">
-      <mat-label>{{ 'monitoring.activity_object_type' | translate }}</mat-label>
+      <mat-label>{{ 'li.activity_object_type' | translate }}</mat-label>
       <mat-select
         formControlName="activityObjectType"
-        [placeholder]="'monitoring.activity_object_type' | translate"
+        [placeholder]="'li.activity_object_type' | translate"
         [multiple]="true">
         @for (objectType of activityObjectTypes | flObjectKeys; track objectType) {
           <mat-option [value]="objectType">
@@ -49,7 +49,7 @@
 
     <!--  Creation date  -->
     <div class="g-form-field-no-hint g-full">
-      <p class="g-text-small subtitle">{{ 'monitoring.activity_date' | translate }}</p>
+      <p class="g-text-small subtitle">{{ 'li.activity_date' | translate }}</p>
       <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
     </div>
   </div>

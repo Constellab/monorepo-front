@@ -7,7 +7,7 @@
         mat-icon-button
         type="button"
         (click)="openAddValueDialog($event)"
-        [matTooltip]="'tag_create' | translate">
+        [matTooltip]="'li.tag_create' | translate">
         <mat-icon>add</mat-icon>
       </button>
     </mat-panel-title>
@@ -26,14 +26,14 @@
               mat-icon-button
               type="button"
               (click)="openUpdateValueDialog(value)"
-              [matTooltip]="'tag_update' | translate">
+              [matTooltip]="'li.tag_update' | translate">
               <mat-icon>edit</mat-icon>
             </button>
             <button
               mat-icon-button
               type="button"
               (click)="openDeleteTag(value)"
-              [matTooltip]="'tag_delete' | translate">
+              [matTooltip]="'li.tag_delete' | translate">
               <mat-icon>clear</mat-icon>
             </button>
           </div>

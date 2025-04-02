@@ -7,7 +7,7 @@
     @if (resource.isFsNode()) {
       <button mat-menu-item type="button" class="primary" (click)="openImportResource()">
         <mat-icon fontSet="material-icons">system_update_alt</mat-icon>
-        <span>{{ 'biox.import_resource' | translate }}</span>
+        <span>{{ 'li.import_resource' | translate }}</span>
       </button>
     }
   }
@@ -15,41 +15,41 @@
   @if (resource.isDownloadable) {
     <button mat-menu-item type="button" (click)="downloadResource()">
       <mat-icon>cloud_download</mat-icon>
-      <span>{{ 'biox.download_resource' | translate }}</span>
+      <span>{{ 'li.download_resource' | translate }}</span>
     </button>
   }
 
   @if (resource.isUpdatable()) {
     <button mat-menu-item type="button" (click)="openUpdateName()">
       <mat-icon>edit</mat-icon>
-      <span>{{ 'biox.update_resource_name' | translate }}</span>
+      <span>{{ 'li.update_resource_name' | translate }}</span>
     </button>
     <button mat-menu-item type="button" (click)="openUpdateFolder()">
       <mat-icon flIcon="folder">edit</mat-icon>
-      <span>{{ 'biox.update_folder' | translate }}</span>
+      <span>{{ 'li.update_folder' | translate }}</span>
     </button>
   }
 
   <button mat-menu-item type="button" (click)="openTagDialog()" class="g-button-small button">
     <mat-icon flIcon="tag"></mat-icon>
-    {{ 'tags' | translate }}
+    {{ 'li.tags' | translate }}
   </button>
 
   <button mat-menu-item type="button" (click)="openShareDialog()" class="g-button-small button">
     <mat-icon>share</mat-icon>
-    {{ 'biox.share' | translate }}
+    {{ 'li.share' | translate }}
   </button>
 
   @if (resource.canUpdateType() && !readOnly) {
     <button mat-menu-item type="button" (click)="updateResourceType()">
       <mat-icon>edit</mat-icon>
-      <span>{{ 'biox.update_resource_type' | translate }}</span>
+      <span>{{ 'li.update_resource_type' | translate }}</span>
     </button>
   }
 
   <a mat-menu-item type="button" [routerLink]="resourceDocRoute">
     <mat-icon>help</mat-icon>
-    <span>{{ 'biox.resource_doc' | translate }}</span>
+    <span>{{ 'li.resource_doc' | translate }}</span>
   </a>
 
   <ng-content></ng-content>
@@ -57,7 +57,7 @@
   @if (resource.isDeletable() && !readOnly) {
     <button mat-menu-item type="button" (click)="deleteResource()" class="warn">
       <mat-icon>delete</mat-icon>
-      <span>{{ 'databox.delete_resource' | translate }}</span>
+      <span>{{ 'li.delete_resource' | translate }}</span>
     </button>
   }
 </mat-menu>

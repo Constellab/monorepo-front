@@ -7,7 +7,7 @@
       <div class="text-content">
         @if (role === 'system') {
           <fl-text-icon (click)="toggleContent()" class="g-text-link" iconPosition="end">
-            <strong>{{ 'open_ai_context' | translate }}</strong>
+            <strong>{{ 'li.open_ai_context' | translate }}</strong>
             <mat-icon>{{ showContent ? 'expand_less' : 'expand_more' }}</mat-icon>
           </fl-text-icon>
         }
@@ -27,15 +27,15 @@
           <mat-menu #menu="matMenu">
             <button mat-menu-item type="button" (click)="setEditMode()">
               <mat-icon>edit</mat-icon>
-              <span>{{ 'open_ai_update_message' | translate }}</span>
+              <span>{{ 'li.open_ai_update_message' | translate }}</span>
             </button>
             <button mat-menu-item type="button" (click)="onAction('delete')" class="warn">
               <mat-icon>delete</mat-icon>
-              <span>{{ 'open_ai_delete_message' | translate }}</span>
+              <span>{{ 'li.open_ai_delete_message' | translate }}</span>
             </button>
             <button mat-menu-item type="button" (click)="onAction('delete-all')" class="warn">
               <mat-icon>delete_forever</mat-icon>
-              <span>{{ 'open_ai_delete_all_messages' | translate }}</span>
+              <span>{{ 'li.open_ai_delete_all_messages' | translate }}</span>
             </button>
           </mat-menu>
         </div>
@@ -53,7 +53,7 @@
       </mat-form-field>
       <button mat-stroked-button type="button" class="g-button-small primary" (click)="saveEdit()">
         <mat-icon>check</mat-icon>
-        {{ 'open_ai_save_update' | translate }}
+        {{ 'li.open_ai_save_update' | translate }}
       </button>
       <button
         mat-stroked-button
@@ -61,7 +61,7 @@
         class="g-button-small cancel-button warn"
         (click)="cancelEdit()">
         <mat-icon>cancel</mat-icon>
-        {{ 'open_ai_cancel_update' | translate }}
+        {{ 'li.open_ai_cancel_update' | translate }}
       </button>
     </div>
   }

@@ -42,7 +42,7 @@ export class LiResourceDownloadService {
       {
         type: this.downloadAction,
         text: {
-          text: 'biox.preparing_resource_download',
+          text: 'li.preparing_resource_download',
           translateText: true,
           translateParam: { param: { resourceName: resource.name } },
         },
@@ -73,7 +73,7 @@ export class LiResourceDownloadService {
 
     const input: LiQuickConfigureProcessDialogInput = {
       specs$: of(exporterType.configSpecs),
-      title: 'biox.download_resource_title',
+      title: 'li.download_resource_title',
     };
 
     // open the configuration dialog

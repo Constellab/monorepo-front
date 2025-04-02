@@ -47,7 +47,7 @@
         type="button"
         (click)="openImportResource()"
         class="g-button-small import primary">
-        {{ 'biox.import_resource' | translate }}
+        {{ 'li.import_resource' | translate }}
       </button>
     }
 
@@ -56,7 +56,7 @@
       type="button"
       (click)="openViewSpecListPortal($event)"
       class="g-button-small button">
-      {{ 'biox.views' | translate }}
+      {{ 'li.views' | translate }}
     </button>
 
     @if (displayMode !== 'dense') {
@@ -65,7 +65,7 @@
         type="button"
         (click)="openResourceInfoDialog()"
         class="g-button-small button">
-        {{ 'biox.resource_info' | translate }}
+        {{ 'li.resource_info' | translate }}
       </button>
     }
 
@@ -77,14 +77,14 @@
       @if (displayMode === 'fullPage') {
         <button mat-menu-item type="button" (click)="openTransformerResource()">
           <mat-icon flIcon="transformer"></mat-icon>
-          {{ 'biox.transformers' | translate }}
+          {{ 'li.transformers' | translate }}
         </button>
       }
 
       @if (displayMode === 'dense') {
         <button mat-menu-item type="button" (click)="openResourceInfoDialog()">
           <mat-icon>info</mat-icon>
-          {{ 'biox.resource_info' | translate }}
+          {{ 'li.resource_info' | translate }}
         </button>
       }
     </li-resource-actions-menu>
@@ -93,7 +93,7 @@
       <button
         mat-icon-button
         type="button"
-        [matTooltip]="'close' | translate"
+        [matTooltip]="'li.close' | translate"
         [mat-dialog-close]="null"
         tabindex="-1">
         <mat-icon>close</mat-icon>

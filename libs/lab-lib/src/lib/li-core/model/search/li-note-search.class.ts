@@ -39,15 +39,15 @@ export class LiNoteSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiNoteSearchFields> = {
-    title: 'title',
+    title: 'li.title',
     tags: 'flTag.tags',
-    folder: 'biox.folder',
+    folder: 'li.folder',
     // group the creation date into one chip
-    createdAt: 'creation_date',
-    createdBy: 'created_by',
-    lastModifiedAt: 'last_modified_date',
-    isNotValidated: 'biox.note_is_not_validated',
-    isArchived: 'is_archived',
+    createdAt: 'li.creation_date',
+    createdBy: 'li.created_by',
+    lastModifiedAt: 'li.last_modified_date',
+    isNotValidated: 'li.note_is_not_validated',
+    isArchived: 'li.is_archived',
   };
 
   /**

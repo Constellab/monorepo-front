@@ -7,7 +7,6 @@
     "eco": "Evidence and Conclusion Ontology",
     "bto": "Brenda Tissue Ontology",
     "taxonomy": "Taxonomy",
-    "pwo": "Metabolic pathways",
     "molecular_base": "Molecular base",
     "compound": "Metabolic compounds",
     "enzyme": "Enzymes",
@@ -18,7 +17,6 @@
     "pathway": "Pathway",
     "entries": "entries",
     "no_entry": "No entry",
-    "definition": "Definition",
     "database_type": "Database type",
     "database_search_field": "Keywords",
     "data_detail": "Details"

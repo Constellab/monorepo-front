@@ -80,7 +80,7 @@ export class LiNavigableImpactDialogComponent implements OnInit {
 
     const input: FlConfirmDialogInput = {
       title: this.data.config.title,
-      content: 'biox.force_action_confirm',
+      content: 'li.force_action_confirm',
       observable: this.data.config.callAction(),
     };
 

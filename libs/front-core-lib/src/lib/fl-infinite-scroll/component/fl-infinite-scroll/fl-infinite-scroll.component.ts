@@ -55,9 +55,9 @@ export class FlInfiniteScrollComponent implements OnInit {
 
   @Input() reverseMode: boolean = false;
 
-  @Input() textNoResult: string = 'no_result';
+  @Input() textNoResult: string = 'flInfiniteScroll.no_result';
 
-  @Input() textNoMoreResult: string = 'no_more_result';
+  @Input() textNoMoreResult: string = 'flInfiniteScroll.no_more_result';
 
   ngOnInit(): void {
     if (this.datasource == null) {

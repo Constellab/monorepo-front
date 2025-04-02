@@ -6,21 +6,21 @@
   <form (ngSubmit)="submit()" id="scenario-template-form" [formGroup]="formGp">
     @if (isCreateMode()) {
       <p class="g-text-light help-text">
-        {{ 'biox.scenario_template_explication' | translate }}
+        {{ 'li.scenario_template_explication' | translate }}
       </p>
     }
 
     <!--  name  -->
     <mat-form-field class="g-form-input">
-      <mat-label>{{ 'name' | translate }}</mat-label>
+      <mat-label>{{ 'li.name' | translate }}</mat-label>
       <input
         matInput
         formControlName="name"
         required
         flInputMaxLength="255"
-        [placeholder]="'name' | translate" />
+        [placeholder]="'li.name' | translate" />
       @if (formGp.get('name').hasError('required')) {
-        <mat-error>{{ 'name' | flErrorRequired }}</mat-error>
+        <mat-error>{{ 'li.name' | flErrorRequired }}</mat-error>
       }
     </mat-form-field>
 
@@ -29,13 +29,13 @@
       [config]="textEditorConfig"
       formControlName="description"
       class="text-editor"
-      [placeholder]="'biox.protocol_description_placeholder' | translate"></te-text-editor>
+      [placeholder]="'li.protocol_description_placeholder' | translate"></te-text-editor>
   </form>
 </mat-dialog-content>
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="scenario-template-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

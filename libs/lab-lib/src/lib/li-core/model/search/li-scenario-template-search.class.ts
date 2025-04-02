@@ -32,12 +32,12 @@ export class LiScenarioTemplateSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiScenarioTemplateSearchFields> = {
-    name: 'name',
+    name: 'li.name',
     tags: 'flTag.tags',
     // group the creation date into one chip
-    createdAt: 'creation_date',
-    createdBy: 'created_by',
-    lastModifiedAt: 'last_modified_date',
+    createdAt: 'li.creation_date',
+    createdBy: 'li.created_by',
+    lastModifiedAt: 'li.last_modified_date',
   };
 
   /**

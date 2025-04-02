@@ -129,8 +129,8 @@ export class LiResourceActionsMenuComponent implements OnInit {
       entityType: 'RESOURCE',
       entityId: this.resource.id,
       autoSendConfig: {
-        title: 'biox.send_resource_to_lab',
-        helpText: 'biox.send_entity_to_lab_help',
+        title: 'li.send_resource_to_lab',
+        helpText: 'li.send_entity_to_lab_help',
         specs$: this.resourceService.getExportToLabConfigSpecs(),
       },
       autoSend: (configValues) => this.resourceService.exportResourceToLab(this.resource.id, configValues),
@@ -157,20 +157,20 @@ export class LiResourceActionsMenuComponent implements OnInit {
   deleteResource(): void {
     let confirmImpactHelpText: FlTranslatableText;
     // build the confirmation message
-    let confirmation = `<p>${this.translateService.translate('databox.delete_resource_confirmation')}</p>`;
+    let confirmation = `<p>${this.translateService.translate('li.delete_resource_confirmation')}</p>`;
 
     // for imported or transformed resources, we add an info message
     if (this.resource.scenario) {
       confirmation += `<p>${this.translateService.translate(
-        'databox.delete_generated_resource_confirmation',
+        'li.delete_generated_resource_confirmation',
         { param: { scenarioTitle: this.resource.scenario.title } }
       )}</p>`;
 
       const deleteResourceWithExp = this.translateService.translate(
-        'biox.delete_resource_with_exp_confirm_impact',
+        'li.delete_resource_with_exp_confirm_impact',
         { param: { title: this.resource.name, scenarioTitle: this.resource.scenario.title } }
       );
-      const resetProcessImpact = this.translateService.translate('biox.scenario_ressource_used_after', {
+      const resetProcessImpact = this.translateService.translate('li.scenario_ressource_used_after', {
         param: { title: this.resource.scenario.title },
       });
       confirmImpactHelpText = {
@@ -179,7 +179,7 @@ export class LiResourceActionsMenuComponent implements OnInit {
       };
     } else {
       confirmImpactHelpText = {
-        text: 'biox.delete_resource_confirm_impact',
+        text: 'li.delete_resource_confirm_impact',
         translateText: true,
         translateParam: {
           param: { title: this.resource.name },
@@ -188,7 +188,7 @@ export class LiResourceActionsMenuComponent implements OnInit {
     }
 
     const impactData: LiNavigableImpactConfig = {
-      title: 'databox.delete_resource',
+      title: 'li.delete_resource',
       confirmImpactConfirmText: confirmImpactHelpText,
       noImpactConfirmText: { text: confirmation, translateText: false },
       checkImpact: () => this.resourceService.checkImpactForDeleteResource(this.resource.id),
@@ -204,11 +204,11 @@ export class LiResourceActionsMenuComponent implements OnInit {
     if (result.status === 'success') {
       if (this.resource.scenario) {
         this.snackBarService.openSuccessMessage({
-          text: 'databox.resource_and_scenario_deleted',
+          text: 'li.resource_and_scenario_deleted',
           translateText: true,
         });
       } else {
-        this.snackBarService.openSuccessMessage({ text: 'databox.resource_deleted', translateText: true });
+        this.snackBarService.openSuccessMessage({ text: 'li.resource_deleted', translateText: true });
       }
       this.delete.next(this.resource);
     }

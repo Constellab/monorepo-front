@@ -16,6 +16,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
 export interface HaCoAuthorsDialogInput {
   id: string;
@@ -42,6 +43,7 @@ export interface HaCoAuthorsDialogInput {
     MatError,
     FlLoaderModule,
     TranslatePipe,
+    FlCorePipeModule,
   ],
 })
 export class HaCoAuthorDialogComponent implements OnInit {

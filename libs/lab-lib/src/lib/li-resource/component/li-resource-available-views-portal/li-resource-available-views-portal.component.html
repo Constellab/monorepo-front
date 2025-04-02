@@ -1,9 +1,9 @@
 <fl-portal>
   <fl-portal-content>
-    <fl-async-section [arrayObs]="favoritesViews$" [emptyText]="'biox.no_favorite_views'">
+    <fl-async-section [arrayObs]="favoritesViews$" [emptyText]="'li.no_favorite_views'">
       <fl-section-header>
         <fl-text-icon iconPosition="end" class="title">
-          <h2>{{ 'biox.favorite_views' | translate }}</h2>
+          <h2>{{ 'li.favorite_views' | translate }}</h2>
           <mat-icon class="accent">star</mat-icon>
         </fl-text-icon>
       </fl-section-header>
@@ -23,7 +23,7 @@
       </ng-container>
     </fl-async-section>
 
-    <h2 class="title native-views">{{ 'biox.native_views' | translate }}</h2>
+    <h2 class="title native-views">{{ 'li.native_views' | translate }}</h2>
     <div class="container">
       @for (viewSpec of viewSpecs$ | async; track viewSpec) {
         <li-resource-view-spec-card

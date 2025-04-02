@@ -34,7 +34,7 @@ import { Observable } from 'rxjs';
 export class LiSelectCredentialsComponent extends FlFormFieldDirective<LiCredentials> implements OnInit {
   private credentialsService = inject(LiCredentialsService);
 
-  @Input() placeholder: FlTranslatableText = { text: 'biox.select_credentials', translateText: true };
+  @Input() placeholder: FlTranslatableText = { text: 'li.select_credentials', translateText: true };
 
   @Input() type: LiCredentialsType;
 

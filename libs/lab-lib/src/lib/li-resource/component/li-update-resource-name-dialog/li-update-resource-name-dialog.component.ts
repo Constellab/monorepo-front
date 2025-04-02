@@ -64,7 +64,7 @@ export class LiUpdateResourceNameDialogComponent implements OnInit {
   }
 
   private updateNameSuccess(resource: LiResource): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.resource_name_updated', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.resource_name_updated', translateText: true });
     this.dialogRef.close(resource);
     this.isLoading = false;
   }

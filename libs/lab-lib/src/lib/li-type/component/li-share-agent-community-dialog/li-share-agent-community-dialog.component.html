@@ -8,15 +8,15 @@
       <div class="new-agent-div">
         <button (click)="openCreateCommunityAgentDialog(agentVersionId)" mat-stroked-button type="button">
           <mat-icon>add_circle</mat-icon>
-          {{ 'biox.create_new_community_agent' | translate }}
+          {{ 'li.create_new_community_agent' | translate }}
         </button>
       </div>
 
       @if (currentAgent || !agentVersionId) {
         <mat-divider class="divider"></mat-divider>
-        <h3>{{ 'biox.my_agents' | translate }}</h3>
+        <h3>{{ 'li.my_agents' | translate }}</h3>
         <div class="existant-agent-info-div g-text-centered">
-          <span>{{ 'biox.add_existent_agent_info' | translate }}</span>
+          <span>{{ 'li.add_existent_agent_info' | translate }}</span>
         </div>
         <div
           class="all-agent-list-div"

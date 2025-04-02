@@ -9,10 +9,13 @@ const flDateI18nFr: FlLangTranslation = {
     created_by: 'Created by',
     last_modified_by: 'Last modified by',
     last_sync_by: 'Dernière synchronisation par',
-    date_picker_placeholder: 'jj/mm/aaaa',
     day: 'Jour',
     hour: 'Heure',
     minute: 'Minute',
+    between_the_from: 'Entre le',
+    between_the_to: 'et le',
+    from_the: 'Du',
+    until_the: "Jusqu'au",
   },
 };
 
@@ -21,10 +24,13 @@ const flDateI18nEn: FlLangTranslation = {
     created_by: 'Créé par',
     last_modified_by: 'Dernière modification par',
     last_sync_by: 'Last synchronisation by',
-    date_picker_placeholder: 'dd/mm/yyyy',
     day: 'Day',
     hour: 'Hour',
     minute: 'Minute',
+    between_the_from: 'From the',
+    between_the_to: 'to the',
+    from_the: 'From the',
+    until_the: "Jusqu'au",
   },
 };
 

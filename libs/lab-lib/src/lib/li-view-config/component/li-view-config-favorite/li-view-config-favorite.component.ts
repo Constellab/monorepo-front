@@ -51,6 +51,6 @@ export class LiViewConfigFavoriteComponent {
   }
 
   get tooltip(): string {
-    return this.viewConfig.isFavorite ? 'biox.view_favorite_tooltip' : 'biox.view_not_favorite_tooltip';
+    return this.viewConfig.isFavorite ? 'li.view_favorite_tooltip' : 'li.view_not_favorite_tooltip';
   }
 }

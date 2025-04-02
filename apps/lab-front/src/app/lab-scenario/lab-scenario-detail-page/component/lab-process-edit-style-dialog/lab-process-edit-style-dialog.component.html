@@ -6,7 +6,7 @@
   <form [formGroup]="formGp" (ngSubmit)="submit()">
     <co-update-type-icon-form formControlName="style"></co-update-type-icon-form>
     <button mat-flat-button class="primary" type="submit" [disabled]="formGp.invalid">
-      {{ 'save' | translate }}
+      {{ 'g.save' | translate }}
     </button>
   </form>
 </mat-dialog-content>

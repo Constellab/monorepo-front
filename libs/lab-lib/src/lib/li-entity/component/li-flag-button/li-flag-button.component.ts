@@ -63,7 +63,7 @@ export class LiFlagButtonComponent {
 
   get tooltip(): string {
     if (this.entity instanceof LiResource) {
-      return this.entity.flagged ? 'biox.resource_flagged_tooltip' : 'biox.resource_not_flagged_tooltip';
+      return this.entity.flagged ? 'li.resource_flagged_tooltip' : 'li.resource_not_flagged_tooltip';
     } else {
       console.error('[LiFlagButtonComponent] Object type unknown');
       return '';

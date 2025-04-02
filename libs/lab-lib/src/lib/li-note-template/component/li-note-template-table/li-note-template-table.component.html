@@ -2,7 +2,7 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span> {{ 'title' | translate }}</span>
+      <span> {{ 'li.title' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <div class="text g-text-dense-height">{{ row.title }}</div>
@@ -17,7 +17,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'creation_info' | translate }}</span>
+      <span>{{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -27,7 +27,7 @@
   <!-- Last Modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'last_modification_info' | translate }}</span>
+      <span>{{ 'li.last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.lastModifiedBy" [date]="row.lastModifiedAt"></fl-user-with-date>

@@ -2,15 +2,15 @@
   <!-- Entity type -->
   <ng-container matColumnDef="entityType">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'biox.share_link_entity_type' | translate }}</span>
+      <span> {{ 'li.share_link_entity_type' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <div>
-        <div>{{ 'lab_entity_type_' + row.labObjectType | translate }}</div>
+        <div>{{ 'li.lab_entity_type_' + row.labObjectType | translate }}</div>
         @if (row.status === 'ERROR') {
-          <fl-text-icon [matTooltip]="'biox.share_link_object_not_found' | translate" gap="5px">
+          <fl-text-icon [matTooltip]="'li.share_link_object_not_found' | translate" gap="5px">
             <div class="g-text-small g-warn-text">
-              {{ 'biox.share_link_object_not_found_short' | translate }}
+              {{ 'li.share_link_object_not_found_short' | translate }}
             </div>
             <mat-icon class="g-warn-icon g-icon-small">errors</mat-icon>
           </fl-text-icon>
@@ -22,7 +22,7 @@
   <!-- Name -->
   <ng-container matColumnDef="entityName">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'name' | translate }}</span>
+      <span> {{ 'li.name' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       {{ row.entityName }}
@@ -32,7 +32,7 @@
   <!-- Valid until -->
   <ng-container matColumnDef="validUntil">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'biox.share_link_valid_until' | translate }}</span>
+      <span> {{ 'li.share_link_valid_until' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       @if (row.validUntil) {
@@ -42,7 +42,7 @@
           {{ row.validUntil | flDate }}
         </div>
       } @else {
-        {{ 'biox.share_link_no_valid_until' | translate }}
+        {{ 'li.share_link_no_valid_until' | translate }}
       }
     </mat-cell>
   </ng-container>
@@ -50,7 +50,7 @@
   <!-- Created -->
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>
-      <span> {{ 'creation_info' | translate }}</span>
+      <span> {{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row">
       <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
@@ -60,7 +60,7 @@
   <!-- Download link -->
   <ng-container matColumnDef="downloadLink">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'biox.share_links' | translate }}</span>
+      <span> {{ 'li.share_links' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let row" class="g-column-width-2">
       <div class="download-link g-text-tiny">

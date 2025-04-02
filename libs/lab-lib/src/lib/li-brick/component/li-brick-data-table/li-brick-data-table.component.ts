@@ -57,10 +57,10 @@ export class LiBrickDataTableComponent {
 
   openDeleteBrickData(brickData: LiBrickData): void {
     const data: FlConfirmDialogInput = {
-      title: 'monitoring.delete_brick_data',
-      content: 'monitoring.delete_brick_data_confirmation',
+      title: 'li.delete_brick_data',
+      content: 'li.delete_brick_data_confirmation',
       observable: this.brickDataService.deleteBrickData(brickData.fsNodePath),
-      successMessage: 'monitoring.brick_data_deleted',
+      successMessage: 'li.brick_data_deleted',
     };
 
     this.dialogService

@@ -51,10 +51,10 @@ export class LiTypeSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiTypeSearchFields> = {
-    text: 'name',
-    objectSubType: 'biox.process_type_type',
-    includeDeprecated: 'biox.type_include_deprecated',
-    importerIgnoreExtension: 'biox.type_importer_ignore_extension',
+    text: 'li.name',
+    objectSubType: 'li.process_type_type',
+    includeDeprecated: 'li.type_include_deprecated',
+    importerIgnoreExtension: 'li.type_importer_ignore_extension',
   };
 
   /**

@@ -40,7 +40,7 @@ export class LiFolderInlineSelectComponent extends FlFormFieldDirective<LiFolder
 
   @Input() updateFolderHelpText?: string;
 
-  placeholder = input<FlTranslatableText>('biox.select_folder');
+  placeholder = input<FlTranslatableText>('li.select_folder');
 
   @Output() selectionChange: EventEmitter<LiFolder | null> = new EventEmitter();
 

@@ -6,7 +6,7 @@
   @if (showLinkToEntity && shareLink.status === 'SUCCESS') {
     <a mat-menu-item [routerLink]="shareLink.entityId | liDetailRoute: shareLink.labObjectType">
       <mat-icon>visibility</mat-icon>
-      <span>{{ 'biox.view_shared_object' | translate }}</span>
+      <span>{{ 'li.view_shared_object' | translate }}</span>
     </a>
   }
 

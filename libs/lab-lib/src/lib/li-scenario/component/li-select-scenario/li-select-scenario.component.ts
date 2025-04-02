@@ -32,7 +32,7 @@ export class LiSelectScenarioComponent extends FlFormFieldDirective<LiScenario> 
   private scenarioService = inject(LiScenarioService);
   private dialogService = inject(FlDialogService);
 
-  placeholder = input<FlTranslatableText>('biox.scenario_select');
+  placeholder = input<FlTranslatableText>('li.scenario_select');
 
   scenarioChange = output<LiScenario>();
 

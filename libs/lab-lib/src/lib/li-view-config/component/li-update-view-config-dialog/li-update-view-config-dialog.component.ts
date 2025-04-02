@@ -68,7 +68,7 @@ export class LiUpdateViewConfigDialogComponent implements OnInit {
 
   private updateNameSuccess(viewConfig: LiViewConfig): void {
     this.snackBarService.openSuccessMessage({
-      text: 'biox.view_config_title_updated',
+      text: 'li.view_config_title_updated',
       translateText: true,
     });
     this.dialogRef.close(viewConfig);

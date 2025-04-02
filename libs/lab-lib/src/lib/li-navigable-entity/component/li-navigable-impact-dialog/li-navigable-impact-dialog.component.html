@@ -7,19 +7,19 @@
     class="help-text g-text-light"
     [innerHTML]="data.config.confirmImpactConfirmText | flTranslatableText | async"></div>
 
-  <h2 class="other-impacts">{{ 'biox.impacted_objects' | translate }}</h2>
+  <h2 class="other-impacts">{{ 'li.impacted_objects' | translate }}</h2>
 
   <li-navigable-entity-groups class="entities" [groups]="data.impactedEntities"></li-navigable-entity-groups>
 
   @if (containsValidatedScenarios) {
     <p class="g-warn-text">
-      {{ 'biox.reset_impact_contains_validated_scenarios' | translate }}
+      {{ 'li.reset_impact_contains_validated_scenarios' | translate }}
     </p>
   }
 
   @if (containsValidatedNotes) {
     <p class="g-warn-text">
-      {{ 'biox.reset_impact_contains_validated_notes' | translate }}
+      {{ 'li.reset_impact_contains_validated_notes' | translate }}
     </p>
   }
 
@@ -28,7 +28,7 @@
       <mat-icon class="g-icon-big g-warn-icon">warnings</mat-icon>
       <div class="g-warn-text">
         {{
-          'biox.force_action_warning'
+          'li.force_action_warning'
             | translate: { actionName: (data.config.title | flTranslatableText | async) }
         }}
       </div>
@@ -47,6 +47,6 @@
   </button>
 
   <button mat-stroked-button matDialogClose type="button">
-    {{ 'cancel' | translate }}
+    {{ 'li.cancel' | translate }}
   </button>
 </div>

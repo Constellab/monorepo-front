@@ -123,7 +123,7 @@ export class LiViewConfigActionsMenuComponent implements OnInit {
   }
 
   private onSuccess(): void {
-    this.snackBarService.openSuccessMessage({ text: 'biox.view_added_to_note', translateText: true });
+    this.snackBarService.openSuccessMessage({ text: 'li.view_added_to_note', translateText: true });
     this.addToNoteIsLoading = false;
   }
 

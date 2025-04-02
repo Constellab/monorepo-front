@@ -165,7 +165,7 @@ export class LiCredentialsFormDialogComponent implements OnInit {
 
   private onCreateSuccess(credentials: LiCredentials): void {
     this.isLoading = false;
-    this.snackBarService.openSuccessMessage('biox.credentials_created');
+    this.snackBarService.openSuccessMessage('li.credentials_created');
     this.dialogRef.close(credentials);
   }
 
@@ -178,12 +178,12 @@ export class LiCredentialsFormDialogComponent implements OnInit {
 
   private onUpdateSuccess(credentials: LiCredentials): void {
     this.isLoading = false;
-    this.snackBarService.openSuccessMessage('biox.credentials_created');
+    this.snackBarService.openSuccessMessage('li.credentials_created');
     this.dialogRef.close(credentials);
   }
 
   get title(): string {
-    return this.isCreateMode() ? 'biox.create_credentials' : 'biox.update_credentials';
+    return this.isCreateMode() ? 'li.create_credentials' : 'li.update_credentials';
   }
 
   onNameChange(): void {

@@ -1,19 +1,19 @@
 <fl-dialog-header>
-  {{ 'biox.import_resource' | translate }}
+  {{ 'li.import_resource' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content class="content">
   <!--   Small explanation text     -->
   <div class="g-text-light help-text">
-    {{ 'biox.import_resource_text' | translate }}
+    {{ 'li.import_resource_text' | translate }}
     <a [href]="communityHelpUrl" target="_blank" class="g-text-link link">{{
-      'biox.import_more_info' | translate
+      'li.import_more_info' | translate
     }}</a>
   </div>
 
   <div class="g-text-centered">
     <button mat-stroked-button type="button" (click)="openImportSelectDialog()">
-      {{ 'biox.select_importer' | translate }}
+      {{ 'li.select_importer' | translate }}
     </button>
   </div>
 
@@ -41,7 +41,7 @@
       @if (sourceSpec && targetSpec) {
         <div class="g-layout-row g-layout-center-center specs-container">
           <td-doc-io [ioSpec]="sourceSpec"></td-doc-io>
-          <mat-icon class="g-icon-big spec-separator" [matTooltip]="'biox.import_to' | translate"
+          <mat-icon class="g-icon-big spec-separator" [matTooltip]="'li.import_to' | translate"
             >double_arrow
           </mat-icon>
           <td-doc-io [ioSpec]="targetSpec"></td-doc-io>
@@ -60,7 +60,7 @@
       }
 
       <button mat-flat-button type="submit" class="g-centered-forced submit-button primary">
-        {{ 'biox.import_resource' | translate }}
+        {{ 'li.import_resource' | translate }}
         @if (callIsLoading) {
           <fl-button-loader></fl-button-loader>
         }

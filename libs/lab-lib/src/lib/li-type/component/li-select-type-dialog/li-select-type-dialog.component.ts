@@ -42,7 +42,7 @@ export class LiSelectTypeDialogComponent {
     const data = inject<LiSelectTypeDialogInput>(MAT_DIALOG_DATA);
 
     this.config = data.searchConfig;
-    this.title = data.title ?? 'biox.select_process';
+    this.title = data.title ?? 'li.select_process';
     this.helpText = data.helpText;
   }
 

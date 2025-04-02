@@ -13,12 +13,12 @@ import { LiEntity } from '../global/li-entity.entity';
 export type LiProgressBarMessageType = 'SUCCESS' | 'INFO' | 'ERROR' | 'WARNING' | 'PROGRESS' | 'DEBUG';
 
 const labProgressBarMessageTypeDict: FlStatusDict<LiProgressBarMessageType> = {
-  DEBUG: FlStatusHelper.getDebugStatus('DEBUG', 'debug'),
-  INFO: FlStatusHelper.getInfoStatus('INFO', 'info'),
-  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'success'),
-  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'error'),
-  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'warning'),
-  PROGRESS: FlStatusHelper.getInfoStatus('PROGRESS', 'biox.progress_bar_progress', 'cached'),
+  DEBUG: FlStatusHelper.getDebugStatus('DEBUG', 'li.debug'),
+  INFO: FlStatusHelper.getInfoStatus('INFO', 'li.info'),
+  SUCCESS: FlStatusHelper.getSuccessStatus('SUCCESS', 'li.success'),
+  ERROR: FlStatusHelper.getErrorStatus('ERROR', 'li.error'),
+  WARNING: FlStatusHelper.getWarningStatus('WARNING', 'li.warning'),
+  PROGRESS: FlStatusHelper.getInfoStatus('PROGRESS', 'li.progress_bar_progress', 'cached'),
 };
 
 /**

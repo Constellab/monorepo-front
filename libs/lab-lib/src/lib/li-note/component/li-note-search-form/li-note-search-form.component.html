@@ -2,8 +2,8 @@
   <div class="g-full main-fields">
     <!--  Title  -->
     <mat-form-field class="g-full">
-      <mat-label>{{ 'title' | translate }}</mat-label>
-      <input matInput formControlName="title" [placeholder]="'title' | translate" autocomplete="off" />
+      <mat-label>{{ 'li.title' | translate }}</mat-label>
+      <input matInput formControlName="title" [placeholder]="'li.title' | translate" autocomplete="off" />
     </mat-form-field>
   </div>
 
@@ -13,7 +13,7 @@
       <mat-panel-title>
         <fl-text-icon>
           <mat-icon flIcon="folder"></mat-icon>
-          {{ 'biox.folders' | translate }}
+          {{ 'li.folders' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
@@ -29,40 +29,40 @@
       <mat-panel-title>
         <fl-text-icon>
           <mat-icon>manage_search</mat-icon>
-          {{ 'advanced_search' | translate }}
+          {{ 'li.advanced_search' | translate }}
         </fl-text-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
       <!--  Created by  -->
       <fl-form-field class="g-search-field g-form-field-compact">
-        <fl-select-user formControlName="createdBy" [placeholder]="'created_by' | translate"></fl-select-user>
+        <fl-select-user formControlName="createdBy" [placeholder]="'li.created_by' | translate"></fl-select-user>
       </fl-form-field>
 
       <!--  Id -->
       <mat-form-field class="g-search-field g-form-field-compact">
-        <mat-label>{{ 'id' | translate }}</mat-label>
-        <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+        <mat-label>{{ 'li.id' | translate }}</mat-label>
+        <input matInput formControlName="id" [placeholder]="'li.id' | translate" autocomplete="off" />
       </mat-form-field>
 
       <!--  Creation date  -->
       <div class="g-form-field-no-hint g-full g-form-field-compact">
-        <p class="g-text-small subtitle">{{ 'creation_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.creation_date' | translate }}</p>
         <fl-search-date-interval formGroupName="createdAt"> </fl-search-date-interval>
       </div>
 
       <!--  Last modification date  -->
       <div class="g-form-field-no-hint g-full g-form-field-compact">
-        <p class="g-text-small subtitle">{{ 'last_modified_date' | translate }}</p>
+        <p class="g-text-small subtitle">{{ 'li.last_modified_date' | translate }}</p>
         <fl-search-date-interval formGroupName="lastModifiedAt"> </fl-search-date-interval>
       </div>
 
       <mat-checkbox formControlName="isNotValidated" class="checkbox g-full"
-        >{{ 'biox.note_exclude_validated' | translate }}
+        >{{ 'li.note_exclude_validated' | translate }}
       </mat-checkbox>
 
       <mat-checkbox formControlName="isArchived" class="checkbox g-full"
-        >{{ 'biox.note_include_archived' | translate }}
+        >{{ 'li.note_include_archived' | translate }}
       </mat-checkbox>
     </div>
   </mat-expansion-panel>

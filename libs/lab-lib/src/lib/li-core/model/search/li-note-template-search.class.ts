@@ -32,10 +32,10 @@ export class LiNoteTemplateSearch {
    * Const to configure Form Input Manager for advanced search
    */
   public static searchManagerConfig: FlFormInputsManagerConfig<LiNoteTemplateSearchFields> = {
-    title: 'title',
+    title: 'li.title',
     // group the creation date into one chip
-    createdAt: 'creation_date',
-    createdBy: 'created_by',
+    createdAt: 'li.creation_date',
+    createdBy: 'li.created_by',
     lastModifiedAt: 'last_modified_date',
     lastModifiedBy: 'last_modified_by',
   };

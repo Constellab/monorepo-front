@@ -1,4 +1,4 @@
-<div [matTooltip]="'biox.sync_object_need_folder' | translate" [matTooltipDisabled]="!!object.folder">
+<div [matTooltip]="'li.sync_object_need_folder' | translate" [matTooltipDisabled]="!!object.folder">
   <button
     mat-stroked-button
     type="button"
@@ -6,7 +6,7 @@
     [disabled]="!object.folder"
     (click)="syncClick()">
     <mat-icon>sync</mat-icon>
-    {{ 'biox.sync_with_space' | translate }}
+    {{ 'li.sync_with_space' | translate }}
     @if (isLoading) {
       <fl-button-loader size="small"></fl-button-loader>
     }

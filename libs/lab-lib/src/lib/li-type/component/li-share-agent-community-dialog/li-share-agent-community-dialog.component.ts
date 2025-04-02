@@ -53,7 +53,7 @@ export class LiShareAgentCommunityDialogComponent implements OnInit {
   private dialogService = inject(FlDialogService);
   private translateService = inject(FlTranslateService);
 
-  title: string = 'biox.share_agent_to_community';
+  title: string = 'li.share_agent_to_community';
   processId: string;
   agentVersionId: string;
   currentAgent: LiAgent;
@@ -79,13 +79,13 @@ export class LiShareAgentCommunityDialogComponent implements OnInit {
 
   openAddVersionConfirmDialog(agent?: LiAgent): void {
     if (!this.currentAgent && !agent) return;
-    const content = this.translateService.translate('biox.add_version_to_community_agent_content', {
+    const content = this.translateService.translate('li.add_version_to_community_agent_content', {
       param: { agentTitle: agent != null ? agent.title : this.currentAgent.title },
     });
     const input: FlConfirmDialogInput = {
-      title: this.translateService.translate('biox.add_version_to_community_agent'),
+      title: this.translateService.translate('li.add_version_to_community_agent'),
       content: content,
-      successMessage: 'biox.add_version_to_community_agent_success',
+      successMessage: 'li.add_version_to_community_agent_success',
       observable: this.protocolService.addVersionToCommunityAgent(
         this.processId,
         agent != null ? agent.id : this.currentAgent.id

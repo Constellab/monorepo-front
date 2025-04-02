@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlTranslateModule } from '../fl-translate/fl-translate.module';
 import { FlSnackBarService } from './fl-snack-bar.service';
@@ -6,6 +6,8 @@ import { FlSnackBarInfoComponent } from './component/fl-snack-bar-info/fl-snack-
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { flSnackBarI18n } from './fl-snack-bar.i18n';
 
 /**
  * Core modules containing components
@@ -29,5 +31,11 @@ export class FlSnackBarModule {
       ngModule: FlSnackBarModule,
       providers: [FlSnackBarService],
     };
+  }
+
+  constructor() {
+    const translateService = inject(FlTranslateService);
+
+    translateService.addModuleTranslation('FlSnackBarModule', flSnackBarI18n);
   }
 }

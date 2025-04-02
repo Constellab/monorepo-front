@@ -1,7 +1,7 @@
 @if (freeDisk().diskUsageFree < freeDisk().requiredDiskFreeSpace) {
   <p class="g-warn-text">
     ⚠️{{
-      'monitoring.free_disk_limit_reached'
+      'li.free_disk_limit_reached'
         | translate: { limit: freeDisk().requiredDiskFreeSpace | flByteText }
     }}
   </p>

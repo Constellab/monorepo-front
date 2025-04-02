@@ -2,7 +2,7 @@
   <!-- Title -->
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef class="g-cell-header-with-left-border" mat-sort-header>
-      <span> {{ 'title' | translate }}</span>
+      <span> {{ 'li.title' | translate }}</span>
     </mat-header-cell>
     <mat-cell
       *matCellDef="let scenario"
@@ -29,7 +29,7 @@
   <!-- Status -->
   <ng-container matColumnDef="status">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'status' | translate }}</span>
+      <span>{{ 'li.status' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
       <fl-status-chip [status]="scenario.status" mode="iconText" size="small"> </fl-status-chip>
@@ -41,7 +41,7 @@
   <!-- Creation -->
   <ng-container matColumnDef="creation">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'creation_info' | translate }}</span>
+      <span>{{ 'li.creation_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
       <fl-user-with-date
@@ -54,7 +54,7 @@
   <!-- Last modification -->
   <ng-container matColumnDef="lastModification">
     <mat-header-cell *matHeaderCellDef mat-sort-header>
-      <span>{{ 'last_modification_info' | translate }}</span>
+      <span>{{ 'li.last_modification_info' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario">
       <fl-user-with-date
@@ -67,7 +67,7 @@
   <!-- Tags -->
   <ng-container matColumnDef="tags">
     <mat-header-cell *matHeaderCellDef class="g-column-width-2">
-      <span> {{ 'tags' | translate }}</span>
+      <span> {{ 'li.tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let scenario" class="g-column-width-2">
       @defer (on viewport) {
@@ -87,7 +87,7 @@
         type="button"
         (click)="unlinkedScenario(scenario, $event)"
         class="over-link"
-        [matTooltip]="'biox.note_unlink_scenario' | translate">
+        [matTooltip]="'li.note_unlink_scenario' | translate">
         <mat-icon>clear</mat-icon>
       </button>
     </mat-cell>

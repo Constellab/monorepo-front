@@ -17,14 +17,14 @@ export class LiShareLinkLinksComponent {
 
   copyDownloadLink(): void {
     this.clipboardService.copy(this.shareLink().downloadLink, {
-      text: 'biox.share_link_copied',
+      text: 'li.share_link_copied',
       translateText: true,
     });
   }
 
   copyPreviewLink(): void {
     this.clipboardService.copy(this.shareLink().previewLink, {
-      text: 'biox.share_link_copied',
+      text: 'li.share_link_copied',
       translateText: true,
     });
   }

@@ -1,19 +1,19 @@
 <fl-dialog-header>
-  {{ 'biox.update_resource_type' | translate }}
+  {{ 'li.update_resource_type' | translate }}
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <p class="g-text-light help-text">{{ 'biox.update_resource_type_help' | translate }}</p>
+  <p class="g-text-light help-text">{{ 'li.update_resource_type_help' | translate }}</p>
 
   <fl-async-section [object]="fsNodeTypes">
     <ng-container *flSectionBody="fsNodeTypes as fileTypes">
       <form (ngSubmit)="submit()" id="resource-type-form">
         <!--  File type  -->
         <mat-form-field class="g-form-input">
-          <mat-label>{{ 'biox.resource_type' | translate }}</mat-label>
+          <mat-label>{{ 'li.resource_type' | translate }}</mat-label>
           <mat-select
             [formControl]="formControl"
-            placeholder="{{ 'biox.resource_type' | translate }}"
+            placeholder="{{ 'li.resource_type' | translate }}"
             required>
             @for (fileType of fileTypes; track fileType) {
               <mat-option [value]="fileType.typingName">
@@ -22,7 +22,7 @@
             }
           </mat-select>
           @if (formControl.hasError('required')) {
-            <mat-error>{{ 'biox.resource_type' | flErrorRequired }}</mat-error>
+            <mat-error>{{ 'li.resource_type' | flErrorRequired }}</mat-error>
           }
         </mat-form-field>
       </form>
@@ -32,7 +32,7 @@
 
 <div mat-dialog-actions>
   <button mat-flat-button type="submit" form="resource-type-form" class="g-centered-forced primary">
-    {{ 'save' | translate }}
+    {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>
     }

@@ -11,7 +11,7 @@ export class LiEntityActionMenu<T> extends FlBaseActionMenu<T> {
   ): FlMenuDynamic {
     return {
       type: 'button',
-      text: 'tags',
+      text: 'li.tags',
       icon: 'tag',
       onClick: () => this.openTagsFormDialog(entityId, entityType, tags),
     };

@@ -3,7 +3,7 @@
 
   @if (downloadUrl) {
     <fl-dialog-header-actions>
-      <a [href]="downloadUrl" download mat-icon-button [matTooltip]="'biox.download_logs' | translate">
+      <a [href]="downloadUrl" download mat-icon-button [matTooltip]="'li.download_logs' | translate">
         <mat-icon>cloud_download</mat-icon>
       </a>
     </fl-dialog-header-actions>
@@ -27,7 +27,7 @@
           class="primary primary"
           type="button"
           (click)="loadNextPage()">
-          {{ 'show_more_result' | translate }}
+          {{ 'li.show_more_result' | translate }}
           @if (isLoading) {
             <fl-button-loader size="small"></fl-button-loader>
           }
@@ -43,7 +43,7 @@
 
     @if (logs && logs.logs.length === 0) {
       <div class="g-text-centered">
-        <p>{{ 'no_logs_found' | translate }}</p>
+        <p>{{ 'li.no_logs_found' | translate }}</p>
       </div>
     }
   </div>

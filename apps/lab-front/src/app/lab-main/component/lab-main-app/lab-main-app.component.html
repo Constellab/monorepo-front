@@ -49,7 +49,7 @@
           <!--    Grow/Reduce menu button      -->
           <button mat-button class="menu-button" flExpansionMenuButton flExpansionMenuButtonToggle>
             <mat-icon>{{ menuExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
-            <span>{{ 'reduce_menu' | translate }}</span>
+            <span>{{ 'g.reduce_menu' | translate }}</span>
           </button>
 
           <!-- Dashboard button -->
@@ -59,10 +59,10 @@
             class="menu-button"
             flExpansionMenuButton
             routerLinkActive="selected-menu"
-            [matTooltip]="'home' | translate"
+            [matTooltip]="'g.home' | translate"
             matTooltipPosition="after">
             <mat-icon>home</mat-icon>
-            <span>{{ 'home' | translate }}</span>
+            <span>{{ 'g.home' | translate }}</span>
           </a>
 
           <lab-main-menu-settings></lab-main-menu-settings>
