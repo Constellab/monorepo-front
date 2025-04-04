@@ -10,7 +10,7 @@
       [placeholder]="'flAuth.email' | translate "
       autocomplete="username" />
     @if (formGp.get('email').hasError('required')) {
-      <mat-error>{{ 'flAuth.error_required' | translate: { field: 'email' | translate } }}</mat-error>
+      <mat-error>{{ 'flAuth.error_required' | translate: { field: 'flAuth.email' | translate } }}</mat-error>
     }
     @if (formGp.get('email').hasError('email')) {
       <mat-error>{{ 'flAuth.email_invalid' | translate }}</mat-error>

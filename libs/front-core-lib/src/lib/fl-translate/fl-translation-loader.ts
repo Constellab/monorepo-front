@@ -15,21 +15,6 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
  * The translation files must be under assets/i18n folder.
  * Those files' name must end with the language key such as 'fr' or 'en'...
  *
- * @example
- * // AoT requires an exported function for factories
- * // load the translations
- * export function HttpLoaderFactory(http: HttpClient) {
- *  return new TranslationLoader(http);
- * }
- *
- *
- * TranslateModule.forRoot({
- *     loader: {
- *       provide: TranslateLoader,
- *       useFactory: HttpLoaderFactory,
- *      deps: [HttpClient]
- *     },
- *   })
  */
 export class FlTranslationLoader implements TranslateLoader {
   /**

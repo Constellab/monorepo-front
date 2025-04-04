@@ -2,7 +2,7 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  EventEmitter,
+  EventEmitter, inject,
   Input,
   OnDestroy,
   OnInit,
@@ -30,6 +30,11 @@ import { FlDatasourcePaginated, FlInputSearchFilter } from '@monorepo/front-core
  */
 export interface FlInputSearchAdvancedButton<T> {
   onClick: () => Observable<T | null>;
+}
+
+export abstract class FLInputSearchEvent {
+  abstract onOpen(): void;
+  abstract onClose(): void;
 }
 
 /**
@@ -113,6 +118,8 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
   private ignoreFocus: boolean = false;
 
   private initSubscription?: Subscription;
+
+  private event = inject(FLInputSearchEvent, { optional: true });
 
   ngOnInit(): void {
     if (this.datasource == null) {
@@ -247,6 +254,18 @@ export class FlInputSearchComponent<T> implements OnInit, OnDestroy {
           this.refreshInputCtrl();
         }
       });
+    }
+  }
+
+  open(): void{
+    if(this.event){
+      this.event.onOpen();
+    }
+  }
+
+  close(): void{
+    if(this.event){
+      this.event.onClose();
     }
   }
 

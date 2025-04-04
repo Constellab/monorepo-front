@@ -1,9 +1,24 @@
-import { inject, Injectable, PLATFORM_ID, Renderer2, RendererFactory2, REQUEST } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  InjectionToken,
+  PLATFORM_ID,
+  Renderer2,
+  RendererFactory2,
+  REQUEST,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { clDefaultTheme, ClTheme, clThemeIsSupported } from '@monorepo/core-lib';
 import { FlThemeDetail, flThemeDetailDark, flThemeDetailLight } from './model/fl-theme-detail.class';
 import { FlCookieService } from '@monorepo/front-core-lib/fl-dialog';
 import { flRootInjector } from '@monorepo/front-core-lib/fl-core';
+
+export interface FlThemeServiceConfig {
+  // if not provided, default to ''
+  cssThemeFileLocation: string;
+}
+
+export const FL_THEME_SERVICE_CONFIG = new InjectionToken<string>('FL_THEME_SERVICE_CONFIG');
 
 /**
  * Service to manage light and dark theme
@@ -15,6 +30,9 @@ export class FlThemeService {
   private cookieService = inject(FlCookieService);
   private document = inject<Document>(DOCUMENT);
   private platformId = inject<string>(PLATFORM_ID);
+  private themeServiceConfig = inject<FlThemeServiceConfig>(FL_THEME_SERVICE_CONFIG, {
+    optional: true,
+  });
 
   private readonly themeKey: string = 'theme';
 
@@ -96,7 +114,11 @@ export class FlThemeService {
     const link = this.document.getElementById('app-theme') as HTMLLinkElement;
 
     if (link) {
-      this.renderer.setAttribute(link, 'href', `${theme}.css`);
+      let path: string = '';
+      if(this.themeServiceConfig?.cssThemeFileLocation){
+        path = this.themeServiceConfig.cssThemeFileLocation + '/';
+      }
+      this.renderer.setAttribute(link, 'href', `${path}${theme}.css`);
     }
 
     // remove all class

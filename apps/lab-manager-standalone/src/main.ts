@@ -9,14 +9,8 @@ import {
 import { lmsEnvironmentPath, LmsEnvironmentSettings } from './environments/lms-environment.class';
 import { importProvidersFrom, inject, Injector, provideAppInitializer } from '@angular/core';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import {
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlTranslateModule,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-} from '@monorepo/front-core-lib/fl-translate';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -41,10 +35,6 @@ import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { LmsUserConfig } from './app/config/lms-user.config';
 import { LmsAppComponent } from './app/lms-app.component';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
-
-function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
-}
 
 function loadThemeOnInit(themeService: FlThemeService): () => void {
   return (): void => themeService.init();
@@ -89,11 +79,6 @@ function bootstrapApp(): void {
         const initializerFn = initRootInjector(inject(Injector));
         return initializerFn();
       }),
-      {
-        provide: TranslateLoader,
-        useFactory: translationLoaderFactory,
-        deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
-      },
       // form field default config
       { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: flMatFormFieldConfig },
       // tooltip default config

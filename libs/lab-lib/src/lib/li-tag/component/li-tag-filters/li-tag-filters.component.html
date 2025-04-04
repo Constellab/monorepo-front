@@ -28,7 +28,7 @@
   <fl-infinite-scroll
     [datasource]="tagKeys"
     class="tag-key-list g-infinite-table"
-    textNoResult="no_tags_filters"
+    textNoResult="li.no_tags_filters"
     textNoMoreResult="">
     <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
       @for (tagKey of tagKeys | flDatasourceConnect | async; track tagKey.key) {

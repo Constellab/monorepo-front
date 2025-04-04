@@ -15,7 +15,12 @@
     [required]="required"
     (focus)="onFocus()"
     (blur)="onBlur()" />
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="itemSelected()">
+  <mat-autocomplete
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    (optionSelected)="itemSelected()"
+    (opened)="open()"
+    (closed)="close()">
     <fl-infinite-scroll [datasource]="datasource" class="g-mat-option-infinite-scroll">
       @for (item of items$ | async; track item) {
         <mat-option [value]="item">

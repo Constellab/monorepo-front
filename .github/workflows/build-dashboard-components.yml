@@ -35,11 +35,11 @@ jobs:
 
       # create a simple json file with the version number
       - name: Create version.json file
-        run: echo '{"version":"${{ inputs.github_ref }}" }' > dist/apps/dashboard-components/${{ inputs.app_name }}/browser/version.json
+        run: echo '{"version":"${{ inputs.github_ref }}" }' > dist/apps/dc-dashboard-components/${{ inputs.app_name }}/browser/version.json
 
       # This action will zip the build artifacts
       - name: Zip the build artifacts
-        run: cd dist/apps/dashboard-components/${{ inputs.app_name }}/browser && zip -r ../../../../../${{ inputs.app_name }}.zip ./*
+        run: cd dist/apps/dc-dashboard-components/${{ inputs.app_name }}/browser && zip -r ../../../../../${{ inputs.app_name }}.zip ./*
 
       # This action will push a release to the gws_core repository
       # It uses the monorepo-front secret PUSH_GWS_CORE_RELEASE which value is a Personal Access Token

@@ -6,6 +6,7 @@ import { LiFlaggedEntity } from '../../global/li-flagged-entity.class';
 import { LiFolder } from '../li-folder.class';
 import { PrResource } from '@monorepo/protocol';
 import { TdTypeObjectStatus, TdTypeRefDTO, TdTypeStyle } from '@monorepo/technical-doc';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Represent a file or a folder link to the resource
@@ -98,4 +99,10 @@ export class LiResource extends LiBaseEntityWithUser implements LiFlaggedEntity 
       style: this.style,
     };
   }
+
+  toString(): string {
+    return this.name;
+  }
 }
+
+export type LiResourceDatasource<F = void> = FlEntityPaginatedDatasource<LiResource, F>;

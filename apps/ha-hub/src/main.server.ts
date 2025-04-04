@@ -12,7 +12,7 @@ function translationServerLoader(
   transferState: TransferState,
   config: FlTranslateModuleConfig
 ): TranslateServerLoader {
-  return new TranslateServerLoader(transferState, config.filenames, config.filePrefix, config.fileSuffix);
+  return new TranslateServerLoader(transferState, config.filenames, config.folder, config.fileSuffix);
 }
 
 const serverConfig: ApplicationConfig = {

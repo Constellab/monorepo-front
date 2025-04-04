@@ -25,11 +25,11 @@ export interface FlTranslateModuleConfig {
   filenames?: string[];
 
   /**
-   * Prefix for all translation files
+   * Folder for all translation files
    *
    * Default to 'assets/i18n/'
    */
-  filePrefix?: string;
+  folder?: string;
 
   /**
    * Suffix for all translation file

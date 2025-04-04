@@ -21,7 +21,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
     snackBarDuration?: number,
     defaultError?: string
   ): Observable<never> {
-    console.log(errorResponse);
+    console.error(errorResponse);
     const serverError: FlServerError = {
       response: errorResponse,
       message: null,
@@ -31,7 +31,7 @@ export abstract class LiApiErrorService extends FlApiErrorService {
     // specific handling or connection error because it is not thrown by the API
     if (errorResponse.status === 0 || errorResponse.status === 504) {
       // connection lost error
-      serverError.message = this.translateService.translate('connection_lost');
+      serverError.message = this.translateService.translate('li.connection_lost');
     } else {
       // get the error message
       serverError.message = this.getErrorMessage(apiError, defaultError);

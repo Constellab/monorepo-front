@@ -1,0 +1,17 @@
+<div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+  <fl-user-profile-picture [user]="resource().createdBy" size="small"> </fl-user-profile-picture>
+
+  <div>
+    <div>{{ resource().name }}</div>
+
+    @if (resource().scenario) {
+      <div class="g-layout-row g-layout-start-center g-text-tiny g-text-light">
+        <mat-icon flIcon="scenario" class="g-icon-tiny icon"></mat-icon>
+        <div
+          class="scenario-circle scenario-content"
+          [style.background-color]="resource().scenario?.id | flStringToRgb"></div>
+        <div class="scenario-content">{{ resource().scenario.title }}</div>
+      </div>
+    }
+  </div>
+</div>

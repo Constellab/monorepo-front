@@ -2,13 +2,7 @@ import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitia
 import { environment } from './environments/lab-environment';
 import { labEnvironmentPath, LabEnvironmentSettings } from './environments/lab-environment.class';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
-import {
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlHttpInterceptorService,
-  FlTranslateModule,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-} from '@monorepo/front-core-lib/fl-translate';
+import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -28,15 +22,9 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ClHelpService, ClSupportedLanguage } from '@monorepo/core-lib';
 import { RV_MODULE_CONFIG } from '@monorepo/resource-view';
-import { TranslateLoader } from '@ngx-translate/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { LabAppComponent } from './app/lab-app.component';
@@ -69,10 +57,6 @@ import { LabCoServiceConfig } from './app/lab-core/lab-co-service-config.service
 import { LabUserConfig } from './app/lab-core/lab-user-config.service';
 import { LabResourceViewModuleConfig } from './app/lab-core/lab-resource-view.config';
 import { LabLibConfig } from './app/lab-core/lab-lib.config';
-
-function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
-}
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
@@ -152,11 +136,6 @@ function bootstrapApp(): void {
       provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
       { provide: RV_MODULE_CONFIG, useClass: LabResourceViewModuleConfig },
-      {
-        provide: TranslateLoader,
-        useFactory: translationLoaderFactory,
-        deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
-      },
       { provide: LabEnvStore, useFactory: provideLabEnvStore, deps: [FlLocalStorageService] },
       { provide: LiConfig, useClass: LabLibConfig },
       provideHttpClient(withInterceptorsFromDi()),

@@ -16,6 +16,8 @@
     "delete_brick_data": "Supprimer les données de la brique",
     "delete_brick_data_confirmation": "Êtes-vous sûr de vouloir supprimer cette donnée de brique ?",
     "brick_data_deleted": "Donnée de brique supprimée",
+    "BRICK_DATA_file": "Fichier",
+    "BRICK_DATA_folder": "Dossier",
     "error_code": "Code",
     "http_status": "Status HTTP",
     "brick": "Brique",
@@ -435,6 +437,11 @@
     "lab_entity_type_VIEW": "Vue",
     "lab_entity_type_NOTE": "Note",
     "lab_entity_type_SCENARIO_TEMPLATE": "Template de scénario",
-    "lab_entity_type_NOTE_TEMPLATE": "Template de document"
+    "lab_entity_type_NOTE_TEMPLATE": "Template de document",
+    "resource_select": "Resource",
+    "resource_origin_UPLOADED": "Uploadée",
+    "resource_origin_GENERATED": "Générée",
+    "resource_origin_IMPORTED_FROM_LAB": "Importée depuis un lab",
+    "resource_origin_S3_FOLDER_STORAGE": "Document dossier"
   }
 }

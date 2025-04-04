@@ -9,7 +9,6 @@ export * from './component/li-import-resource-dialog/li-import-resource-dialog.c
 export * from './component/li-notes-using-resource/li-notes-using-resource.component';
 export * from './component/li-resource-actions-menu/li-resource-actions-menu.component';
 export * from './component/li-resource-available-views-portal/li-resource-available-views-portal.component';
-export * from './component/li-resource-card/li-resource-card.component';
 export * from './component/li-resource-children-tabs/li-resource-children-tabs.component';
 export * from './component/li-resource-detail-dialog/li-resource-detail-dialog.component';
 export * from './component/li-resource-detail-header/li-resource-detail-header.component';
@@ -17,6 +16,7 @@ export * from './component/li-resource-detail-minimized-views/li-resource-detail
 export * from './component/li-resource-detail/li-resource-detail.component';
 export * from './component/li-resource-info-dialog/li-resource-info-dialog.component';
 export * from './component/li-resource-info/li-resource-info.component';
+export * from './component/li-resource-inline/li-resource-inline.component';
 export * from './component/li-resource-origin-options/li-resource-origin-options.component';
 export * from './component/li-resource-rich-text-view/li-resource-rich-text-view.component';
 export * from './component/li-resource-search-form/li-resource-search-form.component';
@@ -32,6 +32,7 @@ export * from './component/li-resource-view-portal/li-resource-view-portal.compo
 export * from './component/li-resource-view-spec-card/li-resource-view-spec-card.component';
 export * from './component/li-resource-view-spec-list/li-resource-view-spec-list.component';
 export * from './component/li-scenarios-using-resource/li-scenarios-using-resource.component';
+export * from './component/li-select-resource/li-select-resource.component';
 export * from './component/li-select-resource-dialog/li-select-resource-dialog.component';
 export * from './component/li-update-resource-name-dialog/li-update-resource-name-dialog.component';
 export * from './component/li-update-resource-type/li-update-resource-type.component';

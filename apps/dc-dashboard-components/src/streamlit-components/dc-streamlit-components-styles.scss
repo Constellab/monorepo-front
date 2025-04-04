@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+// Import theme for material
+// Import the style for the library
+@use '../../../../libs/front-core-lib/src/style/fl-global';
+@use '../../../../libs/front-core-lib/src/style/fl-media-query';
+@use '../../../../libs/front-core-lib/src/style/fl-flex';
+
+// Import the style for material
+@use '../../../../libs/front-core-lib/src/style/fl-material-override';
+@use '../../../../libs/front-core-lib/src/style/fl-dialog';
+@use '../../../../libs/front-core-lib/src/style/fl-icon';
+
+// make the dialog above the streamlit sidebar
+.cdk-overlay-container {
+  z-index: 999999;
+}
+
+// fix streamlit override on svg icon
+.mat-icon svg {
+  vertical-align: initial;
+}

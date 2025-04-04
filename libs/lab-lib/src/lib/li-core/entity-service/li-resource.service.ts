@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter, FlSearchFunction } from '@monorepo/front-core-lib/fl-search';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LiFolder } from '../model/entities/li-folder.class';
 import { LiNavigableEntityImpact } from '../model/entities/li-navigable-entity.entity';
 import { LiProcessType } from '../model/entities/li-type/li-process-type.entity';
@@ -14,7 +14,7 @@ import {
   LiResourceViewData,
   LiResourceViewSpec,
 } from '../model/entities/resource/li-resource-view.entity';
-import { LiShareLink, LiSharedEntity } from '../model/entities/li-share.entity';
+import { LiSharedEntity, LiShareLink } from '../model/entities/li-share.entity';
 import { LiTransformerParams } from '../model/global/li-transformer.class';
 import { Observable, of } from 'rxjs';
 import { TdParamSpecs, TdParamSpecsValues } from '@monorepo/technical-doc';
@@ -60,6 +60,14 @@ export class LiResourceService {
 
   public updateResourceType(id: string, resourceTypingName: string): Observable<LiResource> {
     return this.apiService.put(`${this.route}/${id}/type/${resourceTypingName}`, null, LiResource);
+  }
+
+  public searchByName(name: string, page: number, pageSize: number): Observable<ClPageI<LiResource>> {
+    return this.apiService.get(`${this.route}/search-name/${name}`, LiResource, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
   }
 
   public getAdvancedSearchFunction(): FlSearchFunction<LiResource> {

@@ -3,13 +3,13 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { HaConstellabHelper } from '../../ha-model/ha-config/ha-constellab.helper';
 import { ClStringHelper } from '@monorepo/core-lib';
 import { MatAnchor } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgClass } from '@angular/common';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 
 @Component({
   selector: 'ha-email-sign-up',
   standalone: true,
-  imports: [MatAnchor, ReactiveFormsModule, TranslateModule, NgClass],
+  imports: [MatAnchor, ReactiveFormsModule, FlTranslateModule, NgClass],
   templateUrl: './ha-email-sign-up.component.html',
   styleUrl: './ha-email-sign-up.component.scss',
 })

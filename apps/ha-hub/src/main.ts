@@ -21,7 +21,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { TeFixInit } from '@monorepo/text-editor';
 
 function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
+  return new FlTranslationLoader(http, config.filenames, config.folder, config.fileSuffix);
 }
 
 function bootstrapApp(): void {

@@ -1,12 +1,7 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { lmsAppRoutes } from './lms-app.routes';
-import {
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlTranslateModule,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-} from '@monorepo/front-core-lib/fl-translate';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlIconModule, flIconsDefault } from '@monorepo/front-core-lib/fl-svg-icon';
@@ -16,8 +11,7 @@ import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 import { FlSnackBarModule } from '@monorepo/front-core-lib/fl-snack-bar';
 
 import { ClSupportedLanguage } from '@monorepo/core-lib';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -26,25 +20,12 @@ import { LmsApiErrorService } from './service/lms-api-error.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 
-export function translationLoaderFactory(
-  http: HttpClient,
-  config: FlTranslateModuleConfig
-): FlTranslationLoader {
-  console.log('translationLoaderFactory');
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
-}
-
 export const lmsAppConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom(BrowserAnimationsModule),
     provideRouter(lmsAppRoutes),
     provideHttpClient(withInterceptorsFromDi()),
-    {
-      provide: TranslateLoader,
-      useFactory: translationLoaderFactory,
-      deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
-    },
     importProvidersFrom(
       FlTranslateModule.forRoot({
         defaultLang: ClSupportedLanguage.en,
@@ -53,7 +34,6 @@ export const lmsAppConfig: ApplicationConfig = {
       })
     ),
     importProvidersFrom(FlTranslateModule.forRoot2()),
-    importProvidersFrom(TranslateModule.forRoot({})),
     importProvidersFrom(FlApiModule.forRoot(LmsApiServiceConfig, LmsApiErrorService)),
     importProvidersFrom(FlDialogModule.forRoot()),
     importProvidersFrom(FlSnackBarModule.forRoot()),

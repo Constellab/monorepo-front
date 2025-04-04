@@ -1,0 +1,22 @@
+<fl-input-search
+  [selectedItem]="selectedResource"
+  (selectedItemChange)="setAndEmitValue($event)"
+  [datasource]="datasource"
+  [placeholder]="placeholder() | flTranslatableText | async"
+  [required]="required"
+  [disabled]="disabled"
+  [minInputSearchLength]="0"
+  [advancedButton]="advancedButton">
+  <ng-container *flInputSearchPrefix="datasource as resource">
+    <div class="photo">
+      @if (resource) {
+        <fl-user-profile-picture [user]="$any(resource).createdBy" size="small"></fl-user-profile-picture>
+      } @else {
+        <mat-icon flIcon="resource"></mat-icon>
+      }
+    </div>
+  </ng-container>
+
+  <li-resource-inline *flInputSearchOption="datasource as resource" [resource]="$any(resource)">
+  </li-resource-inline>
+</fl-input-search>

@@ -2,13 +2,7 @@ import { enableProdMode, importProvidersFrom, inject, Injector, provideAppInitia
 
 import { environment } from './environments/ca-environment';
 import { FL_CAPTCHA_MODULE_CONFIG, FlCaptchaModuleConfig } from '@monorepo/front-core-lib/fl-captcha';
-import {
-  FL_TRANSLATE_MODULE_CONFIG,
-  FlHttpInterceptorService,
-  FlTranslateModule,
-  FlTranslateModuleConfig,
-  FlTranslationLoader,
-} from '@monorepo/front-core-lib/fl-translate';
+import { FlHttpInterceptorService, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlApiModule } from '@monorepo/front-core-lib/fl-api';
 import { FlAuthModule } from '@monorepo/front-core-lib/fl-auth';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
@@ -27,16 +21,10 @@ import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 
 import { caEnvironmentPath, CaEnvironmentSettings } from './environments/ca-environment.class';
-import {
-  HTTP_INTERCEPTORS,
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CaSpaceInterceptor } from './app/ca-core/interceptor/ca-space-interceptor.service';
 import { CaEnvironmentHelper } from './app/ca-core/utils/ca-environment.helper';
 import { RV_MODULE_CONFIG, RvResourceViewModuleBasicConfig } from '@monorepo/resource-view';
-import { TranslateLoader } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { LmlBrickService } from '@monorepo/lab-manager-lib';
 import { CaLabManagerBrickService } from './app/ca-lab/state/ca-lab-manager-brick.service';
@@ -69,10 +57,6 @@ import {
 } from '@angular/router';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { TeFixInit } from '@monorepo/text-editor';
-
-function translationLoaderFactory(http: HttpClient, config: FlTranslateModuleConfig): FlTranslationLoader {
-  return new FlTranslationLoader(http, config.filenames, config.filePrefix, config.fileSuffix);
-}
 
 function loadThemeOnInit(themeService: FlThemeService): void {
   themeService.init();
@@ -140,11 +124,6 @@ function bootstrapApp(): void {
       provideAppInitializer(() => TeFixInit.fixEditorInit()),
       { provide: FL_CAPTCHA_MODULE_CONFIG, useFactory: configureCaptcha },
       { provide: RV_MODULE_CONFIG, useClass: RvResourceViewModuleBasicConfig },
-      {
-        provide: TranslateLoader,
-        useFactory: translationLoaderFactory,
-        deps: [HttpClient, FL_TRANSLATE_MODULE_CONFIG],
-      },
       CookieService,
       provideHttpClient(withInterceptorsFromDi()),
       { provide: LmlBrickService, useClass: CaLabManagerBrickService },

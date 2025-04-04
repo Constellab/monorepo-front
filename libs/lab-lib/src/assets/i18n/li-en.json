@@ -16,6 +16,8 @@
     "delete_brick_data": "Delete brick data",
     "delete_brick_data_confirmation": "Are you sure you want to delete this brick data ?",
     "brick_data_deleted": "Brick data deleted",
+    "BRICK_DATA_file": "File",
+    "BRICK_DATA_folder": "Folder",
     "error_code": "Code",
     "http_status": "HTTP status",
     "brick": "Brick",
@@ -435,6 +437,11 @@
     "lab_entity_type_VIEW": "View",
     "lab_entity_type_NOTE": "Note",
     "lab_entity_type_SCENARIO_TEMPLATE": "Scenario template",
-    "lab_entity_type_NOTE_TEMPLATE": "Note template"
+    "lab_entity_type_NOTE_TEMPLATE": "Note template",
+    "resource_select": "Resource",
+    "resource_origin_UPLOADED": "Uploaded",
+    "resource_origin_GENERATED": "Generated",
+    "resource_origin_IMPORTED_FROM_LAB": "Imported from lab",
+    "resource_origin_S3_FOLDER_STORAGE": "Folder document"
   }
 }

@@ -106,7 +106,7 @@ export const haAppConfig: ApplicationConfig = {
         availableLang: [ClSupportedLanguage.en, ClSupportedLanguage.fr],
         filenames: ['global-'],
       }),
-      FlTranslateModule.forRoot2(),
+      FlTranslateModule.forRoot2(true),
       FlSnackBarModule.forRoot(),
       FlDialogModule.forRoot(),
       FlPortalModule.forRoot(),
