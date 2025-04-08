@@ -14,5 +14,7 @@ export const environment: DcEnvironment = {
     baseHref: '',
     spaceApiUrl: '',
     spaceFrontUrl: '',
+    communityFrontUrl: '',
+    communityApiUrl: '',
   },
 };

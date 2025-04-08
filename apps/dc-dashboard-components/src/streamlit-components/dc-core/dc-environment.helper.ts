@@ -36,4 +36,13 @@ export class DcEnvironmentHelper {
   public static getSpaceDashboardLabUrl(labId: string): string {
     return `${DcEnvironmentHelper.getSpaceFrontAppUrl()}/labs/${labId}`;
   }
+
+  ////////////////////// Community //////////////////////
+  public static getCommunityFrontUrl(): string {
+    return DcEnvironmentHelper.getEnv().settings.communityFrontUrl;
+  }
+
+  public static getCommunityApiUrl(): string {
+    return DcEnvironmentHelper.getEnv().settings.communityApiUrl;
+  }
 }

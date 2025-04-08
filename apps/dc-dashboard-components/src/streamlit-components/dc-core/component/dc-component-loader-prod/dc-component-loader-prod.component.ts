@@ -1,6 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { DcEnvironmentHelper } from '../../dc-environment.helper';
 import {
   DcIframeToMainEventListener,
   DcMainToIframeEventResponse,
@@ -39,8 +38,6 @@ export class DcComponentLoaderProdComponent implements OnInit, OnDestroy {
   }
 
   private onIframeMessage(event: DcMainToIframeEventResponse): void {
-    console.log('Message received from iframe:', event.data);
-
     switch (event.data.action) {
       case DcIframeEventAction.INIT:
         this.handInitEvent(event.data.data, event.origin).then();

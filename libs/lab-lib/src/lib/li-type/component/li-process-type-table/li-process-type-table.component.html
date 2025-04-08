@@ -46,7 +46,9 @@
       {{ 'li.process_type_type' | translate }}
     </mat-header-cell>
     <mat-cell *matCellDef="let processType">
-      {{ 'biox.process_sub_type_' + processType.objectSubType | translate }}
+      @if(processType.objectSubType){
+      {{ ('li.process_sub_type_' + processType.objectSubType) | translate }}
+      }
     </mat-cell>
   </ng-container>
 

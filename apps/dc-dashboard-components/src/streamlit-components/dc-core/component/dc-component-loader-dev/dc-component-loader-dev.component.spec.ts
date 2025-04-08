@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DcComponentLoaderDevComponent } from './dc-component-loader-dev.component';
 
-describe('DcComponentLoaderDevComponent', () => {
+describe('DcComponentLoaderDev2Component', () => {
   let component: DcComponentLoaderDevComponent;
   let fixture: ComponentFixture<DcComponentLoaderDevComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DcComponentLoaderDevComponent]
-    })
-    .compileComponents();
+      imports: [DcComponentLoaderDevComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DcComponentLoaderDevComponent);
     component = fixture.componentInstance;

@@ -11,14 +11,10 @@ export class DcCoServiceConfig extends CoConfig {
   }
 
   getCommunityApiUrl(): string {
-    throw new Error('Method not implemented.');
+    throw DcEnvironmentHelper.getCommunityApiUrl();
   }
 
   getCommunityFrontUrl(): string {
-    throw new Error('Method not implemented.');
-  }
-
-  getCommunityAgentPageUrl(): string {
-    throw new Error('Method not implemented.');
+    return DcEnvironmentHelper.getCommunityFrontUrl();
   }
 }

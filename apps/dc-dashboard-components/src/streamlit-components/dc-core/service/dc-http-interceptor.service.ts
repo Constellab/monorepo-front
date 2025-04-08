@@ -47,12 +47,10 @@ export class DcHttpInterceptorService implements HttpInterceptor {
     let headers = req.headers ? req.headers : new HttpHeaders();
     headers = headers.append('lang', lang);
 
-    if (this.authInfo == null) {
-      throw new Error('The DcHttpInterceptorService was not initialized with the authentication info');
+    if (this.authInfo != null) {
+      headers = headers.append('gws_user_access_token', this.authInfo.user_access_token);
+      headers = headers.append('gws_app_id', this.authInfo.app_id);
     }
-
-    headers = headers.append('gws_user_access_token', this.authInfo.user_access_token);
-    headers = headers.append('gws_app_id', this.authInfo.app_id);
 
     req = req.clone({
       withCredentials: true,

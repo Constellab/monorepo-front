@@ -20,6 +20,10 @@ export interface DcEnvironmentSettings {
 
   spaceFrontUrl: string;
 
+  communityFrontUrl: string;
+
+  communityApiUrl: string;
+
   baseHref: string;
 }
 

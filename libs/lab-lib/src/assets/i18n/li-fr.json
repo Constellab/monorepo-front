@@ -407,6 +407,7 @@
     "process_sub_type_IMPORTER": "Importeur",
     "process_sub_type_EXPORTER": "Exporteur",
     "process_sub_type_TRANSFORMER": "Transformeur",
+    "process_sub_type_RESOURCE": "Ressource",
     "process_type_doc": "Documentation",
     "venv_type": "Type",
     "venv_folder": "Dossier",

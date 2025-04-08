@@ -87,6 +87,18 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "development-iframe": {
+          "fileReplacements": [
+            {
+              "replace": "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-main.ts",
+              "with": "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-main-dev-iframe.ts"
+            }
+          ],
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
@@ -99,6 +111,9 @@
         },
         "development": {
           "buildTarget": "dc-dashboard-components:build-streamlit-components:development"
+        },
+        "development-iframe": {
+          "buildTarget": "dc-dashboard-components:build-streamlit-components:development-iframe"
         }
       },
       "defaultConfiguration": "development"

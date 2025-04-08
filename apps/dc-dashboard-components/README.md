@@ -15,6 +15,14 @@ To dev a component, start the dc-streamlit-components app:
 npm run dc-streamlit-components
 ```
 
+Open the http://localhost:4201. This mode is not supposed to be used in a streamlit app.
+
+To run in dev mode in streamlit app, execute the following command:
+
+```bash
+npm run dc-streamlit-components:serve-iframe
+```
+
 Then in python back, mark the StreamlitComponentLoader a not release `IS_RELEASE=False`, this will use
 the local running component.
 
