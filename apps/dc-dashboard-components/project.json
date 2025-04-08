@@ -64,8 +64,8 @@
               "with": "apps/dc-dashboard-components/src/streamlit-components/dc-streamlit-components-main-prod.ts"
             },
             {
-              "replace": "apps/dc-dashboard-components/src/streamlit-components/environment/dc-environment.ts",
-              "with": "apps/dc-dashboard-components/src/streamlit-components/environment/dc-environment.prod.ts"
+              "replace": "apps/dc-dashboard-components/src/streamlit-components/dc-environment/dc-environment.ts",
+              "with": "apps/dc-dashboard-components/src/streamlit-components/dc-environment/dc-environment.prod.ts"
             }
           ],
           "budgets": [
