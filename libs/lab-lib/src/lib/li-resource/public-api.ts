@@ -12,7 +12,6 @@ export * from './component/li-resource-available-views-portal/li-resource-availa
 export * from './component/li-resource-children-tabs/li-resource-children-tabs.component';
 export * from './component/li-resource-detail-dialog/li-resource-detail-dialog.component';
 export * from './component/li-resource-detail-header/li-resource-detail-header.component';
-export * from './component/li-resource-detail-minimized-views/li-resource-detail-minimized-views.component';
 export * from './component/li-resource-detail/li-resource-detail.component';
 export * from './component/li-resource-info-dialog/li-resource-info-dialog.component';
 export * from './component/li-resource-info/li-resource-info.component';

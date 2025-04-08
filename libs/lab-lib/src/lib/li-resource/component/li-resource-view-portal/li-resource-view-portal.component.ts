@@ -116,13 +116,6 @@ export class LiResourceViewPortalComponent {
     }
   }
 
-  minimizeView(): void {
-    if (this.input.resourceState) {
-      this.input.resourceState.minimizeView(this.labView);
-      this.overlayRef.dispose();
-    }
-  }
-
   updateView(): void {
     if (this.input.editView) {
       this.input.editView();

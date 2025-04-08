@@ -7,14 +7,14 @@ import {
 import { FlOverlayRef, FlPortalConfig, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 import {
+  computed,
+  inject,
   Injectable,
   OnDestroy,
   Signal,
+  signal,
   ViewContainerRef,
   WritableSignal,
-  computed,
-  inject,
-  signal,
 } from '@angular/core';
 import {
   LiResource,
@@ -34,11 +34,6 @@ import { LiViewConfigurerState } from './li-view-configurer-state.service';
 import { Observable, Subscription } from 'rxjs';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
 import { filter } from 'rxjs/operators';
-
-export interface LiMinimizedView {
-  symbol: symbol;
-  view: LiResourceView;
-}
 
 @Injectable()
 export class LiResourceDetailState implements OnDestroy {
@@ -62,7 +57,6 @@ export class LiResourceDetailState implements OnDestroy {
   private resources: WritableSignal<LiResource[]> = signal([]);
 
   private _selectedView: WritableSignal<FlStatusEvent<LiResourceView>> = signal(null);
-  private _minimizedViews: WritableSignal<LiMinimizedView[]> = signal([]);
 
   private favoriteViews: Record<string, LiViewConfigDatasource> = {};
 
@@ -96,10 +90,6 @@ export class LiResourceDetailState implements OnDestroy {
 
   public get selectedView(): Signal<FlStatusEvent<LiResourceView>> {
     return this._selectedView.asReadonly();
-  }
-
-  public get minimizedViews(): Signal<LiMinimizedView[]> {
-    return this._minimizedViews.asReadonly();
   }
 
   public init(resourceId: string, updateQueryParams: boolean): void {
@@ -229,31 +219,6 @@ export class LiResourceDetailState implements OnDestroy {
 
   public getSelectedResourceFavoriteViews(): LiViewConfigDatasource {
     return this.getFavoriteViews(this.selectedResourceId());
-  }
-
-  public minimizeView(view: LiResourceView): void {
-    this._minimizedViews.update((views) => [
-      ...views,
-      {
-        symbol: Symbol(),
-        view: view,
-      },
-    ]);
-  }
-
-  public openMinimizedView(minimizedView: LiMinimizedView): void {
-    this.openViewInPortal(minimizedView.view);
-    this.deleteMinimizedView(minimizedView.symbol);
-  }
-
-  public deleteMinimizedView(minimizedViewId: symbol): void {
-    this._minimizedViews.update((views) => {
-      const index = views.findIndex((v) => v.symbol === minimizedViewId);
-      if (index >= 0) {
-        views.splice(index, 1);
-      }
-      return views;
-    });
   }
 
   private getFavoriteViews(resourceId: string): LiViewConfigDatasource {

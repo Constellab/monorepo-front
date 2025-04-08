@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, Signal, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, Signal } from '@angular/core';
 import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { LiResourceChildrenTabsComponent } from '../li-resource-children-tabs/li-resource-children-tabs.component';
 import { LiResourceDetailHeaderComponent } from '../li-resource-detail-header/li-resource-detail-header.component';
-import { LiResourceDetailMinimizedViewsComponent } from '../li-resource-detail-minimized-views/li-resource-detail-minimized-views.component';
 import { LiResourceDetailState } from '../../state/li-resource-detail.state';
 import { LiResourceViewDetailComponent } from '../li-resource-view-detail/li-resource-view-detail.component';
 import { LiViewConfigurerState } from '../../state/li-view-configurer-state.service';
@@ -26,7 +25,6 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatIconButton,
     MatTooltip,
     MatIcon,
-    LiResourceDetailMinimizedViewsComponent,
     TranslatePipe,
   ],
 })
