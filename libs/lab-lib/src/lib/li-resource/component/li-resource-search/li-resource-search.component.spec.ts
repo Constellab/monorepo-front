@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiResourceSearchComponent } from './li-resource-search.component';
 
-describe('BioxResourceSearchComponent', () => {
+describe('LiResourceSearchComponent', () => {
   let component: LiResourceSearchComponent;
   let fixture: ComponentFixture<LiResourceSearchComponent>;
 

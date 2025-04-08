@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiScenarioSearchComponent } from './li-scenario-search.component';
 
-describe('BioxScenarioSearchComponent', () => {
+describe('LiScenarioSearchComponent', () => {
   let component: LiScenarioSearchComponent;
   let fixture: ComponentFixture<LiScenarioSearchComponent>;
 

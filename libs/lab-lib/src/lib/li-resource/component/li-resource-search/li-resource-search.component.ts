@@ -1,5 +1,5 @@
 import { ClCoreJsonConvert, ClHelpService } from '@monorepo/core-lib';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   FlDatasourcePaginated,
   FlEntityPaginatedDatasource,
@@ -47,7 +47,7 @@ import { Subscription } from 'rxjs';
 import { TdParamSpecsValues } from '@monorepo/technical-doc';
 import { TranslatePipe } from '@ngx-translate/core';
 
-export const labResourceSearchName: string = 'biox-resource';
+export const labResourceSearchName: string = 'li-resource';
 
 /**
  * Complete component to search on resource. It supports a select mode and manage file upload.

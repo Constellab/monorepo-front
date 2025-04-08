@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiSelectResourceDialogComponent } from './li-select-resource-dialog.component';
 
-describe('BioxSelectResourceDialogComponent', () => {
+describe('LiSelectResourceDialogComponent', () => {
   let component: LiSelectResourceDialogComponent;
   let fixture: ComponentFixture<LiSelectResourceDialogComponent>;
 

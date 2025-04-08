@@ -1,14 +1,14 @@
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  labConstBaseRoute,
-  labConstBioxFullRoute,
-  labConstDocFullRoute,
-  labConstMonitoringFullRoute,
-  labConstNoteFullRoute,
-  labConstNoteTemplateFullRoute,
-  labConstResourceFullRoute,
-  labConstScenarioTemplateFullRoute,
+  liConstBaseRoute,
+  liConstDocFullRoute,
+  liConstMonitoringFullRoute,
+  liConstNoteFullRoute,
+  liConstNoteTemplateFullRoute,
+  liConstResourceFullRoute,
+  liConstScenarioFullRoute,
+  liConstScenarioTemplateFullRoute,
 } from '../utils/li-base-route';
 
 /**
@@ -22,31 +22,31 @@ export class LiRouterService {
 
   ////// Static function to get routes  //////
   public static getAppRoute(): string {
-    return `/${labConstBaseRoute}`;
+    return `/${liConstBaseRoute}`;
   }
 
   public static getScenarioListRoute(): string {
-    return labConstBioxFullRoute;
+    return liConstScenarioFullRoute;
   }
 
   public static getDataboxRoute(): string {
-    return labConstResourceFullRoute;
+    return liConstResourceFullRoute;
   }
 
   public static getScenarioDetailRoute(id: string): string {
-    return `${labConstBioxFullRoute}/${id}`;
+    return `${liConstScenarioFullRoute}/${id}`;
   }
 
   public static getScenarioTemplatesRoute(): string {
-    return `${labConstScenarioTemplateFullRoute}`;
+    return `${liConstScenarioTemplateFullRoute}`;
   }
 
   public static getScenarioTemplateDetailRoute(id: string): string {
-    return `${labConstScenarioTemplateFullRoute}/${id}`;
+    return `${liConstScenarioTemplateFullRoute}/${id}`;
   }
 
   public static getResourceDetailRoute(id: string): string {
-    return `${labConstResourceFullRoute}/${id}`;
+    return `${liConstResourceFullRoute}/${id}`;
   }
 
   public static getViewConfigDetailRoute(
@@ -57,7 +57,7 @@ export class LiRouterService {
     queryParams: any;
   } {
     return {
-      route: `${labConstResourceFullRoute}/${resourceId}`,
+      route: `${liConstResourceFullRoute}/${resourceId}`,
       queryParams: { viewId: viewConfigId },
     };
   }
@@ -67,27 +67,27 @@ export class LiRouterService {
    * @param viewConfigId
    */
   public static getViewConfigRedirectRoute(viewConfigId: string): string {
-    return `${labConstResourceFullRoute}/view-redirect/${viewConfigId}`;
+    return `${liConstResourceFullRoute}/view-redirect/${viewConfigId}`;
   }
 
   public static getNoteSearchRoute(): string {
-    return labConstNoteFullRoute;
+    return liConstNoteFullRoute;
   }
 
   public static getNoteDetailRoute(id: string): string {
-    return `${labConstNoteFullRoute}/${id}`;
+    return `${liConstNoteFullRoute}/${id}`;
   }
 
   public static getNoteTemplateSearchRoute(): string {
-    return labConstNoteTemplateFullRoute;
+    return liConstNoteTemplateFullRoute;
   }
 
   public static getNoteTemplateDetailRoute(id: string): string {
-    return `${labConstNoteTemplateFullRoute}/${id}`;
+    return `${liConstNoteTemplateFullRoute}/${id}`;
   }
 
   public static getDocRoute(): string {
-    return labConstDocFullRoute;
+    return liConstDocFullRoute;
   }
 
   public static getTechnicalDocRoute(typingName: string): string {
@@ -101,7 +101,7 @@ export class LiRouterService {
 
   /////////////////// MONITORING ///////////////////
   public static getMonitoringRoute(): string {
-    return labConstMonitoringFullRoute;
+    return liConstMonitoringFullRoute;
   }
 
   public static getMonitoringUsageRoute(): string {

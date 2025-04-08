@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiScenarioCreationTypeOptionsComponent } from './li-scenario-creation-type-options.component';
 
-describe('BioxScenarioTypeOptionsComponent', () => {
+describe('LiScenarioCreationTypeOptionsComponent', () => {
   let component: LiScenarioCreationTypeOptionsComponent;
   let fixture: ComponentFixture<LiScenarioCreationTypeOptionsComponent>;
 

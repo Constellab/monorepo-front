@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiTypeDetailComponent } from './li-type-detail.component';
 
-describe('BioxProcessTypeCardComponent', () => {
+describe('LiProcessTypeCardComponent', () => {
   let component: LiTypeDetailComponent;
   let fixture: ComponentFixture<LiTypeDetailComponent>;
 

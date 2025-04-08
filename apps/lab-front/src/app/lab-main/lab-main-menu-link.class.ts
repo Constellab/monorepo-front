@@ -1,11 +1,11 @@
 import {
-  labConstBiotaFullRoute,
-  labConstBioxFullRoute,
-  labConstNoteFullRoute,
-  labConstNoteTemplateFullRoute,
-  labConstResourceFullRoute,
-  labConstScenarioTemplateRoute,
-  labConstViewFullRoute,
+  liConstBiotaFullRoute,
+  liConstNoteFullRoute,
+  liConstNoteTemplateFullRoute,
+  liConstResourceFullRoute,
+  liConstScenarioFullRoute,
+  liConstScenarioTemplateRoute,
+  liConstViewFullRoute,
 } from '@monorepo/lab-lib/li-core';
 
 /**
@@ -23,33 +23,33 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
     {
       label: 'biox.scenarios',
       icon: 'scenario',
-      route: labConstBioxFullRoute,
+      route: liConstScenarioFullRoute,
     },
     {
       label: 'g.resources',
       icon: 'resource',
-      route: labConstResourceFullRoute,
+      route: liConstResourceFullRoute,
     },
     {
       label: 'biox.views',
       icon: 'view',
-      route: labConstViewFullRoute,
+      route: liConstViewFullRoute,
     },
     {
       label: 'biox.scenario_templates',
       icon: 'scenario_template',
-      route: labConstScenarioTemplateRoute,
+      route: liConstScenarioTemplateRoute,
     },
     {
       label: 'biox.notes',
       icon: 'note',
-      route: labConstNoteFullRoute,
+      route: liConstNoteFullRoute,
       divider: true,
     },
     {
       label: 'biox.note_templates',
       icon: 'note_template',
-      route: labConstNoteTemplateFullRoute,
+      route: liConstNoteTemplateFullRoute,
     },
   ];
 }
@@ -57,6 +57,6 @@ export function getMainMenuLinks(): LabMainMenuLink[] {
 export const labBiotaMenuLink: LabMainMenuLink = {
   label: 'biota.biota',
   icon: 'database',
-  route: labConstBiotaFullRoute,
+  route: liConstBiotaFullRoute,
   divider: true,
 };

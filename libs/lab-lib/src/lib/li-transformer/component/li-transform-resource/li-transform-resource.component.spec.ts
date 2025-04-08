@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiTransformResourceComponent } from './li-transform-resource.component';
 
-describe('BioxTransformResourceComponent', () => {
+describe('LiTransformResourceComponent', () => {
   let component: LiTransformResourceComponent;
   let fixture: ComponentFixture<LiTransformResourceComponent>;
 

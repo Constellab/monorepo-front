@@ -7,7 +7,7 @@
     <p>{{ 'li.share_resource_with_space_help' | translate }}</p>
     <p>{{ 'li.share_resource_with_space_help_2' | translate }}</p>
   </div>
-  <form (ngSubmit)="submit()" id="biox-form" [formGroup]="formGp">
+  <form (ngSubmit)="submit()" id="share-resource-form" [formGroup]="formGp">
     <div class="folder">
       <!--    Folder      -->
       <div class="g-text-big folder-title">{{ 'li.select_folder' | translate }}</div>
@@ -35,7 +35,7 @@
 </mat-dialog-content>
 
 <div mat-dialog-actions>
-  <button mat-flat-button type="submit" form="biox-form" class="g-centered-forced primary">
+  <button mat-flat-button type="submit" form="share-resource-form" class="g-centered-forced primary">
     {{ 'li.save' | translate }}
     @if (isLoading) {
       <fl-button-loader></fl-button-loader>

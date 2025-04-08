@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiConfigureResourceViewComponent } from './li-configure-resource-view.component';
 
-describe('BioxConfigureResourceViewComponent', () => {
+describe('LiConfigureResourceViewComponent', () => {
   let component: LiConfigureResourceViewComponent;
   let fixture: ComponentFixture<LiConfigureResourceViewComponent>;
 

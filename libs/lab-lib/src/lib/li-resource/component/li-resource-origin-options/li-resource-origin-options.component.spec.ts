@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiResourceOriginOptionsComponent } from './li-resource-origin-options.component';
 
-describe('BioxResourceOriginOptionsComponent', () => {
+describe('LiResourceOriginOptionsComponent', () => {
   let component: LiResourceOriginOptionsComponent;
   let fixture: ComponentFixture<LiResourceOriginOptionsComponent>;
 

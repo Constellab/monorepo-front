@@ -6,8 +6,8 @@ import { LabEnvDevDirective } from '../../../lab-core/directive/lab-env-dev.dire
 import { LabEnvironmentToggleComponent } from '../lab-environment-toggle/lab-environment-toggle.component';
 import { LabQueueJobsDialogComponent } from '../lab-queue-jobs-dialog/lab-queue-jobs-dialog.component';
 import {
-  labConstLoginRoute,
   LiAuthService,
+  liConstLoginRoute,
   LiRouterService,
   LiSystemInfo,
   LiSystemService,
@@ -68,7 +68,7 @@ export class LabMainMenuSettingsComponent implements OnInit {
   }
 
   logout(): void {
-    this.authenticationService.logout().subscribe(() => this.router.navigate([labConstLoginRoute]));
+    this.authenticationService.logout().subscribe(() => this.router.navigate([liConstLoginRoute]));
   }
 
   resetDevEnvironment(): void {
@@ -91,9 +91,10 @@ export class LabMainMenuSettingsComponent implements OnInit {
       successMessage: 'dev_api_stooped',
     };
 
-    this.dialogService.openConfirmDialog(data).afterClosed().subscribe(
-      () => this.labEnvStore.setLabEnvironment('prod')
-    );
+    this.dialogService
+      .openConfirmDialog(data)
+      .afterClosed()
+      .subscribe(() => this.labEnvStore.setLabEnvironment('prod'));
   }
 
   openQueueJobsDialog(): void {

@@ -4,17 +4,17 @@ import { LabLoginRoutes } from '../lab-login/lab-login-routes';
 import { Routes } from '@angular/router';
 import { labBiotaRoutes } from '../lab-biota/lab-biota-routes';
 import {
-  labConstBaseRoute,
-  labConstBiotaRoute,
-  labConstDocRoute,
-  labConstMonitoringRoute,
-  labConstNoteRoute,
-  labConstNoteTemplateRoute,
-  labConstOpenRoute,
-  labConstResourceRoute,
-  labConstScenarioRoute,
-  labConstScenarioTemplateRoute,
-  labConstViewRoute,
+  liConstBaseRoute,
+  liConstBiotaRoute,
+  liConstDocRoute,
+  liConstMonitoringRoute,
+  liConstNoteRoute,
+  liConstNoteTemplateRoute,
+  liConstOpenRoute,
+  liConstResourceRoute,
+  liConstScenarioRoute,
+  liConstScenarioTemplateRoute,
+  liConstViewRoute,
 } from '@monorepo/lab-lib/li-core';
 import { labDocumentationRoutes } from '../lab-documentation/lab-documentation-routes';
 import { labMonitoringRoutes } from '../lab-monitoring/lab-monitoring-routes';
@@ -39,63 +39,63 @@ export const labMainRoutes: Routes = [
     children: [],
   },
   {
-    path: labConstBaseRoute,
+    path: liConstBaseRoute,
     loadComponent: () =>
       import('./component/lab-main-app/lab-main-app.component').then((m) => m.LabMainAppComponent),
     children: [
       {
         path: '',
-        redirectTo: labConstScenarioRoute,
+        redirectTo: liConstScenarioRoute,
         pathMatch: 'full',
       },
 
       ////////////////////////  BIOX  /////////////////////////
       {
-        path: labConstScenarioRoute,
+        path: liConstScenarioRoute,
         children: labScenarioRoutes,
       },
 
       ////////////////////////  PROTOCOL TEMPLATE  /////////////////////////
       {
-        path: labConstScenarioTemplateRoute,
+        path: liConstScenarioTemplateRoute,
         children: labScenarioTemplateRoutes,
       },
 
       ////////////////////////  NOTE TEMPLATE  /////////////////////////
       {
-        path: labConstNoteTemplateRoute,
+        path: liConstNoteTemplateRoute,
         children: labNoteTemplateRoutes,
       },
 
       ////////////////////////  BIOTA  /////////////////////////
       {
-        path: labConstBiotaRoute,
+        path: liConstBiotaRoute,
         children: labBiotaRoutes,
       },
 
       ////////////////////////  RESOURCES  ///////////////////////
       {
-        path: labConstResourceRoute,
+        path: liConstResourceRoute,
         children: labResourceRoutes,
       },
       ////////////////////////  NOTE  /////////////////////////
       {
-        path: labConstNoteRoute,
+        path: liConstNoteRoute,
         children: labNoteRoutes,
       },
       ////////////////////////  VIEW  /////////////////////////
       {
-        path: labConstViewRoute,
+        path: liConstViewRoute,
         children: labViewRoutes,
       },
       ////////////////////////  DOC  /////////////////////////
       {
-        path: labConstDocRoute,
+        path: liConstDocRoute,
         children: labDocumentationRoutes,
       },
       //////////////////////// MONITORING  /////////////////////////
       {
-        path: labConstMonitoringRoute,
+        path: liConstMonitoringRoute,
         children: labMonitoringRoutes,
       },
     ],
@@ -104,7 +104,7 @@ export const labMainRoutes: Routes = [
   //////////////////////// OPEN  /////////////////////////
   ...LabLoginRoutes,
   {
-    path: labConstOpenRoute,
+    path: liConstOpenRoute,
     children: LAB_OPEN_ROUTES,
   },
 ];

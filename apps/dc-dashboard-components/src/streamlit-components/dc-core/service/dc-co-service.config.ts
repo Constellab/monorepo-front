@@ -11,7 +11,7 @@ export class DcCoServiceConfig extends CoConfig {
   }
 
   getCommunityApiUrl(): string {
-    throw DcEnvironmentHelper.getCommunityApiUrl();
+    return DcEnvironmentHelper.getCommunityApiUrl();
   }
 
   getCommunityFrontUrl(): string {

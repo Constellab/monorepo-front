@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LiTypeDialogComponent } from './li-type-dialog.component';
 
-describe('BioxProcessTypePortalComponent', () => {
+describe('LiProcessTypePortalComponent', () => {
   let component: LiTypeDialogComponent;
   let fixture: ComponentFixture<LiTypeDialogComponent>;
 

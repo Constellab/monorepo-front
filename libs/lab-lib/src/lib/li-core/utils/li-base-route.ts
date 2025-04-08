@@ -1,26 +1,26 @@
 /**
  * File that group all the base routes for the modules
  */
-export const labConstBaseRoute = 'app';
+export const liConstBaseRoute = 'app';
 
-export const labConstScenarioRoute = 'scenario';
-export const labConstBiotaRoute = 'biota';
-export const labConstResourceRoute = 'resource';
-export const labConstNoteRoute = 'note';
-export const labConstViewRoute = 'view';
-export const labConstMonitoringRoute = 'monitoring';
-export const labConstDocRoute = 'doc';
-export const labConstScenarioTemplateRoute = 'scenario-template';
-export const labConstNoteTemplateRoute = 'note-template';
-export const labConstOpenRoute = 'open';
-export const labConstLoginRoute = '/login';
+export const liConstScenarioRoute = 'scenario';
+export const liConstBiotaRoute = 'biota';
+export const liConstResourceRoute = 'resource';
+export const liConstNoteRoute = 'note';
+export const liConstViewRoute = 'view';
+export const liConstMonitoringRoute = 'monitoring';
+export const liConstDocRoute = 'doc';
+export const liConstScenarioTemplateRoute = 'scenario-template';
+export const liConstNoteTemplateRoute = 'note-template';
+export const liConstOpenRoute = 'open';
+export const liConstLoginRoute = '/login';
 
-export const labConstBioxFullRoute = `/${labConstBaseRoute}/${labConstScenarioRoute}`;
-export const labConstBiotaFullRoute = `/${labConstBaseRoute}/${labConstBiotaRoute}`;
-export const labConstResourceFullRoute = `/${labConstBaseRoute}/${labConstResourceRoute}`;
-export const labConstNoteFullRoute = `/${labConstBaseRoute}/${labConstNoteRoute}`;
-export const labConstViewFullRoute = `/${labConstBaseRoute}/${labConstViewRoute}`;
-export const labConstMonitoringFullRoute = `/${labConstBaseRoute}/${labConstMonitoringRoute}`;
-export const labConstDocFullRoute = `/${labConstBaseRoute}/${labConstDocRoute}`;
-export const labConstScenarioTemplateFullRoute = `/${labConstBaseRoute}/${labConstScenarioTemplateRoute}`;
-export const labConstNoteTemplateFullRoute = `/${labConstBaseRoute}/${labConstNoteTemplateRoute}`;
+export const liConstScenarioFullRoute = `/${liConstBaseRoute}/${liConstScenarioRoute}`;
+export const liConstBiotaFullRoute = `/${liConstBaseRoute}/${liConstBiotaRoute}`;
+export const liConstResourceFullRoute = `/${liConstBaseRoute}/${liConstResourceRoute}`;
+export const liConstNoteFullRoute = `/${liConstBaseRoute}/${liConstNoteRoute}`;
+export const liConstViewFullRoute = `/${liConstBaseRoute}/${liConstViewRoute}`;
+export const liConstMonitoringFullRoute = `/${liConstBaseRoute}/${liConstMonitoringRoute}`;
+export const liConstDocFullRoute = `/${liConstBaseRoute}/${liConstDocRoute}`;
+export const liConstScenarioTemplateFullRoute = `/${liConstBaseRoute}/${liConstScenarioTemplateRoute}`;
+export const liConstNoteTemplateFullRoute = `/${liConstBaseRoute}/${liConstNoteTemplateRoute}`;
