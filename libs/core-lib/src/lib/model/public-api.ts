@@ -1,6 +1,7 @@
 export * from './user/cl-credentials.class';
 export * from './user/cl-user-category.enum';
 export * from './user/cl-user-status.enum';
+export * from './cl-brick.class';
 export * from './cl-class-reference.class';
 export * from './cl-object.class';
 export * from './cl-page.class';

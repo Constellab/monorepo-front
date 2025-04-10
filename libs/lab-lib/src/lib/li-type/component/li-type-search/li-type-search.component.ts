@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   FlSavedSearch,
@@ -18,7 +18,7 @@ import {
   LiTypeService,
 } from '@monorepo/lab-lib/li-core';
 import { LiTypeSearchFormComponent } from '../li-type-search-form/li-type-search-form.component';
-import { TdBrick } from '@monorepo/technical-doc';
+import { ClBrick } from '@monorepo/core-lib';
 
 @Component({
   selector: 'li-type-search',
@@ -124,7 +124,7 @@ export class LiTypeSearchComponent implements OnInit {
         version: 1,
         default: false,
         filtersCriteria: {
-          brick: [TdBrick.GWS_CORE],
+          brick: [ClBrick.GWS_CORE],
           includeDeprecated: false,
         } as Partial<LiTypeSearchFields>,
       },

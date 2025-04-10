@@ -5,8 +5,6 @@ import {
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
-
-import { TdBrick } from '@monorepo/technical-doc';
 import {
   LmlBrickVersionDetailDialogComponent,
   LmlBrickVersionDetailDialogInput,
@@ -19,6 +17,7 @@ import {
 } from '../../model/lml-lab-manager.class';
 import { LmlBrickService } from '../../lml-brick.service';
 import { LmlBrickVersion } from '../../model/lml-brick.class';
+import { ClBrick } from '@monorepo/core-lib';
 
 /**
  * Form to update the lab config
@@ -121,12 +120,12 @@ export class LmlBricksConfigFormComponent {
   }
 
   isConfigured(): boolean {
-    return this.brickVersions.findItem({ name: TdBrick.GWS_CORE, version: null }) != null;
+    return this.brickVersions.findItem({ name: ClBrick.GWS_CORE, version: null }) != null;
   }
 
   addGwsCoreBrick(): void {
     this.addGwsCoreIsLoading = true;
-    this.brickService.getBrickLatestVersion(TdBrick.GWS_CORE).subscribe({
+    this.brickService.getBrickLatestVersion(ClBrick.GWS_CORE).subscribe({
       next: (brick) => this.getGwsCoreBrickSuccess(brick),
       error: () => (this.addGwsCoreIsLoading = false),
     });

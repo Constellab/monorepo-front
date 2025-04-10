@@ -5,6 +5,10 @@
     "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.d.ts", "../../libs/front-core-lib/src/types.d.ts"],
+  "include": [
+    "src/**/*.d.ts",
+    "../../libs/front-core-lib/src/types.d.ts",
+    "../../libs/text-editor/src/types.d.ts"
+  ],
   "exclude": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts"]
 }

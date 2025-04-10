@@ -18,11 +18,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { NgClass } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { TdBrick } from '@monorepo/technical-doc';
 import { Title } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LabEnvironmentHelper } from '../../../lab-core/lab-environment.helper';
 import { LabEnvStore } from '../../../lab-core/lab-env.store';
+import { ClBrick } from '@monorepo/core-lib';
 
 @Component({
   selector: 'lab-main-app',
@@ -78,7 +78,7 @@ export class LabMainAppComponent implements OnInit {
   }
 
   private checkBiota(): void {
-    this.brickService.getBrick(TdBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
+    this.brickService.getBrick(ClBrick.GWS_BIOTA).subscribe((brick) => this.checkBiotaSuccess(brick));
   }
 
   private checkBiotaSuccess(brick: LiBrickEntity): void {

@@ -18,7 +18,7 @@ export class LmlManagerAdvancedComponent {
   labStatus$: Observable<LmlLabManagerStatus> = this.managerState.getStatus$();
 
   initAll(): void {
-    this.managerState.initLab({ text: 'lab_manager_initialize', translateText: true });
+    this.managerState.initLab({ text: 'lml.lab_manager_initialize', translateText: true });
   }
 
   configureLabManager(): void {
