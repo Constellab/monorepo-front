@@ -73,10 +73,10 @@ export class LabMainMenuSettingsComponent implements OnInit {
 
   resetDevEnvironment(): void {
     const data: FlConfirmDialogInput = {
-      title: 'reset_dev_env',
-      content: 'reset_dev_env_confirmation',
+      title: 'g.reset_dev_env',
+      content: 'g.reset_dev_env_confirmation',
       observable: this.systemService.resetDevEnvironment(),
-      successMessage: 'dev_env_reset_success',
+      successMessage: 'g.dev_env_reset_success',
       confirmWithText: 'reset-dev-env',
     };
 
@@ -85,10 +85,10 @@ export class LabMainMenuSettingsComponent implements OnInit {
 
   stopDevServer(): void {
     const data: FlConfirmDialogInput = {
-      title: 'stop_dev_api',
-      content: 'stop_dev_api_confirmation',
+      title: 'g.stop_dev_api',
+      content: 'g.stop_dev_api_confirmation',
       observable: this.systemService.killApi(),
-      successMessage: 'dev_api_stooped',
+      successMessage: 'g.dev_api_stooped',
     };
 
     this.dialogService

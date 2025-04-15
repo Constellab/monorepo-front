@@ -443,6 +443,10 @@
     "resource_origin_UPLOADED": "Uploadée",
     "resource_origin_GENERATED": "Générée",
     "resource_origin_IMPORTED_FROM_LAB": "Importée depuis un lab",
-    "resource_origin_S3_FOLDER_STORAGE": "Document dossier"
+    "resource_origin_S3_FOLDER_STORAGE": "Document dossier",
+    "credentials_type_BASIC": "Utilisateur / Mot de passe",
+    "credentials_type_S3": "S3",
+    "credentials_type_LAB": "LAB",
+    "credentials_type_OTHER": "Autre"
   }
 }
