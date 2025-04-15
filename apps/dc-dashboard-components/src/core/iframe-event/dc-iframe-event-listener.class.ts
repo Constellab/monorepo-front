@@ -34,14 +34,15 @@ export class DcIframeEventListener {
   }
 
   private checkEvent(origin: string, type: string): boolean {
+    if (type !== dcIframeEventType) return false;
+
     // Verify the origin of the message
     if (this.expectedOrigin !== '*' && !origin.startsWith(this.expectedOrigin)) {
       console.warn('Origin not allowed:', origin);
       return false;
     }
 
-    // Check if the event is of type dcIframeEventType
-    return type === dcIframeEventType;
+    return true;
   }
 
   public destroy(): void {
