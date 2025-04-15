@@ -18,7 +18,7 @@ import {
   HaProfileEditDialogComponent,
   HaProfileEditDialogData,
 } from '../ha-profile-edit-dialog/ha-profile-edit-dialog.component';
-import { CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule, CoUser } from '@monorepo/community-lib';
 import { HaCommunityPageDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../../ha-core/ha-service/ha-router.service';
 import { HaJsonLdState } from '../../../ha-core/ha-state/ha-json-ld.state';
@@ -43,6 +43,9 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HaDetailRoutePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaBrickImagePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import { HaCommunityAppDatasourcePaginated } from '../../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaCommunityAppService } from '../../../ha-core/ha-service/ha-community-app.service';
+import { HaAppPicturePipe } from '../../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 
 export interface HaProfileDatasourceFilters {
   userId: string;
@@ -72,12 +75,15 @@ export interface HaProfileDatasourceFilters {
     TranslatePipe,
     HaDetailRoutePipe,
     HaBrickImagePipe,
+    CoCommunityAppListItemComponent,
+    HaAppPicturePipe,
   ],
 })
 export class HaProfileComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private authenticatedUserService: HaAuthenticatedUserService = inject(HaAuthenticatedUserService);
   private userService: HaUserService = inject(HaUserService);
   private spaceService: HaSpaceService = inject(HaSpaceService);
+  private appService: HaCommunityAppService = inject(HaCommunityAppService);
   private agentService: HaAgentService = inject(HaAgentService);
   private brickService: HaBrickService = inject(HaBrickService);
   private storyService: HaStoryService = inject(HaStoryService);
@@ -99,6 +105,7 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
   agents$: HaAgentDatasourcePaginated<HaProfileDatasourceFilters>;
   stories$: HaStoryListDatasourcePaginated<HaProfileDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaProfileDatasourceFilters>;
+  apps$: HaCommunityAppDatasourcePaginated<HaProfileDatasourceFilters>;
 
   userRunStatAggregate$: Observable<HaRunStatAggregate>;
 
@@ -131,6 +138,7 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
   }
 
   private init(): void {
+    this.apps$ = this.appService.getUserCommunityAppsPaginated();
     this.agents$ = this.agentService.getUserAgentsPaginated();
     this.bricks$ = this.brickService.getUserBricksPaginated();
     this.stories$ = this.storyService.getUserStoriesPaginated();
@@ -183,6 +191,9 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
     this.stories$.getFirstPage({
       userId: userId,
     });
+    this.apps$.getFirstPage({
+      userId: userId,
+    });
   }
 
   private onUser(user: CoUser): void {
@@ -211,5 +222,6 @@ export class HaProfileComponent extends HaCommunityPageDirective implements OnIn
     this.stories$.disconnect();
     this.agents$.disconnect();
     this.bricks$.disconnect();
+    this.apps$.disconnect();
   }
 }

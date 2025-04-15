@@ -11,6 +11,7 @@ import {
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { HaFile } from '../entity-module/ha-file-core/model/ha-file';
+import { HaProfileDatasourceFilters } from '../../ha-profile/component/ha-profile/ha-profile.component';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,28 @@ export class HaCommunityAppService {
       {
         initFirstPage: false,
       }
+    );
+  }
+
+  private getUserCommunityApps(
+    userId: string,
+    page: number,
+    size: number
+  ): Observable<ClPage<HaCommunityApp>> {
+    return this.apiService.get(`${this.route}/user/${userId}`, HaCommunityApp, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
+  }
+
+  public getUserCommunityAppsPaginated(
+    pageSize = 4
+  ): HaCommunityAppDatasourcePaginated<HaProfileDatasourceFilters> {
+    return new FlEntityPaginatedDatasource(
+      (page, size, requestData) => this.getUserCommunityApps(requestData.filtersCriteria.userId, page, size),
+      pageSize,
+      { initFirstPage: false }
     );
   }
 

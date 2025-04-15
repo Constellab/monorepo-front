@@ -105,50 +105,73 @@
               }
             </fl-infinite-scroll>
           </mat-tab>
-          @if (agents$ && agents$.page) {
-            <mat-tab>
-              <ng-template matTabLabel>
-                <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
-                {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
-              </ng-template>
-              <fl-infinite-scroll
-                [datasource]="agents$"
-                infiniteMode="auto"
-                class="list g-scrollable-element"
-                cdkScrollable
-                [textNoMoreResult]="''"
-                [textNoResult]="'no_agent_yet' | translate">
-                @for (agent of agents$ | flDatasourceConnect | async; track agent) {
-                  <a class="list-element" [routerLink]="agent | haDetailRoute">
-                    <co-agent-list-item [agent]="agent"></co-agent-list-item>
-                  </a>
-                }
-              </fl-infinite-scroll>
-            </mat-tab>
-          }
-          @if (bricks$ && bricks$.page) {
-            <mat-tab>
-              <ng-template matTabLabel>
-                <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
-                {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
-              </ng-template>
-              <fl-infinite-scroll
-                [datasource]="bricks$"
-                infiniteMode="auto"
-                class="list g-scrollable-element"
-                cdkScrollable
-                [textNoMoreResult]="''"
-                [textNoResult]="'no_brick_yet' | translate">
-                @for (brick of bricks$ | flDatasourceConnect | async; track brick) {
-                  <a class="list-element" [routerLink]="brick | haDetailRoute">
-                    <co-brick-list-item
-                      [brick]="brick"
-                      [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
-                  </a>
-                }
-              </fl-infinite-scroll>
-            </mat-tab>
-          }
+        }
+        @if (agents$ && agents$.page) {
+          <mat-tab>
+            <ng-template matTabLabel>
+              <mat-icon svgIcon="agent" class="svg-icon"></mat-icon>
+              {{ 'agents' | translate }} - <span>{{ agents$.page.totalElements }}</span>
+            </ng-template>
+            <fl-infinite-scroll
+              [datasource]="agents$"
+              infiniteMode="auto"
+              class="list g-scrollable-element"
+              cdkScrollable
+              [textNoMoreResult]="''"
+              [textNoResult]="'no_agent_yet' | translate">
+              @for (agent of agents$ | flDatasourceConnect | async; track agent) {
+                <a class="list-element" [routerLink]="agent | haDetailRoute">
+                  <co-agent-list-item [agent]="agent"></co-agent-list-item>
+                </a>
+              }
+            </fl-infinite-scroll>
+          </mat-tab>
+        }
+        @if (bricks$ && bricks$.page) {
+          <mat-tab>
+            <ng-template matTabLabel>
+              <mat-icon svgIcon="brick" class="svg-icon"></mat-icon>
+              {{ 'bricks' | translate }} - <span>{{ bricks$.page.totalElements }}</span>
+            </ng-template>
+            <fl-infinite-scroll
+              [datasource]="bricks$"
+              infiniteMode="auto"
+              class="list g-scrollable-element"
+              cdkScrollable
+              [textNoMoreResult]="''"
+              [textNoResult]="'no_brick_yet' | translate">
+              @for (brick of bricks$ | flDatasourceConnect | async; track brick) {
+                <a class="list-element" [routerLink]="brick | haDetailRoute">
+                  <co-brick-list-item
+                    [brick]="brick"
+                    [brickImage]="brick.imageLink | haBrickImage"></co-brick-list-item>
+                </a>
+              }
+            </fl-infinite-scroll>
+          </mat-tab>
+        }
+        @if (apps$ && apps$.page) {
+          <mat-tab>
+            <ng-template matTabLabel>
+              <mat-icon svgIcon="app" class="svg-icon"></mat-icon>
+              {{ 'apps' | translate }} - <span>{{ apps$.page.totalElements }}</span>
+            </ng-template>
+            <fl-infinite-scroll
+              [datasource]="apps$"
+              infiniteMode="auto"
+              class="list g-scrollable-element"
+              cdkScrollable
+              [textNoMoreResult]="''"
+              [textNoResult]="'no_brick_yet' | translate">
+              @for (app of apps$ | flDatasourceConnect | async; track app) {
+                <a class="list-element" [routerLink]="app | haDetailRoute">
+                  <co-community-app-list-item
+                    [communityApp]="app"
+                    [appPicture]="app.picture | haAppPicture"></co-community-app-list-item>
+                </a>
+              }
+            </fl-infinite-scroll>
+          </mat-tab>
         }
       </mat-tab-group>
     </div>
