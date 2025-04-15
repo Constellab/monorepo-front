@@ -58,6 +58,7 @@
     "last_modified_date": "Last modification date",
     "note_is_not_validated": "Not validated",
     "tags": "Tags",
+    "columns_tag": "Columns tag",
     "id": "Id",
     "resource_origin": "Origin",
     "resource_data": "Data",

@@ -1,17 +1,25 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import {
+  FlDatasourceGetPageData,
   FlEntityPaginatedDatasource,
   FlFormFieldDirective,
   FlInputSearchFilter,
 } from '@monorepo/front-core-lib/fl-core';
-import { LiResource, LiResourceDatasource, LiResourceService } from '@monorepo/lab-lib/li-core';
+import {
+  LiResource,
+  LiResourceDatasource,
+  LiResourceSearchFields,
+  LiResourceService,
+} from '@monorepo/lab-lib/li-core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { Observable } from 'rxjs';
 import { FlInputSearchAdvancedButton, FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { NgControl } from '@angular/forms';
-import { ClHelpService } from '@monorepo/core-lib';
-import { LiSelectResourceDialogComponent } from '../li-select-resource-dialog/li-select-resource-dialog.component';
+import {
+  LiSelectResourceDialogComponent,
+  LiSelectResourceDialogInput,
+} from '../li-select-resource-dialog/li-select-resource-dialog.component';
 import { AsyncPipe } from '@angular/common';
 import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
@@ -37,6 +45,8 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
   private dialogService = inject(FlDialogService);
 
   placeholder = input<FlTranslatableText>('li.resource_select');
+  defaultFilters = input<LiResourceSearchFields>(null);
+  columnTagsFilterKeys = input<string[]>([]);
 
   resourceChange = output<LiResource>();
   openDialog = output();
@@ -56,12 +66,16 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
   ngOnInit(): void {
     this.datasource = new FlEntityPaginatedDatasource(
       (page: number, pageSize: number, data) => {
-        const nameSearch = data.filtersCriteria.searchText;
-        // set a default search
-        if (ClHelpService.isNullOrEmpty(nameSearch)) {
-          return this.resourceService.advancedSearch(page, pageSize, null);
+        const defaultFilters = this.defaultFilters();
+        if (data.filtersCriteria?.searchText != null) {
+          defaultFilters.name = data.filtersCriteria.searchText;
         }
-        return this.resourceService.searchByName(data.filtersCriteria.searchText, page, pageSize);
+        data.filtersCriteria = defaultFilters as any;
+        return this.resourceService.advancedSearch(
+          page,
+          pageSize,
+          data as FlDatasourceGetPageData<LiResourceSearchFields>
+        );
       },
       20,
       { initFirstPage: false }
@@ -70,7 +84,13 @@ export class LiSelectResourceComponent extends FlFormFieldDirective<LiResource> 
     this.advancedButton = {
       onClick: () => {
         this.openDialog.emit();
-        return this.dialogService.openBigDialog(LiSelectResourceDialogComponent).afterClosed();
+        const data: LiSelectResourceDialogInput = {
+          defaultFilters: this.defaultFilters(),
+          columnTagsFilterKeys: this.columnTagsFilterKeys(),
+        };
+        return this.dialogService
+          .openBigDialog(LiSelectResourceDialogComponent, { data: data })
+          .afterClosed();
       },
     };
   }

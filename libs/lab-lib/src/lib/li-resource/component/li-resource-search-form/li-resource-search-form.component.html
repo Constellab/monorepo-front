@@ -28,6 +28,13 @@
   <!--   Tags    -->
   <li-tag-filters formControlName="tags"></li-tag-filters>
 
+  @if(columnTagsFilterKeys.length > 0) {
+    <!-- Column tags -->
+    <li-table-columns-tag-filter formControlName="columnTags" [columnTagKeys]="columnTagsFilterKeys"></li-table-columns-tag-filter>
+  }
+
+<!--  <li-tag-filters formControlName="columnTags"></li-tag-filters>-->
+
   <!--   Advanced search    -->
   <mat-expansion-panel>
     <mat-expansion-panel-header>

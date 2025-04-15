@@ -1,5 +1,7 @@
 <li-select-resource
   class="select"
   [placeholder]="placeholder"
+  [defaultFilters]="defaultFilters"
+  [columnTagsFilterKeys]="columnTagsFilterKeys"
   [(ngModel)]="resource"
   (resourceChange)="setAndEmitResource(resource)"></li-select-resource>

@@ -26,6 +26,10 @@ export class DcComponentLoaderDevComponent implements OnInit {
       component: DcDynamicComponentEnum.SELECT_RESOURCE,
       component_data: {
         placeholder: 'Select a resource',
+        default_filters: {
+          tags: [{ key: 'raw_data' }, { key: 'origin', value: 'biolector_dashboard' }],
+        },
+        column_tags_filter_keys: ['well'],
       } as DcSelectResourceInput,
     }).then();
   }

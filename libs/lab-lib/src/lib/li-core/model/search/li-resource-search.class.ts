@@ -44,6 +44,9 @@ export class LiResourceSearchFields {
   @Type(() => LiTypeEntity)
   generatedByProcess: LiTypeEntity;
 
+  // ONLY FOR TABLE RESOURCE
+  columnTags: FlTag[];
+
   id: string;
 }
 
@@ -96,6 +99,7 @@ export class LiResourceSearch {
       key: 'include_not_flagged',
       operator: 'EQ',
     },
+    columnTags: { key: 'column_tags', operator: 'EQ' },
     id: { key: 'id', operator: 'EQ' },
     generatedByProcess: {
       key: 'generated_by_task',
@@ -129,6 +133,7 @@ export class LiResourceSearch {
       isArchived: [null],
       includeChildrenResource: [null],
       includeNotFlagged: [null],
+      columnTags: [null],
       id: [null],
       generatedByProcess: [null],
     });

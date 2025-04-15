@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } fro
 import { FlInputSearchModule } from '@monorepo/front-core-lib/fl-input-search';
 import { FlTranslatableText, FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
-import { LiResource } from '@monorepo/lab-lib/li-core';
+import { LiResource, LiResourceSearchFields } from '@monorepo/lab-lib/li-core';
 import { FormsModule } from '@angular/forms';
 import { DcComponentData, DcDynamicComponent } from '../../../core/model/dc-dynamic-component.class';
 import { ClCoreJsonConvert } from '@monorepo/core-lib';
@@ -12,6 +12,8 @@ import { LiSelectResourceComponent } from '@monorepo/lab-lib/li-resource';
 export interface DcSelectResourceInput {
   placeholder: string;
   default_resource?: any;
+  default_filters?: LiResourceSearchFields;
+  column_tags_filter_keys?: string[];
 }
 
 export interface DcSelectResourceOutput {
@@ -36,6 +38,8 @@ export class DcSelectResourceComponent
 
   resource: LiResource;
   placeholder: FlTranslatableText;
+  defaultFilters: LiResourceSearchFields;
+  columnTagsFilterKeys: string[];
 
   ngOnInit(): void {
     this.mainDirective.init(this.inputData);
@@ -44,6 +48,15 @@ export class DcSelectResourceComponent
         this.inputData.component_data.default_resource,
         LiResource
       );
+    }
+    if (this.inputData.component_data.default_filters) {
+      this.defaultFilters = ClCoreJsonConvert.deserializeObject(
+        this.inputData.component_data.default_filters,
+        LiResourceSearchFields
+      );
+    }
+    if (this.inputData.component_data.column_tags_filter_keys) {
+      this.columnTagsFilterKeys = this.inputData.component_data.column_tags_filter_keys;
     }
     this.placeholder = { text: this.inputData.component_data.placeholder, translateText: false };
   }

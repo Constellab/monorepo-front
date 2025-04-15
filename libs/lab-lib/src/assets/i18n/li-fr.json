@@ -58,6 +58,7 @@
     "last_modified_date": "Date de dernière modification",
     "note_is_not_validated": "Non validée",
     "tags": "Tags",
+    "columns_tag": "Tag de colonne",
     "id": "Id",
     "resource_origin": "Origine",
     "resource_data": "Données",

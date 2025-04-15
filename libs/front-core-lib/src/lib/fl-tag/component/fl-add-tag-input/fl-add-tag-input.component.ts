@@ -65,6 +65,11 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
 
   @Input() helpText: string = 'flTag.input_helper_text';
 
+  /**
+   * True if you don't want to show the tag list (ex: for table columns tag filter)
+   */
+  @Input() disableFilteredOptions: boolean = false;
+
   @Output() addTag: EventEmitter<FlAddTagEvent> = new EventEmitter();
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;
@@ -90,6 +95,7 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       { initFirstPage: false }
     );
 
+    if (this.disableFilteredOptions) return;
     combineLatest([this.inputCtrl.valueChanges.pipe(startWith('')), this.mode$.asObservable()])
       .pipe(debounceTime(this.searchDebounceTime))
       .subscribe(([inputText, mode]) => this.loadPage(inputText, mode));
@@ -169,8 +175,9 @@ export class FlAddTagInputComponent implements OnInit, OnDestroy {
       }
 
       this.switchMode('value');
+
       // force reopening the panel after clear
-      setTimeout(() => this.autocompleteTrigger.openPanel(), 0);
+      if (!this.disableFilteredOptions) setTimeout(() => this.autocompleteTrigger.openPanel(), 0);
     }
   }
 

@@ -11,27 +11,46 @@
         <span class="tag-key">{{ currentTagKey.content }} :</span>
       </mat-chip-row>
     }
-    <input
-      [placeholder]="'flTag.search_tag' | translate"
-      #input
-      [formControl]="inputCtrl"
-      [matAutocomplete]="auto"
-      [matChipInputFor]="chipGrid"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="addUnknownValue()"
-      tabindex="0"
-      (keydown.enter)="onEnterDown($event)" />
+    @if (disableFilteredOptions) {
+      <input
+        [placeholder]="'flTag.search_tag' | translate"
+        #input
+        [formControl]="inputCtrl"
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="addUnknownValue()"
+        tabindex="0"
+        (keydown.enter)="onEnterDown($event)" />
+    } @else {
+      <input
+        [placeholder]="'flTag.search_tag' | translate"
+        #input
+        [formControl]="inputCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="addUnknownValue()"
+        tabindex="0"
+        (keydown.enter)="onEnterDown($event)" />
+    }
+
   </mat-chip-grid>
+
   <mat-autocomplete
     #auto="matAutocomplete"
     (optionSelected)="optionSelected($event)"
     [autoActiveFirstOption]="true">
-    <fl-infinite-scroll [datasource]="filteredOptions" class="g-mat-option-infinite-scroll" [textNoResult]="null">
+    <fl-infinite-scroll
+      [datasource]="filteredOptions"
+      class="g-mat-option-infinite-scroll"
+      [textNoResult]="null">
       @for (item of filteredOptions | flDatasourceConnect | async; track item) {
         <mat-option [value]="item" class="g-mat-option-no-wrap">
           <div class="option-container g-layout-row g-layout-start-center g-layout-gap-05em">
             @if (item.type === 'key') {
-              <div class="color color-option" [style.background-color]="item.content | flTagColor | async"></div>
+              <div
+                class="color color-option"
+                [style.background-color]="item.content | flTagColor | async"></div>
             }
             <span class="option">{{ item.content }}</span>
           </div>
@@ -39,7 +58,6 @@
       }
     </fl-infinite-scroll>
   </mat-autocomplete>
-
   @if (allowUnknownTag && helpText) {
     <mat-hint>{{ helpText | translate }}</mat-hint>
   }

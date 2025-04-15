@@ -82,6 +82,16 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
    */
   @Input() customSavedSearches: FlSavedSearch[] = null;
 
+  /**
+   * Use to set default filters in the search, those filters are not modifiable by the user.
+   */
+  @Input() defaultFilters: LiResourceSearchFields = null;
+
+  /**
+   * Use to list available column tag keys for table resource search form
+   */
+  @Input() columnTagsFilterKeys: string[] = [];
+
   @Output() resourceSelected: EventEmitter<LiResource> = new EventEmitter<LiResource>();
 
   datasource: FlDatasourcePaginated<LiResource>;
@@ -127,7 +137,13 @@ export class LiResourceSearchComponent implements OnInit, OnDestroy {
     });
 
     this.searchState.init(searchConfig, this.datasource);
+    if (this.defaultFilters) {
+      this.searchState.advancedSearchFormGroup.patchValue(this.defaultFilters);
+    }
     this.listenToUploadAction();
+
+    // set known column tag filter keys for Table resource search
+    this.searchState.setColumnTagsFilterKeys(this.columnTagsFilterKeys);
   }
 
   selectResource(resource: LiResource): void {

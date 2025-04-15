@@ -1,0 +1,31 @@
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <fl-text-icon>
+        <mat-icon flIcon="tag"></mat-icon>
+        {{ 'li.columns_tag' | translate }}
+      </fl-text-icon>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <fl-tag-list
+    [tags]="selectedTags"
+    class="g-text-small"
+    [showDeleteIcon]="true"
+    (tagDeleted)="removeTag($event)"></fl-tag-list>
+
+  <fl-add-tag-input
+    class="global-input"
+    [label]="'li.columns_tag'"
+    (addTag)="addTag($event)"
+    [disableFilteredOptions]="true"
+    [allowUnknownTag]="true"></fl-add-tag-input>
+
+  @if (columnTagKeys().length > 0) {
+    <div class="g-layout-row-wrap g-layout-gap-05em g-text-small">
+      @for (tagKey of columnTagKeys(); track tagKey) {
+        <fl-tag class="chip" [flTag]="{ key: tagKey }" (click)="onKeyClick(tagKey)"></fl-tag>
+      }
+    </div>
+  }
+</mat-expansion-panel>

@@ -24,4 +24,5 @@ export interface FlSavedSearch extends FlEntity {
 
   // object containing all the filters
   filtersCriteria: Record<string, any>;
+
 }
