@@ -10,6 +10,7 @@ import { FlFormFieldDirective } from '@monorepo/front-core-lib/fl-core';
 import { NgControl } from '@angular/forms';
 import {
   MatExpansionPanel,
+  MatExpansionPanelDescription,
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
@@ -24,6 +25,7 @@ import { MatIcon } from '@angular/material/icon';
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
+    MatExpansionPanelDescription,
     MatIcon,
     FlTextIconModule,
     FlIconModule,

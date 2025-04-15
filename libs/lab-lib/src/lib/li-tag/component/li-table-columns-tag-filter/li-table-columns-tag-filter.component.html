@@ -3,10 +3,14 @@
     <mat-panel-title>
       <fl-text-icon>
         <mat-icon flIcon="tag"></mat-icon>
-        {{ 'li.columns_tag' | translate }}
+        {{ 'li.table_column_tags' | translate }}
       </fl-text-icon>
     </mat-panel-title>
   </mat-expansion-panel-header>
+
+  <mat-panel-description class="g-text-small">
+    {{ 'li.table_column_tags_description' | translate }}
+  </mat-panel-description>
 
   <fl-tag-list
     [tags]="selectedTags"
@@ -16,7 +20,7 @@
 
   <fl-add-tag-input
     class="global-input"
-    [label]="'li.columns_tag'"
+    [label]="'li.table_column_tags'"
     (addTag)="addTag($event)"
     [disableFilteredOptions]="true"
     [allowUnknownTag]="true"></fl-add-tag-input>
