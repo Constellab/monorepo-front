@@ -448,6 +448,8 @@
     "credentials_type_BASIC": "Username / password",
     "credentials_type_S3": "S3",
     "credentials_type_LAB": "LAB",
-    "credentials_type_OTHER": "Other"
+    "credentials_type_OTHER": "Other",
+    "log_show_stack_trace": "Show stack trace",
+    "log_hide_stack_trace": "Hide stack trace"
   }
 }

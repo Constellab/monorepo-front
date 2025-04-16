@@ -1,0 +1,16 @@
+{{ line().message }}
+
+@if (line().stackTrace) {
+  <div>
+    <button mat-stroked-button type="button" class="g-button-tiny" (click)="toggleStackTrace()">
+      @if (showStackTrace()) {
+        {{ 'li.log_hide_stack_trace' | translate }}
+      } @else {
+        {{ 'li.log_show_stack_trace' | translate }}
+      }
+    </button>
+  </div>
+  @if (showStackTrace()) {
+    {{ line().stackTrace }}
+  }
+}
