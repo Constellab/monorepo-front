@@ -2,7 +2,7 @@
   @if (!data) {
     {{ 'teTextEditor.variable' | translate }}
   } @else if (data.value) {
-    {{ data.name }} : {{ data.value }}
+    <span class="g-print-hide">{{ data.name }} :</span> {{ data.value }}
   } @else {
     {{ data.name }}
   }

@@ -1,8 +1,19 @@
 ///////////////////////// VARIABLE INLINE /////////////////////////
-:host {
-  display: inline-block;
-  background-color: var(--warn-color);
-  color: var(--warn-color-contrast);
+
+// in print mode we consider the variable as a text (only the value)
+@media not print {
+  :host {
+    display: inline-block;
+    background-color: var(--warn-color);
+    color: var(--warn-color-contrast);
+  }
+}
+
+@media print {
+  :host {
+    padding: 0 !important;
+  }
+
 }
 
 :host:not(.disabled) {
