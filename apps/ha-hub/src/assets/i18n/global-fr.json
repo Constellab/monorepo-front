@@ -423,6 +423,7 @@
   "create_community_app_success": "App de la communauté créée avec succès",
   "edit_community_app_success": "App de la communauté éditée avec succès",
   "application": "Application",
+  "run_application": "Lancer l'application",
   "detail": "Détail",
   "app_execution_count": "Nombre d'éxécution de l'application",
   "my_apps": "Mes apps",

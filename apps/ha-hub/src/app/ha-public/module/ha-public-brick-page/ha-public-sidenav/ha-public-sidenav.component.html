@@ -1,17 +1,23 @@
 <div class="div-sidenav">
-  @if (userHasEditRight()) {
-    <button mat-stroked-button type="button" class="bt" (click)="onClickMenu($event, true)">
-      <mat-icon>add_circle</mat-icon>
-      {{ 'create_element' | translate }}
-    </button>
+
+  @if (brick()) {
+    <div class="brick-name-div">
+      <h4 class="brick-name" [ngClass]="userHasEditRight() ? 'smaller-brick-name' : ''">
+        gws_plate_reader_long_de_fou_comme_nom - {{ pathVersion() }}
+      </h4>
+
+      @if (userHasEditRight()) {
+        <button mat-icon-button type="button" class="bt" (click)="onClickMenu($event, true)" [matTooltip]="'create_element' | translate">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      }
+    </div>
+
+
+    <mat-divider class="divider"></mat-divider>
   }
 
   <div class="sidenav g-scrollable-element">
-    <mat-form-field class="input-tech-doc g-form-field-compact-height" appearance="outline">
-      <mat-label>{{ 'research_doc' | translate }}</mat-label>
-      <mat-icon matPrefix>search</mat-icon>
-      <input type="text" matInput [formControl]="searchTechDocControl" autocomplete="off" />
-    </mat-form-field>
 
     <a
       [routerLink]="'.'"
@@ -47,15 +53,6 @@
         @if (node.object.children) {
           <div class="g-text-small tree-node g-layout-row g-layout-start-center" matTreeNodeToggle
                (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
-            <button
-              mat-icon-button
-              class="g-button-icon-small toggle-parent-button"
-              [attr.aria-label]="'Toggle ' + node.object.name"
-              type="button">
-              <mat-icon>
-                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
-              </mat-icon>
-            </button>
             <div class="tree-node-div">
               {{ node.object.name }}
 
@@ -68,6 +65,15 @@
                 }
               </div>
             </div>
+            <button
+              mat-icon-button
+              class="g-button-icon-small toggle-parent-button"
+              [attr.aria-label]="'Toggle ' + node.object.name"
+              type="button">
+              <mat-icon>
+                {{ tree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
+              </mat-icon>
+            </button>
           </div>
         } @else {
           <a
@@ -106,9 +112,11 @@
           <div class="g-text-small tree-node g-layout-row g-layout-start-center"
                matTreeNodeToggle
                (click)="node.object.isExpanded ? collapseNode(node) : expandNode(node)">
+            <div class="tree-node-div">
+              {{ node.object.name }}
+            </div>
             <button
               mat-icon-button
-
               class="g-button-icon-small toggle-parent-button"
               [attr.aria-label]="'Toggle ' + node.object.name"
               type="button">
@@ -116,15 +124,12 @@
                 {{ techTree.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right' }}
               </mat-icon>
             </button>
-            <div class="tree-node-div">
-              {{ node.object.name }}
-            </div>
           </div>
         } @else {
           <a
             [routerLink]="'doc/' + node.object.completePath"
             class="g-text-small tree-node g-layout-row g-layout-start-center">
-            <div class="tree-node-without-children tree-node-div">
+            <div class="tree-node-div">
               {{ node.object.name }}
             </div>
           </a>

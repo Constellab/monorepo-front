@@ -108,9 +108,9 @@ h5 {
   width: 295px;
   min-width: 295px;
   position: fixed;
-  margin-top: 30px;
   left: var(--margin-side);
   transition: 0.2s;
+  padding-top: 30px;
 
   .left-panel-separator {
     width: 100%;
@@ -136,7 +136,7 @@ h5 {
   display: none !important;
   position: fixed;
   left: 0.5em;
-  top: 2em;
+  top: calc(var(--navbar-height) - 5px);
   z-index: 3;
   cursor: pointer;
 }
@@ -304,13 +304,21 @@ h5 {
   }
 
   .left-panel {
-    margin-top: 0;
-    top: 0;
+    top: var(--navbar-height);
     left: -100%;
-    height: 100vh;
+    height: calc(100vh - var(--navbar-height));
     background-color: var(--main-background);
-    padding: 4em 8px 8px 8px;
     z-index: 200;
+    padding: 0 8px;
+    // box shadow right border
+    box-shadow: 10px 0px 5px -4px rgba(0, 0, 0, 0.2);
+
+  }
+}
+
+@media (max-width: 965px) {
+  .left-panel {
+    height: calc(100vh - var(--navbar-height) - var(--small-navbar-height));
   }
 }
 

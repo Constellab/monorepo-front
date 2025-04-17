@@ -34,6 +34,10 @@
     <mat-icon class="menu-icon">description</mat-icon>
     {{ 'stories' | translate }}
   </a>
+  <a [routerLink]="appsListRoute" [ngClass]="currentRoute == 'app' ? 'bottom-menu-current-bt' : ''">
+    <mat-icon class="menu-icon">apps</mat-icon>
+    {{ 'apps' | translate }}
+  </a>
   <a [routerLink]="agentsRoute" [ngClass]="currentRoute == 'agent' ? 'bottom-menu-current-bt' : ''">
     <mat-icon class="menu-icon" svgIcon="agent"></mat-icon>
     {{ 'agents' | translate }}

@@ -19,13 +19,18 @@ import { HaUserService } from '../../ha-core/ha-service/ha-user.service';
 import { HaThemeState } from '../../ha-core/ha-state/ha-theme.state';
 import { AsyncPipe, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import {
+  HaCommunityAppDatasourceFilters,
+  HaCommunityAppDatasourcePaginated,
+} from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaAppPicturePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 
 @Component({
   selector: 'ha-logged-in-home',
@@ -42,6 +47,8 @@ import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-
     FlCorePipeModule,
     HaDetailRoutePipe,
     HaBrickImagePipe,
+    CoCommunityAppListItemComponent,
+    HaAppPicturePipe,
   ],
 })
 export class HaLoggedInHomeComponent implements OnInit, AfterContentInit {
@@ -50,12 +57,14 @@ export class HaLoggedInHomeComponent implements OnInit, AfterContentInit {
   private themeState: HaThemeState = inject(HaThemeState);
   private platformId: object = inject(PLATFORM_ID);
 
+  apps$ = input<HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>>();
   stories$ = input<HaStoryListDatasourcePaginated<HaStoryFilters>>();
   agents$ = input<HaAgentDatasourcePaginated<HaAgentDatasourceFilters>>();
   bricks$ = input<HaBrickDatasourcePaginated<HaBrickDatasourceFilters>>();
 
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
 
+  appsListRoute: string = HaRouterService.getCommunityAppListRoute();
   storyListRoute: string = HaRouterService.getStoriesListRoute();
   agentsListRoute: string = HaRouterService.getAgentsListRoute();
   brickListRoute: string = HaRouterService.getBrickListRoute();

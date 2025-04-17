@@ -13,6 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { HaCommunityAppState } from '../../state/ha-community-app.state';
 import { MatTooltip } from '@angular/material/tooltip';
 import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-type';
+import { MatAnchor } from '@angular/material/button';
 
 @Component({
   selector: 'ha-community-app-page',
@@ -29,6 +30,7 @@ import { HaEntityType } from '../../../ha-core/ha-model/ha-entities/ha-entity-ty
     RouterLink,
     MatTooltip,
     RouterLinkActive,
+    MatAnchor,
   ],
   templateUrl: './ha-community-app-page.component.html',
   styleUrl: './ha-community-app-page.component.scss',

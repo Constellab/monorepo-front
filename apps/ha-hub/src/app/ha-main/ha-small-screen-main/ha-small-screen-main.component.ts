@@ -25,6 +25,7 @@ export enum HaSmallScreenPossibleRoute {
   STORY = 'story',
   BRICK = 'brick',
   AGENT = 'agent',
+  APP = 'app',
   DOC = 'doc',
 }
 
@@ -70,6 +71,8 @@ export class HaSmallScreenMainComponent implements OnInit {
 
   storyListRoute = HaRouterService.getStoriesListRoute();
 
+  appsListRoute = HaRouterService.getCommunityAppListRoute();
+
   brickListRoute = HaRouterService.getBrickListRoute();
 
   productDocRoute = HaRouterService.getProductDocRoute();
@@ -104,6 +107,9 @@ export class HaSmallScreenMainComponent implements OnInit {
           break;
         case this.agentsRoute:
           this.currentRoute = HaSmallScreenPossibleRoute.AGENT;
+          break;
+        case this.appsListRoute:
+          this.currentRoute = HaSmallScreenPossibleRoute.APP;
           break;
         default:
           this.currentRoute = HaSmallScreenPossibleRoute.DOC;

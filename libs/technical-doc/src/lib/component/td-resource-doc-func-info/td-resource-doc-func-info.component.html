@@ -1,10 +1,10 @@
 <div [id]="func().name" class="container">
   <div class="func-name">
-    {{ func().name.toUpperCase() }}
+    {{ func().name }}
     @if (func().method_type === CLASS_METHOD) {
-      <span> - {{ '@classmethod' }}</span>
+      <span class="method-type-span">{{ '@classmethod' }}</span>
     } @else if (func().method_type === STATIC_METHOD) {
-      <span> - {{ '@staticmethod' }}</span>
+      <span class="method-type-span">{{ '@staticmethod' }}</span>
     }
   </div>
 

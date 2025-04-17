@@ -421,6 +421,7 @@
   "create_community_app_success": "Community app created successfully",
   "edit_community_app_success": "Community app updated successfully",
   "application": "Application",
+  "run_application": "Run application",
   "detail": "Detail",
   "app_execution_count": "App execution count",
   "my_apps": "My apps",

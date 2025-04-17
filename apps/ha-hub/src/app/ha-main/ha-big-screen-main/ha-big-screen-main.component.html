@@ -13,16 +13,16 @@
   </mat-form-field>
 
   <div class="utilities">
-    <a [routerLink]="appsListRoute" class="nav-section-bt">
-      <fl-text-icon gap="0.2em">
-        <mat-icon class="g-icon-small">apps</mat-icon>
-        {{ 'apps' | translate }}
-      </fl-text-icon>
-    </a>
     <a [routerLink]="storyListRoute" class="nav-section-bt">
       <fl-text-icon gap="0.2em">
         <mat-icon class="g-icon-small">description</mat-icon>
         {{ 'stories' | translate }}
+      </fl-text-icon>
+    </a>
+    <a [routerLink]="appsListRoute" class="nav-section-bt">
+      <fl-text-icon gap="0.2em">
+        <mat-icon class="g-icon-small">apps</mat-icon>
+        {{ 'apps' | translate }}
       </fl-text-icon>
     </a>
     <a [routerLink]="agentsRoute" class="nav-section-bt">

@@ -23,6 +23,11 @@ import { AsyncPipe } from '@angular/common';
 import { HaCommunityPageDirective } from '../../ha-core/ha-module/ha-core-directive/ha-community-page/ha-community-page.directive';
 import { HaRouterService } from '../../ha-core/ha-service/ha-router.service';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import {
+  HaCommunityAppDatasourceFilters,
+  HaCommunityAppDatasourcePaginated,
+} from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaCommunityAppService } from '../../ha-core/ha-service/ha-community-app.service';
 
 @Component({
   selector: 'ha-ha-home',
@@ -35,9 +40,11 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
   private storyService: HaStoryService = inject(HaStoryService);
   private agentService: HaAgentService = inject(HaAgentService);
   private brickService: HaBrickService = inject(HaBrickService);
+  private communityAppService: HaCommunityAppService = inject(HaCommunityAppService);
 
   user$: Observable<HaUser> = this.authenticatedUserService.getUser();
 
+  apps$: HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>;
   stories$: HaStoryListDatasourcePaginated<HaStoryFilters>;
   agents$: HaAgentDatasourcePaginated<HaAgentDatasourceFilters>;
   bricks$: HaBrickDatasourcePaginated<HaBrickDatasourceFilters>;
@@ -58,5 +65,8 @@ export class HaHomeComponent extends HaCommunityPageDirective implements OnInit 
 
     this.bricks$ = this.brickService.getAllWithFiltersPaginated(4);
     this.bricks$.getFirstPage({ spacesFilter: [], titleFilter: '' });
+
+    this.apps$ = this.communityAppService.getAllPaginated(4);
+    this.apps$.getFirstPage({ titleFilter: '', spacesFilter: [] });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, Signal } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router, RouterOutlet } from '@angular/router';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 import { HaRouterService } from '../../../../ha-core/ha-service/ha-router.service';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
@@ -12,7 +12,6 @@ import { HaSidenavButtonDirective } from '../../../../ha-core/ha-module/ha-core-
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { HaPublicSidenavComponent } from '../ha-public-sidenav/ha-public-sidenav.component';
 import { Ha404Component } from '../../ha404/ha404.component';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ha-public-list-bricks-page',
@@ -24,12 +23,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     FlSectionModule,
     MatIcon,
     HaSidenavButtonDirective,
-    RouterLink,
     FlTextIconModule,
     HaPublicSidenavComponent,
     RouterOutlet,
     Ha404Component,
-    TranslatePipe,
   ],
 })
 export class HaPublicBrickPageComponent implements OnInit, OnDestroy {
@@ -37,8 +34,6 @@ export class HaPublicBrickPageComponent implements OnInit, OnDestroy {
   private brickPageState: HaBrickPageState = inject(HaBrickPageState);
   private router: Router = inject(Router);
   private document: Document = inject(DOCUMENT);
-
-  brickListRoute: string = HaRouterService.getBrickListRoute();
 
   brick: Signal<HaBrick> = this.brickPageState.brick;
   brickNotFound: Signal<boolean> = this.brickPageState.isBrickError;

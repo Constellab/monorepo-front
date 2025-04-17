@@ -6,12 +6,6 @@
   @if (!brickNotFound() && brick()) {
     <div class="left-panel">
       <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
-      <a [routerLink]="brickListRoute" class="back-link">
-        <fl-text-icon [iconPosition]="'start'">
-          <mat-icon>arrow_back</mat-icon>
-          {{ 'back_to_bricks_list' | translate }}
-        </fl-text-icon>
-      </a>
       <ha-public-sidenav></ha-public-sidenav>
     </div>
 

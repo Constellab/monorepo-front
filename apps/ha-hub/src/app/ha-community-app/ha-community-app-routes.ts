@@ -23,14 +23,14 @@ export const haCommunityAppRoutes: Route[] = [
       ),
     children: [
       {
-        path: 'detail',
+        path: '',
         loadComponent: () =>
           import('./components/ha-community-app-detail/ha-community-app-detail.component').then(
             (m) => m.HaCommunityAppDetailComponent
           ),
       },
       {
-        path: '',
+        path: 'app',
         loadComponent: () =>
           import('./components/ha-community-app/ha-community-app.component').then(
             (m) => m.HaCommunityAppComponent

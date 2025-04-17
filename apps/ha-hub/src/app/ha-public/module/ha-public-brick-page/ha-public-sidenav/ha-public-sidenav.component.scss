@@ -7,7 +7,7 @@ mat-tree-node {
 }
 
 .selected-tree-node {
-  background-color: var(--hover-color);
+  color: var(--primary-color);
 }
 
 .tree .tree-node:not(:last-child) {
@@ -33,6 +33,7 @@ mat-tree-node {
 
 .toggle-parent-button {
   flex-shrink: 0;
+  color: inherit !important;
 }
 
 .tree-node-div{
@@ -40,41 +41,19 @@ mat-tree-node {
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 0 0.5rem;
   justify-content: space-between;
 }
 
 .div-sidenav {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 180px);
+  height: calc(100vh - var(--navbar-height) - 30px);
+  padding-top: 30px;
 }
 
 .sidenav {
-  padding: 8px;
-  border-radius: 18px;
   display: flex;
   flex-direction: column;
-  background-color: var(--card-background);
-}
-
-::ng-deep .mat-mdc-form-field-wrapper {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-::ng-deep .mat-mdc-form-field-outline-start {
-  border-radius: 10px 0 0 10px !important;
-  min-width: 10px !important;
-}
-
-::ng-deep .mat-mdc-form-field-outline-end {
-  border-radius: 0 10px 10px 0 !important;
-}
-
-::ng-deep .mat-tree-node {
-  min-height: 0 !important;
 }
 
 .input-tech-doc {
@@ -87,10 +66,6 @@ mat-tree-node {
   padding: 7px 8px;
   border-radius: 10px;
   font-weight: 500;
-}
-
-.sidenav-item-not-selected {
-  background-color: var(--main-background);
 }
 
 .sidenav-item > a {
@@ -106,25 +81,36 @@ mat-tree-node {
 .icon-pointer:hover {
   cursor: pointer;
 }
-
-.bt {
-  margin-bottom: 8px;
-  width: 100%;
-  border-radius: 10px !important;
-  background-color: var(--card-background);
-  height: 56px;
-  min-height: 56px;
-  padding: 8px;
+.brick-name-div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-@media (max-width: 959px) {
+.brick-name {
+  font-size: 1.25em;
+  max-width: 100%;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.smaller-brick-name{
+  max-width: 80%;
+}
+
+.divider{
+  margin: 1rem 0;
+}
+
+@media (max-width: 965px) {
   .sidenav-content {
     z-index: 1;
   }
 
   .div-sidenav {
-    height: 80vh;
-    max-height: 80vh;
+    height: calc(100vh - var(--navbar-height) - 30px - var(--small-navbar-height));
+    padding: 30px 0px;
   }
 }
 
@@ -143,6 +129,7 @@ mat-tree-node {
   margin-left: auto;
   display: flex;
   flex-direction: row-reverse;
+  color: var(--light-color);
 }
 
 .router {

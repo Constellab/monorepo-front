@@ -12,6 +12,10 @@
 .func-name {
   padding: 1em;
   background-color: var(--hover-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .content{
@@ -40,4 +44,10 @@
 .return-type-div {
   padding-top: 1em;
   padding-bottom: 1em;
+}
+
+.method-type-span{
+  background-color: var(--primary-color);
+  padding: 0.2em 0.5em;
+  border-radius: 0.5em;
 }

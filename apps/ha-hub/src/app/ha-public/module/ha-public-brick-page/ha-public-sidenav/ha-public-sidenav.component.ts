@@ -44,27 +44,22 @@ import { filter, Observable } from 'rxjs';
 import { HaBrick } from '../../../../ha-core/ha-model/ha-entities/ha-brick.class';
 
 import { isPlatformBrowser, isPlatformServer, NgClass } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HaBrickPageState } from '../../../state/ha-brick-page.state';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
+import { MatDivider } from '@angular/material/divider';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'ha-public-sidenav',
   templateUrl: './ha-public-sidenav.component.html',
   styleUrls: ['./ha-public-sidenav.component.scss'],
   imports: [
-    MatButton,
     MatIcon,
-    MatFormField,
-    MatLabel,
-    MatPrefix,
-    MatInput,
     ReactiveFormsModule,
     RouterLink,
     RouterLinkActive,
@@ -79,6 +74,8 @@ import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
     CdkDropList,
     CdkDrag,
     MatTreeNodeToggle,
+    MatDivider,
+    MatTooltip,
   ],
 })
 export class HaPublicSidenavComponent implements OnInit {
@@ -94,8 +91,6 @@ export class HaPublicSidenavComponent implements OnInit {
   private portalActionsService = inject(FlPortalActionsService);
   private brickPageState = inject(HaBrickPageState);
   private translateService: FlTranslateService = inject(FlTranslateService);
-
-  searchTechDocControl = new FormControl<string>('');
 
   userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
 

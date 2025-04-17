@@ -24,13 +24,18 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { CoCommunityLibModule } from '@monorepo/community-lib';
+import { CoCommunityAppListItemComponent, CoCommunityLibModule } from '@monorepo/community-lib';
 import { MatIcon } from '@angular/material/icon';
 import { HaGithubStarButtonComponent } from '../../ha-core/ha-component/ha-github-star-button/ha-github-star-button.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { HaDetailRoutePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-detail-route/ha-detail-route.pipe';
 import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-image/ha-brick-image.pipe';
+import {
+  HaCommunityAppDatasourceFilters,
+  HaCommunityAppDatasourcePaginated,
+} from '../../ha-core/ha-model/ha-entities/ha-community-app.class';
+import { HaAppPicturePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-app-picture/ha-app-picture.pipe';
 
 @Component({
   selector: 'ha-not-logged-in-home',
@@ -52,6 +57,8 @@ import { HaBrickImagePipe } from '../../ha-core/ha-module/ha-core-pipe/ha-brick-
     FlCorePipeModule,
     HaDetailRoutePipe,
     HaBrickImagePipe,
+    CoCommunityAppListItemComponent,
+    HaAppPicturePipe,
   ],
 })
 export class HaNotLoggedInHomeComponent {
@@ -59,6 +66,7 @@ export class HaNotLoggedInHomeComponent {
   private themeState: HaThemeState = inject(HaThemeState);
   private userService: HaUserService = inject(HaUserService);
 
+  apps$ = input<HaCommunityAppDatasourcePaginated<HaCommunityAppDatasourceFilters>>();
   stories$ = input<HaStoryListDatasourcePaginated<HaStoryFilters>>();
   agents$ = input<HaAgentDatasourcePaginated<HaAgentDatasourceFilters>>();
   bricks$ = input<HaBrickDatasourcePaginated<HaBrickDatasourceFilters>>();
@@ -68,6 +76,7 @@ export class HaNotLoggedInHomeComponent {
   constellabUrl: string = HaConstellabHelper.getConstellabUrl();
   gencoveryFOALink: string = HaConstellabHelper.getGencoveryFOAUrl();
 
+  appsListRoute: string = HaRouterService.getCommunityAppListRoute();
   storyListRoute: string = HaRouterService.getStoriesListRoute();
   agentsListRoute: string = HaRouterService.getAgentsListRoute();
   brickListRoute: string = HaRouterService.getBrickListRoute();

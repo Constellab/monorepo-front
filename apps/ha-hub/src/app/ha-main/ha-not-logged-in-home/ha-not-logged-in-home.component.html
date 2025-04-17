@@ -81,6 +81,22 @@
   </div>
 
   <div class="home-section">
+    <a [routerLink]="appsListRoute"  class="home-section-title">
+      {{ 'apps' | translate }}
+    </a>
+    <div class="home-list-div">
+      @for (app of apps$() | flDatasourceConnect | async; track app.id) {
+        <a [routerLink]="app | haDetailRoute">
+          <co-community-app-list-item
+            class="home-card"
+            [communityApp]="app"
+            [appPicture]="app.picture | haAppPicture"></co-community-app-list-item>
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="home-section">
     <a [routerLink]="agentsListRoute" class="home-section-title">
       {{ 'agents' | translate }}
     </a>
