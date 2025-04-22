@@ -412,6 +412,11 @@
       background-color: var(--card-background);
     }
 
+    // Make the table above other so the popover (add, remove row...) is above next block
+    .tc-wrap{
+      z-index: 9999;
+    }
+
     ///////////////////////// INLINE TOOLS  /////////////////////////
     code,
     te-variable-inline,

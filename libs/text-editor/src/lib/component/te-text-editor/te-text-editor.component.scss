@@ -23,3 +23,15 @@
 .button {
   z-index: 0;
 }
+
+
+@media print {
+  :host {
+    padding: 0;
+    border: none;
+  }
+  .text-container {
+    border: none;
+  }
+
+}

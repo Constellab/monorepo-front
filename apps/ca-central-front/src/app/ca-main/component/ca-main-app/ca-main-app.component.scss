@@ -113,13 +113,6 @@
   margin-bottom: 1em;
 }
 
-@media print {
-  // use to hide menu on print
-  .content {
-    margin-left: 0 !important;
-  }
-}
-
 // allow 3 characters in the badge
 .mat-badge-content {
   width: 22px;

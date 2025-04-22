@@ -7,7 +7,7 @@
         <div class="g-layout-row g-layout-between-center">
           <h1 flElementEditable (flElementValueChange)="renameDocument($event)">{{ document.name }}</h1>
 
-          <fl-card-actions class="g-print-hide">
+          <div class="g-print-hide g-layout-row g-layout-start-center">
             <button mat-stroked-button type="button" (click)="toggleEditMode()" class="button g-button-small">
               <mat-icon>{{ contentFormControl.disabled ? 'edit' : 'visibility' }}</mat-icon>
               <span>{{ (contentFormControl.disabled ? 'edit' : 'view') | translate }}</span>
@@ -21,7 +21,7 @@
             <button mat-icon-button type="button" (click)="openDocumentActionMenu(document, $event)">
               <mat-icon>more_vert</mat-icon>
             </button>
-          </fl-card-actions>
+          </div>
         </div>
 
         <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>

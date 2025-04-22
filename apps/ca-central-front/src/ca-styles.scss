@@ -163,3 +163,24 @@ body {
   padding: 3px 5px;
   border-radius: 5px;
 }
+
+/////////////////// PRINTING ////////////////////////
+@media print {
+  .g-page,
+  .g-page-fixed {
+    padding: 0 !important;
+  }
+
+  // use to prevent scrollbar on menu on print
+  // and fix width of the content
+  .mat-drawer-container {
+    display: inline !important;
+    overflow: initial !important;
+  }
+
+  // use to hide menu on print
+  .mat-drawer-content {
+    margin-left: 0 !important;
+    display: inline !important;
+  }
+}
