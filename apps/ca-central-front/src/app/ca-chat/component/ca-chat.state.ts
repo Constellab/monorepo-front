@@ -50,11 +50,39 @@ export class CaChatState {
 
     // if there is not selected folder, select the first one
     this.folderId$.pipe(first()).subscribe((folderId) => {
-      if (!folderId && folders.length > 0) {
-        this.routerService.navigateToChatFolder(folders[0].id, { replaceUrl: true });
+      if (folders.length === 0) return;
+
+      // if a folder is selected, we check that it exists and is a chat folder
+      if (folderId) {
+        let found = false;
+        for (const folder of folders) {
+          const folderWithChat = folder.getById(folderId);
+          if (folderWithChat && folderWithChat.chatEnabled) {
+            found = true;
+            break;
+          }
+        }
+        // if the selected folder is not a chat folder, we select the first one
+        if (!found) {
+          this.selectFirstFolder(folders);
+        }
+      } else {
+        // if no folder is selected, we select the first one
+        this.selectFirstFolder(folders);
       }
     });
+
     this.isLoadingSignal.set(false);
+  }
+
+  private selectFirstFolder(folders: CaChatFolder[]): void {
+    for (const folder of folders) {
+      const folderWithChat = folder.getFirstWithChatEnabled();
+      if (folderWithChat) {
+        this.routerService.navigateToChatFolder(folderWithChat.id, { replaceUrl: true });
+        return;
+      }
+    }
   }
 
   public getSelectedFolderId$(): Observable<string> {

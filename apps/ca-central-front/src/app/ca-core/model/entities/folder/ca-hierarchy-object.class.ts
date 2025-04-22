@@ -145,6 +145,36 @@ export class CaChatFolder extends CaHierarchyObjectSimple {
   children: CaChatFolder[];
 
   chatEnabled: boolean;
+
+  public getFirstWithChatEnabled(): CaChatFolder | null {
+    if (this.chatEnabled) {
+      return this;
+    }
+    if (this.children) {
+      for (const child of this.children) {
+        const result = child.getFirstWithChatEnabled();
+        if (result) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+  public getById(id: string): CaChatFolder | null {
+    if (this.id === id) {
+      return this;
+    }
+    if (this.children) {
+      for (const child of this.children) {
+        const result = child.getById(id);
+        if (result) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
 }
 
 export type CaHierarchyObjectTagDatasource = FlTagDatasource;
