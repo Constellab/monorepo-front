@@ -19,7 +19,7 @@ export class FlTree<T extends FlEntity> {
       return this;
     }
 
-    if (this.children == null) return null;
+    if (!this.childrenAreLoaded()) return null;
     for (const child of this.children) {
       const node = child.findNodeById(id);
       if (node) {
@@ -41,7 +41,7 @@ export class FlTree<T extends FlEntity> {
   }
 
   public deleteNodeById(id: string): boolean {
-    if (this.children == null) return false;
+    if (!this.childrenAreLoaded()) return false;
     const index = this.children.findIndex((child) => child.id === id);
     if (index > -1) {
       this.children.splice(index, 1);
@@ -70,7 +70,7 @@ export class FlTree<T extends FlEntity> {
   }
 
   public addOrReplaceDirectChild(child: FlTree<T>): void {
-    if (this.children == null) {
+    if (!this.childrenAreLoaded()) {
       this.children = [];
     }
 
@@ -116,5 +116,9 @@ export class FlTree<T extends FlEntity> {
 
   public hasNode(id: string): boolean {
     return this.findNodeById(id) != null;
+  }
+
+  public childrenAreLoaded(): boolean {
+    return this.children != null;
   }
 }

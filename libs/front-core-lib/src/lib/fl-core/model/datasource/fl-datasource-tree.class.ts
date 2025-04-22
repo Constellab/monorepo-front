@@ -36,6 +36,10 @@ export class FlDatasourceTree<T extends FlEntity> {
     return this.tree.findNodeObjectById(nodeId);
   }
 
+  public findNode(nodeId: string): FlTree<T> | null {
+    return this.tree.findNodeById(nodeId);
+  }
+
   public findNodeObject$(nodeId: string): Observable<T | null> {
     return this.tree$.pipe(map((tree) => tree.findNodeObjectById(nodeId)));
   }

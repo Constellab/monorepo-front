@@ -41,8 +41,6 @@ import { CaFolderService } from '../../../../service-api/ca-folder.service';
   ],
 })
 export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
-  @Input() hierarchyObjects$: Observable<CaHierarchyObjectSimple[]>;
-
   hierarchyObjects = input.required<CaHierarchyObjectsTreeDatasource>();
 
   @Input({ required: true }) selectedObject$: Observable<string>;
@@ -78,7 +76,7 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
     // expand all the ancestors
     for (const ancestor of ancestors) {
       // don't expand if the children are not loaded
-      if (ancestor.children != null) {
+      if (ancestor.childrenAreLoaded()) {
         this.matTree().expand(ancestor);
       }
     }
@@ -89,7 +87,7 @@ export class CaHierarchyObjectTreeComponent implements OnInit, OnDestroy {
   }
 
   onExpand(node: FlTree<CaHierarchyObjectSimple>): void {
-    if (this.enableLazyChildrenLoading() && node.children == null) {
+    if (this.enableLazyChildrenLoading() && !node.childrenAreLoaded()) {
       this.folderService.getChildFolders(node.id).subscribe({
         next: (children) => this.onNewNode(children),
         error: () => {

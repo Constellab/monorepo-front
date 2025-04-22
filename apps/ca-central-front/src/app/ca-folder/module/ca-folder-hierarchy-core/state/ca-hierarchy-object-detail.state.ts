@@ -215,6 +215,21 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   }
 
   public addHierarchyFolderInTree(folders: CaHierarchyObjectSimple[]): void {
+    // if we add a folder to a parent folder where children are not loaded
+    // we force to load all the children of parent folder
+    // otherwise only this folder is added to parent folder but not its siblings
+    const loadedParents: string[] = [];
+    for (const object of folders) {
+      const parent = this.folderTree.findNode(object.parentId);
+      if (parent && !parent.childrenAreLoaded() && !loadedParents.includes(object.parentId)) {
+        // load children of parent folder
+        this.folderService
+          .getChildFolders(object.parentId)
+          .subscribe((children) => this.folderTree.addHierarchyObjects(children));
+        loadedParents.push(object.parentId);
+      }
+    }
+
     this.folderTree.addHierarchyObjects(folders);
   }
 
