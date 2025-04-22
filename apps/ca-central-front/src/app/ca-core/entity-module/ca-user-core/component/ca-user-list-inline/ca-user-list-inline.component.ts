@@ -107,7 +107,7 @@ export class CaUserListInlineComponent
     if (this.userDatasource) {
       this.additionalUserLength = this.userDatasource.page.totalElements - this.previewListSize;
     } else {
-      this.additionalUserLength = this.value.additionalUsers.length - this.previewListSize;
+      this.additionalUserLength = this.value.additionalUsers.length;
     }
 
     if (this.tempSelectedUser?.length > 0) {
