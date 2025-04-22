@@ -1,6 +1,6 @@
 <fl-infinite-scroll [datasource]="datasource">
   @for (cloudProvider of cloudProviders$ | async; track cloudProvider.id) {
-    <mat-option>
+    <mat-option [value]="cloudProvider">
       <ca-cloud-provider-inline [cloudProvider]="cloudProvider"></ca-cloud-provider-inline>
     </mat-option>
   }
