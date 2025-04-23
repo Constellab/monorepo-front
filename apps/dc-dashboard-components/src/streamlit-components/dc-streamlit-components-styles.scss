@@ -19,3 +19,8 @@
 .mat-icon svg {
   vertical-align: initial;
 }
+
+// fix streamlit override on mat button
+.mat-mdc-button-base{
+  line-height: initial;
+}
