@@ -25,7 +25,7 @@ export interface DcProcessConfigConfig {
 }
 
 @Component({
-  selector: 'dc-root',
+  selector: 'dc-process-config',
   imports: [
     FlDynamicFieldModule,
     ReactiveFormsModule,

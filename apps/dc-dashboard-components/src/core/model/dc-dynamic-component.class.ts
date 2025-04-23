@@ -16,6 +16,7 @@ export enum DcDynamicComponentEnum {
   SELECT_RESOURCE = 'select-resource',
   TEXT_EDITOR = 'text-editor',
   PROCESS_CONFIG = 'process-config',
+  MENU_BUTTON = 'menu-button',
 }
 
 

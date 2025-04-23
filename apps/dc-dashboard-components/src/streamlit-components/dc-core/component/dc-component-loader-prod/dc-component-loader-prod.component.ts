@@ -13,6 +13,12 @@ import { DcMainToIframeEventEmitter } from '../../../../core/iframe-event/dc-ifr
 import { DcComponentLoaderService } from '../../service/dc-component-loader.service';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
 
+/**
+ * Component used in production mode to load the dynamic component
+ * It is running in the main app (not in the iframe)
+ * and it loads the component in the main app
+ * when it receives the init message from the iframe
+ */
 @Component({
   selector: 'dc-root',
   imports: [],

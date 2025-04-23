@@ -90,6 +90,9 @@ export class DcComponentLoaderService implements OnDestroy {
           '../../dc-components/dc-process-config/dc-process-config.component'
         );
         return DcProcessConfigComponent;
+      case DcDynamicComponentEnum.MENU_BUTTON:
+        const { DcMenuComponent } = await import('../../dc-components/dc-menu/dc-menu.component');
+        return DcMenuComponent;
       default:
         throw new Error(`Unknown component type: ${dynamicComponent}`);
     }

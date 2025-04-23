@@ -24,7 +24,7 @@ export interface DcRichTextConfig {
 @Component({
   standalone: true,
   imports: [TeTextEditorModule, ReactiveFormsModule, FlTranslateModule],
-  selector: 'dc-root',
+  selector: 'dc-text-editor',
   templateUrl: './dc-text-editor.component.html',
   styleUrl: './dc-text-editor.component.scss',
   hostDirectives: [DcCoreMainDirective],
