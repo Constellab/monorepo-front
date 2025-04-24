@@ -1,5 +1,6 @@
 <div class="left-panel" *haIsGencoveryMember>
-  <button mat-flat-button type="button" (click)="openCreateIconDialog()">
+  <mat-icon class="button-close-left-panel" haSidenavButton></mat-icon>
+  <button mat-flat-button type="button" (click)="openCreateIconDialog()" class="create-button">
     <mat-icon>create</mat-icon>
     {{ 'create' | translate }}
   </button>

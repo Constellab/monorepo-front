@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: calc(60rem + 32px);
+  max-width: 100%;
 }
 
 .tech-div {
@@ -38,22 +39,18 @@
 
 .brick-like-edit-button-div {
   display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-}
-
-.brick-like-edit-button-top {
-  margin-top: 3em;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .brick-like-edit-button {
-  padding-left: 1em;
   display: flex;
   flex-direction: row;
   gap: 1.5em;
   align-items: center;
   justify-content: end;
-  max-width: 375px;
+  width: auto;
 }
 
 .brick-like {
@@ -136,20 +133,17 @@ h2 {
   }
 }
 
-@media (max-width: 900px) {
-  .title-div {
-    justify-content: normal;
+@media (max-width: 965px) {
+  .brick-like-edit-button-div{
+    width: 100%;
   }
 
-  .brick-like-edit-button-div {
-    margin-right: 11px;
+  .title-div {
+    justify-content: normal;
   }
 }
 
 @media (max-width: 800px) {
-  .brick-like-edit-button {
-    justify-content: start;
-  }
 
   .title-div > .icon-title {
     width: calc(100% - 1em);
@@ -171,15 +165,6 @@ h2 {
     flex-direction: column;
     align-items: start;
     gap: 1em;
-  }
-
-  .brick-like-edit-button {
-    padding-left: 0;
-    width: 100%;
-
-    .brick-like {
-      margin-left: auto;
-    }
   }
   .icon-title {
     max-width: 100%;

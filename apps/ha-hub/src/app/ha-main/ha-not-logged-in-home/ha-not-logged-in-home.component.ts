@@ -92,7 +92,7 @@ export class HaNotLoggedInHomeComponent {
 
   selectedVideoIndex: number = 0;
 
-  video_sections = ['stories', 'agents', 'bricks'];
+  video_sections = ['stories', 'agents', 'bricks']; //TODO: Add 'apps'
 
   selectVideo(index: number): void {
     this.selectedVideoIndex = index;

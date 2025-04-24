@@ -25,15 +25,15 @@ export const haCommunityAppRoutes: Route[] = [
       {
         path: '',
         loadComponent: () =>
-          import('./components/ha-community-app-detail/ha-community-app-detail.component').then(
-            (m) => m.HaCommunityAppDetailComponent
+          import('./components/ha-community-app/ha-community-app.component').then(
+            (m) => m.HaCommunityAppComponent
           ),
       },
       {
-        path: 'app',
+        path: 'detail',
         loadComponent: () =>
-          import('./components/ha-community-app/ha-community-app.component').then(
-            (m) => m.HaCommunityAppComponent
+          import('./components/ha-community-app-detail/ha-community-app-detail.component').then(
+            (m) => m.HaCommunityAppDetailComponent
           ),
       },
     ],

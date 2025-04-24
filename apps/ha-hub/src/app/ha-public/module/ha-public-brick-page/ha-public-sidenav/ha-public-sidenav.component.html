@@ -3,7 +3,7 @@
   @if (brick()) {
     <div class="brick-name-div">
       <h4 class="brick-name" [ngClass]="userHasEditRight() ? 'smaller-brick-name' : ''">
-        gws_plate_reader_long_de_fou_comme_nom - {{ pathVersion() }}
+        {{ brick().name }}
       </h4>
 
       @if (userHasEditRight()) {
@@ -12,9 +12,6 @@
         </button>
       }
     </div>
-
-
-    <mat-divider class="divider"></mat-divider>
   }
 
   <div class="sidenav g-scrollable-element">

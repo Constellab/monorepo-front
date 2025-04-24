@@ -124,6 +124,13 @@
   }
 }
 
+@media (max-width: 1160px) {
+  .nav-bar{
+    max-width: calc(100% - 40px);
+    margin-left: 40px;
+  }
+}
+
 @media (max-width: 1024px) {
   .utilities {
     gap: 0.8em;

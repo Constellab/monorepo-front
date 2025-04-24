@@ -13,12 +13,20 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { HaIconListComponent } from '../ha-icon-list/ha-icon-list.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
 
 @Component({
   selector: 'ha-icons-page',
   templateUrl: './ha-icons-page.component.html',
   styleUrls: ['./ha-icons-page.component.scss'],
-  imports: [HaIsGencoveryMemberDirective, MatButton, MatIcon, HaIconListComponent, TranslatePipe],
+  imports: [
+    HaIsGencoveryMemberDirective,
+    MatButton,
+    MatIcon,
+    HaIconListComponent,
+    TranslatePipe,
+    HaSidenavButtonDirective,
+  ],
 })
 export class HaIconsPageComponent extends HaCommunityPageDirective implements OnInit, OnDestroy {
   private dialogService: FlDialogService = inject(FlDialogService);

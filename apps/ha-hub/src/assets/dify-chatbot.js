@@ -80,7 +80,19 @@
             cursor: pointer;
             z-index: 2147483647;
           }
-        `);
+        `)
+          var e2 = document.createElement("style");
+          document.head.appendChild(e2),
+            e2.sheet.insertRule(`
+            @media (max-width: 965px) {
+              #${n.id} {
+                bottom: var(--${n.id}-bottom, 4rem);
+                right: var(--${n.id}-right, 0.5rem);
+              }
+            }
+          `);
+
+
           let t = document.createElement("div");
           if (
             ((t.style.cssText = "position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 2147483647;"),

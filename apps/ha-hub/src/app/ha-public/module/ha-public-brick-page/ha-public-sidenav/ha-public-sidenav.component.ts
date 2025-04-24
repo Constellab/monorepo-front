@@ -51,7 +51,6 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { MatDivider } from '@angular/material/divider';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
@@ -74,7 +73,6 @@ import { MatTooltip } from '@angular/material/tooltip';
     CdkDropList,
     CdkDrag,
     MatTreeNodeToggle,
-    MatDivider,
     MatTooltip,
   ],
 })

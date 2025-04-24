@@ -11,6 +11,8 @@
 }
 
 .top-menu {
+  max-width: calc(100% - 40px);
+  margin-left: 40px;
   display: flex;
   flex-direction: row;
   padding: 0 1em;

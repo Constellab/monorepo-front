@@ -111,6 +111,7 @@ h5 {
   left: var(--margin-side);
   transition: 0.2s;
   padding-top: 30px;
+  height: 100vh;
 
   .left-panel-separator {
     width: 100%;
@@ -135,8 +136,8 @@ h5 {
 .button-close-left-panel {
   display: none !important;
   position: fixed;
-  left: 0.5em;
-  top: calc(var(--navbar-height) - 5px);
+  left: 12px;
+  top: 16px;
   z-index: 3;
   cursor: pointer;
 }
@@ -304,21 +305,19 @@ h5 {
   }
 
   .left-panel {
-    top: var(--navbar-height);
+    top: 0;
     left: -100%;
-    height: calc(100vh - var(--navbar-height));
     background-color: var(--main-background);
     z-index: 200;
-    padding: 0 8px;
-    // box shadow right border
+    padding: 2rem 8px 0 8px;
     box-shadow: 10px 0px 5px -4px rgba(0, 0, 0, 0.2);
-
+    height: calc(100vh - 2rem);
   }
 }
 
 @media (max-width: 965px) {
   .left-panel {
-    height: calc(100vh - var(--navbar-height) - var(--small-navbar-height));
+    height: calc(100vh - var(--small-navbar-height) - 2rem);
   }
 }
 

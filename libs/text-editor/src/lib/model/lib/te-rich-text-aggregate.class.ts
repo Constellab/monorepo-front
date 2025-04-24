@@ -8,7 +8,7 @@ import {
   TeRichTextBlockModificationWithUser,
   TeRichTextGetUserFunction,
 } from './te-rich-text-block-modification.dto';
-import { TeBlock } from './te-block.class';
+import { TeBlock, TeBlockType } from './te-block.class';
 import { TeRichTextModifications } from './te-rich-text-modifications.class';
 
 /**
@@ -158,6 +158,11 @@ export class TeRichTextAggregate {
           index,
           userId
         );
+        if (modif.blockType == TeBlockType.LIST) {
+          if ('meta' in block.data) delete block.data['meta'];
+          if ('meta' in oldBlock.data) delete oldBlock.data['meta'];
+        }
+
         modif.blockValue = block.data;
         // get the differences between the old block data and the new block data,
         // we stringify the data to compare them as string with the lib diff
