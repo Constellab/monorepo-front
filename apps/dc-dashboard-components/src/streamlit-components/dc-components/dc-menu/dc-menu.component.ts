@@ -28,6 +28,7 @@ export interface DcMenuConfig {
 
 interface DcMenuItemOutput {
   button_key: string;
+  timestamp: number;
 }
 
 /**
@@ -68,6 +69,6 @@ export class DcMenuComponent implements DcDynamicComponent<DcMenuConfig, DcMenuI
   }
 
   private emitButtonEvent(id: string): void {
-    this.outputEvent.emit({ button_key: id });
+    this.outputEvent.emit({ button_key: id, timestamp: Date.now() });
   }
 }
