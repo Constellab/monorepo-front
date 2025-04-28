@@ -7,6 +7,7 @@ import { ClSupportedLanguage } from '@monorepo/core-lib';
  */
 const tdTechnicalDocI18nFr: FlLangTranslation = {
   td: {
+    name: 'Nom',
     input: 'Entrée',
     output: 'Sortie',
     configuration: 'Configuration',
@@ -75,6 +76,7 @@ const tdTechnicalDocI18nFr: FlLangTranslation = {
 
 const tdTechnicalDocI18nEn: FlLangTranslation = {
   td: {
+    name: 'Name',
     input: 'Input',
     output: 'Output',
     configuration: 'Configuration',
