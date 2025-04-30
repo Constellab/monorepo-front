@@ -26,6 +26,7 @@ import { CaSelectCloudProviderRegionOptionsComponent } from '../../../ca-cloud-p
 import { MatButton } from '@angular/material/button';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 
 export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminForm> {
   id?: string; // only on update mode
@@ -65,6 +66,7 @@ export interface CaLabAdminFormDialogInput extends FlFormDialogInput<CaLabAdminF
     MatButton,
     FlCorePipeModule,
     TranslatePipe,
+    FlTextIconModule,
   ],
 })
 export class CaLabAdminFormDialogComponent
@@ -121,6 +123,7 @@ export class CaLabAdminFormDialogComponent
       codelabToken: [null],
       serverInstanceId: [null],
       serverVolumeId: [null],
+      serverIpAddressId: [null],
       cloudName: [null],
       gwsCoreProdDbPassword: [null],
       gwsCoreDevDbPassword: [null],
@@ -157,6 +160,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('codelabToken').enable();
         this.formGp.get('serverInstanceId').enable();
         this.formGp.get('serverVolumeId').enable();
+        this.formGp.get('serverIpAddressId').enable();
         this.formGp.get('region').enable();
 
         this.formGp.get('desktopPlatform').disable();
@@ -180,6 +184,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('billingMode').disable();
         this.formGp.get('serverInstanceId').disable();
         this.formGp.get('serverVolumeId').disable();
+        this.formGp.get('serverIpAddressId').disable();
         this.formGp.get('desktopPlatform').disable();
         this.formGp.get('region').disable();
         this.formGp.get('volumeSize').disable();
@@ -201,6 +206,7 @@ export class CaLabAdminFormDialogComponent
         this.formGp.get('codelabToken').disable();
         this.formGp.get('serverInstanceId').disable();
         this.formGp.get('serverVolumeId').disable();
+        this.formGp.get('serverIpAddressId').disable();
         this.formGp.get('region').disable();
         this.formGp.get('volumeSize').disable();
         this.formGp.get('volumeType').disable();

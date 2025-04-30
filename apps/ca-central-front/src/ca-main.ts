@@ -155,7 +155,7 @@ if (environment.production) {
   // (environment is not loaded before bootstraping the app)
   environment.settings = {
     apiUrl: 'http://localhost:3001',
-    communityApiUrl: 'http://localhost:3333',
+    communityApiUrl: 'https://hub-back-pre-prod.constellab-pre-prod.gencovery.com',
     communityFrontUrl: 'http://localhost:4200',
     frontDomain: 'localhost',
     captchaSiteKey: '123456',

@@ -69,6 +69,7 @@
 }
 
 .g-embed-inline-code {
+  @include g-embed-inline-block();
   @include g-embed-inline-code();
 }
 

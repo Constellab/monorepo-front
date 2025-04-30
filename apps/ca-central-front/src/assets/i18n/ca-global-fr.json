@@ -282,5 +282,6 @@
   "archived": "Archivé",
   "draft": "Brouillon",
   "stopped": "Arrêté",
-  "date_picker_placeholder": "jj/mm/aaaa"
+  "date_picker_placeholder": "jj/mm/aaaa",
+  "update": "Modifier"
 }

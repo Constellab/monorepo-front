@@ -1,8 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { CaLabService } from '../../ca-core/service-api/ca-lab.service';
-import {
-  CaLabServerCompleteInfoDialogComponent,
-} from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
+import { CaLabServerCompleteInfoDialogComponent } from '../component/server/ca-lab-server-complete-info-dialog/ca-lab-server-complete-info-dialog.component';
 import { CaLabDetailPageState } from './ca-lab-detail-page.state';
 import {
   FlConfirmDialogInput,
@@ -109,6 +107,7 @@ export class CaLabDetailServerState {
     const input: FlConfirmDialogInput = {
       title: 'lab_delete_server',
       content: 'lab_delete_server_confirmation',
+      confirmWithText: this.state.getLabId(),
     };
 
     this.openDialog(input, this.labService.deleteServer(this.state.getLabId()));

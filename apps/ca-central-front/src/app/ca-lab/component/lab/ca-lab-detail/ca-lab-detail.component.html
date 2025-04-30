@@ -7,7 +7,7 @@
           flElementEditable
           [flElementDisabled]="(isOwner$ | async) !== true"
           (flElementValueChange)="updateLabName($event, lab)">
-          {{ lab.name | translate }}
+          {{ lab.name }}
         </h2>
       </fl-text-icon>
 

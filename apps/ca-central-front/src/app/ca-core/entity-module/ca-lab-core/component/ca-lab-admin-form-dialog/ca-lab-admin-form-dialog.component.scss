@@ -6,6 +6,10 @@
   display: grid;
 }
 
+.subtitle {
+  grid-column: span 2;
+}
+
 .radio-button {
   width: 49%;
   box-sizing: border-box;

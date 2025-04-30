@@ -47,6 +47,7 @@ export enum CaBucketType {
   NORMAL = 'NORMAL',
   AZURE = 'AZURE', // azure blob storage
   LAB = 'LAB', // bucket hosted on a lab
+  GCP = 'GCP', // bucket hosted on GCP
 }
 
 export class CaBucket extends CaBaseEntity {

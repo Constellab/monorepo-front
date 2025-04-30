@@ -19,7 +19,7 @@
       </div>
       <!-- Small menu -->
       <mat-menu #menu="matMenu" xPosition="before">
-        @for (item of items; track item) {
+        @for (item of items; track item.route) {
           <a
             mat-menu-item
             [routerLink]="item.route"
@@ -37,7 +37,7 @@
     <!-- Large menu -->
     @if ((showSmallMenu$ | async) === false) {
       <div>
-        @for (item of items; track item) {
+        @for (item of items; track item.route) {
           <a
             mat-button
             class="nav-item"

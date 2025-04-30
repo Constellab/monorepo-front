@@ -107,7 +107,9 @@
               <mat-error>{{ 'lab_virtual_host_pattern_error' | translate }}</mat-error>
             }
             @if (formGp.get('virtualHost').hasError('invalid')) {
-              <mat-error>{{ 'lab_virtual_host_domain_error' | translate: { domain: supportedDomainsText } }}</mat-error>
+              <mat-error
+                >{{ 'lab_virtual_host_domain_error' | translate: { domain: supportedDomainsText } }}
+              </mat-error>
             }
           </mat-form-field>
         }
@@ -215,6 +217,11 @@
               }
             </div>
           }
+
+          <fl-text-icon class="subtitle">
+            <mat-icon>cloud</mat-icon>
+            <h3>{{ 'cloud_provider' | translate }}</h3>
+          </fl-text-icon>
           <!--  Server instance id  -->
           <mat-form-field>
             <mat-label>{{ 'lab_server_instance_id' | translate }}</mat-label>
@@ -233,6 +240,15 @@
               flInputMaxLength="255"
               [placeholder]="'lab_server_volume_id' | translate" />
           </mat-form-field>
+          <!--  Ip address id  -->
+          <mat-form-field>
+            <mat-label>{{ 'lab_server_ip_address_id' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="serverIpAddressId"
+              flInputMaxLength="255"
+              [placeholder]="'lab_server_ip_address_id' | translate" />
+          </mat-form-field>
           <!--  Cloud name  -->
           <mat-form-field>
             <mat-label>{{ 'lab_cloud_name' | translate }}</mat-label>
@@ -245,15 +261,11 @@
         }
 
         @if (isOnServer()) {
-          <!--  Lab manager Api key  -->
-          <mat-form-field>
-            <mat-label>{{ 'lab_manager_api_key' | translate }}</mat-label>
-            <input
-              matInput
-              formControlName="labManagerApiKey"
-              flInputMaxLength="255"
-              [placeholder]="'lab_manager_api_key' | translate" />
-          </mat-form-field>
+          <fl-text-icon class="subtitle">
+            <mat-icon>engineering</mat-icon>
+            <h3>{{ 'lab_manager' | translate }}</h3>
+          </fl-text-icon>
+
           <!--  Glab Prod Api key  -->
           <mat-form-field>
             <mat-label>{{ 'glab_prod_api_key' | translate }}</mat-label>
@@ -289,6 +301,15 @@
               formControlName="gwsCoreDevDbPassword"
               flInputMaxLength="255"
               [placeholder]="'lab_gws_core_dev_db_password' | translate" />
+          </mat-form-field>
+          <!--  Lab manager Api key  -->
+          <mat-form-field>
+            <mat-label>{{ 'lab_manager_api_key' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="labManagerApiKey"
+              flInputMaxLength="255"
+              [placeholder]="'lab_manager_api_key' | translate" />
           </mat-form-field>
           <!--  Codelab token  -->
           <mat-form-field>

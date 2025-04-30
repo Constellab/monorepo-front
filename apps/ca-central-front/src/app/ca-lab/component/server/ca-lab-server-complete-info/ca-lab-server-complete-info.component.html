@@ -4,16 +4,8 @@
   @if (serverCompleteInfo.instance) {
     <div>
       <fl-key-value>
-        <fl-key>{{ 'name' | translate }}</fl-key>
-        {{ serverCompleteInfo.instance.name }}
-      </fl-key-value>
-      <fl-key-value>
         <fl-key>{{ 'status' | translate }}</fl-key>
-        {{ serverCompleteInfo.instance.status }}
-      </fl-key-value>
-      <fl-key-value>
-        <fl-key>{{ 'lab_ip_address' | translate }}</fl-key>
-        {{ serverCompleteInfo.instance.ipv4 }}
+        {{ serverCompleteInfo.instance.status.status }} - {{ serverCompleteInfo.instance.status.message }}
       </fl-key-value>
       <fl-key-value>
         <fl-key>{{ 'region' | translate }}</fl-key>
@@ -43,10 +35,6 @@
   @if (serverCompleteInfo.volume) {
     <div>
       <fl-key-value>
-        <fl-key>{{ 'name' | translate }}</fl-key>
-        {{ serverCompleteInfo.instance.name }}
-      </fl-key-value>
-      <fl-key-value>
         <fl-key>{{ 'status' | translate }}</fl-key>
         {{ serverCompleteInfo.volume.status }}
       </fl-key-value>
@@ -63,10 +51,6 @@
         {{ serverCompleteInfo.volume.region }}
       </fl-key-value>
       <fl-key-value>
-        <fl-key>{{ 'lab_volume_attached_to' | translate }}</fl-key>
-        {{ serverCompleteInfo.volume.attachedTo }}
-      </fl-key-value>
-      <fl-key-value>
         <fl-key>{{ 'id' | translate }}</fl-key>
         {{ serverCompleteInfo.volume.id }}
       </fl-key-value>
@@ -77,6 +61,33 @@
     </div>
   } @else {
     <fl-error-text [errorMessage]="'lab_no_server_volume' | translate"></fl-error-text>
+  }
+</div>
+
+<!-- Ip address  -->
+<div class="g-section">
+  <h2>{{ 'lab_server_ip_address' | translate }}</h2>
+  @if (serverCompleteInfo.ipAddress) {
+    <div>
+      <fl-key-value>
+        <fl-key>{{ 'name' | translate }}</fl-key>
+        {{ serverCompleteInfo.ipAddress.id }}
+      </fl-key-value>
+      <fl-key-value>
+        <fl-key>{{ 'lab_ip_address' | translate }}</fl-key>
+        {{ serverCompleteInfo.ipAddress.ipAddress }}
+      </fl-key-value>
+      <fl-key-value>
+        <fl-key>{{ 'region' | translate }}</fl-key>
+        {{ serverCompleteInfo.ipAddress.region }}
+      </fl-key-value>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>{{ 'lab_detail_object' | translate }}</mat-expansion-panel-header>
+        <fl-pretty-json [object]="serverCompleteInfo.ipAddress.originalObject"></fl-pretty-json>
+      </mat-expansion-panel>
+    </div>
+  } @else {
+    <fl-error-text [errorMessage]="'no_lab_server_ip_address' | translate"></fl-error-text>
   }
 </div>
 

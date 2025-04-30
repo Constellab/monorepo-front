@@ -25,6 +25,7 @@ export class CaLabAdminForm {
   codelabToken?: string;
   serverInstanceId?: string;
   serverVolumeId?: string;
+  serverIpAddressId?: string;
   gwsCoreProdDbPassword?: string;
   gwsCoreDevDbPassword?: string;
 
