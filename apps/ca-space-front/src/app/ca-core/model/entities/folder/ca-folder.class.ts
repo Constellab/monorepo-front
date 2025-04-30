@@ -65,7 +65,7 @@ export class CnSaveFolderDTO {
 }
 
 /**
- * Interface representing an object inside a folder that can be validated and synchronized with central
+ * Interface representing an object inside a folder that can be validated and synchronized with space
  */
 export interface CaFolderObject extends FlEntity {
   isValidated: boolean;

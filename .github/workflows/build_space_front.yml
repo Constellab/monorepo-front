@@ -1,4 +1,4 @@
-name: Main Workflow central front
+name: Main Workflow space front
 
 on:
   push:
@@ -10,10 +10,10 @@ jobs:
     uses: ./.github/workflows/build_github_package.yml
     with:
       registry: ghcr.io
-      image_name: ghcr.io/constellab/central-front
+      image_name: ghcr.io/constellab/space-front
       github_ref: ${{ github.ref }}
       tag_prefix: ca_
-      dockerfile_path: ./apps/ca-central-front/Dockerfile
+      dockerfile_path: ./apps/ca-space-front/Dockerfile
     secrets:
       registry_username: ${{ github.actor }}
       registry_password: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,27 @@
+{
+  "name": "ca-space-front-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ca-space-front-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/ca-space-front-e2e/cypress.json",
+        "tsConfig": "apps/ca-space-front-e2e/tsconfig.e2e.json",
+        "devServerTarget": "ca-space-front:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ca-space-front:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/ca-space-front-e2e/**/*.{js,ts}"]
+      }
+    }
+  }
+}

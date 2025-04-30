@@ -16,16 +16,16 @@ describe('CaAppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ca-central-front'`, () => {
+  it(`should have as title 'ca-space-front'`, () => {
     const fixture = TestBed.createComponent(CaAppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ca-central-front');
+    expect(app.title).toEqual('ca-space-front');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(CaAppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ca-central-front app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('ca-space-front app is running!');
   });
 });

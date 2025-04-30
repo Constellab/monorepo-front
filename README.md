@@ -6,16 +6,16 @@ All the app and libraries hava a prefix to simplify search
 
 ## Apps
 
-### Central front : Ca
+### Space front : Ca
 
-The angular front app for central (constellab).
+The angular front app for space (constellab).
 
 Prefix : Ca
 
 To build the app, push a tag with the version number and the prefix 'ca\_'.
 For example, to build the version 1.0.0, push the tag `ca_1.0.0`.
 
-Then execute the npm script `ca-central-front:caprover-deploy-preprod` or `ca-central-front:caprover-deploy-prod`
+Then execute the npm script `ca-space-front:caprover-deploy-preprod` or `ca-space-front:caprover-deploy-prod`
 to deploy the app to caprover. Be careful of the image tag.
 
 ### Lab front
