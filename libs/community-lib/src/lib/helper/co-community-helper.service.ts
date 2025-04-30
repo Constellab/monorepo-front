@@ -6,7 +6,7 @@ import { ClBrick } from '@monorepo/core-lib';
 export type CoBrickVersionPath = 'latest' | string;
 
 /**
- * Class to get url of the hub
+ * Class to get url of community
  */
 @Injectable({
   providedIn: 'root',

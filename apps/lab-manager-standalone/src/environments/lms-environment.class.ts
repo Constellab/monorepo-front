@@ -16,10 +16,10 @@ export interface LmsEnvironmentSettings {
   // base url for the api
   apiUrl: string;
 
-  // base url for the hub api
+  // base url for the community api
   communityApiUrl: string;
 
-  // url for the hub
+  // url for community
   communityFrontUrl: string;
 }
 

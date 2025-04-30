@@ -24,15 +24,3 @@ export const environment: HaEnvironment = {
     difyChatbotToken: ''
   },
 };
-
-// PREPROD
-// apiUrl: 'https://hub-back-pre-prod.constellab-pre-prod.gencovery.com',
-// constellabApiUrl: 'https://api.preconstellab.com',
-// constellabUrl: 'https://preconstellab.com',
-// hubUrl: 'https://hub-pre-prod.gencovery.com',
-
-// PROD
-// apiUrl: 'https://api.constellab.community',
-// constellabApiUrl: 'https://api.constellab.space',
-// constellabUrl: 'https://constellab.space',
-// hubUrl: 'https://constellab.community',

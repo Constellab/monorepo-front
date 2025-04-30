@@ -1,26 +1,26 @@
 {
   "name": "ha-documentation-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/ha-hub-e2e/src",
+  "sourceRoot": "apps/ha-community-front-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/ha-hub-e2e/cypress.json",
-        "tsConfig": "apps/ha-hub-e2e/tsconfig.e2e.json",
-        "devServerTarget": "ha-hub:serve"
+        "cypressConfig": "apps/ha-community-front-e2e/cypress.json",
+        "tsConfig": "apps/ha-community-front-e2e/tsconfig.e2e.json",
+        "devServerTarget": "ha-community-front:serve"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "ha-hub:serve:production"
+          "devServerTarget": "ha-community-front:serve:production"
         }
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/ha-hub-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/ha-community-front-e2e/**/*.{js,ts}"]
       }
     }
   }

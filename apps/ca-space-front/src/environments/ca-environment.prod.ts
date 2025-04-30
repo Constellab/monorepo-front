@@ -17,15 +17,3 @@ export const environment: CaEnvironment = {
     captchaSiteKey: '',
   },
 };
-
-// PREPROD
-// apiUrl: 'https://api.preconstellab.com',
-// communityApiUrl: 'https://hub-back-pre-prod.constellab-pre-prod.gencovery.com',
-// communityFrontUrl: 'https://hub-pre-prod.gencovery.com',
-// frontDomain: 'preconstellab.com',
-
-// PROD
-// apiUrl: 'https://api.constellab.space',
-// communityApiUrl: 'https://hub-back.constellab.gencovery.com',
-// communityFrontUrl: 'https://constellab.community',
-// frontDomain: 'constellab.space',

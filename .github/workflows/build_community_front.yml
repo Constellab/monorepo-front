@@ -1,4 +1,4 @@
-name: Main Workflow hub front
+name: Main Workflow community front
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
       image_name: ghcr.io/constellab/community-front
       github_ref: ${{ github.ref }}
       tag_prefix: ha_
-      dockerfile_path: ./apps/ha-hub/Dockerfile
+      dockerfile_path: ./apps/ha-community-front/Dockerfile
     secrets:
       registry_username: ${{ github.actor }}
       registry_password: ${{ secrets.GITHUB_TOKEN }}

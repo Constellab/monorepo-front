@@ -168,7 +168,7 @@ export class HaRouterService {
 
   // --------------------------------------------------------------------------------------------
 
-  //Check if the url is valid for the hub
+  //Check if the url is valid for community
   public static isAValidDocUrl(link: string): [boolean, boolean] {
     if (link.startsWith(this.getAppUrl())) {
       link = link.slice(this.getAppUrl().length);

@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'ha-hub',
+  displayName: 'ha-community-front',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {},
-  coverageDirectory: '../../coverage/apps/ha-hub',
+  coverageDirectory: '../../coverage/apps/ha-community-front',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

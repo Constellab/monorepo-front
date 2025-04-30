@@ -30,7 +30,7 @@ export class TranslateServerLoader implements TranslateLoader {
                     'utf8'
                   )
                 : readFileSync(
-                    resolve(__dirname, `../../../apps/ha-hub/src/assets/i18n/${file}${lang}${this.suffix}`),
+                    resolve(__dirname, `../../../apps/ha-community-front/src/assets/i18n/${file}${lang}${this.suffix}`),
                     'utf8'
                   )
             )

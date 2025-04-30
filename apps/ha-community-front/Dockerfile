@@ -9,7 +9,7 @@ RUN npm ci
 
 COPY . .
 
-RUN npm run ha-hub:build-prod
+RUN npm run ha-community-front:build-prod
 
 # Production step
 FROM node:20-alpine3.20 AS production
@@ -17,7 +17,7 @@ FROM node:20-alpine3.20 AS production
 WORKDIR /app
 # Copy the entry point
 
-COPY apps/ha-hub/entrypoint.sh /entrypoint.sh
+COPY apps/ha-community-front/entrypoint.sh /entrypoint.sh
 
 COPY --from=buildContainer /app/dist /app/dist
 

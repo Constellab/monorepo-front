@@ -113,7 +113,7 @@ if (environment.production) {
   // (environment is not loaded before bootstraping the app)
   environment.settings = {
     apiUrl: 'http://localhost:3080',
-    communityApiUrl: 'https://hub-back-pre-prod.constellab-pre-prod.gencovery.com',
+    communityApiUrl: 'https://community-api-pre-prod.constellab-pre-prod.gencovery.com',
     communityFrontUrl: 'http://localhost:4200',
   };
   bootstrapApp();

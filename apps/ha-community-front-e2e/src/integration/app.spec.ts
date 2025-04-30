@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('ha-hub', () => {
+describe('ha-community-front', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('ha-hub', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to ha-hub!');
+    getGreeting().contains('Welcome to ha-community-front!');
   });
 });

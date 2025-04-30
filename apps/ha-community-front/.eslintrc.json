@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["apps/ha-hub/tsconfig.*?.json"]
+        "project": ["apps/ha-community-front/tsconfig.*?.json"]
       },
       "rules": {
         "@angular-eslint/directive-selector": [

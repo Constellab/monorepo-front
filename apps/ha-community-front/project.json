@@ -1,27 +1,27 @@
 {
-  "name": "ha-hub",
+  "name": "ha-community-front",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/ha-hub/src",
+  "sourceRoot": "apps/ha-community-front/src",
   "prefix": "ha",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/ha-hub",
-        "index": "apps/ha-hub/src/index.html",
-        "browser": "apps/ha-hub/src/main.ts",
+        "outputPath": "dist/apps/ha-community-front",
+        "index": "apps/ha-community-front/src/index.html",
+        "browser": "apps/ha-community-front/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/ha-hub/tsconfig.app.json",
+        "tsConfig": "apps/ha-community-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "server": "apps/ha-hub/src/main.server.ts",
+        "server": "apps/ha-community-front/src/main.server.ts",
         "prerender": false,
         "ssr": {
-          "entry": "apps/ha-hub/server.ts"
+          "entry": "apps/ha-community-front/server.ts"
         },
         "assets": [
-          "apps/ha-hub/src/assets",
+          "apps/ha-community-front/src/assets",
           {
             "glob": "**/*",
             "input": "public"
@@ -46,14 +46,14 @@
           "assets/fl-font/*"
         ],
         "styles": [
-          "apps/ha-hub/src/ha-styles.scss",
+          "apps/ha-community-front/src/ha-styles.scss",
           {
-            "input": "apps/ha-hub/src/theme/ha-light-theme.scss",
+            "input": "apps/ha-community-front/src/theme/ha-light-theme.scss",
             "bundleName": "light-theme",
             "inject": false
           },
           {
-            "input": "apps/ha-hub/src/theme/ha-dark-theme.scss",
+            "input": "apps/ha-community-front/src/theme/ha-dark-theme.scss",
             "bundleName": "dark-theme",
             "inject": false
           }
@@ -83,8 +83,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/ha-hub/src/environments/ha-environment.ts",
-              "with": "apps/ha-hub/src/environments/ha-environment.prod.ts"
+              "replace": "apps/ha-community-front/src/environments/ha-environment.ts",
+              "with": "apps/ha-community-front/src/environments/ha-environment.prod.ts"
             }
           ],
           "optimization": {
@@ -111,14 +111,14 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "buildTarget": "ha-hub:build"
+        "buildTarget": "ha-community-front:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "ha-hub:build:production"
+          "buildTarget": "ha-community-front:build:production"
         },
         "development": {
-          "buildTarget": "ha-hub:build:development"
+          "buildTarget": "ha-community-front:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -126,36 +126,36 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "ha-hub:build"
+        "buildTarget": "ha-community-front:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/ha-hub/src/**/*.ts", "apps/ha-hub/src/**/*.html"]
+        "lintFilePatterns": ["apps/ha-community-front/src/**/*.ts", "apps/ha-community-front/src/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/ha-hub"],
+      "outputs": ["{workspaceRoot}/coverage/apps/ha-community-front"],
       "options": {
-        "jestConfig": "apps/ha-hub/jest.config.ts"
+        "jestConfig": "apps/ha-community-front/jest.config.ts"
       }
     },
     "server": {
       "executor": "@angular-devkit/build-angular:server",
       "options": {
-        "outputPath": "dist/apps/ha-hub/server",
-        "main": "apps/ha-hub/server.ts",
-        "tsConfig": "apps/ha-hub/tsconfig.server.json"
+        "outputPath": "dist/apps/ha-community-front/server",
+        "main": "apps/ha-community-front/server.ts",
+        "tsConfig": "apps/ha-community-front/tsconfig.server.json"
       },
       "configurations": {
         "production": {
           "outputHashing": "media",
           "fileReplacements": [
             {
-              "replace": "apps/ha-hub/src/environments/ha-environment.ts",
-              "with": "apps/ha-hub/src/environments/ha-environment.prod.ts"
+              "replace": "apps/ha-community-front/src/environments/ha-environment.ts",
+              "with": "apps/ha-community-front/src/environments/ha-environment.prod.ts"
             }
           ]
         },
@@ -172,12 +172,12 @@
       "executor": "@angular-devkit/build-angular:ssr-dev-server",
       "configurations": {
         "development": {
-          "browserTarget": "ha-hub:build:development",
-          "serverTarget": "ha-hub:server:development"
+          "browserTarget": "ha-community-front:build:development",
+          "serverTarget": "ha-community-front:server:development"
         },
         "production": {
-          "browserTarget": "ha-hub:build:production",
-          "serverTarget": "ha-hub:server:production"
+          "browserTarget": "ha-community-front:build:production",
+          "serverTarget": "ha-community-front:server:production"
         }
       },
       "defaultConfiguration": "development"
@@ -189,12 +189,12 @@
       },
       "configurations": {
         "development": {
-          "browserTarget": "ha-hub:build:development",
-          "serverTarget": "ha-hub:server:development"
+          "browserTarget": "ha-community-front:build:development",
+          "serverTarget": "ha-community-front:server:development"
         },
         "production": {
-          "browserTarget": "ha-hub:build:production",
-          "serverTarget": "ha-hub:server:production"
+          "browserTarget": "ha-community-front:build:production",
+          "serverTarget": "ha-community-front:server:production"
         }
       },
       "defaultConfiguration": "production"
