@@ -81,7 +81,7 @@ export class LmsLabService {
   }
 
   pullBiotaDb(options: LmlPullBiotaOptions): Observable<void> {
-    return this.apiService.post(`${this.route}/pull-biota`, options);
+    return this.apiService.post(`${this.route}/pull-biota-db`, options);
   }
 
   pullContainers(): Observable<void> {

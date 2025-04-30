@@ -27,7 +27,7 @@
     "ca-central-front:serve": "nx serve ca-central-front -- --no-hmr",
     "ca-central-front:build-prod": "node --max_old_space_size=4096 ./node_modules/nx/bin/nx build ca-central-front --prod",
     "ca-central-front:build-dev": "nx build ca-central-front --configuration=development",
-    "ca-central-front:caprover-deploy-preprod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com central-front-pre-prod ghcr.io/constellab/central-front",
+    "ca-central-front:caprover-deploy-preprod": "deploy.cmd https://captain.constellab-pre-prod.gencovery.com space-front-pre-prod ghcr.io/constellab/central-front",
     "ca-central-front:caprover-deploy-prod": "deploy.cmd https://captain.constellab.gencovery.com central-front ghcr.io/constellab/central-front",
     "ca-central-front:build-stats": "nx build ca-central-front --prod --stats-json",
     "ca-central-front:build-image": "docker build -f apps/ca-central-front/Dockerfile -t ca-central-front .",

@@ -113,6 +113,8 @@ export class CaBucketFormDialogComponent
         this.regionOption = 'S3';
       } else if (bucketType === CaBucketType.AZURE) {
         this.regionOption = 'AZURE';
+      } else if (bucketType === CaBucketType.GCP) {
+        this.regionOption = 'GCP';
       }
     }
 

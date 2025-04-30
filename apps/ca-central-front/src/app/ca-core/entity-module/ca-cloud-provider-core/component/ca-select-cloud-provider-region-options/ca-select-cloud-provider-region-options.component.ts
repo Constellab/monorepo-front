@@ -10,7 +10,7 @@ import { CaCloudProviderRegionInlineComponent } from '../ca-cloud-provider-regio
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 
-export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | 'AZURE';
+export type CaSelectCloudProviderRegionOptionsMode = 'all' | 'S3' | 'SERVER' | 'AZURE' | 'GCP';
 
 @Component({
   selector: 'ca-select-cloud-provider-region-options',
@@ -63,6 +63,9 @@ export class CaSelectCloudProviderRegionOptionsComponent
         break;
       case 'AZURE':
         this.datasource = this.cloudProviderService.getRegionsByCloudProvider('AZURE');
+        break;
+      case 'GCP':
+        this.datasource = this.cloudProviderService.getRegionsByCloudProvider('GCP');
         break;
     }
   }

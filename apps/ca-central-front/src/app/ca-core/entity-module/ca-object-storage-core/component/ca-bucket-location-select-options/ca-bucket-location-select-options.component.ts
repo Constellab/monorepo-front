@@ -2,7 +2,7 @@ import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit } from '@ang
 import {
   CaBucketLocationDatasource,
   CaBucketLocationDTO,
-  CaBucketType,
+  CaBucketType, caCloudBucketTypes,
 } from '../../../../model/entities/ca-object-storage.class';
 import { Observable } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
@@ -74,7 +74,7 @@ export class CaBucketLocationSelectOptionsComponent
   private sortLocations(locations: CaBucketLocationDTO[]): CaBucketLocationList {
     return {
       cloud: locations
-        .filter((location) => [CaBucketType.NORMAL, CaBucketType.AZURE].includes(location.bucketType))
+        .filter((location) => caCloudBucketTypes.includes(location.bucketType))
         .sort((a, b) => a.locationName.localeCompare(b.locationName)),
       lab: locations
         .filter((location) => location.bucketType === CaBucketType.LAB)
