@@ -20,7 +20,6 @@ export class HaNoteObjectsTreeDatasource extends FlDatasourceTree<HaNode> {
     if (oldParentId != newParentId) {
       this.moveNode(node.id, oldParentId, newParentId);
     } else {
-      console.log('C');
       this.sortAndEmits();
     }
   }

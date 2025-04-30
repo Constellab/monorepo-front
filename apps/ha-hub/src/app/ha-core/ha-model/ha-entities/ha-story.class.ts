@@ -45,7 +45,7 @@ export class HaStory {
 
   lastModifiedAt: DateTime;
 
-  titlePath: string;
+  titlePath?: string;
 
   storyFiles?: HaFile[];
 
@@ -87,6 +87,7 @@ export class HaListStoryDto implements CoListStoryDto {
   lastModifiedAt: DateTime;
   likes: number;
   comments: number;
+  titlePath?: string;
 
   getTopics(): HaTopic[] {
     return this.topics.sort((a, b) => a.popularity - b.popularity);

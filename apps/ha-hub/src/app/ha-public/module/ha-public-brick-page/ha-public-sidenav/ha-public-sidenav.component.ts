@@ -90,7 +90,7 @@ export class HaPublicSidenavComponent implements OnInit {
   private brickPageState = inject(HaBrickPageState);
   private translateService: FlTranslateService = inject(FlTranslateService);
 
-  userHasEditRight: Signal<boolean> = this.brickPageState.getUserHasEditRight();
+  userHasEditRight = this.brickPageState.getUserHasEditRight();
 
   brickAndPathVersion$: Observable<[HaBrick, string]> = toObservable(this.brickPageState.brickAndPathVersion);
 

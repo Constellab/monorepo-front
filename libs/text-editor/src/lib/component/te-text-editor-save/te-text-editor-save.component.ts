@@ -41,7 +41,6 @@ export class TeTextEditorSaveComponent implements OnInit, OnDestroy {
   }
 
   private saveDocument(value: TeRichText): void {
-    console.log(value);
     this.saveFunc(value).subscribe(() => this.saveDocumentSuccess());
   }
 

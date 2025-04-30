@@ -177,9 +177,9 @@ export class HaStoryPageComponent extends HaCommunityPageDirective implements On
     this.content = story.content;
 
     // verif if redirection needed
-    if (this.paramTitle != ClStringHelper.getCleanUrlPath(this.story.title)) {
+    if (this.paramTitle != this.story.titlePath) {
       this.httpRedirectionService.redirectTo(
-        HaRouterService.getStoryRoute(this.story.id, ClStringHelper.getCleanUrlPath(this.story.title))
+        HaRouterService.getStoryRoute(this.story.id, this.story.titlePath)
       );
     }
 

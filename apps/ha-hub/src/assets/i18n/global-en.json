@@ -256,6 +256,7 @@
   "import_agent_version_file": "Import agent version file",
   "agent_version_file": "Agent version file",
   "agents_description": "Explore and share code and snippets to empower collaboration. Import agents in your pipelines",
+  "apps_description": "Explore and share business apps",
   "agent_version_infos_place_holder": "Describe your agent version",
   "delete_story_main_image": "Delete story main image",
   "delete_story_main_image_content": "Are you sure you want to delete the main image of the story ? The first image of the story content will be used as the main image after deletion",

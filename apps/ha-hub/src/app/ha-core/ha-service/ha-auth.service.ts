@@ -32,13 +32,13 @@ export class HaAuthService extends FlAuthService {
 
   public logout(): Observable<void> {
     return this.apiService.post(`${this.route}/logout`, null).pipe(
-      tap(() => this.clearAuthExpirationCookie()),
+      tap(() => this.clearAuthExpirationCookie(null, 'Lax')),
       tap(() => this.clearServices())
     );
   }
 
   public afterLogin(expiresIn: number): void {
-    this.storeAuthExpirationCookie(expiresIn);
+    this.storeAuthExpirationCookie(expiresIn, null, 'Lax');
   }
 
   private clearServices(): void {

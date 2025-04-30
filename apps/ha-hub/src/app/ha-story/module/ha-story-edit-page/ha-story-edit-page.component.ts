@@ -1,12 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { HaStory } from '../../../ha-core/ha-model/ha-entities/ha-story.class';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { FlConfirmDialogInput } from '@monorepo/front-core-lib/fl-dialog';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { FlOverlayRef } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FlConfirmDialogInput, FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
+import { FlImageModule, FlUploadImageDialogConfig } from '@monorepo/front-core-lib/fl-image';
 
 import { HaStoryTextEditorConfig } from './ha-story-text-editor.config';
 import { mergeMap, Observable, of, startWith } from 'rxjs';
@@ -17,37 +15,33 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { HaAuthenticatedUserService } from '../../../ha-core/ha-service/ha-authenticated-user.service';
 import { HaUser } from '../../../ha-core/ha-model/ha-entities/ha-user';
 import {
+  MatAutocomplete,
   MatAutocompleteSelectedEvent,
   MatAutocompleteTrigger,
-  MatAutocomplete,
 } from '@angular/material/autocomplete';
 import { ClStringHelper } from '@monorepo/core-lib';
 import {
   TeRichText,
   TeTextEditorHistoryPortalComponent,
   TeTextEditorHistoryPortalData,
+  TeTextEditorModule,
 } from '@monorepo/text-editor';
 import {
   HaCoAuthorDialogComponent,
   HaCoAuthorsDialogInput,
 } from '../../../ha-core/entity-module/ha-co-author-core/component/ha-co-author-dialog/ha-co-author-dialog.component';
-import { CoStoryCategory } from '@monorepo/community-lib';
 import { MatIcon } from '@angular/material/icon';
-import { HaSidenavButtonDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-sidenav-button/ha-sidenav-button.directive';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
-import { FlImageModule } from '@monorepo/front-core-lib/fl-image';
-import { MatFormField, MatLabel, MatSuffix, MatError } from '@angular/material/form-field';
-import { MatSelect } from '@angular/material/select';
+import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatOption } from '@angular/material/core';
-import { MatChipGrid, MatChipRow, MatChipRemove, MatChipInput } from '@angular/material/chips';
+import { MatChipGrid, MatChipInput, MatChipRemove, MatChipRow } from '@angular/material/chips';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
 import { MatTooltip } from '@angular/material/tooltip';
 import { HaIsAuthenticatedDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-authenticated/ha-is-authenticated.directive';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { TeTextEditorModule } from '@monorepo/text-editor';
-import { NgClass, AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Ha404Component } from '../../../ha-public/module/ha404/ha404.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -58,14 +52,11 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./ha-story-edit-page.component.scss'],
   imports: [
     MatIcon,
-    HaSidenavButtonDirective,
-    RouterLink,
     FlTextIconModule,
     ReactiveFormsModule,
     FlFormModule,
     FlImageModule,
     MatFormField,
-    MatSelect,
     MatOption,
     MatLabel,
     MatChipGrid,
@@ -113,13 +104,12 @@ export class HaStoryEditPageComponent implements OnInit {
   canSaveTopic: boolean = false;
   inputTopic: string = '';
   isAuthor: boolean;
-  storyCategories: string[] = Object.keys(CoStoryCategory);
   syncWithBack: boolean = false;
   contentModified: boolean = false;
   notFound: boolean = false;
   imageConfig: FlUploadImageDialogConfig;
   deleteImageConfig: FlConfirmDialogInput;
-  contentEditionFormControl: FormControl<TeRichText> = new FormControl();
+  contentEditionFormControl: FormControl<TeRichText> = new FormControl({ value: null });
   @ViewChild('topicInput') topicInput: ElementRef<HTMLInputElement>;
   @ViewChild('input') inputPhoto: ElementRef<HTMLInputElement>;
 
@@ -201,22 +191,10 @@ export class HaStoryEditPageComponent implements OnInit {
     }
   }
 
-  onStoryCategoryChange(newCategory: CoStoryCategory): void {
-    if (newCategory) {
-      this.storyService.updateCategory(this.story.id, newCategory).subscribe((story) => {
-        this.story.category = story.category;
-      });
-    }
-  }
-
   saveTitle(newTitle: string): void {
     this.storyService.updateTitle(this.story.id, newTitle).subscribe((story) => {
       this.story.title = story.title;
     });
-  }
-
-  onEditorChange(): void {
-    this.syncWithBack = false;
   }
 
   saveTopic(): void {

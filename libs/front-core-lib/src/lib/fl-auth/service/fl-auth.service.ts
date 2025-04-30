@@ -41,23 +41,27 @@ export abstract class FlAuthService {
    */
   public abstract logout(): Observable<any>;
 
-  protected storeAuthExpirationCookie(expiresIn: number, domain?: string): void {
+  protected storeAuthExpirationCookie(
+    expiresIn: number,
+    domain?: string,
+    sameSite: 'Strict' | 'Lax' = 'Strict'
+  ): void {
     // get the date in expiresIn milliseconds
     const date = new Date(new Date().getTime() + expiresIn);
     // clear the millisecond to get closer to real expiration
     date.setMilliseconds(0);
     this.cookieService.setCookie(flAuthExpiredCookie, date.getTime(), {
       expires: date,
-      sameSite: 'Strict',
+      sameSite: sameSite,
       path: '/',
       secure: false,
       domain: domain,
     });
   }
 
-  protected clearAuthExpirationCookie(domain?: string): void {
+  protected clearAuthExpirationCookie(domain?: string, sameSite: 'Strict' | 'Lax' = 'Strict'): void {
     this.cookieService.removeCookie(flAuthExpiredCookie, {
-      sameSite: 'Strict',
+      sameSite: sameSite,
       path: '/',
       secure: false,
       domain: domain,

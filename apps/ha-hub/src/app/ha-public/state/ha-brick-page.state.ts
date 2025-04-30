@@ -31,6 +31,7 @@ import {
   HaRunStatAggregateObjectType,
 } from '../../ha-core/ha-model/ha-entities/ha-run-stat-aggregate.class';
 import { HaRunStatAggregateService } from '../../ha-core/ha-service/ha-run-stat-aggregate.service';
+import { HaAuthenticatedUserService } from '../../ha-core/ha-service/ha-authenticated-user.service';
 
 @Injectable()
 export class HaBrickPageState {
@@ -41,6 +42,7 @@ export class HaBrickPageState {
   private documentationService = inject(HaDocumentationService);
   private httpRedirectionService = inject(HaHttpRedirectionService);
   private runStatAggregateService = inject(HaRunStatAggregateService);
+  private authenticatedUserService = inject(HaAuthenticatedUserService);
 
   private BRICK_KEY: StateKey<object> = makeStateKey<HaBrick>('brick');
   private LATEST_BRICK_VERSION_KEY: StateKey<object> = makeStateKey<HaBrick>('latest-brick-version');

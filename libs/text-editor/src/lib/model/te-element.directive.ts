@@ -5,7 +5,7 @@ import {
   HostBinding,
   inject,
   Input,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { TeHelper } from './te.helper';
 
@@ -55,6 +55,9 @@ export abstract class TeElementInlineDirective<T = any> extends TeElementDirecti
 
   constructor() {
     super();
+    // Clear the innerHTML because the editor js add innerText
+    // at the beginning of the element and this text is shown on Community
+    this.elementRef.nativeElement.innerHTML = '';
     this.disabled = !TeHelper.parentBlockParagraphIsEditable(this.elementRef.nativeElement);
 
     const strData = this.elementRef.nativeElement.getAttribute(TeElementInlineDirective.dataAttribute);

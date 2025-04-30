@@ -212,7 +212,7 @@ Sitemap: ${environment.settings.communityFrontUrl}/sitemap.xml`);
         const metaTagRedirect = getMetaTagContent(html, HaMetadataNamesConfig.REDIRECT_URL);
 
         if (metaTagRedirect != null) {
-          return res.redirect(302, metaTagRedirect);
+          return res.redirect(301, metaTagRedirect);
         }
 
         // Check if 404

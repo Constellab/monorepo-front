@@ -10,7 +10,7 @@ import { HaCommunityApp } from '../../../ha-model/ha-entities/ha-community-app.c
 export class HaDetailRoutePipe implements PipeTransform {
   transform(value: any): string {
     if (value instanceof HaStory || value instanceof HaListStoryDto) {
-      return HaRouterService.getStoryRoute(value.id, ClStringHelper.getCleanUrlPath(value.title));
+      return HaRouterService.getStoryRoute(value.id, value.titlePath);
     }
 
     if (value instanceof HaAgent) {

@@ -1,5 +1,4 @@
 import { TeRichTextMigrator } from './te-rich-text-migrator.class';
-import { TeBlockType } from './te-block.class';
 import {
   TeRichTextBlockModificationsDTO,
   TeRichTextBlockModificationWithUser,
@@ -90,9 +89,7 @@ export class TeRichTextModifications {
   public fusion(modifications: TeRichTextModifications): void {
     // clear the redo array because this is a modification
     this.resetRedoModifications();
-
-    let modificationsList = this.reduceModifications(modifications.modifications);
-
+    const modificationsList = this.reduceModifications(modifications.modifications);
     if (this.isEmpty()) {
       this.modifications = modificationsList;
       return;
@@ -101,83 +98,8 @@ export class TeRichTextModifications {
     if (modificationsList.length === 0) {
       return;
     }
-    const lastModification = this.modifications[this.modifications.length - 1];
 
-    if (modificationsList.length > 1) {
-      // first modif should be the one with the same block id as the last this.modification block id,
-      // or it doesn't matter
-      modificationsList = modificationsList.sort((a, b) => {
-        if (a.blockId === lastModification.blockId) {
-          return -1;
-        }
-        if (b.blockId === lastModification.blockId) {
-          return 1;
-        }
-        return 0;
-      });
-    }
-
-    for (const modification of modificationsList) {
-      // if the last modification is a move and the current one is a move on the same block,
-      // we keep the fusion of the two moves
-      if (
-        lastModification?.type == TeRichTextModificationType.MOVED &&
-        modification.type == TeRichTextModificationType.MOVED &&
-        lastModification?.blockId == modification.blockId
-      ) {
-        modification.oldIndex = lastModification.oldIndex;
-        this.modifications.splice(this.modifications.length - 1, 1);
-        if (modification.oldIndex == modification.index) {
-          continue;
-        }
-      }
-
-      // if the last modification is a move and the current one is a move on the same block,
-      // we keep the fusion of the two moves
-      if (
-        modification.blockId == lastModification?.blockId &&
-        lastModification.time.plus(TeRichTextModifications.MAX_TIME_DIFFERENCE) > modification.time
-      ) {
-        if (
-          modification.type == TeRichTextModificationType.UPDATED &&
-          modification.userId === lastModification.userId
-        ) {
-          // if the last modification is a creation and the current one is an update on the same block,
-          // otherwise we keep the fusion as a update
-          // we keep the fusion of the two modifications has a creation
-          if (lastModification.type === TeRichTextModificationType.CREATED) {
-            modification.type = TeRichTextModificationType.CREATED;
-            modification.differences = null;
-          } else if (lastModification.type === TeRichTextModificationType.UPDATED) {
-            modification.differences = lastModification.differences.concat(
-              ...modification.differences.slice().reverse()
-            );
-            modification.blockValue = null;
-          }
-          this.modifications.splice(this.modifications.length - 1, 1, modification);
-          continue;
-        }
-
-        if (modification.type == TeRichTextModificationType.DELETED) {
-          if (lastModification.type == TeRichTextModificationType.CREATED) {
-            this.modifications.splice(this.modifications.length - 1, 1);
-          }
-          if (
-            lastModification.type == TeRichTextModificationType.CREATED ||
-            (lastModification.blockType === TeBlockType.PARAGRAPH &&
-              lastModification.blockValue?.text &&
-              lastModification.blockValue?.text == '/')
-          ) {
-            continue;
-          }
-        }
-      }
-
-      if (modification.type == TeRichTextModificationType.UPDATED) {
-        modification.blockValue = null;
-      }
-      this.modifications.push(modification);
-    }
+    this.modifications.push(...modificationsList);
   }
 
   // Reduce the new modifications array to keep only the important ones
