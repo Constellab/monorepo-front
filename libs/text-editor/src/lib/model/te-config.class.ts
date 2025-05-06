@@ -243,7 +243,9 @@ export class TeBasicConfig extends TeConfig {
   }
 
   getTunes(): string[] {
-    return ['drag'];
+    // moveUp, moveDown, delete are default button from
+    // editorjs, we just set the delete button at the end
+    return ['drag', 'moveUp', 'moveDown', 'delete'];
   }
 
   getInlineToolbar(): string[] {
@@ -295,6 +297,8 @@ export class TeCompleteConfig extends TeConfig {
   }
 
   getTunes(): string[] {
-    return ['drag'];
+    // moveUp, moveDown, delete are default button from
+    // editorjs, we just set the delete button at the end
+    return ['drag', 'moveUp', 'moveDown', 'delete'];
   }
 }
