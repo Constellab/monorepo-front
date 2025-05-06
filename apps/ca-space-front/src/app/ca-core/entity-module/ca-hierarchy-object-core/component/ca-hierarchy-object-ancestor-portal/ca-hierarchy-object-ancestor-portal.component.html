@@ -1,0 +1,19 @@
+<fl-portal class="portal">
+  <fl-portal-content>
+    <fl-async-section [object]="ancestors$">
+      <ng-container *flSectionBody="ancestors$ as ancestors">
+        <div class="g-layout-row-wrap g-layout-start-center">
+          @for (ancestor of ancestors; track ancestor.id; let last = $last) {
+            <a [routerLink]="ancestor.id | caDetailRoute: 'folder'" class="link">
+              <ca-hierarchy-object-inline [hierarchyObject]="ancestor"></ca-hierarchy-object-inline>
+            </a>
+
+            @if (!last) {
+              <mat-icon class="g-text-light chevron">chevron_right</mat-icon>
+            }
+          }
+        </div>
+      </ng-container>
+    </fl-async-section>
+  </fl-portal-content>
+</fl-portal>

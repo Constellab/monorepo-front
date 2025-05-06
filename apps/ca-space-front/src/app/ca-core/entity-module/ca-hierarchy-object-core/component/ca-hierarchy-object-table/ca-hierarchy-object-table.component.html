@@ -94,7 +94,10 @@
     </mat-header-cell>
     <mat-cell *matCellDef="let hierarchyObject">
       @if (hierarchyObject.parent) {
-        <ca-hierarchy-object-inline [hierarchyObject]="hierarchyObject.parent"></ca-hierarchy-object-inline>
+        <ca-hierarchy-object-inline
+          [hierarchyObject]="hierarchyObject.parent"
+          [caHierarchyObjectAncestorPortal]="hierarchyObject.parent.id"
+          [flMouseEnterDelay]="500"></ca-hierarchy-object-inline>
       }
     </mat-cell>
   </ng-container>

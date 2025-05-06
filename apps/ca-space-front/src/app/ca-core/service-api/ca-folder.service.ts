@@ -219,11 +219,16 @@ export class CaFolderService {
       CaHierarchyObjectSearch.filterConverter,
       CaHierarchyObjectSearch.sortConverter
     );
-    return this.apiService.post(`${this.route}/root/search`, searchInput, CaHierarchyObjectWithParent, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true,
-    });
+    return this.apiService.post(
+      `${this.route}/root/search-children`,
+      searchInput,
+      CaHierarchyObjectWithParent,
+      {
+        page: page,
+        pageSize: size,
+        resultIsPaginated: true,
+      }
+    );
   }
 
   /////////////////////////////////// DESCRIPTION //////////////////////////////////

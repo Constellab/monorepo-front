@@ -34,6 +34,7 @@ import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-rou
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { CaHierarchyObjectAncestorPortalDirective } from '../ca-hierarchy-object-ancestor-portal/ca-hierarchy-object-ancestor-portal.directive';
 
 export interface CaHierarchyObjectTableEvent {
   action: 'click' | 'dblClick' | 'rightClick' | 'middleClick' | 'openChat' | 'openDescription';
@@ -74,6 +75,7 @@ export interface CaHierarchyObjectTableEvent {
     FlCorePipeModule,
     TranslatePipe,
     FlTagModule,
+    CaHierarchyObjectAncestorPortalDirective,
   ],
 })
 export class CaHierarchyObjectTableComponent {
