@@ -183,9 +183,6 @@
     "os": false
   },
   "lint-staged": {
-    "*.{ts,js,json,md,html}": [
-      "eslint --fix"
-    ],
     "*.{ts,js,json,md,html,css,scss}": [
       "prettier --write"
     ],
