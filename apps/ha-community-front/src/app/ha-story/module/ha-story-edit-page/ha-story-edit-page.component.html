@@ -18,7 +18,11 @@
             class="story-image"
             [style.background-image]="
               story.mainPicture ? 'url(\'' + getStoryImageLink(story.mainPicture) + '\')' : null
-            "></div>
+            ">
+            @if (!story.mainPicture) {
+              <mat-icon class="image-placeholder"> add_a_photo </mat-icon>
+            }
+          </div>
         </fl-update-image-container>
       </div>
 

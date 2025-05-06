@@ -36,7 +36,7 @@ import {
   providedIn: 'root',
 })
 export class HaStoryService
-  implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
+implements HaCoAuthorService, HaFileServiceInterface<HaStory>, TeTextEditorHistoryService
 {
   private apiService = inject(FlApiService);
 
@@ -148,7 +148,7 @@ export class HaStoryService
   }
 
   public deleteMainImage(id: string): Observable<HaStory> {
-    return this.apiService.delete(this.route + '/' + id + '/main-image');
+    return this.apiService.delete(this.route + '/' + id + '/main-image', HaStory);
   }
 
   public getStoryFilePathPrefix(storyId: string): string {

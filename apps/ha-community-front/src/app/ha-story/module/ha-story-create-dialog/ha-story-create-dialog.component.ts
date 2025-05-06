@@ -7,8 +7,6 @@ import { HaStoryService } from '../../../ha-core/ha-service/ha-story.service';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { CoStoryCategory } from '@monorepo/community-lib';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
-import { HaIsAdminDirective } from '../../../ha-core/ha-module/ha-core-directive/ha-is-admin/ha-is-admin.directive';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directive';
@@ -27,9 +25,6 @@ export type HaCreateStoryDtoInput = FlFormDialogInput<HaCreateStoryDto>;
     FlDialogModule,
     MatDialogContent,
     ReactiveFormsModule,
-    MatRadioGroup,
-    MatRadioButton,
-    HaIsAdminDirective,
     MatFormField,
     MatLabel,
     MatInput,
@@ -61,7 +56,7 @@ export class HaStoryCreateDialogComponent
   buildForm(): UntypedFormGroup {
     return new FormBuilder().group({
       title: [null, Validators.required],
-      category: [CoStoryCategory.ARTICLE, Validators.required],
+      category: [CoStoryCategory.ARTICLE],
     });
   }
 
