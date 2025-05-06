@@ -1,9 +1,9 @@
-import { ClPage, clRxjsDebug } from '@monorepo/core-lib';
+import { ClPage } from '@monorepo/core-lib';
 import { CoCreateAgentFormData } from '@monorepo/community-lib';
 import { FlApiWithCacheService } from '@monorepo/front-core-lib/fl-api';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlFileHelper } from '@monorepo/front-core-lib/fl-translate';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   LiAgent,
   LiAgentDatasourcePaginated,
@@ -23,8 +23,8 @@ import {
   TdEditParamSpecDict,
   TdIOSpec,
   TdParamSpec,
-  TdParamSpecVisibility,
   TdParamSpecsValues,
+  TdParamSpecVisibility,
   TdTypeStyle,
 } from '@monorepo/technical-doc';
 
@@ -507,9 +507,7 @@ export class LiProtocolService {
   ///////////////////////////////////////////////// PARAM SPEC /////////////////////////////////////////////
 
   public getParamSpecsInfos(protocolId: string, processName: string): Observable<TdEditParamSpecDict> {
-    return this.apiService
-      .get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`)
-      .pipe(clRxjsDebug());
+    return this.apiService.get(`${this.baseRoute}/${protocolId}/process/${processName}/get-param-spec-types`);
   }
 
   public addDynamicParamSpec(

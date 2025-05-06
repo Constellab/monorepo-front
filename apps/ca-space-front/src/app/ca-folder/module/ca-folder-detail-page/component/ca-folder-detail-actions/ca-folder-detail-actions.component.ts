@@ -23,6 +23,8 @@ import { FlIconModule } from '@monorepo/front-core-lib/fl-svg-icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
   selector: 'ca-folder-detail-actions',
@@ -44,6 +46,7 @@ import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/
 })
 export class CaFolderDetailActionsComponent {
   private state = inject(CaFolderDetailState);
+  private eventState = inject(CaHierarchyObjectEventState);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderActionService = inject(CaFolderActionService);
   private routerService = inject(CaRouterService);
@@ -104,15 +107,11 @@ export class CaFolderDetailActionsComponent {
 
   private onFolderAction(folderEvent: CaFolderDetailActionEvent): void {
     if (!folderEvent) return;
-    if (folderEvent.action === 'update') {
-      this.state.updateFolder(folderEvent.folder);
-    } else if (folderEvent.action === 'delete') {
-      this.state.deleteHierarchyObject(folderEvent.folder.id);
-    } else if (folderEvent.action === 'createChild') {
-      this.state.addChild(folderEvent.folder.hierarchyRepresentation);
-    } else if (folderEvent.action === 'restoreFileFromTrash') {
+    if (folderEvent.action === 'restoreFileFromTrash') {
       this.state.refreshChildren();
+      return;
     }
+    this.eventState.emitFolderEvent(folderEvent);
   }
 
   private createConstellabDocClosed(doc?: CaConstellabDocument): void {
@@ -123,7 +122,12 @@ export class CaFolderDetailActionsComponent {
 
   private createChildSuccess(folder?: CaFolderWithHierarchy): void {
     if (folder) {
-      this.state.addChild(folder.hierarchyRepresentation);
+      this.eventState.emitEvent({
+        action: 'create',
+        hierarchyObjectType: CaHierarchyObjectType.FOLDER,
+        hierarchyObjectId: folder.id,
+        hierarchyObject: folder.hierarchyRepresentation,
+      });
     }
   }
 }

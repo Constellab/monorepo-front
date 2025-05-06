@@ -45,6 +45,8 @@ export class FlSearchState<T> implements OnDestroy {
 
   private isDestroyed = false;
 
+  public disabled: boolean = false;
+
   public setDrawer(drawer: MatDrawer): void {
     this.drawer = drawer;
   }
@@ -67,6 +69,7 @@ export class FlSearchState<T> implements OnDestroy {
   }
 
   public submitForm(): void {
+    if (this.disabled) return;
     this.callAdvancedSearchFromForm();
     // emit a skip to cancel current form change
     this.skipSearch.next({ _skipSearch: true });
@@ -99,15 +102,18 @@ export class FlSearchState<T> implements OnDestroy {
 
   // call advanced search from a saved search
   public patchFormFromSaveSearch(savedSearch: FlSavedSearch): void {
+    if (this.disabled) return;
     this.resetAdvancedFormGroup(savedSearch.filtersCriteria);
   }
 
   public patchFormValueAndCallSearch(searchCriteria: Record<string, any>): void {
+    if (this.disabled) return;
     this.advancedSearchFormGroup.patchValue(searchCriteria);
     this.callAdvancedSearchFromForm();
   }
 
   public resetFormAndCallSearch(): void {
+    if (this.disabled) return;
     this.resetAdvancedFormGroup(null, { emitEvent: false });
     this.callAdvancedSearchFromForm();
   }
@@ -118,9 +124,12 @@ export class FlSearchState<T> implements OnDestroy {
     sortCriteria: FlDatasourceSortCriteria,
     timestamp: string
   ): void {
+    if (this.disabled) return;
     this.lastSearchTimestamp = timestamp;
 
     this.sortCriteria = sortCriteria;
+    // reset the form, this will trigger the form change event
+    // and call the search
     this.resetAdvancedFormGroup(filtersCriteria);
   }
 
@@ -231,6 +240,7 @@ export class FlSearchState<T> implements OnDestroy {
   private listenToFromChange(): void {
     const subscription = merge(this.advancedSearchFormGroup.valueChanges, this.skipSearch)
       .pipe(
+        filter(() => this.config.autoSearch == null || this.config.autoSearch),
         debounceTime(350),
         // skip if the component is destroyed, because of the debounce time,
         // it can be called after the component is destroyed
@@ -290,6 +300,10 @@ export class FlSearchState<T> implements OnDestroy {
    */
   public setHiddenFilters(hiddenFilters: Record<string, any>): void {
     this.hiddenFilters = hiddenFilters;
+  }
+
+  public setAutoSearch(autoSearch: boolean): void {
+    this.config.autoSearch = autoSearch;
   }
 
   private resetAdvancedFormGroup(

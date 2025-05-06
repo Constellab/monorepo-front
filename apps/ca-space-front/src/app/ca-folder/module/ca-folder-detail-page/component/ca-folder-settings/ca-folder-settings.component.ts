@@ -15,6 +15,8 @@ import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/
 import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
   selector: 'ca-folder-settings',
@@ -38,6 +40,7 @@ export class CaFolderSettingsComponent {
   folder$: Observable<CaFolder> = this.state.getFolder$();
 
   canEditFolder$: Observable<boolean> = this.state.canEditFolder$();
+  private eventState = inject(CaHierarchyObjectEventState);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderService = inject(CaFolderService);
   private folderActionService = inject(CaFolderActionService);
@@ -67,7 +70,11 @@ export class CaFolderSettingsComponent {
   private onDeleteClosed(result: FlConfirmDialogResult, folder: CaFolder): void {
     if (result.choice) {
       this.rightPanelState.closeRightPanel();
-      this.state.deleteHierarchyObject(folder.id);
+      this.eventState.emitEvent({
+        action: 'delete',
+        hierarchyObjectType: CaHierarchyObjectType.FOLDER,
+        hierarchyObjectId: folder.id,
+      });
     }
   }
 }

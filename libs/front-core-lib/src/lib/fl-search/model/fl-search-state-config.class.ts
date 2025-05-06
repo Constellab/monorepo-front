@@ -24,6 +24,9 @@ export interface FlSearchConfig {
   storeSearchInUrl: boolean; // if true the url is modified when a search is made
   // default sort criteria to use when no sort is defined
   defaultSort?: FlDatasourceSortCriteria;
+  // if true, the search is automatically launched when the form is created
+  // default to true
+  autoSearch?: boolean;
 }
 
 /**

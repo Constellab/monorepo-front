@@ -6,16 +6,21 @@ import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { map } from 'rxjs/operators';
 import { FlArrayObs, FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
 
-import { ClCoreJsonConvert, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { ClSubscriptionHandler } from '@monorepo/core-lib';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
+  CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
+import {
+  CaHierarchyObjectEvent,
+  CaHierarchyObjectEventState,
+} from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 
 @Injectable()
 export class CaFolderDetailState implements OnDestroy {
@@ -24,6 +29,7 @@ export class CaFolderDetailState implements OnDestroy {
   private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
   private searchState = inject(CaHierarchyObjectSearchState);
   private securityService = inject(CaSecurityService);
+  private eventState = inject(CaHierarchyObjectEventState);
 
   private id$: Observable<string>;
 
@@ -106,45 +112,7 @@ export class CaFolderDetailState implements OnDestroy {
     if (this.getCurrentFolder().id === folder.id) {
       this.folder$.next(folder);
     }
-    this.updatePartialChild(folder.id, { name: folder.name, user: folder.leader });
-  }
-
-  public addChild(folder: CaHierarchyObject): void {
-    if (folder.parentId === this.getCurrentFolder().id) {
-      this.childrenDatasource.unshiftItem(folder);
-    }
-    this.hierarchyObjectDetailState.addFoldersInTree([folder]);
-  }
-
-  public updatePartialChild(hierarchyObjectId: string, hierarchyObject: Partial<CaHierarchyObject>): void {
-    const childFolder = this.childrenDatasource.findItemById(hierarchyObjectId);
-    if (childFolder) {
-      // create a new folder based on the old one and the new data
-      const cloned = ClCoreJsonConvert.deepCloneClassAndMerge(
-        childFolder,
-        hierarchyObject,
-        CaHierarchyObject
-      );
-      this.childrenDatasource.updateItem(cloned);
-    }
-
-    this.hierarchyObjectDetailState.updateFolder(hierarchyObjectId, hierarchyObject);
-  }
-
-  public deleteHierarchyObject(id: string): void {
-    // delete folder if it is in the children
-    const folder = this.childrenDatasource.findItemById(id);
-    if (folder) {
-      this.childrenDatasource.removeItemById(id);
-    }
-
-    // delete folder in the tree
-    this.hierarchyObjectDetailState.deleteFolderInTree(id);
-
-    // if the delete folder is the current folder, navigate to the parent folder
-    if (id === this.getCurrentFolder().id) {
-      this.hierarchyObjectDetailState.navigateToParentFolder();
-    }
+    this.eventState.emitFolderUpdate(folder);
   }
 
   private initFolder(folder: CaFolder): void {

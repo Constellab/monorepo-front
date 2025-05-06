@@ -28,10 +28,16 @@ import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
 import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
 import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 import { CaAvailableTagDatasource } from '../../../../ca-core/model/entities/ca-tag.class';
+import { CaHierarchyObjectEvent, CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
 
 export interface CaHierarchyObjectContext {
-  type: CaHierarchyObjectType | 'rootFolders';
+  type: CaHierarchyObjectType | 'rootFolders' | 'globalSearch';
   hierarchyObject?: CaHierarchyObject;
+}
+
+export interface CaHierarchyObjectContextId {
+  type: 'hierarchyObject' | 'rootFolders' | 'globalSearch';
+  hierarchyObjectId?: string;
 }
 
 /**
@@ -44,10 +50,11 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private routerService = inject(CaRouterService);
+  private eventState = inject(CaHierarchyObjectEventState);
   private queryParamHandler: FlQueryParamHandler<{ showTree?: string }> = inject(FlQueryParamHandler);
 
   private hierarchyObject$: BehaviorSubject<CaHierarchyObjectContext>;
-  private hierarchyObjectId$: Observable<string>;
+  private hierarchyObjectId$: Observable<CaHierarchyObjectContextId>;
   private folderTree: CaHierarchyObjectsTreeDatasource;
 
   // list of tag of current object
@@ -69,10 +76,24 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     this.hierarchyObject$ = new BehaviorSubject(null);
 
     // we need to use the FlRouterHelper.listenToChildrenParams because the current route is the parent route
-    this.hierarchyObjectId$ = FlRouterHelper.listenToChildrenParams(this.router, this.route).pipe(
-      map((params) => params.id),
+    this.hierarchyObjectId$ = FlRouterHelper.listenToChildrenRoute(this.router, this.route).pipe(
+      map((route): CaHierarchyObjectContextId => {
+        if (route.data.context === 'rootFolders') {
+          return { type: 'rootFolders' };
+        } else if (route.data.context === 'globalSearch') {
+          return { type: 'globalSearch' };
+        } else {
+          return {
+            type: 'hierarchyObject',
+            hierarchyObjectId: route.params.id,
+          };
+        }
+      }),
       takeUntil(this.destroy),
-      distinctUntilChanged()
+      distinctUntilChanged(
+        (previous, current) =>
+          previous.type === current.type && previous.hierarchyObjectId === current.hierarchyObjectId
+      )
     );
 
     // load the ancestors of the current object
@@ -96,10 +117,10 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
 
     // handle the current object tags
     this.subscriptions.add(
-      this.hierarchyObjectId$.subscribe((id) => {
-        if (id) {
+      this.hierarchyObjectId$.subscribe((contextId) => {
+        if (contextId.hierarchyObjectId) {
           // load the tags
-          this.tags.setData(this.hierarchyObjectService.getAllTags(id));
+          this.tags.setData(this.hierarchyObjectService.getAllTags(contextId.hierarchyObjectId));
         } else {
           this.tags.setData([]);
         }
@@ -109,7 +130,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     // load the current this hierarchy object
     this.subscriptions.add(
       this.hierarchyObjectId$
-        .pipe(switchMap((objectId) => this.getHierarchyObjectContext(objectId)))
+        .pipe(switchMap((contextId) => this.getHierarchyObjectContext(contextId)))
         .subscribe((hierarchyContext) => {
           // the object might not be in the tree yet so we add it
           if (hierarchyContext.hierarchyObject) {
@@ -141,14 +162,19 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
         )
         .subscribe((tags) => this.childrenTags.setData(tags))
     );
+
+    // handle the events
+    this.subscriptions.add(this.eventState.getEvent$().subscribe((event) => this.onEvent(event)));
   }
 
-  private getHierarchyObjectContext(objectId?: string): Observable<CaHierarchyObjectContext> {
-    if (!objectId) {
-      return of({ type: 'rootFolders' });
+  private getHierarchyObjectContext(
+    contextId: CaHierarchyObjectContextId
+  ): Observable<CaHierarchyObjectContext> {
+    if (contextId.type !== 'hierarchyObject') {
+      return of({ type: contextId.type });
     }
     return this.hierarchyObjectService
-      .getHierarchyObject(objectId)
+      .getHierarchyObject(contextId.hierarchyObjectId)
       .pipe(
         map((hierarchyObject) => ({ type: hierarchyObject.objectType, hierarchyObject: hierarchyObject }))
       );
@@ -171,6 +197,10 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     return this.hierarchyObject$.pipe(filter((context) => context != null));
   }
 
+  public getCurrentHierarchyContextId(): Promise<CaHierarchyObjectContextId> {
+    return firstValueFrom(this.hierarchyObjectId$);
+  }
+
   /**
    * Retrieve the ancestors from the current object to the root folder
    */
@@ -186,19 +216,21 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     );
   }
 
-  public getCurrentParentFolder(): Promise<CaHierarchyObjectSimple | null> {
+  private getCurrentParentFolderId(): Promise<string | null> {
     return firstValueFrom(
-      this.getAncestorsFolders$().pipe(
+      this.getHierarchyContext$().pipe(
         // the first element is the current object, we return the second element which is the parent
-        map((ancestors) => (ancestors.length > 1 ? ancestors[1] : null))
+        map((context) => {
+          return context.hierarchyObject?.parentId ?? null;
+        })
       )
     );
   }
 
   public navigateToParentFolder(): void {
-    this.getCurrentParentFolder().then((parentFolder) => {
-      if (parentFolder) {
-        this.routerService.navigateToFolderDetail(parentFolder.id);
+    this.getCurrentParentFolderId().then((parentFolderId) => {
+      if (parentFolderId) {
+        this.routerService.navigateToFolderDetail(parentFolderId);
       } else {
         this.routerService.navigateToDashboard();
       }
@@ -275,6 +307,34 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
       // if the query param is not present, the tree is opened
       (params) => this.treeDrawerOpened$.next(params.showTree !== 'false')
     );
+  }
+
+  //////////////////////////////////// EVENTS /////////////////////////////////////
+
+  private onEvent(event: CaHierarchyObjectEvent): void {
+    if (event.hierarchyObjectType !== CaHierarchyObjectType.FOLDER) return;
+
+    switch (event.action) {
+      case 'update':
+        this.updateFolder(event.hierarchyObjectId, event.hierarchyObject);
+        break;
+      case 'create':
+        this.addFoldersInTree([event.hierarchyObject]);
+        this.routerService.navigateToFolderDetail(event.hierarchyObjectId);
+        break;
+      case 'delete':
+        this.onFolderDelete(event.hierarchyObjectId);
+        break;
+    }
+  }
+
+  private onFolderDelete(folderId: string): void {
+    this.deleteFolderInTree(folderId);
+
+    const currentHierarchyObject = this.hierarchyObject$.value.hierarchyObject;
+    if (currentHierarchyObject?.id === folderId) {
+      this.navigateToParentFolder();
+    }
   }
 
   ngOnDestroy(): void {

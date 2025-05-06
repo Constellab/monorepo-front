@@ -2,7 +2,7 @@
 
 This project contains all the gencovery code for Angular front app.
 
-All the app and libraries hava a prefix to simplify search
+All the app and libraries hava a prefix to simplify search.
 
 ## Apps
 

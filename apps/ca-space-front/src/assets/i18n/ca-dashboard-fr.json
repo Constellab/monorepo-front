@@ -218,5 +218,9 @@
   "tag_already_exists": "Le tag existe déjà",
   "add_tags": "Ajouter des tags",
   "all_tag_values": "Toutes les valeurs",
-  "no_tag_to_filter": "Aucun tag utilisé dans le dossier, ajoutez des tags aux objets pour activer le filtrage"
+  "no_tag_to_filter": "Aucun tag utilisé dans le dossier, ajoutez des tags aux objets pour activer le filtrage",
+  "global_search_result": "Résultats de la recherche",
+  "folder_location": "Emplacement",
+  "search_in_all_folders": "Rechercher dans tous les dossiers",
+  "search_in_folder": "Rechercher dans {{name}}"
 }

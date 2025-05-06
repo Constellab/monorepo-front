@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { CaChatFolderComponent } from '../../../../../ca-core/entity-module/ca-chat-core/component/ca-chat-folder/ca-chat-folder.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
   selector: 'ca-folder-chat-right-panel',
@@ -21,6 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     CaChatFolderComponent,
     AsyncPipe,
     TranslatePipe,
+    FlPortalModule,
   ],
 })
 export class CaFolderChatRightPanelComponent implements OnInit {

@@ -38,11 +38,11 @@ export class FlPortalActionsService {
    * @param autoClose if true, the portal is close after all the action finished (with a small delay)
    * @param openPortal when false the portal is not opened if it doesn't exist
    */
-  public addAction(
-    action: FlPortalAction,
+  public addAction<T>(
+    action: FlPortalAction<T>,
     autoClose?: boolean,
     openPortal: boolean = true
-  ): Observable<FlPortalActionResult> {
+  ): Observable<FlPortalActionResult<T>> {
     if (action == null) return null;
     // clear the auto close timer if it exists
     this.clearAutoCloseTimer();

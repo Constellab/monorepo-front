@@ -53,7 +53,6 @@ export class CaRootFoldersPageComponent implements OnInit {
     'tags',
     'customAction',
   ];
-
   private state = inject(CaHierarchyObjectDetailState);
   private searchState = inject(CaHierarchyObjectSearchState);
 

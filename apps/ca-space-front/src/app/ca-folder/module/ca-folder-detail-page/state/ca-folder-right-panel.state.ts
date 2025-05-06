@@ -52,8 +52,10 @@ export class CaFolderRightPanelState implements OnDestroy {
   }
 
   private onPortalClose(): void {
-    // navigate to the same route, update only the query params
-    this.queryParamHandler.mergeQueryParams({ type: null, objectId: null });
+    setTimeout(() => {
+      // navigate to the same route, update only the query params
+      this.queryParamHandler.mergeQueryParams({ type: null, objectId: null });
+    }, 0);
     this.currentOverlayRef = null;
   }
 

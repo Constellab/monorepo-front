@@ -20,8 +20,8 @@ import { CaEnvironmentHelper } from '../utils/ca-environment.helper';
 export class CaRouterService {
   private router = inject(Router);
 
-  public navigate(route: string): void {
-    this.router.navigate([route]);
+  public navigate(route: string, extras?: NavigationExtras): void {
+    this.router.navigate([route], extras);
   }
 
   //////////////////////////////////// ROUTES OUTSIDE /APP ///////////////////////////////////////
@@ -63,6 +63,14 @@ export class CaRouterService {
 
   public navigateToFolderDetail(folderId: string): void {
     this.router.navigate([CaRouterService.getFolderDetailRoute(folderId)]);
+  }
+
+  public static getFolderAllSearchRoute(): string {
+    return CaRouterService.getFullRoute(`${caConstFolderRoute}/all/search`);
+  }
+
+  public navigateToFolderSearch(): Promise<any> {
+    return this.router.navigate([CaRouterService.getFolderAllSearchRoute()]);
   }
 
   public static getMyFoldersRoute(): string {

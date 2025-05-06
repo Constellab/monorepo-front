@@ -27,12 +27,7 @@
           [rowSelectable]="true"
           (rowEvent)="onHierarchyObjectRowEvent($event)">
           <ng-template let-object>
-            @if (hierarchyObjectHasActionMenu(object)) {
-              <!--   Settings menu   -->
-              <button mat-icon-button type="button" (click)="hierarchyObjectMenuClick(object, $event)">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            }
+            <ca-hierarchy-object-actions-menu [hierarchyObject]="object"></ca-hierarchy-object-actions-menu>
           </ng-template>
         </ca-hierarchy-object-table>
       </fl-infinite-table-container>

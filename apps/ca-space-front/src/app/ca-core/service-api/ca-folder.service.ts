@@ -42,6 +42,7 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
   CaHierarchyObjectSimple,
+  CaHierarchyObjectWithParent,
 } from '../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectSearch,
@@ -206,6 +207,23 @@ export class CaFolderService {
 
   public moveFolder(folderId: string, newParentId: string): Observable<CaHierarchyObject> {
     return this.apiService.put(`${this.route}/${folderId}/move/${newParentId}`, null, CaHierarchyObject);
+  }
+
+  public searchInAllMyFolders(
+    page: number,
+    size: number,
+    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+  ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      filters,
+      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/root/search`, searchInput, CaHierarchyObjectWithParent, {
+      page: page,
+      pageSize: size,
+      resultIsPaginated: true,
+    });
   }
 
   /////////////////////////////////// DESCRIPTION //////////////////////////////////

@@ -14,6 +14,19 @@ export const caHierarchyObjectRoutes: Route[] = [
           import('./ca-root-folder-page/ca-root-folders-page.component').then(
             (m) => m.CaRootFoldersPageComponent
           ),
+        data: {
+          context: 'rootFolders',
+        },
+      },
+      {
+        path: 'all/search',
+        loadComponent: () =>
+          import(
+            '../ca-folder-global-search/ca-folder-global-search-page/ca-folder-global-search-page.component'
+          ).then((m) => m.CaFolderGlobalSearchPageComponent),
+        data: {
+          context: 'globalSearch',
+        },
       },
       {
         path: ':id',

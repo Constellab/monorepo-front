@@ -12,6 +12,7 @@ import { TeTextEditorModule } from '@monorepo/text-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 
 @Component({
   selector: 'ca-constellab-document-preview',
@@ -28,6 +29,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     FormsModule,
     CaDetailRoutePipe,
     TranslatePipe,
+    FlPortalModule,
   ],
 })
 export class CaConstellabDocumentPreviewComponent implements OnInit {

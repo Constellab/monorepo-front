@@ -7,7 +7,11 @@
       </div>
 
       <div>
-        <a mat-stroked-button class="g-button-small" [routerLink]="document.document | caDetailRoute">
+        <a
+          mat-stroked-button
+          class="g-button-small"
+          [routerLink]="document.document | caDetailRoute"
+          flPortalClose>
           {{ 'open_details' | translate }}
         </a>
       </div>

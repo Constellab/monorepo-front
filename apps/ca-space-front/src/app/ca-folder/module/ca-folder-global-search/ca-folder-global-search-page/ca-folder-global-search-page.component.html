@@ -1,0 +1,34 @@
+<div>
+  <ca-hierarchy-object-breadcrumb></ca-hierarchy-object-breadcrumb>
+</div>
+
+<fl-card class="g-full-height">
+  <fl-card-header>
+    <fl-text-icon>
+      <mat-icon>search</mat-icon>
+      <h1>
+        {{ 'global_search_result' | translate }}
+      </h1>
+    </fl-text-icon>
+  </fl-card-header>
+
+  <fl-card-body class="card-body">
+    <ca-hierarchy-object-search-form></ca-hierarchy-object-search-form>
+
+    <fl-infinite-table-container
+      [datasource]="children"
+      textNoResult="folder_empty"
+      textNoMoreResult=""
+      class="table-container">
+      <ca-hierarchy-object-table
+        [datasource]="children"
+        [columns]="columns"
+        [rowSelectable]="true"
+        (rowEvent)="onHierarchyObjectRowEvent($event)">
+        <ng-template let-object>
+          <ca-hierarchy-object-actions-menu [hierarchyObject]="object"></ca-hierarchy-object-actions-menu>
+        </ng-template>
+      </ca-hierarchy-object-table>
+    </fl-infinite-table-container>
+  </fl-card-body>
+</fl-card>

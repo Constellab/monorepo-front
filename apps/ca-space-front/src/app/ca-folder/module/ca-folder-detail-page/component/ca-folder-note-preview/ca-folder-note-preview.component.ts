@@ -3,19 +3,14 @@ import { Observable } from 'rxjs';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaNoteService } from '../../../../../ca-core/service-api/ca-note.service';
 import { CaNoteTextEditorConfig } from '../../../ca-note-core/model/ca-note-text-editor-config.class';
-import {
-  CaHierarchyObjectIconComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
 import { MatAnchor } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import {
-  CaNoteContentComponent,
-} from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
+import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-content/ca-note-content.component';
 import { AsyncPipe } from '@angular/common';
-import {
-  CaDetailRoutePipe,
-} from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
+import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
 
 /**
  * Component in the folder page right panel to show the preview of the note
@@ -32,6 +27,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     AsyncPipe,
     CaDetailRoutePipe,
     TranslatePipe,
+    FlPortalModule,
   ],
 })
 export class CaFolderNotePreviewComponent implements OnInit {

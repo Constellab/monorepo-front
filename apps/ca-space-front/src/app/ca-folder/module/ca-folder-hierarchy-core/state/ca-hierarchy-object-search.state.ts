@@ -11,10 +11,11 @@ import {
 import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { of } from 'rxjs';
-import { clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
+import { ClCoreJsonConvert, clGetEmptyPage, ClSubscriptionHandler } from '@monorepo/core-lib';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CaHierarchyObjectDetailState } from './ca-hierarchy-object-detail.state';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
+import { CaHierarchyObjectEvent, CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
 
 /**
  * State to manager the search at hierarchy object level when the object is a folder
@@ -25,6 +26,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
   private searchState = inject<FlSearchState<CaHierarchyObject>>(FlSearchState);
   private state = inject(CaHierarchyObjectDetailState);
   private folderService = inject(CaFolderService);
+  private eventState = inject(CaHierarchyObjectEventState);
 
   private subscriptions = new ClSubscriptionHandler();
 
@@ -34,7 +36,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
     this.childrenDatasource = new FlEntityPaginatedDatasource<
       CaHierarchyObject,
       CaHierarchyObjectSearchFields
-    >(() => of(clGetEmptyPage()), 30, { initFirstPage: false, disableAutoDisconnect: true });
+    >(() => of(clGetEmptyPage()), 25, { initFirstPage: false, disableAutoDisconnect: true });
 
     // init the children search state
     const config: FlSearchConfig = {
@@ -48,6 +50,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
       },
       storeSearchInUrl: true,
       defaultSort: { key: 'lastModifiedAt', direction: 'DESC' },
+      autoSearch: false,
     };
     this.searchState.init(config, this.childrenDatasource);
 
@@ -55,33 +58,98 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
       this.state.getHierarchyContext$().subscribe((context) => {
         // search for root folders
         if (context.type === 'rootFolders') {
-          this.childrenDatasource.setPageFunction((page, pageSIze, requestData) =>
-            this.folderService.searchRootFolders(page, pageSIze, requestData)
+          this.searchState.disabled = false;
+          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+            this.folderService.searchRootFolders(page, pageSize, requestData)
           );
           // search for children of a folder
+        } else if (context.type === 'globalSearch') {
+          this.searchState.disabled = false;
+          this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
+            this.folderService.searchInAllMyFolders(page, pageSize, requestData)
+          );
         } else if (context.type === CaHierarchyObjectType.FOLDER) {
+          this.searchState.disabled = false;
           this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
             this.folderService.searchChildren(context.hierarchyObject.id, page, pageSize, requestData)
           );
+        } else {
+          this.searchState.disabled = true;
+          // we set a false function to avoid triggering the search when
+          // the page is not a search page (like element details)
+          this.childrenDatasource.setPageFunction(() => of(clGetEmptyPage()));
         }
 
-        if (this.isInitialized) {
-          // if it not the first time we need to reset the form (because it is a navigation)
-          this.searchState.resetFormAndCallSearch();
-        } else {
-          // so we submit the form to trigger the search if it is not trigger by the url params
-          // if it is also triggered by the url params it will be ignored, only 1 search will be done
+        // so we submit the form to trigger the search if it is not trigger by the url params
+        // if it is also triggered by the url params it will be ignored, only 1 search will be done
+        if (!this.isInitialized) {
           this.searchState.submitForm();
+
+          // if it not the first time we need to reset the form (because it is a navigation)
+          // if we navigate to global search we don't want to reset the form
+          // global search is a special case, we don't reset so navigation back keeps the form
+        } else if (context.type !== 'globalSearch') {
+          this.searchState.resetFormAndCallSearch();
         }
         this.isInitialized = true;
+      })
+    );
+
+    this.subscriptions.add(
+      this.eventState.getEvent$().subscribe((event) => {
+        if (event) {
+          this.onEvent(event);
+        }
       })
     );
 
     return this.searchState.advancedSearchFormGroup;
   }
 
+  private onEvent(event: CaHierarchyObjectEvent): void {
+    switch (event.action) {
+      case 'create':
+        this.addChild(event.hierarchyObject);
+        return;
+      case 'update':
+        this.updatePartialChild(event.hierarchyObjectId, event.hierarchyObject);
+        return;
+      case 'delete':
+        this.deleteHierarchyObjectById(event.hierarchyObjectId);
+        return;
+    }
+  }
+
   public getTagsFormControl(): FormControl {
     return this.searchState.advancedSearchFormGroup.get('tags') as FormControl;
+  }
+
+  private updatePartialChild(hierarchyObjectId: string, hierarchyObject: Partial<CaHierarchyObject>): void {
+    const childFolder = this.childrenDatasource.findItemById(hierarchyObjectId);
+    if (childFolder) {
+      // create a new folder based on the old one and the new data
+      const cloned = ClCoreJsonConvert.deepCloneClassAndMerge(
+        childFolder,
+        hierarchyObject,
+        CaHierarchyObject
+      );
+      this.childrenDatasource.updateItem(cloned);
+    }
+  }
+
+  private async addChild(folder: CaHierarchyObject): Promise<void> {
+    const currentContext = await this.state.getCurrentHierarchyContextId();
+    // if the new object is a child of the current context
+    if (folder.parentId === currentContext.hierarchyObjectId) {
+      this.childrenDatasource.unshiftItem(folder);
+    }
+  }
+
+  private deleteHierarchyObjectById(hierarchyObjectId: string): void {
+    const child = this.childrenDatasource.findItemById(hierarchyObjectId);
+    if (child) {
+      this.childrenDatasource.removeItem(child);
+    }
   }
 
   public ngOnDestroy(): void {

@@ -80,9 +80,22 @@
       <span> {{ 'tags' | translate }}</span>
     </mat-header-cell>
     <mat-cell *matCellDef="let hierarchyObject">
-        <fl-tag-list class="g-text-tiny"
-          [tags]="hierarchyObject.lastTags"
-          [showNoTagMessage]="false"></fl-tag-list>
+      <fl-tag-list
+        class="g-text-tiny"
+        [tags]="hierarchyObject.lastTags"
+        [showNoTagMessage]="false"></fl-tag-list>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Parent -->
+  <ng-container matColumnDef="parent">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'folder_location' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let hierarchyObject">
+      @if (hierarchyObject.parent) {
+        <ca-hierarchy-object-inline [hierarchyObject]="hierarchyObject.parent"></ca-hierarchy-object-inline>
+      }
     </mat-cell>
   </ng-container>
 

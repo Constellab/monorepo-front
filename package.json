@@ -188,6 +188,9 @@
     ],
     "*.{ts,js,json,md,html,css,scss}": [
       "prettier --write"
+    ],
+    "*.{ts,js,md,html}": [
+      "eslint --fix"
     ]
   }
 }
