@@ -124,6 +124,7 @@ export class CaHierarchyObjectEventState implements OnDestroy {
 
   public emitResourceEvent(resourceEvent: CaResourceActionEvent): void {
     switch (resourceEvent.action) {
+      case 'moveToFolder':
       case 'deleteResource':
         this.emitEvent({
           action: 'delete',

@@ -5,18 +5,12 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlPortalActionResult, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
 import {
   CaDocumentNameFormDialogComponent,
   CaDocumentNameFormDialogInput,
 } from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
-import {
-  CaSelectFolderDialogComponent,
-  CaSelectFolderDialogInput,
-} from '../../../ca-core/entity-module/ca-folder-core/component/ca-select-folder-dialog/ca-select-folder-dialog.component';
-import { CaFolder } from '../../../ca-core/model/entities/folder/ca-folder.class';
 import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { Observable } from 'rxjs';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
@@ -31,6 +25,7 @@ import {
   CaHierarchyObjectBaseActionMenu,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
+import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
 export type CaDocumentActionEvent =
   | {
@@ -227,44 +222,19 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
   }
 
   private moveDocument(): void {
-    const input: CaSelectFolderDialogInput = {
-      title: { text: 'move_to_folder', translateText: true },
-      mode: 'any',
-      currentObjectId: this.documentInfo.id,
-    };
     this.injector
-      .get(FlDialogService)
-      .openMediumDialog(CaSelectFolderDialogComponent, {
-        data: input,
-        autoFocus: false,
-      })
-      .afterClosed()
-      .subscribe((folder) => this.onMoveDocumentClosed(folder));
+      .get(CaFolderActionService)
+      .moveObjectToFolder(this.documentInfo.id, (folderHierarchyId: string, folderId: string) =>
+        this.injector.get(CaFolderService).moveDocumentToFolder(folderHierarchyId, folderId)
+      )
+      .subscribe((document) => this.onMoveDocumentClosed(document));
   }
 
-  private onMoveDocumentClosed(folder?: CaFolder): void {
-    if (folder) {
-      this.injector
-        .get(FlPortalActionsService)
-        .addAction({
-          type: 'move-doc-to-folder',
-          action: this.injector.get(CaFolderService).moveDocumentToFolder(this.documentInfo.id, folder.id),
-          text: { text: 'moving_to_folder', translateText: true },
-        })
-        .subscribe({
-          next: (result) => this.onMoveDocumentSuccess(result),
-          error: () => this.subject.complete(),
-        });
-    } else {
-      this.subject.complete();
-    }
-  }
-
-  private onMoveDocumentSuccess(result: FlPortalActionResult<CaDocument>): void {
-    if (result.status === 'success') {
+  private onMoveDocumentClosed(document: CaDocument): void {
+    if (document) {
       this.subject.next({
         action: 'moveToFolder',
-        document: result.result,
+        document: document,
       });
     }
     this.subject.complete();

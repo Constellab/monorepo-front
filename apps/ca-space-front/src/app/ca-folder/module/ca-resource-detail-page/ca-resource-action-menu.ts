@@ -1,4 +1,4 @@
-import { CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
+import { CaResource, CaResourceBasicInfo } from '../../../ca-core/model/entities/folder/ca-resource.class';
 import { Observable } from 'rxjs';
 import { CaResourceService } from '../../../ca-core/service-api/ca-resource.service';
 import {
@@ -12,11 +12,17 @@ import {
   CaHierarchyObjectBaseActionMenu,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
+import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
-export type CaResourceActionEvent = {
-  action: 'deleteResource';
-  resource: CaResourceBasicInfo;
-};
+export type CaResourceActionEvent =
+  | {
+      action: 'moveToFolder';
+      resource: CaResource;
+    }
+  | {
+      action: 'deleteResource';
+      resource: CaResourceBasicInfo;
+    };
 
 export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaResourceActionEvent> {
   constructor(
@@ -28,8 +34,36 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu<CaReso
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaResourceActionEvent> {
-    const menu = [this.getManageTagsButton(), this.getDeleteResourceButton()];
+    const menu = [this.getManageTagsButton(), this.getMoveResourceButton(), this.getDeleteResourceButton()];
     return this.generateMenu(menu, event);
+  }
+
+  private getMoveResourceButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'move_to_folder', translateText: true },
+      icon: 'drive_file_move',
+      onClick: () => this.moveResource(),
+    };
+  }
+
+  private moveResource(): void {
+    this.injector
+      .get(CaFolderActionService)
+      .moveObjectToFolder(this.resourceInfo.id, (folderHierarchyId: string, folderId: string) =>
+        this.injector.get(CaResourceService).moveResource(folderHierarchyId, folderId)
+      )
+      .subscribe((document) => this.onMoveResourceClosed(document));
+  }
+
+  private onMoveResourceClosed(resource: CaResource): void {
+    if (resource) {
+      this.subject.next({
+        action: 'moveToFolder',
+        resource: resource,
+      });
+    }
+    this.subject.complete();
   }
 
   private getDeleteResourceButton(): FlMenuDynamic {

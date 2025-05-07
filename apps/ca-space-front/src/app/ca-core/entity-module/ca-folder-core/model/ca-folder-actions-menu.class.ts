@@ -118,7 +118,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       type: 'button',
       text: { text: 'move_to_folder', translateText: true },
       icon: 'drive_file_move',
-      onClick: () => this.moveDocument(),
+      onClick: () => this.moveFolder(),
     };
   }
 
@@ -204,7 +204,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
     this.subject.complete();
   }
 
-  private moveDocument(): void {
+  private moveFolder(): void {
     this.injector
       .get(CaFolderActionService)
       .moveFolder(this.folderInfo.id)

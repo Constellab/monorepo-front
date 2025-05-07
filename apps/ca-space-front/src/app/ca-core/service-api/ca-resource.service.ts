@@ -22,4 +22,8 @@ export class CaResourceService {
   public renameResource(id: string, name: string): Observable<CaResource> {
     return this.apiService.put(`${this.route}/${id}/name`, { name }, CaResource);
   }
+
+  public moveResource(id: string, newFolderId: string): Observable<CaResource> {
+    return this.apiService.put(`${this.route}/${id}/move/${newFolderId}`, {}, CaResource);
+  }
 }

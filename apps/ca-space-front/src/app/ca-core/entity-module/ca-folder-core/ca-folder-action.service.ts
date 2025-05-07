@@ -39,7 +39,7 @@ export class CaFolderActionService {
 
   private uploadDocumentActionName = 'upload-document-action';
   private uploadFolderActionName = 'upload-folder-action';
-  private moveFolderActionName = 'move-folder-action';
+  private moveFolderActionName = 'move-to-folder-action';
 
   public openCreateRootFolderDialog(): Observable<CaFolderWithHierarchy | null> {
     const dialogInput: CaFolderFormDialogInput = {
@@ -157,10 +157,19 @@ export class CaFolderActionService {
   }
 
   public moveFolder(folderId: string): Observable<CaHierarchyObject | null> {
+    return this.moveObjectToFolder(folderId, (hierarchyObjectId: string, folderId: string) =>
+      this.folderService.moveFolder(hierarchyObjectId, folderId)
+    );
+  }
+
+  public moveObjectToFolder<T>(
+    hierarchyObjectId: string,
+    moveFunction: (hierarchyObjectId: string, folderId: string) => Observable<T>
+  ): Observable<T | null> {
     const input: CaSelectFolderDialogInput = {
       title: { text: 'move_to_folder', translateText: true },
       mode: 'any',
-      currentObjectId: folderId,
+      currentObjectId: hierarchyObjectId,
     };
     return this.dialogService
       .openMediumDialog(CaSelectFolderDialogComponent, {
@@ -168,15 +177,19 @@ export class CaFolderActionService {
         autoFocus: false,
       })
       .afterClosed()
-      .pipe(mergeMap((folder) => this.onMoveFolderClosed(folderId, folder)));
+      .pipe(mergeMap((folder) => this.onMoveObjectClosed(hierarchyObjectId, moveFunction, folder)));
   }
 
-  private onMoveFolderClosed(folderId: string, folder?: CaFolder): Observable<CaHierarchyObject | null> {
+  private onMoveObjectClosed<T>(
+    hierarchyObjectId: string,
+    moveFunction: (hierarchyObjectId: string, folderId: string) => Observable<T>,
+    folder?: CaFolder
+  ): Observable<T | null> {
     if (folder) {
       return this.actionService
         .addAction({
           type: this.moveFolderActionName,
-          action: this.folderService.moveFolder(folderId, folder.id),
+          action: moveFunction(hierarchyObjectId, folder.id),
           text: { text: 'moving_to_folder', translateText: true },
         })
         .pipe(
