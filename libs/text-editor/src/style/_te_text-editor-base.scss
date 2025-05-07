@@ -93,6 +93,12 @@
       height: 28px;
     }
 
+    .ce-toolbar,
+    .ce-inline-toolbar {
+      /// force the popover to be above everything (including above table which is override bellow)
+      z-index: 99999;
+    }
+
     // background color for the current selected block (when clicking on tune button, or selecting multiple block with mouse)
     .ce-block--selected .ce-block__content {
       background: var(--hover-color);
@@ -231,9 +237,8 @@
 
     ///////////////////////// PARAGRAPH /////////////////////////
     .ce-paragraph,
-    p  {
-
-      @include embeded-html.g-embed-paragraph()
+    p {
+      @include embeded-html.g-embed-paragraph();
     }
 
     // color the paragraph placeholder
@@ -413,7 +418,7 @@
     }
 
     // Make the table above other so the popover (add, remove row...) is above next block
-    .tc-wrap{
+    .tc-wrap {
       z-index: 9999;
     }
 
