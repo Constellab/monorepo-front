@@ -6,16 +6,11 @@ import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.se
 import { FlFormModule } from '@monorepo/front-core-lib/fl-form';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { AsyncPipe } from '@angular/common';
-import {
-  CaHierarchyObjectIconComponent,
-} from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import {
-  CaNotificationMarkDirective,
-} from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
+import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaNotificationMarkDirective } from '../../../../../ca-core/entity-module/ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
-import {
-  CaHierarchyObjectDetailState,
-} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 
 /**
  * Show detailed information for a folder , used in FolderDetailPage
@@ -35,6 +30,7 @@ import {
 })
 export class CaFolderDetailComponent {
   private state = inject(CaFolderDetailState);
+  private eventState = inject(CaHierarchyObjectEventState);
 
   folder$: Observable<CaFolder> = this.state.getFolder$();
   canEdit$: Observable<boolean> = this.state.canEditFolder$();
@@ -43,6 +39,8 @@ export class CaFolderDetailComponent {
   private folderService = inject(CaFolderService);
 
   renameFolder(name: string, folder: CaFolder): void {
-    this.folderService.renameFolder(folder.id, name).subscribe((folder) => this.state.updateFolder(folder));
+    this.folderService
+      .renameFolder(folder.id, name)
+      .subscribe((folder) => this.eventState.emitFolderUpdate(folder));
   }
 }

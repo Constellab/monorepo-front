@@ -21,7 +21,6 @@ import {
 import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
@@ -56,7 +55,7 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     }
 
     menus.push(this.getActivitiesButton());
-    menus.push(this.getDocumentInTrashButton(), this.getOpenSettingsButton());
+    menus.push(this.getDocumentInTrashButton(), this.getOpenSettingsButton(), this.getDeleteFolderButton());
 
     return this.generateMenu(menus, event);
   }
@@ -109,23 +108,6 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       icon: 'task',
       link: CaRouterService.getFolderActivityRoute(this.folderInfo.id),
     };
-  }
-
-  private getOpenSettingsButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: { text: 'folder_settings', translateText: true },
-      icon: 'settings',
-      onClick: () => this.openSettings(),
-    };
-  }
-
-  private openSettings(): void {
-    this.injector.get(CaFolderRightPanelState).updateRightPanelState({
-      type: 'settings',
-      objectId: this.folderInfo.id,
-    });
-    this.subject.complete();
   }
 
   private getDocumentInTrashButton(): FlMenuDynamic {

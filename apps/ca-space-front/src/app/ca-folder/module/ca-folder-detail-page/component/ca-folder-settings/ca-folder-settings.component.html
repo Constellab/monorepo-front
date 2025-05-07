@@ -4,62 +4,69 @@
     <h2>{{ 'folder_settings' | translate }}</h2>
   </fl-text-icon>
 
-  <ca-folder-detail-info class="section"></ca-folder-detail-info>
+  <fl-section [object]="folder" [isLoading]="isLoading">
+    <ng-container *flSectionBody>
+      <ca-folder-detail-info
+        [folder]="folder"
+        [canEditFolder]="canEditFolder"
+        class="section"></ca-folder-detail-info>
 
-  @if (folder$ | async; as folder) {
-    <div class="section">
-      <fl-text-icon>
-        <mat-icon>message</mat-icon>
-        <h3>{{ 'chat' | translate }}</h3>
-      </fl-text-icon>
+      <div class="section">
+        <fl-text-icon>
+          <mat-icon>message</mat-icon>
+          <h3>{{ 'chat' | translate }}</h3>
+        </fl-text-icon>
 
-      <div class="g-text-centered">
-        <div class="g-text-light">
-          @if (folder.chatEnabled) {
-            {{ 'folder_chat_activated' | translate }}
-          } @else {
-            {{ 'folder_chat_deactivated' | translate }}
+        <div class="g-text-centered">
+          <div class="g-text-light">
+            @if (folder.chatEnabled) {
+              {{ 'folder_chat_activated' | translate }}
+            } @else {
+              {{ 'folder_chat_deactivated' | translate }}
+            }
+          </div>
+
+          @if (canEditFolder) {
+            <button mat-stroked-button type="button" class="chat-button" (click)="toggleChat(folder)">
+              <mat-icon>
+                @if (folder.chatEnabled) {
+                  speaker_notes_off
+                } @else {
+                  <mat-icon>chat</mat-icon>
+                }
+              </mat-icon>
+              <span>
+                @if (folder.chatEnabled) {
+                  {{ 'folder_deactivate_chat' | translate }}
+                } @else {
+                  {{ 'folder_activate_chat' | translate }}
+                }
+              </span>
+            </button>
           }
         </div>
-
-        @if (canEditFolder$ | async) {
-          <button mat-stroked-button type="button" class="chat-button" (click)="toggleChat(folder)">
-            <mat-icon>
-              @if (folder.chatEnabled) {
-                speaker_notes_off
-              } @else {
-                <mat-icon>chat</mat-icon>
-              }
-            </mat-icon>
-            <span>
-              @if (folder.chatEnabled) {
-                {{ 'folder_deactivate_chat' | translate }}
-              } @else {
-                {{ 'folder_activate_chat' | translate }}
-              }
-            </span>
-          </button>
-        }
       </div>
-    </div>
-  }
 
-  @if ((canEditFolder$ | async) && (showStorageSettings$ | async)) {
-    <ca-folder-storage-settings class="section"></ca-folder-storage-settings>
-  }
+      @if (canEditFolder && (showStorageSettings$ | async)) {
+        <ca-folder-storage-settings [folderId]="folderId" class="section"></ca-folder-storage-settings>
+      }
 
-  <ca-folder-storage-usage-section class="section"></ca-folder-storage-usage-section>
+      <ca-folder-storage-usage-section
+        [folderId]="folderId"
+        class="section"></ca-folder-storage-usage-section>
 
-  @if ((canEditFolder$ | async) && (folder$ | async); as folder) {
-    <div class="g-text-centered delete-button">
-      <button
-        mat-stroked-button
-        type="button"
-        (click)="openDeleteFolderDialog(folder)"
-        class="g-button-small warn">
-        <mat-icon>delete</mat-icon>
-        {{ 'delete_folder' | translate }}
-      </button>
-    </div>
-  }
+      @if (canEditFolder && folder; as folder) {
+        <div class="g-text-centered delete-button">
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="openDeleteFolderDialog(folder)"
+            class="g-button-small warn">
+            <mat-icon>delete</mat-icon>
+            {{ 'delete_folder' | translate }}
+          </button>
+        </div>
+      }
+    </ng-container>
+  </fl-section>
 </div>

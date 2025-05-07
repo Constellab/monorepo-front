@@ -11,7 +11,6 @@ import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/sta
 import {
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
-  CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
 import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
@@ -69,6 +68,14 @@ export class CaFolderDetailState implements OnDestroy {
         .getUploadedFolderActionResult()
         .subscribe((event) => this.onFolderUploaded(event.parentFolderId))
     );
+
+    this.subscription.add(this.eventState.getEvent$().subscribe((event) => this.onEvent(event)));
+  }
+
+  private onEvent(event: CaHierarchyObjectEvent): void {
+    if (event.action === 'updateFolder') {
+      this.folder$.next(event.folder);
+    }
   }
 
   public getFolderId$(): Observable<string> {
@@ -106,13 +113,6 @@ export class CaFolderDetailState implements OnDestroy {
 
   public refreshChildren(): void {
     this.childrenDatasource.getFirstPage();
-  }
-
-  public updateFolder(folder: CaFolder): void {
-    if (this.getCurrentFolder().id === folder.id) {
-      this.folder$.next(folder);
-    }
-    this.eventState.emitFolderUpdate(folder);
   }
 
   private initFolder(folder: CaFolder): void {

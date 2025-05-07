@@ -28,6 +28,13 @@ export type CaHierarchyObjectEvent =
       action: 'delete';
       hierarchyObjectId: string;
       hierarchyObjectType: CaHierarchyObjectType;
+    }
+  // special event to update the folder
+  | {
+      action: 'updateFolder';
+      hierarchyObjectId: string;
+      hierarchyObjectType: CaHierarchyObjectType;
+      folder: CaFolder;
     };
 
 /**
@@ -96,7 +103,13 @@ export class CaHierarchyObjectEventState implements OnDestroy {
       action: 'update',
       hierarchyObjectId: folder.id,
       hierarchyObjectType: CaHierarchyObjectType.FOLDER,
-      hierarchyObject: { name: folder.name, user: folder.leader },
+      hierarchyObject: { name: folder.name, user: folder.leader, chatEnabled: folder.chatEnabled },
+    });
+    this.emitEvent({
+      action: 'updateFolder',
+      hierarchyObjectId: folder.id,
+      hierarchyObjectType: CaHierarchyObjectType.FOLDER,
+      folder: folder,
     });
   }
 

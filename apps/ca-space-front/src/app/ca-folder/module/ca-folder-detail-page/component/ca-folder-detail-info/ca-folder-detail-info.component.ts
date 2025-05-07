@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, inject, input } from '@angular/core';
 import {
   CaFolder,
   CaFolderWithHierarchy,
 } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import {
   CaUpdateFolderLeaderDialogComponent,
@@ -18,8 +16,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
-import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 
 @Component({
   selector: 'ca-folder-detail-info',
@@ -33,31 +31,27 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatTooltip,
     FlUserModule,
     FlDateModule,
-    AsyncPipe,
     TranslatePipe,
   ],
 })
 export class CaFolderDetailInfoComponent {
-  private state = inject(CaFolderDetailState);
-
-  folder$: Observable<CaFolder> = this.state.getFolder$();
-  canEditFolder$: Observable<boolean> = this.state.canEditFolder$();
+  folder = input.required<CaFolder>();
+  canEditFolder = input.required<boolean>();
 
   private dialogService = inject(FlDialogService);
-
   private folderActionService = inject(CaFolderActionService);
+  private eventState = inject(CaHierarchyObjectEventState);
 
   openUpdateFolderDialog(): void {
     this.folderActionService
-      .openUpdateFolderDialog(this.state.getCurrentFolder().id)
+      .openUpdateFolderDialog(this.folder().id)
       .subscribe((folder) => this.updateDialogClosed(folder));
   }
 
-  openUpdateFolderLeaderDialog(folder: CaFolder): void {
+  openUpdateFolderLeaderDialog(): void {
     const dialogInput: CaUpdateFolderLeaderDialogInput = {
-      folderId: folder.id,
-      currentLeader: folder.leader,
-      users$: this.state.getUsers().connect(),
+      folderId: this.folder().id,
+      currentLeader: this.folder().leader,
     };
 
     this.dialogService
@@ -70,7 +64,7 @@ export class CaFolderDetailInfoComponent {
 
   private updateDialogClosed(folder?: CaFolderWithHierarchy): void {
     if (folder) {
-      this.state.updateFolder(folder);
+      this.eventState.emitFolderUpdate(folder);
     }
   }
 }

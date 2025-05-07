@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { mergeMap, Observable } from 'rxjs';
+import { Component, inject, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CaFolderStorageUsageDTO } from '../../../../../ca-core/model/entities/folder/ca-document.class';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
@@ -15,14 +14,13 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [FlTextIconModule, MatIcon, CaFolderStorageUsageComponent, TranslatePipe],
 })
 export class CaFolderStorageUsageSectionComponent implements OnInit {
-  private state = inject(CaFolderDetailState);
+  @Input({ required: true }) folderId: string;
+
   private folderService = inject(CaFolderService);
 
   storageUsage$: Observable<CaFolderStorageUsageDTO>;
 
   ngOnInit(): void {
-    this.storageUsage$ = this.state
-      .getFolderId$()
-      .pipe(mergeMap((folderId) => this.folderService.getFolderStorageSize(folderId)));
+    this.storageUsage$ = this.folderService.getFolderStorageSize(this.folderId);
   }
 }

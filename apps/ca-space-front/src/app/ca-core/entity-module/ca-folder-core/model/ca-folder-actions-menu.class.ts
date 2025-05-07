@@ -17,6 +17,7 @@ import {
   CaHierarchyObjectBaseActionMenu,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
+import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
 
 export type CaFolderActionEvent =
   | {
@@ -63,7 +64,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       if (!disableMove) {
         menu.push(this.getMoveToFolderButton());
       }
-      menu.push(this.getDeleteFolderButton());
+      menu.push(this.getOpenSettingsButton(), this.getDeleteFolderButton());
     }
 
     return this.generateMenu(menu, event);
@@ -129,6 +130,15 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       icon: 'delete',
       onClick: () => this.openDeleteFolderDialog(),
       color: 'warn',
+    };
+  }
+
+  protected getOpenSettingsButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'folder_settings', translateText: true },
+      icon: 'settings',
+      onClick: () => this.openSettings(),
     };
   }
 
@@ -218,6 +228,14 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
         folder: folder,
       });
     }
+    this.subject.complete();
+  }
+
+  private openSettings(): void {
+    this.injector.get(CaFolderRightPanelState).updateRightPanelState({
+      type: 'settings',
+      objectId: this.folderInfo.id,
+    });
     this.subject.complete();
   }
 }

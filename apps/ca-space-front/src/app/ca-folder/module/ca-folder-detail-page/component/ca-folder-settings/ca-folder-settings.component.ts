@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CaFolderDetailState } from '../../state/ca-folder-detail.state';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
@@ -15,8 +14,13 @@ import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/
 import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
+import {
+  CaHierarchyObjectEvent,
+  CaHierarchyObjectEventState,
+} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
+import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 
 @Component({
   selector: 'ca-folder-settings',
@@ -31,20 +35,49 @@ import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/fol
     CaFolderStorageUsageSectionComponent,
     AsyncPipe,
     TranslatePipe,
+    FlSectionModule,
   ],
 })
-export class CaFolderSettingsComponent {
-  // only allow storage setting for root folders
-  showStorageSettings$: Observable<boolean> = inject(CaFolderDetailState).isRootFolder$();
-  private state = inject(CaFolderDetailState);
-  folder$: Observable<CaFolder> = this.state.getFolder$();
+export class CaFolderSettingsComponent implements OnInit, OnDestroy {
+  @Input({ required: true }) folderId: string;
 
-  canEditFolder$: Observable<boolean> = this.state.canEditFolder$();
   private eventState = inject(CaHierarchyObjectEventState);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderService = inject(CaFolderService);
   private folderActionService = inject(CaFolderActionService);
   private snackBarService = inject(FlSnackBarService);
+  private securityService = inject(CaSecurityService);
+
+  // only allow storage setting for root folders
+  showStorageSettings$: Observable<boolean>;
+
+  folder: CaFolder;
+  canEditFolder: boolean;
+  isLoading: boolean = true;
+
+  private subscription: Subscription;
+
+  ngOnInit(): void {
+    this.folderService.getById(this.folderId).subscribe({
+      next: (folder) => this.onFolderLoaded(folder),
+      error: () => (this.isLoading = false),
+    });
+    this.subscription = this.eventState.getEvent$().subscribe((event) => this.onEvent(event));
+  }
+
+  private onFolderLoaded(folder: CaFolder): void {
+    this.folder = folder;
+    this.canEditFolder = this.securityService.canEditFolder(folder.leader.id);
+    this.isLoading = false;
+  }
+
+  private onEvent(event: CaHierarchyObjectEvent): void {
+    if (event.action === 'updateFolder') {
+      if (this.folderId === event.folder.id) {
+        this.onFolderLoaded(event.folder);
+      }
+    }
+  }
 
   toggleChat(folder: CaFolder): void {
     this.folderService
@@ -59,7 +92,7 @@ export class CaFolderSettingsComponent {
   }
 
   private chatEnableSuccess(folder: CaFolder): void {
-    this.state.updateFolder(folder);
+    this.eventState.emitFolderUpdate(folder);
     if (folder.chatEnabled) {
       this.snackBarService.openSuccessMessage({ text: 'folder_chat_activated', translateText: true });
     } else {
@@ -76,5 +109,9 @@ export class CaFolderSettingsComponent {
         hierarchyObjectId: folder.id,
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

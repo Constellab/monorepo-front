@@ -21,7 +21,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 export interface CaUpdateFolderLeaderDialogInput {
   folderId: string;
   currentLeader: CaUser;
-  users$: Observable<CaUser[]>;
 }
 
 /**
@@ -65,7 +64,7 @@ export class CaUpdateFolderLeaderDialogComponent implements OnInit {
   compareWith = ClHelpService.compareFnIds;
 
   ngOnInit(): void {
-    this.users$ = this.input.users$;
+    this.users$ = this.folderService.getUsersOfFolder(this.input.folderId);
     this.formControl = new FormControl<any>(this.input.currentLeader, [Validators.required]);
   }
 
