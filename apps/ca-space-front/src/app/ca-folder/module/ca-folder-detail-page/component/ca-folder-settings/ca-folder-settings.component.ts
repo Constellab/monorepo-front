@@ -2,10 +2,13 @@ import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  FlConfirmDialogInput,
+  FlConfirmDialogResult,
+  FlDialogService,
+} from '@monorepo/front-core-lib/fl-dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import { CaFolderRightPanelState } from '../../state/ca-folder-right-panel.state';
-import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
 import { MatIcon } from '@angular/material/icon';
 import { CaFolderDetailInfoComponent } from '../ca-folder-detail-info/ca-folder-detail-info.component';
@@ -17,9 +20,11 @@ import {
   CaHierarchyObjectEvent,
   CaHierarchyObjectEventState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
-import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
+import { CaHierarchyObjectService } from '../../../../../ca-core/service-api/ca-hierarchy-object.service';
+import { CaChatService } from '../../../../../ca-core/service-api/ca-chat.service';
 
 @Component({
   selector: 'ca-folder-settings',
@@ -42,9 +47,11 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
   private eventState = inject(CaHierarchyObjectEventState);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderService = inject(CaFolderService);
-  private folderActionService = inject(CaFolderActionService);
+  private chatService = inject(CaChatService);
   private snackBarService = inject(FlSnackBarService);
   private securityService = inject(CaSecurityService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
+  private dialogService = inject(FlDialogService);
 
   folder: CaFolder;
   canEditFolder: boolean;
@@ -75,15 +82,30 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
   }
 
   toggleChat(folder: CaFolder): void {
-    this.folderService
+    this.chatService
       .activateChat(folder.id, !folder.chatEnabled)
       .subscribe((newFolder: CaFolder) => this.chatEnableSuccess(newFolder));
   }
 
-  openDeleteFolderDialog(folder: CaFolder): void {
-    this.folderActionService
-      .openDeleteFolderDialog(folder.id)
-      .subscribe((result) => this.onDeleteClosed(result, folder));
+  openMoveToTrashDialog(folder: CaFolder): void {
+    const input: FlConfirmDialogInput = {
+      title: 'move_object_to_trash',
+      content: 'move_object_to_trash_confirmation',
+      observable: this.hierarchyObjectService.moveToTrash(folder.id),
+      successMessage: 'object_moved_to_trash',
+    };
+
+    this.dialogService
+      .openConfirmDialog(input)
+      .afterClosed()
+      .subscribe((result) => this.onMoveToTrashClosed(result));
+  }
+
+  private onMoveToTrashClosed(result: FlConfirmDialogResult<CaHierarchyObject>): void {
+    if (result.choice) {
+      this.eventState.emitFolderEvent({ action: 'moveToTrash', hierarchyObject: result.result });
+      this.rightPanelState.closeRightPanel();
+    }
   }
 
   private chatEnableSuccess(folder: CaFolder): void {
@@ -92,17 +114,6 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
       this.snackBarService.openSuccessMessage({ text: 'folder_chat_activated', translateText: true });
     } else {
       this.snackBarService.openSuccessMessage({ text: 'folder_chat_deactivated', translateText: true });
-    }
-  }
-
-  private onDeleteClosed(result: FlConfirmDialogResult, folder: CaFolder): void {
-    if (result.choice) {
-      this.rightPanelState.closeRightPanel();
-      this.eventState.emitEvent({
-        action: 'delete',
-        hierarchyObjectType: CaHierarchyObjectType.FOLDER,
-        hierarchyObjectId: folder.id,
-      });
     }
   }
 

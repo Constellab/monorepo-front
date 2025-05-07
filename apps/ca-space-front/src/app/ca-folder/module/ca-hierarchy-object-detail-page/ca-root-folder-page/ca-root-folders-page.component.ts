@@ -23,7 +23,13 @@ import {
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
-import { CaHierarchyObjectSearchFormComponent } from '../../ca-folder-detail-page/component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { AsyncPipe } from '@angular/common';
+import {
+  CaHierarchyObjectTrashDialogComponent,
+  CaHierarchyObjectTrashDialogInput,
+} from '../ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 
 @Component({
   selector: 'ca-root-folder-page',
@@ -39,6 +45,7 @@ import { CaHierarchyObjectSearchFormComponent } from '../../ca-folder-detail-pag
     MatIcon,
     MatIconButton,
     CaHierarchyObjectSearchFormComponent,
+    AsyncPipe,
   ],
   templateUrl: './ca-root-folders-page.component.html',
   styleUrl: './ca-root-folders-page.component.scss',
@@ -58,6 +65,9 @@ export class CaRootFoldersPageComponent implements OnInit {
 
   private folderActionService = inject(CaFolderActionService);
   private injector = inject(Injector);
+  private dialogService = inject(FlDialogService);
+
+  hierarchyObjectContext$ = inject(CaHierarchyObjectDetailState).getHierarchyContext$();
 
   ngOnInit(): void {
     this.children = this.searchState.childrenDatasource;
@@ -102,8 +112,16 @@ export class CaRootFoldersPageComponent implements OnInit {
 
     if (event.action === 'update') {
       this.children.updatePartial(hierarchyObject.id, { name: event.folder.name }, CaHierarchyObject);
-    } else if (event.action === 'delete') {
+    } else if (event.action === 'moveToTrash') {
       this.children.removeItem(hierarchyObject);
     }
+  }
+
+  openTrash(): void {
+    const data: CaHierarchyObjectTrashDialogInput = {
+      mode: 'all',
+    };
+
+    this.dialogService.openMediumDialog(CaHierarchyObjectTrashDialogComponent, { data: data });
   }
 }

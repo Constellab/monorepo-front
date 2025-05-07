@@ -27,12 +27,6 @@
         <fl-tag-list class="g-text-small" [tags]="tags" [showNoTagMessage]="false"></fl-tag-list>
 
         <div class="g-print-hide doc-header">
-          @if (document.inTrash) {
-            <div class="g-warn-text">
-              {{ 'document_in_trash' | translate }}
-            </div>
-          }
-
           <fl-creation-info [user]="document.createdBy" [date]="document.createdAt"> </fl-creation-info>
 
           <div class="g-layout-row g-layout-between-center">

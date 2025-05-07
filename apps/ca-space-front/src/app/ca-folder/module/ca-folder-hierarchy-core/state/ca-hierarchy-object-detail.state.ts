@@ -104,7 +104,7 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
           first(),
           filter((hierarchyContext) => hierarchyContext.hierarchyObject != null),
           switchMap((hierarchyContext) =>
-            this.folderService.getObjectFolderAncestors(hierarchyContext.hierarchyObject.getFolderId())
+            this.hierarchyObjectService.getObjectAncestors(hierarchyContext.hierarchyObject.getFolderId())
           )
         )
         .subscribe((ancestors) => this.addFoldersInTree(ancestors.reverse()))

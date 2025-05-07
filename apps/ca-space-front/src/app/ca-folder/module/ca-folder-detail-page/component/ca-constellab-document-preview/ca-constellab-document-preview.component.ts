@@ -1,8 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CaConstellabDocument } from '../../../../../ca-core/model/entities/folder/ca-document.class';
 import { Observable } from 'rxjs';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
-import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
+import { CaConstellabDocumentTextEditorConfig } from '../../../ca-document-core/ca-constellab-document-text-editor.config';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
@@ -13,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CaDetailRoutePipe } from '../../../../../ca-core/module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
+import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 
 @Component({
   selector: 'ca-constellab-document-preview',
@@ -33,16 +33,19 @@ import { FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
   ],
 })
 export class CaConstellabDocumentPreviewComponent implements OnInit {
-  private folderService = inject(CaFolderService);
+  private constellabDocumentService = inject(CaConstellabDocumentService);
 
   @Input() documentId: string;
 
   document$: Observable<CaConstellabDocument>;
 
-  textEditorConfig: CaDocumentTextEditorConfig;
+  textEditorConfig: CaConstellabDocumentTextEditorConfig;
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaDocumentTextEditorConfig(this.documentId, this.folderService);
-    this.document$ = this.folderService.getConstellabDocument(this.documentId);
+    this.textEditorConfig = new CaConstellabDocumentTextEditorConfig(
+      this.documentId,
+      this.constellabDocumentService
+    );
+    this.document$ = this.constellabDocumentService.getConstellabDocument(this.documentId);
   }
 }

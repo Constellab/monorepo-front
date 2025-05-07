@@ -1,6 +1,5 @@
-import { Component, computed, input, OnDestroy, Signal, inject } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, Signal } from '@angular/core';
 import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../../../../model/entities/ca-chat-message';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { TeRichText } from '@monorepo/text-editor';
 import { FlInfiniteScrollModule } from '@monorepo/front-core-lib/fl-infinite-scroll';
 import { CaChatMessageComponent } from '../ca-chat-message/ca-chat-message.component';
@@ -8,6 +7,8 @@ import { FlCoreDirectiveModule } from '@monorepo/front-core-lib/fl-core-directiv
 import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
 import { AsyncPipe } from '@angular/common';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
+import { CaChatService } from '../../../../service-api/ca-chat.service';
+import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 
 /**
  * Component to load message of a chat of a folder and show them.
@@ -27,16 +28,20 @@ import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
   ],
 })
 export class CaChatFolderComponent implements OnDestroy {
-  private folderService = inject(CaFolderService);
+  private chatService = inject(CaChatService);
 
   folderId = input.required<string>();
 
-  messages: Signal<CaChatMessageDatasourcePaginated> = computed(() =>
-    this.folderService.getFolderMessagesDatasource(this.folderId())
+  messages: Signal<CaChatMessageDatasourcePaginated> = computed(
+    () =>
+      new FlEntityPaginatedDatasource(
+        (page, size) => this.chatService.getFolderMessages(this.folderId(), page, size),
+        15
+      )
   );
 
   createNewMessage(content: TeRichText): void {
-    this.folderService
+    this.chatService
       .createMessage(this.folderId(), content)
       .subscribe((message) => this.createSuccess(message));
   }

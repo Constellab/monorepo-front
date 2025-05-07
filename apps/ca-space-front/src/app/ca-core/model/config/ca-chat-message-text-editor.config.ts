@@ -18,19 +18,20 @@ import {
   TeUnderlineInlineTool,
 } from '@monorepo/text-editor';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
+import { CaChatService } from '../../service-api/ca-chat.service';
 
-export class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
+class CaChatMessageTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(
     private folderId: string,
-    private folderService: CaFolderService
+    private chatService: CaChatService
   ) {}
 
   imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
-    return this.folderService.uploadMessageImage(file, this.folderId);
+    return this.chatService.uploadMessageImage(file, this.folderId);
   }
 
   getImageUrl(filename: string): string {
-    return this.folderService.getMessageImageUrl(filename, this.folderId);
+    return this.chatService.getMessageImageUrl(filename, this.folderId);
   }
 }
 
@@ -42,6 +43,7 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
 
   constructor(
     public folderId: string,
+    private chatService: CaChatService,
     private folderService: CaFolderService,
     private mode: 'create' | 'update' = 'create'
   ) {
@@ -58,7 +60,7 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
    */
   getTools(envInjector: EnvironmentInjector, applicationRef: ApplicationRef): TeTools {
     // configure and add the image block
-    const imageConfig = new CaChatMessageTextEditorImageConfig(this.folderId, this.folderService);
+    const imageConfig = new CaChatMessageTextEditorImageConfig(this.folderId, this.chatService);
 
     const config = {
       paragraph: this.getParagraphConfig(),
@@ -98,11 +100,11 @@ export class CaChatMessageTextEditorConfig extends TeConfig {
   }
 
   getTunes(): string[] {
-    return [];
+    return ['moveUp', 'moveDown', 'delete'];
   }
 
   getInlineToolbar(): string[] {
-    const toolbar = this.getFullInlineToolbar(false);
+    const toolbar = this.getBasicInlineToolbar();
     if (this.mode === 'create') {
       toolbar.push('mention');
     }

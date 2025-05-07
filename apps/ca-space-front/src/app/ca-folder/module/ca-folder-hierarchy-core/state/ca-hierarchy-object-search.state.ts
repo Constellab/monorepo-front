@@ -16,6 +16,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { CaHierarchyObjectDetailState } from './ca-hierarchy-object-detail.state';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
 import { CaHierarchyObjectEvent, CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
+import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
 
 /**
  * State to manager the search at hierarchy object level when the object is a folder
@@ -26,6 +27,8 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
   private searchState = inject<FlSearchState<CaHierarchyObject>>(FlSearchState);
   private state = inject(CaHierarchyObjectDetailState);
   private folderService = inject(CaFolderService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
+
   private eventState = inject(CaHierarchyObjectEventState);
 
   private subscriptions = new ClSubscriptionHandler();
@@ -66,18 +69,21 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
         } else if (context.type === 'globalSearch') {
           this.searchState.disabled = false;
           this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
-            this.folderService.searchInAllMyFolders(page, pageSize, requestData)
+            this.hierarchyObjectService.searchInRootFoldersAndChildren(page, pageSize, requestData)
           );
         } else if (context.type === CaHierarchyObjectType.FOLDER) {
           this.searchState.disabled = false;
           this.childrenDatasource.setPageFunction((page, pageSize, requestData) =>
-            this.folderService.searchChildren(context.hierarchyObject.id, page, pageSize, requestData)
+            this.hierarchyObjectService.searchChildren(
+              context.hierarchyObject.id,
+              page,
+              pageSize,
+              requestData
+            )
           );
         } else {
           this.searchState.disabled = true;
-          // we set a false function to avoid triggering the search when
-          // the page is not a search page (like element details)
-          this.childrenDatasource.setPageFunction(() => of(clGetEmptyPage()));
+          this.childrenDatasource.clear();
         }
 
         // so we submit the form to trigger the search if it is not trigger by the url params

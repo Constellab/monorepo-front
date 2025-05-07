@@ -22,6 +22,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
 
 export interface CaSelectFolderDialogInput {
   /**
@@ -59,6 +60,7 @@ export interface CaSelectFolderDialogInput {
 export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   private dialogRef = inject<MatDialogRef<CaSelectFolderDialogComponent>>(MatDialogRef);
   private folderService = inject(CaFolderService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
   private authenticatedUserService = inject(CaAuthenticatedUserService);
 
   foldersDatasource: CaHierarchyObjectDatasource;
@@ -85,8 +87,8 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
   }
 
   private initForFolder(currentObjectId: string): void {
-    this.folderService
-      .getObjectFolderAncestors(currentObjectId)
+    this.hierarchyObjectService
+      .getObjectAncestors(currentObjectId)
       .subscribe((ancestors) => this.initParentFolders(ancestors));
   }
 
@@ -178,7 +180,7 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     filters.objectType = CaHierarchyObjectType.FOLDER;
     this.foldersDatasource = new FlEntityPaginatedDatasource(
       (page, pageSize) =>
-        this.folderService.searchChildren(folderId, page, pageSize, {
+        this.hierarchyObjectService.searchChildren(folderId, page, pageSize, {
           filtersCriteria: filters,
           sortsCriteria: [{ key: 'name', direction: 'ASC' }],
         }),

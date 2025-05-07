@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { CaResourceService } from '../../../../ca-core/service-api/ca-resource.service';
 import { CaResource } from '../../../../ca-core/model/entities/folder/ca-resource.class';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { CaResourceActionEvent, CaResourceActionMenu } from '../ca-resource-action-menu';
+import { CaResourceActionMenu } from '../ca-resource-action-menu';
 import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
@@ -63,13 +63,7 @@ export class CaResourceDetailPageComponent {
       { tags: this.state.getTags() }
     );
 
-    resourceMenu.openActionMenu(event).subscribe((action) => this.onMenuAction(action));
-  }
-
-  private onMenuAction(action: CaResourceActionEvent): void {
-    if (action.action === 'deleteResource') {
-      this.state.navigateToParentFolder();
-    }
+    resourceMenu.openActionMenu(event).subscribe();
   }
 
   renameResource(resource: CaResource, name: string): void {

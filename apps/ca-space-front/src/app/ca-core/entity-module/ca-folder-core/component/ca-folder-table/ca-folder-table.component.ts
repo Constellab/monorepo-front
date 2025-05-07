@@ -86,12 +86,12 @@ export class CaFolderTableComponent {
   private onFolderAction(folderEvent: CaFolderActionEvent): void {
     if (folderEvent.action === 'update') {
       this.datasource.updateItem(folderEvent.folder);
-    } else if (folderEvent.action === 'delete') {
-      this.datasource.removeItemById(folderEvent.folder.id);
+    } else if (folderEvent.action === 'moveToTrash') {
+      this.datasource.removeItemById(folderEvent.hierarchyObject.id);
     } else if (folderEvent.action === 'createChild') {
       this.routerService.navigateToFolderDetail(folderEvent.folder.id);
-    } else if (folderEvent.action === 'moveFolder') {
-      this.routerService.navigateToFolderDetail(folderEvent.folder.parentId);
+    } else if (folderEvent.action === 'moveToFolder') {
+      this.routerService.navigateToFolderDetail(folderEvent.hierarchyObject.parentId);
     }
   }
 }

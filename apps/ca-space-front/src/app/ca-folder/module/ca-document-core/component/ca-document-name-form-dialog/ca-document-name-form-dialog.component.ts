@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
 import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
 import { Observable } from 'rxjs';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent } from '@angular/material/dialog';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -12,6 +11,8 @@ import { MatButton } from '@angular/material/button';
 import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaDocumentService } from '../../../../../ca-core/service-api/ca-document.service';
+import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 
 interface CaDocumentNameForm {
   name: string;
@@ -50,7 +51,8 @@ export class CaDocumentNameFormDialogComponent
   extends FlFormDialogAbstractDirective<CaDocumentNameForm, any>
   implements OnInit
 {
-  private folderService = inject(CaFolderService);
+  private constellabDocumentService = inject(CaConstellabDocumentService);
+  private documentService = inject(CaDocumentService);
 
   dialogInput: CaDocumentNameFormDialogInput = inject(MAT_DIALOG_DATA);
 
@@ -69,7 +71,10 @@ export class CaDocumentNameFormDialogComponent
   }
 
   create(formValue: CaDocumentNameForm): Observable<any> {
-    return this.folderService.createConstellabDocument(this.dialogInput.parentFolderId, formValue.name);
+    return this.constellabDocumentService.createConstellabDocument(
+      this.dialogInput.parentFolderId,
+      formValue.name
+    );
   }
 
   getCreateSuccessMessage(): string {
@@ -81,7 +86,7 @@ export class CaDocumentNameFormDialogComponent
   }
 
   update(formValue: { name: string }): Observable<any> {
-    return this.folderService.renameDocument(this.dialogInput.documentId, formValue.name);
+    return this.documentService.renameDocument(this.dialogInput.documentId, formValue.name);
   }
 
   get title(): string {

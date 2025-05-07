@@ -1,9 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalAction, FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
 
 import { CaFolderService } from '../../service-api/ca-folder.service';
@@ -25,6 +21,8 @@ import {
   CaSelectFolderDialogComponent,
   CaSelectFolderDialogInput,
 } from './component/ca-select-folder-dialog/ca-select-folder-dialog.component';
+import { CaHierarchyObjectService } from '../../service-api/ca-hierarchy-object.service';
+import { CaDocumentService } from '../../service-api/ca-document.service';
 
 /**
  * Service to gather action on folder that can be done in multiple location from the UI
@@ -34,6 +32,8 @@ import {
 })
 export class CaFolderActionService {
   private folderService = inject(CaFolderService);
+  private documentService = inject(CaDocumentService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
   private dialogService = inject(FlDialogService);
   private actionService = inject(FlPortalActionsService);
 
@@ -76,17 +76,6 @@ export class CaFolderActionService {
       .afterClosed();
   }
 
-  public openDeleteFolderDialog(folderId: string): Observable<FlConfirmDialogResult<void>> {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_folder',
-      content: 'delete_folder_confirm',
-      observable: this.folderService.delete(folderId),
-      successMessage: 'folder_deleted',
-    };
-
-    return this.dialogService.openConfirmDialog(input).afterClosed();
-  }
-
   public createConstellabDocument(folderId: string): Observable<CaConstellabDocument | null> {
     const input: CaDocumentNameFormDialogInput = {
       mode: 'create',
@@ -104,7 +93,7 @@ export class CaFolderActionService {
     for (const file of files) {
       const action: FlPortalAction = {
         type: this.uploadDocumentActionName,
-        action: this.folderService.uploadDocument(file, folderId),
+        action: this.documentService.uploadDocument(file, folderId),
         text: {
           text: 'uploading_document',
           translateText: true,
@@ -122,7 +111,7 @@ export class CaFolderActionService {
 
     const action: FlPortalAction = {
       type: this.uploadFolderActionName,
-      action: this.folderService.uploadFolder(files, folderId),
+      action: this.documentService.uploadFolder(files, folderId),
       text: {
         text: 'uploading_folder',
         translateText: true,
@@ -156,16 +145,7 @@ export class CaFolderActionService {
     );
   }
 
-  public moveFolder(folderId: string): Observable<CaHierarchyObject | null> {
-    return this.moveObjectToFolder(folderId, (hierarchyObjectId: string, folderId: string) =>
-      this.folderService.moveFolder(hierarchyObjectId, folderId)
-    );
-  }
-
-  public moveObjectToFolder<T>(
-    hierarchyObjectId: string,
-    moveFunction: (hierarchyObjectId: string, folderId: string) => Observable<T>
-  ): Observable<T | null> {
+  public moveObjectToFolder(hierarchyObjectId: string): Observable<CaHierarchyObject | null> {
     const input: CaSelectFolderDialogInput = {
       title: { text: 'move_to_folder', translateText: true },
       mode: 'any',
@@ -177,19 +157,18 @@ export class CaFolderActionService {
         autoFocus: false,
       })
       .afterClosed()
-      .pipe(mergeMap((folder) => this.onMoveObjectClosed(hierarchyObjectId, moveFunction, folder)));
+      .pipe(mergeMap((folder) => this.onMoveObjectClosed(hierarchyObjectId, folder)));
   }
 
-  private onMoveObjectClosed<T>(
+  private onMoveObjectClosed(
     hierarchyObjectId: string,
-    moveFunction: (hierarchyObjectId: string, folderId: string) => Observable<T>,
     folder?: CaFolder
-  ): Observable<T | null> {
+  ): Observable<CaHierarchyObject | null> {
     if (folder) {
       return this.actionService
         .addAction({
           type: this.moveFolderActionName,
-          action: moveFunction(hierarchyObjectId, folder.id),
+          action: this.hierarchyObjectService.moveToFolder(hierarchyObjectId, folder.id),
           text: { text: 'moving_to_folder', translateText: true },
         })
         .pipe(

@@ -86,7 +86,7 @@ export class CaNoteDetailComponent implements OnInit {
   }
 
   private onNoteAction(event: CaNoteActionEvent): void {
-    if (event.action === 'delete') {
+    if (event.action === 'moveToTrash') {
       this.state.navigateToParentFolder();
     }
   }

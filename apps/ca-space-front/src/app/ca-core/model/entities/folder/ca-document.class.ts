@@ -10,7 +10,6 @@ export interface CaDocumentBasicInfo {
   id: string;
   name: string;
   isConstellabDocument: boolean;
-  inTrash: boolean;
 }
 
 export class CaDocument extends CaBaseEntity {
@@ -21,8 +20,6 @@ export class CaDocument extends CaBaseEntity {
   mimeType: string;
 
   type: 'UPLOADED_DOCUMENT' | 'CONSTELLAB_DOCUMENT';
-
-  inTrash: boolean;
 
   canTokenPreview: boolean;
 
@@ -42,7 +39,6 @@ export class CaDocument extends CaBaseEntity {
       id: this.id,
       name: this.name,
       isConstellabDocument: this.isConstellabDocument(),
-      inTrash: this.inTrash,
     };
   }
 }

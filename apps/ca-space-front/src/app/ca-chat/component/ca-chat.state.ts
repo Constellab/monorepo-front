@@ -3,19 +3,19 @@ import {
   CaChatFolder,
   CaHierarchyObjectsTreeDatasource,
 } from '../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaFolderService } from '../../ca-core/service-api/ca-folder.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlRouterHelper } from '@monorepo/front-core-lib/fl-core';
 import { map } from 'rxjs/operators';
 import { first, Observable } from 'rxjs';
 import { CaRouterService } from '../../ca-core/service/ca-router.service';
+import { CaChatService } from '../../ca-core/service-api/ca-chat.service';
 
 /**
  * Global state for the chat page
  */
 @Injectable()
 export class CaChatState {
-  private folderService = inject(CaFolderService);
+  private chatService = inject(CaChatService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private routerService = inject(CaRouterService);
@@ -31,7 +31,7 @@ export class CaChatState {
     this.folderId$ = FlRouterHelper.listenToChildrenParams(this.router, this.route).pipe(
       map((params) => params.id)
     );
-    this.folderService.getChatRootFolders().subscribe({
+    this.chatService.getChatRootFolders().subscribe({
       next: (folders) => this.getFolderTreeSuccess(folders),
       error: () => this.isLoadingSignal.set(false),
     });

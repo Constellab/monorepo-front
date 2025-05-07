@@ -107,7 +107,7 @@ export class CaFolderDetailActionsComponent {
 
   private onFolderAction(folderEvent: CaFolderDetailActionEvent): void {
     if (!folderEvent) return;
-    if (folderEvent.action === 'restoreFileFromTrash') {
+    if (folderEvent.action === 'restoreObjectFromTrash') {
       this.state.refreshChildren();
       return;
     }

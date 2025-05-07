@@ -27,7 +27,7 @@ import { CaHierarchyObjectSearchFields } from '../../../../../ca-core/entity-mod
 import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { CaFolderDetailComponent } from '../ca-folder-detail/ca-folder-detail.component';
 import { CaFolderDetailActionsComponent } from '../ca-folder-detail-actions/ca-folder-detail-actions.component';
-import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaHierarchyObjectSearchFormComponent } from '../../../ca-hierarchy-object-detail-page/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import { MatIcon } from '@angular/material/icon';
 import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -37,6 +37,7 @@ import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaHierarchyObjectActionsMenuComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
 import { CaHierarchyObjectActionsMenuState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 
 /**
  * Page for a folder detail
@@ -87,6 +88,8 @@ export class CaFolderDetailPageComponent implements OnInit {
 
   users$: Observable<CaUser[]>;
 
+  hierarchyObjectContext$ = inject(CaHierarchyObjectDetailState).getHierarchyContext$();
+
   constructor() {
     this.state.init(this.getIds$());
     this.users$ = this.state.getUsers().connect();
@@ -97,9 +100,6 @@ export class CaFolderDetailPageComponent implements OnInit {
     this.folder$ = this.state.getFolder$();
 
     this.children = this.state.childrenDatasource;
-
-    // call init method of right panel state on the init to let the ui load
-    this.rightPanelState.init();
   }
 
   onHierarchyObjectRowEvent(event: CaHierarchyObjectTableEvent): void {

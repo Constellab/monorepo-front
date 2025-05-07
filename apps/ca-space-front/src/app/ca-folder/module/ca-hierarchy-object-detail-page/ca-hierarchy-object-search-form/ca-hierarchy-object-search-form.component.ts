@@ -1,12 +1,12 @@
-import { Component, inject, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, input, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import {
   CaHierarchyObjectInfo,
   caHierarchyObjectTypeInfos,
-} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { debounceTime, firstValueFrom, merge, Observable, Subscription } from 'rxjs';
-import { CaUser } from '../../../../../ca-core/model/entities/ca-user.class';
+} from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import { debounceTime, merge, Observable, Subscription } from 'rxjs';
+import { CaUser } from '../../../../ca-core/model/entities/ca-user.class';
 import { MatFormField, MatLabel, MatPrefix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
@@ -14,16 +14,17 @@ import { MatSelect, MatSelectTrigger } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { FlCorePipeModule } from '@monorepo/front-core-lib/fl-core-pipe';
 import { TranslatePipe } from '@ngx-translate/core';
-import { CaHierarchyObjectIconComponent } from '../../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
-import { CaUserListInlineComponent } from '../../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
-import { CaRouterService } from '../../../../../ca-core/service/ca-router.service';
-import {
-  CaHierarchyObjectContext,
-  CaHierarchyObjectDetailState,
-} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
-import { map } from 'rxjs/operators';
+import { CaHierarchyObjectIconComponent } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-icon/ca-hierarchy-object-icon.component';
+import { CaUserListInlineComponent } from '../../../../ca-core/entity-module/ca-user-core/component/ca-user-list-inline/ca-user-list-inline.component';
+import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
+import { CaHierarchyObjectContext } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { FlTranslateService } from '@monorepo/front-core-lib/fl-translate';
-import { AsyncPipe } from '@angular/common';
+
+export type CaHierarchyObjectSearchFormContext =
+  | CaHierarchyObjectContext
+  | {
+      type: 'trash';
+    };
 
 /**
  * Form inside folder detail page to filter hierarchy objects of a folder
@@ -46,31 +47,30 @@ import { AsyncPipe } from '@angular/common';
     CaUserListInlineComponent,
     FlCorePipeModule,
     TranslatePipe,
-    AsyncPipe,
   ],
 })
 export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
+  context = input.required<CaHierarchyObjectSearchFormContext>();
+  users$ = input<Observable<CaUser[]>>();
+
   private routerService = inject(CaRouterService);
-  private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
   private translateService = inject(FlTranslateService);
 
-  context$: Observable<CaHierarchyObjectContext> = this.hierarchyObjectDetailState.getHierarchyContext$();
+  nameLabel = computed(() => {
+    const context = this.context();
+    if (context == null) return '';
+    if (context.type === 'trash') {
+      return this.translateService.translate('search_in_trash');
+    } else if (context.hierarchyObject) {
+      return this.translateService.translate('search_in_folder', {
+        param: { name: context.hierarchyObject.name },
+      });
+    } else {
+      return this.translateService.translate('search_in_all_folders');
+    }
+  });
 
-  nameLabel$: Observable<string> = this.context$.pipe(
-    map((context) => {
-      if (context.hierarchyObject) {
-        return this.translateService.translate('search_in_folder', {
-          param: { name: context.hierarchyObject.name },
-        });
-      } else {
-        return this.translateService.translate('search_in_all_folders');
-      }
-    })
-  );
-
-  showObjectType$: Observable<boolean> = this.context$.pipe(map((context) => context.type !== 'rootFolders'));
-
-  users$ = input<Observable<CaUser[]>>();
+  showObjectType = computed(() => this.context()?.type !== 'rootFolders');
 
   private searchState = inject(FlSearchState);
   formGp: UntypedFormGroup;
@@ -91,7 +91,7 @@ export class CaHierarchyObjectSearchFormComponent implements OnInit, OnDestroy {
 
   async submit(): Promise<void> {
     if (this.formGp.valid) {
-      const context = await firstValueFrom(this.context$);
+      const context = this.context();
       if (context.type === 'rootFolders') {
         // in root folders, the search redirect to global search
         // and we trigger the search

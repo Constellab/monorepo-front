@@ -10,39 +10,23 @@ import { Observable } from 'rxjs';
 import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
 import { CaGroup } from '../model/entities/ca-group.entity';
 import { CaUser } from '../model/entities/ca-user.class';
-import { CaChatMessage, CaChatMessageDatasourcePaginated } from '../model/entities/ca-chat-message';
 import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
-import {
-  CaConstellabDocument,
-  CaDocument,
-  CaDocumentDatasource,
-  CaDocumentPreviewDTO,
-  CaFolderStorageUsageDTO,
-} from '../model/entities/folder/ca-document.class';
+import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
 import { CaFolderUserConfig } from '../model/entities/folder/ca-folder-user.class';
 import { CaActivity } from '../model/entities/ca-activity.class';
 import {
   CaActivitySearch,
   CaActivitySearchFields,
 } from '../entity-module/ca-activity-core/model/ca-activity-search.class';
-import {
-  TeBlockFigureData,
-  TeBlockFigureUploadedResponse,
-  TeBlockFileUploadResponse,
-  TeRichText,
-  TeRichTextBlockModificationWithUser,
-  TeRichTextDTO,
-} from '@monorepo/text-editor';
+import { TeBlockFigureUploadedResponse, TeRichText } from '@monorepo/text-editor';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { FlDatasourceGetPageData, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
 
 import {
-  CaChatFolder,
   CaHierarchyObject,
   CaHierarchyObjectDatasource,
   CaHierarchyObjectSimple,
-  CaHierarchyObjectWithParent,
 } from '../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectSearch,
@@ -88,10 +72,6 @@ export class CaFolderService {
 
   public renameFolder(id: string, name: string): Observable<CaFolderWithHierarchy> {
     return this.apiService.put(`${this.route}/${id}/name`, { name: name }, CaFolderWithHierarchy);
-  }
-
-  public delete(id: string): Observable<void> {
-    return this.apiService.deleteById(this.route, id);
   }
 
   public getById(id: string): Observable<CaFolder> {
@@ -143,28 +123,6 @@ export class CaFolderService {
     return this.apiService.delete(`${this.route}/${id}/unshare/${userId}`);
   }
 
-  public searchChildren(
-    id: string,
-    page: number,
-    size: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
-  ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/${id}/children/paginated`, searchInput, CaHierarchyObject, {
-      resultIsPaginated: true,
-      page: page,
-      pageSize: size,
-    });
-  }
-
-  public getObjectFolderAncestors(objectId: string): Observable<CaHierarchyObject[]> {
-    return this.apiService.get(`${this.route}/${objectId}/ancestors`, CaHierarchyObject);
-  }
-
   public getUsersOfFolder(folderId: string): Observable<CaUser[]> {
     return this.apiService.get(`${this.route}/${folderId}/users`, CaUser);
   }
@@ -205,32 +163,6 @@ export class CaFolderService {
     });
   }
 
-  public moveFolder(folderId: string, newParentId: string): Observable<CaHierarchyObject> {
-    return this.apiService.put(`${this.route}/${folderId}/move/${newParentId}`, null, CaHierarchyObject);
-  }
-
-  public searchInAllMyFolders(
-    page: number,
-    size: number,
-    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
-  ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      filters,
-      CaHierarchyObjectSearch.filterConverter,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(
-      `${this.route}/root/search-children`,
-      searchInput,
-      CaHierarchyObjectWithParent,
-      {
-        page: page,
-        pageSize: size,
-        resultIsPaginated: true,
-      }
-    );
-  }
-
   /////////////////////////////////// DESCRIPTION //////////////////////////////////
 
   public getFolderDescription(id: string): Observable<CaGetFolderDescriptionDTO> {
@@ -249,201 +181,6 @@ export class CaFolderService {
 
   public getDescriptionImageUrl(folderId: string, filename: string): string {
     return this.apiService.getBaseRouteUrl(`${this.route}/${folderId}/description/image/${filename}`);
-  }
-
-  /////////////////////////////// CHAT //////////////////////////////////
-
-  public getChatRootFolders(): Observable<CaChatFolder[]> {
-    return this.apiService.get(`${this.route}/chat/folder-tree`, CaChatFolder);
-  }
-
-  /////////////////////////////// MESSAGE //////////////////////////////////
-  public activateChat(folderId: string, enable: boolean): Observable<CaFolder> {
-    return this.apiService.put(`${this.route}/${folderId}/chat/${enable}`, null, CaFolder);
-  }
-
-  public getFolderMessagesDatasource(folderId: string): CaChatMessageDatasourcePaginated {
-    return new FlEntityPaginatedDatasource((page, size) => this.getFolderMessages(folderId, page, size), 15);
-  }
-
-  public getFolderMessages(folderId: string, page: number, size: number): Observable<ClPage<CaChatMessage>> {
-    return this.apiService.get(`${this.route}/${folderId}/chat/message`, CaChatMessage, {
-      page: page,
-      pageSize: size,
-      resultIsPaginated: true,
-    });
-  }
-
-  public createMessage(folderId: string, richText: TeRichText): Observable<CaChatMessage> {
-    return this.apiService.post(
-      `${this.route}/${folderId}/chat/message`,
-      { content: richText.toJson() },
-      CaChatMessage
-    );
-  }
-
-  public updateMessage(folderId: string, messageId: string, richText: TeRichText): Observable<CaChatMessage> {
-    return this.apiService.put(
-      `${this.route}/${folderId}/chat/message/${messageId}`,
-      { content: richText.toJson() },
-      CaChatMessage
-    );
-  }
-
-  public deleteMessage(folderId: string, messageId: string): Observable<CaChatMessage> {
-    return this.apiService.delete(`${this.route}/${folderId}/chat/message/${messageId}/delete`, null);
-  }
-
-  uploadMessageImage(file: File, folderId: string): Observable<TeBlockFigureUploadedResponse> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.apiService.put(`${this.route}/${folderId}/chat/message/image`, formData);
-  }
-
-  public getMessageImageUrl(filename: string, folderId: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/${folderId}/chat/message/image/${filename}`);
-  }
-
-  //////////////////////////////////// DOCUMENTS ///////////////////////////////////////////
-  public uploadDocument(file: File, folderId: string): Observable<CaHierarchyObject> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.apiService.post(`${this.route}/${folderId}/document`, formData, CaHierarchyObject);
-  }
-
-  public uploadFolder(files: File[], folderId: string): Observable<void> {
-    const formData: FormData = new FormData();
-    files.forEach((file) => formData.append('files', file));
-
-    return this.apiService.post(`${this.route}/${folderId}/documents`, formData);
-  }
-
-  public getDocumentPreviewUrl(documentId: string, documentName: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/document/${documentId}/preview/${documentName}`);
-  }
-
-  public getDocumentDownloadUrl(documentId: string, documentName: string): string {
-    return this.apiService.getBaseRouteUrl(`${this.route}/document/${documentId}/download/${documentName}`);
-  }
-
-  public deleteDocument(documentId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/document/${documentId}`);
-  }
-
-  public renameDocument(documentId: string, name: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/document/${documentId}/rename`, { name: name }, CaDocument);
-  }
-
-  public getTrashedDocuments(folderId: string): CaDocumentDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, size) =>
-        this.apiService.get(`${this.route}/${folderId}/document/trashed`, CaDocument, {
-          page: page,
-          pageSize: size,
-          resultIsPaginated: true,
-        }),
-      20
-    );
-  }
-
-  public moveDocumentToTrash(documentId: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/document/${documentId}/move-to-trash`, null, CaDocument);
-  }
-
-  public restoreDocumentFromTrash(documentId: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/document/${documentId}/restore-from-trash`, null, CaDocument);
-  }
-
-  public emptyTrash(folderId: string): Observable<void> {
-    return this.apiService.put(`${this.route}/${folderId}/empty-trash`, null);
-  }
-
-  public moveDocumentToFolder(documentId: string, folderId: string): Observable<CaDocument> {
-    return this.apiService.put(`${this.route}/document/${documentId}/move/${folderId}`, null, CaDocument);
-  }
-
-  //////////////////////////////////// CONSTELLAB DOCUMENT ///////////////////////////////////////////
-
-  public createConstellabDocument(
-    parentFolderId: string,
-    filename: string
-  ): Observable<CaConstellabDocument> {
-    return this.apiService.post(
-      `${this.route}/${parentFolderId}/constellab-document`,
-      { name: filename },
-      CaConstellabDocument
-    );
-  }
-
-  public updateConstellabDocument(
-    documentId: string,
-    richText: TeRichText
-  ): Observable<CaConstellabDocument> {
-    return this.apiService.put(
-      `${this.route}/constellab-document/${documentId}`,
-      richText.toJson(),
-      CaConstellabDocument,
-      { hideSnackBarError: true }
-    );
-  }
-
-  // raise an error if the document is 'locked'
-  public checkEditConstellabDocument(documentId: string): Observable<boolean> {
-    return this.apiService.get(`${this.route}/constellab-document/${documentId}/check-edit`);
-  }
-
-  public getConstellabDocument(documentId: string): Observable<CaConstellabDocument> {
-    return this.apiService.get(`${this.route}/constellab-document/${documentId}`, CaConstellabDocument);
-  }
-
-  public uploadImageToConstellabDocument(file: File, documentId: string): Observable<TeBlockFigureData> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.apiService.post(`${this.route}/constellab-document/${documentId}/image`, formData);
-  }
-
-  public uploadFileToConstellabDocument(
-    file: File,
-    documentId: string
-  ): Observable<TeBlockFileUploadResponse> {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.apiService.post(`${this.route}/constellab-document/${documentId}/file`, formData);
-  }
-
-  public getConstellabDocumentFileUrl(documentId: string, filename: string): string {
-    return this.apiService.getBaseRouteUrl(
-      `${this.route}/constellab-document/${documentId}/file/${filename}`
-    );
-  }
-
-  getConstellabDocumentHistory(documentId: string): Observable<TeRichTextBlockModificationWithUser[]> {
-    return this.apiService.get(
-      `${this.route}/constellab-document/${documentId}/history/`,
-      TeRichTextBlockModificationWithUser
-    );
-  }
-
-  getConstellabDocumentUndoContent(documentId: string, modificationId: string): Observable<TeRichTextDTO> {
-    return this.apiService.get(
-      `${this.route}/constellab-document/${documentId}/history/undo-content/${modificationId}`
-    );
-  }
-
-  rollbackConstellabDocumentContent(documentId: string, modificationId: string): Observable<CaDocument> {
-    return this.apiService.put(
-      `${this.route}/constellab-document/${documentId}/history/rollback/${modificationId}`,
-      {}
-    );
-  }
-
-  /////////////////////////////// DOCUMENT PREVIEW  ///////////////////////////////////////////
-  public generateDocumentPreview(documentId: string): Observable<CaDocumentPreviewDTO> {
-    return this.apiService.post(
-      `${this.route}/document/${documentId}/preview-token`,
-      null,
-      CaDocumentPreviewDTO
-    );
   }
 
   /////////////////////////////// BUCKET ///////////////////////////////////////////

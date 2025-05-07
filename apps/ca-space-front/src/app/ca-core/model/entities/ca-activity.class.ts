@@ -8,6 +8,7 @@ export enum CaActivityType {
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
   DELETE = 'DELETE',
+  TRASH = 'TRASH',
 }
 
 export enum CaActivityEntityType {
@@ -16,6 +17,7 @@ export enum CaActivityEntityType {
   SCENARIO = 'SCENARIO',
   NOTE = 'NOTE',
   DOCUMENT = 'DOCUMENT',
+  RESOURCE = 'RESOURCE',
   MESSAGE = 'MESSAGE',
 }
 

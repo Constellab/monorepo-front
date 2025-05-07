@@ -211,14 +211,13 @@ export abstract class TeConfig {
   }
 
   getBasicInlineToolbar(): string[] {
-    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'cleanStyle'];
+    return ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode', 'cleanStyle'];
   }
 
   getFullInlineToolbar(variable: boolean = false): string[] {
     const tools = ['convertTo', 'bold', 'italic', 'underline', 'strikethrough', 'link', 'inlineCode'];
     if (variable) tools.push('variable');
-    tools.push('formulaInline');
-    tools.push('cleanStyle');
+    tools.push('formulaInline', 'cleanStyle');
     return tools;
   }
 }

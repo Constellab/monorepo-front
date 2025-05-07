@@ -8,19 +8,17 @@ import {
   FlConfirmDialogResult,
   FlDialogService,
 } from '@monorepo/front-core-lib/fl-dialog';
-import { TeRichText } from '@monorepo/text-editor';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { CaNotificationMarkDirective } from '../../../ca-notification-core/directive/ca-notification-mark/ca-notification-mark.directive';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
 import { CaChatWriteMessageComponent } from '../ca-chat-write-message/ca-chat-write-message.component';
-import {
-  TeTextEditorModule
-} from '@monorepo/text-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaChatService } from '../../../../service-api/ca-chat.service';
 
 /**
  * Component to show a message in a chat
@@ -47,6 +45,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);
   private authUserService = inject(CaAuthenticatedUserService);
   private dialogService = inject(FlDialogService);
+  private chatService = inject(CaChatService);
 
   message = input.required<CaChatMessage>();
   folderId = input.required<string>();
@@ -57,7 +56,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   showButtons = computed(
     () =>
       this.authUserService.getCurrentUser().id === this.message().createdBy.id &&
-      this.message().createdAt.diffNow('minute').as('minute') > 5
+      Math.abs(this.message().createdAt.diffNow('minute').as('minute')) < 5
   );
 
   editMode: boolean = false;
@@ -65,7 +64,11 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   textEditorConfig: CaChatMessageTextEditorConfig;
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId(), this.folderService);
+    this.textEditorConfig = new CaChatMessageTextEditorConfig(
+      this.folderId(),
+      this.chatService,
+      this.folderService
+    );
   }
 
   enableEditMode(): void {
@@ -77,7 +80,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
   }
 
   updateMessage(content: TeRichText): void {
-    this.folderService
+    this.chatService
       .updateMessage(this.folderId(), this.message().id, content)
       .subscribe((message: CaChatMessage) => this.updateMessageSuccess(message));
   }
@@ -91,7 +94,7 @@ export class CaChatMessageComponent implements OnInit, OnDestroy {
     const input: FlConfirmDialogInput = {
       title: 'delete_message',
       content: 'delete_message_confirmation',
-      observable: this.folderService.deleteMessage(this.folderId(), this.message().id),
+      observable: this.chatService.deleteMessage(this.folderId(), this.message().id),
       successMessage: 'delete_message_success',
     };
     this.dialogService

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CaHierarchyObjectSearchFormComponent } from '../../ca-folder-detail-page/component/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
+import { CaHierarchyObjectSearchFormComponent } from '../../ca-hierarchy-object-detail-page/ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import {
   CaHierarchyObjectTableComponent,
   CaHierarchyObjectTableEvent,
@@ -20,6 +20,8 @@ import { CaHierarchyObjectBreadcrumbComponent } from '../../ca-folder-hierarchy-
 import { CaHierarchyObjectActionsMenuState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-actions-menu.state';
 import { CaHierarchyObjectActionsMenuComponent } from '../../ca-folder-hierarchy-core/component/ca-hierarchy-object-actions-menu/ca-hierarchy-object-actions-menu.component';
 import { MatIcon } from '@angular/material/icon';
+import { CaHierarchyObjectDetailState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-folder-global-search-page',
@@ -34,6 +36,7 @@ import { MatIcon } from '@angular/material/icon';
     CaHierarchyObjectBreadcrumbComponent,
     CaHierarchyObjectActionsMenuComponent,
     MatIcon,
+    AsyncPipe,
   ],
   templateUrl: './ca-folder-global-search-page.component.html',
   styleUrl: './ca-folder-global-search-page.component.scss',
@@ -52,6 +55,8 @@ export class CaFolderGlobalSearchPageComponent implements OnInit {
     'parent',
     'customAction',
   ];
+
+  hierarchyObjectContext$ = inject(CaHierarchyObjectDetailState).getHierarchyContext$();
 
   ngOnInit(): void {
     this.children = this.searchState.childrenDatasource;

@@ -3,11 +3,7 @@ import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
 import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 import { CaRouterService } from '../../../service/ca-router.service';
-import { Observable, Subject } from 'rxjs';
-import {
-  CaDocumentTrashListDialogComponent,
-  CaDocumentTrashListDialogInput,
-} from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-document-trash-list-dialog/ca-document-trash-list-dialog.component';
+import { Observable } from 'rxjs';
 import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import {
   CaFolderSharedGroupsListInput,
@@ -21,19 +17,21 @@ import {
 import { CaHierarchyObjectActionTags } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
 import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  CaHierarchyObjectTrashDialogComponent,
+  CaHierarchyObjectTrashDialogInput,
+} from '../../../../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
   | {
-      action: 'restoreFileFromTrash';
+      action: 'restoreObjectFromTrash';
     };
 
 /**
  * Action menu for the current folder in folder detail page
  */
 export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
-  protected subject: Subject<any> = new Subject();
-
   constructor(
     injector: Injector,
     folderInfo: CaFolderInfo,
@@ -55,7 +53,7 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     }
 
     menus.push(this.getActivitiesButton());
-    menus.push(this.getDocumentInTrashButton(), this.getOpenSettingsButton(), this.getDeleteFolderButton());
+    menus.push(this.getObjectInTrash(), this.getOpenSettingsButton());
 
     return this.generateMenu(menus, event);
   }
@@ -110,30 +108,36 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     };
   }
 
-  private getDocumentInTrashButton(): FlMenuDynamic {
+  private getObjectInTrash(): FlMenuDynamic {
     return {
       type: 'button',
-      text: { text: 'documents_in_trash', translateText: true },
+      text: { text: 'objects_in_trash', translateText: true },
       icon: 'delete',
-      onClick: () => this.openDocumentInTrash(),
+      onClick: () => this.openObjectsInTrash(),
     };
   }
 
-  private openDocumentInTrash(): void {
-    const input: CaDocumentTrashListDialogInput = {
+  private openObjectsInTrash(): void {
+    const input: CaHierarchyObjectTrashDialogInput = {
+      mode: 'folder',
       folderId: this.folderInfo.id,
+      folderName: this.folderInfo.name,
     };
 
     this.injector
       .get(FlDialogService)
-      .openMediumDialog(CaDocumentTrashListDialogComponent, { data: input, autoFocus: false })
+      .openMediumDialog(CaHierarchyObjectTrashDialogComponent, {
+        data: input,
+        autoFocus: false,
+        injector: this.injector,
+      })
       .afterClosed()
       .subscribe((restoredDocs) => this.onDocumentInTrashClosed(restoredDocs));
   }
 
   private onDocumentInTrashClosed(restoredDocs?: CaDocument[]): void {
     if (restoredDocs?.length > 0) {
-      this.emitEvent({ action: 'restoreFileFromTrash' });
+      this.emitEvent({ action: 'restoreObjectFromTrash' });
     }
     this.subject.complete();
   }

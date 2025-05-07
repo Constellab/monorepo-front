@@ -60,8 +60,9 @@ export const caHierarchyObjectRoutes: Route[] = [
         path: 'document/:id',
         loadComponent: () =>
           import(
-            '../ca-document-detail-page/component/ca-document-detail-page/ca-document-detail-page.component'
-          ).then((m) => m.CaDocumentDetailPageComponent),
+            // eslint-disable-next-line max-len
+            '../ca-document-detail-page/component/ca-constellab-document-detail-page/ca-constellab-document-detail-page.component'
+          ).then((m) => m.CaConstellabDocumentDetailPageComponent),
       },
       {
         path: 'document/:id/preview',

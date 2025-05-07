@@ -14,6 +14,7 @@ import { CaDocument } from '../../../../ca-core/model/entities/folder/ca-documen
 import { Router } from '@angular/router';
 import { CaFolderRightPanelState } from '../../ca-folder-detail-page/state/ca-folder-right-panel.state';
 import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
+import { CaDocumentService } from '../../../../ca-core/service-api/ca-document.service';
 
 @Injectable()
 export class CaHierarchyObjectActionsMenuState {
@@ -25,6 +26,7 @@ export class CaHierarchyObjectActionsMenuState {
   private routerService = inject(CaRouterService);
   private rightPanelState = inject(CaFolderRightPanelState);
   private folderService = inject(CaFolderService);
+  private documentService = inject(CaDocumentService);
 
   public openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
     const service = new CaHierarchyObjectActionMenu(this.injector, hierarchyObject, {
@@ -120,7 +122,7 @@ export class CaHierarchyObjectActionsMenuState {
     if (CaDocument.supportsPreview(hierarchyObject.name)) {
       return CaRouterService.getDocumentPreviewRoute(hierarchyObject.id);
     } else {
-      const url = this.folderService.getDocumentPreviewUrl(hierarchyObject.id, hierarchyObject.name);
+      const url = this.documentService.getDocumentPreviewUrl(hierarchyObject.id, hierarchyObject.name);
       window.open(url, '_blank');
       return null;
     }

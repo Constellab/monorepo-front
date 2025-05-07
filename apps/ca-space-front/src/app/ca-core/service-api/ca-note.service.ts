@@ -24,10 +24,6 @@ export class CaNoteService {
     return this.apiService.get(`${this.route}/${noteId}/content`);
   }
 
-  deleteNote(noteId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${noteId}`);
-  }
-
   ////////////////////////////// METHOD FOR TEXT EDITOR //////////////////////////
 
   getFileUrl(noteId: string, filename: string): string {

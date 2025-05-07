@@ -1,6 +1,5 @@
 import { Component, inject, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import {
   CaConstellabDocument,
   CaDocument,
@@ -8,12 +7,10 @@ import {
 import { FlServerError } from '@monorepo/front-core-lib/fl-api';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 
-import { CaDocumentTextEditorConfig } from '../../../ca-document-core/ca-document-text-editor.config';
+import { CaConstellabDocumentTextEditorConfig } from '../../../ca-document-core/ca-constellab-document-text-editor.config';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
-import {
-  CaHierarchyObjectDetailState,
-} from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { ClHelpService } from '@monorepo/core-lib';
 import {
   CaDocumentActionDetailMenu,
@@ -28,18 +25,18 @@ import { MatIcon } from '@angular/material/icon';
 import { FlUserModule } from '@monorepo/front-core-lib/fl-user';
 import { NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import {
-  CaHierarchyObjectBreadcrumbComponent,
-} from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
+import { CaHierarchyObjectBreadcrumbComponent } from '../../../ca-folder-hierarchy-core/component/ca-hierarchy-object-breadcrumb/ca-hierarchy-object-breadcrumb.component';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { CaDocumentService } from '../../../../../ca-core/service-api/ca-document.service';
+import { CaConstellabDocumentService } from '../../../../../ca-core/service-api/ca-constellab-document.service';
 
 /**
  * Page to show a constellab document with the possibility to edit it.
  */
 @Component({
-  selector: 'ca-document-detail-page',
-  templateUrl: './ca-document-detail-page.component.html',
-  styleUrls: ['./ca-document-detail-page.component.scss'],
+  selector: 'ca-constellab-document-detail-page',
+  templateUrl: './ca-constellab-document-detail-page.component.html',
+  styleUrls: ['./ca-constellab-document-detail-page.component.scss'],
   imports: [
     CaHierarchyObjectBreadcrumbComponent,
     FlSectionModule,
@@ -56,18 +53,19 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
     FlTagModule,
   ],
 })
-export class CaDocumentDetailPageComponent implements OnInit {
+export class CaConstellabDocumentDetailPageComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private folderService = inject(CaFolderService);
   private state = inject(CaHierarchyObjectDetailState);
   private snackBarService = inject(FlSnackBarService);
   private injector = inject(Injector);
+  private documentService = inject(CaDocumentService);
+  private constellabDocumentService = inject(CaConstellabDocumentService);
 
   document: CaDocument;
 
   getIsLoading: boolean = true;
 
-  textEditorConfig: CaDocumentTextEditorConfig;
+  textEditorConfig: CaConstellabDocumentTextEditorConfig;
   contentFormControl: FormControl<TeRichText> = new FormControl({ disabled: true, value: null });
   saveDescriptionFunc: (value: TeRichText) => Observable<CaConstellabDocument>;
 
@@ -78,7 +76,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
   }
 
   private init(id: string): void {
-    this.folderService.getConstellabDocument(id).subscribe({
+    this.constellabDocumentService.getConstellabDocument(id).subscribe({
       next: (doc) => this.getDocumentSuccess(doc),
       error: () => (this.getIsLoading = false),
     });
@@ -87,14 +85,14 @@ export class CaDocumentDetailPageComponent implements OnInit {
   private getDocumentSuccess(constellabDocument: CaConstellabDocument): void {
     this.document = constellabDocument.document;
     this.contentFormControl.patchValue(constellabDocument.content, { emitEvent: false });
-    this.textEditorConfig = new CaDocumentTextEditorConfig(
+    this.textEditorConfig = new CaConstellabDocumentTextEditorConfig(
       constellabDocument.document.id,
-      this.folderService
+      this.constellabDocumentService
     );
     this.getIsLoading = false;
 
     this.saveDescriptionFunc = (value: TeRichText) =>
-      this.folderService.updateConstellabDocument(this.document.id, value).pipe(
+      this.constellabDocumentService.updateConstellabDocument(this.document.id, value).pipe(
         tap({
           next: (doc) => this.saveContentSuccess(doc),
           error: (error) => this.onError(error),
@@ -128,10 +126,13 @@ export class CaDocumentDetailPageComponent implements OnInit {
   }
 
   private onDocumentAction(event: CaDocumentActionEvent): void {
-    if (event.action === 'delete') {
-      this.state.navigateToParentFolder();
-    } else {
-      this.document = event.document;
+    switch (event.action) {
+      case 'update':
+        this.document = event.document;
+        break;
+      case 'moveToTrash':
+        this.state.navigateToParentFolder();
+        break;
     }
   }
 
@@ -139,7 +140,7 @@ export class CaDocumentDetailPageComponent implements OnInit {
     if (this.contentFormControl.disabled) {
       // use emitFalse to avoid the value change event
       this.contentFormControl.enable({ emitEvent: false });
-      this.folderService.checkEditConstellabDocument(this.document.id).subscribe({
+      this.constellabDocumentService.checkEditConstellabDocument(this.document.id).subscribe({
         error: () => this.contentFormControl.disable({ emitEvent: false }),
       });
     } else {
@@ -154,6 +155,6 @@ export class CaDocumentDetailPageComponent implements OnInit {
   }
 
   renameDocument(newTitle: string): void {
-    this.folderService.renameDocument(this.document.id, newTitle).subscribe();
+    this.documentService.renameDocument(this.document.id, newTitle).subscribe();
   }
 }

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FL_PORTAL_DATA, FlPortalModule } from '@monorepo/front-core-lib/fl-portal';
-import { CaFolderService } from '../../../../service-api/ca-folder.service';
 import { CaHierarchyObjectInlineComponent } from '../ca-hierarchy-object-inline/ca-hierarchy-object-inline.component';
 import { RouterLink } from '@angular/router';
 import { CaDetailRoutePipe } from '../../../../module/ca-core-pipe/ca-detail-route/ca-detail-route.pipe';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { map } from 'rxjs/operators';
 import { MatIcon } from '@angular/material/icon';
+import { CaHierarchyObjectService } from '../../../../service-api/ca-hierarchy-object.service';
 
 /**
  * Portal to display the ancestor of a hierarchy object
@@ -27,9 +27,9 @@ import { MatIcon } from '@angular/material/icon';
 export class CaHierarchyObjectAncestorPortalComponent {
   hierarchyObjectId: string = inject(FL_PORTAL_DATA);
 
-  private folderService = inject(CaFolderService);
+  private hierarchyObjectService = inject(CaHierarchyObjectService);
 
-  ancestors$ = this.folderService
-    .getObjectFolderAncestors(this.hierarchyObjectId)
+  ancestors$ = this.hierarchyObjectService
+    .getObjectAncestors(this.hierarchyObjectId)
     .pipe(map((ancestors) => ancestors.reverse()));
 }

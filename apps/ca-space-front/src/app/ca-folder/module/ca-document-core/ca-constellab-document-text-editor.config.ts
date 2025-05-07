@@ -7,43 +7,43 @@ import {
   TeTools,
 } from '@monorepo/text-editor';
 import { Observable } from 'rxjs';
-import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { ApplicationRef, EnvironmentInjector } from '@angular/core';
+import { CaConstellabDocumentService } from '../../../ca-core/service-api/ca-constellab-document.service';
 
-export class CaDocumentTextEditorImageConfig implements TeFigureBlockConfig {
+class CaDocumentTextEditorImageConfig implements TeFigureBlockConfig {
   constructor(
     private documentId: string,
-    private folderService: CaFolderService
+    private constellabDocumentService: CaConstellabDocumentService
   ) {}
 
   imageUploader(file: File): Observable<TeBlockFigureUploadedResponse> {
-    return this.folderService.uploadImageToConstellabDocument(file, this.documentId);
+    return this.constellabDocumentService.uploadImageToConstellabDocument(file, this.documentId);
   }
 
   getImageUrl(filename: string): string {
-    return this.folderService.getConstellabDocumentFileUrl(this.documentId, filename);
+    return this.constellabDocumentService.getConstellabDocumentFileUrl(this.documentId, filename);
   }
 }
 
 export class CaDocumentTextEditorFileConfig implements TeFileBlockConfig {
   constructor(
     private documentId: string,
-    private folderService: CaFolderService
+    private constellabDocumentService: CaConstellabDocumentService
   ) {}
 
   fileUploader(file: File): Observable<TeBlockFileUploadResponse> {
-    return this.folderService.uploadFileToConstellabDocument(file, this.documentId);
+    return this.constellabDocumentService.uploadFileToConstellabDocument(file, this.documentId);
   }
 
   getFileUrl(filename: string): string {
-    return this.folderService.getConstellabDocumentFileUrl(this.documentId, filename);
+    return this.constellabDocumentService.getConstellabDocumentFileUrl(this.documentId, filename);
   }
 }
 
-export class CaDocumentTextEditorConfig extends TeCompleteConfig {
+export class CaConstellabDocumentTextEditorConfig extends TeCompleteConfig {
   constructor(
     private documentId: string,
-    private folderService: CaFolderService
+    private constellabDocumentService: CaConstellabDocumentService
   ) {
     super();
   }
@@ -52,11 +52,11 @@ export class CaDocumentTextEditorConfig extends TeCompleteConfig {
     const tools = super.getTools(envInjector, applicationRef);
 
     // configure and add the image block
-    const imageConfig = new CaDocumentTextEditorImageConfig(this.documentId, this.folderService);
+    const imageConfig = new CaDocumentTextEditorImageConfig(this.documentId, this.constellabDocumentService);
     tools.figure = this.getImageConfig(imageConfig, envInjector, applicationRef);
 
     // configure and add the file block
-    const fileConfig = new CaDocumentTextEditorFileConfig(this.documentId, this.folderService);
+    const fileConfig = new CaDocumentTextEditorFileConfig(this.documentId, this.constellabDocumentService);
     tools.file = this.getFileConfig(fileConfig, envInjector, applicationRef);
 
     return tools;

@@ -2,75 +2,30 @@ import { Observable } from 'rxjs';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
+  CaHierarchyObjectMoveToFolderAction,
+  CaHierarchyObjectMoveToTrashAction,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { TeTextEditorHistoryPortalComponent, TeTextEditorHistoryPortalData } from '@monorepo/text-editor';
 import { Injector } from '@angular/core';
-import { CaNoteService } from '../../../ca-core/service-api/ca-note.service';
 import { FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 import { CaNoteHistoryService } from '../../../ca-core/service/ca-note-history.service';
 import { CaNoteTextEditorConfig } from './model/ca-note-text-editor-config.class';
-import { CaAuthenticatedUserService } from '../../../ca-core/service-api/ca-authenticated-user.service';
 
-export type CaNoteActionEvent = {
-  action: 'delete';
-  noteId: string;
-};
+export type CaNoteActionEvent = CaHierarchyObjectMoveToFolderAction | CaHierarchyObjectMoveToTrashAction;
 
 /**
  * Class to manage action menu for the note
  */
-export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu<CaNoteActionEvent> {
+export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu {
   constructor(injector: Injector, hierarchyObjectId: string, tags?: CaHierarchyObjectActionTags) {
     super(injector, hierarchyObjectId, tags);
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const menu = [this.getManageTagsButton()];
-    const isAdmin = this.injector.get(CaAuthenticatedUserService).isAdmin();
+    const menu = [this.getManageTagsButton(), this.getMoveToFolderButton(), this.getMoveToTrashButton()];
 
-    if (isAdmin) {
-      menu.push(this.getDeleteButton());
-    }
     return this.generateMenu(menu, event);
-  }
-
-  protected getDeleteButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: { text: 'delete_note', translateText: true },
-      icon: 'delete',
-      onClick: () => this.deleteNote(),
-      color: 'warn',
-    };
-  }
-
-  private deleteNote(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_note',
-      content: 'delete_note_confirmation',
-      observable: this.injector.get(CaNoteService).deleteNote(this.hierarchyObjectId),
-      successMessage: 'note_deleted',
-    };
-
-    this.injector
-      .get(FlDialogService)
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onNoteDeleted(result));
-  }
-
-  private onNoteDeleted(result: FlConfirmDialogResult): void {
-    if (result.choice) {
-      this.subject.next({ action: 'delete', noteId: this.hierarchyObjectId });
-    }
-
-    this.subject.complete();
   }
 }
 
@@ -85,11 +40,12 @@ export class CaNoteDetailActionMenu extends CaNoteActionMenu {
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const menu = [this.getManageTagsButton()];
-
-    menu.push(this.getOpenHistoryPanelButton());
-
-    menu.push(this.getDeleteButton());
+    const menu = [
+      this.getManageTagsButton(),
+      this.getOpenHistoryPanelButton(),
+      this.getMoveToFolderButton(),
+      this.getMoveToTrashButton(),
+    ];
 
     return this.generateMenu(menu, event);
   }

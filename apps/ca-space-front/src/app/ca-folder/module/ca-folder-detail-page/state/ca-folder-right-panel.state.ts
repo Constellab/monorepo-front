@@ -1,6 +1,5 @@
 import { inject, Injectable, OnDestroy, ViewContainerRef } from '@angular/core';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
-import { FlQueryParamHandler } from '@monorepo/front-core-lib/fl-core';
 import { Subscription } from 'rxjs';
 import { CaFolderDetailRightPanelComponent } from '../component/ca-folder-detail-right-panel/ca-folder-detail-right-panel.component';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -15,19 +14,12 @@ export class CaFolderRightPanelState implements OnDestroy {
   private portalService = inject(FlPortalService);
   private viewContainerRef = inject(ViewContainerRef);
 
-  private queryParamHandler: FlQueryParamHandler<CaFolderDetailRightPanel> = inject(FlQueryParamHandler);
-
   private currentOverlayRef: FlOverlayRef;
 
   private subscription: Subscription;
 
-  public init(): void {
-    this.queryParamHandler.getFirstQueryParams().subscribe((params) => this.onRightPanelUpdate(params));
-  }
-
   public updateRightPanelState(state: CaFolderDetailRightPanel): void {
     this.currentOverlayRef?.dispose();
-    this.queryParamHandler.mergeQueryParams({ type: state.type, objectId: state.objectId });
     this.onRightPanelUpdate(state);
   }
 
@@ -52,10 +44,6 @@ export class CaFolderRightPanelState implements OnDestroy {
   }
 
   private onPortalClose(): void {
-    setTimeout(() => {
-      // navigate to the same route, update only the query params
-      this.queryParamHandler.mergeQueryParams({ type: null, objectId: null });
-    }, 0);
     this.currentOverlayRef = null;
   }
 

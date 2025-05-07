@@ -8,8 +8,10 @@ import {
   CaHierarchyObject,
   CaHierarchyObjectType,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaResourceActionEvent } from '../../ca-resource-detail-page/ca-resource-action-menu';
-import { CaNoteActionEvent } from '../../ca-note-core/ca-note-action-menu';
+import {
+  CaHierarchyObjectMoveToFolderAction,
+  CaHierarchyObjectMoveToTrashAction,
+} from '../../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 
 export type CaHierarchyObjectEvent =
   | {
@@ -71,10 +73,9 @@ export class CaHierarchyObjectEventState implements OnDestroy {
         this.emitDocumentEvent(event.event);
         break;
       case 'resource':
-        this.emitResourceEvent(event.event);
-        break;
       case 'note':
-        this.emitNoteEvent(event.event);
+      case 'scenario':
+        this.emitHierarchyObjectEvent(event.event);
         break;
     }
   }
@@ -87,13 +88,9 @@ export class CaHierarchyObjectEventState implements OnDestroy {
       case 'update':
         this.emitFolderUpdate(folderEvent.folder);
         break;
-      case 'delete':
-      case 'moveFolder':
-        this.emitEvent({
-          action: 'delete',
-          hierarchyObjectId: folderEvent.folder.id,
-          hierarchyObjectType: CaHierarchyObjectType.FOLDER,
-        });
+      case 'moveToFolder':
+      case 'moveToTrash':
+        this.emitHierarchyObjectEvent(folderEvent);
         break;
     }
   }
@@ -123,40 +120,21 @@ export class CaHierarchyObjectEventState implements OnDestroy {
           hierarchyObject: { name: documentEvent.document.name },
         });
         break;
-      case 'delete':
+      case 'moveToFolder':
       case 'moveToTrash':
-      case 'moveToFolder':
-        this.emitEvent({
-          action: 'delete',
-          hierarchyObjectId: documentEvent.document.id,
-          hierarchyObjectType: CaHierarchyObjectType.DOCUMENT,
-        });
+        this.emitHierarchyObjectEvent(documentEvent);
         break;
     }
   }
 
-  public emitResourceEvent(resourceEvent: CaResourceActionEvent): void {
-    switch (resourceEvent.action) {
-      case 'moveToFolder':
-      case 'deleteResource':
-        this.emitEvent({
-          action: 'delete',
-          hierarchyObjectId: resourceEvent.resource.id,
-          hierarchyObjectType: CaHierarchyObjectType.RESOURCE,
-        });
-    }
-  }
-
-  public emitNoteEvent(noteEvent: CaNoteActionEvent): void {
-    switch (noteEvent.action) {
-      case 'delete':
-        this.emitEvent({
-          action: 'delete',
-          hierarchyObjectId: noteEvent.noteId,
-          hierarchyObjectType: CaHierarchyObjectType.NOTE,
-        });
-        break;
-    }
+  public emitHierarchyObjectEvent(
+    hierarchyObjectEvent: CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectMoveToFolderAction
+  ): void {
+    this.emitEvent({
+      action: 'delete',
+      hierarchyObjectId: hierarchyObjectEvent.hierarchyObject.id,
+      hierarchyObjectType: hierarchyObjectEvent.hierarchyObject.objectType,
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,8 +1,4 @@
-import {
-  FlConfirmDialogInput,
-  FlConfirmDialogResult,
-  FlDialogService,
-} from '@monorepo/front-core-lib/fl-dialog';
+import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { FlOverlayRef, FlPortalService } from '@monorepo/front-core-lib/fl-portal';
 
@@ -11,7 +7,6 @@ import {
   CaDocumentNameFormDialogInput,
 } from './component/ca-document-name-form-dialog/ca-document-name-form-dialog.component';
 import { CaDocument, CaDocumentBasicInfo } from '../../../ca-core/model/entities/folder/ca-document.class';
-import { CaFolderService } from '../../../ca-core/service-api/ca-folder.service';
 import { Observable } from 'rxjs';
 import { CaRouterService } from '../../../ca-core/service/ca-router.service';
 import {
@@ -23,21 +18,21 @@ import { CaConstellabDocumentHistoryService } from '../../../ca-core/service/ca-
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
+  CaHierarchyObjectMoveToFolderAction,
+  CaHierarchyObjectMoveToTrashAction,
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
-import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
 
 export type CaDocumentActionEvent =
   | {
-      action: 'update' | 'moveToTrash' | 'restoreFromTrash' | 'moveToFolder';
+      action: 'update' | 'restoreFromTrash';
       document: CaDocument;
     }
-  | {
-      action: 'delete';
-      document: CaDocumentBasicInfo;
-    };
+  | CaHierarchyObjectMoveToTrashAction
+  | CaHierarchyObjectMoveToFolderAction;
 
-export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocumentActionEvent> {
+export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
   constructor(
     injector: Injector,
     protected documentInfo: CaDocumentBasicInfo,
@@ -53,10 +48,6 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
   }
 
   protected getDefaultMenuItems(showLinks: boolean): FlMenuDynamic[] {
-    if (this.documentInfo.inTrash) {
-      return this.getTrashMenu();
-    }
-
     const menu: FlMenuDynamic[] = [];
 
     if (showLinks) {
@@ -73,7 +64,7 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
           href: this.injector
-            .get(CaFolderService)
+            .get(CaDocumentService)
             .getDocumentDownloadUrl(this.documentInfo.id, this.documentInfo.name),
         });
       }
@@ -87,39 +78,10 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
       icon: 'edit',
       onClick: () => this.renameDocument(),
     });
-    menu.push({
-      type: 'button',
-      text: { text: 'move_to_folder', translateText: true },
-      icon: 'drive_file_move',
-      onClick: () => this.moveDocument(),
-    });
-    menu.push({
-      type: 'button',
-      text: { text: 'move_document_to_trash', translateText: true },
-      icon: 'clear',
-      onClick: () => this.moveToTrash(),
-      color: 'warn',
-    });
+    menu.push(this.getMoveToFolderButton());
+    menu.push(this.getMoveToTrashButton());
 
     return menu;
-  }
-
-  private getTrashMenu(): FlMenuDynamic[] {
-    return [
-      {
-        type: 'button',
-        text: { text: 'restore_document_from_trash', translateText: true },
-        icon: 'restore_from_trash',
-        onClick: () => this.restoreFromTrash(),
-      },
-      {
-        type: 'button',
-        text: { text: 'delete_document', translateText: true },
-        icon: 'delete_forever',
-        onClick: () => this.deleteDocument(),
-        color: 'warn',
-      },
-    ];
   }
 
   private renameDocument(): void {
@@ -141,101 +103,7 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu<CaDocu
       this.subject.next({
         action: 'update',
         document: doc,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private moveToTrash(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'move_document_to_trash',
-      content: 'move_document_to_trash_confirmation',
-      observable: this.injector.get(CaFolderService).moveDocumentToTrash(this.documentInfo.id),
-      successMessage: 'document_moved_to_trash',
-    };
-
-    this.injector
-      .get(FlDialogService)
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onMoveToTrashClosed(result));
-  }
-
-  private onMoveToTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
-    if (result.choice) {
-      this.subject.next({
-        action: 'moveToTrash',
-        document: result.result,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private restoreFromTrash(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'restore_document_from_trash',
-      content: 'restore_document_from_trash_confirmation',
-      observable: this.injector.get(CaFolderService).restoreDocumentFromTrash(this.documentInfo.id),
-      successMessage: 'document_restored_from_trash',
-    };
-
-    this.injector
-      .get(FlDialogService)
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onRestoreFromTrashClosed(result));
-  }
-
-  private onRestoreFromTrashClosed(result: FlConfirmDialogResult<CaDocument>): void {
-    if (result.choice) {
-      this.subject.next({
-        action: 'restoreFromTrash',
-        document: result.result,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private deleteDocument(): void {
-    const input: FlConfirmDialogInput = {
-      title: 'delete_document',
-      content: 'delete_document_confirmation',
-      observable: this.injector.get(CaFolderService).deleteDocument(this.documentInfo.id),
-      successMessage: 'document_deleted',
-    };
-
-    this.injector
-      .get(FlDialogService)
-      .openConfirmDialog(input)
-      .afterClosed()
-      .subscribe((result) => this.onDeleteClosed(result, this.documentInfo));
-  }
-
-  private onDeleteClosed(result: FlConfirmDialogResult, document: CaDocumentBasicInfo): void {
-    if (result.choice) {
-      this.subject.next({
-        action: 'delete',
-        document: document,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private moveDocument(): void {
-    this.injector
-      .get(CaFolderActionService)
-      .moveObjectToFolder(this.documentInfo.id, (folderHierarchyId: string, folderId: string) =>
-        this.injector.get(CaFolderService).moveDocumentToFolder(folderHierarchyId, folderId)
-      )
-      .subscribe((document) => this.onMoveDocumentClosed(document));
-  }
-
-  private onMoveDocumentClosed(document: CaDocument): void {
-    if (document) {
-      this.subject.next({
-        action: 'moveToFolder',
-        document: document,
-      });
+      } as CaDocumentActionEvent);
     }
     this.subject.complete();
   }

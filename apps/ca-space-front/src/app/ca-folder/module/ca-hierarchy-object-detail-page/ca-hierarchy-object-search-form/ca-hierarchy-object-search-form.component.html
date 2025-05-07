@@ -4,12 +4,12 @@
   class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
   <!--    Filter by name    -->
   <mat-form-field class="g-form-field-compact-height name-search field" subscriptSizing="dynamic">
-    <mat-label>{{ nameLabel$ | async }}</mat-label>
-    <input matInput [placeholder]="nameLabel$ | async" formControlName="name" />
+    <mat-label>{{ nameLabel() }}</mat-label>
+    <input matInput [placeholder]="nameLabel()" formControlName="name" />
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
-  @if (showObjectType$ | async) {
+  @if (showObjectType()) {
     <!--   Filter by object type     -->
     <mat-form-field class="g-form-field-compact-height field" subscriptSizing="dynamic">
       <mat-label>{{ 'folder_object_type' | translate }}</mat-label>

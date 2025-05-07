@@ -1,0 +1,37 @@
+<fl-dialog-header [closeButtonData]="restoredObject">
+  <fl-text-icon>
+    <mat-icon>delete</mat-icon>
+    {{ title }}
+  </fl-text-icon>
+
+  <fl-dialog-header-actions>
+    @if (input.mode === 'folder') {
+      <button
+        mat-icon-button
+        type="button"
+        (click)="emptyTrash()"
+        [matTooltip]="'empty_trash' | translate"
+        class="warn">
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    }
+  </fl-dialog-header-actions>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <ca-hierarchy-object-search-form [context]="context"></ca-hierarchy-object-search-form>
+
+  <fl-infinite-table-container
+    [datasource]="hierarchyObjects"
+    textNoResult="trash_empty"
+    textNoMoreResult=""
+    class="table-container">
+    <ca-hierarchy-object-table [datasource]="hierarchyObjects" [columns]="columns" [rowSelectable]="true">
+      <ng-template let-object>
+        <button mat-icon-button type="button" (click)="openHierarchyObjectTrashMenu(object, $event)">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </ng-template>
+    </ca-hierarchy-object-table>
+  </fl-infinite-table-container>
+</mat-dialog-content>

@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, inject } from '@angular/core';
-import { TeRichText } from '@monorepo/text-editor';
+import { Component, EventEmitter, inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { TeRichText, TeTextEditorModule } from '@monorepo/text-editor';
 import { CaChatMessageTextEditorConfig } from '../../../../model/config/ca-chat-message-text-editor.config';
 import { CaFolderService } from '../../../../service-api/ca-folder.service';
-import { TeTextEditorModule } from '@monorepo/text-editor';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CaChatService } from '../../../../service-api/ca-chat.service';
 
 /**
  * Component to write a message in a chat
@@ -28,6 +28,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);
+  private chatService = inject(CaChatService);
 
   @Input({ required: true }) folderId: string;
 
@@ -41,7 +42,12 @@ export class CaChatWriteMessageComponent implements OnInit, OnDestroy {
   textEditorConfig: CaChatMessageTextEditorConfig;
 
   ngOnInit(): void {
-    this.textEditorConfig = new CaChatMessageTextEditorConfig(this.folderId, this.folderService, this.mode);
+    this.textEditorConfig = new CaChatMessageTextEditorConfig(
+      this.folderId,
+      this.chatService,
+      this.folderService,
+      this.mode
+    );
   }
 
   enterEvent(event: Event): void {

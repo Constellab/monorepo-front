@@ -15,15 +15,7 @@ export class CaResourceService {
     return this.apiService.get(`${this.route}/${id}`, CaResource);
   }
 
-  public deleteById(id: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${id}`);
-  }
-
   public renameResource(id: string, name: string): Observable<CaResource> {
     return this.apiService.put(`${this.route}/${id}/name`, { name }, CaResource);
-  }
-
-  public moveResource(id: string, newFolderId: string): Observable<CaResource> {
-    return this.apiService.put(`${this.route}/${id}/move/${newFolderId}`, {}, CaResource);
   }
 }

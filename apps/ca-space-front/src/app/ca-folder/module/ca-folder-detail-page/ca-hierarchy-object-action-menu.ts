@@ -14,7 +14,7 @@ import {
   CaResourceActionMenu,
 } from '../ca-resource-detail-page/ca-resource-action-menu';
 import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-action-menu';
-import { CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
+import { CaScenarioActionEvent, CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
 import { CaHierarchyObjectActionTags } from './ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
 
@@ -34,6 +34,10 @@ export type CaHierarchyObjectActionEvent =
   | {
       entity: 'note';
       event: CaNoteActionEvent;
+    }
+  | {
+      entity: 'scenario';
+      event: CaScenarioActionEvent;
     };
 
 /**
@@ -66,7 +70,9 @@ export class CaHierarchyObjectActionMenu {
     } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.NOTE) {
       return this.openNoteActionMenu(event).pipe(map((event) => (event ? { entity: 'note', event } : null)));
     } else if (this.hierarchyObject.objectType === CaHierarchyObjectType.SCENARIO) {
-      return this.openScenarioActionMenu(event);
+      return this.openScenarioActionMenu(event).pipe(
+        map((event) => (event ? { entity: 'scenario', event } : null))
+      );
     } else {
       return of(null);
     }
@@ -91,7 +97,6 @@ export class CaHierarchyObjectActionMenu {
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
-        inTrash: false, // if the folder is visible, it is not in trash
         isConstellabDocument: this.hierarchyObject.objectType === CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
       },
       this.tags
@@ -117,7 +122,7 @@ export class CaHierarchyObjectActionMenu {
     return noteActionMenu.openActionMenu(event);
   }
 
-  private openScenarioActionMenu(event: MouseEvent): Observable<null> {
+  private openScenarioActionMenu(event: MouseEvent): Observable<CaScenarioActionEvent | null> {
     const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.hierarchyObject.id, this.tags);
     return scenarioActionMenu.openActionMenu(event);
   }

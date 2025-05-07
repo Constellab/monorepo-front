@@ -6,12 +6,12 @@ import { Injector } from '@angular/core';
 /**
  * Base class to manage the action menu for an object
  */
-export class FlBaseActionMenu<T> {
-  protected subject: Subject<T> = new Subject();
+export class FlBaseActionMenu {
+  protected subject: Subject<any> = new Subject();
 
   constructor(protected injector: Injector) {}
 
-  protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<T> {
+  protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<any> {
     const overlayRef = this.injector.get(FlMenuDynamicService).openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(

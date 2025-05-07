@@ -3,7 +3,6 @@ import {
   CaFolderInfo,
   CaFolderWithHierarchy,
 } from '../../../model/entities/folder/ca-folder.class';
-import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 
 import { Observable } from 'rxjs';
@@ -11,10 +10,11 @@ import { CaConstellabDocument } from '../../../model/entities/folder/ca-document
 import { CaRouterService } from '../../../service/ca-router.service';
 import { CaSecurityService } from '../../../service/ca-security.service';
 import { CaFolderActionService } from '../ca-folder-action.service';
-import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 import {
   CaHierarchyObjectActionTags,
   CaHierarchyObjectBaseActionMenu,
+  CaHierarchyObjectMoveToFolderAction,
+  CaHierarchyObjectMoveToTrashAction,
 } from '../../../../ca-folder/module/ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
 import { CaFolderRightPanelState } from '../../../../ca-folder/module/ca-folder-detail-page/state/ca-folder-right-panel.state';
@@ -29,19 +29,13 @@ export type CaFolderActionEvent =
       folder: CaFolder;
     }
   | {
-      action: 'delete';
-      folder: CaFolderInfo;
-    }
-  | {
       action: 'createConstellabDocument';
       document: CaConstellabDocument;
     }
-  | {
-      action: 'moveFolder';
-      folder: CaHierarchyObject;
-    };
+  | CaHierarchyObjectMoveToTrashAction
+  | CaHierarchyObjectMoveToFolderAction;
 
-export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolderActionEvent> {
+export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
   constructor(
     injector: Injector,
     protected folderInfo: CaFolderInfo,
@@ -64,7 +58,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       if (!disableMove) {
         menu.push(this.getMoveToFolderButton());
       }
-      menu.push(this.getOpenSettingsButton(), this.getDeleteFolderButton());
+      menu.push(this.getOpenSettingsButton(), this.getMoveToTrashButton());
     }
 
     return this.generateMenu(menu, event);
@@ -114,25 +108,6 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
     };
   }
 
-  protected getMoveToFolderButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: { text: 'move_to_folder', translateText: true },
-      icon: 'drive_file_move',
-      onClick: () => this.moveFolder(),
-    };
-  }
-
-  protected getDeleteFolderButton(): FlMenuDynamic {
-    return {
-      type: 'button',
-      text: { text: 'delete_folder', translateText: true },
-      icon: 'delete',
-      onClick: () => this.openDeleteFolderDialog(),
-      color: 'warn',
-    };
-  }
-
   protected getOpenSettingsButton(): FlMenuDynamic {
     return {
       type: 'button',
@@ -158,7 +133,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       this.subject.next({
         action: 'update',
         folder: folder,
-      });
+      } as CaFolderActionEvent);
     }
     this.subject.complete();
   }
@@ -175,24 +150,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       this.subject.next({
         action: 'createChild',
         folder: folder,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private openDeleteFolderDialog(): void {
-    this.injector
-      .get(CaFolderActionService)
-      .openDeleteFolderDialog(this.folderInfo.id)
-      .subscribe((result) => this.onDeleteClosed(result));
-  }
-
-  private onDeleteClosed(result: FlConfirmDialogResult): void {
-    if (result.choice) {
-      this.subject.next({
-        action: 'delete',
-        folder: this.folderInfo,
-      });
+      } as CaFolderActionEvent);
     }
     this.subject.complete();
   }
@@ -209,24 +167,7 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu<CaFolde
       this.subject.next({
         action: 'createConstellabDocument',
         document: doc,
-      });
-    }
-    this.subject.complete();
-  }
-
-  private moveFolder(): void {
-    this.injector
-      .get(CaFolderActionService)
-      .moveFolder(this.folderInfo.id)
-      .subscribe((folder) => this.onMoveFolderClosed(folder));
-  }
-
-  private onMoveFolderClosed(folder?: CaHierarchyObject): void {
-    if (folder) {
-      this.subject.next({
-        action: 'moveFolder',
-        folder: folder,
-      });
+      } as CaFolderActionEvent);
     }
     this.subject.complete();
   }
