@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CaFolderService } from '../../../../../ca-core/service-api/ca-folder.service';
 import { CaFolder } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
 import { FlConfirmDialogResult } from '@monorepo/front-core-lib/fl-dialog';
@@ -12,7 +12,6 @@ import { CaFolderDetailInfoComponent } from '../ca-folder-detail-info/ca-folder-
 import { MatButton } from '@angular/material/button';
 import { CaFolderStorageSettingsComponent } from '../ca-folder-storage-settings/ca-folder-storage-settings.component';
 import { CaFolderStorageUsageSectionComponent } from '../ca-folder-storage-usage-section/ca-folder-storage-usage-section.component';
-import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   CaHierarchyObjectEvent,
@@ -33,7 +32,6 @@ import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
     MatButton,
     CaFolderStorageSettingsComponent,
     CaFolderStorageUsageSectionComponent,
-    AsyncPipe,
     TranslatePipe,
     FlSectionModule,
   ],
@@ -47,9 +45,6 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
   private folderActionService = inject(CaFolderActionService);
   private snackBarService = inject(FlSnackBarService);
   private securityService = inject(CaSecurityService);
-
-  // only allow storage setting for root folders
-  showStorageSettings$: Observable<boolean>;
 
   folder: CaFolder;
   canEditFolder: boolean;

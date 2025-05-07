@@ -77,6 +77,7 @@ export interface CaFolderObject extends FlEntity {
 }
 
 export class CaFolderStorageDTO {
+  rootFolderId: string;
   // only for folder level in creation
   @Type(() => CaBucketLocationDTO)
   mainStorage: CaBucketLocationDTO;

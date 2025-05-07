@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      @if (canEditFolder && (showStorageSettings$ | async)) {
+      @if (canEditFolder) {
         <ca-folder-storage-settings [folderId]="folderId" class="section"></ca-folder-storage-settings>
       }
 

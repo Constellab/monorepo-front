@@ -42,13 +42,14 @@ export class CaFolderStorageSettingsComponent implements OnInit {
     this.folderStorage = this.folderService.getFolderStorages(this.folderId);
   }
 
-  async configureStorage(): Promise<void> {
+  async configureStorage(rootFolderId: string): Promise<void> {
     const folderStorage = await firstValueFrom(this.folderStorage);
 
     const input: CaFolderConfigureStorageInput = {
       mode: 'update',
-      folderId: this.folderId,
+      folderId: rootFolderId,
       object: {
+        rootFolderId: rootFolderId,
         mainStorage: folderStorage.mainStorage,
         backupStorage: folderStorage.backupStorage,
       },

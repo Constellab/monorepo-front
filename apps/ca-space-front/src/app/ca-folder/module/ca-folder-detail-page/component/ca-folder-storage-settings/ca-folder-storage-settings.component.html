@@ -6,35 +6,38 @@
     </fl-text-icon>
   </fl-section-header>
 
-  <ng-container *flSectionBody="folderStorage as bucket">
+  <ng-container *flSectionBody="folderStorage as folderStorage">
     <div class="body">
       <!--   Main bucket   -->
       <fl-text-ok-nok
-        [value]="!!bucket.mainStorage"
+        [value]="!!folderStorage.mainStorage"
         [okText]="'folder_main_storage_configured' | translate"
         [nokText]="'folder_main_storage_not_configured' | translate">
       </fl-text-ok-nok>
-      @if (bucket.mainStorage) {
-        <ca-bucket-location-inline [bucketLocation]="bucket.mainStorage"></ca-bucket-location-inline>
+      @if (folderStorage.mainStorage) {
+        <ca-bucket-location-inline [bucketLocation]="folderStorage.mainStorage"></ca-bucket-location-inline>
       }
 
       <!--  Backup bucket    -->
       <fl-text-ok-nok
-        [value]="!!bucket.backupStorage"
+        [value]="!!folderStorage.backupStorage"
         [okText]="'folder_backup_storage_configured' | translate"
         [nokText]="'folder_backup_storage_not_configured' | translate"
         class="backup">
       </fl-text-ok-nok>
-      @if (bucket.backupStorage) {
-        <ca-bucket-location-inline [bucketLocation]="bucket.backupStorage"></ca-bucket-location-inline>
+      @if (folderStorage.backupStorage) {
+        <ca-bucket-location-inline [bucketLocation]="folderStorage.backupStorage"></ca-bucket-location-inline>
       }
 
-      @if (!bucket.mainStorage || !bucket.backupStorage) {
-        <div class="g-text-centered configure-button">
-          <button mat-stroked-button type="button" (click)="configureStorage()">
-            {{ 'configure_folder_storage' | translate }}
-          </button>
-        </div>
+      <!--  Can only configure in root folder    -->
+      @if (!folderStorage.mainStorage || !folderStorage.backupStorage) {
+        @if (folderStorage.rootFolderId === folderId) {
+          <div class="g-text-centered configure-button">
+            <button mat-stroked-button type="button" (click)="configureStorage(folderStorage.rootFolderId)">
+              {{ 'configure_folder_storage' | translate }}
+            </button>
+          </div>
+        }
       }
     </div>
   </ng-container>
