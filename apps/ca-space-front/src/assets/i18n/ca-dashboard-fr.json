@@ -217,5 +217,8 @@
   "object_deleted": "Objet supprimé",
   "move_object_to_trash": "Déplacer vers la corbeille",
   "move_object_to_trash_confirmation": "Êtes-vous sûr de vouloir déplacer cet objet vers la corbeille ? Il pourra être restauré plus tard.",
-  "object_moved_to_trash": "Objet déplacé vers la corbeille"
+  "object_moved_to_trash": "Objet déplacé vers la corbeille",
+  "include_trash_objects": "Inclure les objets de la corbeille",
+  "object_is_in_trash": "Cet objet est dans la corbeille",
+  "include_sub_objects": "Inclure les sous objets"
 }

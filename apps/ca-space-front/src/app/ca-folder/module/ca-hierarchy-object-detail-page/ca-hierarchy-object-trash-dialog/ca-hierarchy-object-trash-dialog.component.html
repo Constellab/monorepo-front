@@ -19,7 +19,17 @@
 </fl-dialog-header>
 
 <mat-dialog-content>
-  <ca-hierarchy-object-search-form [context]="context"></ca-hierarchy-object-search-form>
+  <div class="g-layout-row g-layout-start-center g-layout-gap-1em">
+    <ca-hierarchy-object-search-form [context]="context"></ca-hierarchy-object-search-form>
+
+    @if (input.mode === 'all') {
+      <div [formGroup]="formGp">
+        <mat-checkbox formControlName="includeSubObjects" (change)="onIncludeSubObjectChange()">
+          {{ 'include_sub_objects' | translate }}
+        </mat-checkbox>
+      </div>
+    }
+  </div>
 
   <fl-infinite-table-container
     [datasource]="hierarchyObjects"

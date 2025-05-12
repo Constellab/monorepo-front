@@ -2,7 +2,7 @@
   <fl-horizontal-nav-bar class="g-page-title" [items]="routes">
     <fl-horizontal-nav-bar-title>
       @if (space$ | async; as space) {
-        <h1 class="title">{{ space.name | translate }}</h1>
+        <h1 class="title">{{ space.name }}</h1>
       }
     </fl-horizontal-nav-bar-title>
   </fl-horizontal-nav-bar>

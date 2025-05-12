@@ -12,6 +12,7 @@ export const caStructureRoutes: Route[] = [
         path: '',
         loadComponent: () =>
           import(
+            // eslint-disable-next-line max-len
             './ca-space-page/component/ca-current-space-dashboard-page/ca-current-space-dashboard-page.component'
           ).then((m) => m.CaCurrentSpaceDashboardPageComponent),
       },
@@ -33,8 +34,9 @@ export const caStructureRoutes: Route[] = [
         path: 'folders',
         loadComponent: () =>
           import(
-            './ca-space-page/component/ca-current-space-folders-page/ca-current-space-folders-page.component'
-          ).then((m) => m.CaCurrentSpaceFoldersPageComponent),
+            // eslint-disable-next-line max-len
+            './ca-space-page/component/ca-current-space-hierarchy-object-page/ca-current-space-hierarchy-object-page.component'
+          ).then((m) => m.CaCurrentSpaceHierarchyObjectPageComponent),
       },
       {
         path: 'teams',

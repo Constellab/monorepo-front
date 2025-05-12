@@ -10,11 +10,8 @@ import {
   CaHierarchyObjectActionMenu,
 } from '../../ca-folder-detail-page/ca-hierarchy-object-action-menu';
 import { CaRouterService } from '../../../../ca-core/service/ca-router.service';
-import { CaDocument } from '../../../../ca-core/model/entities/folder/ca-document.class';
-import { Router } from '@angular/router';
 import { CaFolderRightPanelState } from '../../ca-folder-detail-page/state/ca-folder-right-panel.state';
-import { CaFolderService } from '../../../../ca-core/service-api/ca-folder.service';
-import { CaDocumentService } from '../../../../ca-core/service-api/ca-document.service';
+import { CaHierarchyObjectRouterService } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 
 @Injectable()
 export class CaHierarchyObjectActionsMenuState {
@@ -22,11 +19,9 @@ export class CaHierarchyObjectActionsMenuState {
   private injector = inject(Injector);
   private eventState = inject(CaHierarchyObjectEventState);
 
-  private router = inject(Router);
   private routerService = inject(CaRouterService);
   private rightPanelState = inject(CaFolderRightPanelState);
-  private folderService = inject(CaFolderService);
-  private documentService = inject(CaDocumentService);
+  private hierarchyObjectRouter = inject(CaHierarchyObjectRouterService);
 
   public openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
     const service = new CaHierarchyObjectActionMenu(this.injector, hierarchyObject, {
@@ -42,17 +37,6 @@ export class CaHierarchyObjectActionsMenuState {
   private onHierarchyObjectActionMenuEvent(event: CaHierarchyObjectActionEvent): void {
     if (!event) return;
     this.eventState.hierarchyObjectActionEvent(event);
-  }
-
-  public hierarchyObjectHasActionMenu(hierarchyObject: CaHierarchyObject): boolean {
-    return [
-      CaHierarchyObjectType.FOLDER,
-      CaHierarchyObjectType.DOCUMENT,
-      CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
-      CaHierarchyObjectType.RESOURCE,
-      CaHierarchyObjectType.NOTE,
-      CaHierarchyObjectType.SCENARIO,
-    ].includes(hierarchyObject.objectType);
   }
 
   public onHierarchyObjectClicked(hierarchyObject: CaHierarchyObject): void {
@@ -78,53 +62,16 @@ export class CaHierarchyObjectActionsMenuState {
         });
         break;
       case CaHierarchyObjectType.DOCUMENT:
-        const route = this.getDocumentRoute(hierarchyObject);
-        if (route) {
-          this.routerService.navigate(route);
-        }
+        this.hierarchyObjectRouter.navigateToDocument(hierarchyObject);
         break;
     }
   }
 
   public onHierarchyObjectDblClicked(hierarchyObject: CaHierarchyObject): void {
-    const route = this.getObjectRoute(hierarchyObject);
-    if (route) {
-      this.routerService.navigate(route);
-    }
+    this.hierarchyObjectRouter.navigateToHierarchyObject(hierarchyObject);
   }
 
   public onHierarchyObjectMiddleClicked(hierarchyObject: CaHierarchyObject): void {
-    const route = this.getObjectRoute(hierarchyObject);
-    if (route) {
-      const url = this.router.createUrlTree([route]).toString();
-      window.open(url, '_blank');
-    }
-  }
-
-  private getObjectRoute(hierarchyObject: CaHierarchyObject): string {
-    switch (hierarchyObject.objectType) {
-      case CaHierarchyObjectType.FOLDER:
-        return CaRouterService.getFolderDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.NOTE:
-        return CaRouterService.getNoteDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.SCENARIO:
-        return CaRouterService.getScenarioDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
-        return CaRouterService.getDocumentDetailRoute(hierarchyObject.id);
-      case CaHierarchyObjectType.DOCUMENT:
-        return this.getDocumentRoute(hierarchyObject);
-      case CaHierarchyObjectType.RESOURCE:
-        return CaRouterService.getResourceDetailRoute(hierarchyObject.id);
-    }
-  }
-
-  private getDocumentRoute(hierarchyObject: CaHierarchyObject): string {
-    if (CaDocument.supportsPreview(hierarchyObject.name)) {
-      return CaRouterService.getDocumentPreviewRoute(hierarchyObject.id);
-    } else {
-      const url = this.documentService.getDocumentPreviewUrl(hierarchyObject.id, hierarchyObject.name);
-      window.open(url, '_blank');
-      return null;
-    }
+    this.hierarchyObjectRouter.openHierarchyObjectInNewTab(hierarchyObject);
   }
 }

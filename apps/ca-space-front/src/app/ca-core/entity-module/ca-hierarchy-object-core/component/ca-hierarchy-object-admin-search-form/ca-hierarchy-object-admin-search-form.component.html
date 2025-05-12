@@ -1,0 +1,58 @@
+<div class="form g-layout-col" [formGroup]="formGp">
+  <div class="g-full g-form-field-compact g-layout-row-wrap g-layout-between-center">
+    <!--  Name  -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'name' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'name' | translate" autocomplete="off" />
+    </mat-form-field>
+
+    <!--   Filter by object type     -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'folder_object_type' | translate }}</mat-label>
+      <mat-select
+        formControlName="objectType"
+        panelClass="g-mat-select-panel-no-max-height"
+        [placeholder]="'folder_object_type' | translate">
+        @if (typeIsSelected()) {
+          <mat-select-trigger>
+            {{ getSelectedTypeLabel().label | translate }}
+          </mat-select-trigger>
+        }
+
+        @for (key of objectTypes | flObjectKeys; track key) {
+          <mat-option [value]="key">
+            <div class="g-layout-row g-layout-start-center">
+              <ca-hierarchy-object-icon
+                [style]="objectTypes[key].style"
+                class="icon"></ca-hierarchy-object-icon>
+              {{ objectTypes[key].label | translate }}
+            </div>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- User -->
+    <fl-form-field class="g-search-field">
+      <fl-select-user formControlName="user" [placeholder]="'user' | translate" mode="space">
+      </fl-select-user>
+    </fl-form-field>
+
+    <!--  Id -->
+    <mat-form-field class="g-search-field">
+      <mat-label>{{ 'id' | translate }}</mat-label>
+      <input matInput formControlName="id" [placeholder]="'id' | translate" autocomplete="off" />
+    </mat-form-field>
+
+    <!--  Creation date  -->
+    <div class="g-form-field-no-hint g-full">
+      <p class="g-text-small">{{ 'creation_date' | translate }}</p>
+      <fl-search-date-interval formGroupName="createdAt"></fl-search-date-interval>
+    </div>
+
+    <!--  Include trash objects  -->
+    <mat-checkbox formControlName="includeTrashObjects" class="checkbox"
+      >{{ 'include_trash_objects' | translate }}
+    </mat-checkbox>
+  </div>
+</div>

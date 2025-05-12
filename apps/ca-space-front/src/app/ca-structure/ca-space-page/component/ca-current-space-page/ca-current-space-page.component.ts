@@ -9,13 +9,12 @@ import {
 } from '@monorepo/front-core-lib/fl-horizontal-nav-bar';
 import { RouterOutlet } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'ca-current-space-page',
   templateUrl: './ca-current-space-page.component.html',
   styleUrls: ['./ca-current-space-page.component.scss'],
-  imports: [FlHorizontalNavBarModule, RouterOutlet, AsyncPipe, TranslatePipe],
+  imports: [FlHorizontalNavBarModule, RouterOutlet, AsyncPipe],
 })
 export class CaCurrentSpacePageComponent implements OnInit {
   private currentSpaceService = inject(CaCurrentSpaceService);

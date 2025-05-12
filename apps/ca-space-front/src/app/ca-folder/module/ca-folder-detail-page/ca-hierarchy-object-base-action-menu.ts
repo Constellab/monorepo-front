@@ -18,18 +18,13 @@ import {
 import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
 import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 
-export type CaHierarchyObjectActionBase =
-  | {
-      action: 'restoreFromTrash';
-      hierarchyObject: CaHierarchyObject;
-    }
-  | {
-      action: 'delete';
-      hierarchyObjectId: string;
-    };
-
 export type CaHierarchyObjectMoveToTrashAction = {
   action: 'moveToTrash';
+  hierarchyObject: CaHierarchyObject;
+};
+
+export type CaHierarchyObjectRestoreFromTrashAction = {
+  action: 'restoreFromTrash';
   hierarchyObject: CaHierarchyObject;
 };
 
@@ -37,6 +32,13 @@ export type CaHierarchyObjectMoveToFolderAction = {
   action: 'moveToFolder';
   hierarchyObject: CaHierarchyObject;
 };
+
+export type CaHierarchyObjectActionBase =
+  | CaHierarchyObjectRestoreFromTrashAction
+  | {
+      action: 'delete';
+      hierarchyObjectId: string;
+    };
 
 export interface CaHierarchyObjectActionTags {
   tags?: CaHierarchyObjectTagDatasource;
@@ -143,17 +145,12 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
 
   public openTrashMenu(event: MouseEvent): Observable<CaHierarchyObjectActionBase | null> {
     const menu: FlMenuDynamic[] = this.getHierarchyObjectTrashMenu();
-    return this.generateMenu(menu, event) as any;
+    return this.generateMenu(menu, event);
   }
 
   private getHierarchyObjectTrashMenu(): FlMenuDynamic[] {
     return [
-      {
-        type: 'button',
-        text: { text: 'restore_object_from_trash', translateText: true },
-        icon: 'restore_from_trash',
-        onClick: () => this.restoreHierarchyObjectMenu(),
-      },
+      this.getRestoreFromTrashButton(),
       {
         type: 'button',
         text: { text: 'delete_object', translateText: true },
@@ -162,6 +159,15 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
         color: 'warn',
       },
     ];
+  }
+
+  private getRestoreFromTrashButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'restore_object_from_trash', translateText: true },
+      icon: 'restore_from_trash',
+      onClick: () => this.restoreHierarchyObjectMenu(),
+    };
   }
 
   private restoreHierarchyObjectMenu(): void {
@@ -212,5 +218,23 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
       } as CaHierarchyObjectActionBase);
     }
     this.subject.complete();
+  }
+
+  /**
+   * Simple menu with only move to trash or restore from trash
+   * @param event
+   * @param hierarchyObject
+   */
+  public openTrashRestoreMenu(
+    event: MouseEvent,
+    hierarchyObject: CaHierarchyObject
+  ): Observable<CaHierarchyObjectMoveToTrashAction | CaHierarchyObjectRestoreFromTrashAction | null> {
+    const menu: FlMenuDynamic[] = [];
+    if (hierarchyObject.isInTrash()) {
+      menu.push(this.getRestoreFromTrashButton());
+    } else {
+      menu.push(this.getMoveToTrashButton());
+    }
+    return this.generateMenu(menu, event);
   }
 }

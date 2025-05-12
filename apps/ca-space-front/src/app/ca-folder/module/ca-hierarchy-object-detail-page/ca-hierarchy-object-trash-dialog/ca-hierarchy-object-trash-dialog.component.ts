@@ -6,7 +6,7 @@ import {
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
-} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   FlDatasourceGetPageFunction,
@@ -38,6 +38,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hierarchy-object.service';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 export type CaHierarchyObjectTrashDialogInput =
   | {
@@ -65,6 +67,8 @@ export type CaHierarchyObjectTrashDialogInput =
     MatIconButton,
     MatTooltip,
     TranslatePipe,
+    MatCheckbox,
+    ReactiveFormsModule,
   ],
   templateUrl: './ca-hierarchy-object-trash-dialog.component.html',
   styleUrl: './ca-hierarchy-object-trash-dialog.component.scss',
@@ -79,6 +83,8 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
   private dialogRef = inject(MatDialogRef);
   private dialogService = inject(FlDialogService);
   private hierarchyObjectService = inject(CaHierarchyObjectService);
+
+  formGp: UntypedFormGroup;
 
   title: string;
   hierarchyObjects: CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields>;
@@ -113,17 +119,18 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
     }
     this.hierarchyObjects = new FlEntityPaginatedDatasource<CaHierarchyObject, CaHierarchyObjectSearchFields>(
       getPageFunction,
-      25
+      25,
+      { initFirstPage: false }
     );
 
     // init the children search state
     const config: FlSearchConfig = {
       version: 1,
-      buildAdvancedForm: CaHierarchyObjectSearch.getSearchForm,
+      buildAdvancedForm: CaHierarchyObjectSearch.getSearchFormTrash,
       advancedFormClass: CaHierarchyObjectSearchFields,
       savedSearch: [],
       advancedFormManager: {
-        config: CaHierarchyObjectSearch.searchManagerConfig,
+        config: {},
         skipFalseBoolean: true,
       },
       storeSearchInUrl: false,
@@ -131,6 +138,8 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
       autoSearch: false,
     };
     this.searchState.init(config, this.hierarchyObjects);
+    this.searchState.submitForm();
+    this.formGp = this.searchState.advancedSearchFormGroup;
 
     this.dialogRef.backdropClick().subscribe(() => this.dialogRef.close(this.restoredObject));
   }
@@ -181,5 +190,9 @@ export class CaHierarchyObjectTrashDialogComponent implements OnInit {
     if (result.choice) {
       this.hierarchyObjects.getFirstPage();
     }
+  }
+
+  onIncludeSubObjectChange(): void {
+    this.searchState.submitForm();
   }
 }

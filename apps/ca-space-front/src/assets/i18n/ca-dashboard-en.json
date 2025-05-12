@@ -217,5 +217,8 @@
   "object_deleted": "Object deleted",
   "move_object_to_trash": "Move to trash",
   "move_object_to_trash_confirmation": "Are you sure you want to move this object to trash ? It can be restored later.",
-  "object_moved_to_trash": "Object moved to trash"
+  "object_moved_to_trash": "Object moved to trash",
+  "include_trash_objects": "Include objects in trash",
+  "object_is_in_trash": "This object is in trash",
+  "include_sub_objects": "Include sub objects"
 }

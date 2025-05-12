@@ -99,8 +99,14 @@ export class CaHierarchyObject extends CaEntity {
 
   lastTags: FlTag[];
 
+  visibility: 'VISIBLE' | 'TRASH';
+
   isRoot(): boolean {
     return this.parentId === null;
+  }
+
+  isInTrash(): boolean {
+    return this.visibility === 'TRASH';
   }
 
   /**

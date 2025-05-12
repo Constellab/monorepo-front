@@ -10,7 +10,7 @@ import {
   CaHierarchyObjectDatasource,
   CaHierarchyObjectType,
 } from '../../../../model/entities/folder/ca-hierarchy-object.class';
-import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFields } from '../../../ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import {
   CaHierarchyObjectTableComponent,
   CaHierarchyObjectTableEvent,
@@ -108,9 +108,12 @@ export class CaSelectFolderDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  initRoots(): void {
+  private initRoots(): void {
     if (this.authenticatedUserService.isCurrentSpaceAdmin()) {
-      this.foldersDatasource = this.folderService.getFolderByCurrentSpaceDatasource();
+      this.foldersDatasource = new FlEntityPaginatedDatasource(
+        (page, pageSize) => this.folderService.getFolderByCurrentSpace(page, pageSize),
+        20
+      );
     } else {
       this.foldersDatasource = this.folderService.getRootFoldersDatasource();
     }

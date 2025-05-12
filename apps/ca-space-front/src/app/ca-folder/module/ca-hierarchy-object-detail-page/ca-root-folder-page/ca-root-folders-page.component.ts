@@ -22,7 +22,7 @@ import {
 } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
 import { ClHelpService } from '@monorepo/core-lib';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
-import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { CaHierarchyObjectSearchFormComponent } from '../ca-hierarchy-object-search-form/ca-hierarchy-object-search-form.component';
 import { AsyncPipe } from '@angular/common';
 import {

@@ -7,7 +7,7 @@ import {
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
-} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+} from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { FlSearchConfig, FlSearchState } from '@monorepo/front-core-lib/fl-search';
 import { FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
 import { of } from 'rxjs';
@@ -48,7 +48,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
       advancedFormClass: CaHierarchyObjectSearchFields,
       savedSearch: [],
       advancedFormManager: {
-        config: CaHierarchyObjectSearch.searchManagerConfig,
+        config: {},
         skipFalseBoolean: true,
       },
       storeSearchInUrl: true,

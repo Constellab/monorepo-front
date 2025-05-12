@@ -13,8 +13,10 @@ import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
-} from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
+  CaHierarchyObjectSearchTrashField,
+} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
+import { CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 @Injectable({
   providedIn: 'root',
@@ -54,11 +56,11 @@ export class CaHierarchyObjectService {
     id: string,
     page: number,
     size: number,
-    data: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+    data: FlDatasourceGetPageData<CaHierarchyObjectSearchTrashField>
   ): Observable<ClPageI<CaHierarchyObject>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
       data,
-      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.getTrashFilterConverter(false),
       CaHierarchyObjectSearch.sortConverter
     );
     return this.apiService.post(
@@ -98,11 +100,11 @@ export class CaHierarchyObjectService {
   public searchTrashInRootFoldersAndChildren(
     page: number,
     size: number,
-    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchFields>
+    filters: FlDatasourceGetPageData<CaHierarchyObjectSearchTrashField>
   ): Observable<ClPageI<CaHierarchyObjectWithParent>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
       filters,
-      CaHierarchyObjectSearch.filterConverter,
+      CaHierarchyObjectSearch.getTrashFilterConverter(true),
       CaHierarchyObjectSearch.sortConverter
     );
     return this.apiService.post(
@@ -115,6 +117,23 @@ export class CaHierarchyObjectService {
         resultIsPaginated: true,
       }
     );
+  }
+
+  public searchInCurrentSpace(
+    page: number,
+    pageSize: number,
+    data: FlDatasourceGetPageData<CaFolderSearchFields>
+  ): Observable<ClPageI<CaHierarchyObject>> {
+    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
+      data,
+      CaHierarchyObjectSearch.filterConverterAdmin,
+      CaHierarchyObjectSearch.sortConverter
+    );
+    return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaHierarchyObject, {
+      page: page,
+      pageSize: pageSize,
+      resultIsPaginated: true,
+    });
   }
 
   /////////////////////////// UPDATE ////////////////////////////////////////////

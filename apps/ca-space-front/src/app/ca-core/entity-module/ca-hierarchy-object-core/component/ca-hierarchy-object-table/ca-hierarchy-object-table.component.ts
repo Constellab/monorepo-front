@@ -88,6 +88,8 @@ export class CaHierarchyObjectTableComponent {
 
   @Input() selectedObject: CaHierarchyObject;
 
+  @Input() showTrashIcon: boolean = false;
+
   @Output() rowEvent: EventEmitter<CaHierarchyObjectTableEvent> = new EventEmitter();
 
   // to support custom column

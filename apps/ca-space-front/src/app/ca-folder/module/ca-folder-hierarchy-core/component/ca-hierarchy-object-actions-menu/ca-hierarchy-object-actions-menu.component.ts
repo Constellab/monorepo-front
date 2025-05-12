@@ -1,5 +1,8 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaHierarchyObject,
+  CaHierarchyObjectType,
+} from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { ClHelpService } from '@monorepo/core-lib';
@@ -16,10 +19,21 @@ export class CaHierarchyObjectActionsMenuComponent {
 
   private actionsMenuState = inject(CaHierarchyObjectActionsMenuState);
 
-  showMenuButton = computed(() => this.actionsMenuState.hierarchyObjectHasActionMenu(this.hierarchyObject()));
+  showMenuButton = computed(() => this.hierarchyObjectHasActionMenu(this.hierarchyObject()));
 
   hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
     this.actionsMenuState.openHierarchyObjectActionMenu(hierarchyObject, event);
+  }
+
+  private hierarchyObjectHasActionMenu(hierarchyObject: CaHierarchyObject): boolean {
+    return [
+      CaHierarchyObjectType.FOLDER,
+      CaHierarchyObjectType.DOCUMENT,
+      CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
+      CaHierarchyObjectType.RESOURCE,
+      CaHierarchyObjectType.NOTE,
+      CaHierarchyObjectType.SCENARIO,
+    ].includes(hierarchyObject.objectType);
   }
 }

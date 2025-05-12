@@ -31,11 +31,8 @@ import {
 import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
-} from '../entity-module/ca-hierarchy-object-core/model/ca-hierarchy-object-search.class';
-import {
-  CaFolderSearch,
-  CaFolderSearchFields,
-} from '../entity-module/ca-folder-core/model/ca-folder-search.class';
+} from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
+import { CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 /**
  * Service to manage folder entity
@@ -131,13 +128,6 @@ export class CaFolderService {
     return this.apiService.put(`${this.route}/${id}/leader/${userId}`, null, CaFolder);
   }
 
-  public getFolderByCurrentSpaceDatasource(): CaHierarchyObjectDatasource {
-    return new FlEntityPaginatedDatasource(
-      (page, pageSize) => this.getFolderByCurrentSpace(page, pageSize),
-      20
-    );
-  }
-
   public getFolderByCurrentSpace(page: number, size: number): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.get(`${this.route}/current-space`, CaFolder, {
       resultIsPaginated: true,
@@ -150,11 +140,11 @@ export class CaFolderService {
     page: number,
     pageSize: number,
     data: FlDatasourceGetPageData<CaFolderSearchFields>
-  ): Observable<ClPageI<CaFolder>> {
+  ): Observable<ClPageI<CaHierarchyObject>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
       data,
-      CaFolderSearch.filterConverter,
-      CaFolderSearch.sortConverter
+      CaHierarchyObjectSearch.filterConverterAdmin,
+      CaHierarchyObjectSearch.sortConverter
     );
     return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaFolder, {
       page: page,

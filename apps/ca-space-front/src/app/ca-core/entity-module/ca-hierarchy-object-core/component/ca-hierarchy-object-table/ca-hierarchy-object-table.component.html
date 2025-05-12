@@ -11,6 +11,13 @@
       }
 
       <ca-hierarchy-object-inline [hierarchyObject]="hierarchyObject"></ca-hierarchy-object-inline>
+
+      @if (showTrashIcon && hierarchyObject.isInTrash()) {
+        <mat-icon
+          class="status-icon g-row-button"
+          [matTooltip]="'object_is_in_trash' | translate"
+          flIcon="delete"></mat-icon>
+      }
     </mat-cell>
   </ng-container>
 
