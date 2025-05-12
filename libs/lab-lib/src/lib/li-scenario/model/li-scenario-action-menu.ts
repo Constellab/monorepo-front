@@ -25,7 +25,7 @@ export type LiScenarioActionEvent = {
 /**
  * Action menu for a lab scenario
  */
-export class LiScenarioActionMenu extends LiEntityActionMenu<LiScenarioActionEvent> {
+export class LiScenarioActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected scenario: LiScenario,

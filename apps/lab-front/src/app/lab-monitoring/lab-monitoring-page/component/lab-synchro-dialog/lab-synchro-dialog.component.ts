@@ -1,4 +1,3 @@
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { Component, inject } from '@angular/core';
 import { FlDialogModule } from '@monorepo/front-core-lib/fl-dialog';
 import { FlPortalActionsService } from '@monorepo/front-core-lib/fl-portal-actions';
@@ -9,11 +8,6 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 
-interface LabSynchroForm {
-  syncUsers: boolean;
-  syncFolders: boolean;
-}
-
 /**
  * Dialog to choose open to synchronize lab
  */
@@ -23,7 +17,6 @@ interface LabSynchroForm {
   styleUrls: ['./lab-synchro-dialog.component.scss'],
   imports: [
     FlDialogModule,
-    CdkScrollable,
     MatDialogContent,
     ReactiveFormsModule,
     MatCheckbox,
@@ -37,13 +30,20 @@ export class LabSynchroDialogComponent {
   private systemService = inject(LiSystemService);
   private dialogRef = inject<MatDialogRef<LabSynchroDialogComponent>>(MatDialogRef);
 
-  formGp = new FormBuilder().group<LabSynchroForm>({
+  formGp = new FormBuilder().group({
     syncUsers: true,
     syncFolders: true,
+    syncScenarios: true,
+    syncNotes: true,
   });
 
   submit(): void {
-    const obs = this.systemService.synchronize(this.formGp.value.syncUsers, this.formGp.value.syncFolders);
+    const obs = this.systemService.synchronize({
+      sync_users: this.formGp.value.syncUsers,
+      sync_folders: this.formGp.value.syncFolders,
+      sync_scenarios: this.formGp.value.syncScenarios,
+      sync_notes: this.formGp.value.syncNotes,
+    });
 
     this.actionService.addAction({
       action: obs,

@@ -5,16 +5,30 @@
 <mat-dialog-content>
   <form (ngSubmit)="submit()" id="sync-form" [formGroup]="formGp">
     <!--  Sync users  -->
-    <div>
+    <div class="checkbox">
       <mat-checkbox formControlName="syncUsers">
         {{ 'monitoring.synchronize_users' | translate }}
       </mat-checkbox>
     </div>
 
     <!--  Sync folders  -->
-    <div class="sync-folder">
+    <div class="checkbox">
       <mat-checkbox formControlName="syncFolders">
         {{ 'monitoring.synchronize_folders' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <!--  Sync scenarios  -->
+    <div class="checkbox">
+      <mat-checkbox formControlName="syncScenarios">
+        {{ 'monitoring.synchronize_scenarios' | translate }}
+      </mat-checkbox>
+    </div>
+
+    <!--  Sync notes  -->
+    <div class="checkbox">
+      <mat-checkbox formControlName="syncNotes">
+        {{ 'monitoring.synchronize_notes' | translate }}
       </mat-checkbox>
     </div>
   </form>

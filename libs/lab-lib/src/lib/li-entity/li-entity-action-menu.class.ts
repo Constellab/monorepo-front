@@ -3,7 +3,7 @@ import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
 import { LiEntityTagType, LiTagDatasource } from '@monorepo/lab-lib/li-core';
 import { LiManageEntityTagsDialogComponent, LiManageEntityTagsDialogInput } from '../li-tag';
 
-export class LiEntityActionMenu<T> extends FlBaseActionMenu<T> {
+export class LiEntityActionMenu extends FlBaseActionMenu {
   protected getTagsButton(
     entityType: LiEntityTagType,
     entityId: string,

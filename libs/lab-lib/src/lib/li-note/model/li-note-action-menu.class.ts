@@ -14,7 +14,7 @@ export type LiNoteActionEvent = {
   note: LiNote;
 };
 
-export class LiNoteActionMenu extends LiEntityActionMenu<LiNoteActionEvent> {
+export class LiNoteActionMenu extends LiEntityActionMenu {
   constructor(
     injector: Injector,
     protected note: LiNote,

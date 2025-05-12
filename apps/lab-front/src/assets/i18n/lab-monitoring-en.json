@@ -27,6 +27,8 @@
     "delete_unavailable_typings_success": "Unavailable typings have been deleted",
     "synchronize_folders": "Synchronize folders",
     "synchronize_users": "Synchronize users",
+    "synchronize_notes": "Synchronize notes",
+    "synchronize_scenarios": "Synchronize scenarios",
     "synchronize_lab": "Synchronize lab",
     "synchronizing_lab": "Synchronizing lab...",
     "venv_list": "Virtual environments",

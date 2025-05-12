@@ -46,11 +46,13 @@ export class LiSystemService {
     return this.apiService.post(`${this.route}/garbage-collector`, null);
   }
 
-  public synchronize(syncUsers: boolean, syncFolders: boolean): Observable<void> {
-    return this.apiService.post(`${this.route}/synchronize`, {
-      sync_users: syncUsers,
-      sync_folders: syncFolders,
-    });
+  public synchronize(syncOptions: {
+    sync_users: boolean;
+    sync_folders: boolean;
+    sync_scenarios: boolean;
+    sync_notes: boolean;
+  }): Observable<void> {
+    return this.apiService.post(`${this.route}/synchronize`, syncOptions);
   }
 
   public getSystemConfig(): Observable<LiSystemConfig> {

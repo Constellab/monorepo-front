@@ -27,6 +27,8 @@
     "delete_unavailable_typings_success": "Typings indisponibles supprimés",
     "synchronize_folders": "Synchroniser les projets",
     "synchronize_users": "Synchroniser les utilisateurs",
+    "synchronize_notes": "Synchroniser les notes",
+    "synchronize_scenarios": "Synchroniser les scénarios",
     "synchronize_lab": "Synchroniser le lab",
     "synchronizing_lab": "Synchronisation du lab...",
     "venv_list": "Environnements virtuels",
