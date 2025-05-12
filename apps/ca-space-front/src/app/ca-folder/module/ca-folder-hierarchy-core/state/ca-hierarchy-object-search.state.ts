@@ -109,6 +109,11 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
       })
     );
 
+    // trigger search on tags change
+    this.subscriptions.add(
+      this.getTagsFormControl().valueChanges.subscribe(() => this.searchState.submitForm())
+    );
+
     return this.searchState.advancedSearchFormGroup;
   }
 
