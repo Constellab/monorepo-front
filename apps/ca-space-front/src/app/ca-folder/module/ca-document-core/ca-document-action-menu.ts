@@ -79,6 +79,7 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
       onClick: () => this.renameDocument(),
     });
     menu.push(this.getMoveToFolderButton());
+    menu.push(this.getOpenTokensButton());
     menu.push(this.getMoveToTrashButton());
 
     return menu;

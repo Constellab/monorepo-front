@@ -17,6 +17,10 @@ import {
 } from '@monorepo/front-core-lib/fl-dialog';
 import { CaHierarchyObjectService } from '../../../ca-core/service-api/ca-hierarchy-object.service';
 import { CaFolderActionService } from '../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
+import {
+  CaHierarchyObjectTokenDialogInput,
+  CaHierarchyObjectTokensDialogComponent,
+} from '../../../ca-core/entity-module/ca-hierarchy-object-core/component/ca-hierarchy-object-tokens-dialog/ca-hierarchy-object-tokens-dialog.component';
 
 export type CaHierarchyObjectMoveToTrashAction = {
   action: 'moveToTrash';
@@ -236,5 +240,27 @@ export class CaHierarchyObjectBaseActionMenu extends FlBaseActionMenu {
       menu.push(this.getMoveToTrashButton());
     }
     return this.generateMenu(menu, event);
+  }
+
+  ///////////////////////////////////// TOKENS ///////////////////////////////////////
+
+  protected getOpenTokensButton(): FlMenuDynamic {
+    return {
+      type: 'button',
+      text: { text: 'hierarchy_object_tokens', translateText: true },
+      icon: 'share',
+      onClick: () => this.openTokensDialog(),
+    };
+  }
+
+  private openTokensDialog(): void {
+    const data: CaHierarchyObjectTokenDialogInput = {
+      hierarchyObjectId: this.hierarchyObjectId,
+    };
+    this.injector
+      .get(FlDialogService)
+      .openMediumDialog(CaHierarchyObjectTokensDialogComponent, { data: data })
+      .afterClosed()
+      .subscribe(() => this.subject.complete());
   }
 }

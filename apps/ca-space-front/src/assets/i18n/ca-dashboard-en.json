@@ -221,5 +221,21 @@
   "object_moved_to_trash": "Object moved to trash",
   "include_trash_objects": "Include objects in trash",
   "object_is_in_trash": "This object is in trash",
-  "include_sub_objects": "Include sub objects"
+  "include_sub_objects": "Include sub objects",
+  "hierarchy_object_tokens": "Share links",
+  "no_hierarchy_object_tokens": "No share links",
+  "hierarchy_object_token_help": "Share links are used to share objects with anyone that has the link. The link can be used to access the object without authentication. Share links are valid for a limited time and can be revoked at any time.",
+  "hierarchy_object_token_expiration_date": "Expiration date",
+  "hierarchy_object_token_no_expiration_date": "No expiration date",
+  "hierarchy_object_token_expiration_date_empty": "Leave empty for no expiration date",
+  "hierarchy_object_token_create": "Create share link",
+  "hierarchy_object_token_created": "Share link created",
+  "hierarchy_object_token_update": "Update share link",
+  "hierarchy_object_token_updated": "Share link updated",
+  "hierarchy_object_token_delete": "Delete share link",
+  "hierarchy_object_token_delete_confirmation": "Are you sure you want to delete this share link ? The link will be expired and cannot be used anymore.",
+  "hierarchy_object_token_deleted": "Share link deleted",
+  "hierarchy_object_token_link": "Share link",
+  "hierarchy_object_token_copy_link": "Copy share link",
+  "hierarchy_object_token_copy_link_success": "Share link copied to clipboard"
 }

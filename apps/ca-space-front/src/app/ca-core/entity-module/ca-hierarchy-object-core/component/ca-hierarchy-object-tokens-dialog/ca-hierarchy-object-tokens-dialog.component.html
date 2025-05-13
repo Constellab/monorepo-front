@@ -1,0 +1,22 @@
+<fl-dialog-header>
+  {{ 'hierarchy_object_tokens' | translate }}
+
+  <fl-dialog-header-actions>
+    <button
+      mat-icon-button
+      type="button"
+      (click)="createToken()"
+      [matTooltip]="'hierarchy_object_token_create' | translate">
+      <mat-icon>add</mat-icon>
+    </button>
+  </fl-dialog-header-actions>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-infinite-table-container
+    [datasource]="tokens"
+    textNoResult="no_hierarchy_object_tokens"
+    [textNoMoreResult]="null">
+    <ca-hierarchy-object-token-table [datasource]="tokens"></ca-hierarchy-object-token-table>
+  </fl-infinite-table-container>
+</mat-dialog-content>

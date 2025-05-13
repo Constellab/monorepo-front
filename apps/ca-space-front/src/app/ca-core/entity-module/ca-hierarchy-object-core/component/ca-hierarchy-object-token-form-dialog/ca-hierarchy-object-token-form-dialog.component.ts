@@ -1,0 +1,80 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { FlDialogModule, FlFormDialogAbstractDirective } from '@monorepo/front-core-lib/fl-dialog';
+import {
+  CaHierarchyObjectToken,
+  CaHierarchyObjectTokenSaveDTO,
+} from '../../../../model/entities/folder/ca-hierarchy-object-token.class';
+import { CaHierarchyObjectTokenService } from '../../../../service-api/ca-hierarchy-object-token.service';
+import { FormBuilder, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FlFormDialogInput } from '@monorepo/front-core-lib/fl-core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FlLoaderModule } from '@monorepo/front-core-lib/fl-loader';
+import { MatButton } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlTranslateModule } from '@monorepo/front-core-lib/fl-translate';
+import { MatInputModule } from '@angular/material/input';
+
+export interface CaHierarchyObjectTokenFormDialogInput
+  extends FlFormDialogInput<CaHierarchyObjectTokenSaveDTO> {
+  hierarchyObjectId?: string; // in create mode
+  hierarchyObjectTokenId?: string; // in update mode
+}
+
+/**
+ * Dialog to create and update a hierarchy object token
+ */
+@Component({
+  selector: 'ca-hierarchy-object-token-form-dialog',
+  imports: [
+    FlDialogModule,
+    FlLoaderModule,
+    MatButton,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FlTranslateModule,
+    MatInputModule,
+  ],
+  templateUrl: './ca-hierarchy-object-token-form-dialog.component.html',
+  styleUrl: './ca-hierarchy-object-token-form-dialog.component.scss',
+})
+export class CaHierarchyObjectTokenFormDialogComponent
+  extends FlFormDialogAbstractDirective<CaHierarchyObjectTokenSaveDTO, CaHierarchyObjectToken>
+  implements OnInit
+{
+  dialogInput: CaHierarchyObjectTokenFormDialogInput = inject(MAT_DIALOG_DATA);
+
+  private hierarchyObjectTokenService = inject(CaHierarchyObjectTokenService);
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  buildForm(): UntypedFormGroup {
+    return new FormBuilder().group({
+      expirationDate: [null],
+    });
+  }
+
+  create(formValue: CaHierarchyObjectTokenSaveDTO): Observable<CaHierarchyObjectToken> {
+    return this.hierarchyObjectTokenService.createToken(this.dialogInput.hierarchyObjectId, formValue);
+  }
+
+  getCreateSuccessMessage(): string {
+    return 'hierarchy_object_token_created';
+  }
+
+  getUpdateSuccessMessage(): string {
+    return 'hierarchy_object_token_updated';
+  }
+
+  update(formValue: CaHierarchyObjectTokenSaveDTO): Observable<CaHierarchyObjectToken> {
+    return this.hierarchyObjectTokenService.updateToken(this.dialogInput.hierarchyObjectTokenId, formValue);
+  }
+
+  get title(): string {
+    return this.isCreateMode() ? 'hierarchy_object_token_create' : 'hierarchy_object_token_update';
+  }
+}

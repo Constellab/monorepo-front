@@ -32,7 +32,6 @@ import {
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
 } from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
-import { CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 /**
  * Service to manage folder entity
@@ -133,23 +132,6 @@ export class CaFolderService {
       resultIsPaginated: true,
       page: page,
       pageSize: size,
-    });
-  }
-
-  public searchFoldersInCurrentSpace(
-    page: number,
-    pageSize: number,
-    data: FlDatasourceGetPageData<CaFolderSearchFields>
-  ): Observable<ClPageI<CaHierarchyObject>> {
-    const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
-      data,
-      CaHierarchyObjectSearch.filterConverterAdmin,
-      CaHierarchyObjectSearch.sortConverter
-    );
-    return this.apiService.post(`${this.route}/current-space/search`, searchInput, CaFolder, {
-      page: page,
-      pageSize: pageSize,
-      resultIsPaginated: true,
     });
   }
 

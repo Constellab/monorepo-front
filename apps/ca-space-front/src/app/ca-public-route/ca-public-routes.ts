@@ -8,4 +8,11 @@ export const CA_PUBLIC_ROUTES: Routes = [
         (m) => m.CaLabPriceSimulatorComponent
       ),
   },
+  {
+    path: 'object/:token',
+    loadComponent: () =>
+      import('./ca-public-hierarchy-object-page/ca-public-hierarchy-object-page.component').then(
+        (m) => m.CaPublicHierarchyObjectPageComponent
+      ),
+  },
 ];

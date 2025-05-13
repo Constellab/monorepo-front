@@ -23,7 +23,12 @@ export class CaNoteActionMenu extends CaHierarchyObjectBaseActionMenu {
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const menu = [this.getManageTagsButton(), this.getMoveToFolderButton(), this.getMoveToTrashButton()];
+    const menu = [
+      this.getManageTagsButton(),
+      this.getMoveToFolderButton(),
+      this.getOpenTokensButton(),
+      this.getMoveToTrashButton(),
+    ];
 
     return this.generateMenu(menu, event);
   }
@@ -44,6 +49,7 @@ export class CaNoteDetailActionMenu extends CaNoteActionMenu {
       this.getManageTagsButton(),
       this.getOpenHistoryPanelButton(),
       this.getMoveToFolderButton(),
+      this.getOpenTokensButton(),
       this.getMoveToTrashButton(),
     ];
 

@@ -16,7 +16,12 @@ export class CaResourceActionMenu extends CaHierarchyObjectBaseActionMenu {
   }
 
   public openActionMenu(event: MouseEvent): Observable<CaResourceActionEvent> {
-    const menu = [this.getManageTagsButton(), this.getMoveToFolderButton(), this.getMoveToTrashButton()];
+    const menu = [
+      this.getManageTagsButton(),
+      this.getMoveToFolderButton(),
+      this.getOpenTokensButton(),
+      this.getMoveToTrashButton(),
+    ];
     return this.generateMenu(menu, event);
   }
 }

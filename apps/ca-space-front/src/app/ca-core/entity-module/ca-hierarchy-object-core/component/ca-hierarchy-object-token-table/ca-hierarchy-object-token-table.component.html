@@ -1,0 +1,66 @@
+<mat-table mat-table [dataSource]="datasource()">
+  <!-- Expiration date -->
+  <ng-container matColumnDef="expirationDate">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'hierarchy_object_token_expiration_date' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      @if (row.expirationDate) {
+        <div [ngClass]="{ 'g-warn-text': !row.isValid() }">
+          {{ row.expirationDate | flDate }}
+        </div>
+      } @else {
+        {{ 'hierarchy_object_token_no_expiration_date' | translate }}
+      }
+    </mat-cell>
+  </ng-container>
+
+  <!-- Created -->
+  <ng-container matColumnDef="creation">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'creation_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.createdBy" [date]="row.createdAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Link -->
+  <ng-container matColumnDef="link">
+    <mat-header-cell *matHeaderCellDef class="g-column-width-2">
+      <span> {{ 'hierarchy_object_token_link' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" class="g-column-width-2">
+      <div
+        class="g-text-link g-text-tiny"
+        (click)="copyUrl(row)"
+        [matTooltip]="'hierarchy_object_token_copy_link' | translate">
+        {{ row.url }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item type="button" (click)="updateToken(row)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'hierarchy_object_token_update' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="deleteToken(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'hierarchy_object_token_delete' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns(); sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns()"></mat-row>
+</mat-table>

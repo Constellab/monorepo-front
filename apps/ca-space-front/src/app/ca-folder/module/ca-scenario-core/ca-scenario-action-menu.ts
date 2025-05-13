@@ -12,7 +12,12 @@ export type CaScenarioActionEvent = CaHierarchyObjectMoveToFolderAction | CaHier
  */
 export class CaScenarioActionMenu extends CaHierarchyObjectBaseActionMenu {
   public openActionMenu(event: MouseEvent): Observable<CaScenarioActionEvent | null> {
-    const menu = [this.getManageTagsButton(), this.getMoveToFolderButton(), this.getMoveToTrashButton()];
+    const menu = [
+      this.getManageTagsButton(),
+      this.getMoveToFolderButton(),
+      this.getOpenTokensButton(),
+      this.getMoveToTrashButton(),
+    ];
     return this.generateMenu(menu, event);
   }
 }

@@ -221,5 +221,21 @@
   "object_moved_to_trash": "Objet déplacé vers la corbeille",
   "include_trash_objects": "Inclure les objets de la corbeille",
   "object_is_in_trash": "Cet objet est dans la corbeille",
-  "include_sub_objects": "Inclure les sous objets"
+  "include_sub_objects": "Inclure les sous objets",
+  "hierarchy_object_tokens": "Liens de partage",
+  "no_hierarchy_object_tokens": "Aucun lien de partage",
+  "hierarchy_object_token_help": "Les liens de partage sont utilisés pour partager des objets avec quiconque a le lien. Le lien peut être utilisé pour accéder à l'objet sans authentification. Les liens de partage sont valables pour une durée limitée et peuvent être révoqués à tout moment.",
+  "hierarchy_object_token_expiration_date": "Date d'expiration",
+  "hierarchy_object_token_no_expiration_date": "Pas de date d'expiration",
+  "hierarchy_object_token_expiration_date_empty": "Laisser vide pour ne pas avoir de date d'expiration",
+  "hierarchy_object_token_create": "Créer un lien de partage",
+  "hierarchy_object_token_created": "Lien de partage créé",
+  "hierarchy_object_token_update": "Mettre à jour le lien de partage",
+  "hierarchy_object_token_updated": "Lien de partage mis à jour",
+  "hierarchy_object_token_delete": "Supprimer le lien de partage",
+  "hierarchy_object_token_delete_confirmation": "Êtes-vous sûr de vouloir supprimer ce lien de partage ? Le lien sera expiré et ne pourra plus être utilisé.",
+  "hierarchy_object_token_deleted": "Lien de partage supprimé",
+  "hierarchy_object_token_link": "Lien de partage",
+  "hierarchy_object_token_copy_link": "Copier le lien de partage",
+  "hierarchy_object_token_copy_link_success": "Lien de partage copié dans le presse-papier"
 }
