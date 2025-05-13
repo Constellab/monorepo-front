@@ -24,7 +24,6 @@ import { AsyncPipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
-import { CaHierarchyObjectType } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 
 @Component({
   selector: 'ca-folder-detail-actions',
@@ -109,7 +108,6 @@ export class CaFolderDetailActionsComponent {
     if (!folderEvent) return;
     if (folderEvent.action === 'restoreObjectFromTrash') {
       this.state.refreshChildren();
-      return;
     }
     this.eventState.emitFolderEvent(folderEvent);
   }
@@ -122,12 +120,7 @@ export class CaFolderDetailActionsComponent {
 
   private createChildSuccess(folder?: CaFolderWithHierarchy): void {
     if (folder) {
-      this.eventState.emitEvent({
-        action: 'create',
-        hierarchyObjectType: CaHierarchyObjectType.FOLDER,
-        hierarchyObjectId: folder.id,
-        hierarchyObject: folder.hierarchyRepresentation,
-      });
+      this.eventState.emitCreateEvent(folder.hierarchyRepresentation, true);
     }
   }
 }

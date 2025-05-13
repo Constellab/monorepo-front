@@ -320,7 +320,9 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
         break;
       case 'create':
         this.addFoldersInTree([event.hierarchyObject]);
-        this.routerService.navigateToFolderDetail(event.hierarchyObjectId);
+        if (event.navigateToObject) {
+          this.routerService.navigateToFolderDetail(event.hierarchyObjectId);
+        }
         break;
       case 'delete':
         this.onFolderDelete(event.hierarchyObjectId);

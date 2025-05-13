@@ -4,7 +4,6 @@ import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
 import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { Observable } from 'rxjs';
-import { CaDocument } from '../../../model/entities/folder/ca-document.class';
 import {
   CaFolderSharedGroupsListInput,
   CaFolderSharedListComponent,
@@ -21,11 +20,13 @@ import {
   CaHierarchyObjectTrashDialogComponent,
   CaHierarchyObjectTrashDialogInput,
 } from '../../../../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
+import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
   | {
       action: 'restoreObjectFromTrash';
+      hierarchyObjects: CaHierarchyObject[];
     };
 
 /**
@@ -135,9 +136,9 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
       .subscribe((restoredDocs) => this.onDocumentInTrashClosed(restoredDocs));
   }
 
-  private onDocumentInTrashClosed(restoredDocs?: CaDocument[]): void {
+  private onDocumentInTrashClosed(restoredDocs?: CaHierarchyObject[]): void {
     if (restoredDocs?.length > 0) {
-      this.emitEvent({ action: 'restoreObjectFromTrash' });
+      this.emitEvent({ action: 'restoreObjectFromTrash', hierarchyObjects: restoredDocs });
     }
     this.subject.complete();
   }

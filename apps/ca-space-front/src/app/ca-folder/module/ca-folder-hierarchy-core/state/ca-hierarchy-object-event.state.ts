@@ -2,7 +2,6 @@ import { CaHierarchyObjectActionEvent } from '../../ca-folder-detail-page/ca-hie
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { CaFolder } from '../../../../ca-core/model/entities/folder/ca-folder.class';
-import { CaFolderActionEvent } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-actions-menu.class';
 import { CaDocumentActionEvent } from '../../ca-document-core/ca-document-action-menu';
 import {
   CaHierarchyObject,
@@ -12,6 +11,7 @@ import {
   CaHierarchyObjectMoveToFolderAction,
   CaHierarchyObjectMoveToTrashAction,
 } from '../../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
+import { CaFolderDetailActionEvent } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-detail-action-menu.class';
 
 export type CaHierarchyObjectEvent =
   | {
@@ -19,6 +19,7 @@ export type CaHierarchyObjectEvent =
       hierarchyObjectId: string;
       hierarchyObjectType: CaHierarchyObjectType;
       hierarchyObject: CaHierarchyObject;
+      navigateToObject: boolean;
     }
   | {
       action: 'update';
@@ -55,12 +56,13 @@ export class CaHierarchyObjectEventState implements OnDestroy {
     this.event$.next(event);
   }
 
-  public emitCreateEvent(hierarchyObject: CaHierarchyObject): void {
+  public emitCreateEvent(hierarchyObject: CaHierarchyObject, navigateToObject: boolean): void {
     this.emitEvent({
       action: 'create',
       hierarchyObjectId: hierarchyObject.id,
       hierarchyObjectType: hierarchyObject.objectType,
       hierarchyObject: hierarchyObject,
+      navigateToObject: navigateToObject,
     });
   }
 
@@ -80,10 +82,10 @@ export class CaHierarchyObjectEventState implements OnDestroy {
     }
   }
 
-  public emitFolderEvent(folderEvent: CaFolderActionEvent): void {
+  public emitFolderEvent(folderEvent: CaFolderDetailActionEvent): void {
     switch (folderEvent.action) {
       case 'createChild':
-        this.emitCreateEvent(folderEvent.folder.hierarchyRepresentation);
+        this.emitCreateEvent(folderEvent.folder.hierarchyRepresentation, true);
         break;
       case 'update':
         this.emitFolderUpdate(folderEvent.folder);
@@ -91,6 +93,11 @@ export class CaHierarchyObjectEventState implements OnDestroy {
       case 'moveToFolder':
       case 'moveToTrash':
         this.emitHierarchyObjectEvent(folderEvent);
+        break;
+      case 'restoreObjectFromTrash':
+        for (const hierarchyObject of folderEvent.hierarchyObjects) {
+          this.emitCreateEvent(hierarchyObject, false);
+        }
         break;
     }
   }
