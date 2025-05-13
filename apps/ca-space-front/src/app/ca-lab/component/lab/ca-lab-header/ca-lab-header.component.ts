@@ -48,7 +48,7 @@ export class CaLabHeaderComponent {
       },
     ];
 
-    if (isOwner && !lab.isDesktop) {
+    if (isOwner && !lab.typeObj.isDesktop) {
       items.push({
         label: { text: 'lab_configuration', translateText: true },
         route: CaRouterService.getLabConfigRoute(lab.id),
@@ -62,7 +62,7 @@ export class CaLabHeaderComponent {
       icon: 'data_usage',
     });
 
-    if (lab.isCloud) {
+    if (lab.typeObj.isCloud) {
       items.push({
         label: { text: 'lab_backup', translateText: true },
         route: CaRouterService.getLabBackupRoute(lab.id),

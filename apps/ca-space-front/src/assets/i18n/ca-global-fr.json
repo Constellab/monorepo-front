@@ -283,5 +283,7 @@
   "draft": "Brouillon",
   "stopped": "Arrêté",
   "date_picker_placeholder": "jj/mm/aaaa",
-  "update": "Modifier"
+  "update": "Modifier",
+  "creation": "Création",
+  "last_modification": "Dernière modification"
 }

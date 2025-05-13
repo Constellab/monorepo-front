@@ -1,4 +1,4 @@
-import { Component, inject, Injector, Input, OnInit } from '@angular/core';
+import { Component, inject, Injector, Input } from '@angular/core';
 import { CaNote } from '../../../../../ca-core/model/entities/folder/ca-note.class';
 import { CaScenarioService } from '../../../../../ca-core/service-api/ca-scenario.service';
 import { FlEntityArrayObs } from '@monorepo/front-core-lib/fl-core';
@@ -23,6 +23,8 @@ import { CaNoteContentComponent } from '../../../ca-note-core/component/ca-note-
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaNoteActionEvent, CaNoteDetailActionMenu } from '../../../ca-note-core/ca-note-action-menu';
 import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
+import { FlKeyValueModule } from '@monorepo/front-core-lib/fl-key-value';
+import { CaNoteInfoDialogComponent } from '../../../ca-note-core/component/ca-note-info-dialog/ca-note-info-dialog.component';
 
 @Component({
   selector: 'ca-note-detail',
@@ -41,9 +43,10 @@ import { FlTagModule } from '@monorepo/front-core-lib/fl-tag';
     CaNoteContentComponent,
     TranslatePipe,
     FlTagModule,
+    FlKeyValueModule,
   ],
 })
-export class CaNoteDetailComponent implements OnInit {
+export class CaNoteDetailComponent {
   private scenarioService = inject(CaScenarioService);
   private dialogService = inject(FlDialogService);
   private noteService = inject(CaNoteService);
@@ -53,8 +56,6 @@ export class CaNoteDetailComponent implements OnInit {
   @Input({ required: true }) note: CaNote;
 
   tags = this.state.getTags();
-
-  ngOnInit(): void {}
 
   printNote(): void {
     if (window) {
@@ -89,5 +90,11 @@ export class CaNoteDetailComponent implements OnInit {
     if (event.action === 'moveToTrash') {
       this.state.navigateToParentFolder();
     }
+  }
+
+  openNoteInformation(): void {
+    this.dialogService.openSmallDialog(CaNoteInfoDialogComponent, {
+      data: this.note,
+    });
   }
 }

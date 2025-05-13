@@ -122,7 +122,7 @@ export class CaLabDetailPageState implements OnDestroy {
    * return true if the lab is on cloud
    */
   public isCloud$(): Observable<boolean> {
-    return this.getLab$().pipe(map((lab) => lab.isCloud));
+    return this.getLab$().pipe(map((lab) => lab.typeObj.isCloud));
   }
 
   public isFreeLab$(): Observable<boolean> {
@@ -133,14 +133,14 @@ export class CaLabDetailPageState implements OnDestroy {
    * return true if the lab is on desktop
    */
   public isDesktop$(): Observable<boolean> {
-    return this.getLab$().pipe(map((lab) => lab.isDesktop));
+    return this.getLab$().pipe(map((lab) => lab.typeObj.isDesktop));
   }
 
   /**
    * return true if the lab is accessible through http (for cloud and public on premise)
    */
   public isHttpAccessible$(): Observable<boolean> {
-    return this.getLab$().pipe(map((lab) => lab.isHttpAccessible));
+    return this.getLab$().pipe(map((lab) => lab.typeObj.isHttpAccessible));
   }
 
   public labIsRunning$(): Observable<boolean> {

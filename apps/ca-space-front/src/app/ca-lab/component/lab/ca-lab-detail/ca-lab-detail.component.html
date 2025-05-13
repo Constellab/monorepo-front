@@ -17,7 +17,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-          @if (lab.isDesktop && (isOwner$ | async)) {
+          @if (lab.typeObj.isDesktop && (isOwner$ | async)) {
             <button mat-menu-item type="button" (click)="openLabDesktopUpdate(lab)">
               <mat-icon>edit</mat-icon>
               <span>{{ 'update_lab' | translate }}</span>
@@ -40,7 +40,7 @@
     <fl-card-body>
       <!--   Lab type   -->
       <fl-text-icon>
-        <mat-icon>{{ lab.typeIcon }}</mat-icon>
+        <mat-icon>{{ lab.typeObj.icon }}</mat-icon>
         <fl-key-value>
           <fl-key>{{ 'lab_type' | translate }}</fl-key>
           {{ 'lab_type_' + lab.type | translate }}
@@ -48,7 +48,7 @@
       </fl-text-icon>
 
       <!--   Lab url   -->
-      @if (lab.isOnServer) {
+      @if (lab.typeObj.isOnServer) {
         <fl-text-icon>
           <mat-icon>link</mat-icon>
           <fl-key-value>
@@ -103,7 +103,7 @@
         </fl-text-icon>
       }
 
-      @if (lab.isDesktop) {
+      @if (lab.typeObj.isDesktop) {
         <fl-text-icon>
           <mat-icon>help</mat-icon>
           <a [href]="desktopDocUrl" target="_blank" class="g-text-link">
@@ -127,12 +127,12 @@
     </fl-card-body>
 
     <fl-card-footer class="g-layout-row-wrap g-layout-start-center g-layout-gap-1em">
-      @if (lab.isOnServer) {
-        @if (lab.isHttpAccessible) {
+      @if (lab.typeObj.isOnServer) {
+        @if (lab.typeObj.isHttpAccessible) {
           <ca-lab-login-button [labId]="lab.id" [isRunning]="labIsRunning$ | async"></ca-lab-login-button>
         }
 
-        @if (lab.isCloud && (isOwner$ | async)) {
+        @if (lab.typeObj.isCloud && (isOwner$ | async)) {
           <ca-lab-start-stop></ca-lab-start-stop>
         }
       }

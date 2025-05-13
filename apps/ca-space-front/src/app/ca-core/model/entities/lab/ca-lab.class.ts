@@ -59,6 +59,62 @@ export class CaLabStatusHistory extends CaStatusHistory<CaLabStatus> {
 
 export type CaLabStatusHistoryDatasource<F = void> = FlEntityPaginatedDatasource<CaLabStatusHistory, F>;
 
+export class CaLabTypeObj {
+  constructor(
+    private type: CaLabType,
+    private isFreeLab: boolean
+  ) {}
+
+  get icon(): string {
+    if (this.isFreeLab) {
+      return 'timelapse';
+    }
+
+    switch (this.type) {
+      case 'CLOUD':
+        return 'cloud';
+      case 'DESKTOP':
+        return 'computer';
+      case 'ON_PREMISE':
+        return 'dns';
+    }
+  }
+
+  get tooltip(): string {
+    if (this.isFreeLab) {
+      return 'free_data_lab_long';
+    }
+
+    return 'lab_type_' + this.type;
+  }
+
+  get isCloud(): boolean {
+    return this.type === 'CLOUD';
+  }
+
+  get isDesktop(): boolean {
+    return this.type === 'DESKTOP';
+  }
+
+  get isOnPremise(): boolean {
+    return this.type === 'ON_PREMISE';
+  }
+
+  /**
+   * Return true if the lab is hosted on a server (cloud or on premise)
+   */
+  get isOnServer(): boolean {
+    return this.isCloud || this.isOnPremise;
+  }
+
+  /**
+   * Return true if the lab is accessible through http (for cloud and public on premise)
+   */
+  get isHttpAccessible(): boolean {
+    return this.isOnServer;
+  }
+}
+
 /**
  * A lab is a running lab
  */
@@ -90,57 +146,8 @@ export class CaLab extends CaBaseEntity {
     return this.currentStatus.status.value === 'LAB_RUNNING';
   }
 
-  get adminerUrl(): string {
-    return `https://adminer.${this.virtualHost}`;
-  }
-
-  get isCloud(): boolean {
-    return this.type === 'CLOUD';
-  }
-
-  get isDesktop(): boolean {
-    return this.type === 'DESKTOP';
-  }
-
-  get isOnPremise(): boolean {
-    return this.type === 'ON_PREMISE';
-  }
-
-  /**
-   * Return true if the lab is hosted on a server (cloud or on premise)
-   */
-  get isOnServer(): boolean {
-    return this.isCloud || this.isOnPremise;
-  }
-
-  /**
-   * Return true if the lab is accessible through http (for cloud and public on premise)
-   */
-  get isHttpAccessible(): boolean {
-    return this.isOnServer;
-  }
-
-  get typeIcon(): string {
-    if (this.isFreeLab) {
-      return 'timelapse';
-    }
-
-    switch (this.type) {
-      case 'CLOUD':
-        return 'cloud';
-      case 'DESKTOP':
-        return 'computer';
-      case 'ON_PREMISE':
-        return 'dns';
-    }
-  }
-
-  get typeTooltip(): string {
-    if (this.isFreeLab) {
-      return 'free_data_lab_long';
-    }
-
-    return 'lab_type_' + this.type;
+  get typeObj(): CaLabTypeObj {
+    return new CaLabTypeObj(this.type, this.isFreeLab);
   }
 
   toString(): string {
@@ -220,4 +227,17 @@ export class CaLabCodelabDTO {
 
 export interface CaLabStopRequestDTO {
   backupLabBefore: boolean;
+}
+
+export class CaLabMinimumDTO {
+  id: string;
+  name: string;
+
+  type: CaLabType;
+
+  isFreeLab: boolean;
+
+  get typeObj(): CaLabTypeObj {
+    return new CaLabTypeObj(this.type, this.isFreeLab);
+  }
 }

@@ -1,8 +1,15 @@
-@if (lab) {
+@if (lab()) {
   <fl-text-icon>
-    <mat-icon [matTooltip]="lab.typeTooltip | translate">
-      {{ lab.typeIcon }}
+    <mat-icon [matTooltip]="lab().typeObj.tooltip | translate">
+      {{ lab().typeObj.icon }}
     </mat-icon>
-    <span>{{ lab.name }}</span>
+
+    @if (useLink()) {
+      <a [routerLink]="lab().id | caDetailRoute: 'lab'" class="g-text-link">
+        <span>{{ lab().name }}</span>
+      </a>
+    } @else {
+      <span>{{ lab().name }}</span>
+    }
   </fl-text-icon>
 }

@@ -13,6 +13,11 @@
         <mat-icon flIcon="scenario"></mat-icon>
       </button>
 
+      <button mat-stroked-button type="button" (click)="openNoteInformation()" class="g-button-small button">
+        {{ 'note_information' | translate }}
+        <mat-icon>info</mat-icon>
+      </button>
+
       <button mat-stroked-button type="button" (click)="printNote()" class="g-button-small button">
         {{ 'print_note' | translate }}
         <mat-icon>print</mat-icon>
@@ -34,16 +39,6 @@
 
     <!-- Sync info -->
     <ca-sync-object-info class="g-text-small" [object]="note"></ca-sync-object-info>
-
-    <!--  Created by & Last modified bt  -->
-    <fl-creation-info
-      class="g-text-small g-text-light"
-      [user]="note.createdBy"
-      [date]="note.createdAt"></fl-creation-info>
-    <fl-last-modification-info
-      class="g-text-small g-text-light"
-      [user]="note.lastModifiedBy"
-      [date]="note.lastModifiedAt"></fl-last-modification-info>
   </div>
 
   <ca-note-content [noteId]="note.id" class="note-content"></ca-note-content>

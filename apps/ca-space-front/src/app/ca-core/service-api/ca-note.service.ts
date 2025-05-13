@@ -3,6 +3,7 @@ import { CaNote, CaResourceView } from '../model/entities/folder/ca-note.class';
 import { FlApiService } from '@monorepo/front-core-lib/fl-api';
 import { Observable } from 'rxjs';
 import { TeRichTextBlockModificationWithUser, TeRichTextDTO } from '@monorepo/text-editor';
+import { CaLabMinimumDTO } from '../model/entities/lab/ca-lab.class';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,10 @@ export class CaNoteService {
 
   getContent(noteId: string): Observable<TeRichTextDTO> {
     return this.apiService.get(`${this.route}/${noteId}/content`);
+  }
+
+  getNoteLab(noteId: string): Observable<CaLabMinimumDTO> {
+    return this.apiService.get(`${this.route}/${noteId}/lab`, CaLabMinimumDTO);
   }
 
   ////////////////////////////// METHOD FOR TEXT EDITOR //////////////////////////

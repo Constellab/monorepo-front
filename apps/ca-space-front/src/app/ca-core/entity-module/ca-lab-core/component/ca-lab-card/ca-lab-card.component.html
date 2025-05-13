@@ -24,7 +24,7 @@
     </div>
 
     <div class="g-layout-row-wrap g-layout-start-center g-layout-gap-05em">
-      @if (lab.isHttpAccessible) {
+      @if (lab.typeObj.isHttpAccessible) {
         <ca-lab-login-button
           [labId]="lab.id"
           [isRunning]="lab.isRunning()"

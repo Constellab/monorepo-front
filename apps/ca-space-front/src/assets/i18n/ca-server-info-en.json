@@ -70,6 +70,7 @@
   "cloud_provider_region": "Region",
   "bucket_endpoint": "Bucket endpoint",
   "bucket_content_type": "Content type",
+  "bucket_location": "Location",
   "bucket_type": "Bucket type",
   "bucket_list": "Buckets",
   "create_bucket": "Create bucket",

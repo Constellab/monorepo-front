@@ -283,5 +283,7 @@
   "draft": "Draft",
   "stopped": "Stopped",
   "date_picker_placeholder": "dd/mm/yyyy",
-  "update": "Update"
+  "update": "Update",
+  "creation": "Creation",
+  "last_modification": "Last modification"
 }

@@ -16,5 +16,5 @@ export class CaLabUsagePageComponent {
   isFreeLab$ = inject(CaLabDetailPageState).isFreeLab$();
   showPrice$ = inject(CaLabDetailPageState)
     .getLab$()
-    .pipe(map((lab) => lab.isCloud && !lab.isFreeLab));
+    .pipe(map((lab) => lab.typeObj.isCloud && !lab.isFreeLab));
 }

@@ -24,7 +24,9 @@
 
   <!-- Object (Region or Lab) -->
   <ng-container matColumnDef="object">
-    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'bucket_location' | translate }}
+    </mat-header-cell>
     <mat-cell *matCellDef="let row">
       @if (row.region) {
         <ca-cloud-provider-region-inline [region]="row.region"></ca-cloud-provider-region-inline>

@@ -1,0 +1,29 @@
+<fl-dialog-header>
+  <div class="g-layout-row g-layout-start-center g-layout-gap-05em">
+    <ca-hierarchy-object-icon [style]="note.style"></ca-hierarchy-object-icon>
+    <div>{{ note.title }}</div>
+  </div>
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <div class="grid">
+    @if (note.isValidated) {
+      <div>{{ 'validation_info' | translate }} :</div>
+      <fl-user-with-date [user]="note.validatedBy" [date]="note.validatedAt"></fl-user-with-date>
+    }
+
+    <div>{{ 'last_sync' | translate }}</div>
+    <fl-user-with-date [user]="note.lastSyncBy" [date]="note.lastSyncAt"></fl-user-with-date>
+
+    <div>{{ 'creation' | translate }}</div>
+    <fl-user-with-date [user]="note.createdBy" [date]="note.createdAt"></fl-user-with-date>
+
+    <div>{{ 'last_modification' | translate }}</div>
+    <fl-user-with-date [user]="note.lastModifiedBy" [date]="note.lastModifiedAt"></fl-user-with-date>
+
+    <div>{{ 'lab' | translate }}</div>
+    @if (lab$ | async; as lab) {
+      <ca-lab-inline [lab]="lab" [useLink]="true"></ca-lab-inline>
+    }
+  </div>
+</mat-dialog-content>

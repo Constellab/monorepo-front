@@ -7,8 +7,8 @@
   [disabled]="disabled">
   <div class="photo" *flInputSearchPrefix="labDatasource as currentLab">
     @if (currentLab) {
-      <mat-icon [matTooltip]="currentLab.typeTooltip | translate">
-        {{ currentLab.typeIcon }}
+      <mat-icon [matTooltip]="currentLab.typeObj.tooltip | translate">
+        {{ currentLab.typeObj.icon }}
       </mat-icon>
     }
   </div>

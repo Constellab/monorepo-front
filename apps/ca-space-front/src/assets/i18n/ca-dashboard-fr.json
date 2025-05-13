@@ -33,6 +33,7 @@
   "resource": "Ressource",
   "url": "URL",
   "print_note": "Imprimer",
+  "note_information": "Info de la note",
   "folder_shared_groups": "Partage",
   "support": "Support",
   "ongoing_folders": "Dossiers en cours",
