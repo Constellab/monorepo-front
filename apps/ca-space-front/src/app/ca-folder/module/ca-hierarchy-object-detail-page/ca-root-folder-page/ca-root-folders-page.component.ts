@@ -86,16 +86,14 @@ export class CaRootFoldersPageComponent implements OnInit {
     }
   }
 
-  hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+  async hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): Promise<void> {
     ClHelpService.stopEventPropagation(event);
-    this.openHierarchyObjectActionMenu(hierarchyObject, event);
-  }
 
-  private openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
+    const context = await this.state.getHierarchyContextPromise();
     const service = new CaFolderActionsMenu(this.injector, {
       id: hierarchyObject.id,
       name: hierarchyObject.name,
-      leader: hierarchyObject.user,
+      userRole: context.userRole,
     });
     service
       .openTableItemActionMenu(event, true)

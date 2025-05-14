@@ -71,7 +71,7 @@ export class CaFolderGlobalSearchPageComponent implements OnInit {
         this.actionsMenuState.onHierarchyObjectDblClicked(event.hierarchyObject);
         break;
       case 'rightClick':
-        this.actionsMenuState.openHierarchyObjectActionMenu(event.hierarchyObject, event.event);
+        this.actionsMenuState.openHierarchyObjectActionMenu(event.hierarchyObject, event.event).then();
         break;
       case 'middleClick':
         this.actionsMenuState.onHierarchyObjectMiddleClicked(event.hierarchyObject);

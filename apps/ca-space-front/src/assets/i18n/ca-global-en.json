@@ -68,7 +68,7 @@
   "new_website_version": "A new version of the website is available",
   "reload_page": "Reload",
   "share": "Share",
-  "object_shared": "Object shared",
+  "folder_shared": "Folder shared to group members",
   "unshare": "Remove user from folder",
   "unshare_confirmation": "Are you sure you want to remove this user from folder ?",
   "unshared": "User removed",

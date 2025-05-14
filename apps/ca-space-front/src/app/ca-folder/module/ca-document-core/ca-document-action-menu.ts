@@ -23,6 +23,7 @@ import {
 } from '../ca-folder-detail-page/ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
 import { CaDocumentService } from '../../../ca-core/service-api/ca-document.service';
+import { CaHierarchyObjectRouterService } from '../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-router.service';
 
 export type CaDocumentActionEvent =
   | {
@@ -60,6 +61,13 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
         });
       } else {
         menu.push({
+          type: 'button',
+          text: { text: 'open_document', translateText: true },
+          icon: 'insert_drive_file',
+          onClick: () => this.navigateToDocument(),
+        });
+
+        menu.push({
           type: 'downloadLink',
           text: { text: 'download_document', translateText: true },
           icon: 'cloud_download',
@@ -70,19 +78,28 @@ export class CaDocumentActionMenu extends CaHierarchyObjectBaseActionMenu {
       }
     }
 
-    menu.push(this.getManageTagsButton());
+    if (this.documentInfo.userRole.canEdit()) {
+      menu.push(this.getManageTagsButton());
 
-    menu.push({
-      type: 'button',
-      text: { text: 'rename_document', translateText: true },
-      icon: 'edit',
-      onClick: () => this.renameDocument(),
-    });
-    menu.push(this.getMoveToFolderButton());
-    menu.push(this.getOpenTokensButton());
-    menu.push(this.getMoveToTrashButton());
+      menu.push({
+        type: 'button',
+        text: { text: 'rename_document', translateText: true },
+        icon: 'edit',
+        onClick: () => this.renameDocument(),
+      });
+      menu.push(this.getMoveToFolderButton());
+      menu.push(this.getOpenTokensButton());
+      menu.push(this.getMoveToTrashButton());
+    }
 
     return menu;
+  }
+
+  private navigateToDocument(): void {
+    this.injector
+      .get(CaHierarchyObjectRouterService)
+      .navigateToDocument(this.documentInfo.id, this.documentInfo.name);
+    this.subject.complete();
   }
 
   private renameDocument(): void {

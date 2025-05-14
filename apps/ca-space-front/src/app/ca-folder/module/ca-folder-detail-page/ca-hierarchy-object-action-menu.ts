@@ -17,6 +17,7 @@ import { CaNoteActionEvent, CaNoteActionMenu } from '../ca-note-core/ca-note-act
 import { CaScenarioActionEvent, CaScenarioActionMenu } from '../ca-scenario-core/ca-scenario-action-menu';
 import { CaHierarchyObjectActionTags } from './ca-hierarchy-object-base-action-menu';
 import { Injector } from '@angular/core';
+import { CaRootFolderUserRoleObj } from '../../../ca-core/model/entities/folder/ca-folder-user.class';
 
 export type CaHierarchyObjectActionEvent =
   | {
@@ -48,6 +49,7 @@ export class CaHierarchyObjectActionMenu {
   constructor(
     private injector: Injector,
     private hierarchyObject: CaHierarchyObject,
+    private userRole: CaRootFolderUserRoleObj,
     private tags: CaHierarchyObjectActionTags
   ) {}
 
@@ -84,7 +86,7 @@ export class CaHierarchyObjectActionMenu {
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
-        leader: this.hierarchyObject.user,
+        userRole: this.userRole,
       },
       this.tags
     );
@@ -98,6 +100,7 @@ export class CaHierarchyObjectActionMenu {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
         isConstellabDocument: this.hierarchyObject.objectType === CaHierarchyObjectType.CONSTELLAB_DOCUMENT,
+        userRole: this.userRole,
       },
       this.tags
     );
@@ -110,6 +113,7 @@ export class CaHierarchyObjectActionMenu {
       {
         id: this.hierarchyObject.id,
         name: this.hierarchyObject.name,
+        userRole: this.userRole,
       },
       this.tags
     );
@@ -118,12 +122,22 @@ export class CaHierarchyObjectActionMenu {
   }
 
   private openNoteActionMenu(event: MouseEvent): Observable<CaNoteActionEvent> {
-    const noteActionMenu = new CaNoteActionMenu(this.injector, this.hierarchyObject.id, this.tags);
+    const noteActionMenu = new CaNoteActionMenu(
+      this.injector,
+      this.hierarchyObject.id,
+      this.userRole,
+      this.tags
+    );
     return noteActionMenu.openActionMenu(event);
   }
 
   private openScenarioActionMenu(event: MouseEvent): Observable<CaScenarioActionEvent | null> {
-    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.hierarchyObject.id, this.tags);
+    const scenarioActionMenu = new CaScenarioActionMenu(
+      this.injector,
+      this.hierarchyObject.id,
+      this.userRole,
+      this.tags
+    );
     return scenarioActionMenu.openActionMenu(event);
   }
 }

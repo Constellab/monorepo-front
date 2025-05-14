@@ -21,10 +21,11 @@ import {
   CaHierarchyObjectEventState,
 } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-event.state';
 import { CaHierarchyObject } from '../../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
-import { CaSecurityService } from '../../../../../ca-core/service/ca-security.service';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { CaHierarchyObjectService } from '../../../../../ca-core/service-api/ca-hierarchy-object.service';
 import { CaChatService } from '../../../../../ca-core/service-api/ca-chat.service';
+import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-folder-settings',
@@ -39,6 +40,7 @@ import { CaChatService } from '../../../../../ca-core/service-api/ca-chat.servic
     CaFolderStorageUsageSectionComponent,
     TranslatePipe,
     FlSectionModule,
+    AsyncPipe,
   ],
 })
 export class CaFolderSettingsComponent implements OnInit, OnDestroy {
@@ -49,12 +51,11 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
   private folderService = inject(CaFolderService);
   private chatService = inject(CaChatService);
   private snackBarService = inject(FlSnackBarService);
-  private securityService = inject(CaSecurityService);
   private hierarchyObjectService = inject(CaHierarchyObjectService);
   private dialogService = inject(FlDialogService);
 
   folder: CaFolder;
-  canEditFolder: boolean;
+  canEditFolder$ = inject(CaHierarchyObjectDetailState).canEditHierarchyObject$();
   isLoading: boolean = true;
 
   private subscription: Subscription;
@@ -69,7 +70,6 @@ export class CaFolderSettingsComponent implements OnInit, OnDestroy {
 
   private onFolderLoaded(folder: CaFolder): void {
     this.folder = folder;
-    this.canEditFolder = this.securityService.canEditFolder(folder.leader.id);
     this.isLoading = false;
   }
 

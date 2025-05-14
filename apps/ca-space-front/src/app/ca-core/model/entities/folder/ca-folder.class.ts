@@ -1,18 +1,19 @@
 import { CaBaseEntity } from '../ca-base-entity.class';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTransform } from '@monorepo/core-lib';
-import { FlEntity, FlEntityPaginatedDatasource } from '@monorepo/front-core-lib/fl-core';
+import { FlEntity } from '@monorepo/front-core-lib/fl-core';
 import { Type } from 'class-transformer';
 import { CaUser } from '../ca-user.class';
 import { CaBucketLocationDTO } from '../ca-object-storage.class';
 import { CaHierarchyObject } from './ca-hierarchy-object.class';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
 export interface CaFolderInfo {
   id: string;
   name: string;
-  leader: CaUser;
+  userRole: CaRootFolderUserRoleObj;
 }
 
 export class CaFolder extends CaBaseEntity {
@@ -26,28 +27,15 @@ export class CaFolder extends CaBaseEntity {
   @ClLuxonDateTransform()
   endingDate: DateTime;
 
-  @Type(() => CaUser)
-  leader: CaUser;
-
   chatEnabled: boolean;
 
   style: TdTypeStyle;
-
-  get info(): CaFolderInfo {
-    return {
-      id: this.id,
-      name: this.name,
-      leader: this.leader,
-    };
-  }
 }
 
 export class CaFolderWithHierarchy extends CaFolder {
   @Type(() => CaHierarchyObject)
   hierarchyRepresentation: CaHierarchyObject;
 }
-
-export type CaFolderDatasource<F = void> = FlEntityPaginatedDatasource<CaFolder, F>;
 
 export class CnSaveFolderDTO {
   code: string;

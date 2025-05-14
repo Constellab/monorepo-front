@@ -13,7 +13,6 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { CaHierarchyObjectSearchFields } from '../../../../ca-core/entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
-import { CaSecurityService } from '../../../../ca-core/service/ca-security.service';
 import { CaFolderActionService } from '../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { CaHierarchyObjectSearchState } from '../../ca-folder-hierarchy-core/state/ca-hierarchy-object-search.state';
 import {
@@ -27,7 +26,6 @@ export class CaFolderDetailState implements OnDestroy {
   private folderActionService = inject(CaFolderActionService);
   private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
   private searchState = inject(CaHierarchyObjectSearchState);
-  private securityService = inject(CaSecurityService);
   private eventState = inject(CaHierarchyObjectEventState);
 
   private id$: Observable<string>;
@@ -99,12 +97,6 @@ export class CaFolderDetailState implements OnDestroy {
 
   public getUsers(): FlArrayObs<CaUser> {
     return this.users$;
-  }
-
-  public canEditFolder$(): Observable<boolean> {
-    return this.getFolder$(false).pipe(
-      map((folder) => this.securityService.canEditFolder(folder?.leader.id))
-    );
   }
 
   public get childrenDatasource(): CaHierarchyObjectDatasource<CaHierarchyObjectSearchFields> {

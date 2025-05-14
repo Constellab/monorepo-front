@@ -149,7 +149,7 @@ export class CaHierarchyObjectSearchState implements OnDestroy {
   }
 
   private async addChild(folder: CaHierarchyObject): Promise<void> {
-    const currentContext = await this.state.getCurrentHierarchyContextId();
+    const currentContext = await this.state.getHierarchyContextIdPromise();
     // if the new object is a child of the current context
     if (folder.parentId === currentContext.hierarchyObjectId) {
       this.childrenDatasource.unshiftItem(folder);

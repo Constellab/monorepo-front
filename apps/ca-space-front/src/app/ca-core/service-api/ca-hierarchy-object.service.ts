@@ -5,18 +5,19 @@ import { Observable } from 'rxjs';
 import { ClPageI } from '@monorepo/core-lib';
 import {
   CaHierarchyObject,
+  CaHierarchyObjectFindOneDTO,
   CaHierarchyObjectTagDatasource,
   CaHierarchyObjectWithParent,
 } from '../model/entities/folder/ca-hierarchy-object.class';
 import { CaAvailableTags } from '../model/entities/ca-tag.class';
 import { FlDatasourceGetPageData } from '@monorepo/front-core-lib/fl-core';
 import {
+  CaHierarchyObjectAdminSearchFields,
   CaHierarchyObjectSearch,
   CaHierarchyObjectSearchFields,
   CaHierarchyObjectSearchTrashField,
 } from '../entity-module/ca-hierarchy-object-core/ca-hierarchy-object-search.class';
 import { FlSearchConverter } from '@monorepo/front-core-lib/fl-search';
-import { CaFolderSearchFields } from '../entity-module/ca-folder-core/model/ca-folder-search.class';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +27,8 @@ export class CaHierarchyObjectService {
 
   private readonly route: string = 'hierarchy-objects';
 
-  public getHierarchyObject(hierarchyObjectId: string): Observable<CaHierarchyObject> {
-    return this.apiService.get(`${this.route}/${hierarchyObjectId}`, CaHierarchyObject);
+  public getHierarchyObject(hierarchyObjectId: string): Observable<CaHierarchyObjectFindOneDTO> {
+    return this.apiService.get(`${this.route}/${hierarchyObjectId}`, CaHierarchyObjectFindOneDTO);
   }
 
   public getObjectAncestors(objectId: string): Observable<CaHierarchyObject[]> {
@@ -122,7 +123,7 @@ export class CaHierarchyObjectService {
   public searchInCurrentSpace(
     page: number,
     pageSize: number,
-    data: FlDatasourceGetPageData<CaFolderSearchFields>
+    data: FlDatasourceGetPageData<CaHierarchyObjectAdminSearchFields>
   ): Observable<ClPageI<CaHierarchyObject>> {
     const searchInput = FlSearchConverter.convertDatasourceGetPageDataToSearchParams(
       data,

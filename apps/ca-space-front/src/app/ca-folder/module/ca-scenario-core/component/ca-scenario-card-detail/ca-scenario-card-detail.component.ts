@@ -10,6 +10,8 @@ import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CaHierarchyObjectDetailState } from '../../../ca-folder-hierarchy-core/state/ca-hierarchy-object-detail.state';
 import { CaScenarioActionEvent, CaScenarioActionMenu } from '../../ca-scenario-action-menu';
+import { AsyncPipe } from '@angular/common';
+import { CaRootFolderUserRoleObj } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 
 /**
  * Detail card of the scenario used in the scenario page
@@ -27,6 +29,7 @@ import { CaScenarioActionEvent, CaScenarioActionMenu } from '../../ca-scenario-a
     MatIcon,
     TranslatePipe,
     MatIconButton,
+    AsyncPipe,
   ],
 })
 export class CaScenarioCardDetailComponent {
@@ -48,8 +51,10 @@ export class CaScenarioCardDetailComponent {
   private state = inject(CaHierarchyObjectDetailState);
   private injector = inject(Injector);
 
-  openActionMenu(event: MouseEvent): void {
-    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.scenario().id, {
+  userRole$ = this.state.getUserRole$();
+
+  openActionMenu(event: MouseEvent, userRole: CaRootFolderUserRoleObj): void {
+    const scenarioActionMenu = new CaScenarioActionMenu(this.injector, this.scenario().id, userRole, {
       tags: this.tags,
     });
 

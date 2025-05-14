@@ -40,24 +40,24 @@ export class CaHierarchyObjectRouterService {
       case CaHierarchyObjectType.CONSTELLAB_DOCUMENT:
         return CaRouterService.getDocumentDetailRoute(hierarchyObject.id);
       case CaHierarchyObjectType.DOCUMENT:
-        return this.getDocumentRoute(hierarchyObject);
+        return this.getDocumentRoute(hierarchyObject.id, hierarchyObject.name);
       case CaHierarchyObjectType.RESOURCE:
         return CaRouterService.getResourceDetailRoute(hierarchyObject.id);
     }
   }
 
-  public navigateToDocument(hierarchyObject: CaHierarchyObject): void {
-    const route = this.getDocumentRoute(hierarchyObject);
+  public navigateToDocument(hierarchyObjectId: string, hierarchyObjectName: string): void {
+    const route = this.getDocumentRoute(hierarchyObjectId, hierarchyObjectName);
     if (route) {
       this.routerService.navigate(route);
     }
   }
 
-  public getDocumentRoute(hierarchyObject: CaHierarchyObject): string {
-    if (CaDocument.supportsPreview(hierarchyObject.name)) {
-      return CaRouterService.getDocumentPreviewRoute(hierarchyObject.id);
+  public getDocumentRoute(hierarchyObjectId: string, hierarchyObjectName: string): string {
+    if (CaDocument.supportsPreview(hierarchyObjectName)) {
+      return CaRouterService.getDocumentPreviewRoute(hierarchyObjectId);
     } else {
-      const url = this.documentService.getDocumentPreviewUrl(hierarchyObject.id, hierarchyObject.name);
+      const url = this.documentService.getDocumentPreviewUrl(hierarchyObjectId, hierarchyObjectName);
       window.open(url, '_blank');
       return null;
     }

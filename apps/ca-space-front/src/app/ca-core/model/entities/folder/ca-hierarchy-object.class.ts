@@ -6,6 +6,7 @@ import { FlDatasourceTree, FlEntityPaginatedDatasource } from '@monorepo/front-c
 import { CaEntity } from '../ca-entity.entity';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { FlTag, FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
+import { CaRootFolderUserRole } from './ca-folder-user.class';
 
 export enum CaHierarchyObjectType {
   FOLDER = 'FOLDER',
@@ -146,6 +147,12 @@ export class CaHierarchyObjectSimple extends CaEntity {
     withChildren.objectType = folder.objectType;
     return withChildren;
   }
+}
+
+export class CaHierarchyObjectFindOneDTO {
+  @Type(() => CaHierarchyObject)
+  hierarchyObject: CaHierarchyObject;
+  userRole: CaRootFolderUserRole;
 }
 
 /**

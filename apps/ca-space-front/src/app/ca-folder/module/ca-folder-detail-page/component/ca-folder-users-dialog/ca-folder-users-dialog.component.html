@@ -1,0 +1,17 @@
+<fl-dialog-header>
+  {{ 'folder_users' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <fl-async-section [arrayObs]="folderUsers$" class="g-full-height">
+    <ng-container *flSectionBodyDatasource="folderUsers$">
+      <ca-folder-user-table [datasource]="folderUsers$" [folderId]="dialogInput.folderId">
+      </ca-folder-user-table>
+
+      <button mat-stroked-button type="button" (click)="openShareDialog()" class="share-button">
+        <mat-icon>person_add</mat-icon>
+        <span>{{ 'share' | translate }}</span>
+      </button>
+    </ng-container>
+  </fl-async-section>
+</mat-dialog-content>

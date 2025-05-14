@@ -76,12 +76,19 @@ export class CaNoteDetailComponent {
     });
   }
 
-  openActionMenu(note: CaNote, event: MouseEvent): void {
+  async openActionMenu(note: CaNote, event: MouseEvent): Promise<void> {
     const textEditorConfig = new CaNoteTextEditorConfig(this.noteService, this.note.id);
 
-    const noteActionMenu = new CaNoteDetailActionMenu(this.injector, note.id, textEditorConfig, {
-      tags: this.tags,
-    });
+    const context = await this.state.getHierarchyContextPromise();
+    const noteActionMenu = new CaNoteDetailActionMenu(
+      this.injector,
+      note.id,
+      context.userRole,
+      textEditorConfig,
+      {
+        tags: this.tags,
+      }
+    );
 
     noteActionMenu.openDetailActionMenu(event).subscribe((action) => this.onNoteAction(action));
   }

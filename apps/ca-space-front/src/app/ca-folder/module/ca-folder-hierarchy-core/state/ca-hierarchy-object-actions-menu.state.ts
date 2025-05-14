@@ -23,8 +23,12 @@ export class CaHierarchyObjectActionsMenuState {
   private rightPanelState = inject(CaFolderRightPanelState);
   private hierarchyObjectRouter = inject(CaHierarchyObjectRouterService);
 
-  public openHierarchyObjectActionMenu(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
-    const service = new CaHierarchyObjectActionMenu(this.injector, hierarchyObject, {
+  public async openHierarchyObjectActionMenu(
+    hierarchyObject: CaHierarchyObject,
+    event: MouseEvent
+  ): Promise<void> {
+    const context = await this.hierarchyObjectState.getHierarchyContextPromise();
+    const service = new CaHierarchyObjectActionMenu(this.injector, hierarchyObject, context.userRole, {
       availableTags: this.hierarchyObjectState.getChildrenAvailableTags(),
     });
     service
@@ -62,7 +66,7 @@ export class CaHierarchyObjectActionsMenuState {
         });
         break;
       case CaHierarchyObjectType.DOCUMENT:
-        this.hierarchyObjectRouter.navigateToDocument(hierarchyObject);
+        this.hierarchyObjectRouter.navigateToDocument(hierarchyObject.id, hierarchyObject.name);
         break;
     }
   }

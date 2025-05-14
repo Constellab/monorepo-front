@@ -23,7 +23,7 @@ export class CaHierarchyObjectActionsMenuComponent {
 
   hierarchyObjectMenuClick(hierarchyObject: CaHierarchyObject, event: MouseEvent): void {
     ClHelpService.stopEventPropagation(event);
-    this.actionsMenuState.openHierarchyObjectActionMenu(hierarchyObject, event);
+    this.actionsMenuState.openHierarchyObjectActionMenu(hierarchyObject, event).then();
   }
 
   private hierarchyObjectHasActionMenu(hierarchyObject: CaHierarchyObject): boolean {

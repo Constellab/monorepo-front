@@ -5,11 +5,13 @@ import { Type } from 'class-transformer';
 import { TeRichText, TeRichTextTransform } from '@monorepo/text-editor';
 import { ClRecordTransform } from '@monorepo/core-lib';
 import { TdTypeStyle } from '@monorepo/technical-doc';
+import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
 export interface CaDocumentBasicInfo {
   id: string;
   name: string;
   isConstellabDocument: boolean;
+  userRole: CaRootFolderUserRoleObj;
 }
 
 export class CaDocument extends CaBaseEntity {
@@ -32,14 +34,6 @@ export class CaDocument extends CaBaseEntity {
   public static supportsPreview(documentName: string): boolean {
     const extension = FlFileHelper.getFileExtension(documentName);
     return ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(extension);
-  }
-
-  get basicInfo(): CaDocumentBasicInfo {
-    return {
-      id: this.id,
-      name: this.name,
-      isConstellabDocument: this.isConstellabDocument(),
-    };
   }
 }
 

@@ -19,7 +19,6 @@ import {
   CaHierarchyObjectDatasource,
 } from '../../../../ca-core/model/entities/folder/ca-hierarchy-object.class';
 import { FlThemeService } from '@monorepo/front-core-lib/fl-theme';
-import { CaFolderSearchFields } from '../../../../ca-core/entity-module/ca-folder-core/model/ca-folder-search.class';
 import { FlEntityPaginatedDatasource, FlTableColumnStatic } from '@monorepo/front-core-lib/fl-core';
 import {
   CaHierarchyObjectAdminSearchFields,
@@ -60,7 +59,7 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
   private hierarchyObjectRouterService = inject(CaHierarchyObjectRouterService);
   private injector = inject(Injector);
 
-  datasource: CaHierarchyObjectDatasource<CaFolderSearchFields>;
+  datasource: CaHierarchyObjectDatasource<CaHierarchyObjectAdminSearchFields>;
 
   columns: FlTableColumnStatic<CaHierarchyObject>[] = [
     'name',
@@ -102,7 +101,7 @@ export class CaCurrentSpaceHierarchyObjectPageComponent implements OnInit {
         color: this.themeService.getCurrentThemeDetail().primary,
         version: 1,
         default: true,
-        filtersCriteria: {} as Partial<CaFolderSearchFields>,
+        filtersCriteria: {} as Partial<CaHierarchyObjectAdminSearchFields>,
       },
     ];
   }

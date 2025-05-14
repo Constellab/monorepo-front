@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CaGroupShareDialogComponent } from './ca-group-share-dialog.component';
+import { CaFolderShareDialogComponent } from './ca-folder-share-dialog.component';
 
 describe('CaGroupShareDialogComponent', () => {
-  let component: CaGroupShareDialogComponent;
-  let fixture: ComponentFixture<CaGroupShareDialogComponent>;
+  let component: CaFolderShareDialogComponent;
+  let fixture: ComponentFixture<CaFolderShareDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaGroupShareDialogComponent],
+      declarations: [CaFolderShareDialogComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CaGroupShareDialogComponent);
+    fixture = TestBed.createComponent(CaFolderShareDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

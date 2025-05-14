@@ -2,6 +2,7 @@ import { CaBaseEntity } from '../ca-base-entity.class';
 import { TdTypeStyle } from '@monorepo/technical-doc';
 import { DateTime } from 'luxon';
 import { ClLuxonDateTimeTransform } from '@monorepo/core-lib';
+import { CaRootFolderUserRoleObj } from './ca-folder-user.class';
 
 export class CaResource extends CaBaseEntity {
   resourceId: string;
@@ -21,4 +22,5 @@ export class CaResource extends CaBaseEntity {
 export class CaResourceBasicInfo {
   id: string;
   name: string;
+  userRole: CaRootFolderUserRoleObj;
 }

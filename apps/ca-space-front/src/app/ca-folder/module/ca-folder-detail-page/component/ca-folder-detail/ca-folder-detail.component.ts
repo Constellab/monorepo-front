@@ -31,10 +31,11 @@ import { CaHierarchyObjectEventState } from '../../../ca-folder-hierarchy-core/s
 export class CaFolderDetailComponent {
   private state = inject(CaFolderDetailState);
   private eventState = inject(CaHierarchyObjectEventState);
+  private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
 
   folder$: Observable<CaFolder> = this.state.getFolder$();
-  canEdit$: Observable<boolean> = this.state.canEditFolder$();
-  tags = inject(CaHierarchyObjectDetailState).getTags();
+  canEdit$: Observable<boolean> = this.hierarchyObjectDetailState.canEditHierarchyObject$();
+  tags = this.hierarchyObjectDetailState.getTags();
 
   private folderService = inject(CaFolderService);
 

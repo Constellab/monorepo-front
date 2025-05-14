@@ -1,0 +1,57 @@
+<mat-table mat-table [dataSource]="datasource()">
+  <!-- User -->
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'user' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-inline [user]="row.user"></fl-user-inline>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Role -->
+  <ng-container matColumnDef="role">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'folder_user_role' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div [matTooltip]="'folder_user_role_help_' + row.role | translate">
+        {{ 'folder_user_role_' + row.role | translate }}
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Shared info -->
+  <ng-container matColumnDef="sharedInfo">
+    <mat-header-cell *matHeaderCellDef>
+      <span> {{ 'folder_user_shared_info' | translate }}</span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <fl-user-with-date [user]="row.sharedBy" [date]="row.sharedAt"></fl-user-with-date>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="g-table-icon-button-cell" *matHeaderCellDef></mat-header-cell>
+    <mat-cell class="g-table-icon-button-cell" *matCellDef="let row">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item type="button" (click)="openUpdateRoleDialog(row)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'folder_user_update_role' | translate }}</span>
+        </button>
+
+        <button mat-menu-item type="button" (click)="openUnshareDialog(row)" class="warn">
+          <mat-icon>clear</mat-icon>
+          <span>{{ 'unshare' | translate }}</span>
+        </button>
+      </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns(); sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns()"></mat-row>
+</mat-table>

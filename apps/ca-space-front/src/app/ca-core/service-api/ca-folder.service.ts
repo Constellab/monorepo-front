@@ -8,11 +8,14 @@ import {
 } from '../model/entities/folder/ca-folder.class';
 import { Observable } from 'rxjs';
 import { ClHelpService, ClPage, ClPageI } from '@monorepo/core-lib';
-import { CaGroup } from '../model/entities/ca-group.entity';
 import { CaUser } from '../model/entities/ca-user.class';
 import { CaBucketLocationDTO } from '../model/entities/ca-object-storage.class';
 import { CaFolderStorageUsageDTO } from '../model/entities/folder/ca-document.class';
-import { CaFolderUserConfig } from '../model/entities/folder/ca-folder-user.class';
+import {
+  CaFolderUser,
+  CaFolderUserConfig,
+  CaRootFolderUserRole,
+} from '../model/entities/folder/ca-folder-user.class';
 import { CaActivity } from '../model/entities/ca-activity.class';
 import {
   CaActivitySearch,
@@ -111,22 +114,6 @@ export class CaFolderService {
     return this.apiService.get(`${this.route}/${id}/children/folders`, CaHierarchyObjectSimple);
   }
 
-  public shareFolder(id: string, groupId: string): Observable<CaGroup> {
-    return this.apiService.put(`${this.route}/${id}/share/${groupId}`, null, CaGroup);
-  }
-
-  public unshareFolder(id: string, userId: string): Observable<void> {
-    return this.apiService.delete(`${this.route}/${id}/unshare/${userId}`);
-  }
-
-  public getUsersOfFolder(folderId: string): Observable<CaUser[]> {
-    return this.apiService.get(`${this.route}/${folderId}/users`, CaUser);
-  }
-
-  public updateFolderLeader(id: string, userId: string): Observable<CaFolder> {
-    return this.apiService.put(`${this.route}/${id}/leader/${userId}`, null, CaFolder);
-  }
-
   public getFolderByCurrentSpace(page: number, size: number): Observable<ClPageI<CaHierarchyObject>> {
     return this.apiService.get(`${this.route}/current-space`, CaFolder, {
       resultIsPaginated: true,
@@ -182,6 +169,39 @@ export class CaFolderService {
     return this.apiService.get(`${this.route}/${folderId}/storage/size`, CaFolderStorageUsageDTO);
   }
 
+  /////////////////////////////// FOLDER USER  ///////////////////////////////////////////
+  public shareFolder(
+    rootFolderId: string,
+    groupId: string,
+    role: CaRootFolderUserRole
+  ): Observable<CaFolderUser[]> {
+    return this.apiService.post(
+      `${this.route}/${rootFolderId}/share/${groupId}/role/${role}`,
+      null,
+      CaFolderUser
+    );
+  }
+
+  public updateFolderUserRole(
+    rootFolderId: string,
+    userId: string,
+    role: CaRootFolderUserRole
+  ): Observable<CaFolderUser> {
+    return this.apiService.put(
+      `${this.route}/${rootFolderId}/share/${userId}/role/${role}`,
+      null,
+      CaFolderUser
+    );
+  }
+
+  public unshareFolder(rootFolderId: string, userId: string): Observable<void> {
+    return this.apiService.delete(`${this.route}/${rootFolderId}/unshare/${userId}`);
+  }
+
+  public getFolderUsersWithRole(rootFolderId: string): Observable<CaFolderUser[]> {
+    return this.apiService.get(`${this.route}/${rootFolderId}/users-role`, CaFolderUser);
+  }
+
   /////////////////////////////// USER ///////////////////////////////////////////
   getFolderUserConfig(folderId: string): Observable<CaFolderUserConfig> {
     return this.apiService.get(`${this.route}/${folderId}/user-config`, CaFolderUserConfig);
@@ -189,6 +209,10 @@ export class CaFolderService {
 
   updateFolderUserConfig(folderId: string, folderUser: CaFolderUserConfig): Observable<CaFolderUserConfig> {
     return this.apiService.put(`${this.route}/${folderId}/user-config`, folderUser, CaFolderUserConfig);
+  }
+
+  public getUsersOfFolder(folderId: string): Observable<CaUser[]> {
+    return this.apiService.get(`${this.route}/${folderId}/users`, CaUser);
   }
 
   public searchFolderUser(

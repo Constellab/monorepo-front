@@ -107,7 +107,7 @@ export class CaHierarchyObjectEventState implements OnDestroy {
       action: 'update',
       hierarchyObjectId: folder.id,
       hierarchyObjectType: CaHierarchyObjectType.FOLDER,
-      hierarchyObject: { name: folder.name, user: folder.leader, chatEnabled: folder.chatEnabled },
+      hierarchyObject: { name: folder.name, user: folder.lastModifiedBy, chatEnabled: folder.chatEnabled },
     });
     this.emitEvent({
       action: 'updateFolder',

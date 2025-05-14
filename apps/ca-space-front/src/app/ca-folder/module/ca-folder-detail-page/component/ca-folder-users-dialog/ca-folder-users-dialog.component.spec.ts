@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CaFolderSharedListComponent } from './ca-folder-shared-list.component';
+import { CaFolderUsersDialogComponent } from './ca-folder-users-dialog.component';
 
 describe('CaFolderSharedGroupsListComponent', () => {
-  let component: CaFolderSharedListComponent;
-  let fixture: ComponentFixture<CaFolderSharedListComponent>;
+  let component: CaFolderUsersDialogComponent;
+  let fixture: ComponentFixture<CaFolderUsersDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CaFolderSharedListComponent],
+      declarations: [CaFolderUsersDialogComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CaFolderSharedListComponent);
+    fixture = TestBed.createComponent(CaFolderUsersDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

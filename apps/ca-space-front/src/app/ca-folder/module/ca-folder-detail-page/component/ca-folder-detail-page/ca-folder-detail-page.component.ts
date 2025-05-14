@@ -85,10 +85,11 @@ export class CaFolderDetailPageComponent implements OnInit {
   private injector = inject(Injector);
   private eventState = inject(CaHierarchyObjectEventState);
   private actionsMenuState = inject(CaHierarchyObjectActionsMenuState);
+  private hierarchyObjectDetailState = inject(CaHierarchyObjectDetailState);
 
   users$: Observable<CaUser[]>;
 
-  hierarchyObjectContext$ = inject(CaHierarchyObjectDetailState).getHierarchyContext$();
+  hierarchyObjectContext$ = this.hierarchyObjectDetailState.getHierarchyContext$();
 
   constructor() {
     this.state.init(this.getIds$());
@@ -111,7 +112,7 @@ export class CaFolderDetailPageComponent implements OnInit {
         this.actionsMenuState.onHierarchyObjectDblClicked(event.hierarchyObject);
         break;
       case 'rightClick':
-        this.actionsMenuState.openHierarchyObjectActionMenu(event.hierarchyObject, event.event);
+        this.actionsMenuState.openHierarchyObjectActionMenu(event.hierarchyObject, event.event).then();
         break;
       case 'middleClick':
         this.actionsMenuState.onHierarchyObjectMiddleClicked(event.hierarchyObject);
@@ -145,14 +146,16 @@ export class CaFolderDetailPageComponent implements OnInit {
     this.folderActionService.uploadDocument(folderId, event.files);
   }
 
-  cardRightClick(event: MouseEvent): void {
+  async cardRightClick(event: MouseEvent): Promise<void> {
     ClHelpService.stopEventPropagation(event);
     const folder = this.state.getCurrentFolder();
     if (!folder) return;
+
+    const context = await this.hierarchyObjectDetailState.getHierarchyContextPromise();
     const folderActionsMenu = new CaFolderActionsMenu(this.injector, {
       id: folder.id,
       name: folder.name,
-      leader: folder.leader,
+      userRole: context.userRole,
     });
 
     folderActionsMenu.openFolderChildrenActionMenu(event).subscribe((event) => {

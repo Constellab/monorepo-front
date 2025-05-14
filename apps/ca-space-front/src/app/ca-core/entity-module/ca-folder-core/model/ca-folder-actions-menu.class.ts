@@ -8,7 +8,6 @@ import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { Observable } from 'rxjs';
 import { CaConstellabDocument } from '../../../model/entities/folder/ca-document.class';
 import { CaRouterService } from '../../../service/ca-router.service';
-import { CaSecurityService } from '../../../service/ca-security.service';
 import { CaFolderActionService } from '../ca-folder-action.service';
 import {
   CaHierarchyObjectActionTags,
@@ -51,10 +50,10 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
     event: MouseEvent,
     disableMove: boolean = false
   ): Observable<CaFolderActionEvent> {
-    const menu: FlMenuDynamic[] = [this.getOpenFolderButton(), this.getManageTagsButton()];
+    const menu: FlMenuDynamic[] = [this.getOpenFolderButton()];
 
-    if (this.canEditFolder()) {
-      menu.push(this.getUpdateFolderButton());
+    if (this.folderInfo.userRole.canEdit()) {
+      menu.push(this.getManageTagsButton(), this.getUpdateFolderButton());
       if (!disableMove) {
         menu.push(this.getMoveToFolderButton());
       }
@@ -68,15 +67,16 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
    * Open the action menu when right-click on the folder children section
    */
   public openFolderChildrenActionMenu(event: MouseEvent): Observable<CaFolderActionEvent> {
-    const menu: FlMenuDynamic[] = [
-      this.getCreateChildButton(),
-      {
+    const menu: FlMenuDynamic[] = [];
+
+    if (this.folderInfo.userRole.canEdit()) {
+      menu.push(this.getCreateChildButton(), {
         type: 'button',
         text: { text: 'create_constellab_document', translateText: true },
         icon: 'constellab_document',
         onClick: () => this.createConstellabDocument(),
-      },
-    ];
+      });
+    }
 
     return this.generateMenu(menu, event);
   }
@@ -115,10 +115,6 @@ export class CaFolderActionsMenu extends CaHierarchyObjectBaseActionMenu {
       icon: 'settings',
       onClick: () => this.openSettings(),
     };
-  }
-
-  protected canEditFolder(): boolean {
-    return this.injector.get(CaSecurityService).canEditFolder(this.folderInfo.leader.id);
   }
 
   private openUpdateFolderDialog(): void {

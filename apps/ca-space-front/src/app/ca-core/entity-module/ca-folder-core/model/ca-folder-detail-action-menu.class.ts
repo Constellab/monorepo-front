@@ -1,14 +1,8 @@
-import { FlArrayObs } from '@monorepo/front-core-lib/fl-core';
 import { FlMenuDynamic } from '@monorepo/front-core-lib/fl-menu-dynamic';
 import { CaFolderInfo } from '../../../model/entities/folder/ca-folder.class';
 import { CaFolderActionEvent, CaFolderActionsMenu } from './ca-folder-actions-menu.class';
 import { CaRouterService } from '../../../service/ca-router.service';
 import { Observable } from 'rxjs';
-import {
-  CaFolderSharedGroupsListInput,
-  CaFolderSharedListComponent,
-} from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-shared-list/ca-folder-shared-list.component';
-import { CaUser } from '../../../model/entities/ca-user.class';
 import {
   CaFolderUserConfigDialogComponent,
   CaFolderUserConfigDialogInput,
@@ -21,6 +15,10 @@ import {
   CaHierarchyObjectTrashDialogInput,
 } from '../../../../ca-folder/module/ca-hierarchy-object-detail-page/ca-hierarchy-object-trash-dialog/ca-hierarchy-object-trash-dialog.component';
 import { CaHierarchyObject } from '../../../model/entities/folder/ca-hierarchy-object.class';
+import {
+  CaFolderUsersDialogComponent,
+  CaFolderUsersDialogInput,
+} from '../../../../ca-folder/module/ca-folder-detail-page/component/ca-folder-users-dialog/ca-folder-users-dialog.component';
 
 export type CaFolderDetailActionEvent =
   | CaFolderActionEvent
@@ -37,24 +35,30 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
     injector: Injector,
     folderInfo: CaFolderInfo,
     private isRootFolder: boolean,
-    private folderUsers$: FlArrayObs<CaUser>,
     tags?: CaHierarchyObjectActionTags
   ) {
     super(injector, folderInfo, tags);
   }
 
   public openDetailActionMenu(event: MouseEvent): Observable<CaFolderDetailActionEvent> {
-    const menus: FlMenuDynamic[] = [this.getManageTagsButton()];
+    const menus: FlMenuDynamic[] = [];
+
+    if (this.folderInfo.userRole.canEdit()) {
+      menus.push(this.getManageTagsButton());
+    }
 
     if (this.isRootFolder) {
-      if (this.canEditFolder()) {
+      if (this.folderInfo.userRole.isOwner()) {
         menus.push(this.getShareButton());
       }
       menus.push(this.getUserConfigButton());
     }
 
     menus.push(this.getActivitiesButton());
-    menus.push(this.getObjectInTrash(), this.getOpenSettingsButton());
+
+    if (this.folderInfo.userRole.canEdit()) {
+      menus.push(this.getObjectInTrash(), this.getOpenSettingsButton());
+    }
 
     return this.generateMenu(menus, event);
   }
@@ -69,13 +73,11 @@ export class CaFolderDetailActionMenu extends CaFolderActionsMenu {
   }
 
   private openShareDialog(): void {
-    const input: CaFolderSharedGroupsListInput = {
+    const input: CaFolderUsersDialogInput = {
       folderId: this.folderInfo.id,
-      canEdit: this.canEditFolder(),
-      users$: this.folderUsers$,
     };
 
-    this.injector.get(FlDialogService).openSmallDialog(CaFolderSharedListComponent, {
+    this.injector.get(FlDialogService).openMediumDialog(CaFolderUsersDialogComponent, {
       data: input,
       autoFocus: false,
     });

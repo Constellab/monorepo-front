@@ -8,7 +8,7 @@
     <ng-container *flSectionBody>
       <ca-folder-detail-info
         [folder]="folder"
-        [canEditFolder]="canEditFolder"
+        [canEditFolder]="canEditFolder$ | async"
         class="section"></ca-folder-detail-info>
 
       <div class="section">
@@ -26,7 +26,7 @@
             }
           </div>
 
-          @if (canEditFolder) {
+          @if (canEditFolder$ | async) {
             <button mat-stroked-button type="button" class="chat-button" (click)="toggleChat(folder)">
               <mat-icon>
                 @if (folder.chatEnabled) {
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      @if (canEditFolder) {
+      @if (canEditFolder$ | async) {
         <ca-folder-storage-settings [folderId]="folderId" class="section"></ca-folder-storage-settings>
       }
 
@@ -55,7 +55,7 @@
         [folderId]="folderId"
         class="section"></ca-folder-storage-usage-section>
 
-      @if (canEditFolder && folder; as folder) {
+      @if ((canEditFolder$ | async) && folder; as folder) {
         <div class="g-text-centered delete-button">
           <button
             mat-stroked-button

@@ -11,5 +11,7 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     }
-  }
+  },
+  "nxConsole.generateAiAgentRules": true,
+  "prettier.configPath": ".prettierrc"
 }

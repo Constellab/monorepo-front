@@ -1,0 +1,43 @@
+<fl-dialog-header>
+  {{ 'share' | translate }}
+</fl-dialog-header>
+
+<mat-dialog-content>
+  <form (ngSubmit)="submit()" [formGroup]="formGp" id="group-share-form">
+    <!--  Group  -->
+    <fl-form-field class="g-form-input">
+      <ca-select-group formControlName="group" [required]="true"></ca-select-group>
+      @if (formGp.get('group').hasError('required')) {
+        <mat-error>{{ 'group' | flErrorRequired }}</mat-error>
+      }
+    </fl-form-field>
+
+    <!--  Role  -->
+    <mat-form-field class="g-form-input">
+      <mat-label>{{ 'folder_user_role' | translate }}</mat-label>
+      <mat-select formControlName="role" [placeholder]="'folder_user_role' | translate" required>
+        @for (role of roles | flObjectKeys; track role) {
+          <mat-option [value]="role">
+            {{ 'folder_user_role_' + role | translate }} -
+            <span class="g-text-small g-text-light">{{ 'folder_user_role_help_' + role | translate }}</span>
+          </mat-option>
+        }
+        <mat-select-trigger>
+          {{ 'folder_user_role_' + formGp.value.role | translate }}
+        </mat-select-trigger>
+      </mat-select>
+      @if (formGp.get('role').hasError('required')) {
+        <mat-error>{{ 'folder_user_role' | flErrorRequired }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<div mat-dialog-actions>
+  <button mat-flat-button type="submit" form="group-share-form" class="g-centered-forced primary">
+    {{ 'save' | translate }}
+    @if (isLoading) {
+      <fl-button-loader></fl-button-loader>
+    }
+  </button>
+</div>

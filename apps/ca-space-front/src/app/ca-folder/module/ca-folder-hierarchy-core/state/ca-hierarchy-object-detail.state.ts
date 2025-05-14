@@ -29,10 +29,15 @@ import { CaHierarchyObjectService } from '../../../../ca-core/service-api/ca-hie
 import { FlTagDatasource } from '@monorepo/front-core-lib/fl-tag';
 import { CaAvailableTagDatasource } from '../../../../ca-core/model/entities/ca-tag.class';
 import { CaHierarchyObjectEvent, CaHierarchyObjectEventState } from './ca-hierarchy-object-event.state';
+import {
+  CaRootFolderUserRole,
+  CaRootFolderUserRoleObj,
+} from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
 
 export interface CaHierarchyObjectContext {
   type: CaHierarchyObjectType | 'rootFolders' | 'globalSearch';
   hierarchyObject?: CaHierarchyObject;
+  userRole: CaRootFolderUserRoleObj;
 }
 
 export interface CaHierarchyObjectContextId {
@@ -171,13 +176,17 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     contextId: CaHierarchyObjectContextId
   ): Observable<CaHierarchyObjectContext> {
     if (contextId.type !== 'hierarchyObject') {
-      return of({ type: contextId.type });
+      // if the context is not a hierarchy object, we return the context with the type
+      // we consider that the user role is viewer to prevent modification
+      return of({ type: contextId.type, userRole: new CaRootFolderUserRoleObj(CaRootFolderUserRole.VIEWER) });
     }
-    return this.hierarchyObjectService
-      .getHierarchyObject(contextId.hierarchyObjectId)
-      .pipe(
-        map((hierarchyObject) => ({ type: hierarchyObject.objectType, hierarchyObject: hierarchyObject }))
-      );
+    return this.hierarchyObjectService.getHierarchyObject(contextId.hierarchyObjectId).pipe(
+      map((findResult) => ({
+        type: findResult.hierarchyObject.objectType,
+        hierarchyObject: findResult.hierarchyObject,
+        userRole: new CaRootFolderUserRoleObj(findResult.userRole),
+      }))
+    );
   }
 
   toggleTree(): void {
@@ -197,7 +206,23 @@ export class CaHierarchyObjectDetailState implements OnDestroy {
     return this.hierarchyObject$.pipe(filter((context) => context != null));
   }
 
-  public getCurrentHierarchyContextId(): Promise<CaHierarchyObjectContextId> {
+  public getUserRole$(): Observable<CaRootFolderUserRoleObj> {
+    return this.getHierarchyContext$().pipe(map((context) => context.userRole));
+  }
+
+  public canEditHierarchyObject$(): Observable<boolean> {
+    return this.getUserRole$().pipe(map((userRole) => userRole.canEdit()));
+  }
+
+  public isOwner$(): Observable<boolean> {
+    return this.getUserRole$().pipe(map((userRole) => userRole.isOwner()));
+  }
+
+  public getHierarchyContextPromise(): Promise<CaHierarchyObjectContext> {
+    return firstValueFrom(this.getHierarchyContext$());
+  }
+
+  public getHierarchyContextIdPromise(): Promise<CaHierarchyObjectContextId> {
     return firstValueFrom(this.hierarchyObjectId$);
   }
 

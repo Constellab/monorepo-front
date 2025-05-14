@@ -12,6 +12,10 @@ export class FlBaseActionMenu {
   constructor(protected injector: Injector) {}
 
   protected generateMenu(menu: FlMenuDynamic[], event: MouseEvent): Observable<any> {
+    if (menu.length === 0) {
+      this.subject.complete();
+      return this.subject.asObservable();
+    }
     const overlayRef = this.injector.get(FlMenuDynamicService).openDynamicMenuFromMouseEvent(menu, event);
 
     return overlayRef.detachments().pipe(

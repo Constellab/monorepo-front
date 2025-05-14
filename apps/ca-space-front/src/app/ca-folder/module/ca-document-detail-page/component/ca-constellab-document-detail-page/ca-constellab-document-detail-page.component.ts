@@ -111,11 +111,17 @@ export class CaConstellabDocumentDetailPageComponent implements OnInit {
     }
   }
 
-  openDocumentActionMenu(document: CaDocument, event: MouseEvent): void {
+  async openDocumentActionMenu(document: CaDocument, event: MouseEvent): Promise<void> {
     ClHelpService.stopEventPropagation(event);
+    const context = await this.state.getHierarchyContextPromise();
     const documentActionMenu = new CaDocumentActionDetailMenu(
       this.injector,
-      document.basicInfo,
+      {
+        id: document.id,
+        name: document.name,
+        isConstellabDocument: document.isConstellabDocument(),
+        userRole: context.userRole,
+      },
       this.textEditorConfig,
       { tags: this.state.getTags() }
     );

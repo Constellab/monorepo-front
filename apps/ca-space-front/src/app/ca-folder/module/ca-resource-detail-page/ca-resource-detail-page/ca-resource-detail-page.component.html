@@ -17,9 +17,13 @@
           </span>
         </div>
 
-        <button mat-icon-button type="button" (click)="openMenu(resource, $event)" class="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
+        @if (userRole$ | async; as userRole) {
+          @if (userRole.canEdit()) {
+            <button mat-icon-button type="button" (click)="openMenu(resource, userRole, $event)" class="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          }
+        }
       </div>
 
       <iframe [src]="url" class="iframe"></iframe>

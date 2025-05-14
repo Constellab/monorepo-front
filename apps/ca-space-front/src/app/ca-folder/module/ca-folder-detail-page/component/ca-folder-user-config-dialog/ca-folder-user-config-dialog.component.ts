@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { FlSnackBarService } from '@monorepo/front-core-lib/fl-snack-bar';
 import {
-  CaFolderNotifOptions,
+  CaRootFolderNotifOptions,
   CaFolderUserConfig,
 } from '../../../../../ca-core/model/entities/folder/ca-folder-user.class';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -56,17 +56,17 @@ export class CaFolderUserConfigDialogComponent implements OnInit {
   userConfig: CaFolderUserConfig;
 
   formGp = new FormBuilder().group({
-    folderNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    messageNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    scenarioNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    noteNotif: [CaFolderNotifOptions.NONE, Validators.required],
-    documentNotif: [CaFolderNotifOptions.NONE, Validators.required],
+    folderNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
+    messageNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
+    scenarioNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
+    noteNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
+    documentNotif: [CaRootFolderNotifOptions.NONE, Validators.required],
   });
 
   getIsLoading: boolean = false;
   isLoading: boolean = false;
 
-  notificationOptions: any = CaFolderNotifOptions;
+  notificationOptions: any = CaRootFolderNotifOptions;
 
   ngOnInit(): void {
     this.getIsLoading = true;

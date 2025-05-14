@@ -15,6 +15,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
+import { CaRootFolderUserRoleObj } from '../../../../ca-core/model/entities/folder/ca-folder-user.class';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'ca-resource-detail-page',
@@ -29,6 +31,7 @@ import { FlDateModule } from '@monorepo/front-core-lib/fl-date';
     MatIcon,
     TranslatePipe,
     FlDateModule,
+    AsyncPipe,
   ],
 })
 export class CaResourceDetailPageComponent {
@@ -38,6 +41,8 @@ export class CaResourceDetailPageComponent {
 
   private route = inject(ActivatedRoute);
   private sanitizer = inject(DomSanitizer);
+
+  userRole$ = this.state.getUserRole$();
 
   // don't use an observable because it breaks the safe url
   url: SafeUrl;
@@ -53,12 +58,13 @@ export class CaResourceDetailPageComponent {
     })
   );
 
-  openMenu(resource: CaResource, event: MouseEvent): void {
+  openMenu(resource: CaResource, userRole: CaRootFolderUserRoleObj, event: MouseEvent): void {
     const resourceMenu = new CaResourceActionMenu(
       this.injector,
       {
         id: resource.id,
         name: resource.name,
+        userRole: userRole,
       },
       { tags: this.state.getTags() }
     );

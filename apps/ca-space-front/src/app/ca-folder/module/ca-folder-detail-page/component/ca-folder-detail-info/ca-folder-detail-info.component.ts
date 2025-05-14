@@ -3,11 +3,6 @@ import {
   CaFolder,
   CaFolderWithHierarchy,
 } from '../../../../../ca-core/model/entities/folder/ca-folder.class';
-import { FlDialogService } from '@monorepo/front-core-lib/fl-dialog';
-import {
-  CaUpdateFolderLeaderDialogComponent,
-  CaUpdateFolderLeaderDialogInput,
-} from '../../../../../ca-core/entity-module/ca-folder-core/component/ca-update-folder-leader-dialog/ca-update-folder-leader-dialog.component';
 import { CaFolderActionService } from '../../../../../ca-core/entity-module/ca-folder-core/ca-folder-action.service';
 import { FlSectionModule } from '@monorepo/front-core-lib/fl-section';
 import { FlTextIconModule } from '@monorepo/front-core-lib/fl-text-icon';
@@ -38,7 +33,6 @@ export class CaFolderDetailInfoComponent {
   folder = input.required<CaFolder>();
   canEditFolder = input.required<boolean>();
 
-  private dialogService = inject(FlDialogService);
   private folderActionService = inject(CaFolderActionService);
   private eventState = inject(CaHierarchyObjectEventState);
 
@@ -46,20 +40,6 @@ export class CaFolderDetailInfoComponent {
     this.folderActionService
       .openUpdateFolderDialog(this.folder().id)
       .subscribe((folder) => this.updateDialogClosed(folder));
-  }
-
-  openUpdateFolderLeaderDialog(): void {
-    const dialogInput: CaUpdateFolderLeaderDialogInput = {
-      folderId: this.folder().id,
-      currentLeader: this.folder().leader,
-    };
-
-    this.dialogService
-      .openSmallDialog(CaUpdateFolderLeaderDialogComponent, {
-        data: dialogInput,
-      })
-      .afterClosed()
-      .subscribe((leader) => this.updateDialogClosed(leader));
   }
 
   private updateDialogClosed(folder?: CaFolderWithHierarchy): void {

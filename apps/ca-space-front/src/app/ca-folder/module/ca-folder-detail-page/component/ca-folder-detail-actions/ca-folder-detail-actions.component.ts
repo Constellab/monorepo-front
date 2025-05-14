@@ -57,15 +57,15 @@ export class CaFolderDetailActionsComponent {
 
   async openFolderActionMenu(folder: CaFolder, event: MouseEvent): Promise<void> {
     const isRootFolder = await firstValueFrom(this.state.isRootFolder$());
+    const context = await this.hierarchyObjectState.getHierarchyContextPromise();
     const folderActionsMenu = new CaFolderDetailActionMenu(
       this.injector,
       {
         id: folder.id,
         name: folder.name,
-        leader: folder.leader,
+        userRole: context.userRole,
       },
       isRootFolder,
-      this.state.getUsers(),
       { tags: this.hierarchyObjectState.getTags() }
     );
 
