@@ -75,12 +75,29 @@ export class DcComponentLoaderProdComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // hide the iframe
+    this.hideIframe(container, containerClass);
+
     const iframeEvent = new DcMainToIframeEventEmitter(
       origin,
       data.componentData.container_class,
       this.document
     );
     await this.componentLoaderService.createComponent(data.componentData, container, iframeEvent, true);
+  }
+
+  /**
+   * Methode call to hide the iframe (as this is only used to send the message)
+   * We hide it because it has a height.
+   * @private
+   */
+  private hideIframe(container: HTMLElement, containerClass: string): void {
+    const iframe = container.querySelector('iframe');
+    if (iframe) {
+      this.renderer.setStyle(iframe, 'display', 'none');
+    } else {
+      console.error(`The iframe was not found in the container with class ${containerClass}.`);
+    }
   }
 
   ngOnDestroy(): void {
